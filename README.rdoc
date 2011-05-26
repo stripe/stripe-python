@@ -1,0 +1,15 @@
+= Stripe Python bindings
+
+== Installation
+
+You don't need this source code unless you want to modify the package. If you just want to use the Stripe Python bindings, you should run:
+
+  sudo easy_install stripe
+
+To install from this source code, run:
+
+  python setup.py install
+
+= Documentation
+
+Please see http://stripe.com/api for the most up-to-date documentation.
