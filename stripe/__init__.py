@@ -2,30 +2,55 @@
 # API spec at http://stripe.com/api/spec
 # Authors: Patrick Collison <patrick@stripe.com> and Greg Brockman <gdb@stripe.com>
 
-import cStringIO as StringIO
+## Imports
+import base64
 import logging
 import platform
-import pycurl
 import sys
-import urllib # need urlencode
+import urllib
 import textwrap
 
+# Use cStringIO if it's available.  Otherwise, StringIO is fine.
+try:
+    import cStringIO as StringIO
+except ImportError:
+    import StringIO
+
 # Python 2.5 and below do not ship with json
-__loaded = None
+_json_loaded = None
 try:
   import json
-  __loaded = hasattr(json, 'loads')
+  _json_loaded = hasattr(json, 'loads')
 except ImportError:
   pass
 
-if not __loaded:
+
+if not _json_loaded:
   try:
     import simplejson as json
   except ImportError:
-    if __loaded is None:
+    if _json_loaded is None:
       raise ImportError("Stripe requires a JSON library, which you do not appear to have.  Please install the simplejson library.  HINT: Try installing the python simplejson library via 'easy_install simplejson', or contact support@stripe.com with questions.")
     else:
       raise ImportError("Stripe requires a JSON library with the same interface as the Python 2.6 'json' library.  You appear to have a 'json' library with a different interface.  Please install the simplejson library.  HINT: Try installing the python simplejson library via 'easy_install simplejson', or contact support@stripe.com with questions.")
+
+# Pycurl is the preferred HTTP library, but also allow Google App Engine's urlfetch.
+_httplib = None
+try:
+  import pycurl
+  _httplib = 'pycurl'
+except ImportError:
+  pass
+
+if not _httplib:
+  try:
+    from google.appengine.api import urlfetch
+    _httplib = 'urlfetch'
+  except ImportError:
+    pass
+
+if not _httplib:
+  raise ImportError("Stripe requires either pycurl or Google App Engine's urlfetch.  If you are on a platform where neither of these libraries are available, please let us know at support@stripe.com.")
 
 ## Configuration variables
 VERSION = '1.5.0'
@@ -133,18 +158,6 @@ class APIRequestor(object):
     """
     return urllib.urlencode(cls._encodeInner(d))
 
-  def handleCurlError(self, e):
-    if e[0] in [pycurl.E_COULDNT_CONNECT,
-                pycurl.E_COULDNT_RESOLVE_HOST,
-                pycurl.E_OPERATION_TIMEOUTED]:
-      msg = "Could not connect to Stripe (%s).  Please check your internet connection and try again.  If this problem persists, you should check Stripe's service status at https://twitter.com/stripe, or let us know at support@stripe.com." % api_base
-    elif e[0] == pycurl.E_SSL_CACERT:
-      msg = "Could not verify Stripe's SSL certificate.  Please make sure that your network is not intercepting certificates.  (Try going to https://api.stripe.com in your browser.)  If this problem persists, let us know at support@stripe.com."
-    else:
-      msg = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
-    msg = textwrap.fill(msg) + "\n\n(Network error: " + e[1] + ")"
-    raise APIConnectionError(msg)
-
   def handleApiError(self, rcode, resp):
     try:
       error = resp['error']
@@ -172,18 +185,46 @@ class APIRequestor(object):
     params = params.copy()
     self._objects_to_ids(params)
 
-    s = StringIO.StringIO()
-    curl = pycurl.Curl()
     ua = {
       'bindings_version' : VERSION,
       'lang' : 'python',
-      'lang_version' : platform.python_version(),
-      'platform' : platform.platform(),
-      'publisher' : 'stripe',
-      'uname' : ' '.join(platform.uname())
+      'publisher' : 'stripe'
       }
-    headers = ['X-Stripe-Client-User-Agent: %s' % (json.dumps(ua), ),
-               'User-Agent: Stripe/v1 PythonBindings/%s' % (VERSION, )]
+    for attr, func in [['lang_version', platform.python_version],
+                       ['platform', platform.platform],
+                       ['uname', lambda: ' '.join(platform.uname())]]:
+      try:
+        val = func()
+      except Exception, e:
+        val = "!! %s" % e
+      ua[attr] = val
+
+    headers = {
+      'X-Stripe-Client-User-Agent' : json.dumps(ua),
+      'User-Agent' : 'Stripe/v1 PythonBindings/%s' % (VERSION, ),
+      'Authorization' : 'Basic %s' % (base64.b64encode('%s:' % my_api_key), )
+      }
+    if _httplib == 'pycurl':
+      rbody, rcode = self.pycurlRequest(meth, abs_url, headers, params)
+    elif _httplib == 'urlfetch':
+      rbody, rcode = self.urlfetchRequest(meth, abs_url, headers, params)
+    else:
+      raise StripeError("Stripe bug discovered: invalid httplib %s.  Please report to support@stripe.com" % (_httplib, ))
+
+    try:
+      resp = json.loads(rbody)
+    except Exception:
+      raise APIError("Invalid response body from API: %s (HTTP response code was %d)" % (rbody, rcode))
+
+    if not (200 <= rcode < 300):
+      self.handleApiError(rcode, resp)
+
+    logger.info('API request to %s returned (response code, response object) of (%d, %r)' % (abs_url, rcode, resp))
+    return resp, my_api_key
+
+  def pycurlRequest(self, meth, abs_url, headers, params):
+    s = StringIO.StringIO()
+    curl = pycurl.Curl()
 
     meth = meth.lower()
     if meth == 'get':
@@ -203,29 +244,60 @@ class APIRequestor(object):
     curl.setopt(pycurl.URL, abs_url)
     curl.setopt(pycurl.WRITEFUNCTION, s.write)
     curl.setopt(pycurl.NOSIGNAL, 1)
-    curl.setopt(pycurl.HTTPAUTH, pycurl.HTTPAUTH_BASIC)
-    curl.setopt(pycurl.USERPWD, '%s:' % (my_api_key, ))
     curl.setopt(pycurl.CONNECTTIMEOUT, 30)
     curl.setopt(pycurl.TIMEOUT, 80)
-    curl.setopt(pycurl.HTTPHEADER, headers)
+    curl.setopt(pycurl.HTTPHEADER, ['%s: %s' % (k, v) for k, v in headers.iteritems()])
 
     try:
       curl.perform()
     except pycurl.error, e:
       self.handleCurlError(e)
-    rcode = curl.getinfo(pycurl.RESPONSE_CODE)
     rbody = s.getvalue()
+    rcode = curl.getinfo(pycurl.RESPONSE_CODE)
+    return rbody, rcode
+
+  def handleCurlError(self, e):
+    if e[0] in [pycurl.E_COULDNT_CONNECT,
+                pycurl.E_COULDNT_RESOLVE_HOST,
+                pycurl.E_OPERATION_TIMEOUTED]:
+      msg = "Could not connect to Stripe (%s).  Please check your internet connection and try again.  If this problem persists, you should check Stripe's service status at https://twitter.com/stripe, or let us know at support@stripe.com." % api_base
+    elif e[0] == pycurl.E_SSL_CACERT:
+      msg = "Could not verify Stripe's SSL certificate.  Please make sure that your network is not intercepting certificates.  (Try going to https://api.stripe.com in your browser.)  If this problem persists, let us know at support@stripe.com."
+    else:
+      msg = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
+    msg = textwrap.fill(msg) + "\n\n(Network error: " + e[1] + ")"
+    raise APIConnectionError(msg)
+
+  def urlfetchRequest(self, meth, abs_url, headers, params):
+    args = {}
+    if meth == 'get':
+      abs_url = '%s?%s' % (abs_url, self.encode(params))
+    elif meth == 'post':
+      args['payload'] = self.encode(params)
+
+    args['url'] = abs_url
+    args['method'] = meth
+    args['headers'] = headers
+    args['validate_certificate'] = True
+    args['deadline'] = 10
 
     try:
-      resp = json.loads(rbody)
-    except Exception:
-      raise APIError("Invalid response body from API: %s (HTTP response code was %d)" % (rbody, rcode))
+      result = urlfetch.fetch(**args)
+    except urlfetch.Error, e:
+      self.handleUrlfetchError(e, abs_url)
+    return result.content, result.status_code
 
-    if not (200 <= rcode < 300):
-      self.handleApiError(rcode, resp)
-
-    logger.info('API request to %s returned (response code, response object) of (%d, %r)' % (abs_url, rcode, resp))
-    return resp, my_api_key
+  def handleUrlfetchError(self, e, abs_url):
+    if isinstance(self, urlfetch.InvalidURLError):
+      msg = "The Stripe library attempted to fetch an invalid URL (%r).  This is likely due to a bug in the Stripe Python bindings.  Please let us know at support@stripe.com." % (abs_url, )
+    elif isinstance(self, urlfetch.DownloadError):
+      msg = "There were a problem retrieving data from Stripe."
+    elif isinstance(self, urlfetch.ResponseTooLargeError):
+      msg = "There was a problem receiving all of your data from Stripe.  This is likely due to a bug in Stripe.  Please let us know at support@stripe.com."
+    else:
+      msg = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
+    msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
+    raise APIConnectionError(msg)
 
 class StripeObject(object):
   _permanent_attributes = set(['api_key'])
