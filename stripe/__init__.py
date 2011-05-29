@@ -233,7 +233,8 @@ class APIRequestor(object):
     if meth == 'get':
       curl.setopt(pycurl.HTTPGET, 1)
       # TODO: maybe be a bit less manual here
-      abs_url = '%s?%s' % (abs_url, self.encode(params))
+      if params:
+          abs_url = '%s?%s' % (abs_url, self.encode(params))
     elif meth == 'post':
       curl.setopt(pycurl.POST, 1)
       curl.setopt(pycurl.POSTFIELDS, self.encode(params))
