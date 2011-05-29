@@ -194,6 +194,7 @@ invoiceitem
     parser.add_option('-v', '--verbosity', help='Verbosity of debugging output.',
                       dest='verbosity', action='count', default=0)
     parser.add_option('-k', '--api-key', help="API key.  Defaults to value of environment variable STRIPE_API_KEY", dest='api_key')
+    parser.add_option('-b', '--api-base', help='API base URL', dest='api_base')
     parser.add_option('-i', '--id', help="Object ID", dest='id')
     opts, args = parser.parse_args()
     if opts.verbosity == 1:
@@ -210,6 +211,9 @@ invoiceitem
     if not stripe.api_key:
         parser.error('No API key provided (use -k option or set the STRIPE_API_KEY environment variable')
         return 1
+
+    if opts.api_base:
+      stripe.api_base = opts.api_base
 
     params = []
     for arg in args[2:]:
