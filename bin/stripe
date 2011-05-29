@@ -1,0 +1,203 @@
+#!/usr/bin/env python
+import logging
+import optparse
+import os
+import re
+import stripe
+import subprocess
+import sys
+
+logger = logging.getLogger('')
+logger.addHandler(logging.StreamHandler(sys.stderr))
+logger.setLevel(logging.INFO)
+
+class APIResourceClient(object):
+  def __init__(self, id=None):
+    self.id = id
+
+  def to_dict(self, params):
+    dict = {}
+    for k, v in params:
+      dict[k] = v
+    return dict
+
+  def logged_curl(self, method, url, params):
+    self.log_request(method, url, params)
+    rbody, rcode, _ = stripe.APIRequestor().request_raw(method, url, self.to_dict(params))
+    self.log_result(rbody, rcode)
+    return rbody, rcode
+
+  def log_request(self, method, url, params):
+    if method.lower() == 'get':
+      requestor = stripe.APIRequestor()
+      url = '%s?%s' % (url, stipe.encode(params))
+      params = []
+    elif not params:
+      params = '  -X %s' % (method.upper(), )
+
+    logger.info('Running the equivalent of:')
+    logger.info('--')
+    if len(params):
+      term = ' \\'
+    else:
+      term = ''
+    curl = ['curl %s%s -u %s:%s' % (stripe.api_base, url, stripe.api_key, term)]
+    if isinstance(params, list):
+      for i, (k, v) in enumerate(params):
+        if i == len(params) - 1:
+          term = ''
+        else:
+          term = ' \\'
+        curl.append('  -d %s=%s%s' % (k, v, term))
+    else:
+      curl.append(params)
+    logger.info('\n'.join(curl))
+    logger.info('--')
+
+  def log_result(self, rbody, rcode):
+    logger.info('Result (HTTP status code %d):' % (rcode, ))
+    logger.info('--')
+    logger.info(rbody.rstrip())
+    logger.info('--')
+
+  def class_url(self):
+    return self.client_for.class_url()
+
+  def instance_url(self):
+    if not self.id:
+      raise ValueError('ID required for update')
+    return self.client_for(self.id).instance_url()
+
+class ListableAPIResourceClient(APIResourceClient):
+  def all(self, params):
+    url = self.class_url()
+    self.logged_curl('get', url, params)
+
+class CreateableAPIResourceClient(APIResourceClient):
+  def create(self, params):
+    url = self.class_url()
+    self.logged_curl('post', url, params)
+
+class UpdateableAPIResourceClient(APIResourceClient):
+  def update(self, params):
+    url = self.instance_url()
+    self.logged_curl('post', url, params)
+
+class DeletableAPIResourceClient(APIResourceClient):
+  def delete(self, params):
+    url = self.instance_url()
+    self.logged_curl('delete', url, params)
+
+# API objects
+class ChargeClient(CreateableAPIResourceClient, ListableAPIResourceClient):
+  client_for = stripe.Charge
+
+  def refund(self, params):
+    url = self.instance_url() + '/refund'
+    self.logged_curl('post', url, params)
+
+class CustomerClient(CreateableAPIResourceClient, UpdateableAPIResourceClient,
+                     ListableAPIResourceClient, DeletableAPIResourceClient):
+  client_for = stripe.Customer
+
+  def add_invoice_item(self, params):
+    params = params.copy()
+    params['customer_id'] = self.id
+    InvoiceItemClient.create(params)
+
+  def invoices(self, params):
+    params = params.copy()
+    params['customer_id'] = self.id
+    InvoiceClient.all(params)
+
+  def invoice_items(self, params):
+    params = params.copy()
+    params['customer_id'] = self.id
+    InvoiceItem.all(params)
+
+  def charges(self, params):
+    params = params.copy()
+    params['customer_id'] = self.id
+    ChargeClient.all(params)
+
+  def update_subscription(self, params):
+    url = self.instance_url() + '/subscription'
+    self.logged_curl('post', url, params)
+
+  def cancel_subscription(self, params):
+    url = self.instance_url() + '/subscription'
+    self.logged_curl('delete', url, params)
+
+class InvoiceClient(ListableAPIResourceClient):
+  client_for = stripe.Invoice
+
+  @classmethod
+  def upcoming(self, params):
+    url = self.class_url() + '/upcoming'
+    self.logged_curl('get', url, params)
+
+class InvoiceItemClient(CreateableAPIResourceClient, UpdateableAPIResourceClient,
+                        ListableAPIResourceClient, DeletableAPIResourceClient):
+  client_for = stripe.InvoiceItem
+
+def main():
+    klasses = {
+        'charge' : ChargeClient,
+        'charges' : ChargeClient
+        }
+    parser = optparse.OptionParser("""%prog [options] class method [key=value|key ...]
+
+Valid methods:
+
+charge list
+charge create""")
+    parser.add_option('-v', '--verbosity', help='Verbosity of debugging output.',
+                      dest='verbosity', action='count', default=0)
+    parser.add_option('-k', '--api-key', help="API key.  Defaults to value of environment variable STRIPE_API_KEY", dest='api_key')
+    parser.add_option('-i', '--id', help="Object ID", dest='id')
+    opts, args = parser.parse_args()
+    if opts.verbosity == 1:
+        logger.setLevel(logging.INFO)
+    elif opts.verbosity >= 2:
+        logger.setLevel(logging.DEBUG)
+    if len(args) < 2:
+        parser.print_help()
+        return 1
+    klass_name = args[0]
+    method_name = args[1]
+
+    stripe.api_key = opts.api_key or os.environ.get('STRIPE_API_KEY')
+    if not stripe.api_key:
+        parser.error('No API key provided (use -k option or set the STRIPE_API_KEY environment variable')
+        return 1
+
+    params = []
+    for arg in args[2:]:
+        try:
+            key = arg[:arg.index('=')]
+            value = arg[arg.index('=') + 1:]
+        except ValueError:
+            key = arg
+            value = None
+        if not value:
+            value = raw_input('%s= ' % (key, ))
+        params.append([key, value])
+
+    try:
+        klass = klasses[klass_name]
+    except KeyError:
+        parser.error('Invalid class %s' % (klass_name, ))
+        return 1
+    else:
+        dispatch = klass(opts.id)
+
+    try:
+        method = getattr(dispatch, method_name)
+    except AttributeError:
+        parser.error('Invalid method %s of %s' % (method_name, klass_name))
+        return 1
+
+    return method(params)
+
+if __name__ == '__main__':
+    sys.exit(main())
