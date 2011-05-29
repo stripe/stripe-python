@@ -158,6 +158,11 @@ class APIRequestor(object):
     """
     return urllib.urlencode(cls._encode_inner(d))
 
+  def request(self, meth, url, params={}):
+    rbody, rcode, my_api_key = self.request_raw(meth, url, params)
+    resp = self.interpret_response(rbody, rcode)
+    return resp, my_api_key
+
   def handle_api_error(self, rcode, resp):
     try:
       error = resp['error']
@@ -173,7 +178,7 @@ class APIRequestor(object):
     else:
       raise APIError(error.get('message'))
 
-  def request(self, meth, url, params={}):
+  def request_raw(self, meth, url, params={}):
     """
     Mechanism for issuing an API call
     """
@@ -210,17 +215,17 @@ class APIRequestor(object):
       rbody, rcode = self.urlfetch_request(meth, abs_url, headers, params)
     else:
       raise StripeError("Stripe bug discovered: invalid httplib %s.  Please report to support@stripe.com" % (_httplib, ))
+    logger.info('API request to %s returned (response code, response body) of (%d, %r)' % (abs_url, rcode, rbody))
+    return rbody, rcode, my_api_key
 
+  def interpret_response(self, rbody, rcode):
     try:
       resp = json.loads(rbody)
     except Exception:
       raise APIError("Invalid response body from API: %s (HTTP response code was %d)" % (rbody, rcode))
-
     if not (200 <= rcode < 300):
       self.handle_api_error(rcode, resp)
-
-    logger.info('API request to %s returned (response code, response object) of (%d, %r)' % (abs_url, rcode, resp))
-    return resp, my_api_key
+    return resp
 
   def pycurl_request(self, meth, abs_url, headers, params):
     s = StringIO.StringIO()
