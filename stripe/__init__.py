@@ -55,8 +55,6 @@ if not _httplib:
 ## Configuration variables
 VERSION = '1.5.0'
 logger = logging.getLogger('stripe')
-logger.addHandler(logging.StreamHandler(sys.stderr))
-logger.setLevel(logging.ERROR)
 
 api_key = None
 api_base = 'https://api.stripe.com/v1'
