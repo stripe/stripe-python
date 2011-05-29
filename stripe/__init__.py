@@ -86,16 +86,16 @@ class AuthenticationError(StripeError):
   pass
 
 
-def convertToStripeObject(resp, api_key):
+def convert_to_stripe_object(resp, api_key):
   types = { 'charge' : Charge, 'customer' : Customer,
             'invoice' : Invoice, 'invoice_item' : InvoiceItem }
   if isinstance(resp, list):
-    return [convertToStripeObject(i, api_key) for i in resp]
+    return [convert_to_stripe_object(i, api_key) for i in resp]
   elif isinstance(resp, dict):
     resp = resp.copy()
     klass_name = resp.get('object')
     klass = types.get(klass_name, StripeObject)
-    return klass.constructFrom(resp, api_key)
+    return klass.construct_from(resp, api_key)
   else:
     return resp
 
@@ -104,7 +104,7 @@ class APIRequestor(object):
     self.api_key = key
 
   @classmethod
-  def apiUrl(cls, url=''):
+  def api_url(cls, url=''):
     return '%s%s' % (api_base, url)
 
   @classmethod
@@ -115,7 +115,7 @@ class APIRequestor(object):
       return value
 
   @classmethod
-  def _encodeInner(cls, d):
+  def _encode_inner(cls, d):
     """
     We want post vars of form:
     {'foo': 'bar', 'nested': {'a': 'b', 'c': 'd'}}
@@ -133,7 +133,7 @@ class APIRequestor(object):
           k = cls._utf8(k)
           v = cls._utf8(v)
           n["%s[%s]" % (key, k)] = v
-        stk.extend(cls._encodeInner(n))
+        stk.extend(cls._encode_inner(n))
       else:
         value = cls._utf8(value)
         stk.append((key, value))
@@ -156,9 +156,9 @@ class APIRequestor(object):
     """
     Internal: encode a string for url representation
     """
-    return urllib.urlencode(cls._encodeInner(d))
+    return urllib.urlencode(cls._encode_inner(d))
 
-  def handleApiError(self, rcode, resp):
+  def handle_api_error(self, rcode, resp):
     try:
       error = resp['error']
     except (KeyError, TypeError):
@@ -181,7 +181,7 @@ class APIRequestor(object):
     if my_api_key is None:
       raise AuthenticationError('No API key provided.  (HINT: set your API key using "stripe.api_key = <API-KEY>".  You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.')
 
-    abs_url = self.apiUrl(url)
+    abs_url = self.api_url(url)
     params = params.copy()
     self._objects_to_ids(params)
 
@@ -205,9 +205,9 @@ class APIRequestor(object):
       'Authorization' : 'Basic %s' % (base64.b64encode('%s:' % my_api_key), )
       }
     if _httplib == 'pycurl':
-      rbody, rcode = self.pycurlRequest(meth, abs_url, headers, params)
+      rbody, rcode = self.pycurl_request(meth, abs_url, headers, params)
     elif _httplib == 'urlfetch':
-      rbody, rcode = self.urlfetchRequest(meth, abs_url, headers, params)
+      rbody, rcode = self.urlfetch_request(meth, abs_url, headers, params)
     else:
       raise StripeError("Stripe bug discovered: invalid httplib %s.  Please report to support@stripe.com" % (_httplib, ))
 
@@ -217,12 +217,12 @@ class APIRequestor(object):
       raise APIError("Invalid response body from API: %s (HTTP response code was %d)" % (rbody, rcode))
 
     if not (200 <= rcode < 300):
-      self.handleApiError(rcode, resp)
+      self.handle_api_error(rcode, resp)
 
     logger.info('API request to %s returned (response code, response object) of (%d, %r)' % (abs_url, rcode, resp))
     return resp, my_api_key
 
-  def pycurlRequest(self, meth, abs_url, headers, params):
+  def pycurl_request(self, meth, abs_url, headers, params):
     s = StringIO.StringIO()
     curl = pycurl.Curl()
 
@@ -251,12 +251,12 @@ class APIRequestor(object):
     try:
       curl.perform()
     except pycurl.error, e:
-      self.handleCurlError(e)
+      self.handle_pycurl_error(e)
     rbody = s.getvalue()
     rcode = curl.getinfo(pycurl.RESPONSE_CODE)
     return rbody, rcode
 
-  def handleCurlError(self, e):
+  def handle_pycurl_error(self, e):
     if e[0] in [pycurl.E_COULDNT_CONNECT,
                 pycurl.E_COULDNT_RESOLVE_HOST,
                 pycurl.E_OPERATION_TIMEOUTED]:
@@ -268,7 +268,7 @@ class APIRequestor(object):
     msg = textwrap.fill(msg) + "\n\n(Network error: " + e[1] + ")"
     raise APIConnectionError(msg)
 
-  def urlfetchRequest(self, meth, abs_url, headers, params):
+  def urlfetch_request(self, meth, abs_url, headers, params):
     args = {}
     if meth == 'get':
       abs_url = '%s?%s' % (abs_url, self.encode(params))
@@ -284,10 +284,10 @@ class APIRequestor(object):
     try:
       result = urlfetch.fetch(**args)
     except urlfetch.Error, e:
-      self.handleUrlfetchError(e, abs_url)
+      self.handle_urlfetch_error(e, abs_url)
     return result.content, result.status_code
 
-  def handleUrlfetchError(self, e, abs_url):
+  def handle_urlfetch_error(self, e, abs_url):
     if isinstance(self, urlfetch.InvalidURLError):
       msg = "The Stripe library attempted to fetch an invalid URL (%r).  This is likely due to a bug in the Stripe Python bindings.  Please let us know at support@stripe.com." % (abs_url, )
     elif isinstance(self, urlfetch.DownloadError):
@@ -361,12 +361,12 @@ class StripeObject(object):
     return self._values.keys()
 
   @classmethod
-  def constructFrom(cls, values, api_key):
+  def construct_from(cls, values, api_key):
     instance = cls(values.get('id'), api_key)
-    instance.refreshFrom(values, api_key)
+    instance.refresh_from(values, api_key)
     return instance
 
-  def refreshFrom(self, values, api_key, partial=False):
+  def refresh_from(self, values, api_key, partial=False):
     self.api_key = api_key
 
     # Wipe old state before setting new.  This is useful for e.g. updating a
@@ -388,7 +388,7 @@ class StripeObject(object):
     for k, v in values.iteritems():
       if k in self._permanent_attributes:
         continue
-      self.__dict__[k] = convertToStripeObject(v, api_key)
+      self.__dict__[k] = convert_to_stripe_object(v, api_key)
       self._values.add(k)
       self._transient_values.discard(k)
       self._unsaved_values.discard(k)
@@ -442,20 +442,20 @@ class APIResource(StripeObject):
 
   def refresh(self):
     requestor = APIRequestor(self.api_key)
-    url = self.instanceUrl()
+    url = self.instance_url()
     response, api_key = requestor.request('get', url)
-    self.refreshFrom(response, api_key)
+    self.refresh_from(response, api_key)
     return self
 
   @classmethod
-  def classUrl(cls):
+  def class_url(cls):
     if cls == APIResource:
       raise NotImplementedError('APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)')
     return "/%ss" % urllib.quote_plus(cls.__name__.lower())
 
-  def instanceUrl(self):
+  def instance_url(self):
     id = APIRequestor._utf8(self.id)
-    base = type(self).classUrl()
+    base = type(self).class_url()
     extn = urllib.quote_plus(id)
     return "%s/%s" % (base, extn)
 
@@ -464,17 +464,17 @@ class ListableAPIResource(APIResource):
   @classmethod
   def all(cls, api_key=None, **params):
     requestor = APIRequestor(api_key)
-    url = cls.classUrl()
+    url = cls.class_url()
     response, api_key = requestor.request('get', url, params)
-    return convertToStripeObject(response, api_key)
+    return convert_to_stripe_object(response, api_key)
 
 class CreateableAPIResource(APIResource):
   @classmethod
   def create(cls, api_key=None, **params):
     requestor = APIRequestor(api_key)
-    url = cls.classUrl()
+    url = cls.class_url()
     response, api_key = requestor.request('post', url, params)
-    return convertToStripeObject(response, api_key)
+    return convert_to_stripe_object(response, api_key)
 
 class UpdateableAPIResource(APIResource):
   def save(self):
@@ -483,9 +483,9 @@ class UpdateableAPIResource(APIResource):
       params = {}
       for k in self._unsaved_values:
         params[k] = getattr(self, k)
-      url = self.instanceUrl()
+      url = self.instance_url()
       response, api_key = requestor.request('post', url, params)
-      self.refreshFrom(response, api_key)
+      self.refresh_from(response, api_key)
     else:
       logger.debug("Trying to save already saved object %r" % (self, ))
     return self
@@ -493,18 +493,18 @@ class UpdateableAPIResource(APIResource):
 class DeletableAPIResource(APIResource):
   def delete(self):
     requestor = APIRequestor(self.api_key)
-    url = self.instanceUrl()
+    url = self.instance_url()
     response, api_key = requestor.request('delete', url)
-    self.refreshFrom(response, api_key)
+    self.refresh_from(response, api_key)
     return self
 
 # API objects
 class Charge(CreateableAPIResource, ListableAPIResource):
   def refund(self):
     requestor = APIRequestor(self.api_key)
-    url = self.instanceUrl() + '/refund'
+    url = self.instance_url() + '/refund'
     response, api_key = requestor.request('post', url)
-    self.refreshFrom(response, api_key)
+    self.refresh_from(response, api_key)
     return self
 
 class Customer(CreateableAPIResource, UpdateableAPIResource,
@@ -531,25 +531,25 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
 
   def update_subscription(self, **params):
     requestor = APIRequestor(self.api_key)
-    url = self.instanceUrl() + '/subscription'
+    url = self.instance_url() + '/subscription'
     response, api_key = requestor.request('post', url, params)
-    self.refreshFrom({ 'subscription' : response }, api_key, True)
+    self.refresh_from({ 'subscription' : response }, api_key, True)
     return self.subscription
 
   def cancel_subscription(self):
     requestor = APIRequestor(self.api_key)
-    url = self.instanceUrl() + '/subscription'
+    url = self.instance_url() + '/subscription'
     response, api_key = requestor.request('delete', url)
-    self.refreshFrom({ 'subscription' : response }, api_key, True)
+    self.refresh_from({ 'subscription' : response }, api_key, True)
     return self.subscription
 
 class Invoice(ListableAPIResource):
   @classmethod
   def upcoming(cls, **params):
     requestor = APIRequestor(self.api_key)
-    url = self.classUrl() + '/upcoming'
+    url = self.class_url() + '/upcoming'
     response, api_key = requestor.request('get', url, params)
-    return convertToStripeObject(response, api_key)
+    return convert_to_stripe_object(response, api_key)
 
 class InvoiceItem(CreateableAPIResource, UpdateableAPIResource,
                   ListableAPIResource, DeletableAPIResource):
