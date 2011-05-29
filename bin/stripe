@@ -22,35 +22,37 @@ class APIResourceClient(object):
     return dict
 
   def logged_curl(self, method, url, params):
-    self.log_request(method, url, params)
-    rbody, rcode, _ = stripe.APIRequestor().request_raw(method, url, self.to_dict(params))
+    dict_params = self.to_dict(params)
+    self.log_request(method, url, params, dict_params)
+    rbody, rcode, _ = stripe.APIRequestor().request_raw(method, url, dict_params)
     self.log_result(rbody, rcode)
     return rbody, rcode
 
-  def log_request(self, method, url, params):
+  def log_request(self, method, url, ordered_params, dict_params):
     if method.lower() == 'get':
       requestor = stripe.APIRequestor()
-      url = '%s?%s' % (url, stipe.encode(params))
-      params = []
-    elif not params:
-      params = '  -X %s' % (method.upper(), )
+      if dict_params:
+        url = '%s?%s' % (url, stripe.APIRequestor().encode(dict_params))
+      ordered_params = []
+    elif not ordered_params:
+      ordered_params = '  -X %s' % (method.upper(), )
 
     logger.info('Running the equivalent of:')
     logger.info('--')
-    if len(params):
+    if len(ordered_params):
       term = ' \\'
     else:
       term = ''
     curl = ['curl %s%s -u %s:%s' % (stripe.api_base, url, stripe.api_key, term)]
-    if isinstance(params, list):
-      for i, (k, v) in enumerate(params):
-        if i == len(params) - 1:
+    if isinstance(ordered_params, list):
+      for i, (k, v) in enumerate(ordered_params):
+        if i == len(ordered_params) - 1:
           term = ''
         else:
           term = ' \\'
         curl.append('  -d %s=%s%s' % (k, v, term))
     else:
-      curl.append(params)
+      curl.append(ordered_params)
     logger.info('\n'.join(curl))
     logger.info('--')
 
@@ -65,8 +67,12 @@ class APIResourceClient(object):
 
   def instance_url(self):
     if not self.id:
-      raise ValueError('ID required for update')
+      raise ValueError('ID required.  (HINT: provide the script a -i ID)')
     return self.client_for(self.id).instance_url()
+
+  def retrieve(self, params):
+    url = self.instance_url()
+    self.logged_curl('get', url, [])
 
 class ListableAPIResourceClient(APIResourceClient):
   def all(self, params):
@@ -102,22 +108,22 @@ class CustomerClient(CreateableAPIResourceClient, UpdateableAPIResourceClient,
 
   def add_invoice_item(self, params):
     params = params.copy()
-    params['customer_id'] = self.id
+    params.append(['customer_id', self.id])
     InvoiceItemClient.create(params)
 
   def invoices(self, params):
     params = params.copy()
-    params['customer_id'] = self.id
+    params.append(['customer_id', self.id])
     InvoiceClient.all(params)
 
   def invoice_items(self, params):
     params = params.copy()
-    params['customer_id'] = self.id
+    params.append(['customer_id', self.id])
     InvoiceItem.all(params)
 
   def charges(self, params):
     params = params.copy()
-    params['customer_id'] = self.id
+    params.append(['customer_id', self.id])
     ChargeClient.all(params)
 
   def update_subscription(self, params):
@@ -143,14 +149,48 @@ class InvoiceItemClient(CreateableAPIResourceClient, UpdateableAPIResourceClient
 def main():
     klasses = {
         'charge' : ChargeClient,
-        'charges' : ChargeClient
+        'charges' : ChargeClient,
+        'customer' : CustomerClient,
+        'customers' : CustomerClient,
+        'invoice' : InvoiceClient,
+        'invoices' : InvoiceClient,
+        'invoiceitem' : InvoiceItemClient,
+        'invoiceitems' : InvoiceItemClient,
         }
     parser = optparse.OptionParser("""%prog [options] class method [key=value|key ...]
 
 Valid methods:
 
-charge list
-charge create""")
+charge
+  all
+  create
+  retrieve
+  refund
+
+customer
+  all
+  create
+  retrieve
+  update
+  delete
+  add_invoice_item
+  invoices
+  invoice_items
+  charges
+  update_subscription
+  cancel_subscription
+
+invoice
+  all
+  retrieve
+  upcoming
+
+invoiceitem
+  all
+  create
+  retrieve
+  update
+  delete""")
     parser.add_option('-v', '--verbosity', help='Verbosity of debugging output.',
                       dest='verbosity', action='count', default=0)
     parser.add_option('-k', '--api-key', help="API key.  Defaults to value of environment variable STRIPE_API_KEY", dest='api_key')
