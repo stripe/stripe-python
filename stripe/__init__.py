@@ -517,22 +517,22 @@ class Charge(CreateableAPIResource, ListableAPIResource):
 class Customer(CreateableAPIResource, UpdateableAPIResource,
                ListableAPIResource, DeletableAPIResource):
   def add_invoice_item(self, **params):
-    params['customer_id'] = self.id
+    params['customer'] = self.id
     ii = InvoiceItem.create(self.api_key, **params)
     return ii
 
   def invoices(self, **params):
-    params['customer_id'] = self.id
+    params['customer'] = self.id
     invoices = Invoice.all(self.api_key, **params)
     return invoices
 
   def invoice_items(self, **params):
-    params['customer_id'] = self.id
+    params['customer'] = self.id
     iis = InvoiceItem.all(self.api_key, **params)
     return iis
 
   def charges(self, **params):
-    params['customer_id'] = self.id
+    params['customer'] = self.id
     charges = Charge.all(self.api_key, **params)
     return charges
 
