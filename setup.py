@@ -1,11 +1,15 @@
+import os
+import sys
 from distutils.core import setup
-import os, sys
+
+sys.path.insert(0, os.path.dirname(__file__))
+import stripe
 
 path, script = os.path.split(sys.argv[0])
 os.chdir(os.path.abspath(path))
 
 setup(name='stripe',
-      version='1.5.0',
+      version=stripe.VERSION,
       description='Stripe python bindings',
       author='Stripe',
       author_email='support@stripe.com',
