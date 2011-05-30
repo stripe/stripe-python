@@ -1,3 +1,4 @@
 /build
 /dist
-MANIFEST
+/MANIFEST
+/stripe.egg-info
