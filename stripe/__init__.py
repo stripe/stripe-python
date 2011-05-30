@@ -458,7 +458,10 @@ class APIResource(StripeObject):
     return "/%ss" % urllib.quote_plus(cls.__name__.lower())
 
   def instance_url(self):
-    id = APIRequestor._utf8(self.id)
+    id = self.get('id')
+    if not id:
+      raise InvalidRequestError('Could not determine which URL to request: %s instance has invalid ID: %r' % (type(self).__name__, id), 'id')
+    id = APIRequestor._utf8(id)
     base = type(self).class_url()
     extn = urllib.quote_plus(id)
     return "%s/%s" % (base, extn)

@@ -68,5 +68,9 @@ class FunctionalTests(unittest.TestCase):
     def test_none_values(self):
         self.assertRaises(stripe.InvalidRequestError, stripe.Customer.create, plan=None)
 
+    def test_missing_id(self):
+        customer = stripe.Customer()
+        self.assertRaises(stripe.InvalidRequestError, customer.refresh)
+
 if __name__ == '__main__':
     unittest.main()
