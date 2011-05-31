@@ -97,6 +97,7 @@ def convert_to_stripe_object(resp, api_key):
   else:
     return resp
 
+## Network transport
 class APIRequestor(object):
   def __init__(self, key=None):
     self.api_key = key
@@ -161,11 +162,11 @@ class APIRequestor(object):
     resp = self.interpret_response(rbody, rcode)
     return resp, my_api_key
 
-  def handle_api_error(self, rcode, resp):
+  def handle_api_error(self, rbody, rcode, resp):
     try:
       error = resp['error']
     except (KeyError, TypeError):
-      raise APIError("Invalid response object from API: %r (HTTP response code was %d)" % (rcode, resp))
+      raise APIError("Invalid response object from API: %r (HTTP response code was %d)" % (rbody, rcode))
 
     if rcode in [400, 404]:
       raise InvalidRequestError(error.get('message'), error.get('param'))
@@ -222,7 +223,7 @@ class APIRequestor(object):
     except Exception:
       raise APIError("Invalid response body from API: %s (HTTP response code was %d)" % (rbody, rcode))
     if not (200 <= rcode < 300):
-      self.handle_api_error(rcode, resp)
+      self.handle_api_error(rbody, rcode, resp)
     return resp
 
   def pycurl_request(self, meth, abs_url, headers, params):
