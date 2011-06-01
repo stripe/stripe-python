@@ -553,8 +553,8 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
 
 class Invoice(ListableAPIResource):
   @classmethod
-  def upcoming(cls, **params):
-    requestor = APIRequestor(self.api_key)
+  def upcoming(cls, api_key=None, **params):
+    requestor = APIRequestor(api_key)
     url = self.class_url() + '/upcoming'
     response, api_key = requestor.request('get', url, params)
     return convert_to_stripe_object(response, api_key)
