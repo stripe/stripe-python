@@ -53,7 +53,7 @@ if not _httplib:
   raise ImportError("Stripe requires either pycurl or Google App Engine's urlfetch.  If you are on a platform where neither of these libraries are available, please let us know at support@stripe.com.")
 
 ## Configuration variables
-VERSION = '1.5.2'
+VERSION = '1.5.3'
 logger = logging.getLogger('stripe')
 
 api_key = None
