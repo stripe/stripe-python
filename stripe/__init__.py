@@ -61,7 +61,7 @@ if not _httplib:
   raise ImportError("Stripe requires one of pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where neither of these libraries are available, please let us know at support@stripe.com.")
 
 ## Configuration variables
-VERSION = '1.5.5'
+VERSION = '1.5.6'
 logger = logging.getLogger('stripe')
 
 api_key = None
@@ -322,6 +322,9 @@ class APIRequestor(object):
     elif meth == 'post':
       body = self.encode(params)
       req = urllib2.Request(abs_url, body, headers)
+    elif meth == 'delete':
+      req = urllib2.Request(abs_url, None, headers)
+      req.get_method = lambda: 'DELETE'
 
     try:
       response = urllib2.urlopen(req)
