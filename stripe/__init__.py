@@ -50,7 +50,15 @@ if not _httplib:
     pass
 
 if not _httplib:
-  raise ImportError("Stripe requires either pycurl or Google App Engine's urlfetch.  If you are on a platform where neither of these libraries are available, please let us know at support@stripe.com.")
+  try:
+    import urllib2
+    _httplib = 'urllib2'
+    print >>sys.stderr, "WARNING: Stripe could not find pycurl or Google App Engine's urlfetch installed on your system.  You are running with urllib2, which does not verify server certificates.  We recommend installing pycurl.  For assistance, please contact support@stripe.com"
+  except ImportError:
+    pass
+
+if not _httplib:
+  raise ImportError("Stripe requires one of pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where neither of these libraries are available, please let us know at support@stripe.com.")
 
 ## Configuration variables
 VERSION = '1.5.3'
@@ -212,6 +220,8 @@ class APIRequestor(object):
       rbody, rcode = self.pycurl_request(meth, abs_url, headers, params)
     elif _httplib == 'urlfetch':
       rbody, rcode = self.urlfetch_request(meth, abs_url, headers, params)
+    elif _httplib == 'urllib2':
+      rbody, rcode = self.urllib2_request(meth, abs_url, headers, params)
     else:
       raise StripeError("Stripe bug discovered: invalid httplib %s.  Please report to support@stripe.com" % (_httplib, ))
     logger.info('API request to %s returned (response code, response body) of (%d, %r)' % (abs_url, rcode, rbody))
@@ -303,6 +313,32 @@ class APIRequestor(object):
       msg = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
     msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
     raise APIConnectionError(msg)
+
+  def urllib2_request(self, meth, abs_url, headers, params):
+    args = {}
+    if meth == 'get':
+      abs_url = '%s?%s' % (abs_url, self.encode(params))
+      req = urllib2.Request(abs_url, None, headers)
+    elif meth == 'post':
+      body = self.encode(params)
+      req = urllib2.Request(abs_url, body, headers)
+
+    try:
+      response = urllib2.urlopen(req)
+      rbody = response.read()
+      rcode = response.code
+    except urllib2.HTTPError, e:
+      rcode = e.code
+      rbody = e.read()
+    except (urllib2.URLError, ValueError), e:
+      self.handle_urllib2_error(e, abs_url)
+    return rbody, rcode
+
+  def handle_urllib2_error(self, e, abs_url):
+    msg = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
+    msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
+    raise APIConnectionError(msg)
+
 
 class StripeObject(object):
   _permanent_attributes = set(['api_key'])
