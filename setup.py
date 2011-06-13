@@ -15,5 +15,5 @@ setup(name='stripe',
       author_email='support@stripe.com',
       url='https://stripe.com/',
       packages=['stripe'],
-      requires=['json', 'pycurl']
+      install_requires=['json', 'pycurl']
 )
