@@ -108,22 +108,22 @@ class CustomerClient(CreateableAPIResourceClient, UpdateableAPIResourceClient,
 
   def add_invoice_item(self, params):
     params = params.copy()
-    params.append(['customer_id', self.id])
+    params.append(['customer', self.id])
     InvoiceItemClient.create(params)
 
   def invoices(self, params):
     params = params.copy()
-    params.append(['customer_id', self.id])
+    params.append(['customer', self.id])
     InvoiceClient.all(params)
 
   def invoice_items(self, params):
     params = params.copy()
-    params.append(['customer_id', self.id])
+    params.append(['customer', self.id])
     InvoiceItem.all(params)
 
   def charges(self, params):
     params = params.copy()
-    params.append(['customer_id', self.id])
+    params.append(['customer', self.id])
     ChargeClient.all(params)
 
   def update_subscription(self, params):
