@@ -5,6 +5,7 @@
 ## Imports
 import base64
 import logging
+import os
 import platform
 import sys
 import urllib
@@ -262,6 +263,7 @@ class APIRequestor(object):
     curl.setopt(pycurl.CONNECTTIMEOUT, 30)
     curl.setopt(pycurl.TIMEOUT, 80)
     curl.setopt(pycurl.HTTPHEADER, ['%s: %s' % (k, v) for k, v in headers.iteritems()])
+    curl.setopt(pycurl.CAINFO, os.path.join(os.path.dirname(__file__), 'data/ca-certificates.crt'))
 
     try:
       curl.perform()
@@ -293,6 +295,9 @@ class APIRequestor(object):
     args['url'] = abs_url
     args['method'] = meth
     args['headers'] = headers
+    # Google App Engine doesn't let us specify our own cert bundle.
+    # However, that's ok because the CA bundle they use recognizes
+    # api.stripe.com.
     args['validate_certificate'] = True
     args['deadline'] = 10
 
