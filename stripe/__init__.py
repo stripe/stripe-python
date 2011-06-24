@@ -554,6 +554,13 @@ class Charge(CreateableAPIResource, ListableAPIResource):
     self.refresh_from(response, api_key)
     return self
 
+  def capture(self):
+    requestor = APIRequestor(self.api_key)
+    url = self.instance_url() + '/capture'
+    response, api_key = requestor.request('post', url)
+    self.refresh_from(response, api_key)
+    return self
+
 class Customer(CreateableAPIResource, UpdateableAPIResource,
                ListableAPIResource, DeletableAPIResource):
   def add_invoice_item(self, **params):

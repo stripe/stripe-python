@@ -7,14 +7,6 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import stripe
 
 class FunctionalTests(unittest.TestCase):
-    def setUp(self):
-        api_base = os.environ.get('STRIPE_API_BASE')
-        if api_base:
-            stripe.api_base = api_base
-        api_key = os.environ['STRIPE_API_KEY']
-        if api_key:
-            stripe.api_key = api_key
-
     def test_dns_failure(self):
         api_base = stripe.api_base
         try:
@@ -38,20 +30,6 @@ class FunctionalTests(unittest.TestCase):
         d.refresh()
         self.assertRaises(AttributeError, lambda: d.junk)
 
-    def test_create_customer(self):
-        self.assertRaises(stripe.InvalidRequestError, stripe.Customer.create, plan='gold')
-        c = stripe.Customer.create(plan='gold', card={ 'number' : '4242424242424242', 'exp_month' : 03, 'exp_year' : 2015 })
-        self.assertTrue(hasattr(c, 'subscription'))
-        self.assertFalse(hasattr(c, 'plan'))
-        c.delete()
-        self.assertFalse(hasattr(c, 'subscription'))
-        self.assertFalse(hasattr(c, 'plan'))
-        self.assertTrue(c.deleted)
-
-    def test_list_customers(self):
-        cs = stripe.Customer.all()
-        self.assertTrue(isinstance(cs, list))
-
     def test_list_accessors(self):
         c = stripe.Customer.create(plan='gold', card={ 'number' : '4242424242424242', 'exp_month' : 03, 'exp_year' : 2015 })
         self.assertEqual(c['created'], c.created)
@@ -72,5 +50,40 @@ class FunctionalTests(unittest.TestCase):
         customer = stripe.Customer()
         self.assertRaises(stripe.InvalidRequestError, customer.refresh)
 
+class ChargeTest(unittest.TestCase):
+    def test_create_uncaptured_charge(self):
+        c = stripe.Charge.create(amount=100, currency='usd', card={ 'number' : '4242424242424242', 'exp_month' : 03, 'exp_year' : 2015 }, uncaptured=True)
+        self.assertTrue(c.paid)
+        self.assertFalse(c.refunded)
+        self.assertTrue(c.uncaptured)
+
+    def test_create_uncaptured_charge(self):
+        c = stripe.Charge.create(amount=100, currency='usd', card={ 'number' : '4242424242424242', 'exp_month' : 03, 'exp_year' : 2015 }, uncaptured=True)
+        c.capture()
+        self.assertTrue(c.paid)
+        self.assertFalse(c.refunded)
+        self.assertEqual(c.get('uncaptured'), None)
+
+class CustomerTest(unittest.TestCase):
+    def test_create_customer(self):
+        self.assertRaises(stripe.InvalidRequestError, stripe.Customer.create, plan='gold')
+        c = stripe.Customer.create(plan='gold', card={ 'number' : '4242424242424242', 'exp_month' : 03, 'exp_year' : 2015 })
+        self.assertTrue(hasattr(c, 'subscription'))
+        self.assertFalse(hasattr(c, 'plan'))
+        c.delete()
+        self.assertFalse(hasattr(c, 'subscription'))
+        self.assertFalse(hasattr(c, 'plan'))
+        self.assertTrue(c.deleted)
+
+    def test_list_customers(self):
+        cs = stripe.Customer.all()
+        self.assertTrue(isinstance(cs, list))
+
 if __name__ == '__main__':
+    api_base = os.environ.get('STRIPE_API_BASE')
+    if api_base:
+        stripe.api_base = api_base
+    api_key = os.environ['STRIPE_API_KEY']
+    if api_key:
+        stripe.api_key = api_key
     unittest.main()
