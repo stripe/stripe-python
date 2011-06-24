@@ -102,6 +102,10 @@ class ChargeClient(CreateableAPIResourceClient, ListableAPIResourceClient):
     url = self.instance_url() + '/refund'
     self.logged_curl('post', url, params)
 
+  def capture(self, params):
+    url = self.instance_url() + '/capture'
+    self.logged_curl('post', url, params)
+
 class CustomerClient(CreateableAPIResourceClient, UpdateableAPIResourceClient,
                      ListableAPIResourceClient, DeletableAPIResourceClient):
   client_for = stripe.Customer
@@ -166,6 +170,7 @@ charge
   create
   retrieve
   refund
+  capture
 
 customer
   all
