@@ -552,17 +552,17 @@ class DeletableAPIResource(APIResource):
 
 # API objects
 class Charge(CreateableAPIResource, ListableAPIResource):
-  def refund(self):
+  def refund(self, **params):
     requestor = APIRequestor(self.api_key)
     url = self.instance_url() + '/refund'
-    response, api_key = requestor.request('post', url)
+    response, api_key = requestor.request('post', url, params)
     self.refresh_from(response, api_key)
     return self
 
-  def capture(self):
+  def capture(self, **params):
     requestor = APIRequestor(self.api_key)
     url = self.instance_url() + '/capture'
-    response, api_key = requestor.request('post', url)
+    response, api_key = requestor.request('post', url, params)
     self.refresh_from(response, api_key)
     return self
 
