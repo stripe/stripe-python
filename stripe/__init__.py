@@ -282,7 +282,7 @@ class APIRequestor(object):
                 pycurl.E_COULDNT_RESOLVE_HOST,
                 pycurl.E_OPERATION_TIMEOUTED]:
       msg = "Could not connect to Stripe (%s).  Please check your internet connection and try again.  If this problem persists, you should check Stripe's service status at https://twitter.com/stripe, or let us know at support@stripe.com." % (api_base, )
-    elif e[0] == pycurl.E_SSL_CACERT:
+    elif e[0] == pycurl.E_SSL_CACERT or e[0] == pycurl.E_SSL_PEER_CERTIFICATE:
       msg = "Could not verify Stripe's SSL certificate.  Please make sure that your network is not intercepting certificates.  (Try going to %s in your browser.)  If this problem persists, let us know at support@stripe.com." % (api_base, )
     else:
       msg = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
@@ -302,7 +302,7 @@ class APIRequestor(object):
     # Google App Engine doesn't let us specify our own cert bundle.
     # However, that's ok because the CA bundle they use recognizes
     # api.stripe.com.
-    args['validate_certificate'] = True
+    args['validate_certificate'] = verify_ssl_certs
     args['deadline'] = 10
 
     try:
