@@ -67,6 +67,7 @@ logger = logging.getLogger('stripe')
 
 api_key = None
 api_base = 'https://api.stripe.com/v1'
+verify_ssl_certs = True
 
 ## Exceptions
 class StripeError(Exception):
@@ -263,7 +264,10 @@ class APIRequestor(object):
     curl.setopt(pycurl.CONNECTTIMEOUT, 30)
     curl.setopt(pycurl.TIMEOUT, 80)
     curl.setopt(pycurl.HTTPHEADER, ['%s: %s' % (k, v) for k, v in headers.iteritems()])
-    curl.setopt(pycurl.CAINFO, os.path.join(os.path.dirname(__file__), 'data/ca-certificates.crt'))
+    if verify_ssl_certs:
+      curl.setopt(pycurl.CAINFO, os.path.join(os.path.dirname(__file__), 'data/ca-certificates.crt'))
+    else:
+      curl.setopt(pycurl.SSL_VERIFYHOST, False)
 
     try:
       curl.perform()
