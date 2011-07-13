@@ -547,10 +547,10 @@ class UpdateableAPIResource(APIResource):
     return self
 
 class DeletableAPIResource(APIResource):
-  def delete(self):
+  def delete(self, **params):
     requestor = APIRequestor(self.api_key)
     url = self.instance_url()
-    response, api_key = requestor.request('delete', url)
+    response, api_key = requestor.request('delete', url, params)
     self.refresh_from(response, api_key)
     return self
 
