@@ -599,10 +599,10 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
     self.refresh_from({ 'subscription' : response }, api_key, True)
     return self.subscription
 
-  def cancel_subscription(self):
+  def cancel_subscription(self, **params):
     requestor = APIRequestor(self.api_key)
     url = self.instance_url() + '/subscription'
-    response, api_key = requestor.request('delete', url)
+    response, api_key = requestor.request('delete', url, params)
     self.refresh_from({ 'subscription' : response }, api_key, True)
     return self.subscription
 
