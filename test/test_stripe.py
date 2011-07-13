@@ -79,6 +79,14 @@ class CustomerTest(unittest.TestCase):
         cs = stripe.Customer.all()
         self.assertTrue(isinstance(cs, list))
 
+    def test_cancel_subscription(self):
+        c = stripe.Customer.create(plan='gold', card={ 'number' : '4242424242424242', 'exp_month' : 03, 'exp_year' : 2015 })
+        c.cancel_subscription(at_period_end=True)
+        self.assertEqual(c.subscription.status, 'active')
+        self.assertTrue(c.subscription.cancel_at_period_end)
+        c.cancel_subscription()
+        self.assertEqual(c.subscription.status, 'canceled')
+
 if __name__ == '__main__':
     api_base = os.environ.get('STRIPE_API_BASE')
     if api_base:

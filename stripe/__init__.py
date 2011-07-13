@@ -253,8 +253,10 @@ class APIRequestor(object):
       curl.setopt(pycurl.POSTFIELDS, self.encode(params))
     elif meth == 'delete':
       curl.setopt(pycurl.CUSTOMREQUEST, 'DELETE')
+      if params:
+          abs_url = '%s?%s' % (abs_url, self.encode(params))
     else:
-      raise APIError('Unrecognized method %r' % (meth, ))
+      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Stripe bindings.  Please contact support@stripe.com for assistance.' % (meth, ))
 
     # pycurl doesn't like unicode URLs
     abs_url = self._utf8(abs_url)
@@ -291,11 +293,12 @@ class APIRequestor(object):
 
   def urlfetch_request(self, meth, abs_url, headers, params):
     args = {}
-    if meth == 'get':
-      abs_url = '%s?%s' % (abs_url, self.encode(params))
-    elif meth == 'post':
+    if meth == 'post':
       args['payload'] = self.encode(params)
-
+    elif meth == 'get' or meth == 'delete':
+      abs_url = '%s?%s' % (abs_url, self.encode(params))
+    else:
+      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Stripe bindings.  Please contact support@stripe.com for assistance.' % (meth, ))
     args['url'] = abs_url
     args['method'] = meth
     args['headers'] = headers
@@ -332,8 +335,11 @@ class APIRequestor(object):
       body = self.encode(params)
       req = urllib2.Request(abs_url, body, headers)
     elif meth == 'delete':
+      abs_url = '%s?%s' % (abs_url, self.encode(params))
       req = urllib2.Request(abs_url, None, headers)
       req.get_method = lambda: 'DELETE'
+    else:
+      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Stripe bindings.  Please contact support@stripe.com for assistance.' % (meth, ))
 
     try:
       response = urllib2.urlopen(req)
