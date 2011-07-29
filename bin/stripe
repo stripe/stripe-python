@@ -150,7 +150,7 @@ class InvoiceItemClient(CreateableAPIResourceClient, UpdateableAPIResourceClient
                         ListableAPIResourceClient, DeletableAPIResourceClient):
   client_for = stripe.InvoiceItem
   
-class PlanClient(CreateableAPIResourceClient):
+class PlanClient(CreateableAPIResourceClient, DeletableAPIResourceClient):
   client_for = stripe.Plan
 
 def main():

@@ -624,5 +624,5 @@ class InvoiceItem(CreateableAPIResource, UpdateableAPIResource,
                   ListableAPIResource, DeletableAPIResource):
   pass
   
-class Plan(CreateableAPIResource):
+class Plan(CreateableAPIResource, DeletableAPIResource):
   pass
