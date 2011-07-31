@@ -54,12 +54,12 @@ if not _httplib:
   try:
     import urllib2
     _httplib = 'urllib2'
-    print >>sys.stderr, "Warning: we're falling back to urllib2 because pycurl isn't installed. urllib2's SSL implementation doesn't verify server certificates. For improved security, we suggest installing pycurl."
+    print >>sys.stderr, "Warning: the Stripe library is falling back to urllib2 because pycurl isn't installed. urllib2's SSL implementation doesn't verify server certificates. For improved security, we suggest installing pycurl."
   except ImportError:
     pass
 
 if not _httplib:
-  raise ImportError("Stripe requires one of pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where neither of these libraries are available, please let us know at support@stripe.com.")
+  raise ImportError("Stripe requires one of pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where none of these libraries are available, please let us know at support@stripe.com.")
 
 ## Configuration variables
 VERSION = '1.5.16'
