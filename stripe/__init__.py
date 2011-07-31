@@ -623,6 +623,6 @@ class Invoice(ListableAPIResource):
 class InvoiceItem(CreateableAPIResource, UpdateableAPIResource,
                   ListableAPIResource, DeletableAPIResource):
   pass
-  
+
 class Plan(CreateableAPIResource, DeletableAPIResource, ListableAPIResource):
   pass
