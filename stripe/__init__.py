@@ -626,3 +626,6 @@ class InvoiceItem(CreateableAPIResource, UpdateableAPIResource,
 
 class Plan(CreateableAPIResource, DeletableAPIResource, ListableAPIResource):
   pass
+
+class Token(CreateableAPIResource):
+  pass

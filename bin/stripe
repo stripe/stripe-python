@@ -3,9 +3,11 @@ import logging
 import optparse
 import os
 import re
-import stripe
 import subprocess
 import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+import stripe
 
 logger = logging.getLogger('')
 logger.addHandler(logging.StreamHandler(sys.stderr))
@@ -153,6 +155,9 @@ class InvoiceItemClient(CreateableAPIResourceClient, UpdateableAPIResourceClient
 class PlanClient(CreateableAPIResourceClient, DeletableAPIResourceClient, ListableAPIResourceClient):
   client_for = stripe.Plan
 
+class TokenClient(CreateableAPIResourceClient):
+  client_for = stripe.Token
+
 def main():
     klasses = {
         'charge' : ChargeClient,
@@ -163,7 +168,10 @@ def main():
         'invoices' : InvoiceClient,
         'invoiceitem' : InvoiceItemClient,
         'invoiceitems' : InvoiceItemClient,
-        'plan' : PlanClient
+        'plan' : PlanClient,
+        'plans' : PlanClient,
+        'token' : TokenClient,
+        'tokens' : TokenClient,
         }
     parser = optparse.OptionParser("""%prog [options] class method [key=value|key ...]
 
@@ -202,6 +210,10 @@ invoiceitem
   delete
   
 plan
+    create
+    retrieve
+
+token
     create
     retrieve""")
     parser.add_option('-v', '--verbosity', help='Verbosity of debugging output.',
