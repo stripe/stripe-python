@@ -616,7 +616,7 @@ class Invoice(ListableAPIResource):
   @classmethod
   def upcoming(cls, api_key=None, **params):
     requestor = APIRequestor(api_key)
-    url = self.class_url() + '/upcoming'
+    url = cls.class_url() + '/upcoming'
     response, api_key = requestor.request('get', url, params)
     return convert_to_stripe_object(response, api_key)
 
