@@ -4,7 +4,7 @@
 
 You don't need this source code unless you want to modify the
 package. If you just want to use the Stripe Python bindings, you
-should run [1]:
+should run:
 
   sudo pip --index-url https://code.stripe.com --upgrade stripe
 
@@ -12,11 +12,11 @@ To install from source, run:
 
   python setup.py install
 
+(See http://www.pip-installer.org/en/latest/index.html for
+instructions on installing pip. If you are on a system with
+easy_install but not pip, you can use easy_install instead.)
+
 == Documentation
 
 Please see https://stripe.com/api for the most up-to-date
 documentation.
-
-[1] See http://www.pip-installer.org/en/latest/index.html for
-instructions on installing pip. If you are on a system with
-easy_install but not pip, you can use easy_install instead.
