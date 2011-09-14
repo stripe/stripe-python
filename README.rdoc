@@ -8,13 +8,17 @@ should run:
 
   sudo pip --index-url https://code.stripe.com --upgrade stripe
 
-To install from source, run:
+or
 
-  python setup.py install
+  sudo easy_install --index-url https://code.stripe.com --upgrade stripe
 
 (See http://www.pip-installer.org/en/latest/index.html for
 instructions on installing pip. If you are on a system with
 easy_install but not pip, you can use easy_install instead.)
+
+To install from source, run:
+
+  python setup.py install
 
 == Documentation
 
