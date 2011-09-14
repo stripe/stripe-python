@@ -93,7 +93,6 @@ class InvalidRequestError(StripeError):
 class AuthenticationError(StripeError):
   pass
 
-
 def convert_to_stripe_object(resp, api_key):
   types = { 'charge' : Charge, 'customer' : Customer,
             'invoice' : Invoice, 'invoiceitem' : InvoiceItem }
@@ -135,7 +134,7 @@ class APIRequestor(object):
     for key, value in d.iteritems():
       key = cls._utf8(key)
       if value is None:
-        stk.append((key, ''))
+        pass # do not include None-valued params in request
       elif isinstance(value, dict):
         n = {}
         for k, v in value.iteritems():
