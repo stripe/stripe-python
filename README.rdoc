@@ -6,7 +6,7 @@ You don't need this source code unless you want to modify the
 package. If you just want to use the Stripe Python bindings, you
 should run:
 
-  sudo pip --index-url https://code.stripe.com --upgrade stripe
+  sudo pip install --index-url https://code.stripe.com --upgrade stripe
 
 or
 
