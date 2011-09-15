@@ -2,6 +2,8 @@
 import os
 import sys
 import unittest
+import datetime
+import time
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import stripe
@@ -87,6 +89,16 @@ class CustomerTest(unittest.TestCase):
         self.assertTrue(c.subscription.cancel_at_period_end)
         c.cancel_subscription()
         self.assertEqual(c.subscription.status, 'canceled')
+
+    def test_datetime_trial_end(self):
+        c = stripe.Customer.create(plan='gold', card={ 'number' : '4242424242424242', 'exp_month' : 03, 'exp_year' : 2015 }, trial_end=datetime.datetime.now()+datetime.timedelta(days=15))
+        self.assertTrue(c.id)
+
+    def test_integer_trial_end(self):
+        trial_end_dttm = datetime.datetime.now() + datetime.timedelta(days=15)
+        trial_end_int = int(time.mktime(trial_end_dttm.timetuple()))
+        c = stripe.Customer.create(plan='gold', card={ 'number' : '4242424242424242', 'exp_month' : 03, 'exp_year' : 2015 }, trial_end=trial_end_int)
+        self.assertTrue(c.id)
 
 if __name__ == '__main__':
     api_base = os.environ.get('STRIPE_API_BASE')

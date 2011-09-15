@@ -65,7 +65,7 @@ if not _httplib:
   raise ImportError("Stripe requires one of pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where none of these libraries are available, please let us know at support@stripe.com.")
 
 ## Configuration variables
-VERSION = '1.5.21'
+VERSION = '1.5.22'
 logger = logging.getLogger('stripe')
 
 api_key = None
@@ -154,7 +154,7 @@ class APIRequestor(object):
     # special case value encoding
     ENCODERS = {
       dict: cls.encode_dict,
-      datetime: cls.encode_datetime,
+      datetime.datetime: cls.encode_datetime,
       types.NoneType: cls.encode_none,
     }
 
