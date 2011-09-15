@@ -10,6 +10,9 @@ import platform
 import sys
 import urllib
 import textwrap
+import time
+import datetime
+import types
 
 # Use cStringIO if it's available.  Otherwise, StringIO is fine.
 try:
@@ -62,7 +65,7 @@ if not _httplib:
   raise ImportError("Stripe requires one of pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where none of these libraries are available, please let us know at support@stripe.com.")
 
 ## Configuration variables
-VERSION = '1.5.20'
+VERSION = '1.5.21'
 logger = logging.getLogger('stripe')
 
 api_key = None
@@ -123,6 +126,24 @@ class APIRequestor(object):
       return value
 
   @classmethod
+  def encode_dict(cls, stk, key, dictvalue):
+    n = {}
+    for k, v in dictvalue.iteritems():
+      k = cls._utf8(k)
+      v = cls._utf8(v)
+      n["%s[%s]" % (key, k)] = v
+    stk.extend(cls._encode_inner(n))
+
+  @classmethod
+  def encode_datetime(cls, stk, key, dttime):
+    utc_timestamp = int(time.mktime(dttime.timetuple()))
+    stk.append((key, utc_timestamp))
+
+  @classmethod
+  def encode_none(cls, stk, k, v):
+    pass # do not include None-valued params in request
+
+  @classmethod
   def _encode_inner(cls, d):
     """
     We want post vars of form:
@@ -130,19 +151,21 @@ class APIRequestor(object):
     to become:
     foo=bar&nested[a]=b&nested[c]=d
     """
+    # special case value encoding
+    ENCODERS = {
+      dict: cls.encode_dict,
+      datetime: cls.encode_datetime,
+      types.NoneType: cls.encode_none,
+    }
+
     stk = []
     for key, value in d.iteritems():
       key = cls._utf8(key)
-      if value is None:
-        pass # do not include None-valued params in request
-      elif isinstance(value, dict):
-        n = {}
-        for k, v in value.iteritems():
-          k = cls._utf8(k)
-          v = cls._utf8(v)
-          n["%s[%s]" % (key, k)] = v
-        stk.extend(cls._encode_inner(n))
-      else:
+      try:
+          encoder = ENCODERS[value.__class__]
+          encoder(stk, key, value)
+      except KeyError:
+        # don't need special encoding
         value = cls._utf8(value)
         stk.append((key, value))
     return stk
