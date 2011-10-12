@@ -218,6 +218,12 @@ plan
     create
     retrieve
 
+coupon
+    all
+    create
+    retrieve
+    delete
+
 token
     create
     retrieve""")
