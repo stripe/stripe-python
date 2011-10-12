@@ -158,6 +158,9 @@ class PlanClient(CreateableAPIResourceClient, DeletableAPIResourceClient, Listab
 class TokenClient(CreateableAPIResourceClient):
   client_for = stripe.Token
 
+class CouponClient(CreateableAPIResourceClient, DeletableAPIResourceClient, ListableAPIResourceClient):
+    client_for = stripe.Coupon
+
 def main():
     klasses = {
         'charge' : ChargeClient,
@@ -172,6 +175,8 @@ def main():
         'plans' : PlanClient,
         'token' : TokenClient,
         'tokens' : TokenClient,
+        'coupon' : CouponClient,
+        'coupons' : CouponClient
         }
     parser = optparse.OptionParser("""%prog [options] class method [key=value|key ...]
 
@@ -229,6 +234,7 @@ token
     if len(args) < 2:
         parser.print_help()
         return 1
+
     klass_name = args[0]
     method_name = args[1]
 
