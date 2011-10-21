@@ -651,3 +651,6 @@ class Plan(CreateableAPIResource, DeletableAPIResource, ListableAPIResource):
 
 class Token(CreateableAPIResource):
   pass
+
+class Coupon(CreateableAPIResource, DeletableAPIResource, ListableAPIResource):
+  pass
