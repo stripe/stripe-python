@@ -15,6 +15,5 @@ setup(name='stripe',
       author_email='support@stripe.com',
       url='https://stripe.com/',
       packages=['stripe'],
-      package_data={'stripe' : ['data/ca-certificates.crt', '../VERSION']},
       install_requires=['simplejson', 'pycurl']
 )
