@@ -144,9 +144,9 @@ class InvoiceClient(ListableAPIResourceClient):
   client_for = stripe.Invoice
 
   @classmethod
-  def upcoming(self, params):
-    url = self.class_url() + '/upcoming'
-    self.logged_curl('get', url, params)
+  def upcoming(cls, params):
+    url = cls.client_for.class_url() + '/upcoming'
+    cls().logged_curl('get', url, params)
 
 class InvoiceItemClient(CreateableAPIResourceClient, UpdateableAPIResourceClient,
                         ListableAPIResourceClient, DeletableAPIResourceClient):
