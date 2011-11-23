@@ -329,7 +329,9 @@ class APIRequestor(object):
     # However, that's ok because the CA bundle they use recognizes
     # api.stripe.com.
     args['validate_certificate'] = verify_ssl_certs
-    args['deadline'] = 10
+    # GAE requests time out after 60 seconds, so make sure we leave
+    # some time for the application to handle a slow Stripe
+    args['deadline'] = 55
 
     try:
       result = urlfetch.fetch(**args)
