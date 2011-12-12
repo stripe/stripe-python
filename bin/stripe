@@ -152,7 +152,7 @@ class InvoiceItemClient(CreateableAPIResourceClient, UpdateableAPIResourceClient
                         ListableAPIResourceClient, DeletableAPIResourceClient):
   client_for = stripe.InvoiceItem
   
-class PlanClient(CreateableAPIResourceClient, DeletableAPIResourceClient, ListableAPIResourceClient):
+class PlanClient(CreateableAPIResourceClient, DeletableAPIResourceClient, ListableAPIResourceClient, UpdateableAPIResourceClient):
   client_for = stripe.Plan
 
 class TokenClient(CreateableAPIResourceClient):
@@ -217,7 +217,8 @@ invoiceitem
 plan
     create
     retrieve
-
+    update
+    
 coupon
     all
     create

@@ -165,6 +165,22 @@ class CouponTest(unittest.TestCase):
         self.assertFalse(hasattr(c, 'id'))
         self.assertTrue(c.deleted)
 
+class PlanTest(unittest.TestCase):
+    def test_create_plan(self):
+        self.assertRaises(stripe.InvalidRequestError, stripe.Plan.create, amount=2500)
+        p = stripe.Plan.create(**DUMMY_PLAN)
+        self.assertTrue(hasattr(p, 'amount')) 
+        self.assertTrue(hasattr(c, 'id')) 
+        p.delete()
+
+    def test_update_plan(self):
+        p = stripe.Plan.create(**DUMMY_PLAN)
+        name = "New plan name"
+        p.name = name
+        p.save()
+        self.assertEqual(name, p.name) 
+        p.delete()
+
 if __name__ == '__main__':
     api_base = os.environ.get('STRIPE_API_BASE')
     if api_base:
