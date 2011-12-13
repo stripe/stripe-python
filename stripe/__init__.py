@@ -1,5 +1,5 @@
 # Stripe Python bindings
-# API spec at http://stripe.com/api/spec
+# API docs at http://stripe.com/docs/api
 # Authors: Patrick Collison <patrick@stripe.com> and Greg Brockman <gdb@stripe.com>
 
 ## Imports
