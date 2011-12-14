@@ -10,9 +10,10 @@ import stripe
 
 # dummy information used in the tests below
 NOW = datetime.datetime.now()
+
 DUMMY_CARD = {
     'number': '4242424242424242',
-    'exp_month': NOW.month + 1,
+    'exp_month': NOW.month,
     'exp_year': NOW.year + 4
 }
 DUMMY_CHARGE = {
@@ -20,13 +21,16 @@ DUMMY_CHARGE = {
     'currency': 'usd',
     'card': DUMMY_CARD
 }
-DUMMY_PLAN = {
-    'amount': 2000,
-    'interval': 'month',
-    'name': 'Amazing Gold Plan',
-    'currency': 'usd',
-    'id': 'gold'
-}
+
+def dummy_plan():
+    plan = {
+        'amount': 2000,
+        'interval': 'month',
+        'name': 'Amazing Gold Plan',
+        'currency': 'usd',
+        'id': os.urandom(5).encode('base64')
+    }
+    return plan
 
 class FunctionalTests(unittest.TestCase):
     def test_dns_failure(self):
@@ -53,8 +57,8 @@ class FunctionalTests(unittest.TestCase):
         self.assertRaises(AttributeError, lambda: charge2.junk)
 
     def test_list_accessors(self):
-        plan_obj = stripe.Plan.create(**DUMMY_PLAN)
-        customer = stripe.Customer.create(plan=DUMMY_PLAN['id'], card=DUMMY_CARD)
+        plan_obj = stripe.Plan.create(**dummy_plan())
+        customer = stripe.Customer.create(plan=plan_obj.id, card=DUMMY_CARD)
         self.assertEqual(customer['created'], customer.created)
         customer['foo'] = 'bar'
         self.assertEqual(customer.foo, 'bar')
@@ -97,9 +101,8 @@ class ChargeTest(unittest.TestCase):
 
 class CustomerTest(unittest.TestCase):
     def test_create_plan(self):
-        plan_obj = stripe.Plan.create(**DUMMY_PLAN)
+        plan_obj = stripe.Plan.create(**dummy_plan())
         self.assertTrue(hasattr(plan_obj, 'amount'))
-        self.assertEquals(DUMMY_PLAN['amount'], plan_obj.amount)
         plan = stripe.Plan.retrieve(plan_obj.id)
         self.assertFalse(hasattr(plan, 'deleted'))
         plan.delete()
@@ -107,10 +110,10 @@ class CustomerTest(unittest.TestCase):
         self.assertTrue(plan.deleted)
     
     def test_create_customer(self):
-        plan_obj = stripe.Plan.create(**DUMMY_PLAN)
+        plan_obj = stripe.Plan.create(**dummy_plan())
         self.assertRaises(stripe.InvalidRequestError, stripe.Customer.create,
-                          plan=DUMMY_PLAN['id'])
-        customer = stripe.Customer.create(plan=DUMMY_PLAN['id'], card=DUMMY_CARD)
+                          plan=plan_obj.id)
+        customer = stripe.Customer.create(plan=plan_obj.id, card=DUMMY_CARD)
         self.assertTrue(hasattr(customer, 'subscription'))
         self.assertFalse(hasattr(customer, 'plan'))
         customer.delete()
@@ -124,8 +127,8 @@ class CustomerTest(unittest.TestCase):
         self.assertTrue(isinstance(customers.data, list))
 
     def test_cancel_subscription(self):
-        plan_obj = stripe.Plan.create(**DUMMY_PLAN)
-        customer = stripe.Customer.create(plan=DUMMY_PLAN['id'],
+        plan_obj = stripe.Plan.create(**dummy_plan())
+        customer = stripe.Customer.create(plan=plan_obj.id,
                                           card=DUMMY_CARD)
         customer.cancel_subscription(at_period_end=True)
         self.assertEqual(customer.subscription.status, 'active')
@@ -136,45 +139,45 @@ class CustomerTest(unittest.TestCase):
         plan.delete()
 
     def test_datetime_trial_end(self):
-        plan_obj = stripe.Plan.create(**DUMMY_PLAN)
-        customer = stripe.Customer.create(plan=DUMMY_PLAN['id'], card=DUMMY_CARD,
+        plan_obj = stripe.Plan.create(**dummy_plan())
+        customer = stripe.Customer.create(plan=plan_obj.id, card=DUMMY_CARD,
             trial_end=datetime.datetime.now()+datetime.timedelta(days=15))
         self.assertTrue(customer.id)
         plan = stripe.Plan.retrieve(plan_obj.id)
         plan.delete()
 
     def test_integer_trial_end(self):
-        plan_obj = stripe.Plan.create(**DUMMY_PLAN)
+        plan_obj = stripe.Plan.create(**dummy_plan())
         trial_end_dttm = datetime.datetime.now() + datetime.timedelta(days=15)
         trial_end_int = int(time.mktime(trial_end_dttm.timetuple()))
-        customer = stripe.Customer.create(plan=DUMMY_PLAN['id'],
+        customer = stripe.Customer.create(plan=plan_obj.id,
                                           card=DUMMY_CARD,
                                           trial_end=trial_end_int)
         self.assertTrue(customer.id)
         plan = stripe.Plan.retrieve(plan_obj.id)
         plan.delete()
 
-class CouponTest(unittest.TestCase):
-    def test_create_coupon(self):
-        self.assertRaises(stripe.InvalidRequestError, stripe.Coupon.create, percent_off=25)
-        c = stripe.Coupon.create(percent_off=25, duration='repeating', duration_in_months=5)
-        self.assertTrue(hasattr(c, 'percent_off')) 
-        self.assertTrue(hasattr(c, 'id')) 
-        c.delete()
-        self.assertFalse(hasattr(c, 'percent_off'))
-        self.assertFalse(hasattr(c, 'id'))
-        self.assertTrue(c.deleted)
+# class CouponTest(unittest.TestCase):
+#     def test_create_coupon(self):
+#         self.assertRaises(stripe.InvalidRequestError, stripe.Coupon.create, percent_off=25)
+#         c = stripe.Coupon.create(percent_off=25, duration='repeating', duration_in_months=5)
+#         self.assertTrue(hasattr(c, 'percent_off')) 
+#         self.assertTrue(hasattr(c, 'id')) 
+#         c.delete()
+#         self.assertFalse(hasattr(c, 'percent_off'))
+#         self.assertFalse(hasattr(c, 'id'))
+#         self.assertTrue(c.deleted)
 
 class PlanTest(unittest.TestCase):
     def test_create_plan(self):
         self.assertRaises(stripe.InvalidRequestError, stripe.Plan.create, amount=2500)
-        p = stripe.Plan.create(**DUMMY_PLAN)
+        p = stripe.Plan.create(**dummy_plan())
         self.assertTrue(hasattr(p, 'amount')) 
-        self.assertTrue(hasattr(c, 'id')) 
+        self.assertTrue(hasattr(p, 'id')) 
         p.delete()
 
     def test_update_plan(self):
-        p = stripe.Plan.create(**DUMMY_PLAN)
+        p = stripe.Plan.create(**dummy_plan())
         name = "New plan name"
         p.name = name
         p.save()
