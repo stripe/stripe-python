@@ -28,7 +28,7 @@ def dummy_plan():
         'interval': 'month',
         'name': 'Amazing Gold Plan',
         'currency': 'usd',
-        'id': os.urandom(5).encode('base64')
+        'id': os.urandom(5).encode('hex')
     }
     return plan
 
@@ -157,16 +157,19 @@ class CustomerTest(unittest.TestCase):
         plan = stripe.Plan.retrieve(plan_obj.id)
         plan.delete()
 
-# class CouponTest(unittest.TestCase):
-#     def test_create_coupon(self):
-#         self.assertRaises(stripe.InvalidRequestError, stripe.Coupon.create, percent_off=25)
-#         c = stripe.Coupon.create(percent_off=25, duration='repeating', duration_in_months=5)
-#         self.assertTrue(hasattr(c, 'percent_off')) 
-#         self.assertTrue(hasattr(c, 'id')) 
-#         c.delete()
-#         self.assertFalse(hasattr(c, 'percent_off'))
-#         self.assertFalse(hasattr(c, 'id'))
-#         self.assertTrue(c.deleted)
+class CouponTest(unittest.TestCase):
+    def test_create_coupon(self):
+        self.assertRaises(stripe.InvalidRequestError, stripe.Coupon.create, percent_off=25)
+        c = stripe.Coupon.create(percent_off=25, duration='repeating', duration_in_months=5)
+        self.assertTrue(hasattr(c, 'percent_off')) 
+        self.assertTrue(hasattr(c, 'id'))
+        
+    def test_delete_coupon(self):
+        c = stripe.Coupon.create(percent_off=25, duration='repeating', duration_in_months=5)
+        self.assertFalse(hasattr(c, 'deleted'))
+        c.delete()
+        self.assertTrue(hasattr(c, 'deleted'))
+        self.assertTrue(c.deleted)
 
 class PlanTest(unittest.TestCase):
     def test_create_plan(self):

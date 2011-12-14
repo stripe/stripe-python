@@ -100,7 +100,7 @@ class AuthenticationError(StripeError):
 def convert_to_stripe_object(resp, api_key):
   types = { 'charge' : Charge, 'customer' : Customer,
             'invoice' : Invoice, 'invoiceitem' : InvoiceItem,
-            'plan' : Plan, 'token' : Token }
+            'plan' : Plan, 'coupon': Coupon, 'token' : Token }
   if isinstance(resp, list):
     return [convert_to_stripe_object(i, api_key) for i in resp]
   elif isinstance(resp, dict):
@@ -650,7 +650,7 @@ class InvoiceItem(CreateableAPIResource, UpdateableAPIResource,
                   ListableAPIResource, DeletableAPIResource):
   pass
 
-class Plan(CreateableAPIResource, DeletableAPIResource, UpdateableAPIResource, ListableAPIResource):
+class Plan(CreateableAPIResource, DeletableAPIResource, UpdateableAPIResource,ListableAPIResource):
   pass
 
 class Token(CreateableAPIResource):
