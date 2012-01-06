@@ -289,13 +289,24 @@ class APIRequestor(object):
     try:
       func = getattr(requests, meth)
       result = func(abs_url, headers=headers, data=data)
-    except requests.exceptions.RequestException, e:
+    except Exception, e:
+      # Would catch just requests.exceptions.RequestException, but can
+      # also raise ValueError, RuntimeError, etc.
       self.handle_requests_error(e)
     return result.content, result.status_code
 
   def handle_requests_error(self, e):
-    msg = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
-    msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e.message) + ")"
+    if isinstance(e, requests.exceptions.RequestException):
+      msg = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
+      err = "%s: %s" % (type(e), e.message)
+    else:
+      msg = "Unexpected error communicating with Stripe.  It looks like there's probably a configuration issue locally.  If this problem persists, let us know at support@stripe.com."
+      err = "A %s was raised" % (type(e), )
+      if e.message:
+        err += " with error message %s" % (e.message, )
+      else:
+        err += " with no error message"
+    msg = textwrap.fill(msg) + "\n\n(Network error: " + err + ")"
     raise APIConnectionError(msg)
 
   def pycurl_request(self, meth, abs_url, headers, params):
