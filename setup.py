@@ -11,7 +11,7 @@ path, script = os.path.split(sys.argv[0])
 os.chdir(os.path.abspath(path))
 
 # Get simplejson if we don't already have json
-install_requires = 'requests'
+install_requires = ['requests']
 try:
   importer.import_json()
 except ImportError:
