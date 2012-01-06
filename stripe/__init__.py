@@ -274,11 +274,17 @@ class APIRequestor(object):
     try:
       func = getattr(requests, meth)
       result = func(abs_url, headers=headers, data=data)
+
+      # This causes the content to actually be read, which could cause
+      # e.g. a socket timeout. TODO: The other fetch methods probably
+      # are succeptible to the same and should be updated.
+      content = result.content
+      status_code = result.status_code
     except Exception, e:
       # Would catch just requests.exceptions.RequestException, but can
       # also raise ValueError, RuntimeError, etc.
       self.handle_requests_error(e)
-    return result.content, result.status_code
+    return content, status_code
 
   def handle_requests_error(self, e):
     if isinstance(e, requests.exceptions.RequestException):
