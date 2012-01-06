@@ -298,10 +298,10 @@ class APIRequestor(object):
   def handle_requests_error(self, e):
     if isinstance(e, requests.exceptions.RequestException):
       msg = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
-      err = "%s: %s" % (type(e), e.message)
+      err = "%s: %s" % (type(e).__name__, e.message)
     else:
       msg = "Unexpected error communicating with Stripe.  It looks like there's probably a configuration issue locally.  If this problem persists, let us know at support@stripe.com."
-      err = "A %s was raised" % (type(e), )
+      err = "A %s was raised" % (type(e).__name__, )
       if e.message:
         err += " with error message %s" % (e.message, )
       else:
