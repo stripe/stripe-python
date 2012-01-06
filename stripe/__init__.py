@@ -341,11 +341,11 @@ class APIRequestor(object):
     return result.content, result.status_code
 
   def handle_urlfetch_error(self, e, abs_url):
-    if isinstance(self, urlfetch.InvalidURLError):
+    if isinstance(e, urlfetch.InvalidURLError):
       msg = "The Stripe library attempted to fetch an invalid URL (%r).  This is likely due to a bug in the Stripe Python bindings.  Please let us know at support@stripe.com." % (abs_url, )
-    elif isinstance(self, urlfetch.DownloadError):
+    elif isinstance(e, urlfetch.DownloadError):
       msg = "There were a problem retrieving data from Stripe."
-    elif isinstance(self, urlfetch.ResponseTooLargeError):
+    elif isinstance(e, urlfetch.ResponseTooLargeError):
       msg = "There was a problem receiving all of your data from Stripe.  This is likely due to a bug in Stripe.  Please let us know at support@stripe.com."
     else:
       msg = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
