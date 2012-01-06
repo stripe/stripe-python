@@ -20,24 +20,6 @@ try:
 except ImportError:
     import StringIO
 
-# Python 2.5 and below do not ship with json
-_json_loaded = None
-try:
-  import json
-  _json_loaded = hasattr(json, 'loads')
-except ImportError:
-  pass
-
-
-if not _json_loaded:
-  try:
-    import simplejson as json
-  except ImportError:
-    if _json_loaded is None:
-      raise ImportError("Stripe requires a JSON library, which you do not appear to have.  Please install the simplejson library.  HINT: Try installing the python simplejson library via 'easy_install simplejson', or contact support@stripe.com with questions.")
-    else:
-      raise ImportError("Stripe requires a JSON library with the same interface as the Python 2.6 'json' library.  You appear to have a 'json' library with a different interface.  Please install the simplejson library.  HINT: Try installing the python simplejson library via 'easy_install simplejson', or contact support@stripe.com with questions.")
-
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch
 # - Use Pycurl if it's there (at least it verifies SSL certs)
@@ -76,6 +58,9 @@ if not _httplib:
   raise ImportError("Stripe requires one of pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where none of these libraries are available, please let us know at support@stripe.com.")
 
 from version import VERSION
+import importer
+json = importer.import_json()
+
 logger = logging.getLogger('stripe')
 
 ## Configuration variables
