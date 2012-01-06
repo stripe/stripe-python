@@ -272,8 +272,9 @@ class APIRequestor(object):
       raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Stripe bindings.  Please contact support@stripe.com for assistance.' % (meth, ))
 
     try:
-      func = getattr(requests, meth)
-      result = func(abs_url, headers=headers, data=data, timeout=80)
+      result = requests.request(meth, abs_url,
+                                headers=headers, data=data, timeout=80,
+                                verify=os.path.join(os.path.dirname(__file__), 'data/ca-certificates.crt'))
 
       # This causes the content to actually be read, which could cause
       # e.g. a socket timeout. TODO: The other fetch methods probably
