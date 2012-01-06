@@ -38,11 +38,15 @@ if not _json_loaded:
     else:
       raise ImportError("Stripe requires a JSON library with the same interface as the Python 2.6 'json' library.  You appear to have a 'json' library with a different interface.  Please install the simplejson library.  HINT: Try installing the python simplejson library via 'easy_install simplejson', or contact support@stripe.com with questions.")
 
-# Pycurl is the preferred HTTP library, but also allow Google App Engine's urlfetch.
+# - Requests is the preferred HTTP library
+# - Google App Engine has urlfetch
+# - Use Pycurl if it's there (at least it verifies SSL certs)
+# - Fall back to urllib2 with a warning if needed
 _httplib = None
+
 try:
-  import pycurl
-  _httplib = 'pycurl'
+  import requests
+  _httplib = 'requests'
 except ImportError:
   pass
 
@@ -50,6 +54,13 @@ if not _httplib:
   try:
     from google.appengine.api import urlfetch
     _httplib = 'urlfetch'
+  except ImportError:
+    pass
+
+if not _httplib:
+  try:
+    import pycurl
+    _httplib = 'pycurl'
   except ImportError:
     pass
 
@@ -242,7 +253,9 @@ class APIRequestor(object):
       'User-Agent' : 'Stripe/v1 PythonBindings/%s' % (VERSION, ),
       'Authorization' : 'Basic %s' % (base64.b64encode('%s:' % my_api_key), )
       }
-    if _httplib == 'pycurl':
+    if _httplib == 'requests':
+      rbody, rcode = self.requests_request(meth, abs_url, headers, params)
+    elif _httplib == 'pycurl':
       rbody, rcode = self.pycurl_request(meth, abs_url, headers, params)
     elif _httplib == 'urlfetch':
       rbody, rcode = self.urlfetch_request(meth, abs_url, headers, params)
@@ -261,6 +274,29 @@ class APIRequestor(object):
     if not (200 <= rcode < 300):
       self.handle_api_error(rbody, rcode, resp)
     return resp
+
+  def requests_request(self, meth, abs_url, headers, params):
+    meth = meth.lower()
+    if meth == 'get' or meth == 'delete':
+      if params:
+          abs_url = '%s?%s' % (abs_url, self.encode(params))
+      data = None
+    elif meth == 'post':
+      data = self.encode(params)
+    else:
+      raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Stripe bindings.  Please contact support@stripe.com for assistance.' % (meth, ))
+
+    try:
+      func = getattr(requests, meth)
+      result = func(abs_url, headers=headers, data=data)
+    except requests.exceptions.RequestException, e:
+      self.handle_requests_error(e)
+    return result.content, result.status_code
+
+  def handle_requests_error(self, e):
+    msg = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
+    msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e.message) + ")"
+    raise APIConnectionError(msg)
 
   def pycurl_request(self, meth, abs_url, headers, params):
     s = StringIO.StringIO()
