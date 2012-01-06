@@ -273,7 +273,7 @@ class APIRequestor(object):
 
     try:
       func = getattr(requests, meth)
-      result = func(abs_url, headers=headers, data=data)
+      result = func(abs_url, headers=headers, data=data, timeout=80)
 
       # This causes the content to actually be read, which could cause
       # e.g. a socket timeout. TODO: The other fetch methods probably
