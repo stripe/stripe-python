@@ -71,7 +71,11 @@ verify_ssl_certs = True
 
 ## Exceptions
 class StripeError(Exception):
-  pass
+  def __init__(self, message=None, http_body=None, http_status=None, json_body=None):
+    super(StripeError, self).__init__(message)
+    self.http_body = http_body
+    self.http_status = http_status
+    self.json_body = json_body
 
 class APIError(StripeError):
   pass
@@ -80,14 +84,17 @@ class APIConnectionError(StripeError):
   pass
 
 class CardError(StripeError):
-  def __init__(self, message, param, code):
-    super(CardError, self).__init__(message)
+  def __init__(self, message, param, code, http_body=None, http_status=None, json_body=None):
+    super(CardError, self).__init__(message, http_body, http_status, json_body)
     self.param = param
     self.code = code
+    self.http_body = http_body
+    self.http_status = http_status
+    self.json_body = json_body
 
 class InvalidRequestError(StripeError):
-  def __init__(self, message, param):
-    super(InvalidRequestError, self).__init__(message)
+  def __init__(self, message, param, http_body=None, http_status=None, json_body=None):
+    super(InvalidRequestError, self).__init__(message, http_body, http_status, json_body)
     self.param = param
 
 class AuthenticationError(StripeError):
@@ -196,16 +203,16 @@ class APIRequestor(object):
     try:
       error = resp['error']
     except (KeyError, TypeError):
-      raise APIError("Invalid response object from API: %r (HTTP response code was %d)" % (rbody, rcode))
+      raise APIError("Invalid response object from API: %r (HTTP response code was %d)" % (rbody, rcode), rbody, rcode, resp)
 
     if rcode in [400, 404]:
-      raise InvalidRequestError(error.get('message'), error.get('param'))
+      raise InvalidRequestError(error.get('message'), error.get('param'), rbody, rcode, resp)
     elif rcode == 401:
-      raise AuthenticationError(error.get('message'))
+      raise AuthenticationError(error.get('message'), rbody, rcode, resp)
     elif rcode == 402:
-      raise CardError(error.get('message'), error.get('param'), error.get('code'))
+      raise CardError(error.get('message'), error.get('param'), error.get('code'), rbody, rcode, resp)
     else:
-      raise APIError(error.get('message'))
+      raise APIError(error.get('message'), rbody, rcode, resp)
 
   def request_raw(self, meth, url, params={}):
     """
@@ -247,7 +254,7 @@ class APIRequestor(object):
     elif _httplib == 'urllib2':
       rbody, rcode = self.urllib2_request(meth, abs_url, headers, params)
     else:
-      raise StripeError("Stripe bug discovered: invalid httplib %s.  Please report to support@stripe.com" % (_httplib, ))
+      raise StripeError("Stripe Python library bug discovered: invalid httplib %s.  Please report to support@stripe.com" % (_httplib, ))
     logger.info('API request to %s returned (response code, response body) of (%d, %r)' % (abs_url, rcode, rbody))
     return rbody, rcode, my_api_key
 
@@ -255,7 +262,7 @@ class APIRequestor(object):
     try:
       resp = json.loads(rbody)
     except Exception:
-      raise APIError("Invalid response body from API: %s (HTTP response code was %d)" % (rbody, rcode))
+      raise APIError("Invalid response body from API: %s (HTTP response code was %d)" % (rbody, rcode), rbody, rcode)
     if not (200 <= rcode < 300):
       self.handle_api_error(rbody, rcode, resp)
     return resp
