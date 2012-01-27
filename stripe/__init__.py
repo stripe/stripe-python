@@ -696,11 +696,14 @@ class InvoiceItem(CreateableAPIResource, UpdateableAPIResource,
                   ListableAPIResource, DeletableAPIResource):
   pass
 
-class Plan(CreateableAPIResource, DeletableAPIResource, UpdateableAPIResource,ListableAPIResource):
+class Plan(CreateableAPIResource, DeletableAPIResource, UpdateableAPIResource, ListableAPIResource):
   pass
 
 class Token(CreateableAPIResource):
   pass
 
 class Coupon(CreateableAPIResource, DeletableAPIResource, ListableAPIResource):
+  pass
+
+class Event(ListableAPIResource):
   pass
