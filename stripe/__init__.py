@@ -529,11 +529,11 @@ class StripeObject(object):
   def __repr__(self):
     type_string = ''
     if isinstance(self.get('object'), basestring):
-      type_string = ' %s' % str(self.get('object'))
+      type_string = ' %s' % self.get('object').encode('utf8')
 
     id_string = ''
     if isinstance(self.get('id'), basestring):
-      id_string = ' id=%s' % str(self.get('id'))
+      id_string = ' id=%s' % self.get('id').encode('utf8')
 
     return '<%s%s%s at %s> JSON: %s' % (type(self).__name__, type_string, id_string, hex(id(self)), json.dumps(self.to_dict(), sort_keys=True, indent=2, cls=StripeObjectEncoder))
 
