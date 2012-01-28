@@ -110,7 +110,10 @@ def convert_to_stripe_object(resp, api_key):
   elif isinstance(resp, dict):
     resp = resp.copy()
     klass_name = resp.get('object')
-    klass = types.get(klass_name, StripeObject) if isinstance(klass_name, basestring) else StripeObject
+    if isinstance(klass_name, basestring):
+      klass = types.get(klass_name, StripeObject) 
+    else:
+      klass = StripeObject
     return klass.construct_from(resp, api_key)
   else:
     return resp
@@ -524,8 +527,14 @@ class StripeObject(object):
       self._unsaved_values.discard(k)
 
   def __repr__(self):
-    type_string = (' %s' % str(self.get('object'))) if isinstance(self.get('object'), basestring) else ""
-    id_string = (' id=%s' % str(self.get('id'))) if if isinstance(self.get('id'), basestring) else ""
+    type_string = ''
+    if isinstance(self.get('object'), basestring):
+      type_string = ' %s' % str(self.get('object'))
+
+    id_string = ''
+    if isinstance(self.get('id'), basestring):
+      id_string = ' id=%s' % str(self.get('id'))
+
     return '<%s%s%s at %s> JSON: %s' % (type(self).__name__, type_string, id_string, hex(id(self)), json.dumps(self.to_dict(), sort_keys=True, indent=2, cls=StripeObjectEncoder))
 
   def __str__(self):
@@ -537,7 +546,9 @@ class StripeObject(object):
       if k in self._permanent_attributes:
         continue
       v =  getattr(self, k)
-      d[k] = v.to_dict() if isinstance(v, StripeObject) else v
+      if isinstance(v, StripeObject):
+        v = v.to_dict()
+      d[k] = v
     return d
 
 class StripeObjectEncoder(json.JSONEncoder):
