@@ -110,7 +110,7 @@ def convert_to_stripe_object(resp, api_key):
   elif isinstance(resp, dict):
     resp = resp.copy()
     klass_name = resp.get('object')
-    klass = types.get(klass_name, StripeObject) if type(klass_name) == str else StripeObject
+    klass = types.get(klass_name, StripeObject) if isinstance(klass_name, basestring) else StripeObject
     return klass.construct_from(resp, api_key)
   else:
     return resp
@@ -444,9 +444,10 @@ class StripeObject(object):
       self.id = id
 
   def __setattr__(self, k, v):
-    # TODO: may want to make ignored attributes immutable
     self.__dict__[k] = v
     self._values.add(k)
+    if k not in self._permanent_attributes:
+      self._unsaved_values.add(k)
 
   def __getattr__(self, k):
     try:
@@ -523,8 +524,8 @@ class StripeObject(object):
       self._unsaved_values.discard(k)
 
   def __repr__(self):
-    type_string = (' %s' % str(self.get('object'))) if type(self.get('object', None)) == unicode else ""
-    id_string = (' id=%s' % str(self.get('id'))) if type(self.get('id', None)) == unicode else ""
+    type_string = (' %s' % str(self.get('object'))) if isinstance(self.get('object'), basestring) else ""
+    id_string = (' id=%s' % str(self.get('id'))) if if isinstance(self.get('id'), basestring) else ""
     return '<%s%s%s at %s> JSON: %s' % (type(self).__name__, type_string, id_string, hex(id(self)), json.dumps(self.to_dict(), sort_keys=True, indent=2, cls=StripeObjectEncoder))
 
   def __str__(self):
@@ -543,7 +544,8 @@ class StripeObjectEncoder(json.JSONEncoder):
   def default(self, obj):
     if isinstance(obj, StripeObject):
       return json.dumps(obj.to_dict(), cls=StripeObjectEncoder)
-    return json.JSONEncoder.default(self, obj)
+    else:
+      return json.JSONEncoder.default(self, obj)
 
 class APIResource(StripeObject):
   def _ident(self):
