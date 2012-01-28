@@ -103,13 +103,17 @@ class AuthenticationError(StripeError):
 def convert_to_stripe_object(resp, api_key):
   types = { 'charge' : Charge, 'customer' : Customer,
             'invoice' : Invoice, 'invoiceitem' : InvoiceItem,
-            'plan' : Plan, 'coupon': Coupon, 'token' : Token }
+            'plan' : Plan, 'coupon': Coupon, 'token' : Token, 'event': Event }
+
   if isinstance(resp, list):
     return [convert_to_stripe_object(i, api_key) for i in resp]
   elif isinstance(resp, dict):
     resp = resp.copy()
     klass_name = resp.get('object')
-    klass = types.get(klass_name, StripeObject)
+    if isinstance(klass_name, basestring):
+      klass = types.get(klass_name, StripeObject) 
+    else:
+      klass = StripeObject
     return klass.construct_from(resp, api_key)
   else:
     return resp
@@ -432,7 +436,6 @@ class APIRequestor(object):
 
 class StripeObject(object):
   _permanent_attributes = set(['api_key'])
-  _ignored_attributes = set(['id', 'api_key', 'object'])
 
   def __init__(self, id=None, api_key=None):
     self.__dict__['_values'] = set()
@@ -444,10 +447,9 @@ class StripeObject(object):
       self.id = id
 
   def __setattr__(self, k, v):
-    # TODO: may want to make ignored attributes immutable
     self.__dict__[k] = v
     self._values.add(k)
-    if k not in self._ignored_attributes:
+    if k not in self._permanent_attributes:
       self._unsaved_values.add(k)
 
   def __getattr__(self, k):
@@ -524,42 +526,37 @@ class StripeObject(object):
       self._transient_values.discard(k)
       self._unsaved_values.discard(k)
 
-  def _ident(self):
-    return [self.get('object'), self.get('id')]
+  def __repr__(self):
+    type_string = ''
+    if isinstance(self.get('object'), basestring):
+      type_string = ' %s' % self.get('object').encode('utf8')
 
-  def __repr__(self, nested=False):
-    ident = [i for i in self._ident() if i]
-    if ident:
-      ident = '[%s]' % (', '.join(ident), )
-    else:
-      ident = ''
+    id_string = ''
+    if isinstance(self.get('id'), basestring):
+      id_string = ' id=%s' % self.get('id').encode('utf8')
 
-    if nested:
-      return '<stripe.%s%s ...>' % (type(self).__name__, ident)
-
-    values_str = []
-    for k in sorted(self._values):
-      if k in self._ignored_attributes:
-        continue
-      v = getattr(self, k)
-      if isinstance(v, StripeObject):
-        v = v.__repr__(True)
-      elif isinstance(v, unicode):
-        v = repr(v)
-        if v[0] == 'u':
-          v = v[1:]
-      else:
-        v = repr(v)
-      if k in self._unsaved_values:
-        values_str.append('%s=%s (unsaved)' % (k, v))
-      else:
-        values_str.append('%s=%s' % (k, v))
-    if not values_str:
-      values_str.append('(no attributes)')
-    return '<stripe.%s%s %s>' % (type(self).__name__, ident, ', '.join(values_str))
+    return '<%s%s%s at %s> JSON: %s' % (type(self).__name__, type_string, id_string, hex(id(self)), json.dumps(self.to_dict(), sort_keys=True, indent=2, cls=StripeObjectEncoder))
 
   def __str__(self):
-    return repr(self)
+    return json.dumps(self.to_dict(), sort_keys=True, indent=2, cls=StripeObjectEncoder)
+
+  def to_dict(self):
+    d = dict()
+    for k in sorted(self._values):
+      if k in self._permanent_attributes:
+        continue
+      v =  getattr(self, k)
+      if isinstance(v, StripeObject):
+        v = v.to_dict()
+      d[k] = v
+    return d
+
+class StripeObjectEncoder(json.JSONEncoder):
+  def default(self, obj):
+    if isinstance(obj, StripeObject):
+      return json.dumps(obj.to_dict(), cls=StripeObjectEncoder)
+    else:
+      return json.JSONEncoder.default(self, obj)
 
 class APIResource(StripeObject):
   def _ident(self):
@@ -633,7 +630,7 @@ class DeletableAPIResource(APIResource):
     return self
 
 # API objects
-class Charge(CreateableAPIResource, ListableAPIResource):
+class Charge(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
   def refund(self, **params):
     requestor = APIRequestor(self.api_key)
     url = self.instance_url() + '/refund'

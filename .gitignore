@@ -2,3 +2,4 @@
 /dist
 /MANIFEST
 /stripe.egg-info
+*.pyc
