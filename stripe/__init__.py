@@ -3,7 +3,6 @@
 # Authors: Patrick Collison <patrick@stripe.com> and Greg Brockman <gdb@stripe.com>
 
 ## Imports
-import base64
 import logging
 import os
 import platform
@@ -260,7 +259,7 @@ class APIRequestor(object):
     headers = {
       'X-Stripe-Client-User-Agent' : json.dumps(ua),
       'User-Agent' : 'Stripe/v1 PythonBindings/%s' % (VERSION, ),
-      'Authorization' : 'Basic %s' % (base64.b64encode('%s:' % my_api_key), )
+      'Authorization' : 'Bearer %s' % (my_api_key, )
       }
     if _httplib == 'requests':
       rbody, rcode = self.requests_request(meth, abs_url, headers, params)
