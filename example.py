@@ -1,6 +1,6 @@
 import stripe
 
-stripe.api_key = '26OjYWkUnwDegILl9ZNVbefRjRboRSio'
+stripe.api_key = 'tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I'
 
 print "Attempting charge..."
 

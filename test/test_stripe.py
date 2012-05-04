@@ -233,7 +233,5 @@ if __name__ == '__main__':
     api_base = os.environ.get('STRIPE_API_BASE')
     if api_base:
         stripe.api_base = api_base
-    api_key = os.environ['STRIPE_API_KEY']
-    if api_key:
-        stripe.api_key = api_key
+    stripe.api_key = os.environ.get('STRIPE_API_KEY', 'tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I')
     unittest.main()
