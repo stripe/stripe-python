@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 import datetime
 import os
+import string
 import sys
 import time
+import random
 import unittest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
@@ -27,7 +29,7 @@ DUMMY_PLAN = {
     'interval': 'month',
     'name': 'Amazing Gold Plan',
     'currency': 'usd',
-    'id': 'stripe-test-gold'
+    'id': 'stripe-test-gold-' + ''.join(random.choice(string.lowercase) for x in range(10))
  }
 
 class StripeTestCase(unittest.TestCase):
