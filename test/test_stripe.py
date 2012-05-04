@@ -30,7 +30,16 @@ DUMMY_PLAN = {
     'id': 'stripe-test-gold'
  }
 
-class FunctionalTests(unittest.TestCase):
+class StripeTestCase(unittest.TestCase):
+    def setUp(self):
+        super(StripeTestCase, self).setUp()
+
+        api_base = os.environ.get('STRIPE_API_BASE')
+        if api_base:
+            stripe.api_base = api_base
+        stripe.api_key = os.environ.get('STRIPE_API_KEY', 'tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I')
+
+class FunctionalTests(StripeTestCase):
     def test_dns_failure(self):
         api_base = stripe.api_base
         try:
@@ -80,7 +89,7 @@ class FunctionalTests(unittest.TestCase):
         customer = stripe.Customer()
         self.assertRaises(stripe.InvalidRequestError, customer.refresh)
 
-class AuthenticationErrorTest(unittest.TestCase):
+class AuthenticationErrorTest(StripeTestCase):
     def test_invalid_credentials(self):
         key = stripe.api_key
         try:
@@ -93,7 +102,7 @@ class AuthenticationErrorTest(unittest.TestCase):
         finally:
             stripe.api_key = key
 
-class CardErrorTest(unittest.TestCase):
+class CardErrorTest(StripeTestCase):
     def test_declined_card_props(self):
         EXPIRED_CARD = DUMMY_CARD.copy()
         EXPIRED_CARD['exp_month'] = NOW.month - 2
@@ -105,7 +114,7 @@ class CardErrorTest(unittest.TestCase):
             self.assertTrue(isinstance(e.http_body, str))
             self.assertTrue(isinstance(e.json_body, dict))
 
-class ChargeTest(unittest.TestCase):
+class ChargeTest(StripeTestCase):
     def test_create_uncaptured_charge(self):
         charge = stripe.Charge.create(uncaptured=True, **DUMMY_CHARGE)
         self.assertTrue(charge.paid)
@@ -119,13 +128,14 @@ class ChargeTest(unittest.TestCase):
         self.assertFalse(charge.refunded)
         self.assertEqual(charge.get('uncaptured'), None)
 
-class CustomerTest(unittest.TestCase):
+class CustomerTest(StripeTestCase):
     def test_list_customers(self):
         customers = stripe.Customer.all()
         self.assertTrue(isinstance(customers.data, list))
 
-class CustomerPlanTest(unittest.TestCase):
+class CustomerPlanTest(StripeTestCase):
     def setUp(self):
+        super(CustomerPlanTest, self).setUp()
         try:
             self.plan_obj = stripe.Plan.create(**DUMMY_PLAN)
         except stripe.InvalidRequestError:
@@ -137,6 +147,7 @@ class CustomerPlanTest(unittest.TestCase):
                 self.plan_obj.delete()
             except stripe.InvalidRequestError:
                 pass
+        super(CustomerPlanTest, self).tearDown()
 
     def test_create_customer(self):
         self.assertRaises(stripe.InvalidRequestError, stripe.Customer.create,
@@ -171,7 +182,7 @@ class CustomerPlanTest(unittest.TestCase):
                                           trial_end=trial_end_int)
         self.assertTrue(customer.id)
 
-class CouponTest(unittest.TestCase):
+class CouponTest(StripeTestCase):
     def test_create_coupon(self):
         self.assertRaises(stripe.InvalidRequestError, stripe.Coupon.create, percent_off=25)
         c = stripe.Coupon.create(percent_off=25, duration='repeating', duration_in_months=5)
@@ -187,7 +198,7 @@ class CouponTest(unittest.TestCase):
         self.assertTrue(hasattr(c, 'id'))
         self.assertTrue(c.deleted)
 
-class InvalidRequestErrorTest(unittest.TestCase):
+class InvalidRequestErrorTest(StripeTestCase):
     def test_nonexistent_object(self):
         try:
             stripe.Charge.retrieve('invalid')
@@ -204,8 +215,9 @@ class InvalidRequestErrorTest(unittest.TestCase):
             self.assertTrue(isinstance(e.http_body, str))
             self.assertTrue(isinstance(e.json_body, dict))
 
-class PlanTest(unittest.TestCase):
+class PlanTest(StripeTestCase):
     def setUp(self):
+        super(PlanTest, self).setUp()
         try:
             stripe.Plan(DUMMY_PLAN['id']).delete()
         except stripe.InvalidRequestError:
@@ -230,8 +242,4 @@ class PlanTest(unittest.TestCase):
         p.delete()
 
 if __name__ == '__main__':
-    api_base = os.environ.get('STRIPE_API_BASE')
-    if api_base:
-        stripe.api_base = api_base
-    stripe.api_key = os.environ.get('STRIPE_API_KEY', 'tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I')
     unittest.main()
