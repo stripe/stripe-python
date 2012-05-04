@@ -115,7 +115,8 @@ class AuthenticationError(StripeError):
 def convert_to_stripe_object(resp, api_key):
   types = { 'charge' : Charge, 'customer' : Customer,
             'invoice' : Invoice, 'invoiceitem' : InvoiceItem,
-            'plan' : Plan, 'coupon': Coupon, 'token' : Token, 'event': Event }
+            'plan' : Plan, 'coupon': Coupon, 'token' : Token, 'event': Event,
+            'transfer': Transfer }
 
   if isinstance(resp, list):
     return [convert_to_stripe_object(i, api_key) for i in resp]
@@ -719,3 +720,10 @@ class Coupon(CreateableAPIResource, DeletableAPIResource, ListableAPIResource):
 
 class Event(ListableAPIResource):
   pass
+
+class Transfer(ListableAPIResource):
+  def transactions(self, **params):
+    requestor = APIRequestor(self.api_key)
+    url = self.instance_url() + '/transactions'
+    response, api_key = requestor.request('get', url, params)
+    return convert_to_stripe_object(response, api_key)
