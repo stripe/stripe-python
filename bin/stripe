@@ -45,7 +45,7 @@ class APIResourceClient(object):
       term = ' \\'
     else:
       term = ''
-    curl = ['curl %s%s -u %s:%s' % (stripe.api_base, url, stripe.api_key, term)]
+    curl = ['curl %s%s -H "Authorization: Bearer %s"%s' % (stripe.api_base, url, stripe.api_key, term)]
     if isinstance(ordered_params, list):
       for i, (k, v) in enumerate(ordered_params):
         if i == len(ordered_params) - 1:
