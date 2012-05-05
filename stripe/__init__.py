@@ -697,6 +697,12 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
     self.refresh_from({ 'subscription' : response }, api_key, True)
     return self.subscription
 
+  def delete_discount(self, **params):
+    requestor = APIRequestor(self.api_key)
+    url = self.instance_url() + '/discount'
+    response, api_key = requestor.request('delete', url)
+    self.refresh_from({ 'discount' : None }, api_key, True)
+
 class Invoice(ListableAPIResource):
   @classmethod
   def upcoming(cls, api_key=None, **params):

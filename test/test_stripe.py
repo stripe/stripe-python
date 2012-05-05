@@ -30,7 +30,13 @@ DUMMY_PLAN = {
     'name': 'Amazing Gold Plan',
     'currency': 'usd',
     'id': 'stripe-test-gold-' + ''.join(random.choice(string.lowercase) for x in range(10))
- }
+}
+
+DUMMY_COUPON = {
+    'percent_off': 25,
+    'duration': 'repeating',
+    'duration_in_months': 5
+}
 
 class StripeTestCase(unittest.TestCase):
     def setUp(self):
@@ -187,18 +193,36 @@ class CustomerPlanTest(StripeTestCase):
 class CouponTest(StripeTestCase):
     def test_create_coupon(self):
         self.assertRaises(stripe.InvalidRequestError, stripe.Coupon.create, percent_off=25)
-        c = stripe.Coupon.create(percent_off=25, duration='repeating', duration_in_months=5)
+        c = stripe.Coupon.create(**DUMMY_COUPON)
         self.assertTrue(isinstance(c, stripe.Coupon))
         self.assertTrue(hasattr(c, 'percent_off')) 
         self.assertTrue(hasattr(c, 'id'))
         
     def test_delete_coupon(self):
-        c = stripe.Coupon.create(percent_off=25, duration='repeating', duration_in_months=5)
+        c = stripe.Coupon.create(**DUMMY_COUPON)
         self.assertFalse(hasattr(c, 'deleted'))
         c.delete()
         self.assertFalse(hasattr(c, 'percent_off'))
         self.assertTrue(hasattr(c, 'id'))
         self.assertTrue(c.deleted)
+
+class CustomerCouponTest(StripeTestCase):
+    def setUp(self):
+        super(CustomerCouponTest, self).setUp()
+        self.coupon_obj = stripe.Coupon.create(**DUMMY_COUPON)
+
+    def tearDown(self):
+        self.coupon_obj.delete()
+
+    def test_attach_coupon(self):
+        customer = stripe.Customer.create(coupon=self.coupon_obj.id)
+        self.assertTrue(hasattr(customer, 'discount'))
+        self.assertNotEqual(None, customer.discount)
+
+        customer.delete_discount()
+        self.assertEqual(None, customer.discount)
+
+        customer.delete()
 
 class InvalidRequestErrorTest(StripeTestCase):
     def test_nonexistent_object(self):
