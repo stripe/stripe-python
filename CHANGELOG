@@ -1,3 +1,15 @@
-2011-09-14    Anurag Goel    anurag@stripe.com
-    * stripe/__init__.py (_encode_inner): Parameters with value None
-    no longer being included in API requests.
+=== 1.7.0 2012-05-17
+
+* Add new delete_discount method to stripe.Customer
+
+* Add new stripe.Transfer resource
+
+* Switch from using HTTP Basic auth to Bearer auth. (Note: Stripe will
+  support Basic auth for the indefinite future, but recommends Bearer
+  auth when possible going forward)
+
+* Numerous test suite improvements
+
+=== 1.6.1 2011-09-14
+
+* Parameters with value None are no longer included in API requests
