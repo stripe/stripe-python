@@ -26,30 +26,29 @@ except ImportError:
 _httplib = None
 
 try:
-  import requests
-  _httplib = 'requests'
+  from google.appengine.api import urlfetch
+  _httplib = 'urlfetch'
 except ImportError:
   pass
 
-try:
-  # Require version 0.8.8, but don't want to depend on distutils
-  version = requests.__version__
-  major, minor, patch = [int(i) for i in version.split('.')]
-except:
-  # Probably some new-fangled version, so it should support verify
-  pass
-else:
-  if minor < 8 or (minor == 8 and patch < 8):
-    print >>sys.stderr, 'Warning: the Stripe library requires that your Python "requests" library has a version no older than 0.8.8, but your "requests" library has version %s. Stripe will fall back to an alternate HTTP library, so everything should work, though we recommend upgrading your "requests" library. If you have any questions, please contact support@stripe.com. (HINT: running "pip install -U requests" should upgrade your requests library to the latest version.)' % (version, )
-    _httplib = None
-
-
 if not _httplib:
   try:
-    from google.appengine.api import urlfetch
-    _httplib = 'urlfetch'
+    import requests
+    _httplib = 'requests'
   except ImportError:
     pass
+
+  try:
+    # Require version 0.8.8, but don't want to depend on distutils
+    version = requests.__version__
+    major, minor, patch = [int(i) for i in version.split('.')]
+  except:
+    # Probably some new-fangled version, so it should support verify
+    pass
+  else:
+    if minor < 8 or (minor == 8 and patch < 8):
+      print >>sys.stderr, 'Warning: the Stripe library requires that your Python "requests" library has a version no older than 0.8.8, but your "requests" library has version %s. Stripe will fall back to an alternate HTTP library, so everything should work, though we recommend upgrading your "requests" library. If you have any questions, please contact support@stripe.com. (HINT: running "pip install -U requests" should upgrade your requests library to the latest version.)' % (version, )
+      _httplib = None
 
 if not _httplib:
   try:
