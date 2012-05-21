@@ -1,3 +1,10 @@
+=== 1.7.1 2012-05-21
+
+* Prefer App Engine's urlfetch over requests, as that's the only thing
+  that will work in App Engine's environment. Previously, if requests
+  was available in the App Engine environment, we would attempt to use
+  it.
+
 === 1.7.0 2012-05-17
 
 * Add new delete_discount method to stripe.Customer
