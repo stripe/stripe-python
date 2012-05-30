@@ -569,7 +569,7 @@ class StripeObject(object):
 class StripeObjectEncoder(json.JSONEncoder):
   def default(self, obj):
     if isinstance(obj, StripeObject):
-      return json.dumps(obj.to_dict(), cls=StripeObjectEncoder)
+      return obj.to_dict()
     else:
       return json.JSONEncoder.default(self, obj)
 
