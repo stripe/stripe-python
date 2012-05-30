@@ -556,13 +556,19 @@ class StripeObject(object):
     return json.dumps(self.to_dict(), sort_keys=True, indent=2, cls=StripeObjectEncoder)
 
   def to_dict(self):
+    def _serialize(o):
+      if isinstance(o, StripeObject):
+        return o.to_dict()
+      if isinstance(o, list):
+        return [_serialize(i) for i in o]
+      return o
+
     d = dict()
     for k in sorted(self._values):
       if k in self._permanent_attributes:
         continue
-      v =  getattr(self, k)
-      if isinstance(v, StripeObject):
-        v = v.to_dict()
+      v = getattr(self, k)
+      v = _serialize(v)
       d[k] = v
     return d
 
