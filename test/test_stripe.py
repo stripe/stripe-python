@@ -9,6 +9,8 @@ import unittest
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import stripe
+from stripe import importer
+json = importer.import_json()
 
 # dummy information used in the tests below
 NOW = datetime.datetime.now()
@@ -38,6 +40,54 @@ DUMMY_COUPON = {
     'duration_in_months': 5
 }
 
+SAMPLE_INVOICE = json.loads("""
+{
+  "amount_due": 1305,
+  "attempt_count": 0,
+  "attempted": true,
+  "charge": "ch_wajkQ5aDTzFs5v",
+  "closed": true,
+  "customer": "cus_osllUe2f1BzrRT",
+  "date": 1338238728,
+  "discount": null,
+  "ending_balance": 0,
+  "id": "in_t9mHb2hpK7mml1",
+  "livemode": false,
+  "next_payment_attempt": null,
+  "object": "invoice",
+  "paid": true,
+  "period_end": 1338238728,
+  "period_start": 1338238716,
+  "starting_balance": -8695,
+  "subtotal": 10000,
+  "total": 10000,
+  "lines": {
+    "invoiceitems": [],
+    "prorations": [],
+    "subscriptions": [
+      {
+        "plan": {
+          "interval": "month",
+          "object": "plan",
+          "identifier": "expensive",
+          "currency": "usd",
+          "livemode": false,
+          "amount": 10000,
+          "name": "Expensive Plan",
+          "trial_period_days": null,
+          "id": "expensive"
+        },
+        "period": {
+          "end": 1340917128,
+          "start": 1338238728
+        },
+        "amount": 10000
+      }
+    ]
+  }
+}
+""")
+
 class StripeTestCase(unittest.TestCase):
     def setUp(self):
         super(StripeTestCase, self).setUp()
@@ -46,6 +96,30 @@ class StripeTestCase(unittest.TestCase):
         if api_base:
             stripe.api_base = api_base
         stripe.api_key = os.environ.get('STRIPE_API_KEY', 'tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I')
+
+class StripeObjectTests(StripeTestCase):
+    def test_to_dict_doesnt_return_objects(self):
+        invoice = stripe.Invoice.construct_from(SAMPLE_INVOICE, stripe.api_key)
+
+        def check_object(obj):
+            if isinstance(obj, dict):
+                for k, v in obj.iteritems():
+                    check_object(k)
+                    check_object(v)
+            elif isinstance(obj, list):
+                for v in obj:
+                    check_object(v)
+            else:
+                self.assertFalse(isinstance(obj, stripe.StripeObject),
+                                 "StripeObject %s still in to_dict result" % (repr(obj),))
+        check_object(invoice.to_dict())
+
+class StripeObjectEncoderTests(StripeTestCase):
+    def test_encoder_returns_dict(self):
+        invoice = stripe.Invoice.construct_from(SAMPLE_INVOICE, stripe.api_key)
+        encoded_stripe_object = stripe.StripeObjectEncoder().default(invoice)
+        self.assertTrue(isinstance(encoded_stripe_object, dict),
+                        "StripeObject encoded to %s" % (type(encoded_stripe_object),))
 
 class FunctionalTests(StripeTestCase):
     def test_dns_failure(self):
