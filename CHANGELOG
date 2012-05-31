@@ -1,3 +1,8 @@
+=== 1.7.2 2012-05-31
+
+* Fix a bug that would cause nested objects to be mis-rendered in
+  __str__ and __repr__ methods (github issues #17, #18)
+
 === 1.7.1 2012-05-21
 
 * Prefer App Engine's urlfetch over requests, as that's the only thing
