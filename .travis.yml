@@ -3,6 +3,7 @@ python:
   - "2.5"
   - "2.6"
   - "2.7"
+  - "pypy"
 before_install:
   - sudo apt-get update
   - sudo apt-get install libcurl4-gnutls-dev librtmp-dev
@@ -19,3 +20,6 @@ matrix:
     # Requests doesn't support 2.5
     - python: "2.5"
       env: HTTPLIB=requests
+    # C extensions are not guaranteed to work with pypy
+    - python: "pypy"
+      env: HTTPLIB=pycurl
