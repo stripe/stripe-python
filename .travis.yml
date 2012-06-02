@@ -20,3 +20,6 @@ matrix:
     # Requests doesn't support 2.5
     - python: "2.5"
       env: HTTPLIB=requests
+    # C extensions are not guaranteed to work with pypy
+    - python: "pypy"
+      env: HTTPLIB=pycurl
