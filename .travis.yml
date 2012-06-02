@@ -3,6 +3,7 @@ python:
   - "2.5"
   - "2.6"
   - "2.7"
+  - "pypy"
 before_install:
   - sudo apt-get update
   - sudo apt-get install libcurl4-gnutls-dev librtmp-dev
