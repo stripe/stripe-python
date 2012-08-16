@@ -589,26 +589,23 @@ class APIResource(StripeObject):
     instance.refresh()
     return instance
 
-  def refresh(self, single=False):
+  def refresh(self):
     requestor = APIRequestor(self.api_key)
-    url = self.single_instance_url() if single else self.instance_url()
+    url = self.instance_url()
     response, api_key = requestor.request('get', url)
     self.refresh_from(response, api_key)
     return self
 
   @classmethod
-  def class_resource_name(cls):
+  def class_name(cls):
     if cls == APIResource:
       raise NotImplementedError('APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)')
-    return "/%s" % urllib.quote_plus(cls.__name__.lower())
+    return "%s" % urllib.quote_plus(cls.__name__.lower())
 
   @classmethod
-  def class_url(cls, single=False):
-    cls_name = cls.class_resource_name()
-    return cls_name if single else "%ss" % cls_name
-
-  def single_instance_url(self):
-    return self.class_url(True)
+  def class_url(cls):
+    cls_name = cls.class_name()
+    return "/%ss" % cls_name
 
   def instance_url(self):
     id = self.get('id')
@@ -618,6 +615,24 @@ class APIResource(StripeObject):
     base = self.class_url()
     extn = urllib.quote_plus(id)
     return "%s/%s" % (base, extn)
+
+class SingletonAPIResource(APIResource):
+  def _ident(self):
+    return [self.get('id')]
+
+  @classmethod
+  def retrieve(cls, api_key=None):
+    instance = cls(None, api_key)
+    instance.refresh()
+    return instance
+
+  @classmethod
+  def class_url(cls):
+    cls_name = cls.class_name()
+    return "/%s" % cls_name
+
+  def instance_url(self):
+    return self.class_url()
 
 # Classes of API operations
 class ListableAPIResource(APIResource):
@@ -659,12 +674,8 @@ class DeletableAPIResource(APIResource):
     return self
 
 # API objects
-class Account(APIResource):
-  @classmethod
-  def retrieve(cls, id=None, api_key=None):
-    instance = cls(None, api_key)
-    instance.refresh(True)
-    return instance
+class Account(SingletonAPIResource):
+  pass
 
 class Charge(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
   def refund(self, **params):
