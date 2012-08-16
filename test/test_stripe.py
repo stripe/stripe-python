@@ -196,6 +196,13 @@ class CardErrorTest(StripeTestCase):
             self.assertTrue(isinstance(e.http_body, str))
             self.assertTrue(isinstance(e.json_body, dict))
 
+class AccountTest(StripeTestCase):
+    def test_retrieve_account(self):
+        account = stripe.Account.retrieve()
+        self.assertEqual('test+bindings@stripe.com', account.email)
+        self.assertFalse(account.charge_enabled)
+        self.assertFalse(account.details_submitted)
+
 class ChargeTest(StripeTestCase):
     def test_create_uncaptured_charge(self):
         charge = stripe.Charge.create(uncaptured=True, **DUMMY_CHARGE)
