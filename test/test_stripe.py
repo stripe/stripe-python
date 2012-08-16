@@ -203,20 +203,6 @@ class AccountTest(StripeTestCase):
         self.assertFalse(account.charge_enabled)
         self.assertFalse(account.details_submitted)
 
-class ChargeTest(StripeTestCase):
-    def test_create_uncaptured_charge(self):
-        charge = stripe.Charge.create(uncaptured=True, **DUMMY_CHARGE)
-        self.assertTrue(charge.paid)
-        self.assertFalse(charge.refunded)
-        self.assertTrue(charge.uncaptured)
-
-    def test_create_uncaptured_charge_and_capture(self):
-        charge = stripe.Charge.create(uncaptured=True, **DUMMY_CHARGE)
-        charge.capture()
-        self.assertTrue(charge.paid)
-        self.assertFalse(charge.refunded)
-        self.assertEqual(charge.get('uncaptured'), None)
-
 class CustomerTest(StripeTestCase):
     def test_list_customers(self):
         customers = stripe.Customer.all()
