@@ -97,6 +97,9 @@ class DeletableAPIResourceClient(APIResourceClient):
     self.logged_curl('delete', url, params)
 
 # API objects
+class AccountClient(APIResourceClient):
+  client_for = stripe.Account
+
 class ChargeClient(CreateableAPIResourceClient, ListableAPIResourceClient):
   client_for = stripe.Charge
 
@@ -163,6 +166,7 @@ class CouponClient(CreateableAPIResourceClient, DeletableAPIResourceClient, List
 
 def main():
     klasses = {
+        'account' : AccountClient,
         'charge' : ChargeClient,
         'charges' : ChargeClient,
         'customer' : CustomerClient,
@@ -181,6 +185,9 @@ def main():
     parser = optparse.OptionParser("""%prog [options] class method [key=value|key ...]
 
 Valid methods:
+
+account
+  retrieve
 
 charge
   all

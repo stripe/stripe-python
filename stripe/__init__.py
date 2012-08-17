@@ -597,10 +597,15 @@ class APIResource(StripeObject):
     return self
 
   @classmethod
-  def class_url(cls):
+  def class_name(cls):
     if cls == APIResource:
       raise NotImplementedError('APIResource is an abstract class.  You should perform actions on its subclasses (Charge, Customer, etc.)')
-    return "/%ss" % urllib.quote_plus(cls.__name__.lower())
+    return "%s" % urllib.quote_plus(cls.__name__.lower())
+
+  @classmethod
+  def class_url(cls):
+    cls_name = cls.class_name()
+    return "/%ss" % cls_name
 
   def instance_url(self):
     id = self.get('id')
@@ -610,6 +615,24 @@ class APIResource(StripeObject):
     base = self.class_url()
     extn = urllib.quote_plus(id)
     return "%s/%s" % (base, extn)
+
+class SingletonAPIResource(APIResource):
+  def _ident(self):
+    return [self.get('id')]
+
+  @classmethod
+  def retrieve(cls, api_key=None):
+    instance = cls(None, api_key)
+    instance.refresh()
+    return instance
+
+  @classmethod
+  def class_url(cls):
+    cls_name = cls.class_name()
+    return "/%s" % cls_name
+
+  def instance_url(self):
+    return self.class_url()
 
 # Classes of API operations
 class ListableAPIResource(APIResource):
@@ -651,6 +674,9 @@ class DeletableAPIResource(APIResource):
     return self
 
 # API objects
+class Account(SingletonAPIResource):
+  pass
+
 class Charge(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
   def refund(self, **params):
     requestor = APIRequestor(self.api_key)
