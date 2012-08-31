@@ -143,8 +143,12 @@ class CustomerClient(CreateableAPIResourceClient, UpdateableAPIResourceClient,
     url = self.instance_url() + '/subscription'
     self.logged_curl('delete', url, params)
 
-class InvoiceClient(ListableAPIResourceClient):
+class InvoiceClient(ListableAPIResourceClient, UpdateableAPIResourceClient):
   client_for = stripe.Invoice
+
+  def pay(self):
+    url = self.instance_url() + '/pay'
+    self.logged_curl('post', url, {})
 
   @classmethod
   def upcoming(cls, params):
@@ -213,6 +217,8 @@ invoice
   all
   retrieve
   upcoming
+  update
+  pay
 
 invoiceitem
   all
