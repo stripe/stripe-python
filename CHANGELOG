@@ -1,3 +1,7 @@
+=== 1.7.4 2012-08-31
+
+* Add update and pay methods for Invoice resource
+
 === 1.7.3 2012-08-15
 
 * Add new stripe.Account resource

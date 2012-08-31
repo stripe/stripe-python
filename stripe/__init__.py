@@ -123,7 +123,7 @@ def convert_to_stripe_object(resp, api_key):
     resp = resp.copy()
     klass_name = resp.get('object')
     if isinstance(klass_name, basestring):
-      klass = types.get(klass_name, StripeObject) 
+      klass = types.get(klass_name, StripeObject)
     else:
       klass = StripeObject
     return klass.construct_from(resp, api_key)
@@ -734,7 +734,13 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
     response, api_key = requestor.request('delete', url)
     self.refresh_from({ 'discount' : None }, api_key, True)
 
-class Invoice(ListableAPIResource):
+class Invoice(ListableAPIResource, UpdateableAPIResource):
+  def pay(self):
+    requestor = APIRequestor(self.api_key)
+    url = self.instance_url() + '/pay'
+    response, api_key = requestor.request('post', url, {})
+    return convert_to_stripe_object(response, api_key)
+
   @classmethod
   def upcoming(cls, api_key=None, **params):
     requestor = APIRequestor(api_key)
