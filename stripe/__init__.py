@@ -236,7 +236,7 @@ class APIRequestor(object):
     """
     my_api_key = self.api_key or api_key
     if my_api_key is None:
-      raise AuthenticationError('No API key provided.  (HINT: set your API key using "stripe.api_key = <API-KEY>".  You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.')
+      raise AuthenticationError('No API key provided. (HINT: set your API key using "stripe.api_key = <API-KEY>"). You can generate API keys from the Stripe web interface.  See https://stripe.com/api for details, or email support@stripe.com if you have any questions.')
 
     abs_url = self.api_url(url)
     params = params.copy()
