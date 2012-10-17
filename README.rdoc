@@ -6,15 +6,17 @@ You don't need this source code unless you want to modify the
 package. If you just want to use the Stripe Python bindings, you
 should run:
 
-  sudo pip install --index-url https://code.stripe.com --upgrade stripe
+  pip install --index-url https://code.stripe.com --upgrade stripe
 
 or
 
-  sudo easy_install --index-url https://code.stripe.com --upgrade stripe
+  easy_install --index-url https://code.stripe.com --upgrade stripe
 
-(See http://www.pip-installer.org/en/latest/index.html for
-instructions on installing pip. If you are on a system with
-easy_install but not pip, you can use easy_install instead.)
+See http://www.pip-installer.org/en/latest/index.html for instructions
+on installing pip. If you are on a system with easy_install but not
+pip, you can use easy_install instead. If you're not using virtualenv,
+you may have to prefix those commands with +sudo+. You can learn more
+about virtualenv at http://www.virtualenv.org/
 
 To install from source, run:
 
