@@ -143,7 +143,7 @@ class CustomerClient(CreateableAPIResourceClient, UpdateableAPIResourceClient,
     url = self.instance_url() + '/subscription'
     self.logged_curl('delete', url, params)
 
-class InvoiceClient(ListableAPIResourceClient, UpdateableAPIResourceClient):
+class InvoiceClient(CreateableAPIResourceClient, ListableAPIResourceClient, UpdateableAPIResourceClient):
   client_for = stripe.Invoice
 
   def pay(self):
@@ -158,7 +158,7 @@ class InvoiceClient(ListableAPIResourceClient, UpdateableAPIResourceClient):
 class InvoiceItemClient(CreateableAPIResourceClient, UpdateableAPIResourceClient,
                         ListableAPIResourceClient, DeletableAPIResourceClient):
   client_for = stripe.InvoiceItem
-  
+
 class PlanClient(CreateableAPIResourceClient, DeletableAPIResourceClient, ListableAPIResourceClient, UpdateableAPIResourceClient):
   client_for = stripe.Plan
 
@@ -226,12 +226,12 @@ invoiceitem
   retrieve
   update
   delete
-  
+
 plan
     create
     retrieve
     update
-    
+
 coupon
     all
     create

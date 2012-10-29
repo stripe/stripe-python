@@ -1,3 +1,7 @@
+=== 1.7.5 2012-10-29
+
+* Add support for creating invoices
+
 === 1.7.4 2012-08-31
 
 * Add update and pay methods for Invoice resource

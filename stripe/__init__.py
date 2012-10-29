@@ -734,7 +734,7 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
     response, api_key = requestor.request('delete', url)
     self.refresh_from({ 'discount' : None }, api_key, True)
 
-class Invoice(ListableAPIResource, UpdateableAPIResource):
+class Invoice(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
   def pay(self):
     requestor = APIRequestor(self.api_key)
     url = self.instance_url() + '/pay'
