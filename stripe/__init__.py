@@ -614,7 +614,7 @@ class APIResource(StripeObject):
     id = APIRequestor._utf8(id)
     base = self.class_url()
     extn = urllib.quote_plus(id)
-    return "/v1/%s/%s" % (base, extn)
+    return "%s/%s" % (base, extn)
 
 class ListObject(StripeObject):
   def all(self, **params):
