@@ -1,6 +1,8 @@
-=== 1.7.5 2012-10-29
+=== 1.7.5 2012-10-30
 
 * Add support for creating invoices
+* Add support for new invoice lines return format
+* Add support for new List objects
 
 === 1.7.4 2012-08-31
 
