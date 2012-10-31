@@ -77,7 +77,7 @@ logger = logging.getLogger('stripe')
 ## Configuration variables
 
 api_key = None
-api_base = 'https://api.stripe.com/v1'
+api_base = 'https://api.stripe.com'
 verify_ssl_certs = True
 
 ## Exceptions
@@ -115,7 +115,7 @@ def convert_to_stripe_object(resp, api_key):
   types = { 'charge' : Charge, 'customer' : Customer,
             'invoice' : Invoice, 'invoiceitem' : InvoiceItem,
             'plan' : Plan, 'coupon': Coupon, 'token' : Token, 'event': Event,
-            'transfer': Transfer }
+            'transfer': Transfer, 'list': ListObject }
 
   if isinstance(resp, list):
     return [convert_to_stripe_object(i, api_key) for i in resp]
@@ -605,7 +605,7 @@ class APIResource(StripeObject):
   @classmethod
   def class_url(cls):
     cls_name = cls.class_name()
-    return "/%ss" % cls_name
+    return "/v1/%ss" % cls_name
 
   def instance_url(self):
     id = self.get('id')
@@ -615,6 +615,13 @@ class APIResource(StripeObject):
     base = self.class_url()
     extn = urllib.quote_plus(id)
     return "%s/%s" % (base, extn)
+
+class ListObject(StripeObject):
+  def all(self, **params):
+    requestor = APIRequestor(self.api_key)
+    url = self.get('url')
+    response, api_key = requestor.request('get', url, params)
+    return convert_to_stripe_object(response, api_key)
 
 class SingletonAPIResource(APIResource):
   def _ident(self):
@@ -629,7 +636,7 @@ class SingletonAPIResource(APIResource):
   @classmethod
   def class_url(cls):
     cls_name = cls.class_name()
-    return "/%s" % cls_name
+    return "/v1/%s" % cls_name
 
   def instance_url(self):
     return self.class_url()
@@ -765,8 +772,4 @@ class Event(ListableAPIResource):
   pass
 
 class Transfer(ListableAPIResource):
-  def transactions(self, **params):
-    requestor = APIRequestor(self.api_key)
-    url = self.instance_url() + '/transactions'
-    response, api_key = requestor.request('get', url, params)
-    return convert_to_stripe_object(response, api_key)
+  pass
