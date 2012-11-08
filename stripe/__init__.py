@@ -699,6 +699,13 @@ class Charge(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     self.refresh_from(response, api_key)
     return self
 
+  def update_dispute(self, **params):
+    requestor = APIRequestor(self.api_key)
+    url = self.instance_url() + '/dispute'
+    response, api_key = requestor.request('post', url, params)
+    self.refresh_from({ 'dispute' : response }, api_key, True)
+    return self.dispute
+
 class Customer(CreateableAPIResource, UpdateableAPIResource,
                ListableAPIResource, DeletableAPIResource):
   def add_invoice_item(self, **params):
