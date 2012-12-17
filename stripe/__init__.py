@@ -5,6 +5,7 @@
 ## Imports
 import logging
 import os
+import pkg_resources
 import platform
 import sys
 import urllib
@@ -40,13 +41,12 @@ if not _httplib:
 
   try:
     # Require version 0.8.8, but don't want to depend on distutils
-    version = requests.__version__
-    major, minor, patch = [int(i) for i in version.split('.')]
+    version = pkg_resources.parse_version(requests.__version__)
   except:
     # Probably some new-fangled version, so it should support verify
     pass
   else:
-    if minor < 8 or (minor == 8 and patch < 8):
+    if version < pkg_resources.parse_version("0.8.8"):
       print >>sys.stderr, 'Warning: the Stripe library requires that your Python "requests" library has a version no older than 0.8.8, but your "requests" library has version %s. Stripe will fall back to an alternate HTTP library, so everything should work, though we recommend upgrading your "requests" library. If you have any questions, please contact support@stripe.com. (HINT: running "pip install -U requests" should upgrade your requests library to the latest version.)' % (version, )
       _httplib = None
 
@@ -418,7 +418,6 @@ class APIRequestor(object):
     raise APIConnectionError(msg)
 
   def urllib2_request(self, meth, abs_url, headers, params):
-    args = {}
     if meth == 'get':
       abs_url = '%s?%s' % (abs_url, self.encode(params))
       req = urllib2.Request(abs_url, None, headers)
