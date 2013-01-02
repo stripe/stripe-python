@@ -301,10 +301,10 @@ class APIRequestor(object):
         # greatly reduces overhead and latency when making multiple 
         # requests.
         if not getattr(APIRequestor, 'requests_session', None):
-          APIRequestor.requests_session = requests.Session(headers=headers, 
-                                                           timeout=80, 
-                                                           verify=os.path.join(os.path.dirname(__file__), 'data/ca-certificates.crt'))
-        result = APIRequestor.requests_session.request(meth, abs_url, data=data)
+          APIRequestor.requests_session = requests.Session()
+          APIRequestor.requests_session.verify = os.path.join(os.path.dirname(__file__), 'data/ca-certificates.crt')
+          APIRequestor.requests_session.timeout = 80
+        result = APIRequestor.requests_session.request(meth, abs_url, headers=headers, data=data)
       except TypeError, e:
         raise TypeError('Warning: It looks like your installed version of the "requests" library is not compatible with Stripe\'s usage thereof. (HINT: The most likely cause is that your "requests" library is out of date. You can fix that by running "pip install -U requests".) The underlying error was: %s' %(e, ))
 
