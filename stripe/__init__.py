@@ -78,6 +78,7 @@ logger = logging.getLogger('stripe')
 
 api_key = None
 api_base = 'https://api.stripe.com'
+api_version = None
 verify_ssl_certs = True
 
 ## Exceptions
@@ -261,6 +262,9 @@ class APIRequestor(object):
       'User-Agent' : 'Stripe/v1 PythonBindings/%s' % (VERSION, ),
       'Authorization' : 'Bearer %s' % (my_api_key, )
       }
+    if api_version is not None:
+      headers['Stripe-Version'] = api_version
+
     if _httplib == 'requests':
       rbody, rcode = self.requests_request(meth, abs_url, headers, params)
     elif _httplib == 'pycurl':
