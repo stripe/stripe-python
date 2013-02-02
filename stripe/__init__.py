@@ -463,7 +463,7 @@ class APIRequestor(object):
 
 
 class StripeObject(object):
-  _permanent_attributes = set(['api_key'])
+  _permanent_attributes = set(['api_key', '_retrieve_params'])
 
   def __init__(self, id=None, api_key=None, params={}):
     self.__dict__['_values'] = set()
@@ -471,7 +471,7 @@ class StripeObject(object):
     self.__dict__['_transient_values'] = set()
     self.__dict__['api_key'] = api_key
 
-    self.retrieve_params = params
+    self._retrieve_params = params
     if id:
       self.id = id
 
@@ -606,7 +606,7 @@ class APIResource(StripeObject):
   def refresh(self):
     requestor = APIRequestor(self.api_key)
     url = self.instance_url()
-    response, api_key = requestor.request('get', url, self.retrieve_params)
+    response, api_key = requestor.request('get', url, self._retrieve_params)
     self.refresh_from(response, api_key)
     return self
 
