@@ -465,7 +465,7 @@ class APIRequestor(object):
 class StripeObject(object):
   _permanent_attributes = set(['api_key'])
 
-  def __init__(self, id=None, api_key=None, params={}):
+  def __init__(self, id=None, api_key=None, **params):
     self.__dict__['_values'] = set()
     self.__dict__['_unsaved_values'] = set()
     self.__dict__['_transient_values'] = set()
@@ -599,8 +599,8 @@ class APIResource(StripeObject):
     return [self.get('id')]
 
   @classmethod
-  def retrieve(cls, id, api_key=None, params={}):
-    instance = cls(id, api_key, params)
+  def retrieve(cls, id, api_key=None, **params):
+    instance = cls(id, api_key, **params)
     instance.refresh()
     return instance
 
