@@ -156,6 +156,14 @@ class APIRequestor(object):
       n["%s[%s]" % (key, k)] = v
     stk.extend(cls._encode_inner(n))
 
+
+  @classmethod
+  def encode_list(cls, stk, key, listvalue):
+    n = []
+    for v in listvalue:
+      v = cls._utf8(v)
+      stk.append(("%s[]" % (key), v))
+
   @classmethod
   def encode_datetime(cls, stk, key, dttime):
     utc_timestamp = int(time.mktime(dttime.timetuple()))
@@ -175,6 +183,7 @@ class APIRequestor(object):
     """
     # special case value encoding
     ENCODERS = {
+      list: cls.encode_list,
       dict: cls.encode_dict,
       datetime.datetime: cls.encode_datetime,
       types.NoneType: cls.encode_none,
@@ -456,10 +465,12 @@ class APIRequestor(object):
 class StripeObject(object):
   _permanent_attributes = set(['api_key'])
 
-  def __init__(self, id=None, api_key=None):
+  def __init__(self, id=None, api_key=None, **params):
     self.__dict__['_values'] = set()
     self.__dict__['_unsaved_values'] = set()
     self.__dict__['_transient_values'] = set()
+    self.__dict__['_retrieve_params'] = params
+
     self.__dict__['api_key'] = api_key
 
     if id:
@@ -588,15 +599,15 @@ class APIResource(StripeObject):
     return [self.get('id')]
 
   @classmethod
-  def retrieve(cls, id, api_key=None):
-    instance = cls(id, api_key)
+  def retrieve(cls, id, api_key=None, **params):
+    instance = cls(id, api_key, **params)
     instance.refresh()
     return instance
 
   def refresh(self):
     requestor = APIRequestor(self.api_key)
     url = self.instance_url()
-    response, api_key = requestor.request('get', url)
+    response, api_key = requestor.request('get', url, self._retrieve_params)
     self.refresh_from(response, api_key)
     return self
 
