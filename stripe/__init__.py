@@ -159,7 +159,6 @@ class APIRequestor(object):
 
   @classmethod
   def encode_list(cls, stk, key, listvalue):
-    n = []
     for v in listvalue:
       v = cls._utf8(v)
       stk.append(("%s[]" % (key), v))
@@ -431,7 +430,6 @@ class APIRequestor(object):
     raise APIConnectionError(msg)
 
   def urllib2_request(self, meth, abs_url, headers, params):
-    args = {}
     if meth == 'get':
       abs_url = '%s?%s' % (abs_url, self.encode(params))
       req = urllib2.Request(abs_url, None, headers)
