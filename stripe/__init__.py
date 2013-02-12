@@ -42,7 +42,7 @@ if not _httplib:
     # Require version 0.8.8, but don't want to depend on distutils
     version = requests.__version__
     major, minor, patch = [int(i) for i in version.split('.')]
-  except:
+  except Exception:
     # Probably some new-fangled version, so it should support verify
     pass
   else:
