@@ -15,9 +15,9 @@ import types
 
 # Use cStringIO if it's available.  Otherwise, StringIO is fine.
 try:
-    import cStringIO as StringIO
+  import cStringIO as StringIO
 except ImportError:
-    import StringIO
+  import StringIO
 
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch
