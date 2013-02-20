@@ -15,9 +15,9 @@ import types
 
 # Use cStringIO if it's available.  Otherwise, StringIO is fine.
 try:
-    import cStringIO as StringIO
+  import cStringIO as StringIO
 except ImportError:
-    import StringIO
+  import StringIO
 
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch
@@ -42,11 +42,11 @@ if not _httplib:
     # Require version 0.8.8, but don't want to depend on distutils
     version = requests.__version__
     major, minor, patch = [int(i) for i in version.split('.')]
-  except:
+  except Exception:
     # Probably some new-fangled version, so it should support verify
     pass
   else:
-    if major < 1 and (minor < 8 or (minor == 8 and patch < 8)):
+    if (major, minor, patch) < (0, 8, 8):
       print >>sys.stderr, 'Warning: the Stripe library requires that your Python "requests" library has a version no older than 0.8.8, but your "requests" library has version %s. Stripe will fall back to an alternate HTTP library, so everything should work, though we recommend upgrading your "requests" library. If you have any questions, please contact support@stripe.com. (HINT: running "pip install -U requests" should upgrade your requests library to the latest version.)' % (version, )
       _httplib = None
 
@@ -61,12 +61,12 @@ if not _httplib:
   try:
     import urllib2
     _httplib = 'urllib2'
-    print >>sys.stderr, "Warning: the Stripe library is falling back to urllib2 because pycurl isn't installed. urllib2's SSL implementation doesn't verify server certificates. For improved security, we suggest installing pycurl."
+    print >>sys.stderr, "Warning: the Stripe library is falling back to urllib2 because neither requests nor pycurl are installed. urllib2's SSL implementation doesn't verify server certificates. For improved security, we suggest installing requests."
   except ImportError:
     pass
 
 if not _httplib:
-  raise ImportError("Stripe requires one of pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where none of these libraries are available, please let us know at support@stripe.com.")
+  raise ImportError("Stripe requires one of requests, pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where none of these libraries are available, please let us know at support@stripe.com.")
 
 from version import VERSION
 import importer
@@ -159,7 +159,6 @@ class APIRequestor(object):
 
   @classmethod
   def encode_list(cls, stk, key, listvalue):
-    n = []
     for v in listvalue:
       v = cls._utf8(v)
       stk.append(("%s[]" % (key), v))
@@ -431,7 +430,6 @@ class APIRequestor(object):
     raise APIConnectionError(msg)
 
   def urllib2_request(self, meth, abs_url, headers, params):
-    args = {}
     if meth == 'get':
       abs_url = '%s?%s' % (abs_url, self.encode(params))
       req = urllib2.Request(abs_url, None, headers)
