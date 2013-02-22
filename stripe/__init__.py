@@ -307,11 +307,17 @@ class APIRequestor(object):
     else:
       raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Stripe bindings.  Please contact support@stripe.com for assistance.' % (meth, ))
 
+    kwargs = {}
+    if verify_ssl_certs:
+      kwargs['verify'] = os.path.join(os.path.dirname(__file__), 'data/ca-certificates.crt')
+    else:
+      kwargs['verify'] = false
+
     try:
       try:
         result = requests.request(meth, abs_url,
                                   headers=headers, data=data, timeout=80,
-                                  verify=os.path.join(os.path.dirname(__file__), 'data/ca-certificates.crt'))
+                                  **kwargs)
       except TypeError, e:
         raise TypeError('Warning: It looks like your installed version of the "requests" library is not compatible with Stripe\'s usage thereof. (HINT: The most likely cause is that your "requests" library is out of date. You can fix that by running "pip install -U requests".) The underlying error was: %s' %(e, ))
 
