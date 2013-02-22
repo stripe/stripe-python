@@ -254,7 +254,8 @@ class APIRequestor(object):
     ua = {
       'bindings_version' : VERSION,
       'lang' : 'python',
-      'publisher' : 'stripe'
+      'publisher' : 'stripe',
+      'httplib': _httplib,
       }
     for attr, func in [['lang_version', platform.python_version],
                        ['platform', platform.platform],
