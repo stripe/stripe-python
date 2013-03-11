@@ -8,6 +8,7 @@ import os
 import platform
 import sys
 import urllib
+import urlparse
 import textwrap
 import time
 import datetime
@@ -219,6 +220,14 @@ class APIRequestor(object):
     """
     return urllib.urlencode(cls._encode_inner(d))
 
+  @classmethod
+  def build_url(cls, url, params):
+    base_query = urlparse.urlparse(url).query
+    if base_query:
+      return '%s&%s' % (url, cls.encode(params))
+    else:
+      return '%s?%s' % (url, cls.encode(params))
+
   def request(self, meth, url, params={}):
     rbody, rcode, my_api_key = self.request_raw(meth, url, params)
     resp = self.interpret_response(rbody, rcode)
@@ -300,7 +309,7 @@ class APIRequestor(object):
     meth = meth.lower()
     if meth == 'get' or meth == 'delete':
       if params:
-          abs_url = '%s?%s' % (abs_url, self.encode(params))
+        abs_url = self.build_url(abs_url, params)
       data = None
     elif meth == 'post':
       data = self.encode(params)
@@ -355,14 +364,14 @@ class APIRequestor(object):
       curl.setopt(pycurl.HTTPGET, 1)
       # TODO: maybe be a bit less manual here
       if params:
-          abs_url = '%s?%s' % (abs_url, self.encode(params))
+        abs_url = self.build_url(abs_url, params)
     elif meth == 'post':
       curl.setopt(pycurl.POST, 1)
       curl.setopt(pycurl.POSTFIELDS, self.encode(params))
     elif meth == 'delete':
       curl.setopt(pycurl.CUSTOMREQUEST, 'DELETE')
       if params:
-          abs_url = '%s?%s' % (abs_url, self.encode(params))
+        abs_url = self.build_url(abs_url, params)
     else:
       raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Stripe bindings.  Please contact support@stripe.com for assistance.' % (meth, ))
 
@@ -404,7 +413,7 @@ class APIRequestor(object):
     if meth == 'post':
       args['payload'] = self.encode(params)
     elif meth == 'get' or meth == 'delete':
-      abs_url = '%s?%s' % (abs_url, self.encode(params))
+      abs_url = self.build_url(abs_url, params)
     else:
       raise APIConnectionError('Unrecognized HTTP method %r.  This may indicate a bug in the Stripe bindings.  Please contact support@stripe.com for assistance.' % (meth, ))
     args['url'] = abs_url
@@ -438,13 +447,13 @@ class APIRequestor(object):
 
   def urllib2_request(self, meth, abs_url, headers, params):
     if meth == 'get':
-      abs_url = '%s?%s' % (abs_url, self.encode(params))
+      abs_url = self.build_url(abs_url, params)
       req = urllib2.Request(abs_url, None, headers)
     elif meth == 'post':
       body = self.encode(params)
       req = urllib2.Request(abs_url, body, headers)
     elif meth == 'delete':
-      abs_url = '%s?%s' % (abs_url, self.encode(params))
+      abs_url = self.build_url(abs_url, params)
       req = urllib2.Request(abs_url, None, headers)
       req.get_method = lambda: 'DELETE'
     else:
