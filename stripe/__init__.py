@@ -117,7 +117,7 @@ def convert_to_stripe_object(resp, api_key):
   types = { 'charge' : Charge, 'customer' : Customer,
             'invoice' : Invoice, 'invoiceitem' : InvoiceItem,
             'plan' : Plan, 'coupon': Coupon, 'token' : Token, 'event': Event,
-            'transfer': Transfer, 'list': ListObject }
+            'transfer': Transfer, 'list': ListObject, 'recipient': Recipient }
 
   if isinstance(resp, list):
     return [convert_to_stripe_object(i, api_key) for i in resp]

@@ -218,11 +218,13 @@ class TransferTest(StripeTestCase):
     def test_list_transfers(self):
         transfers = stripe.Transfer.all()
         self.assertTrue(isinstance(transfers.data, list))
+        self.assertTrue(isinstance(transfers.data[0], stripe.Transfer))
 
 class RecipientTest(StripeTestCase):
     def test_list_recipients(self):
         recipients = stripe.Recipient.all()
         self.assertTrue(isinstance(recipients.data, list))
+        self.assertTrue(isinstance(recipients.data[0], stripe.Recipient))
 
 class CustomerPlanTest(StripeTestCase):
     def setUp(self):
