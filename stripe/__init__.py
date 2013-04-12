@@ -807,5 +807,12 @@ class Coupon(CreateableAPIResource, DeletableAPIResource, ListableAPIResource):
 class Event(ListableAPIResource):
   pass
 
-class Transfer(ListableAPIResource):
+class Transfer(CreateableAPIResource, ListableAPIResource):
   pass
+
+class Recipient(CreateableAPIResource, UpdateableAPIResource,
+               ListableAPIResource, DeletableAPIResource):
+  def transfers(self, **params):
+    params['recipient'] = self.id
+    transfers = Transfer.all(self.api_key, **params)
+    return transfers
