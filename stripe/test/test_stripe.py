@@ -26,12 +26,13 @@ DUMMY_CHARGE = {
     'card': DUMMY_CARD
 }
 
+lowercase_letters = getattr(string, "lowercase", getattr(string, "ascii_lowercase", None))
 DUMMY_PLAN = {
     'amount': 2000,
     'interval': 'month',
     'name': 'Amazing Gold Plan',
     'currency': 'usd',
-    'id': 'stripe-test-gold-' + ''.join(random.choice(string.lowercase) for x in range(10))
+    'id': 'stripe-test-gold-' + ''.join(random.choice(lowercase_letters) for x in range(10))
 }
 
 DUMMY_COUPON = {
@@ -185,7 +186,7 @@ class AuthenticationErrorTest(StripeTestCase):
             stripe.Customer.create()
         except stripe.AuthenticationError, e:
             self.assertEqual(401, e.http_status)
-            self.assertTrue(isinstance(e.http_body, str))
+            self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
         finally:
             stripe.api_key = key
@@ -199,7 +200,7 @@ class CardErrorTest(StripeTestCase):
             stripe.Charge.create(amount=100, currency='usd', card=EXPIRED_CARD)
         except stripe.CardError, e:
             self.assertEqual(402, e.http_status)
-            self.assertTrue(isinstance(e.http_body, str))
+            self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
 
 class AccountTest(StripeTestCase):
@@ -303,7 +304,7 @@ class InvalidRequestErrorTest(StripeTestCase):
             stripe.Charge.retrieve('invalid')
         except stripe.InvalidRequestError, e:
             self.assertEqual(404, e.http_status)
-            self.assertTrue(isinstance(e.http_body, str))
+            self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
 
     def test_invalid_data(self):
@@ -311,7 +312,7 @@ class InvalidRequestErrorTest(StripeTestCase):
             stripe.Charge.create()
         except stripe.InvalidRequestError, e:
             self.assertEqual(400, e.http_status)
-            self.assertTrue(isinstance(e.http_body, str))
+            self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
 
 class PlanTest(StripeTestCase):
