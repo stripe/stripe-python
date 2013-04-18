@@ -13,13 +13,15 @@ env:
   - HTTPLIB=
 install:
   - pip install simplejson $HTTPLIB --use-mirrors
-script: nosetests
+  - python setup.py install
+script:
+# need to change into a different directory to make sure we use the 2to3 converted code
+  - mkdir -p temp/
+  - cd temp
+  - python -m stripe.test.test_stripe
 
 matrix:
   exclude:
-    # Requests doesn't support 2.5
-    - python: "2.5"
-      env: HTTPLIB=requests
     # C extensions are not guaranteed to work with pypy
     - python: "pypy"
       env: HTTPLIB=pycurl

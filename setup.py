@@ -19,10 +19,10 @@ import version
 path, script = os.path.split(sys.argv[0])
 os.chdir(os.path.abspath(path))
 
-if sys.version_info >= (2, 6):
-    install_requires = ['requests >= 0.8.8']
-else:
-    install_requires = []
+requests = 'requests >= 0.8.8'
+if sys.version_info < (2, 6):
+  requests += ', < 0.10.1'
+install_requires = [requests]
 
 # Get simplejson if we don't already have json
 try:
