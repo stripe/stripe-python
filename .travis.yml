@@ -14,8 +14,10 @@ env:
   - HTTPLIB=pycurl
   - HTTPLIB=
 install:
-  - pip install simplejson $HTTPLIB --use-mirrors
+  - if [[ $HTTPLIB == pycurl ]]; then pip install pycurl --use-mirrors; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then pip install --use-mirrors simplejson; fi
   - python setup.py install
+  - if [[ $HTTPLIB != requests ]]; then pip uninstall --yes requests; fi
 script:
 # need to change into a different directory to make sure we use the 2to3 converted code
   - mkdir -p temp/
@@ -24,6 +26,10 @@ script:
 
 matrix:
   exclude:
-    # C extensions are not guaranteed to work with pypy
+    # C extensions are not guaranteed to work with pypy, and pycurl is not compatible with Python 3
+    - python: "py32"
+      env: HTTPLIB=pycurl
+    - python: "py33"
+      env: HTTPLIB=pycurl
     - python: "pypy"
       env: HTTPLIB=pycurl
