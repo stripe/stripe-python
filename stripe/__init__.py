@@ -450,7 +450,7 @@ class APIRequestor(object):
       abs_url = self.build_url(abs_url, params)
       req = urllib2.Request(abs_url, None, headers)
     elif meth == 'post':
-      body = self.encode(params)
+      body = self.encode(params).encode('utf-8')
       req = urllib2.Request(abs_url, body, headers)
     elif meth == 'delete':
       abs_url = self.build_url(abs_url, params)

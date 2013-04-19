@@ -328,7 +328,7 @@ class PlanTest(StripeTestCase):
         p = stripe.Plan.create(**DUMMY_PLAN)
         self.assertTrue(hasattr(p, 'amount')) 
         self.assertTrue(hasattr(p, 'id'))
-        self.assertEquals(DUMMY_PLAN['amount'], p.amount)
+        self.assertEqual(DUMMY_PLAN['amount'], p.amount)
         p.delete()
         self.assertTrue(hasattr(p, 'deleted'))
         self.assertTrue(p.deleted)
