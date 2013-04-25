@@ -86,7 +86,7 @@ verify_ssl_certs = True
 class StripeError(Exception):
   def __init__(self, message=None, http_body=None, http_status=None, json_body=None):
     super(StripeError, self).__init__(message)
-    self.http_body = http_body
+    self.http_body = http_body and http_body.decode('utf-8')
     self.http_status = http_status
     self.json_body = json_body
 
@@ -101,7 +101,7 @@ class CardError(StripeError):
     super(CardError, self).__init__(message, http_body, http_status, json_body)
     self.param = param
     self.code = code
-    self.http_body = http_body
+    self.http_body = http_body and http_body.decode('utf-8')
     self.http_status = http_status
     self.json_body = json_body
 
@@ -143,7 +143,7 @@ class APIRequestor(object):
 
   @classmethod
   def _utf8(cls, value):
-    if isinstance(value, unicode):
+    if isinstance(value, unicode) and sys.version_info < (3, 0):
       return value.encode('utf-8')
     else:
       return value
@@ -298,7 +298,7 @@ class APIRequestor(object):
 
   def interpret_response(self, rbody, rcode):
     try:
-      resp = json.loads(rbody)
+      resp = json.loads(rbody.decode('utf-8'))
     except Exception:
       raise APIError("Invalid response body from API: %s (HTTP response code was %d)" % (rbody, rcode), rbody, rcode)
     if not (200 <= rcode < 300):
@@ -344,12 +344,12 @@ class APIRequestor(object):
   def handle_requests_error(self, e):
     if isinstance(e, requests.exceptions.RequestException):
       msg = "Unexpected error communicating with Stripe.  If this problem persists, let us know at support@stripe.com."
-      err = "%s: %s" % (type(e).__name__, e.message)
+      err = "%s: %s" % (type(e).__name__, str(e))
     else:
       msg = "Unexpected error communicating with Stripe.  It looks like there's probably a configuration issue locally.  If this problem persists, let us know at support@stripe.com."
       err = "A %s was raised" % (type(e).__name__, )
-      if e.message:
-        err += " with error message %s" % (e.message, )
+      if str(e):
+        err += " with error message %s" % (str(e), )
       else:
         err += " with no error message"
     msg = textwrap.fill(msg) + "\n\n(Network error: " + err + ")"
@@ -450,7 +450,7 @@ class APIRequestor(object):
       abs_url = self.build_url(abs_url, params)
       req = urllib2.Request(abs_url, None, headers)
     elif meth == 'post':
-      body = self.encode(params)
+      body = self.encode(params).encode('utf-8')
       req = urllib2.Request(abs_url, body, headers)
     elif meth == 'delete':
       abs_url = self.build_url(abs_url, params)
