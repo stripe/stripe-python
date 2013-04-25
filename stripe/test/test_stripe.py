@@ -26,13 +26,12 @@ DUMMY_CHARGE = {
     'card': DUMMY_CARD
 }
 
-lowercase_letters = getattr(string, "lowercase", getattr(string, "ascii_lowercase", None))
 DUMMY_PLAN = {
     'amount': 2000,
     'interval': 'month',
     'name': 'Amazing Gold Plan',
     'currency': 'usd',
-    'id': 'stripe-test-gold-' + ''.join(random.choice(lowercase_letters) for x in range(10))
+    'id': 'stripe-test-gold-' + ''.join(random.choice(string.ascii_lowercase) for x in range(10))
 }
 
 DUMMY_COUPON = {
