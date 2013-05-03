@@ -359,7 +359,7 @@ class PlanTest(StripeTestCase):
         plan = stripe.Plan(p.id)
         plan.name = name
 
-        self.assertEqual(['id', 'name'], plan.keys()) # should only have name and id
+        self.assertEqual(sorted(['id', 'name']), sorted(plan.keys())) # should only have name and id
         plan.save()
 
         self.assertEqual(name, plan.name)
