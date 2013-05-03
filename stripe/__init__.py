@@ -532,10 +532,10 @@ class StripeObject(object):
     setattr(self, k, v)
 
   def keys(self):
-    return self._values.keys()
+    return self.to_dict().keys()
 
   def values(self):
-    return self._values.keys()
+    return self.to_dict().values()
 
   @classmethod
   def construct_from(cls, values, api_key):

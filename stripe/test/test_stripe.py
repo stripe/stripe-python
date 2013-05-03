@@ -7,7 +7,7 @@ import time
 import random
 import unittest
 
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 import stripe
 from stripe import importer
 json = importer.import_json()
@@ -359,7 +359,7 @@ class PlanTest(StripeTestCase):
         plan = stripe.Plan(p.id)
         plan.name = name
 
-        self.assertEqual(list('name', 'id'), plan.keys) # should only have name and id
+        self.assertEqual(['id', 'name'], plan.keys()) # should only have name and id
         plan.save()
 
         self.assertEqual(name, plan.name)
