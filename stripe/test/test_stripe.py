@@ -280,9 +280,9 @@ class CouponTest(StripeTestCase):
         self.assertRaises(stripe.InvalidRequestError, stripe.Coupon.create, percent_off=25)
         c = stripe.Coupon.create(**DUMMY_COUPON)
         self.assertTrue(isinstance(c, stripe.Coupon))
-        self.assertTrue(hasattr(c, 'percent_off')) 
+        self.assertTrue(hasattr(c, 'percent_off'))
         self.assertTrue(hasattr(c, 'id'))
-        
+
     def test_delete_coupon(self):
         c = stripe.Coupon.create(**DUMMY_COUPON)
         self.assertFalse(hasattr(c, 'deleted'))
@@ -337,7 +337,7 @@ class PlanTest(StripeTestCase):
     def test_create_plan(self):
         self.assertRaises(stripe.InvalidRequestError, stripe.Plan.create, amount=2500)
         p = stripe.Plan.create(**DUMMY_PLAN)
-        self.assertTrue(hasattr(p, 'amount')) 
+        self.assertTrue(hasattr(p, 'amount'))
         self.assertTrue(hasattr(p, 'id'))
         self.assertEqual(DUMMY_PLAN['amount'], p.amount)
         p.delete()
@@ -350,6 +350,20 @@ class PlanTest(StripeTestCase):
         p.name = name
         p.save()
         self.assertEqual(name, p.name)
+        p.delete()
+
+    def test_update_plan_without_retrieving(self):
+        p = stripe.Plan.create(**DUMMY_PLAN)
+
+        name = 'updated plan name!'
+        plan = stripe.Plan(p.id)
+        plan.name = name
+
+        self.assertEqual(list('name', 'id'), plan.keys) # should only have name and id
+        plan.save()
+
+        self.assertEqual(name, plan.name)
+        self.assertEqual(p.amount, plan.amount) # should load all the properties
         p.delete()
 
 if __name__ == '__main__':

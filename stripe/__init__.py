@@ -477,7 +477,7 @@ class APIRequestor(object):
 
 
 class StripeObject(object):
-  _permanent_attributes = set(['api_key', 'id'])
+  _permanent_attributes = set(['api_key'])
 
   def __init__(self, id=None, api_key=None, **params):
     self.__dict__['_values'] = set()
@@ -691,9 +691,13 @@ class UpdateableAPIResource(APIResource):
   def save(self):
     if self._unsaved_values:
       requestor = APIRequestor(self.api_key)
+
       params = {}
       for k in self._unsaved_values:
+        if k == 'id':
+          continue
         params[k] = getattr(self, k)
+
       url = self.instance_url()
       response, api_key = requestor.request('post', url, params)
       self.refresh_from(response, api_key)
