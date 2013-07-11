@@ -117,7 +117,8 @@ def convert_to_stripe_object(resp, api_key):
   types = { 'charge' : Charge, 'customer' : Customer,
             'invoice' : Invoice, 'invoiceitem' : InvoiceItem,
             'plan' : Plan, 'coupon': Coupon, 'token' : Token, 'event': Event,
-            'transfer': Transfer, 'list': ListObject, 'recipient': Recipient }
+            'transfer': Transfer, 'list': ListObject, 'recipient': Recipient,
+            'card': Card }
 
   if isinstance(resp, list):
     return [convert_to_stripe_object(i, api_key) for i in resp]
@@ -652,6 +653,21 @@ class ListObject(StripeObject):
     response, api_key = requestor.request('get', url, params)
     return convert_to_stripe_object(response, api_key)
 
+  def create(self, **params):
+    requestor = APIRequestor(self.api_key)
+    url = self.get('url')
+    response, api_key = requestor.request('post', url, params)
+    return convert_to_stripe_object(response, api_key)
+
+  def retrieve(self, id, **params):
+    requestor = APIRequestor(self.api_key)
+    base = self.get('url')
+    id = APIRequestor._utf8(id)
+    extn = urllib.quote_plus(id)
+    url =  "%s/%s" % (base, extn)
+    response, api_key = requestor.request('get', url, params)
+    return convert_to_stripe_object(response, api_key)
+
 class SingletonAPIResource(APIResource):
   def _ident(self):
     return [self.get('id')]
@@ -716,6 +732,21 @@ class DeletableAPIResource(APIResource):
 # API objects
 class Account(SingletonAPIResource):
   pass
+
+class Card(UpdateableAPIResource, DeletableAPIResource):
+  def instance_url(self):
+    self.id = APIRequestor._utf8(self.id)
+    self.customer = APIRequestor._utf8(self.customer)
+
+    base = Customer.class_url()
+    cust_extn = urllib.quote_plus(self.customer)
+    extn = urllib.quote_plus(self.id)
+
+    return "%s/%s/cards/%s" % (base, cust_extn, extn)
+
+  @classmethod
+  def retrieve(cls, id, api_key=None, **params):
+    raise NotImplementedError("Can't retrieve a card without a customer ID. Use customer.cards.retrieve('card_id') instead.")
 
 class Charge(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
   def refund(self, **params):
