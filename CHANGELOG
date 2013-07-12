@@ -1,3 +1,11 @@
+=== 1.9.2 2013-07-12
+
+* Add support for multiple cards API
+
+=== 1.9.1 2013-05-03
+
+* Remove 'id' from the list of permanent attributes
+
 === 1.9.0 2013-04-25
 
 * Support for Python 3 (github issue #32)
