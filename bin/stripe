@@ -100,6 +100,9 @@ class DeletableAPIResourceClient(APIResourceClient):
 class AccountClient(APIResourceClient):
   client_for = stripe.Account
 
+class CardClient(UpdateableAPIResourceClient, DeletableAPIResourceClient):
+  client_for = stripe.Card
+
 class ChargeClient(CreateableAPIResourceClient, ListableAPIResourceClient):
   client_for = stripe.Charge
 
@@ -175,6 +178,7 @@ class CouponClient(CreateableAPIResourceClient, DeletableAPIResourceClient, List
 def main():
     klasses = {
         'account' : AccountClient,
+        'card' : CardClient,
         'charge' : ChargeClient,
         'charges' : ChargeClient,
         'customer' : CustomerClient,
@@ -196,6 +200,10 @@ Valid methods:
 
 account
   retrieve
+
+card
+  update
+  delete
 
 charge
   all
