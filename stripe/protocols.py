@@ -275,22 +275,59 @@ def _import_defaults():
 
 
 def get_requestor():
+    """
+    Grabs a cached requestor function to make a network request.
+
+    If the protocol has not yet been configured, the default protocol
+    implementations are configured.
+
+    :return: the current configured request function.
+    """
     global protocol
     if not _configured:
+        print "not configured. importing defaults."
         _import_defaults()
 
     return _requestors.get(protocol)
 
 
 def add_protocol(protocol_name, request_fn):
+    """
+    Adds a protocol to the _requestors dict using request_fn for requests.
+
+    If a protocol has not yet been configured, the default protocol
+    implementations are configured.
+
+    :param protocol_name: the request protocol name.
+    :param request_fn: the request function to be used when get_requestor() is called.
+    """
     global protocol, _requestors
-    if protocol_name in _default_protocols:
+    if protocol_name in _default_protocols and not _configured:
         _import_defaults()
     else:
         _requestors[protocol_name] = request_fn
 
 
+def unset_protocol(protocol_name):
+    """
+    Unsets a protocol from the _requestors dict with the name protocol_name.
+    :param protocol_name: the name of the request protocol to remove.
+    :return:
+    """
+    global protocol, _requestors, _configured
+    if _configured:
+        if protocol_name in _requestors.keys():
+            del _requestors[protocol]
+        if protocol_name == protocol:
+            protocol = None
+        _configured = False
+
+
 def set_protocol(protocol_name):
+    """
+    Sets the current request protocol to the protocol identified by protocol_name.
+    :param protocol_name: the protocol to set.
+    """
     global protocol, _configured
     if protocol_name in _default_protocols:
         _import_defaults()

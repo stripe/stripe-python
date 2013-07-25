@@ -368,5 +368,35 @@ class PlanTest(StripeTestCase):
         self.assertEqual(p.amount, plan.amount) # should load all the properties
         p.delete()
 
+
+class ProtocolTest(StripeTestCase):
+
+    def test_add_protocol(self):
+
+        def dummy_protocol(meth, abs_url, headers, params):
+
+            body_dict = {
+                "method": meth,
+                "abs_url": abs_url,
+                "headers": headers,
+                "params": params
+            }
+            response = json.dumps(body_dict).encode('utf-8')
+            return response, 200
+
+        protocols.add_protocol("dummy", dummy_protocol)
+        protocols.set_protocol("dummy")
+        requestor = stripe.APIRequestor()
+        response, api_key = requestor.request("get", "/dummy", {})
+        ua = response["headers"]["X-Stripe-Client-User-Agent"]
+        ua = json.loads(ua)
+        self.assertEquals(ua.get("httplib"), "dummy")
+        protocols.unset_protocol("dummy")
+
+    def test_invalid_set(self):
+        self.assertRaises(Exception, protocols.set_protocol, "dummy")
+        requestor = protocols.get_requestor()
+        self.assertNotEqual(requestor, None)
+
 if __name__ == '__main__':
     unittest.main()
