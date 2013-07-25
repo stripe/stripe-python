@@ -390,7 +390,7 @@ class ProtocolTest(StripeTestCase):
         response, api_key = requestor.request("get", "/dummy", {})
         ua = response["headers"]["X-Stripe-Client-User-Agent"]
         ua = json.loads(ua)
-        self.assertEquals(ua.get("httplib"), "dummy")
+        self.assertEqual(ua.get("httplib"), "dummy")
         protocols.unset_protocol("dummy")
 
     def test_invalid_set(self):

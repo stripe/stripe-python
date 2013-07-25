@@ -29,7 +29,6 @@ logger = logging.getLogger('stripe')
 ## Configuration variables
 
 api_key = None
-api_base = 'https://api.stripe.com'
 api_version = None
 
 
@@ -60,7 +59,7 @@ class APIRequestor(object):
 
   @classmethod
   def api_url(cls, url=''):
-    return '%s%s' % (api_base, url)
+    return '%s%s' % (protocols.api_base, url)
 
   @classmethod
   def _objects_to_ids(cls, d):

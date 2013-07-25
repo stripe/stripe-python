@@ -8,6 +8,7 @@ from . import encoders
 from . import exceptions as stripe_exceptions
 
 verify_ssl_certs = True
+api_base = 'https://api.stripe.com'
 protocol = None
 _default_protocols = [
     "urlfetch",
@@ -285,7 +286,6 @@ def get_requestor():
     """
     global protocol
     if not _configured:
-        print "not configured. importing defaults."
         _import_defaults()
 
     return _requestors.get(protocol)
