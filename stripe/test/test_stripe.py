@@ -96,7 +96,7 @@ class StripeTestCase(unittest.TestCase):
 
         api_base = os.environ.get('STRIPE_API_BASE')
         if api_base:
-            stripe.api_base = api_base
+            protocols.api_base = api_base
         stripe.api_key = os.environ.get('STRIPE_API_KEY', 'tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I')
 
 class StripeObjectTests(StripeTestCase):
@@ -131,12 +131,12 @@ class StripeAPIRequestorTests(StripeTestCase):
 
 class FunctionalTests(StripeTestCase):
     def test_dns_failure(self):
-        api_base = stripe.api_base
+        api_base = protocols.api_base
         try:
-            stripe.api_base = 'https://my-invalid-domain.ireallywontresolve/v1'
+            protocols.api_base = 'https://my-invalid-domain.ireallywontresolve/v1'
             self.assertRaises(stripe_exceptions.APIConnectionError, stripe.Customer.create)
         finally:
-            stripe.api_base = api_base
+            protocols.api_base = api_base
 
     def test_run(self):
         charge = stripe.Charge.create(**DUMMY_CHARGE)
