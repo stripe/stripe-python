@@ -106,15 +106,10 @@ class APIRequestor(object):
     params = params.copy()
     self._objects_to_ids(params)
 
-    requestor = protocols.get_requestor()
-    if requestor is None:
-        raise stripe_exceptions.StripeError("Stripe Python library bug discovered: invalid httplib %s.  Please report to support@stripe.com" % (protocols.protocol, ))
-
     ua = {
       'bindings_version' : VERSION,
       'lang' : 'python',
-      'publisher' : 'stripe',
-      'httplib': protocols.protocol,
+      'publisher' : 'stripe'
       }
     for attr, func in [['lang_version', platform.python_version],
                        ['platform', platform.platform],
@@ -125,6 +120,11 @@ class APIRequestor(object):
         val = "!! %s" % e
       ua[attr] = val
 
+    requestor = protocols.get_requestor()
+    protocol = protocols.protocol
+    if requestor is None:
+        raise stripe_exceptions.StripeError("Stripe Python library bug discovered: invalid httplib %s.  Please report to support@stripe.com" % (protocol, ))
+    ua['httplib'] = protocol
     headers = {
       'X-Stripe-Client-User-Agent' : json.dumps(ua),
       'User-Agent' : 'Stripe/v1 PythonBindings/%s' % (VERSION, ),
