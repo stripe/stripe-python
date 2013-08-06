@@ -214,6 +214,18 @@ class CustomerTest(StripeTestCase):
         customers = stripe.Customer.all()
         self.assertTrue(isinstance(customers.data, list))
 
+    def test_unset_description(self):
+        customer = stripe.Customer.create(description="foo bar")
+
+        customer.description = None
+        customer.save()
+
+        self.assertEqual(None, customer.retrieve(customer.id).description)
+
+    def test_cannot_set_empty_string(self):
+        customer = stripe.Customer()
+        self.assertRaises(ValueError, setattr, customer, "description", "")
+
 class TransferTest(StripeTestCase):
     def test_list_transfers(self):
         transfers = stripe.Transfer.all()
