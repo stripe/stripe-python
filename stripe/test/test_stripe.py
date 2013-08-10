@@ -209,6 +209,30 @@ class AccountTest(StripeTestCase):
         self.assertFalse(account.charge_enabled)
         self.assertFalse(account.details_submitted)
 
+class BalanceTest(StripeTestCase):
+    def test_retrieve_balance(self):
+        balance = stripe.Balance.retrieve()
+        self.assertTrue(hasattr(balance, 'available'))
+        self.assertTrue(isinstance(balance['available'], list))
+        if len(balance['available']):
+            self.assertTrue(hasattr(balance['available'][0], 'amount'))
+            self.assertTrue(hasattr(balance['available'][0], 'currency'))
+
+        self.assertTrue(hasattr(balance, 'pending'))
+        self.assertTrue(isinstance(balance['pending'], list))
+        if len(balance['pending']):
+            self.assertTrue(hasattr(balance['pending'][0], 'amount'))
+            self.assertTrue(hasattr(balance['pending'][0], 'currency'))
+
+        self.assertEqual(False, balance['livemode'])
+        self.assertEqual('balance', balance['object'])
+
+class BalanceTransactionTest(StripeTestCase):
+    def test_list_balance_transactions(self):
+        balance_transactions = stripe.BalanceTransaction.all()
+        self.assertTrue(hasattr(balance_transactions, 'count'))
+        self.assertTrue(isinstance(balance_transactions.data, list))
+
 class CustomerTest(StripeTestCase):
     def test_list_customers(self):
         customers = stripe.Customer.all()

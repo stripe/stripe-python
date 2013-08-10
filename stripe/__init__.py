@@ -733,6 +733,14 @@ class DeletableAPIResource(APIResource):
 class Account(SingletonAPIResource):
   pass
 
+class Balance(SingletonAPIResource):
+  pass
+
+class BalanceTransaction(ListableAPIResource):
+  @classmethod
+  def class_url(cls):
+    return '/v1/balance/history'
+
 class Card(UpdateableAPIResource, DeletableAPIResource):
   def instance_url(self):
     self.id = APIRequestor._utf8(self.id)
