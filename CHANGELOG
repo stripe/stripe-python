@@ -1,3 +1,9 @@
+=== 1.9.3 2013-08-12
+
+* Add support for unsetting attributes by setting to None.
+  Setting properties to a blank string is now an error.
+* Attempting to set an object's id is now an error.
+
 === 1.9.2 2013-07-12
 
 * Add support for multiple cards API
