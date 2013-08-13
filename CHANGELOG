@@ -1,3 +1,7 @@
+=== 1.9.4 2013-08-13
+
+* Add stripe.Balance and stripe.BalanceTransaction resources
+
 === 1.9.3 2013-08-12
 
 * Add support for unsetting attributes by setting to None.
