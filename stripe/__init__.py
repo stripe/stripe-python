@@ -321,7 +321,7 @@ class APIRequestor(object):
     if verify_ssl_certs:
       kwargs['verify'] = os.path.join(os.path.dirname(__file__), 'data/ca-certificates.crt')
     else:
-      kwargs['verify'] = false
+      kwargs['verify'] = False
 
     try:
       try:
