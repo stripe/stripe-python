@@ -35,6 +35,7 @@ except ImportError:
 if not _httplib:
   try:
     import requests
+    requests_session = requests.session()
     _httplib = 'requests'
   except ImportError:
     pass
@@ -325,9 +326,9 @@ class APIRequestor(object):
 
     try:
       try:
-        result = requests.request(meth, abs_url,
-                                  headers=headers, data=data, timeout=80,
-                                  **kwargs)
+        result = requests_session.request(meth, abs_url,
+                                          headers=headers, data=data, timeout=80,
+                                          **kwargs)
       except TypeError, e:
         raise TypeError('Warning: It looks like your installed version of the "requests" library is not compatible with Stripe\'s usage thereof. (HINT: The most likely cause is that your "requests" library is out of date. You can fix that by running "pip install -U requests".) The underlying error was: %s' %(e, ))
 
