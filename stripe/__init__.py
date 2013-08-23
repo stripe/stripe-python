@@ -438,7 +438,7 @@ class APIRequestor(object):
     if isinstance(e, urlfetch.InvalidURLError):
       msg = "The Stripe library attempted to fetch an invalid URL (%r).  This is likely due to a bug in the Stripe Python bindings.  Please let us know at support@stripe.com." % (abs_url, )
     elif isinstance(e, urlfetch.DownloadError):
-      msg = "There were a problem retrieving data from Stripe."
+      msg = "There was a problem retrieving data from Stripe."
     elif isinstance(e, urlfetch.ResponseTooLargeError):
       msg = "There was a problem receiving all of your data from Stripe.  This is likely due to a bug in Stripe.  Please let us know at support@stripe.com."
     else:
