@@ -118,6 +118,11 @@ class ChargeClient(CreateableAPIResourceClient, ListableAPIResourceClient):
     url = self.instance_url() + '/dispute'
     self.logged_curl('post', url, params)
 
+  def close_dispute(self):
+    url = self.instance_url() + '/dispute/close'
+    self.logged_curl('post', url, {})
+
+
 class CustomerClient(CreateableAPIResourceClient, UpdateableAPIResourceClient,
                      ListableAPIResourceClient, DeletableAPIResourceClient):
   client_for = stripe.Customer
