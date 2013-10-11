@@ -40,6 +40,17 @@ DUMMY_COUPON = {
     'duration_in_months': 5
 }
 
+DUMMY_RECIPIENT = {
+    'name': 'John Doe',
+    'type': 'individual'
+}
+
+DUMMY_TRANSFER = {
+    'amount': 400,
+    'currency': 'usd',
+    'recipient': 'self'
+}
+
 SAMPLE_INVOICE = json.loads("""
 {
   "amount_due": 1305,
@@ -401,6 +412,77 @@ class PlanTest(StripeTestCase):
         self.assertEqual(name, plan.name)
         self.assertEqual(p.amount, plan.amount) # should load all the properties
         p.delete()
+
+class MetadataTest(StripeTestCase):
+    def setUp(self):
+        super(MetadataTest, self).setUp()
+        self.initial_metadata = {
+            'address': '77 Massachusetts Ave, Cambridge',
+            'uuid': 'id'
+        }
+
+        charge = stripe.Charge.create(metadata=self.initial_metadata, **DUMMY_CHARGE)
+        customer = stripe.Customer.create(metadata=self.initial_metadata, card=DUMMY_CARD)
+        recipient = stripe.Recipient.create(metadata=self.initial_metadata, **DUMMY_RECIPIENT)
+        transfer = stripe.Transfer.create(metadata=self.initial_metadata, **DUMMY_TRANSFER)
+
+        self.support_metadata = [charge, customer, recipient, transfer]
+
+    def test_noop_metadata(self):
+        for obj in self.support_metadata:
+            obj.description = 'test'
+            obj.save()
+            metadata = obj.retrieve(obj.id).metadata
+            self.assertEqual(self.initial_metadata, metadata.to_dict())
+
+    def test_unset_metadata(self):
+        for obj in self.support_metadata:
+            obj.metadata = None
+            expected_metadata = {}
+            obj.save()
+            metadata = obj.retrieve(obj.id).metadata
+            self.assertEqual(expected_metadata, metadata.to_dict())
+
+    def test_whole_update(self):
+        for obj in self.support_metadata:
+            expected_metadata = {'txn_id': '3287423s34'}
+            obj.metadata = expected_metadata.copy()
+            obj.save()
+            metadata = obj.retrieve(obj.id).metadata
+            self.assertEqual(expected_metadata, metadata.to_dict())
+
+    def test_individual_delete(self):
+        for obj in self.support_metadata:
+            obj.metadata['uuid'] = None
+            expected_metadata = {'address': self.initial_metadata['address']}
+            obj.save()
+            metadata = obj.retrieve(obj.id).metadata
+            self.assertEqual(expected_metadata, metadata.to_dict())
+
+    def test_individual_update(self):
+        for obj in self.support_metadata:
+            obj.metadata['txn_id'] = 'abc'
+            expected_metadata = {'txn_id': 'abc'}
+            expected_metadata.update(self.initial_metadata)
+            obj.save()
+            metadata = obj.retrieve(obj.id).metadata
+            self.assertEqual(expected_metadata, metadata.to_dict())
+
+    def test_combo_update(self):
+        for obj in self.support_metadata:
+            obj.metadata['txn_id'] = 'bar'
+            obj.metadata = {'uid': '6735'}
+            obj.save()
+            metadata = obj.retrieve(obj.id).metadata
+            self.assertEqual({'uid': '6735'}, metadata.to_dict())
+
+        for obj in self.support_metadata:
+            obj.metadata = {'uid': '6735'}
+            obj.metadata['foo'] = 'bar'
+            obj.save()
+            metadata = obj.retrieve(obj.id).metadata
+            self.assertEqual({'uid': '6735', 'foo': 'bar'}, metadata.to_dict())
+
 
 if __name__ == '__main__':
     unittest.main()

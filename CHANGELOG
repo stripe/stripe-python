@@ -1,3 +1,7 @@
+=== 1.9.7 2013-10-10
+
+* Add support for metadata.
+
 === 1.9.6 2013-10-08
 
 * Fix issue with support for closing disputes.
