@@ -521,6 +521,9 @@ class StripeObject(object):
     else:
       raise KeyError(k)
 
+  def __delitem__(self, k):
+    raise TypeError("You cannot delete attributes on a StripeObject. To unset a property, set it to None.")
+
   def get(self, k, default=None):
     try:
       return self[k]
