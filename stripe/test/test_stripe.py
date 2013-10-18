@@ -132,12 +132,6 @@ class StripeObjectEncoderTests(StripeTestCase):
         self.assertTrue(isinstance(encoded_stripe_object, dict),
                         "StripeObject encoded to %s" % (type(encoded_stripe_object),))
 
-class StripeAPIRequestorTests(StripeTestCase):
-    def test_builds_url_correctly_with_base_url_query_params(self):
-        charges = stripe.Charge.all(count=5)
-        paid_charges = charges.all(paid=True)
-        self.assertTrue(isinstance(paid_charges.data, list))
-
 class FunctionalTests(StripeTestCase):
     def test_dns_failure(self):
         api_base = stripe.api_base
