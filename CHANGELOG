@@ -1,3 +1,7 @@
+=== 1.9.8 2013-10-17
+
+* Removed incorrect test.
+
 === 1.9.7 2013-10-10
 
 * Add support for metadata.
