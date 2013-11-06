@@ -125,6 +125,15 @@ class StripeObjectTests(StripeTestCase):
                                  "StripeObject %s still in to_dict result" % (repr(obj),))
         check_object(invoice.to_dict())
 
+    def test_object_pickleable(self):
+        import pickle
+
+        invoice = stripe.Invoice.construct_from(SAMPLE_INVOICE, stripe.api_key)
+        pickled = pickle.dumps(invoice)
+        new = pickle.loads(pickled)
+
+        self.assertEqual(invoice.id, new.id)
+
 class StripeObjectEncoderTests(StripeTestCase):
     def test_encoder_returns_dict(self):
         invoice = stripe.Invoice.construct_from(SAMPLE_INVOICE, stripe.api_key)
