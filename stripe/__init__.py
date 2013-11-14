@@ -821,14 +821,14 @@ class Charge(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
 class ApplicationFee(ListableAPIResource):
   @classmethod
   def class_name(cls):
-      return 'application_fee'
+    return 'application_fee'
 
   def refund(self, **params):
-      requestor = APIRequestor(self.api_key)
-      url = self.instance_url() + '/refund'
-      response, api_key = requestor.request('post', url, params)
-      self.refresh_from(response, api_key)
-      return self
+    requestor = APIRequestor(self.api_key)
+    url = self.instance_url() + '/refund'
+    response, api_key = requestor.request('post', url, params)
+    self.refresh_from(response, api_key)
+    return self
 
 class Customer(CreateableAPIResource, UpdateableAPIResource,
                ListableAPIResource, DeletableAPIResource):

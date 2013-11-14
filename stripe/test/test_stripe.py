@@ -20,6 +20,7 @@ DUMMY_CARD = {
     'exp_month': NOW.month,
     'exp_year': NOW.year + 4
 }
+
 DUMMY_CHARGE = {
     'amount': 100,
     'currency': 'usd',
@@ -237,6 +238,12 @@ class BalanceTransactionTest(StripeTestCase):
         balance_transactions = stripe.BalanceTransaction.all()
         self.assertTrue(hasattr(balance_transactions, 'count'))
         self.assertTrue(isinstance(balance_transactions.data, list))
+
+class ApplicationFeeTest(StripeTestCase):
+    def test_list_application_fees(self):
+        application_fees = stripe.ApplicationFee.all()
+        self.assertTrue(hasattr(application_fees, 'count'))
+        self.assertTrue(isinstance(application_fees.data, list))
 
 class CustomerTest(StripeTestCase):
     def test_list_customers(self):
