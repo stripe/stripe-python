@@ -24,21 +24,25 @@ except ImportError:
 # - Google App Engine has urlfetch
 # - Use Pycurl if it's there (at least it verifies SSL certs)
 # - Fall back to urllib2 with a warning if needed
-_httplib = None
 
 try:
-  from google.appengine.api import urlfetch
-  _httplib = 'urlfetch'
+  import urllib2
+  _httplib = 'urllib2'
 except ImportError:
-  pass
+  urllib2 = None
 
-if not _httplib:
-  try:
-    import requests
-    _httplib = 'requests'
-  except ImportError:
-    pass
+try:
+  import pycurl
+  _httplib = 'pycurl'
+except ImportError:
+  pycurl = None
 
+try:
+  import requests
+  _httplib = 'requests'
+except ImportError:
+  requests = None
+else:
   try:
     # Require version 0.8.8, but don't want to depend on distutils
     version = requests.__version__
@@ -51,23 +55,17 @@ if not _httplib:
       print >>sys.stderr, 'Warning: the Stripe library requires that your Python "requests" library has a version no older than 0.8.8, but your "requests" library has version %s. Stripe will fall back to an alternate HTTP library, so everything should work, though we recommend upgrading your "requests" library. If you have any questions, please contact support@stripe.com. (HINT: running "pip install -U requests" should upgrade your requests library to the latest version.)' % (version, )
       _httplib = None
 
-if not _httplib:
-  try:
-    import pycurl
-    _httplib = 'pycurl'
-  except ImportError:
-    pass
-
-if not _httplib:
-  try:
-    import urllib2
-    _httplib = 'urllib2'
-    print >>sys.stderr, "Warning: the Stripe library is falling back to urllib2 because neither requests nor pycurl are installed. urllib2's SSL implementation doesn't verify server certificates. For improved security, we suggest installing requests."
-  except ImportError:
-    pass
+try:
+  from google.appengine.api import urlfetch
+  _httplib = 'urlfetch'
+except ImportError:
+  urlfetch = None
+  pass
 
 if not _httplib:
   raise ImportError("Stripe requires one of requests, pycurl, Google App Engine's urlfetch, or urllib2.  If you are on a platform where none of these libraries are available, please let us know at support@stripe.com.")
+elif _httplib == 'urllib2':
+  print >>sys.stderr, "Warning: the Stripe library is falling back to urllib2 because neither requests nor pycurl are installed. urllib2's SSL implementation doesn't verify server certificates. For improved security, we suggest installing requests."
 
 from version import VERSION
 import importer
@@ -223,11 +221,14 @@ class APIRequestor(object):
 
   @classmethod
   def build_url(cls, url, params):
-    base_query = urlparse.urlparse(url).query
+    scheme, netloc, path, base_query, fragment = urlparse.urlsplit(url)
+
+    query = cls.encode(params)
+
     if base_query:
-      return '%s&%s' % (url, cls.encode(params))
-    else:
-      return '%s?%s' % (url, cls.encode(params))
+      query = '%s&%s' % (base_query, query)
+
+    return urlparse.urlunsplit((scheme, netloc, path, query, fragment))
 
   def request(self, meth, url, params={}):
     rbody, rcode, my_api_key = self.request_raw(meth, url, params)
@@ -432,6 +433,7 @@ class APIRequestor(object):
       result = urlfetch.fetch(**args)
     except urlfetch.Error, e:
       self.handle_urlfetch_error(e, abs_url)
+
     return result.content, result.status_code
 
   def handle_urlfetch_error(self, e, abs_url):

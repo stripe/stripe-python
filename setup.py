@@ -24,6 +24,8 @@ if sys.version_info < (2, 6):
   requests += ', < 0.10.1'
 install_requires = [requests]
 
+test_requires = install_requires + ['pycurl >= 7.19']
+
 # Get simplejson if we don't already have json
 try:
   importer.import_json()
@@ -46,5 +48,6 @@ setup(name='stripe',
       packages=['stripe','stripe.test'],
       package_data={'stripe' : ['data/ca-certificates.crt', '../VERSION']},
       install_requires=install_requires,
+      tests_require = test_requirements,
       test_suite='stripe.test',
 )
