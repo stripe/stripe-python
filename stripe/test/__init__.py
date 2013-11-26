@@ -2,7 +2,7 @@ import unittest
 import os
 import stripe
 
-from mock import patch
+from mock import patch, Mock
 
 class StripeTestCase(unittest.TestCase):
     RESTORE_ATTRIBUTES = ('_httplib', 'api_version', 'api_key')
@@ -49,8 +49,16 @@ class StripeUnitTestCase(StripeTestCase):
 
 class StripeApiTestCase(StripeUnitTestCase):
     def setUp(self):
+        old_utf_8 = stripe.APIRequestor._utf8
+
         self.requestor_patcher = patch('stripe.APIRequestor')
-        self.requestor_mock = self.requestor_patcher.start()
+        requestor_class_mock = self.requestor_patcher.start()
+        self.requestor_mock = requestor_class_mock.return_value
+
+        requestor_class_mock._utf8 = old_utf_8
 
     def tearDown(self):
         self.requestor_patcher.stop()
+
+    def mock_response(self, res):
+        self.requestor_mock.request = Mock(return_value=(res, 'reskey'))
