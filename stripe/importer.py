@@ -1,21 +1,16 @@
-# Imports needed in setup.py and __init__.py
+import warnings
+
+warnings.warn("The importers module is deprecated and will be removed in "
+              "version 2.0. Check the `util` module for json imports",
+              DeprecationWarning)
+
 
 def import_json():
-  # Python 2.5 and below do not ship with json
-  _json_loaded = None
-  try:
-    import json
-    if hasattr(json, 'loads'):
-      return json
-    _json_loaded = False
-  except ImportError:
-    pass
+    warnings.warn(
+        "'import_json function is deprecated and will be removed in version "
+        "2.0 of the Stripe python bindings.  Please use"
+        "`from importer import json` instead'",
+        DeprecationWarning)
 
-  try:
-    import simplejson
-    return simplejson
-  except ImportError:
-    if _json_loaded is None:
-      raise ImportError("Stripe requires a JSON library, which you do not appear to have.  Please install the simplejson library.  HINT: Try installing the python simplejson library via 'pip install simplejson' or 'easy_install simplejson', or contact support@stripe.com with questions.")
-    else:
-      raise ImportError("Stripe requires a JSON library with the same interface as the Python 2.6 'json' library.  You appear to have a 'json' library with a different interface.  Please install the simplejson library.  HINT: Try installing the python simplejson library via 'pip install simplejson' or 'easy_install simplejson', or contact support@stripe.com with questions.")
+    from stripe.util import json
+    return json

@@ -12,7 +12,7 @@ except ImportError:
 import stripe
 
 from stripe import APIRequestor, APIError, APIConnectionError
-from stripe.test import StripeUnitTestCase
+from stripe.test.helper import StripeUnitTestCase
 
 VALID_API_METHODS = ('get', 'post', 'delete')
 
@@ -68,7 +68,7 @@ class APIRequestorClassTests(unittest.TestCase):
         'none': [],
     }
 
-    def encoder_test(self, key):
+    def encoder_check(self, key):
         stk_key = "my%s" % key
 
         value = self.ENCODE_INPUTS[key]
@@ -85,16 +85,16 @@ class APIRequestorClassTests(unittest.TestCase):
         self.assertEqual(expectation, stk)
 
     def test_encode_dict(self):
-        self.encoder_test('dict')
+        self.encoder_check('dict')
 
     def test_encode_list(self):
-        self.encoder_test('list')
+        self.encoder_check('list')
 
     def test_encode_datetime(self):
-        self.encoder_test('datetime')
+        self.encoder_check('datetime')
 
     def test_encode_none(self):
-        self.encoder_test('none')
+        self.encoder_check('none')
 
     def test_encode(self):
         expectation = []
@@ -161,18 +161,21 @@ class APIRequestorRequestTests(StripeUnitTestCase):
     def setUp(self):
         super(APIRequestorRequestTests, self).setUp()
 
-        stripe._httplib = 'urllib2'
-        self.requestor = APIRequestor()
+        self.http_client = Mock(stripe.http_client.HTTPClient)
+        self.http_client._verify_ssl_certs = True
+        self.http_client.name = 'mockclient'
+
+        self.requestor = APIRequestor(client=self.http_client)
 
     def mock_response(self, return_body, return_code, requestor=None):
         if not requestor:
             requestor = self.requestor
 
-        requestor.urllib2_request = Mock(
+        self.http_client.request = Mock(
             return_value=(return_body, return_code))
 
     def check_call(self, meth, abs_url=None, headers={},
-                   params={}, requestor=None):
+                   post_data=None, requestor=None):
         if not abs_url:
             abs_url = 'https://api.stripe.com%s' % self.valid_path
         if not requestor:
@@ -180,8 +183,8 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         if not headers:
             headers = APIHeaderMatcher()
 
-        requestor.urllib2_request.assert_called_with(
-            meth, abs_url, headers, params)
+        self.http_client.request.assert_called_with(
+            meth, abs_url, headers, post_data)
 
     @property
     def valid_path(self):
@@ -195,7 +198,12 @@ class APIRequestorRequestTests(StripeUnitTestCase):
 
             body, key = self.requestor.request(meth, self.valid_path, {})
 
-            self.check_call(meth)
+            if meth == 'post':
+                post_data = ''
+            else:
+                post_data = None
+
+            self.check_call(meth, post_data=post_data)
             self.assertEqual({}, body)
 
     def test_methods_with_params_and_response(self):
@@ -207,16 +215,23 @@ class APIRequestorRequestTests(StripeUnitTestCase):
                 'adict': {'frobble': 'bits'},
                 'adatetime': datetime.datetime(2013, 1, 1)
             }
+            encoded = ('alist%5B%5D=1&alist%5B%5D=2&alist%5B%5D=3&'
+                       'adatetime=1356994800&adict%5Bfrobble%5D=bits')
 
             body, key = self.requestor.request(meth, self.valid_path,
                                                params)
-
-            self.check_call(meth, params=params)
             self.assertEqual({'foo': 'bar', 'baz': 6}, body)
+
+            if meth == 'post':
+                self.check_call(meth, post_data=encoded)
+            else:
+                abs_url = "https://api.stripe.com%s?%s" % (
+                    self.valid_path, encoded)
+                self.check_call(meth, abs_url=abs_url)
 
     def test_uses_instance_key(self):
         key = 'fookey'
-        requestor = APIRequestor(key)
+        requestor = APIRequestor(key, client=self.http_client)
 
         self.mock_response('{}', 200, requestor=requestor)
 
@@ -277,7 +292,7 @@ class ClientTestBase():
 
     @property
     def request_mock(self):
-        return self.request_mocks[self.name]
+        return self.request_mocks[self.request_client.name]
 
     @property
     def valid_url(self, path='/foo'):
@@ -285,7 +300,8 @@ class ClientTestBase():
 
     def make_request(self, meth, abs_url, headers, params):
         requestor = APIRequestor()
-        request_method = getattr(requestor, "%s_request" % self.name)
+        request_method = getattr(requestor,
+                                 "%s_request" % self.request_client.name)
 
         return request_method(meth, abs_url, headers, params)
 
@@ -339,11 +355,11 @@ class ClientTestBase():
 class RequestsVerify(object):
 
     def __eq__(self, other):
-        return other.endswith('stripe/data/ca-certificates.crt')
+        return other and other.endswith('stripe/data/ca-certificates.crt')
 
 
 class RequestsClientTests(StripeUnitTestCase, ClientTestBase):
-    name = 'requests'
+    request_client = stripe.http_client.RequestsClient
 
     def mock_response(self, mock, body, code):
         result = Mock()
@@ -365,7 +381,7 @@ class RequestsClientTests(StripeUnitTestCase, ClientTestBase):
 
 
 class UrlFetchClientTests(StripeUnitTestCase, ClientTestBase):
-    name = 'urlfetch'
+    request_client = stripe.http_client.UrlFetchClient
 
     def mock_response(self, mock, body, code):
         result = Mock()
@@ -379,22 +395,18 @@ class UrlFetchClientTests(StripeUnitTestCase, ClientTestBase):
         mock.fetch.side_effect = mock.InvalidURLError()
 
     def check_call(self, mock, meth, url, post_data, headers):
-        kwargs = {
-            'url': url,
-            'method': meth,
-            'headers': headers,
-            'validate_certificate': True,
-            'deadline': 55
-        }
-
-        if meth == 'post':
-            kwargs['payload'] = post_data
-
-        mock.fetch.assert_called_with(**kwargs)
+        mock.fetch.assert_called_with(
+            url=url,
+            method=meth,
+            headers=headers,
+            validate_certificate=True,
+            deadline=55,
+            payload=post_data
+        )
 
 
-class UrlLib2ClientTests(StripeUnitTestCase, ClientTestBase):
-    name = 'urllib2'
+class Urllib2ClientTests(StripeUnitTestCase, ClientTestBase):
+    request_client = stripe.http_client.Urllib2Client
 
     def mock_response(self, mock, body, code):
         response = Mock

@@ -5,29 +5,43 @@ import sys
 import time
 import unittest
 
+from mock import patch
+
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 import stripe
 from stripe import importer
 json = importer.import_json()
 
-from stripe.test import StripeTestCase
-from stripe.test.helper import (NOW, DUMMY_CARD, DUMMY_CHARGE, DUMMY_PLAN,
-                                DUMMY_COUPON, DUMMY_RECIPIENT, DUMMY_TRANSFER,
-                                SAMPLE_INVOICE)
+from stripe.test.helper import (
+    StripeTestCase,
+    NOW, DUMMY_CARD, DUMMY_CHARGE, DUMMY_PLAN, DUMMY_COUPON,
+    DUMMY_RECIPIENT, DUMMY_TRANSFER, SAMPLE_INVOICE)
+
 
 class FunctionalTests(StripeTestCase):
-    request_library = 'urllib2'
+    request_client = stripe.http_client.Urllib2Client
 
     def setUp(self):
         super(FunctionalTests, self).setUp()
 
-        stripe._httplib = self.request_library
+        def get_http_client(*args, **kwargs):
+            return self.request_client(*args, **kwargs)
+
+        self.client_patcher = patch(
+            'stripe.http_client.new_default_http_client')
+        self.client_patcher.side_effect = get_http_client
+
+    def tearDown(self):
+        super(FunctionalTests, self).tearDown()
+
+        self.client_patcher.stop()
 
     def test_dns_failure(self):
         api_base = stripe.api_base
         try:
             stripe.api_base = 'https://my-invalid-domain.ireallywontresolve/v1'
-            self.assertRaises(stripe.APIConnectionError, stripe.Customer.create)
+            self.assertRaises(stripe.APIConnectionError,
+                              stripe.Customer.create)
         finally:
             stripe.api_base = api_base
 
@@ -72,17 +86,21 @@ class FunctionalTests(StripeTestCase):
         customer = stripe.Customer()
         self.assertRaises(stripe.InvalidRequestError, customer.refresh)
 
+
 class RequestsFunctionalTests(FunctionalTests):
-    request_library = 'requests'
+    request_client = stripe.http_client.RequestsClient
 
 # TODO: Find a way to functional test outside of app engine
 # class UrlfetchFunctionalTests(FunctionalTests):
-#   request_library = 'urlfetch'
+#   request_client = 'urlfetch'
+
 
 class PycurlFunctionalTests(FunctionalTests):
-    request_library = 'pycurl'
+    request_client = stripe.http_client.PycurlClient
+
 
 class AuthenticationErrorTest(StripeTestCase):
+
     def test_invalid_credentials(self):
         key = stripe.api_key
         try:
@@ -95,7 +113,9 @@ class AuthenticationErrorTest(StripeTestCase):
         finally:
             stripe.api_key = key
 
+
 class CardErrorTest(StripeTestCase):
+
     def test_declined_card_props(self):
         EXPIRED_CARD = DUMMY_CARD.copy()
         EXPIRED_CARD['exp_month'] = NOW.month - 2
@@ -107,14 +127,18 @@ class CardErrorTest(StripeTestCase):
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
 
+
 class AccountTest(StripeTestCase):
+
     def test_retrieve_account(self):
         account = stripe.Account.retrieve()
         self.assertEqual('test+bindings@stripe.com', account.email)
         self.assertFalse(account.charge_enabled)
         self.assertFalse(account.details_submitted)
 
+
 class BalanceTest(StripeTestCase):
+
     def test_retrieve_balance(self):
         balance = stripe.Balance.retrieve()
         self.assertTrue(hasattr(balance, 'available'))
@@ -132,13 +156,17 @@ class BalanceTest(StripeTestCase):
         self.assertEqual(False, balance['livemode'])
         self.assertEqual('balance', balance['object'])
 
+
 class BalanceTransactionTest(StripeTestCase):
+
     def test_list_balance_transactions(self):
         balance_transactions = stripe.BalanceTransaction.all()
         self.assertTrue(hasattr(balance_transactions, 'count'))
         self.assertTrue(isinstance(balance_transactions.data, list))
 
+
 class CustomerTest(StripeTestCase):
+
     def test_list_customers(self):
         customers = stripe.Customer.all()
         self.assertTrue(isinstance(customers.data, list))
@@ -155,19 +183,25 @@ class CustomerTest(StripeTestCase):
         customer = stripe.Customer()
         self.assertRaises(ValueError, setattr, customer, "description", "")
 
+
 class TransferTest(StripeTestCase):
+
     def test_list_transfers(self):
         transfers = stripe.Transfer.all()
         self.assertTrue(isinstance(transfers.data, list))
         self.assertTrue(isinstance(transfers.data[0], stripe.Transfer))
 
+
 class RecipientTest(StripeTestCase):
+
     def test_list_recipients(self):
         recipients = stripe.Recipient.all()
         self.assertTrue(isinstance(recipients.data, list))
         self.assertTrue(isinstance(recipients.data[0], stripe.Recipient))
 
+
 class CustomerPlanTest(StripeTestCase):
+
     def setUp(self):
         super(CustomerPlanTest, self).setUp()
         try:
@@ -186,7 +220,8 @@ class CustomerPlanTest(StripeTestCase):
     def test_create_customer(self):
         self.assertRaises(stripe.InvalidRequestError, stripe.Customer.create,
                           plan=DUMMY_PLAN['id'])
-        customer = stripe.Customer.create(plan=DUMMY_PLAN['id'], card=DUMMY_CARD)
+        customer = stripe.Customer.create(
+            plan=DUMMY_PLAN['id'], card=DUMMY_CARD)
         self.assertTrue(hasattr(customer, 'subscription'))
         self.assertFalse(hasattr(customer, 'plan'))
         customer.delete()
@@ -204,8 +239,9 @@ class CustomerPlanTest(StripeTestCase):
         self.assertEqual(customer.subscription.status, 'canceled')
 
     def test_datetime_trial_end(self):
-        customer = stripe.Customer.create(plan=DUMMY_PLAN['id'], card=DUMMY_CARD,
-            trial_end=datetime.datetime.now()+datetime.timedelta(days=15))
+        customer = stripe.Customer.create(
+            plan=DUMMY_PLAN['id'], card=DUMMY_CARD,
+            trial_end=datetime.datetime.now() + datetime.timedelta(days=15))
         self.assertTrue(customer.id)
 
     def test_integer_trial_end(self):
@@ -216,9 +252,12 @@ class CustomerPlanTest(StripeTestCase):
                                           trial_end=trial_end_int)
         self.assertTrue(customer.id)
 
+
 class CouponTest(StripeTestCase):
+
     def test_create_coupon(self):
-        self.assertRaises(stripe.InvalidRequestError, stripe.Coupon.create, percent_off=25)
+        self.assertRaises(stripe.InvalidRequestError,
+                          stripe.Coupon.create, percent_off=25)
         c = stripe.Coupon.create(**DUMMY_COUPON)
         self.assertTrue(isinstance(c, stripe.Coupon))
         self.assertTrue(hasattr(c, 'percent_off'))
@@ -232,7 +271,9 @@ class CouponTest(StripeTestCase):
         self.assertTrue(hasattr(c, 'id'))
         self.assertTrue(c.deleted)
 
+
 class CustomerCouponTest(StripeTestCase):
+
     def setUp(self):
         super(CustomerCouponTest, self).setUp()
         self.coupon_obj = stripe.Coupon.create(**DUMMY_COUPON)
@@ -250,7 +291,9 @@ class CustomerCouponTest(StripeTestCase):
 
         customer.delete()
 
+
 class InvalidRequestErrorTest(StripeTestCase):
+
     def test_nonexistent_object(self):
         try:
             stripe.Charge.retrieve('invalid')
@@ -267,7 +310,9 @@ class InvalidRequestErrorTest(StripeTestCase):
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
 
+
 class PlanTest(StripeTestCase):
+
     def setUp(self):
         super(PlanTest, self).setUp()
         try:
@@ -276,7 +321,8 @@ class PlanTest(StripeTestCase):
             pass
 
     def test_create_plan(self):
-        self.assertRaises(stripe.InvalidRequestError, stripe.Plan.create, amount=2500)
+        self.assertRaises(stripe.InvalidRequestError,
+                          stripe.Plan.create, amount=2500)
         p = stripe.Plan.create(**DUMMY_PLAN)
         self.assertTrue(hasattr(p, 'amount'))
         self.assertTrue(hasattr(p, 'id'))
@@ -300,14 +346,18 @@ class PlanTest(StripeTestCase):
         plan = stripe.Plan(p.id)
         plan.name = name
 
-        self.assertEqual(sorted(['id', 'name']), sorted(plan.keys())) # should only have name and id
+        # should only have name and id
+        self.assertEqual(sorted(['id', 'name']), sorted(plan.keys()))
         plan.save()
 
         self.assertEqual(name, plan.name)
-        self.assertEqual(p.amount, plan.amount) # should load all the properties
+        # should load all the properties
+        self.assertEqual(p.amount, plan.amount)
         p.delete()
 
+
 class MetadataTest(StripeTestCase):
+
     def setUp(self):
         super(MetadataTest, self).setUp()
         self.initial_metadata = {
@@ -315,10 +365,14 @@ class MetadataTest(StripeTestCase):
             'uuid': 'id'
         }
 
-        charge = stripe.Charge.create(metadata=self.initial_metadata, **DUMMY_CHARGE)
-        customer = stripe.Customer.create(metadata=self.initial_metadata, card=DUMMY_CARD)
-        recipient = stripe.Recipient.create(metadata=self.initial_metadata, **DUMMY_RECIPIENT)
-        transfer = stripe.Transfer.create(metadata=self.initial_metadata, **DUMMY_TRANSFER)
+        charge = stripe.Charge.create(
+            metadata=self.initial_metadata, **DUMMY_CHARGE)
+        customer = stripe.Customer.create(
+            metadata=self.initial_metadata, card=DUMMY_CARD)
+        recipient = stripe.Recipient.create(
+            metadata=self.initial_metadata, **DUMMY_RECIPIENT)
+        transfer = stripe.Transfer.create(
+            metadata=self.initial_metadata, **DUMMY_TRANSFER)
 
         self.support_metadata = [charge, customer, recipient, transfer]
 

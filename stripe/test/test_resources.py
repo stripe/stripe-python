@@ -1,23 +1,27 @@
 from stripe import (StripeObject, StripeObjectEncoder, Charge, ListObject,
                     Customer, convert_to_stripe_object)
 
-from stripe.test import StripeUnitTestCase, StripeApiTestCase
-from stripe.test.helper import (MySingleton, MyListable, MyCreatable,
-                                MyUpdateable, MyDeletable, MyComposite,
-                                MyResource, SAMPLE_INVOICE)
+from stripe.test.helper import (
+    StripeUnitTestCase, StripeApiTestCase,
+    MySingleton, MyListable, MyCreatable, MyUpdateable, MyDeletable,
+    MyComposite, MyResource, SAMPLE_INVOICE)
 
 from stripe import importer
 json = importer.import_json()
 
+
 class StripeObjectEncoderTests(StripeUnitTestCase):
+
     def test_encoder_returns_dict(self):
         obj = StripeObject.construct_from(SAMPLE_INVOICE, 'key')
         encoded_stripe_object = StripeObjectEncoder().default(obj)
         self.assertTrue(isinstance(encoded_stripe_object, dict),
-                        "StripeObject encoded to %s" % (type(encoded_stripe_object),))
+                        "StripeObject encoded to %s" % (
+                            type(encoded_stripe_object),))
 
 
 class StripeObjectTests(StripeUnitTestCase):
+
     def test_initializes_with_parameters(self):
         obj = StripeObject('foo', 'bar', myparam=5, yourparam='boo')
 
@@ -75,12 +79,12 @@ class StripeObjectTests(StripeUnitTestCase):
 
         obj.refresh_from({
             'trans': 4,
-            'metadata': { 'amount': 42 }
+            'metadata': {'amount': 42}
         }, 'key2', True)
 
         self.assertEqual('baz', obj.foo)
         self.assertEqual(4, obj.trans)
-        self.assertEqual({ 'amount': 42 }, obj.previous_metadata)
+        self.assertEqual({'amount': 42}, obj.previous_metadata)
 
     def test_refresh_from_nested_object(self):
         obj = StripeObject.construct_from(SAMPLE_INVOICE, 'key')
@@ -113,7 +117,8 @@ class StripeObjectTests(StripeUnitTestCase):
                 self.check_nested_objects(v)
         else:
             self.assertFalse(isinstance(obj, StripeObject),
-                             "StripeObject %s still in to_dict result" % (repr(obj),))
+                             "StripeObject %s still in to_dict result" % (
+                                 repr(obj),))
 
     def check_invoice_data(self, data):
         # Check rough structure
@@ -131,6 +136,7 @@ class StripeObjectTests(StripeUnitTestCase):
 
 
 class ListObjectTests(StripeApiTestCase):
+
     def setUp(self):
         super(ListObjectTests, self).setUp()
 
@@ -152,7 +158,7 @@ class ListObjectTests(StripeApiTestCase):
         res = self.lo.all(myparam='you')
 
         self.requestor_mock.request.assert_called_with(
-            'get', '/my/path', { 'myparam': 'you' })
+            'get', '/my/path', {'myparam': 'you'})
 
         self.assertResponse(res)
 
@@ -160,7 +166,7 @@ class ListObjectTests(StripeApiTestCase):
         res = self.lo.create(myparam='eter')
 
         self.requestor_mock.request.assert_called_with(
-            'post', '/my/path', { 'myparam': 'eter' })
+            'post', '/my/path', {'myparam': 'eter'})
 
         self.assertResponse(res)
 
@@ -168,11 +174,13 @@ class ListObjectTests(StripeApiTestCase):
         res = self.lo.retrieve('myid', myparam='cow')
 
         self.requestor_mock.request.assert_called_with(
-            'get', '/my/path/myid', { 'myparam': 'cow' })
+            'get', '/my/path/myid', {'myparam': 'cow'})
 
         self.assertResponse(res)
 
+
 class APIResourceTests(StripeApiTestCase):
+
     def test_retrieve_and_refresh(self):
         self.mock_response({
             'id': 'foo2',
@@ -183,7 +191,7 @@ class APIResourceTests(StripeApiTestCase):
 
         url = '/v1/myresources/foo%2A'
         self.requestor_mock.request.assert_called_with(
-            'get', url, { 'myparam': 5 }
+            'get', url, {'myparam': 5}
         )
 
         self.assertEqual('scrobble', res.bobble)
@@ -198,7 +206,7 @@ class APIResourceTests(StripeApiTestCase):
 
         url = '/v1/myresources/foo2'
         self.requestor_mock.request.assert_called_with(
-            'get', url, { 'myparam': 5 }
+            'get', url, {'myparam': 5}
         )
 
         self.assertEqual(5, res.frobble)
@@ -239,6 +247,7 @@ class APIResourceTests(StripeApiTestCase):
 
 
 class SingletonAPIResourceTests(StripeApiTestCase):
+
     def test_retrieve(self):
         self.mock_response({
             'single': 'ton'
@@ -250,7 +259,9 @@ class SingletonAPIResourceTests(StripeApiTestCase):
 
         self.assertEqual('ton', res.single)
 
+
 class ListableAPIResourceTests(StripeApiTestCase):
+
     def test_all(self):
         self.mock_response([
             {
@@ -273,7 +284,9 @@ class ListableAPIResourceTests(StripeApiTestCase):
         self.assertEqual('jose', res[0].name)
         self.assertEqual('curly', res[1].name)
 
+
 class CreateableAPIResourceTests(StripeApiTestCase):
+
     def test_create(self):
         self.mock_response({
             'object': 'charge',
@@ -288,7 +301,9 @@ class CreateableAPIResourceTests(StripeApiTestCase):
         self.assertTrue(isinstance(res, Charge))
         self.assertEqual('bar', res.foo)
 
+
 class UpdateableAPIResourceTests(StripeApiTestCase):
+
     def setUp(self):
         super(UpdateableAPIResourceTests, self).setUp()
 
@@ -366,6 +381,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
 
 class DeletableAPIResourceTests(StripeApiTestCase):
+
     def test_delete(self):
         self.mock_response({
             'id': 'mid',

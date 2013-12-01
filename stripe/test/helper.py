@@ -1,15 +1,14 @@
 import datetime
+import os
 import random
 import string
+import unittest
 
-from stripe import importer
-json = importer.import_json()
+from mock import patch, Mock
 
-from stripe import (APIResource, SingletonAPIResource, ListableAPIResource,
-                    CreateableAPIResource, UpdateableAPIResource,
-                    DeletableAPIResource)
+from stripe.util import json
+import stripe
 
-# dummy information used in the tests below
 NOW = datetime.datetime.now()
 
 DUMMY_CARD = {
@@ -28,7 +27,8 @@ DUMMY_PLAN = {
     'interval': 'month',
     'name': 'Amazing Gold Plan',
     'currency': 'usd',
-    'id': 'stripe-test-gold-' + ''.join(random.choice(string.ascii_lowercase) for x in range(10))
+    'id': ('stripe-test-gold-' +
+           ''.join(random.choice(string.ascii_lowercase) for x in range(10)))
 }
 
 DUMMY_COUPON = {
@@ -96,24 +96,94 @@ SAMPLE_INVOICE = json.loads("""
 }
 """)
 
-class MyResource(APIResource):
+
+class StripeTestCase(unittest.TestCase):
+    RESTORE_ATTRIBUTES = ('api_version', 'api_key')
+
+    def setUp(self):
+        super(StripeTestCase, self).setUp()
+
+        self._stripe_original_attributes = {}
+
+        for attr in self.RESTORE_ATTRIBUTES:
+            self._stripe_original_attributes[attr] = getattr(stripe, attr)
+
+        api_base = os.environ.get('STRIPE_API_BASE')
+        if api_base:
+            stripe.api_base = api_base
+        stripe.api_key = os.environ.get(
+            'STRIPE_API_KEY', 'tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I')
+
+    def tearDown(self):
+        super(StripeTestCase, self).tearDown()
+
+        for attr in self.RESTORE_ATTRIBUTES:
+            setattr(stripe, attr, self._stripe_original_attributes[attr])
+
+
+class StripeUnitTestCase(StripeTestCase):
+    REQUEST_LIBRARIES = ('requests', 'urlfetch', 'pycurl', 'urllib2')
+
+    def setUp(self):
+        super(StripeUnitTestCase, self).setUp()
+
+        self.request_patchers = {}
+        self.request_mocks = {}
+        for lib in self.REQUEST_LIBRARIES:
+            patcher = patch("stripe.http_client.%s" % lib)
+
+            self.request_mocks[lib] = patcher.start()
+            self.request_patchers[lib] = patcher
+
+    def tearDown(self):
+        super(StripeUnitTestCase, self).tearDown()
+
+        for patcher in self.request_patchers.itervalues():
+            patcher.stop()
+
+
+class StripeApiTestCase(StripeTestCase):
+
+    def setUp(self):
+        super(StripeApiTestCase, self).setUp()
+
+        self.requestor_patcher = patch('stripe.api_requestor.APIRequestor')
+        requestor_class_mock = self.requestor_patcher.start()
+        self.requestor_mock = requestor_class_mock.return_value
+
+    def tearDown(self):
+        super(StripeApiTestCase, self).tearDown()
+
+        self.requestor_patcher.stop()
+
+    def mock_response(self, res):
+        self.requestor_mock.request = Mock(return_value=(res, 'reskey'))
+
+
+class MyResource(stripe.APIResource):
     pass
 
-class MySingleton(SingletonAPIResource):
+
+class MySingleton(stripe.SingletonAPIResource):
     pass
 
-class MyListable(ListableAPIResource):
+
+class MyListable(stripe.ListableAPIResource):
     pass
 
-class MyCreatable(CreateableAPIResource):
+
+class MyCreatable(stripe.CreateableAPIResource):
     pass
 
-class MyUpdateable(UpdateableAPIResource):
+
+class MyUpdateable(stripe.UpdateableAPIResource):
     pass
 
-class MyDeletable(DeletableAPIResource):
+
+class MyDeletable(stripe.DeletableAPIResource):
     pass
 
-class MyComposite(ListableAPIResource, CreateableAPIResource,
-                  UpdateableAPIResource, DeletableAPIResource):
+
+class MyComposite(stripe.ListableAPIResource, stripe.CreateableAPIResource,
+                  stripe.UpdateableAPIResource, stripe.DeletableAPIResource):
     pass
