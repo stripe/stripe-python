@@ -1,7 +1,7 @@
 import datetime
 import unittest
 
-from mock import Mock
+from mock import Mock, patch
 
 # Python 3 compatibility
 try:
@@ -441,9 +441,50 @@ class Urllib2ClientTests(StripeUnitTestCase, ClientTestBase):
         mock.Request.assert_called_with(url, post_data, headers)
         mock.urlopen.assert_called_with(self.request_object)
 
+class PycurlClientTests(StripeUnitTestCase, ClientTestBase):
+    request_client = stripe.http_client.PycurlClient
 
-# TODO: We don't currently unittest pycurl because it's a pain
-# integration tests will have to suffice for now
+    @property
+    def request_mock(self):
+        if not hasattr(self, 'curl_mock'):
+            lib_mock = self.request_mocks[self.request_client.name]
+
+            self.curl_mock = Mock()
+
+            lib_mock.Curl = Mock(return_value=self.curl_mock)
+
+        return self.curl_mock
+
+    def setUp(self):
+        super(PycurlClientTests, self).setUp()
+
+        self.sio_patcher = patch('stripe.http_client.StringIO.StringIO')
+
+        sio_mock = Mock()
+        self.sio_patcher.start().return_value = sio_mock
+        self.sio_getvalue = sio_mock.getvalue
+
+    def tearDown(self):
+        super(PycurlClientTests, self).tearDown()
+
+        self.sio_patcher.stop()
+
+    def mock_response(self, mock, body, code):
+        self.sio_getvalue.return_value = body
+
+        mock.getinfo.return_value = code
+
+    def mock_error(self, mock):
+        class FakeException(BaseException):
+            def __getitem__(self, i):
+                return 'foo'
+
+        stripe.http_client.pycurl.error = FakeException
+        mock.perform.side_effect = stripe.http_client.pycurl.error
+
+    def check_call(self, mock, meth, url, post_data, headers):
+        # TODO: Check the setopt calls
+        pass
 
 if __name__ == '__main__':
     unittest.main()
