@@ -1,3 +1,7 @@
+=== 1.10.8 2013-12-02
+
+* Add stripe.ApplicationFee resource
+
 === 1.9.8 2013-10-17
 
 * Removed incorrect test.
