@@ -1,4 +1,4 @@
-from stripe import (StripeObject, StripeObjectEncoder, Charge, ListObject,
+from stripe import (StripeObject, Charge, ListObject,
                     Customer, convert_to_stripe_object)
 
 from stripe.test.helper import (
@@ -6,18 +6,7 @@ from stripe.test.helper import (
     MySingleton, MyListable, MyCreatable, MyUpdateable, MyDeletable,
     MyComposite, MyResource, SAMPLE_INVOICE)
 
-from stripe import importer
-json = importer.import_json()
-
-
-class StripeObjectEncoderTests(StripeUnitTestCase):
-
-    def test_encoder_returns_dict(self):
-        obj = StripeObject.construct_from(SAMPLE_INVOICE, 'key')
-        encoded_stripe_object = StripeObjectEncoder().default(obj)
-        self.assertTrue(isinstance(encoded_stripe_object, dict),
-                        "StripeObject encoded to %s" % (
-                            type(encoded_stripe_object),))
+from stripe import util
 
 
 class StripeObjectTests(StripeUnitTestCase):
@@ -84,7 +73,7 @@ class StripeObjectTests(StripeUnitTestCase):
 
         self.assertEqual('baz', obj.foo)
         self.assertEqual(4, obj.trans)
-        self.assertEqual({'amount': 42}, obj.previous_metadata)
+        self.assertEqual({'amount': 42}, obj._previous_metadata)
 
     def test_refresh_from_nested_object(self):
         obj = StripeObject.construct_from(SAMPLE_INVOICE, 'key')
@@ -104,7 +93,7 @@ class StripeObjectTests(StripeUnitTestCase):
     def test_to_json(self):
         obj = StripeObject.construct_from(SAMPLE_INVOICE, 'key')
 
-        self.check_invoice_data(json.loads(str(obj)))
+        self.check_invoice_data(util.json.loads(str(obj)))
 
     # Ensure no nested StripeObjects are returned
     def check_nested_objects(self, obj):
@@ -323,7 +312,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
         }, 'mykey')
 
     def checkSave(self):
-        self.assertIs(self.obj, self.obj.save())
+        self.assertTrue(self.obj is self.obj.save())
 
         self.assertEqual('it', self.obj.thats)
         # TODO: Should we force id to be retained?
@@ -392,7 +381,7 @@ class DeletableAPIResourceTests(StripeApiTestCase):
             'id': 'mid'
         }, 'mykey')
 
-        self.assertIs(obj, obj.delete())
+        self.assertTrue(obj is obj.delete())
 
         self.assertEqual(True, obj.deleted)
         self.assertEqual('mid', obj.id)

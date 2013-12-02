@@ -1,6 +1,8 @@
 import urllib
+import warnings
 
 from stripe import api_requestor, error, util
+
 
 def convert_to_stripe_object(resp, api_key):
     types = {'charge': Charge, 'customer': Customer,
@@ -11,7 +13,7 @@ def convert_to_stripe_object(resp, api_key):
 
     if isinstance(resp, list):
         return [convert_to_stripe_object(i, api_key) for i in resp]
-    elif isinstance(resp, dict):
+    elif isinstance(resp, dict) and not isinstance(resp, StripeObject):
         resp = resp.copy()
         klass_name = resp.get('object')
         if isinstance(klass_name, basestring):
@@ -23,89 +25,64 @@ def convert_to_stripe_object(resp, api_key):
         return resp
 
 
-class StripeObject(object):
-    _permanent_attributes = set(['api_key'])
+class StripeObject(dict):
 
     def __init__(self, id=None, api_key=None, **params):
-        self.__dict__['_values'] = set()
-        self.__dict__['_unsaved_values'] = set()
-        self.__dict__['_transient_values'] = set()
-        self.__dict__['_retrieve_params'] = params
+        super(StripeObject, self).__init__()
 
-        self.__dict__['api_key'] = api_key
+        self._unsaved_values = set()
+        self._transient_values = set()
+
+        self._retrieve_params = params
+        self._previous_metadata = None
+
+        object.__setattr__(self, 'api_key', api_key)
 
         if id:
-            self.id = id
+            self['id'] = id
 
     def __setattr__(self, k, v):
+        if k[0] == '_' or k in self.__dict__:
+            return super(StripeObject, self).__setattr__(k, v)
+        else:
+            self[k] = v
+
+    def __getattr__(self, k):
+        try:
+            return self[k]
+        except KeyError, err:
+            raise AttributeError(*err.args)
+
+    def __setitem__(self, k, v):
         if v == "":
             raise ValueError(
                 "You cannot set %s to an empty string. "
                 "We interpret empty strings as None in requests."
                 "You may set %s.%s = None to delete the property" % (
                     k, str(self), k))
-        self.__dict__[k] = v
-        self._values.add(k)
-        if k not in self._permanent_attributes:
-            self._unsaved_values.add(k)
 
-    def __getattr__(self, k):
-        try:
-            return self.__dict__[k]
-        except KeyError:
-            pass
-        if k in self._transient_values:
-            raise AttributeError(
-                "%r object has no attribute %r.  HINT: The %r attribute "
-                "was set in the past.  It was then wiped when "
-                "refreshing the object with the result returned by "
-                "Stripe's API, probably as a result of a save(). The "
-                "attributes currently available on this object are: %s" %
-                (type(self).__name__, k, k, ', '.join(self._values)))
-        else:
-            raise AttributeError("%r object has no attribute %r" %
-                                 (type(self).__name__, k))
+        super(StripeObject, self).__setitem__(k, v)
+        self._unsaved_values.add(k)
 
     def __getitem__(self, k):
-        if k in self._values:
-            return self.__dict__[k]
-        elif k in self._transient_values:
-            raise KeyError(
-                "%r.  HINT: The %r attribute was set in the past."
-                "It was then wiped when refreshing the object with "
-                "the result returned by Stripe's API, probably as a "
-                "result of a save().  The attributes currently "
-                "available on this object are: %s" %
-                (k, k, ', '.join(self._values)))
-        else:
-            raise KeyError(k)
+        try:
+            return super(StripeObject, self).__getitem__(k)
+        except KeyError, err:
+            if k in self._transient_values:
+                raise KeyError(
+                    "%r.  HINT: The %r attribute was set in the past."
+                    "It was then wiped when refreshing the object with "
+                    "the result returned by Stripe's API, probably as a "
+                    "result of a save().  The attributes currently "
+                    "available on this object are: %s" %
+                    (k, k, ', '.join(self.keys())))
+            else:
+                raise err
 
     def __delitem__(self, k):
         raise TypeError(
             "You cannot delete attributes on a StripeObject. "
             "To unset a property, set it to None.")
-
-    def get(self, k, default=None):
-        try:
-            return self[k]
-        except KeyError:
-            return default
-
-    def setdefault(self, k, default=None):
-        try:
-            return self[k]
-        except KeyError:
-            self[k] = default
-            return default
-
-    def __setitem__(self, k, v):
-        setattr(self, k, v)
-
-    def keys(self):
-        return self.to_dict().keys()
-
-    def values(self):
-        return self.to_dict().values()
 
     @classmethod
     def construct_from(cls, values, api_key):
@@ -113,35 +90,37 @@ class StripeObject(object):
         instance.refresh_from(values, api_key)
         return instance
 
-    def refresh_from(self, values, api_key, partial=False):
-        self.api_key = api_key
+    def refresh_from(self, values, api_key=None, partial=False):
+        self.api_key = api_key or getattr(values, 'api_key', None)
 
         # Wipe old state before setting new.  This is useful for e.g.
         # updating a customer, where there is no persistent card
         # parameter.  Mark those values which don't persist as transient
         if partial:
-            removed = set()
+            self._unsaved_values = (self._unsaved_values - set(values))
         else:
-            removed = self._values - set(values)
+            removed = set(self.keys()) - set(values)
+            self._transient_values = self._transient_values | removed
+            self._unsaved_values = set()
 
-        for k in removed:
-            if k in self._permanent_attributes:
-                continue
-            del self.__dict__[k]
-            self._values.discard(k)
-            self._transient_values.add(k)
-            self._unsaved_values.discard(k)
+            self.clear()
+
+        self._transient_values = self._transient_values - set(values)
 
         for k, v in values.iteritems():
-            if k in self._permanent_attributes:
-                continue
-            self.__dict__[k] = convert_to_stripe_object(v, api_key)
-            self._values.add(k)
-            self._transient_values.discard(k)
-            self._unsaved_values.discard(k)
+            super(StripeObject, self).__setitem__(
+                k, convert_to_stripe_object(v, api_key))
 
-        if 'metadata' in values:
-            self.previous_metadata = values['metadata']
+        self._previous_metadata = values.get('metadata')
+
+    def request(self, method, url, params=None):
+        if params is None:
+            params = self._retrieve_params
+
+        requestor = api_requestor.APIRequestor(self.api_key)
+        response, api_key = requestor.request(method, url, params)
+
+        return convert_to_stripe_object(response, api_key)
 
     def __repr__(self):
         type_string = ''
@@ -157,25 +136,16 @@ class StripeObject(object):
             hex(id(self)), str(self))
 
     def __str__(self):
-        return util.json.dumps(self.to_dict(), sort_keys=True, indent=2,
-                          cls=StripeObjectEncoder)
+        return util.json.dumps(self, sort_keys=True, indent=2)
 
     def to_dict(self):
-        def _serialize(o):
-            if isinstance(o, StripeObject):
-                return o.to_dict()
-            if isinstance(o, list):
-                return [_serialize(i) for i in o]
-            return o
+        warnings.warn(
+            'The `to_dict` method is deprecated and will be removed in '
+            'version 2.0 of the Stripe bindings. The StripeObject is '
+            'itself now a subclass of `dict`.',
+            DeprecationWarning)
 
-        d = dict()
-        for k in sorted(self._values):
-            if k in self._permanent_attributes:
-                continue
-            v = getattr(self, k)
-            v = _serialize(v)
-            d[k] = v
-        return d
+        return dict(self)
 
     @property
     def stripe_id(self):
@@ -184,17 +154,17 @@ class StripeObject(object):
 
 class StripeObjectEncoder(util.json.JSONEncoder):
 
-    def default(self, obj):
-        if isinstance(obj, StripeObject):
-            return obj.to_dict()
-        else:
-            return util.json.JSONEncoder.default(self, obj)
+    def __init__(self, *args, **kwargs):
+        warnings.warn(
+            '`StripeObjectEncoder` is deprecated and will be removed in '
+            'version 2.0 of the Stripe bindings.  StripeObject is now a '
+            'subclass of `dict` and is handled natively by the built-in '
+            'json library.',
+            DeprecationWarning)
+        super(StripeObjectEncoder, self).__init__(*args, **kwargs)
 
 
 class APIResource(StripeObject):
-
-    def _ident(self):
-        return [self.get('id')]
 
     @classmethod
     def retrieve(cls, id, api_key=None, **params):
@@ -203,11 +173,7 @@ class APIResource(StripeObject):
         return instance
 
     def refresh(self):
-        requestor = api_requestor.APIRequestor(self.api_key)
-        url = self.instance_url()
-        response, api_key = requestor.request(
-            'get', url, self._retrieve_params)
-        self.refresh_from(response, api_key)
+        self.refresh_from(self.request('get', self.instance_url()))
         return self
 
     @classmethod
@@ -238,37 +204,26 @@ class APIResource(StripeObject):
 class ListObject(StripeObject):
 
     def all(self, **params):
-        requestor = api_requestor.APIRequestor(self.api_key)
-        url = self.get('url')
-        response, api_key = requestor.request('get', url, params)
-        return convert_to_stripe_object(response, api_key)
+        return self.request('get', self['url'], params)
 
     def create(self, **params):
-        requestor = api_requestor.APIRequestor(self.api_key)
-        url = self.get('url')
-        response, api_key = requestor.request('post', url, params)
-        return convert_to_stripe_object(response, api_key)
+        return self.request('post', self['url'], params)
 
     def retrieve(self, id, **params):
-        requestor = api_requestor.APIRequestor(self.api_key)
         base = self.get('url')
         id = util.utf8(id)
         extn = urllib.quote_plus(id)
         url = "%s/%s" % (base, extn)
-        response, api_key = requestor.request('get', url, params)
-        return convert_to_stripe_object(response, api_key)
+
+        return self.request('get', url, params)
 
 
 class SingletonAPIResource(APIResource):
 
-    def _ident(self):
-        return [self.get('id')]
-
     @classmethod
     def retrieve(cls, api_key=None):
-        instance = cls(None, api_key)
-        instance.refresh()
-        return instance
+        return super(SingletonAPIResource, cls).retrieve(None,
+                                                         api_key=api_key)
 
     @classmethod
     def class_url(cls):
@@ -277,6 +232,7 @@ class SingletonAPIResource(APIResource):
 
     def instance_url(self):
         return self.class_url()
+
 
 # Classes of API operations
 
@@ -310,11 +266,8 @@ class UpdateableAPIResource(APIResource):
             updated_params['metadata'] = self.serialize_metadata()
 
         if updated_params:
-            requestor = api_requestor.APIRequestor(self.api_key)
-
-            url = self.instance_url()
-            response, api_key = requestor.request('post', url, updated_params)
-            self.refresh_from(response, api_key)
+            self.refresh_from(self.request('post', self.instance_url(),
+                                           updated_params))
         else:
             util.logger.debug("Trying to save already saved object %r", self)
         return self
@@ -324,7 +277,7 @@ class UpdateableAPIResource(APIResource):
             # the metadata object has been reassigned
             # i.e. as object.metadata = {key: val}
             metadata_update = self.metadata
-            keys_to_unset = set(self.previous_metadata.keys()) - \
+            keys_to_unset = set(self._previous_metadata.keys()) - \
                 set(self.metadata.keys())
             for key in keys_to_unset:
                 metadata_update[key] = ""
@@ -337,7 +290,7 @@ class UpdateableAPIResource(APIResource):
         params = {}
         if obj._unsaved_values:
             for k in obj._unsaved_values:
-                if k == 'id' or k == 'previous_metadata':
+                if k == 'id' or k == '_previous_metadata':
                     continue
                 v = getattr(obj, k)
                 params[k] = v if v is not None else ""
@@ -347,10 +300,7 @@ class UpdateableAPIResource(APIResource):
 class DeletableAPIResource(APIResource):
 
     def delete(self, **params):
-        requestor = api_requestor.APIRequestor(self.api_key)
-        url = self.instance_url()
-        response, api_key = requestor.request('delete', url, params)
-        self.refresh_from(response, api_key)
+        self.refresh_from(self.request('delete', self.instance_url(), params))
         return self
 
 # API objects
@@ -394,17 +344,13 @@ class Charge(CreateableAPIResource, ListableAPIResource,
              UpdateableAPIResource):
 
     def refund(self, **params):
-        requestor = api_requestor.APIRequestor(self.api_key)
         url = self.instance_url() + '/refund'
-        response, api_key = requestor.request('post', url, params)
-        self.refresh_from(response, api_key)
+        self.refresh_from(self.request('post', url, params))
         return self
 
     def capture(self, **params):
-        requestor = api_requestor.APIRequestor(self.api_key)
         url = self.instance_url() + '/capture'
-        response, api_key = requestor.request('post', url, params)
-        self.refresh_from(response, api_key)
+        self.refresh_from(self.request('post', url, params))
         return self
 
     def update_dispute(self, **params):
@@ -462,7 +408,7 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(self.api_key)
         url = self.instance_url() + '/discount'
-        response, api_key = requestor.request('delete', url)
+        _, api_key = requestor.request('delete', url)
         self.refresh_from({'discount': None}, api_key, True)
 
 
@@ -470,10 +416,7 @@ class Invoice(CreateableAPIResource, ListableAPIResource,
               UpdateableAPIResource):
 
     def pay(self):
-        requestor = api_requestor.APIRequestor(self.api_key)
-        url = self.instance_url() + '/pay'
-        response, api_key = requestor.request('post', url, {})
-        return convert_to_stripe_object(response, api_key)
+        return self.request('post', self.instance_url() + '/pay', {})
 
     @classmethod
     def upcoming(cls, api_key=None, **params):

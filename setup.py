@@ -1,6 +1,8 @@
 import os
 import sys
 
+print('running setup.py')
+
 try:
     from setuptools import setup
 except ImportError:
@@ -11,10 +13,6 @@ try:
 except ImportError:
     from distutils.command.build_py import build_py
 
-# Don't import stripe module here, since deps may not be installed
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'stripe'))
-from stripe.version import VERSION
-
 path, script = os.path.split(sys.argv[0])
 os.chdir(os.path.abspath(path))
 
@@ -23,19 +21,16 @@ if sys.version_info < (2, 6):
     requests += ', < 0.10.1'
 install_requires = [requests]
 
-test_requires = install_requires + ['pycurl >= 7.19']
+
+# Don't import stripe module here, since deps may not be installed
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'stripe'))
+from version import VERSION
 
 # Get simplejson if we don't already have json
 try:
-    from stripe.util import json
+    from util import json
 except ImportError:
     install_requires.append('simplejson')
-
-try:
-    import json
-    _json_loaded = hasattr(json, 'loads')
-except ImportError:
-    pass
 
 setup(name='stripe',
       cmdclass={'build_py': build_py},
@@ -47,5 +42,4 @@ setup(name='stripe',
       packages=['stripe', 'stripe.test'],
       package_data={'stripe': ['data/ca-certificates.crt', '../VERSION']},
       install_requires=install_requires,
-      tests_require=test_requirements,
       )

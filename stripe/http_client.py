@@ -40,7 +40,7 @@ else:
         pass
     else:
         if (major, minor, patch) < (0, 8, 8):
-            print >>sys.stderr, (
+            sys.stderr.write(
                 'Warning: the Stripe library requires that your Python '
                 '"requests" library be newer than version 0.8.8, but your '
                 '"requests" library is version %s. Stripe will fall back to '
@@ -66,7 +66,7 @@ def new_default_http_client(*args, **kwargs):
         impl = PycurlClient
     elif urllib2:
         impl = Urllib2Client
-        print >>sys.stderr, (
+        sys.stderr.write(
             "Warning: the Stripe library is falling back to urllib2 "
             "because neither requests nor pycurl are installed. "
             "urllib2's SSL implementation doesn't verify server "

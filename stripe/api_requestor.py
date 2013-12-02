@@ -1,3 +1,4 @@
+import calendar
 import datetime
 import platform
 import time
@@ -7,7 +8,9 @@ import urlparse
 import warnings
 
 # TODO: replace api_base import somehow
-from stripe import error, http_client, version, util, api_base
+import stripe
+from stripe import error, http_client, version, util
+
 
 class APIRequestor(object):
 
@@ -23,7 +26,7 @@ class APIRequestor(object):
 
     @classmethod
     def api_url(cls, url=''):
-        return '%s%s' % (api_base, url)
+        return '%s%s' % (stripe.api_base, url)
 
     @classmethod
     def encode_dict(cls, stk, key, dictvalue):
@@ -42,8 +45,12 @@ class APIRequestor(object):
 
     @classmethod
     def encode_datetime(cls, stk, key, dttime):
-        utc_timestamp = int(time.mktime(dttime.timetuple()))
-        stk.append((key, utc_timestamp))
+        if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
+            utc_timestamp = calendar.timegm(dttime.utctimetuple())
+        else:
+            utc_timestamp = time.mktime(dttime.timetuple())
+
+        stk.append((key, int(utc_timestamp)))
 
     @classmethod
     def encode_none(cls, stk, k, v):
@@ -130,7 +137,7 @@ class APIRequestor(object):
                 err.get('message'), rbody, rcode, resp)
         elif rcode == 402:
             raise error.CardError(err.get('message'), err.get('param'),
-                            err.get('code'), rbody, rcode, resp)
+                                  err.get('code'), rbody, rcode, resp)
         else:
             raise error.APIError(err.get('message'), rbody, rcode, resp)
 

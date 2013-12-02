@@ -1,3 +1,19 @@
+=== TBD
+
+* Added extensive unit tests
+* Extended functional test coverage
+* Refactored code into modules and out of stripe/__init__.py
+* Abstracted http library selection and use from the `APIRequestor` into `stripe.http_client`
+* Refactored `StripeObject` to inherit from `dict` and avoid direct access of `__dict__`.
+* PEP8ified the codebase and enforced with a test.
+* Proper encoding of timezone aware datetimes
+
+Backwards Incompatible Changes
+
+* The `to_dict` and `values` methods on resources no longer recursively convert objects to plain dicts.
+* The `previous_metadata` attribute on resources is now private.
+* Timezone aware `datetime` objects passed to the API will now be encoded in a way that does not depend on the local system time.  This may change the value passed to the API.
+
 === 1.9.8 2013-10-17
 
 * Removed incorrect test.

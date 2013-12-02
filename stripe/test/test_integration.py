@@ -9,13 +9,11 @@ from mock import patch
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 import stripe
-from stripe import importer
-json = importer.import_json()
 
 from stripe.test.helper import (
     StripeTestCase,
     NOW, DUMMY_CARD, DUMMY_CHARGE, DUMMY_PLAN, DUMMY_COUPON,
-    DUMMY_RECIPIENT, DUMMY_TRANSFER, SAMPLE_INVOICE)
+    DUMMY_RECIPIENT, DUMMY_TRANSFER)
 
 
 class FunctionalTests(StripeTestCase):
@@ -29,7 +27,9 @@ class FunctionalTests(StripeTestCase):
 
         self.client_patcher = patch(
             'stripe.http_client.new_default_http_client')
-        self.client_patcher.side_effect = get_http_client
+
+        client_mock = self.client_patcher.start()
+        client_mock.side_effect = get_http_client
 
     def tearDown(self):
         super(FunctionalTests, self).tearDown()
@@ -381,7 +381,7 @@ class MetadataTest(StripeTestCase):
             obj.description = 'test'
             obj.save()
             metadata = obj.retrieve(obj.id).metadata
-            self.assertEqual(self.initial_metadata, metadata.to_dict())
+            self.assertEqual(self.initial_metadata, metadata)
 
     def test_unset_metadata(self):
         for obj in self.support_metadata:
@@ -389,7 +389,7 @@ class MetadataTest(StripeTestCase):
             expected_metadata = {}
             obj.save()
             metadata = obj.retrieve(obj.id).metadata
-            self.assertEqual(expected_metadata, metadata.to_dict())
+            self.assertEqual(expected_metadata, metadata)
 
     def test_whole_update(self):
         for obj in self.support_metadata:
@@ -397,7 +397,7 @@ class MetadataTest(StripeTestCase):
             obj.metadata = expected_metadata.copy()
             obj.save()
             metadata = obj.retrieve(obj.id).metadata
-            self.assertEqual(expected_metadata, metadata.to_dict())
+            self.assertEqual(expected_metadata, metadata)
 
     def test_individual_delete(self):
         for obj in self.support_metadata:
@@ -405,7 +405,7 @@ class MetadataTest(StripeTestCase):
             expected_metadata = {'address': self.initial_metadata['address']}
             obj.save()
             metadata = obj.retrieve(obj.id).metadata
-            self.assertEqual(expected_metadata, metadata.to_dict())
+            self.assertEqual(expected_metadata, metadata)
 
     def test_individual_update(self):
         for obj in self.support_metadata:
@@ -414,7 +414,7 @@ class MetadataTest(StripeTestCase):
             expected_metadata.update(self.initial_metadata)
             obj.save()
             metadata = obj.retrieve(obj.id).metadata
-            self.assertEqual(expected_metadata, metadata.to_dict())
+            self.assertEqual(expected_metadata, metadata)
 
     def test_combo_update(self):
         for obj in self.support_metadata:
@@ -422,15 +422,20 @@ class MetadataTest(StripeTestCase):
             obj.metadata = {'uid': '6735'}
             obj.save()
             metadata = obj.retrieve(obj.id).metadata
-            self.assertEqual({'uid': '6735'}, metadata.to_dict())
+            self.assertEqual({'uid': '6735'}, metadata)
 
         for obj in self.support_metadata:
             obj.metadata = {'uid': '6735'}
             obj.metadata['foo'] = 'bar'
             obj.save()
             metadata = obj.retrieve(obj.id).metadata
-            self.assertEqual({'uid': '6735', 'foo': 'bar'}, metadata.to_dict())
+            self.assertEqual({'uid': '6735', 'foo': 'bar'}, metadata)
 
+
+class CliTest(StripeTestCase):
+
+    def test_cli(self):
+        self.fail('cli has not been refactored yet')
 
 if __name__ == '__main__':
     unittest.main()

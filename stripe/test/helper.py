@@ -6,7 +6,6 @@ import unittest
 
 from mock import patch, Mock
 
-from stripe.util import json
 import stripe
 
 NOW = datetime.datetime.now()
@@ -48,7 +47,7 @@ DUMMY_TRANSFER = {
     'recipient': 'self'
 }
 
-SAMPLE_INVOICE = json.loads("""
+SAMPLE_INVOICE = stripe.util.json.loads("""
 {
   "amount_due": 1305,
   "attempt_count": 0,
