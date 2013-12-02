@@ -301,6 +301,11 @@ class APIRequestorRequestTests(StripeUnitTestCase):
                           self.requestor.request,
                           'get', self.valid_path, {})
 
+    def test_invalid_method(self):
+        self.assertRaises(APIConnectionError,
+                          self.requestor.request,
+                          'foo', 'bar')
+
 
 class ClientTestBase():
 
@@ -312,12 +317,16 @@ class ClientTestBase():
     def valid_url(self, path='/foo'):
         return 'https://api.stripe.com%s' % path
 
-    def make_request(self, meth, abs_url, headers, params):
+    def make_deprecated_request(self, meth, abs_url, headers, params):
         requestor = APIRequestor()
         request_method = getattr(requestor,
                                  "%s_request" % self.request_client.name)
 
         return request_method(meth, abs_url, headers, params)
+
+    def make_request(self, method, url, headers, post_data):
+        client = self.request_client(verify_ssl_certs=True)
+        return client.request(method, url, headers, post_data)
 
     def mock_response(self, body, code):
         raise NotImplementedError(
@@ -336,10 +345,39 @@ class ClientTestBase():
 
         for meth in VALID_API_METHODS:
             abs_url = self.valid_url
+            data = ''
+
+            if meth != 'post':
+                abs_url = '%s?%s' % (abs_url, data)
+                data = None
+
+            headers = {'my-header': 'header val'}
+
+            body, code = self.make_request(
+                meth, abs_url, headers, data)
+
+            self.assertEqual(200, code)
+            self.assertEqual('{"foo": "baz"}', body)
+
+            self.check_call(self.request_mock, meth, abs_url,
+                            data, headers)
+
+    def test_exception(self):
+        self.mock_error(self.request_mock)
+        self.assertRaises(APIConnectionError,
+                          self.make_request,
+                          'get', self.valid_url, {}, None)
+
+    def test_deprecated_request(self):
+        self.mock_response(self.request_mock, '{"foo": "baz"}', 200)
+
+        for meth in VALID_API_METHODS:
+            abs_url = self.valid_url
             params = {'myparam': 5, 'otherparam[]': 'foo'}
             headers = {'my-header': 'header val'}
 
-            body, code = self.make_request(meth, abs_url, headers, params)
+            body, code = self.make_deprecated_request(
+                meth, abs_url, headers, params)
 
             self.assertEqual(200, code)
             self.assertEqual('{"foo": "baz"}', body)
@@ -355,15 +393,15 @@ class ClientTestBase():
 
             self.check_call(self.request_mock, meth, url, post_data, headers)
 
-    def test_invalid_method(self):
+    def test_deprecated_invalid_method(self):
         self.assertRaises(APIConnectionError,
-                          self.make_request,
+                          self.make_deprecated_request,
                           'put', self.valid_url, {}, {})
 
-    def test_exception(self):
+    def test_deprecated_exception(self):
         self.mock_error(self.request_mock)
         self.assertRaises(APIConnectionError,
-                          self.make_request,
+                          self.make_deprecated_request,
                           'get', self.valid_url, {}, {})
 
 
@@ -440,6 +478,7 @@ class Urllib2ClientTests(StripeUnitTestCase, ClientTestBase):
     def check_call(self, mock, meth, url, post_data, headers):
         mock.Request.assert_called_with(url, post_data, headers)
         mock.urlopen.assert_called_with(self.request_object)
+
 
 class PycurlClientTests(StripeUnitTestCase, ClientTestBase):
     request_client = stripe.http_client.PycurlClient
