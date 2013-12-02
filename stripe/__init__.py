@@ -118,7 +118,7 @@ def convert_to_stripe_object(resp, api_key):
             'invoice' : Invoice, 'invoiceitem' : InvoiceItem,
             'plan' : Plan, 'coupon': Coupon, 'token' : Token, 'event': Event,
             'transfer': Transfer, 'list': ListObject, 'recipient': Recipient,
-            'card': Card }
+            'card': Card, 'application_fee': ApplicationFee }
 
   if isinstance(resp, list):
     return [convert_to_stripe_object(i, api_key) for i in resp]
@@ -817,6 +817,18 @@ class Charge(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     response, api_key = requestor.request('post', url, {})
     self.refresh_from({ 'dispute' : response }, api_key, True)
     return self.dispute
+
+class ApplicationFee(ListableAPIResource):
+  @classmethod
+  def class_name(cls):
+    return 'application_fee'
+
+  def refund(self, **params):
+    requestor = APIRequestor(self.api_key)
+    url = self.instance_url() + '/refund'
+    response, api_key = requestor.request('post', url, params)
+    self.refresh_from(response, api_key)
+    return self
 
 class Customer(CreateableAPIResource, UpdateableAPIResource,
                ListableAPIResource, DeletableAPIResource):
