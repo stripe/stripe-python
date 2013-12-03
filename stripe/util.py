@@ -4,6 +4,16 @@ import logging
 logger = logging.getLogger('stripe')
 
 try:
+    # Python 3
+    from urllib.parse import parse_qsl
+except ImportError:
+    try:
+        from urlparse import parse_qsl
+    except ImportError:
+        # Python < 2.6
+        from cgi import parse_qsl
+
+try:
     import json
 except ImportError:
     json = None

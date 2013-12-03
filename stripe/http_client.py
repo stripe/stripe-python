@@ -84,7 +84,7 @@ def new_default_http_client(*args, **kwargs):
 
 class HTTPClient(object):
 
-    def __init__(self, verify_ssl_certs):
+    def __init__(self, verify_ssl_certs=True):
         self._verify_ssl_certs = verify_ssl_certs
 
     def request(self, method, url, headers, post_data=None):

@@ -121,7 +121,7 @@ class StripeTestCase(unittest.TestCase):
 
 
 class StripeUnitTestCase(StripeTestCase):
-    REQUEST_LIBRARIES = ('requests', 'urlfetch', 'pycurl', 'urllib2')
+    REQUEST_LIBRARIES = ('urlfetch', 'requests', 'pycurl', 'urllib2')
 
     def setUp(self):
         super(StripeUnitTestCase, self).setUp()
