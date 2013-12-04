@@ -53,6 +53,7 @@ _ALLOWED_ATTRIBUTES = (
 )
 _original_module = _sys.modules[__name__]
 
+
 class _DeprecationWrapper(object):
 
     def __getattribute__(self, name):

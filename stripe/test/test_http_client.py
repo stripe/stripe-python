@@ -8,7 +8,9 @@ from stripe.test.helper import StripeUnitTestCase
 
 VALID_API_METHODS = ('get', 'post', 'delete')
 
+
 class HttpClientTests(StripeUnitTestCase):
+
     def setUp(self):
         super(HttpClientTests, self).setUp()
 
@@ -43,6 +45,7 @@ class HttpClientTests(StripeUnitTestCase):
     def test_new_default_http_client_urllib2(self):
         self.check_default(('urlfetch', 'requests', 'pycurl'),
                            stripe.http_client.Urllib2Client)
+
 
 class ClientTestBase():
 
@@ -259,6 +262,7 @@ class PycurlClientTests(StripeUnitTestCase, ClientTestBase):
 
     def mock_error(self, mock):
         class FakeException(BaseException):
+
             def __getitem__(self, i):
                 return 'foo'
 

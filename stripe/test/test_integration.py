@@ -129,6 +129,8 @@ class CardErrorTest(StripeTestCase):
             self.assertTrue(isinstance(e.json_body, dict))
 
 # Note that these are in addition to the core functional charge tests
+
+
 class ChargeTest(StripeTestCase):
 
     def setUp(self):
@@ -167,7 +169,6 @@ class ChargeTest(StripeTestCase):
 
         self.assertTrue(charge is charge.capture())
         self.assertTrue(stripe.Charge.retrieve(charge.id).captured)
-
 
     def test_charge_dispute(self):
         # We don't have a good way of simulating disputes
@@ -261,6 +262,7 @@ class CustomerTest(StripeTestCase):
         self.assertEqual('Python bindings test',
                          customer.cards.retrieve(card.id).name)
 
+
 class TransferTest(StripeTestCase):
 
     def test_list_transfers(self):
@@ -282,6 +284,7 @@ class RecipientTest(StripeTestCase):
         # Weak assertion since the list could be empty
         for transfer in recipient.transfers().data:
             self.assertTrue(isinstance(transfer, stripe.Transfer))
+
 
 class CustomerPlanTest(StripeTestCase):
 
@@ -340,7 +343,9 @@ class CustomerPlanTest(StripeTestCase):
                                           trial_end=trial_end_int)
         self.assertTrue(customer.id)
 
+
 class InvoiceTest(StripeTestCase):
+
     def test_invoice(self):
         customer = stripe.Customer.create(card=DUMMY_CARD)
 
@@ -366,6 +371,7 @@ class InvoiceTest(StripeTestCase):
             'No upcoming invoices',
             stripe.Invoice.upcoming,
             customer=customer)
+
 
 class CouponTest(StripeTestCase):
 

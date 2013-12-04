@@ -10,6 +10,7 @@ import warnings
 import stripe
 from stripe import error, http_client, version, util
 
+
 def _encode_datetime(dttime):
     if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
         utc_timestamp = calendar.timegm(dttime.utctimetuple())
@@ -17,6 +18,7 @@ def _encode_datetime(dttime):
         utc_timestamp = time.mktime(dttime.timetuple())
 
     return int(utc_timestamp)
+
 
 def _api_encode(data):
     for key, value in data.iteritems():
@@ -37,6 +39,7 @@ def _api_encode(data):
             yield (key, _encode_datetime(value))
         else:
             yield (key, util.utf8(value))
+
 
 def _build_api_url(url, query):
     scheme, netloc, path, base_query, fragment = urlparse.urlsplit(url)
@@ -75,7 +78,7 @@ class APIRequestor(object):
             'If you need public access to this function, please email us '
             'at support@stripe.com.',
             DeprecationWarning, stacklevel=2)
-        stk.extend(_api_encode({ key: value }))
+        stk.extend(_api_encode({key: value}))
 
     @classmethod
     def encode_dict(cls, stk, key, value):

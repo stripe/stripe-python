@@ -11,7 +11,8 @@ from stripe import util
 class StripeObjectTests(StripeUnitTestCase):
 
     def test_initializes_with_parameters(self):
-        obj = stripe.resource.StripeObject('foo', 'bar', myparam=5, yourparam='boo')
+        obj = stripe.resource.StripeObject(
+            'foo', 'bar', myparam=5, yourparam='boo')
 
         self.assertEqual('foo', obj.id)
         self.assertEqual('bar', obj.api_key)
@@ -75,14 +76,18 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual({'amount': 42}, obj._previous_metadata)
 
     def test_refresh_from_nested_object(self):
-        obj = stripe.resource.StripeObject.construct_from(SAMPLE_INVOICE, 'key')
+        obj = stripe.resource.StripeObject.construct_from(
+            SAMPLE_INVOICE, 'key')
 
         self.assertEqual(1, len(obj.lines.subscriptions))
-        self.assertTrue(isinstance(obj.lines.subscriptions[0], stripe.resource.StripeObject))
+        self.assertTrue(
+            isinstance(obj.lines.subscriptions[0],
+                       stripe.resource.StripeObject))
         self.assertEqual('month', obj.lines.subscriptions[0].plan.interval)
 
     def test_to_json(self):
-        obj = stripe.resource.StripeObject.construct_from(SAMPLE_INVOICE, 'key')
+        obj = stripe.resource.StripeObject.construct_from(
+            SAMPLE_INVOICE, 'key')
 
         self.check_invoice_data(util.json.loads(str(obj)))
 

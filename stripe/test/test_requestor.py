@@ -49,7 +49,9 @@ class APIHeaderMatcher(object):
 
         return True
 
+
 class UrlQueryMatcher(object):
+
     def __init__(self, expected):
         self.expected = sorted(expected)
 
