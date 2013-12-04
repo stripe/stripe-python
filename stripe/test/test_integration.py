@@ -122,11 +122,39 @@ class CardErrorTest(StripeTestCase):
         EXPIRED_CARD['exp_year'] = NOW.year - 2
         try:
             stripe.Charge.create(amount=100, currency='usd', card=EXPIRED_CARD)
-        except stripe.CardError, e:
+        except stripe.error.CardError, e:
             self.assertEqual(402, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
 
+
+class ChargeListTest(StripeTestCase):
+
+    def setUp(self):
+        super(ChargeListTest, self).setUp()
+
+        self.charge_list = stripe.Charge.all()
+
+    def test_charge_list_all(self):
+        list_result = self.charge_list.all()
+
+        self.assertEqual(len(self.charge_list.data),
+                         len(list_result.data))
+
+        for expected, actual in zip(self.charge_list.data,
+                                    list_result.data):
+            self.assertEqual(expected.id, actual.id)
+
+    def test_charge_list_create(self):
+        charge = self.charge_list.create(**DUMMY_CHARGE)
+
+        self.assertTrue(isinstance(charge, stripe.Charge))
+        self.assertEqual(DUMMY_CHARGE['amount'], charge.amount)
+
+    def test_charge_list_retrieve(self):
+        charge = self.charge_list.retrieve(self.charge_list.data[0].id)
+
+        self.assertTrue(isinstance(charge, stripe.Charge))
 
 class AccountTest(StripeTestCase):
 
