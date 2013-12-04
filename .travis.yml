@@ -9,30 +9,12 @@ python:
 before_install:
   - sudo apt-get update
   - sudo apt-get install libcurl4-gnutls-dev librtmp-dev
-env:
-  - HTTPLIB=requests
-  - HTTPLIB=pycurl
-  - HTTPLIB=
 install:
-  - if [[ $HTTPLIB == pycurl ]]; then pip install pycurl --use-mirrors; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then pip install --use-mirrors simplejson; fi
+  - pip install
   - python setup.py install
   - python -c 'print(__import__("requests").__version__)'
-  - if [[ $HTTPLIB != requests ]]; then pip uninstall --yes requests; fi
 script:
 # need to change into a different directory to make sure we use the 2to3 converted code
   - mkdir -p temp/
   - cd temp
-  - python -m stripe.test.test_stripe
-
-matrix:
-  exclude:
-    # C extensions are not guaranteed to work with pypy, and pycurl is not compatible with Python 3
-    - python: "3.2"
-      env: HTTPLIB=pycurl
-    - python: "3.3"
-      env: HTTPLIB=pycurl
-    - python: "pypy"
-      env: HTTPLIB=pycurl
-    - python: "2.5"
-      env: HTTPLIB=requests
+  - nosetests stripe/test/
