@@ -1,13 +1,8 @@
 import os
 import sys
 import textwrap
+import sys
 import warnings
-
-# Use cStringIO if it's available.  Otherwise, StringIO is fine.
-try:
-    import cStringIO as StringIO
-except ImportError:
-    import StringIO
 
 from stripe import error, util
 
@@ -16,11 +11,10 @@ from stripe import error, util
 # - Google App Engine has urlfetch
 # - Use Pycurl if it's there (at least it verifies SSL certs)
 # - Fall back to urllib2 with a warning if needed
-
 try:
     import urllib2
 except ImportError:
-    urllib2 = None
+    pass
 
 try:
     import pycurl
@@ -65,20 +59,14 @@ def new_default_http_client(*args, **kwargs):
         impl = RequestsClient
     elif pycurl:
         impl = PycurlClient
-    elif urllib2:
+    else:
         impl = Urllib2Client
         warnings.warn(
-            "Warning: the Stripe library is falling back to urllib2 "
+            "Warning: the Stripe library is falling back to urllib2/urllib "
             "because neither requests nor pycurl are installed. "
             "urllib2's SSL implementation doesn't verify server "
             "certificates. For improved security, we suggest installing "
             "requests.")
-    else:
-        raise NameError(
-            "Stripe requires one of requests, pycurl, Google App Engine's "
-            "urlfetch, or urllib2.  If you are on a platform where none "
-            "of these libraries are available, please let us know at "
-            "support@stripe.com.")
 
     return impl(*args, **kwargs)
 
@@ -200,7 +188,7 @@ class PycurlClient(HTTPClient):
     name = 'pycurl'
 
     def request(self, method, url, headers, post_data=None):
-        s = StringIO.StringIO()
+        s = util.StringIO.StringIO()
         curl = pycurl.Curl()
 
         if method == 'get':
@@ -258,9 +246,15 @@ class PycurlClient(HTTPClient):
 
 
 class Urllib2Client(HTTPClient):
-    name = 'urllib2'
+    if sys.version_info >= (3, 0):
+        name = 'urllib.request'
+    else:
+        name = 'urllib2'
 
     def request(self, method, url, headers, post_data=None):
+        if sys.version_info >= (3, 0) and isinstance(post_data, basestring):
+            post_data = post_data.encode('utf-8')
+
         req = urllib2.Request(url, post_data, headers)
 
         if method not in ('get', 'post'):
@@ -268,8 +262,11 @@ class Urllib2Client(HTTPClient):
 
         try:
             response = urllib2.urlopen(req)
-            rbody = response.read()
-            rcode = response.code
+            try:
+                rbody = response.read()
+                rcode = response.code
+            finally:
+                response.close()
         except urllib2.HTTPError, e:
             rcode = e.code
             rbody = e.read()

@@ -217,7 +217,9 @@ class APIRequestor(object):
 
     def interpret_response(self, rbody, rcode):
         try:
-            resp = util.json.loads(rbody.decode('utf-8'))
+            if hasattr(rbody, 'decode'):
+                rbody = rbody.decode('utf-8')
+            resp = util.json.loads(rbody)
         except Exception:
             raise error.APIError(
                 "Invalid response body from API: %s "

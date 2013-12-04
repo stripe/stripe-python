@@ -97,6 +97,12 @@ class RequestsFunctionalTests(FunctionalTests):
 
 
 class PycurlFunctionalTests(FunctionalTests):
+    def setUp(self):
+        if sys.version_info >= (3, 0):
+            self.skipTest('Pycurl is not supported in Python 3')
+        else:
+            super(PycurlFunctionalTests, self).setUp()
+
     request_client = stripe.http_client.PycurlClient
 
 

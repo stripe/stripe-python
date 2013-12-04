@@ -57,9 +57,6 @@ _original_module = _sys.modules[__name__]
 class _DeprecationWrapper(object):
 
     def __getattribute__(self, name):
-        if name == '__class__':
-            return types.ModuleType
-
         value = getattr(_original_module, name)
 
         # Allow specific names and resources

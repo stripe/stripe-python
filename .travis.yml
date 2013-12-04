@@ -12,4 +12,4 @@ before_install:
 install:
   - python setup.py install
   - python -c 'print(__import__("requests").__version__)'
-script: nosetests
+script: python -W always setup.py test

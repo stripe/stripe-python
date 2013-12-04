@@ -8,14 +8,16 @@ import time
 logger = logging.getLogger('stripe')
 
 try:
-    # Python 3
-    from urllib.parse import parse_qsl
+    # When cStringIO is available
+    import cStringIO as StringIO
 except ImportError:
-    try:
-        from urlparse import parse_qsl
-    except ImportError:
-        # Python < 2.6
-        from cgi import parse_qsl
+    import StringIO
+
+try:
+    from urlparse import parse_qsl
+except ImportError:
+    # Python < 2.6
+    from cgi import parse_qsl
 
 try:
     import json

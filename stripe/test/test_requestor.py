@@ -50,15 +50,34 @@ class APIHeaderMatcher(object):
         return True
 
 
-class UrlQueryMatcher(object):
-
+class QueryMatcher(object):
     def __init__(self, expected):
         self.expected = sorted(expected)
 
     def __eq__(self, other):
-        parsed = urlparse.urlsplit(other)
-        return self.expected == sorted(stripe.util.parse_qsl(parsed.query))
+        query = urlparse.urlsplit(other).query or other
 
+        parsed = stripe.util.parse_qsl(query)
+        return self.expected == sorted(parsed)
+
+
+class UrlMatcher(object):
+    def __init__(self, expected):
+        self.exp_parts = urlparse.urlsplit(expected)
+
+    def __eq__(self, other):
+        other_parts = urlparse.urlsplit(other)
+
+        for part in ('scheme', 'netloc', 'path', 'fragment'):
+            expected = getattr(self.exp_parts, part)
+            actual = getattr(other_parts, part)
+            if  expected != actual:
+                print 'Expected %s "%s" but got "%s"' % (
+                    part, expected, actual)
+                return False
+
+        q_matcher = QueryMatcher(stripe.util.parse_qsl(self.exp_parts.query))
+        return q_matcher == other
 
 class APIRequestorRequestTests(StripeUnitTestCase):
     ENCODE_INPUTS = {
@@ -96,7 +115,7 @@ class APIRequestorRequestTests(StripeUnitTestCase):
             ('%s[]', 'baz'),
         ],
         'string': [('%s', 'boo')],
-        'unicode': [('%s', (u'\u1234').encode('utf-8'))],
+        'unicode': [('%s', stripe.util.utf8(u'\u1234'))],
         'datetime': [('%s', 1356994801)],
         'none': [],
     }
@@ -171,7 +190,7 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         for type_, values in self.ENCODE_EXPECTATIONS.iteritems():
             expectation.extend([(k % (type_,), str(v)) for k, v in values])
 
-        self.check_call('get', UrlQueryMatcher(expectation))
+        self.check_call('get', QueryMatcher(expectation))
 
     def test_url_construction(self):
         CASES = (
@@ -228,11 +247,13 @@ class APIRequestorRequestTests(StripeUnitTestCase):
             self.assertEqual({'foo': 'bar', 'baz': 6}, body)
 
             if meth == 'post':
-                self.check_call(meth, post_data=encoded)
+                self.check_call(
+                    meth,
+                    post_data=QueryMatcher(stripe.util.parse_qsl(encoded)))
             else:
                 abs_url = "https://api.stripe.com%s?%s" % (
                     self.valid_path, encoded)
-                self.check_call(meth, abs_url=abs_url)
+                self.check_call(meth, abs_url=UrlMatcher(abs_url))
 
     def test_uses_instance_key(self):
         key = 'fookey'

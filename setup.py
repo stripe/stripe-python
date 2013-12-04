@@ -40,4 +40,6 @@ setup(name='stripe',
       packages=['stripe', 'stripe.test'],
       package_data={'stripe': ['data/ca-certificates.crt', '../VERSION']},
       install_requires=install_requires,
+      test_suite='stripe.test',
+      use_2to3 = True,
       )

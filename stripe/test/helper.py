@@ -3,6 +3,7 @@ import os
 import random
 import re
 import string
+import sys
 import unittest
 
 from mock import patch, Mock
@@ -144,7 +145,12 @@ class StripeTestCase(unittest.TestCase):
 
 
 class StripeUnitTestCase(StripeTestCase):
-    REQUEST_LIBRARIES = ('urlfetch', 'requests', 'pycurl', 'urllib2')
+    REQUEST_LIBRARIES = ['urlfetch', 'requests', 'pycurl']
+
+    if sys.version_info >= (3, 0):
+        REQUEST_LIBRARIES.append('urllib.request')
+    else:
+        REQUEST_LIBRARIES.append('urllib2')
 
     def setUp(self):
         super(StripeUnitTestCase, self).setUp()
