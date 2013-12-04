@@ -10,11 +10,6 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install libcurl4-gnutls-dev librtmp-dev
 install:
-  - pip install
   - python setup.py install
   - python -c 'print(__import__("requests").__version__)'
-script:
-# need to change into a different directory to make sure we use the 2to3 converted code
-  - mkdir -p temp/
-  - cd temp
-  - nosetests stripe/test/
+script: nosetests
