@@ -13,7 +13,7 @@ import stripe
 from stripe.test.helper import (
     StripeTestCase,
     NOW, DUMMY_CARD, DUMMY_CHARGE, DUMMY_PLAN, DUMMY_COUPON,
-    DUMMY_RECIPIENT, DUMMY_TRANSFER)
+    DUMMY_RECIPIENT, DUMMY_TRANSFER, DUMMY_INVOICE_ITEM)
 
 
 class FunctionalTests(StripeTestCase):
@@ -128,11 +128,11 @@ class CardErrorTest(StripeTestCase):
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
 
-
-class ChargeListTest(StripeTestCase):
+# Note that these are in addition to the core functional charge tests
+class ChargeTest(StripeTestCase):
 
     def setUp(self):
-        super(ChargeListTest, self).setUp()
+        super(ChargeTest, self).setUp()
 
         self.charge_list = stripe.Charge.all()
 
@@ -156,6 +156,35 @@ class ChargeListTest(StripeTestCase):
         charge = self.charge_list.retrieve(self.charge_list.data[0].id)
 
         self.assertTrue(isinstance(charge, stripe.Charge))
+
+    def test_charge_capture(self):
+        params = DUMMY_CHARGE.copy()
+        params['capture'] = False
+
+        charge = stripe.Charge.create(**params)
+
+        self.assertFalse(charge.captured)
+
+        self.assertTrue(charge is charge.capture())
+        self.assertTrue(stripe.Charge.retrieve(charge.id).captured)
+
+
+    def test_charge_dispute(self):
+        # We don't have a good way of simulating disputes
+        # This is a pretty lame test but it at least checks that the
+        # dispute code fails in the way we predict, not from e.g.
+        # a syntax error
+
+        charge = stripe.Charge.create(**DUMMY_CHARGE)
+
+        self.assertRaisesRegexp(stripe.error.InvalidRequestError,
+                                'No dispute for charge',
+                                charge.update_dispute)
+
+        self.assertRaisesRegexp(stripe.error.InvalidRequestError,
+                                'No dispute for charge',
+                                charge.close_dispute)
+
 
 class AccountTest(StripeTestCase):
 
@@ -200,6 +229,16 @@ class CustomerTest(StripeTestCase):
         customers = stripe.Customer.all()
         self.assertTrue(isinstance(customers.data, list))
 
+    def test_list_charges(self):
+        customer = stripe.Customer.all(count=1).data[0]
+
+        starting_charges = len(customer.charges().data)
+
+        stripe.Charge.create(customer=customer.id, amount=100, currency='usd')
+
+        self.assertEqual(starting_charges + 1,
+                         len(customer.charges().data))
+
     def test_unset_description(self):
         customer = stripe.Customer.create(description="foo bar")
 
@@ -212,6 +251,15 @@ class CustomerTest(StripeTestCase):
         customer = stripe.Customer()
         self.assertRaises(ValueError, setattr, customer, "description", "")
 
+    def test_update_customer_card(self):
+        customer = stripe.Customer.all(count=1).data[0]
+        card = customer.cards.create(card=DUMMY_CARD)
+
+        card.name = 'Python bindings test'
+        card.save()
+
+        self.assertEqual('Python bindings test',
+                         customer.cards.retrieve(card.id).name)
 
 class TransferTest(StripeTestCase):
 
@@ -228,6 +276,12 @@ class RecipientTest(StripeTestCase):
         self.assertTrue(isinstance(recipients.data, list))
         self.assertTrue(isinstance(recipients.data[0], stripe.Recipient))
 
+    def test_recipient_transfers(self):
+        recipient = stripe.Recipient.all(count=1).data[0]
+
+        # Weak assertion since the list could be empty
+        for transfer in recipient.transfers().data:
+            self.assertTrue(isinstance(transfer, stripe.Transfer))
 
 class CustomerPlanTest(StripeTestCase):
 
@@ -259,9 +313,13 @@ class CustomerPlanTest(StripeTestCase):
         self.assertFalse(hasattr(customer, 'plan'))
         self.assertTrue(customer.deleted)
 
-    def test_cancel_subscription(self):
-        customer = stripe.Customer.create(plan=DUMMY_PLAN['id'],
-                                          card=DUMMY_CARD)
+    def test_update_and_cancel_subscription(self):
+        customer = stripe.Customer.create(card=DUMMY_CARD)
+
+        sub = customer.update_subscription(plan=DUMMY_PLAN['id'])
+        self.assertEqual(customer.subscription.id, sub.id)
+        self.assertEqual(DUMMY_PLAN['id'], sub.plan.id)
+
         customer.cancel_subscription(at_period_end=True)
         self.assertEqual(customer.subscription.status, 'active')
         self.assertTrue(customer.subscription.cancel_at_period_end)
@@ -282,6 +340,32 @@ class CustomerPlanTest(StripeTestCase):
                                           trial_end=trial_end_int)
         self.assertTrue(customer.id)
 
+class InvoiceTest(StripeTestCase):
+    def test_invoice(self):
+        customer = stripe.Customer.create(card=DUMMY_CARD)
+
+        customer.add_invoice_item(**DUMMY_INVOICE_ITEM)
+
+        items = customer.invoice_items()
+        self.assertEqual(1, len(items.data))
+
+        invoice = stripe.Invoice.create(customer=customer)
+
+        invoices = customer.invoices()
+        self.assertEqual(1, len(invoices.data))
+        self.assertEqual(1, len(invoices.data[0].lines.data))
+        self.assertEqual(invoice.id, invoices.data[0].id)
+
+        self.assertTrue(invoice.pay().paid)
+
+        # It would be better to test for an actually existing
+        # upcoming invoice but that isn't working so we'll just
+        # check that the appropriate error comes back for now
+        self.assertRaisesRegexp(
+            stripe.error.InvalidRequestError,
+            'No upcoming invoices',
+            stripe.Invoice.upcoming,
+            customer=customer)
 
 class CouponTest(StripeTestCase):
 

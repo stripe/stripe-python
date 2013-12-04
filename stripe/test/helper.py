@@ -1,6 +1,7 @@
 import datetime
 import os
 import random
+import re
 import string
 import unittest
 
@@ -45,6 +46,11 @@ DUMMY_TRANSFER = {
     'amount': 400,
     'currency': 'usd',
     'recipient': 'self'
+}
+
+DUMMY_INVOICE_ITEM = {
+    'amount': 456,
+    'currency': 'usd',
 }
 
 SAMPLE_INVOICE = stripe.util.json.loads("""
@@ -118,6 +124,23 @@ class StripeTestCase(unittest.TestCase):
 
         for attr in self.RESTORE_ATTRIBUTES:
             setattr(stripe, attr, self._stripe_original_attributes[attr])
+
+    # Python < 2.7 compatibility
+    def assertRaisesRegexp(self, exception, regexp, callable, *args, **kwargs):
+        try:
+            callable(*args, **kwargs)
+        except exception, err:
+            if regexp is None:
+                return True
+
+            if isinstance(regexp, basestring):
+                regexp = re.compile(regexp)
+            if not regexp.search(str(err)):
+                raise self.failureException('"%s" does not match "%s"' %
+                                            (regexp.pattern, str(err)))
+        else:
+            raise self.failureException(
+                '%s was not raised' % (exception.__name__,))
 
 
 class StripeUnitTestCase(StripeTestCase):
