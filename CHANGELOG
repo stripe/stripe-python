@@ -10,9 +10,9 @@
 
 Backwards Incompatible Changes
 
-* The `to_dict` and `values` methods on resources no longer recursively convert objects to plain dicts.
-* The `previous_metadata` attribute on resources is now private.
-* Timezone aware `datetime` objects passed to the API will now be encoded in a way that does not depend on the local system time.  This may change the value passed to the API.
+* The `to_dict` and `values` methods on resources no longer recursively convert objects to plain `dict`s.  All resources now inherit from `dict` but are functionally different in that you cannot set a value to an empty string and cannot delete items.
+* The `previous_metadata` attribute on resources is now protected.
+* Timezone aware `datetime` objects passed to the API will now be encoded in a way that does not depend on the local system time.  If you are passing timezone-aware datetimes to our API and your server time is not already in UTC, this will change the value passed to our API.
 
 === 1.9.8 2013-10-17
 

@@ -1,6 +1,7 @@
 import os
 import sys
 import textwrap
+import warnings
 
 # Use cStringIO if it's available.  Otherwise, StringIO is fine.
 try:
@@ -66,7 +67,7 @@ def new_default_http_client(*args, **kwargs):
         impl = PycurlClient
     elif urllib2:
         impl = Urllib2Client
-        sys.stderr.write(
+        warnings.warn(
             "Warning: the Stripe library is falling back to urllib2 "
             "because neither requests nor pycurl are installed. "
             "urllib2's SSL implementation doesn't verify server "

@@ -5,7 +5,6 @@ from mock import Mock
 
 import stripe
 
-from stripe import APIRequestor, APIError, APIConnectionError
 from stripe.test.helper import StripeUnitTestCase
 
 VALID_API_METHODS = ('get', 'post', 'delete')
@@ -70,7 +69,8 @@ class APIRequestorClassTests(unittest.TestCase):
                        self.ENCODE_EXPECTATIONS[key]]
 
         stk = []
-        getattr(APIRequestor, "encode_%s" % key)(stk, stk_key, value)
+        fn = getattr(stripe.api_requestor.APIRequestor, "encode_%s" % key)
+        fn(stk, stk_key, value)
 
         if(isinstance(value, dict)):
             expectation.sort()
@@ -90,7 +90,7 @@ class APIRequestorClassTests(unittest.TestCase):
     def test_encode_naive_datetime(self):
         stk = []
 
-        APIRequestor.encode_datetime(
+        stripe.api_requestor.APIRequestor.encode_datetime(
             stk, 'test', datetime.datetime(2013, 1, 1))
 
         self.assertTrue(60 * 60 * 24 > abs(stk[0][1] - 1356994800))
@@ -103,7 +103,7 @@ class APIRequestorClassTests(unittest.TestCase):
         for type_, values in self.ENCODE_EXPECTATIONS.iteritems():
             expectation.extend([(k % type_, str(v)) for k, v in values])
 
-        result = APIRequestor.encode(self.ENCODE_INPUTS)
+        result = stripe.api_requestor.APIRequestor.encode(self.ENCODE_INPUTS)
         decoded = stripe.util.parse_qsl(result)
 
         # List ordering is checked elsewhere
@@ -128,7 +128,8 @@ class APIRequestorClassTests(unittest.TestCase):
         )
 
         for expected, url, params in CASES:
-            self.assertEqual(expected, APIRequestor.build_url(url, params))
+            actual = stripe.api_requestor.APIRequestor.build_url(url, params)
+            self.assertEqual(expected, actual)
 
 
 class APIHeaderMatcher(object):
@@ -167,7 +168,8 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         self.http_client._verify_ssl_certs = True
         self.http_client.name = 'mockclient'
 
-        self.requestor = APIRequestor(client=self.http_client)
+        self.requestor = stripe.api_requestor.APIRequestor(
+            client=self.http_client)
 
     def mock_response(self, return_body, return_code, requestor=None):
         if not requestor:
@@ -233,7 +235,8 @@ class APIRequestorRequestTests(StripeUnitTestCase):
 
     def test_uses_instance_key(self):
         key = 'fookey'
-        requestor = APIRequestor(key, client=self.http_client)
+        requestor = stripe.api_requestor.APIRequestor(key,
+                                                      client=self.http_client)
 
         self.mock_response('{}', 200, requestor=requestor)
 
@@ -256,47 +259,47 @@ class APIRequestorRequestTests(StripeUnitTestCase):
     def test_fails_without_api_key(self):
         stripe.api_key = None
 
-        self.assertRaises(stripe.AuthenticationError,
+        self.assertRaises(stripe.error.AuthenticationError,
                           self.requestor.request,
                           'get', self.valid_path, {})
 
     def test_not_found(self):
         self.mock_response('{"error": {}}', 404)
 
-        self.assertRaises(stripe.InvalidRequestError,
+        self.assertRaises(stripe.error.InvalidRequestError,
                           self.requestor.request,
                           'get', self.valid_path, {})
 
     def test_authentication_error(self):
         self.mock_response('{"error": {}}', 401)
 
-        self.assertRaises(stripe.AuthenticationError,
+        self.assertRaises(stripe.error.AuthenticationError,
                           self.requestor.request,
                           'get', self.valid_path, {})
 
     def test_card_error(self):
         self.mock_response('{"error": {}}', 402)
 
-        self.assertRaises(stripe.CardError,
+        self.assertRaises(stripe.error.CardError,
                           self.requestor.request,
                           'get', self.valid_path, {})
 
     def test_server_error(self):
         self.mock_response('{"error": {}}', 500)
 
-        self.assertRaises(APIError,
+        self.assertRaises(stripe.error.APIError,
                           self.requestor.request,
                           'get', self.valid_path, {})
 
     def test_invalid_json(self):
         self.mock_response('{', 200)
 
-        self.assertRaises(APIError,
+        self.assertRaises(stripe.error.APIError,
                           self.requestor.request,
                           'get', self.valid_path, {})
 
     def test_invalid_method(self):
-        self.assertRaises(APIConnectionError,
+        self.assertRaises(stripe.error.APIConnectionError,
                           self.requestor.request,
                           'foo', 'bar')
 

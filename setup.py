@@ -1,8 +1,6 @@
 import os
 import sys
 
-print('running setup.py')
-
 try:
     from setuptools import setup
 except ImportError:

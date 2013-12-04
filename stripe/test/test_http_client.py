@@ -9,6 +9,17 @@ from stripe.test.helper import StripeUnitTestCase
 VALID_API_METHODS = ('get', 'post', 'delete')
 
 class HttpClientTests(StripeUnitTestCase):
+    def setUp(self):
+        super(HttpClientTests, self).setUp()
+
+        self.original_filters = stripe.http_client.warnings.filters[:]
+        stripe.http_client.warnings.simplefilter('ignore')
+
+    def tearDown(self):
+        stripe.http_client.warnings.filters = self.original_filters
+
+        super(HttpClientTests, self).tearDown()
+
     def check_default(self, none_libs, expected):
         for lib in none_libs:
             setattr(stripe.http_client, lib, None)
@@ -44,11 +55,18 @@ class ClientTestBase():
         return 'https://api.stripe.com%s' % path
 
     def make_deprecated_request(self, meth, abs_url, headers, params):
-        requestor = stripe.APIRequestor()
-        request_method = getattr(requestor,
-                                 "%s_request" % self.request_client.name)
+        original_filters = stripe.http_client.warnings.filters[:]
 
-        return request_method(meth, abs_url, headers, params)
+        try:
+            stripe.http_client.warnings.simplefilter('ignore')
+
+            requestor = stripe.api_requestor.APIRequestor()
+            request_method = getattr(requestor,
+                                     "%s_request" % self.request_client.name)
+
+            return request_method(meth, abs_url, headers, params)
+        finally:
+            stripe.http_client.warnings.filters = original_filters
 
     def make_request(self, method, url, headers, post_data):
         client = self.request_client(verify_ssl_certs=True)
@@ -90,7 +108,7 @@ class ClientTestBase():
 
     def test_exception(self):
         self.mock_error(self.request_mock)
-        self.assertRaises(stripe.APIConnectionError,
+        self.assertRaises(stripe.error.APIConnectionError,
                           self.make_request,
                           'get', self.valid_url, {}, None)
 
@@ -108,7 +126,7 @@ class ClientTestBase():
             self.assertEqual(200, code)
             self.assertEqual('{"foo": "baz"}', body)
 
-            encoded = stripe.APIRequestor.encode(params)
+            encoded = stripe.api_requestor.APIRequestor.encode(params)
 
             if meth != 'post':
                 url = "%s?%s" % (abs_url, encoded)
@@ -120,13 +138,13 @@ class ClientTestBase():
             self.check_call(self.request_mock, meth, url, post_data, headers)
 
     def test_deprecated_invalid_method(self):
-        self.assertRaises(stripe.APIConnectionError,
+        self.assertRaises(stripe.error.APIConnectionError,
                           self.make_deprecated_request,
                           'put', self.valid_url, {}, {})
 
     def test_deprecated_exception(self):
         self.mock_error(self.request_mock)
-        self.assertRaises(stripe.APIConnectionError,
+        self.assertRaises(stripe.error.APIConnectionError,
                           self.make_deprecated_request,
                           'get', self.valid_url, {}, {})
 

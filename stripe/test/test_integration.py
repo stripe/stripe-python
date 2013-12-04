@@ -40,7 +40,7 @@ class FunctionalTests(StripeTestCase):
         api_base = stripe.api_base
         try:
             stripe.api_base = 'https://my-invalid-domain.ireallywontresolve/v1'
-            self.assertRaises(stripe.APIConnectionError,
+            self.assertRaises(stripe.error.APIConnectionError,
                               stripe.Customer.create)
         finally:
             stripe.api_base = api_base
@@ -70,12 +70,13 @@ class FunctionalTests(StripeTestCase):
         EXPIRED_CARD = DUMMY_CARD.copy()
         EXPIRED_CARD['exp_month'] = NOW.month - 2
         EXPIRED_CARD['exp_year'] = NOW.year - 2
-        self.assertRaises(stripe.CardError, stripe.Charge.create, amount=100,
-                          currency='usd', card=EXPIRED_CARD)
+        self.assertRaises(stripe.error.CardError, stripe.Charge.create,
+                          amount=100, currency='usd', card=EXPIRED_CARD)
 
     def test_unicode(self):
         # Make sure unicode requests can be sent
-        self.assertRaises(stripe.InvalidRequestError, stripe.Charge.retrieve,
+        self.assertRaises(stripe.error.InvalidRequestError,
+                          stripe.Charge.retrieve,
                           id=u'☃')
 
     def test_none_values(self):
@@ -84,7 +85,7 @@ class FunctionalTests(StripeTestCase):
 
     def test_missing_id(self):
         customer = stripe.Customer()
-        self.assertRaises(stripe.InvalidRequestError, customer.refresh)
+        self.assertRaises(stripe.error.InvalidRequestError, customer.refresh)
 
 
 class RequestsFunctionalTests(FunctionalTests):
@@ -106,7 +107,7 @@ class AuthenticationErrorTest(StripeTestCase):
         try:
             stripe.api_key = 'invalid'
             stripe.Customer.create()
-        except stripe.AuthenticationError, e:
+        except stripe.error.AuthenticationError, e:
             self.assertEqual(401, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
@@ -234,19 +235,20 @@ class CustomerPlanTest(StripeTestCase):
         super(CustomerPlanTest, self).setUp()
         try:
             self.plan_obj = stripe.Plan.create(**DUMMY_PLAN)
-        except stripe.InvalidRequestError:
+        except stripe.error.InvalidRequestError:
             self.plan_obj = None
 
     def tearDown(self):
         if self.plan_obj:
             try:
                 self.plan_obj.delete()
-            except stripe.InvalidRequestError:
+            except stripe.error.InvalidRequestError:
                 pass
         super(CustomerPlanTest, self).tearDown()
 
     def test_create_customer(self):
-        self.assertRaises(stripe.InvalidRequestError, stripe.Customer.create,
+        self.assertRaises(stripe.error.InvalidRequestError,
+                          stripe.Customer.create,
                           plan=DUMMY_PLAN['id'])
         customer = stripe.Customer.create(
             plan=DUMMY_PLAN['id'], card=DUMMY_CARD)
@@ -284,7 +286,7 @@ class CustomerPlanTest(StripeTestCase):
 class CouponTest(StripeTestCase):
 
     def test_create_coupon(self):
-        self.assertRaises(stripe.InvalidRequestError,
+        self.assertRaises(stripe.error.InvalidRequestError,
                           stripe.Coupon.create, percent_off=25)
         c = stripe.Coupon.create(**DUMMY_COUPON)
         self.assertTrue(isinstance(c, stripe.Coupon))
@@ -325,7 +327,7 @@ class InvalidRequestErrorTest(StripeTestCase):
     def test_nonexistent_object(self):
         try:
             stripe.Charge.retrieve('invalid')
-        except stripe.InvalidRequestError, e:
+        except stripe.error.InvalidRequestError, e:
             self.assertEqual(404, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
@@ -333,7 +335,7 @@ class InvalidRequestErrorTest(StripeTestCase):
     def test_invalid_data(self):
         try:
             stripe.Charge.create()
-        except stripe.InvalidRequestError, e:
+        except stripe.error.InvalidRequestError, e:
             self.assertEqual(400, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
@@ -345,11 +347,11 @@ class PlanTest(StripeTestCase):
         super(PlanTest, self).setUp()
         try:
             stripe.Plan(DUMMY_PLAN['id']).delete()
-        except stripe.InvalidRequestError:
+        except stripe.error.InvalidRequestError:
             pass
 
     def test_create_plan(self):
-        self.assertRaises(stripe.InvalidRequestError,
+        self.assertRaises(stripe.error.InvalidRequestError,
                           stripe.Plan.create, amount=2500)
         p = stripe.Plan.create(**DUMMY_PLAN)
         self.assertTrue(hasattr(p, 'amount'))
@@ -459,11 +461,6 @@ class MetadataTest(StripeTestCase):
             metadata = obj.retrieve(obj.id).metadata
             self.assertEqual({'uid': '6735', 'foo': 'bar'}, metadata)
 
-
-class CliTest(StripeTestCase):
-
-    def test_cli(self):
-        self.fail('cli has not been refactored yet')
 
 if __name__ == '__main__':
     unittest.main()

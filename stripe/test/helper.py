@@ -159,30 +159,32 @@ class StripeApiTestCase(StripeTestCase):
         self.requestor_mock.request = Mock(return_value=(res, 'reskey'))
 
 
-class MyResource(stripe.APIResource):
+class MyResource(stripe.resource.APIResource):
     pass
 
 
-class MySingleton(stripe.SingletonAPIResource):
+class MySingleton(stripe.resource.SingletonAPIResource):
     pass
 
 
-class MyListable(stripe.ListableAPIResource):
+class MyListable(stripe.resource.ListableAPIResource):
     pass
 
 
-class MyCreatable(stripe.CreateableAPIResource):
+class MyCreatable(stripe.resource.CreateableAPIResource):
     pass
 
 
-class MyUpdateable(stripe.UpdateableAPIResource):
+class MyUpdateable(stripe.resource.UpdateableAPIResource):
     pass
 
 
-class MyDeletable(stripe.DeletableAPIResource):
+class MyDeletable(stripe.resource.DeletableAPIResource):
     pass
 
 
-class MyComposite(stripe.ListableAPIResource, stripe.CreateableAPIResource,
-                  stripe.UpdateableAPIResource, stripe.DeletableAPIResource):
+class MyComposite(stripe.resource.ListableAPIResource,
+                  stripe.resource.CreateableAPIResource,
+                  stripe.resource.UpdateableAPIResource,
+                  stripe.resource.DeletableAPIResource):
     pass

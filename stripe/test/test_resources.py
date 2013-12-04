@@ -1,5 +1,4 @@
-from stripe import (StripeObject, Charge, ListObject,
-                    Customer, convert_to_stripe_object)
+import stripe
 
 from stripe.test.helper import (
     StripeUnitTestCase, StripeApiTestCase,
@@ -12,13 +11,13 @@ from stripe import util
 class StripeObjectTests(StripeUnitTestCase):
 
     def test_initializes_with_parameters(self):
-        obj = StripeObject('foo', 'bar', myparam=5, yourparam='boo')
+        obj = stripe.resource.StripeObject('foo', 'bar', myparam=5, yourparam='boo')
 
         self.assertEqual('foo', obj.id)
         self.assertEqual('bar', obj.api_key)
 
     def test_access(self):
-        obj = StripeObject('myid', 'mykey', myparam=5)
+        obj = stripe.resource.StripeObject('myid', 'mykey', myparam=5)
 
         # Empty
         self.assertRaises(AttributeError, getattr, obj, 'myattr')
@@ -47,7 +46,7 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertRaises(TypeError, obj.__delitem__, 'myattr')
 
     def test_refresh_from(self):
-        obj = StripeObject.construct_from({
+        obj = stripe.resource.StripeObject.construct_from({
             'foo': 'bar',
             'trans': 'me',
         }, 'mykey')
@@ -76,38 +75,16 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual({'amount': 42}, obj._previous_metadata)
 
     def test_refresh_from_nested_object(self):
-        obj = StripeObject.construct_from(SAMPLE_INVOICE, 'key')
+        obj = stripe.resource.StripeObject.construct_from(SAMPLE_INVOICE, 'key')
 
         self.assertEqual(1, len(obj.lines.subscriptions))
-        self.assertTrue(isinstance(obj.lines.subscriptions[0], StripeObject))
+        self.assertTrue(isinstance(obj.lines.subscriptions[0], stripe.resource.StripeObject))
         self.assertEqual('month', obj.lines.subscriptions[0].plan.interval)
 
-    def test_to_dict(self):
-        obj = StripeObject.construct_from(SAMPLE_INVOICE, 'key')
-
-        res = obj.to_dict()
-
-        self.check_nested_objects(res)
-        self.check_invoice_data(res)
-
     def test_to_json(self):
-        obj = StripeObject.construct_from(SAMPLE_INVOICE, 'key')
+        obj = stripe.resource.StripeObject.construct_from(SAMPLE_INVOICE, 'key')
 
         self.check_invoice_data(util.json.loads(str(obj)))
-
-    # Ensure no nested StripeObjects are returned
-    def check_nested_objects(self, obj):
-        if isinstance(obj, dict):
-            for k, v in obj.iteritems():
-                self.check_nested_objects(k)
-                self.check_nested_objects(v)
-        elif isinstance(obj, list):
-            for v in obj:
-                self.check_nested_objects(v)
-        else:
-            self.assertFalse(isinstance(obj, StripeObject),
-                             "StripeObject %s still in to_dict result" % (
-                                 repr(obj),))
 
     def check_invoice_data(self, data):
         # Check rough structure
@@ -129,7 +106,7 @@ class ListObjectTests(StripeApiTestCase):
     def setUp(self):
         super(ListObjectTests, self).setUp()
 
-        self.lo = ListObject.construct_from({
+        self.lo = stripe.resource.ListObject.construct_from({
             'id': 'me',
             'url': '/my/path',
         }, 'mykey')
@@ -140,7 +117,7 @@ class ListObjectTests(StripeApiTestCase):
         }])
 
     def assertResponse(self, res):
-        self.assertTrue(isinstance(res[0], Charge))
+        self.assertTrue(isinstance(res[0], stripe.Charge))
         self.assertEqual('bar', res[0].foo)
 
     def test_all(self):
@@ -217,13 +194,13 @@ class APIResourceTests(StripeApiTestCase):
             ]
         }
 
-        converted = convert_to_stripe_object(sample, 'akey')
+        converted = stripe.resource.convert_to_stripe_object(sample, 'akey')
 
         # Types
-        self.assertTrue(isinstance(converted, StripeObject))
-        self.assertTrue(isinstance(converted.adict, Charge))
+        self.assertTrue(isinstance(converted, stripe.resource.StripeObject))
+        self.assertTrue(isinstance(converted.adict, stripe.Charge))
         self.assertEqual(1, len(converted.alist))
-        self.assertTrue(isinstance(converted.alist[0], Customer))
+        self.assertTrue(isinstance(converted.alist[0], stripe.Customer))
 
         # Values
         self.assertEqual('bar', converted.foo)
@@ -269,7 +246,7 @@ class ListableAPIResourceTests(StripeApiTestCase):
             'get', '/v1/mylistables', {})
 
         self.assertEqual(2, len(res))
-        self.assertTrue(all(isinstance(obj, Charge) for obj in res))
+        self.assertTrue(all(isinstance(obj, stripe.Charge) for obj in res))
         self.assertEqual('jose', res[0].name)
         self.assertEqual('curly', res[1].name)
 
@@ -287,7 +264,7 @@ class CreateableAPIResourceTests(StripeApiTestCase):
         self.requestor_mock.request.assert_called_with(
             'post', '/v1/mycreatables', {})
 
-        self.assertTrue(isinstance(res, Charge))
+        self.assertTrue(isinstance(res, stripe.Charge))
         self.assertEqual('bar', res.foo)
 
 
