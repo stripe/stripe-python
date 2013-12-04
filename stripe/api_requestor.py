@@ -7,9 +7,44 @@ import urllib
 import urlparse
 import warnings
 
-# TODO: replace api_base import somehow
 import stripe
 from stripe import error, http_client, version, util
+
+def _encode_datetime(dttime):
+    if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
+        utc_timestamp = calendar.timegm(dttime.utctimetuple())
+    else:
+        utc_timestamp = time.mktime(dttime.timetuple())
+
+    return int(utc_timestamp)
+
+def _api_encode(data):
+    for key, value in data.iteritems():
+        key = util.utf8(key)
+        if value is None:
+            continue
+        elif hasattr(value, 'stripe_id'):
+            yield (key, value.stripe_id)
+        elif isinstance(value, list) or isinstance(value, tuple):
+            for subvalue in value:
+                yield ("%s[]" % (key,), util.utf8(subvalue))
+        elif isinstance(value, dict):
+            subdict = dict(('%s[%s]' % (key, subkey), subvalue) for
+                           subkey, subvalue in value.iteritems())
+            for subkey, subvalue in _api_encode(subdict):
+                yield (subkey, subvalue)
+        elif isinstance(value, datetime.datetime):
+            yield (key, _encode_datetime(value))
+        else:
+            yield (key, util.utf8(value))
+
+def _build_api_url(url, query):
+    scheme, netloc, path, base_query, fragment = urlparse.urlsplit(url)
+
+    if base_query:
+        query = '%s&%s' % (base_query, query)
+
+    return urlparse.urlunsplit((scheme, netloc, path, query, fragment))
 
 
 class APIRequestor(object):
@@ -17,8 +52,6 @@ class APIRequestor(object):
     def __init__(self, key=None, client=None):
         self.api_key = key
 
-        # TODO: This should be handled by passing a custom http_client,
-        # not setting a global variable
         from stripe import verify_ssl_certs
 
         self._client = client or http_client.new_default_http_client(
@@ -26,93 +59,62 @@ class APIRequestor(object):
 
     @classmethod
     def api_url(cls, url=''):
+        warnings.warn(
+            'The `api_url` class method of APIRequestor is '
+            'deprecated and will be removed in version 2.0.'
+            'If you need public access to this function, please email us '
+            'at support@stripe.com.',
+            DeprecationWarning)
         return '%s%s' % (stripe.api_base, url)
 
     @classmethod
-    def encode_dict(cls, stk, key, dictvalue):
-        n = {}
-        for k, v in dictvalue.iteritems():
-            k = util.utf8(k)
-            v = util.utf8(v)
-            n["%s[%s]" % (key, k)] = v
-        stk.extend(cls._encode_inner(n))
+    def _deprecated_encode(cls, stk, key, value):
+        warnings.warn(
+            'The encode_* class methods of APIRequestor are deprecated and '
+            'will be removed in version 2.0. '
+            'If you need public access to this function, please email us '
+            'at support@stripe.com.',
+            DeprecationWarning, stacklevel=2)
+        stk.extend(_api_encode({ key: value }))
 
     @classmethod
-    def encode_list(cls, stk, key, listvalue):
-        for v in listvalue:
-            v = util.utf8(v)
-            stk.append(("%s[]" % (key,), v))
+    def encode_dict(cls, stk, key, value):
+        cls._deprecated_encode(stk, key, value)
 
     @classmethod
-    def encode_datetime(cls, stk, key, dttime):
-        if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
-            utc_timestamp = calendar.timegm(dttime.utctimetuple())
-        else:
-            utc_timestamp = time.mktime(dttime.timetuple())
-
-        stk.append((key, int(utc_timestamp)))
+    def encode_list(cls, stk, key, value):
+        cls._deprecated_encode(stk, key, value)
 
     @classmethod
-    def encode_none(cls, stk, k, v):
-        pass  # do not include None-valued params in request
+    def encode_datetime(cls, stk, key, value):
+        cls._deprecated_encode(stk, key, value)
 
     @classmethod
-    def _encode_inner(cls, d):
-        """
-        We want post vars of form:
-        {'foo': 'bar', 'nested': {'a': 'b', 'c': 'd'}}
-        to become:
-        foo=bar&nested[a]=b&nested[c]=d
-        """
-        # special case value encoding
-        ENCODERS = {
-            list: cls.encode_list,
-            dict: cls.encode_dict,
-            datetime.datetime: cls.encode_datetime,
-            types.NoneType: cls.encode_none,
-        }
-
-        stk = []
-        for key, value in d.iteritems():
-            key = util.utf8(key)
-            try:
-                encoder = ENCODERS[value.__class__]
-                encoder(stk, key, value)
-            except KeyError:
-                # don't need special encoding
-                value = util.utf8(value)
-                stk.append((key, value))
-        return stk
-
-    @classmethod
-    def _objects_to_ids(cls, d):
-        if hasattr(d, 'stripe_id'):
-            return d.stripe_id
-        elif isinstance(d, dict):
-            res = {}
-            for k, v in d.iteritems():
-                res[k] = cls._objects_to_ids(v)
-            return res
-        else:
-            return d
+    def encode_none(cls, stk, key, value):
+        cls._deprecated_encode(stk, key, value)
 
     @classmethod
     def encode(cls, d):
         """
         Internal: encode a string for url representation
         """
-        return urllib.urlencode(cls._encode_inner(d))
+        warnings.warn(
+            'The `encode` class method of APIRequestor is deprecated and '
+            'will be removed in version 2.0.'
+            'If you need public access to this function, please email us '
+            'at support@stripe.com.',
+            DeprecationWarning)
+        return urllib.urlencode(list(_api_encode(d)))
 
     @classmethod
     def build_url(cls, url, params):
-        scheme, netloc, path, base_query, fragment = urlparse.urlsplit(url)
-
-        query = cls.encode(params)
-
-        if base_query:
-            query = '%s&%s' % (base_query, query)
-
-        return urlparse.urlunsplit((scheme, netloc, path, query, fragment))
+        warnings.warn(
+            'The `build_url` class method of APIRequestor is deprecated and '
+            'will be removed in version 2.0.'
+            'If you need public access to this function, please email us '
+            'at support@stripe.com.',
+            DeprecationWarning)
+        return _build_api_url(url, cls.encode(params))
 
     def request(self, method, url, params=None):
         rbody, rcode, my_api_key = self.request_raw(
@@ -125,7 +127,7 @@ class APIRequestor(object):
             err = resp['error']
         except (KeyError, TypeError):
             raise error.APIError(
-                "Invalid response object from API: %r (HTTP response code"
+                "Invalid response object from API: %r (HTTP response code "
                 "was %d)" % (rbody, rcode),
                 rbody, rcode, resp)
 
@@ -161,17 +163,16 @@ class APIRequestor(object):
                 'for details, or email support@stripe.com if you have any '
                 'questions.')
 
-        abs_url = self.api_url(url)
+        abs_url = '%s%s' % (stripe.api_base, url)
 
-        params = (params or {}).copy()
-        self._objects_to_ids(params)
+        encoded_params = urllib.urlencode(list(_api_encode(params or {})))
 
         if method == 'get' or method == 'delete':
             if params:
-                abs_url = self.build_url(abs_url, params)
+                abs_url = _build_api_url(abs_url, encoded_params)
             post_data = None
         elif method == 'post':
-            post_data = self.encode(params)
+            post_data = encoded_params
         else:
             raise error.APIConnectionError(
                 'Unrecognized HTTP method %r.  This may indicate a bug in the '
@@ -226,9 +227,10 @@ class APIRequestor(object):
     # Deprecated request handling.  Will all be removed in 2.0
     def _deprecated_request(self, impl, method, url, headers, params):
         warnings.warn(
-            'the *_request functions of APIRequestor are deprecated and '
+            'The *_request functions of APIRequestor are deprecated and '
             'will be removed in version 2.0. Please use the client classes '
-            ' in `stripe.http_client` instead', DeprecationWarning)
+            ' in `stripe.http_client` instead',
+            DeprecationWarning, stacklevel=2)
 
         method = method.lower()
 
@@ -249,9 +251,10 @@ class APIRequestor(object):
 
     def _deprecated_handle_error(self, impl, *args):
         warnings.warn(
-            'the handle_*_error functions of APIRequestor are deprecated and '
+            'The handle_*_error functions of APIRequestor are deprecated and '
             'will be removed in version 2.0. Please use the client classes '
-            ' in `stripe.http_client` instead', DeprecationWarning)
+            ' in `stripe.http_client` instead',
+            DeprecationWarning, stacklevel=2)
 
         client = impl(verify_ssl_certs=self._client._verify_ssl_certs)
         return client._handle_request_error(*args)

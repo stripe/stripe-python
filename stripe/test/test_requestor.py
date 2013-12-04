@@ -1,5 +1,6 @@
 import datetime
 import unittest
+import urlparse
 
 from mock import Mock
 
@@ -20,116 +21,6 @@ class GMT1(datetime.tzinfo):
 
     def tzname(self, dt):
         return "Europe/Prague"
-
-
-class APIRequestorClassTests(unittest.TestCase):
-    ENCODE_INPUTS = {
-        'dict': {
-            'astring': 'bar',
-            'anint': 5,
-            'anull': None,
-            'adatetime': datetime.datetime(2013, 1, 1, tzinfo=GMT1()),
-            # 'atuple': (1, 2, 3), TODO: Handle tuples properly
-            'adict': {'foo': 'bar', 'boz': 5},
-            'alist': ['foo', 'bar'],
-        },
-        'list': [1, 'foo', 'baz'],
-        'string': 'boo',
-        'unicode': u'\u1234',
-        'datetime': datetime.datetime(2013, 1, 1, second=1, tzinfo=GMT1()),
-        'none': None,
-    }
-
-    ENCODE_EXPECTATIONS = {
-        'dict': [
-            ('%s[astring]', 'bar'),
-            ('%s[anint]', 5),
-            ('%s[adatetime]', 1356994800),
-            ('%s[adict][foo]', 'bar'),
-            ('%s[adict][boz]', 5),
-            ('%s[alist][]', 'foo'),
-            ('%s[alist][]', 'bar'),
-        ],
-        'list': [
-            ('%s[]', 1),
-            ('%s[]', 'foo'),
-            ('%s[]', 'baz'),
-        ],
-        'string': [('%s', 'boo')],
-        'unicode': [('%s', (u'\u1234').encode('utf-8'))],
-        'datetime': [('%s', 1356994801)],
-        'none': [],
-    }
-
-    def encoder_check(self, key):
-        stk_key = "my%s" % (key,)
-
-        value = self.ENCODE_INPUTS[key]
-        expectation = [(k % (stk_key,), v) for k, v in
-                       self.ENCODE_EXPECTATIONS[key]]
-
-        stk = []
-        fn = getattr(stripe.api_requestor.APIRequestor, "encode_%s" % (key,))
-        fn(stk, stk_key, value)
-
-        if(isinstance(value, dict)):
-            expectation.sort()
-            stk.sort()
-
-        self.assertEqual(expectation, stk)
-
-    def test_encode_dict(self):
-        self.encoder_check('dict')
-
-    def test_encode_list(self):
-        self.encoder_check('list')
-
-    def test_encode_datetime(self):
-        self.encoder_check('datetime')
-
-    def test_encode_naive_datetime(self):
-        stk = []
-
-        stripe.api_requestor.APIRequestor.encode_datetime(
-            stk, 'test', datetime.datetime(2013, 1, 1))
-
-        self.assertTrue(60 * 60 * 24 > abs(stk[0][1] - 1356994800))
-
-    def test_encode_none(self):
-        self.encoder_check('none')
-
-    def test_encode(self):
-        expectation = []
-        for type_, values in self.ENCODE_EXPECTATIONS.iteritems():
-            expectation.extend([(k % (type_,), str(v)) for k, v in values])
-
-        result = stripe.api_requestor.APIRequestor.encode(self.ENCODE_INPUTS)
-        decoded = stripe.util.parse_qsl(result)
-
-        # List ordering is checked elsewhere
-        self.assertEqual(sorted(expectation),
-                         sorted(decoded))
-
-    def test_build_url(self):
-        CASES = (
-            ('stripe.com?foo=bar', 'stripe.com', {'foo': 'bar'}),
-            ('stripe.com?foo=bar', 'stripe.com?', {'foo': 'bar'}),
-            ('stripe.com', 'stripe.com', {}),
-            (
-                'https://stripe.com/%20spaced?foo=bar%24&baz=5',
-                'https://stripe.com/%20spaced?foo=bar%24',
-                {'baz': '5'}
-            ),
-            (
-                'http://foo.com?foo=bar&foo=bar',
-                'http://foo.com?foo=bar',
-                {'foo': 'bar'}
-            ),
-        )
-
-        for expected, url, params in CASES:
-            actual = stripe.api_requestor.APIRequestor.build_url(url, params)
-            self.assertEqual(expected, actual)
 
 
 class APIHeaderMatcher(object):
@@ -158,8 +49,55 @@ class APIHeaderMatcher(object):
 
         return True
 
+class UrlQueryMatcher(object):
+    def __init__(self, expected):
+        self.expected = sorted(expected)
+
+    def __eq__(self, other):
+        parsed = urlparse.urlsplit(other)
+        return self.expected == sorted(stripe.util.parse_qsl(parsed.query))
+
 
 class APIRequestorRequestTests(StripeUnitTestCase):
+    ENCODE_INPUTS = {
+        'dict': {
+            'astring': 'bar',
+            'anint': 5,
+            'anull': None,
+            'adatetime': datetime.datetime(2013, 1, 1, tzinfo=GMT1()),
+            'atuple': (1, 2),
+            'adict': {'foo': 'bar', 'boz': 5},
+            'alist': ['foo', 'bar'],
+        },
+        'list': [1, 'foo', 'baz'],
+        'string': 'boo',
+        'unicode': u'\u1234',
+        'datetime': datetime.datetime(2013, 1, 1, second=1, tzinfo=GMT1()),
+        'none': None,
+    }
+
+    ENCODE_EXPECTATIONS = {
+        'dict': [
+            ('%s[astring]', 'bar'),
+            ('%s[anint]', 5),
+            ('%s[adatetime]', 1356994800),
+            ('%s[adict][foo]', 'bar'),
+            ('%s[adict][boz]', 5),
+            ('%s[alist][]', 'foo'),
+            ('%s[alist][]', 'bar'),
+            ('%s[atuple][]', 1),
+            ('%s[atuple][]', 2),
+        ],
+        'list': [
+            ('%s[]', 1),
+            ('%s[]', 'foo'),
+            ('%s[]', 'baz'),
+        ],
+        'string': [('%s', 'boo')],
+        'unicode': [('%s', (u'\u1234').encode('utf-8'))],
+        'datetime': [('%s', 1356994801)],
+        'none': [],
+    }
 
     def setUp(self):
         super(APIRequestorRequestTests, self).setUp()
@@ -178,7 +116,7 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         self.http_client.request = Mock(
             return_value=(return_body, return_code))
 
-    def check_call(self, meth, abs_url=None, headers={},
+    def check_call(self, meth, abs_url=None, headers=None,
                    post_data=None, requestor=None):
         if not abs_url:
             abs_url = 'https://api.stripe.com%s' % (self.valid_path,)
@@ -194,7 +132,68 @@ class APIRequestorRequestTests(StripeUnitTestCase):
     def valid_path(self):
         return '/foo'
 
-    # TODO: Test that we fallback on request libraries in the right order
+    def encoder_check(self, key):
+        stk_key = "my%s" % (key,)
+
+        value = self.ENCODE_INPUTS[key]
+        expectation = [(k % (stk_key,), v) for k, v in
+                       self.ENCODE_EXPECTATIONS[key]]
+
+        stk = []
+        fn = getattr(stripe.api_requestor.APIRequestor, "encode_%s" % (key,))
+        fn(stk, stk_key, value)
+
+        if isinstance(value, dict):
+            expectation.sort()
+            stk.sort()
+
+        self.assertEqual(expectation, stk)
+
+    def _test_encode_naive_datetime(self):
+        stk = []
+
+        stripe.api_requestor.APIRequestor.encode_datetime(
+            stk, 'test', datetime.datetime(2013, 1, 1))
+
+        # Naive datetimes will encode differently depending on your system
+        # local time.  Since we don't know the local time of your system,
+        # we just check that naive encodings are within 24 hours of correct.
+        self.assertTrue(60 * 60 * 24 > abs(stk[0][1] - 1356994800))
+
+    def test_param_encoding(self):
+        self.mock_response('{}', 200)
+
+        self.requestor.request('get', '', self.ENCODE_INPUTS)
+
+        expectation = []
+        for type_, values in self.ENCODE_EXPECTATIONS.iteritems():
+            expectation.extend([(k % (type_,), str(v)) for k, v in values])
+
+        self.check_call('get', UrlQueryMatcher(expectation))
+
+    def test_url_construction(self):
+        CASES = (
+            ('https://api.stripe.com?foo=bar', '', {'foo': 'bar'}),
+            ('https://api.stripe.com?foo=bar', '?', {'foo': 'bar'}),
+            ('https://api.stripe.com', '', {}),
+            (
+                'https://api.stripe.com/%20spaced?foo=bar%24&baz=5',
+                '/%20spaced?foo=bar%24',
+                {'baz': '5'}
+            ),
+            (
+                'https://api.stripe.com?foo=bar&foo=bar',
+                '?foo=bar',
+                {'foo': 'bar'}
+            ),
+        )
+
+        for expected, url, params in CASES:
+            self.mock_response('{}', 200)
+
+            self.requestor.request('get', url, params)
+
+            self.check_call('get', expected)
 
     def test_empty_methods(self):
         for meth in VALID_API_METHODS:
@@ -219,8 +218,8 @@ class APIRequestorRequestTests(StripeUnitTestCase):
                 'adict': {'frobble': 'bits'},
                 'adatetime': datetime.datetime(2013, 1, 1, tzinfo=GMT1())
             }
-            encoded = ('alist%5B%5D=1&alist%5B%5D=2&alist%5B%5D=3&'
-                       'adatetime=1356994800&adict%5Bfrobble%5D=bits')
+            encoded = ('adict%5Bfrobble%5D=bits&adatetime=1356994800&'
+                       'alist%5B%5D=1&alist%5B%5D=2&alist%5B%5D=3')
 
             body, key = self.requestor.request(meth, self.valid_path,
                                                params)
