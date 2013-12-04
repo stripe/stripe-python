@@ -62,14 +62,14 @@ class APIRequestorClassTests(unittest.TestCase):
     }
 
     def encoder_check(self, key):
-        stk_key = "my%s" % key
+        stk_key = "my%s" % (key,)
 
         value = self.ENCODE_INPUTS[key]
-        expectation = [(k % stk_key, v) for k, v in
+        expectation = [(k % (stk_key,), v) for k, v in
                        self.ENCODE_EXPECTATIONS[key]]
 
         stk = []
-        fn = getattr(stripe.api_requestor.APIRequestor, "encode_%s" % key)
+        fn = getattr(stripe.api_requestor.APIRequestor, "encode_%s" % (key,))
         fn(stk, stk_key, value)
 
         if(isinstance(value, dict)):
@@ -101,7 +101,7 @@ class APIRequestorClassTests(unittest.TestCase):
     def test_encode(self):
         expectation = []
         for type_, values in self.ENCODE_EXPECTATIONS.iteritems():
-            expectation.extend([(k % type_, str(v)) for k, v in values])
+            expectation.extend([(k % (type_,), str(v)) for k, v in values])
 
         result = stripe.api_requestor.APIRequestor.encode(self.ENCODE_INPUTS)
         decoded = stripe.util.parse_qsl(result)
@@ -149,7 +149,7 @@ class APIHeaderMatcher(object):
         return (sorted(other.keys()) == sorted(expected_keys))
 
     def _auth_match(self, other):
-        return other['Authorization'] == "Bearer %s" % self.api_key
+        return other['Authorization'] == "Bearer %s" % (self.api_key,)
 
     def _extra_match(self, other):
         for k, v in self.extra.iteritems():
@@ -181,7 +181,7 @@ class APIRequestorRequestTests(StripeUnitTestCase):
     def check_call(self, meth, abs_url=None, headers={},
                    post_data=None, requestor=None):
         if not abs_url:
-            abs_url = 'https://api.stripe.com%s' % self.valid_path
+            abs_url = 'https://api.stripe.com%s' % (self.valid_path,)
         if not requestor:
             requestor = self.requestor
         if not headers:

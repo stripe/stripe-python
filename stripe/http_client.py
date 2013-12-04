@@ -49,7 +49,7 @@ else:
                 'recommend upgrading your "requests" library. If you have any '
                 'questions, please contact support@stripe.com. (HINT: running '
                 '"pip install -U requests" should upgrade your requests '
-                'library to the latest version.)' % version)
+                'library to the latest version.)' % (version,))
             requests = None
 
 try:
@@ -120,7 +120,7 @@ class RequestsClient(HTTPClient):
                     'usage thereof. (HINT: The most likely cause is that '
                     'your "requests" library is out of date. You can fix '
                     'that by running "pip install -U requests".) The '
-                    'underlying error was: %s' % (e, ))
+                    'underlying error was: %s' % (e,))
 
             # This causes the content to actually be read, which could cause
             # e.g. a socket timeout. TODO: The other fetch methods probably
@@ -144,12 +144,12 @@ class RequestsClient(HTTPClient):
                    "It looks like there's probably a configuration "
                    "issue locally.  If this problem persists, let us "
                    "know at support@stripe.com.")
-            err = "A %s was raised" % (type(e).__name__, )
+            err = "A %s was raised" % (type(e).__name__,)
             if str(e):
-                err += " with error message %s" % (str(e), )
+                err += " with error message %s" % (str(e),)
             else:
                 err += " with no error message"
-        msg = textwrap.fill(msg) + "\n\n(Network error: " + err + ")"
+        msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
         raise error.APIConnectionError(msg)
 
 
@@ -181,7 +181,7 @@ class UrlFetchClient(HTTPClient):
             msg = ("The Stripe library attempted to fetch an "
                    "invalid URL (%r). This is likely due to a bug "
                    "in the Stripe Python bindings. Please let us know "
-                   "at support@stripe.com." % (url, ))
+                   "at support@stripe.com." % (url,))
         elif isinstance(e, urlfetch.DownloadError):
             msg = "There was a problem retrieving data from Stripe."
         elif isinstance(e, urlfetch.ResponseTooLargeError):

@@ -129,7 +129,7 @@ class StripeUnitTestCase(StripeTestCase):
         self.request_patchers = {}
         self.request_mocks = {}
         for lib in self.REQUEST_LIBRARIES:
-            patcher = patch("stripe.http_client.%s" % lib)
+            patcher = patch("stripe.http_client.%s" % (lib,))
 
             self.request_mocks[lib] = patcher.start()
             self.request_patchers[lib] = patcher

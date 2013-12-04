@@ -52,7 +52,7 @@ class ClientTestBase():
 
     @property
     def valid_url(self, path='/foo'):
-        return 'https://api.stripe.com%s' % path
+        return 'https://api.stripe.com%s' % (path,)
 
     def make_deprecated_request(self, meth, abs_url, headers, params):
         original_filters = stripe.http_client.warnings.filters[:]
@@ -61,8 +61,8 @@ class ClientTestBase():
             stripe.http_client.warnings.simplefilter('ignore')
 
             requestor = stripe.api_requestor.APIRequestor()
-            request_method = getattr(requestor,
-                                     "%s_request" % self.request_client.name)
+            request_method = getattr(
+                requestor, "%s_request" % (self.request_client.name,))
 
             return request_method(meth, abs_url, headers, params)
         finally:

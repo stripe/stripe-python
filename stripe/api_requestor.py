@@ -41,7 +41,7 @@ class APIRequestor(object):
     def encode_list(cls, stk, key, listvalue):
         for v in listvalue:
             v = util.utf8(v)
-            stk.append(("%s[]" % (key), v))
+            stk.append(("%s[]" % (key,), v))
 
     @classmethod
     def encode_datetime(cls, stk, key, dttime):
@@ -176,7 +176,7 @@ class APIRequestor(object):
             raise error.APIConnectionError(
                 'Unrecognized HTTP method %r.  This may indicate a bug in the '
                 'Stripe bindings.  Please contact support@stripe.com for '
-                'assistance.' % method)
+                'assistance.' % (method,))
 
         ua = {
             'bindings_version': version.VERSION,
@@ -190,13 +190,13 @@ class APIRequestor(object):
             try:
                 val = func()
             except Exception, e:
-                val = "!! %s" % e
+                val = "!! %s" % (e,)
             ua[attr] = val
 
         headers = {
             'X-Stripe-Client-User-Agent': util.json.dumps(ua),
-            'User-Agent': 'Stripe/v1 PythonBindings/%s' % (version.VERSION, ),
-            'Authorization': 'Bearer %s' % (my_api_key, )
+            'User-Agent': 'Stripe/v1 PythonBindings/%s' % (version.VERSION,),
+            'Authorization': 'Bearer %s' % (my_api_key,)
         }
 
         if api_version is not None:
@@ -242,7 +242,7 @@ class APIRequestor(object):
             raise error.APIConnectionError(
                 'Unrecognized HTTP method %r.  This may indicate a bug in the '
                 'Stripe bindings.  Please contact support@stripe.com for '
-                'assistance.' % method)
+                'assistance.' % (method,))
 
         client = impl(verify_ssl_certs=self._client._verify_ssl_certs)
         return client.request(method, url, headers, post_data)

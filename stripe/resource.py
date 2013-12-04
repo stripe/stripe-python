@@ -123,17 +123,16 @@ class StripeObject(dict):
         return convert_to_stripe_object(response, api_key)
 
     def __repr__(self):
-        type_string = ''
+        ident_parts = [type(self).__name__]
+
         if isinstance(self.get('object'), basestring):
-            type_string = ' %s' % self.get('object').encode('utf8')
+            ident_parts.append(self.get('object').encode('utf8'))
 
-        id_string = ''
         if isinstance(self.get('id'), basestring):
-            id_string = ' id=%s' % self.get('id').encode('utf8')
+            ident_parts.append('id=%s' % (self.get('id').encode('utf8'),))
 
-        return '<%s%s%s at %s> JSON: %s' % (
-            type(self).__name__, type_string, id_string,
-            hex(id(self)), str(self))
+        return '<%s at %s> JSON: %s' % (
+            ' '.join(ident_parts), hex(id(self)), str(self))
 
     def __str__(self):
         return util.json.dumps(self, sort_keys=True, indent=2)
@@ -182,12 +181,12 @@ class APIResource(StripeObject):
             raise NotImplementedError(
                 'APIResource is an abstract class.  You should perform '
                 'actions on its subclasses (e.g. Charge, Customer)')
-        return "%s" % urllib.quote_plus(cls.__name__.lower())
+        return str(urllib.quote_plus(cls.__name__.lower()))
 
     @classmethod
     def class_url(cls):
         cls_name = cls.class_name()
-        return "/v1/%ss" % cls_name
+        return "/v1/%ss" % (cls_name,)
 
     def instance_url(self):
         id = self.get('id')
@@ -228,7 +227,7 @@ class SingletonAPIResource(APIResource):
     @classmethod
     def class_url(cls):
         cls_name = cls.class_name()
-        return "/v1/%s" % cls_name
+        return "/v1/%s" % (cls_name,)
 
     def instance_url(self):
         return self.class_url()

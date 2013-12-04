@@ -71,7 +71,7 @@ class _DeprecationWrapper(object):
             _warnings.warn(
                 'Attribute `%s` is being moved out of the `stripe` module '
                 'in version 2.0 of the Stripe bindings.  Please access it '
-                'in the appropriate submodule instead' % name,
+                'in the appropriate submodule instead' % (name,),
                 DeprecationWarning, stacklevel=2)
 
         return value
