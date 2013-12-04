@@ -49,31 +49,3 @@ def utf8(value):
         return value.encode('utf-8')
     else:
         return value
-
-def _encode_datetime(dttime):
-    if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
-        utc_timestamp = calendar.timegm(dttime.utctimetuple())
-    else:
-        utc_timestamp = time.mktime(dttime.timetuple())
-
-    return int(utc_timestamp)
-
-def api_encode(data):
-    for key, value in data.iteritems():
-        key = utf8(key)
-        if value is None:
-            continue
-        elif hasattr(value, 'stripe_id'):
-            yield (key, value.stripe_id)
-        elif isinstance(value, list) or isinstance(value, tuple):
-            for subvalue in value:
-                yield ("%s[]" % (key,), utf8(subvalue))
-        elif isinstance(value, dict):
-            subdict = dict(('%s[%s]' % (key, subkey), subvalue) for
-                           subkey, subvalue in value.iteritems())
-            for subkey, subvalue in api_encode(subdict):
-                yield (subkey, subvalue)
-        elif isinstance(value, datetime.datetime):
-            yield (key, _encode_datetime(value))
-        else:
-            yield (key, utf8(value))
