@@ -507,7 +507,8 @@ class StripeObject(object):
       return self.__dict__[k]
     except KeyError:
       pass
-    if k in self._transient_values:
+    # Access __dict__ directly to avoid a recursive __getattr__
+    if k in self.__dict__.get('_transient_values', ()):
       raise AttributeError("%r object has no attribute %r.  HINT: The %r attribute was set in the past, however.  It was then wiped when refreshing the object with the result returned by Stripe's API, probably as a result of a save().  The attributes currently available on this object are: %s" %
                            (type(self).__name__, k, k, ', '.join(self._values)))
     else:
