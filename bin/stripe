@@ -184,6 +184,9 @@ class TokenClient(CreateableAPIResourceClient):
 class CouponClient(CreateableAPIResourceClient, DeletableAPIResourceClient, ListableAPIResourceClient):
     client_for = stripe.Coupon
 
+class ApplicationFeeClient(ListableAPIResourceClient):
+  client_for = stripe.ApplicationFee
+
 def main():
     # DeprecationWarning
     sys.stderr.write(
@@ -207,7 +210,9 @@ def main():
         'token' : TokenClient,
         'tokens' : TokenClient,
         'coupon' : CouponClient,
-        'coupons' : CouponClient
+        'coupons' : CouponClient,
+        'application_fee' : ApplicationFeeClient,
+        'application_fees' : ApplicationFeeClient
         }
     parser = optparse.OptionParser("""%prog [options] class method [key=value|key ...]
 
@@ -255,19 +260,23 @@ invoiceitem
   delete
 
 plan
-    create
-    retrieve
-    update
+  create
+  retrieve
+  update
 
 coupon
-    all
-    create
-    retrieve
-    delete
+  all
+  create
+  retrieve
+  delete
+
+application_fee
+  all
+  retrieve
 
 token
-    create
-    retrieve""")
+  create
+  retrieve""")
     parser.add_option('-v', '--verbosity', help='Verbosity of debugging output.',
                       dest='verbosity', action='count', default=0)
     parser.add_option('-k', '--api-key', help="API key.  Defaults to value of environment variable STRIPE_API_KEY", dest='api_key')

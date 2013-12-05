@@ -14,6 +14,10 @@ Backwards Incompatible Changes
 * The `previous_metadata` attribute on resources is now protected.
 * Timezone aware `datetime` objects passed to the API will now be encoded in a way that does not depend on the local system time.  If you are passing timezone-aware datetimes to our API and your server time is not already in UTC, this will change the value passed to our API.
 
+=== 1.10.8 2013-12-02
+
+* Add stripe.ApplicationFee resource
+
 === 1.9.8 2013-10-17
 
 * Removed incorrect test.

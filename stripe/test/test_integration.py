@@ -241,6 +241,13 @@ class BalanceTransactionTest(StripeTestCase):
         self.assertTrue(isinstance(balance_transactions.data, list))
 
 
+class ApplicationFeeTest(StripeTestCase):
+    def test_list_application_fees(self):
+        application_fees = stripe.ApplicationFee.all()
+        self.assertTrue(hasattr(application_fees, 'count'))
+        self.assertTrue(isinstance(application_fees.data, list))
+
+
 class CustomerTest(StripeTestCase):
 
     def test_list_customers(self):
