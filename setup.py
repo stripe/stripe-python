@@ -28,7 +28,7 @@ from version import VERSION
 if sys.version_info < (3, 0):
     try:
         from util import json
-    except ImportError as e:
+    except ImportError:
         install_requires.append('simplejson')
 
 setup(name='stripe',
