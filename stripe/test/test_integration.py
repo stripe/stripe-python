@@ -91,6 +91,7 @@ class FunctionalTests(StripeTestCase):
 class RequestsFunctionalTests(FunctionalTests):
     request_client = stripe.http_client.RequestsClient
 
+
 class UrlfetchFunctionalTests(FunctionalTests):
     request_client = 'urlfetch'
 
