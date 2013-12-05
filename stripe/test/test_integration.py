@@ -234,17 +234,18 @@ class BalanceTransactionTest(StripeTestCase):
 
 
 class CustomerTest(StripeTestCase):
+
+    def test_list_customers(self):
+        customers = stripe.Customer.all()
+        self.assertTrue(isinstance(customers.data, list))
+
     def test_list_charges(self):
-        customer = stripe.Customer.all(count=1).data[0]
-
-        starting_charges = len(customer.charges().data)
-
-        if customer.cards.count < 1:
-            customer.cards.create(card=DUMMY_CARD)
+        customer = stripe.Customer.create(description="foo bar",
+                                          card=DUMMY_CARD)
 
         stripe.Charge.create(customer=customer.id, amount=100, currency='usd')
 
-        self.assertEqual(starting_charges + 1,
+        self.assertEqual(1,
                          len(customer.charges().data))
 
     def test_unset_description(self):
@@ -415,8 +416,6 @@ class CustomerCouponTest(StripeTestCase):
 
         customer.delete_discount()
         self.assertEqual(None, customer.discount)
-
-        customer.delete()
 
 
 class InvalidRequestErrorTest(StripeTestCase):
