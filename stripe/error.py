@@ -9,7 +9,8 @@ class StripeError(Exception):
             try:
                 http_body = http_body.decode('utf-8')
             except:
-                http_body = '<could not decode utf-8 body>'
+                http_body = ('<Could not decode body as utf-8. '
+                             'Please report to support@stripe.com>')
 
         self.http_body = http_body
 
