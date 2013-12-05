@@ -115,6 +115,7 @@ class StripeObjectTests(StripeUnitTestCase):
 
         self.assertEqual(unpickled.id, 'foo')
 
+
 class ListObjectTests(StripeApiTestCase):
 
     def setUp(self):
