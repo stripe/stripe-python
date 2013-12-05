@@ -48,6 +48,9 @@ class StripeObject(dict):
             self[k] = v
 
     def __getattr__(self, k):
+        if k[0] == '_':
+            raise AttributeError(k)
+
         try:
             return self[k]
         except KeyError, err:
