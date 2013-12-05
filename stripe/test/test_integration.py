@@ -91,9 +91,15 @@ class FunctionalTests(StripeTestCase):
 class RequestsFunctionalTests(FunctionalTests):
     request_client = stripe.http_client.RequestsClient
 
-# TODO: Find a way to functional test outside of app engine
-# class UrlfetchFunctionalTests(FunctionalTests):
-#   request_client = 'urlfetch'
+class UrlfetchFunctionalTests(FunctionalTests):
+    request_client = 'urlfetch'
+
+    def setUp(self):
+        if stripe.http_client.urlfetch is None:
+            self.skipTest(
+                '`urlfetch` from the Google App Engine API is unavailable.')
+        else:
+            super(UrlfetchFunctionalTests, self).setUp()
 
 
 class PycurlFunctionalTests(FunctionalTests):
