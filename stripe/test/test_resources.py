@@ -3,7 +3,7 @@ import stripe
 from stripe.test.helper import (
     StripeUnitTestCase, StripeApiTestCase,
     MySingleton, MyListable, MyCreatable, MyUpdateable, MyDeletable,
-    MyComposite, MyResource, SAMPLE_INVOICE)
+    MyResource, SAMPLE_INVOICE)
 
 from stripe import util
 

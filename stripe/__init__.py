@@ -14,7 +14,7 @@ verify_ssl_certs = True
 
 # Resource
 
-from stripe.resource import (
+from stripe.resource import (  # noqa
     Account, Balance, BalanceTransaction, Card, Charge, Customer, Invoice,
     InvoiceItem, Plan, Token, Coupon, Event, Transfer, Recipient)
 
@@ -22,19 +22,20 @@ from stripe.resource import (
 # namespace in the future and you should prefer to access them via
 # the fully qualified `stripe.error` module.
 
-from stripe.error import (StripeError, APIError, APIConnectionError,
-                          AuthenticationError, CardError, InvalidRequestError)
+from stripe.error import (  # noqa
+    StripeError, APIError, APIConnectionError, AuthenticationError, CardError,
+    InvalidRequestError)
 
 # DEPRECATED: These imports will be moved out of the root stripe namespace
 # in version 2.0
 
-from stripe.version import VERSION
-from stripe.api_requestor import APIRequestor
-from stripe.resource import (
+from stripe.version import VERSION  # noqa
+from stripe.api_requestor import APIRequestor  # noqa
+from stripe.resource import (  # noqa
     convert_to_stripe_object, StripeObject, StripeObjectEncoder,
     APIResource, ListObject, SingletonAPIResource, ListableAPIResource,
     CreateableAPIResource, UpdateableAPIResource, DeletableAPIResource)
-from stripe.util import json, logger
+from stripe.util import json, logger  # noqa
 
 
 # This is a pretty ugly solution to deprecating modules but a similar

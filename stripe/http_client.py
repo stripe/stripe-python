@@ -1,7 +1,6 @@
 import os
 import sys
 import textwrap
-import sys
 import warnings
 
 from stripe import error, util
@@ -262,11 +261,8 @@ class Urllib2Client(HTTPClient):
 
         try:
             response = urllib2.urlopen(req)
-            try:
-                rbody = response.read()
-                rcode = response.code
-            finally:
-                response.close()
+            rbody = response.read()
+            rcode = response.code
         except urllib2.HTTPError, e:
             rcode = e.code
             rbody = e.read()

@@ -101,6 +101,7 @@ class ClientTestBase():
                           self.make_request,
                           'get', self.valid_url, {}, None)
 
+
 class RequestsVerify(object):
 
     def __eq__(self, other):

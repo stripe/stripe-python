@@ -10,6 +10,9 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install libcurl4-gnutls-dev librtmp-dev
 install:
+  - pip install pycurl flake8 --use-mirrors
+  - if [[ $TRAVIS_PYTHON_VERSION == 2* ]]; then pip install --use-mirrors simplejson; fi
   - python setup.py install
-  - python -c 'print(__import__("requests").__version__)'
+before_script:
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then flake8 stripe; fi
 script: python -W always setup.py test

@@ -1,11 +1,9 @@
-import calendar
-import datetime
 import logging
-import re
 import sys
-import time
 
 logger = logging.getLogger('stripe')
+
+__all__ = ['StringIO', 'parse_qsl', 'json', 'utf8']
 
 try:
     # When cStringIO is available

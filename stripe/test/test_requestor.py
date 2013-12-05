@@ -71,13 +71,14 @@ class UrlMatcher(object):
         for part in ('scheme', 'netloc', 'path', 'fragment'):
             expected = getattr(self.exp_parts, part)
             actual = getattr(other_parts, part)
-            if  expected != actual:
+            if expected != actual:
                 print 'Expected %s "%s" but got "%s"' % (
                     part, expected, actual)
                 return False
 
         q_matcher = QueryMatcher(stripe.util.parse_qsl(self.exp_parts.query))
         return q_matcher == other
+
 
 class APIRequestorRequestTests(StripeUnitTestCase):
     ENCODE_INPUTS = {

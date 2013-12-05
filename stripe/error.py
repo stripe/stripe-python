@@ -6,7 +6,11 @@ class StripeError(Exception):
         super(StripeError, self).__init__(message)
 
         if http_body and hasattr(http_body, 'decode'):
-            http_body = http_body.decode('utf-8')
+            try:
+                http_body = http_body.decode('utf-8')
+            except:
+                http_body = '<could not decode utf-8 body>'
+
         self.http_body = http_body
 
         self.http_status = http_status

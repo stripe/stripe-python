@@ -2,7 +2,6 @@ import calendar
 import datetime
 import platform
 import time
-import types
 import urllib
 import urlparse
 import warnings
