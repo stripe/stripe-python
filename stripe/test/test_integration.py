@@ -91,16 +91,17 @@ class FunctionalTests(StripeTestCase):
 class RequestsFunctionalTests(FunctionalTests):
     request_client = stripe.http_client.RequestsClient
 
+# Avoid skipTest errors in < 2.7
+if sys.version_info >= (2, 7):
+    class UrlfetchFunctionalTests(FunctionalTests):
+        request_client = 'urlfetch'
 
-class UrlfetchFunctionalTests(FunctionalTests):
-    request_client = 'urlfetch'
-
-    def setUp(self):
-        if stripe.http_client.urlfetch is None:
-            self.skipTest(
-                '`urlfetch` from the Google App Engine API is unavailable.')
-        else:
-            super(UrlfetchFunctionalTests, self).setUp()
+        def setUp(self):
+            if stripe.http_client.urlfetch is None:
+                self.skipTest(
+                    '`urlfetch` from Google App Engine is unavailable.')
+            else:
+                super(UrlfetchFunctionalTests, self).setUp()
 
 
 class PycurlFunctionalTests(FunctionalTests):
