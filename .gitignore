@@ -4,5 +4,11 @@
 /stripe.egg-info
 *.pyc
 *.egg
-.tox
 *.class
+
+# Unit test / coverage reports
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml

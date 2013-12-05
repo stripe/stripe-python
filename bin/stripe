@@ -1,10 +1,14 @@
 #!/usr/bin/env python
+
+# WARNING: This client is now deprecated and will be removed in version 2.0
+
 import logging
 import optparse
 import os
 import re
 import subprocess
 import sys
+import warnings
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import stripe
@@ -184,6 +188,12 @@ class ApplicationFeeClient(ListableAPIResourceClient):
   client_for = stripe.ApplicationFee
 
 def main():
+    # DeprecationWarning
+    sys.stderr.write(
+      'The Python client binary is deprecated and will be removed in \n'
+      'version 2.0 of the bindings.  You may want to use: \n'
+      'https://github.com/stripe-contrib/stripe-cli\n\n')
+
     klasses = {
         'account' : AccountClient,
         'card' : CardClient,
