@@ -142,26 +142,29 @@ class ChargeTest(StripeTestCase):
     def setUp(self):
         super(ChargeTest, self).setUp()
 
-        self.charge_list = stripe.Charge.all()
-
     def test_charge_list_all(self):
-        list_result = self.charge_list.all()
+        charge_list = stripe.Charge.all(created={'lt': NOW})
+        list_result = charge_list.all(created={'lt': NOW})
 
-        self.assertEqual(len(self.charge_list.data),
+        self.assertEqual(len(charge_list.data),
                          len(list_result.data))
 
-        for expected, actual in zip(self.charge_list.data,
+        for expected, actual in zip(charge_list.data,
                                     list_result.data):
             self.assertEqual(expected.id, actual.id)
 
     def test_charge_list_create(self):
-        charge = self.charge_list.create(**DUMMY_CHARGE)
+        charge_list = stripe.Charge.all()
+
+        charge = charge_list.create(**DUMMY_CHARGE)
 
         self.assertTrue(isinstance(charge, stripe.Charge))
         self.assertEqual(DUMMY_CHARGE['amount'], charge.amount)
 
     def test_charge_list_retrieve(self):
-        charge = self.charge_list.retrieve(self.charge_list.data[0].id)
+        charge_list = stripe.Charge.all()
+
+        charge = charge_list.retrieve(charge_list.data[0].id)
 
         self.assertTrue(isinstance(charge, stripe.Charge))
 
@@ -231,15 +234,13 @@ class BalanceTransactionTest(StripeTestCase):
 
 
 class CustomerTest(StripeTestCase):
-
-    def test_list_customers(self):
-        customers = stripe.Customer.all()
-        self.assertTrue(isinstance(customers.data, list))
-
     def test_list_charges(self):
         customer = stripe.Customer.all(count=1).data[0]
 
         starting_charges = len(customer.charges().data)
+
+        if customer.cards.count < 1:
+            customer.cards.create(card=DUMMY_CARD)
 
         stripe.Charge.create(customer=customer.id, amount=100, currency='usd')
 
