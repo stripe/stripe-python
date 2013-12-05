@@ -106,15 +106,6 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual('month',
                          data['lines']['subscriptions'][0]['plan']['interval'])
 
-    def test_pickeable(self):
-        obj = stripe.resource.StripeObject(
-            'foo', 'bar', myparam=5, yourparam='boo')
-
-        pickled = pickle.dumps(obj)
-        unpickled = pickle.loads(pickled)
-
-        self.assertEqual(unpickled.id, 'foo')
-
 
 class ListObjectTests(StripeApiTestCase):
 
