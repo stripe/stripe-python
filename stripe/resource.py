@@ -461,14 +461,13 @@ class Recipient(CreateableAPIResource, UpdateableAPIResource,
         transfers = Transfer.all(self.api_key, **params)
         return transfers
 
-class ApplicationFee(ListableAPIResource):
-  @classmethod
-  def class_name(cls):
-    return 'application_fee'
 
-  def refund(self, **params):
-    requestor = APIRequestor(self.api_key)
-    url = self.instance_url() + '/refund'
-    response, api_key = requestor.request('post', url, params)
-    self.refresh_from(response, api_key)
-    return self
+class ApplicationFee(ListableAPIResource):
+    @classmethod
+    def class_name(cls):
+        return 'application_fee'
+
+    def refund(self, **params):
+        url = self.instance_url() + '/refund'
+        self.refresh_from(self.request('post', url, params))
+        return self
