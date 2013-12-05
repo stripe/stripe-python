@@ -1,5 +1,4 @@
 import stripe
-import pickle
 
 from stripe.test.helper import (
     StripeUnitTestCase, StripeApiTestCase,
