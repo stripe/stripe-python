@@ -1,3 +1,4 @@
+import sys
 import unittest
 
 from mock import Mock, patch
@@ -172,6 +173,9 @@ class Urllib2ClientTests(StripeUnitTestCase, ClientTestBase):
         mock.urlopen.side_effect = ValueError
 
     def check_call(self, mock, meth, url, post_data, headers):
+        if sys.version_info >= (3, 0) and isinstance(post_data, basestring):
+            post_data = post_data.encode('utf-8')
+
         mock.Request.assert_called_with(url, post_data, headers)
         mock.urlopen.assert_called_with(self.request_object)
 
