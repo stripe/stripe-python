@@ -24,5 +24,5 @@ To install from source, run:
 
 == Documentation
 
-Please see https://stripe.com/api for the most up-to-date
+Please see https://stripe.com/docs/api for the most up-to-date
 documentation.

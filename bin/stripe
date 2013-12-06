@@ -1,10 +1,14 @@
 #!/usr/bin/env python
+
+# WARNING: This client is now deprecated and will be removed in version 2.0
+
 import logging
 import optparse
 import os
 import re
 import subprocess
 import sys
+import warnings
 
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
 import stripe
@@ -118,6 +122,11 @@ class ChargeClient(CreateableAPIResourceClient, ListableAPIResourceClient):
     url = self.instance_url() + '/dispute'
     self.logged_curl('post', url, params)
 
+  def close_dispute(self):
+    url = self.instance_url() + '/dispute/close'
+    self.logged_curl('post', url, {})
+
+
 class CustomerClient(CreateableAPIResourceClient, UpdateableAPIResourceClient,
                      ListableAPIResourceClient, DeletableAPIResourceClient):
   client_for = stripe.Customer
@@ -175,7 +184,16 @@ class TokenClient(CreateableAPIResourceClient):
 class CouponClient(CreateableAPIResourceClient, DeletableAPIResourceClient, ListableAPIResourceClient):
     client_for = stripe.Coupon
 
+class ApplicationFeeClient(ListableAPIResourceClient):
+  client_for = stripe.ApplicationFee
+
 def main():
+    # DeprecationWarning
+    sys.stderr.write(
+      'The Python client binary is deprecated and will be removed in \n'
+      'version 2.0 of the bindings.  You may want to use: \n'
+      'https://github.com/stripe-contrib/stripe-cli\n\n')
+
     klasses = {
         'account' : AccountClient,
         'card' : CardClient,
@@ -192,7 +210,9 @@ def main():
         'token' : TokenClient,
         'tokens' : TokenClient,
         'coupon' : CouponClient,
-        'coupons' : CouponClient
+        'coupons' : CouponClient,
+        'application_fee' : ApplicationFeeClient,
+        'application_fees' : ApplicationFeeClient
         }
     parser = optparse.OptionParser("""%prog [options] class method [key=value|key ...]
 
@@ -240,19 +260,23 @@ invoiceitem
   delete
 
 plan
-    create
-    retrieve
-    update
+  create
+  retrieve
+  update
 
 coupon
-    all
-    create
-    retrieve
-    delete
+  all
+  create
+  retrieve
+  delete
+
+application_fee
+  all
+  retrieve
 
 token
-    create
-    retrieve""")
+  create
+  retrieve""")
     parser.add_option('-v', '--verbosity', help='Verbosity of debugging output.',
                       dest='verbosity', action='count', default=0)
     parser.add_option('-k', '--api-key', help="API key.  Defaults to value of environment variable STRIPE_API_KEY", dest='api_key')
