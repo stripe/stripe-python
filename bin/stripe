@@ -178,6 +178,9 @@ class InvoiceItemClient(CreateableAPIResourceClient, UpdateableAPIResourceClient
 class PlanClient(CreateableAPIResourceClient, DeletableAPIResourceClient, ListableAPIResourceClient, UpdateableAPIResourceClient):
   client_for = stripe.Plan
 
+class SubscriptionClient(UpdateableAPIResourceClient, DeletableAPIResourceClient):
+  client_for = stripe.Subscription
+
 class TokenClient(CreateableAPIResourceClient):
   client_for = stripe.Token
 
@@ -211,6 +214,8 @@ def main():
         'tokens' : TokenClient,
         'coupon' : CouponClient,
         'coupons' : CouponClient,
+        'subscription' : SubscriptionClient,
+        'subscriptions' : SubscriptionClient,
         'application_fee' : ApplicationFeeClient,
         'application_fees' : ApplicationFeeClient
         }
@@ -242,8 +247,6 @@ customer
   invoices
   invoice_items
   charges
-  update_subscription
-  cancel_subscription
 
 invoice
   all
@@ -263,6 +266,10 @@ plan
   create
   retrieve
   update
+
+subscription
+  update
+  delete
 
 coupon
   all
