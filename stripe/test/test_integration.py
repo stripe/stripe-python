@@ -332,25 +332,40 @@ class CustomerPlanTest(StripeTestCase):
                           plan=DUMMY_PLAN['id'])
         customer = stripe.Customer.create(
             plan=DUMMY_PLAN['id'], card=DUMMY_CARD)
-        self.assertTrue(hasattr(customer, 'subscription'))
+        self.assertTrue(hasattr(customer, 'subscriptions'))
         self.assertFalse(hasattr(customer, 'plan'))
         customer.delete()
-        self.assertFalse(hasattr(customer, 'subscription'))
         self.assertFalse(hasattr(customer, 'plan'))
         self.assertTrue(customer.deleted)
 
-    def test_update_and_cancel_subscription(self):
+    def test_create_and_cancel_customer_subscription(self):
         customer = stripe.Customer.create(card=DUMMY_CARD)
 
-        sub = customer.update_subscription(plan=DUMMY_PLAN['id'])
-        self.assertEqual(customer.subscription.id, sub.id)
-        self.assertEqual(DUMMY_PLAN['id'], sub.plan.id)
+        subscription = customer.subscriptions.create(plan=DUMMY_PLAN['id'])
+        self.assertEqual(DUMMY_PLAN['id'], subscription.plan.id)
 
-        customer.cancel_subscription(at_period_end=True)
-        self.assertEqual(customer.subscription.status, 'active')
-        self.assertTrue(customer.subscription.cancel_at_period_end)
-        customer.cancel_subscription()
-        self.assertEqual(customer.subscription.status, 'canceled')
+        customer.subscriptions.retrieve(subscription.id).delete(at_period_end=True)
+        subscription = customer.subscriptions.retrieve(subscription.id)
+        self.assertEqual(subscription.status, 'active')
+        self.assertTrue(subscription.cancel_at_period_end)
+
+        subscription = customer.subscriptions.retrieve(subscription.id).delete()
+        self.assertEqual(subscription.status, 'canceled')
+
+    def test_create_and_update_customer_subscription(self):
+        customer = stripe.Customer.create(card=DUMMY_CARD)
+        subscription = customer.subscriptions.create(plan=DUMMY_PLAN['id'])
+        self.assertEqual(DUMMY_PLAN['id'], subscription.plan.id)
+
+        subscription = customer.subscriptions.retrieve(subscription.id)
+        trial_end_dttm = datetime.datetime.now() + datetime.timedelta(days=15)
+        trial_end_int = int(time.mktime(trial_end_dttm.timetuple()))
+        subscription.trial_end = trial_end_int
+        subscription.plan = subscription.plan.id
+        subscription.save()
+
+        self.assertEqual(trial_end_int,
+            customer.subscriptions.retrieve(subscription.id).trial_end)
 
     def test_datetime_trial_end(self):
         customer = stripe.Customer.create(
