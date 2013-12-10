@@ -16,7 +16,7 @@ verify_ssl_certs = True
 from stripe.resource import (  # noqa
     Account, Balance, BalanceTransaction, Card, Charge, Customer, Invoice,
     InvoiceItem, Plan, Token, Coupon, Event, Transfer, Recipient,
-    ApplicationFee)
+    ApplicationFee, Subscription)
 
 # Error imports.  Note that we may want to move these out of the root
 # namespace in the future and you should prefer to access them via
