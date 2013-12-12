@@ -394,6 +394,36 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
         charges = Charge.all(self.api_key, **params)
         return charges
 
+    def update_subscription(self, **params):
+        warnings.warn(
+            '`update_subscription` is deprecated and will be removed in '
+            'a future version of the Stripe bindings.  Stripe now supports '
+            'multiple subscriptions.  To create a subscription call '
+            '`customer.subscriptions.create(plan=PLAN_ID)`. To update a '
+            'subscription, first retrieve a subscription from a customer: '
+            '`subscription = customer.subscriptions.retrieve(subscription_id)`. '
+            'Afterwards assign it new values and call `subscription.save()`.',
+            DeprecationWarning)
+        requestor = api_requestor.APIRequestor(self.api_key)
+        url = self.instance_url() + '/subscription'
+        response, api_key = requestor.request('post', url, params)
+        self.refresh_from({'subscription': response}, api_key, True)
+        return self.subscription
+
+    def cancel_subscription(self, **params):
+        warnings.warn(
+            '`cancel_subscription` is deprecated and will be removed in '
+            'a future version of the Stripe bindings.  Stripe now supports '
+            'multiple subscriptions.  To delete a subscription, use '
+            '`customer.subscriptions.retrieve(subscription_id).delete()`.  '
+            'The params of `delete` remain the same as `cancel_subscription`.',
+            DeprecationWarning)
+        requestor = api_requestor.APIRequestor(self.api_key)
+        url = self.instance_url() + '/subscription'
+        response, api_key = requestor.request('delete', url, params)
+        self.refresh_from({'subscription': response}, api_key, True)
+        return self.subscription
+
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(self.api_key)
         url = self.instance_url() + '/discount'
