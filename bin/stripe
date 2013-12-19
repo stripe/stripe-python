@@ -247,6 +247,8 @@ customer
   invoices
   invoice_items
   charges
+  update_subscription
+  cancel_subscription
 
 invoice
   all
