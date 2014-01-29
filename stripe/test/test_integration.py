@@ -338,6 +338,19 @@ class CustomerPlanTest(StripeTestCase):
         self.assertFalse(hasattr(customer, 'plan'))
         self.assertTrue(customer.deleted)
 
+    def test_legacy_update_and_cancel_subscription(self):
+        customer = stripe.Customer.create(card=DUMMY_CARD)
+
+        sub = customer.update_subscription(plan=DUMMY_PLAN['id'])
+        self.assertEqual(customer.subscription.id, sub.id)
+        self.assertEqual(DUMMY_PLAN['id'], sub.plan.id)
+
+        customer.cancel_subscription(at_period_end=True)
+        self.assertEqual(customer.subscription.status, 'active')
+        self.assertTrue(customer.subscription.cancel_at_period_end)
+        customer.cancel_subscription()
+        self.assertEqual(customer.subscription.status, 'canceled')
+
     def test_create_and_cancel_customer_subscription(self):
         customer = stripe.Customer.create(card=DUMMY_CARD)
 
