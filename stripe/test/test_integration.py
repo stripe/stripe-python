@@ -460,6 +460,28 @@ class CustomerCouponTest(StripeTestCase):
         customer.delete_discount()
         self.assertEqual(None, customer.discount)
 
+class SubscriptionCouponTest(StripeTestCase):
+
+    def setUp(self):
+        super(SubscriptionCouponTest, self).setUp()
+        self.plan_obj = stripe.Plan.create(**DUMMY_PLAN)
+        self.coupon_obj = stripe.Coupon.create(**DUMMY_COUPON)
+
+    def tearDown(self):
+        self.coupon_obj.delete()
+
+    def test_attach_coupon_to_subscription(self):
+        customer = stripe.Customer.create(card=DUMMY_CARD)
+
+        subscription = customer.subscriptions.create(
+            plan=DUMMY_PLAN['id'], coupon=self.coupon_obj.id)
+
+        self.assertTrue(hasattr(subscription, 'discount'))
+        self.assertNotEqual(None, subscription.discount)
+
+        subscription.delete_discount()
+        self.assertEqual(None, subscription.discount)
+
 
 class InvalidRequestErrorTest(StripeTestCase):
 

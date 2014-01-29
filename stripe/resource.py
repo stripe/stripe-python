@@ -457,6 +457,12 @@ class Subscription(UpdateableAPIResource, DeletableAPIResource):
             "Can't retrieve a subscription without a customer ID. "
             "Use customer.subscriptions.retrieve('subscription_id') instead.")
 
+    def delete_discount(self, **params):
+        requestor = api_requestor.APIRequestor(self.api_key)
+        url = self.instance_url() + '/discount'
+        _, api_key = requestor.request('delete', url)
+        self.refresh_from({'discount': None}, api_key, True)
+
 
 class Token(CreateableAPIResource):
     pass
