@@ -454,7 +454,7 @@ class Subscription(UpdateableAPIResource, DeletableAPIResource):
     @classmethod
     def retrieve(cls, id, api_key=None, **params):
         raise NotImplementedError(
-            "Can't retrieve a subscription without a subscription ID. "
+            "Can't retrieve a subscription without a customer ID. "
             "Use customer.subscriptions.retrieve('subscription_id') instead.")
 
 
