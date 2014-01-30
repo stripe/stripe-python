@@ -9,7 +9,8 @@ def convert_to_stripe_object(resp, api_key):
              'invoice': Invoice, 'invoiceitem': InvoiceItem,
              'plan': Plan, 'coupon': Coupon, 'token': Token, 'event': Event,
              'transfer': Transfer, 'list': ListObject, 'recipient': Recipient,
-             'card': Card, 'application_fee': ApplicationFee}
+             'card': Card, 'application_fee': ApplicationFee,
+             'subscription': Subscription}
 
     if isinstance(resp, list):
         return [convert_to_stripe_object(i, api_key) for i in resp]
@@ -394,6 +395,15 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
         return charges
 
     def update_subscription(self, **params):
+        warnings.warn(
+            '`update_subscription` is deprecated and will be removed in '
+            'a future version of the Stripe bindings.  Stripe now supports '
+            'multiple subscriptions.  To create a subscription call '
+            '`customer.subscriptions.create(plan=PLAN_ID)`. To update a '
+            'subscription, first retrieve a subscription from a customer: '
+            '`subscription = customer.subscriptions.retrieve(subscription_id)`. '
+            'Afterwards assign it new values and call `subscription.save()`.',
+            DeprecationWarning)
         requestor = api_requestor.APIRequestor(self.api_key)
         url = self.instance_url() + '/subscription'
         response, api_key = requestor.request('post', url, params)
@@ -401,6 +411,13 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
         return self.subscription
 
     def cancel_subscription(self, **params):
+        warnings.warn(
+            '`cancel_subscription` is deprecated and will be removed in '
+            'a future version of the Stripe bindings.  Stripe now supports '
+            'multiple subscriptions.  To delete a subscription, use '
+            '`customer.subscriptions.retrieve(subscription_id).delete()`.  '
+            'The params of `delete` remain the same as `cancel_subscription`.',
+            DeprecationWarning)
         requestor = api_requestor.APIRequestor(self.api_key)
         url = self.instance_url() + '/subscription'
         response, api_key = requestor.request('delete', url, params)
@@ -436,6 +453,25 @@ class InvoiceItem(CreateableAPIResource, UpdateableAPIResource,
 class Plan(CreateableAPIResource, DeletableAPIResource,
            UpdateableAPIResource, ListableAPIResource):
     pass
+
+
+class Subscription(UpdateableAPIResource, DeletableAPIResource):
+
+    def instance_url(self):
+        self.id = util.utf8(self.id)
+        self.customer = util.utf8(self.customer)
+
+        base = Customer.class_url()
+        cust_extn = urllib.quote_plus(self.customer)
+        extn = urllib.quote_plus(self.id)
+
+        return "%s/%s/subscriptions/%s" % (base, cust_extn, extn)
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params):
+        raise NotImplementedError(
+            "Can't retrieve a subscription without a subscription ID. "
+            "Use customer.subscriptions.retrieve('subscription_id') instead.")
 
 
 class Token(CreateableAPIResource):
