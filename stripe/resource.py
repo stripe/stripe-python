@@ -9,7 +9,8 @@ def convert_to_stripe_object(resp, api_key):
              'invoice': Invoice, 'invoiceitem': InvoiceItem,
              'plan': Plan, 'coupon': Coupon, 'token': Token, 'event': Event,
              'transfer': Transfer, 'list': ListObject, 'recipient': Recipient,
-             'card': Card, 'application_fee': ApplicationFee}
+             'card': Card, 'application_fee': ApplicationFee,
+             'subscription': Subscription}
 
     if isinstance(resp, list):
         return [convert_to_stripe_object(i, api_key) for i in resp]
@@ -436,6 +437,31 @@ class InvoiceItem(CreateableAPIResource, UpdateableAPIResource,
 class Plan(CreateableAPIResource, DeletableAPIResource,
            UpdateableAPIResource, ListableAPIResource):
     pass
+
+
+class Subscription(UpdateableAPIResource, DeletableAPIResource):
+
+    def instance_url(self):
+        self.id = util.utf8(self.id)
+        self.customer = util.utf8(self.customer)
+
+        base = Customer.class_url()
+        cust_extn = urllib.quote_plus(self.customer)
+        extn = urllib.quote_plus(self.id)
+
+        return "%s/%s/subscriptions/%s" % (base, cust_extn, extn)
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params):
+        raise NotImplementedError(
+            "Can't retrieve a subscription without a customer ID. "
+            "Use customer.subscriptions.retrieve('subscription_id') instead.")
+
+    def delete_discount(self, **params):
+        requestor = api_requestor.APIRequestor(self.api_key)
+        url = self.instance_url() + '/discount'
+        _, api_key = requestor.request('delete', url)
+        self.refresh_from({'discount': None}, api_key, True)
 
 
 class Token(CreateableAPIResource):
