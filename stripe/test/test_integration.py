@@ -357,12 +357,14 @@ class CustomerPlanTest(StripeTestCase):
         subscription = customer.subscriptions.create(plan=DUMMY_PLAN['id'])
         self.assertEqual(DUMMY_PLAN['id'], subscription.plan.id)
 
-        customer.subscriptions.retrieve(subscription.id).delete(at_period_end=True)
+        subscription = customer.subscriptions.retrieve(subscription.id)
+        subscription.delete(at_period_end=True)
         subscription = customer.subscriptions.retrieve(subscription.id)
         self.assertEqual(subscription.status, 'active')
         self.assertTrue(subscription.cancel_at_period_end)
 
-        subscription = customer.subscriptions.retrieve(subscription.id).delete()
+        subscription = customer.subscriptions.retrieve(subscription.id)
+        subscription = subscription.delete()
         self.assertEqual(subscription.status, 'canceled')
 
     def test_create_and_update_customer_subscription(self):
@@ -377,7 +379,8 @@ class CustomerPlanTest(StripeTestCase):
         subscription.plan = subscription.plan.id
         subscription.save()
 
-        self.assertEqual(trial_end_int,
+        self.assertEqual(
+            trial_end_int,
             customer.subscriptions.retrieve(subscription.id).trial_end)
 
     def test_datetime_trial_end(self):
@@ -459,6 +462,7 @@ class CustomerCouponTest(StripeTestCase):
 
         customer.delete_discount()
         self.assertEqual(None, customer.discount)
+
 
 class SubscriptionCouponTest(StripeTestCase):
 
