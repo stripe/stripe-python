@@ -276,7 +276,7 @@ class CustomerTest(StripeTestCase):
         self.assertRaises(ValueError, setattr, customer, "description", "")
 
     def test_update_customer_card(self):
-        customer = stripe.Customer.all(count=1).data[0]
+        customer = stripe.Customer.create(description="update_customer_card")
         card = customer.cards.create(card=DUMMY_CARD)
 
         card.name = 'Python bindings test'

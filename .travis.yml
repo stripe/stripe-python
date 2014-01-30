@@ -5,6 +5,7 @@ python:
   - "pypy"
   - "3.2"
   - "3.3"
+env: PYCURL_SSL_LIBRARY=gnutls
 before_install:
   - sudo apt-get update
   - sudo apt-get install libcurl4-gnutls-dev librtmp-dev
