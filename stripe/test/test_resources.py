@@ -1,3 +1,5 @@
+import pickle
+
 import stripe
 
 from stripe.test.helper import (
@@ -115,6 +117,20 @@ class StripeObjectTests(StripeUnitTestCase):
 
         self.assertTrue('<StripeObject boo' in res)
         self.assertTrue('id=foo' in res)
+
+    def test_pickling(self):
+        obj = stripe.resource.StripeObject(
+            'foo', 'bar', myparam=5)
+
+        obj['object'] = 'boo'
+
+        pickled = pickle.dumps(obj)
+        newobj = pickle.loads(pickled)
+
+        self.assertEqual('foo', newobj.id)
+        self.assertEqual('bar', newobj.api_key)
+        self.assertEqual('boo', newobj['object'])
+
 
 class ListObjectTests(StripeApiTestCase):
 
