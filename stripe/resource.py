@@ -27,7 +27,6 @@ def convert_to_stripe_object(resp, api_key):
 
 
 class StripeObject(dict):
-
     def __init__(self, id=None, api_key=None, **params):
         super(StripeObject, self).__init__()
 
@@ -66,6 +65,11 @@ class StripeObject(dict):
                     k, str(self), k))
 
         super(StripeObject, self).__setitem__(k, v)
+
+        # Allows for unpickling in Python 3.x
+        if not hasattr(self, '_unsaved_values'):
+            self._unsaved_values = set()
+
         self._unsaved_values.add(k)
 
     def __getitem__(self, k):

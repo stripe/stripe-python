@@ -123,6 +123,9 @@ class StripeObjectTests(StripeUnitTestCase):
             'foo', 'bar', myparam=5)
 
         obj['object'] = 'boo'
+        obj.refresh_from({'fala': 'lalala'}, api_key='bar', partial=True)
+
+        self.assertEqual('lalala', obj.fala)
 
         pickled = pickle.dumps(obj)
         newobj = pickle.loads(pickled)
@@ -130,6 +133,7 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual('foo', newobj.id)
         self.assertEqual('bar', newobj.api_key)
         self.assertEqual('boo', newobj['object'])
+        self.assertEqual('lalala', newobj.fala)
 
 
 class ListObjectTests(StripeApiTestCase):
