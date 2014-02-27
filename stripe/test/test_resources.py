@@ -105,6 +105,16 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual('month',
                          data['lines']['subscriptions'][0]['plan']['interval'])
 
+    def test_repr(self):
+        obj = stripe.resource.StripeObject(
+            'foo', 'bar', myparam=5)
+
+        obj['object'] = 'boo'
+
+        res = repr(obj)
+
+        self.assertTrue('<StripeObject boo' in res)
+        self.assertTrue('id=foo' in res)
 
 class ListObjectTests(StripeApiTestCase):
 
