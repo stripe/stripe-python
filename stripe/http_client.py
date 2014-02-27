@@ -15,10 +15,14 @@ try:
 except ImportError:
     pass
 
-try:
-    import pycurl
-except ImportError:
+if 'gevent' in sys.modules:
+    # pycurl is not compatible with gevent's green threads
     pycurl = None
+else:
+    try:
+        import pycurl
+    except ImportError:
+        pycurl = None
 
 try:
     import requests
