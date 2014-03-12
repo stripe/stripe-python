@@ -1,4 +1,5 @@
 import pickle
+import sys
 
 import stripe
 
@@ -111,12 +112,15 @@ class StripeObjectTests(StripeUnitTestCase):
         obj = stripe.resource.StripeObject(
             'foo', 'bar', myparam=5)
 
-        obj['object'] = 'boo'
+        obj['object'] = u'\u4e00boo\u1f00'
 
         res = repr(obj)
 
-        self.assertTrue('<StripeObject boo' in res)
-        self.assertTrue('id=foo' in res)
+        if sys.version_info[0] < 3:
+            res = unicode(repr(obj), 'utf-8')
+
+        self.assertTrue(u'<StripeObject \u4e00boo\u1f00' in res)
+        self.assertTrue(u'id=foo' in res)
 
     def test_pickling(self):
         obj = stripe.resource.StripeObject(

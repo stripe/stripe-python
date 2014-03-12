@@ -1,5 +1,6 @@
 import urllib
 import warnings
+import sys
 
 from stripe import api_requestor, error, util
 
@@ -139,8 +140,13 @@ class StripeObject(dict):
         if isinstance(self.get('id'), basestring):
             ident_parts.append('id=%s' % (self.get('id'),))
 
-        return '<%s at %s> JSON: %s' % (
+        unicode_repr = '<%s at %s> JSON: %s' % (
             ' '.join(ident_parts), hex(id(self)), str(self))
+
+        if sys.version_info[0] < 3:
+            return unicode_repr.encode('utf-8')
+        else:
+            return unicode_repr
 
     def __str__(self):
         return util.json.dumps(self, sort_keys=True, indent=2)
