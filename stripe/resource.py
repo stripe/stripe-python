@@ -1,5 +1,6 @@
 import urllib
 import warnings
+import sys
 
 from stripe import api_requestor, error, util
 
@@ -27,7 +28,6 @@ def convert_to_stripe_object(resp, api_key):
 
 
 class StripeObject(dict):
-
     def __init__(self, id=None, api_key=None, **params):
         super(StripeObject, self).__init__()
 
@@ -66,6 +66,11 @@ class StripeObject(dict):
                     k, str(self), k))
 
         super(StripeObject, self).__setitem__(k, v)
+
+        # Allows for unpickling in Python 3.x
+        if not hasattr(self, '_unsaved_values'):
+            self._unsaved_values = set()
+
         self._unsaved_values.add(k)
 
     def __getitem__(self, k):
@@ -130,13 +135,18 @@ class StripeObject(dict):
         ident_parts = [type(self).__name__]
 
         if isinstance(self.get('object'), basestring):
-            ident_parts.append(self.get('object').encode('utf8'))
+            ident_parts.append(self.get('object'))
 
         if isinstance(self.get('id'), basestring):
-            ident_parts.append('id=%s' % (self.get('id').encode('utf8'),))
+            ident_parts.append('id=%s' % (self.get('id'),))
 
-        return '<%s at %s> JSON: %s' % (
+        unicode_repr = '<%s at %s> JSON: %s' % (
             ' '.join(ident_parts), hex(id(self)), str(self))
+
+        if sys.version_info[0] < 3:
+            return unicode_repr.encode('utf-8')
+        else:
+            return unicode_repr
 
     def __str__(self):
         return util.json.dumps(self, sort_keys=True, indent=2)

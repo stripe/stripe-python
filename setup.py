@@ -31,16 +31,32 @@ if sys.version_info < (3, 0):
     except ImportError:
         install_requires.append('simplejson')
 
-setup(name='stripe',
-      cmdclass={'build_py': build_py},
-      version=VERSION,
-      description='Stripe python bindings',
-      author='Stripe',
-      author_email='support@stripe.com',
-      url='https://stripe.com/',
-      packages=['stripe', 'stripe.test'],
-      package_data={'stripe': ['data/ca-certificates.crt', '../VERSION']},
-      install_requires=install_requires,
-      test_suite='stripe.test.all',
-      use_2to3 = True,
-      )
+setup(
+    name='stripe',
+    cmdclass={'build_py': build_py},
+    version=VERSION,
+    description='Stripe python bindings',
+    author='Stripe',
+    author_email='support@stripe.com',
+    url='https://stripe.com/',
+    packages=['stripe', 'stripe.test'],
+    package_data={'stripe': ['data/ca-certificates.crt', '../VERSION']},
+    install_requires=install_requires,
+    test_suite='stripe.test.all',
+    use_2to3=True,
+    classifiers=[
+        "Development Status :: 5 - Production/Stable",
+        "Intended Audience :: Developers",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent",
+        "Programming Language :: Python",
+        "Programming Language :: Python :: 2"
+        "Programming Language :: Python :: 2.5",
+        "Programming Language :: Python :: 2.6",
+        "Programming Language :: Python :: 2.7",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.2",
+        "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: Implementation :: PyPy"
+        "Topic :: Software Development :: Libraries :: Python Modules",
+    ])

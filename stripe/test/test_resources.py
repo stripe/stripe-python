@@ -1,3 +1,6 @@
+import pickle
+import sys
+
 import stripe
 
 from stripe.test.helper import (
@@ -104,6 +107,37 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual(False, data['livemode'])
         self.assertEqual('month',
                          data['lines']['subscriptions'][0]['plan']['interval'])
+
+    def test_repr(self):
+        obj = stripe.resource.StripeObject(
+            'foo', 'bar', myparam=5)
+
+        obj['object'] = u'\u4e00boo\u1f00'
+
+        res = repr(obj)
+
+        if sys.version_info[0] < 3:
+            res = unicode(repr(obj), 'utf-8')
+
+        self.assertTrue(u'<StripeObject \u4e00boo\u1f00' in res)
+        self.assertTrue(u'id=foo' in res)
+
+    def test_pickling(self):
+        obj = stripe.resource.StripeObject(
+            'foo', 'bar', myparam=5)
+
+        obj['object'] = 'boo'
+        obj.refresh_from({'fala': 'lalala'}, api_key='bar', partial=True)
+
+        self.assertEqual('lalala', obj.fala)
+
+        pickled = pickle.dumps(obj)
+        newobj = pickle.loads(pickled)
+
+        self.assertEqual('foo', newobj.id)
+        self.assertEqual('bar', newobj.api_key)
+        self.assertEqual('boo', newobj['object'])
+        self.assertEqual('lalala', newobj.fala)
 
 
 class ListObjectTests(StripeApiTestCase):
