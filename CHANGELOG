@@ -1,3 +1,7 @@
+=== 1.12.2 2014-03-13
+
+* Fix syntax errors in setup.py metadata
+
 === 1.12.1 2014-03-13
 
 * Added license and other metadata in setup.py
