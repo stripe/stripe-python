@@ -1,3 +1,8 @@
+=== 1.13.0 2014-04-09
+
+* Update bundled ca-certificates
+* Add certificate blacklist for CVE-2014-0160 mitigation
+
 === 1.12.2 2014-03-13
 
 * Fix syntax errors in setup.py metadata
