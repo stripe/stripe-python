@@ -23,7 +23,7 @@ def verify(hostname, certificate):
         return True
 
     sha = hashlib.sha1()
-    sha.update(certificate)
+    sha.update(certificate.encode('utf-8'))
     fingerprint = sha.hexdigest()
 
     if fingerprint in BLACKLISTED_DIGESTS[hostname]:
