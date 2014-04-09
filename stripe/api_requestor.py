@@ -9,8 +9,7 @@ import urlparse
 import warnings
 
 import stripe
-from stripe import error, http_client, version, util, blacklist
-from stripe.error import APIConnectionError
+from stripe import error, http_client, version, util, certificate_blacklist
 
 
 def _encode_datetime(dttime):
@@ -54,21 +53,12 @@ def _build_api_url(url, query):
 
 class APIRequestor(object):
 
-    BACKEND_VERIFIED = False
+    _CERTIFICATE_VERIFIED = False
 
     def __init__(self, key=None, client=None):
         self.api_key = key
 
         from stripe import verify_ssl_certs
-
-        if verify_ssl_certs and not self.BACKEND_VERIFIED:
-            hostname = stripe.api_base.lstrip("https://")
-            try:
-                certificate = ssl.get_server_certificate((hostname, 443))
-            except socket.error as e:
-                raise APIConnectionError(e)
-
-            self.BACKEND_VERIFIED = blacklist.verify(hostname, certificate)
 
         self._client = client or http_client.new_default_http_client(
             verify_ssl_certs=verify_ssl_certs)
@@ -133,6 +123,7 @@ class APIRequestor(object):
         return _build_api_url(url, cls.encode(params))
 
     def request(self, method, url, params=None):
+        self._check_ssl_cert()
         rbody, rcode, my_api_key = self.request_raw(
             method.lower(), url, params)
         resp = self.interpret_response(rbody, rcode)
@@ -241,6 +232,19 @@ class APIRequestor(object):
         if not (200 <= rcode < 300):
             self.handle_api_error(rbody, rcode, resp)
         return resp
+
+    def _check_ssl_cert(self):
+        from stripe import verify_ssl_certs
+
+        if verify_ssl_certs and not self._CERTIFICATE_VERIFIED:
+            hostname = stripe.api_base.lstrip("https://")
+            try:
+                certificate = ssl.get_server_certificate((hostname, 443))
+            except socket.error as e:
+                raise error.APIConnectionError(e)
+
+            self._CERTIFICATE_VERIFIED = certificate_blacklist.verify(
+                hostname, certificate)
 
     # Deprecated request handling.  Will all be removed in 2.0
     def _deprecated_request(self, impl, method, url, headers, params):
