@@ -237,14 +237,14 @@ class BalanceTransactionTest(StripeTestCase):
 
     def test_list_balance_transactions(self):
         balance_transactions = stripe.BalanceTransaction.all()
-        self.assertTrue(hasattr(balance_transactions, 'count'))
+        self.assertTrue(hasattr(balance_transactions, 'has_more'))
         self.assertTrue(isinstance(balance_transactions.data, list))
 
 
 class ApplicationFeeTest(StripeTestCase):
     def test_list_application_fees(self):
         application_fees = stripe.ApplicationFee.all()
-        self.assertTrue(hasattr(application_fees, 'count'))
+        self.assertTrue(hasattr(application_fees, 'has_more'))
         self.assertTrue(isinstance(application_fees.data, list))
 
 
