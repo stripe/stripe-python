@@ -19,6 +19,9 @@ if sys.version_info < (2, 6):
     requests += ', < 0.10.1'
 install_requires = [requests]
 
+if sys.version_info < (2, 6):
+    install_requires.append('ssl')
+
 
 # Don't import stripe module here, since deps may not be installed
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'stripe'))
