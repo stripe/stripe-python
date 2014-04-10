@@ -7,7 +7,7 @@ BLACKLISTED_DIGESTS = {
         '05c0b3643694470a888c6e7feb5c9e24e823dc53',
     ),
     'revoked.stripe.com': (
-        '54b8bacb7374504b5acdde7fb7598127caf97bef',
+        '5b7dc7fbc98d78bf76d4d4fa6f597a0c901fad5c',
     ),
 }
 
