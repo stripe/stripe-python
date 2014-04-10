@@ -1,3 +1,8 @@
+=== 1.14.0 2104-04-09
+
+* Use DER encoded certificate for checksumming
+* Don't rely on SNI support in integration tests
+
 === 1.13.0 2014-04-09
 
 * Update bundled ca-certificates
