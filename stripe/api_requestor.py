@@ -234,6 +234,16 @@ class APIRequestor(object):
         return resp
 
     def _check_ssl_cert(self):
+        """Preflight the SSL certificate presented by the backend.
+
+        This isn't 100% bulletproof, in that we're not actually validating the
+        transport used to communicate with Stripe, merely that the first
+        attempt to does not use a revoked certificate.
+
+        Unfortunately the interface to OpenSSL doesn't make it easy to check
+        the certificate before sending potentially sensitive data on the wire.
+        This approach raises the bar for an attacker significantly."""
+
         from stripe import verify_ssl_certs
 
         if verify_ssl_certs and not self._CERTIFICATE_VERIFIED:
