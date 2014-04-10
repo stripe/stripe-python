@@ -237,14 +237,16 @@ class APIRequestor(object):
         from stripe import verify_ssl_certs
 
         if verify_ssl_certs and not self._CERTIFICATE_VERIFIED:
-            hostname = stripe.api_base.lstrip("https://")
+            uri = urlparse.urlparse(stripe.api_base)
             try:
-                certificate = ssl.get_server_certificate((hostname, 443))
+                certificate = ssl.get_server_certificate(
+                    (uri.hostname, uri.port or 443))
+                der_cert = ssl.PEM_cert_to_DER_cert(certificate)
             except socket.error, e:
                 raise error.APIConnectionError(e)
 
             self._CERTIFICATE_VERIFIED = certificate_blacklist.verify(
-                hostname, certificate)
+                uri.hostname, der_cert)
 
     # Deprecated request handling.  Will all be removed in 2.0
     def _deprecated_request(self, impl, method, url, headers, params):
