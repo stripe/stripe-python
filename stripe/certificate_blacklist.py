@@ -4,10 +4,10 @@ from stripe.error import APIError
 
 BLACKLISTED_DIGESTS = {
     'api.stripe.com': (
-        '33946398e5490d6b62a6e721d1cbfd308c3069c2',
+        '05c0b3643694470a888c6e7feb5c9e24e823dc53',
     ),
     'revoked.stripe.com': (
-        '9df351754b71fc29c59afce7350627710ed7f8b7',
+        '54b8bacb7374504b5acdde7fb7598127caf97bef',
     ),
 }
 
@@ -23,7 +23,7 @@ def verify(hostname, certificate):
         return True
 
     sha = hashlib.sha1()
-    sha.update(certificate.encode('utf-8'))
+    sha.update(certificate)
     fingerprint = sha.hexdigest()
 
     if fingerprint in BLACKLISTED_DIGESTS[hostname]:
