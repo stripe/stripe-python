@@ -57,6 +57,13 @@ class APIRequestor(object):
 
     def __init__(self, key=None, client=None):
         self.api_key = key
+        if not isinstance(self.api_key, str):
+            warnings.warn('The API key that you provided does not appear to be a string.')
+            if isinstance(self.api_key, dict):
+                warnings.warn(
+                    'It looks like the API key that you provided is a dict.  Note that '
+                    'stripe-python takes API parameters as keyword arguments, rather than '
+                    'as a dict.  So, you would want, eg all(limit=10), not all({"limit": 10})')
 
         from stripe import verify_ssl_certs
 
