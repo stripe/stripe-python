@@ -2,6 +2,7 @@ import calendar
 import datetime
 import platform
 import time
+import os
 import ssl
 import socket
 import urllib
@@ -254,6 +255,21 @@ class APIRequestor(object):
                 der_cert = ssl.PEM_cert_to_DER_cert(certificate)
             except socket.error, e:
                 raise error.APIConnectionError(e)
+            except TypeError:
+                # The Google App Engine development server blocks the C socket
+                # module which causes a type error when using the SSL library
+                if ('APPENGINE_RUNTIME' in os.environ and
+                        'Dev' in os.environ.get('SERVER_SOFTWARE', '')):
+                    self._CERTIFICATE_VERIFIED = True
+                    warnings.warn(
+                        'We were unable to verify Stripe\'s SSL certificate '
+                        'due to a bug in the Google App Engine development '
+                        'server. Please alert us immediately at '
+                        'support@stripe.com if this message appears in your '
+                        'production logs.')
+                    return
+                else:
+                    raise
 
             self._CERTIFICATE_VERIFIED = certificate_blacklist.verify(
                 uri.hostname, der_cert)
