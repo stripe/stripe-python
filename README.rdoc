@@ -1,6 +1,4 @@
-= Stripe Python bindings
-
-{<img src="https://travis-ci.org/stripe/stripe-python.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/stripe/stripe-python]
+= Stripe Python bindings {<img src="https://travis-ci.org/stripe/stripe-python.svg?branch=master" alt="Build Status" />}[https://travis-ci.org/stripe/stripe-python]
 
 == Installation
 
