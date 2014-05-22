@@ -338,19 +338,33 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
 
     def instance_url(self):
         self.id = util.utf8(self.id)
-        self.customer = util.utf8(self.customer)
-
-        base = Customer.class_url()
-        cust_extn = urllib.quote_plus(self.customer)
         extn = urllib.quote_plus(self.id)
+        if (hasattr(self, 'customer')):
+            self.customer = util.utf8(self.customer)
 
-        return "%s/%s/cards/%s" % (base, cust_extn, extn)
+            base = Customer.class_url()
+            owner_extn = urllib.quote_plus(self.customer)
+
+        elif (hasattr(self, 'recipient')):
+            self.recipient = util.utf8(self.recipient)
+
+            base = Recipient.class_url()
+            owner_extn = urllib.quote_plus(self.recipient)
+
+        else:
+            raise error.InvalidRequestError(
+                "Could not determine whether card_id %s is "
+                "attached to a customer "
+                "or a recipient." % self.id)
+
+        return "%s/%s/cards/%s" % (base, owner_extn, extn)
 
     @classmethod
     def retrieve(cls, id, api_key=None, **params):
         raise NotImplementedError(
-            "Can't retrieve a card without a customer ID. Use "
-            "customer.cards.retrieve('card_id') instead.")
+            "Can't retrieve a card without a customer or recipient"
+            "ID. Use customer.cards.retrieve('card_id') or "
+            "recipient.cards.retrieve('card_id') instead.")
 
 
 class Charge(CreateableAPIResource, ListableAPIResource,
