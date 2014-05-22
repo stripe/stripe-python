@@ -12,7 +12,7 @@ import stripe
 
 from stripe.test.helper import (
     StripeTestCase,
-    NOW, DUMMY_CARD, DUMMY_CHARGE, DUMMY_PLAN, DUMMY_COUPON,
+    NOW, DUMMY_CARD, DUMMY_DEBIT_CARD, DUMMY_CHARGE, DUMMY_PLAN, DUMMY_COUPON,
     DUMMY_RECIPIENT, DUMMY_TRANSFER, DUMMY_INVOICE_ITEM)
 
 
@@ -275,15 +275,47 @@ class CustomerTest(StripeTestCase):
         customer = stripe.Customer()
         self.assertRaises(ValueError, setattr, customer, "description", "")
 
-    def test_update_customer_card(self):
-        customer = stripe.Customer.create(description="update_customer_card")
+    def test_customer_add_card(self):
+        customer = stripe.Customer.create(description="add_customer_card")
         card = customer.cards.create(card=DUMMY_CARD)
-
-        card.name = 'Python bindings test'
         card.save()
 
-        self.assertEqual('Python bindings test',
-                         customer.cards.retrieve(card.id).name)
+        updatedCustomer = stripe.Customer.retrieve(customer.id)
+        retrievedCard = updatedCustomer.cards.retrieve(card.id)
+        self.assertEqual(len(updatedCustomer.cards.data), 1)
+        self.assertEqual(retrievedCard.id, card.id)
+
+    def test_customer_update_card(self):
+        customer = stripe.Customer.create(description="update_customer_card")
+        card = customer.cards.create(card=DUMMY_CARD)
+        card.save()
+
+        updatedCustomer = stripe.Customer.retrieve(customer.id)
+        retrievedCard = updatedCustomer.cards.retrieve(card.id)
+        self.assertEqual(len(updatedCustomer.cards.data), 1)
+        self.assertEqual(retrievedCard.id, card.id)
+
+        retrievedCard.name = 'The Best'
+        retrievedCard.save()
+
+        postUpdateCustomer = stripe.Customer.retrieve(customer.id)
+        postUpdateCard = postUpdateCustomer.cards.retrieve(card.id)
+
+        self.assertEqual('The Best', postUpdateCard.name)
+
+    def test_customer_delete_card(self):
+        customer = stripe.Customer.create(description="update_customer_card")
+        card = customer.cards.create(card=DUMMY_CARD)
+        card.save()
+
+        updatedCustomer = stripe.Customer.retrieve(customer.id)
+        retrievedCard = updatedCustomer.cards.retrieve(card.id)
+        self.assertEqual(len(updatedCustomer.cards.data), 1)
+
+        retrievedCard.delete()
+
+        postDeleteCustomer = stripe.Customer.retrieve(customer.id)
+        self.assertEquals(len(postDeleteCustomer.cards.data), 0)
 
 
 class TransferTest(StripeTestCase):
@@ -307,6 +339,60 @@ class RecipientTest(StripeTestCase):
         # Weak assertion since the list could be empty
         for transfer in recipient.transfers().data:
             self.assertTrue(isinstance(transfer, stripe.Transfer))
+
+    def test_recipient_add_card(self):
+        recipient = stripe.Recipient.create(
+            name="Best Debitholder",
+            description="add_recipient_card",
+            type="individual"
+        )
+        card = recipient.cards.create(card=DUMMY_DEBIT_CARD)
+        card.save()
+
+        updatedRecipient = stripe.Recipient.retrieve(recipient.id)
+        retrievedCard = updatedRecipient.cards.retrieve(card.id)
+        self.assertEqual(len(updatedRecipient.cards.data), 1)
+        self.assertEqual(retrievedCard.id, card.id)
+
+    def test_recipient_update_card(self):
+        recipient = stripe.Recipient.create(
+            name="Best Debitholder",
+            description="update_recipient_card",
+            type="individual"
+        )
+        card = recipient.cards.create(card=DUMMY_DEBIT_CARD)
+        card.save()
+
+        updatedRecipient = stripe.Recipient.retrieve(recipient.id)
+        retrievedCard = updatedRecipient.cards.retrieve(card.id)
+        self.assertEqual(len(updatedRecipient.cards.data), 1)
+        self.assertEqual(retrievedCard.id, card.id)
+
+        retrievedCard.name = 'The Best'
+        retrievedCard.save()
+
+        postUpdateRecipient = stripe.Recipient.retrieve(recipient.id)
+        postUpdateCard = postUpdateRecipient.cards.retrieve(card.id)
+
+        self.assertEqual('The Best', postUpdateCard.name)
+
+    def test_recipient_delete_card(self):
+        recipient = stripe.Recipient.create(
+            name="Best Debitholder",
+            description="update_recipient_card",
+            type="individual"
+        )
+        card = recipient.cards.create(card=DUMMY_DEBIT_CARD)
+        card.save()
+
+        updatedRecipient = stripe.Recipient.retrieve(recipient.id)
+        retrievedCard = updatedRecipient.cards.retrieve(card.id)
+        self.assertEqual(len(updatedRecipient.cards.data), 1)
+
+        retrievedCard.delete()
+
+        postDeleteRecipient = stripe.Recipient.retrieve(recipient.id)
+        self.assertEquals(len(postDeleteRecipient.cards.data), 0)
 
 
 class CustomerPlanTest(StripeTestCase):

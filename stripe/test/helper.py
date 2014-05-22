@@ -17,6 +17,11 @@ DUMMY_CARD = {
     'exp_month': NOW.month,
     'exp_year': NOW.year + 4
 }
+DUMMY_DEBIT_CARD = {
+    'number': '4000056655665556',
+    'exp_month': NOW.month,
+    'exp_year': NOW.year + 4
+}
 DUMMY_CHARGE = {
     'amount': 100,
     'currency': 'usd',
