@@ -1,3 +1,7 @@
+=== 1.15.1 2014-05-21
+
+* Support cards for recipients.
+
 === 1.14.1 2014-05-19
 
 * Disable loading the ssl module on the Google App Engine dev server.
