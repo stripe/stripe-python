@@ -103,15 +103,15 @@ if sys.version_info >= (2, 7):
             else:
                 super(UrlfetchFunctionalTests, self).setUp()
 
+if not os.environ['SKIP_PYCURL_TESTS']:
+    class PycurlFunctionalTests(FunctionalTests):
+        def setUp(self):
+            if sys.version_info >= (3, 0):
+                self.skipTest('Pycurl is not supported in Python 3')
+            else:
+                super(PycurlFunctionalTests, self).setUp()
 
-class PycurlFunctionalTests(FunctionalTests):
-    def setUp(self):
-        if sys.version_info >= (3, 0):
-            self.skipTest('Pycurl is not supported in Python 3')
-        else:
-            super(PycurlFunctionalTests, self).setUp()
-
-    request_client = stripe.http_client.PycurlClient
+        request_client = stripe.http_client.PycurlClient
 
 
 class AuthenticationErrorTest(StripeTestCase):
