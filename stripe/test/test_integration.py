@@ -103,7 +103,7 @@ if sys.version_info >= (2, 7):
             else:
                 super(UrlfetchFunctionalTests, self).setUp()
 
-if not os.environ['SKIP_PYCURL_TESTS']:
+if not os.environ.get('SKIP_PYCURL_TESTS'):
     class PycurlFunctionalTests(FunctionalTests):
         def setUp(self):
             if sys.version_info >= (3, 0):
