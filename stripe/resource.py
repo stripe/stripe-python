@@ -503,7 +503,10 @@ class Event(ListableAPIResource):
 
 class Transfer(CreateableAPIResource, UpdateableAPIResource,
                ListableAPIResource):
-    pass
+
+    def cancel(self):
+        self.refresh_from(self.request('post',
+                          self.instance_url() + '/cancel'))
 
 
 class Recipient(CreateableAPIResource, UpdateableAPIResource,
