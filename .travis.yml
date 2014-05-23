@@ -5,6 +5,7 @@ python:
   - "pypy"
   - "3.2"
   - "3.3"
+  - "3.4"
 env: PYCURL_SSL_LIBRARY=gnutls
 before_install:
   - sudo apt-get update
