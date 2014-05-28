@@ -325,6 +325,12 @@ class TransferTest(StripeTestCase):
         self.assertTrue(isinstance(transfers.data, list))
         self.assertTrue(isinstance(transfers.data[0], stripe.Transfer))
 
+    def test_cancel_transfer(self):
+        transfer = stripe.Transfer.all().data[0]
+        self.assertRaisesRegexp(stripe.error.InvalidRequestError,
+                                'Transfer cannot be canceled',
+                                transfer.cancel)
+
 
 class RecipientTest(StripeTestCase):
 
