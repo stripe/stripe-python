@@ -1,5 +1,6 @@
 import os
 import sys
+import warnings
 
 try:
     from setuptools import setup
@@ -14,13 +15,18 @@ except ImportError:
 path, script = os.path.split(sys.argv[0])
 os.chdir(os.path.abspath(path))
 
-requests = 'requests >= 0.8.8'
-if sys.version_info < (2, 6):
-    requests += ', < 0.10.1'
-install_requires = [requests]
+install_requires = []
 
 if sys.version_info < (2, 6):
+    warnings.warn(
+        'Python 2.5 is no longer officially supported by Stripe. '
+        'If you have any questions, please file an issue on Github or '
+        'contact us at support@stripe.com.',
+        DeprecationWarning)
+    install_requires.append('requests >= 0.8.8, < 0.10.1')
     install_requires.append('ssl')
+else:
+    install_requires.append('requests >= 0.8.8')
 
 
 # Don't import stripe module here, since deps may not be installed
@@ -54,7 +60,6 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.5",
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
