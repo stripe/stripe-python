@@ -643,6 +643,31 @@ class PlanTest(StripeTestCase):
         p.delete()
 
 
+class RefundTest(StripeTestCase):
+
+    def test_create_refund(self):
+        charge = stripe.Charge.create(**DUMMY_CHARGE)
+        refund = charge.refunds.create(amount=50)
+        self.assertEquals(50, refund.amount)
+
+    def test_fetch_refund(self):
+        charge = stripe.Charge.create(**DUMMY_CHARGE)
+        r = charge.refunds.create(amount=50)
+        refund = charge.refunds.retrieve(r.id)
+        self.assertEquals(r.id, refund.id)
+
+    def test_list_refunds(self):
+        charge = stripe.Charge.create(**DUMMY_CHARGE)
+        self.assertEquals(0, len(charge.refunds.data))
+
+    def test_update_refund(self):
+        charge = stripe.Charge.create(**DUMMY_CHARGE)
+        refund = charge.refunds.create(amount=50)
+        refund.metadata["key"] = "value"
+        refund.save()
+        self.assertEquals("value", refund.metadata["key"])
+
+
 class MetadataTest(StripeTestCase):
 
     def setUp(self):
