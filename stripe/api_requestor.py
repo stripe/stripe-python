@@ -3,7 +3,6 @@ import datetime
 import platform
 import time
 import os
-import ssl
 import socket
 import urllib
 import urlparse
@@ -250,12 +249,14 @@ class APIRequestor(object):
         if verify_ssl_certs and not self._CERTIFICATE_VERIFIED:
             uri = urlparse.urlparse(stripe.api_base)
             try:
+                import ssl
+
                 certificate = ssl.get_server_certificate(
                     (uri.hostname, uri.port or 443))
                 der_cert = ssl.PEM_cert_to_DER_cert(certificate)
             except socket.error, e:
                 raise error.APIConnectionError(e)
-            except TypeError:
+            except (TypeError, ImportError):
                 # The Google App Engine development server blocks the C socket
                 # module which causes a type error when using the SSL library
                 if ('APPENGINE_RUNTIME' in os.environ and
