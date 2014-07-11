@@ -56,7 +56,7 @@ class APIHeaderMatcher(object):
 
     def _method_match(self, other):
         if self.request_method != None and self.request_method in self.METHOD_EXTRA_KEYS:
-            for k, v in self.METHOD_KEYS[self.request_method]:
+            for k, v in self.METHOD_EXTRA_KEYS[self.request_method]:
                 if other[k] != v:
                     return False
 
