@@ -24,7 +24,7 @@ class GMT1(datetime.tzinfo):
 
 
 class APIHeaderMatcher(object):
-    EXP_KEYS = ['X-Stripe-Client-User-Agent', 'User-Agent', 'Authorization', 'Content-Type']
+    EXP_KEYS = ['X-Stripe-Client-User-Agent', 'User-Agent', 'Authorization']
 
     def __init__(self, api_key=None, extra={}):
         self.api_key = api_key or stripe.api_key

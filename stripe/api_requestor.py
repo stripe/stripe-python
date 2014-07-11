@@ -205,9 +205,11 @@ class APIRequestor(object):
         headers = {
             'X-Stripe-Client-User-Agent': util.json.dumps(ua),
             'User-Agent': 'Stripe/v1 PythonBindings/%s' % (version.VERSION,),
-            'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': 'Bearer %s' % (my_api_key,)
         }
+
+        if method == 'post':
+            headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
         if api_version is not None:
             headers['Stripe-Version'] = api_version
