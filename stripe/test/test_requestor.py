@@ -37,11 +37,13 @@ class APIHeaderMatcher(object):
     def __eq__(self, other):
         return (self._keys_match(other) and
                 self._auth_match(other) and
-                self._extra_match(other) and
-                self._method_match(other))
+                self._extra_match(other))
 
     def _keys_match(self, other):
         expected_keys = self.EXP_KEYS + self.extra.keys()
+        if self.request_method != None and self.request_method in self.METHOD_EXTRA_KEYS:
+            expected_keys.extend(self.METHOD_EXTRA_KEYS[self.request_method])
+
         return (sorted(other.keys()) == sorted(expected_keys))
 
     def _auth_match(self, other):
@@ -51,14 +53,6 @@ class APIHeaderMatcher(object):
         for k, v in self.extra.iteritems():
             if other[k] != v:
                 return False
-
-        return True
-
-    def _method_match(self, other):
-        if self.request_method != None and self.request_method in self.METHOD_EXTRA_KEYS:
-            for k, v in self.METHOD_EXTRA_KEYS[self.request_method]:
-                if other[k] != v:
-                    return False
 
         return True
 
