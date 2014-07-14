@@ -7,13 +7,14 @@ A Python library for Stripe's API.
 Setup
 -----
 
-You can install this package by using the pip tool and installing directly from Stripe's hosted version:
+You can install this package by using the pip tool and installing:
 
-    $ pip install --index-url https://code.stripe.com --upgrade stripe
-
+    $ pip install stripe
+    
 Or:
 
-    $ easy_install --index-url https://code.stripe.com --upgrade stripe
+    $ easy_install stripe
+    
 
 Setting up a Stripe Account
 ---------------------------
