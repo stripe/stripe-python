@@ -28,7 +28,7 @@ def convert_to_stripe_object(resp, api_key):
 
 
 class StripeObject(dict):
-    def __init__(self, id=None, api_key=None, **params):
+    def __init__(self, id_=None, api_key=None, **params):
         super(StripeObject, self).__init__()
 
         self._unsaved_values = set()
@@ -39,8 +39,9 @@ class StripeObject(dict):
 
         object.__setattr__(self, 'api_key', api_key)
 
-        if id:
-            self['id'] = id
+        _id = params.pop('id', id_)
+        if _id:
+            self['id'] = _id
 
     def __setattr__(self, k, v):
         if k[0] == '_' or k in self.__dict__:
@@ -180,8 +181,12 @@ class StripeObjectEncoder(util.json.JSONEncoder):
 class APIResource(StripeObject):
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params):
-        instance = cls(id, api_key, **params)
+    def retrieve(cls, id_=None, api_key=None, **params):
+        """Retrieve an API Resource by id. Support both 'id_' or
+        'id' as keyword arguments.
+        """
+        _id = params.pop('id', id_)
+        instance = cls(_id, api_key, **params)
         instance.refresh()
         return instance
 
@@ -203,14 +208,14 @@ class APIResource(StripeObject):
         return "/v1/%ss" % (cls_name,)
 
     def instance_url(self):
-        id = self.get('id')
-        if not id:
+        id_ = self.get('id')
+        if not id_:
             raise error.InvalidRequestError(
                 'Could not determine which URL to request: %s instance '
-                'has invalid ID: %r' % (type(self).__name__, id), 'id')
-        id = util.utf8(id)
+                'has invalid ID: %r' % (type(self).__name__, id_), 'id')
+
         base = self.class_url()
-        extn = urllib.quote_plus(id)
+        extn = urllib.quote_plus(util.utf8(id_))
         return "%s/%s" % (base, extn)
 
 
@@ -222,12 +227,11 @@ class ListObject(StripeObject):
     def create(self, **params):
         return self.request('post', self['url'], params)
 
-    def retrieve(self, id, **params):
+    def retrieve(self, id_=None, **params):
+        _id = params.pop('id', id_)
         base = self.get('url')
-        id = util.utf8(id)
-        extn = urllib.quote_plus(id)
+        extn = urllib.quote_plus(util.utf8(_id))
         url = "%s/%s" % (base, extn)
-
         return self.request('get', url, params)
 
 
@@ -361,7 +365,7 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
         return "%s/%s/cards/%s" % (base, owner_extn, extn)
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params):
+    def retrieve(cls, id_=None, api_key=None, **params):
         raise NotImplementedError(
             "Can't retrieve a card without a customer or recipient"
             "ID. Use customer.cards.retrieve('card_id') or "
@@ -477,7 +481,7 @@ class Subscription(UpdateableAPIResource, DeletableAPIResource):
         return "%s/%s/subscriptions/%s" % (base, cust_extn, extn)
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params):
+    def retrieve(cls, id_=None, api_key=None, **params):
         raise NotImplementedError(
             "Can't retrieve a subscription without a customer ID. "
             "Use customer.subscriptions.retrieve('subscription_id') instead.")
@@ -500,7 +504,7 @@ class Refund(UpdateableAPIResource):
         return "%s/%s/refunds/%s" % (base, cust_extn, extn)
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params):
+    def retrieve(cls, id_=None, api_key=None, **params):
         raise NotImplementedError(
             "Can't retrieve a refund without a charge ID. "
             "Use charge.refunds.retrieve('refund_id') instead.")

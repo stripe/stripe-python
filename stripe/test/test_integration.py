@@ -72,6 +72,14 @@ class FunctionalTests(StripeTestCase):
         # Make sure unicode requests can be sent
         self.assertRaises(stripe.error.InvalidRequestError,
                           stripe.Charge.retrieve,
+                          id_=u'☃')
+
+    def test_compat(self):
+        """Tests backward compatibility of the use of id_= or id= with
+        resource.APIResource.
+        """
+        self.assertRaises(stripe.error.InvalidRequestError,
+                          stripe.Charge.retrieve,
                           id=u'☃')
 
     def test_none_values(self):
