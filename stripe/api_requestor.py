@@ -208,6 +208,9 @@ class APIRequestor(object):
             'Authorization': 'Bearer %s' % (my_api_key,)
         }
 
+        if method == 'post':
+            headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
         if api_version is not None:
             headers['Stripe-Version'] = api_version
 
