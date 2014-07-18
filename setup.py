@@ -43,6 +43,7 @@ if sys.version_info < (3, 0):
     except ImportError:
         install_requires.append('simplejson')
 
+
 setup(
     name='stripe',
     cmdclass={'build_py': build_py},

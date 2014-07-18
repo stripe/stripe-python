@@ -1,12 +1,17 @@
 import pickle
 import sys
+import time
+import datetime
 
 import stripe
+import stripe.resource
 
 from stripe.test.helper import (
     StripeUnitTestCase, StripeApiTestCase,
     MySingleton, MyListable, MyCreatable, MyUpdateable, MyDeletable,
-    MyResource, SAMPLE_INVOICE)
+    MyResource, SAMPLE_INVOICE, NOW,
+    DUMMY_CARD, DUMMY_CHARGE, DUMMY_PLAN, DUMMY_COUPON,
+    DUMMY_INVOICE_ITEM)
 
 from stripe import util
 
@@ -401,3 +406,657 @@ class DeletableAPIResourceTests(StripeApiTestCase):
 
         self.assertEqual(True, obj.deleted)
         self.assertEqual('mid', obj.id)
+
+
+class StripeResourceTest(StripeApiTestCase):
+
+    def setUp(self):
+        super(StripeResourceTest, self).setUp()
+        self.mock_response({})
+
+
+class ChargeTest(StripeResourceTest):
+
+    def test_charge_list_all(self):
+        stripe.Charge.all(created={'lt': NOW})
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/charges',
+            {
+                'created': {'lt': NOW},
+            }
+        )
+
+    def test_charge_list_create(self):
+        stripe.Charge.create(**DUMMY_CHARGE)
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges',
+            DUMMY_CHARGE
+        )
+
+    def test_charge_list_retrieve(self):
+        stripe.Charge.retrieve('ch_test_id')
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/charges/ch_test_id',
+            {}
+        )
+
+    def test_charge_update_dispute(self):
+        charge = stripe.Charge(id='ch_update_id')
+        charge.update_dispute()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges/ch_update_id/dispute',
+            {}
+        )
+
+    def test_charge_close_dispute(self):
+        charge = stripe.Charge(id='ch_update_id')
+        charge.close_dispute()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges/ch_update_id/dispute/close',
+            {}
+        )
+
+
+class AccountTest(StripeResourceTest):
+
+    def test_retrieve_account(self):
+        stripe.Account.retrieve()
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/account',
+            {}
+        )
+
+
+class BalanceTest(StripeResourceTest):
+
+    def test_retrieve_balance(self):
+        stripe.Balance.retrieve()
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/balance',
+            {}
+        )
+
+
+class BalanceTransactionTest(StripeResourceTest):
+
+    def test_list_balance_transactions(self):
+        stripe.BalanceTransaction.all()
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/balance/history',
+            {}
+        )
+
+
+class ApplicationFeeTest(StripeResourceTest):
+
+    def test_list_application_fees(self):
+        stripe.ApplicationFee.all()
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/application_fees',
+            {}
+        )
+
+
+class CustomerTest(StripeResourceTest):
+
+    def test_list_customers(self):
+        stripe.Customer.all()
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/customers',
+            {}
+        )
+
+    def test_create_customer(self):
+        stripe.Customer.create(description="foo bar", card=DUMMY_CARD,
+                               coupon='cu_discount')
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers',
+            {
+                'coupon': 'cu_discount',
+                'description': 'foo bar',
+                'card': DUMMY_CARD
+            }
+        )
+
+    def test_unset_description(self):
+        customer = stripe.Customer(id="cus_unset_desc")
+        customer.description = "Hey"
+        customer.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_unset_desc',
+            {
+                'description': 'Hey',
+            }
+        )
+
+    def test_cannot_set_empty_string(self):
+        customer = stripe.Customer()
+        self.assertRaises(ValueError, setattr, customer, "description", "")
+
+    def test_customer_add_card(self):
+        customer = stripe.Customer.construct_from({
+            'id': 'cus_add_card',
+            'cards': {
+                'object': 'list',
+                'url': '/v1/customers/cus_add_card/cards',
+            },
+        }, 'api_key')
+        customer.cards.create(card=DUMMY_CARD)
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_add_card/cards',
+            {
+                'card': DUMMY_CARD,
+            }
+        )
+
+    def test_customer_update_card(self):
+        card = stripe.Card.construct_from({
+            'customer': 'cus_update_card',
+            'id': 'ca_update_card',
+        }, 'api_key')
+        card.name = 'The Best'
+        card.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_update_card/cards/ca_update_card',
+            {
+                'name': 'The Best',
+            }
+        )
+
+    def test_customer_delete_card(self):
+        card = stripe.Card.construct_from({
+            'customer': 'cus_delete_card',
+            'id': 'ca_delete_card',
+        }, 'api_key')
+        card.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/customers/cus_delete_card/cards/ca_delete_card',
+            {}
+        )
+
+
+class TransferTest(StripeResourceTest):
+
+    def test_list_transfers(self):
+        stripe.Transfer.all()
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/transfers',
+            {},
+        )
+
+    def test_cancel_transfer(self):
+        transfer = stripe.Transfer(id='tr_cancel')
+        transfer.cancel()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/transfers/tr_cancel/cancel',
+            {},
+        )
+
+
+class RecipientTest(StripeResourceTest):
+
+    def test_list_recipients(self):
+        stripe.Recipient.all()
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/recipients',
+            {},
+        )
+
+    def test_recipient_transfers(self):
+        recipient = stripe.Recipient(id='rp_transfer')
+        recipient.transfers()
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/transfers',
+            {'recipient': 'rp_transfer'},
+        )
+
+    def test_recipient_add_card(self):
+        recipient = stripe.Recipient.construct_from({
+            'id': 'rp_add_card',
+            'cards': {
+                'object': 'list',
+                'url': '/v1/recipients/rp_add_card/cards',
+            },
+        }, 'api_key')
+        recipient.cards.create(card=DUMMY_CARD)
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/recipients/rp_add_card/cards',
+            {
+                'card': DUMMY_CARD,
+            }
+        )
+
+    def test_recipient_update_card(self):
+        card = stripe.Card.construct_from({
+            'recipient': 'rp_update_card',
+            'id': 'ca_update_card',
+        }, 'api_key')
+        card.name = 'The Best'
+        card.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/recipients/rp_update_card/cards/ca_update_card',
+            {
+                'name': 'The Best',
+            }
+        )
+
+    def test_recipient_delete_card(self):
+        card = stripe.Card.construct_from({
+            'recipient': 'rp_delete_card',
+            'id': 'ca_delete_card',
+        }, 'api_key')
+        card.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/recipients/rp_delete_card/cards/ca_delete_card',
+            {}
+        )
+
+
+class CustomerPlanTest(StripeResourceTest):
+
+    def test_create_customer(self):
+        stripe.Customer.create(plan=DUMMY_PLAN['id'], card=DUMMY_CARD)
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers',
+            {
+                'card': DUMMY_CARD,
+                'plan': DUMMY_PLAN['id'],
+            }
+        )
+
+    def test_legacy_update_subscription(self):
+        customer = stripe.Customer(id="cus_legacy_sub_update")
+        customer.update_subscription(plan=DUMMY_PLAN['id'])
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_legacy_sub_update/subscription',
+            {
+                'plan': DUMMY_PLAN['id'],
+            }
+        )
+
+    def test_legacy_delete_subscription(self):
+        customer = stripe.Customer(id="cus_legacy_sub_delete")
+        customer.cancel_subscription()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/customers/cus_legacy_sub_delete/subscription',
+            {},
+        )
+
+    def test_create_customer_subscription(self):
+        customer = stripe.Customer.construct_from({
+            'id': 'cus_sub_create',
+            'subscriptions': {
+                'object': 'list',
+                'url': '/v1/customers/cus_sub_create/subscriptions',
+            }
+        }, 'api_key')
+
+        customer.subscriptions.create(plan=DUMMY_PLAN['id'], coupon='foo')
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_sub_create/subscriptions',
+            {
+                'plan': DUMMY_PLAN['id'],
+                'coupon': 'foo',
+            }
+        )
+
+    def test_retrieve_customer_subscription(self):
+        customer = stripe.Customer.construct_from({
+            'id': 'cus_foo',
+            'subscriptions': {
+                'object': 'list',
+                'url': '/v1/customers/cus_foo/subscriptions',
+            }
+        }, 'api_key')
+
+        customer.subscriptions.retrieve('sub_cus')
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/customers/cus_foo/subscriptions/sub_cus',
+            {},
+        )
+
+    def test_update_customer_subscription(self):
+        subscription = stripe.Subscription.construct_from({
+            'id': "sub_update",
+            'customer': "cus_foo",
+        }, 'api_key')
+
+        trial_end_dttm = datetime.datetime.now() + datetime.timedelta(days=15)
+        trial_end_int = int(time.mktime(trial_end_dttm.timetuple()))
+
+        subscription.trial_end = trial_end_int
+        subscription.plan = DUMMY_PLAN['id']
+        subscription.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_foo/subscriptions/sub_update',
+            {
+                'plan': DUMMY_PLAN['id'],
+                'trial_end': trial_end_int,
+            },
+        )
+
+    def test_delete_customer_subscription(self):
+        subscription = stripe.Subscription.construct_from({
+            'id': "sub_delete",
+            'customer': "cus_foo",
+        }, 'api_key')
+
+        subscription.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/customers/cus_foo/subscriptions/sub_delete',
+            {},
+        )
+
+
+class InvoiceTest(StripeResourceTest):
+
+    def test_add_invoice_item(self):
+        customer = stripe.Customer(id="cus_invoice_items")
+        customer.add_invoice_item(**DUMMY_INVOICE_ITEM)
+
+        expected = DUMMY_INVOICE_ITEM.copy()
+        expected['customer'] = 'cus_invoice_items'
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/invoiceitems',
+            expected,
+        )
+
+    def test_retrieve_invoice_items(self):
+        customer = stripe.Customer(id="cus_get_invoice_items")
+        customer.invoice_items()
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/invoiceitems',
+            {'customer': 'cus_get_invoice_items'},
+        )
+
+    def test_invoice_create(self):
+        customer = stripe.Customer(id="cus_invoice")
+        stripe.Invoice.create(customer=customer.id)
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/invoices',
+            {
+                'customer': 'cus_invoice',
+            },
+        )
+
+    def test_retrieve_customer_invoices(self):
+        customer = stripe.Customer(id="cus_invoice_items")
+        customer.invoices()
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/invoices',
+            {
+                'customer': 'cus_invoice_items',
+            },
+        )
+
+    def test_pay_invoice(self):
+        invoice = stripe.Invoice(id="ii_pay")
+        invoice.pay()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/invoices/ii_pay/pay',
+            {},
+        )
+
+    def test_upcoming_invoice(self):
+        stripe.Invoice.upcoming()
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/invoices/upcoming',
+            {},
+        )
+
+
+class CouponTest(StripeResourceTest):
+
+    def test_create_coupon(self):
+        stripe.Coupon.create(**DUMMY_COUPON)
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/coupons',
+            DUMMY_COUPON,
+        )
+
+    def test_delete_coupon(self):
+        c = stripe.Coupon(id='cu_delete')
+        c.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/coupons/cu_delete',
+            {},
+        )
+
+    def test_detach_coupon(self):
+        customer = stripe.Customer(id="cus_delete_discount")
+        customer.delete_discount()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/customers/cus_delete_discount/discount',
+        )
+
+
+class PlanTest(StripeResourceTest):
+
+    def test_create_plan(self):
+        stripe.Plan.create(**DUMMY_PLAN)
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/plans',
+            DUMMY_PLAN,
+        )
+
+    def test_delete_plan(self):
+        p = stripe.Plan(id="pl_delete")
+        p.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/plans/pl_delete',
+            {}
+        )
+
+    def test_update_plan(self):
+        p = stripe.Plan(id="pl_update")
+        p.name = "Plan Name"
+        p.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/plans/pl_update',
+            {
+                'name': 'Plan Name',
+            }
+        )
+
+
+class RefundTest(StripeResourceTest):
+
+    def test_create_refund(self):
+        charge = stripe.Charge.construct_from({
+            'id': 'ch_foo',
+            'refunds': {
+                'object': 'list',
+                'url': '/v1/charges/ch_foo/refunds',
+            }
+        }, 'api_key')
+
+        charge.refunds.create()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges/ch_foo/refunds',
+            {}
+        )
+
+    def test_fetch_refund(self):
+        charge = stripe.Charge.construct_from({
+            'id': 'ch_get_refund',
+            'refunds': {
+                'object': 'list',
+                'url': '/v1/charges/ch_get_refund/refunds',
+            }
+        }, 'api_key')
+
+        charge.refunds.retrieve("ref_get")
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/charges/ch_get_refund/refunds/ref_get',
+            {}
+        )
+
+    def test_list_refunds(self):
+        charge = stripe.Charge.construct_from({
+            'id': 'ch_get_refund',
+            'refunds': {
+                'object': 'list',
+                'url': '/v1/charges/ch_get_refund/refunds',
+            }
+        }, 'api_key')
+
+        charge.refunds.all()
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/charges/ch_get_refund/refunds',
+            {}
+        )
+
+    def test_update_refund(self):
+        refund = stripe.resource.Refund.construct_from({
+            'id': "ref_update",
+            'charge': "ch_update",
+            'metadata': {},
+        }, 'api_key')
+        refund.metadata["key"] = "value"
+        refund.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges/ch_update/refunds/ref_update',
+            {
+                'metadata': {
+                    'key': 'value',
+                }
+            }
+        )
+
+
+class MetadataTest(StripeResourceTest):
+
+    def test_noop_metadata(self):
+        charge = stripe.Charge(id='ch_foo')
+        charge.description = 'test'
+        charge.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges/ch_foo',
+            {
+                'description': 'test',
+            }
+        )
+
+    def test_unset_metadata(self):
+        charge = stripe.Charge(id='ch_foo')
+        charge.metadata = {}
+        charge.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges/ch_foo',
+            {
+                'metadata': {},
+            }
+        )
+
+    def test_whole_update(self):
+        charge = stripe.Charge(id='ch_foo')
+        charge.metadata = {'whole': 'update'}
+        charge.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges/ch_foo',
+            {
+                'metadata': {'whole': 'update'},
+            }
+        )
+
+    def test_individual_delete(self):
+        charge = stripe.Charge(id='ch_foo')
+        charge.metadata = {'whole': None}
+        charge.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges/ch_foo',
+            {
+                'metadata': {'whole': None},
+            }
+        )
