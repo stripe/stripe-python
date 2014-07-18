@@ -16,6 +16,7 @@ install:
 script:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then flake8 stripe; fi
   - python -W always setup.py test
+cache: apt
 matrix:
   allow_failures:
     - python: pypy

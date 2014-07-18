@@ -290,7 +290,8 @@ class UpdateableAPIResource(APIResource):
             # the metadata object has been reassigned
             # i.e. as object.metadata = {key: val}
             metadata_update = self.metadata
-            keys_to_unset = set(self._previous_metadata.keys()) - \
+            previous = self._previous_metadata or {}
+            keys_to_unset = set(previous.keys()) - \
                 set(self.metadata.keys())
             for key in keys_to_unset:
                 metadata_update[key] = ""
@@ -355,7 +356,7 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
             raise error.InvalidRequestError(
                 "Could not determine whether card_id %s is "
                 "attached to a customer "
-                "or a recipient." % self.id)
+                "or a recipient." % self.id, 'id')
 
         return "%s/%s/cards/%s" % (base, owner_extn, extn)
 
