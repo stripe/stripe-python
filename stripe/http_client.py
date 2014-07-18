@@ -141,6 +141,9 @@ class RequestsClient(HTTPClient):
 
 
 class UrlFetchClient(HTTPClient):
+    # GAE requests time out after 60 seconds, so make sure we leave
+    # some time for the application to handle a slow Stripe
+    deadline = 55
     name = 'urlfetch'
 
     def request(self, method, url, headers, post_data=None):
@@ -153,9 +156,7 @@ class UrlFetchClient(HTTPClient):
                 # However, that's ok because the CA bundle they use recognizes
                 # api.stripe.com.
                 validate_certificate=self._verify_ssl_certs,
-                # GAE requests time out after 60 seconds, so make sure we leave
-                # some time for the application to handle a slow Stripe
-                deadline=55,
+                deadline=self.deadline,
                 payload=post_data
             )
         except urlfetch.Error, e:

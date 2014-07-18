@@ -48,7 +48,7 @@ class HttpClientTests(StripeUnitTestCase):
                            stripe.http_client.Urllib2Client)
 
 
-class ClientTestBase():
+class ClientTestBase(object):
 
     @property
     def request_mock(self):
@@ -153,6 +153,31 @@ class UrlFetchClientTests(StripeUnitTestCase, ClientTestBase):
             validate_certificate=True,
             deadline=55,
             payload=post_data
+        )
+
+    def test_configure_deadline(self):
+        self.mock_response(self.request_mock, '{"foo": "baz"}', 200)
+
+        headers = {'my-header': 'header val'}
+
+        stripe.http_client.UrlFetchClient.deadline = 80
+
+        try:
+            body, code = self.make_request(
+                'GET', self.valid_url, headers, '')
+        finally:
+            stripe.http_client.UrlFetchClient.deadline = 55
+
+        self.assertEqual(200, code)
+        self.assertEqual('{"foo": "baz"}', body)
+
+        self.request_mock.fetch.assert_called_with(
+            url=self.valid_url,
+            method='GET',
+            headers=headers,
+            validate_certificate=True,
+            deadline=80,
+            payload=''
         )
 
 
