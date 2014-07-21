@@ -13,7 +13,7 @@ BLACKLISTED_DIGESTS = {
 
 
 def verify(hostname, certificate):
-    """Verifies a PEM encoded certficate against a blacklist of known revoked
+    """Verifies a PEM encoded certificate against a blacklist of known revoked
     fingerprints.
 
     returns True on success, raises RuntimeError on failure.
