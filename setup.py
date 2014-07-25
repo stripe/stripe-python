@@ -29,6 +29,9 @@ else:
     install_requires.append('requests >= 0.8.8')
 
 
+with open('LONG_DESCRIPTION.rst') as f:
+    long_description = f.read()
+
 # Don't import stripe module here, since deps may not be installed
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'stripe'))
 from version import VERSION
@@ -40,11 +43,13 @@ if sys.version_info < (3, 0):
     except ImportError:
         install_requires.append('simplejson')
 
+
 setup(
     name='stripe',
     cmdclass={'build_py': build_py},
     version=VERSION,
     description='Stripe python bindings',
+    long_description=long_description,
     author='Stripe',
     author_email='support@stripe.com',
     url='https://stripe.com/',

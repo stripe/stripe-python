@@ -2,8 +2,6 @@ import calendar
 import datetime
 import platform
 import time
-import os
-import ssl
 import socket
 import urllib
 import urlparse
@@ -11,6 +9,19 @@ import warnings
 
 import stripe
 from stripe import error, http_client, version, util, certificate_blacklist
+
+try:
+    import ssl
+except ImportError:
+    if util.is_appengine_dev():
+        warnings.warn(
+            'We were unable to import the ssl module due to a bug in the '
+            'Google App Engine development server. For more details and '
+            'suggested resolutions see: '
+            'https://code.google.com/p/googleappengine/issues/detail?id=9246.'
+            'Please alert us immediately at support@stripe.com if this '
+            'message appears in your production logs.')
+    raise
 
 
 def _encode_datetime(dttime):
@@ -208,6 +219,9 @@ class APIRequestor(object):
             'Authorization': 'Bearer %s' % (my_api_key,)
         }
 
+        if method == 'post':
+            headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
         if api_version is not None:
             headers['Stripe-Version'] = api_version
 
@@ -258,8 +272,7 @@ class APIRequestor(object):
             except TypeError:
                 # The Google App Engine development server blocks the C socket
                 # module which causes a type error when using the SSL library
-                if ('APPENGINE_RUNTIME' in os.environ and
-                        'Dev' in os.environ.get('SERVER_SOFTWARE', '')):
+                if util.is_appengine_dev():
                     self._CERTIFICATE_VERIFIED = True
                     warnings.warn(
                         'We were unable to verify Stripe\'s SSL certificate '

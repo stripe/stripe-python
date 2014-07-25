@@ -1,4 +1,4 @@
-# Stripe Python bindings [![Build Status](https://travis-ci.org/stripe/stripe-python.svg?branch=am-test-documentation)](https://travis-ci.org/stripe/stripe-python)
+# Stripe Python bindings [![Build Status](https://travis-ci.org/stripe/stripe-python.svg?branch=master)](https://travis-ci.org/stripe/stripe-python)
 
 ## Installation
 
@@ -24,8 +24,7 @@ To install from source, run:
 
 ## Documentation
 
-Please see https://stripe.com/docs/api for the most up-to-date
-documentation.
+Please see https://stripe.com/docs/api/python for the most up-to-date documentation.
 
 ## Testing
 

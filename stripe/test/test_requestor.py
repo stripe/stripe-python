@@ -25,8 +25,10 @@ class GMT1(datetime.tzinfo):
 
 class APIHeaderMatcher(object):
     EXP_KEYS = ['X-Stripe-Client-User-Agent', 'User-Agent', 'Authorization']
+    METHOD_EXTRA_KEYS = {"post": ["Content-Type"]}
 
-    def __init__(self, api_key=None, extra={}):
+    def __init__(self, api_key=None, extra={}, request_method=None):
+        self.request_method = request_method
         self.api_key = api_key or stripe.api_key
         self.extra = extra
 
@@ -37,6 +39,10 @@ class APIHeaderMatcher(object):
 
     def _keys_match(self, other):
         expected_keys = self.EXP_KEYS + self.extra.keys()
+        if self.request_method is not None and self.request_method in \
+                self.METHOD_EXTRA_KEYS:
+            expected_keys.extend(self.METHOD_EXTRA_KEYS[self.request_method])
+
         return (sorted(other.keys()) == sorted(expected_keys))
 
     def _auth_match(self, other):
@@ -145,7 +151,7 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         if not requestor:
             requestor = self.requestor
         if not headers:
-            headers = APIHeaderMatcher()
+            headers = APIHeaderMatcher(request_method=meth)
 
         self.http_client.request.assert_called_with(
             meth, abs_url, headers, post_data)
@@ -265,8 +271,8 @@ class APIRequestorRequestTests(StripeUnitTestCase):
 
         body, used_key = requestor.request('get', self.valid_path, {})
 
-        self.check_call('get', headers=APIHeaderMatcher(key),
-                        requestor=requestor)
+        self.check_call('get', headers=APIHeaderMatcher(key,
+                        request_method='get'), requestor=requestor)
         self.assertEqual(key, used_key)
 
     def test_passes_api_version(self):
@@ -277,7 +283,7 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         body, key = self.requestor.request('get', self.valid_path, {})
 
         self.check_call('get', headers=APIHeaderMatcher(
-            extra={'Stripe-Version': 'fooversion'}))
+            extra={'Stripe-Version': 'fooversion'}, request_method='get'))
 
     def test_fails_without_api_key(self):
         stripe.api_key = None
