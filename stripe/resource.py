@@ -11,7 +11,8 @@ def convert_to_stripe_object(resp, api_key):
              'plan': Plan, 'coupon': Coupon, 'token': Token, 'event': Event,
              'transfer': Transfer, 'list': ListObject, 'recipient': Recipient,
              'card': Card, 'application_fee': ApplicationFee,
-             'subscription': Subscription, 'refund': Refund}
+             'subscription': Subscription, 'refund': Refund,
+             'fee_refund': ApplicationFeeRefund}
 
     if isinstance(resp, list):
         return [convert_to_stripe_object(i, api_key) for i in resp]
@@ -545,3 +546,20 @@ class ApplicationFee(ListableAPIResource):
         url = self.instance_url() + '/refund'
         self.refresh_from(self.request('post', url, params))
         return self
+
+
+class ApplicationFeeRefund(UpdateableAPIResource):
+
+    def instance_url(self):
+        self.id = util.utf8(self.id)
+        self.fee = util.utf8(self.fee)
+        base = ApplicationFee.class_url()
+        cust_extn = urllib.quote_plus(self.fee)
+        extn = urllib.quote_plus(self.id)
+        return "%s/%s/refunds/%s" % (base, cust_extn, extn)
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params):
+        raise NotImplementedError(
+            "Can't retrieve a refund without an application fee ID. "
+            "Use application_fee.refunds.retrieve('refund_id') instead.")
