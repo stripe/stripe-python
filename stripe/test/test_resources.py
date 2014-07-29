@@ -188,6 +188,12 @@ class ListObjectTests(StripeApiTestCase):
 
         self.assertResponse(res)
 
+    def test_retrieve_id(self):
+        """All of the following (id or id_ is None) should raise TypeError"""
+        self.assertRaises(TypeError, self.lo.retrieve, myparam='cow')
+        self.assertRaises(TypeError, self.lo.retrieve, id=None, myparam='cow')
+        self.assertRaises(TypeError, self.lo.retrieve, id_=None, myparam='cow')
+
 
 class APIResourceTests(StripeApiTestCase):
 
