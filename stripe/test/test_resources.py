@@ -879,6 +879,24 @@ class CouponTest(StripeResourceTest):
             DUMMY_COUPON,
         )
 
+    def test_update_coupon(self):
+        coup = stripe.Coupon.construct_from({
+            'id': 'cu_update',
+            'metadata': {},
+        }, 'api_key')
+        coup.metadata["key"] = "value"
+        coup.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            "/v1/coupons/cu_update",
+            {
+                'metadata': {
+                    'key': 'value',
+                }
+            }
+        )
+
     def test_delete_coupon(self):
         c = stripe.Coupon(id='cu_delete')
         c.delete()

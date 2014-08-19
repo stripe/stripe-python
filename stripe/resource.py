@@ -511,8 +511,8 @@ class Token(CreateableAPIResource):
     pass
 
 
-class Coupon(CreateableAPIResource, DeletableAPIResource,
-             ListableAPIResource):
+class Coupon(CreateableAPIResource, UpdateableAPIResource,
+             DeletableAPIResource, ListableAPIResource):
     pass
 
 

@@ -40,7 +40,8 @@ DUMMY_PLAN = {
 DUMMY_COUPON = {
     'percent_off': 25,
     'duration': 'repeating',
-    'duration_in_months': 5
+    'duration_in_months': 5,
+    'metadata': {}
 }
 
 DUMMY_RECIPIENT = {

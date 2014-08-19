@@ -184,7 +184,7 @@ class SubscriptionClient(UpdateableAPIResourceClient, DeletableAPIResourceClient
 class TokenClient(CreateableAPIResourceClient):
   client_for = stripe.Token
 
-class CouponClient(CreateableAPIResourceClient, DeletableAPIResourceClient, ListableAPIResourceClient):
+class CouponClient(CreateableAPIResourceClient, UpdateableAPIResourceClient, DeletableAPIResourceClient, ListableAPIResourceClient):
     client_for = stripe.Coupon
 
 class ApplicationFeeClient(ListableAPIResourceClient):
@@ -277,6 +277,7 @@ coupon
   all
   create
   retrieve
+  update
   delete
 
 application_fee
