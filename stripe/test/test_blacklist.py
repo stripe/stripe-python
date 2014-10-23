@@ -2,7 +2,7 @@ import ssl
 
 import stripe
 from stripe import certificate_blacklist
-from stripe.api_requestor import APIRequestor
+from stripe.api_requestor import APIRequestor, SSL_VERSION
 from stripe.error import APIError
 from stripe.test.helper import StripeTestCase
 
@@ -28,7 +28,7 @@ class BlacklistTest(StripeTestCase):
 
     def test_revoked_cert_is_revoked(self):
         hostname = "revoked.stripe.com"
-        cert = ssl.get_server_certificate((hostname, 444))
+        cert = ssl.get_server_certificate((hostname, 444), SSL_VERSION)
         der_cert = ssl.PEM_cert_to_DER_cert(cert)
         self.assertRaises(APIError,
                           lambda: certificate_blacklist.verify(
@@ -36,6 +36,6 @@ class BlacklistTest(StripeTestCase):
 
     def test_live_cert_is_not_revoked(self):
         hostname = "api.stripe.com"
-        cert = ssl.get_server_certificate((hostname, 443))
+        cert = ssl.get_server_certificate((hostname, 443), SSL_VERSION)
         der_cert = ssl.PEM_cert_to_DER_cert(cert)
         self.assertTrue(certificate_blacklist.verify(hostname, der_cert))

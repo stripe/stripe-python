@@ -23,6 +23,10 @@ except ImportError:
             'message appears in your production logs.')
     raise
 
+# Python versions recent enough to let you disable SSLv2 or v3 do so by default
+# anyway
+SSL_VERSION = ssl.PROTOCOL_SSLv23
+
 
 def _encode_datetime(dttime):
     if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
@@ -265,7 +269,7 @@ class APIRequestor(object):
             uri = urlparse.urlparse(stripe.api_base)
             try:
                 certificate = ssl.get_server_certificate(
-                    (uri.hostname, uri.port or 443))
+                    (uri.hostname, uri.port or 443), SSL_VERSION)
                 der_cert = ssl.PEM_cert_to_DER_cert(certificate)
             except socket.error, e:
                 raise error.APIConnectionError(e)
