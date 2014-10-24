@@ -2,26 +2,12 @@ import calendar
 import datetime
 import platform
 import time
-import socket
 import urllib
 import urlparse
 import warnings
 
 import stripe
-from stripe import error, http_client, version, util, certificate_blacklist
-
-try:
-    import ssl
-except ImportError:
-    if util.is_appengine_dev():
-        warnings.warn(
-            'We were unable to import the ssl module due to a bug in the '
-            'Google App Engine development server. For more details and '
-            'suggested resolutions see: '
-            'https://code.google.com/p/googleappengine/issues/detail?id=9246.'
-            'Please alert us immediately at support@stripe.com if this '
-            'message appears in your production logs.')
-    raise
+from stripe import error, http_client, version, util
 
 
 def _encode_datetime(dttime):
@@ -64,8 +50,6 @@ def _build_api_url(url, query):
 
 
 class APIRequestor(object):
-
-    _CERTIFICATE_VERIFIED = False
 
     def __init__(self, key=None, client=None):
         self.api_key = key
@@ -135,7 +119,6 @@ class APIRequestor(object):
         return _build_api_url(url, cls.encode(params))
 
     def request(self, method, url, params=None):
-        self._check_ssl_cert()
         rbody, rcode, my_api_key = self.request_raw(
             method.lower(), url, params)
         resp = self.interpret_response(rbody, rcode)
@@ -247,45 +230,6 @@ class APIRequestor(object):
         if not (200 <= rcode < 300):
             self.handle_api_error(rbody, rcode, resp)
         return resp
-
-    def _check_ssl_cert(self):
-        """Preflight the SSL certificate presented by the backend.
-
-        This isn't 100% bulletproof, in that we're not actually validating the
-        transport used to communicate with Stripe, merely that the first
-        attempt to does not use a revoked certificate.
-
-        Unfortunately the interface to OpenSSL doesn't make it easy to check
-        the certificate before sending potentially sensitive data on the wire.
-        This approach raises the bar for an attacker significantly."""
-
-        from stripe import verify_ssl_certs
-
-        if verify_ssl_certs and not self._CERTIFICATE_VERIFIED:
-            uri = urlparse.urlparse(stripe.api_base)
-            try:
-                certificate = ssl.get_server_certificate(
-                    (uri.hostname, uri.port or 443))
-                der_cert = ssl.PEM_cert_to_DER_cert(certificate)
-            except socket.error, e:
-                raise error.APIConnectionError(e)
-            except TypeError:
-                # The Google App Engine development server blocks the C socket
-                # module which causes a type error when using the SSL library
-                if util.is_appengine_dev():
-                    self._CERTIFICATE_VERIFIED = True
-                    warnings.warn(
-                        'We were unable to verify Stripe\'s SSL certificate '
-                        'due to a bug in the Google App Engine development '
-                        'server. Please alert us immediately at '
-                        'support@stripe.com if this message appears in your '
-                        'production logs.')
-                    return
-                else:
-                    raise
-
-            self._CERTIFICATE_VERIFIED = certificate_blacklist.verify(
-                uri.hostname, der_cert)
 
     # Deprecated request handling.  Will all be removed in 2.0
     def _deprecated_request(self, impl, method, url, headers, params):
