@@ -1,6 +1,6 @@
 === 1.19.1 2014-10-23
 
-* Application Fee refunds now a list instead of array
+* Remove redundant manual SSL blacklist preflight check
 
 === 1.19.0 2014-07-26
 
