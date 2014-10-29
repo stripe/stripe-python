@@ -369,6 +369,10 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
             "recipient.cards.retrieve('card_id') instead.")
 
 
+class Payment(CreateableAPIResource):
+    pass
+
+
 class Charge(CreateableAPIResource, ListableAPIResource,
              UpdateableAPIResource):
 
