@@ -480,7 +480,7 @@ class ChargeTest(StripeResourceTest):
 
     def test_mark_as_safe(self):
         charge = stripe.Charge(id='ch_update_id')
-        charge.mark_as_fraudulent()
+        charge.mark_as_safe()
 
         self.requestor_mock.request.assert_called_with(
             'post',
