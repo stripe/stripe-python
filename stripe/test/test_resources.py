@@ -466,6 +466,30 @@ class ChargeTest(StripeResourceTest):
             {}
         )
 
+    def test_mark_as_fraudulent(self):
+        charge = stripe.Charge(id='ch_update_id')
+        charge.mark_as_fraudulent()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges/ch_update_id',
+            {
+                'fraud_details': {'user_report': 'fraudulent'}
+            }
+        )
+
+    def test_mark_as_safe(self):
+        charge = stripe.Charge(id='ch_update_id')
+        charge.mark_as_fraudulent()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges/ch_update_id',
+            {
+                'fraud_details': {'user_report': 'safe'}
+            }
+        )
+
 
 class AccountTest(StripeResourceTest):
 
