@@ -396,6 +396,22 @@ class Charge(CreateableAPIResource, ListableAPIResource,
         self.refresh_from({'dispute': response}, api_key, True)
         return self.dispute
 
+    def mark_as_fraudulent(self):
+        params = {
+            'fraud_details': {'user_report': 'fraudulent'}
+        }
+        url = self.instance_url()
+        self.refresh_from(self.request('post', url, params))
+        return self
+
+    def mark_as_safe(self):
+        params = {
+            'fraud_details': {'user_report': 'safe'}
+        }
+        url = self.instance_url()
+        self.refresh_from(self.request('post', url, params))
+        return self
+
 
 class Customer(CreateableAPIResource, UpdateableAPIResource,
                ListableAPIResource, DeletableAPIResource):
