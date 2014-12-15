@@ -2,6 +2,7 @@ import pickle
 import sys
 import time
 import datetime
+import tempfile
 
 import stripe
 import stripe.resource
@@ -996,6 +997,33 @@ class PlanTest(StripeResourceTest):
             {
                 'name': 'Plan Name',
             },
+            None
+        )
+
+
+class FileUploadTest(StripeResourceTest):
+    def test_create_file_upload(self):
+        test_file = tempfile.TemporaryFile()
+        stripe.FileUpload.create(
+            purpose='dispute_evidence',
+            file=test_file
+            )
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/files',
+            params={
+                'purpose': 'dispute_evidence',
+                'file': test_file
+            },
+            headers={'Content-Type': 'multipart/form-data'}
+        )
+
+    def test_fetch_file_upload(self):
+        stripe.FileUpload.retrieve("fil_foo")
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/files/fil_foo',
+            {},
             None
         )
 

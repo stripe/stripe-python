@@ -9,13 +9,14 @@
 
 api_key = None
 api_base = 'https://api.stripe.com'
+upload_api_base = 'https://uploads.stripe.com'
 api_version = None
 verify_ssl_certs = True
 
 # Resource
 from stripe.resource import (  # noqa
     Account, Balance, BalanceTransaction, Card, Charge, Customer, Invoice,
-    InvoiceItem, Plan, Token, Coupon, Event, Transfer, Recipient,
+    InvoiceItem, Plan, Token, Coupon, Event, Transfer, Recipient, FileUpload,
     ApplicationFee, Subscription)
 
 # Error imports.  Note that we may want to move these out of the root
