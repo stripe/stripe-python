@@ -118,9 +118,9 @@ class APIRequestor(object):
             DeprecationWarning)
         return _build_api_url(url, cls.encode(params))
 
-    def request(self, method, url, params=None):
+    def request(self, method, url, params=None, headers=None):
         rbody, rcode, my_api_key = self.request_raw(
-            method.lower(), url, params)
+            method.lower(), url, params, headers)
         resp = self.interpret_response(rbody, rcode)
         return resp, my_api_key
 
@@ -145,7 +145,7 @@ class APIRequestor(object):
         else:
             raise error.APIError(err.get('message'), rbody, rcode, resp)
 
-    def request_raw(self, method, url, params=None):
+    def request_raw(self, method, url, params=None, supplied_headers=None):
         """
         Mechanism for issuing an API call
         """
@@ -207,6 +207,10 @@ class APIRequestor(object):
 
         if api_version is not None:
             headers['Stripe-Version'] = api_version
+
+        if supplied_headers is not None:
+            for key, value in supplied_headers.items():
+                headers[key] = value
 
         rbody, rcode = self._client.request(
             method, abs_url, headers, post_data)
