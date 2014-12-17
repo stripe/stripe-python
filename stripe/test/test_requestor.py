@@ -262,6 +262,11 @@ class APIRequestorRequestTests(StripeUnitTestCase):
                     self.valid_path, encoded)
                 self.check_call(meth, abs_url=UrlMatcher(abs_url))
 
+    def test_uses_headers(self):
+        self.mock_response('{}', 200)
+        self.requestor.request('get', self.valid_path, {}, {'foo': 'bar'})
+        self.check_call('get', headers=APIHeaderMatcher(extra={'foo': 'bar'}))
+
     def test_uses_instance_key(self):
         key = 'fookey'
         requestor = stripe.api_requestor.APIRequestor(key,

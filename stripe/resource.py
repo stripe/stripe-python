@@ -123,12 +123,12 @@ class StripeObject(dict):
 
         self._previous_metadata = values.get('metadata')
 
-    def request(self, method, url, params=None):
+    def request(self, method, url, params=None, headers=None):
         if params is None:
             params = self._retrieve_params
 
         requestor = api_requestor.APIRequestor(self.api_key)
-        response, api_key = requestor.request(method, url, params)
+        response, api_key = requestor.request(method, url, params, headers)
 
         return convert_to_stripe_object(response, api_key)
 
