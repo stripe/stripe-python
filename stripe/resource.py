@@ -28,6 +28,12 @@ def convert_to_stripe_object(resp, api_key):
         return resp
 
 
+def populate_headers(idempotency_key):
+    if idempotency_key is not None:
+        return {"Idempotency-Key": idempotency_key}
+    return None
+
+
 class StripeObject(dict):
     def __init__(self, id=None, api_key=None, **params):
         super(StripeObject, self).__init__()
@@ -220,8 +226,9 @@ class ListObject(StripeObject):
     def all(self, **params):
         return self.request('get', self['url'], params)
 
-    def create(self, **params):
-        return self.request('post', self['url'], params)
+    def create(self, idempotency_key=None, **params):
+        headers = populate_headers(idempotency_key)
+        return self.request('post', self['url'], params, headers)
 
     def retrieve(self, id, **params):
         base = self.get('url')
@@ -254,7 +261,7 @@ class SingletonAPIResource(APIResource):
 class ListableAPIResource(APIResource):
 
     @classmethod
-    def all(cls, api_key=None, **params):
+    def all(cls, api_key=None, idempotency_key=None, **params):
         requestor = api_requestor.APIRequestor(api_key)
         url = cls.class_url()
         response, api_key = requestor.request('get', url, params)
@@ -264,24 +271,26 @@ class ListableAPIResource(APIResource):
 class CreateableAPIResource(APIResource):
 
     @classmethod
-    def create(cls, api_key=None, **params):
+    def create(cls, api_key=None, idempotency_key=None, **params):
         requestor = api_requestor.APIRequestor(api_key)
         url = cls.class_url()
-        response, api_key = requestor.request('post', url, params)
+        headers = populate_headers(idempotency_key)
+        response, api_key = requestor.request('post', url, params, headers)
         return convert_to_stripe_object(response, api_key)
 
 
 class UpdateableAPIResource(APIResource):
 
-    def save(self):
+    def save(self, idempotency_key=None):
         updated_params = self.serialize(self)
+        headers = populate_headers(idempotency_key)
 
         if getattr(self, 'metadata', None):
             updated_params['metadata'] = self.serialize_metadata()
 
         if updated_params:
             self.refresh_from(self.request('post', self.instance_url(),
-                                           updated_params))
+                                           updated_params, headers))
         else:
             util.logger.debug("Trying to save already saved object %r", self)
         return self
@@ -372,53 +381,60 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
 class Charge(CreateableAPIResource, ListableAPIResource,
              UpdateableAPIResource):
 
-    def refund(self, **params):
+    def refund(self, idempotency_key=None, **params):
         url = self.instance_url() + '/refund'
-        self.refresh_from(self.request('post', url, params))
+        headers = populate_headers(idempotency_key)
+        self.refresh_from(self.request('post', url, params, headers))
         return self
 
-    def capture(self, **params):
+    def capture(self, idempotency_key=None, **params):
         url = self.instance_url() + '/capture'
-        self.refresh_from(self.request('post', url, params))
+        headers = populate_headers(idempotency_key)
+        self.refresh_from(self.request('post', url, params, headers))
         return self
 
-    def update_dispute(self, **params):
+    def update_dispute(self, idempotency_key=None, **params):
         requestor = api_requestor.APIRequestor(self.api_key)
         url = self.instance_url() + '/dispute'
-        response, api_key = requestor.request('post', url, params)
+        headers = populate_headers(idempotency_key)
+        response, api_key = requestor.request('post', url, params, headers)
         self.refresh_from({'dispute': response}, api_key, True)
         return self.dispute
 
-    def close_dispute(self):
+    def close_dispute(self, idempotency_key=None):
         requestor = api_requestor.APIRequestor(self.api_key)
         url = self.instance_url() + '/dispute/close'
-        response, api_key = requestor.request('post', url, {})
+        headers = populate_headers(idempotency_key)
+        response, api_key = requestor.request('post', url, {}, headers)
         self.refresh_from({'dispute': response}, api_key, True)
         return self.dispute
 
-    def mark_as_fraudulent(self):
+    def mark_as_fraudulent(self, idempotency_key=None):
         params = {
             'fraud_details': {'user_report': 'fraudulent'}
         }
         url = self.instance_url()
-        self.refresh_from(self.request('post', url, params))
+        headers = populate_headers(idempotency_key)
+        self.refresh_from(self.request('post', url, params, headers))
         return self
 
-    def mark_as_safe(self):
+    def mark_as_safe(self, idempotency_key=None):
         params = {
             'fraud_details': {'user_report': 'safe'}
         }
         url = self.instance_url()
-        self.refresh_from(self.request('post', url, params))
+        headers = populate_headers(idempotency_key)
+        self.refresh_from(self.request('post', url, params, headers))
         return self
 
 
 class Customer(CreateableAPIResource, UpdateableAPIResource,
                ListableAPIResource, DeletableAPIResource):
 
-    def add_invoice_item(self, **params):
+    def add_invoice_item(self, idempotency_key=None, **params):
         params['customer'] = self.id
-        ii = InvoiceItem.create(self.api_key, **params)
+        ii = InvoiceItem.create(self.api_key,
+                                idempotency_key=idempotency_key, **params)
         return ii
 
     def invoices(self, **params):
@@ -436,17 +452,19 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
         charges = Charge.all(self.api_key, **params)
         return charges
 
-    def update_subscription(self, **params):
+    def update_subscription(self, idempotency_key=None, **params):
         requestor = api_requestor.APIRequestor(self.api_key)
         url = self.instance_url() + '/subscription'
-        response, api_key = requestor.request('post', url, params)
+        headers = populate_headers(idempotency_key)
+        response, api_key = requestor.request('post', url, params, headers)
         self.refresh_from({'subscription': response}, api_key, True)
         return self.subscription
 
-    def cancel_subscription(self, **params):
+    def cancel_subscription(self, idempotency_key=None, **params):
         requestor = api_requestor.APIRequestor(self.api_key)
         url = self.instance_url() + '/subscription'
-        response, api_key = requestor.request('delete', url, params)
+        headers = populate_headers(idempotency_key)
+        response, api_key = requestor.request('delete', url, params, headers)
         self.refresh_from({'subscription': response}, api_key, True)
         return self.subscription
 
@@ -460,8 +478,9 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
 class Invoice(CreateableAPIResource, ListableAPIResource,
               UpdateableAPIResource):
 
-    def pay(self):
-        return self.request('post', self.instance_url() + '/pay', {})
+    def pay(self, idempotency_key=None):
+        headers = populate_headers(idempotency_key)
+        return self.request('post', self.instance_url() + '/pay', {}, headers)
 
     @classmethod
     def upcoming(cls, api_key=None, **params):
@@ -558,9 +577,10 @@ class ApplicationFee(ListableAPIResource):
     def class_name(cls):
         return 'application_fee'
 
-    def refund(self, **params):
+    def refund(self, idempotency_key=None, **params):
+        headers = populate_headers(idempotency_key)
         url = self.instance_url() + '/refund'
-        self.refresh_from(self.request('post', url, params))
+        self.refresh_from(self.request('post', url, params, headers))
         return self
 
 

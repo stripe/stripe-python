@@ -306,7 +306,21 @@ class CreateableAPIResourceTests(StripeApiTestCase):
         res = MyCreatable.create()
 
         self.requestor_mock.request.assert_called_with(
-            'post', '/v1/mycreatables', {})
+            'post', '/v1/mycreatables', {}, None)
+
+        self.assertTrue(isinstance(res, stripe.Charge))
+        self.assertEqual('bar', res.foo)
+
+    def test_idempotent_create(self):
+        self.mock_response({
+            'object': 'charge',
+            'foo': 'bar',
+        })
+
+        res = MyCreatable.create(idempotency_key='foo')
+
+        self.requestor_mock.request.assert_called_with(
+            'post', '/v1/mycreatables', {}, {'Idempotency-Key': 'foo'})
 
         self.assertTrue(isinstance(res, stripe.Charge))
         self.assertEqual('bar', res.foo)
@@ -339,6 +353,22 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
         # TODO: Should we force id to be retained?
         # self.assertEqual('myid', obj.id)
         self.assertRaises(AttributeError, getattr, self.obj, 'baz')
+
+    def test_idempotent_save(self):
+        self.obj.baz = 'updated'
+        self.obj.save(idempotency_key='foo')
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'metadata': {},
+                'baz': 'updated',
+            },
+            {
+                'Idempotency-Key': 'foo',
+            },
+        )
 
     def test_save(self):
         self.obj.baz = 'updated'
@@ -431,12 +461,13 @@ class ChargeTest(StripeResourceTest):
         )
 
     def test_charge_list_create(self):
-        stripe.Charge.create(**DUMMY_CHARGE)
+        stripe.Charge.create(idempotency_key='foo', **DUMMY_CHARGE)
 
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/charges',
-            DUMMY_CHARGE
+            DUMMY_CHARGE,
+            {'Idempotency-Key': 'foo'},
         )
 
     def test_charge_list_retrieve(self):
@@ -451,27 +482,29 @@ class ChargeTest(StripeResourceTest):
 
     def test_charge_update_dispute(self):
         charge = stripe.Charge(id='ch_update_id')
-        charge.update_dispute()
+        charge.update_dispute(idempotency_key='foo')
 
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/charges/ch_update_id/dispute',
-            {}
+            {},
+            {'Idempotency-Key': 'foo'},
         )
 
     def test_charge_close_dispute(self):
         charge = stripe.Charge(id='ch_update_id')
-        charge.close_dispute()
+        charge.close_dispute(idempotency_key='foo')
 
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/charges/ch_update_id/dispute/close',
             {},
+            {'Idempotency-Key': 'foo'},
         )
 
     def test_mark_as_fraudulent(self):
         charge = stripe.Charge(id='ch_update_id')
-        charge.mark_as_fraudulent()
+        charge.mark_as_fraudulent(idempotency_key='foo')
 
         self.requestor_mock.request.assert_called_with(
             'post',
@@ -479,12 +512,12 @@ class ChargeTest(StripeResourceTest):
             {
                 'fraud_details': {'user_report': 'fraudulent'}
             },
-            None
+            {'Idempotency-Key': 'foo'},
         )
 
     def test_mark_as_safe(self):
         charge = stripe.Charge(id='ch_update_id')
-        charge.mark_as_safe()
+        charge.mark_as_safe(idempotency_key='foo')
 
         self.requestor_mock.request.assert_called_with(
             'post',
@@ -492,7 +525,7 @@ class ChargeTest(StripeResourceTest):
             {
                 'fraud_details': {'user_report': 'safe'}
             },
-            None
+            {'Idempotency-Key': 'foo'},
         )
 
 
@@ -556,7 +589,7 @@ class CustomerTest(StripeResourceTest):
 
     def test_create_customer(self):
         stripe.Customer.create(description="foo bar", card=DUMMY_CARD,
-                               coupon='cu_discount')
+                               coupon='cu_discount', idempotency_key='foo')
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/customers',
@@ -565,12 +598,13 @@ class CustomerTest(StripeResourceTest):
                 'description': 'foo bar',
                 'card': DUMMY_CARD
             },
+            {'Idempotency-Key': 'foo'}
         )
 
     def test_unset_description(self):
         customer = stripe.Customer(id="cus_unset_desc")
         customer.description = "Hey"
-        customer.save()
+        customer.save(idempotency_key='foo')
 
         self.requestor_mock.request.assert_called_with(
             'post',
@@ -578,7 +612,7 @@ class CustomerTest(StripeResourceTest):
             {
                 'description': 'Hey',
             },
-            None
+            {'Idempotency-Key': 'foo'}
         )
 
     def test_cannot_set_empty_string(self):
@@ -593,7 +627,7 @@ class CustomerTest(StripeResourceTest):
                 'url': '/v1/customers/cus_add_card/cards',
             },
         }, 'api_key')
-        customer.cards.create(card=DUMMY_CARD)
+        customer.cards.create(card=DUMMY_CARD, idempotency_key='foo')
 
         self.requestor_mock.request.assert_called_with(
             'post',
@@ -601,7 +635,7 @@ class CustomerTest(StripeResourceTest):
             {
                 'card': DUMMY_CARD,
             },
-            None
+            {'Idempotency-Key': 'foo'}
         )
 
     def test_customer_update_card(self):
@@ -610,7 +644,7 @@ class CustomerTest(StripeResourceTest):
             'id': 'ca_update_card',
         }, 'api_key')
         card.name = 'The Best'
-        card.save()
+        card.save(idempotency_key='foo')
 
         self.requestor_mock.request.assert_called_with(
             'post',
@@ -618,7 +652,7 @@ class CustomerTest(StripeResourceTest):
             {
                 'name': 'The Best',
             },
-            None
+            {'Idempotency-Key': 'foo'}
         )
 
     def test_customer_delete_card(self):
@@ -741,11 +775,13 @@ class CustomerPlanTest(StripeResourceTest):
                 'card': DUMMY_CARD,
                 'plan': DUMMY_PLAN['id'],
             },
+            None
         )
 
     def test_legacy_update_subscription(self):
         customer = stripe.Customer(id="cus_legacy_sub_update")
-        customer.update_subscription(plan=DUMMY_PLAN['id'])
+        customer.update_subscription(idempotency_key='foo',
+                                     plan=DUMMY_PLAN['id'])
 
         self.requestor_mock.request.assert_called_with(
             'post',
@@ -753,6 +789,7 @@ class CustomerPlanTest(StripeResourceTest):
             {
                 'plan': DUMMY_PLAN['id'],
             },
+            {'Idempotency-Key': 'foo'}
         )
 
     def test_legacy_delete_subscription(self):
@@ -763,6 +800,7 @@ class CustomerPlanTest(StripeResourceTest):
             'delete',
             '/v1/customers/cus_legacy_sub_delete/subscription',
             {},
+            None
         )
 
     def test_create_customer_subscription(self):
@@ -856,6 +894,7 @@ class InvoiceTest(StripeResourceTest):
             'post',
             '/v1/invoiceitems',
             expected,
+            None,
         )
 
     def test_retrieve_invoice_items(self):
@@ -878,6 +917,7 @@ class InvoiceTest(StripeResourceTest):
             {
                 'customer': 'cus_invoice',
             },
+            None
         )
 
     def test_retrieve_customer_invoices(self):
@@ -921,6 +961,7 @@ class CouponTest(StripeResourceTest):
             'post',
             '/v1/coupons',
             DUMMY_COUPON,
+            None
         )
 
     def test_update_coupon(self):
@@ -972,6 +1013,7 @@ class PlanTest(StripeResourceTest):
             'post',
             '/v1/plans',
             DUMMY_PLAN,
+            None
         )
 
     def test_delete_plan(self):
