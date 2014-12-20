@@ -8,6 +8,7 @@ import warnings
 
 import stripe
 from stripe import error, http_client, version, util
+from stripe.multipart_data_generator import MultipartDataGenerator
 
 
 def _encode_datetime(dttime):
@@ -51,7 +52,11 @@ def _build_api_url(url, query):
 
 class APIRequestor(object):
 
-    def __init__(self, key=None, client=None):
+    def __init__(self, key=None, client=None, api_base=None):
+        if api_base:
+            self.api_base = api_base
+        else:
+            self.api_base = stripe.api_base
         self.api_key = key
 
         from stripe import verify_ssl_certs
@@ -165,7 +170,7 @@ class APIRequestor(object):
                 'for details, or email support@stripe.com if you have any '
                 'questions.')
 
-        abs_url = '%s%s' % (stripe.api_base, url)
+        abs_url = '%s%s' % (self.api_base, url)
 
         encoded_params = urllib.urlencode(list(_api_encode(params or {})))
 
@@ -174,7 +179,16 @@ class APIRequestor(object):
                 abs_url = _build_api_url(abs_url, encoded_params)
             post_data = None
         elif method == 'post':
-            post_data = encoded_params
+            if supplied_headers is not None and \
+                    supplied_headers.get("Content-Type") == \
+                    "multipart/form-data":
+                generator = MultipartDataGenerator()
+                generator.add_params(params or {})
+                post_data = generator.get_post_data()
+                supplied_headers["Content-Type"] = \
+                    "multipart/form-data; boundary=%s" % (generator.boundary,)
+            else:
+                post_data = encoded_params
         else:
             raise error.APIConnectionError(
                 'Unrecognized HTTP method %r.  This may indicate a bug in the '

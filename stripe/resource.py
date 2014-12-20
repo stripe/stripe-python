@@ -2,7 +2,7 @@ import urllib
 import warnings
 import sys
 
-from stripe import api_requestor, error, util
+from stripe import api_requestor, error, util, upload_api_base
 
 
 def convert_to_stripe_object(resp, api_key):
@@ -12,6 +12,7 @@ def convert_to_stripe_object(resp, api_key):
              'transfer': Transfer, 'list': ListObject, 'recipient': Recipient,
              'card': Card, 'application_fee': ApplicationFee,
              'subscription': Subscription, 'refund': Refund,
+             'file': FileUpload,
              'fee_refund': ApplicationFeeRefund}
 
     if isinstance(resp, list):
@@ -129,11 +130,16 @@ class StripeObject(dict):
 
         self._previous_metadata = values.get('metadata')
 
+    @classmethod
+    def api_base(cls):
+        return None
+
     def request(self, method, url, params=None, headers=None):
         if params is None:
             params = self._retrieve_params
 
-        requestor = api_requestor.APIRequestor(self.api_key)
+        requestor = api_requestor.APIRequestor(
+            self.api_key, api_base=self.api_base())
         response, api_key = requestor.request(method, url, params, headers)
 
         return convert_to_stripe_object(response, api_key)
@@ -570,6 +576,28 @@ class Recipient(CreateableAPIResource, UpdateableAPIResource,
         params['recipient'] = self.id
         transfers = Transfer.all(self.api_key, **params)
         return transfers
+
+
+class FileUpload(APIResource):
+    @classmethod
+    def api_base(cls):
+        return upload_api_base
+
+    @classmethod
+    def class_name(cls):
+        return 'file'
+
+    @classmethod
+    def create(cls, api_key=None, **params):
+        requestor = api_requestor.APIRequestor(
+            api_key, api_base=cls.api_base())
+        url = cls.class_url()
+        supplied_headers = {
+            "Content-Type": "multipart/form-data"
+        }
+        response, api_key = requestor.request(
+            'post', url, params=params, headers=supplied_headers)
+        return convert_to_stripe_object(response, api_key)
 
 
 class ApplicationFee(ListableAPIResource):
