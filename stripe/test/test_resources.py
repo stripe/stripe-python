@@ -1263,3 +1263,57 @@ class ApplicationFeeRefundTest(StripeResourceTest):
             },
             None
         )
+
+
+class BitcoinReceiverTest(StripeResourceTest):
+
+    def test_retrieve_resource(self):
+        stripe.BitcoinReceiver.retrieve("btcrcv_test_receiver")
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/bitcoin/receivers/btcrcv_test_receiver',
+            {},
+            None
+        )
+
+    def test_list_receivers(self):
+        stripe.BitcoinReceiver.all()
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/bitcoin/receivers',
+            {},
+        )
+
+    def test_create_receiver(self):
+        stripe.BitcoinReceiver.create(amount=100, description="some details",
+                                      currency="usd")
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/bitcoin/receivers',
+            {
+                'amount': 100,
+                'description': 'some details',
+                'currency': 'usd'
+            },
+            None
+        )
+
+
+class BitcoinTransactionTest(StripeResourceTest):
+
+    def test_retrieve_resource(self):
+        stripe.BitcoinTransaction.retrieve("btctxn_test_transaction")
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/bitcoin/transactions/btctxn_test_transaction',
+            {},
+            None
+        )
+
+    def test_list_transactions(self):
+        stripe.BitcoinTransaction.all()
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/bitcoin/transactions',
+            {},
+        )
