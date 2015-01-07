@@ -13,7 +13,9 @@ def convert_to_stripe_object(resp, api_key):
              'card': Card, 'application_fee': ApplicationFee,
              'subscription': Subscription, 'refund': Refund,
              'file': FileUpload,
-             'fee_refund': ApplicationFeeRefund}
+             'fee_refund': ApplicationFeeRefund,
+             'bitcoin_receiver': BitcoinReceiver,
+             'bitcoin_transaction': BitcoinTransaction}
 
     if isinstance(resp, list):
         return [convert_to_stripe_object(i, api_key) for i in resp]
@@ -627,3 +629,17 @@ class ApplicationFeeRefund(UpdateableAPIResource):
         raise NotImplementedError(
             "Can't retrieve a refund without an application fee ID. "
             "Use application_fee.refunds.retrieve('refund_id') instead.")
+
+
+class BitcoinReceiver(CreateableAPIResource, ListableAPIResource):
+
+    @classmethod
+    def class_url(cls):
+        return '/v1/bitcoin/receivers'
+
+
+class BitcoinTransaction(ListableAPIResource):
+
+    @classmethod
+    def class_url(cls):
+        return '/v1/bitcoin/transactions'
