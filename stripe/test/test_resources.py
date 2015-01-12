@@ -1069,6 +1069,14 @@ class FileUploadTest(StripeResourceTest):
             None
         )
 
+    def test_list_file_uploads(self):
+        stripe.FileUpload.all()
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/files',
+            {}
+        )
+
 
 class RefundTest(StripeResourceTest):
 
