@@ -12,7 +12,7 @@ def convert_to_stripe_object(resp, api_key):
              'transfer': Transfer, 'list': ListObject, 'recipient': Recipient,
              'card': Card, 'application_fee': ApplicationFee,
              'subscription': Subscription, 'refund': Refund,
-             'file': FileUpload,
+             'file_upload': FileUpload,
              'fee_refund': ApplicationFeeRefund,
              'bitcoin_receiver': BitcoinReceiver,
              'bitcoin_transaction': BitcoinTransaction}
@@ -580,7 +580,7 @@ class Recipient(CreateableAPIResource, UpdateableAPIResource,
         return transfers
 
 
-class FileUpload(APIResource):
+class FileUpload(ListableAPIResource):
     @classmethod
     def api_base(cls):
         return upload_api_base
