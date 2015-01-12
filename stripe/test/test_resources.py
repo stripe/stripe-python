@@ -1305,23 +1305,3 @@ class BitcoinReceiverTest(StripeResourceTest):
             },
             None
         )
-
-
-class BitcoinTransactionTest(StripeResourceTest):
-
-    def test_retrieve_resource(self):
-        stripe.BitcoinTransaction.retrieve("btctxn_test_transaction")
-        self.requestor_mock.request.assert_called_with(
-            'get',
-            '/v1/bitcoin/transactions/btctxn_test_transaction',
-            {},
-            None
-        )
-
-    def test_list_transactions(self):
-        stripe.BitcoinTransaction.all()
-        self.requestor_mock.request.assert_called_with(
-            'get',
-            '/v1/bitcoin/transactions',
-            {},
-        )
