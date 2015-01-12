@@ -638,8 +638,5 @@ class BitcoinReceiver(CreateableAPIResource, ListableAPIResource):
         return '/v1/bitcoin/receivers'
 
 
-class BitcoinTransaction(ListableAPIResource):
-
-    @classmethod
-    def class_url(cls):
-        return '/v1/bitcoin/transactions'
+class BitcoinTransaction(StripeObject):
+    pass
