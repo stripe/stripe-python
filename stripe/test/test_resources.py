@@ -529,6 +529,21 @@ class ChargeTest(StripeResourceTest):
             {'Idempotency-Key': 'foo'},
         )
 
+    def test_create_with_source_param(self):
+        stripe.Charge.create(amount=100, currency='usd',
+                             source='btcrcv_test_receiver')
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges',
+            {
+                'amount': 100,
+                'currency': 'usd',
+                'source': 'btcrcv_test_receiver'
+            },
+            None,
+        )
+
 
 class AccountTest(StripeResourceTest):
 
@@ -1295,5 +1310,22 @@ class BitcoinReceiverTest(StripeResourceTest):
                 'description': 'some details',
                 'currency': 'usd'
             },
+            None
+        )
+
+    def test_list_transactions(self):
+        receiver = stripe.BitcoinReceiver.construct_from({
+            'id': 'btcrcv_foo',
+            'transactions': {
+                'object': 'list',
+                'url': '/v1/bitcoin/receivers/btcrcv_foo/transactions',
+            }
+        }, 'api_key')
+
+        receiver.transactions.all()
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/bitcoin/receivers/btcrcv_foo/transactions',
+            {},
             None
         )
