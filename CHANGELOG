@@ -1,3 +1,7 @@
+=== 1.21.0 2015-01-15
+
+* Support making bitcoin charges through BitcoinReceiver source object
+
 === 1.20.0 2014-12-23
 
 * Adding support for file uploads resource
