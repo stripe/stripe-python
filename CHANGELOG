@@ -1,3 +1,7 @@
+=== 1.20.2 2015-01-21
+
+* Remove support for top-level bitcoin transactions
+
 === 1.20.1 2015-01-07
 
 * Adding bitcoin receiver and transaction objects
