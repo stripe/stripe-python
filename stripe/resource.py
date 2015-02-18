@@ -676,7 +676,21 @@ class ApplicationFeeRefund(UpdateableAPIResource):
             "Use application_fee.refunds.retrieve('refund_id') instead.")
 
 
-class BitcoinReceiver(CreateableAPIResource, ListableAPIResource):
+class BitcoinReceiver(CreateableAPIResource, UpdateableAPIResource,
+                      DeletableAPIResource, ListableAPIResource):
+
+    def instance_url(self):
+        self.id = util.utf8(self.id)
+        extn = urllib.quote_plus(self.id)
+
+        if (hasattr(self, 'customer')):
+            self.customer = util.utf8(self.customer)
+            base = Customer.class_url()
+            cust_extn = urllib.quote_plus(self.customer)
+            return "%s/%s/sources/%s" % (base, cust_extn, extn)
+        else:
+            base = BitcoinReceiver.class_url()
+            return "%s/%s" % (base, extn)
 
     @classmethod
     def class_url(cls):

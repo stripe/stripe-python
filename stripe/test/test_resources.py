@@ -822,6 +822,25 @@ class CustomerTest(StripeResourceTest):
             {'Idempotency-Key': 'foo'}
         )
 
+    def test_customer_add_source(self):
+        customer = stripe.Customer.construct_from({
+            'id': 'cus_add_source',
+            'sources': {
+                'object': 'list',
+                'url': '/v1/customers/cus_add_source/sources',
+            },
+        }, 'api_key')
+        customer.sources.create(source=DUMMY_CARD, idempotency_key='foo')
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_add_source/sources',
+            {
+                'source': DUMMY_CARD,
+            },
+            {'Idempotency-Key': 'foo'}
+        )
+
     def test_customer_update_card(self):
         card = stripe.Card.construct_from({
             'customer': 'cus_update_card',
@@ -839,6 +858,23 @@ class CustomerTest(StripeResourceTest):
             {'Idempotency-Key': 'foo'}
         )
 
+    def test_customer_update_source(self):
+        source = stripe.BitcoinReceiver.construct_from({
+            'customer': 'cus_update_source',
+            'id': 'btcrcv_update_source',
+        }, 'api_key')
+        source.name = 'The Best'
+        source.save(idempotency_key='foo')
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_update_source/sources/btcrcv_update_source',
+            {
+                'name': 'The Best',
+            },
+            {'Idempotency-Key': 'foo'}
+        )
+
     def test_customer_delete_card(self):
         card = stripe.Card.construct_from({
             'customer': 'cus_delete_card',
@@ -849,6 +885,20 @@ class CustomerTest(StripeResourceTest):
         self.requestor_mock.request.assert_called_with(
             'delete',
             '/v1/customers/cus_delete_card/cards/ca_delete_card',
+            {},
+            None
+        )
+
+    def test_customer_delete_source(self):
+        source = stripe.BitcoinReceiver.construct_from({
+            'customer': 'cus_delete_source',
+            'id': 'btcrcv_delete_source',
+        }, 'api_key')
+        source.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/customers/cus_delete_source/sources/btcrcv_delete_source',
             {},
             None
         )
@@ -1545,6 +1595,62 @@ class BitcoinReceiverTest(StripeResourceTest):
                 'description': 'some details',
                 'currency': 'usd'
             },
+            None
+        )
+
+    def test_update_receiver_without_customer(self):
+        params = {'id': 'receiver', 'amount': 100,
+                  'description': "some details", 'currency': "usd"}
+        r = stripe.BitcoinReceiver.construct_from(params, 'api_key')
+        r.description = "some other details"
+        r.save()
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/bitcoin/receivers/receiver',
+            {
+                'description': 'some other details',
+            },
+            None
+        )
+
+    def test_update_receiver_with_customer(self):
+        params = {'id': 'receiver', 'amount': 100,
+                  'description': "some details", 'currency': "usd",
+                  'customer': "cust"}
+        r = stripe.BitcoinReceiver.construct_from(params, 'api_key')
+        r.description = "some other details"
+        r.save()
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cust/sources/receiver',
+            {
+                'description': 'some other details',
+            },
+            None
+        )
+
+    def test_delete_receiver_without_customer(self):
+        params = {'id': 'receiver', 'amount': 100,
+                  'description': "some details", 'currency': "usd"}
+        r = stripe.BitcoinReceiver.construct_from(params, 'api_key')
+        r.delete()
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/bitcoin/receivers/receiver',
+            {},
+            None
+        )
+
+    def test_delete_receiver_with_customer(self):
+        params = {'id': 'receiver', 'amount': 100,
+                  'description': "some details", 'currency': "usd",
+                  'customer': "cust"}
+        r = stripe.BitcoinReceiver.construct_from(params, 'api_key')
+        r.delete()
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/customers/cust/sources/receiver',
+            {},
             None
         )
 
