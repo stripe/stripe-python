@@ -45,7 +45,7 @@ class StripeObject(dict):
         self._transient_values = set()
 
         self._retrieve_params = params
-        self._previous_metadata = None
+        self._previous = None
 
         object.__setattr__(self, 'api_key', api_key)
 
@@ -130,7 +130,7 @@ class StripeObject(dict):
             super(StripeObject, self).__setitem__(
                 k, convert_to_stripe_object(v, api_key))
 
-        self._previous_metadata = values.get('metadata')
+        self._previous = values
 
     @classmethod
     def api_base(cls):
@@ -293,8 +293,11 @@ class UpdateableAPIResource(APIResource):
         updated_params = self.serialize(self)
         headers = populate_headers(idempotency_key)
 
-        if getattr(self, 'metadata', None):
-            updated_params['metadata'] = self.serialize_metadata()
+        for k, v in self.items():
+            if k == 'id' or k.startswith('_'):
+                continue
+            if isinstance(v, dict):
+                updated_params[k] = self.serialize_nested(k)
 
         if updated_params:
             self.refresh_from(self.request('post', self.instance_url(),
@@ -303,26 +306,23 @@ class UpdateableAPIResource(APIResource):
             util.logger.debug("Trying to save already saved object %r", self)
         return self
 
-    def serialize_metadata(self):
-        if 'metadata' in self._unsaved_values:
-            # the metadata object has been reassigned
-            # i.e. as object.metadata = {key: val}
-            metadata_update = self.metadata
-            previous = self._previous_metadata or {}
-            keys_to_unset = set(previous.keys()) - \
-                set(self.metadata.keys())
-            for key in keys_to_unset:
-                metadata_update[key] = ""
-
-            return metadata_update
+    def serialize_nested(self, key):
+        if key in self._unsaved_values:
+            # the object has been reassigned
+            # i.e. as object.key = {foo: bar}
+            update = getattr(self, key)
+            previous = (self._previous or {}).get(key) or {}
+            for key in set(previous.keys()) - set(update.keys()):
+                update[key] = ""
+            return update
         else:
-            return self.serialize(self.metadata)
+            return self.serialize(getattr(self, key))
 
     def serialize(self, obj):
         params = {}
         if obj._unsaved_values:
             for k in obj._unsaved_values:
-                if k == 'id' or k == '_previous_metadata':
+                if k == 'id' or k.startswith('_'):
                     continue
                 v = getattr(obj, k)
                 params[k] = v if v is not None else ""
@@ -335,11 +335,24 @@ class DeletableAPIResource(APIResource):
         self.refresh_from(self.request('delete', self.instance_url(), params))
         return self
 
+
 # API objects
+class Account(CreateableAPIResource, ListableAPIResource,
+              UpdateableAPIResource):
+    @classmethod
+    def retrieve(cls, id=None, api_key=None, **params):
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
 
-
-class Account(SingletonAPIResource):
-    pass
+    def instance_url(self):
+        id = self.get('id')
+        if not id:
+            return "/v1/account"
+        id = util.utf8(id)
+        base = self.class_url()
+        extn = urllib.quote_plus(id)
+        return "%s/%s" % (base, extn)
 
 
 class Balance(SingletonAPIResource):
