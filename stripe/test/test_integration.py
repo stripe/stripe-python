@@ -2,12 +2,9 @@
 import os
 import sys
 import unittest
-
-from mock import patch
-
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', '..'))
 import stripe
 
+from mock import patch
 from stripe.test.helper import (StripeTestCase, NOW, DUMMY_CHARGE, DUMMY_CARD)
 
 
