@@ -64,16 +64,18 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual('mykey', obj.api_key)
         self.assertEqual('bar', obj.foo)
         self.assertEqual('me', obj['trans'])
+        self.assertEqual(None, obj.stripe_account)
 
         obj.refresh_from({
             'foo': 'baz',
             'johnny': 5,
-        }, 'key2')
+        }, 'key2', stripe_account='acct_foo')
 
         self.assertEqual(5, obj.johnny)
         self.assertEqual('baz', obj.foo)
         self.assertRaises(AttributeError, getattr, obj, 'trans')
         self.assertEqual('key2', obj.api_key)
+        self.assertEqual('acct_foo', obj.stripe_account)
 
         obj.refresh_from({
             'trans': 4,
@@ -82,6 +84,23 @@ class StripeObjectTests(StripeUnitTestCase):
 
         self.assertEqual('baz', obj.foo)
         self.assertEqual(4, obj.trans)
+
+    def test_passing_nested_refresh(self):
+        obj = stripe.resource.StripeObject.construct_from({
+            'foos': {
+                'type': 'list',
+                'data': [
+                    {'id': 'nested'}
+                ],
+            }
+        }, 'key', stripe_account='acct_foo')
+
+        nested = obj.foos.data[0]
+
+        self.assertEqual('key', obj.api_key)
+        self.assertEqual('nested', nested.id)
+        self.assertEqual('key', nested.api_key)
+        self.assertEqual('acct_foo', nested.stripe_account)
 
     def test_refresh_from_nested_object(self):
         obj = stripe.resource.StripeObject.construct_from(
@@ -238,7 +257,8 @@ class APIResourceTests(StripeApiTestCase):
             ]
         }
 
-        converted = stripe.resource.convert_to_stripe_object(sample, 'akey')
+        converted = stripe.resource.convert_to_stripe_object(
+            sample, 'akey', None)
 
         # Types
         self.assertTrue(isinstance(converted, stripe.resource.StripeObject))

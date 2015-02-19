@@ -52,12 +52,13 @@ def _build_api_url(url, query):
 
 class APIRequestor(object):
 
-    def __init__(self, key=None, client=None, api_base=None):
+    def __init__(self, key=None, client=None, api_base=None, account=None):
         if api_base:
             self.api_base = api_base
         else:
             self.api_base = stripe.api_base
         self.api_key = key
+        self.stripe_account = account
 
         from stripe import verify_ssl_certs
 
@@ -215,6 +216,9 @@ class APIRequestor(object):
             'User-Agent': 'Stripe/v1 PythonBindings/%s' % (version.VERSION,),
             'Authorization': 'Bearer %s' % (my_api_key,)
         }
+
+        if self.stripe_account:
+            headers['Stripe-Account'] = self.stripe_account
 
         if method == 'post':
             headers['Content-Type'] = 'application/x-www-form-urlencoded'

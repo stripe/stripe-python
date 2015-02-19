@@ -290,6 +290,24 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         self.check_call('get', headers=APIHeaderMatcher(
             extra={'Stripe-Version': 'fooversion'}, request_method='get'))
 
+    def test_uses_instance_account(self):
+        account = 'acct_foo'
+        requestor = stripe.api_requestor.APIRequestor(account=account,
+                                                      client=self.http_client)
+
+        self.mock_response('{}', 200, requestor=requestor)
+
+        requestor.request('get', self.valid_path, {})
+
+        self.check_call(
+            'get',
+            requestor=requestor,
+            headers=APIHeaderMatcher(
+                extra={'Stripe-Account': account},
+                request_method='get'
+            ),
+        )
+
     def test_fails_without_api_key(self):
         stripe.api_key = None
 
