@@ -86,6 +86,23 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual(4, obj.trans)
         self.assertEqual({'amount': 42}, obj._previous_metadata)
 
+    def test_passing_nested_refresh(self):
+        obj = stripe.resource.StripeObject.construct_from({
+            'foos': {
+                'type': 'list',
+                'data': [
+                    {'id': 'nested'}
+                ],
+            }
+        }, 'key', stripe_account='acct_foo')
+
+        nested = obj.foos.data[0]
+
+        self.assertEqual('key', obj.api_key)
+        self.assertEqual('nested', nested.id)
+        self.assertEqual('key', nested.api_key)
+        self.assertEqual('acct_foo', nested.stripe_account)
+
     def test_refresh_from_nested_object(self):
         obj = stripe.resource.StripeObject.construct_from(
             SAMPLE_INVOICE, 'key')
