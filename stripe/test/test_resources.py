@@ -82,7 +82,6 @@ class StripeObjectTests(StripeUnitTestCase):
 
         self.assertEqual('baz', obj.foo)
         self.assertEqual(4, obj.trans)
-        self.assertEqual({'amount': 42}, obj._previous_metadata)
 
     def test_refresh_from_nested_object(self):
         obj = stripe.resource.StripeObject.construct_from(
@@ -395,6 +394,103 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
             None
         )
 
+    def test_add_key_to_nested_object(self):
+        acct = MyUpdateable.construct_from({
+            'id': 'myid',
+            'legal_entity': {
+                'size': 'l',
+                'score': 4,
+                'height': 10
+            }
+        }, 'mykey')
+
+        acct.legal_entity['first_name'] = 'bob'
+
+        self.assertTrue(acct is acct.save())
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'legal_entity': {
+                    'first_name': 'bob',
+                }
+            },
+            None
+        )
+
+    def test_save_nothing(self):
+        acct = MyUpdateable.construct_from({
+            'id': 'myid',
+            'metadata': {
+                'key': 'value',
+            }
+        }, 'mykey')
+
+        self.assertTrue(acct is acct.save())
+        self.requestor_mock.request.assert_not_called()
+
+    def test_replace_nested_object(self):
+        acct = MyUpdateable.construct_from({
+            'id': 'myid',
+            'legal_entity': {
+                'last_name': 'smith',
+            }
+        }, 'mykey')
+
+        acct.legal_entity = {
+            'first_name': 'bob',
+        }
+
+        self.assertTrue(acct is acct.save())
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'legal_entity': {
+                    'first_name': 'bob',
+                    'last_name': '',
+                }
+            },
+            None
+        )
+
+    def test_save_replace_metadata_with_number(self):
+        self.obj.baz = 'updated'
+        self.obj.other = 'newval'
+        self.obj.metadata = 3
+
+        self.checkSave()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'baz': 'updated',
+                'other': 'newval',
+                'metadata': 3,
+            },
+            None
+        )
+
+    def test_save_overwrite_metadata(self):
+        self.obj.metadata = {}
+        self.checkSave()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'metadata': {
+                    'size': '',
+                    'score': '',
+                    'height': '',
+                }
+            },
+            None
+        )
+
     def test_save_replace_metadata(self):
         self.obj.baz = 'updated'
         self.obj.other = 'newval'
@@ -547,7 +643,7 @@ class ChargeTest(StripeResourceTest):
 
 class AccountTest(StripeResourceTest):
 
-    def test_retrieve_account(self):
+    def test_retrieve_account_deprecated(self):
         stripe.Account.retrieve()
 
         self.requestor_mock.request.assert_called_with(
@@ -555,6 +651,58 @@ class AccountTest(StripeResourceTest):
             '/v1/account',
             {},
             None
+        )
+
+    def test_retrieve_account(self):
+        stripe.Account.retrieve('acct_foo')
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/accounts/acct_foo',
+            {},
+            None
+        )
+
+    def test_list_accounts(self):
+        stripe.Account.all()
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/accounts',
+            {}
+        )
+
+    def test_create_account(self):
+        pii = {
+            'type': 'individual',
+            'first_name': 'Joe',
+            'last_name': 'Smith',
+        }
+        stripe.Account.create(legal_entity=pii)
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/accounts',
+            {
+                'legal_entity': pii,
+            },
+            None,
+        )
+
+    def test_update_account(self):
+        acct = stripe.Account.construct_from({
+            'id': 'acct_update',
+            'legal_entity': {'first_name': 'Joe'},
+        }, 'api_key')
+        acct.legal_entity['first_name'] = 'Bob'
+        acct.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/accounts/acct_update',
+            {
+                'legal_entity': {
+                    'first_name': 'Bob',
+                },
+            },
+            None,
         )
 
 
