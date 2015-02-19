@@ -15,7 +15,8 @@ def convert_to_stripe_object(resp, api_key):
              'file_upload': FileUpload,
              'fee_refund': ApplicationFeeRefund,
              'bitcoin_receiver': BitcoinReceiver,
-             'bitcoin_transaction': BitcoinTransaction}
+             'bitcoin_transaction': BitcoinTransaction,
+             'transfer_reversal': Reversal}
 
     if isinstance(resp, list):
         return [convert_to_stripe_object(i, api_key) for i in resp]
@@ -582,6 +583,23 @@ class Transfer(CreateableAPIResource, UpdateableAPIResource,
     def cancel(self):
         self.refresh_from(self.request('post',
                           self.instance_url() + '/cancel'))
+
+
+class Reversal(UpdateableAPIResource):
+
+    def instance_url(self):
+        self.id = util.utf8(self.id)
+        self.charge = util.utf8(self.transfer)
+        base = Transfer.class_url()
+        cust_extn = urllib.quote_plus(self.transfer)
+        extn = urllib.quote_plus(self.id)
+        return "%s/%s/reversals/%s" % (base, cust_extn, extn)
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params):
+        raise NotImplementedError(
+            "Can't retrieve a reversal without a transfer"
+            "ID. Use transfer.reversals.retrieve('reversal_id')")
 
 
 class Recipient(CreateableAPIResource, UpdateableAPIResource,
