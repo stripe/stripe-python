@@ -1,3 +1,7 @@
+=== 1.21.0 2015-02-19
+
+* Added Bitcoin Receiver update and delete methods
+
 === 1.20.2 2015-01-21
 
 * Remove support for top-level bitcoin transactions
