@@ -52,7 +52,7 @@ setup(
     long_description=long_description,
     author='Stripe',
     author_email='support@stripe.com',
-    url='https://stripe.com/',
+    url='https://github.com/stripe/stripe-python',
     packages=['stripe', 'stripe.test'],
     package_data={'stripe': ['data/ca-certificates.crt', '../VERSION']},
     install_requires=install_requires,
