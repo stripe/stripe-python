@@ -1586,14 +1586,16 @@ class BitcoinReceiverTest(StripeResourceTest):
 
     def test_create_receiver(self):
         stripe.BitcoinReceiver.create(amount=100, description="some details",
-                                      currency="usd")
+                                      currency="usd",
+                                      email="do+fill_now@stripe.com")
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/bitcoin/receivers',
             {
                 'amount': 100,
                 'description': 'some details',
-                'currency': 'usd'
+                'currency': 'usd',
+                'email': 'do+fill_now@stripe.com'
             },
             None
         )
