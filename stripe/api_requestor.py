@@ -142,14 +142,16 @@ class APIRequestor(object):
         if rcode in [400, 404]:
             raise error.InvalidRequestError(
                 err.get('message'), err.get('param'), rbody, rcode, resp)
-        elif rcode == 401:
+
+        if rcode == 401:
             raise error.AuthenticationError(
                 err.get('message'), rbody, rcode, resp)
-        elif rcode == 402:
+
+        if rcode == 402:
             raise error.CardError(err.get('message'), err.get('param'),
                                   err.get('code'), rbody, rcode, resp)
-        else:
-            raise error.APIError(err.get('message'), rbody, rcode, resp)
+
+        raise error.APIError(err.get('message'), rbody, rcode, resp)
 
     def request_raw(self, method, url, params=None, supplied_headers=None):
         """
