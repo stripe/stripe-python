@@ -20,7 +20,8 @@ def convert_to_stripe_object(resp, api_key, account):
 
     if isinstance(resp, list):
         return [convert_to_stripe_object(i, api_key, account) for i in resp]
-    elif isinstance(resp, dict) and not isinstance(resp, StripeObject):
+
+    if isinstance(resp, dict) and not isinstance(resp, StripeObject):
         resp = resp.copy()
         klass_name = resp.get('object')
         if isinstance(klass_name, basestring):
@@ -28,13 +29,14 @@ def convert_to_stripe_object(resp, api_key, account):
         else:
             klass = StripeObject
         return klass.construct_from(resp, api_key, stripe_account=account)
-    else:
-        return resp
+
+    return resp
 
 
 def populate_headers(idempotency_key):
     if idempotency_key is not None:
         return {"Idempotency-Key": idempotency_key}
+
     return None
 
 
@@ -57,8 +59,8 @@ class StripeObject(dict):
     def __setattr__(self, k, v):
         if k[0] == '_' or k in self.__dict__:
             return super(StripeObject, self).__setattr__(k, v)
-        else:
-            self[k] = v
+
+        self[k] = v
 
     def __getattr__(self, k):
         if k[0] == '_':
@@ -97,8 +99,8 @@ class StripeObject(dict):
                     "result of a save().  The attributes currently "
                     "available on this object are: %s" %
                     (k, k, ', '.join(self.keys())))
-            else:
-                raise err
+
+            raise err
 
     def __delitem__(self, k):
         raise TypeError(
@@ -166,8 +168,8 @@ class StripeObject(dict):
 
         if sys.version_info[0] < 3:
             return unicode_repr.encode('utf-8')
-        else:
-            return unicode_repr
+
+        return unicode_repr
 
     def __str__(self):
         return util.json.dumps(self, sort_keys=True, indent=2)
@@ -323,8 +325,8 @@ class UpdateableAPIResource(APIResource):
             for key in set(previous.keys()) - set(update.keys()):
                 update[key] = ""
             return update
-        else:
-            return self.serialize(getattr(self, key))
+
+        return self.serialize(getattr(self, key))
 
     def serialize(self, obj):
         params = {}
@@ -379,13 +381,14 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
     def instance_url(self):
         self.id = util.utf8(self.id)
         extn = urllib.quote_plus(self.id)
-        if (hasattr(self, 'customer')):
+
+        if hasattr(self, 'customer'):
             self.customer = util.utf8(self.customer)
 
             base = Customer.class_url()
             owner_extn = urllib.quote_plus(self.customer)
 
-        elif (hasattr(self, 'recipient')):
+        elif hasattr(self, 'recipient'):
             self.recipient = util.utf8(self.recipient)
 
             base = Recipient.class_url()
@@ -683,14 +686,14 @@ class BitcoinReceiver(CreateableAPIResource, UpdateableAPIResource,
         self.id = util.utf8(self.id)
         extn = urllib.quote_plus(self.id)
 
-        if (hasattr(self, 'customer')):
+        if hasattr(self, 'customer'):
             self.customer = util.utf8(self.customer)
             base = Customer.class_url()
             cust_extn = urllib.quote_plus(self.customer)
             return "%s/%s/sources/%s" % (base, cust_extn, extn)
-        else:
-            base = BitcoinReceiver.class_url()
-            return "%s/%s" % (base, extn)
+
+        base = BitcoinReceiver.class_url()
+        return "%s/%s" % (base, extn)
 
     @classmethod
     def class_url(cls):
