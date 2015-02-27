@@ -5,6 +5,8 @@ python:
   - "pypy"
   - "3.2"
   - "3.3"
+  - "3.4"
+env: PYCURL_SSL_LIBRARY=gnutls
 before_install:
   - sudo apt-get update
   - sudo apt-get install libcurl4-gnutls-dev librtmp-dev
@@ -14,3 +16,7 @@ install:
 script:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then flake8 stripe; fi
   - python -W always setup.py test
+cache: apt
+matrix:
+  allow_failures:
+    - python: pypy

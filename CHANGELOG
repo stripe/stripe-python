@@ -1,4 +1,72 @@
-=== TBD
+=== 1.21.0 2015-02-19
+
+* Added Bitcoin Receiver update and delete methods
+
+=== 1.20.2 2015-01-21
+
+* Remove support for top-level bitcoin transactions
+
+=== 1.20.1 2015-01-07
+
+* Adding bitcoin receiver and transaction objects
+
+=== 1.20.0 2014-12-23
+
+* Adding support for file uploads resource
+
+=== 1.19.1 2014-10-23
+
+* Remove redundant manual SSL blacklist preflight check
+
+=== 1.19.0 2014-07-26
+
+* Application Fee refunds now a list instead of array
+
+=== 1.18.0 2014-06-17
+
+* Add metadata for disputes and refunds
+
+=== 1.17.0 2014-06-10
+
+* Remove official support for Python 2.5
+
+=== 1.16.0 2014-05-28
+
+* Support for canceling transfers
+
+=== 1.15.1 2014-05-21
+
+* Support cards for recipients.
+
+=== 1.14.1 2014-05-19
+
+* Disable loading the ssl module on the Google App Engine dev server.
+
+=== 1.14.0 2014-04-09
+
+* Use DER encoded certificate for checksumming
+* Don't rely on SNI support in integration tests
+
+=== 1.13.0 2014-04-09
+
+* Update bundled ca-certificates
+* Add certificate blacklist for CVE-2014-0160 mitigation
+
+=== 1.12.2 2014-03-13
+
+* Fix syntax errors in setup.py metadata
+
+=== 1.12.1 2014-03-13
+
+* Added license and other metadata in setup.py
+* Fix `__repr__` in Python 3
+* Support pickling of responses
+
+=== 1.12.0 2014-01-29
+
+* Added support for multiple subscriptions per customer
+
+=== 1.11.0 2013-12-05
 
 * Added extensive unit tests
 * Extended functional test coverage

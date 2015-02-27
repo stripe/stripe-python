@@ -17,6 +17,11 @@ DUMMY_CARD = {
     'exp_month': NOW.month,
     'exp_year': NOW.year + 4
 }
+DUMMY_DEBIT_CARD = {
+    'number': '4000056655665556',
+    'exp_month': NOW.month,
+    'exp_year': NOW.year + 4
+}
 DUMMY_CHARGE = {
     'amount': 100,
     'currency': 'usd',
@@ -35,7 +40,8 @@ DUMMY_PLAN = {
 DUMMY_COUPON = {
     'percent_off': 25,
     'duration': 'repeating',
-    'duration_in_months': 5
+    'duration_in_months': 5,
+    'metadata': {}
 }
 
 DUMMY_RECIPIENT = {

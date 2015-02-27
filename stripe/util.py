@@ -1,5 +1,6 @@
 import logging
 import sys
+import os
 
 logger = logging.getLogger('stripe')
 
@@ -49,3 +50,8 @@ def utf8(value):
         return value.encode('utf-8')
     else:
         return value
+
+
+def is_appengine_dev():
+    return ('APPENGINE_RUNTIME' in os.environ and
+            'Dev' in os.environ.get('SERVER_SOFTWARE', ''))
