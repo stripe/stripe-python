@@ -199,6 +199,20 @@ class APIRequestorRequestTests(StripeUnitTestCase):
 
         self.check_call('get', QueryMatcher(expectation))
 
+    def test_dictionary_list_encoding(self):
+        params = {
+            'foo': {
+                '0': {
+                    'bar': 'bat',
+                }
+            }
+        }
+        encoded = list(stripe.api_requestor._api_encode(params))
+        key, value = encoded[0]
+
+        self.assertEqual('foo[0][bar]', key)
+        self.assertEqual('bat', value)
+
     def test_url_construction(self):
         CASES = (
             ('https://api.stripe.com?foo=bar', '', {'foo': 'bar'}),
