@@ -1,3 +1,7 @@
+=== 1.22.0 2015-03-22
+
+* Added methods for updating and saving arrays of objects
+
 === 1.21.0 2015-02-19
 
 * Added Bitcoin Receiver update and delete methods
