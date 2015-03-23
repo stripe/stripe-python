@@ -38,6 +38,30 @@ def populate_headers(idempotency_key):
     return None
 
 
+def _compute_diff(current, previous):
+    if isinstance(current, dict):
+        previous = previous or {}
+        diff = current.copy()
+        for key in set(previous.keys()) - set(diff.keys()):
+            diff[key] = ""
+        return diff
+    return current if current is not None else ""
+
+
+def _serialize_list(array, previous):
+    previous = previous or []
+    params = {}
+
+    for i, v in enumerate(array):
+        previous_item = previous[i] if len(previous) > i else None
+        if hasattr(v, 'serialize'):
+            params[str(i)] = v.serialize(previous_item)
+        else:
+            params[str(i)] = _compute_diff(v, previous_item)
+
+    return params
+
+
 class StripeObject(dict):
     def __init__(self, id=None, api_key=None, stripe_account=None, **params):
         super(StripeObject, self).__init__()
@@ -185,6 +209,25 @@ class StripeObject(dict):
     def stripe_id(self):
         return self.id
 
+    def serialize(self, previous):
+        params = {}
+        unsaved_keys = self._unsaved_values or set()
+        previous = previous or self._previous or {}
+
+        for k, v in self.items():
+            if k == 'id' or (isinstance(k, str) and k.startswith('_')):
+                continue
+            elif isinstance(v, APIResource):
+                continue
+            elif hasattr(v, 'serialize'):
+                params[k] = v.serialize(previous.get(k, None))
+            elif k in unsaved_keys:
+                params[k] = _compute_diff(v, previous.get(k, None))
+            elif k == 'additional_owners':
+                params[k] = _serialize_list(v, previous.get(k, None))
+
+        return params
+
 
 class StripeObjectEncoder(util.json.JSONEncoder):
 
@@ -298,14 +341,8 @@ class CreateableAPIResource(APIResource):
 class UpdateableAPIResource(APIResource):
 
     def save(self, idempotency_key=None):
-        updated_params = self.serialize(self)
+        updated_params = self.serialize(None)
         headers = populate_headers(idempotency_key)
-
-        for k, v in self.items():
-            if k == 'id' or k.startswith('_'):
-                continue
-            if isinstance(v, dict):
-                updated_params[k] = self.serialize_nested(k)
 
         if updated_params:
             self.refresh_from(self.request('post', self.instance_url(),
@@ -313,28 +350,6 @@ class UpdateableAPIResource(APIResource):
         else:
             util.logger.debug("Trying to save already saved object %r", self)
         return self
-
-    def serialize_nested(self, key):
-        if key in self._unsaved_values:
-            # the object has been reassigned
-            # i.e. as object.key = {foo: bar}
-            update = getattr(self, key)
-            previous = (self._previous or {}).get(key) or {}
-            for key in set(previous.keys()) - set(update.keys()):
-                update[key] = ""
-            return update
-        else:
-            return self.serialize(getattr(self, key))
-
-    def serialize(self, obj):
-        params = {}
-        if obj._unsaved_values:
-            for k in obj._unsaved_values:
-                if k == 'id' or k.startswith('_'):
-                    continue
-                v = getattr(obj, k)
-                params[k] = v if v is not None else ""
-        return params
 
 
 class DeletableAPIResource(APIResource):

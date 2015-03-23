@@ -476,6 +476,120 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
             None
         )
 
+    def test_array_setting(self):
+        acct = MyUpdateable.construct_from({
+            'id': 'myid',
+            'legal_entity': {}
+        }, 'mykey')
+
+        acct.legal_entity.additional_owners = [{'first_name': 'Bob'}]
+
+        self.assertTrue(acct is acct.save())
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'legal_entity': {
+                    'additional_owners': [
+                        {'first_name': 'Bob'}
+                    ]
+                }
+            },
+            None
+        )
+
+    def test_array_insertion(self):
+        acct = MyUpdateable.construct_from({
+            'id': 'myid',
+            'legal_entity': {
+                'additional_owners': []
+            }
+        }, 'mykey')
+
+        acct.legal_entity.additional_owners.append({'first_name': 'Bob'})
+
+        self.assertTrue(acct is acct.save())
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'legal_entity': {
+                    'additional_owners': {
+                        '0': {'first_name': 'Bob'},
+                    }
+                }
+            },
+            None
+        )
+
+    def test_array_update(self):
+        acct = MyUpdateable.construct_from({
+            'id': 'myid',
+            'legal_entity': {
+                'additional_owners': [
+                    {'first_name': 'Bob'},
+                    {'first_name': 'Jane'}
+                ]
+            }
+        }, 'mykey')
+
+        acct.legal_entity.additional_owners[1].first_name = 'Janet'
+
+        self.assertTrue(acct is acct.save())
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'legal_entity': {
+                    'additional_owners': {
+                        '0': {},
+                        '1': {'first_name': 'Janet'}
+                    }
+                }
+            },
+            None
+        )
+
+    def test_array_noop(self):
+        acct = MyUpdateable.construct_from({
+            'id': 'myid',
+            'legal_entity': {
+                'additional_owners': [{'first_name': 'Bob'}]
+            },
+            'currencies_supported': ['usd', 'cad']
+        }, 'mykey')
+
+        self.assertTrue(acct is acct.save())
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'legal_entity': {'additional_owners': {'0': {}}}
+            },
+            None
+        )
+
+    def test_hash_noop(self):
+        acct = MyUpdateable.construct_from({
+            'id': 'myid',
+            'legal_entity': {
+                'address': {'line1': '1 Two Three'}
+            }
+        }, 'mykey')
+
+        self.assertTrue(acct is acct.save())
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {'legal_entity': {'address': {}}},
+            None
+        )
+
     def test_save_replace_metadata_with_number(self):
         self.obj.baz = 'updated'
         self.obj.other = 'newval'
@@ -720,6 +834,33 @@ class AccountTest(StripeResourceTest):
             {
                 'legal_entity': {
                     'first_name': 'Bob',
+                },
+            },
+            None,
+        )
+
+    def test_verify_additional_owner(self):
+        acct = stripe.Account.construct_from({
+            'id': 'acct_update',
+            'additional_owners': [{
+                'first_name': 'Alice',
+                'verification': {},
+            }]
+        }, 'api_key')
+        owner = acct.additional_owners[0]
+        owner.verification.document = 'file_foo'
+        acct.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/accounts/acct_update',
+            {
+                'additional_owners': {
+                    '0': {
+                        'verification': {
+                            'document': 'file_foo',
+                        },
+                    },
                 },
             },
             None,
@@ -1389,6 +1530,29 @@ class RefundTest(StripeResourceTest):
             {},
             None
         )
+
+    def test_non_recursive_save(self):
+        charge = stripe.Charge.construct_from({
+            'id': 'ch_nested_update',
+            'customer': {
+                'object': 'customer',
+                'description': 'foo',
+            },
+            'refunds': {
+                'object': 'list',
+                'url': '/v1/charges/ch_foo/refunds',
+                'data': [{
+                    'id': 'ref_123',
+                }],
+            },
+        }, 'api_key')
+
+        charge.customer.description = 'bar'
+        charge.refunds.has_more = True
+        charge.refunds.data[0].description = 'bar'
+        charge.save()
+
+        self.requestor_mock.request.assert_not_called()
 
     def test_fetch_refund(self):
         charge = stripe.Charge.construct_from({
