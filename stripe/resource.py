@@ -299,10 +299,8 @@ class ListObject(StripeObject):
 class SingletonAPIResource(APIResource):
 
     @classmethod
-    def retrieve(cls, api_key=None, stripe_account=None):
-        return super(SingletonAPIResource, cls).retrieve(None,
-                                                         api_key=api_key,
-                                                         stripe_account=stripe_account)
+    def retrieve(cls, **params):
+        return super(SingletonAPIResource, cls).retrieve(None, **params)
 
     @classmethod
     def class_url(cls):
