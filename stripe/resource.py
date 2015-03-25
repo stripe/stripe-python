@@ -244,7 +244,7 @@ class StripeObjectEncoder(util.json.JSONEncoder):
 class APIResource(StripeObject):
 
     @classmethod
-    def retrieve(cls, id, api_key=None, stripe_account=None, **params):
+    def retrieve(cls, id, api_key=None, **params):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -301,7 +301,8 @@ class SingletonAPIResource(APIResource):
     @classmethod
     def retrieve(cls, api_key=None, stripe_account=None):
         return super(SingletonAPIResource, cls).retrieve(None,
-                                                         api_key=api_key)
+                                                         api_key=api_key,
+                                                         stripe_account=stripe_account)
 
     @classmethod
     def class_url(cls):
