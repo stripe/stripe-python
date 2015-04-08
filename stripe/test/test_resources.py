@@ -499,6 +499,28 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
             None
         )
 
+    def test_array_none(self):
+        acct = MyUpdateable.construct_from({
+            'id': 'myid',
+            'legal_entity': {
+                'additional_owners': None,
+            }
+        }, 'mykey')
+
+        acct.foo = 'bar'
+
+        self.assertTrue(acct is acct.save())
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'foo': 'bar',
+                'legal_entity': {},
+            },
+            None
+        )
+
     def test_array_insertion(self):
         acct = MyUpdateable.construct_from({
             'id': 'myid',
