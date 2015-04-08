@@ -49,6 +49,7 @@ def _compute_diff(current, previous):
 
 
 def _serialize_list(array, previous):
+    array = array or []
     previous = previous or []
     params = {}
 
@@ -223,7 +224,7 @@ class StripeObject(dict):
                 params[k] = v.serialize(previous.get(k, None))
             elif k in unsaved_keys:
                 params[k] = _compute_diff(v, previous.get(k, None))
-            elif k == 'additional_owners':
+            elif k == 'additional_owners' and v is not None:
                 params[k] = _serialize_list(v, previous.get(k, None))
 
         return params
