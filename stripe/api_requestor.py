@@ -233,10 +233,7 @@ class APIRequestor(object):
         rbody, rcode = self._client.request(
             method, abs_url, headers, post_data)
 
-        util.logger.info(
-            'API request to %s returned (response code) of '
-            '(%d)',
-            abs_url, rcode)
+        util.logger.info('%s %s %d', method.upper(), abs_url, rcode)
         util.logger.debug(
             'API request to %s returned (response code, response body) of '
             '(%d, %r)',
