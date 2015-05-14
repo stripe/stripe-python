@@ -16,7 +16,9 @@ def convert_to_stripe_object(resp, api_key, account):
              'fee_refund': ApplicationFeeRefund,
              'bitcoin_receiver': BitcoinReceiver,
              'bitcoin_transaction': BitcoinTransaction,
-             'transfer_reversal': Reversal}
+             'transfer_reversal': Reversal,
+             'payment': Payment,
+             'bank_account': BankAccount}
 
     if isinstance(resp, list):
         return [convert_to_stripe_object(i, api_key, account) for i in resp]
@@ -420,6 +422,43 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
             "Can't retrieve a card without a customer or recipient"
             "ID. Use customer.cards.retrieve('card_id') or "
             "recipient.cards.retrieve('card_id') instead.")
+
+
+class Payment(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+    pass
+
+
+class BankAccount(UpdateableAPIResource, DeletableAPIResource):
+
+    def instance_url(self):
+        self.id = util.utf8(self.id)
+        extn = urllib.quote_plus(self.id)
+        if (hasattr(self, 'customer')):
+            self.customer = util.utf8(self.customer)
+
+            base = Customer.class_url()
+            owner_extn = urllib.quote_plus(self.customer)
+
+        else:
+            raise error.InvalidRequestError(
+                "Could not determine whether bank_id %s is "
+                "attached to a customer "
+                "or a recipient." % self.id, 'id')
+
+        return "%s/%s/bank_accounts/%s" % (base, owner_extn, extn)
+
+    def verify(self, idempotency_key=None, **params):
+        headers = populate_headers(idempotency_key)
+        url = self.instance_url() + '/verify'
+        self.refresh_from(self.request('post', url, params, headers))
+        return self
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params):
+        raise NotImplementedError(
+            "Can't retrieve a bank_account without a customer or recipient"
+            "ID. Use customer.bank_accounts.retrieve('bank_account_id') or "
+            "recipient.bank_accounts.retrieve('bank_account_id') instead.")
 
 
 class Charge(CreateableAPIResource, ListableAPIResource,
