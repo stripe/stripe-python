@@ -10,6 +10,7 @@ def convert_to_stripe_object(resp, api_key, account):
              'invoice': Invoice, 'invoiceitem': InvoiceItem,
              'plan': Plan, 'coupon': Coupon, 'token': Token, 'event': Event,
              'transfer': Transfer, 'list': ListObject, 'recipient': Recipient,
+             'bank_account': BankAccount,
              'card': Card, 'application_fee': ApplicationFee,
              'subscription': Subscription, 'refund': Refund,
              'file_upload': FileUpload,
@@ -420,6 +421,42 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
             "Can't retrieve a card without a customer or recipient"
             "ID. Use customer.cards.retrieve('card_id') or "
             "recipient.cards.retrieve('card_id') instead.")
+
+
+class BankAccount(UpdateableAPIResource, DeletableAPIResource):
+
+    def instance_url(self):
+        self.id = util.utf8(self.id)
+        extn = urllib.quote_plus(self.id)
+        if (hasattr(self, 'customer')):
+            self.customer = util.utf8(self.customer)
+
+            base = Customer.class_url()
+            owner_extn = urllib.quote_plus(self.customer)
+            class_base = "sources"
+
+        elif (hasattr(self, 'account')):
+            self.account = util.utf8(self.account)
+
+            base = Account.class_url()
+            owner_extn = urllib.quote_plus(self.account)
+            class_base = "bank_accounts"
+
+        else:
+            raise error.InvalidRequestError(
+                "Could not determine whether bank_account_id %s is "
+                "attached to a customer "
+                "or an account." % self.id, 'id')
+
+        return "%s/%s/%s/%s" % (base, owner_extn, class_base, extn)
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, stripe_account=None, **params):
+        raise NotImplementedError(
+            "Can't retrieve a bank account without a customer or "
+            "account ID. Use "
+            "customer.sources.retrieve('bank_account_id') or "
+            "recipient.sources.retrieve('bank_account_id') instead.")
 
 
 class Charge(CreateableAPIResource, ListableAPIResource,
