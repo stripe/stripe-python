@@ -861,6 +861,20 @@ class AccountTest(StripeResourceTest):
             None,
         )
 
+    def test_account_delete_bank_account(self):
+        source = stripe.BankAccount.construct_from({
+            'account': 'acc_delete_ba',
+            'id': 'ba_delete_ba',
+        }, 'api_key')
+        source.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/accounts/acc_delete_ba/bank_accounts/ba_delete_ba',
+            {},
+            None
+        )
+
     def test_verify_additional_owner(self):
         acct = stripe.Account.construct_from({
             'id': 'acct_update',
