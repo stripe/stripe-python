@@ -861,6 +861,20 @@ class AccountTest(StripeResourceTest):
             None,
         )
 
+    def test_account_delete_bank_account(self):
+        source = stripe.BankAccount.construct_from({
+            'account': 'acc_delete_ba',
+            'id': 'ba_delete_ba',
+        }, 'api_key')
+        source.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/accounts/acc_delete_ba/bank_accounts/ba_delete_ba',
+            {},
+            None
+        )
+
     def test_verify_additional_owner(self):
         acct = stripe.Account.construct_from({
             'id': 'acct_update',
@@ -1062,6 +1076,20 @@ class CustomerTest(StripeResourceTest):
         self.requestor_mock.request.assert_called_with(
             'delete',
             '/v1/customers/cus_delete_source/sources/btcrcv_delete_source',
+            {},
+            None
+        )
+
+    def test_customer_delete_bank_account(self):
+        source = stripe.BankAccount.construct_from({
+            'customer': 'cus_delete_source',
+            'id': 'ba_delete_source',
+        }, 'api_key')
+        source.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/customers/cus_delete_source/sources/ba_delete_source',
             {},
             None
         )
@@ -1504,7 +1532,7 @@ class FileUploadTest(StripeResourceTest):
         stripe.FileUpload.create(
             purpose='dispute_evidence',
             file=test_file
-            )
+        )
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/files',
