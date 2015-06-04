@@ -20,6 +20,13 @@ def _encode_datetime(dttime):
     return int(utc_timestamp)
 
 
+def _encode_nested_dict(key, data, fmt='%s[%s]'):
+    d = {}
+    for subkey, subvalue in data.iteritems():
+        d[fmt % (key, subkey)] = subvalue
+    return d
+
+
 def _api_encode(data):
     for key, value in data.iteritems():
         key = util.utf8(key)
@@ -28,11 +35,15 @@ def _api_encode(data):
         elif hasattr(value, 'stripe_id'):
             yield (key, value.stripe_id)
         elif isinstance(value, list) or isinstance(value, tuple):
-            for subvalue in value:
-                yield ("%s[]" % (key,), util.utf8(subvalue))
+            for sv in value:
+                if isinstance(sv, dict):
+                    subdict = _encode_nested_dict(key, sv, fmt='%s[][%s]')
+                    for k, v in _api_encode(subdict):
+                        yield (k, v)
+                else:
+                    yield ("%s[]" % (key,), util.utf8(sv))
         elif isinstance(value, dict):
-            subdict = dict(('%s[%s]' % (key, subkey), subvalue) for
-                           subkey, subvalue in value.iteritems())
+            subdict = _encode_nested_dict(key, value)
             for subkey, subvalue in _api_encode(subdict):
                 yield (subkey, subvalue)
         elif isinstance(value, datetime.datetime):
