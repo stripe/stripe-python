@@ -6,7 +6,7 @@ from stripe import api_requestor, error, util, upload_api_base
 
 
 def convert_to_stripe_object(resp, api_key, account):
-    types = {'charge': Charge, 'customer': Customer,
+    types = {'account': Account, 'charge': Charge, 'customer': Customer,
              'invoice': Invoice, 'invoiceitem': InvoiceItem,
              'plan': Plan, 'coupon': Coupon, 'token': Token, 'event': Event,
              'transfer': Transfer, 'list': ListObject, 'recipient': Recipient,
