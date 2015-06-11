@@ -870,7 +870,7 @@ class AccountTest(StripeResourceTest):
 
         self.requestor_mock.request.assert_called_with(
             'delete',
-            '/v1/accounts/acc_delete_ba/bank_accounts/ba_delete_ba',
+            '/v1/accounts/acc_delete_ba/external_accounts/ba_delete_ba',
             {},
             None
         )
@@ -983,16 +983,16 @@ class CustomerTest(StripeResourceTest):
     def test_customer_add_card(self):
         customer = stripe.Customer.construct_from({
             'id': 'cus_add_card',
-            'cards': {
+            'sources': {
                 'object': 'list',
-                'url': '/v1/customers/cus_add_card/cards',
+                'url': '/v1/customers/cus_add_card/sources',
             },
         }, 'api_key')
-        customer.cards.create(card=DUMMY_CARD, idempotency_key='foo')
+        customer.sources.create(card=DUMMY_CARD, idempotency_key='foo')
 
         self.requestor_mock.request.assert_called_with(
             'post',
-            '/v1/customers/cus_add_card/cards',
+            '/v1/customers/cus_add_card/sources',
             {
                 'card': DUMMY_CARD,
             },
@@ -1028,7 +1028,7 @@ class CustomerTest(StripeResourceTest):
 
         self.requestor_mock.request.assert_called_with(
             'post',
-            '/v1/customers/cus_update_card/cards/ca_update_card',
+            '/v1/customers/cus_update_card/sources/ca_update_card',
             {
                 'name': 'The Best',
             },
@@ -1061,7 +1061,7 @@ class CustomerTest(StripeResourceTest):
 
         self.requestor_mock.request.assert_called_with(
             'delete',
-            '/v1/customers/cus_delete_card/cards/ca_delete_card',
+            '/v1/customers/cus_delete_card/sources/ca_delete_card',
             {},
             None
         )
@@ -1199,16 +1199,16 @@ class RecipientTest(StripeResourceTest):
     def test_recipient_add_card(self):
         recipient = stripe.Recipient.construct_from({
             'id': 'rp_add_card',
-            'cards': {
+            'sources': {
                 'object': 'list',
-                'url': '/v1/recipients/rp_add_card/cards',
+                'url': '/v1/recipients/rp_add_card/sources',
             },
         }, 'api_key')
-        recipient.cards.create(card=DUMMY_CARD)
+        recipient.sources.create(card=DUMMY_CARD)
 
         self.requestor_mock.request.assert_called_with(
             'post',
-            '/v1/recipients/rp_add_card/cards',
+            '/v1/recipients/rp_add_card/sources',
             {
                 'card': DUMMY_CARD,
             },
