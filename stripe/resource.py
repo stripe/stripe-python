@@ -400,27 +400,37 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
 
             base = Customer.class_url()
             owner_extn = urllib.quote_plus(self.customer)
+            class_base = "sources"
 
         elif (hasattr(self, 'recipient')):
             self.recipient = util.utf8(self.recipient)
 
             base = Recipient.class_url()
             owner_extn = urllib.quote_plus(self.recipient)
+            class_base = "cards"
+
+        elif (hasattr(self, 'account')):
+            self.account = util.utf8(self.account)
+
+            base = Account.class_url()
+            owner_extn = urllib.quote_plus(self.account)
+            class_base = "external_accounts"
 
         else:
             raise error.InvalidRequestError(
                 "Could not determine whether card_id %s is "
-                "attached to a customer "
-                "or a recipient." % self.id, 'id')
+                "attached to a customer, recipient, or "
+                "account." % self.id, 'id')
 
-        return "%s/%s/cards/%s" % (base, owner_extn, extn)
+        return "%s/%s/%s/%s" % (base, owner_extn, class_base, extn)
 
     @classmethod
     def retrieve(cls, id, api_key=None, stripe_account=None, **params):
         raise NotImplementedError(
-            "Can't retrieve a card without a customer or recipient"
-            "ID. Use customer.cards.retrieve('card_id') or "
-            "recipient.cards.retrieve('card_id') instead.")
+            "Can't retrieve a card without a customer, recipient or account "
+            "ID. Use customer.sources.retrieve('card_id'), "
+            "recipient.cards.retrieve('card_id'), or "
+            "account.external_accounts.retrieve('card_id') instead.")
 
 
 class BankAccount(UpdateableAPIResource, DeletableAPIResource):
@@ -440,23 +450,21 @@ class BankAccount(UpdateableAPIResource, DeletableAPIResource):
 
             base = Account.class_url()
             owner_extn = urllib.quote_plus(self.account)
-            class_base = "bank_accounts"
+            class_base = "external_accounts"
 
         else:
             raise error.InvalidRequestError(
                 "Could not determine whether bank_account_id %s is "
-                "attached to a customer "
-                "or an account." % self.id, 'id')
+                "attached to a customer or an account." % self.id, 'id')
 
         return "%s/%s/%s/%s" % (base, owner_extn, class_base, extn)
 
     @classmethod
     def retrieve(cls, id, api_key=None, stripe_account=None, **params):
         raise NotImplementedError(
-            "Can't retrieve a bank account without a customer or "
-            "account ID. Use "
-            "customer.sources.retrieve('bank_account_id') or "
-            "recipient.sources.retrieve('bank_account_id') instead.")
+            "Can't retrieve a bank account without a customer or account ID. "
+            "Use customer.sources.retrieve('bank_account_id') or "
+            "account.external_accounts.retrieve('bank_account_id') instead.")
 
 
 class Charge(CreateableAPIResource, ListableAPIResource,
