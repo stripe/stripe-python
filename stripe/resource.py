@@ -403,16 +403,16 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
         self.id = util.utf8(self.id)
         extn = urllib.quote_plus(self.id)
         if (hasattr(self, 'customer')):
-            self.customer = util.utf8(self.customer)
+            customer = util.utf8(self.customer)
 
             base = Customer.class_url()
-            owner_extn = urllib.quote_plus(self.customer)
+            owner_extn = urllib.quote_plus(customer)
 
         elif (hasattr(self, 'recipient')):
-            self.recipient = util.utf8(self.recipient)
+            recipient = util.utf8(self.recipient)
 
             base = Recipient.class_url()
-            owner_extn = urllib.quote_plus(self.recipient)
+            owner_extn = urllib.quote_plus(recipient)
 
         else:
             raise error.InvalidRequestError(
@@ -440,10 +440,10 @@ class BankAccount(UpdateableAPIResource, DeletableAPIResource):
         self.id = util.utf8(self.id)
         extn = urllib.quote_plus(self.id)
         if (hasattr(self, 'customer')):
-            self.customer = util.utf8(self.customer)
+            customer = util.utf8(self.customer)
 
             base = Customer.class_url()
-            owner_extn = urllib.quote_plus(self.customer)
+            owner_extn = urllib.quote_plus(customer)
 
         else:
             raise error.InvalidRequestError(
