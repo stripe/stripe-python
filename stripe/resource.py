@@ -81,7 +81,7 @@ class StripeObject(dict):
         if id:
             self['id'] = id
 
-    def update(self,update_dict):
+    def update(self, update_dict):
         for k in update_dict:
             self._unsaved_values.add(k)
 
