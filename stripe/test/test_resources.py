@@ -674,6 +674,32 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
             None
         )
 
+    def test_save_update_metadata(self):
+        self.obj.baz = 'updated'
+        self.obj.other = 'newval'
+        self.obj.metadata.update({
+            'size': 'm',
+            'info': 'a2',
+            'score': 4,
+        })
+
+        self.checkSave()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'baz': 'updated',
+                'other': 'newval',
+                'metadata': {
+                    'size': 'm',
+                    'info': 'a2',
+                    'score': 4,
+                }
+            },
+            None
+        )
+
 
 class DeletableAPIResourceTests(StripeApiTestCase):
 

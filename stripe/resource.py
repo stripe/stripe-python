@@ -80,6 +80,12 @@ class StripeObject(dict):
         if id:
             self['id'] = id
 
+    def update(self, update_dict):
+        for k in update_dict:
+            self._unsaved_values.add(k)
+
+        return super(StripeObject, self).update(update_dict)
+
     def __setattr__(self, k, v):
         if k[0] == '_' or k in self.__dict__:
             return super(StripeObject, self).__setattr__(k, v)
