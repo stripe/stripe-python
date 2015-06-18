@@ -226,5 +226,38 @@ class PycurlClientTests(StripeUnitTestCase, ClientTestBase):
         # TODO: Check the setopt calls
         pass
 
+
+class APIEncodeTest(StripeUnitTestCase):
+
+    def test_encode_dict(self):
+        body = {
+            'foo': {
+                'dob': {
+                    'month': 1,
+                },
+                'name': 'bat'
+            },
+        }
+
+        values = [t for t in stripe.api_requestor._api_encode(body)]
+
+        self.assertTrue(('foo[dob][month]', 1) in values)
+        self.assertTrue(('foo[name]', 'bat') in values)
+
+    def test_encode_array(self):
+        body = {
+            'foo': [{
+                'dob': {
+                    'month': 1,
+                },
+                'name': 'bat'
+            }],
+        }
+
+        values = [t for t in stripe.api_requestor._api_encode(body)]
+
+        self.assertTrue(('foo[][dob][month]', 1) in values)
+        self.assertTrue(('foo[][name]', 'bat') in values)
+
 if __name__ == '__main__':
     unittest.main()

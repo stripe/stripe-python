@@ -674,6 +674,32 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
             None
         )
 
+    def test_save_update_metadata(self):
+        self.obj.baz = 'updated'
+        self.obj.other = 'newval'
+        self.obj.metadata.update({
+            'size': 'm',
+            'info': 'a2',
+            'score': 4,
+        })
+
+        self.checkSave()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'baz': 'updated',
+                'other': 'newval',
+                'metadata': {
+                    'size': 'm',
+                    'info': 'a2',
+                    'score': 4,
+                }
+            },
+            None
+        )
+
 
 class DeletableAPIResourceTests(StripeApiTestCase):
 
@@ -861,6 +887,20 @@ class AccountTest(StripeResourceTest):
             None,
         )
 
+    def test_account_delete_bank_account(self):
+        source = stripe.BankAccount.construct_from({
+            'account': 'acc_delete_ba',
+            'id': 'ba_delete_ba',
+        }, 'api_key')
+        source.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/accounts/acc_delete_ba/external_accounts/ba_delete_ba',
+            {},
+            None
+        )
+
     def test_verify_additional_owner(self):
         acct = stripe.Account.construct_from({
             'id': 'acct_update',
@@ -969,16 +1009,16 @@ class CustomerTest(StripeResourceTest):
     def test_customer_add_card(self):
         customer = stripe.Customer.construct_from({
             'id': 'cus_add_card',
-            'cards': {
+            'sources': {
                 'object': 'list',
-                'url': '/v1/customers/cus_add_card/cards',
+                'url': '/v1/customers/cus_add_card/sources',
             },
         }, 'api_key')
-        customer.cards.create(card=DUMMY_CARD, idempotency_key='foo')
+        customer.sources.create(card=DUMMY_CARD, idempotency_key='foo')
 
         self.requestor_mock.request.assert_called_with(
             'post',
-            '/v1/customers/cus_add_card/cards',
+            '/v1/customers/cus_add_card/sources',
             {
                 'card': DUMMY_CARD,
             },
@@ -1014,7 +1054,7 @@ class CustomerTest(StripeResourceTest):
 
         self.requestor_mock.request.assert_called_with(
             'post',
-            '/v1/customers/cus_update_card/cards/ca_update_card',
+            '/v1/customers/cus_update_card/sources/ca_update_card',
             {
                 'name': 'The Best',
             },
@@ -1047,7 +1087,7 @@ class CustomerTest(StripeResourceTest):
 
         self.requestor_mock.request.assert_called_with(
             'delete',
-            '/v1/customers/cus_delete_card/cards/ca_delete_card',
+            '/v1/customers/cus_delete_card/sources/ca_delete_card',
             {},
             None
         )
@@ -1062,6 +1102,20 @@ class CustomerTest(StripeResourceTest):
         self.requestor_mock.request.assert_called_with(
             'delete',
             '/v1/customers/cus_delete_source/sources/btcrcv_delete_source',
+            {},
+            None
+        )
+
+    def test_customer_delete_bank_account(self):
+        source = stripe.BankAccount.construct_from({
+            'customer': 'cus_delete_source',
+            'id': 'ba_delete_source',
+        }, 'api_key')
+        source.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/customers/cus_delete_source/sources/ba_delete_source',
             {},
             None
         )
@@ -1171,16 +1225,16 @@ class RecipientTest(StripeResourceTest):
     def test_recipient_add_card(self):
         recipient = stripe.Recipient.construct_from({
             'id': 'rp_add_card',
-            'cards': {
+            'sources': {
                 'object': 'list',
-                'url': '/v1/recipients/rp_add_card/cards',
+                'url': '/v1/recipients/rp_add_card/sources',
             },
         }, 'api_key')
-        recipient.cards.create(card=DUMMY_CARD)
+        recipient.sources.create(card=DUMMY_CARD)
 
         self.requestor_mock.request.assert_called_with(
             'post',
-            '/v1/recipients/rp_add_card/cards',
+            '/v1/recipients/rp_add_card/sources',
             {
                 'card': DUMMY_CARD,
             },
@@ -1504,7 +1558,7 @@ class FileUploadTest(StripeResourceTest):
         stripe.FileUpload.create(
             purpose='dispute_evidence',
             file=test_file
-            )
+        )
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/files',
