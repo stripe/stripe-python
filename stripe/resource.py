@@ -469,8 +469,18 @@ class BankAccount(UpdateableAPIResource, DeletableAPIResource):
 
     def verify(self, idempotency_key=None, **params):
         headers = populate_headers(idempotency_key)
-        url = "%s/bank_account/%s/verify" % (base, urllib.quote_plus(self.id))
-        self.refresh_from(self.request('post', url, params, headers))
+        extn = urllib.quote_plus(util.utf8(self.id))
+        if (hasattr(self, 'customer')):
+            customer = util.utf8(self.customer)
+            base = Customer.class_url()
+            owner_extn = urllib.quote_plus(customer)
+            class_base = "bank_accounts"
+            url = "%s/%s/%s/%s/verify" % (base, owner_extn, class_base, extn)
+            self.refresh_from(self.request('post', url, params, headers))
+        else:
+            raise NotImplementedError(
+                "Can't verify bank account not attached to customer")
+
         return self
 
     @classmethod
