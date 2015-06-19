@@ -451,7 +451,7 @@ class BankAccount(UpdateableAPIResource, DeletableAPIResource):
 
             base = Customer.class_url()
             owner_extn = urllib.quote_plus(customer)
-            class_base = "bank_accounts"
+            class_base = "sources"
 
         elif (hasattr(self, 'account')):
             account = util.utf8(self.account)
@@ -469,7 +469,7 @@ class BankAccount(UpdateableAPIResource, DeletableAPIResource):
 
     def verify(self, idempotency_key=None, **params):
         headers = populate_headers(idempotency_key)
-        url = self.instance_url() + '/verify'
+        url = "%s/bank_account/%s/verify" % (base, urllib.quote_plus(self.id))
         self.refresh_from(self.request('post', url, params, headers))
         return self
 
