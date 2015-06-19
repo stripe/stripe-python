@@ -491,7 +491,8 @@ class BankAccount(UpdateableAPIResource, DeletableAPIResource):
             "account.external_accounts.retrieve('bank_account_id') instead.")
 
 
-class Payment(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+class Payment(CreateableAPIResource, ListableAPIResource,
+              UpdateableAPIResource):
     pass
 
 
