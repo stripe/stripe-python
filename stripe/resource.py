@@ -451,7 +451,7 @@ class BankAccount(UpdateableAPIResource, DeletableAPIResource):
 
             base = Customer.class_url()
             owner_extn = urllib.quote_plus(customer)
-            class_base = "sources"
+            class_base = "bank_accounts"
 
         elif (hasattr(self, 'account')):
             account = util.utf8(self.account)
