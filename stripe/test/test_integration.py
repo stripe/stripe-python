@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import os
 import sys
-import unittest
+import unittest2
 import stripe
 
 from mock import patch
@@ -65,6 +65,16 @@ class FunctionalTests(StripeTestCase):
         self.assertRaises(stripe.error.CardError, stripe.Charge.create,
                           amount=100, currency='usd', card=EXPIRED_CARD)
 
+    def test_response_headers(self):
+        EXPIRED_CARD = DUMMY_CARD.copy()
+        EXPIRED_CARD['exp_month'] = NOW.month - 2
+        EXPIRED_CARD['exp_year'] = NOW.year - 2
+        try:
+            stripe.Charge.create(amount=100, currency='usd', card=EXPIRED_CARD)
+            self.fail('charge creation with expired card did not fail')
+        except stripe.error.CardError as e:
+            self.assertTrue(e.request_id.startswith('req_'))
+
     def test_unicode(self):
         # Make sure unicode requests can be sent
         self.assertRaises(stripe.error.InvalidRequestError,
@@ -83,27 +93,28 @@ class FunctionalTests(StripeTestCase):
 class RequestsFunctionalTests(FunctionalTests):
     request_client = stripe.http_client.RequestsClient
 
-# Avoid skipTest errors in < 2.7
-if sys.version_info >= (2, 7):
-    class UrlfetchFunctionalTests(FunctionalTests):
-        request_client = 'urlfetch'
 
-        def setUp(self):
-            if stripe.http_client.urlfetch is None:
-                self.skipTest(
-                    '`urlfetch` from Google App Engine is unavailable.')
-            else:
-                super(UrlfetchFunctionalTests, self).setUp()
+class UrlfetchFunctionalTests(FunctionalTests):
+    request_client = 'urlfetch'
 
-if not os.environ.get('SKIP_PYCURL_TESTS'):
-    class PycurlFunctionalTests(FunctionalTests):
-        def setUp(self):
-            if sys.version_info >= (3, 0):
-                self.skipTest('Pycurl is not supported in Python 3')
-            else:
-                super(PycurlFunctionalTests, self).setUp()
+    def setUp(self):
+        if stripe.http_client.urlfetch is None:
+            self.skipTest(
+                '`urlfetch` from Google App Engine is unavailable.')
+        else:
+            super(UrlfetchFunctionalTests, self).setUp()
 
-        request_client = stripe.http_client.PycurlClient
+
+class PycurlFunctionalTests(FunctionalTests):
+    def setUp(self):
+        if not os.environ.get('SKIP_PYCURL_TESTS'):
+            self.skipTest('Pycurl skipped as SKIP_PYCURL_TESTS is set')
+        if sys.version_info >= (3, 0):
+            self.skipTest('Pycurl is not supported in Python 3')
+        else:
+            super(PycurlFunctionalTests, self).setUp()
+
+    request_client = stripe.http_client.PycurlClient
 
 
 class AuthenticationErrorTest(StripeTestCase):
@@ -117,6 +128,7 @@ class AuthenticationErrorTest(StripeTestCase):
             self.assertEqual(401, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
+            self.assertTrue(e.request_id.startswith('req_'))
         finally:
             stripe.api_key = key
 
@@ -133,6 +145,7 @@ class CardErrorTest(StripeTestCase):
             self.assertEqual(402, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
+            self.assertTrue(e.request_id.startswith('req_'))
 
 
 class InvalidRequestErrorTest(StripeTestCase):
@@ -144,6 +157,7 @@ class InvalidRequestErrorTest(StripeTestCase):
             self.assertEqual(404, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
+            self.assertTrue(e.request_id.startswith('req_'))
 
     def test_invalid_data(self):
         try:
@@ -152,7 +166,8 @@ class InvalidRequestErrorTest(StripeTestCase):
             self.assertEqual(400, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
+            self.assertTrue(e.request_id.startswith('req_'))
 
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest2.main()

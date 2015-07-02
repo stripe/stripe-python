@@ -11,7 +11,7 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install libcurl4-gnutls-dev librtmp-dev
 install:
-  - pip install pycurl flake8 --use-mirrors
+  - pip install unittest2 pycurl flake8 --use-mirrors
   - python setup.py install
 script:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then flake8 stripe; fi

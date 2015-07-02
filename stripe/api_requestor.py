@@ -136,12 +136,12 @@ class APIRequestor(object):
         return _build_api_url(url, cls.encode(params))
 
     def request(self, method, url, params=None, headers=None):
-        rbody, rcode, my_api_key = self.request_raw(
+        rbody, rcode, rheaders, my_api_key = self.request_raw(
             method.lower(), url, params, headers)
-        resp = self.interpret_response(rbody, rcode)
+        resp = self.interpret_response(rbody, rcode, rheaders)
         return resp, my_api_key
 
-    def handle_api_error(self, rbody, rcode, resp):
+    def handle_api_error(self, rbody, rcode, resp, rheaders):
         try:
             err = resp['error']
         except (KeyError, TypeError):
@@ -152,15 +152,19 @@ class APIRequestor(object):
 
         if rcode in [400, 404]:
             raise error.InvalidRequestError(
-                err.get('message'), err.get('param'), rbody, rcode, resp)
+                err.get('message'), err.get('param'),
+                rbody, rcode, resp, rheaders)
         elif rcode == 401:
             raise error.AuthenticationError(
-                err.get('message'), rbody, rcode, resp)
+                err.get('message'), rbody, rcode, resp,
+                rheaders)
         elif rcode == 402:
             raise error.CardError(err.get('message'), err.get('param'),
-                                  err.get('code'), rbody, rcode, resp)
+                                  err.get('code'), rbody, rcode, resp,
+                                  rheaders)
         else:
-            raise error.APIError(err.get('message'), rbody, rcode, resp)
+            raise error.APIError(err.get('message'), rbody, rcode, resp,
+                                 rheaders)
 
     def request_raw(self, method, url, params=None, supplied_headers=None):
         """
@@ -241,7 +245,7 @@ class APIRequestor(object):
             for key, value in supplied_headers.items():
                 headers[key] = value
 
-        rbody, rcode = self._client.request(
+        rbody, rcode, rheaders = self._client.request(
             method, abs_url, headers, post_data)
 
         util.logger.info('%s %s %d', method.upper(), abs_url, rcode)
@@ -249,9 +253,9 @@ class APIRequestor(object):
             'API request to %s returned (response code, response body) of '
             '(%d, %r)',
             abs_url, rcode, rbody)
-        return rbody, rcode, my_api_key
+        return rbody, rcode, rheaders, my_api_key
 
-    def interpret_response(self, rbody, rcode):
+    def interpret_response(self, rbody, rcode, rheaders):
         try:
             if hasattr(rbody, 'decode'):
                 rbody = rbody.decode('utf-8')
@@ -260,9 +264,9 @@ class APIRequestor(object):
             raise error.APIError(
                 "Invalid response body from API: %s "
                 "(HTTP response code was %d)" % (rbody, rcode),
-                rbody, rcode)
+                rbody, rcode, rheaders)
         if not (200 <= rcode < 300):
-            self.handle_api_error(rbody, rcode, resp)
+            self.handle_api_error(rbody, rcode, resp, rheaders)
         return resp
 
     # Deprecated request handling.  Will all be removed in 2.0

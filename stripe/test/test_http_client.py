@@ -1,5 +1,5 @@
 import sys
-import unittest
+import unittest2
 
 from mock import Mock, patch
 
@@ -87,7 +87,7 @@ class ClientTestBase():
 
             headers = {'my-header': 'header val'}
 
-            body, code = self.make_request(
+            body, code, _ = self.make_request(
                 meth, abs_url, headers, data)
 
             self.assertEqual(200, code)
@@ -163,6 +163,7 @@ class Urllib2ClientTests(StripeUnitTestCase, ClientTestBase):
         response = Mock
         response.read = Mock(return_value=body)
         response.code = code
+        response.info = Mock(return_value={})
 
         self.request_object = Mock()
         mock.Request = Mock(return_value=self.request_object)
@@ -260,4 +261,4 @@ class APIEncodeTest(StripeUnitTestCase):
         self.assertTrue(('foo[][name]', 'bat') in values)
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest2.main()

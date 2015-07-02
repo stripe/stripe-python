@@ -1,5 +1,5 @@
 import datetime
-import unittest
+import unittest2
 import urlparse
 
 from mock import Mock
@@ -137,12 +137,13 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         self.requestor = stripe.api_requestor.APIRequestor(
             client=self.http_client)
 
-    def mock_response(self, return_body, return_code, requestor=None):
+    def mock_response(self, return_body, return_code, requestor=None,
+                      headers=None):
         if not requestor:
             requestor = self.requestor
 
         self.http_client.request = Mock(
-            return_value=(return_body, return_code))
+            return_value=(return_body, return_code, headers or {}))
 
     def check_call(self, meth, abs_url=None, headers=None,
                    post_data=None, requestor=None):
@@ -370,4 +371,4 @@ class APIRequestorRequestTests(StripeUnitTestCase):
                           'foo', 'bar')
 
 if __name__ == '__main__':
-    unittest.main()
+    unittest2.main()
