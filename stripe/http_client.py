@@ -2,6 +2,7 @@ import os
 import sys
 import textwrap
 import warnings
+import email
 
 from stripe import error, util
 
@@ -118,7 +119,7 @@ class RequestsClient(HTTPClient):
             # Would catch just requests.exceptions.RequestException, but can
             # also raise ValueError, RuntimeError, etc.
             self._handle_request_error(e)
-        return content, status_code
+        return content, status_code, result.headers
 
     def _handle_request_error(self, e):
         if isinstance(e, requests.exceptions.RequestException):
@@ -161,7 +162,7 @@ class UrlFetchClient(HTTPClient):
         except urlfetch.Error, e:
             self._handle_request_error(e, url)
 
-        return result.content, result.status_code
+        return result.content, result.status_code, result.headers
 
     def _handle_request_error(self, e, url):
         if isinstance(e, urlfetch.InvalidURLError):
@@ -186,8 +187,16 @@ class UrlFetchClient(HTTPClient):
 class PycurlClient(HTTPClient):
     name = 'pycurl'
 
+    def parse_headers(self, data):
+        if '\r\n' not in data:
+            return {}
+        raw_headers = data.split('\r\n', 1)[1]
+        headers = email.message_from_string(raw_headers)
+        return dict((k.lower(), v) for k, v in dict(headers).iteritems())
+
     def request(self, method, url, headers, post_data=None):
         s = util.StringIO.StringIO()
+        rheaders = util.StringIO.StringIO()
         curl = pycurl.Curl()
 
         if method == 'get':
@@ -202,6 +211,7 @@ class PycurlClient(HTTPClient):
         curl.setopt(pycurl.URL, util.utf8(url))
 
         curl.setopt(pycurl.WRITEFUNCTION, s.write)
+        curl.setopt(pycurl.HEADERFUNCTION, rheaders.write)
         curl.setopt(pycurl.NOSIGNAL, 1)
         curl.setopt(pycurl.CONNECTTIMEOUT, 30)
         curl.setopt(pycurl.TIMEOUT, 80)
@@ -219,7 +229,8 @@ class PycurlClient(HTTPClient):
             self._handle_request_error(e)
         rbody = s.getvalue()
         rcode = curl.getinfo(pycurl.RESPONSE_CODE)
-        return rbody, rcode
+
+        return rbody, rcode, self.parse_headers(rheaders.getvalue())
 
     def _handle_request_error(self, e):
         if e[0] in [pycurl.E_COULDNT_CONNECT,
@@ -263,12 +274,15 @@ class Urllib2Client(HTTPClient):
             response = urllib2.urlopen(req)
             rbody = response.read()
             rcode = response.code
+            headers = dict(response.info())
         except urllib2.HTTPError, e:
             rcode = e.code
             rbody = e.read()
+            headers = dict(e.info())
         except (urllib2.URLError, ValueError), e:
             self._handle_request_error(e)
-        return rbody, rcode
+        lh = dict((k.lower(), v) for k, v in dict(headers).iteritems())
+        return rbody, rcode, lh
 
     def _handle_request_error(self, e):
         msg = ("Unexpected error communicating with Stripe. "

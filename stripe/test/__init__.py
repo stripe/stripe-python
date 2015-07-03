@@ -1,5 +1,5 @@
 import pkgutil
-import unittest
+import unittest2
 
 
 def all_names():
@@ -9,9 +9,9 @@ def all_names():
 
 
 def all():
-    return unittest.defaultTestLoader.loadTestsFromNames(all_names())
+    return unittest2.defaultTestLoader.loadTestsFromNames(all_names())
 
 
 def unit():
     unit_names = [name for name in all_names() if 'integration' not in name]
-    return unittest.defaultTestLoader.loadTestsFromNames(unit_names)
+    return unittest2.defaultTestLoader.loadTestsFromNames(unit_names)
