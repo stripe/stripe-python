@@ -16,7 +16,7 @@ verify_ssl_certs = True
 # Resource
 from stripe.resource import (  # noqa
     Account, Balance, BalanceTransaction, BankAccount, Card,
-    Charge, Customer, Invoice, InvoiceItem, Plan, Token, Coupon,
+    Charge, Customer, Invoice, InvoiceItem, Payment, Plan, Token, Coupon,
     Event, Transfer, Recipient, FileUpload,
     ApplicationFee, Subscription, BitcoinReceiver, BitcoinTransaction)
 

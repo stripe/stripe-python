@@ -17,7 +17,9 @@ def convert_to_stripe_object(resp, api_key, account):
              'fee_refund': ApplicationFeeRefund,
              'bitcoin_receiver': BitcoinReceiver,
              'bitcoin_transaction': BitcoinTransaction,
-             'transfer_reversal': Reversal}
+             'transfer_reversal': Reversal,
+             'payment': Payment,
+             'bank_account': BankAccount}
 
     if isinstance(resp, list):
         return [convert_to_stripe_object(i, api_key, account) for i in resp]
@@ -465,12 +467,33 @@ class BankAccount(UpdateableAPIResource, DeletableAPIResource):
 
         return "%s/%s/%s/%s" % (base, owner_extn, class_base, extn)
 
+    def verify(self, idempotency_key=None, **params):
+        headers = populate_headers(idempotency_key)
+        extn = urllib.quote_plus(util.utf8(self.id))
+        if (hasattr(self, 'customer')):
+            customer = util.utf8(self.customer)
+            base = Customer.class_url()
+            owner_extn = urllib.quote_plus(customer)
+            class_base = "bank_accounts"
+            url = "%s/%s/%s/%s/verify" % (base, owner_extn, class_base, extn)
+            self.refresh_from(self.request('post', url, params, headers))
+        else:
+            raise NotImplementedError(
+                "Can't verify bank account not attached to customer")
+
+        return self
+
     @classmethod
     def retrieve(cls, id, api_key=None, stripe_account=None, **params):
         raise NotImplementedError(
             "Can't retrieve a bank account without a customer or account ID. "
             "Use customer.sources.retrieve('bank_account_id') or "
             "account.external_accounts.retrieve('bank_account_id') instead.")
+
+
+class Payment(CreateableAPIResource, ListableAPIResource,
+              UpdateableAPIResource):
+    pass
 
 
 class Charge(CreateableAPIResource, ListableAPIResource,
