@@ -465,6 +465,12 @@ class BankAccount(UpdateableAPIResource, DeletableAPIResource):
 
         return "%s/%s/%s/%s" % (base, owner_extn, class_base, extn)
 
+    def verify(self, idempotency_key=None, **params):
+        url = self.instance_url() + '/verify'
+        headers = populate_headers(idempotency_key)
+        self.refresh_from(self.request('post', url, params, headers))
+        return self
+
     @classmethod
     def retrieve(cls, id, api_key=None, stripe_account=None, **params):
         raise NotImplementedError(
