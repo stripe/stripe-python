@@ -18,7 +18,8 @@ from stripe.resource import (  # noqa
     Account, Balance, BalanceTransaction, BankAccount, Card,
     Charge, Customer, Invoice, InvoiceItem, Plan, Token, Coupon,
     Event, Transfer, Recipient, FileUpload,
-    ApplicationFee, Subscription, BitcoinReceiver, BitcoinTransaction)
+    ApplicationFee, Subscription, BitcoinReceiver, BitcoinTransaction,
+    Dispute)
 
 # Error imports.  Note that we may want to move these out of the root
 # namespace in the future and you should prefer to access them via

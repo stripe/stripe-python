@@ -17,7 +17,7 @@ def convert_to_stripe_object(resp, api_key, account):
              'fee_refund': ApplicationFeeRefund,
              'bitcoin_receiver': BitcoinReceiver,
              'bitcoin_transaction': BitcoinTransaction,
-             'transfer_reversal': Reversal}
+             'transfer_reversal': Reversal, 'dispute': Dispute}
 
     if isinstance(resp, list):
         return [convert_to_stripe_object(i, api_key, account) for i in resp]
@@ -522,6 +522,15 @@ class Charge(CreateableAPIResource, ListableAPIResource,
         url = self.instance_url()
         headers = populate_headers(idempotency_key)
         self.refresh_from(self.request('post', url, params, headers))
+        return self
+
+
+class Dispute(CreateableAPIResource, ListableAPIResource,
+              UpdateableAPIResource):
+    def close(self, idempotency_key=None):
+        url = self.instance_url() + '/close'
+        headers = populate_headers(idempotency_key)
+        self.refresh_from(self.request('post', url, {}, headers))
         return self
 
 
