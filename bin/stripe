@@ -159,14 +159,6 @@ class CustomerClient(CreateableAPIResourceClient, UpdateableAPIResourceClient,
     url = self.instance_url() + '/subscription'
     self.logged_curl('delete', url, params)
 
-class DisputeClient(CreateableAPIResourceClient, ListableAPIResourceClient,
-                    UpdateableAPIResourceClient):
-  client_for = stripe.Dispute
-
-  def close(self):
-    url = self.instance_url() + '/close'
-    self.logged_curl('post', url, {}})
-
 class InvoiceClient(CreateableAPIResourceClient, ListableAPIResourceClient, UpdateableAPIResourceClient):
   client_for = stripe.Invoice
 
@@ -212,8 +204,6 @@ def main():
         'charges' : ChargeClient,
         'customer' : CustomerClient,
         'customers' : CustomerClient,
-        'dispute' : Dispute,
-        'disputes' : Dispute,
         'invoice' : InvoiceClient,
         'invoices' : InvoiceClient,
         'invoiceitem' : InvoiceItemClient,
@@ -259,13 +249,6 @@ customer
   charges
   update_subscription
   cancel_subscription
-
-dispute
-  all
-  close
-  create
-  retrieve
-  update
 
 invoice
   all
