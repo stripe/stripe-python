@@ -6,18 +6,31 @@ from stripe import api_requestor, error, util, upload_api_base
 
 
 def convert_to_stripe_object(resp, api_key, account):
-    types = {'account': Account, 'charge': Charge, 'customer': Customer,
-             'invoice': Invoice, 'invoiceitem': InvoiceItem,
-             'plan': Plan, 'coupon': Coupon, 'token': Token, 'event': Event,
-             'transfer': Transfer, 'list': ListObject, 'recipient': Recipient,
-             'bank_account': BankAccount,
-             'card': Card, 'application_fee': ApplicationFee,
-             'subscription': Subscription, 'refund': Refund,
-             'file_upload': FileUpload,
-             'fee_refund': ApplicationFeeRefund,
-             'bitcoin_receiver': BitcoinReceiver,
-             'bitcoin_transaction': BitcoinTransaction,
-             'transfer_reversal': Reversal, 'dispute': Dispute}
+    types = {
+        'account': Account,
+        'application_fee': ApplicationFee,
+        'bank_account': BankAccount,
+        'bitcoin_receiver': BitcoinReceiver,
+        'bitcoin_transaction': BitcoinTransaction,
+        'card': Card,
+        'charge': Charge,
+        'coupon': Coupon,
+        'customer': Customer,
+        'dispute': Dispute,
+        'event': Event,
+        'fee_refund': ApplicationFeeRefund,
+        'file_upload': FileUpload,
+        'invoice': Invoice,
+        'invoiceitem': InvoiceItem,
+        'list': ListObject,
+        'plan': Plan,
+        'recipient': Recipient,
+        'refund': Refund,
+        'subscription': Subscription,
+        'token': Token,
+        'transfer': Transfer,
+        'transfer_reversal': Reversal,
+    }
 
     if isinstance(resp, list):
         return [convert_to_stripe_object(i, api_key, account) for i in resp]
@@ -527,6 +540,7 @@ class Charge(CreateableAPIResource, ListableAPIResource,
 
 class Dispute(CreateableAPIResource, ListableAPIResource,
               UpdateableAPIResource):
+
     def close(self, idempotency_key=None):
         url = self.instance_url() + '/close'
         headers = populate_headers(idempotency_key)

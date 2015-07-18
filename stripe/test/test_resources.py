@@ -859,15 +859,21 @@ class DisputeTest(StripeResourceTest):
     def test_update_dispute(self):
         dispute = stripe.Dispute.construct_from({
             'id': 'dp_update_id',
-            'metadata': {'extra_info': 'foo'},
+            'evidence': {
+                'product_description': 'description',
+            },
         }, 'api_key')
-        dispute.metadata['extra_info'] = 'foo'
+        dispute.evidence['customer_name'] = 'customer'
+        dispute.evidence['uncategorized_text'] = 'text'
         dispute.save()
 
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/disputes/dp_update_id',
-            {'metadata': {'extra_info': 'foo'}},
+            {'evidence': {
+                'customer_name': 'customer',
+                'uncategorized_text': 'text',
+            }},
             None
         )
 
