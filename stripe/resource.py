@@ -550,6 +550,11 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
         return charges
 
     def update_subscription(self, idempotency_key=None, **params):
+        warnings.warn(
+            'The `update_subscription` method is deprecated. Instead, use the '
+            '`subscriptions` resource on the customer object to update a '
+            'subscription',
+            DeprecationWarning)
         requestor = api_requestor.APIRequestor(self.api_key,
                                                account=self.stripe_account)
         url = self.instance_url() + '/subscription'
@@ -559,6 +564,11 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
         return self.subscription
 
     def cancel_subscription(self, idempotency_key=None, **params):
+        warnings.warn(
+            'The `cancel_subscription` method is deprecated. Instead, use the '
+            '`subscriptions` resource on the customer object to cancel a '
+            'subscription',
+            DeprecationWarning)
         requestor = api_requestor.APIRequestor(self.api_key,
                                                account=self.stripe_account)
         url = self.instance_url() + '/subscription'
