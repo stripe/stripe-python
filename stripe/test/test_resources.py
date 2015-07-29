@@ -1295,7 +1295,7 @@ class CustomerPlanTest(StripeResourceTest):
 
         self.requestor_mock.request.assert_called_with(
             'post',
-            '/v1/customers/cus_legacy_sub_update/subscription',
+            '/v1/customers/cus_legacy_sub_update/subscriptions',
             {
                 'plan': DUMMY_PLAN['id'],
             },
@@ -1308,7 +1308,7 @@ class CustomerPlanTest(StripeResourceTest):
 
         self.requestor_mock.request.assert_called_with(
             'delete',
-            '/v1/customers/cus_legacy_sub_delete/subscription',
+            '/v1/customers/cus_legacy_sub_delete/subscriptions',
             {},
             None
         )

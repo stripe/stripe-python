@@ -557,7 +557,7 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
             DeprecationWarning)
         requestor = api_requestor.APIRequestor(self.api_key,
                                                account=self.stripe_account)
-        url = self.instance_url() + '/subscription'
+        url = self.instance_url() + '/subscriptions'
         headers = populate_headers(idempotency_key)
         response, api_key = requestor.request('post', url, params, headers)
         self.refresh_from({'subscription': response}, api_key, True)
@@ -571,7 +571,7 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
             DeprecationWarning)
         requestor = api_requestor.APIRequestor(self.api_key,
                                                account=self.stripe_account)
-        url = self.instance_url() + '/subscription'
+        url = self.instance_url() + '/subscriptions'
         headers = populate_headers(idempotency_key)
         response, api_key = requestor.request('delete', url, params, headers)
         self.refresh_from({'subscription': response}, api_key, True)
