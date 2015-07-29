@@ -368,7 +368,7 @@ class DeletableAPIResource(APIResource):
 
 # API objects
 class Account(CreateableAPIResource, ListableAPIResource,
-              UpdateableAPIResource):
+              UpdateableAPIResource, DeletableAPIResource):
     @classmethod
     def retrieve(cls, id=None, api_key=None, **params):
         instance = cls(id, api_key, **params)
