@@ -1,6 +1,11 @@
+=== 1.24.0 2015-08-03
+
+* Managed accounts can now be deleted
+* Added dispute listing and retrieval
+
 === 1.23.0 2015-07-06
 
-* Include response headers in exceptions.
+* Include response headers in exceptions
 
 === 1.22.3 2015-06-04
 
