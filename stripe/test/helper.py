@@ -28,6 +28,12 @@ DUMMY_CHARGE = {
     'card': DUMMY_CARD
 }
 
+DUMMY_DISPUTE = {
+    'status': 'needs_response',
+    'currency': 'usd',
+    'metadata': {}
+}
+
 DUMMY_PLAN = {
     'amount': 2000,
     'interval': 'month',
