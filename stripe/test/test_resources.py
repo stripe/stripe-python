@@ -1656,6 +1656,58 @@ class FileUploadTest(StripeResourceTest):
 class RefundTest(StripeResourceTest):
 
     def test_create_refund(self):
+        stripe.Refund.create(charge='ch_foo')
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/refunds',
+            {'charge': 'ch_foo'},
+            None
+        )
+
+    def test_fetch_refund(self):
+        stripe.Refund.retrieve('re_foo')
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/refunds/re_foo',
+            {},
+            None
+        )
+
+    def test_list_refunds(self):
+        stripe.Refund.all(limit=3, charge='ch_foo')
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/refunds',
+            {'limit': 3, 'charge': 'ch_foo'}
+        )
+
+    def test_update_refund(self):
+        refund = stripe.resource.Refund.construct_from({
+            'id': "ref_update",
+            'charge': "ch_update",
+            'metadata': {},
+        }, 'api_key')
+        refund.metadata["key"] = "value"
+        refund.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/refunds/ref_update',
+            {
+                'metadata': {
+                    'key': 'value',
+                }
+            },
+            None
+        )
+
+
+class ChargeRefundTest(StripeResourceTest):
+
+    def test_create_refund(self):
         charge = stripe.Charge.construct_from({
             'id': 'ch_foo',
             'refunds': {
@@ -1743,7 +1795,7 @@ class RefundTest(StripeResourceTest):
 
         self.requestor_mock.request.assert_called_with(
             'post',
-            '/v1/charges/ch_update/refunds/ref_update',
+            '/v1/refunds/ref_update',
             {
                 'metadata': {
                     'key': 'value',
