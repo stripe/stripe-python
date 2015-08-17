@@ -33,6 +33,7 @@ from stripe.resource import (  # noqa
     InvoiceItem,
     Plan,
     Recipient,
+    Refund,
     Subscription,
     Token,
     Transfer)
