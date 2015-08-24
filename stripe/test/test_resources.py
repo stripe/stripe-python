@@ -164,10 +164,10 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual('lalala', newobj.fala)
 
 
-class ListObjectTests(StripeApiTestCase):
+class ListableObjectTests(StripeApiTestCase):
 
     def setUp(self):
-        super(ListObjectTests, self).setUp()
+        super(ListableObjectTests, self).setUp()
 
         self.lo = stripe.resource.ListObject.construct_from({
             'id': 'me',
@@ -206,6 +206,60 @@ class ListObjectTests(StripeApiTestCase):
             'get', '/my/path/myid', {'myparam': 'cow'}, None)
 
         self.assertResponse(res)
+
+
+class ListObjectTests(StripeApiTestCase):
+
+    def setUp(self):
+        super(ListObjectTests, self).setUp()
+
+        self.lo = stripe.resource.ListObject.construct_from({
+            'id': 'me',
+            'url': '/my/path',
+        }, 'mykey')
+
+        self.mock_response({
+            'object': 'list',
+            'data': [{
+                'object': 'charge',
+                'foo': 'bar',
+            }, {
+                'object': 'charge',
+                'foo': 'baz',
+            }],
+            'has_more': False,
+        })
+
+    def test_list_hydrate(self):
+        res = self.lo.all(myparam='you')
+
+        self.requestor_mock.request.assert_called_with(
+            'get', '/my/path', {'myparam': 'you'}, None)
+
+        self.assertIsInstance(res, stripe.ListObject)
+        self.assertEqual(len(res.data), 2)
+        self.assertIsInstance(res.data[0], stripe.Charge)
+        self.assertEqual('bar', res.data[0].foo)
+
+    def test_iter(self):
+        """
+        Iterating a ListObject loops the items in its data list.
+
+        >>> for charge in stripe.Charge.all():
+        >>>     my_func(charge)
+        """
+        res = self.lo.all()
+        expected = [
+            stripe.resource.Charge.construct_from({
+                'object': 'charge',
+                'foo': 'bar',
+            }, 'mykey'),
+            stripe.resource.Charge.construct_from({
+                'object': 'charge',
+                'foo': 'baz',
+            }, 'mykey'),
+        ]
+        self.assertItemsEqual(res, expected)
 
 
 class APIResourceTests(StripeApiTestCase):
