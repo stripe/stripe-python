@@ -31,9 +31,12 @@ from stripe.resource import (  # noqa
     FileUpload,
     Invoice,
     InvoiceItem,
+    Order,
     Plan,
+    Product,
     Recipient,
     Refund,
+    SKU,
     Subscription,
     Token,
     Transfer)

@@ -30,6 +30,9 @@ def convert_to_stripe_object(resp, api_key, account):
         'token': Token,
         'transfer': Transfer,
         'transfer_reversal': Reversal,
+        'product': Product,
+        'sku': SKU,
+        'order': Order
     }
 
     if isinstance(resp, list):
@@ -786,3 +789,17 @@ class BitcoinReceiver(CreateableAPIResource, UpdateableAPIResource,
 
 class BitcoinTransaction(StripeObject):
     pass
+
+class Product(CreateableAPIResource, UpdateableAPIResource,
+              ListableAPIResource):
+    pass
+
+class SKU(CreateableAPIResource, UpdateableAPIResource,
+          ListableAPIResource):
+    pass
+
+class Order(CreateableAPIResource, UpdateableAPIResource,
+            ListableAPIResource):
+    def pay(self, idempotency_key=None):
+        headers = populate_headers(idempotency_key)
+        return self.request('post', self.instance_url() + '/pay', {}, headers)
