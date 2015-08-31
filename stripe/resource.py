@@ -800,6 +800,6 @@ class SKU(CreateableAPIResource, UpdateableAPIResource,
 
 class Order(CreateableAPIResource, UpdateableAPIResource,
             ListableAPIResource):
-    def pay(self, idempotency_key=None):
+    def pay(self, idempotency_key=None, **params):
         headers = populate_headers(idempotency_key)
-        return self.request('post', self.instance_url() + '/pay', {}, headers)
+        return self.request('post', self.instance_url() + '/pay', params, headers)
