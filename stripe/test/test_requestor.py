@@ -351,6 +351,13 @@ class APIRequestorRequestTests(StripeUnitTestCase):
                           self.requestor.request,
                           'get', self.valid_path, {})
 
+    def test_rate_limit_error(self):
+        self.mock_response('{"error": {}}', 429)
+
+        self.assertRaises(stripe.error.RateLimitError,
+                          self.requestor.request,
+                          'get', self.valid_path, {})
+
     def test_server_error(self):
         self.mock_response('{"error": {}}', 500)
 

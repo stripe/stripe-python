@@ -162,6 +162,10 @@ class APIRequestor(object):
             raise error.CardError(err.get('message'), err.get('param'),
                                   err.get('code'), rbody, rcode, resp,
                                   rheaders)
+        elif rcode == 429:
+            raise error.RateLimitError(
+                err.get('message'), rbody, rcode, resp,
+                rheaders)
         else:
             raise error.APIError(err.get('message'), rbody, rcode, resp,
                                  rheaders)
