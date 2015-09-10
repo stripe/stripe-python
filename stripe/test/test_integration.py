@@ -169,18 +169,5 @@ class InvalidRequestErrorTest(StripeTestCase):
             self.assertTrue(e.request_id.startswith('req_'))
 
 
-class RateLimitErrorTest(StripeTestCase):
-
-    def test_rate_limit(self):
-        try:
-            for i in range(100):
-                stripe.Customer.create()
-        except stripe.error.RateLimitError, e:
-            self.assertEqual(429, e.http_status)
-            self.assertTrue(isinstance(e.http_body, basestring))
-            self.assertTrue(isinstance(e.json_body, dict))
-            self.assertTrue(e.request_id.startswith('req_'))
-
-
 if __name__ == '__main__':
     unittest2.main()

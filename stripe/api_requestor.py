@@ -164,8 +164,7 @@ class APIRequestor(object):
                                   rheaders)
         elif rcode == 429:
             raise error.RateLimitError(
-                err.get('message'), rbody, rcode, resp,
-                rheaders)
+                err.get('message'), rbody, rcode, resp, rheaders)
         else:
             raise error.APIError(err.get('message'), rbody, rcode, resp,
                                  rheaders)
