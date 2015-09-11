@@ -1,3 +1,7 @@
+=== 1.26.0 2015-09-11
+
+* Add support for new 429 rate limit response
+
 === 1.25.0 2015-08-17
 
 * Added refund listing, creation and retrieval
