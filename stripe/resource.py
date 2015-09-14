@@ -790,16 +790,20 @@ class BitcoinReceiver(CreateableAPIResource, UpdateableAPIResource,
 class BitcoinTransaction(StripeObject):
     pass
 
+
 class Product(CreateableAPIResource, UpdateableAPIResource,
               ListableAPIResource):
     pass
+
 
 class SKU(CreateableAPIResource, UpdateableAPIResource,
           ListableAPIResource):
     pass
 
+
 class Order(CreateableAPIResource, UpdateableAPIResource,
             ListableAPIResource):
     def pay(self, idempotency_key=None, **params):
         headers = populate_headers(idempotency_key)
-        return self.request('post', self.instance_url() + '/pay', params, headers)
+        return self.request(
+            'post', self.instance_url() + '/pay', params, headers)

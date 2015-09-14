@@ -2031,6 +2031,7 @@ class BitcoinReceiverTest(StripeResourceTest):
             None
         )
 
+
 class ProductTest(StripeResourceTest):
 
     def test_list_products(self):
@@ -2041,6 +2042,7 @@ class ProductTest(StripeResourceTest):
             {}
         )
 
+
 class SKUTest(StripeResourceTest):
 
     def test_list_skus(self):
@@ -2050,6 +2052,7 @@ class SKUTest(StripeResourceTest):
             '/v1/skus',
             {}
         )
+
 
 class OrderTest(StripeResourceTest):
 
