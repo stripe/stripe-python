@@ -1,4 +1,7 @@
 # Exceptions
+import sys
+
+
 class StripeError(Exception):
 
     def __init__(self, message=None, http_body=None, http_status=None,
@@ -25,8 +28,10 @@ class StripeError(Exception):
         else:
             return self._message
 
-    def __str__(self):
-        return unicode(self).encode('utf-8')
+    if sys.version_info > (3, 0):
+        __str__ = lambda self: self.__unicode__()
+    else:
+        __str__ = lambda self: unicode(self).encode('utf-8')
 
 
 class APIError(StripeError):

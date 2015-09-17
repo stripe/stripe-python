@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import sys
+
 import unittest2
 
 from stripe import StripeError
@@ -7,21 +9,21 @@ from stripe.test.helper import StripeUnitTestCase
 
 class StripeErrorTests(StripeUnitTestCase):
 
-    def test_bytestring(self):
-        err = StripeError('error')
-        assert str(err) == 'error'
-
-    def test_bytestring_with_request_id(self):
-        err = StripeError('error', headers={'request-id': '123'})
-        assert str(err) == 'Request 123: error'
-
-    def test_unicode(self):
+    def test_formatting(self):
         err = StripeError(u'öre')
-        assert unicode(err) == u'öre'
+        if sys.version_info > (3, 0):
+            assert str(err) == u'öre'
+        else:
+            assert str(err) == '\xc3\xb6re'
+            assert unicode(err) == u'öre'
 
-    def test_unicode_with_request_id(self):
+    def test_formatting_with_request_id(self):
         err = StripeError(u'öre', headers={'request-id': '123'})
-        assert unicode(err) == u'Request 123: öre'
+        if sys.version_info > (3, 0):
+            assert str(err) == u'Request 123: öre'
+        else:
+            assert str(err) == 'Request 123: \xc3\xb6re'
+            assert unicode(err) == u'Request 123: öre'
 
 
 if __name__ == '__main__':
