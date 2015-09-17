@@ -12,18 +12,21 @@ class StripeError(Exception):
                 http_body = ('<Could not decode body as utf-8. '
                              'Please report to support@stripe.com>')
 
+        self._message = message
         self.http_body = http_body
         self.http_status = http_status
         self.json_body = json_body
         self.headers = headers or {}
         self.request_id = self.headers.get('request-id', None)
 
-    def __str__(self):
-        msg = super(StripeError, self).__str__()
+    def __unicode__(self):
         if self.request_id is not None:
-            return "Request {0}: {1}".format(self.request_id, msg)
+            return u"Request {0}: {1}".format(self.request_id, self._message)
         else:
-            return msg
+            return self._message
+
+    def __str__(self):
+        return unicode(self).encode('utf-8')
 
 
 class APIError(StripeError):
