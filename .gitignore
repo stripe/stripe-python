@@ -1,7 +1,9 @@
+/.eggs
 /build
 /dist
 /MANIFEST
 /stripe.egg-info
+.python-version
 *.pyc
 *.egg
 *.class
@@ -12,3 +14,4 @@
 .cache
 nosetests.xml
 coverage.xml
+htmlcov/

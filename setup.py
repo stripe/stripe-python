@@ -57,6 +57,7 @@ setup(
     package_data={'stripe': ['data/ca-certificates.crt', '../VERSION']},
     install_requires=install_requires,
     test_suite='stripe.test.all',
+    tests_require=['unittest2', 'mock == 1.0.1'],
     use_2to3=True,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
@@ -70,6 +71,8 @@ setup(
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.2",
         "Programming Language :: Python :: 3.3",
+        "Programming Language :: Python :: 3.4",
+        "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ])
