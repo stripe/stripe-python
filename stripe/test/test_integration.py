@@ -107,8 +107,8 @@ class UrlfetchFunctionalTests(FunctionalTests):
 
 class PycurlFunctionalTests(FunctionalTests):
     def setUp(self):
-        if not os.environ.get('SKIP_PYCURL_TESTS'):
-            self.skipTest('Pycurl skipped as SKIP_PYCURL_TESTS is set')
+        if not os.environ.get('STRIPE_TEST_PYCURL'):
+            self.skipTest('Pycurl skipped as STRIPE_TEST_PYCURL is not set')
         if sys.version_info >= (3, 0):
             self.skipTest('Pycurl is not supported in Python 3')
         else:
