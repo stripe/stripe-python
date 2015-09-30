@@ -1186,6 +1186,20 @@ class CustomerTest(StripeResourceTest):
             None
         )
 
+    def test_customer_verify_bank_account(self):
+        source = stripe.BankAccount.construct_from({
+            'customer': 'cus_verify_source',
+            'id': 'ba_verify_source',
+        }, 'api_key')
+        source.verify()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_verify_source/sources/ba_verify_source/verify',
+            {},
+            None
+        )
+
 
 class TransferTest(StripeResourceTest):
 
