@@ -455,7 +455,16 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
             "account.external_accounts.retrieve('card_id') instead.")
 
 
-class BankAccount(UpdateableAPIResource, DeletableAPIResource):
+class VerifyMixin(object):
+
+    def verify(self, idempotency_key=None, **params):
+        url = self.instance_url() + '/verify'
+        headers = populate_headers(idempotency_key)
+        self.refresh_from(self.request('post', url, params, headers))
+        return self
+
+
+class BankAccount(UpdateableAPIResource, DeletableAPIResource, VerifyMixin):
 
     def instance_url(self):
         self.id = util.utf8(self.id)
