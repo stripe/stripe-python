@@ -71,10 +71,10 @@ class APIRequestor(object):
         self.api_key = key
         self.stripe_account = account
 
-        from stripe import verify_ssl_certs
+        from stripe import verify_ssl_certs as verify
 
-        self._client = client or http_client.new_default_http_client(
-            verify_ssl_certs=verify_ssl_certs)
+        self._client = client or stripe.default_http_client or \
+            http_client.new_default_http_client(verify_ssl_certs=verify)
 
     @classmethod
     def api_url(cls, url=''):
