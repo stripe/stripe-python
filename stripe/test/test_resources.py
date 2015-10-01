@@ -53,7 +53,6 @@ class StripeObjectTests(StripeUnitTestCase):
 
         # Illegal operations
         self.assertRaises(ValueError, setattr, obj, 'foo', '')
-        self.assertRaises(TypeError, obj.__delitem__, 'myattr')
 
     def test_refresh_from(self):
         obj = stripe.resource.StripeObject.construct_from({
@@ -162,6 +161,18 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual('bar', newobj.api_key)
         self.assertEqual('boo', newobj['object'])
         self.assertEqual('lalala', newobj.fala)
+
+    def test_deletion(self):
+        obj = stripe.resource.StripeObject('id', 'key')
+
+        obj.coupon = "foo"
+        self.assertEqual('foo', obj.coupon)
+
+        del obj.coupon
+        self.assertRaises(AttributeError, getattr, obj, 'coupon')
+
+        obj.refresh_from({'coupon': 'foo'}, api_key='bar', partial=True)
+        self.assertEqual('foo', obj.coupon)
 
 
 class ListObjectTests(StripeApiTestCase):
@@ -1066,6 +1077,22 @@ class CustomerTest(StripeResourceTest):
                 'description': 'Hey',
             },
             {'Idempotency-Key': 'foo'}
+        )
+
+    def test_del_coupon(self):
+        customer = stripe.Customer(id="cus_unset_desc")
+        customer.description = "bar"
+        customer.coupon = "foo"
+        del customer.coupon
+        customer.save()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_unset_desc',
+            {
+                'description': 'bar'
+            },
+            None
         )
 
     def test_cannot_set_empty_string(self):

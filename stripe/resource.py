@@ -117,6 +117,12 @@ class StripeObject(dict):
         except KeyError, err:
             raise AttributeError(*err.args)
 
+    def __delattr__(self, k):
+        if k[0] == '_' or k in self.__dict__:
+            return super(StripeObject, self).__delattr__(k)
+        else:
+            del self[k]
+
     def __setitem__(self, k, v):
         if v == "":
             raise ValueError(
@@ -149,9 +155,11 @@ class StripeObject(dict):
                 raise err
 
     def __delitem__(self, k):
-        raise TypeError(
-            "You cannot delete attributes on a StripeObject. "
-            "To unset a property, set it to None.")
+        super(StripeObject, self).__delitem__(k)
+
+        # Allows for unpickling in Python 3.x
+        if hasattr(self, '_unsaved_values'):
+            self._unsaved_values.remove(k)
 
     @classmethod
     def construct_from(cls, values, key, stripe_account=None):
