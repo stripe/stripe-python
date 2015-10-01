@@ -2,7 +2,7 @@ import datetime
 import unittest2
 import urlparse
 
-from mock import Mock
+from mock import Mock, ANY
 
 import stripe
 
@@ -376,6 +376,30 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         self.assertRaises(stripe.error.APIConnectionError,
                           self.requestor.request,
                           'foo', 'bar')
+
+
+class DefaultClientTests(unittest2.TestCase):
+
+    def setUp(self):
+        stripe.default_http_client = None
+        stripe.api_key = 'foo'
+
+    def test_default_http_client_called(self):
+        hc = Mock(stripe.http_client.HTTPClient)
+        hc._verify_ssl_certs = True
+        hc.name = 'mockclient'
+        hc.request = Mock(return_value=("{}", 200, {}))
+
+        stripe.default_http_client = hc
+        stripe.Charge.all(limit=3)
+
+        hc.request.assert_called_with(
+            'get', 'https://api.stripe.com/v1/charges?limit=3', ANY, None)
+
+    def tearDown(self):
+        stripe.api_key = None
+        stripe.default_http_client = None
+
 
 if __name__ == '__main__':
     unittest2.main()
