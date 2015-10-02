@@ -327,6 +327,22 @@ class ListObject(StripeObject):
 
         return self.request('get', url, params)
 
+    def __iter__(self):
+        page = self
+        params = dict(self._retrieve_params)  # copy so not to mutate originals
+
+        while True:
+            last_id = None
+            for item in page.data:
+                last_id = item.get('id')
+                yield item
+
+            if not page.has_more or not last_id:
+                return
+
+            params['starting_after'] = last_id
+            page = self.all(**params)
+
 
 class SingletonAPIResource(APIResource):
 
