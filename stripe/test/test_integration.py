@@ -106,6 +106,7 @@ class UrlfetchFunctionalTests(FunctionalTests):
 
 
 class PycurlFunctionalTests(FunctionalTests):
+
     def setUp(self):
         if not os.environ.get('STRIPE_TEST_PYCURL'):
             self.skipTest('Pycurl skipped as STRIPE_TEST_PYCURL is not set')
@@ -124,7 +125,7 @@ class AuthenticationErrorTest(StripeTestCase):
         try:
             stripe.api_key = 'invalid'
             stripe.Customer.create()
-        except stripe.error.AuthenticationError, e:
+        except stripe.error.AuthenticationError as e:
             self.assertEqual(401, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
@@ -141,7 +142,7 @@ class CardErrorTest(StripeTestCase):
         EXPIRED_CARD['exp_year'] = NOW.year - 2
         try:
             stripe.Charge.create(amount=100, currency='usd', card=EXPIRED_CARD)
-        except stripe.error.CardError, e:
+        except stripe.error.CardError as e:
             self.assertEqual(402, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
@@ -153,7 +154,7 @@ class InvalidRequestErrorTest(StripeTestCase):
     def test_nonexistent_object(self):
         try:
             stripe.Charge.retrieve('invalid')
-        except stripe.error.InvalidRequestError, e:
+        except stripe.error.InvalidRequestError as e:
             self.assertEqual(404, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
@@ -162,7 +163,7 @@ class InvalidRequestErrorTest(StripeTestCase):
     def test_invalid_data(self):
         try:
             stripe.Charge.create()
-        except stripe.error.InvalidRequestError, e:
+        except stripe.error.InvalidRequestError as e:
             self.assertEqual(400, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
