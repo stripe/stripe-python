@@ -327,6 +327,9 @@ class ListObject(StripeObject):
 
         return self.request('get', url, params)
 
+    def __iter__(self):
+        return getattr(self, 'data', []).__iter__()
+
 
 class SingletonAPIResource(APIResource):
 

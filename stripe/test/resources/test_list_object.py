@@ -10,6 +10,7 @@ class ListObjectTests(StripeApiTestCase):
         self.lo = stripe.resource.ListObject.construct_from({
             'id': 'me',
             'url': '/my/path',
+            'data': ['foo'],
         }, 'mykey')
 
         self.mock_response([{
@@ -20,6 +21,14 @@ class ListObjectTests(StripeApiTestCase):
     def assertResponse(self, res):
         self.assertTrue(isinstance(res[0], stripe.Charge))
         self.assertEqual('bar', res[0].foo)
+
+    def test_for_loop(self):
+        seen = []
+
+        for item in self.lo:
+            seen.append(item)
+
+        self.assertEqual(['foo'], seen)
 
     def test_all(self):
         res = self.lo.all(myparam='you')
