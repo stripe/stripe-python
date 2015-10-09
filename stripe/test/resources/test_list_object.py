@@ -53,3 +53,41 @@ class ListObjectTests(StripeApiTestCase):
             'get', '/my/path/myid', {'myparam': 'cow'}, None)
 
         self.assertResponse(res)
+
+
+class AutoPagingTests(StripeApiTestCase):
+
+    def test_iter_one_page(self):
+        lo = stripe.resource.ListObject.construct_from({
+            'object': 'list',
+            'url': '/my/path',
+            'data': [{'id': 'foo'}],
+        }, 'mykey')
+
+        self.requestor_mock.request.assert_not_called()
+
+        seen = [item['id'] for item in lo.paging_iter()]
+
+        self.assertEqual(['foo'], seen)
+
+    def test_iter_two_pages(self):
+        lo = stripe.resource.ListObject.construct_from({
+            'object': 'list',
+            'url': '/my/path',
+            'has_more': True,
+            'data': [{'id': 'foo'}],
+        }, 'mykey')
+
+        self.mock_response({
+            'object': 'list',
+            'data': [{'id': 'bar'}],
+            'url': '/my/path',
+            'has_more': False,
+        })
+
+        seen = [item['id'] for item in lo.paging_iter()]
+
+        self.requestor_mock.request.assert_called_with(
+            'get', '/my/path', {'starting_after': 'foo'}, None)
+
+        self.assertEqual(['foo', 'bar'], seen)

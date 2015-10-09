@@ -322,6 +322,22 @@ class ListObject(StripeObject):
                       DeprecationWarning)
         return self.list(**params)
 
+    def paging_iter(self):
+        page = self
+        params = dict(self._retrieve_params)
+
+        while True:
+            item_id = None
+            for item in page:
+                item_id = item.get('id', None)
+                yield item
+
+            if not getattr(page, 'has_more', False) or item_id is None:
+                return
+
+            params['starting_after'] = item_id
+            page = self.list(**params)
+
     def create(self, idempotency_key=None, **params):
         headers = populate_headers(idempotency_key)
         return self.request('post', self['url'], params, headers)
@@ -365,6 +381,10 @@ class ListableAPIResource(APIResource):
                       "`list` class method instead",
                       DeprecationWarning)
         return cls.list(*args, **params)
+
+    @classmethod
+    def paging_iter(self, *args, **params):
+        return self.list(*args, **params).paging_iter()
 
     @classmethod
     def list(cls, api_key=None, idempotency_key=None,
