@@ -322,7 +322,7 @@ class ListObject(StripeObject):
                       DeprecationWarning)
         return self.list(**params)
 
-    def paging_iter(self):
+    def auto_paging_iter(self):
         page = self
         params = dict(self._retrieve_params)
 
@@ -383,8 +383,8 @@ class ListableAPIResource(APIResource):
         return cls.list(*args, **params)
 
     @classmethod
-    def paging_iter(self, *args, **params):
-        return self.list(*args, **params).paging_iter()
+    def auto_paging_iter(self, *args, **params):
+        return self.list(*args, **params).auto_paging_iter()
 
     @classmethod
     def list(cls, api_key=None, idempotency_key=None,

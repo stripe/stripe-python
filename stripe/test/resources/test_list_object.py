@@ -66,7 +66,7 @@ class AutoPagingTests(StripeApiTestCase):
 
         self.requestor_mock.request.assert_not_called()
 
-        seen = [item['id'] for item in lo.paging_iter()]
+        seen = [item['id'] for item in lo.auto_paging_iter()]
 
         self.assertEqual(['foo'], seen)
 
@@ -85,7 +85,7 @@ class AutoPagingTests(StripeApiTestCase):
             'has_more': False,
         })
 
-        seen = [item['id'] for item in lo.paging_iter()]
+        seen = [item['id'] for item in lo.auto_paging_iter()]
 
         self.requestor_mock.request.assert_called_with(
             'get', '/my/path', {'starting_after': 'foo'}, None)
@@ -100,7 +100,7 @@ class AutoPagingTests(StripeApiTestCase):
             'has_more': False,
         })
 
-        seen = [item['id'] for item in stripe.Charge.paging_iter(limit=25)]
+        seen = [i['id'] for i in stripe.Charge.auto_paging_iter(limit=25)]
 
         self.requestor_mock.request.assert_called_with(
             'get', '/v1/charges', {'limit': 25})
