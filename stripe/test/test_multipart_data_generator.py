@@ -13,7 +13,7 @@ class MultipartDataGeneratorTests(StripeTestCase):
                 "key1": "value1",
                 "key2": "value2",
                 "key3": test_file
-                }
+            }
             generator = MultipartDataGenerator()
             generator.add_params(params)
             post_data = generator.get_post_data()

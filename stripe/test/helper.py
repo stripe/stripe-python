@@ -142,7 +142,7 @@ class StripeTestCase(unittest2.TestCase):
     def assertRaisesRegexp(self, exception, regexp, callable, *args, **kwargs):
         try:
             callable(*args, **kwargs)
-        except exception, err:
+        except exception as err:
             if regexp is None:
                 return True
 
@@ -198,6 +198,13 @@ class StripeApiTestCase(StripeTestCase):
 
     def mock_response(self, res):
         self.requestor_mock.request = Mock(return_value=(res, 'reskey'))
+
+
+class StripeResourceTest(StripeApiTestCase):
+
+    def setUp(self):
+        super(StripeResourceTest, self).setUp()
+        self.mock_response({})
 
 
 class MyResource(stripe.resource.APIResource):

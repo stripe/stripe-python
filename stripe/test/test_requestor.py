@@ -57,6 +57,7 @@ class APIHeaderMatcher(object):
 
 
 class QueryMatcher(object):
+
     def __init__(self, expected):
         self.expected = sorted(expected)
 
@@ -68,6 +69,7 @@ class QueryMatcher(object):
 
 
 class UrlMatcher(object):
+
     def __init__(self, expected):
         self.exp_parts = urlparse.urlsplit(expected)
 
@@ -291,8 +293,8 @@ class APIRequestorRequestTests(StripeUnitTestCase):
 
         body, used_key = requestor.request('get', self.valid_path, {})
 
-        self.check_call('get', headers=APIHeaderMatcher(key,
-                        request_method='get'), requestor=requestor)
+        self.check_call('get', headers=APIHeaderMatcher(
+            key, request_method='get'), requestor=requestor)
         self.assertEqual(key, used_key)
 
     def test_passes_api_version(self):

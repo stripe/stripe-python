@@ -312,8 +312,31 @@ class APIResource(StripeObject):
 
 class ListObject(StripeObject):
 
-    def all(self, **params):
+    def list(self, **params):
         return self.request('get', self['url'], params)
+
+    def all(self, **params):
+        warnings.warn("The `all` method is deprecated and will"
+                      "be removed in future versions. Please use the "
+                      "`list` method instead",
+                      DeprecationWarning)
+        return self.list(**params)
+
+    def auto_paging_iter(self):
+        page = self
+        params = dict(self._retrieve_params)
+
+        while True:
+            item_id = None
+            for item in page:
+                item_id = item.get('id', None)
+                yield item
+
+            if not getattr(page, 'has_more', False) or item_id is None:
+                return
+
+            params['starting_after'] = item_id
+            page = self.list(**params)
 
     def create(self, idempotency_key=None, **params):
         headers = populate_headers(idempotency_key)
@@ -326,6 +349,9 @@ class ListObject(StripeObject):
         url = "%s/%s" % (base, extn)
 
         return self.request('get', url, params)
+
+    def __iter__(self):
+        return getattr(self, 'data', []).__iter__()
 
 
 class SingletonAPIResource(APIResource):
@@ -349,8 +375,20 @@ class SingletonAPIResource(APIResource):
 class ListableAPIResource(APIResource):
 
     @classmethod
-    def all(cls, api_key=None, idempotency_key=None,
-            stripe_account=None, **params):
+    def all(cls, *args, **params):
+        warnings.warn("The `all` class method is deprecated and will"
+                      "be removed in future versions. Please use the "
+                      "`list` class method instead",
+                      DeprecationWarning)
+        return cls.list(*args, **params)
+
+    @classmethod
+    def auto_paging_iter(self, *args, **params):
+        return self.list(*args, **params).auto_paging_iter()
+
+    @classmethod
+    def list(cls, api_key=None, idempotency_key=None,
+             stripe_account=None, **params):
         requestor = api_requestor.APIRequestor(api_key, account=stripe_account)
         url = cls.class_url()
         response, api_key = requestor.request('get', url, params)
