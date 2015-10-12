@@ -91,3 +91,18 @@ class AutoPagingTests(StripeApiTestCase):
             'get', '/my/path', {'starting_after': 'foo'}, None)
 
         self.assertEqual(['foo', 'bar'], seen)
+
+    def test_class_method_two_pages(self):
+        self.mock_response({
+            'object': 'list',
+            'data': [{'id': 'bar'}],
+            'url': '/v1/charges',
+            'has_more': False,
+        })
+
+        seen = [item['id'] for item in stripe.Charge.paging_iter(limit=25)]
+
+        self.requestor_mock.request.assert_called_with(
+            'get', '/v1/charges', {'limit': 25})
+
+        self.assertEqual(['bar'], seen)
