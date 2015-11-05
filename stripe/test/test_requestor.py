@@ -360,6 +360,16 @@ class APIRequestorRequestTests(StripeUnitTestCase):
                           self.requestor.request,
                           'get', self.valid_path, {})
 
+    def test_old_rate_limit_error(self):
+        """
+        Tests legacy rate limit error pre-2015-09-18
+        """
+        self.mock_response('{"error": {"code":"rate_limit"}}', 400)
+
+        self.assertRaises(stripe.error.RateLimitError,
+                          self.requestor.request,
+                          'get', self.valid_path, {})
+
     def test_server_error(self):
         self.mock_response('{"error": {}}', 500)
 

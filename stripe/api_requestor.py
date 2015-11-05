@@ -150,7 +150,11 @@ class APIRequestor(object):
                 "was %d)" % (rbody, rcode),
                 rbody, rcode, resp)
 
-        if rcode in [400, 404]:
+        # Rate limits were previously coded as 400's with code 'rate_limit'
+        if rcode == 429 or (rcode == 400 and err.get('code') == 'rate_limit'):
+            raise error.RateLimitError(
+                err.get('message'), rbody, rcode, resp, rheaders)
+        elif rcode in [400, 404]:
             raise error.InvalidRequestError(
                 err.get('message'), err.get('param'),
                 rbody, rcode, resp, rheaders)
@@ -162,9 +166,6 @@ class APIRequestor(object):
             raise error.CardError(err.get('message'), err.get('param'),
                                   err.get('code'), rbody, rcode, resp,
                                   rheaders)
-        elif rcode == 429:
-            raise error.RateLimitError(
-                err.get('message'), rbody, rcode, resp, rheaders)
         else:
             raise error.APIError(err.get('message'), rbody, rcode, resp,
                                  rheaders)
