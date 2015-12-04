@@ -44,9 +44,9 @@ Note that PyCurl doesn't currently play nicely with our tox configuration.  Tox 
 
 ### Running specific tests
 
-You can specify a module, TestCase or single test to run by passing it as an argument to tox.  For example, to run only the `test_save` test of the `UpdateableAPIResourceTests` case from the `test_resources` module on Python 2.7:
+You can specify a module, TestCase or single test to run by passing it as an argument to tox.  For example, to run only the `test_save` test of the `UpdateableAPIResourceTests` case from the `test.resources` module on Python 2.7:
 
-    tox -e py27 -- --test-suite stripe.test.test_resources.UpdateableAPIResourceTests.test_save
+    tox -e py27 -- --test-suite stripe.test.resources.UpdateableAPIResourceTests.test_save
 
 ### Linting
 
