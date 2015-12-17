@@ -52,12 +52,38 @@ class ApplicationFeeRefundTest(StripeResourceTest):
         )
 
     def test_update_refund(self):
+        def side_effect(*args):
+            raise stripe.InvalidRequestError('invalid', 'foo')
+
+        self.requestor_mock.request.side_effect = side_effect
+
         refund = stripe.resource.ApplicationFeeRefund.construct_from({
             'id': "ref_update",
             'fee': "fee_update",
             'metadata': {},
         }, 'api_key')
-        refund.metadata["key"] = "value"
+
+        refund.metadata["key"] = "foo"
+
+        try:
+            refund.save()
+        except stripe.InvalidRequestError:
+            pass
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/application_fees/fee_update/refunds/ref_update',
+            {
+                'metadata': {
+                    'key': 'foo',
+                }
+            },
+            None
+        )
+
+        self.requestor_mock.request.side_effect = None
+
+        refund.metadata["key"] = "bar"
         refund.save()
 
         self.requestor_mock.request.assert_called_with(
@@ -65,7 +91,7 @@ class ApplicationFeeRefundTest(StripeResourceTest):
             '/v1/application_fees/fee_update/refunds/ref_update',
             {
                 'metadata': {
-                    'key': 'value',
+                    'key': 'bar',
                 }
             },
             None

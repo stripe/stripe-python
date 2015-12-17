@@ -461,8 +461,8 @@ class BalanceTransaction(ListableAPIResource):
 class Card(UpdateableAPIResource, DeletableAPIResource):
 
     def instance_url(self):
-        self.id = util.utf8(self.id)
-        extn = urllib.quote_plus(self.id)
+        token = util.utf8(self.id)
+        extn = urllib.quote_plus(token)
         if (hasattr(self, 'customer')):
             customer = util.utf8(self.customer)
 
@@ -488,7 +488,7 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
             raise error.InvalidRequestError(
                 "Could not determine whether card_id %s is "
                 "attached to a customer, recipient, or "
-                "account." % self.id, 'id')
+                "account." % token, 'id')
 
         return "%s/%s/%s/%s" % (base, owner_extn, class_base, extn)
 
@@ -513,8 +513,8 @@ class VerifyMixin(object):
 class BankAccount(UpdateableAPIResource, DeletableAPIResource, VerifyMixin):
 
     def instance_url(self):
-        self.id = util.utf8(self.id)
-        extn = urllib.quote_plus(self.id)
+        token = util.utf8(self.id)
+        extn = urllib.quote_plus(token)
         if (hasattr(self, 'customer')):
             customer = util.utf8(self.customer)
 
@@ -532,7 +532,7 @@ class BankAccount(UpdateableAPIResource, DeletableAPIResource, VerifyMixin):
         else:
             raise error.InvalidRequestError(
                 "Could not determine whether bank_account_id %s is "
-                "attached to a customer or an account." % self.id, 'id')
+                "attached to a customer or an account." % token, 'id')
 
         return "%s/%s/%s/%s" % (base, owner_extn, class_base, extn)
 
@@ -695,12 +695,12 @@ class Plan(CreateableAPIResource, DeletableAPIResource,
 class Subscription(UpdateableAPIResource, DeletableAPIResource):
 
     def instance_url(self):
-        self.id = util.utf8(self.id)
-        self.customer = util.utf8(self.customer)
+        token = util.utf8(self.id)
+        customer = util.utf8(self.customer)
 
         base = Customer.class_url()
-        cust_extn = urllib.quote_plus(self.customer)
-        extn = urllib.quote_plus(self.id)
+        cust_extn = urllib.quote_plus(customer)
+        extn = urllib.quote_plus(token)
 
         return "%s/%s/subscriptions/%s" % (base, cust_extn, extn)
 
@@ -747,11 +747,11 @@ class Transfer(CreateableAPIResource, UpdateableAPIResource,
 class Reversal(UpdateableAPIResource):
 
     def instance_url(self):
-        self.id = util.utf8(self.id)
-        self.charge = util.utf8(self.transfer)
+        token = util.utf8(self.id)
+        transfer = util.utf8(self.transfer)
         base = Transfer.class_url()
-        cust_extn = urllib.quote_plus(self.transfer)
-        extn = urllib.quote_plus(self.id)
+        cust_extn = urllib.quote_plus(transfer)
+        extn = urllib.quote_plus(token)
         return "%s/%s/reversals/%s" % (base, cust_extn, extn)
 
     @classmethod
@@ -807,11 +807,11 @@ class ApplicationFee(ListableAPIResource):
 class ApplicationFeeRefund(UpdateableAPIResource):
 
     def instance_url(self):
-        self.id = util.utf8(self.id)
-        self.fee = util.utf8(self.fee)
+        token = util.utf8(self.id)
+        fee = util.utf8(self.fee)
         base = ApplicationFee.class_url()
-        cust_extn = urllib.quote_plus(self.fee)
-        extn = urllib.quote_plus(self.id)
+        cust_extn = urllib.quote_plus(fee)
+        extn = urllib.quote_plus(token)
         return "%s/%s/refunds/%s" % (base, cust_extn, extn)
 
     @classmethod
@@ -825,13 +825,13 @@ class BitcoinReceiver(CreateableAPIResource, UpdateableAPIResource,
                       DeletableAPIResource, ListableAPIResource):
 
     def instance_url(self):
-        self.id = util.utf8(self.id)
-        extn = urllib.quote_plus(self.id)
+        token = util.utf8(self.id)
+        extn = urllib.quote_plus(token)
 
         if (hasattr(self, 'customer')):
-            self.customer = util.utf8(self.customer)
+            customer = util.utf8(self.customer)
             base = Customer.class_url()
-            cust_extn = urllib.quote_plus(self.customer)
+            cust_extn = urllib.quote_plus(customer)
             return "%s/%s/sources/%s" % (base, cust_extn, extn)
         else:
             base = BitcoinReceiver.class_url()
