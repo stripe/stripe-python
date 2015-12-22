@@ -25,6 +25,13 @@ class StripeErrorTests(StripeUnitTestCase):
             assert str(err) == 'Request 123: \xc3\xb6re'
             assert unicode(err) == u'Request 123: öre'
 
+    def test_formatting_with_none(self):
+        err = StripeError(None, headers={'request-id': '123'})
+        if sys.version_info > (3, 0):
+            assert str(err) == u'Request 123: <empty message>'
+        else:
+            assert str(err) == 'Request 123: <empty message>'
+            assert unicode(err) == u'Request 123: <empty message>'
 
 if __name__ == '__main__':
     unittest2.main()
