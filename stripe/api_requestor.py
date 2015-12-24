@@ -64,10 +64,7 @@ def _build_api_url(url, query):
 class APIRequestor(object):
 
     def __init__(self, key=None, client=None, api_base=None, account=None):
-        if api_base:
-            self.api_base = api_base
-        else:
-            self.api_base = stripe.api_base
+        self.api_base = api_base or stripe.api_base
         self.api_key = key
         self.stripe_account = account
 
