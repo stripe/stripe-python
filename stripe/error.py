@@ -30,9 +30,11 @@ class StripeError(Exception):
             return self._message
 
     if sys.version_info > (3, 0):
-        __str__ = lambda self: self.__unicode__()
+        def __str__(self):
+            return self.__unicode__()
     else:
-        __str__ = lambda self: unicode(self).encode('utf-8')
+        def __str__(self):
+            return unicode(self).encode('utf-8')
 
 
 class APIError(StripeError):
