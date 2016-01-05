@@ -114,7 +114,7 @@ class StripeObject(dict):
 
         try:
             return self[k]
-        except KeyError, err:
+        except KeyError as err:
             raise AttributeError(*err.args)
 
     def __delattr__(self, k):
@@ -142,7 +142,7 @@ class StripeObject(dict):
     def __getitem__(self, k):
         try:
             return super(StripeObject, self).__getitem__(k)
-        except KeyError, err:
+        except KeyError as err:
             if k in self._transient_values:
                 raise KeyError(
                     "%r.  HINT: The %r attribute was set in the past."

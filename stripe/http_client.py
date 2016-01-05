@@ -101,7 +101,7 @@ class RequestsClient(HTTPClient):
                                           data=post_data,
                                           timeout=80,
                                           **kwargs)
-            except TypeError, e:
+            except TypeError as e:
                 raise TypeError(
                     'Warning: It looks like your installed version of the '
                     '"requests" library is not compatible with Stripe\'s '
@@ -115,7 +115,7 @@ class RequestsClient(HTTPClient):
             # are susceptible to the same and should be updated.
             content = result.content
             status_code = result.status_code
-        except Exception, e:
+        except Exception as e:
             # Would catch just requests.exceptions.RequestException, but can
             # also raise ValueError, RuntimeError, etc.
             self._handle_request_error(e)
@@ -163,7 +163,7 @@ class UrlFetchClient(HTTPClient):
                 deadline=self._deadline,
                 payload=post_data
             )
-        except urlfetch.Error, e:
+        except urlfetch.Error as e:
             self._handle_request_error(e, url)
 
         return result.content, result.status_code, result.headers
@@ -229,7 +229,7 @@ class PycurlClient(HTTPClient):
 
         try:
             curl.perform()
-        except pycurl.error, e:
+        except pycurl.error as e:
             self._handle_request_error(e)
         rbody = s.getvalue()
         rcode = curl.getinfo(pycurl.RESPONSE_CODE)
@@ -279,11 +279,11 @@ class Urllib2Client(HTTPClient):
             rbody = response.read()
             rcode = response.code
             headers = dict(response.info())
-        except urllib2.HTTPError, e:
+        except urllib2.HTTPError as e:
             rcode = e.code
             rbody = e.read()
             headers = dict(e.info())
-        except (urllib2.URLError, ValueError), e:
+        except (urllib2.URLError, ValueError) as e:
             self._handle_request_error(e)
         lh = dict((k.lower(), v) for k, v in dict(headers).iteritems())
         return rbody, rcode, lh

@@ -223,7 +223,7 @@ class APIRequestor(object):
                            ['uname', lambda: ' '.join(platform.uname())]]:
             try:
                 val = func()
-            except Exception, e:
+            except Exception as e:
                 val = "!! %s" % (e,)
             ua[attr] = val
 
