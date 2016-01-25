@@ -12,6 +12,17 @@ class ProductTest(StripeResourceTest):
             {}
         )
 
+    def test_delete_products(self):
+        p = stripe.Product(id='product_to_delete')
+        p.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/products/product_to_delete',
+            {},
+            None
+        )
+
 
 class SKUTest(StripeResourceTest):
 
@@ -21,6 +32,17 @@ class SKUTest(StripeResourceTest):
             'get',
             '/v1/skus',
             {}
+        )
+
+    def test_delete_skus(self):
+        sku = stripe.SKU(id='sku_delete')
+        sku.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/skus/sku_delete',
+            {},
+            None
         )
 
 

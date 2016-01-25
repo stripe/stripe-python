@@ -847,12 +847,12 @@ class BitcoinTransaction(StripeObject):
 
 
 class Product(CreateableAPIResource, UpdateableAPIResource,
-              ListableAPIResource):
+              ListableAPIResource, DeletableAPIResource):
     pass
 
 
 class SKU(CreateableAPIResource, UpdateableAPIResource,
-          ListableAPIResource):
+          ListableAPIResource, DeletableAPIResource):
     pass
 
 
