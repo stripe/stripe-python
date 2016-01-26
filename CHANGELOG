@@ -1,3 +1,7 @@
+=== 1.29.0 2016-01-26
+
+* Add support for deleting Relay products and SKUs
+
 === 1.28.0 2016-01-04
 
 * Add an automatic paginating iterator to lists available via `auto_paging_iter`
