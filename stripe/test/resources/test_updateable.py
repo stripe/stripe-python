@@ -105,7 +105,15 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
         }, 'mykey')
 
         self.assertTrue(acct is acct.save())
-        self.requestor_mock.request.assert_not_called()
+
+        # Note: ideally, we'd want the library to NOT issue requests in this
+        # case (i.e. the assert should actually be `assert_not_called()`).
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {'metadata': {}},
+            None
+        )
 
     def test_replace_nested_object(self):
         acct = MyUpdateable.construct_from({
