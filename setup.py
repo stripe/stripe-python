@@ -57,7 +57,7 @@ setup(
     package_data={'stripe': ['data/ca-certificates.crt']},
     install_requires=install_requires,
     test_suite='stripe.test.all',
-    tests_require=['unittest2', 'mock == 1.0.1'],
+    tests_require=['unittest2', 'mock'],
     use_2to3=True,
     classifiers=[
         "Development Status :: 5 - Production/Stable",

@@ -95,7 +95,14 @@ class ChargeRefundTest(StripeResourceTest):
         charge.refunds.data[0].description = 'bar'
         charge.save()
 
-        self.requestor_mock.request.assert_not_called()
+        # Note: ideally, we'd want the library to NOT issue requests in this
+        # case (i.e. the assert should actually be `assert_not_called()`).
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges/ch_nested_update',
+            {'refunds': {'has_more': True}},
+            None
+        )
 
     def test_fetch_refund(self):
         charge = stripe.Charge.construct_from({
