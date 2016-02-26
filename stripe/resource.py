@@ -862,3 +862,9 @@ class Order(CreateableAPIResource, UpdateableAPIResource,
         headers = populate_headers(idempotency_key)
         return self.request(
             'post', self.instance_url() + '/pay', params, headers)
+
+
+class CountrySpec(ListableAPIResource):
+    @classmethod
+    def class_name(cls):
+        return 'country_spec'
