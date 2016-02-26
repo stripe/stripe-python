@@ -25,6 +25,7 @@ from stripe.resource import (  # noqa
     BitcoinTransaction,
     Card,
     Charge,
+    CountrySpec,
     Coupon,
     Customer,
     Dispute,
