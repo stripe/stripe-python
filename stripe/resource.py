@@ -864,6 +864,7 @@ class Order(CreateableAPIResource, UpdateableAPIResource,
         return self.request(
             'post', self.instance_url() + '/pay', params, headers)
 
+
 class CountrySpec(ListableAPIResource):
     @classmethod
     def class_name(cls):
