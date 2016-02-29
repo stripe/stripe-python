@@ -18,7 +18,7 @@ addons:
       - libcurl4-gnutls-dev
       - librtmp-dev
 install:
-  - pip install unittest2 mock==1.0.1 pycurl flake8
+  - pip install unittest2 mock pycurl flake8
   - python setup.py clean --all
   - python setup.py install
 script:
