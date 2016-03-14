@@ -80,6 +80,29 @@ class AccountTest(StripeResourceTest):
             None
         )
 
+    def test_reject_account(self):
+        self.mock_response({
+            'id': 'acct_reject',
+            'verification': {
+                'disabled_reason': 'rejected.fraud'
+            },
+        })
+
+        obj = stripe.Account.construct_from({
+            'id': 'acct_reject'
+        }, 'mykey')
+
+        self.assertTrue(obj is obj.reject(reason='fraud'))
+        self.assertEqual('rejected.fraud', obj.verification['disabled_reason'])
+        self.assertEqual('acct_reject', obj.id)
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/accounts/acct_reject/reject',
+            {'reason': 'fraud'},
+            None
+        )
+
     def test_verify_additional_owner(self):
         acct = stripe.Account.construct_from({
             'id': 'acct_update',
