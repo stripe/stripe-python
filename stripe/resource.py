@@ -447,6 +447,18 @@ class Account(CreateableAPIResource, ListableAPIResource,
         extn = urllib.quote_plus(id)
         return "%s/%s" % (base, extn)
 
+    def reject(self, reason=None, idempotency_key=None):
+        url = self.instance_url() + '/reject'
+        headers = populate_headers(idempotency_key)
+        if reason:
+            params = {"reason": reason}
+        else:
+            params = {}
+        self.refresh_from(
+            self.request('post', url, params, headers)
+        )
+        return self
+
 
 class Balance(SingletonAPIResource):
     pass
