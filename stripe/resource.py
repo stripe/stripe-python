@@ -450,9 +450,8 @@ class Account(CreateableAPIResource, ListableAPIResource,
     def reject(self, reason=None, idempotency_key=None):
         url = self.instance_url() + '/reject'
         headers = populate_headers(idempotency_key)
-        params = dict(reason=reason)
         self.refresh_from(
-            self.request('post', url, params, headers)
+            self.request('post', url, {"reason": reason}, headers)
         )
         return self
 
