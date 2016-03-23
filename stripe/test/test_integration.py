@@ -129,7 +129,9 @@ class AuthenticationErrorTest(StripeTestCase):
             self.assertEqual(401, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
             self.assertTrue(isinstance(e.json_body, dict))
-            self.assertTrue(e.request_id.startswith('req_'))
+            # Note that an invalid API key bypasses many of the standard
+            # facilities in the API server so currently no Request ID is
+            # returned.
         finally:
             stripe.api_key = key
 
