@@ -1,3 +1,7 @@
+=== 1.32.0 2016-03-31
+
+* Update CA cert bundle for compatibility with OpenSSL versions below 1.0.1
+
 === 1.31.1 2016-03-24
 
 * Fix uploading of binary files in Python 3
