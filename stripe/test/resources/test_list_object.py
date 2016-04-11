@@ -57,52 +57,67 @@ class ListObjectTests(StripeApiTestCase):
 
 class AutoPagingTests(StripeApiTestCase):
 
-    def test_iter_one_page(self):
-        lo = stripe.resource.ListObject.construct_from({
+    @staticmethod
+    def pageable_model_response(ids, has_more):
+        return {
             'object': 'list',
-            'url': '/my/path',
-            'data': [{'id': 'foo'}],
-        }, 'mykey')
+            'url': '/v1/pageablemodels',
+            'data': [{'id': id, 'object': 'pageablemodel'} for id in ids],
+            'has_more': has_more,
+        }
+
+    def test_iter_one_page(self):
+        lo = stripe.resource.ListObject.construct_from(
+            self.pageable_model_response(['pm_123', 'pm_124'], False),
+            'mykey'
+        )
 
         self.requestor_mock.request.assert_not_called()
 
         seen = [item['id'] for item in lo.auto_paging_iter()]
 
-        self.assertEqual(['foo'], seen)
+        self.assertEqual(['pm_123', 'pm_124'], seen)
 
     def test_iter_two_pages(self):
-        lo = stripe.resource.ListObject.construct_from({
-            'object': 'list',
-            'url': '/my/path',
-            'has_more': True,
-            'data': [{'id': 'foo'}],
-        }, 'mykey')
+        lo = stripe.resource.ListObject.construct_from(
+            self.pageable_model_response(['pm_123', 'pm_124'], True),
+            'mykey'
+        )
+        lo._retrieve_params = {'foo': 'bar'}
 
-        self.mock_response({
-            'object': 'list',
-            'data': [{'id': 'bar'}],
-            'url': '/my/path',
-            'has_more': False,
-        })
+        self.mock_response(
+            self.pageable_model_response(['pm_125', 'pm_126'], False)
+        )
 
         seen = [item['id'] for item in lo.auto_paging_iter()]
 
         self.requestor_mock.request.assert_called_with(
-            'get', '/my/path', {'starting_after': 'foo'}, None)
+            'get',
+            '/v1/pageablemodels',
+            {
+                'starting_after': 'pm_124',
+                'foo': 'bar'
+            },
+            None
+        )
 
-        self.assertEqual(['foo', 'bar'], seen)
+        self.assertEqual(['pm_123', 'pm_124', 'pm_125', 'pm_126'], seen)
 
     def test_class_method_two_pages(self):
         self.mock_response({
             'object': 'list',
-            'data': [{'id': 'bar'}],
+            'data': [{'id': 'ch_001'}],
             'url': '/v1/charges',
             'has_more': False,
         })
 
-        seen = [i['id'] for i in stripe.Charge.auto_paging_iter(limit=25)]
+        seen = [item['id'] for item in stripe.Charge.auto_paging_iter(
+            limit=25,
+            foo='bar'
+        )]
 
         self.requestor_mock.request.assert_called_with(
-            'get', '/v1/charges', {'limit': 25})
+            'get', '/v1/charges', {'limit': 25, 'foo': 'bar'}
+        )
 
-        self.assertEqual(['bar'], seen)
+        self.assertEqual(['ch_001'], seen)

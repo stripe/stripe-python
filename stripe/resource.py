@@ -393,7 +393,10 @@ class ListableAPIResource(APIResource):
         requestor = api_requestor.APIRequestor(api_key, account=stripe_account)
         url = cls.class_url()
         response, api_key = requestor.request('get', url, params)
-        return convert_to_stripe_object(response, api_key, stripe_account)
+        stripe_object = convert_to_stripe_object(response, api_key,
+                                                 stripe_account)
+        stripe_object._retrieve_params = params
+        return stripe_object
 
 
 class CreateableAPIResource(APIResource):
