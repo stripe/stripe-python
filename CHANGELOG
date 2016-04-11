@@ -1,3 +1,7 @@
+=== 1.32.1 2016-04-11
+
+* Fix bug where request parameters were not passed between pages with `auto_paging_iter`
+
 === 1.32.0 2016-03-31
 
 * Update CA cert bundle for compatibility with OpenSSL versions below 1.0.1
