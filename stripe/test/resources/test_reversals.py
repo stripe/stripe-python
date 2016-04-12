@@ -31,7 +31,7 @@ class ReversalTest(StripeResourceTest):
             }
         }, 'api_key')
 
-        transfer.reversals.all()
+        transfer.reversals.list()
 
         self.requestor_mock.request.assert_called_with(
             'get',

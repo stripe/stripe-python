@@ -6,8 +6,8 @@ from stripe.test.helper import (
 
 class ChargeTest(StripeResourceTest):
 
-    def test_charge_list_all(self):
-        stripe.Charge.all(created={'lt': NOW})
+    def test_charge_list(self):
+        stripe.Charge.list(created={'lt': NOW})
 
         self.requestor_mock.request.assert_called_with(
             'get',
@@ -17,7 +17,7 @@ class ChargeTest(StripeResourceTest):
             }
         )
 
-    def test_charge_list_create(self):
+    def test_charge_create(self):
         stripe.Charge.create(idempotency_key='foo', **DUMMY_CHARGE)
 
         self.requestor_mock.request.assert_called_with(
@@ -27,7 +27,7 @@ class ChargeTest(StripeResourceTest):
             {'Idempotency-Key': 'foo'},
         )
 
-    def test_charge_list_retrieve(self):
+    def test_charge_retrieve(self):
         stripe.Charge.retrieve('ch_test_id')
 
         self.requestor_mock.request.assert_called_with(

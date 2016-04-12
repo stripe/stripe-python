@@ -5,7 +5,7 @@ from stripe.test.helper import StripeResourceTest
 class ApplicationFeeTest(StripeResourceTest):
 
     def test_list_application_fees(self):
-        stripe.ApplicationFee.all()
+        stripe.ApplicationFee.list()
         self.requestor_mock.request.assert_called_with(
             'get',
             '/v1/application_fees',
@@ -42,7 +42,7 @@ class ApplicationFeeRefundTest(StripeResourceTest):
             }
         }, 'api_key')
 
-        fee.refunds.all()
+        fee.refunds.list()
 
         self.requestor_mock.request.assert_called_with(
             'get',

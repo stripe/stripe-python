@@ -18,7 +18,7 @@ class BalanceTest(StripeResourceTest):
 class BalanceTransactionTest(StripeResourceTest):
 
     def test_list_balance_transactions(self):
-        stripe.BalanceTransaction.all()
+        stripe.BalanceTransaction.list()
         self.requestor_mock.request.assert_called_with(
             'get',
             '/v1/balance/history',

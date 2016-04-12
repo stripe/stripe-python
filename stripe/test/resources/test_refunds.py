@@ -25,7 +25,7 @@ class RefundTest(StripeResourceTest):
         )
 
     def test_list_refunds(self):
-        stripe.Refund.all(limit=3, charge='ch_foo')
+        stripe.Refund.list(limit=3, charge='ch_foo')
 
         self.requestor_mock.request.assert_called_with(
             'get',
@@ -131,7 +131,7 @@ class ChargeRefundTest(StripeResourceTest):
             }
         }, 'api_key')
 
-        charge.refunds.all()
+        charge.refunds.list()
 
         self.requestor_mock.request.assert_called_with(
             'get',

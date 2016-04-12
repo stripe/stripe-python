@@ -635,17 +635,17 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
 
     def invoices(self, **params):
         params['customer'] = self.id
-        invoices = Invoice.all(self.api_key, **params)
+        invoices = Invoice.list(self.api_key, **params)
         return invoices
 
     def invoice_items(self, **params):
         params['customer'] = self.id
-        iis = InvoiceItem.all(self.api_key, **params)
+        iis = InvoiceItem.list(self.api_key, **params)
         return iis
 
     def charges(self, **params):
         params['customer'] = self.id
-        charges = Charge.all(self.api_key, **params)
+        charges = Charge.list(self.api_key, **params)
         return charges
 
     def update_subscription(self, idempotency_key=None, **params):
@@ -784,7 +784,7 @@ class Recipient(CreateableAPIResource, UpdateableAPIResource,
 
     def transfers(self, **params):
         params['recipient'] = self.id
-        transfers = Transfer.all(self.api_key, **params)
+        transfers = Transfer.list(self.api_key, **params)
         return transfers
 
 

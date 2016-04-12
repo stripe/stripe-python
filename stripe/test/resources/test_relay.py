@@ -5,7 +5,7 @@ from stripe.test.helper import StripeResourceTest
 class ProductTest(StripeResourceTest):
 
     def test_list_products(self):
-        stripe.Product.all()
+        stripe.Product.list()
         self.requestor_mock.request.assert_called_with(
             'get',
             '/v1/products',
@@ -27,7 +27,7 @@ class ProductTest(StripeResourceTest):
 class SKUTest(StripeResourceTest):
 
     def test_list_skus(self):
-        stripe.SKU.all()
+        stripe.SKU.list()
         self.requestor_mock.request.assert_called_with(
             'get',
             '/v1/skus',
@@ -49,7 +49,7 @@ class SKUTest(StripeResourceTest):
 class OrderTest(StripeResourceTest):
 
     def test_list_orders(self):
-        stripe.Order.all()
+        stripe.Order.list()
         self.requestor_mock.request.assert_called_with(
             'get',
             '/v1/orders',

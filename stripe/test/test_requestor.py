@@ -403,7 +403,7 @@ class DefaultClientTests(unittest2.TestCase):
         hc.request = Mock(return_value=("{}", 200, {}))
 
         stripe.default_http_client = hc
-        stripe.Charge.all(limit=3)
+        stripe.Charge.list(limit=3)
 
         hc.request.assert_called_with(
             'get', 'https://api.stripe.com/v1/charges?limit=3', ANY, None)

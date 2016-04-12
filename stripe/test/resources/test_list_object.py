@@ -30,8 +30,8 @@ class ListObjectTests(StripeApiTestCase):
 
         self.assertEqual(['foo'], seen)
 
-    def test_all(self):
-        res = self.lo.all(myparam='you')
+    def test_list(self):
+        res = self.lo.list(myparam='you')
 
         self.requestor_mock.request.assert_called_with(
             'get', '/my/path', {'myparam': 'you'}, None)

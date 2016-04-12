@@ -7,7 +7,7 @@ from stripe.test.helper import (
 class DisputeTest(StripeResourceTest):
 
     def test_list_all_disputes(self):
-        stripe.Dispute.all(created={'lt': NOW})
+        stripe.Dispute.list(created={'lt': NOW})
 
         self.requestor_mock.request.assert_called_with(
             'get',
