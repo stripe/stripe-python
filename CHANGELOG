@@ -1,3 +1,7 @@
+=== 1.32.2 2016-04-12
+
+* Fix bug where file uploads could not be properly listed
+
 === 1.32.1 2016-04-11
 
 * Fix bug where request parameters were not passed between pages with `auto_paging_iter`
