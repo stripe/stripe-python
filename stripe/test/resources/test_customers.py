@@ -234,6 +234,24 @@ class CustomerPlanTest(StripeResourceTest):
             None
         )
 
+    def test_list_customer_subscriptions(self):
+        customer = stripe.Customer.construct_from({
+            'id': 'cus_foo',
+            'subscriptions': {
+                'object': 'list',
+                'url': 'v1/customers/cus_foo/subscriptions',
+            }
+        }, 'api_key')
+
+        customer.subscriptions.all()
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            'v1/customers/cus_foo/subscriptions',
+            {},
+            None
+        )
+
     def test_create_customer_subscription(self):
         customer = stripe.Customer.construct_from({
             'id': 'cus_sub_create',
@@ -288,7 +306,7 @@ class CustomerPlanTest(StripeResourceTest):
 
         self.requestor_mock.request.assert_called_with(
             'post',
-            '/v1/customers/cus_foo/subscriptions/sub_update',
+            '/v1/subscriptions/sub_update',
             {
                 'plan': DUMMY_PLAN['id'],
                 'trial_end': trial_end_int,
@@ -306,7 +324,7 @@ class CustomerPlanTest(StripeResourceTest):
 
         self.requestor_mock.request.assert_called_with(
             'delete',
-            '/v1/customers/cus_foo/subscriptions/sub_delete',
+            '/v1/subscriptions/sub_delete',
             {},
             None
         )
