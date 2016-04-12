@@ -7,7 +7,7 @@ from stripe.test.helper import (
 class RecipientTest(StripeResourceTest):
 
     def test_list_recipients(self):
-        stripe.Recipient.all()
+        stripe.Recipient.list()
         self.requestor_mock.request.assert_called_with(
             'get',
             '/v1/recipients',

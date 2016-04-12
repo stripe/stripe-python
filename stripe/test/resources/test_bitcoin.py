@@ -14,7 +14,7 @@ class BitcoinReceiverTest(StripeResourceTest):
         )
 
     def test_list_receivers(self):
-        stripe.BitcoinReceiver.all()
+        stripe.BitcoinReceiver.list()
         self.requestor_mock.request.assert_called_with(
             'get',
             '/v1/bitcoin/receivers',
@@ -102,7 +102,7 @@ class BitcoinReceiverTest(StripeResourceTest):
             }
         }, 'api_key')
 
-        receiver.transactions.all()
+        receiver.transactions.list()
         self.requestor_mock.request.assert_called_with(
             'get',
             '/v1/bitcoin/receivers/btcrcv_foo/transactions',

@@ -1,5 +1,6 @@
 import datetime
 import time
+import warnings
 
 import stripe
 from stripe.test.helper import (
@@ -10,7 +11,7 @@ from stripe.test.helper import (
 class CustomerTest(StripeResourceTest):
 
     def test_list_customers(self):
-        stripe.Customer.all()
+        stripe.Customer.list()
         self.requestor_mock.request.assert_called_with(
             'get',
             '/v1/customers',
@@ -210,29 +211,37 @@ class CustomerPlanTest(StripeResourceTest):
         )
 
     def test_legacy_update_subscription(self):
-        customer = stripe.Customer(id="cus_legacy_sub_update")
-        customer.update_subscription(idempotency_key='foo',
-                                     plan=DUMMY_PLAN['id'])
+        with warnings.catch_warnings(record=True) as w:
+            customer = stripe.Customer(id="cus_legacy_sub_update")
+            customer.update_subscription(idempotency_key='foo',
+                                         plan=DUMMY_PLAN['id'])
 
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/customers/cus_legacy_sub_update/subscription',
-            {
-                'plan': DUMMY_PLAN['id'],
-            },
-            {'Idempotency-Key': 'foo'}
-        )
+            self.requestor_mock.request.assert_called_with(
+                'post',
+                '/v1/customers/cus_legacy_sub_update/subscription',
+                {
+                    'plan': DUMMY_PLAN['id'],
+                },
+                {'Idempotency-Key': 'foo'}
+            )
+
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
 
     def test_legacy_delete_subscription(self):
-        customer = stripe.Customer(id="cus_legacy_sub_delete")
-        customer.cancel_subscription()
+        with warnings.catch_warnings(record=True) as w:
+            customer = stripe.Customer(id="cus_legacy_sub_delete")
+            customer.cancel_subscription()
 
-        self.requestor_mock.request.assert_called_with(
-            'delete',
-            '/v1/customers/cus_legacy_sub_delete/subscription',
-            {},
-            None
-        )
+            self.requestor_mock.request.assert_called_with(
+                'delete',
+                '/v1/customers/cus_legacy_sub_delete/subscription',
+                {},
+                None
+            )
+
+            self.assertEqual(len(w), 1)
+            self.assertTrue(issubclass(w[-1].category, DeprecationWarning))
 
     def test_create_customer_subscription(self):
         customer = stripe.Customer.construct_from({

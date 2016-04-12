@@ -24,7 +24,7 @@ class AccountTest(StripeResourceTest):
         )
 
     def test_list_accounts(self):
-        stripe.Account.all()
+        stripe.Account.list()
         self.requestor_mock.request.assert_called_with(
             'get',
             '/v1/accounts',
