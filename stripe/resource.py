@@ -390,7 +390,9 @@ class ListableAPIResource(APIResource):
     @classmethod
     def list(cls, api_key=None, idempotency_key=None,
              stripe_account=None, **params):
-        requestor = api_requestor.APIRequestor(api_key, account=stripe_account)
+        requestor = api_requestor.APIRequestor(api_key,
+                                               api_base=cls.api_base(),
+                                               account=stripe_account)
         url = cls.class_url()
         response, api_key = requestor.request('get', url, params)
         stripe_object = convert_to_stripe_object(response, api_key,
