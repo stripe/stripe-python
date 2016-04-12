@@ -32,7 +32,7 @@ class FileUploadTest(StripeResourceTest):
         )
 
     def test_list_file_uploads(self):
-        stripe.FileUpload.all()
+        stripe.FileUpload.list()
         self.requestor_mock.request.assert_called_with(
             'get',
             '/v1/files',
