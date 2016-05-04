@@ -710,23 +710,8 @@ class Plan(CreateableAPIResource, DeletableAPIResource,
     pass
 
 
-class Subscription(UpdateableAPIResource, DeletableAPIResource):
-
-    def instance_url(self):
-        token = util.utf8(self.id)
-        customer = util.utf8(self.customer)
-
-        base = Customer.class_url()
-        cust_extn = urllib.quote_plus(customer)
-        extn = urllib.quote_plus(token)
-
-        return "%s/%s/subscriptions/%s" % (base, cust_extn, extn)
-
-    @classmethod
-    def retrieve(cls, id, api_key=None, **params):
-        raise NotImplementedError(
-            "Can't retrieve a subscription without a customer ID. "
-            "Use customer.subscriptions.retrieve('subscription_id') instead.")
+class Subscription(CreateableAPIResource, DeletableAPIResource,
+                   UpdateableAPIResource, ListableAPIResource):
 
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(self.api_key,
