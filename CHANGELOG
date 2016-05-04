@@ -1,3 +1,11 @@
+=== 1.33.0 2016-05-04
+
+* Add support for the new /v1/subscriptions endpoint
+  * stripe.Subscription.retrieve
+  * stripe.Subscription.update
+  * stripe.Subscription.create
+  * stripe.Subscription.list
+
 === 1.32.2 2016-04-12
 
 * Fix bug where file uploads could not be properly listed
