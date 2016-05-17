@@ -138,6 +138,23 @@ class CustomerTest(StripeResourceTest):
             {'Idempotency-Key': 'foo'}
         )
 
+    def test_customer_update_alipay_account(self):
+        aa = stripe.AlipayAccount.construct_from({
+            'customer': 'cus_update_alipay',
+            'id': 'ali_update',
+        }, 'api_key')
+        aa.metadata = {'name': 'The Best'}
+        aa.save(idempotency_key='foo')
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_update_alipay/sources/ali_update',
+            {
+                'metadata': {'name': 'The Best'},
+            },
+            {'Idempotency-Key': 'foo'}
+        )
+
     def test_customer_delete_card(self):
         card = stripe.Card.construct_from({
             'customer': 'cus_delete_card',
@@ -162,6 +179,20 @@ class CustomerTest(StripeResourceTest):
         self.requestor_mock.request.assert_called_with(
             'delete',
             '/v1/customers/cus_delete_source/sources/btcrcv_delete_source',
+            {},
+            None
+        )
+
+    def test_customer_delete_alipay_account(self):
+        aa = stripe.AlipayAccount.construct_from({
+            'customer': 'cus_delete_alipay',
+            'id': 'ali_delete',
+        }, 'api_key')
+        aa.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/customers/cus_delete_alipay/sources/ali_delete',
             {},
             None
         )

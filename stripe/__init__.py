@@ -17,6 +17,7 @@ default_http_client = None
 # Resource
 from stripe.resource import (  # noqa
     Account,
+    AlipayAccount,
     ApplicationFee,
     Balance,
     BalanceTransaction,

@@ -8,6 +8,7 @@ from stripe import api_requestor, error, util, upload_api_base
 def convert_to_stripe_object(resp, api_key, account):
     types = {
         'account': Account,
+        'alipay_account': AlipayAccount,
         'application_fee': ApplicationFee,
         'bank_account': BankAccount,
         'bitcoin_receiver': BitcoinReceiver,
@@ -463,6 +464,24 @@ class Account(CreateableAPIResource, ListableAPIResource,
             self.request('post', url, params, headers)
         )
         return self
+
+
+class AlipayAccount(UpdateableAPIResource, DeletableAPIResource):
+    def instance_url(self):
+        token = util.utf8(self.id)
+        extn = urllib.quote_plus(token)
+        customer = util.utf8(self.customer)
+
+        base = Customer.class_url()
+        owner_extn = urllib.quote_plus(customer)
+
+        return "%s/%s/sources/%s" % (base, owner_extn, extn)
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, stripe_account=None, **params):
+        raise NotImplementedError(
+            "Can't retrieve an Alipay account without a customer ID. "
+            "Use customer.sources.retrieve('alipay_account_id') instead.")
 
 
 class Balance(SingletonAPIResource):
