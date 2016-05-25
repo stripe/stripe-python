@@ -35,6 +35,7 @@ from stripe.resource import (  # noqa
     Invoice,
     InvoiceItem,
     Order,
+    OrderReturn,
     Plan,
     Product,
     Recipient,
