@@ -66,3 +66,25 @@ class OrderTest(StripeResourceTest):
             {},
             None
         )
+
+    def test_return_order(self):
+        order = stripe.Order(id="or_return")
+        order.return_order()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/orders/or_return/returns',
+            {},
+            None
+        )
+
+
+class OrderReturnTest(StripeResourceTest):
+
+    def test_list_order_returns(self):
+        stripe.OrderReturn.list()
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/order_returns',
+            {}
+        )
