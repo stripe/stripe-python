@@ -68,6 +68,24 @@ class SubscriptionTest(StripeResourceTest):
             None
         )
 
+    def test_modify_subscription(self):
+        trial_end_dttm = datetime.datetime.now() + datetime.timedelta(days=15)
+        trial_end_int = int(time.mktime(trial_end_dttm.timetuple()))
+
+        stripe.Subscription.modify('test_sub',
+                                   plan=DUMMY_PLAN['id'],
+                                   trial_end=trial_end_int)
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/subscriptions/test_sub',
+            {
+                'plan': DUMMY_PLAN['id'],
+                'trial_end': trial_end_int
+            },
+            None
+        )
+
     def test_delete_subscription(self):
         subscription = stripe.Subscription.construct_from({
             'id': 'test_sub',

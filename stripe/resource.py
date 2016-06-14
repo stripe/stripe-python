@@ -417,6 +417,19 @@ class CreateableAPIResource(APIResource):
 
 class UpdateableAPIResource(APIResource):
 
+    @classmethod
+    def update_url(cls, sid):
+        return "%s/%s" % (cls.class_url(), urllib.quote_plus(util.utf8(sid)))
+
+    @classmethod
+    def modify(cls, sid, api_key=None, idempotency_key=None,
+               stripe_account=None, **params):
+        url = cls.update_url(sid)
+        requestor = api_requestor.APIRequestor(api_key, account=stripe_account)
+        headers = populate_headers(idempotency_key)
+        response, api_key = requestor.request('post', url, params, headers)
+        return convert_to_stripe_object(response, api_key, stripe_account)
+
     def save(self, idempotency_key=None):
         updated_params = self.serialize(None)
         headers = populate_headers(idempotency_key)
