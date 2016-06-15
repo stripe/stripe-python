@@ -501,7 +501,7 @@ class AlipayAccount(UpdateableAPIResource, DeletableAPIResource):
         return "%s/%s/sources/%s" % (base, owner_extn, extn)
 
     def instance_url(self):
-        self._build_instance_url(self.customer, self.id)
+        return self._build_instance_url(self.customer, self.id)
 
     @classmethod
     def modify(cls, customer, id, **params):
