@@ -418,17 +418,17 @@ class CreateableAPIResource(APIResource):
 class UpdateableAPIResource(APIResource):
 
     @classmethod
-    def update_url(cls, sid):
-        return "%s/%s" % (cls.class_url(), urllib.quote_plus(util.utf8(sid)))
-
-    @classmethod
-    def modify(cls, sid, api_key=None, idempotency_key=None,
-               stripe_account=None, **params):
-        url = cls.update_url(sid)
+    def _modify(cls, url, api_key=None, idempotency_key=None,
+                stripe_account=None, **params):
         requestor = api_requestor.APIRequestor(api_key, account=stripe_account)
         headers = populate_headers(idempotency_key)
         response, api_key = requestor.request('post', url, params, headers)
         return convert_to_stripe_object(response, api_key, stripe_account)
+
+    @classmethod
+    def modify(cls, sid, **params):
+        url = "%s/%s" % (cls.class_url(), urllib.quote_plus(util.utf8(sid)))
+        return cls._modify(url, **params)
 
     def save(self, idempotency_key=None):
         updated_params = self.serialize(None)
@@ -458,14 +458,21 @@ class Account(CreateableAPIResource, ListableAPIResource,
         instance.refresh()
         return instance
 
-    def instance_url(self):
-        id = self.get('id')
-        if not id:
+    @classmethod
+    def modify(cls, id=None, **params):
+        return cls._modify(cls._build_instance_url(id), **params)
+
+    @classmethod
+    def _build_instance_url(cls, sid):
+        if not sid:
             return "/v1/account"
-        id = util.utf8(id)
-        base = self.class_url()
+        sid = util.utf8(id)
+        base = cls.class_url()
         extn = urllib.quote_plus(id)
         return "%s/%s" % (base, extn)
+
+    def instance_url(self):
+        self._build_instance_url(self.get('id'))
 
     def reject(self, reason=None, idempotency_key=None):
         url = self.instance_url() + '/reject'
@@ -481,15 +488,25 @@ class Account(CreateableAPIResource, ListableAPIResource,
 
 
 class AlipayAccount(UpdateableAPIResource, DeletableAPIResource):
-    def instance_url(self):
-        token = util.utf8(self.id)
+
+    @classmethod
+    def _build_instance_url(cls, customer, sid):
+        token = util.utf8(sid)
         extn = urllib.quote_plus(token)
-        customer = util.utf8(self.customer)
+        customer = util.utf8(customer)
 
         base = Customer.class_url()
         owner_extn = urllib.quote_plus(customer)
 
         return "%s/%s/sources/%s" % (base, owner_extn, extn)
+
+    def instance_url(self):
+        self._build_instance_url(self.customer, self.id)
+
+    @classmethod
+    def modify(cls, customer, id, **params):
+        url = cls._build_instance_url(customer, id)
+        return cls._modify(url, **params)
 
     @classmethod
     def retrieve(cls, id, api_key=None, stripe_account=None, **params):
