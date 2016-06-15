@@ -466,13 +466,13 @@ class Account(CreateableAPIResource, ListableAPIResource,
     def _build_instance_url(cls, sid):
         if not sid:
             return "/v1/account"
-        sid = util.utf8(id)
+        sid = util.utf8(sid)
         base = cls.class_url()
-        extn = urllib.quote_plus(id)
+        extn = urllib.quote_plus(sid)
         return "%s/%s" % (base, extn)
 
     def instance_url(self):
-        self._build_instance_url(self.get('id'))
+        return self._build_instance_url(self.get('id'))
 
     def reject(self, reason=None, idempotency_key=None):
         url = self.instance_url() + '/reject'
