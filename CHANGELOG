@@ -1,3 +1,7 @@
+=== 1.36.0 2016-06-29
+
+* Add `update` class method to resources that can be updated
+
 === 1.35.0 2016-05-24
 
 * Add support for returning Relay orders
