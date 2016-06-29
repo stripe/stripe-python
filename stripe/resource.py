@@ -417,6 +417,19 @@ class CreateableAPIResource(APIResource):
 
 class UpdateableAPIResource(APIResource):
 
+    @classmethod
+    def _modify(cls, url, api_key=None, idempotency_key=None,
+                stripe_account=None, **params):
+        requestor = api_requestor.APIRequestor(api_key, account=stripe_account)
+        headers = populate_headers(idempotency_key)
+        response, api_key = requestor.request('post', url, params, headers)
+        return convert_to_stripe_object(response, api_key, stripe_account)
+
+    @classmethod
+    def modify(cls, sid, **params):
+        url = "%s/%s" % (cls.class_url(), urllib.quote_plus(util.utf8(sid)))
+        return cls._modify(url, **params)
+
     def save(self, idempotency_key=None):
         updated_params = self.serialize(None)
         headers = populate_headers(idempotency_key)
@@ -445,14 +458,21 @@ class Account(CreateableAPIResource, ListableAPIResource,
         instance.refresh()
         return instance
 
-    def instance_url(self):
-        id = self.get('id')
-        if not id:
+    @classmethod
+    def modify(cls, id=None, **params):
+        return cls._modify(cls._build_instance_url(id), **params)
+
+    @classmethod
+    def _build_instance_url(cls, sid):
+        if not sid:
             return "/v1/account"
-        id = util.utf8(id)
-        base = self.class_url()
-        extn = urllib.quote_plus(id)
+        sid = util.utf8(sid)
+        base = cls.class_url()
+        extn = urllib.quote_plus(sid)
         return "%s/%s" % (base, extn)
+
+    def instance_url(self):
+        return self._build_instance_url(self.get('id'))
 
     def reject(self, reason=None, idempotency_key=None):
         url = self.instance_url() + '/reject'
@@ -468,15 +488,25 @@ class Account(CreateableAPIResource, ListableAPIResource,
 
 
 class AlipayAccount(UpdateableAPIResource, DeletableAPIResource):
-    def instance_url(self):
-        token = util.utf8(self.id)
+
+    @classmethod
+    def _build_instance_url(cls, customer, sid):
+        token = util.utf8(sid)
         extn = urllib.quote_plus(token)
-        customer = util.utf8(self.customer)
+        customer = util.utf8(customer)
 
         base = Customer.class_url()
         owner_extn = urllib.quote_plus(customer)
 
         return "%s/%s/sources/%s" % (base, owner_extn, extn)
+
+    def instance_url(self):
+        return self._build_instance_url(self.customer, self.id)
+
+    @classmethod
+    def modify(cls, customer, id, **params):
+        url = cls._build_instance_url(customer, id)
+        return cls._modify(url, **params)
 
     @classmethod
     def retrieve(cls, id, api_key=None, stripe_account=None, **params):
@@ -531,6 +561,14 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
         return "%s/%s/%s/%s" % (base, owner_extn, class_base, extn)
 
     @classmethod
+    def modify(cls, sid, **params):
+        raise NotImplementedError(
+            "Can't modify a card without a customer, recipient or account "
+            "ID. Call save on customer.sources.retrieve('card_id'), "
+            "recipient.cards.retrieve('card_id'), or "
+            "account.external_accounts.retrieve('card_id') instead.")
+
+    @classmethod
     def retrieve(cls, id, api_key=None, stripe_account=None, **params):
         raise NotImplementedError(
             "Can't retrieve a card without a customer, recipient or account "
@@ -573,6 +611,13 @@ class BankAccount(UpdateableAPIResource, DeletableAPIResource, VerifyMixin):
                 "attached to a customer or an account." % token, 'id')
 
         return "%s/%s/%s/%s" % (base, owner_extn, class_base, extn)
+
+    @classmethod
+    def modify(cls, sid, **params):
+        raise NotImplementedError(
+            "Can't modify a bank account without a customer or account ID. "
+            "Call save on customer.sources.retrieve('bank_account_id') or "
+            "account.external_accounts.retrieve('bank_account_id') instead.")
 
     @classmethod
     def retrieve(cls, id, api_key=None, stripe_account=None, **params):
@@ -778,6 +823,12 @@ class Reversal(UpdateableAPIResource):
         return "%s/%s/reversals/%s" % (base, cust_extn, extn)
 
     @classmethod
+    def modify(cls, sid, **params):
+        raise NotImplementedError(
+            "Can't modify a reversal without a transfer"
+            "ID. Call save on transfer.reversals.retrieve('reversal_id')")
+
+    @classmethod
     def retrieve(cls, id, api_key=None, **params):
         raise NotImplementedError(
             "Can't retrieve a reversal without a transfer"
@@ -829,13 +880,22 @@ class ApplicationFee(ListableAPIResource):
 
 class ApplicationFeeRefund(UpdateableAPIResource):
 
-    def instance_url(self):
-        token = util.utf8(self.id)
-        fee = util.utf8(self.fee)
+    @classmethod
+    def _build_instance_url(cls, fee, sid):
+        fee = util.utf8(fee)
+        sid = util.utf8(sid)
         base = ApplicationFee.class_url()
         cust_extn = urllib.quote_plus(fee)
-        extn = urllib.quote_plus(token)
+        extn = urllib.quote_plus(sid)
         return "%s/%s/refunds/%s" % (base, cust_extn, extn)
+
+    @classmethod
+    def modify(cls, fee, sid, **params):
+        url = cls._build_instance_url(fee, sid)
+        return cls._modify(url, **params)
+
+    def instance_url(self):
+        return self._build_instance_url(self.fee, self.id)
 
     @classmethod
     def retrieve(cls, id, api_key=None, **params):

@@ -96,3 +96,18 @@ class ApplicationFeeRefundTest(StripeResourceTest):
             },
             None
         )
+
+    def test_modify_refund(self):
+        stripe.resource.ApplicationFeeRefund.modify("fee_update", "ref_update",
+                                                    metadata={'key': 'foo'},
+                                                    api_key='api_key')
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/application_fees/fee_update/refunds/ref_update',
+            {
+                'metadata': {
+                    'key': 'foo',
+                }
+            },
+            None
+        )

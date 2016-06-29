@@ -37,6 +37,18 @@ class ChargeTest(StripeResourceTest):
             None
         )
 
+    def test_charge_modify(self):
+        stripe.Charge.modify('ch_test_id', refund=True)
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/charges/ch_test_id',
+            {
+                'refund': True,
+            },
+            None
+        )
+
     def test_charge_update_dispute(self):
         charge = stripe.Charge(id='ch_update_id')
         charge.update_dispute(idempotency_key='foo')
