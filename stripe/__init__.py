@@ -42,6 +42,7 @@ from stripe.resource import (  # noqa
     Refund,
     SKU,
     Subscription,
+    ThreeDSecure,
     Token,
     Transfer)
 

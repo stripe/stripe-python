@@ -29,6 +29,7 @@ def convert_to_stripe_object(resp, api_key, account):
         'recipient': Recipient,
         'refund': Refund,
         'subscription': Subscription,
+        'three_d_secure': ThreeDSecure,
         'token': Token,
         'transfer': Transfer,
         'transfer_reversal': Reversal,
@@ -964,3 +965,13 @@ class CountrySpec(ListableAPIResource):
     @classmethod
     def class_name(cls):
         return 'country_spec'
+
+
+class ThreeDSecure(CreateableAPIResource):
+    @classmethod
+    def class_url(cls):
+        return '/v1/3d_secure'
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, stripe_account=None, **params):
+        raise NotImplementedError("Can't retrieve 3D Secure objects.")
