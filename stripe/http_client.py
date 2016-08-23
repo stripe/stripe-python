@@ -96,9 +96,11 @@ class HTTPClient(object):
 class RequestsClient(HTTPClient):
     name = 'requests'
 
-    def request(self, method, url, headers, post_data=None):
-        kwargs = {}
+    def __init__(self, timeout=80, **kwargs):
+        super(RequestsClient, self).__init__(**kwargs)
+        self._timeout = timeout
 
+    def request(self, method, url, headers, post_data=None, **kwargs):
         if self._verify_ssl_certs:
             kwargs['verify'] = os.path.join(
                 os.path.dirname(__file__), 'data/ca-certificates.crt')
@@ -114,7 +116,7 @@ class RequestsClient(HTTPClient):
                                           url,
                                           headers=headers,
                                           data=post_data,
-                                          timeout=80,
+                                          timeout=self._timeout,
                                           **kwargs)
             except TypeError as e:
                 raise TypeError(
