@@ -51,13 +51,20 @@ try:
 except ImportError:
     urlfetch = None
 
+# proxy support for the pycurl client
+if sys.version_info >= (3, 0):
+    from urllib.parse import urlparse
+else:
+    from urlparse import urlparse
 
 def new_default_http_client(*args, **kwargs):
     if urlfetch:
+        # no proxy support in urlfetch. for a patch, see:
+        # https://code.google.com/p/googleappengine/issues/detail?id=544
         impl = UrlFetchClient
     elif requests:
         impl = RequestsClient
-    elif pycurl:
+    elif pycurl: 
         impl = PycurlClient
     else:
         impl = Urllib2Client
@@ -73,8 +80,9 @@ def new_default_http_client(*args, **kwargs):
 
 class HTTPClient(object):
 
-    def __init__(self, verify_ssl_certs=True):
+    def __init__(self, verify_ssl_certs=True, proxies= None):
         self._verify_ssl_certs = verify_ssl_certs
+        self._proxies = proxies.copy() if proxies else proxies
 
     def request(self, method, url, headers, post_data=None):
         raise NotImplementedError(
@@ -92,6 +100,9 @@ class RequestsClient(HTTPClient):
                 os.path.dirname(__file__), 'data/ca-certificates.crt')
         else:
             kwargs['verify'] = False
+
+        if self._proxies:
+            kwargs['proxies'] = self._proxies
 
         try:
             try:
@@ -144,7 +155,16 @@ class RequestsClient(HTTPClient):
 class UrlFetchClient(HTTPClient):
     name = 'urlfetch'
 
-    def __init__(self, verify_ssl_certs=True, deadline=55):
+    def __init__(self, verify_ssl_certs=True, proxies= None, deadline=55):
+        
+        # no proxy support in urlfetch. for a patch, see:
+        # https://code.google.com/p/googleappengine/issues/detail?id=544        
+        if proxies:
+            raise error.APIConnectionError(
+                "No proxy support in urlfetch library. "
+                "Set stripe.default_http_client to either RequestsClient, "
+                "PycurlClient, or Urllib2Client instance to use a proxy." )
+
         self._verify_ssl_certs = verify_ssl_certs
         # GAE requests time out after 60 seconds, so make sure to default
         # to 55 seconds to allow for a slow Stripe
@@ -187,9 +207,30 @@ class UrlFetchClient(HTTPClient):
         msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
         raise error.APIConnectionError(msg)
 
-
 class PycurlClient(HTTPClient):
     name = 'pycurl'
+
+    def __init__(self, verify_ssl_certs=True, proxies= None):
+        super( PycurlClient, self ).__init__( verify_ssl_certs= verify_ssl_certs, proxies= proxies )
+        # need to urlparse the proxies, since PyCurl
+        # consumes the proxy url in small pieces
+        if self._proxies:
+            # now that we have the parser, get the proxy url pieces
+            proxies = self._proxies
+            for scheme in proxies:
+                proxies[ scheme ] = urlparse( proxies[ scheme ] )
+    
+    def __get__proxy__( self, url ):
+        if self._proxies:
+            proxies = self._proxies
+            scheme = url.split( ":" )[ 0 ] if url else None
+            if scheme:
+                if scheme in proxies:
+                    return proxies[ scheme ]
+                scheme = scheme[ 0:-1 ]
+                if scheme in proxies:
+                    return proxies[ scheme ]
+        return None
 
     def parse_headers(self, data):
         if '\r\n' not in data:
@@ -199,9 +240,19 @@ class PycurlClient(HTTPClient):
         return dict((k.lower(), v) for k, v in dict(headers).iteritems())
 
     def request(self, method, url, headers, post_data=None):
+
         s = util.StringIO.StringIO()
         rheaders = util.StringIO.StringIO()
         curl = pycurl.Curl()
+
+        proxy = self.__get__proxy__( url )
+        if proxy:
+            if proxy.hostname:
+                curl.setopt( pycurl.PROXY, proxy.hostname )
+            if proxy.port:
+                curl.setopt( pycurl.PROXYPORT, proxy.port )
+            if proxy.username or proxy.password:
+                curl.setopt(pycurl.PROXYUSERPWD, "%s:%s" % ( proxy.username, proxy.password ) )
 
         if method == 'get':
             curl.setopt(pycurl.HTTPGET, 1)
@@ -264,6 +315,14 @@ class Urllib2Client(HTTPClient):
         name = 'urllib.request'
     else:
         name = 'urllib2'
+
+    def __init__(self, verify_ssl_certs=True, proxies= None):
+        super( Urllib2Client, self ).__init__( verify_ssl_certs= verify_ssl_certs, proxies= proxies )
+        # install proxy tied opener here
+        if self._proxies:
+            proxy = urllib2.ProxyHandler( self._proxies )
+            opener = urllib2.build_opener( proxy )
+            urllib2.install_opener( opener )
 
     def request(self, method, url, headers, post_data=None):
         if sys.version_info >= (3, 0) and isinstance(post_data, basestring):

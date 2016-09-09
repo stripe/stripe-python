@@ -12,6 +12,7 @@ api_base = 'https://api.stripe.com'
 upload_api_base = 'https://uploads.stripe.com'
 api_version = None
 verify_ssl_certs = True
+proxies = None
 default_http_client = None
 
 # Resource
