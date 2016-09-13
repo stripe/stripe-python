@@ -210,7 +210,8 @@ class PycurlClient(HTTPClient):
     name = 'pycurl'
 
     def __init__(self, verify_ssl_certs=True, proxies=None):
-        super(PycurlClient, self).__init__(verify_ssl_certs=verify_ssl_certs, proxies=proxies)
+        super(PycurlClient, self).__init__(
+            verify_ssl_certs=verify_ssl_certs, proxies=proxies)
         # need to urlparse the proxies, since PyCurl
         # consumes the proxy url in small pieces
         if self._proxies:
@@ -251,7 +252,7 @@ class PycurlClient(HTTPClient):
             if proxy.port:
                 curl.setopt(pycurl.PROXYPORT, proxy.port)
             if proxy.username or proxy.password:
-                curl.setopt(pycurl.PROXYUSERPWD, \
+                curl.setopt(pycurl.PROXYUSERPWD,
                     "%s:%s" % (proxy.username, proxy.password))
 
         if method == 'get':
@@ -317,7 +318,8 @@ class Urllib2Client(HTTPClient):
         name = 'urllib2'
 
     def __init__(self, verify_ssl_certs=True, proxies=None):
-        super(Urllib2Client, self).__init__(verify_ssl_certs= verify_ssl_certs, proxies= proxies)
+        super(Urllib2Client, self).__init__(
+            verify_ssl_certs=verify_ssl_certs, proxies=proxies)
         # install proxy tied opener here
         if self._proxies:
             proxy = urllib2.ProxyHandler(self._proxies)
