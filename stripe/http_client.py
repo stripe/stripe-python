@@ -57,8 +57,6 @@ from urlparse import urlparse
 
 def new_default_http_client(*args, **kwargs):
     if urlfetch:
-        # no proxy support in urlfetch. for a patch, see:
-        # https://code.google.com/p/googleappengine/issues/detail?id=544
         impl = UrlFetchClient
     elif requests:
         impl = RequestsClient
@@ -158,7 +156,7 @@ class UrlFetchClient(HTTPClient):
         # no proxy support in urlfetch. for a patch, see:
         # https://code.google.com/p/googleappengine/issues/detail?id=544
         if proxies:
-            raise error.APIConnectionError(
+            raise ValueError(
                 "No proxy support in urlfetch library. "
                 "Set stripe.default_http_client to either RequestsClient, "
                 "PycurlClient, or Urllib2Client instance to use a proxy.")
