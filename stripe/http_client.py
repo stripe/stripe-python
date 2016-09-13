@@ -52,10 +52,7 @@ except ImportError:
     urlfetch = None
 
 # proxy support for the pycurl client
-if sys.version_info >= (3, 0):
-    from urllib.parse import urlparse
-else:
-    from urlparse import urlparse
+from urlparse import urlparse
 
 def new_default_http_client(*args, **kwargs):
     if urlfetch:
@@ -64,7 +61,7 @@ def new_default_http_client(*args, **kwargs):
         impl = UrlFetchClient
     elif requests:
         impl = RequestsClient
-    elif pycurl: 
+    elif pycurl:
         impl = PycurlClient
     else:
         impl = Urllib2Client
@@ -80,9 +77,9 @@ def new_default_http_client(*args, **kwargs):
 
 class HTTPClient(object):
 
-    def __init__(self, verify_ssl_certs=True, proxies= None):
+    def __init__(self, verify_ssl_certs=True, proxies=None):
         self._verify_ssl_certs = verify_ssl_certs
-        self._proxies = proxies.copy() if proxies else proxies
+        self._proxies = proxies.copy() if proxies else None
 
     def request(self, method, url, headers, post_data=None):
         raise NotImplementedError(
@@ -155,7 +152,7 @@ class RequestsClient(HTTPClient):
 class UrlFetchClient(HTTPClient):
     name = 'urlfetch'
 
-    def __init__(self, verify_ssl_certs=True, proxies= None, deadline=55):
+    def __init__(self, verify_ssl_certs=True, proxies=None, deadline=55):
         
         # no proxy support in urlfetch. for a patch, see:
         # https://code.google.com/p/googleappengine/issues/detail?id=544        
@@ -163,7 +160,7 @@ class UrlFetchClient(HTTPClient):
             raise error.APIConnectionError(
                 "No proxy support in urlfetch library. "
                 "Set stripe.default_http_client to either RequestsClient, "
-                "PycurlClient, or Urllib2Client instance to use a proxy." )
+                "PycurlClient, or Urllib2Client instance to use a proxy.")
 
         self._verify_ssl_certs = verify_ssl_certs
         # GAE requests time out after 60 seconds, so make sure to default
@@ -207,29 +204,30 @@ class UrlFetchClient(HTTPClient):
         msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
         raise error.APIConnectionError(msg)
 
+
 class PycurlClient(HTTPClient):
     name = 'pycurl'
 
     def __init__(self, verify_ssl_certs=True, proxies= None):
-        super( PycurlClient, self ).__init__( verify_ssl_certs= verify_ssl_certs, proxies= proxies )
+        super( PycurlClient, self ).__init__( verify_ssl_certs=verify_ssl_certs, proxies=proxies )
         # need to urlparse the proxies, since PyCurl
         # consumes the proxy url in small pieces
         if self._proxies:
             # now that we have the parser, get the proxy url pieces
             proxies = self._proxies
             for scheme in proxies:
-                proxies[ scheme ] = urlparse( proxies[ scheme ] )
+                proxies[scheme] = urlparse(proxies[scheme])
     
-    def __get__proxy__( self, url ):
+    def __get__proxy__(self, url):
         if self._proxies:
             proxies = self._proxies
-            scheme = url.split( ":" )[ 0 ] if url else None
+            scheme = url.split(":")[0] if url else None
             if scheme:
                 if scheme in proxies:
-                    return proxies[ scheme ]
-                scheme = scheme[ 0:-1 ]
+                    return proxies[scheme]
+                scheme = scheme[0:-1]
                 if scheme in proxies:
-                    return proxies[ scheme ]
+                    return proxies[scheme]
         return None
 
     def parse_headers(self, data):

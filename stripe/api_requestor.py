@@ -72,7 +72,7 @@ class APIRequestor(object):
         from stripe import proxies
 
         self._client = client or stripe.default_http_client or \
-            http_client.new_default_http_client(verify_ssl_certs=verify, proxies= proxies)
+            http_client.new_default_http_client(verify_ssl_certs=verify, proxies=proxies)
 
     @classmethod
     def api_url(cls, url=''):
