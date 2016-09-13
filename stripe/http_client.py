@@ -252,7 +252,8 @@ class PycurlClient(HTTPClient):
             if proxy.port:
                 curl.setopt(pycurl.PROXYPORT, proxy.port)
             if proxy.username or proxy.password:
-                curl.setopt(pycurl.PROXYUSERPWD,
+                curl.setopt(
+                    pycurl.PROXYUSERPWD,
                     "%s:%s" % (proxy.username, proxy.password))
 
         if method == 'get':
