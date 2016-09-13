@@ -54,6 +54,7 @@ except ImportError:
 # proxy support for the pycurl client
 from urlparse import urlparse
 
+
 def new_default_http_client(*args, **kwargs):
     if urlfetch:
         # no proxy support in urlfetch. for a patch, see:
@@ -153,9 +154,9 @@ class UrlFetchClient(HTTPClient):
     name = 'urlfetch'
 
     def __init__(self, verify_ssl_certs=True, proxies=None, deadline=55):
-        
+
         # no proxy support in urlfetch. for a patch, see:
-        # https://code.google.com/p/googleappengine/issues/detail?id=544        
+        # https://code.google.com/p/googleappengine/issues/detail?id=544
         if proxies:
             raise error.APIConnectionError(
                 "No proxy support in urlfetch library. "
@@ -208,8 +209,8 @@ class UrlFetchClient(HTTPClient):
 class PycurlClient(HTTPClient):
     name = 'pycurl'
 
-    def __init__(self, verify_ssl_certs=True, proxies= None):
-        super( PycurlClient, self ).__init__( verify_ssl_certs=verify_ssl_certs, proxies=proxies )
+    def __init__(self, verify_ssl_certs=True, proxies=None):
+        super(PycurlClient, self).__init__(verify_ssl_certs=verify_ssl_certs, proxies=proxies)
         # need to urlparse the proxies, since PyCurl
         # consumes the proxy url in small pieces
         if self._proxies:
@@ -217,7 +218,7 @@ class PycurlClient(HTTPClient):
             proxies = self._proxies
             for scheme in proxies:
                 proxies[scheme] = urlparse(proxies[scheme])
-    
+
     def __get__proxy__(self, url):
         if self._proxies:
             proxies = self._proxies
@@ -243,14 +244,15 @@ class PycurlClient(HTTPClient):
         rheaders = util.StringIO.StringIO()
         curl = pycurl.Curl()
 
-        proxy = self.__get__proxy__( url )
+        proxy = self.__get__proxy__(url)
         if proxy:
             if proxy.hostname:
-                curl.setopt( pycurl.PROXY, proxy.hostname )
+                curl.setopt(pycurl.PROXY, proxy.hostname)
             if proxy.port:
-                curl.setopt( pycurl.PROXYPORT, proxy.port )
+                curl.setopt(pycurl.PROXYPORT, proxy.port)
             if proxy.username or proxy.password:
-                curl.setopt(pycurl.PROXYUSERPWD, "%s:%s" % ( proxy.username, proxy.password ) )
+                curl.setopt(pycurl.PROXYUSERPWD, \
+                    "%s:%s" % (proxy.username, proxy.password))
 
         if method == 'get':
             curl.setopt(pycurl.HTTPGET, 1)
@@ -314,13 +316,13 @@ class Urllib2Client(HTTPClient):
     else:
         name = 'urllib2'
 
-    def __init__(self, verify_ssl_certs=True, proxies= None):
-        super( Urllib2Client, self ).__init__( verify_ssl_certs= verify_ssl_certs, proxies= proxies )
+    def __init__(self, verify_ssl_certs=True, proxies=None):
+        super(Urllib2Client, self).__init__(verify_ssl_certs= verify_ssl_certs, proxies= proxies)
         # install proxy tied opener here
         if self._proxies:
-            proxy = urllib2.ProxyHandler( self._proxies )
-            opener = urllib2.build_opener( proxy )
-            urllib2.install_opener( opener )
+            proxy = urllib2.ProxyHandler(self._proxies)
+            opener = urllib2.build_opener(proxy)
+            urllib2.install_opener(opener)
 
     def request(self, method, url, headers, post_data=None):
         if sys.version_info >= (3, 0) and isinstance(post_data, basestring):
