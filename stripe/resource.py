@@ -9,6 +9,7 @@ def convert_to_stripe_object(resp, api_key, account):
     types = {
         'account': Account,
         'alipay_account': AlipayAccount,
+        'apple_pay_domain': ApplePayDomain,
         'application_fee': ApplicationFee,
         'bank_account': BankAccount,
         'bitcoin_receiver': BitcoinReceiver,
@@ -975,3 +976,10 @@ class ThreeDSecure(CreateableAPIResource):
     @classmethod
     def retrieve(cls, id, api_key=None, stripe_account=None, **params):
         raise NotImplementedError("Can't retrieve 3D Secure objects.")
+
+
+class ApplePayDomain(CreateableAPIResource, ListableAPIResource,
+                     DeletableAPIResource):
+    @classmethod
+    def class_url(cls):
+        return '/v1/apple_pay/domains'
