@@ -61,6 +61,10 @@ DUMMY_TRANSFER = {
     'recipient': 'self'
 }
 
+DUMMY_APPLE_PAY_DOMAIN = {
+    'domain_name': 'test.com',
+}
+
 DUMMY_INVOICE_ITEM = {
     'amount': 456,
     'currency': 'usd',
