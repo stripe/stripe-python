@@ -30,7 +30,6 @@ def convert_to_stripe_object(resp, api_key, account):
         'recipient': Recipient,
         'refund': Refund,
         'subscription': Subscription,
-        'subscription_item': SubscriptionItem,
         'three_d_secure': ThreeDSecure,
         'token': Token,
         'transfer': Transfer,
@@ -787,13 +786,6 @@ class Subscription(CreateableAPIResource, DeletableAPIResource,
         url = self.instance_url() + '/discount'
         _, api_key = requestor.request('delete', url)
         self.refresh_from({'discount': None}, api_key, True)
-
-
-class SubscriptionItem(CreateableAPIResource, DeletableAPIResource,
-                       UpdateableAPIResource, ListableAPIResource):
-    @classmethod
-    def class_name(cls):
-        return 'subscription_item'
 
 
 class Refund(CreateableAPIResource, ListableAPIResource,
