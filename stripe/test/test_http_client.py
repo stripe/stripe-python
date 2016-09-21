@@ -112,6 +112,11 @@ class RequestsVerify(object):
 class RequestsClientTests(StripeUnitTestCase, ClientTestBase):
     request_client = stripe.http_client.RequestsClient
 
+    def make_request(self, method, url, headers, post_data):
+        client = self.request_client(verify_ssl_certs=True,
+                                     proxies="http://slap/")
+        return client.request(method, url, headers, post_data)
+
     def mock_response(self, mock, body, code):
         result = Mock()
         result.content = body
@@ -128,6 +133,8 @@ class RequestsClientTests(StripeUnitTestCase, ClientTestBase):
                                         headers=headers,
                                         data=post_data,
                                         verify=RequestsVerify(),
+                                        proxies={"http": "http://slap/",
+                                                 "https": "http://slap/"},
                                         timeout=80)
 
 
@@ -158,6 +165,12 @@ class UrlFetchClientTests(StripeUnitTestCase, ClientTestBase):
 
 class Urllib2ClientTests(StripeUnitTestCase, ClientTestBase):
     request_client = stripe.http_client.Urllib2Client
+
+    def make_request(self, method, url, headers, post_data):
+        client = self.request_client(verify_ssl_certs=True,
+                                     proxies={"http": "http://slap/",
+                                              "https": "http://slap/"})
+        return client.request(method, url, headers, post_data)
 
     def mock_response(self, mock, body, code):
         response = Mock

@@ -78,6 +78,14 @@ class HTTPClient(object):
 
     def __init__(self, verify_ssl_certs=True, proxies=None):
         self._verify_ssl_certs = verify_ssl_certs
+        if proxies:
+            if type(proxies) is str:
+                proxies = {"http": proxies, "https": proxies}
+            if not (type(proxies) is dict):
+                raise ValueError(
+                    "Proxy(ies) must be specified as either a string "
+                    "URL or a dict() with string URL under the"
+                    " ""https"" and/or ""http"" keys.")
         self._proxies = proxies.copy() if proxies else None
 
     def request(self, method, url, headers, post_data=None):
