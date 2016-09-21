@@ -12,15 +12,15 @@ stripe.proxies = {
 clients = ( 
     stripe.http_client.RequestsClient( 
         verify_ssl_certs= stripe.verify_ssl_certs,
-        proxies= stripe.proxies )
+        proxy= stripe.proxy )
     ,
     stripe.http_client.PycurlClient( 
         verify_ssl_certs= stripe.verify_ssl_certs,
-        proxies= stripe.proxies )
+        proxy= stripe.proxy )
     ,
     stripe.http_client.Urllib2Client( 
         verify_ssl_certs= stripe.verify_ssl_certs,
-        proxies= stripe.proxies ) )
+        proxy= stripe.proxy ) )
 
 for c in clients:
     stripe.default_http_client = c

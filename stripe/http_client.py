@@ -76,17 +76,17 @@ def new_default_http_client(*args, **kwargs):
 
 class HTTPClient(object):
 
-    def __init__(self, verify_ssl_certs=True, proxies=None):
+    def __init__(self, verify_ssl_certs=True, proxy=None):
         self._verify_ssl_certs = verify_ssl_certs
-        if proxies:
-            if type(proxies) is str:
-                proxies = {"http": proxies, "https": proxies}
-            if not (type(proxies) is dict):
+        if proxy:
+            if type(proxy) is str:
+                proxy = {"http": proxy, "https": proxy}
+            if not (type(proxy) is dict):
                 raise ValueError(
                     "Proxy(ies) must be specified as either a string "
                     "URL or a dict() with string URL under the"
                     " ""https"" and/or ""http"" keys.")
-        self._proxies = proxies.copy() if proxies else None
+        self._proxy = proxy.copy() if proxy else None
 
     def request(self, method, url, headers, post_data=None):
         raise NotImplementedError(
@@ -105,8 +105,8 @@ class RequestsClient(HTTPClient):
         else:
             kwargs['verify'] = False
 
-        if self._proxies:
-            kwargs['proxies'] = self._proxies
+        if self._proxy:
+            kwargs['proxies'] = self._proxy
 
         try:
             try:
@@ -159,11 +159,11 @@ class RequestsClient(HTTPClient):
 class UrlFetchClient(HTTPClient):
     name = 'urlfetch'
 
-    def __init__(self, verify_ssl_certs=True, proxies=None, deadline=55):
+    def __init__(self, verify_ssl_certs=True, proxy=None, deadline=55):
 
         # no proxy support in urlfetch. for a patch, see:
         # https://code.google.com/p/googleappengine/issues/detail?id=544
-        if proxies:
+        if proxy:
             raise ValueError(
                 "No proxy support in urlfetch library. "
                 "Set stripe.default_http_client to either RequestsClient, "
@@ -215,27 +215,27 @@ class UrlFetchClient(HTTPClient):
 class PycurlClient(HTTPClient):
     name = 'pycurl'
 
-    def __init__(self, verify_ssl_certs=True, proxies=None):
+    def __init__(self, verify_ssl_certs=True, proxy=None):
         super(PycurlClient, self).__init__(
-            verify_ssl_certs=verify_ssl_certs, proxies=proxies)
-        # need to urlparse the proxies, since PyCurl
+            verify_ssl_certs=verify_ssl_certs, proxy=proxy)
+        # need to urlparse the proxy, since PyCurl
         # consumes the proxy url in small pieces
-        if self._proxies:
+        if self._proxy:
             # now that we have the parser, get the proxy url pieces
-            proxies = self._proxies
-            for scheme in proxies:
-                proxies[scheme] = urlparse(proxies[scheme])
+            proxy = self._proxy
+            for scheme in proxy:
+                proxy[scheme] = urlparse(proxy[scheme])
 
     def __get__proxy__(self, url):
-        if self._proxies:
-            proxies = self._proxies
+        if self._proxy:
+            proxy = self._proxy
             scheme = url.split(":")[0] if url else None
             if scheme:
-                if scheme in proxies:
-                    return proxies[scheme]
+                if scheme in proxy:
+                    return proxy[scheme]
                 scheme = scheme[0:-1]
-                if scheme in proxies:
-                    return proxies[scheme]
+                if scheme in proxy:
+                    return proxy[scheme]
         return None
 
     def parse_headers(self, data):
@@ -324,12 +324,12 @@ class Urllib2Client(HTTPClient):
     else:
         name = 'urllib2'
 
-    def __init__(self, verify_ssl_certs=True, proxies=None):
+    def __init__(self, verify_ssl_certs=True, proxy=None):
         super(Urllib2Client, self).__init__(
-            verify_ssl_certs=verify_ssl_certs, proxies=proxies)
+            verify_ssl_certs=verify_ssl_certs, proxy=proxy)
         # install proxy tied opener here
-        if self._proxies:
-            proxy = urllib2.ProxyHandler(self._proxies)
+        if self._proxy:
+            proxy = urllib2.ProxyHandler(self._proxy)
             opener = urllib2.build_opener(proxy)
             urllib2.install_opener(opener)
 

@@ -114,7 +114,7 @@ class RequestsClientTests(StripeUnitTestCase, ClientTestBase):
 
     def make_request(self, method, url, headers, post_data):
         client = self.request_client(verify_ssl_certs=True,
-                                     proxies="http://slap/")
+                                     proxy="http://slap/")
         return client.request(method, url, headers, post_data)
 
     def mock_response(self, mock, body, code):
@@ -168,8 +168,8 @@ class Urllib2ClientTests(StripeUnitTestCase, ClientTestBase):
 
     def make_request(self, method, url, headers, post_data):
         client = self.request_client(verify_ssl_certs=True,
-                                     proxies={"http": "http://slap/",
-                                              "https": "http://slap/"})
+                                     proxy={"http": "http://slap/",
+                                            "https": "http://slap/"})
         return client.request(method, url, headers, post_data)
 
     def mock_response(self, mock, body, code):
