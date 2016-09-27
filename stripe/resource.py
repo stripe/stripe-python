@@ -59,7 +59,7 @@ def convert_array_to_dict(arr):
     if isinstance(arr, list):
         d = {}
         for i, value in enumerate(arr):
-            d["{}".format(i)] = value
+            d["{0}".format(i)] = value
         return d
     else:
         return arr
@@ -803,6 +803,12 @@ class Subscription(CreateableAPIResource, DeletableAPIResource,
         if "items" in params:
             params["items"] = convert_array_to_dict(params["items"])
         super(Subscription, cls).modify(sid, **params)
+
+    @classmethod
+    def create(cls, **params):
+        if "items" in params:
+            params["items"] = convert_array_to_dict(params["items"])
+        super(Subscription, cls).create(**params)
 
 
 class SubscriptionItem(CreateableAPIResource, DeletableAPIResource,
