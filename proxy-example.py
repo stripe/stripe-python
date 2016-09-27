@@ -5,7 +5,7 @@ stripe.api_key = 'tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I'
 
 print( "Attempting charge..." )
 
-stripe.proxies = {
+stripe.proxy = {
     "http": "http://<user>:<pass>@<proxy>:<port>",
     "https": "http://<user>:<pass>@<proxy>:<port>" }
 
