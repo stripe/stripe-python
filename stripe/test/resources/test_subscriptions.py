@@ -86,6 +86,24 @@ class SubscriptionTest(StripeResourceTest):
             None
         )
 
+    def test_modify_subscription_items(self):
+        stripe.Subscription.modify('test_sub',
+                                   items=[{"id": "si", "plan": "foo"}])
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/subscriptions/test_sub',
+            {
+                'items': {
+                    "0": {
+                        "plan": "foo",
+                        "id": "si",
+                    },
+                },
+            },
+            None
+        )
+
     def test_delete_subscription(self):
         subscription = stripe.Subscription.construct_from({
             'id': 'test_sub',
