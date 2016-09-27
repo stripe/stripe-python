@@ -57,7 +57,10 @@ def convert_to_stripe_object(resp, api_key, account):
 
 def convert_array_to_dict(arr):
     if isinstance(arr, list):
-        return {"{}".format(i): value for i, value in enumerate(arr)}
+        d = {}
+        for i, value in enumerate(arr):
+            d["{}".format(i)] = value
+        return d
     else:
         return arr
 
