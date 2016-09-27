@@ -226,18 +226,6 @@ class PycurlClient(HTTPClient):
             for scheme in proxy:
                 proxy[scheme] = urlparse(proxy[scheme])
 
-    def __get__proxy__(self, url):
-        if self._proxy:
-            proxy = self._proxy
-            scheme = url.split(":")[0] if url else None
-            if scheme:
-                if scheme in proxy:
-                    return proxy[scheme]
-                scheme = scheme[0:-1]
-                if scheme in proxy:
-                    return proxy[scheme]
-        return None
-
     def parse_headers(self, data):
         if '\r\n' not in data:
             return {}
@@ -246,12 +234,11 @@ class PycurlClient(HTTPClient):
         return dict((k.lower(), v) for k, v in dict(headers).iteritems())
 
     def request(self, method, url, headers, post_data=None):
-
         s = util.StringIO.StringIO()
         rheaders = util.StringIO.StringIO()
         curl = pycurl.Curl()
 
-        proxy = self.__get__proxy__(url)
+        proxy = self._get_proxy(url)
         if proxy:
             if proxy.hostname:
                 curl.setopt(pycurl.PROXY, proxy.hostname)
@@ -316,6 +303,18 @@ class PycurlClient(HTTPClient):
 
         msg = textwrap.fill(msg) + "\n\n(Network error: " + e[1] + ")"
         raise error.APIConnectionError(msg)
+
+    def _get_proxy(self, url):
+        if self._proxy:
+            proxy = self._proxy
+            scheme = url.split(":")[0] if url else None
+            if scheme:
+                if scheme in proxy:
+                    return proxy[scheme]
+                scheme = scheme[0:-1]
+                if scheme in proxy:
+                    return proxy[scheme]
+        return None
 
 
 class Urllib2Client(HTTPClient):
