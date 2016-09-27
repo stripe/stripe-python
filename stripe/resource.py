@@ -55,6 +55,16 @@ def convert_to_stripe_object(resp, api_key, account):
         return resp
 
 
+def convert_array_to_dict(arr):
+    if isinstance(arr, list):
+        d = {}
+        for i, value in enumerate(arr):
+            d[str(i)] = value
+        return d
+    else:
+        return arr
+
+
 def populate_headers(idempotency_key):
     if idempotency_key is not None:
         return {"Idempotency-Key": idempotency_key}
@@ -787,6 +797,18 @@ class Subscription(CreateableAPIResource, DeletableAPIResource,
         url = self.instance_url() + '/discount'
         _, api_key = requestor.request('delete', url)
         self.refresh_from({'discount': None}, api_key, True)
+
+    @classmethod
+    def modify(cls, sid, **params):
+        if "items" in params:
+            params["items"] = convert_array_to_dict(params["items"])
+        super(Subscription, cls).modify(sid, **params)
+
+    @classmethod
+    def create(cls, **params):
+        if "items" in params:
+            params["items"] = convert_array_to_dict(params["items"])
+        super(Subscription, cls).create(**params)
 
 
 class SubscriptionItem(CreateableAPIResource, DeletableAPIResource,

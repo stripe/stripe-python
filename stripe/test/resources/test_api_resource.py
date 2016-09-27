@@ -71,6 +71,12 @@ class APIResourceTests(StripeApiTestCase):
         # TODO: We should probably be stripping out this property
         # self.assertRaises(AttributeError, getattr, converted.adict, 'object')
 
+    def test_convert_array_to_dict(self):
+        out = stripe.resource.convert_array_to_dict([{"foo": "bar"}])
+        self.assertEqual({"0": {"foo": "bar"}}, out)
+        self.assertEqual({"f": "b"},
+                         stripe.resource.convert_array_to_dict({"f": "b"}))
+
 
 class SingletonAPIResourceTests(StripeApiTestCase):
 
