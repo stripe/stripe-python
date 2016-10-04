@@ -224,8 +224,26 @@ class PycurlClientTests(StripeUnitTestCase, ClientTestBase):
         mock.perform.side_effect = stripe.http_client.pycurl.error
 
     def check_call(self, mock, meth, url, post_data, headers):
-        # TODO: Check the setopt calls
-        pass
+        lib_mock = self.request_mocks[self.request_client.name]
+
+        # A note on methodology here: we don't necessarily need to verify
+        # _every_ call to setopt, but check a few of them to make sure the
+        # right thing is happening. Keep an eye specifically on conditional
+        # statements where things are more likely to go wrong.
+
+        self.curl_mock.setopt.assert_any_call(lib_mock.NOSIGNAL, 1)
+        self.curl_mock.setopt.assert_any_call(lib_mock.URL,
+                                              stripe.util.utf8(url))
+
+        if meth == 'get':
+            self.curl_mock.setopt.assert_any_call(lib_mock.HTTPGET, 1)
+        elif meth == 'post':
+            self.curl_mock.setopt.assert_any_call(lib_mock.POST, 1)
+        else:
+            self.curl_mock.setopt.assert_any_call(lib_mock.CUSTOMREQUEST,
+                                                  meth.upper())
+
+        self.curl_mock.perform.assert_any_call()
 
 
 class APIEncodeTest(StripeUnitTestCase):
