@@ -296,6 +296,7 @@ class PycurlClientTests(StripeUnitTestCase, ClientTestBase):
         else:
             self.curl_mock.setopt.assert_any_call(lib_mock.CUSTOMREQUEST,
                                                   meth.upper())
+
         self.curl_mock.perform.assert_any_call()
 
 
