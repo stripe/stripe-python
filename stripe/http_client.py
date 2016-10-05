@@ -326,11 +326,11 @@ class Urllib2Client(HTTPClient):
     def __init__(self, verify_ssl_certs=True, proxy=None):
         super(Urllib2Client, self).__init__(
             verify_ssl_certs=verify_ssl_certs, proxy=proxy)
-        # install proxy tied opener here
+        # prepare and cache proxy tied opener here
+        self._opener = None
         if self._proxy:
             proxy = urllib2.ProxyHandler(self._proxy)
-            opener = urllib2.build_opener(proxy)
-            urllib2.install_opener(opener)
+            self._opener = urllib2.build_opener(proxy)
 
     def request(self, method, url, headers, post_data=None):
         if sys.version_info >= (3, 0) and isinstance(post_data, basestring):
@@ -342,7 +342,11 @@ class Urllib2Client(HTTPClient):
             req.get_method = lambda: method.upper()
 
         try:
-            response = urllib2.urlopen(req)
+            # use the custom proxy tied opener, if any.
+            # otherwise, fall to the default urllib opener.
+            response = self._opener.open(req) \
+                if self._opener \
+                else urllib2.urlopen(req)
             rbody = response.read()
             rcode = response.code
             headers = dict(response.info())

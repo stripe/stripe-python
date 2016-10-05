@@ -166,11 +166,11 @@ class UrlFetchClientTests(StripeUnitTestCase, ClientTestBase):
 class Urllib2ClientTests(StripeUnitTestCase, ClientTestBase):
     request_client = stripe.http_client.Urllib2Client
 
-    def make_request(self, method, url, headers, post_data):
-        client = self.request_client(verify_ssl_certs=True,
-                                     proxy={"http": "http://slap/",
-                                            "https": "http://slap/"})
-        return client.request(method, url, headers, post_data)
+    def make_request(self, method, url, headers, post_data, proxy=None):
+        self.client = self.request_client(verify_ssl_certs=True,
+                                          proxy=proxy)
+        self.proxy = proxy
+        return self.client.request(method, url, headers, post_data)
 
     def mock_response(self, mock, body, code):
         response = Mock
@@ -183,19 +183,60 @@ class Urllib2ClientTests(StripeUnitTestCase, ClientTestBase):
 
         mock.urlopen = Mock(return_value=response)
 
+        opener = Mock
+        opener.open = Mock(return_value=response)
+        mock.build_opener = Mock(return_value=opener)
+        mock.build_opener.open = opener.open
+        mock.ProxyHandler = Mock(return_value=opener)
+
+        mock.urlopen = Mock(return_value=response)
+
     def mock_error(self, mock):
         mock.urlopen.side_effect = ValueError
+        mock.build_opener().open.side_effect = ValueError
+        mock.build_opener.reset_mock()
 
     def check_call(self, mock, meth, url, post_data, headers):
         if sys.version_info >= (3, 0) and isinstance(post_data, basestring):
             post_data = post_data.encode('utf-8')
 
         mock.Request.assert_called_with(url, post_data, headers)
-        mock.urlopen.assert_called_with(self.request_object)
+
+        if (self.client._proxy):
+            self.assertTrue(type(self.client._proxy) is dict)
+            mock.ProxyHandler.assert_called_with(self.client._proxy)
+            mock.build_opener.open.assert_called_with(self.request_object)
+            self.assertTrue(not mock.urlopen.called)
+
+        if (not self.client._proxy):
+            mock.urlopen.assert_called_with(self.request_object)
+            self.assertTrue(not mock.build_opener.called)
+            self.assertTrue(not mock.build_opener.open.called)
+
+
+class Urllib2ClientHttpsProxyTests(Urllib2ClientTests):
+    def make_request(self, method, url, headers, post_data, proxy=None):
+        return super(Urllib2ClientHttpsProxyTests, self).make_request(
+                    method, url, headers, post_data,
+                    {"http": "http://slap/",
+                     "https": "http://slap/"})
+
+
+class Urllib2ClientHttpProxyTests(Urllib2ClientTests):
+    def make_request(self, method, url, headers, post_data, proxy=None):
+        return super(Urllib2ClientHttpProxyTests, self).make_request(
+                    method, url, headers, post_data,
+                    "http://slap/")
 
 
 class PycurlClientTests(StripeUnitTestCase, ClientTestBase):
     request_client = stripe.http_client.PycurlClient
+
+    def make_request(self, method, url, headers, post_data, proxy=None):
+        self.client = self.request_client(verify_ssl_certs=True,
+                                          proxy=proxy)
+        self.proxy = proxy
+        return self.client.request(method, url, headers, post_data)
 
     @property
     def request_mock(self):
@@ -237,8 +278,60 @@ class PycurlClientTests(StripeUnitTestCase, ClientTestBase):
         mock.perform.side_effect = stripe.http_client.pycurl.error
 
     def check_call(self, mock, meth, url, post_data, headers):
-        # TODO: Check the setopt calls
-        pass
+        lib_mock = self.request_mocks[self.request_client.name]
+
+        # A note on methodology here: we don't necessarily need to verify
+        # _every_ call to setopt, but check a few of them to make sure the
+        # right thing is happening. Keep an eye specifically on conditional
+        # statements where things are more likely to go wrong.
+
+        self.curl_mock.setopt.assert_any_call(lib_mock.NOSIGNAL, 1)
+        self.curl_mock.setopt.assert_any_call(lib_mock.URL,
+                                              stripe.util.utf8(url))
+
+        if meth == 'get':
+            self.curl_mock.setopt.assert_any_call(lib_mock.HTTPGET, 1)
+        elif meth == 'post':
+            self.curl_mock.setopt.assert_any_call(lib_mock.POST, 1)
+        else:
+            self.curl_mock.setopt.assert_any_call(lib_mock.CUSTOMREQUEST,
+                                                  meth.upper())
+        self.curl_mock.perform.assert_any_call()
+
+
+class PycurlClientHttpProxyTests(PycurlClientTests):
+    def make_request(self, method, url, headers, post_data, proxy=None):
+        return super(PycurlClientHttpProxyTests, self).make_request(
+                    method, url, headers, post_data,
+                    "http://user:withPwd@slap:8888/")
+
+    def check_call(self, mock, meth, url, post_data, headers):
+        lib_mock = self.request_mocks[self.request_client.name]
+
+        self.curl_mock.setopt.assert_any_call(lib_mock.PROXY, "slap")
+        self.curl_mock.setopt.assert_any_call(lib_mock.PROXYPORT, 8888)
+        self.curl_mock.setopt.assert_any_call(lib_mock.PROXYUSERPWD,
+                                              "user:withPwd")
+
+        super(PycurlClientHttpProxyTests, self).check_call(
+                mock, meth, url, post_data, headers)
+
+
+class PycurlClientHttpsProxyTests(PycurlClientTests):
+    def make_request(self, method, url, headers, post_data, proxy=None):
+        return super(PycurlClientHttpsProxyTests, self).make_request(
+                    method, url, headers, post_data,
+                    {"http": "http://slap:8888/",
+                     "https": "http://slap2:444/"})
+
+    def check_call(self, mock, meth, url, post_data, headers):
+        lib_mock = self.request_mocks[self.request_client.name]
+
+        self.curl_mock.setopt.assert_any_call(lib_mock.PROXY, "slap2")
+        self.curl_mock.setopt.assert_any_call(lib_mock.PROXYPORT, 444)
+
+        super(PycurlClientHttpsProxyTests, self).check_call(
+                mock, meth, url, post_data, headers)
 
 
 class APIEncodeTest(StripeUnitTestCase):
