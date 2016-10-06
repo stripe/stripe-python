@@ -9,6 +9,7 @@ def convert_to_stripe_object(resp, api_key, account):
     types = {
         'account': Account,
         'alipay_account': AlipayAccount,
+        'apple_pay_domain': ApplePayDomain,
         'application_fee': ApplicationFee,
         'bank_account': BankAccount,
         'bitcoin_receiver': BitcoinReceiver,
@@ -29,6 +30,7 @@ def convert_to_stripe_object(resp, api_key, account):
         'recipient': Recipient,
         'refund': Refund,
         'subscription': Subscription,
+        'subscription_item': SubscriptionItem,
         'three_d_secure': ThreeDSecure,
         'token': Token,
         'transfer': Transfer,
@@ -51,6 +53,16 @@ def convert_to_stripe_object(resp, api_key, account):
         return klass.construct_from(resp, api_key, stripe_account=account)
     else:
         return resp
+
+
+def convert_array_to_dict(arr):
+    if isinstance(arr, list):
+        d = {}
+        for i, value in enumerate(arr):
+            d[str(i)] = value
+        return d
+    else:
+        return arr
 
 
 def populate_headers(idempotency_key):
@@ -786,6 +798,25 @@ class Subscription(CreateableAPIResource, DeletableAPIResource,
         _, api_key = requestor.request('delete', url)
         self.refresh_from({'discount': None}, api_key, True)
 
+    @classmethod
+    def modify(cls, sid, **params):
+        if "items" in params:
+            params["items"] = convert_array_to_dict(params["items"])
+        super(Subscription, cls).modify(sid, **params)
+
+    @classmethod
+    def create(cls, **params):
+        if "items" in params:
+            params["items"] = convert_array_to_dict(params["items"])
+        super(Subscription, cls).create(**params)
+
+
+class SubscriptionItem(CreateableAPIResource, DeletableAPIResource,
+                       UpdateableAPIResource, ListableAPIResource):
+    @classmethod
+    def class_name(cls):
+        return 'subscription_item'
+
 
 class Refund(CreateableAPIResource, ListableAPIResource,
              UpdateableAPIResource):
@@ -975,3 +1006,10 @@ class ThreeDSecure(CreateableAPIResource):
     @classmethod
     def retrieve(cls, id, api_key=None, stripe_account=None, **params):
         raise NotImplementedError("Can't retrieve 3D Secure objects.")
+
+
+class ApplePayDomain(CreateableAPIResource, ListableAPIResource,
+                     DeletableAPIResource):
+    @classmethod
+    def class_url(cls):
+        return '/v1/apple_pay/domains'
