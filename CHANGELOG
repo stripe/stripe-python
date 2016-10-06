@@ -1,3 +1,8 @@
+=== 1.39.0 2016-10-06
+
+* Add support for subscription items
+* Add proxy support for pycurl, requests, urlfetch, and urllib2 libraries
+
 === 1.38.0 2016-09-15
 
 * Add support for Apple Pay domains
