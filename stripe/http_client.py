@@ -100,7 +100,8 @@ class RequestsClient(HTTPClient):
         super(RequestsClient, self).__init__(**kwargs)
         self._timeout = timeout
 
-    def request(self, method, url, headers, post_data=None, **kwargs):
+    def request(self, method, url, headers, post_data=None):
+        kwargs = {}
         if self._verify_ssl_certs:
             kwargs['verify'] = os.path.join(
                 os.path.dirname(__file__), 'data/ca-certificates.crt')
