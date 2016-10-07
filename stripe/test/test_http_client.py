@@ -112,9 +112,20 @@ class RequestsVerify(object):
 class RequestsClientTests(StripeUnitTestCase, ClientTestBase):
     request_client = stripe.http_client.RequestsClient
 
-    def make_request(self, method, url, headers, post_data):
+    def test_timeout(self):
+        headers = {'my-header': 'header val'}
+        data = ''
+        self.make_request('POST', self.valid_url,
+                          headers, data, timeout=5)
+
+        self.check_call(self.request_mock, 'POST', self.valid_url,
+                        data, headers, timeout=5)
+
+    def make_request(self, method, url, headers, post_data, timeout=80):
         client = self.request_client(verify_ssl_certs=True,
-                                     proxy="http://slap/")
+                                     timeout=timeout,
+                                     proxy='http://slap/')
+
         return client.request(method, url, headers, post_data)
 
     def mock_response(self, mock, body, code):
@@ -128,14 +139,14 @@ class RequestsClientTests(StripeUnitTestCase, ClientTestBase):
         mock.exceptions.RequestException = Exception
         mock.request.side_effect = mock.exceptions.RequestException()
 
-    def check_call(self, mock, meth, url, post_data, headers):
+    def check_call(self, mock, meth, url, post_data, headers, timeout=80):
         mock.request.assert_called_with(meth, url,
                                         headers=headers,
                                         data=post_data,
                                         verify=RequestsVerify(),
                                         proxies={"http": "http://slap/",
                                                  "https": "http://slap/"},
-                                        timeout=80)
+                                        timeout=timeout)
 
 
 class UrlFetchClientTests(StripeUnitTestCase, ClientTestBase):
