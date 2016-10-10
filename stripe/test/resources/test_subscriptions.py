@@ -33,7 +33,9 @@ class SubscriptionTest(StripeResourceTest):
         )
 
     def test_create_subscription(self):
-        stripe.Subscription.create(customer="test_cus", plan=DUMMY_PLAN['id'])
+        subscription = stripe.Subscription.create(customer="test_cus",
+                                                  plan=DUMMY_PLAN['id'])
+        self.assertEqual({}, subscription)
 
         self.requestor_mock.request.assert_called_with(
             'post',
@@ -72,9 +74,10 @@ class SubscriptionTest(StripeResourceTest):
         trial_end_dttm = datetime.datetime.now() + datetime.timedelta(days=15)
         trial_end_int = int(time.mktime(trial_end_dttm.timetuple()))
 
-        stripe.Subscription.modify('test_sub',
-                                   plan=DUMMY_PLAN['id'],
-                                   trial_end=trial_end_int)
+        subscription = stripe.Subscription.modify('test_sub',
+                                                  plan=DUMMY_PLAN['id'],
+                                                  trial_end=trial_end_int)
+        self.assertEqual({}, subscription)
 
         self.requestor_mock.request.assert_called_with(
             'post',

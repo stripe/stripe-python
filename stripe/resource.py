@@ -802,13 +802,13 @@ class Subscription(CreateableAPIResource, DeletableAPIResource,
     def modify(cls, sid, **params):
         if "items" in params:
             params["items"] = convert_array_to_dict(params["items"])
-        super(Subscription, cls).modify(sid, **params)
+        return super(Subscription, cls).modify(sid, **params)
 
     @classmethod
     def create(cls, **params):
         if "items" in params:
             params["items"] = convert_array_to_dict(params["items"])
-        super(Subscription, cls).create(**params)
+        return super(Subscription, cls).create(**params)
 
 
 class SubscriptionItem(CreateableAPIResource, DeletableAPIResource,
