@@ -1,3 +1,7 @@
+=== 1.40.1 2016-10-10
+
+* Return subscription model instance on subscription create/modify
+
 === 1.40.0 2016-10-07
 
 * Add configurable timeout for Requests HTTP library
