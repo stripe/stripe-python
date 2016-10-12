@@ -29,6 +29,7 @@ def convert_to_stripe_object(resp, api_key, account):
         'plan': Plan,
         'recipient': Recipient,
         'refund': Refund,
+        'source': Source,
         'subscription': Subscription,
         'subscription_item': SubscriptionItem,
         'three_d_secure': ThreeDSecure,
@@ -1013,3 +1014,7 @@ class ApplePayDomain(CreateableAPIResource, ListableAPIResource,
     @classmethod
     def class_url(cls):
         return '/v1/apple_pay/domains'
+
+
+class Source(CreateableAPIResource):
+    pass
