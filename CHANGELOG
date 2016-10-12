@@ -1,3 +1,7 @@
+=== 1.41.0 2016-10-12
+
+* Add `Source` model for generic payment sources
+
 === 1.40.1 2016-10-10
 
 * Return subscription model instance on subscription create/modify
