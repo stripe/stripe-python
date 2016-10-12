@@ -14,6 +14,7 @@ from stripe import error, util
 try:
     import urllib2
 except ImportError:
+    # Try to load in urllib2, but don't sweat it if it's not available.
     pass
 
 try:
@@ -163,6 +164,8 @@ class UrlFetchClient(HTTPClient):
     name = 'urlfetch'
 
     def __init__(self, verify_ssl_certs=True, proxy=None, deadline=55):
+        super(UrlFetchClient, self).__init__(
+            verify_ssl_certs=verify_ssl_certs, proxy=proxy)
 
         # no proxy support in urlfetch. for a patch, see:
         # https://code.google.com/p/googleappengine/issues/detail?id=544

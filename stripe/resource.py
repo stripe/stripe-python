@@ -122,8 +122,9 @@ class StripeObject(dict):
     def __setattr__(self, k, v):
         if k[0] == '_' or k in self.__dict__:
             return super(StripeObject, self).__setattr__(k, v)
-        else:
-            self[k] = v
+
+        self[k] = v
+        return None
 
     def __getattr__(self, k):
         if k[0] == '_':
@@ -133,6 +134,8 @@ class StripeObject(dict):
             return self[k]
         except KeyError as err:
             raise AttributeError(*err.args)
+
+        return None
 
     def __delattr__(self, k):
         if k[0] == '_' or k in self.__dict__:
@@ -400,8 +403,8 @@ class ListableAPIResource(APIResource):
         return cls.list(*args, **params)
 
     @classmethod
-    def auto_paging_iter(self, *args, **params):
-        return self.list(*args, **params).auto_paging_iter()
+    def auto_paging_iter(cls, *args, **params):
+        return cls.list(*args, **params).auto_paging_iter()
 
     @classmethod
     def list(cls, api_key=None, idempotency_key=None,
@@ -986,8 +989,6 @@ class Order(CreateableAPIResource, UpdateableAPIResource,
 
 
 class OrderReturn(ListableAPIResource):
-    pass
-
     @classmethod
     def class_url(cls):
         return '/v1/order_returns'
