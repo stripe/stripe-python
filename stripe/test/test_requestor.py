@@ -346,6 +346,13 @@ class APIRequestorRequestTests(StripeUnitTestCase):
                           self.requestor.request,
                           'get', self.valid_path, {})
 
+    def test_permissions_error(self):
+        self.mock_response('{"error": {}}', 403)
+
+        self.assertRaises(stripe.error.PermissionsError,
+                          self.requestor.request,
+                          'get', self.valid_path, {})
+
     def test_card_error(self):
         self.mock_response('{"error": {}}', 402)
 

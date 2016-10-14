@@ -165,6 +165,10 @@ class APIRequestor(object):
             raise error.CardError(err.get('message'), err.get('param'),
                                   err.get('code'), rbody, rcode, resp,
                                   rheaders)
+        elif rcode == 403:
+            raise error.PermissionsError(
+                err.get('message'), rbody, rcode, resp,
+                rheaders)
         else:
             raise error.APIError(err.get('message'), rbody, rcode, resp,
                                  rheaders)
