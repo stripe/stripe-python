@@ -69,8 +69,10 @@ class InvalidRequestError(StripeError):
 class AuthenticationError(StripeError):
     pass
 
+
 class PermissionsError(StripeError):
     pass
+
 
 class RateLimitError(StripeError):
     pass
