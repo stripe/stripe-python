@@ -58,7 +58,7 @@ from stripe.error import (  # noqa
     APIConnectionError,
     APIError,
     AuthenticationError,
-    PermissionsError,
+    PermissionError,
     RateLimitError,
     CardError,
     InvalidRequestError,

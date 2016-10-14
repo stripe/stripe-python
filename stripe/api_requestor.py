@@ -166,7 +166,7 @@ class APIRequestor(object):
                                   err.get('code'), rbody, rcode, resp,
                                   rheaders)
         elif rcode == 403:
-            raise error.PermissionsError(
+            raise error.PermissionError(
                 err.get('message'), rbody, rcode, resp,
                 rheaders)
         else:

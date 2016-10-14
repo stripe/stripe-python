@@ -70,7 +70,7 @@ class AuthenticationError(StripeError):
     pass
 
 
-class PermissionsError(StripeError):
+class PermissionError(StripeError):
     pass
 
 

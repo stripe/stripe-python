@@ -349,7 +349,7 @@ class APIRequestorRequestTests(StripeUnitTestCase):
     def test_permissions_error(self):
         self.mock_response('{"error": {}}', 403)
 
-        self.assertRaises(stripe.error.PermissionsError,
+        self.assertRaises(stripe.error.PermissionError,
                           self.requestor.request,
                           'get', self.valid_path, {})
 
