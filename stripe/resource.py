@@ -1,6 +1,7 @@
 import urllib
 import warnings
 import sys
+from copy import deepcopy
 
 from stripe import api_requestor, error, util, upload_api_base
 
@@ -279,6 +280,18 @@ class StripeObject(dict):
                 params[k] = _serialize_list(v, previous.get(k, None))
 
         return params
+
+    def __deepcopy__(self, memo):
+        copy = StripeObject(self.get('id'), self.api_key,
+                            stripe_account=self.stripe_account)
+        memo[id(self)] = copy
+
+        copy._retrieve_params = self._retrieve_params
+
+        for k, v in self.items():
+            super(StripeObject, copy).__setitem__(k, deepcopy(v, memo))
+
+        return copy
 
 
 class StripeObjectEncoder(util.json.JSONEncoder):
