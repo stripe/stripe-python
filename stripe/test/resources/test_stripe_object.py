@@ -1,6 +1,6 @@
 import pickle
 import sys
-from copy import deepcopy
+from copy import copy, deepcopy
 
 import stripe
 from stripe import util
@@ -163,6 +163,28 @@ class StripeObjectTests(StripeUnitTestCase):
 
         obj.refresh_from({'coupon': 'foo'}, api_key='bar', partial=True)
         self.assertEqual('foo', obj.coupon)
+
+    def test_copy(self):
+        nested = stripe.resource.StripeObject.construct_from({
+            'value': 'bar',
+        }, 'mykey')
+        obj = stripe.resource.StripeObject.construct_from({
+            'empty': '',
+            'value': 'foo',
+            'nested': nested,
+        }, 'mykey', stripe_account='myaccount')
+
+        copied = copy(obj)
+
+        self.assertEqual('', copied.empty)
+        self.assertEqual('foo', copied.value)
+        self.assertEqual('bar', copied.nested.value)
+
+        self.assertEqual('mykey', copied.api_key)
+        self.assertEqual('myaccount', copied.stripe_account)
+
+        # Verify that we're not deep copying nested values.
+        self.assertEqual(id(nested), id(copied.nested))
 
     def test_deepcopy(self):
         nested = stripe.resource.StripeObject.construct_from({

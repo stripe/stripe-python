@@ -281,17 +281,35 @@ class StripeObject(dict):
 
         return params
 
-    def __deepcopy__(self, memo):
-        copy = StripeObject(self.get('id'), self.api_key,
-                            stripe_account=self.stripe_account)
-        memo[id(self)] = copy
+    # Override copy methods so that we can avoid having exceptions thrown as
+    # deepcopy tries to call into this class' __setitem__ with arguments that
+    # it doesn't like.
+    def __copy__(self):
+        copied = StripeObject(self.get('id'), self.api_key,
+                              stripe_account=self.stripe_account)
 
-        copy._retrieve_params = self._retrieve_params
+        copied._retrieve_params = self._retrieve_params
 
         for k, v in self.items():
-            super(StripeObject, copy).__setitem__(k, deepcopy(v, memo))
+            # Call parent's __setitem__ to avoid checks that we've added in the
+            # overridden version that can throw exceptions.
+            super(StripeObject, copied).__setitem__(k, v)
 
-        return copy
+        return copied
+
+    # Override copy methods so that we can avoid having exceptions thrown as
+    # deepcopy tries to call into this class' __setitem__ with arguments that
+    # it doesn't like.
+    def __deepcopy__(self, memo):
+        copied = self.__copy__()
+        memo[id(self)] = copied
+
+        for k, v in self.items():
+            # Call parent's __setitem__ to avoid checks that we've added in the
+            # overridden version that can throw exceptions.
+            super(StripeObject, copied).__setitem__(k, deepcopy(v, memo))
+
+        return copied
 
 
 class StripeObjectEncoder(util.json.JSONEncoder):
