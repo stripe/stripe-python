@@ -1,3 +1,7 @@
+=== 1.41.1 2016-10-26
+
+* Implement __copy__ and __deepcopy__ on StripeObject to fix these operations
+
 === 1.41.0 2016-10-12
 
 * Add `Source` model for generic payment sources
