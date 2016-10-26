@@ -281,9 +281,11 @@ class StripeObject(dict):
 
         return params
 
-    # Override copy methods so that we can avoid having exceptions thrown as
-    # deepcopy tries to call into this class' __setitem__ with arguments that
-    # it doesn't like.
+    # This class overrides __setitem__ to throw exceptions on inputs that it
+    # doesn't like. This can cause problems when we try to copy an object
+    # wholesale because some data that's returned from the API may not be valid
+    # if it was set to be set manually. Here we override the class' copy
+    # arguments so that we can bypass these possible exceptions on __setitem__.
     def __copy__(self):
         copied = StripeObject(self.get('id'), self.api_key,
                               stripe_account=self.stripe_account)
@@ -297,9 +299,11 @@ class StripeObject(dict):
 
         return copied
 
-    # Override copy methods so that we can avoid having exceptions thrown as
-    # deepcopy tries to call into this class' __setitem__ with arguments that
-    # it doesn't like.
+    # This class overrides __setitem__ to throw exceptions on inputs that it
+    # doesn't like. This can cause problems when we try to copy an object
+    # wholesale because some data that's returned from the API may not be valid
+    # if it was set to be set manually. Here we override the class' copy
+    # arguments so that we can bypass these possible exceptions on __setitem__.
     def __deepcopy__(self, memo):
         copied = self.__copy__()
         memo[id(self)] = copied
