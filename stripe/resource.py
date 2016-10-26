@@ -1,6 +1,7 @@
 import urllib
 import warnings
 import sys
+from copy import deepcopy
 
 from stripe import api_requestor, error, util, upload_api_base
 
@@ -279,6 +280,40 @@ class StripeObject(dict):
                 params[k] = _serialize_list(v, previous.get(k, None))
 
         return params
+
+    # This class overrides __setitem__ to throw exceptions on inputs that it
+    # doesn't like. This can cause problems when we try to copy an object
+    # wholesale because some data that's returned from the API may not be valid
+    # if it was set to be set manually. Here we override the class' copy
+    # arguments so that we can bypass these possible exceptions on __setitem__.
+    def __copy__(self):
+        copied = StripeObject(self.get('id'), self.api_key,
+                              stripe_account=self.stripe_account)
+
+        copied._retrieve_params = self._retrieve_params
+
+        for k, v in self.items():
+            # Call parent's __setitem__ to avoid checks that we've added in the
+            # overridden version that can throw exceptions.
+            super(StripeObject, copied).__setitem__(k, v)
+
+        return copied
+
+    # This class overrides __setitem__ to throw exceptions on inputs that it
+    # doesn't like. This can cause problems when we try to copy an object
+    # wholesale because some data that's returned from the API may not be valid
+    # if it was set to be set manually. Here we override the class' copy
+    # arguments so that we can bypass these possible exceptions on __setitem__.
+    def __deepcopy__(self, memo):
+        copied = self.__copy__()
+        memo[id(self)] = copied
+
+        for k, v in self.items():
+            # Call parent's __setitem__ to avoid checks that we've added in the
+            # overridden version that can throw exceptions.
+            super(StripeObject, copied).__setitem__(k, deepcopy(v, memo))
+
+        return copied
 
 
 class StripeObjectEncoder(util.json.JSONEncoder):
