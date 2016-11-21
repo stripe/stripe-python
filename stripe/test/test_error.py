@@ -33,5 +33,6 @@ class StripeErrorTests(StripeUnitTestCase):
             assert str(err) == 'Request 123: <empty message>'
             assert unicode(err) == u'Request 123: <empty message>'
 
+
 if __name__ == '__main__':
     unittest2.main()
