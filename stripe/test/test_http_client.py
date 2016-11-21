@@ -378,5 +378,6 @@ class APIEncodeTest(StripeUnitTestCase):
         self.assertTrue(('foo[][dob][month]', 1) in values)
         self.assertTrue(('foo[][name]', 'bat') in values)
 
+
 if __name__ == '__main__':
     unittest2.main()
