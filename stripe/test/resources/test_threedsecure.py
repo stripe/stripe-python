@@ -23,3 +23,13 @@ class ThreeDSecureTest(StripeResourceTest):
             },
             None
         )
+
+    def test_threedsecure_retrieve(self):
+        stripe.ThreeDSecure.retrieve('tdsrc_id')
+
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/3d_secure/tdsrc_id',
+            {},
+            None
+        )
