@@ -1,3 +1,7 @@
+=== 1.42.0 2016-11-21
+
+* Add retrieve method for 3-D Secure resources
+
 === 1.41.1 2016-10-26
 
 * Implement __copy__ and __deepcopy__ on StripeObject to fix these operations
