@@ -1040,10 +1040,6 @@ class ThreeDSecure(CreateableAPIResource):
     def class_url(cls):
         return '/v1/3d_secure'
 
-    @classmethod
-    def retrieve(cls, id, api_key=None, stripe_account=None, **params):
-        raise NotImplementedError("Can't retrieve 3D Secure objects.")
-
 
 class ApplePayDomain(CreateableAPIResource, ListableAPIResource,
                      DeletableAPIResource):
