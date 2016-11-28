@@ -1048,5 +1048,5 @@ class ApplePayDomain(CreateableAPIResource, ListableAPIResource,
         return '/v1/apple_pay/domains'
 
 
-class Source(CreateableAPIResource):
+class Source(CreateableAPIResource, VerifyMixin):
     pass
