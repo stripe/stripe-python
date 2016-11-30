@@ -27,3 +27,18 @@ class SourceTest(StripeResourceTest):
             },
             None
         )
+
+    def test_verify_source(self):
+        source = stripe.Source.construct_from({
+            'id': 'src_foo',
+            'type': 'ach_debit'
+        }, 'api_key')
+        source.verify(values=[32, 45])
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/sources/src_foo/verify',
+            {
+                'values': [32, 45],
+            },
+            None
+        )
