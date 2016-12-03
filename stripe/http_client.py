@@ -6,7 +6,6 @@ import email
 
 from stripe import error, util
 
-
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch
 # - Use Pycurl if it's there (at least it verifies SSL certs)
@@ -76,7 +75,6 @@ def new_default_http_client(*args, **kwargs):
 
 
 class HTTPClient(object):
-
     def __init__(self, verify_ssl_certs=True, proxy=None):
         self._verify_ssl_certs = verify_ssl_certs
         if proxy:
@@ -100,6 +98,7 @@ class RequestsClient(HTTPClient):
     def __init__(self, timeout=80, **kwargs):
         super(RequestsClient, self).__init__(**kwargs)
         self._timeout = timeout
+        self._session = requests.Session()
 
     def request(self, method, url, headers, post_data=None):
         kwargs = {}
@@ -114,12 +113,12 @@ class RequestsClient(HTTPClient):
 
         try:
             try:
-                result = requests.request(method,
-                                          url,
-                                          headers=headers,
-                                          data=post_data,
-                                          timeout=self._timeout,
-                                          **kwargs)
+                result = self._session.request(method,
+                                               url,
+                                               headers=headers,
+                                               data=post_data,
+                                               timeout=self._timeout,
+                                               **kwargs)
             except TypeError as e:
                 raise TypeError(
                     'Warning: It looks like your installed version of the '
@@ -272,7 +271,7 @@ class PycurlClient(HTTPClient):
         curl.setopt(pycurl.CONNECTTIMEOUT, 30)
         curl.setopt(pycurl.TIMEOUT, 80)
         curl.setopt(pycurl.HTTPHEADER, ['%s: %s' % (k, v)
-                    for k, v in headers.iteritems()])
+                                        for k, v in headers.iteritems()])
         if self._verify_ssl_certs:
             curl.setopt(pycurl.CAINFO, os.path.join(
                 os.path.dirname(__file__), 'data/ca-certificates.crt'))
