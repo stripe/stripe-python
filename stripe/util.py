@@ -1,10 +1,27 @@
+from __future__ import print_function
+
 import logging
 import sys
 import os
+import re
+
+import stripe
+
+
+STRIPE_LOG = os.environ.get('STRIPE_LOG')
 
 logger = logging.getLogger('stripe')
 
-__all__ = ['StringIO', 'parse_qsl', 'json', 'utf8']
+__all__ = [
+    'StringIO',
+    'parse_qsl',
+    'json',
+    'utf8',
+    'log_info',
+    'log_debug',
+    'dashboard_link',
+    'logfmt',
+]
 
 try:
     # When cStringIO is available
@@ -58,3 +75,52 @@ def utf8(value):
 def is_appengine_dev():
     return ('APPENGINE_RUNTIME' in os.environ and
             'Dev' in os.environ.get('SERVER_SOFTWARE', ''))
+
+
+def _console_log_level():
+    if stripe.log in ['debug', 'info']:
+        return stripe.log
+    elif STRIPE_LOG in ['debug', 'info']:
+        return STRIPE_LOG
+    else:
+        return None
+
+
+def log_debug(message, **params):
+    if _console_log_level() == 'debug':
+        print(logfmt(dict(message=message, **params)))
+    logger.debug(message, params)
+
+
+def log_info(message, **params):
+    if _console_log_level() in ['debug', 'info']:
+        print(logfmt(dict(message=message, **params)))
+    logger.info(message, params)
+
+
+def _test_or_live_environment():
+    if stripe.api_key is None:
+        return
+    match = re.match(r'sk_(live|test)_', stripe.api_key)
+    if match is None:
+        return
+    return match.groups()[0]
+
+
+def dashboard_link(request_id):
+    return 'https://dashboard.stripe.com/{env}/logs/{reqid}'.format(
+        env=_test_or_live_environment() or 'test',
+        reqid=request_id,
+    )
+
+
+def logfmt(props):
+    def fmt(key, val):
+        val = str(val)
+        if re.search(r'\s', val):
+            val = repr(val)
+        # key should already be a string
+        if re.search(r'\s', key):
+            key = repr(key)
+        return key + '=' + val
+    return ' '.join([fmt(key, val) for key, val in sorted(props.items())])

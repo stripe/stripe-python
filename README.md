@@ -26,6 +26,42 @@ To install from source, run:
 
 Please see https://stripe.com/docs/api/python for the most up-to-date documentation.
 
+## Logging
+
+There are a few ways to get some insight into what requests and responses the client is making and getting back from the Stripe API.
+The python client can be told to emit either `debug` or `info` logs.
+`debug` will give more verbose information, and `info` will be more compact, but omit things like request/response bodies.
+
+You can enable logging in a few ways:
+    1. Set the environment variable `STRIPE_LOG` to the value `debug` or to `info`
+       ```
+       $ export STRIPE_LOG=debug
+       ```
+    2. set `stripe.log` to `'debug'` or `'info'`
+       ```py
+       import stripe
+       stripe.log = 'debug'
+       ```
+    3. Set up python logging and set the logging level to the level you desire
+       ```py
+       import logging
+       logging.basicConfig()
+       logging.getLogger('stripe').setLevel(logging.DEBUG)
+       ```
+
+If you are running code in production, it's preferable to set up [python logging explicitly](https://docs.python.org/2/library/logging.html). This will give you control over filtering logs, and where the logs are output. Using the `STRIPE_LOG` and `stripe.log` methods will always result in logs going to standard out, which you may or may not want.
+
+Note that setting `stripe.log` will supersede the setting of `STRIPE_LOG`, but it can be turned off by setting it back to `None`. Example:
+
+```py
+import os
+import stripe
+
+print os.environ['STRIPE_LOG']  # => 'info'
+stripe.log = 'debug'  # debug logs will also print now
+stripe.log = None  # now only info logs will print
+```
+
 ## Testing
 
 We commit to being compatible with Python 2.6+, Python 3.1+ and PyPy.  We need to test against all of these environments to ensure compatibility.  Travis CI will automatically run our tests on push.  For local testing, we use [tox](http://tox.readthedocs.org/) to handle testing across environments.
