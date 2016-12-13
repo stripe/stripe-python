@@ -28,7 +28,7 @@ Please see https://stripe.com/docs/api/python for the most up-to-date documentat
 
 ## Testing
 
-We commit to being compatible with Python 2.6+, Python 3.1+ and PyPy.  We need to test against all of these environments to ensure compatibility.  Travis CI will automatically run our tests on push.  For local testing, we use [tox](http://tox.readthedocs.org/) to handle testing across environments.
+We commit to being compatible with Python 2.6+, Python 3.3+ and PyPy.  We need to test against all of these environments to ensure compatibility.  Travis CI will automatically run our tests on push.  For local testing, we use [tox](http://tox.readthedocs.org/) to handle testing across environments.
 
 ### Setting up tox
 
