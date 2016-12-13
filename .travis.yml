@@ -26,4 +26,5 @@ script:
   - python -W always setup.py test
 matrix:
   allow_failures:
-    - python: pypy, pypy3.3-5.2-alpha1
+    - python: pypy
+    - python: pypy3.3-5.2-alpha1
