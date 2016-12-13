@@ -4,6 +4,7 @@ python:
   - "2.6"
   - "2.7"
   - "pypy"
+  - "pypy3.3-5.2-alpha1"
   - "3.3"
   - "3.4"
   - "3.5"
@@ -17,7 +18,7 @@ addons:
       - libcurl4-gnutls-dev
       - librtmp-dev
 install:
-  - pip install unittest2 mock pycurl flake8
+  - pip install unittest2 mock pycurl flake8 tox-travis
   - python setup.py clean --all
   - python setup.py install
 script:
@@ -25,4 +26,4 @@ script:
   - python -W always setup.py test
 matrix:
   allow_failures:
-    - python: pypy
+    - python: pypy, pypy3.3-5.2-alpha1
