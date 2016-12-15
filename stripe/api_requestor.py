@@ -252,14 +252,19 @@ class APIRequestor(object):
             for key, value in supplied_headers.items():
                 headers[key] = value
 
+        util.log_info('Request to Stripe api', method=method, path=abs_url)
+        util.log_debug(
+            'Post details', post_data=post_data, api_version=api_version)
+
         rbody, rcode, rheaders = self._client.request(
             method, abs_url, headers, post_data)
 
-        util.logger.info('%s %s %d', method.upper(), abs_url, rcode)
-        util.logger.debug(
-            'API request to %s returned (response code, response body) of '
-            '(%d, %r)',
-            abs_url, rcode, rbody)
+        util.log_info(
+            'Stripe API response', path=abs_url, response_code=rcode)
+        util.log_debug('API response body', body=rbody)
+        if 'Request-Id' in rheaders:
+            util.log_debug('Dashboard link for request',
+                           link=util.dashboard_link(rheaders['Request-Id']))
         return rbody, rcode, rheaders, my_api_key
 
     def interpret_response(self, rbody, rcode, rheaders):
@@ -273,6 +278,13 @@ class APIRequestor(object):
                 "(HTTP response code was %d)" % (rbody, rcode),
                 rbody, rcode, rheaders)
         if not (200 <= rcode < 300):
+            util.log_info(
+                'Stripe API error received',
+                error_code=resp.get('error', {}).get('code'),
+                error_type=resp.get('error', {}).get('type'),
+                error_message=resp.get('error', {}).get('message'),
+                error_param=resp.get('error', {}).get('param'),
+            )
             self.handle_api_error(rbody, rcode, resp, rheaders)
         return resp
 

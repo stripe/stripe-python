@@ -15,6 +15,9 @@ verify_ssl_certs = True
 proxy = None
 default_http_client = None
 
+# Set to either 'debug' or 'info', controls console logging
+log = None
+
 # Resource
 from stripe.resource import (  # noqa
     Account,
