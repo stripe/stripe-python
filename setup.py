@@ -43,6 +43,12 @@ if sys.version_info < (3, 0):
     except ImportError:
         install_requires.append('simplejson')
 
+# Get orderredict if needed
+try:
+    from collections import OrderedDict
+except ImportError:
+    install_requires.append('ordereddict')
+
 
 setup(
     name='stripe',

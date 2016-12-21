@@ -10,6 +10,68 @@ import stripe
 from stripe import error, oauth_error, http_client, version, util
 from stripe.multipart_data_generator import MultipartDataGenerator
 
+try:
+    from collections import OrderedDict
+except ImportError:
+    # For Python 2.6
+    from ordereddict import OrderedDict
+
+
+def _list_order_dicts(lst):
+    """We use a pretty janky version of form encoding (Rack's) that supports
+    more complex data structures like dicts and lists through the use of
+    specialized syntax. To encode a list of dicts like:
+
+        [{'a': 1, 'b': 2}, {'a': 3, 'b': 4}]
+
+    We have to produce something that looks like this:
+
+        lst[][a]=1&lst[][b]=2&lst[][a]=3&lst[][b]=4
+
+    The only way for the server to recognize that this is a two item array is
+    that it notices the repetition of element "a", so it's key that these
+    repeated elements are encoded first.
+
+    This method is invoked for any list being encoded and ensures that if
+    the list contains all non-empty dict, that each of those dict starts
+    with the same key(s) so that their boundaries can be properly encoded.
+    """
+
+    result = []
+    previous_keys = None
+    common_keys = set()  # set of keys that are common to all dicts in the list
+
+    for item in lst:
+        if not isinstance(item, dict):
+            return lst
+        if len(item) == 0:
+            return lst
+
+        keys = set(item.keys())
+        if previous_keys:
+            common_keys = keys.intersection(previous_keys)
+        else:
+            common_keys = keys
+
+        previous_keys = keys
+
+    if len(common_keys) == 0:
+        raise ValueError("Dicts nested in a list should have at least one "
+                         "common key.")
+
+    for item in lst:
+        ordered_dict = OrderedDict()
+        for key in common_keys:
+            ordered_dict[key] = item[key]
+
+        remaining_keys = set(item.keys()) - common_keys
+        for key in remaining_keys:
+            ordered_dict[key] = item[key]
+
+        result.append(ordered_dict)
+
+    return result
+
 
 def _encode_datetime(dttime):
     if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
@@ -21,7 +83,7 @@ def _encode_datetime(dttime):
 
 
 def _encode_nested_dict(key, data, fmt='%s[%s]'):
-    d = {}
+    d = OrderedDict()
     for subkey, subvalue in data.iteritems():
         d[fmt % (key, subkey)] = subvalue
     return d
@@ -35,6 +97,7 @@ def _api_encode(data):
         elif hasattr(value, 'stripe_id'):
             yield (key, value.stripe_id)
         elif isinstance(value, list) or isinstance(value, tuple):
+            value = _list_order_dicts(value)
             for sv in value:
                 if isinstance(sv, dict):
                     subdict = _encode_nested_dict(key, sv, fmt='%s[][%s]')
