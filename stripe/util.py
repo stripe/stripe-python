@@ -87,15 +87,17 @@ def _console_log_level():
 
 
 def log_debug(message, **params):
+    msg = logfmt(dict(message=message, **params))
     if _console_log_level() == 'debug':
-        print(logfmt(dict(message=message, **params)))
-    logger.debug(message, params)
+        print(msg, file=sys.stderr)
+    logger.debug(msg)
 
 
 def log_info(message, **params):
+    msg = logfmt(dict(message=message, **params))
     if _console_log_level() in ['debug', 'info']:
-        print(logfmt(dict(message=message, **params)))
-    logger.info(message, params)
+        print(msg, file=sys.stderr)
+    logger.info(msg)
 
 
 def _test_or_live_environment():
@@ -116,11 +118,12 @@ def dashboard_link(request_id):
 
 def logfmt(props):
     def fmt(key, val):
-        val = str(val)
+        if not isinstance(val, basestring):
+            val = unicode(val)
         if re.search(r'\s', val):
             val = repr(val)
         # key should already be a string
         if re.search(r'\s', key):
             key = repr(key)
-        return key + '=' + val
-    return ' '.join([fmt(key, val) for key, val in sorted(props.items())])
+        return u'{key}={val}'.format(key=key, val=val)
+    return u' '.join([fmt(key, val) for key, val in sorted(props.items())])
