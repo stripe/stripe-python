@@ -118,6 +118,10 @@ def dashboard_link(request_id):
 
 def logfmt(props):
     def fmt(key, val):
+        # Check if val is already a string to avoid re-encoding into
+        # ascii. Since the code is sent through 2to3, we can't just
+        # use unicode(val, encoding='utf8') since it will be
+        # translated incorrectly.
         if not isinstance(val, basestring):
             val = unicode(val)
         if re.search(r'\s', val):
