@@ -1,7 +1,7 @@
 import sys
 import unittest2
 
-from mock import Mock, patch
+from mock import MagicMock, Mock, patch
 
 import stripe
 
@@ -112,13 +112,18 @@ class RequestsVerify(object):
 class RequestsClientTests(StripeUnitTestCase, ClientTestBase):
     request_client = stripe.http_client.RequestsClient
 
+    def setUp(self):
+        super(RequestsClientTests, self).setUp()
+        self.session = MagicMock()
+
     def test_timeout(self):
         headers = {'my-header': 'header val'}
         data = ''
+        self.mock_response(self.request_mock, '{"foo": "baz"}', 200)
         self.make_request('POST', self.valid_url,
                           headers, data, timeout=5)
 
-        self.check_call(self.request_mock, 'POST', self.valid_url,
+        self.check_call(None, 'POST', self.valid_url,
                         data, headers, timeout=5)
 
     def make_request(self, method, url, headers, post_data, timeout=80):
@@ -133,20 +138,26 @@ class RequestsClientTests(StripeUnitTestCase, ClientTestBase):
         result.content = body
         result.status_code = code
 
-        mock.request = Mock(return_value=result)
+        self.session.request = MagicMock(return_value=result)
+        mock.Session = MagicMock(return_value=self.session)
 
     def mock_error(self, mock):
         mock.exceptions.RequestException = Exception
-        mock.request.side_effect = mock.exceptions.RequestException()
+        self.session.request.side_effect = mock.exceptions.RequestException()
+        mock.Session = MagicMock(return_value=self.session)
 
+    # Note that unlike other modules, we don't use the "mock" argument here
+    # because we need to run the request call against the internal mock
+    # session.
     def check_call(self, mock, meth, url, post_data, headers, timeout=80):
-        mock.request.assert_called_with(meth, url,
-                                        headers=headers,
-                                        data=post_data,
-                                        verify=RequestsVerify(),
-                                        proxies={"http": "http://slap/",
-                                                 "https": "http://slap/"},
-                                        timeout=timeout)
+        self.session.request. \
+            assert_called_with(meth, url,
+                               headers=headers,
+                               data=post_data,
+                               verify=RequestsVerify(),
+                               proxies={"http": "http://slap/",
+                                        "https": "http://slap/"},
+                               timeout=timeout)
 
 
 class UrlFetchClientTests(StripeUnitTestCase, ClientTestBase):
