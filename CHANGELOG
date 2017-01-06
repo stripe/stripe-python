@@ -1,6 +1,12 @@
+=== 1.45.0 2017-01-06
+
+* request logging goes to stderr now
+* Logs properly handle unicode
+* Format is now the same between logging logs, and console logs
+
 === 1.44.0 2016-12-16
 
-* Add request logging and some mechanisms to enable it when debugging 
+* Add request logging and some mechanisms to enable it when debugging
 
 === 1.43.0 2016-11-30
 
