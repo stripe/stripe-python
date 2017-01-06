@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import sys
 from collections import namedtuple
 
 try:
@@ -77,10 +78,13 @@ class UtilTests(StripeUnitTestCase):
 
                     if case.should_output:
                         print_mock.assert_called_once_with(
-                            "message='foo \\nbar' y=3")
+                            "message='foo \\nbar' y=3",
+                            file=sys.stderr,
+                        )
                     else:
                         print_mock.assert_not_called()
-                    logger_mock.assert_called_once_with('foo \nbar', {'y': 3})
+                    logger_mock.assert_called_once_with(
+                        "message='foo \\nbar' y=3")
                 finally:
                     self.doCleanups()
 
