@@ -1,4 +1,10 @@
-# Stripe Python bindings [![Build Status](https://travis-ci.org/stripe/stripe-python.svg?branch=master)](https://travis-ci.org/stripe/stripe-python)
+# Stripe Python bindings
+
+[![PyPI version](https://img.shields.io/pypi/v/stripe.svg)](https://pypi.python.org/pypi/stripe)
+[![License](https://img.shields.io/pypi/l/stripe.svg)](https://pypi.python.org/pypi/stripe)
+[![Wheel](https://img.shields.io/pypi/wheel/stripe.svg)](https://pypi.python.org/pypi/stripe)
+[![Python versions](https://img.shields.io/pypi/pyversions/stripe.svg)](https://pypi.python.org/pypi/stripe)
+[![Build Status](https://travis-ci.org/stripe/stripe-python.svg?branch=master)](https://travis-ci.org/stripe/stripe-python)
 
 ## Installation
 

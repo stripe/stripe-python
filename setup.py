@@ -48,7 +48,7 @@ setup(
     name='stripe',
     cmdclass={'build_py': build_py},
     version=VERSION,
-    description='Stripe python bindings',
+    description='Stripe Python bindings',
     long_description=long_description,
     author='Stripe',
     author_email='support@stripe.com',
@@ -59,6 +59,7 @@ setup(
     test_suite='stripe.test.all',
     tests_require=['unittest2', 'mock'],
     use_2to3=True,
+    license='MIT',
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
