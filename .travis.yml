@@ -3,11 +3,13 @@ language: python
 python:
   - "2.6"
   - "2.7"
-  - "pypy"
-  - "pypy3.3-5.2-alpha1"
   - "3.3"
   - "3.4"
   - "3.5"
+  - "3.6"
+  - "3.7-dev"
+  - "pypy"
+  - "pypy3"
 cache:
   apt: true
   pip: false
@@ -26,5 +28,6 @@ script:
   - python -W always setup.py test
 matrix:
   allow_failures:
+    - python: 3.7-dev
     - python: pypy
-    - python: pypy3.3-5.2-alpha1
+    - python: pypy3
