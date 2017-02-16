@@ -10,6 +10,7 @@
 api_key = None
 api_base = 'https://api.stripe.com'
 upload_api_base = 'https://uploads.stripe.com'
+connect_api_base = 'https://connect.stripe.com'
 api_version = None
 verify_ssl_certs = True
 proxy = None

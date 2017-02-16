@@ -272,20 +272,20 @@ class APIRequestor(object):
             if hasattr(rbody, 'decode'):
                 rbody = rbody.decode('utf-8')
             resp = util.json.loads(rbody)
+            if not (200 <= rcode < 300):
+                util.log_info(
+                    'Stripe API error received',
+                    error_code=resp.get('error', {}).get('code'),
+                    error_type=resp.get('error', {}).get('type'),
+                    error_message=resp.get('error', {}).get('message'),
+                    error_param=resp.get('error', {}).get('param'),
+                )
+                self.handle_api_error(rbody, rcode, resp, rheaders)
         except Exception:
             raise error.APIError(
                 "Invalid response body from API: %s "
                 "(HTTP response code was %d)" % (rbody, rcode),
                 rbody, rcode, rheaders)
-        if not (200 <= rcode < 300):
-            util.log_info(
-                'Stripe API error received',
-                error_code=resp.get('error', {}).get('code'),
-                error_type=resp.get('error', {}).get('type'),
-                error_message=resp.get('error', {}).get('message'),
-                error_param=resp.get('error', {}).get('param'),
-            )
-            self.handle_api_error(rbody, rcode, resp, rheaders)
         return resp
 
     # Deprecated request handling.  Will all be removed in 2.0
