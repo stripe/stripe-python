@@ -3,7 +3,8 @@ import warnings
 import sys
 from copy import deepcopy
 
-from stripe import api_requestor, error, util, upload_api_base
+from stripe import (api_requestor, connect_api_base, error, upload_api_base,
+                    util)
 
 
 def convert_to_stripe_object(resp, api_key, account):
@@ -537,6 +538,17 @@ class Account(CreateableAPIResource, ListableAPIResource,
             self.request('post', url, params, headers)
         )
         return self
+
+    def deauthorize(self, client_id, api_key=None):
+        requestor = api_requestor.APIRequestor(
+            api_key, api_base=connect_api_base)
+        url = '/oauth/deauthorize'
+        params = {
+            'client_id': client_id,
+            'stripe_user_id': self.id,
+        }
+        response, api_key = requestor.request('post', url, params, None)
+        return convert_to_stripe_object(response, api_key, self.stripe_account)
 
 
 class AlipayAccount(UpdateableAPIResource, DeletableAPIResource):

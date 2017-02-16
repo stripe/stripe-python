@@ -152,3 +152,21 @@ class AccountTest(StripeResourceTest):
             },
             None,
         )
+
+    def test_deauthorize_account(self):
+        acct = stripe.Account.construct_from({
+            'id': 'acct_deauth',
+            'managed': False,
+        }, 'api_key')
+
+        acct.deauthorize('ca_test')
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/oauth/deauthorize',
+            {
+                'client_id': 'ca_test',
+                'stripe_user_id': 'acct_deauth',
+            },
+            None
+        )
