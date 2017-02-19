@@ -120,7 +120,7 @@ SAMPLE_INVOICE = stripe.util.json.loads("""
 
 
 class StripeTestCase(unittest2.TestCase):
-    RESTORE_ATTRIBUTES = ('api_version', 'api_key')
+    RESTORE_ATTRIBUTES = ('api_version', 'api_key', 'client_id')
 
     def setUp(self):
         super(StripeTestCase, self).setUp()
@@ -186,12 +186,38 @@ class StripeUnitTestCase(StripeTestCase):
             patcher.stop()
 
 
+class StripeAPIRequestorTestCase(StripeUnitTestCase):
+    REQUESTOR_CLS = stripe.api_requestor.APIRequestor
+
+    def setUp(self):
+        super(StripeAPIRequestorTestCase, self).setUp()
+
+        self.http_client = Mock(stripe.http_client.HTTPClient)
+        self.http_client._verify_ssl_certs = True
+        self.http_client.name = 'mockclient'
+
+        self.requestor = self.REQUESTOR_CLS(client=self.http_client)
+
+    def mock_response(self, return_body, return_code, requestor=None,
+                      headers=None):
+        if not requestor:
+            requestor = self.requestor
+
+        self.http_client.request = Mock(
+            return_value=(return_body, return_code, headers or {}))
+
+
+class StripeOAuthRequestorTestCase(StripeAPIRequestorTestCase):
+    REQUESTOR_CLS = stripe.api_requestor.OAuthRequestor
+
+
 class StripeApiTestCase(StripeTestCase):
+    REQUESTOR_CLS_NAME = 'stripe.api_requestor.APIRequestor'
 
     def setUp(self):
         super(StripeApiTestCase, self).setUp()
 
-        self.requestor_patcher = patch('stripe.api_requestor.APIRequestor')
+        self.requestor_patcher = patch(self.REQUESTOR_CLS_NAME)
         requestor_class_mock = self.requestor_patcher.start()
         self.requestor_mock = requestor_class_mock.return_value
 
@@ -202,6 +228,14 @@ class StripeApiTestCase(StripeTestCase):
 
     def mock_response(self, res):
         self.requestor_mock.request = Mock(return_value=(res, 'reskey'))
+
+
+class StripeOAuthTestCase(StripeApiTestCase):
+    REQUESTOR_CLS_NAME = 'stripe.api_requestor.OAuthRequestor'
+
+    def setUp(self):
+        super(StripeOAuthTestCase, self).setUp()
+        self.mock_response({})
 
 
 class StripeResourceTest(StripeApiTestCase):

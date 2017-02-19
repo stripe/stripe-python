@@ -358,3 +358,37 @@ class APIRequestor(object):
     def handle_urllib2_error(self, err, abs_url):
         from stripe.http_client import Urllib2Client
         return self._deprecated_handle_error(Urllib2Client, err)
+
+
+class OAuthRequestor(APIRequestor):
+    def handle_api_error(self, rbody, rcode, resp, rheaders):
+        try:
+            err_type = resp['error']
+        except (KeyError, TypeError):
+            raise error.APIError(
+                "Invalid response object from API: %r (HTTP response code "
+                "was %d)" % (rbody, rcode),
+                rbody, rcode, resp)
+
+        description = resp.get('error_description', None)
+        raise error.OAuthError(
+            err_type, description, rbody, rcode, resp, rheaders)
+
+    def interpret_response(self, rbody, rcode, rheaders):
+        try:
+            if hasattr(rbody, 'decode'):
+                rbody = rbody.decode('utf-8')
+            resp = util.json.loads(rbody)
+        except Exception:
+            raise error.APIError(
+                "Invalid response body from API: %s "
+                "(HTTP response code was %d)" % (rbody, rcode),
+                rbody, rcode, rheaders)
+        if not (200 <= rcode < 300):
+            util.log_info(
+                'Stripe API error received',
+                error=resp.get('error'),
+                error_description=resp.get('error_description', ''),
+            )
+            self.handle_api_error(rbody, rcode, resp, rheaders)
+        return resp

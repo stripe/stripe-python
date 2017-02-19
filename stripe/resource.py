@@ -3,7 +3,7 @@ import warnings
 import sys
 from copy import deepcopy
 
-from stripe import api_requestor, error, util, upload_api_base
+from stripe import api_requestor, error, oauth, util, upload_api_base
 
 
 def convert_to_stripe_object(resp, api_key, account):
@@ -537,6 +537,10 @@ class Account(CreateableAPIResource, ListableAPIResource,
             self.request('post', url, params, headers)
         )
         return self
+
+    def deauthorize(self, **params):
+        params['stripe_user_id'] = self.id
+        return oauth.OAuth.deauthorize(**params)
 
     @classmethod
     def modify_external_account(cls, sid, external_account_id, **params):

@@ -76,3 +76,12 @@ class PermissionError(StripeError):
 
 class RateLimitError(StripeError):
     pass
+
+
+class OAuthError(StripeError):
+    def __init__(self, type, description=None, http_body=None,
+                 http_status=None, json_body=None, headers=None):
+        description = description or type
+        super(OAuthError, self).__init__(
+            description, http_body, http_status, json_body, headers)
+        self.type = type
