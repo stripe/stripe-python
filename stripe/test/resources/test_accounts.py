@@ -1,5 +1,5 @@
 import stripe
-from stripe.test.helper import StripeResourceTest
+from stripe.test.helper import (StripeResourceTest, NOW)
 
 
 class AccountTest(StripeResourceTest):
@@ -151,4 +151,19 @@ class AccountTest(StripeResourceTest):
                 },
             },
             None,
+        )
+
+    def test_modify_external_account(self):
+        stripe.Account.modify_external_account(
+            'acct_test', 'card_test',
+            exp_month=NOW.month, exp_year=NOW.year + 1)
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/accounts/acct_test/external_accounts/card_test',
+            {
+                'exp_month': NOW.month,
+                'exp_year': NOW.year + 1,
+            },
+            None
         )

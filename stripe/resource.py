@@ -538,6 +538,13 @@ class Account(CreateableAPIResource, ListableAPIResource,
         )
         return self
 
+    @classmethod
+    def modify_external_account(cls, sid, external_account_id, **params):
+        url = "%s/%s/external_accounts/%s" % (
+            cls.class_url(), urllib.quote_plus(util.utf8(sid)),
+            urllib.quote_plus(util.utf8(external_account_id)))
+        return cls._modify(url, **params)
+
 
 class AlipayAccount(UpdateableAPIResource, DeletableAPIResource):
 
@@ -799,6 +806,13 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
         url = self.instance_url() + '/discount'
         _, api_key = requestor.request('delete', url)
         self.refresh_from({'discount': None}, api_key, True)
+
+    @classmethod
+    def modify_source(cls, sid, source_id, **params):
+        url = "%s/%s/sources/%s" % (
+            cls.class_url(), urllib.quote_plus(util.utf8(sid)),
+            urllib.quote_plus(util.utf8(source_id)))
+        return cls._modify(url, **params)
 
 
 class Invoice(CreateableAPIResource, ListableAPIResource,
