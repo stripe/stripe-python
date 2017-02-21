@@ -4,7 +4,7 @@ import warnings
 
 import stripe
 from stripe.test.helper import (
-    StripeResourceTest, DUMMY_CARD, DUMMY_PLAN
+    StripeResourceTest, DUMMY_CARD, DUMMY_PLAN, NOW
 )
 
 
@@ -222,6 +222,21 @@ class CustomerTest(StripeResourceTest):
             'post',
             '/v1/customers/cus_verify_source/sources/ba_verify_source/verify',
             {},
+            None
+        )
+
+    def test_customer_modify_source(self):
+        stripe.Customer.modify_source(
+            'cus_test', 'card_test',
+            exp_month=NOW.month, exp_year=NOW.year + 1)
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_test/sources/card_test',
+            {
+                'exp_month': NOW.month,
+                'exp_year': NOW.year + 1,
+            },
             None
         )
 
