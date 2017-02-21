@@ -1,3 +1,8 @@
+=== 1.48.0 2017-02-21
+
+* Add `Account.modify_external_account` to modify an account in one API call
+* Add `Customer.modify_source` to modify a source in one API call
+
 === 1.47.0 2017-01-18
 
 * Allow sources to be updated
