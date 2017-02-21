@@ -74,3 +74,20 @@ class InvoiceTest(StripeResourceTest):
             '/v1/invoices/upcoming',
             {},
         )
+
+    def test_upcoming_invoice_subscription_items(self):
+        stripe.Invoice.upcoming(subscription_items=[
+            {"plan": "foo", "quantity": 3}
+        ])
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/invoices/upcoming',
+            {
+                'subscription_items': {
+                    "0": {
+                        "plan": "foo",
+                        "quantity": 3,
+                    },
+                },
+            },
+        )
