@@ -824,6 +824,9 @@ class Invoice(CreateableAPIResource, ListableAPIResource,
 
     @classmethod
     def upcoming(cls, api_key=None, stripe_account=None, **params):
+        if "subscription_items" in params:
+            items = convert_array_to_dict(params["subscription_items"])
+            params["subscription_items"] = items
         requestor = api_requestor.APIRequestor(api_key,
                                                account=stripe_account)
         url = cls.class_url() + '/upcoming'
