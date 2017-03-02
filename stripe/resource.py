@@ -111,11 +111,10 @@ class StripeObject(dict):
 
         object.__setattr__(self, 'api_key', api_key)
         object.__setattr__(self, 'stripe_account', stripe_account)
+        object.__setattr__(self, 'requestor', requestor)
 
         if id:
             self['id'] = id
-
-        self.requestor = requestor
 
     def update(self, update_dict):
         for k in update_dict:
