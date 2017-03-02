@@ -841,7 +841,8 @@ class Invoice(CreateableAPIResource, ListableAPIResource,
         return self.request('post', self.instance_url() + '/pay', {}, headers)
 
     @classmethod
-    def upcoming(cls, api_key=None, stripe_account=None, requestor=None, **params):
+    def upcoming(cls, api_key=None, stripe_account=None, requestor=None,
+                 **params):
         if "subscription_items" in params:
             items = convert_array_to_dict(params["subscription_items"])
             params["subscription_items"] = items
@@ -964,7 +965,8 @@ class FileUpload(ListableAPIResource):
         return 'file'
 
     @classmethod
-    def create(cls, api_key=None, stripe_account=None, requestor=None, **params):
+    def create(cls, api_key=None, stripe_account=None, requestor=None,
+               **params):
         requestor = requestor or api_requestor.APIRequestor(
             api_key, api_base=cls.api_base(), account=stripe_account)
         url = cls.class_url()
