@@ -99,7 +99,8 @@ def _serialize_list(array, previous):
 
 
 class StripeObject(dict):
-    def __init__(self, id=None, api_key=None, stripe_account=None, **params):
+    def __init__(self, id=None, api_key=None, stripe_account=None,
+                 requestor=None, **params):
         super(StripeObject, self).__init__()
 
         self._unsaved_values = set()
@@ -113,6 +114,8 @@ class StripeObject(dict):
 
         if id:
             self['id'] = id
+
+        self.requestor = requestor
 
     def update(self, update_dict):
         for k in update_dict:
@@ -222,7 +225,7 @@ class StripeObject(dict):
     def request(self, method, url, params=None, headers=None):
         if params is None:
             params = self._retrieve_params
-        requestor = api_requestor.APIRequestor(
+        requestor = self.requestor or api_requestor.APIRequestor(
             key=self.api_key, api_base=self.api_base(),
             account=self.stripe_account)
         response, api_key = requestor.request(method, url, params, headers)
@@ -443,10 +446,12 @@ class ListableAPIResource(APIResource):
 
     @classmethod
     def list(cls, api_key=None, idempotency_key=None,
-             stripe_account=None, **params):
-        requestor = api_requestor.APIRequestor(api_key,
-                                               api_base=cls.api_base(),
-                                               account=stripe_account)
+             stripe_account=None, requestor=None, **params):
+        requestor = requestor or api_requestor.APIRequestor(
+            api_key,
+            api_base=cls.api_base(),
+            account=stripe_account
+        )
         url = cls.class_url()
         response, api_key = requestor.request('get', url, params)
         stripe_object = convert_to_stripe_object(response, api_key,
@@ -459,8 +464,10 @@ class CreateableAPIResource(APIResource):
 
     @classmethod
     def create(cls, api_key=None, idempotency_key=None,
-               stripe_account=None, **params):
-        requestor = api_requestor.APIRequestor(api_key, account=stripe_account)
+               stripe_account=None, requestor=None, **params):
+        requestor = requestor or api_requestor.APIRequestor(
+            api_key, account=stripe_account
+        )
         url = cls.class_url()
         headers = populate_headers(idempotency_key)
         response, api_key = requestor.request('post', url, params, headers)
@@ -471,8 +478,10 @@ class UpdateableAPIResource(APIResource):
 
     @classmethod
     def _modify(cls, url, api_key=None, idempotency_key=None,
-                stripe_account=None, **params):
-        requestor = api_requestor.APIRequestor(api_key, account=stripe_account)
+                stripe_account=None, requestor=None, **params):
+        requestor = requestor or api_requestor.APIRequestor(
+            api_key, account=stripe_account
+        )
         headers = populate_headers(idempotency_key)
         response, api_key = requestor.request('post', url, params, headers)
         return convert_to_stripe_object(response, api_key, stripe_account)
@@ -702,8 +711,10 @@ class Charge(CreateableAPIResource, ListableAPIResource,
         return self
 
     def update_dispute(self, idempotency_key=None, **params):
-        requestor = api_requestor.APIRequestor(self.api_key,
-                                               account=self.stripe_account)
+        requestor = self.requestor or api_requestor.APIRequestor(
+            self.api_key,
+            account=self.stripe_account
+        )
         url = self.instance_url() + '/dispute'
         headers = populate_headers(idempotency_key)
         response, api_key = requestor.request('post', url, params, headers)
@@ -711,8 +722,10 @@ class Charge(CreateableAPIResource, ListableAPIResource,
         return self.dispute
 
     def close_dispute(self, idempotency_key=None):
-        requestor = api_requestor.APIRequestor(self.api_key,
-                                               account=self.stripe_account)
+        requestor = self.requestor or api_requestor.APIRequestor(
+            self.api_key,
+            account=self.stripe_account
+        )
         url = self.instance_url() + '/dispute/close'
         headers = populate_headers(idempotency_key)
         response, api_key = requestor.request('post', url, {}, headers)
@@ -778,8 +791,10 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
             '`subscriptions` resource on the customer object to update a '
             'subscription',
             DeprecationWarning)
-        requestor = api_requestor.APIRequestor(self.api_key,
-                                               account=self.stripe_account)
+        requestor = self.requestor or api_requestor.APIRequestor(
+            self.api_key,
+            account=self.stripe_account
+        )
         url = self.instance_url() + '/subscription'
         headers = populate_headers(idempotency_key)
         response, api_key = requestor.request('post', url, params, headers)
@@ -792,8 +807,10 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
             '`subscriptions` resource on the customer object to cancel a '
             'subscription',
             DeprecationWarning)
-        requestor = api_requestor.APIRequestor(self.api_key,
-                                               account=self.stripe_account)
+        requestor = self.requestor or api_requestor.APIRequestor(
+            self.api_key,
+            account=self.stripe_account
+        )
         url = self.instance_url() + '/subscription'
         headers = populate_headers(idempotency_key)
         response, api_key = requestor.request('delete', url, params, headers)
@@ -801,8 +818,10 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
         return self.subscription
 
     def delete_discount(self, **params):
-        requestor = api_requestor.APIRequestor(self.api_key,
-                                               account=self.stripe_account)
+        requestor = self.requestor or api_requestor.APIRequestor(
+            self.api_key,
+            account=self.stripe_account
+        )
         url = self.instance_url() + '/discount'
         _, api_key = requestor.request('delete', url)
         self.refresh_from({'discount': None}, api_key, True)
@@ -823,12 +842,14 @@ class Invoice(CreateableAPIResource, ListableAPIResource,
         return self.request('post', self.instance_url() + '/pay', {}, headers)
 
     @classmethod
-    def upcoming(cls, api_key=None, stripe_account=None, **params):
+    def upcoming(cls, api_key=None, stripe_account=None, requestor=None, **params):
         if "subscription_items" in params:
             items = convert_array_to_dict(params["subscription_items"])
             params["subscription_items"] = items
-        requestor = api_requestor.APIRequestor(api_key,
-                                               account=stripe_account)
+        requestor = requestor or api_requestor.APIRequestor(
+            api_key,
+            account=stripe_account
+        )
         url = cls.class_url() + '/upcoming'
         response, api_key = requestor.request('get', url, params)
         return convert_to_stripe_object(response, api_key, stripe_account)
@@ -848,8 +869,10 @@ class Subscription(CreateableAPIResource, DeletableAPIResource,
                    UpdateableAPIResource, ListableAPIResource):
 
     def delete_discount(self, **params):
-        requestor = api_requestor.APIRequestor(self.api_key,
-                                               account=self.stripe_account)
+        requestor = self.requestor or api_requestor.APIRequestor(
+            self.api_key,
+            account=self.stripe_account
+        )
         url = self.instance_url() + '/discount'
         _, api_key = requestor.request('delete', url)
         self.refresh_from({'discount': None}, api_key, True)
@@ -942,8 +965,8 @@ class FileUpload(ListableAPIResource):
         return 'file'
 
     @classmethod
-    def create(cls, api_key=None, stripe_account=None, **params):
-        requestor = api_requestor.APIRequestor(
+    def create(cls, api_key=None, stripe_account=None, requestor=None, **params):
+        requestor = requestor or api_requestor.APIRequestor(
             api_key, api_base=cls.api_base(), account=stripe_account)
         url = cls.class_url()
         supplied_headers = {
