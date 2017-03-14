@@ -95,10 +95,10 @@ class HTTPClient(object):
 class RequestsClient(HTTPClient):
     name = 'requests'
 
-    def __init__(self, timeout=80, **kwargs):
+    def __init__(self, timeout=80, session=None, **kwargs):
         super(RequestsClient, self).__init__(**kwargs)
         self._timeout = timeout
-        self._session = requests.Session()
+        self._session = session or requests.Session()
 
     def request(self, method, url, headers, post_data=None):
         kwargs = {}
