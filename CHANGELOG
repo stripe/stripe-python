@@ -1,3 +1,7 @@
+=== 1.50.0 2017-03-17
+
+* Support for detaching sources from customers
+
 === 1.49.0 2017-03-13
 
 * Accept `session` argument for `RequestsClient`
