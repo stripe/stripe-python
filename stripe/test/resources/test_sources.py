@@ -46,6 +46,26 @@ class SourceTest(StripeResourceTest):
             None
         )
 
+    def test_delete_source_unattached(self):
+        source = stripe.Source.construct_from({
+            'id': 'src_foo',
+        }, 'api_key')
+        self.assertRaises(NotImplementedError, source.delete)
+
+    def test_delete_source_attached(self):
+        source = stripe.Source.construct_from({
+            'id': 'src_foo',
+            'customer': 'cus_bar',
+        }, 'api_key')
+        source.delete()
+
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/customers/cus_bar/sources/src_foo',
+            {},
+            None
+        )
+
     def test_verify_source(self):
         source = stripe.Source.construct_from({
             'id': 'src_foo',
