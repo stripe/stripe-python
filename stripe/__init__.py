@@ -8,7 +8,9 @@
 # Configuration variables
 
 api_key = None
+client_id = None
 api_base = 'https://api.stripe.com'
+connect_api_base = 'https://connect.stripe.com'
 upload_api_base = 'https://uploads.stripe.com'
 api_version = None
 verify_ssl_certs = True
@@ -53,6 +55,9 @@ from stripe.resource import (  # noqa
     Token,
     Transfer)
 
+# OAuth
+from stripe.oauth import OAuth  # noqa
+
 # Error imports.  Note that we may want to move these out of the root
 # namespace in the future and you should prefer to access them via
 # the fully qualified `stripe.error` module.
@@ -65,6 +70,7 @@ from stripe.error import (  # noqa
     RateLimitError,
     CardError,
     InvalidRequestError,
+    OAuthError,
     StripeError)
 
 # DEPRECATED: These imports will be moved out of the root stripe namespace

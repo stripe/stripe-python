@@ -6,7 +6,9 @@ from mock import Mock, ANY
 
 import stripe
 
-from stripe.test.helper import StripeUnitTestCase
+from stripe.test.helper import (
+    StripeAPIRequestorTestCase,
+    StripeOAuthRequestorTestCase)
 
 VALID_API_METHODS = ('get', 'post', 'delete')
 
@@ -88,7 +90,7 @@ class UrlMatcher(object):
         return q_matcher == other
 
 
-class APIRequestorRequestTests(StripeUnitTestCase):
+class APIRequestorRequestTests(StripeAPIRequestorTestCase):
     ENCODE_INPUTS = {
         'dict': {
             'astring': 'bar',
@@ -128,24 +130,6 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         'datetime': [('%s', 1356994801)],
         'none': [],
     }
-
-    def setUp(self):
-        super(APIRequestorRequestTests, self).setUp()
-
-        self.http_client = Mock(stripe.http_client.HTTPClient)
-        self.http_client._verify_ssl_certs = True
-        self.http_client.name = 'mockclient'
-
-        self.requestor = stripe.api_requestor.APIRequestor(
-            client=self.http_client)
-
-    def mock_response(self, return_body, return_code, requestor=None,
-                      headers=None):
-        if not requestor:
-            requestor = self.requestor
-
-        self.http_client.request = Mock(
-            return_value=(return_body, return_code, headers or {}))
 
     def check_call(self, meth, abs_url=None, headers=None,
                    post_data=None, requestor=None):
@@ -395,6 +379,15 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         self.assertRaises(stripe.error.APIConnectionError,
                           self.requestor.request,
                           'foo', 'bar')
+
+
+class OAuthRequestorRequestTests(StripeOAuthRequestorTestCase):
+    def test_oauth_error(self):
+        self.mock_response('{"error": ""}', 400)
+
+        self.assertRaises(stripe.error.OAuthError,
+                          self.requestor.request,
+                          'get', 'foo', {})
 
 
 class DefaultClientTests(unittest2.TestCase):
