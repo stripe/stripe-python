@@ -27,8 +27,10 @@ def convert_to_stripe_object(resp, api_key, account):
         'invoice': Invoice,
         'invoiceitem': InvoiceItem,
         'list': ListObject,
+        'payout': Payout,
         'plan': Plan,
         'recipient': Recipient,
+        'recipient_transfer': RecipientTransfer,
         'refund': Refund,
         'source': Source,
         'subscription': Subscription,
@@ -896,6 +898,14 @@ class Event(ListableAPIResource):
     pass
 
 
+class Payout(CreateableAPIResource, UpdateableAPIResource,
+             ListableAPIResource):
+
+    def cancel(self):
+        self.refresh_from(self.request('post',
+                          self.instance_url() + '/cancel'))
+
+
 class Transfer(CreateableAPIResource, UpdateableAPIResource,
                ListableAPIResource):
 
@@ -934,6 +944,11 @@ class Recipient(CreateableAPIResource, UpdateableAPIResource,
         params['recipient'] = self.id
         transfers = Transfer.list(self.api_key, **params)
         return transfers
+
+
+# This resource can only be instantiated when expanded on a BalanceTransaction
+class RecipientTransfer(StripeObject):
+    pass
 
 
 class FileUpload(ListableAPIResource):
