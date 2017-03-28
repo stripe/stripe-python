@@ -1,10 +1,19 @@
-# Stripe Python bindings [![Build Status](https://travis-ci.org/stripe/stripe-python.svg?branch=master)](https://travis-ci.org/stripe/stripe-python)
+# Stripe Python Library [![Build Status](https://travis-ci.org/stripe/stripe-python.svg?branch=master)](https://travis-ci.org/stripe/stripe-python)
+
+The Stripe Python library provides convenient access to the Stripe API from
+applications written in the Python language. It includes a pre-defined set of
+classes for API resources that initialize themselves dynamically from API
+responses which makes it compatible with a wide range of versions of the Stripe
+API.
+
+## Documentation
+
+See the [Python API docs](https://stripe.com/docs/api/python#intro).
 
 ## Installation
 
-You don't need this source code unless you want to modify the
-package. If you just want to use the Stripe Python bindings, you
-should run:
+You don't need this source code unless you want to modify the gem. If you just
+want to use the package, just run:
 
     pip install --upgrade stripe
 
@@ -12,78 +21,76 @@ or
 
     easy_install --upgrade stripe
 
-See http://www.pip-installer.org/en/latest/index.html for instructions
-on installing pip. If you are on a system with easy_install but not
-pip, you can use easy_install instead. If you're not using virtualenv,
-you may have to prefix those commands with `sudo`. You can learn more
-about virtualenv at http://www.virtualenv.org/
-
-To install from source, run:
+Install from source with:
 
     python setup.py install
 
-## Documentation
+### Requirements
 
-Please see https://stripe.com/docs/api/python for the most up-to-date documentation.
+* Python 2.6+ or Python 3.3+ (PyPy supported)
 
-## Logging
+## Usage
 
-There are a few ways to get some insight into what requests and responses the client is making and getting back from the Stripe API.
-The python client can be told to emit either `debug` or `info` logs.
-`debug` will give more verbose information, and `info` will be more compact, but omit things like request/response bodies.
+The library needs to be configured with your account's secret key which is
+available in your [Stripe Dashboard][api-keys]. Set `stripe.api_key` to its
+value:
 
-You can enable logging in a few ways:
-    1. Set the environment variable `STRIPE_LOG` to the value `debug` or to `info`
-       ```
-       $ export STRIPE_LOG=debug
-       ```
-    2. set `stripe.log` to `'debug'` or `'info'`
-       ```py
-       import stripe
-       stripe.log = 'debug'
-       ```
-    3. Set up python logging and set the logging level to the level you desire
-       ```py
-       import logging
-       logging.basicConfig()
-       logging.getLogger('stripe').setLevel(logging.DEBUG)
-       ```
-
-If you are running code in production, it's preferable to set up [python logging explicitly](https://docs.python.org/2/library/logging.html). This will give you control over filtering logs, and where the logs are output. Using the `STRIPE_LOG` and `stripe.log` methods will always result in logs going to standard out, which you may or may not want.
-
-Note that setting `stripe.log` will supersede the setting of `STRIPE_LOG`, but it can be turned off by setting it back to `None`. Example:
-
-```py
-import os
+``` python
 import stripe
+stripe.api_key = "sk_test_..."
 
-print os.environ['STRIPE_LOG']  # => 'info'
-stripe.log = 'debug'  # debug logs will also print now
-stripe.log = None  # now only info logs will print
+# list charges
+stripe.Charge.list()
+
+# retrieve single charge
+stripe.Charge.retrieve("ch_1A2PUG2eZvKYlo2C4Rej1B9d")
 ```
 
-## Testing
+### Logging
 
-We commit to being compatible with Python 2.6+, Python 3.3+ and PyPy.  We need to test against all of these environments to ensure compatibility.  Travis CI will automatically run our tests on push.  For local testing, we use [tox](http://tox.readthedocs.org/) to handle testing across environments.
+The library can be configured to emit logging that will give you better insight
+into what it's doing. The `info` logging level is usually most appropriate for
+production use, but `debug` is also available for more verbosity.
 
-### Setting up tox
+There are a few options for enabling it:
 
-In theory, you should be able to `pip install tox` and then simply run `tox` from the project root. In reality, Tox can take a bit of finagling to get working.
+1. Set the environment variable `STRIPE_LOG` to the value `debug` or `info`
+   ```
+   $ export STRIPE_LOG=debug
+   ```
 
-You'll need an interpreter installed for each of the versions of python we test (see the envlist in tox.ini).  You can find these releases [on the Python site](https://www.python.org/download/releases) and [at PyPy](http://pypy.org/download.html#installing).  If you're using OS X, it may be easier to get PyPy from Homebrew with `brew install pypy`.
+2. Set `stripe.log`:
+   ```py
+   import stripe
+   stripe.log = 'debug'
+   ```
 
-You may choose not to go through the hassle of installing interpreters for every Python version we support.  It's useful to test at least one Python 2.x and one Python 3.x but can generally rely on Travis to find edge cases with other interpreters.  You can test a specific interpreter such as Python 2.7 with `tox -e py27`.
+3. Enable it through Python's logging module:
+   ```py
+   import logging
+   logging.basicConfig()
+   logging.getLogger('stripe').setLevel(logging.DEBUG)
+   ```
 
-The system Python on OS X has been known to cause issues. You'll probably want to `brew install python` or equivalent.  If tox complains about `pkg_resources.DistributionNotFound` then some of your Python libraries are probably still linked to the system python installation.  To fix this for virtualenv you should `sudo pip uninstall virtualenv; pip install virtualenv`.
+## Development
 
-Note that PyCurl doesn't currently play nicely with our tox configuration.  Tox won't run any of the PyCurl related tests.
+Run all tests (modify `-e` according to your Python target):
 
-### Running specific tests
+    tox -e py27
 
-You can specify a module, TestCase or single test to run by passing it as an argument to tox.  For example, to run only the `test_save` test of the `UpdateableAPIResourceTests` case from the `test.resources` module on Python 2.7:
+Run a single test suite:
+
+    tox -e py27 -- --test-suite stripe.test.resources.test_updateable.UpdateableAPIResourceTests
+
+Run a single test:
 
     tox -e py27 -- --test-suite stripe.test.resources.test_updateable.UpdateableAPIResourceTests.test_save
 
-### Linting
+Run the linter with:
 
-We enforce linting on the code with flake8.  Install with `pip install flake8` and run with `flake8 stripe` from the project root.  Linting will also be run in Travis CI and for the Python 2.7 environment with Tox.  Note that linting will fail on code that has undergone 2to3 conversion for Python 3 support.
+    pip install flake8
+    flake8 stripe
+
+<!--
+# vim: set tw=79:
+-->
