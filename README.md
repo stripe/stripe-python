@@ -46,6 +46,51 @@ stripe.Charge.list()
 stripe.Charge.retrieve("ch_1A2PUG2eZvKYlo2C4Rej1B9d")
 ```
 
+### Per-request Configuration
+
+For apps that need to use multiple keys during the lifetime of a process, like
+one that uses [Stripe Connect][connect], it's also possible to set a
+per-request key and/or account:
+
+``` ruby
+import stripe
+
+# list charges
+stripe.Charge.list(
+    api_key="sk_test_...",
+    stripe_account="acct_..."
+)
+
+# retrieve single charge
+stripe.Charge.retrieve(
+    "ch_1A2PUG2eZvKYlo2C4Rej1B9d",
+    api_key="sk_test_...",
+    stripe_account="acct_..."
+)
+```
+
+### Configuring a Client
+
+The library can be configured to use `urlfetch`, `requests`, `pycurl`, or
+`urllib2` as its backing HTTP client with `urlfetch` as the default if it's
+available. Set `stripe.default_http_client` like so:
+
+``` python
+client = stripe.http_client.UrlFetchClient()
+client = stripe.http_client.RequestsClient()
+client = stripe.http_client.PycurlClient()
+client = stripe.http_client.Urllib2Client()
+stripe.default_http_client = client
+```
+
+### Configuring a Proxy
+
+A proxy can be configured with `stripe.proxy`:
+
+``` python
+stripe.proxy = "https://user:pass@example.com:1234"
+```
+
 ### Logging
 
 The library can be configured to emit logging that will give you better insight
@@ -90,6 +135,9 @@ Run the linter with:
 
     pip install flake8
     flake8 stripe
+
+[api-keys]: https://dashboard.stripe.com/account/apikeys
+[connect]: https://stripe.com/connect
 
 <!--
 # vim: set tw=79:
