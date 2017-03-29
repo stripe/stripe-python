@@ -72,8 +72,7 @@ stripe.Charge.retrieve(
 ### Configuring a Client
 
 The library can be configured to use `urlfetch`, `requests`, `pycurl`, or
-`urllib2` as its backing HTTP client with `urlfetch` as the default if it's
-available. Set `stripe.default_http_client` like so:
+`urllib2` with `stripe.default_http_client`:
 
 ``` python
 client = stripe.http_client.UrlFetchClient()
@@ -83,7 +82,9 @@ client = stripe.http_client.Urllib2Client()
 stripe.default_http_client = client
 ```
 
-We usually recommend that people use `requests`.
+Without a configured client, by default the library will attempt to load
+libraries in the order above (i.e. `urlfetch` is preferred with `urllib2` used
+as a last resort). We usually recommend that people use `requests`.
 
 ### Configuring a Proxy
 
