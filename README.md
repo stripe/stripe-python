@@ -83,6 +83,8 @@ client = stripe.http_client.Urllib2Client()
 stripe.default_http_client = client
 ```
 
+We usually recommend that people use `requests`.
+
 ### Configuring a Proxy
 
 A proxy can be configured with `stripe.proxy`:
