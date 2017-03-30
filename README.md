@@ -52,7 +52,7 @@ For apps that need to use multiple keys during the lifetime of a process, like
 one that uses [Stripe Connect][connect], it's also possible to set a
 per-request key and/or account:
 
-``` ruby
+``` python
 import stripe
 
 # list charges
