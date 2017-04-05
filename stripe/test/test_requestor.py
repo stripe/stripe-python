@@ -26,7 +26,12 @@ class GMT1(datetime.tzinfo):
 
 
 class APIHeaderMatcher(object):
-    EXP_KEYS = ['X-Stripe-Client-User-Agent', 'User-Agent', 'Authorization']
+    EXP_KEYS = [
+        'Authorization',
+        'Stripe-Version',
+        'User-Agent',
+        'X-Stripe-Client-User-Agent',
+    ]
     METHOD_EXTRA_KEYS = {"post": ["Content-Type"]}
 
     def __init__(self, api_key=None, extra={}, request_method=None):
