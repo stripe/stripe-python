@@ -45,11 +45,10 @@ class APIHeaderMatcher(object):
                 self._extra_match(other))
 
     def _keys_match(self, other):
-        expected_keys = self.EXP_KEYS + self.extra.keys()
+        expected_keys = set(self.EXP_KEYS + self.extra.keys())
         if self.request_method is not None and self.request_method in \
                 self.METHOD_EXTRA_KEYS:
             expected_keys.extend(self.METHOD_EXTRA_KEYS[self.request_method])
-
         return (sorted(other.keys()) == sorted(expected_keys))
 
     def _auth_match(self, other):
@@ -286,15 +285,18 @@ class APIRequestorRequestTests(StripeAPIRequestorTestCase):
             key, request_method='get'), requestor=requestor)
         self.assertEqual(key, used_key)
 
-    def test_passes_api_version(self):
-        stripe.api_version = 'fooversion'
+    def test_uses_instance_api_version(self):
+        api_version = 'fooversion'
+        requestor = stripe.api_requestor.APIRequestor(api_version=api_version,
+                                                      client=self.http_client)
 
-        self.mock_response('{}', 200)
+        self.mock_response('{}', 200, requestor=requestor)
 
-        body, key = self.requestor.request('get', self.valid_path, {})
+        requestor.request('get', self.valid_path, {})
 
         self.check_call('get', headers=APIHeaderMatcher(
-            extra={'Stripe-Version': 'fooversion'}, request_method='get'))
+            extra={'Stripe-Version': 'fooversion'}, request_method='get'),
+            requestor=requestor)
 
     def test_uses_instance_account(self):
         account = 'acct_foo'
