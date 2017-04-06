@@ -136,7 +136,7 @@ class StripeTestCase(unittest2.TestCase):
         stripe.api_key = os.environ.get(
             'STRIPE_API_KEY', 'tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I')
         stripe.api_version = os.environ.get(
-            'STRIPE_API_VERSION', '2017-02-14')
+            'STRIPE_API_VERSION', '2017-04-06')
 
     def tearDown(self):
         super(StripeTestCase, self).tearDown()
