@@ -63,9 +63,11 @@ def _build_api_url(url, query):
 
 class APIRequestor(object):
 
-    def __init__(self, key=None, client=None, api_base=None, account=None):
+    def __init__(self, key=None, client=None, api_base=None, api_version=None,
+                 account=None):
         self.api_base = api_base or stripe.api_base
         self.api_key = key
+        self.api_version = api_version or stripe.api_version
         self.stripe_account = account
 
         from stripe import verify_ssl_certs as verify
@@ -177,7 +179,6 @@ class APIRequestor(object):
         """
         Mechanism for issuing an API call
         """
-        from stripe import api_version
 
         if self.api_key:
             my_api_key = self.api_key
@@ -245,8 +246,8 @@ class APIRequestor(object):
         if method == 'post':
             headers['Content-Type'] = 'application/x-www-form-urlencoded'
 
-        if api_version is not None:
-            headers['Stripe-Version'] = api_version
+        if self.api_version is not None:
+            headers['Stripe-Version'] = self.api_version
 
         if supplied_headers is not None:
             for key, value in supplied_headers.items():
@@ -254,7 +255,7 @@ class APIRequestor(object):
 
         util.log_info('Request to Stripe api', method=method, path=abs_url)
         util.log_debug(
-            'Post details', post_data=post_data, api_version=api_version)
+            'Post details', post_data=post_data, api_version=self.api_version)
 
         rbody, rcode, rheaders = self._client.request(
             method, abs_url, headers, post_data)
