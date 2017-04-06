@@ -45,7 +45,7 @@ class APIHeaderMatcher(object):
                 self._extra_match(other))
 
     def _keys_match(self, other):
-        expected_keys = set(self.EXP_KEYS + self.extra.keys())
+        expected_keys = list(set(self.EXP_KEYS + self.extra.keys()))
         if self.request_method is not None and self.request_method in \
                 self.METHOD_EXTRA_KEYS:
             expected_keys.extend(self.METHOD_EXTRA_KEYS[self.request_method])
