@@ -11,20 +11,10 @@ import stripe
 
 NOW = datetime.datetime.now()
 
-DUMMY_CARD = {
-    'number': '4242424242424242',
-    'exp_month': NOW.month,
-    'exp_year': NOW.year + 4
-}
-DUMMY_DEBIT_CARD = {
-    'number': '4000056655665556',
-    'exp_month': NOW.month,
-    'exp_year': NOW.year + 4
-}
 DUMMY_CHARGE = {
     'amount': 100,
     'currency': 'usd',
-    'card': DUMMY_CARD
+    'source': 'tok_visa'
 }
 
 DUMMY_DISPUTE = {
