@@ -12,7 +12,7 @@ See the [Python API docs](https://stripe.com/docs/api/python#intro).
 
 ## Installation
 
-You don't need this source code unless you want to modify the gem. If you just
+You don't need this source code unless you want to modify the package. If you just
 want to use the package, just run:
 
     pip install --upgrade stripe
