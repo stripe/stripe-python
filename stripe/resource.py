@@ -677,6 +677,12 @@ class BankAccount(UpdateableAPIResource, DeletableAPIResource, VerifyMixin):
 
         return "%s/%s/%s/%s" % (base, owner_extn, class_base, extn)
 
+    def verify(self, idempotency_key=None, **params):
+        url = self.instance_url() + '/verify'
+        headers = populate_headers(idempotency_key)
+        self.refresh_from(self.request('post', url, params, headers))
+        return self
+
     @classmethod
     def modify(cls, sid, **params):
         raise NotImplementedError(
