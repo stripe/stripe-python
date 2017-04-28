@@ -85,3 +85,10 @@ class OAuthError(StripeError):
         super(OAuthError, self).__init__(
             description, http_body, http_status, json_body, headers)
         self.type = type
+
+
+class SignatureVerificationError(StripeError):
+    def __init__(self, message, sig_header, http_body=None):
+        super(SignatureVerificationError, self).__init__(
+            message, http_body)
+        self.sig_header = sig_header

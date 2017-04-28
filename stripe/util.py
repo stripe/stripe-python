@@ -1,5 +1,6 @@
 from __future__ import print_function
 
+import hmac
 import logging
 import sys
 import os
@@ -131,3 +132,31 @@ def logfmt(props):
             key = repr(key)
         return u'{key}={val}'.format(key=key, val=val)
     return u' '.join([fmt(key, val) for key, val in sorted(props.items())])
+
+
+# Borrowed from Django's source code
+if hasattr(hmac, 'compare_digest'):
+    # Prefer the stdlib implementation, when available.
+    def secure_compare(val1, val2):
+        return hmac.compare_digest(utf8(val1), utf8(val2))
+else:
+    def secure_compare(val1, val2):
+        """
+        Returns True if the two strings are equal, False otherwise.
+        The time taken is independent of the number of characters that match.
+        For the sake of simplicity, this function executes in constant time
+        only when the two strings have the same length. It short-circuits when
+        they have different lengths.
+        """
+        val1, val2 = utf8(val1), utf8(val2)
+        if len(val1) != len(val2):
+            return False
+        result = 0
+        if (sys.version_info[0] == 3 and isinstance(val1, bytes) and
+                isinstance(val2, bytes)):
+            for x, y in zip(val1, val2):
+                result |= x ^ y
+        else:
+            for x, y in zip(val1, val2):
+                result |= ord(x) ^ ord(y)
+        return result == 0
