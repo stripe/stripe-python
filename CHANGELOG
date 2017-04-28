@@ -1,3 +1,7 @@
+=== 1.54.0 2017-04-28
+
+* Add `stripe.set_app_info` for use by plugin creators
+
 === 1.53.0 2017-04-06
 
 * Add support for payouts and recipient transfers
