@@ -1,3 +1,7 @@
+=== 1.55.0 2017-04-28
+
+* Support for checking webhook signatures
+
 === 1.54.0 2017-04-28
 
 * Add `stripe.set_app_info` for use by plugin creators
