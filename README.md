@@ -120,6 +120,18 @@ There are a few options for enabling it:
    logging.getLogger('stripe').setLevel(logging.DEBUG)
    ```
 
+### Writing a Plugin
+
+If you're writing a plugin that uses the library, we'd appreciate it if you
+identified using `stripe.set_app_info()`:
+
+   ```py
+   stripe.set_app_info("MyAwesomePlugin", version="1.2.34", url="https://myawesomeplugin.info")
+   ```
+
+This information is passed along when the library makes calls to the Stripe
+API.
+
 ## Development
 
 Run all tests (modify `-e` according to your Python target):

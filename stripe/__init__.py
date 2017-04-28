@@ -16,6 +16,7 @@ api_version = None
 verify_ssl_certs = True
 proxy = None
 default_http_client = None
+app_info = None
 
 # Set to either 'debug' or 'info', controls console logging
 log = None
@@ -92,3 +93,17 @@ from stripe.resource import (  # noqa
     UpdateableAPIResource,
     convert_to_stripe_object)
 from stripe.util import json, logger  # noqa
+
+
+# Sets some basic information about the running application that's sent along
+# with API requests. Useful for plugin authors to identify their plugin when
+# communicating with Stripe.
+#
+# Takes a name and optional version and plugin URL.
+def set_app_info(name, version=None, url=None):
+    global app_info
+    app_info = {
+        'name': name,
+        'version': version,
+        'url': url,
+    }

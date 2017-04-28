@@ -34,14 +34,19 @@ class APIHeaderMatcher(object):
     ]
     METHOD_EXTRA_KEYS = {"post": ["Content-Type"]}
 
-    def __init__(self, api_key=None, extra={}, request_method=None):
+    def __init__(self, api_key=None, extra={}, request_method=None,
+                 user_agent=None, app_info=None):
         self.request_method = request_method
         self.api_key = api_key or stripe.api_key
         self.extra = extra
+        self.user_agent = user_agent
+        self.app_info = app_info
 
     def __eq__(self, other):
         return (self._keys_match(other) and
                 self._auth_match(other) and
+                self._user_agent_match(other) and
+                self._x_stripe_ua_contains_app_info(other) and
                 self._extra_match(other))
 
     def _keys_match(self, other):
@@ -53,6 +58,21 @@ class APIHeaderMatcher(object):
 
     def _auth_match(self, other):
         return other['Authorization'] == "Bearer %s" % (self.api_key,)
+
+    def _user_agent_match(self, other):
+        if self.user_agent is not None:
+            return other['User-Agent'] == self.user_agent
+
+        return True
+
+    def _x_stripe_ua_contains_app_info(self, other):
+        if self.app_info:
+            ua = stripe.util.json.loads(other['X-Stripe-Client-User-Agent'])
+            if 'application' not in ua:
+                return False
+            return ua['application'] == self.app_info
+
+        return True
 
     def _extra_match(self, other):
         for k, v in self.extra.iteritems():
@@ -315,6 +335,32 @@ class APIRequestorRequestTests(StripeAPIRequestorTestCase):
                 request_method='get'
             ),
         )
+
+    def test_uses_app_info(self):
+        try:
+            old = stripe.app_info
+            stripe.set_app_info(
+                'MyAwesomePlugin',
+                url='https://myawesomeplugin.info',
+                version='1.2.34'
+            )
+
+            self.mock_response('{}', 200)
+            self.requestor.request('get', self.valid_path, {})
+
+            ua = "Stripe/v1 PythonBindings/%s" % (stripe.version.VERSION,)
+            ua += " MyAwesomePlugin/1.2.34 (https://myawesomeplugin.info)"
+            header_matcher = APIHeaderMatcher(
+                user_agent=ua,
+                app_info={
+                    'name': 'MyAwesomePlugin',
+                    'url': 'https://myawesomeplugin.info',
+                    'version': '1.2.34',
+                }
+            )
+            self.check_call('get', headers=header_matcher)
+        finally:
+            stripe.app_info = old
 
     def test_fails_without_api_key(self):
         stripe.api_key = None
