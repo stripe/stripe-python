@@ -136,6 +136,15 @@ class APIRequestor(object):
             DeprecationWarning)
         return _build_api_url(url, cls.encode(params))
 
+    @classmethod
+    def format_app_info(cls, info):
+        str = info['name']
+        if info['version']:
+            str += "/%s" % (info['version'],)
+        if info['url']:
+            str += " (%s)" % (info['url'],)
+        return str
+
     def request(self, method, url, params=None, headers=None):
         rbody, rcode, rheaders, my_api_key = self.request_raw(
             method.lower(), url, params, headers)
@@ -174,6 +183,45 @@ class APIRequestor(object):
         else:
             raise error.APIError(err.get('message'), rbody, rcode, resp,
                                  rheaders)
+
+    def request_headers(self, api_key, method):
+        user_agent = 'Stripe/v1 PythonBindings/%s' % (version.VERSION,)
+        if stripe.app_info:
+            user_agent += " " + self.format_app_info(stripe.app_info)
+
+        ua = {
+            'bindings_version': version.VERSION,
+            'lang': 'python',
+            'publisher': 'stripe',
+            'httplib': self._client.name,
+        }
+        for attr, func in [['lang_version', platform.python_version],
+                           ['platform', platform.platform],
+                           ['uname', lambda: ' '.join(platform.uname())]]:
+            try:
+                val = func()
+            except Exception as e:
+                val = "!! %s" % (e,)
+            ua[attr] = val
+        if stripe.app_info:
+            ua['application'] = stripe.app_info
+
+        headers = {
+            'X-Stripe-Client-User-Agent': util.json.dumps(ua),
+            'User-Agent': user_agent,
+            'Authorization': 'Bearer %s' % (api_key,),
+        }
+
+        if self.stripe_account:
+            headers['Stripe-Account'] = self.stripe_account
+
+        if method == 'post':
+            headers['Content-Type'] = 'application/x-www-form-urlencoded'
+
+        if self.api_version is not None:
+            headers['Stripe-Version'] = self.api_version
+
+        return headers
 
     def request_raw(self, method, url, params=None, supplied_headers=None):
         """
@@ -219,35 +267,7 @@ class APIRequestor(object):
                 'Stripe bindings.  Please contact support@stripe.com for '
                 'assistance.' % (method,))
 
-        ua = {
-            'bindings_version': version.VERSION,
-            'lang': 'python',
-            'publisher': 'stripe',
-            'httplib': self._client.name,
-        }
-        for attr, func in [['lang_version', platform.python_version],
-                           ['platform', platform.platform],
-                           ['uname', lambda: ' '.join(platform.uname())]]:
-            try:
-                val = func()
-            except Exception as e:
-                val = "!! %s" % (e,)
-            ua[attr] = val
-
-        headers = {
-            'X-Stripe-Client-User-Agent': util.json.dumps(ua),
-            'User-Agent': 'Stripe/v1 PythonBindings/%s' % (version.VERSION,),
-            'Authorization': 'Bearer %s' % (my_api_key,)
-        }
-
-        if self.stripe_account:
-            headers['Stripe-Account'] = self.stripe_account
-
-        if method == 'post':
-            headers['Content-Type'] = 'application/x-www-form-urlencoded'
-
-        if self.api_version is not None:
-            headers['Stripe-Version'] = self.api_version
+        headers = self.request_headers(my_api_key, method)
 
         if supplied_headers is not None:
             for key, value in supplied_headers.items():
