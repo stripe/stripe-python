@@ -803,7 +803,7 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
         self.refresh_from({'subscription': response}, api_key, True)
         return self.subscription
 
-    def delete_discount(self, **params):
+    def delete_discount(self):
         requestor = api_requestor.APIRequestor(self.api_key,
                                                account=self.stripe_account)
         url = self.instance_url() + '/discount'
@@ -850,7 +850,7 @@ class Plan(CreateableAPIResource, DeletableAPIResource,
 class Subscription(CreateableAPIResource, DeletableAPIResource,
                    UpdateableAPIResource, ListableAPIResource):
 
-    def delete_discount(self, **params):
+    def delete_discount(self):
         requestor = api_requestor.APIRequestor(self.api_key,
                                                account=self.stripe_account)
         url = self.instance_url() + '/discount'
