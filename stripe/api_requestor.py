@@ -378,7 +378,7 @@ class APIRequestor(object):
 
     def handle_urllib2_error(self, err, abs_url):
         from stripe.http_client import Urllib2Client
-        return self._deprecated_handle_error(Urllib2Client, err)
+        return self._deprecated_handle_error(Urllib2Client, err, abs_url)
 
 
 class OAuthRequestor(APIRequestor):
