@@ -138,8 +138,6 @@ class StripeObject(dict):
         except KeyError as err:
             raise AttributeError(*err.args)
 
-        return None
-
     def __delattr__(self, k):
         if k[0] == '_' or k in self.__dict__:
             return super(StripeObject, self).__delattr__(k)
