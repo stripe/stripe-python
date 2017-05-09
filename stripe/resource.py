@@ -442,8 +442,7 @@ class ListableAPIResource(APIResource):
         return cls.list(*args, **params).auto_paging_iter()
 
     @classmethod
-    def list(cls, api_key=None, idempotency_key=None,
-             stripe_account=None, **params):
+    def list(cls, api_key=None, stripe_account=None, **params):
         requestor = api_requestor.APIRequestor(api_key,
                                                api_base=cls.api_base(),
                                                account=stripe_account)
