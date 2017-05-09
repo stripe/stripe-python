@@ -803,6 +803,7 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
         self.refresh_from({'subscription': response}, api_key, True)
         return self.subscription
 
+    # TODO: Remove arg in next major release.
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(self.api_key,
                                                account=self.stripe_account)
@@ -850,6 +851,7 @@ class Plan(CreateableAPIResource, DeletableAPIResource,
 class Subscription(CreateableAPIResource, DeletableAPIResource,
                    UpdateableAPIResource, ListableAPIResource):
 
+    # TODO: Remove arg in next major release.
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(self.api_key,
                                                account=self.stripe_account)
