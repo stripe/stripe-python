@@ -27,6 +27,7 @@ before_install:
   - "if [[ $TRAVIS_PYTHON_VERSION == 'pypy3' ]]; then deactivate && wget https://bitbucket.org/squeaky/portable-pypy/downloads/pypy3.5-5.7.1-beta-linux_x86_64-portable.tar.bz2 && tar -jxf pypy3.5-5.7.1-beta-linux_x86_64-portable.tar.bz2 && echo 'Setting up aliases...' && export PATH=$HOME/pypy3.5-5.7.1-beta-linux_x86_64-portable/bin/:$PATH && ln -s ~/pypy3.5-5.7.1-beta-linux_x86_64-portable/bin/pypy3.5 ~/bin/python && echo 'Setting up pip...' && pypy3.5-5.7.1-beta-linux_x86_64-portable/bin/pypy -m ensurepip && ln -s ~/pypy3.5-5.7.1-beta-linux_x86_64-portable/bin/pip3.5 ~/bin/pip ; fi"
   - cd $TRAVIS_BUILD_DIR
 install:
+  - pip install -U setuptools pip
   - pip install unittest2 mock pycurl flake8 tox-travis
   - python setup.py clean --all
   - python setup.py install
