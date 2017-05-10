@@ -20,6 +20,7 @@ addons:
       - libcurl4-gnutls-dev
       - librtmp-dev
 install:
+  - pip install -U pip
   - pip install unittest2 mock pycurl flake8 tox-travis
   - python setup.py clean --all
   - python setup.py install
