@@ -1,3 +1,7 @@
+=== 1.55.1 2017-05-10
+
+* Constrain Requests to < 2.13.0 if on setuptools < 18.0.0
+
 === 1.55.0 2017-04-28
 
 * Support for checking webhook signatures
