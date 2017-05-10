@@ -138,8 +138,6 @@ class StripeObject(dict):
         except KeyError as err:
             raise AttributeError(*err.args)
 
-        return None
-
     def __delattr__(self, k):
         if k[0] == '_' or k in self.__dict__:
             return super(StripeObject, self).__delattr__(k)
@@ -444,8 +442,7 @@ class ListableAPIResource(APIResource):
         return cls.list(*args, **params).auto_paging_iter()
 
     @classmethod
-    def list(cls, api_key=None, idempotency_key=None,
-             stripe_account=None, **params):
+    def list(cls, api_key=None, stripe_account=None, **params):
         requestor = api_requestor.APIRequestor(api_key,
                                                api_base=cls.api_base(),
                                                account=stripe_account)
@@ -596,21 +593,21 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
     def instance_url(self):
         token = util.utf8(self.id)
         extn = urllib.quote_plus(token)
-        if (hasattr(self, 'customer')):
+        if hasattr(self, 'customer'):
             customer = util.utf8(self.customer)
 
             base = Customer.class_url()
             owner_extn = urllib.quote_plus(customer)
             class_base = "sources"
 
-        elif (hasattr(self, 'recipient')):
+        elif hasattr(self, 'recipient'):
             recipient = util.utf8(self.recipient)
 
             base = Recipient.class_url()
             owner_extn = urllib.quote_plus(recipient)
             class_base = "cards"
 
-        elif (hasattr(self, 'account')):
+        elif hasattr(self, 'account'):
             account = util.utf8(self.account)
 
             base = Account.class_url()
@@ -656,14 +653,14 @@ class BankAccount(UpdateableAPIResource, DeletableAPIResource, VerifyMixin):
     def instance_url(self):
         token = util.utf8(self.id)
         extn = urllib.quote_plus(token)
-        if (hasattr(self, 'customer')):
+        if hasattr(self, 'customer'):
             customer = util.utf8(self.customer)
 
             base = Customer.class_url()
             owner_extn = urllib.quote_plus(customer)
             class_base = "sources"
 
-        elif (hasattr(self, 'account')):
+        elif hasattr(self, 'account'):
             account = util.utf8(self.account)
 
             base = Account.class_url()
@@ -806,6 +803,7 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
         self.refresh_from({'subscription': response}, api_key, True)
         return self.subscription
 
+    # TODO: Remove arg in next major release.
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(self.api_key,
                                                account=self.stripe_account)
@@ -853,6 +851,7 @@ class Plan(CreateableAPIResource, DeletableAPIResource,
 class Subscription(CreateableAPIResource, DeletableAPIResource,
                    UpdateableAPIResource, ListableAPIResource):
 
+    # TODO: Remove arg in next major release.
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(self.api_key,
                                                account=self.stripe_account)
@@ -1018,7 +1017,7 @@ class BitcoinReceiver(CreateableAPIResource, UpdateableAPIResource,
         token = util.utf8(self.id)
         extn = urllib.quote_plus(token)
 
-        if (hasattr(self, 'customer')):
+        if hasattr(self, 'customer'):
             customer = util.utf8(self.customer)
             base = Customer.class_url()
             cust_extn = urllib.quote_plus(customer)
