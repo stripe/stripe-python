@@ -26,7 +26,7 @@ if sys.version_info < (2, 6):
     install_requires.append('requests >= 0.8.8, < 0.10.1')
     install_requires.append('ssl')
 else:
-    install_requires.append('requests >= 0.8.8')
+    install_requires.append('requests >= 0.8.8, <= 2.13.0')
 
 
 with open('LONG_DESCRIPTION.rst') as f:
