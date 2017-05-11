@@ -1,3 +1,7 @@
+=== 1.55.2 2017-05-11
+
+* Remove Requests constraint from 1.55.1 now that they've patched (as of 2.14.2)
+
 === 1.55.1 2017-05-10
 
 * Constrain Requests to < 2.13.0 if on setuptools < 18.0.0
