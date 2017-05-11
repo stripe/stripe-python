@@ -42,6 +42,7 @@ from stripe.resource import (  # noqa
     FileUpload,
     Invoice,
     InvoiceItem,
+    LoginLink,
     Order,
     OrderReturn,
     Payout,
