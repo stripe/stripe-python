@@ -11,10 +11,12 @@ class StripeObjectTests(StripeUnitTestCase):
 
     def test_initializes_with_parameters(self):
         obj = stripe.resource.StripeObject(
-            'foo', 'bar', myparam=5, yourparam='boo')
+            'foo', 'bar', myparam=5, yourparam='boo',
+            api_version='myversion')
 
         self.assertEqual('foo', obj.id)
         self.assertEqual('bar', obj.api_key)
+        self.assertEqual('myversion', obj.api_version)
 
     def test_access(self):
         obj = stripe.resource.StripeObject('myid', 'mykey', myparam=5)
@@ -48,9 +50,10 @@ class StripeObjectTests(StripeUnitTestCase):
         obj = stripe.resource.StripeObject.construct_from({
             'foo': 'bar',
             'trans': 'me',
-        }, 'mykey')
+        }, 'mykey', api_version='myversion')
 
         self.assertEqual('mykey', obj.api_key)
+        self.assertEqual('myversion', obj.api_version)
         self.assertEqual('bar', obj.foo)
         self.assertEqual('me', obj['trans'])
         self.assertEqual(None, obj.stripe_account)
@@ -82,13 +85,15 @@ class StripeObjectTests(StripeUnitTestCase):
                     {'id': 'nested'}
                 ],
             }
-        }, 'key', stripe_account='acct_foo')
+        }, 'key', stripe_account='acct_foo', api_version='myversion')
 
         nested = obj.foos.data[0]
 
         self.assertEqual('key', obj.api_key)
+        self.assertEqual('myversion', obj.api_version)
         self.assertEqual('nested', nested.id)
         self.assertEqual('key', nested.api_key)
+        self.assertEqual('myversion', nested.api_version)
         self.assertEqual('acct_foo', nested.stripe_account)
 
     def test_refresh_from_nested_object(self):
@@ -140,7 +145,9 @@ class StripeObjectTests(StripeUnitTestCase):
             'foo', 'bar', myparam=5)
 
         obj['object'] = 'boo'
-        obj.refresh_from({'fala': 'lalala'}, api_key='bar', partial=True)
+        obj.refresh_from(
+            {'fala': 'lalala'}, api_key='bar', partial=True,
+            api_version='myversion')
 
         self.assertEqual('lalala', obj.fala)
 
@@ -149,6 +156,7 @@ class StripeObjectTests(StripeUnitTestCase):
 
         self.assertEqual('foo', newobj.id)
         self.assertEqual('bar', newobj.api_key)
+        self.assertEqual('myversion', newobj.api_version)
         self.assertEqual('boo', newobj['object'])
         self.assertEqual('lalala', newobj.fala)
 
@@ -172,7 +180,7 @@ class StripeObjectTests(StripeUnitTestCase):
             'empty': '',
             'value': 'foo',
             'nested': nested,
-        }, 'mykey', stripe_account='myaccount')
+        }, 'mykey', stripe_account='myaccount', api_version='myversion')
 
         copied = copy(obj)
 
@@ -181,6 +189,7 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual('bar', copied.nested.value)
 
         self.assertEqual('mykey', copied.api_key)
+        self.assertEqual('myversion', copied.api_version)
         self.assertEqual('myaccount', copied.stripe_account)
 
         # Verify that we're not deep copying nested values.
@@ -194,7 +203,7 @@ class StripeObjectTests(StripeUnitTestCase):
             'empty': '',
             'value': 'foo',
             'nested': nested,
-        }, 'mykey', stripe_account='myaccount')
+        }, 'mykey', stripe_account='myaccount', api_version='myversion')
 
         copied = deepcopy(obj)
 
@@ -203,6 +212,7 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual('bar', copied.nested.value)
 
         self.assertEqual('mykey', copied.api_key)
+        self.assertEqual('myversion', copied.api_version)
         self.assertEqual('myaccount', copied.stripe_account)
 
         # Verify that we're actually deep copying nested values.
