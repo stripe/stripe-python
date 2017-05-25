@@ -12,5 +12,5 @@ def import_json():
         "`from importer import json` instead'",
         DeprecationWarning)
 
-    from stripe.util import json
+    from .util import json
     return json

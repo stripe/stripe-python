@@ -7,8 +7,8 @@ import urlparse
 import warnings
 
 import stripe
-from stripe import error, http_client, version, util
-from stripe.multipart_data_generator import MultipartDataGenerator
+from . import error, http_client, version, util
+from .multipart_data_generator import MultipartDataGenerator
 
 
 def _encode_datetime(dttime):
@@ -70,8 +70,8 @@ class APIRequestor(object):
         self.api_version = api_version or stripe.api_version
         self.stripe_account = account
 
-        from stripe import verify_ssl_certs as verify
-        from stripe import proxy
+        from . import verify_ssl_certs as verify
+        from . import proxy
 
         self._client = client or stripe.default_http_client or \
             http_client.new_default_http_client(
@@ -231,7 +231,7 @@ class APIRequestor(object):
         if self.api_key:
             my_api_key = self.api_key
         else:
-            from stripe import api_key
+            from . import api_key
             my_api_key = api_key
 
         if my_api_key is None:
@@ -345,39 +345,39 @@ class APIRequestor(object):
         return client._handle_request_error(*args)
 
     def requests_request(self, meth, abs_url, headers, params):
-        from stripe.http_client import RequestsClient
+        from .http_client import RequestsClient
         return self._deprecated_request(RequestsClient, meth, abs_url,
                                         headers, params)
 
     def handle_requests_error(self, err):
-        from stripe.http_client import RequestsClient
+        from .http_client import RequestsClient
         return self._deprecated_handle_error(RequestsClient, err)
 
     def pycurl_request(self, meth, abs_url, headers, params):
-        from stripe.http_client import PycurlClient
+        from .http_client import PycurlClient
         return self._deprecated_request(PycurlClient, meth, abs_url,
                                         headers, params)
 
     def handle_pycurl_error(self, err):
-        from stripe.http_client import PycurlClient
+        from .http_client import PycurlClient
         return self._deprecated_handle_error(PycurlClient, err)
 
     def urlfetch_request(self, meth, abs_url, headers, params):
-        from stripe.http_client import UrlFetchClient
+        from .http_client import UrlFetchClient
         return self._deprecated_request(UrlFetchClient, meth, abs_url,
                                         headers, params)
 
     def handle_urlfetch_error(self, err, abs_url):
-        from stripe.http_client import UrlFetchClient
+        from .http_client import UrlFetchClient
         return self._deprecated_handle_error(UrlFetchClient, err, abs_url)
 
     def urllib2_request(self, meth, abs_url, headers, params):
-        from stripe.http_client import Urllib2Client
+        from .http_client import Urllib2Client
         return self._deprecated_request(Urllib2Client, meth, abs_url,
                                         headers, params)
 
     def handle_urllib2_error(self, err, abs_url):
-        from stripe.http_client import Urllib2Client
+        from .http_client import Urllib2Client
         return self._deprecated_handle_error(Urllib2Client, err, abs_url)
 
 

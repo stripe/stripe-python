@@ -22,7 +22,7 @@ app_info = None
 log = None
 
 # Resource
-from stripe.resource import (  # noqa
+from .resource import (  # noqa
     Account,
     AlipayAccount,
     ApplePayDomain,
@@ -60,16 +60,16 @@ from stripe.resource import (  # noqa
     Transfer)
 
 # OAuth
-from stripe.oauth import OAuth  # noqa
+from .oauth import OAuth  # noqa
 
 # Webhooks
-from stripe.webhook import Webhook, WebhookSignature  # noqa
+from .webhook import Webhook, WebhookSignature  # noqa
 
 # Error imports.  Note that we may want to move these out of the root
 # namespace in the future and you should prefer to access them via
 # the fully qualified `stripe.error` module.
 
-from stripe.error import (  # noqa
+from .error import (  # noqa
     APIConnectionError,
     APIError,
     AuthenticationError,
@@ -84,9 +84,9 @@ from stripe.error import (  # noqa
 # DEPRECATED: These imports will be moved out of the root stripe namespace
 # in version 2.0
 
-from stripe.version import VERSION  # noqa
-from stripe.api_requestor import APIRequestor  # noqa
-from stripe.resource import (  # noqa
+from .version import VERSION  # noqa
+from .api_requestor import APIRequestor  # noqa
+from .resource import (  # noqa
     APIResource,
     CreateableAPIResource,
     DeletableAPIResource,
@@ -97,7 +97,7 @@ from stripe.resource import (  # noqa
     StripeObjectEncoder,
     UpdateableAPIResource,
     convert_to_stripe_object)
-from stripe.util import json, logger  # noqa
+from .util import json, logger  # noqa
 
 
 # Sets some basic information about the running application that's sent along
