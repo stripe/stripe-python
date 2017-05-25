@@ -27,6 +27,7 @@ def convert_to_stripe_object(resp, api_key, account):
         'invoice': Invoice,
         'invoiceitem': InvoiceItem,
         'list': ListObject,
+        'login_link': LoginLink,
         'payout': Payout,
         'plan': Plan,
         'recipient': Recipient,
@@ -894,6 +895,10 @@ class Coupon(CreateableAPIResource, UpdateableAPIResource,
 
 
 class Event(ListableAPIResource):
+    pass
+
+
+class LoginLink(StripeObject):
     pass
 
 

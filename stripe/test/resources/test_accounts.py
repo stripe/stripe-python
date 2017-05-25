@@ -167,3 +167,23 @@ class AccountTest(StripeResourceTest):
             },
             None
         )
+
+    def test_login_link_create(self):
+        acct_id = 'acct_EXPRESS'
+        acct = stripe.Account.construct_from({
+            'id': acct_id,
+            'login_links': {
+                'object': 'list',
+                'data': {},
+                'has_more': False,
+                'url':  '/v1/accounts/' + acct_id + '/login_links'
+            }
+        }, 'api_key')
+
+        acct.login_links.create()
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/accounts/' + acct_id + '/login_links',
+            {},
+            None
+        )
