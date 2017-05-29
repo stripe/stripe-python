@@ -274,27 +274,27 @@ class PycurlClientTests(StripeUnitTestCase, ClientTestBase):
     def setUp(self):
         super(PycurlClientTests, self).setUp()
 
-        self.sio_patcher = patch('stripe.util.StringIO.StringIO')
+        self.bio_patcher = patch('stripe.util.io.BytesIO')
 
-        sio_mock = Mock()
-        self.sio_patcher.start().return_value = sio_mock
-        self.sio_getvalue = sio_mock.getvalue
+        bio_mock = Mock()
+        self.bio_patcher.start().return_value = bio_mock
+        self.bio_getvalue = bio_mock.getvalue
 
     def tearDown(self):
         super(PycurlClientTests, self).tearDown()
 
-        self.sio_patcher.stop()
+        self.bio_patcher.stop()
 
     def mock_response(self, mock, body, code):
-        self.sio_getvalue.return_value = body
+        self.bio_getvalue.return_value = body.encode('utf-8')
 
         mock.getinfo.return_value = code
 
     def mock_error(self, mock):
         class FakeException(BaseException):
-
-            def __getitem__(self, i):
-                return 'foo'
+            @property
+            def args(self):
+                return ('foo', 'bar')
 
         stripe.http_client.pycurl.error = FakeException
         mock.perform.side_effect = stripe.http_client.pycurl.error

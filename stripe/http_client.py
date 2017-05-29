@@ -239,8 +239,8 @@ class PycurlClient(HTTPClient):
         return dict((k.lower(), v) for k, v in dict(headers).iteritems())
 
     def request(self, method, url, headers, post_data=None):
-        s = util.StringIO.StringIO()
-        rheaders = util.StringIO.StringIO()
+        b = util.io.BytesIO()
+        rheaders = util.io.BytesIO()
         curl = pycurl.Curl()
 
         proxy = self._get_proxy(url)
@@ -265,7 +265,7 @@ class PycurlClient(HTTPClient):
         # pycurl doesn't like unicode URLs
         curl.setopt(pycurl.URL, util.utf8(url))
 
-        curl.setopt(pycurl.WRITEFUNCTION, s.write)
+        curl.setopt(pycurl.WRITEFUNCTION, b.write)
         curl.setopt(pycurl.HEADERFUNCTION, rheaders.write)
         curl.setopt(pycurl.NOSIGNAL, 1)
         curl.setopt(pycurl.CONNECTTIMEOUT, 30)
@@ -282,22 +282,23 @@ class PycurlClient(HTTPClient):
             curl.perform()
         except pycurl.error as e:
             self._handle_request_error(e)
-        rbody = s.getvalue()
+        rbody = b.getvalue().decode('utf-8')
         rcode = curl.getinfo(pycurl.RESPONSE_CODE)
+        headers = self.parse_headers(rheaders.getvalue().decode('utf-8'))
 
-        return rbody, rcode, self.parse_headers(rheaders.getvalue())
+        return rbody, rcode, headers
 
     def _handle_request_error(self, e):
-        if e[0] in [pycurl.E_COULDNT_CONNECT,
-                    pycurl.E_COULDNT_RESOLVE_HOST,
-                    pycurl.E_OPERATION_TIMEOUTED]:
+        if e.args[0] in [pycurl.E_COULDNT_CONNECT,
+                         pycurl.E_COULDNT_RESOLVE_HOST,
+                         pycurl.E_OPERATION_TIMEOUTED]:
             msg = ("Could not connect to Stripe.  Please check your "
                    "internet connection and try again.  If this problem "
                    "persists, you should check Stripe's service status at "
                    "https://twitter.com/stripestatus, or let us know at "
                    "support@stripe.com.")
-        elif (e[0] in [pycurl.E_SSL_CACERT,
-                       pycurl.E_SSL_PEER_CERTIFICATE]):
+        elif e.args[0] in [pycurl.E_SSL_CACERT,
+                           pycurl.E_SSL_PEER_CERTIFICATE]:
             msg = ("Could not verify Stripe's SSL certificate.  Please make "
                    "sure that your network is not intercepting certificates.  "
                    "If this problem persists, let us know at "
@@ -306,7 +307,7 @@ class PycurlClient(HTTPClient):
             msg = ("Unexpected error communicating with Stripe. If this "
                    "problem persists, let us know at support@stripe.com.")
 
-        msg = textwrap.fill(msg) + "\n\n(Network error: " + e[1] + ")"
+        msg = textwrap.fill(msg) + "\n\n(Network error: " + e.args[1] + ")"
         raise error.APIConnectionError(msg)
 
     def _get_proxy(self, url):
