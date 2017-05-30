@@ -3,9 +3,7 @@ import time
 import warnings
 
 import stripe
-from stripe.test.helper import (
-    StripeResourceTest, DUMMY_CARD, DUMMY_PLAN, NOW
-)
+from stripe.test.helper import (StripeResourceTest, DUMMY_PLAN, NOW)
 
 
 class CustomerTest(StripeResourceTest):
@@ -19,7 +17,7 @@ class CustomerTest(StripeResourceTest):
         )
 
     def test_create_customer(self):
-        stripe.Customer.create(description="foo bar", card=DUMMY_CARD,
+        stripe.Customer.create(description="foo bar", source='tok_visa',
                                coupon='cu_discount', idempotency_key='foo')
         self.requestor_mock.request.assert_called_with(
             'post',
@@ -27,7 +25,7 @@ class CustomerTest(StripeResourceTest):
             {
                 'coupon': 'cu_discount',
                 'description': 'foo bar',
-                'card': DUMMY_CARD
+                'source': 'tok_visa'
             },
             {'Idempotency-Key': 'foo'}
         )
@@ -74,13 +72,13 @@ class CustomerTest(StripeResourceTest):
                 'url': '/v1/customers/cus_add_card/sources',
             },
         }, 'api_key')
-        customer.sources.create(card=DUMMY_CARD, idempotency_key='foo')
+        customer.sources.create(source='tok_visa', idempotency_key='foo')
 
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/customers/cus_add_card/sources',
             {
-                'card': DUMMY_CARD,
+                'source': 'tok_visa',
             },
             {'Idempotency-Key': 'foo'}
         )
@@ -93,13 +91,13 @@ class CustomerTest(StripeResourceTest):
                 'url': '/v1/customers/cus_add_source/sources',
             },
         }, 'api_key')
-        customer.sources.create(source=DUMMY_CARD, idempotency_key='foo')
+        customer.sources.create(source='tok_visa', idempotency_key='foo')
 
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/customers/cus_add_source/sources',
             {
-                'source': DUMMY_CARD,
+                'source': 'tok_visa',
             },
             {'Idempotency-Key': 'foo'}
         )
@@ -244,13 +242,13 @@ class CustomerTest(StripeResourceTest):
 class CustomerPlanTest(StripeResourceTest):
 
     def test_create_customer(self):
-        stripe.Customer.create(plan=DUMMY_PLAN['id'], card=DUMMY_CARD)
+        stripe.Customer.create(plan=DUMMY_PLAN['id'], source='tok_visa')
 
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/customers',
             {
-                'card': DUMMY_CARD,
+                'source': 'tok_visa',
                 'plan': DUMMY_PLAN['id'],
             },
             None
