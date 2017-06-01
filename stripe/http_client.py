@@ -223,6 +223,12 @@ class PycurlClient(HTTPClient):
     def __init__(self, verify_ssl_certs=True, proxy=None):
         super(PycurlClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs, proxy=proxy)
+
+        if pycurl is None:
+            raise ImportError(
+                "It doesn't appear that pycurl could be imported. Is it "
+                "installed?")
+
         # need to urlparse the proxy, since PyCurl
         # consumes the proxy url in small pieces
         if self._proxy:
