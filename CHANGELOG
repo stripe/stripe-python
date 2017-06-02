@@ -1,3 +1,7 @@
+=== 1.58.0 2017-06-02
+
+* Re-use connections with Pycurl
+
 === 1.57.1 2017-05-31
 
 * Fix the pycurl client
