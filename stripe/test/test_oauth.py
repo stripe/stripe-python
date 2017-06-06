@@ -1,12 +1,13 @@
 import urlparse
 
 import stripe
-from stripe.test.helper import StripeOAuthTestCase
+from stripe.test.helper import StripeApiTestCase
 
 
-class OAuthTests(StripeOAuthTestCase):
+class OAuthTests(StripeApiTestCase):
     def setUp(self):
         super(OAuthTests, self).setUp()
+        self.mock_response({})
 
         stripe.client_id = 'ca_test'
 
