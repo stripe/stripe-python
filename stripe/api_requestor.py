@@ -6,7 +6,10 @@ import urllib
 import urlparse
 import warnings
 
-import stripe
+try:
+    from urllib.parse import urlparse
+except ImportError:
+    from urlparse import urlparse
 from stripe import error, http_client, version, util
 from stripe.multipart_data_generator import MultipartDataGenerator
 
