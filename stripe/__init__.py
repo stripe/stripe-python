@@ -77,9 +77,12 @@ from stripe.error import (  # noqa
     RateLimitError,
     CardError,
     InvalidRequestError,
-    OAuthError,
     SignatureVerificationError,
     StripeError)
+
+# OAuth error classes are not imported into the root namespace and must be
+# accessed via stripe.oauth_error.<Exception>
+from stripe import oauth_error  # noqa
 
 # DEPRECATED: These imports will be moved out of the root stripe namespace
 # in version 2.0
