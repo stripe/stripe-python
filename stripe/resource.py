@@ -908,7 +908,16 @@ class EphemeralKey(DeletableAPIResource):
     def create(cls, api_key=None, idempotency_key=None,
                stripe_account=None, api_version=None,
                **params):
-        requestor = api_requestor.APIRequestor(api_key, api_version=api_version, account=stripe_account)
+        if api_version is None:
+            raise ValueError(
+                "api_version must be specified to create an ephemeral key")
+
+        requestor = api_requestor.APIRequestor(
+            api_key,
+            api_version=api_version,
+            account=stripe_account
+        )
+
         url = cls.class_url()
         headers = populate_headers(idempotency_key)
         response, api_key = requestor.request('post', url, params, headers)
