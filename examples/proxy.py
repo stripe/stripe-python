@@ -27,11 +27,7 @@ for c in clients:
     resp = stripe.Charge.create(
         amount=200,
         currency='usd',
-        card={
-            'number': '4242424242424242',
-            'exp_month': 10,
-            'exp_year': 2019
-        },
+        card='tok_visa',
         description='customer@gmail.com'
     )
     print( 'Success: %s, %r' % ( c.name, resp, ) )

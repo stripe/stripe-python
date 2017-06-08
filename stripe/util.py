@@ -1,6 +1,7 @@
 from __future__ import print_function
 
 import hmac
+import io
 import logging
 import sys
 import os
@@ -14,7 +15,7 @@ STRIPE_LOG = os.environ.get('STRIPE_LOG')
 logger = logging.getLogger('stripe')
 
 __all__ = [
-    'StringIO',
+    'io',
     'parse_qsl',
     'json',
     'utf8',
@@ -23,12 +24,6 @@ __all__ = [
     'dashboard_link',
     'logfmt',
 ]
-
-try:
-    # When cStringIO is available
-    import cStringIO as StringIO
-except ImportError:
-    import StringIO
 
 try:
     from urlparse import parse_qsl

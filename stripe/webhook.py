@@ -11,9 +11,11 @@ class Webhook(object):
 
     @staticmethod
     def construct_event(payload, sig_header, secret,
-                        tolerance=DEFAULT_TOLERANCE):
+                        tolerance=DEFAULT_TOLERANCE, api_key=None):
+        if api_key is None:
+            api_key = stripe.api_key
         data = util.json.loads(payload)
-        event = stripe.Event.construct_from(data, stripe.api_key)
+        event = stripe.Event.construct_from(data, api_key)
 
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 

@@ -7,11 +7,7 @@ print "Attempting charge..."
 resp = stripe.Charge.create(
     amount=200,
     currency='usd',
-    card={
-        'number': '4242424242424242',
-        'exp_month': 10,
-        'exp_year': 2014
-    },
+    card='tok_visa',
     description='customer@gmail.com'
 )
 

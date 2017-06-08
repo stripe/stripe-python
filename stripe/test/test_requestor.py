@@ -6,9 +6,8 @@ from mock import Mock, ANY
 
 import stripe
 
-from stripe.test.helper import (
-    StripeAPIRequestorTestCase,
-    StripeOAuthRequestorTestCase)
+from stripe.test.helper import StripeUnitTestCase
+
 
 VALID_API_METHODS = ('get', 'post', 'delete')
 
@@ -114,7 +113,7 @@ class UrlMatcher(object):
         return q_matcher == other
 
 
-class APIRequestorRequestTests(StripeAPIRequestorTestCase):
+class APIRequestorRequestTests(StripeUnitTestCase):
     ENCODE_INPUTS = {
         'dict': {
             'astring': 'bar',
@@ -154,6 +153,24 @@ class APIRequestorRequestTests(StripeAPIRequestorTestCase):
         'datetime': [('%s', 1356994801)],
         'none': [],
     }
+
+    def setUp(self):
+        super(APIRequestorRequestTests, self).setUp()
+
+        self.http_client = Mock(stripe.http_client.HTTPClient)
+        self.http_client._verify_ssl_certs = True
+        self.http_client.name = 'mockclient'
+
+        self.requestor = stripe.api_requestor.APIRequestor(
+            client=self.http_client)
+
+    def mock_response(self, return_body, return_code, requestor=None,
+                      headers=None):
+        if not requestor:
+            requestor = self.requestor
+
+        self.http_client.request = Mock(
+            return_value=(return_body, return_code, headers or {}))
 
     def check_call(self, meth, abs_url=None, headers=None,
                    post_data=None, requestor=None):
@@ -433,14 +450,19 @@ class APIRequestorRequestTests(StripeAPIRequestorTestCase):
                           self.requestor.request,
                           'foo', 'bar')
 
+    def test_oauth_invalid_requestor_error(self):
+        self.mock_response('{"error": "invalid_request"}', 400)
 
-class OAuthRequestorRequestTests(StripeOAuthRequestorTestCase):
-    def test_oauth_error(self):
-        self.mock_response('{"error": ""}', 400)
-
-        self.assertRaises(stripe.error.OAuthError,
+        self.assertRaises(stripe.oauth_error.InvalidRequestError,
                           self.requestor.request,
-                          'get', 'foo', {})
+                          'get', self.valid_path, {})
+
+    def test_invalid_grant_error(self):
+        self.mock_response('{"error": "invalid_grant"}', 400)
+
+        self.assertRaises(stripe.oauth_error.InvalidGrantError,
+                          self.requestor.request,
+                          'get', self.valid_path, {})
 
 
 class DefaultClientTests(unittest2.TestCase):
