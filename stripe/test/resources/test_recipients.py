@@ -1,7 +1,5 @@
 import stripe
-from stripe.test.helper import (
-    StripeResourceTest, DUMMY_CARD
-)
+from stripe.test.helper import (StripeResourceTest)
 
 
 class RecipientTest(StripeResourceTest):
@@ -32,13 +30,13 @@ class RecipientTest(StripeResourceTest):
                 'url': '/v1/recipients/rp_add_card/sources',
             },
         }, 'api_key')
-        recipient.sources.create(card=DUMMY_CARD)
+        recipient.sources.create(card='tok_visa_debit')
 
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/recipients/rp_add_card/sources',
             {
-                'card': DUMMY_CARD,
+                'card': 'tok_visa_debit',
             },
             None
         )

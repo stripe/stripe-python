@@ -26,7 +26,7 @@ def callback():
     code = request.args.get('code')
     try:
         resp = stripe.OAuth.token(grant_type='authorization_code', code=code)
-    except stripe.error.OAuthError as e:
+    except stripe.oauth_error.OAuthError as e:
         return 'Error: ' + str(e)
 
     return '''
@@ -41,7 +41,7 @@ def deauthorize():
     stripe_user_id = request.args.get('stripe_user_id')
     try:
         stripe.OAuth.deauthorize(stripe_user_id=stripe_user_id)
-    except stripe.error.OAuthError as e:
+    except stripe.oauth_error.OAuthError as e:
         return 'Error: ' + str(e)
 
     return '''

@@ -7,7 +7,7 @@ import urlparse
 import warnings
 
 import stripe
-from stripe import error, http_client, version, util
+from stripe import error, oauth_error, http_client, version, util
 from stripe.multipart_data_generator import MultipartDataGenerator
 
 
@@ -151,38 +151,92 @@ class APIRequestor(object):
         resp = self.interpret_response(rbody, rcode, rheaders)
         return resp, my_api_key
 
-    def handle_api_error(self, rbody, rcode, resp, rheaders):
+    def handle_error_response(self, rbody, rcode, resp, rheaders):
         try:
-            err = resp['error']
+            error_data = resp['error']
         except (KeyError, TypeError):
             raise error.APIError(
                 "Invalid response object from API: %r (HTTP response code "
                 "was %d)" % (rbody, rcode),
                 rbody, rcode, resp)
 
+        err = None
+
+        # OAuth errors are a JSON object where `error` is a string. In
+        # contrast, in API errors, `error` is a hash with sub-keys. We use
+        # this property to distinguish between OAuth and API errors.
+        if isinstance(error_data, basestring):
+            err = self.specific_oauth_error(
+                rbody, rcode, resp, rheaders, error_data)
+
+        if err is None:
+            err = self.specific_api_error(
+                rbody, rcode, resp, rheaders, error_data)
+
+        raise err
+
+    def specific_api_error(self, rbody, rcode, resp, rheaders, error_data):
+        util.log_info(
+            'Stripe API error received',
+            error_code=error_data.get('code'),
+            error_type=error_data.get('type'),
+            error_message=error_data.get('message'),
+            error_param=error_data.get('param'),
+        )
+
         # Rate limits were previously coded as 400's with code 'rate_limit'
-        if rcode == 429 or (rcode == 400 and err.get('code') == 'rate_limit'):
-            raise error.RateLimitError(
-                err.get('message'), rbody, rcode, resp, rheaders)
+        if rcode == 429 or (rcode == 400 and
+                            error_data.get('code') == 'rate_limit'):
+            return error.RateLimitError(
+                error_data.get('message'), rbody, rcode, resp, rheaders)
         elif rcode in [400, 404]:
-            raise error.InvalidRequestError(
-                err.get('message'), err.get('param'),
+            return error.InvalidRequestError(
+                error_data.get('message'), error_data.get('param'),
                 rbody, rcode, resp, rheaders)
         elif rcode == 401:
-            raise error.AuthenticationError(
-                err.get('message'), rbody, rcode, resp,
-                rheaders)
+            return error.AuthenticationError(
+                error_data.get('message'), rbody, rcode, resp, rheaders)
         elif rcode == 402:
-            raise error.CardError(err.get('message'), err.get('param'),
-                                  err.get('code'), rbody, rcode, resp,
-                                  rheaders)
+            return error.CardError(
+                error_data.get('message'), error_data.get('param'),
+                error_data.get('code'), rbody, rcode, resp, rheaders)
         elif rcode == 403:
-            raise error.PermissionError(
-                err.get('message'), rbody, rcode, resp,
-                rheaders)
+            return error.PermissionError(
+                error_data.get('message'), rbody, rcode, resp, rheaders)
         else:
-            raise error.APIError(err.get('message'), rbody, rcode, resp,
-                                 rheaders)
+            return error.APIError(
+                error_data.get('message'), rbody, rcode, resp, rheaders)
+
+    def specific_oauth_error(self, rbody, rcode, resp, rheaders, error_code):
+        description = resp.get('error_description', error_code)
+
+        util.log_info(
+            'Stripe OAuth error received',
+            error_code=error_code,
+            error_description=description,
+        )
+
+        args = [
+            error_code,
+            description,
+            rbody,
+            rcode,
+            resp,
+            rheaders
+        ]
+
+        if error_code == 'invalid_grant':
+            return oauth_error.InvalidGrantError(*args)
+        elif error_code == 'invalid_request':
+            return oauth_error.InvalidRequestError(*args)
+        elif error_code == 'invalid_scope':
+            return oauth_error.InvalidScopeError(*args)
+        elif error_code == 'unsupported_grant_type':
+            return oauth_error.UnsupportedGrantTypError(*args)
+        elif error_code == 'unsupported_response_type':
+            return oauth_error.UnsupportedResponseTypError(*args)
+
+        return None
 
     def request_headers(self, api_key, method):
         user_agent = 'Stripe/v1 PythonBindings/%s' % (version.VERSION,)
@@ -299,14 +353,7 @@ class APIRequestor(object):
                 "(HTTP response code was %d)" % (rbody, rcode),
                 rbody, rcode, rheaders)
         if not (200 <= rcode < 300):
-            util.log_info(
-                'Stripe API error received',
-                error_code=resp.get('error', {}).get('code'),
-                error_type=resp.get('error', {}).get('type'),
-                error_message=resp.get('error', {}).get('message'),
-                error_param=resp.get('error', {}).get('param'),
-            )
-            self.handle_api_error(rbody, rcode, resp, rheaders)
+            self.handle_error_response(rbody, rcode, resp, rheaders)
         return resp
 
     # Deprecated request handling.  Will all be removed in 2.0
@@ -379,37 +426,3 @@ class APIRequestor(object):
     def handle_urllib2_error(self, err, abs_url):
         from stripe.http_client import Urllib2Client
         return self._deprecated_handle_error(Urllib2Client, err, abs_url)
-
-
-class OAuthRequestor(APIRequestor):
-    def handle_api_error(self, rbody, rcode, resp, rheaders):
-        try:
-            err_type = resp['error']
-        except (KeyError, TypeError):
-            raise error.APIError(
-                "Invalid response object from API: %r (HTTP response code "
-                "was %d)" % (rbody, rcode),
-                rbody, rcode, resp)
-
-        description = resp.get('error_description', None)
-        raise error.OAuthError(
-            err_type, description, rbody, rcode, resp, rheaders)
-
-    def interpret_response(self, rbody, rcode, rheaders):
-        try:
-            if hasattr(rbody, 'decode'):
-                rbody = rbody.decode('utf-8')
-            resp = util.json.loads(rbody)
-        except Exception:
-            raise error.APIError(
-                "Invalid response body from API: %s "
-                "(HTTP response code was %d)" % (rbody, rcode),
-                rbody, rcode, rheaders)
-        if not (200 <= rcode < 300):
-            util.log_info(
-                'Stripe API error received',
-                error=resp.get('error'),
-                error_description=resp.get('error_description', ''),
-            )
-            self.handle_api_error(rbody, rcode, resp, rheaders)
-        return resp

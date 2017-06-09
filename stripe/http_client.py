@@ -223,6 +223,10 @@ class PycurlClient(HTTPClient):
     def __init__(self, verify_ssl_certs=True, proxy=None):
         super(PycurlClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs, proxy=proxy)
+
+        # Initialize this within the object so that we can reuse connections.
+        self._curl = pycurl.Curl()
+
         # need to urlparse the proxy, since PyCurl
         # consumes the proxy url in small pieces
         if self._proxy:
@@ -239,65 +243,73 @@ class PycurlClient(HTTPClient):
         return dict((k.lower(), v) for k, v in dict(headers).iteritems())
 
     def request(self, method, url, headers, post_data=None):
-        s = util.StringIO.StringIO()
-        rheaders = util.StringIO.StringIO()
-        curl = pycurl.Curl()
+        b = util.io.BytesIO()
+        rheaders = util.io.BytesIO()
+
+        # Pycurl's design is a little weird: although we set per-request
+        # options on this object, it's also capable of maintaining established
+        # connections. Here we call reset() between uses to make sure it's in a
+        # pristine state, but notably reset() doesn't reset connections, so we
+        # still get to take advantage of those by virtue of re-using the same
+        # object.
+        self._curl.reset()
 
         proxy = self._get_proxy(url)
         if proxy:
             if proxy.hostname:
-                curl.setopt(pycurl.PROXY, proxy.hostname)
+                self._curl.setopt(pycurl.PROXY, proxy.hostname)
             if proxy.port:
-                curl.setopt(pycurl.PROXYPORT, proxy.port)
+                self._curl.setopt(pycurl.PROXYPORT, proxy.port)
             if proxy.username or proxy.password:
-                curl.setopt(
+                self._curl.setopt(
                     pycurl.PROXYUSERPWD,
                     "%s:%s" % (proxy.username, proxy.password))
 
         if method == 'get':
-            curl.setopt(pycurl.HTTPGET, 1)
+            self._curl.setopt(pycurl.HTTPGET, 1)
         elif method == 'post':
-            curl.setopt(pycurl.POST, 1)
-            curl.setopt(pycurl.POSTFIELDS, post_data)
+            self._curl.setopt(pycurl.POST, 1)
+            self._curl.setopt(pycurl.POSTFIELDS, post_data)
         else:
-            curl.setopt(pycurl.CUSTOMREQUEST, method.upper())
+            self._curl.setopt(pycurl.CUSTOMREQUEST, method.upper())
 
         # pycurl doesn't like unicode URLs
-        curl.setopt(pycurl.URL, util.utf8(url))
+        self._curl.setopt(pycurl.URL, util.utf8(url))
 
-        curl.setopt(pycurl.WRITEFUNCTION, s.write)
-        curl.setopt(pycurl.HEADERFUNCTION, rheaders.write)
-        curl.setopt(pycurl.NOSIGNAL, 1)
-        curl.setopt(pycurl.CONNECTTIMEOUT, 30)
-        curl.setopt(pycurl.TIMEOUT, 80)
-        curl.setopt(pycurl.HTTPHEADER, ['%s: %s' % (k, v)
-                                        for k, v in headers.iteritems()])
+        self._curl.setopt(pycurl.WRITEFUNCTION, b.write)
+        self._curl.setopt(pycurl.HEADERFUNCTION, rheaders.write)
+        self._curl.setopt(pycurl.NOSIGNAL, 1)
+        self._curl.setopt(pycurl.CONNECTTIMEOUT, 30)
+        self._curl.setopt(pycurl.TIMEOUT, 80)
+        self._curl.setopt(pycurl.HTTPHEADER, ['%s: %s' % (k, v)
+                                              for k, v in headers.iteritems()])
         if self._verify_ssl_certs:
-            curl.setopt(pycurl.CAINFO, os.path.join(
+            self._curl.setopt(pycurl.CAINFO, os.path.join(
                 os.path.dirname(__file__), 'data/ca-certificates.crt'))
         else:
-            curl.setopt(pycurl.SSL_VERIFYHOST, False)
+            self._curl.setopt(pycurl.SSL_VERIFYHOST, False)
 
         try:
-            curl.perform()
+            self._curl.perform()
         except pycurl.error as e:
             self._handle_request_error(e)
-        rbody = s.getvalue()
-        rcode = curl.getinfo(pycurl.RESPONSE_CODE)
+        rbody = b.getvalue().decode('utf-8')
+        rcode = self._curl.getinfo(pycurl.RESPONSE_CODE)
+        headers = self.parse_headers(rheaders.getvalue().decode('utf-8'))
 
-        return rbody, rcode, self.parse_headers(rheaders.getvalue())
+        return rbody, rcode, headers
 
     def _handle_request_error(self, e):
-        if e[0] in [pycurl.E_COULDNT_CONNECT,
-                    pycurl.E_COULDNT_RESOLVE_HOST,
-                    pycurl.E_OPERATION_TIMEOUTED]:
+        if e.args[0] in [pycurl.E_COULDNT_CONNECT,
+                         pycurl.E_COULDNT_RESOLVE_HOST,
+                         pycurl.E_OPERATION_TIMEOUTED]:
             msg = ("Could not connect to Stripe.  Please check your "
                    "internet connection and try again.  If this problem "
                    "persists, you should check Stripe's service status at "
                    "https://twitter.com/stripestatus, or let us know at "
                    "support@stripe.com.")
-        elif (e[0] in [pycurl.E_SSL_CACERT,
-                       pycurl.E_SSL_PEER_CERTIFICATE]):
+        elif e.args[0] in [pycurl.E_SSL_CACERT,
+                           pycurl.E_SSL_PEER_CERTIFICATE]:
             msg = ("Could not verify Stripe's SSL certificate.  Please make "
                    "sure that your network is not intercepting certificates.  "
                    "If this problem persists, let us know at "
@@ -306,7 +318,7 @@ class PycurlClient(HTTPClient):
             msg = ("Unexpected error communicating with Stripe. If this "
                    "problem persists, let us know at support@stripe.com.")
 
-        msg = textwrap.fill(msg) + "\n\n(Network error: " + e[1] + ")"
+        msg = textwrap.fill(msg) + "\n\n(Network error: " + e.args[1] + ")"
         raise error.APIConnectionError(msg)
 
     def _get_proxy(self, url):

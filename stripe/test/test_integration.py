@@ -5,7 +5,7 @@ import unittest2
 import stripe
 
 from mock import patch
-from stripe.test.helper import (StripeTestCase, NOW, DUMMY_CHARGE, DUMMY_CARD)
+from stripe.test.helper import (StripeTestCase, DUMMY_CHARGE)
 
 
 class FunctionalTests(StripeTestCase):
@@ -53,24 +53,20 @@ class FunctionalTests(StripeTestCase):
         self.assertRaises(AttributeError, lambda: charge2.junk)
 
     def test_list_accessors(self):
-        customer = stripe.Customer.create(card=DUMMY_CARD)
+        customer = stripe.Customer.create(source='tok_visa')
         self.assertEqual(customer['created'], customer.created)
         customer['foo'] = 'bar'
         self.assertEqual(customer.foo, 'bar')
 
     def test_raise(self):
-        EXPIRED_CARD = DUMMY_CARD.copy()
-        EXPIRED_CARD['exp_month'] = NOW.month - 2
-        EXPIRED_CARD['exp_year'] = NOW.year - 2
         self.assertRaises(stripe.error.CardError, stripe.Charge.create,
-                          amount=100, currency='usd', card=EXPIRED_CARD)
+                          amount=100, currency='usd',
+                          source='tok_chargeDeclinedExpiredCard')
 
     def test_response_headers(self):
-        EXPIRED_CARD = DUMMY_CARD.copy()
-        EXPIRED_CARD['exp_month'] = NOW.month - 2
-        EXPIRED_CARD['exp_year'] = NOW.year - 2
         try:
-            stripe.Charge.create(amount=100, currency='usd', card=EXPIRED_CARD)
+            stripe.Charge.create(amount=100, currency='usd',
+                                 source='tok_chargeDeclinedExpiredCard')
             self.fail('charge creation with expired card did not fail')
         except stripe.error.CardError as e:
             self.assertTrue(e.request_id.startswith('req_'))
@@ -139,11 +135,9 @@ class AuthenticationErrorTest(StripeTestCase):
 class CardErrorTest(StripeTestCase):
 
     def test_declined_card_props(self):
-        EXPIRED_CARD = DUMMY_CARD.copy()
-        EXPIRED_CARD['exp_month'] = NOW.month - 2
-        EXPIRED_CARD['exp_year'] = NOW.year - 2
         try:
-            stripe.Charge.create(amount=100, currency='usd', card=EXPIRED_CARD)
+            stripe.Charge.create(amount=100, currency='usd',
+                                 source='tok_chargeDeclinedExpiredCard')
         except stripe.error.CardError as e:
             self.assertEqual(402, e.http_status)
             self.assertTrue(isinstance(e.http_body, basestring))
