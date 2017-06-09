@@ -895,10 +895,6 @@ class Coupon(CreateableAPIResource, UpdateableAPIResource,
     pass
 
 
-class Event(ListableAPIResource):
-    pass
-
-
 class EphemeralKey(DeletableAPIResource):
     @classmethod
     def class_name(cls):
@@ -922,6 +918,10 @@ class EphemeralKey(DeletableAPIResource):
         headers = populate_headers(idempotency_key)
         response, api_key = requestor.request('post', url, params, headers)
         return convert_to_stripe_object(response, api_key, stripe_account)
+
+
+class Event(ListableAPIResource):
+    pass
 
 
 class LoginLink(StripeObject):

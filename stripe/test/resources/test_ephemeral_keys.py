@@ -21,31 +21,11 @@ class EphemeralKeyTest(StripeResourceTest):
             None
         )
 
-    def do_version_tests(self):
-        with self.assertRaisesRegexp(ValueError,
-                                     'api_version must be specified'):
-            stripe.EphemeralKey.create(customer='cus_123')
-
-        stripe.EphemeralKey.create(customer='cus_123',
-                                   api_version='2017-06-05')
-
-        self.requestor_class_mock.assert_called_with(
-            None,
-            api_version='2017-06-05',
-            account=None
-        )
-
     def test_create_without_global_version(self):
-        stripe.api_version = None
-        self.do_version_tests()
+        self._do_version_tests(None)
 
     def test_create_with_global_version(self):
-        stripe.api_version = '2017-05-25'
-
-        try:
-            self.do_version_tests()
-        finally:
-            stripe.api_version = None
+        self._do_version_tests('2017-05-25')
 
     def test_delete(self):
         stripe.EphemeralKey(id='ephkey_123').delete()
@@ -55,3 +35,23 @@ class EphemeralKeyTest(StripeResourceTest):
             {},
             None
         )
+
+    def _do_version_tests(self, version):
+        old_api_version = stripe.api_version
+        stripe.api_version = version
+
+        try:
+            with self.assertRaisesRegex(ValueError,
+                                        'api_version must be specified'):
+                stripe.EphemeralKey.create(customer='cus_123')
+
+            stripe.EphemeralKey.create(customer='cus_123',
+                                       api_version='2017-06-05')
+
+            self.requestor_class_mock.assert_called_with(
+                None,
+                api_version='2017-06-05',
+                account=None
+            )
+        finally:
+            stripe.api_version = old_api_version
