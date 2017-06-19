@@ -38,6 +38,7 @@ from stripe.resource import (  # noqa
     Coupon,
     Customer,
     Dispute,
+    EphemeralKey,
     Event,
     FileUpload,
     Invoice,

@@ -21,6 +21,7 @@ def convert_to_stripe_object(resp, api_key, account):
         'coupon': Coupon,
         'customer': Customer,
         'dispute': Dispute,
+        'ephemeral_key': EphemeralKey,
         'event': Event,
         'fee_refund': ApplicationFeeRefund,
         'file_upload': FileUpload,
@@ -892,6 +893,31 @@ class Token(CreateableAPIResource):
 class Coupon(CreateableAPIResource, UpdateableAPIResource,
              DeletableAPIResource, ListableAPIResource):
     pass
+
+
+class EphemeralKey(DeletableAPIResource):
+    @classmethod
+    def class_name(cls):
+        return 'ephemeral_key'
+
+    @classmethod
+    def create(cls, api_key=None, idempotency_key=None,
+               stripe_account=None, api_version=None,
+               **params):
+        if api_version is None:
+            raise ValueError(
+                "api_version must be specified to create an ephemeral key")
+
+        requestor = api_requestor.APIRequestor(
+            api_key,
+            api_version=api_version,
+            account=stripe_account
+        )
+
+        url = cls.class_url()
+        headers = populate_headers(idempotency_key)
+        response, api_key = requestor.request('post', url, params, headers)
+        return convert_to_stripe_object(response, api_key, stripe_account)
 
 
 class Event(ListableAPIResource):
