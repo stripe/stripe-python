@@ -1,3 +1,7 @@
+=== 1.61.0 2017-06-24
+
+* Expose `code` on `InvalidRequestError`
+
 === 1.60.0 2017-06-19
 
 * Add support for ephemeral keys
