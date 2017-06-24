@@ -58,12 +58,13 @@ class CardError(StripeError):
 
 class InvalidRequestError(StripeError):
 
-    def __init__(self, message, param, http_body=None,
+    def __init__(self, message, param, code=None, http_body=None,
                  http_status=None, json_body=None, headers=None):
         super(InvalidRequestError, self).__init__(
             message, http_body, http_status, json_body,
             headers)
         self.param = param
+        self.code = code
 
 
 class AuthenticationError(StripeError):

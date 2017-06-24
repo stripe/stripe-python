@@ -192,7 +192,7 @@ class APIRequestor(object):
         elif rcode in [400, 404]:
             return error.InvalidRequestError(
                 error_data.get('message'), error_data.get('param'),
-                rbody, rcode, resp, rheaders)
+                error_data.get('code'), rbody, rcode, resp, rheaders)
         elif rcode == 401:
             return error.AuthenticationError(
                 error_data.get('message'), rbody, rcode, resp, rheaders)
