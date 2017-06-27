@@ -1,3 +1,7 @@
+=== 1.62.0 2017-06-27
+
+* `pay` on invoice can now take parameter
+
 === 1.61.0 2017-06-24
 
 * Expose `code` on `InvalidRequestError`
