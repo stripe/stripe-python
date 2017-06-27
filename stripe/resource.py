@@ -824,9 +824,10 @@ class Customer(CreateableAPIResource, UpdateableAPIResource,
 class Invoice(CreateableAPIResource, ListableAPIResource,
               UpdateableAPIResource):
 
-    def pay(self, idempotency_key=None):
+    def pay(self, idempotency_key=None, **params):
         headers = populate_headers(idempotency_key)
-        return self.request('post', self.instance_url() + '/pay', {}, headers)
+        return self.request(
+            'post', self.instance_url() + '/pay', params, headers)
 
     @classmethod
     def upcoming(cls, api_key=None, stripe_account=None, **params):
