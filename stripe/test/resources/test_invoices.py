@@ -66,6 +66,19 @@ class InvoiceTest(StripeResourceTest):
             None
         )
 
+    def test_pay_invoice_params(self):
+        invoice = stripe.Invoice(id="ii_pay")
+        invoice.pay(source="src_foo")
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/invoices/ii_pay/pay',
+            {
+                'source': 'src_foo',
+            },
+            None
+        )
+
     def test_upcoming_invoice(self):
         stripe.Invoice.upcoming()
 
