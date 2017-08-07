@@ -874,6 +874,13 @@ class Subscription(CreateableAPIResource, DeletableAPIResource,
             params["items"] = convert_array_to_dict(params["items"])
         return super(Subscription, cls).create(**params)
 
+    def serialize(self, previous):
+        updated_params = super(UpdateableAPIResource, self).serialize(previous)
+        if "items" in updated_params:
+            updated_params["items"] = convert_array_to_dict(
+                updated_params["items"])
+        return updated_params
+
 
 class SubscriptionItem(CreateableAPIResource, DeletableAPIResource,
                        UpdateableAPIResource, ListableAPIResource):
