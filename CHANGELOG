@@ -1,3 +1,7 @@
+=== 1.62.1 2017-08-07
+
+* Change serialization of subscription items on update to encoded as an integer-indexed map
+
 === 1.62.0 2017-06-27
 
 * `pay` on invoice can now take parameter
