@@ -56,6 +56,7 @@ class SubscriptionTest(StripeResourceTest):
         trial_end_dttm = datetime.datetime.now() + datetime.timedelta(days=15)
         trial_end_int = int(time.mktime(trial_end_dttm.timetuple()))
 
+        subscription.items = [{"id": "si", "plan": "foo"}]
         subscription.plan = DUMMY_PLAN['id']
         subscription.trial_end = trial_end_int
         subscription.save()
@@ -64,6 +65,12 @@ class SubscriptionTest(StripeResourceTest):
             'post',
             '/v1/subscriptions/test_sub',
             {
+                'items': {
+                    "0": {
+                        "plan": "foo",
+                        "id": "si",
+                    },
+                },
                 'plan': DUMMY_PLAN['id'],
                 'trial_end': trial_end_int
             },
