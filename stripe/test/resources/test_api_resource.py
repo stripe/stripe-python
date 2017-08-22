@@ -77,6 +77,11 @@ class APIResourceTests(StripeApiTestCase):
         self.assertEqual({"f": "b"},
                          stripe.resource.convert_array_to_dict({"f": "b"}))
 
+    def test_raise_on_incorrect_id_type(self):
+        for obj in [None, 1, 3.14, dict(), list(), set(), tuple(), object()]:
+            self.assertRaises(stripe.error.InvalidRequestError,
+                              MyResource.retrieve, obj)
+
 
 class SingletonAPIResourceTests(StripeApiTestCase):
 
