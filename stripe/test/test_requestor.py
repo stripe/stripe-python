@@ -457,6 +457,13 @@ class APIRequestorRequestTests(StripeUnitTestCase):
                           self.requestor.request,
                           'get', self.valid_path, {})
 
+    def test_invalid_client_error(self):
+        self.mock_response('{"error": "invalid_client"}', 401)
+
+        self.assertRaises(stripe.oauth_error.InvalidClientError,
+                          self.requestor.request,
+                          'get', self.valid_path, {})
+
     def test_invalid_grant_error(self):
         self.mock_response('{"error": "invalid_grant"}', 400)
 
