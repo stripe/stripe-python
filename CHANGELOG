@@ -1,3 +1,7 @@
+=== 1.63.0 2017-08-29
+
+* Add support for `InvalidClientError` OAuth error
+
 === 1.62.1 2017-08-07
 
 * Change serialization of subscription items on update to encoded as an integer-indexed map
