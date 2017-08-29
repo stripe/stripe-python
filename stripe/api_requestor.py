@@ -225,7 +225,9 @@ class APIRequestor(object):
             rheaders
         ]
 
-        if error_code == 'invalid_grant':
+        if error_code == 'invalid_client':
+            return oauth_error.InvalidClientError(*args)
+        elif error_code == 'invalid_grant':
             return oauth_error.InvalidGrantError(*args)
         elif error_code == 'invalid_request':
             return oauth_error.InvalidRequestError(*args)

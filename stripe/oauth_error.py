@@ -9,6 +9,10 @@ class OAuthError(StripeError):
         self.code = code
 
 
+class InvalidClientError(OAuthError):
+    pass
+
+
 class InvalidGrantError(OAuthError):
     pass
 
