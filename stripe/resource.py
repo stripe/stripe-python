@@ -357,10 +357,13 @@ class APIResource(StripeObject):
 
     def instance_url(self):
         id = self.get('id')
-        if not id:
+
+        if not isinstance(id, basestring):
             raise error.InvalidRequestError(
                 'Could not determine which URL to request: %s instance '
-                'has invalid ID: %r' % (type(self).__name__, id), 'id')
+                'has invalid ID: %r, %s. ID should be of type `str` (or'
+                ' `unicode`)' % (type(self).__name__, id, type(id)), 'id')
+
         id = util.utf8(id)
         base = self.class_url()
         extn = urllib.quote_plus(id)
