@@ -1,3 +1,7 @@
+=== 1.63.1 2017-09-01
+
+* Fix serialization of `items` on Relay order creation and order return
+
 === 1.63.0 2017-08-29
 
 * Add support for `InvalidClientError` OAuth error
