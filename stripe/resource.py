@@ -1086,12 +1086,20 @@ class SKU(CreateableAPIResource, UpdateableAPIResource,
 
 class Order(CreateableAPIResource, UpdateableAPIResource,
             ListableAPIResource):
+    @classmethod
+    def create(cls, **params):
+        if "items" in params:
+            params["items"] = convert_array_to_dict(params["items"])
+        return super(Order, cls).create(**params)
+
     def pay(self, idempotency_key=None, **params):
         headers = populate_headers(idempotency_key)
         return self.request(
             'post', self.instance_url() + '/pay', params, headers)
 
     def return_order(self, idempotency_key=None, **params):
+        if "items" in params:
+            params["items"] = convert_array_to_dict(params["items"])
         headers = populate_headers(idempotency_key)
         return self.request(
             'post', self.instance_url() + '/returns', params, headers)
