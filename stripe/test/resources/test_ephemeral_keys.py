@@ -6,7 +6,7 @@ class EphemeralKeyTest(StripeResourceTest):
 
     def test_create(self):
         stripe.EphemeralKey.create(customer='cus_123',
-                                   api_version='2017-05-25')
+                                   stripe_version='2017-05-25')
 
         self.requestor_class_mock.assert_called_with(
             None,
@@ -42,11 +42,11 @@ class EphemeralKeyTest(StripeResourceTest):
 
         try:
             with self.assertRaisesRegex(ValueError,
-                                        'api_version must be specified'):
+                                        'stripe_version must be specified'):
                 stripe.EphemeralKey.create(customer='cus_123')
 
             stripe.EphemeralKey.create(customer='cus_123',
-                                       api_version='2017-06-05')
+                                       stripe_version='2017-06-05')
 
             self.requestor_class_mock.assert_called_with(
                 None,
