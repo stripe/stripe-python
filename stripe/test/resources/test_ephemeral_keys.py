@@ -1,3 +1,5 @@
+import warnings
+
 import stripe
 from stripe.test.helper import StripeResourceTest
 
@@ -7,6 +9,29 @@ class EphemeralKeyTest(StripeResourceTest):
     def test_create(self):
         stripe.EphemeralKey.create(customer='cus_123',
                                    stripe_version='2017-05-25')
+
+        self.requestor_class_mock.assert_called_with(
+            None,
+            api_version='2017-05-25',
+            account=None
+        )
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/ephemeral_keys',
+            {'customer': 'cus_123'},
+            None
+        )
+
+    def test_create_legacy_parameter_api_version(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter('always')
+
+            stripe.EphemeralKey.create(customer='cus_123',
+                                       api_version='2017-05-25')
+
+            self.assertEqual(1, len(w))
+            self.assertEqual(w[0].category, DeprecationWarning)
 
         self.requestor_class_mock.assert_called_with(
             None,

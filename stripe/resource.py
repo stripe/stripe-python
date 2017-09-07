@@ -947,10 +947,18 @@ class EphemeralKey(DeletableAPIResource):
     @classmethod
     def create(cls, api_key=None, idempotency_key=None,
                stripe_version=None, stripe_account=None,
-               **params):
+               api_version=None, **params):
         if stripe_version is None:
-            raise ValueError(
-                "stripe_version must be specified to create an ephemeral key")
+            if api_version is not None:
+                stripe_version = api_version
+                warnings.warn(
+                    "The `api_version` parameter when creating an ephemeral "
+                    "key is deprecated. Please use `stripe_version` instead.",
+                    DeprecationWarning)
+            else:
+                raise ValueError(
+                    "stripe_version must be specified to create an ephemeral "
+                    "key")
 
         requestor = api_requestor.APIRequestor(
             api_key,
