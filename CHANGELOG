@@ -1,3 +1,7 @@
+=== 1.65.0 2017-09-07
+
+* Add support for passing a `stripe_version` argument to all API requests
+
 === 1.64.0 2017-09-01
 
 * Error when an invalid type (i.e. non-string) passed as an API method argument
