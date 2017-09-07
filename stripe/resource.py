@@ -6,7 +6,8 @@ from copy import deepcopy
 from stripe import api_requestor, error, oauth, util, upload_api_base
 
 
-def convert_to_stripe_object(resp, api_key, version, account):
+def convert_to_stripe_object(resp, api_key=None, stripe_version=None,
+                             stripe_account=None):
     types = {
         'account': Account,
         'alipay_account': AlipayAccount,
@@ -48,8 +49,8 @@ def convert_to_stripe_object(resp, api_key, version, account):
     }
 
     if isinstance(resp, list):
-        return [convert_to_stripe_object(i, api_key, version, account)
-                for i in resp]
+        return [convert_to_stripe_object(i, api_key, stripe_version,
+                                         stripe_account) for i in resp]
     elif isinstance(resp, dict) and not isinstance(resp, StripeObject):
         resp = resp.copy()
         klass_name = resp.get('object')
@@ -57,8 +58,9 @@ def convert_to_stripe_object(resp, api_key, version, account):
             klass = types.get(klass_name, StripeObject)
         else:
             klass = StripeObject
-        return klass.construct_from(resp, api_key, stripe_version=version,
-                                    stripe_account=account)
+        return klass.construct_from(resp, api_key,
+                                    stripe_version=stripe_version,
+                                    stripe_account=stripe_account)
     else:
         return resp
 
