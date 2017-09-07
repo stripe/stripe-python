@@ -1,6 +1,6 @@
 import stripe
 from stripe.test.helper import (
-    StripeApiTestCase, MyResource, MySingleton
+    StripeApiTestCase, MyResource, MyUpdateable, MySingleton
 )
 
 
@@ -54,7 +54,7 @@ class APIResourceTests(StripeApiTestCase):
         }
 
         converted = stripe.resource.convert_to_stripe_object(
-            sample, 'akey', None)
+            sample, 'akey', None, None)
 
         # Types
         self.assertTrue(isinstance(converted, stripe.resource.StripeObject))
@@ -81,6 +81,27 @@ class APIResourceTests(StripeApiTestCase):
         for obj in [None, 1, 3.14, dict(), list(), set(), tuple(), object()]:
             self.assertRaises(stripe.error.InvalidRequestError,
                               MyResource.retrieve, obj)
+
+    def test_retrieve_and_update_with_stripe_version(self):
+        self.mock_response({
+            'id': 'foo',
+            'bobble': 'scrobble',
+        })
+
+        res = MyUpdateable.retrieve('foo', stripe_version='2017-08-15')
+
+        self.requestor_class_mock.assert_called_with(
+            account=None, api_base=None, key=None,
+            api_version='2017-08-15'
+        )
+
+        res.bobble = 'new_scrobble'
+        res.save()
+
+        self.requestor_class_mock.assert_called_with(
+            account=None, api_base=None, key='reskey',
+            api_version='2017-08-15'
+        )
 
 
 class SingletonAPIResourceTests(StripeApiTestCase):
