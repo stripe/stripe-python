@@ -33,3 +33,7 @@ class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
                       "`Source.detach` method instead",
                       DeprecationWarning)
         self.detach(**params)
+
+    def source_transactions(self, **params):
+        return self.request(
+            'get', self.instance_url() + '/source_transactions', params)

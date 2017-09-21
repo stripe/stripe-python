@@ -35,6 +35,7 @@ from stripe.api_resources.refund import Refund
 from stripe.api_resources.reversal import Reversal
 from stripe.api_resources.sku import SKU
 from stripe.api_resources.source import Source
+from stripe.api_resources.source_transaction import SourceTransaction
 from stripe.api_resources.subscription import Subscription
 from stripe.api_resources.subscription_item import SubscriptionItem
 from stripe.api_resources.three_d_secure import ThreeDSecure
