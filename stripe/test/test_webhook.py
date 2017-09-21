@@ -1,3 +1,4 @@
+import sys
 import time
 
 import stripe
@@ -25,6 +26,25 @@ class WebhookTests(StripeUnitTestCase):
         with self.assertRaises(stripe.error.SignatureVerificationError):
             stripe.Webhook.construct_event(
                 DUMMY_WEBHOOK_PAYLOAD, header, DUMMY_WEBHOOK_SECRET)
+
+    def test_construct_event_from_bytearray(self):
+        header = WebhookSignatureTests.generate_header()
+        payload = bytearray(DUMMY_WEBHOOK_PAYLOAD, 'utf-8')
+        event = stripe.Webhook.construct_event(
+            payload, header, DUMMY_WEBHOOK_SECRET)
+        self.assertTrue(isinstance(event, stripe.Event))
+
+    def test_construct_event_from_bytes(self):
+        # This test is only applicable to Python 3 as `bytes` is not a symbol
+        # in Python 2.
+        if sys.version_info < (3, 0):
+            return
+
+        header = WebhookSignatureTests.generate_header()
+        payload = bytes(DUMMY_WEBHOOK_PAYLOAD, 'utf-8')
+        event = stripe.Webhook.construct_event(
+            payload, header, DUMMY_WEBHOOK_SECRET)
+        self.assertTrue(isinstance(event, stripe.Event))
 
 
 class WebhookSignatureTests(StripeUnitTestCase):
