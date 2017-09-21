@@ -1,3 +1,7 @@
+=== 1.65.1 2017-09-21
+
+* Handle `bytearray` and `bytes` (in addition to string) in `Webhook.construct_event`
+
 === 1.65.0 2017-09-07
 
 * Add support for passing a `stripe_version` argument to all API requests
