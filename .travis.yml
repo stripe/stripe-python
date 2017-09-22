@@ -19,6 +19,13 @@ addons:
     packages:
       - libcurl4-gnutls-dev
       - librtmp-dev
+# Adapted from https://github.com/biopython/biopython/commit/4b4902ffeb4da519c20a7b5c0996bfde681bee1f
+before_install:
+  - cd $HOME
+  - mkdir bin
+  - export PATH=$HOME/bin:$PATH
+  - "if [[ $TRAVIS_PYTHON_VERSION == 'pypy3' ]]; then deactivate && wget https://bitbucket.org/squeaky/portable-pypy/downloads/pypy3.5-5.7.1-beta-linux_x86_64-portable.tar.bz2 && tar -jxf pypy3.5-5.7.1-beta-linux_x86_64-portable.tar.bz2 && echo 'Setting up aliases...' && export PATH=$HOME/pypy3.5-5.7.1-beta-linux_x86_64-portable/bin/:$PATH && ln -s ~/pypy3.5-5.7.1-beta-linux_x86_64-portable/bin/pypy3.5 ~/bin/python && echo 'Setting up pip...' && pypy3.5-5.7.1-beta-linux_x86_64-portable/bin/pypy -m ensurepip && ln -s ~/pypy3.5-5.7.1-beta-linux_x86_64-portable/bin/pip3.5 ~/bin/pip ; fi"
+  - cd $TRAVIS_BUILD_DIR
 install:
   - pip install -U setuptools pip
   - pip install unittest2 mock pycurl flake8 tox-travis
