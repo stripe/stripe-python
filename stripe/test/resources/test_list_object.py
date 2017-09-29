@@ -54,6 +54,19 @@ class ListObjectTests(StripeApiTestCase):
 
         self.assertResponse(res)
 
+    def test_len(self):
+        self.assertEqual(len(self.lo), 1)
+
+    def test_bool(self):
+        self.assertTrue(self.lo)
+
+        empty = stripe.resource.ListObject.construct_from({
+            'id': 'me',
+            'url': '/my/path',
+            'data': [],
+        }, 'mykey')
+        self.assertFalse(empty)
+
 
 class AutoPagingTests(StripeApiTestCase):
 
