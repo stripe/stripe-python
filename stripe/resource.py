@@ -427,6 +427,9 @@ class ListObject(StripeObject):
     def __iter__(self):
         return getattr(self, 'data', []).__iter__()
 
+    def __len__(self):
+        return getattr(self, 'data', []).__len__()
+
 
 class SingletonAPIResource(APIResource):
 
