@@ -1,6 +1,6 @@
 === 1.67.0 2017-10-11
 
-* [#349] Support for detaching sources from customers
+* [#349] Rename source `delete` to `detach` (and deprecate the former)
 
 === 1.66.0 2017-09-29
 
