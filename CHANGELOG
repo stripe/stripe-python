@@ -1,3 +1,7 @@
+=== 1.67.0 2017-10-11
+
+* Support for detaching sources from customers
+
 === 1.66.0 2017-09-29
 
 * Support length reads on list objects
