@@ -1184,7 +1184,7 @@ class ApplePayDomain(CreateableAPIResource, ListableAPIResource,
 
 
 class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
-    def delete(self, **params):
+    def detach(self, **params):
         if hasattr(self, 'customer') and self.customer:
             extn = urllib.quote_plus(util.utf8(self.id))
             customer = util.utf8(self.customer)
@@ -1197,6 +1197,12 @@ class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
 
         else:
             raise NotImplementedError(
-                'Source objects cannot be deleted, they can only be detached '
-                'from customer objects. This source object does not appear to '
-                'be currently attached to a customer object.')
+                "This source object does not appear to be currently attached "
+                "to a customer object.")
+
+    def delete(self, **params):
+        warnings.warn("The `Source.delete` method is deprecated and will "
+                      "be removed in future versions. Please use the "
+                      "`Source.detach` method instead",
+                      DeprecationWarning)
+        self.detach(**params)
