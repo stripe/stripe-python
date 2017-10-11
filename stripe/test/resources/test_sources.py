@@ -1,3 +1,5 @@
+import warnings
+
 import stripe
 from stripe.test.helper import StripeResourceTest
 
@@ -46,18 +48,18 @@ class SourceTest(StripeResourceTest):
             None
         )
 
-    def test_delete_source_unattached(self):
+    def test_detach_source_unattached(self):
         source = stripe.Source.construct_from({
             'id': 'src_foo',
         }, 'api_key')
-        self.assertRaises(NotImplementedError, source.delete)
+        self.assertRaises(NotImplementedError, source.detach)
 
-    def test_delete_source_attached(self):
+    def test_detach_source_attached(self):
         source = stripe.Source.construct_from({
             'id': 'src_foo',
             'customer': 'cus_bar',
         }, 'api_key')
-        source.delete()
+        source.detach()
 
         self.requestor_mock.request.assert_called_with(
             'delete',
@@ -65,6 +67,19 @@ class SourceTest(StripeResourceTest):
             {},
             None
         )
+
+    def test_delete_source(self):
+        with warnings.catch_warnings(record=True) as w:
+            warnings.simplefilter('always')
+
+            source = stripe.Source.construct_from({
+                'id': 'src_foo',
+                'customer': 'cus_bar',
+            }, 'api_key')
+            source.delete()
+
+            self.assertEqual(1, len(w))
+            self.assertEqual(w[0].category, DeprecationWarning)
 
     def test_verify_source(self):
         source = stripe.Source.construct_from({
