@@ -1,5 +1,5 @@
 import stripe
-from stripe.test.helper import (StripeResourceTest, NOW)
+from stripe.test.helper import StripeResourceTest
 
 
 class AccountTest(StripeResourceTest):
@@ -153,21 +153,6 @@ class AccountTest(StripeResourceTest):
             None,
         )
 
-    def test_modify_external_account(self):
-        stripe.Account.modify_external_account(
-            'acct_test', 'card_test',
-            exp_month=NOW.month, exp_year=NOW.year + 1)
-
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/accounts/acct_test/external_accounts/card_test',
-            {
-                'exp_month': NOW.month,
-                'exp_year': NOW.year + 1,
-            },
-            None
-        )
-
     def test_login_link_create(self):
         acct_id = 'acct_EXPRESS'
         acct = stripe.Account.construct_from({
@@ -184,6 +169,81 @@ class AccountTest(StripeResourceTest):
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/accounts/' + acct_id + '/login_links',
+            {},
+            None
+        )
+
+
+class AccountExternalAccountsTests(StripeResourceTest):
+    def test_create_external_account(self):
+        stripe.Account.create_external_account(
+            'acct_123',
+            source='btok_123'
+        )
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/accounts/acct_123/external_accounts',
+            {'source': 'btok_123'},
+            None
+        )
+
+    def test_retrieve_external_account(self):
+        stripe.Account.retrieve_external_account(
+            'acct_123',
+            'ba_123'
+        )
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/accounts/acct_123/external_accounts/ba_123',
+            {},
+            None
+        )
+
+    def test_modify_external_account(self):
+        stripe.Account.modify_external_account(
+            'acct_123',
+            'ba_123',
+            metadata={'foo': 'bar'}
+        )
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/accounts/acct_123/external_accounts/ba_123',
+            {'metadata': {'foo': 'bar'}},
+            None
+        )
+
+    def test_delete_external_account(self):
+        stripe.Account.delete_external_account(
+            'acct_123',
+            'ba_123'
+        )
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/accounts/acct_123/external_accounts/ba_123',
+            {},
+            None
+        )
+
+    def test_list_external_accounts(self):
+        stripe.Account.list_external_accounts(
+            'acct_123'
+        )
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/accounts/acct_123/external_accounts',
+            {},
+            None
+        )
+
+
+class AccountLoginLinksTests(StripeResourceTest):
+    def test_create_login_link(self):
+        stripe.Account.create_login_link(
+            'acct_123'
+        )
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/accounts/acct_123/login_links',
             {},
             None
         )
