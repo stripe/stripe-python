@@ -110,7 +110,7 @@ def nested_resource_class_methods(resource, path=None, operations=None):
     if path is None:
         path = "%ss" % resource
     if operations is None:
-        operations = ['create', 'retrieve', 'update', 'delete', 'list']
+        raise ValueError("operations list required")
 
     def wrapper(cls):
         def nested_resource_url(cls, id, nested_id=None):
@@ -615,7 +615,10 @@ class DeletableAPIResource(APIResource):
 
 
 # API objects
-@nested_resource_class_methods('external_account')
+@nested_resource_class_methods(
+    'external_account',
+    operations=['create', 'retrieve', 'update', 'delete', 'list']
+)
 @nested_resource_class_methods('login_link', operations=['create'])
 class Account(CreateableAPIResource, ListableAPIResource,
               UpdateableAPIResource, DeletableAPIResource):
@@ -865,7 +868,10 @@ class Dispute(CreateableAPIResource, ListableAPIResource,
         return self
 
 
-@nested_resource_class_methods('source')
+@nested_resource_class_methods(
+    'source',
+    operations=['create', 'retrieve', 'update', 'delete', 'list']
+)
 class Customer(CreateableAPIResource, UpdateableAPIResource,
                ListableAPIResource, DeletableAPIResource):
 

@@ -119,7 +119,10 @@ class SingletonAPIResourceTests(StripeApiTestCase):
 
 
 class NestedResourceClassMethodsTests(StripeApiTestCase):
-    @stripe.resource.nested_resource_class_methods('nested')
+    @stripe.resource.nested_resource_class_methods(
+        'nested',
+        operations=['create', 'retrieve', 'update', 'delete', 'list']
+    )
     class MainResource(stripe.resource.APIResource):
         pass
 
