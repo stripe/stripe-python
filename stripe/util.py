@@ -155,3 +155,104 @@ else:
             for x, y in zip(val1, val2):
                 result |= ord(x) ^ ord(y)
         return result == 0
+
+
+OBJECT_CLASSES = {}
+
+
+def load_object_classes():
+    # This is here to avoid a circular dependency
+    from stripe import api_resources
+
+    global OBJECT_CLASSES
+
+    OBJECT_CLASSES = {
+        # data structures
+        api_resources.ListObject.OBJECT_NAME: api_resources.ListObject,
+
+        # business objects
+        api_resources.Account.OBJECT_NAME: api_resources.Account,
+        api_resources.AlipayAccount.OBJECT_NAME: api_resources.AlipayAccount,
+        api_resources.ApplePayDomain.OBJECT_NAME: api_resources.ApplePayDomain,
+        api_resources.ApplicationFee.OBJECT_NAME: api_resources.ApplicationFee,
+        api_resources.ApplicationFeeRefund.OBJECT_NAME:
+            api_resources.ApplicationFeeRefund,
+        api_resources.Balance.OBJECT_NAME: api_resources.Balance,
+        api_resources.BankAccount.OBJECT_NAME: api_resources.BankAccount,
+        api_resources.BitcoinReceiver.OBJECT_NAME:
+            api_resources.BitcoinReceiver,
+        api_resources.BitcoinTransaction.OBJECT_NAME:
+            api_resources.BitcoinTransaction,
+        api_resources.Card.OBJECT_NAME: api_resources.Card,
+        api_resources.Charge.OBJECT_NAME: api_resources.Charge,
+        api_resources.CountrySpec.OBJECT_NAME: api_resources.CountrySpec,
+        api_resources.Coupon.OBJECT_NAME: api_resources.Coupon,
+        api_resources.Customer.OBJECT_NAME: api_resources.Customer,
+        api_resources.Dispute.OBJECT_NAME: api_resources.Dispute,
+        api_resources.EphemeralKey.OBJECT_NAME: api_resources.EphemeralKey,
+        api_resources.Event.OBJECT_NAME: api_resources.Event,
+        api_resources.FileUpload.OBJECT_NAME: api_resources.FileUpload,
+        api_resources.Invoice.OBJECT_NAME: api_resources.Invoice,
+        api_resources.InvoiceItem.OBJECT_NAME: api_resources.InvoiceItem,
+        api_resources.LoginLink.OBJECT_NAME: api_resources.LoginLink,
+        api_resources.Order.OBJECT_NAME: api_resources.Order,
+        api_resources.OrderReturn.OBJECT_NAME: api_resources.OrderReturn,
+        api_resources.Payout.OBJECT_NAME: api_resources.Payout,
+        api_resources.Plan.OBJECT_NAME: api_resources.Plan,
+        api_resources.Product.OBJECT_NAME: api_resources.Product,
+        api_resources.Recipient.OBJECT_NAME: api_resources.Recipient,
+        api_resources.RecipientTransfer.OBJECT_NAME:
+            api_resources.RecipientTransfer,
+        api_resources.Refund.OBJECT_NAME: api_resources.Refund,
+        api_resources.Reversal.OBJECT_NAME: api_resources.Reversal,
+        api_resources.SKU.OBJECT_NAME: api_resources.SKU,
+        api_resources.Source.OBJECT_NAME: api_resources.Source,
+        api_resources.Subscription.OBJECT_NAME: api_resources.Subscription,
+        api_resources.SubscriptionItem.OBJECT_NAME:
+            api_resources.SubscriptionItem,
+        api_resources.ThreeDSecure.OBJECT_NAME: api_resources.ThreeDSecure,
+        api_resources.Token.OBJECT_NAME: api_resources.Token,
+        api_resources.Transfer.OBJECT_NAME: api_resources.Transfer,
+    }
+
+
+def convert_to_stripe_object(resp, api_key=None, stripe_version=None,
+                             stripe_account=None):
+    global OBJECT_CLASSES
+
+    if len(OBJECT_CLASSES) == 0:
+        load_object_classes()
+    types = OBJECT_CLASSES.copy()
+
+    if isinstance(resp, list):
+        return [convert_to_stripe_object(i, api_key, stripe_version,
+                                         stripe_account) for i in resp]
+    elif isinstance(resp, dict) and \
+            not isinstance(resp, stripe.stripe_object.StripeObject):
+        resp = resp.copy()
+        klass_name = resp.get('object')
+        if isinstance(klass_name, basestring):
+            klass = types.get(klass_name, stripe.stripe_object.StripeObject)
+        else:
+            klass = stripe.stripe_object.StripeObject
+        return klass.construct_from(resp, api_key,
+                                    stripe_version=stripe_version,
+                                    stripe_account=stripe_account)
+    else:
+        return resp
+
+
+def convert_array_to_dict(arr):
+    if isinstance(arr, list):
+        d = {}
+        for i, value in enumerate(arr):
+            d[str(i)] = value
+        return d
+    else:
+        return arr
+
+
+def populate_headers(idempotency_key):
+    if idempotency_key is not None:
+        return {"Idempotency-Key": idempotency_key}
+    return None
