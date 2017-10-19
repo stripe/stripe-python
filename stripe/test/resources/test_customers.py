@@ -3,7 +3,7 @@ import time
 import warnings
 
 import stripe
-from stripe.test.helper import (StripeResourceTest, DUMMY_PLAN, NOW)
+from stripe.test.helper import (StripeResourceTest, DUMMY_PLAN)
 
 
 class CustomerTest(StripeResourceTest):
@@ -223,21 +223,6 @@ class CustomerTest(StripeResourceTest):
             None
         )
 
-    def test_customer_modify_source(self):
-        stripe.Customer.modify_source(
-            'cus_test', 'card_test',
-            exp_month=NOW.month, exp_year=NOW.year + 1)
-
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/customers/cus_test/sources/card_test',
-            {
-                'exp_month': NOW.month,
-                'exp_year': NOW.year + 1,
-            },
-            None
-        )
-
 
 class CustomerPlanTest(StripeResourceTest):
 
@@ -378,6 +363,68 @@ class CustomerPlanTest(StripeResourceTest):
         self.requestor_mock.request.assert_called_with(
             'delete',
             '/v1/subscriptions/sub_delete',
+            {},
+            None
+        )
+
+
+class CustomerSourcesTests(StripeResourceTest):
+    def test_create_source(self):
+        stripe.Customer.create_source(
+            'cus_123',
+            source='tok_123'
+        )
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_123/sources',
+            {'source': 'tok_123'},
+            None
+        )
+
+    def test_retrieve_source(self):
+        stripe.Customer.retrieve_source(
+            'cus_123',
+            'ba_123'
+        )
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/customers/cus_123/sources/ba_123',
+            {},
+            None
+        )
+
+    def test_modify_source(self):
+        stripe.Customer.modify_source(
+            'cus_123',
+            'ba_123',
+            metadata={'foo': 'bar'}
+        )
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/customers/cus_123/sources/ba_123',
+            {'metadata': {'foo': 'bar'}},
+            None
+        )
+
+    def test_delete_source(self):
+        stripe.Customer.delete_source(
+            'cus_123',
+            'ba_123'
+        )
+        self.requestor_mock.request.assert_called_with(
+            'delete',
+            '/v1/customers/cus_123/sources/ba_123',
+            {},
+            None
+        )
+
+    def test_list_sources(self):
+        stripe.Customer.list_sources(
+            'cus_123'
+        )
+        self.requestor_mock.request.assert_called_with(
+            'get',
+            '/v1/customers/cus_123/sources',
             {},
             None
         )
