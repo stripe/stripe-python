@@ -1,3 +1,11 @@
+=== 1.68.0 2017-10-19
+
+* [#350] Add static methods to manipulate resources from parent
+    * `Account` gains methods for external accounts and login links (e.g. `.create_account`, `create_login_link`)
+    * `ApplicationFee` gains methods for refunds
+    * `Customer` gains methods for sources
+    * `Transfer` gains methods for reversals
+
 === 1.67.0 2017-10-11
 
 * [#349] Rename source `delete` to `detach` (and deprecate the former)
