@@ -1,0 +1,363 @@
+# Changelog
+
+## 1.69.0 - 2017-10-20
+* [#351](https://github.com/stripe/stripe-python/pull/351) Break resource.py module into separate ones for each type of resource
+    * Classes are still into resource.py for backwards compatibility
+* [#353](https://github.com/stripe/stripe-python/pull/353) Fix unpickling `StripeObject` in Python 3
+
+## 1.68.0 - 2017-10-19
+* [#350](https://github.com/stripe/stripe-python/pull/350) Add static methods to manipulate resources from parent
+    * `Account` gains methods for external accounts and login links (e.g. `.create_account`, `create_login_link`)
+    * `ApplicationFee` gains methods for refunds
+    * `Customer` gains methods for sources
+    * `Transfer` gains methods for reversals
+
+## 1.67.0 - 2017-10-11
+* [#349](https://github.com/stripe/stripe-python/pull/349) Rename source `delete` to `detach` (and deprecate the former)
+
+## 1.66.0 - 2017-09-29
+* Support length reads on list objects
+
+## 1.65.1 - 2017-09-21
+* Handle `bytearray` and `bytes` (in addition to string) in `Webhook.construct_event`
+
+## 1.65.0 - 2017-09-07
+* Add support for passing a `stripe_version` argument to all API requests
+
+## 1.64.0 - 2017-09-01
+* Error when an invalid type (i.e. non-string) passed as an API method argument
+
+## 1.63.1 - 2017-09-01
+* Fix serialization of `items` on Relay order creation and order return
+
+## 1.63.0 - 2017-08-29
+* Add support for `InvalidClientError` OAuth error
+
+## 1.62.1 - 2017-08-07
+* Change serialization of subscription items on update to encoded as an integer-indexed map
+
+## 1.62.0 - 2017-06-27
+* `pay` on invoice can now take parameter
+
+## 1.61.0 - 2017-06-24
+* Expose `code` on `InvalidRequestError`
+
+## 1.60.0 - 2017-06-19
+* Add support for ephemeral keys
+
+## 1.59.0 - 2017-06-07
+* Refactor OAuth implementation to have dedicated classes for errors
+
+## 1.58.0 - 2017-06-02
+* Re-use connections with Pycurl
+
+## 1.57.1 - 2017-05-31
+* Fix the pycurl client
+
+## 1.57.0 - 2017-05-26
+* Add `api_key` parameter to webhook's `construct_event`
+
+## 1.56.0 - 2017-05-25
+* Add support for account login links
+
+## 1.55.2 - 2017-05-11
+* Remove Requests constraint from 1.55.1 now that they've patched (as of 2.14.2)
+
+## 1.55.1 - 2017-05-10
+* Constrain Requests to < 2.13.0 if on setuptools < 18.0.0
+
+## 1.55.0 - 2017-04-28
+* Support for checking webhook signatures
+
+## 1.54.0 - 2017-04-28
+* Add `stripe.set_app_info` for use by plugin creators
+
+## 1.53.0 - 2017-04-06
+* Add support for payouts and recipient transfers
+
+## 1.52.0 - 2017-04-06
+* No-op release: peg test suite to a specific API version
+
+## 1.51.0 - 2017-03-20
+* Support OAuth operations (getting a token and deauthorizing)
+
+## 1.50.0 - 2017-03-17
+* Support for detaching sources from customers
+
+## 1.49.0 - 2017-03-13
+* Accept `session` argument for `RequestsClient`
+
+## 1.48.1 - 2017-02-21
+* Fix encoding of parameters when fetching upcoming invoices
+
+## 1.48.0 - 2017-02-21
+* Add `Account.modify_external_account` to modify an account in one API call
+* Add `Customer.modify_source` to modify a source in one API call
+
+## 1.47.0 - 2017-01-18
+* Allow sources to be updated
+
+## 1.46.0 - 2017-01-06
+* Use internal session for Requests for connection pooling
+
+## 1.45.0 - 2017-01-06
+* request logging goes to stderr now
+* Logs properly handle unicode
+* Format is now the same between logging logs, and console logs
+
+## 1.44.0 - 2016-12-16
+* Add request logging and some mechanisms to enable it when debugging
+
+## 1.43.0 - 2016-11-30
+* Add support for verifying sources
+
+## 1.42.0 - 2016-11-21
+* Add retrieve method for 3-D Secure resources
+
+## 1.41.1 - 2016-10-26
+* Implement __copy__ and __deepcopy__ on StripeObject to fix these operations
+
+## 1.41.0 - 2016-10-12
+* Add `Source` model for generic payment sources
+
+## 1.40.1 - 2016-10-10
+* Return subscription model instance on subscription create/modify
+
+## 1.40.0 - 2016-10-07
+* Add configurable timeout for Requests HTTP library
+
+## 1.39.0 - 2016-10-06
+* Add support for subscription items
+* Add proxy support for pycurl, Requests, urlfetch, and urllib2 libraries
+
+## 1.38.0 - 2016-09-15
+* Add support for Apple Pay domains
+
+## 1.37.0 - 2016-07-12
+* Add `ThreeDSecure` model for 3-D secure payments
+
+## 1.36.0 - 2016-06-29
+* Add `update` class method to resources that can be updated
+
+## 1.35.0 - 2016-05-24
+* Add support for returning Relay orders
+
+## 1.34.0 - 2016-05-20
+* Add support for Alipay accounts
+
+## 1.33.0 - 2016-05-04
+* Add support for the new `/v1/subscriptions` endpoint
+  * `stripe.Subscription.retrieve`
+  * `stripe.Subscription.update`
+  * `stripe.Subscription.create`
+  * `stripe.Subscription.list`
+
+## 1.32.2 - 2016-04-12
+* Fix bug where file uploads could not be properly listed
+
+## 1.32.1 - 2016-04-11
+* Fix bug where request parameters were not passed between pages with `auto_paging_iter`
+
+## 1.32.0 - 2016-03-31
+* Update CA cert bundle for compatibility with OpenSSL versions below 1.0.1
+
+## 1.31.1 - 2016-03-24
+* Fix uploading of binary files in Python 3
+
+## 1.31.0 - 2016-03-15
+* Add `reject` on `Account` to support the new API feature
+
+## 1.30.0 - 2016-02-27
+* Add `CountrySpec` model for looking up country payment information
+
+## 1.29.1 - 2016-02-01
+* Update bundled CA certs
+
+## 1.29.0 - 2016-01-26
+* Add support for deleting Relay products and SKUs
+
+## 1.28.0 - 2016-01-04
+* Add an automatic paginating iterator to lists available via `auto_paging_iter`
+* List objects are now iterable
+* Error messages set to `None` are now handled properly
+* The `all` method on list objects has been deprecated in favor of `list`
+* Calls to `instance_url` are now side effect free
+
+## 1.27.1 - 2015-10-02
+* Official Python 3.4 & 3.5 compatibility
+* Add configurable HTTP client
+* Add ability to delete attributes
+
+## 1.27.0 - 2015-09-14
+* Products, SKUs, Orders resources
+
+## 1.26.0 - 2015-09-11
+* Add support for new 429 rate limit response
+
+## 1.25.0 - 2015-08-17
+* Added refund listing, creation and retrieval
+
+## 1.24.1 - 2015-08-05
+* Fix error handling for Python 2.6
+
+## 1.24.0 - 2015-08-03
+* Managed accounts can now be deleted
+* Added dispute listing and retrieval
+
+## 1.23.0 - 2015-07-06
+* Include response headers in exceptions
+
+## 1.22.3 - 2015-06-04
+* Fix saving `additional_owners` on managed accounts
+
+## 1.22.2 - 2015-04-08
+* Fix saving manage accounts
+
+## 1.22.1 - 2015-03-30
+* Pass `stripe_account` to Balance.retrieve
+
+## 1.22.0 - 2015-03-22
+* Added methods for updating and saving arrays of objects
+
+## 1.21.0 - 2015-02-19
+* Added Bitcoin Receiver update and delete methods
+
+## 1.20.2 - 2015-01-21
+* Remove support for top-level bitcoin transactions
+
+## 1.20.1 - 2015-01-07
+* Adding bitcoin receiver and transaction objects
+
+## 1.20.0 - 2014-12-23
+* Adding support for file uploads resource
+
+## 1.19.1 - 2014-10-23
+* Remove redundant manual SSL blacklist preflight check
+
+## 1.19.0 - 2014-07-26
+* Application Fee refunds now a list instead of array
+
+## 1.18.0 - 2014-06-17
+* Add metadata for disputes and refunds
+
+## 1.17.0 - 2014-06-10
+* Remove official support for Python 2.5
+
+## 1.16.0 - 2014-05-28
+* Support for canceling transfers
+
+## 1.15.1 - 2014-05-21
+* Support cards for recipients.
+
+## 1.14.1 - 2014-05-19
+* Disable loading the ssl module on the Google App Engine dev server.
+
+## 1.14.0 - 2014-04-09
+* Use DER encoded certificate for checksumming
+* Don't rely on SNI support in integration tests
+
+## 1.13.0 - 2014-04-09
+* Update bundled ca-certificates
+* Add certificate blacklist for CVE-2014-0160 mitigation
+
+## 1.12.2 - 2014-03-13
+* Fix syntax errors in setup.py metadata
+
+## 1.12.1 - 2014-03-13
+* Added license and other metadata in setup.py
+* Fix `__repr__` in Python 3
+* Support pickling of responses
+
+## 1.12.0 - 2014-01-29
+* Added support for multiple subscriptions per customer
+
+## 1.11.0 - 2013-12-05
+* Added extensive unit tests
+* Extended functional test coverage
+* Refactored code into modules and out of stripe/__init__.py
+* Abstracted http library selection and use from the `APIRequestor` into `stripe.http_client`
+* Refactored `StripeObject` to inherit from `dict` and avoid direct access of `__dict__`.
+* PEP8ified the codebase and enforced with a test.
+* Proper encoding of timezone aware datetimes
+
+### Backwards incompatible changes
+* The `to_dict` and `values` methods on resources no longer recursively convert objects to plain `dict`s.  All resources now inherit from `dict` but are functionally different in that you cannot set a value to an empty string and cannot delete items.
+* The `previous_metadata` attribute on resources is now protected.
+* Timezone aware `datetime` objects passed to the API will now be encoded in a way that does not depend on the local system time.  If you are passing timezone-aware datetimes to our API and your server time is not already in UTC, this will change the value passed to our API.
+
+## 1.10.8 - 2013-12-02
+* Add stripe.ApplicationFee resource
+
+## 1.9.8 - 2013-10-17
+* Removed incorrect test.
+
+## 1.9.7 - 2013-10-10
+* Add support for metadata.
+
+## 1.9.6 - 2013-10-08
+* Fix issue with support for closing disputes.
+
+## 1.9.5 - 2013-09-18
+* Add support for closing disputes.
+
+## 1.9.4 - 2013-08-13
+* Add stripe.Balance and stripe.BalanceTransaction resources
+
+## 1.9.3 - 2013-08-12
+* Add support for unsetting attributes by setting to None.
+  Setting properties to a blank string is now an error.
+
+## 1.9.2 - 2013-07-12
+* Add support for multiple cards API
+
+## 1.9.1 - 2013-05-03
+* Remove 'id' from the list of permanent attributes
+
+## 1.9.0 - 2013-04-25
+* Support for Python 3 (github issue #32)
+
+## 1.8.0 - 2013-04-11
+* Allow transfers to be creatable
+* Add new stripe.Recipient resource
+
+## 1.7.10 - 2013-02-21
+* Add 'id' to the list of permanent attributes
+
+## 1.7.9 - 2013-02-01
+* Add support for passing options when retrieving Stripe objects; e.g., stripe.Charge.retrieve("foo", params={"expand":["customer"]})
+
+## 1.7.8 - 2013-01-15
+* Add support for setting a Stripe API version override
+
+## 1.7.7 - 2012-12-18
+* Update requests version check to work with requests 1.x.x (github issue #24)
+
+## 1.7.6 - 2012-11-08
+* Add support for updating charge disputes
+
+## 1.7.5 - 2012-10-30
+* Add support for creating invoices
+* Add support for new invoice lines return format
+* Add support for new List objects
+
+## 1.7.4 - 2012-08-31
+* Add update and pay methods for Invoice resource
+
+## 1.7.3 - 2012-08-15
+* Add new stripe.Account resource
+* Remove uncaptured_charge tests (this has been deprecated from the API).
+
+## 1.7.2 - 2012-05-31
+* Fix a bug that would cause nested objects to be mis-rendered in __str__ and __repr__ methods (github issues #17, #18)
+
+## 1.7.1 - 2012-05-21
+* Prefer App Engine's urlfetch over requests, as that's the only thing that will work in App Engine's environment. Previously, if requests was available in the App Engine environment, we would attempt to use it.
+
+## 1.7.0 - 2012-05-17
+* Add new delete_discount method to stripe.Customer
+* Add new stripe.Transfer resource
+* Switch from using HTTP Basic auth to Bearer auth. (Note: Stripe will support Basic auth for the indefinite future, but recommends Bearer auth when possible going forward)
+* Numerous test suite improvements
+
+## 1.6.1 - 2011-09-14
+* Parameters with value None are no longer included in API requests
