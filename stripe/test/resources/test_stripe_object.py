@@ -142,7 +142,14 @@ class StripeObjectTests(StripeUnitTestCase):
             'foo', 'bar', myparam=5)
 
         obj['object'] = 'boo'
-        obj.refresh_from({'fala': 'lalala'}, api_key='bar', partial=True)
+        obj.refresh_from(
+            {
+                'fala': 'lalala',
+                # ensures that empty strings are correctly unpickled in Py3
+                'emptystring': '',
+            },
+            api_key='bar', partial=True
+        )
 
         self.assertEqual('lalala', obj.fala)
 
@@ -153,6 +160,7 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual('bar', newobj.api_key)
         self.assertEqual('boo', newobj['object'])
         self.assertEqual('lalala', newobj.fala)
+        self.assertEqual('', newobj.emptystring)
 
     def test_deletion(self):
         obj = stripe.stripe_object.StripeObject('id', 'key')

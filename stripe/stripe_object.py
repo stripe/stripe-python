@@ -115,6 +115,28 @@ class StripeObject(dict):
         if hasattr(self, '_unsaved_values'):
             self._unsaved_values.remove(k)
 
+    # Custom unpickling method that uses `update` to update the dictionary
+    # without calling __setitem__, which would fail if any value is an empty
+    # string
+    def __setstate__(self, state):
+        self.update(state)
+
+    # Custom pickling method to ensure the instance is pickled as a custom
+    # class and not as a dict, otherwise __setstate__ would not be called when
+    # unpickling.
+    def __reduce__(self):
+        reduce_value = (
+            type(self),  # callable
+            (  # args
+                self.get('id', None),
+                self.api_key,
+                self.stripe_version,
+                self.stripe_account
+            ),
+            dict(self),  # state
+        )
+        return reduce_value
+
     @classmethod
     def construct_from(cls, values, key, stripe_version=None,
                        stripe_account=None):
