@@ -7,7 +7,7 @@ class ListObjectTests(StripeApiTestCase):
     def setUp(self):
         super(ListObjectTests, self).setUp()
 
-        self.lo = stripe.resource.ListObject.construct_from({
+        self.lo = stripe.ListObject.construct_from({
             'id': 'me',
             'url': '/my/path',
             'data': ['foo'],
@@ -60,7 +60,7 @@ class ListObjectTests(StripeApiTestCase):
     def test_bool(self):
         self.assertTrue(self.lo)
 
-        empty = stripe.resource.ListObject.construct_from({
+        empty = stripe.ListObject.construct_from({
             'id': 'me',
             'url': '/my/path',
             'data': [],
@@ -80,7 +80,7 @@ class AutoPagingTests(StripeApiTestCase):
         }
 
     def test_iter_one_page(self):
-        lo = stripe.resource.ListObject.construct_from(
+        lo = stripe.ListObject.construct_from(
             self.pageable_model_response(['pm_123', 'pm_124'], False),
             'mykey'
         )
@@ -92,7 +92,7 @@ class AutoPagingTests(StripeApiTestCase):
         self.assertEqual(['pm_123', 'pm_124'], seen)
 
     def test_iter_two_pages(self):
-        lo = stripe.resource.ListObject.construct_from(
+        lo = stripe.ListObject.construct_from(
             self.pageable_model_response(['pm_123', 'pm_124'], True),
             'mykey'
         )

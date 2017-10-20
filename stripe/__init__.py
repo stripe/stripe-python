@@ -22,43 +22,7 @@ app_info = None
 log = None
 
 # Resource
-from stripe.resource import (  # noqa
-    Account,
-    AlipayAccount,
-    ApplePayDomain,
-    ApplicationFee,
-    Balance,
-    BalanceTransaction,
-    BankAccount,
-    BitcoinReceiver,
-    BitcoinTransaction,
-    Card,
-    Charge,
-    CountrySpec,
-    Coupon,
-    Customer,
-    Dispute,
-    EphemeralKey,
-    Event,
-    FileUpload,
-    Invoice,
-    InvoiceItem,
-    LoginLink,
-    Order,
-    OrderReturn,
-    Payout,
-    Plan,
-    Product,
-    Recipient,
-    RecipientTransfer,
-    Refund,
-    SKU,
-    Source,
-    Subscription,
-    SubscriptionItem,
-    ThreeDSecure,
-    Token,
-    Transfer)
+from stripe.api_resources import *  # noqa
 
 # OAuth
 from stripe.oauth import OAuth  # noqa
@@ -90,18 +54,21 @@ from stripe import oauth_error  # noqa
 
 from stripe.version import VERSION  # noqa
 from stripe.api_requestor import APIRequestor  # noqa
-from stripe.resource import (  # noqa
+
+from stripe.stripe_object import StripeObject  # noqa
+from stripe.api_resources.abstract import (  # noqa
     APIResource,
     CreateableAPIResource,
     DeletableAPIResource,
-    ListObject,
     ListableAPIResource,
     SingletonAPIResource,
-    StripeObject,
-    StripeObjectEncoder,
-    UpdateableAPIResource,
-    convert_to_stripe_object)
-from stripe.util import json, logger  # noqa
+    UpdateableAPIResource)
+
+from stripe.resource import StripeObjectEncoder  # noqa
+from stripe.util import (  # noqa
+    convert_to_stripe_object,
+    json,
+    logger)
 
 
 # Sets some basic information about the running application that's sent along

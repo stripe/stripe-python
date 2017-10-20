@@ -10,14 +10,14 @@ from stripe.test.helper import StripeUnitTestCase, SAMPLE_INVOICE
 class StripeObjectTests(StripeUnitTestCase):
 
     def test_initializes_with_parameters(self):
-        obj = stripe.resource.StripeObject(
+        obj = stripe.stripe_object.StripeObject(
             'foo', 'bar', myparam=5, yourparam='boo')
 
         self.assertEqual('foo', obj.id)
         self.assertEqual('bar', obj.api_key)
 
     def test_access(self):
-        obj = stripe.resource.StripeObject('myid', 'mykey', myparam=5)
+        obj = stripe.stripe_object.StripeObject('myid', 'mykey', myparam=5)
 
         # Empty
         self.assertRaises(AttributeError, getattr, obj, 'myattr')
@@ -45,7 +45,7 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertRaises(ValueError, setattr, obj, 'foo', '')
 
     def test_refresh_from(self):
-        obj = stripe.resource.StripeObject.construct_from({
+        obj = stripe.stripe_object.StripeObject.construct_from({
             'foo': 'bar',
             'trans': 'me',
         }, 'mykey')
@@ -77,7 +77,7 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual(4, obj.trans)
 
     def test_passing_nested_refresh(self):
-        obj = stripe.resource.StripeObject.construct_from({
+        obj = stripe.stripe_object.StripeObject.construct_from({
             'foos': {
                 'type': 'list',
                 'data': [
@@ -94,17 +94,17 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual('acct_foo', nested.stripe_account)
 
     def test_refresh_from_nested_object(self):
-        obj = stripe.resource.StripeObject.construct_from(
+        obj = stripe.stripe_object.StripeObject.construct_from(
             SAMPLE_INVOICE, 'key')
 
         self.assertEqual(1, len(obj.lines.subscriptions))
         self.assertTrue(
             isinstance(obj.lines.subscriptions[0],
-                       stripe.resource.StripeObject))
+                       stripe.stripe_object.StripeObject))
         self.assertEqual('month', obj.lines.subscriptions[0].plan.interval)
 
     def test_to_json(self):
-        obj = stripe.resource.StripeObject.construct_from(
+        obj = stripe.stripe_object.StripeObject.construct_from(
             SAMPLE_INVOICE, 'key')
 
         self.check_invoice_data(util.json.loads(str(obj)))
@@ -124,7 +124,7 @@ class StripeObjectTests(StripeUnitTestCase):
                          data['lines']['subscriptions'][0]['plan']['interval'])
 
     def test_repr(self):
-        obj = stripe.resource.StripeObject(
+        obj = stripe.stripe_object.StripeObject(
             'foo', 'bar', myparam=5)
 
         obj['object'] = u'\u4e00boo\u1f00'
@@ -138,7 +138,7 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertTrue(u'id=foo' in res)
 
     def test_pickling(self):
-        obj = stripe.resource.StripeObject(
+        obj = stripe.stripe_object.StripeObject(
             'foo', 'bar', myparam=5)
 
         obj['object'] = 'boo'
@@ -155,7 +155,7 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual('lalala', newobj.fala)
 
     def test_deletion(self):
-        obj = stripe.resource.StripeObject('id', 'key')
+        obj = stripe.stripe_object.StripeObject('id', 'key')
 
         obj.coupon = "foo"
         self.assertEqual('foo', obj.coupon)
@@ -167,10 +167,10 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual('foo', obj.coupon)
 
     def test_copy(self):
-        nested = stripe.resource.StripeObject.construct_from({
+        nested = stripe.stripe_object.StripeObject.construct_from({
             'value': 'bar',
         }, 'mykey')
-        obj = stripe.resource.StripeObject.construct_from({
+        obj = stripe.stripe_object.StripeObject.construct_from({
             'empty': '',
             'value': 'foo',
             'nested': nested,
@@ -189,10 +189,10 @@ class StripeObjectTests(StripeUnitTestCase):
         self.assertEqual(id(nested), id(copied.nested))
 
     def test_deepcopy(self):
-        nested = stripe.resource.StripeObject.construct_from({
+        nested = stripe.stripe_object.StripeObject.construct_from({
             'value': 'bar',
         }, 'mykey')
-        obj = stripe.resource.StripeObject.construct_from({
+        obj = stripe.stripe_object.StripeObject.construct_from({
             'empty': '',
             'value': 'foo',
             'nested': nested,

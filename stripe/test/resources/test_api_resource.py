@@ -53,11 +53,12 @@ class APIResourceTests(StripeApiTestCase):
             ]
         }
 
-        converted = stripe.resource.convert_to_stripe_object(
+        converted = stripe.util.convert_to_stripe_object(
             sample, 'akey', None, None)
 
         # Types
-        self.assertTrue(isinstance(converted, stripe.resource.StripeObject))
+        self.assertTrue(isinstance(converted,
+                                   stripe.stripe_object.StripeObject))
         self.assertTrue(isinstance(converted.adict, stripe.Charge))
         self.assertEqual(1, len(converted.alist))
         self.assertTrue(isinstance(converted.alist[0], stripe.Customer))
@@ -72,10 +73,10 @@ class APIResourceTests(StripeApiTestCase):
         # self.assertRaises(AttributeError, getattr, converted.adict, 'object')
 
     def test_convert_array_to_dict(self):
-        out = stripe.resource.convert_array_to_dict([{"foo": "bar"}])
+        out = stripe.util.convert_array_to_dict([{"foo": "bar"}])
         self.assertEqual({"0": {"foo": "bar"}}, out)
         self.assertEqual({"f": "b"},
-                         stripe.resource.convert_array_to_dict({"f": "b"}))
+                         stripe.util.convert_array_to_dict({"f": "b"}))
 
     def test_raise_on_incorrect_id_type(self):
         for obj in [None, 1, 3.14, dict(), list(), set(), tuple(), object()]:
@@ -123,7 +124,7 @@ class NestedResourceClassMethodsTests(StripeApiTestCase):
         'nested',
         operations=['create', 'retrieve', 'update', 'delete', 'list']
     )
-    class MainResource(stripe.resource.APIResource):
+    class MainResource(stripe.api_resources.abstract.APIResource):
         pass
 
     def test_create_nested(self):

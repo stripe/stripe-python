@@ -41,7 +41,7 @@ class ReversalTest(StripeResourceTest):
         )
 
     def test_update_transfer(self):
-        reversal = stripe.resource.Reversal.construct_from({
+        reversal = stripe.Reversal.construct_from({
             'id': "rev_update",
             'transfer': "tr_update",
             'metadata': {},
