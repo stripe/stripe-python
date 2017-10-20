@@ -192,32 +192,32 @@ class StripeResourceTest(StripeApiTestCase):
         self.mock_response({})
 
 
-class MyResource(stripe.resource.APIResource):
+class MyResource(stripe.api_resources.abstract.APIResource):
     pass
 
 
-class MySingleton(stripe.resource.SingletonAPIResource):
+class MySingleton(stripe.api_resources.abstract.SingletonAPIResource):
     pass
 
 
-class MyListable(stripe.resource.ListableAPIResource):
+class MyListable(stripe.api_resources.abstract.ListableAPIResource):
     pass
 
 
-class MyCreatable(stripe.resource.CreateableAPIResource):
+class MyCreatable(stripe.api_resources.abstract.CreateableAPIResource):
     pass
 
 
-class MyUpdateable(stripe.resource.UpdateableAPIResource):
+class MyUpdateable(stripe.api_resources.abstract.UpdateableAPIResource):
     pass
 
 
-class MyDeletable(stripe.resource.DeletableAPIResource):
+class MyDeletable(stripe.api_resources.abstract.DeletableAPIResource):
     pass
 
 
-class MyComposite(stripe.resource.ListableAPIResource,
-                  stripe.resource.CreateableAPIResource,
-                  stripe.resource.UpdateableAPIResource,
-                  stripe.resource.DeletableAPIResource):
+class MyComposite(stripe.api_resources.abstract.ListableAPIResource,
+                  stripe.api_resources.abstract.CreateableAPIResource,
+                  stripe.api_resources.abstract.UpdateableAPIResource,
+                  stripe.api_resources.abstract.DeletableAPIResource):
     pass

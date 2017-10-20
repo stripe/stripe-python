@@ -34,7 +34,7 @@ class RefundTest(StripeResourceTest):
         )
 
     def test_update_refund(self):
-        refund = stripe.resource.Refund.construct_from({
+        refund = stripe.Refund.construct_from({
             'id': "ref_update",
             'charge': "ch_update",
             'metadata': {},
@@ -141,7 +141,7 @@ class ChargeRefundTest(StripeResourceTest):
         )
 
     def test_update_refund(self):
-        refund = stripe.resource.Refund.construct_from({
+        refund = stripe.Refund.construct_from({
             'id': "ref_update",
             'charge': "ch_update",
             'metadata': {},
