@@ -1,4 +1,5 @@
-from stripe import api_requestor, upload_api_base, util
+import stripe
+from stripe import api_requestor, util
 from stripe.api_resources.abstract import ListableAPIResource
 
 
@@ -7,7 +8,7 @@ class FileUpload(ListableAPIResource):
 
     @classmethod
     def api_base(cls):
-        return upload_api_base
+        return stripe.upload_api_base
 
     @classmethod
     def class_name(cls):
