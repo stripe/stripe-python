@@ -45,7 +45,7 @@ class WebhookSignature(object):
         try:
             timestamp, signatures = cls._get_timestamp_and_signatures(
                 header, cls.EXPECTED_SCHEME)
-        except:
+        except Exception:
             raise error.SignatureVerificationError(
                 "Unable to extract timestamp and signatures from header",
                 header, payload)
