@@ -18,10 +18,12 @@ class MultipartDataGenerator(object):
             self._write(self.param_header())
             self._write(self.line_break)
             if hasattr(value, 'read'):
+                filename = value.name if hasattr(value, 'name') else "blob"
+
                 self._write("Content-Disposition: form-data; name=\"")
                 self._write(key)
                 self._write("\"; filename=\"")
-                self._write(value.name)
+                self._write(filename)
                 self._write("\"")
                 self._write(self.line_break)
                 self._write("Content-Type: application/octet-stream")

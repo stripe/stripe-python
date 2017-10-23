@@ -2,6 +2,7 @@
 
 import re
 import sys
+import StringIO
 
 from stripe.multipart_data_generator import MultipartDataGenerator
 from stripe.test.helper import StripeTestCase
@@ -50,3 +51,7 @@ class MultipartDataGeneratorTests(StripeTestCase):
     def test_multipart_data_file_binary(self):
         with open(__file__, mode='rb') as test_file:
             self.run_test_multipart_data_with_file(test_file)
+
+    def test_multipart_data_stringio(self):
+        string = StringIO.StringIO("foo")
+        self.run_test_multipart_data_with_file(string)
