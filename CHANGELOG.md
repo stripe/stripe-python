@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.70.0 - 2017-10-23
+* [#356](https://github.com/stripe/stripe-python/pull/356) Support uploading files with `StringIO` in addition to a file on disk
+
 ## 1.69.0 - 2017-10-20
 * [#351](https://github.com/stripe/stripe-python/pull/351) Break resource.py module into separate ones for each type of resource
     * Classes are still into resource.py for backwards compatibility
