@@ -207,6 +207,8 @@ def load_object_classes():
         api_resources.Reversal.OBJECT_NAME: api_resources.Reversal,
         api_resources.SKU.OBJECT_NAME: api_resources.SKU,
         api_resources.Source.OBJECT_NAME: api_resources.Source,
+        api_resources.SourceTransaction.OBJECT_NAME:
+            api_resources.SourceTransaction,
         api_resources.Subscription.OBJECT_NAME: api_resources.Subscription,
         api_resources.SubscriptionItem.OBJECT_NAME:
             api_resources.SubscriptionItem,
