@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.71.0 - 2017-10-26
+* [#359](https://github.com/stripe/stripe-python/pull/359) Support for listing source transactions
+
 ## 1.70.0 - 2017-10-23
 * [#356](https://github.com/stripe/stripe-python/pull/356) Support uploading files with `StringIO` in addition to a file on disk
 
