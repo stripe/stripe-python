@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.71.1 - 2017-10-27
+* [#360](https://github.com/stripe/stripe-python/pull/360) Fix `BytesWarning` being issued on logging in Python 3
+
 ## 1.71.0 - 2017-10-26
 * [#359](https://github.com/stripe/stripe-python/pull/359) Support for listing source transactions
 
