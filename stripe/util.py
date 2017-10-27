@@ -114,6 +114,9 @@ def dashboard_link(request_id):
 
 def logfmt(props):
     def fmt(key, val):
+        # Handle case where val is a bytes or bytesarray
+        if sys.version_info[0] == 3 and hasattr(val, 'decode'):
+            val = val.decode('utf-8')
         # Check if val is already a string to avoid re-encoding into
         # ascii. Since the code is sent through 2to3, we can't just
         # use unicode(val, encoding='utf8') since it will be
