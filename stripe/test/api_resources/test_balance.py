@@ -24,3 +24,10 @@ class BalanceTransactionTest(StripeResourceTest):
             '/v1/balance/history',
             {}
         )
+
+    def test_convert_to_stripe_object(self):
+        transaction = stripe.util.convert_to_stripe_object({
+            'id': 'txn_foo',
+            'object': 'balance_transaction',
+        })
+        self.assertIsInstance(transaction, stripe.BalanceTransaction)
