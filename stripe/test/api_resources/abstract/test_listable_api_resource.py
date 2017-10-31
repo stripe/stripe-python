@@ -1,7 +1,9 @@
 import stripe
-from stripe.test.helper import (
-    StripeApiTestCase, MyListable
-)
+from stripe.test.helper import StripeApiTestCase
+
+
+class MyListable(stripe.api_resources.abstract.ListableAPIResource):
+    pass
 
 
 class ListableAPIResourceTests(StripeApiTestCase):

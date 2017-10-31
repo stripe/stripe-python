@@ -1,10 +1,12 @@
-from stripe.test.helper import (
-    StripeApiTestCase, MyUpdateable
-)
+import stripe
+from stripe.test.helper import StripeApiTestCase
+
+
+class MyUpdateable(stripe.api_resources.abstract.UpdateableAPIResource):
+    pass
 
 
 class UpdateableAPIResourceTests(StripeApiTestCase):
-
     def setUp(self):
         super(UpdateableAPIResourceTests, self).setUp()
 
@@ -363,4 +365,25 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
                 }
             },
             None
+        )
+
+    def test_retrieve_and_update_with_stripe_version(self):
+        self.mock_response({
+            'id': 'foo',
+            'bobble': 'scrobble',
+        })
+
+        res = MyUpdateable.retrieve('foo', stripe_version='2017-08-15')
+
+        self.requestor_class_mock.assert_called_with(
+            account=None, api_base=None, key=None,
+            api_version='2017-08-15'
+        )
+
+        res.bobble = 'new_scrobble'
+        res.save()
+
+        self.requestor_class_mock.assert_called_with(
+            account=None, api_base=None, key='reskey',
+            api_version='2017-08-15'
         )
