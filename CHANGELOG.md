@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.71.2 - 2017-10-31
+* [#362](https://github.com/stripe/stripe-python/pull/362) Fix balance transaction and invoice item conversion into `StripeObject`s
+
 ## 1.71.1 - 2017-10-27
 * [#360](https://github.com/stripe/stripe-python/pull/360) Fix `BytesWarning` being issued on logging in Python 3
 
