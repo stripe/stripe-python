@@ -6,4 +6,4 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 class InvoiceItem(CreateableAPIResource, UpdateableAPIResource,
                   ListableAPIResource, DeletableAPIResource):
-    OBJECT_NAME = 'invoice_item'
+    OBJECT_NAME = 'invoiceitem'

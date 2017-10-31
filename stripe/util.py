@@ -181,6 +181,8 @@ def load_object_classes():
         api_resources.ApplicationFeeRefund.OBJECT_NAME:
             api_resources.ApplicationFeeRefund,
         api_resources.Balance.OBJECT_NAME: api_resources.Balance,
+        api_resources.BalanceTransaction.OBJECT_NAME:
+            api_resources.BalanceTransaction,
         api_resources.BankAccount.OBJECT_NAME: api_resources.BankAccount,
         api_resources.BitcoinReceiver.OBJECT_NAME:
             api_resources.BitcoinReceiver,

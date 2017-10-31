@@ -54,10 +54,3 @@ class Account(CreateableAPIResource, ListableAPIResource,
     def deauthorize(self, **params):
         params['stripe_user_id'] = self.id
         return oauth.OAuth.deauthorize(**params)
-
-    @classmethod
-    def modify_external_account(cls, sid, external_account_id, **params):
-        url = "%s/%s/external_accounts/%s" % (
-            cls.class_url(), urllib.quote_plus(util.utf8(sid)),
-            urllib.quote_plus(util.utf8(external_account_id)))
-        return cls._modify(url, **params)

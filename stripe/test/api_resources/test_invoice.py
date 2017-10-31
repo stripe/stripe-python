@@ -30,6 +30,13 @@ class InvoiceTest(StripeResourceTest):
             {'customer': 'cus_get_invoice_items'},
         )
 
+    def test_convert_to_stripe_object(self):
+        item = stripe.util.convert_to_stripe_object({
+            'id': 'ii_foo',
+            'object': 'invoiceitem',
+        })
+        self.assertIsInstance(item, stripe.InvoiceItem)
+
     def test_invoice_create(self):
         customer = stripe.Customer(id="cus_invoice")
         stripe.Invoice.create(customer=customer.id)
