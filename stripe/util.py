@@ -196,6 +196,7 @@ def load_object_classes():
         api_resources.Dispute.OBJECT_NAME: api_resources.Dispute,
         api_resources.EphemeralKey.OBJECT_NAME: api_resources.EphemeralKey,
         api_resources.Event.OBJECT_NAME: api_resources.Event,
+        api_resources.ExchangeRate.OBJECT_NAME: api_resources.ExchangeRate,
         api_resources.FileUpload.OBJECT_NAME: api_resources.FileUpload,
         api_resources.Invoice.OBJECT_NAME: api_resources.Invoice,
         api_resources.InvoiceItem.OBJECT_NAME: api_resources.InvoiceItem,
