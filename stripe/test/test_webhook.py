@@ -2,9 +2,15 @@ import sys
 import time
 
 import stripe
-from stripe.test.helper import (
-    StripeUnitTestCase, DUMMY_WEBHOOK_PAYLOAD, DUMMY_WEBHOOK_SECRET
-)
+from stripe.test.helper import StripeUnitTestCase
+
+
+DUMMY_WEBHOOK_PAYLOAD = """{
+  "id": "evt_test_webhook",
+  "object": "event"
+}"""
+
+DUMMY_WEBHOOK_SECRET = 'whsec_test_secret'
 
 
 class WebhookTests(StripeUnitTestCase):

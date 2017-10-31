@@ -1,10 +1,12 @@
-from stripe.test.helper import (
-    StripeApiTestCase, MyDeletable
-)
+import stripe
+from stripe.test.helper import StripeApiTestCase
+
+
+class MyDeletable(stripe.api_resources.abstract.DeletableAPIResource):
+    pass
 
 
 class DeletableAPIResourceTests(StripeApiTestCase):
-
     def test_delete(self):
         self.mock_response({
             'id': 'mid',

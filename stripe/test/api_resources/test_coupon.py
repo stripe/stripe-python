@@ -1,7 +1,13 @@
 import stripe
-from stripe.test.helper import (
-    StripeResourceTest, DUMMY_COUPON
-)
+from stripe.test.helper import StripeResourceTest
+
+
+DUMMY_COUPON = {
+    'percent_off': 25,
+    'duration': 'repeating',
+    'duration_in_months': 5,
+    'metadata': {}
+}
 
 
 class CouponTest(StripeResourceTest):

@@ -1,7 +1,11 @@
 import stripe
-from stripe.test.helper import (
-    StripeResourceTest, DUMMY_INVOICE_ITEM
-)
+from stripe.test.helper import StripeResourceTest
+
+
+DUMMY_INVOICE_ITEM = {
+    'amount': 456,
+    'currency': 'usd',
+}
 
 
 class InvoiceTest(StripeResourceTest):

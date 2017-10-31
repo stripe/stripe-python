@@ -1,7 +1,12 @@
 import stripe
-from stripe.test.helper import (
-    StripeResourceTest, DUMMY_DISPUTE, NOW
-)
+from stripe.test.helper import StripeResourceTest, NOW
+
+
+DUMMY_DISPUTE = {
+    'status': 'needs_response',
+    'currency': 'usd',
+    'metadata': {}
+}
 
 
 class DisputeTest(StripeResourceTest):

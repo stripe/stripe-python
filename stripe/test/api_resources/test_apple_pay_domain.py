@@ -1,7 +1,10 @@
 import stripe
-from stripe.test.helper import (
-    StripeResourceTest, DUMMY_APPLE_PAY_DOMAIN
-)
+from stripe.test.helper import StripeResourceTest
+
+
+DUMMY_APPLE_PAY_DOMAIN = {
+    'domain_name': 'test.com',
+}
 
 
 class ApplePayDomainTest(StripeResourceTest):

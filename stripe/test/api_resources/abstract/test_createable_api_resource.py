@@ -1,7 +1,9 @@
 import stripe
-from stripe.test.helper import (
-    StripeApiTestCase, MyCreatable
-)
+from stripe.test.helper import StripeApiTestCase
+
+
+class MyCreatable(stripe.api_resources.abstract.CreateableAPIResource):
+    pass
 
 
 class CreateableAPIResourceTests(StripeApiTestCase):
