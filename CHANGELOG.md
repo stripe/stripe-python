@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.72.0 - 2017-10-31
+* [#361](https://github.com/stripe/stripe-python/pull/361) Support for exchange rates APIs
+
 ## 1.71.2 - 2017-10-31
 * [#362](https://github.com/stripe/stripe-python/pull/362) Fix balance transaction and invoice item conversion into `StripeObject`s
 
