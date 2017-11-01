@@ -1,9 +1,9 @@
-import urllib
-
 from stripe import util
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+
+from stripe.six.moves.urllib.parse import quote_plus
 
 
 class AlipayAccount(UpdateableAPIResource, DeletableAPIResource):
@@ -12,11 +12,11 @@ class AlipayAccount(UpdateableAPIResource, DeletableAPIResource):
     @classmethod
     def _build_instance_url(cls, customer, sid):
         token = util.utf8(sid)
-        extn = urllib.quote_plus(token)
+        extn = quote_plus(token)
         customer = util.utf8(customer)
 
         base = Customer.class_url()
-        owner_extn = urllib.quote_plus(customer)
+        owner_extn = quote_plus(customer)
 
         return "%s/%s/sources/%s" % (base, owner_extn, extn)
 

@@ -2,13 +2,12 @@ import calendar
 import datetime
 import platform
 import time
-import urllib
-import urlparse
 import warnings
 
 import stripe
-from stripe import error, oauth_error, http_client, version, util
+from stripe import error, oauth_error, http_client, version, util, six
 from stripe.multipart_data_generator import MultipartDataGenerator
+from stripe.six.moves.urllib.parse import urlencode, urlsplit, urlunsplit
 
 
 def _encode_datetime(dttime):
@@ -22,13 +21,13 @@ def _encode_datetime(dttime):
 
 def _encode_nested_dict(key, data, fmt='%s[%s]'):
     d = {}
-    for subkey, subvalue in data.iteritems():
+    for subkey, subvalue in six.iteritems(data):
         d[fmt % (key, subkey)] = subvalue
     return d
 
 
 def _api_encode(data):
-    for key, value in data.iteritems():
+    for key, value in six.iteritems(data):
         key = util.utf8(key)
         if value is None:
             continue
@@ -53,12 +52,12 @@ def _api_encode(data):
 
 
 def _build_api_url(url, query):
-    scheme, netloc, path, base_query, fragment = urlparse.urlsplit(url)
+    scheme, netloc, path, base_query, fragment = urlsplit(url)
 
     if base_query:
         query = '%s&%s' % (base_query, query)
 
-    return urlparse.urlunsplit((scheme, netloc, path, query, fragment))
+    return urlunsplit((scheme, netloc, path, query, fragment))
 
 
 class APIRequestor(object):
@@ -124,7 +123,7 @@ class APIRequestor(object):
             'If you need public access to this function, please email us '
             'at support@stripe.com.',
             DeprecationWarning)
-        return urllib.urlencode(list(_api_encode(d)))
+        return urlencode(list(_api_encode(d)))
 
     @classmethod
     def build_url(cls, url, params):
@@ -165,7 +164,7 @@ class APIRequestor(object):
         # OAuth errors are a JSON object where `error` is a string. In
         # contrast, in API errors, `error` is a hash with sub-keys. We use
         # this property to distinguish between OAuth and API errors.
-        if isinstance(error_data, basestring):
+        if isinstance(error_data, six.string_types):
             err = self.specific_oauth_error(
                 rbody, rcode, resp, rheaders, error_data)
 
@@ -300,7 +299,7 @@ class APIRequestor(object):
 
         abs_url = '%s%s' % (self.api_base, url)
 
-        encoded_params = urllib.urlencode(list(_api_encode(params or {})))
+        encoded_params = urlencode(list(_api_encode(params or {})))
 
         if method == 'get' or method == 'delete':
             if params:
@@ -326,7 +325,7 @@ class APIRequestor(object):
         headers = self.request_headers(my_api_key, method)
 
         if supplied_headers is not None:
-            for key, value in supplied_headers.items():
+            for key, value in six.iteritems(supplied_headers):
                 headers[key] = value
 
         util.log_info('Request to Stripe api', method=method, path=abs_url)

@@ -61,7 +61,6 @@ setup(
     install_requires=install_requires,
     test_suite='stripe.test.all',
     tests_require=['unittest2', 'mock'],
-    use_2to3=True,
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",

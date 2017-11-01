@@ -1,11 +1,10 @@
-import urllib
-
 from stripe import util
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.six.moves.urllib.parse import quote_plus
 
 
 class BitcoinReceiver(CreateableAPIResource, UpdateableAPIResource,
@@ -14,12 +13,12 @@ class BitcoinReceiver(CreateableAPIResource, UpdateableAPIResource,
 
     def instance_url(self):
         token = util.utf8(self.id)
-        extn = urllib.quote_plus(token)
+        extn = quote_plus(token)
 
         if hasattr(self, 'customer'):
             customer = util.utf8(self.customer)
             base = Customer.class_url()
-            cust_extn = urllib.quote_plus(customer)
+            cust_extn = quote_plus(customer)
             return "%s/%s/sources/%s" % (base, cust_extn, extn)
         else:
             base = BitcoinReceiver.class_url()

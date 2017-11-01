@@ -4,14 +4,14 @@ import textwrap
 import warnings
 import email
 
-from stripe import error, util
+from stripe import error, util, six
 
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch
 # - Use Pycurl if it's there (at least it verifies SSL certs)
 # - Fall back to urllib2 with a warning if needed
 try:
-    import urllib2
+    from stripe.six.moves import urllib
 except ImportError:
     # Try to load in urllib2, but don't sweat it if it's not available.
     pass
@@ -52,7 +52,7 @@ except ImportError:
     urlfetch = None
 
 # proxy support for the pycurl client
-from urlparse import urlparse
+from stripe.six.moves.urllib.parse import urlparse
 
 
 def new_default_http_client(*args, **kwargs):
@@ -240,7 +240,7 @@ class PycurlClient(HTTPClient):
             return {}
         raw_headers = data.split('\r\n', 1)[1]
         headers = email.message_from_string(raw_headers)
-        return dict((k.lower(), v) for k, v in dict(headers).iteritems())
+        return dict((k.lower(), v) for k, v in six.iteritems(dict(headers)))
 
     def request(self, method, url, headers, post_data=None):
         b = util.io.BytesIO()
@@ -281,8 +281,10 @@ class PycurlClient(HTTPClient):
         self._curl.setopt(pycurl.NOSIGNAL, 1)
         self._curl.setopt(pycurl.CONNECTTIMEOUT, 30)
         self._curl.setopt(pycurl.TIMEOUT, 80)
-        self._curl.setopt(pycurl.HTTPHEADER, ['%s: %s' % (k, v)
-                                              for k, v in headers.iteritems()])
+        self._curl.setopt(
+            pycurl.HTTPHEADER,
+            ['%s: %s' % (k, v) for k, v in six.iteritems(dict(headers))]
+        )
         if self._verify_ssl_certs:
             self._curl.setopt(pycurl.CAINFO, os.path.join(
                 os.path.dirname(__file__), 'data/ca-certificates.crt'))
@@ -335,10 +337,7 @@ class PycurlClient(HTTPClient):
 
 
 class Urllib2Client(HTTPClient):
-    if sys.version_info >= (3, 0):
-        name = 'urllib.request'
-    else:
-        name = 'urllib2'
+    name = 'urllib.request'
 
     def __init__(self, verify_ssl_certs=True, proxy=None):
         super(Urllib2Client, self).__init__(
@@ -346,14 +345,14 @@ class Urllib2Client(HTTPClient):
         # prepare and cache proxy tied opener here
         self._opener = None
         if self._proxy:
-            proxy = urllib2.ProxyHandler(self._proxy)
-            self._opener = urllib2.build_opener(proxy)
+            proxy = urllib.request.ProxyHandler(self._proxy)
+            self._opener = urllib.request.build_opener(proxy)
 
     def request(self, method, url, headers, post_data=None):
-        if sys.version_info >= (3, 0) and isinstance(post_data, basestring):
+        if six.PY3 and isinstance(post_data, six.string_types):
             post_data = post_data.encode('utf-8')
 
-        req = urllib2.Request(url, post_data, headers)
+        req = urllib.request.Request(url, post_data, headers)
 
         if method not in ('get', 'post'):
             req.get_method = lambda: method.upper()
@@ -363,17 +362,17 @@ class Urllib2Client(HTTPClient):
             # otherwise, fall to the default urllib opener.
             response = self._opener.open(req) \
                 if self._opener \
-                else urllib2.urlopen(req)
+                else urllib.request.urlopen(req)
             rbody = response.read()
             rcode = response.code
             headers = dict(response.info())
-        except urllib2.HTTPError as e:
+        except urllib.error.HTTPError as e:
             rcode = e.code
             rbody = e.read()
             headers = dict(e.info())
-        except (urllib2.URLError, ValueError) as e:
+        except (urllib.error.URLError, ValueError) as e:
             self._handle_request_error(e)
-        lh = dict((k.lower(), v) for k, v in dict(headers).iteritems())
+        lh = dict((k.lower(), v) for k, v in six.iteritems(dict(headers)))
         return rbody, rcode, lh
 
     def _handle_request_error(self, e):

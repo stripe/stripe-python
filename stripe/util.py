@@ -8,6 +8,7 @@ import os
 import re
 
 import stripe
+from stripe import six
 
 
 STRIPE_LOG = os.environ.get('STRIPE_LOG')
@@ -26,7 +27,7 @@ __all__ = [
 ]
 
 try:
-    from urlparse import parse_qsl
+    from stripe.six.moves.urllib.parse import parse_qsl
 except ImportError:
     # Python < 2.6
     from cgi import parse_qsl
@@ -62,7 +63,7 @@ def utf8(value):
     # Note the ordering of these conditionals: `unicode` isn't a symbol in
     # Python 3 so make sure to check version before trying to use it. Python
     # 2to3 will also boil out `unicode`.
-    if sys.version_info < (3, 0) and isinstance(value, unicode):
+    if six.PY2 and isinstance(value, unicode):
         return value.encode('utf-8')
     else:
         return value
@@ -115,14 +116,14 @@ def dashboard_link(request_id):
 def logfmt(props):
     def fmt(key, val):
         # Handle case where val is a bytes or bytesarray
-        if sys.version_info[0] == 3 and hasattr(val, 'decode'):
+        if six.PY3 and hasattr(val, 'decode'):
             val = val.decode('utf-8')
         # Check if val is already a string to avoid re-encoding into
         # ascii. Since the code is sent through 2to3, we can't just
         # use unicode(val, encoding='utf8') since it will be
         # translated incorrectly.
-        if not isinstance(val, basestring):
-            val = unicode(val)
+        if not isinstance(val, six.string_types):
+            val = six.text_type(val)
         if re.search(r'\s', val):
             val = repr(val)
         # key should already be a string
@@ -150,8 +151,7 @@ else:
         if len(val1) != len(val2):
             return False
         result = 0
-        if (sys.version_info[0] == 3 and isinstance(val1, bytes) and
-                isinstance(val2, bytes)):
+        if six.PY3 and isinstance(val1, bytes) and isinstance(val2, bytes):
             for x, y in zip(val1, val2):
                 result |= x ^ y
         else:
@@ -239,7 +239,7 @@ def convert_to_stripe_object(resp, api_key=None, stripe_version=None,
             not isinstance(resp, stripe.stripe_object.StripeObject):
         resp = resp.copy()
         klass_name = resp.get('object')
-        if isinstance(klass_name, basestring):
+        if isinstance(klass_name, six.string_types):
             klass = types.get(klass_name, stripe.stripe_object.StripeObject)
         else:
             klass = stripe.stripe_object.StripeObject

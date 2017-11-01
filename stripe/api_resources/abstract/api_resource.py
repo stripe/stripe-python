@@ -1,7 +1,6 @@
-import urllib
-
-from stripe import error, util
+from stripe import error, util, six
 from stripe.stripe_object import StripeObject
+from stripe.six.moves.urllib.parse import quote_plus
 
 
 class APIResource(StripeObject):
@@ -22,7 +21,7 @@ class APIResource(StripeObject):
             raise NotImplementedError(
                 'APIResource is an abstract class.  You should perform '
                 'actions on its subclasses (e.g. Charge, Customer)')
-        return str(urllib.quote_plus(cls.__name__.lower()))
+        return str(quote_plus(cls.__name__.lower()))
 
     @classmethod
     def class_url(cls):
@@ -32,7 +31,7 @@ class APIResource(StripeObject):
     def instance_url(self):
         id = self.get('id')
 
-        if not isinstance(id, basestring):
+        if not isinstance(id, six.string_types):
             raise error.InvalidRequestError(
                 'Could not determine which URL to request: %s instance '
                 'has invalid ID: %r, %s. ID should be of type `str` (or'
@@ -40,5 +39,5 @@ class APIResource(StripeObject):
 
         id = util.utf8(id)
         base = self.class_url()
-        extn = urllib.quote_plus(id)
+        extn = quote_plus(id)
         return "%s/%s" % (base, extn)

@@ -1,9 +1,8 @@
 # -*- encoding: utf-8 -*-
 
 import re
-import sys
-import StringIO
 
+from stripe import six
 from stripe.multipart_data_generator import MultipartDataGenerator
 from stripe.test.helper import StripeTestCase
 
@@ -20,7 +19,7 @@ class MultipartDataGeneratorTests(StripeTestCase):
         generator.add_params(params)
         http_body = generator.get_post_data()
 
-        if sys.version_info >= (3,):
+        if six.PY3:
             http_body = http_body.decode('utf-8')
 
         self.assertTrue(re.search(
@@ -39,7 +38,7 @@ class MultipartDataGeneratorTests(StripeTestCase):
         test_file.seek(0)
         file_contents = test_file.read()
 
-        if sys.version_info >= (3,) and isinstance(file_contents, bytes):
+        if six.PY3 and isinstance(file_contents, bytes):
             file_contents = file_contents.decode('utf-8')
 
         self.assertNotEqual(-1, http_body.find(file_contents))
@@ -53,5 +52,5 @@ class MultipartDataGeneratorTests(StripeTestCase):
             self.run_test_multipart_data_with_file(test_file)
 
     def test_multipart_data_stringio(self):
-        string = StringIO.StringIO("foo")
+        string = six.StringIO("foo")
         self.run_test_multipart_data_with_file(string)

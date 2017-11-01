@@ -1,11 +1,10 @@
-import urllib
-
 from stripe import error, util
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.recipient import Recipient
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
+from stripe.six.moves.urllib.parse import quote_plus
 
 
 class Card(UpdateableAPIResource, DeletableAPIResource):
@@ -13,26 +12,26 @@ class Card(UpdateableAPIResource, DeletableAPIResource):
 
     def instance_url(self):
         token = util.utf8(self.id)
-        extn = urllib.quote_plus(token)
+        extn = quote_plus(token)
         if hasattr(self, 'customer'):
             customer = util.utf8(self.customer)
 
             base = Customer.class_url()
-            owner_extn = urllib.quote_plus(customer)
+            owner_extn = quote_plus(customer)
             class_base = "sources"
 
         elif hasattr(self, 'recipient'):
             recipient = util.utf8(self.recipient)
 
             base = Recipient.class_url()
-            owner_extn = urllib.quote_plus(recipient)
+            owner_extn = quote_plus(recipient)
             class_base = "cards"
 
         elif hasattr(self, 'account'):
             account = util.utf8(self.account)
 
             base = Account.class_url()
-            owner_extn = urllib.quote_plus(account)
+            owner_extn = quote_plus(account)
             class_base = "external_accounts"
 
         else:

@@ -1,9 +1,8 @@
 import pickle
-import sys
 from copy import copy, deepcopy
 
 import stripe
-from stripe import util
+from stripe import util, six
 from stripe.test.helper import StripeUnitTestCase
 
 
@@ -160,8 +159,8 @@ class StripeObjectTests(StripeUnitTestCase):
 
     def check_invoice_data(self, data):
         # Check rough structure
-        self.assertEqual(20, len(data.keys()))
-        self.assertEqual(3, len(data['lines'].keys()))
+        self.assertEqual(20, len(list(data.keys())))
+        self.assertEqual(3, len(list(data['lines'].keys())))
         self.assertEqual(0, len(data['lines']['invoiceitems']))
         self.assertEqual(1, len(data['lines']['subscriptions']))
 
@@ -180,7 +179,7 @@ class StripeObjectTests(StripeUnitTestCase):
 
         res = repr(obj)
 
-        if sys.version_info[0] < 3:
+        if six.PY2:
             res = unicode(repr(obj), 'utf-8')
 
         self.assertTrue(u'<StripeObject \u4e00boo\u1f00' in res)

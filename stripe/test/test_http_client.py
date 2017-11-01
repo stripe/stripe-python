@@ -1,9 +1,9 @@
-import sys
 import unittest2
 
 from mock import MagicMock, Mock, patch
 
 import stripe
+from stripe import six
 
 from stripe.test.helper import StripeUnitTestCase
 
@@ -219,7 +219,7 @@ class Urllib2ClientTests(StripeUnitTestCase, ClientTestBase):
         mock.build_opener.reset_mock()
 
     def check_call(self, mock, meth, url, post_data, headers):
-        if sys.version_info >= (3, 0) and isinstance(post_data, basestring):
+        if six.PY3 and isinstance(post_data, six.string_types):
             post_data = post_data.encode('utf-8')
 
         mock.Request.assert_called_with(url, post_data, headers)

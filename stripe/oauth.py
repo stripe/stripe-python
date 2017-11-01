@@ -1,6 +1,5 @@
-import urllib
-
 from stripe import api_requestor, connect_api_base, error
+from stripe.six.moves.urllib.parse import urlencode
 
 
 class OAuth(object):
@@ -30,7 +29,7 @@ class OAuth(object):
         OAuth._set_client_id(params)
         if 'response_type' not in params:
             params['response_type'] = 'code'
-        query = urllib.urlencode(list(api_requestor._api_encode(params)))
+        query = urlencode(list(api_requestor._api_encode(params)))
         url = connect_api_base + path + '?' + query
         return url
 

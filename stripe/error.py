@@ -1,5 +1,4 @@
-# Exceptions
-import sys
+from stripe import six
 
 
 class StripeError(Exception):
@@ -29,7 +28,7 @@ class StripeError(Exception):
         else:
             return self._message
 
-    if sys.version_info > (3, 0):
+    if six.PY3:
         def __str__(self):
             return self.__unicode__()
     else:
