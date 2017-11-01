@@ -2,7 +2,7 @@
 
 from __future__ import absolute_import, division, print_function
 
-from stripe import six, StripeError
+from stripe import CardError, StripeError, six
 from tests.helper import StripeTestCase
 
 
@@ -39,3 +39,29 @@ class StripeErrorTests(StripeTestCase):
             self.assertEqual('<empty message>', str(err))
         else:
             self.assertEqual('<empty message>', str(err))
+
+    def test_repr(self):
+        err = StripeError(u'öre', headers={'request-id': '123'})
+        if six.PY2:
+            self.assertEquals(repr(err), (
+                "StripeError(message=u'\\xf6re', http_status=None, "
+                "request_id='123')"))
+        else:
+            self.assertEquals(repr(err), (
+                "StripeError(message='öre', http_status=None, "
+                "request_id='123')"))
+
+
+class StripeErrorWithParamCodeTests(StripeTestCase):
+
+    def test_repr(self):
+        err = CardError(u'öre', param='cparam', code='ccode', http_status=403,
+                        headers={'request-id': '123'})
+        if six.PY2:
+            self.assertEquals(repr(err), (
+                "CardError(message=u'\\xf6re', param='cparam', code='ccode', "
+                "http_status=403, request_id='123')"))
+        else:
+            self.assertEquals(repr(err), (
+                "CardError(message='öre', param='cparam', code='ccode', "
+                "http_status=403, request_id='123')"))

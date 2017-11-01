@@ -40,6 +40,13 @@ class StripeError(Exception):
     def user_message(self):
         return self._message
 
+    def __repr__(self):
+        return '%s(message=%r, http_status=%r, request_id=%r)' % (
+            self.__class__.__name__,
+            self._message,
+            self.http_status,
+            self.request_id)
+
 
 class APIError(StripeError):
     pass
@@ -49,7 +56,20 @@ class APIConnectionError(StripeError):
     pass
 
 
-class CardError(StripeError):
+class StripeErrorWithParamCode(StripeError):
+
+    def __repr__(self):
+        return ('%s(message=%r, param=%r, code=%r, http_status=%r, '
+                'request_id=%r)' % (
+                    self.__class__.__name__,
+                    self._message,
+                    self.param,
+                    self.code,
+                    self.http_status,
+                    self.request_id))
+
+
+class CardError(StripeErrorWithParamCode):
 
     def __init__(self, message, param, code, http_body=None,
                  http_status=None, json_body=None, headers=None):
@@ -63,7 +83,7 @@ class IdempotencyError(StripeError):
     pass
 
 
-class InvalidRequestError(StripeError):
+class InvalidRequestError(StripeErrorWithParamCode):
 
     def __init__(self, message, param, code=None, http_body=None,
                  http_status=None, json_body=None, headers=None):
