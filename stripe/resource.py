@@ -1,3 +1,5 @@
+from __future__ import absolute_import, division, print_function
+
 #
 # This module doesn't serve much purpose anymore. It's only here to maintain
 # backwards compatibility.

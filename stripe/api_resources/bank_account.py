@@ -1,3 +1,5 @@
+from __future__ import absolute_import, division, print_function
+
 from stripe import error, util
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer

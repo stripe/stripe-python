@@ -1,3 +1,5 @@
+from __future__ import absolute_import, division, print_function
+
 import stripe
 from stripe.test.helper import (
     StripeResourceTest, NOW, DUMMY_CHARGE
