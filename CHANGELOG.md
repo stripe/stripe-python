@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.73.0 - 2017-11-02
+* [#364](https://github.com/stripe/stripe-python/pull/364) Switch to vendored version of the `six` package for compatibility between Python 2 and 3
+
 ## 1.72.0 - 2017-10-31
 * [#361](https://github.com/stripe/stripe-python/pull/361) Support for exchange rates APIs
 
