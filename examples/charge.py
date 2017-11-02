@@ -1,8 +1,13 @@
+from __future__ import absolute_import, division, print_function
+
+import os
+
 import stripe
 
-stripe.api_key = 'tGN0bIwXnHdwOa85VABjPdSn8nWY7G7I'
 
-print "Attempting charge..."
+stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
+
+print("Attempting charge...")
 
 resp = stripe.Charge.create(
     amount=200,
@@ -11,4 +16,4 @@ resp = stripe.Charge.create(
     description='customer@gmail.com'
 )
 
-print 'Success: %r' % (resp, )
+print('Success: %r' % (resp))
