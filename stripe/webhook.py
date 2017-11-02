@@ -1,3 +1,5 @@
+from __future__ import absolute_import, division, print_function
+
 import hmac
 import time
 from hashlib import sha256
@@ -35,7 +37,7 @@ class WebhookSignature(object):
 
     @staticmethod
     def _get_timestamp_and_signatures(header, scheme):
-        list_items = map(lambda i: i.split('=', 2), header.split(','))
+        list_items = [i.split('=', 2) for i in header.split(',')]
         timestamp = int([i[1] for i in list_items if i[0] == 't'][0])
         signatures = [i[1] for i in list_items if i[0] == scheme]
         return timestamp, signatures

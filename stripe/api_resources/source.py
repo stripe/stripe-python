@@ -1,4 +1,5 @@
-import urllib
+from __future__ import absolute_import, division, print_function
+
 import warnings
 
 from stripe import util
@@ -6,6 +7,7 @@ from stripe.api_resources import Customer
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import VerifyMixin
+from stripe.six.moves.urllib.parse import quote_plus
 
 
 class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
@@ -13,10 +15,10 @@ class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
 
     def detach(self, **params):
         if hasattr(self, 'customer') and self.customer:
-            extn = urllib.quote_plus(util.utf8(self.id))
+            extn = quote_plus(util.utf8(self.id))
             customer = util.utf8(self.customer)
             base = Customer.class_url()
-            owner_extn = urllib.quote_plus(customer)
+            owner_extn = quote_plus(customer)
             url = "%s/%s/sources/%s" % (base, owner_extn, extn)
 
             self.refresh_from(self.request('delete', url, params))

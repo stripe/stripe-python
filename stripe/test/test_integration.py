@@ -1,10 +1,15 @@
 # -*- coding: utf-8 -*-
+
+from __future__ import absolute_import, division, print_function
+
 import os
-import sys
 import unittest2
 import stripe
 
 from mock import patch
+
+from stripe import six
+
 from stripe.test.helper import (StripeTestCase, DUMMY_CHARGE)
 
 
@@ -106,7 +111,7 @@ class PycurlFunctionalTests(FunctionalTests):
     def setUp(self):
         if not os.environ.get('STRIPE_TEST_PYCURL'):
             self.skipTest('Pycurl skipped as STRIPE_TEST_PYCURL is not set')
-        if sys.version_info >= (3, 0):
+        if six.PY3:
             self.skipTest('Pycurl is not supported in Python 3')
         else:
             super(PycurlFunctionalTests, self).setUp()
@@ -123,7 +128,7 @@ class AuthenticationErrorTest(StripeTestCase):
             stripe.Customer.create()
         except stripe.error.AuthenticationError as e:
             self.assertEqual(401, e.http_status)
-            self.assertTrue(isinstance(e.http_body, basestring))
+            self.assertTrue(isinstance(e.http_body, six.string_types))
             self.assertTrue(isinstance(e.json_body, dict))
             # Note that an invalid API key bypasses many of the standard
             # facilities in the API server so currently no Request ID is
@@ -140,7 +145,7 @@ class CardErrorTest(StripeTestCase):
                                  source='tok_chargeDeclinedExpiredCard')
         except stripe.error.CardError as e:
             self.assertEqual(402, e.http_status)
-            self.assertTrue(isinstance(e.http_body, basestring))
+            self.assertTrue(isinstance(e.http_body, six.string_types))
             self.assertTrue(isinstance(e.json_body, dict))
             self.assertTrue(e.request_id.startswith('req_'))
 
@@ -152,7 +157,7 @@ class InvalidRequestErrorTest(StripeTestCase):
             stripe.Charge.retrieve('invalid')
         except stripe.error.InvalidRequestError as e:
             self.assertEqual(404, e.http_status)
-            self.assertTrue(isinstance(e.http_body, basestring))
+            self.assertTrue(isinstance(e.http_body, six.string_types))
             self.assertTrue(isinstance(e.json_body, dict))
             self.assertTrue(e.request_id.startswith('req_'))
 
@@ -161,7 +166,7 @@ class InvalidRequestErrorTest(StripeTestCase):
             stripe.Charge.create()
         except stripe.error.InvalidRequestError as e:
             self.assertEqual(400, e.http_status)
-            self.assertTrue(isinstance(e.http_body, basestring))
+            self.assertTrue(isinstance(e.http_body, six.string_types))
             self.assertTrue(isinstance(e.json_body, dict))
             self.assertTrue(e.request_id.startswith('req_'))
 

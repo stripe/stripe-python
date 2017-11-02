@@ -1,12 +1,16 @@
+from __future__ import absolute_import, division, print_function
+
 import datetime
 import unittest2
-import urlparse
 
 from mock import Mock, ANY
 
 import stripe
+from stripe import six
 
 from stripe.test.helper import StripeUnitTestCase
+
+from six.moves.urllib.parse import urlsplit
 
 
 VALID_API_METHODS = ('get', 'post', 'delete')
@@ -49,7 +53,7 @@ class APIHeaderMatcher(object):
                 self._extra_match(other))
 
     def _keys_match(self, other):
-        expected_keys = list(set(self.EXP_KEYS + self.extra.keys()))
+        expected_keys = list(set(self.EXP_KEYS + list(self.extra.keys())))
         if self.request_method is not None and self.request_method in \
                 self.METHOD_EXTRA_KEYS:
             expected_keys.extend(self.METHOD_EXTRA_KEYS[self.request_method])
@@ -74,7 +78,7 @@ class APIHeaderMatcher(object):
         return True
 
     def _extra_match(self, other):
-        for k, v in self.extra.iteritems():
+        for k, v in six.iteritems(self.extra):
             if other[k] != v:
                 return False
 
@@ -87,7 +91,7 @@ class QueryMatcher(object):
         self.expected = sorted(expected)
 
     def __eq__(self, other):
-        query = urlparse.urlsplit(other).query or other
+        query = urlsplit(other).query or other
 
         parsed = stripe.util.parse_qsl(query)
         return self.expected == sorted(parsed)
@@ -96,17 +100,17 @@ class QueryMatcher(object):
 class UrlMatcher(object):
 
     def __init__(self, expected):
-        self.exp_parts = urlparse.urlsplit(expected)
+        self.exp_parts = urlsplit(expected)
 
     def __eq__(self, other):
-        other_parts = urlparse.urlsplit(other)
+        other_parts = urlsplit(other)
 
         for part in ('scheme', 'netloc', 'path', 'fragment'):
             expected = getattr(self.exp_parts, part)
             actual = getattr(other_parts, part)
             if expected != actual:
-                print 'Expected %s "%s" but got "%s"' % (
-                    part, expected, actual)
+                print('Expected %s "%s" but got "%s"' % (
+                    part, expected, actual))
                 return False
 
         q_matcher = QueryMatcher(stripe.util.parse_qsl(self.exp_parts.query))
@@ -222,7 +226,7 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         self.requestor.request('get', '', self.ENCODE_INPUTS)
 
         expectation = []
-        for type_, values in self.ENCODE_EXPECTATIONS.iteritems():
+        for type_, values in six.iteritems(self.ENCODE_EXPECTATIONS):
             expectation.extend([(k % (type_,), str(v)) for k, v in values])
 
         self.check_call('get', QueryMatcher(expectation))

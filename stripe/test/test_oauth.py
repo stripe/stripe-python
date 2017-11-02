@@ -1,4 +1,6 @@
-import urlparse
+from __future__ import absolute_import, division, print_function
+
+from six.moves.urllib.parse import parse_qs, urlparse
 
 import stripe
 from stripe.test.helper import StripeApiTestCase
@@ -26,8 +28,8 @@ class OAuthTests(StripeApiTestCase):
                 'country': 'US',
             })
 
-        o = urlparse.urlparse(url)
-        params = urlparse.parse_qs(o.query)
+        o = urlparse(url)
+        params = parse_qs(o.query)
 
         self.assertEqual('https', o.scheme)
         self.assertEqual('connect.stripe.com', o.netloc)

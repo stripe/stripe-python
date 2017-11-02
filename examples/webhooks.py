@@ -1,9 +1,10 @@
-from __future__ import print_function
+from __future__ import absolute_import, division, print_function
 
 import os
 
 import stripe
 from flask import Flask, request
+
 
 stripe.api_key = os.environ.get('STRIPE_SECRET_KEY')
 webhook_secret = os.environ.get('WEBHOOK_SECRET')

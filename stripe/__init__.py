@@ -1,3 +1,5 @@
+from __future__ import absolute_import, division, print_function
+
 # Stripe Python bindings
 # API docs at http://stripe.com/docs/api
 # Authors:

@@ -1,8 +1,11 @@
-import urllib
+from __future__ import absolute_import, division, print_function
+
 import warnings
 
 from stripe import util
 from stripe.stripe_object import StripeObject
+
+from stripe.six.moves.urllib.parse import quote_plus
 
 
 class ListObject(StripeObject):
@@ -41,7 +44,7 @@ class ListObject(StripeObject):
     def retrieve(self, id, **params):
         base = self.get('url')
         id = util.utf8(id)
-        extn = urllib.quote_plus(id)
+        extn = quote_plus(id)
         url = "%s/%s" % (base, extn)
 
         return self.request('get', url, params)

@@ -1,7 +1,9 @@
-import sys
+from __future__ import absolute_import, division, print_function
+
 import time
 
 import stripe
+from stripe import six
 from stripe.test.helper import StripeUnitTestCase
 
 
@@ -43,7 +45,7 @@ class WebhookTests(StripeUnitTestCase):
     def test_construct_event_from_bytes(self):
         # This test is only applicable to Python 3 as `bytes` is not a symbol
         # in Python 2.
-        if sys.version_info < (3, 0):
+        if six.PY2:
             return
 
         header = WebhookSignatureTests.generate_header()
@@ -70,7 +72,7 @@ class WebhookSignatureTests(StripeUnitTestCase):
 
     def test_raise_on_malformed_header(self):
         header = "i'm not even a real signature header"
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
                 stripe.error.SignatureVerificationError,
                 "Unable to extract timestamp and signatures from header"):
             stripe.WebhookSignature.verify_header(
@@ -78,7 +80,7 @@ class WebhookSignatureTests(StripeUnitTestCase):
 
     def test_raise_on_no_signatures_with_expected_scheme(self):
         header = self.generate_header(scheme='v0')
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
                 stripe.error.SignatureVerificationError,
                 "No signatures found with expected scheme v1"):
             stripe.WebhookSignature.verify_header(
@@ -86,7 +88,7 @@ class WebhookSignatureTests(StripeUnitTestCase):
 
     def test_raise_on_no_valid_signatures_for_payload(self):
         header = self.generate_header(signature='bad_signature')
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
                 stripe.error.SignatureVerificationError,
                 "No signatures found matching the expected signature for "
                 "payload"):
@@ -95,7 +97,7 @@ class WebhookSignatureTests(StripeUnitTestCase):
 
     def test_raise_on_timestamp_outside_tolerance(self):
         header = self.generate_header(timestamp=int(time.time()) - 15)
-        with self.assertRaisesRegexp(
+        with self.assertRaisesRegex(
                 stripe.error.SignatureVerificationError,
                 "Timestamp outside the tolerance zone"):
             stripe.WebhookSignature.verify_header(

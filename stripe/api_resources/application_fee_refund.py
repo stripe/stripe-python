@@ -1,8 +1,10 @@
-import urllib
+from __future__ import absolute_import, division, print_function
 
 from stripe import util
 from stripe.api_resources import ApplicationFee
 from stripe.api_resources.abstract import UpdateableAPIResource
+
+from stripe.six.moves.urllib.parse import quote_plus
 
 
 class ApplicationFeeRefund(UpdateableAPIResource):
@@ -13,8 +15,8 @@ class ApplicationFeeRefund(UpdateableAPIResource):
         fee = util.utf8(fee)
         sid = util.utf8(sid)
         base = ApplicationFee.class_url()
-        cust_extn = urllib.quote_plus(fee)
-        extn = urllib.quote_plus(sid)
+        cust_extn = quote_plus(fee)
+        extn = quote_plus(sid)
         return "%s/%s/refunds/%s" % (base, cust_extn, extn)
 
     @classmethod

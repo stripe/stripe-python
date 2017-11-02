@@ -1,9 +1,10 @@
-import sys
+from __future__ import absolute_import, division, print_function
+
 import warnings
 from copy import deepcopy
 
 import stripe
-from stripe import api_requestor, util
+from stripe import api_requestor, util, six
 
 
 def _compute_diff(current, previous):
@@ -104,7 +105,7 @@ class StripeObject(dict):
                     "the result returned by Stripe's API, probably as a "
                     "result of a save().  The attributes currently "
                     "available on this object are: %s" %
-                    (k, k, ', '.join(self.keys())))
+                    (k, k, ', '.join(list(self.keys()))))
             else:
                 raise err
 
@@ -169,7 +170,7 @@ class StripeObject(dict):
 
         self._transient_values = self._transient_values - set(values)
 
-        for k, v in values.iteritems():
+        for k, v in six.iteritems(values):
             super(StripeObject, self).__setitem__(
                 k, util.convert_to_stripe_object(v, api_key, stripe_version,
                                                  stripe_account))
@@ -195,16 +196,16 @@ class StripeObject(dict):
     def __repr__(self):
         ident_parts = [type(self).__name__]
 
-        if isinstance(self.get('object'), basestring):
+        if isinstance(self.get('object'), six.string_types):
             ident_parts.append(self.get('object'))
 
-        if isinstance(self.get('id'), basestring):
+        if isinstance(self.get('id'), six.string_types):
             ident_parts.append('id=%s' % (self.get('id'),))
 
         unicode_repr = '<%s at %s> JSON: %s' % (
             ' '.join(ident_parts), hex(id(self)), str(self))
 
-        if sys.version_info[0] < 3:
+        if six.PY2:
             return unicode_repr.encode('utf-8')
         else:
             return unicode_repr
@@ -230,7 +231,7 @@ class StripeObject(dict):
         unsaved_keys = self._unsaved_values or set()
         previous = previous or self._previous or {}
 
-        for k, v in self.items():
+        for k, v in six.iteritems(self):
             if k == 'id' or (isinstance(k, str) and k.startswith('_')):
                 continue
             elif isinstance(v, stripe.api_resources.abstract.APIResource):
@@ -256,7 +257,7 @@ class StripeObject(dict):
 
         copied._retrieve_params = self._retrieve_params
 
-        for k, v in self.items():
+        for k, v in six.iteritems(self):
             # Call parent's __setitem__ to avoid checks that we've added in the
             # overridden version that can throw exceptions.
             super(StripeObject, copied).__setitem__(k, v)
@@ -272,7 +273,7 @@ class StripeObject(dict):
         copied = self.__copy__()
         memo[id(self)] = copied
 
-        for k, v in self.items():
+        for k, v in six.iteritems(self):
             # Call parent's __setitem__ to avoid checks that we've added in the
             # overridden version that can throw exceptions.
             super(StripeObject, copied).__setitem__(k, deepcopy(v, memo))

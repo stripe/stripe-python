@@ -1,4 +1,4 @@
-from __future__ import print_function
+from __future__ import absolute_import, division, print_function
 
 import sys
 from collections import namedtuple
@@ -10,10 +10,9 @@ except ImportError:
 
 from stripe import util
 from stripe.test.helper import StripeUnitTestCase
+from stripe.six.moves import builtins
 
-import __builtin__
-
-PRINT_FUNC_STRING = __builtin__.__name__ + '.print'
+PRINT_FUNC_STRING = builtins.__name__ + '.print'
 
 LogTestCase = namedtuple('LogTestCase', 'env flag should_output')
 FmtTestCase = namedtuple('FmtTestCase', 'props expected')

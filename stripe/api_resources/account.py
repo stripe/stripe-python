@@ -1,4 +1,4 @@
-import urllib
+from __future__ import absolute_import, division, print_function
 
 from stripe import oauth, util
 from stripe.api_resources.abstract import CreateableAPIResource
@@ -6,6 +6,8 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+
+from stripe.six.moves.urllib.parse import quote_plus
 
 
 @nested_resource_class_methods(
@@ -33,7 +35,7 @@ class Account(CreateableAPIResource, ListableAPIResource,
             return "/v1/account"
         sid = util.utf8(sid)
         base = cls.class_url()
-        extn = urllib.quote_plus(sid)
+        extn = quote_plus(sid)
         return "%s/%s" % (base, extn)
 
     def instance_url(self):

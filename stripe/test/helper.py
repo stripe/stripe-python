@@ -1,13 +1,15 @@
+from __future__ import absolute_import, division, print_function
+
 import datetime
 import os
 import random
 import string
-import sys
 import unittest2
 
 from mock import patch, Mock
 
 import stripe
+from stripe import six
 
 NOW = datetime.datetime.now()
 
@@ -54,12 +56,7 @@ class StripeTestCase(unittest2.TestCase):
 
 
 class StripeUnitTestCase(StripeTestCase):
-    REQUEST_LIBRARIES = ['urlfetch', 'requests', 'pycurl']
-
-    if sys.version_info >= (3, 0):
-        REQUEST_LIBRARIES.append('urllib.request')
-    else:
-        REQUEST_LIBRARIES.append('urllib2')
+    REQUEST_LIBRARIES = ['urlfetch', 'requests', 'pycurl', 'urllib.request']
 
     def setUp(self):
         super(StripeUnitTestCase, self).setUp()
@@ -75,7 +72,7 @@ class StripeUnitTestCase(StripeTestCase):
     def tearDown(self):
         super(StripeUnitTestCase, self).tearDown()
 
-        for patcher in self.request_patchers.itervalues():
+        for patcher in six.itervalues(self.request_patchers):
             patcher.stop()
 
 
