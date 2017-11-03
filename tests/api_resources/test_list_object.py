@@ -1,10 +1,10 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeApiTestCase
+from tests.helper import StripeTestCase
 
 
-class ListObjectTests(StripeApiTestCase):
+class ListObjectTests(StripeTestCase):
 
     def setUp(self):
         super(ListObjectTests, self).setUp()
@@ -14,11 +14,6 @@ class ListObjectTests(StripeApiTestCase):
             'url': '/my/path',
             'data': ['foo'],
         }, 'mykey')
-
-        self.mock_response([{
-            'object': 'charge',
-            'foo': 'bar',
-        }])
 
     def assertResponse(self, res):
         self.assertTrue(isinstance(res[0], stripe.Charge))
@@ -33,26 +28,75 @@ class ListObjectTests(StripeApiTestCase):
         self.assertEqual(['foo'], seen)
 
     def test_list(self):
+        self.stub_request(
+            'get',
+            '/my/path',
+            [
+                {
+                    'object': 'charge',
+                    'foo': 'bar',
+                },
+            ]
+        )
+
         res = self.lo.list(myparam='you')
 
-        self.requestor_mock.request.assert_called_with(
-            'get', '/my/path', {'myparam': 'you'}, None)
-
+        self.assert_requested(
+            'get',
+            '/my/path',
+            {
+                'myparam': 'you',
+            },
+            None
+        )
         self.assertResponse(res)
 
     def test_create(self):
+        self.stub_request(
+            'post',
+            '/my/path',
+            [
+                {
+                    'object': 'charge',
+                    'foo': 'bar',
+                },
+            ]
+        )
+
         res = self.lo.create(myparam='eter')
 
-        self.requestor_mock.request.assert_called_with(
-            'post', '/my/path', {'myparam': 'eter'}, None)
-
+        self.assert_requested(
+            'post',
+            '/my/path',
+            {
+                'myparam': 'eter',
+            },
+            None
+        )
         self.assertResponse(res)
 
     def test_retrieve(self):
+        self.stub_request(
+            'get',
+            '/my/path/myid',
+            [
+                {
+                    'object': 'charge',
+                    'foo': 'bar',
+                },
+            ]
+        )
+
         res = self.lo.retrieve('myid', myparam='cow')
 
-        self.requestor_mock.request.assert_called_with(
-            'get', '/my/path/myid', {'myparam': 'cow'}, None)
+        self.assert_requested(
+            'get',
+            '/my/path/myid',
+            {
+                'myparam': 'cow',
+            },
+            None
+        )
 
         self.assertResponse(res)
 
@@ -70,7 +114,7 @@ class ListObjectTests(StripeApiTestCase):
         self.assertFalse(empty)
 
 
-class AutoPagingTests(StripeApiTestCase):
+class AutoPagingTests(StripeTestCase):
 
     @staticmethod
     def pageable_model_response(ids, has_more):
@@ -87,7 +131,7 @@ class AutoPagingTests(StripeApiTestCase):
             'mykey'
         )
 
-        self.requestor_mock.request.assert_not_called()
+        self.assert_no_request()
 
         seen = [item['id'] for item in lo.auto_paging_iter()]
 
@@ -100,13 +144,15 @@ class AutoPagingTests(StripeApiTestCase):
         )
         lo._retrieve_params = {'foo': 'bar'}
 
-        self.mock_response(
+        self.stub_request(
+            'get',
+            '/v1/pageablemodels',
             self.pageable_model_response(['pm_125', 'pm_126'], False)
         )
 
         seen = [item['id'] for item in lo.auto_paging_iter()]
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'get',
             '/v1/pageablemodels',
             {
@@ -119,20 +165,28 @@ class AutoPagingTests(StripeApiTestCase):
         self.assertEqual(['pm_123', 'pm_124', 'pm_125', 'pm_126'], seen)
 
     def test_class_method_two_pages(self):
-        self.mock_response({
-            'object': 'list',
-            'data': [{'id': 'ch_001'}],
-            'url': '/v1/charges',
-            'has_more': False,
-        })
+        self.stub_request(
+            'get',
+            '/v1/charges',
+            {
+                'object': 'list',
+                'data': [{'id': 'ch_001'}],
+                'url': '/v1/charges',
+                'has_more': False,
+            }
+        )
 
         seen = [item['id'] for item in stripe.Charge.auto_paging_iter(
             limit=25,
             foo='bar'
         )]
 
-        self.requestor_mock.request.assert_called_with(
-            'get', '/v1/charges', {'limit': 25, 'foo': 'bar'}
+        self.assert_requested(
+            'get',
+            '/v1/charges',
+            {
+                'limit': 25,
+                'foo': 'bar',
+            }
         )
-
         self.assertEqual(['ch_001'], seen)

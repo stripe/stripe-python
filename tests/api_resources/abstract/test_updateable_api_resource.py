@@ -1,20 +1,24 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeApiTestCase
+from tests.helper import StripeTestCase
 
 
 class MyUpdateable(stripe.api_resources.abstract.UpdateableAPIResource):
     pass
 
 
-class UpdateableAPIResourceTests(StripeApiTestCase):
+class UpdateableAPIResourceTests(StripeTestCase):
     def setUp(self):
         super(UpdateableAPIResourceTests, self).setUp()
 
-        self.mock_response({
-            'thats': 'it'
-        })
+        self.stub_request(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'thats': 'it'
+            }
+        )
 
         self.obj = MyUpdateable.construct_from({
             'id': 'myid',
@@ -39,7 +43,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
         self.obj.baz = 'updated'
         self.obj.save(idempotency_key='foo')
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -59,7 +63,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.checkSave()
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -75,21 +79,29 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
         )
 
         # Saving again should not cause any request.
-        self.requestor_mock.request.reset_mock()
+        self.request_mock.reset_mock()
         self.checkSave()
-        self.assertFalse(self.requestor_mock.request.called)
+        self.assert_no_request()
 
         # Setting the same value should not cause any request.
         self.obj.thats = 'it'
         self.checkSave()
-        self.assertFalse(self.requestor_mock.request.called)
+        self.assert_no_request()
 
         # Changing the value should cause a request.
+        self.stub_request(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'thats': 'it'
+            }
+        )
+
         self.obj.id = 'myid'
         self.obj.thats = 'updated'
         self.checkSave()
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -112,7 +124,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.assertTrue(acct is acct.save())
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -133,7 +145,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.assertTrue(acct is acct.save())
 
-        self.requestor_mock.request.assert_not_called()
+        self.assert_no_request()
 
     def test_replace_nested_object(self):
         acct = MyUpdateable.construct_from({
@@ -149,7 +161,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.assertTrue(acct is acct.save())
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -171,7 +183,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.assertTrue(acct is acct.save())
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -196,7 +208,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.assertTrue(acct is acct.save())
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -217,7 +229,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.assertTrue(acct is acct.save())
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -245,7 +257,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.assertTrue(acct is acct.save())
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -270,7 +282,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.assertTrue(acct is acct.save())
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -289,7 +301,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.assertTrue(acct is acct.save())
 
-        self.requestor_mock.request.assert_not_called()
+        self.assert_no_request()
 
     def test_save_replace_metadata_with_number(self):
         self.obj.baz = 'updated'
@@ -298,7 +310,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.checkSave()
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -313,7 +325,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
         self.obj.metadata = {}
         self.checkSave()
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -337,7 +349,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.checkSave()
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -364,7 +376,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.checkSave()
 
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/myupdateables/myid',
             {
@@ -380,22 +392,29 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
         )
 
     def test_retrieve_and_update_with_stripe_version(self):
-        self.mock_response({
-            'id': 'foo',
-            'bobble': 'scrobble',
-        })
+        self.stub_request(
+            'get',
+            '/v1/myupdateables/foo',
+            {
+                'id': 'foo',
+                'bobble': 'scrobble',
+            }
+        )
 
         res = MyUpdateable.retrieve('foo', stripe_version='2017-08-15')
 
-        self.requestor_class_mock.assert_called_with(
-            account=None, api_base=None, key=None,
-            api_version='2017-08-15'
+        self.request_mock.assert_api_version('2017-08-15')
+
+        self.stub_request(
+            'post',
+            '/v1/myupdateables/foo',
+            {
+                'id': 'foo',
+                'bobble': 'new_scrobble',
+            }
         )
 
         res.bobble = 'new_scrobble'
         res.save()
 
-        self.requestor_class_mock.assert_called_with(
-            account=None, api_base=None, key='reskey',
-            api_version='2017-08-15'
-        )
+        self.request_mock.assert_api_version('2017-08-15')

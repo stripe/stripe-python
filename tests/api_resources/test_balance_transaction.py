@@ -1,22 +1,18 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeResourceTest
+from tests.helper import StripeTestCase
 
 
-class BalanceTransactionTest(StripeResourceTest):
+TEST_RESOURCE_ID = 'txn_123'
 
-    def test_list_balance_transactions(self):
-        stripe.BalanceTransaction.list()
-        self.requestor_mock.request.assert_called_with(
+
+class BalanceTransactionTest(StripeTestCase):
+    def test_is_listable(self):
+        resources = stripe.BalanceTransaction.list()
+        self.assert_requested(
             'get',
             '/v1/balance/history',
-            {}
         )
-
-    def test_convert_to_stripe_object(self):
-        transaction = stripe.util.convert_to_stripe_object({
-            'id': 'txn_foo',
-            'object': 'balance_transaction',
-        })
-        self.assertIsInstance(transaction, stripe.BalanceTransaction)
+        self.assertIsInstance(resources.data, list)
+        self.assertIsInstance(resources.data[0], stripe.BalanceTransaction)

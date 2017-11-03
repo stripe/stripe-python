@@ -1,63 +1,68 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeResourceTest
+from tests.helper import StripeTestCase
 
 
-DUMMY_COUPON = {
-    'percent_off': 25,
-    'duration': 'repeating',
-    'duration_in_months': 5,
-    'metadata': {}
-}
+TEST_RESOURCE_ID = '250FF'
 
 
-class CouponTest(StripeResourceTest):
+class CouponTest(StripeTestCase):
+    def test_is_listable(self):
+        resources = stripe.Coupon.list()
+        self.assert_requested(
+            'get',
+            '/v1/coupons'
+        )
+        self.assertIsInstance(resources.data, list)
+        self.assertIsInstance(resources.data[0], stripe.Coupon)
 
-    def test_create_coupon(self):
-        stripe.Coupon.create(**DUMMY_COUPON)
-        self.requestor_mock.request.assert_called_with(
+    def test_is_retrievable(self):
+        resource = stripe.Coupon.retrieve(TEST_RESOURCE_ID)
+        self.assert_requested(
+            'get',
+            '/v1/coupons/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.Coupon)
+
+    def test_is_creatable(self):
+        resource = stripe.Coupon.create(
+            percent_off=25,
+            duration='repeating',
+            duration_in_months=3,
+            id='250FF'
+        )
+        self.assert_requested(
             'post',
-            '/v1/coupons',
-            DUMMY_COUPON,
-            None
+            '/v1/coupons'
         )
+        self.assertIsInstance(resource, stripe.Coupon)
 
-    def test_update_coupon(self):
-        coup = stripe.Coupon.construct_from({
-            'id': 'cu_update',
-            'metadata': {},
-        }, 'api_key')
-        coup.metadata["key"] = "value"
-        coup.save()
-
-        self.requestor_mock.request.assert_called_with(
+    def test_is_saveable(self):
+        resource = stripe.Coupon.retrieve(TEST_RESOURCE_ID)
+        resource.metadata['key'] = 'value'
+        resource.save()
+        self.assert_requested(
             'post',
-            "/v1/coupons/cu_update",
-            {
-                'metadata': {
-                    'key': 'value',
-                }
-            },
-            None
+            '/v1/coupons/%s' % resource.id
         )
 
-    def test_delete_coupon(self):
-        c = stripe.Coupon(id='cu_delete')
-        c.delete()
+    def test_is_modifiable(self):
+        resource = stripe.Coupon.modify(
+            TEST_RESOURCE_ID,
+            metadata={'key': 'value'}
+        )
+        self.assert_requested(
+            'post',
+            '/v1/coupons/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.Coupon)
 
-        self.requestor_mock.request.assert_called_with(
+    def test_is_deletable(self):
+        resource = stripe.Coupon.retrieve(TEST_RESOURCE_ID)
+        resource.delete()
+        self.assert_requested(
             'delete',
-            '/v1/coupons/cu_delete',
-            {},
-            None
+            '/v1/coupons/%s' % resource.id
         )
-
-    def test_detach_coupon(self):
-        customer = stripe.Customer(id="cus_delete_discount")
-        customer.delete_discount()
-
-        self.requestor_mock.request.assert_called_with(
-            'delete',
-            '/v1/customers/cus_delete_discount/discount',
-        )
+        self.assertIsInstance(resource, stripe.Coupon)

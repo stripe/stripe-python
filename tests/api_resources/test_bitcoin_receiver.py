@@ -1,113 +1,109 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeResourceTest
+from tests.helper import StripeTestCase
 
 
-class BitcoinReceiverTest(StripeResourceTest):
+TEST_RESOURCE_ID = 'btcrcv_123'
 
-    def test_retrieve_resource(self):
-        stripe.BitcoinReceiver.retrieve("btcrcv_test_receiver")
-        self.requestor_mock.request.assert_called_with(
+
+class BitcoinReceiverTest(StripeTestCase):
+    def construct_resource(self, **params):
+        res_dict = {
+            'id': TEST_RESOURCE_ID,
+            'object': 'bitcoin_receiver',
+            'metadata': {},
+        }
+        res_dict.update(params)
+        return stripe.BitcoinReceiver.construct_from(res_dict, stripe.api_key)
+
+    def test_has_customer_instance_url(self):
+        resource = self.construct_resource(customer='cus_123')
+        self.assertEquals(
+            '/v1/customers/cus_123/sources/%s' % TEST_RESOURCE_ID,
+            resource.instance_url()
+        )
+
+    def test_has_receiver_instance_url(self):
+        resource = self.construct_resource()
+        self.assertEquals(
+            '/v1/bitcoin/receivers/%s' % TEST_RESOURCE_ID,
+            resource.instance_url()
+        )
+
+    def test_is_listable(self):
+        resources = stripe.BitcoinReceiver.list()
+        self.assert_requested(
             'get',
-            '/v1/bitcoin/receivers/btcrcv_test_receiver',
-            {},
-            None
+            '/v1/bitcoin/receivers'
         )
+        self.assertIsInstance(resources.data, list)
+        self.assertIsInstance(resources.data[0], stripe.BitcoinReceiver)
 
-    def test_list_receivers(self):
-        stripe.BitcoinReceiver.list()
-        self.requestor_mock.request.assert_called_with(
+    def test_is_retrievable(self):
+        resource = stripe.BitcoinReceiver.retrieve(TEST_RESOURCE_ID)
+        self.assert_requested(
             'get',
-            '/v1/bitcoin/receivers',
-            {},
+            '/v1/bitcoin/receivers/%s' % TEST_RESOURCE_ID
         )
+        self.assertIsInstance(resource, stripe.BitcoinReceiver)
 
-    def test_create_receiver(self):
-        stripe.BitcoinReceiver.create(amount=100, description="some details",
-                                      currency="usd",
-                                      email="do+fill_now@stripe.com")
-        self.requestor_mock.request.assert_called_with(
+    # stripe-mock does not handle most write operations anymore so we stub
+    # each one instead. This endpoint/resource is mostly deprecated today.
+    # The previous tests already ensure that the request will be routed to the
+    # correct URL, so we also only test the API operations once.
+
+    def test_is_creatable(self):
+        self.stub_request(
             'post',
             '/v1/bitcoin/receivers',
             {
-                'amount': 100,
-                'description': 'some details',
-                'currency': 'usd',
-                'email': 'do+fill_now@stripe.com'
-            },
-            None
-        )
-
-    def test_update_receiver_without_customer(self):
-        params = {'id': 'receiver', 'amount': 100,
-                  'description': "some details", 'currency': "usd"}
-        r = stripe.BitcoinReceiver.construct_from(params, 'api_key')
-        r.description = "some other details"
-        r.save()
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/bitcoin/receivers/receiver',
-            {
-                'description': 'some other details',
-            },
-            None
-        )
-
-    def test_update_receiver_with_customer(self):
-        params = {'id': 'receiver', 'amount': 100,
-                  'description': "some details", 'currency': "usd",
-                  'customer': "cust"}
-        r = stripe.BitcoinReceiver.construct_from(params, 'api_key')
-        r.description = "some other details"
-        r.save()
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/customers/cust/sources/receiver',
-            {
-                'description': 'some other details',
-            },
-            None
-        )
-
-    def test_delete_receiver_without_customer(self):
-        params = {'id': 'receiver', 'amount': 100,
-                  'description': "some details", 'currency': "usd"}
-        r = stripe.BitcoinReceiver.construct_from(params, 'api_key')
-        r.delete()
-        self.requestor_mock.request.assert_called_with(
-            'delete',
-            '/v1/bitcoin/receivers/receiver',
-            {},
-            None
-        )
-
-    def test_delete_receiver_with_customer(self):
-        params = {'id': 'receiver', 'amount': 100,
-                  'description': "some details", 'currency': "usd",
-                  'customer': "cust"}
-        r = stripe.BitcoinReceiver.construct_from(params, 'api_key')
-        r.delete()
-        self.requestor_mock.request.assert_called_with(
-            'delete',
-            '/v1/customers/cust/sources/receiver',
-            {},
-            None
-        )
-
-    def test_list_transactions(self):
-        receiver = stripe.BitcoinReceiver.construct_from({
-            'id': 'btcrcv_foo',
-            'transactions': {
-                'object': 'list',
-                'url': '/v1/bitcoin/receivers/btcrcv_foo/transactions',
+                'id': '%s' % TEST_RESOURCE_ID,
+                'object': 'bitcoin_receiver'
             }
-        }, 'api_key')
+        )
+        resource = stripe.BitcoinReceiver.create()
+        self.assert_requested(
+            'post',
+            '/v1/bitcoin/receivers'
+        )
+        self.assertIsInstance(resource, stripe.BitcoinReceiver)
 
-        receiver.transactions.list()
-        self.requestor_mock.request.assert_called_with(
-            'get',
-            '/v1/bitcoin/receivers/btcrcv_foo/transactions',
-            {},
-            None
+    def test_is_saveable(self):
+        self.stub_request(
+            'post',
+            '/v1/bitcoin/receivers/%s' % TEST_RESOURCE_ID
+        )
+        resource = self.construct_resource()
+        resource.metadata['key'] = 'value'
+        resource.save()
+        self.assert_requested(
+            'post',
+            '/v1/bitcoin/receivers/%s' % TEST_RESOURCE_ID
+        )
+
+    def test_is_modifiable(self):
+        self.stub_request(
+            'post',
+            '/v1/bitcoin/receivers/%s' % TEST_RESOURCE_ID
+        )
+        stripe.BitcoinReceiver.modify(
+            TEST_RESOURCE_ID,
+            metadata={'key': 'value'}
+        )
+        self.assert_requested(
+            'post',
+            '/v1/bitcoin/receivers/%s' % TEST_RESOURCE_ID
+        )
+
+    def test_is_deletable(self):
+        self.stub_request(
+            'delete',
+            '/v1/bitcoin/receivers/%s' % TEST_RESOURCE_ID
+        )
+        resource = self.construct_resource()
+        resource.delete()
+        self.assert_requested(
+            'delete',
+            '/v1/bitcoin/receivers/%s' % TEST_RESOURCE_ID
         )

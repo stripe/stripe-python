@@ -1,49 +1,45 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeResourceTest
+from tests.helper import StripeTestCase
 
 
-DUMMY_APPLE_PAY_DOMAIN = {
-    'domain_name': 'test.com',
-}
+TEST_RESOURCE_ID = 'apwc_123'
 
 
-class ApplePayDomainTest(StripeResourceTest):
+class ApplePayDomainTest(StripeTestCase):
+    def test_is_listable(self):
+        resources = stripe.ApplePayDomain.list()
+        self.assert_requested(
+            'get',
+            '/v1/apple_pay/domains'
+        )
+        self.assertIsInstance(resources.data, list)
+        self.assertIsInstance(resources.data[0], stripe.ApplePayDomain)
 
-    def test_create_apple_pay_domain(self):
-        stripe.ApplePayDomain.create(**DUMMY_APPLE_PAY_DOMAIN)
-        self.requestor_mock.request.assert_called_with(
+    def test_is_retrievable(self):
+        resource = stripe.ApplePayDomain.retrieve(TEST_RESOURCE_ID)
+        self.assert_requested(
+            'get',
+            '/v1/apple_pay/domains/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.ApplePayDomain)
+
+    def test_is_creatable(self):
+        resource = stripe.ApplePayDomain.create(
+            domain_name='test.com',
+        )
+        self.assert_requested(
             'post',
-            '/v1/apple_pay/domains',
-            DUMMY_APPLE_PAY_DOMAIN,
-            None
+            '/v1/apple_pay/domains'
         )
+        self.assertIsInstance(resource, stripe.ApplePayDomain)
 
-    def test_retrieve_apple_pay_domain(self):
-        stripe.ApplePayDomain.retrieve("apwc_test")
-        self.requestor_mock.request.assert_called_with(
-            'get',
-            '/v1/apple_pay/domains/apwc_test',
-            {},
-            None
-        )
-
-    def test_list_apple_pay_domains(self):
-        stripe.ApplePayDomain.list()
-        self.requestor_mock.request.assert_called_with(
-            'get',
-            '/v1/apple_pay/domains',
-            {},
-        )
-
-    def test_delete_apple_pay_domain(self):
-        d = stripe.ApplePayDomain(id='apwc_delete')
-        d.delete()
-
-        self.requestor_mock.request.assert_called_with(
+    def test_is_deletable(self):
+        resource = stripe.ApplePayDomain.retrieve(TEST_RESOURCE_ID)
+        resource.delete()
+        self.assert_requested(
             'delete',
-            '/v1/apple_pay/domains/apwc_delete',
-            {},
-            None
+            '/v1/apple_pay/domains/%s' % resource.id
         )
+        self.assertIsInstance(resource, stripe.ApplePayDomain)

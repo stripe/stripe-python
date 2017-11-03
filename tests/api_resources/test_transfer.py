@@ -1,84 +1,129 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeResourceTest
+from tests.helper import StripeTestCase
 
 
-class TransferTest(StripeResourceTest):
+TEST_RESOURCE_ID = 'tr_123'
+TEST_REVERSAL_ID = 'trr_123'
 
-    def test_list_transfers(self):
-        stripe.Transfer.list()
-        self.requestor_mock.request.assert_called_with(
+
+class TransferTest(StripeTestCase):
+    def test_is_listable(self):
+        resources = stripe.Transfer.list()
+        self.assert_requested(
             'get',
-            '/v1/transfers',
-            {}
+            '/v1/transfers'
         )
+        self.assertIsInstance(resources.data, list)
+        self.assertIsInstance(resources.data[0], stripe.Transfer)
 
-    def test_cancel_transfer(self):
-        self.mock_response({
-            'id': 'tr_cancel',
-            'status': 'canceled',
-        })
+    def test_is_retrievable(self):
+        resource = stripe.Transfer.retrieve(TEST_RESOURCE_ID)
+        self.assert_requested(
+            'get',
+            '/v1/transfers/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.Transfer)
 
-        transfer = stripe.Transfer(id='tr_cancel')
-
-        self.assertTrue(transfer is transfer.cancel(idempotency_key='idem-foo'))
-        self.assertEquals('canceled', transfer.status)
-        self.assertEquals('tr_cancel', transfer.id)
-
-        self.requestor_mock.request.assert_called_with(
+    def test_is_creatable(self):
+        resource = stripe.Transfer.create(
+            amount=100,
+            currency='usd',
+            destination='acct_123'
+        )
+        self.assert_requested(
             'post',
-            '/v1/transfers/tr_cancel/cancel',
-            {},
-            {'Idempotency-Key': 'idem-foo'}
+            '/v1/transfers'
+        )
+        self.assertIsInstance(resource, stripe.Transfer)
+
+    def test_is_saveable(self):
+        resource = stripe.Transfer.retrieve(TEST_RESOURCE_ID)
+        resource.metadata['key'] = 'value'
+        resource.save()
+        self.assert_requested(
+            'post',
+            '/v1/transfers/%s' % resource.id
         )
 
+    def test_is_modifiable(self):
+        resource = stripe.Transfer.modify(
+            TEST_RESOURCE_ID,
+            metadata={'key': 'value'}
+        )
+        self.assert_requested(
+            'post',
+            '/v1/transfers/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.Transfer)
 
-class TransferReversalsTests(StripeResourceTest):
-    def test_create_reversal(self):
-        stripe.Transfer.create_reversal(
-            'tr_123',
+    def test_is_cancelable(self):
+        # stripe-mock does not handle this anymore as it was on an old
+        # API version so we stub instead.
+        self.stub_request(
+            'post',
+            '/v1/transfers/%s/cancel' % TEST_RESOURCE_ID,
+            {
+                'id': '%s' % TEST_RESOURCE_ID,
+                'object': 'transfer',
+                'status': 'canceled'
+            }
+        )
+        transfer = stripe.Transfer.construct_from({
+            'id': '%s' % TEST_RESOURCE_ID,
+            'object': 'transfer'
+        }, stripe.api_key)
+        transfer_canceled = transfer.cancel()
+        self.assert_requested(
+            'post',
+            '/v1/transfers/%s/cancel' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(transfer_canceled, stripe.Transfer)
+
+
+class TransferReversalTest(StripeTestCase):
+    def test_is_listable(self):
+        resources = stripe.Transfer.list_reversals(TEST_RESOURCE_ID)
+        self.assert_requested(
+            'get',
+            '/v1/transfers/%s/reversals' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resources.data, list)
+        self.assertIsInstance(resources.data[0], stripe.Reversal)
+
+    def test_is_retrievable(self):
+        resource = stripe.Transfer.retrieve_reversal(
+            TEST_RESOURCE_ID,
+            TEST_REVERSAL_ID
+        )
+        self.assert_requested(
+            'get',
+            '/v1/transfers/%s/reversals/%s' % (TEST_RESOURCE_ID,
+                                               TEST_REVERSAL_ID)
+        )
+        self.assertIsInstance(resource, stripe.Reversal)
+
+    def test_is_creatable(self):
+        resource = stripe.Transfer.create_reversal(
+            TEST_RESOURCE_ID,
             amount=100
         )
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
-            '/v1/transfers/tr_123/reversals',
-            {'amount': 100},
-            None
+            '/v1/transfers/%s/reversals' % TEST_RESOURCE_ID
         )
+        self.assertIsInstance(resource, stripe.Reversal)
 
-    def test_retrieve_reversal(self):
-        stripe.Transfer.retrieve_reversal(
-            'tr_123',
-            'trr_123'
-        )
-        self.requestor_mock.request.assert_called_with(
-            'get',
-            '/v1/transfers/tr_123/reversals/trr_123',
-            {},
-            None
-        )
-
-    def test_modify_reversal(self):
-        stripe.Transfer.modify_reversal(
-            'tr_123',
-            'trr_123',
+    def test_is_modifiable(self):
+        resource = stripe.Transfer.modify_reversal(
+            TEST_RESOURCE_ID,
+            TEST_REVERSAL_ID,
             metadata={'foo': 'bar'}
         )
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
-            '/v1/transfers/tr_123/reversals/trr_123',
-            {'metadata': {'foo': 'bar'}},
-            None
+            '/v1/transfers/%s/reversals/%s' % (TEST_RESOURCE_ID,
+                                               TEST_REVERSAL_ID)
         )
-
-    def test_list_reversals(self):
-        stripe.Transfer.list_reversals(
-            'tr_123'
-        )
-        self.requestor_mock.request.assert_called_with(
-            'get',
-            '/v1/transfers/tr_123/reversals',
-            {},
-            None
-        )
+        self.assertIsInstance(resource, stripe.Reversal)

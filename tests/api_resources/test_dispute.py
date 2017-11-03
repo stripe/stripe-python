@@ -1,67 +1,54 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeResourceTest, NOW
+from tests.helper import StripeTestCase
 
 
-DUMMY_DISPUTE = {
-    'status': 'needs_response',
-    'currency': 'usd',
-    'metadata': {}
-}
+TEST_RESOURCE_ID = 'dp_123'
 
 
-class DisputeTest(StripeResourceTest):
-
-    def test_list_all_disputes(self):
-        stripe.Dispute.list(created={'lt': NOW})
-
-        self.requestor_mock.request.assert_called_with(
+class DisputeTest(StripeTestCase):
+    def test_is_listable(self):
+        resources = stripe.Dispute.list()
+        self.assert_requested(
             'get',
-            '/v1/disputes',
-            {
-                'created': {'lt': NOW},
-            }
+            '/v1/disputes'
         )
+        self.assertIsInstance(resources.data, list)
+        self.assertIsInstance(resources.data[0], stripe.Dispute)
 
-    def test_retrieve_dispute(self):
-        stripe.Dispute.retrieve('dp_test_id')
-
-        self.requestor_mock.request.assert_called_with(
+    def test_is_retrievable(self):
+        resource = stripe.Dispute.retrieve(TEST_RESOURCE_ID)
+        self.assert_requested(
             'get',
-            '/v1/disputes/dp_test_id',
-            {},
-            None
+            '/v1/disputes/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.Dispute)
+
+    def test_is_saveable(self):
+        resource = stripe.Dispute.retrieve(TEST_RESOURCE_ID)
+        resource.metadata['key'] = 'value'
+        resource.save()
+        self.assert_requested(
+            'post',
+            '/v1/disputes/%s' % resource.id
         )
 
-    def test_update_dispute(self):
-        dispute = stripe.Dispute.construct_from({
-            'id': 'dp_update_id',
-            'evidence': {
-                'product_description': 'description',
-            },
-        }, 'api_key')
-        dispute.evidence['customer_name'] = 'customer'
-        dispute.evidence['uncategorized_text'] = 'text'
-        dispute.save()
-
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/disputes/dp_update_id',
-            {'evidence': {
-                'customer_name': 'customer',
-                'uncategorized_text': 'text',
-            }},
-            None
+    def test_is_modifiable(self):
+        resource = stripe.Dispute.modify(
+            TEST_RESOURCE_ID,
+            metadata={'key': 'value'}
         )
-
-    def test_close_dispute(self):
-        dispute = stripe.Dispute(id='dp_close_id')
-        dispute.close(idempotency_key='foo')
-
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
-            '/v1/disputes/dp_close_id/close',
-            {},
-            {'Idempotency-Key': 'foo'},
+            '/v1/disputes/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.Dispute)
+
+    def test_is_closeable(self):
+        resource = stripe.Dispute.retrieve(TEST_RESOURCE_ID)
+        resource.close()
+        self.assert_requested(
+            'post',
+            '/v1/disputes/%s/close' % resource.id
         )

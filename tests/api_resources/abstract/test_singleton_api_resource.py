@@ -1,22 +1,29 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeApiTestCase
+from tests.helper import StripeTestCase
 
 
 class MySingleton(stripe.api_resources.abstract.SingletonAPIResource):
     pass
 
 
-class SingletonAPIResourceTests(StripeApiTestCase):
+class SingletonAPIResourceTests(StripeTestCase):
 
     def test_retrieve(self):
-        self.mock_response({
-            'single': 'ton'
-        })
+        self.stub_request(
+            'get',
+            '/v1/mysingleton',
+            {
+                'single': 'ton'
+            }
+        )
+
         res = MySingleton.retrieve()
 
-        self.requestor_mock.request.assert_called_with(
-            'get', '/v1/mysingleton', {}, None)
-
+        self.assert_requested(
+            'get',
+            '/v1/mysingleton',
+            {}
+        )
         self.assertEqual('ton', res.single)

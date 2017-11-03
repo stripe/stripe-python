@@ -1,26 +1,65 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeResourceTest
+from tests.helper import StripeTestCase
 
 
-class ProductTest(StripeResourceTest):
+TEST_RESOURCE_ID = 'prod_123'
 
-    def test_list_products(self):
-        stripe.Product.list()
-        self.requestor_mock.request.assert_called_with(
+
+class ProductTest(StripeTestCase):
+    def test_is_listable(self):
+        resources = stripe.Product.list()
+        self.assert_requested(
             'get',
-            '/v1/products',
-            {}
+            '/v1/products'
+        )
+        self.assertIsInstance(resources.data, list)
+        self.assertIsInstance(resources.data[0], stripe.Product)
+
+    def test_is_retrievable(self):
+        resource = stripe.Product.retrieve(TEST_RESOURCE_ID)
+        self.assert_requested(
+            'get',
+            '/v1/products/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.Product)
+
+    def test_is_creatable(self):
+        resource = stripe.Product.create(
+            name='NAME'
+        )
+        self.assert_requested(
+            'post',
+            '/v1/products'
+        )
+        self.assertIsInstance(resource, stripe.Product)
+
+    def test_is_saveable(self):
+        resource = stripe.Product.retrieve(TEST_RESOURCE_ID)
+        resource.metadata['key'] = 'value'
+        resource.save()
+        self.assert_requested(
+            'post',
+            '/v1/products/%s' % resource.id
         )
 
-    def test_delete_products(self):
-        p = stripe.Product(id='product_to_delete')
-        p.delete()
+    def test_is_modifiable(self):
+        resource = stripe.Product.modify(
+            TEST_RESOURCE_ID,
+            metadata={'key': 'value'}
+        )
+        self.assert_requested(
+            'post',
+            '/v1/products/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.Product)
 
-        self.requestor_mock.request.assert_called_with(
+    def test_is_deletable(self):
+        resource = stripe.Product.retrieve(TEST_RESOURCE_ID)
+        resource.delete()
+        self.assert_requested(
             'delete',
-            '/v1/products/product_to_delete',
-            {},
-            None
+            '/v1/products/%s' % resource.id
         )
+        self.assertIsInstance(resource, stripe.Product)

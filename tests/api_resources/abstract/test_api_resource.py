@@ -1,43 +1,59 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeApiTestCase
+from tests.helper import StripeTestCase
 
 
 class MyResource(stripe.api_resources.abstract.APIResource):
     pass
 
 
-class APIResourceTests(StripeApiTestCase):
+class APIResourceTests(StripeTestCase):
 
     def test_retrieve_and_refresh(self):
-        self.mock_response({
-            'id': 'foo2',
-            'bobble': 'scrobble',
-        })
+        url = '/v1/myresources/foo%2A'
+        self.stub_request(
+            'get',
+            url,
+            {
+                'id': 'foo2',
+                'bobble': 'scrobble',
+            }
+        )
 
         res = MyResource.retrieve('foo*', myparam=5)
 
-        url = '/v1/myresources/foo%2A'
-        self.requestor_mock.request.assert_called_with(
-            'get', url, {'myparam': 5}, None
+        self.assert_requested(
+            'get',
+            url,
+            {
+                'myparam': 5,
+            },
+            None
         )
-
         self.assertEqual('scrobble', res.bobble)
         self.assertEqual('foo2', res.id)
-        self.assertEqual('reskey', res.api_key)
+        self.assertEqual('sk_test_123', res.api_key)
 
-        self.mock_response({
-            'frobble': 5,
-        })
+        url = '/v1/myresources/foo2'
+        self.stub_request(
+            'get',
+            url,
+            {
+                'frobble': 5,
+            }
+        )
 
         res = res.refresh()
 
-        url = '/v1/myresources/foo2'
-        self.requestor_mock.request.assert_called_with(
-            'get', url, {'myparam': 5}, None
+        self.assert_requested(
+            'get',
+            url,
+            {
+                'myparam': 5,
+            },
+            None
         )
-
         self.assertEqual(5, res.frobble)
         self.assertRaises(KeyError, res.__getitem__, 'bobble')
 

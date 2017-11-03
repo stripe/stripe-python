@@ -1,127 +1,84 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeResourceTest
+from tests.helper import StripeTestCase
 
 
-DUMMY_INVOICE_ITEM = {
-    'amount': 456,
-    'currency': 'usd',
-}
+TEST_RESOURCE_ID = 'in_123'
 
 
-class InvoiceTest(StripeResourceTest):
-
-    def test_add_invoice_item(self):
-        customer = stripe.Customer(id="cus_invoice_items")
-        customer.add_invoice_item(**DUMMY_INVOICE_ITEM)
-
-        expected = DUMMY_INVOICE_ITEM.copy()
-        expected['customer'] = 'cus_invoice_items'
-
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/invoiceitems',
-            expected,
-            None,
-        )
-
-    def test_retrieve_invoice_items(self):
-        customer = stripe.Customer(id="cus_get_invoice_items")
-        customer.invoice_items()
-
-        self.requestor_mock.request.assert_called_with(
+class InvoiceTest(StripeTestCase):
+    def test_is_listable(self):
+        resources = stripe.Invoice.list()
+        self.assert_requested(
             'get',
-            '/v1/invoiceitems',
-            {'customer': 'cus_get_invoice_items'},
+            '/v1/invoices'
         )
+        self.assertIsInstance(resources.data, list)
+        self.assertIsInstance(resources.data[0], stripe.Invoice)
 
-    def test_convert_to_stripe_object(self):
-        item = stripe.util.convert_to_stripe_object({
-            'id': 'ii_foo',
-            'object': 'invoiceitem',
-        })
-        self.assertIsInstance(item, stripe.InvoiceItem)
-
-    def test_invoice_create(self):
-        customer = stripe.Customer(id="cus_invoice")
-        stripe.Invoice.create(customer=customer.id)
-
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/invoices',
-            {
-                'customer': 'cus_invoice',
-            },
-            None
-        )
-
-    def test_retrieve_customer_invoices(self):
-        customer = stripe.Customer(id="cus_invoice_items")
-        customer.invoices()
-
-        self.requestor_mock.request.assert_called_with(
+    def test_is_retrievable(self):
+        resource = stripe.Invoice.retrieve(TEST_RESOURCE_ID)
+        self.assert_requested(
             'get',
-            '/v1/invoices',
-            {
-                'customer': 'cus_invoice_items',
-            },
+            '/v1/invoices/%s' % TEST_RESOURCE_ID
         )
+        self.assertIsInstance(resource, stripe.Invoice)
 
-    def test_pay_invoice(self):
-        self.mock_response({
-            'id': 'ii_pay',
-            'paid': True,
-        })
-
-        invoice = stripe.Invoice(id="ii_pay")
-
-        self.assertTrue(invoice is invoice.pay(idempotency_key='idem-foo'))
-        self.assertEquals(True, invoice.paid)
-        self.assertEquals('ii_pay', invoice.id)
-
-        self.requestor_mock.request.assert_called_with(
+    def test_is_creatable(self):
+        resource = stripe.Invoice.create(
+            customer='cus_123'
+        )
+        self.assert_requested(
             'post',
-            '/v1/invoices/ii_pay/pay',
-            {},
-            {'Idempotency-Key': 'idem-foo'}
+            '/v1/invoices'
         )
+        self.assertIsInstance(resource, stripe.Invoice)
 
-    def test_pay_invoice_params(self):
-        self.mock_response({
-            'id': 'ii_pay',
-            'paid': True,
-        })
-
-        invoice = stripe.Invoice(id="ii_pay")
-
-        self.assertTrue(invoice is invoice.pay(source="src_foo"))
-        self.assertEquals(True, invoice.paid)
-        self.assertEquals('ii_pay', invoice.id)
-
-        self.requestor_mock.request.assert_called_with(
+    def test_is_saveable(self):
+        resource = stripe.Invoice.retrieve(TEST_RESOURCE_ID)
+        resource.metadata['key'] = 'value'
+        resource.save()
+        self.assert_requested(
             'post',
-            '/v1/invoices/ii_pay/pay',
-            {
-                'source': 'src_foo',
-            },
-            None
+            '/v1/invoices/%s' % resource.id
         )
 
-    def test_upcoming_invoice(self):
-        stripe.Invoice.upcoming()
+    def test_is_modifiable(self):
+        resource = stripe.Invoice.modify(
+            TEST_RESOURCE_ID,
+            metadata={'key': 'value'}
+        )
+        self.assert_requested(
+            'post',
+            '/v1/invoices/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.Invoice)
 
-        self.requestor_mock.request.assert_called_with(
+    def test_can_pay(self):
+        resource = stripe.Invoice.retrieve(TEST_RESOURCE_ID)
+        resource = resource.pay()
+        self.assert_requested(
+            'post',
+            '/v1/invoices/%s/pay' % resource.id
+        )
+        self.assertIsInstance(resource, stripe.Invoice)
+
+    def test_can_upcoming(self):
+        resource = stripe.Invoice.upcoming()
+        self.assert_requested(
             'get',
-            '/v1/invoices/upcoming',
-            {},
+            '/v1/invoices/upcoming'
         )
+        self.assertIsInstance(resource, stripe.Invoice)
 
-    def test_upcoming_invoice_subscription_items(self):
-        stripe.Invoice.upcoming(subscription_items=[
-            {"plan": "foo", "quantity": 3}
-        ])
-        self.requestor_mock.request.assert_called_with(
+    def test_can_upcoming_and_subscription_items(self):
+        resource = stripe.Invoice.upcoming(
+            subscription_items=[
+                {"plan": "foo", "quantity": 3}
+            ]
+        )
+        self.assert_requested(
             'get',
             '/v1/invoices/upcoming',
             {
@@ -133,3 +90,4 @@ class InvoiceTest(StripeResourceTest):
                 },
             },
         )
+        self.assertIsInstance(resource, stripe.Invoice)

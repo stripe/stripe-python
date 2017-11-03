@@ -9,7 +9,7 @@ except ImportError:
     import mock
 
 from stripe import util
-from tests.helper import StripeUnitTestCase
+from tests.helper import StripeTestCase
 from stripe.six.moves import builtins
 
 PRINT_FUNC_STRING = builtins.__name__ + '.print'
@@ -18,7 +18,7 @@ LogTestCase = namedtuple('LogTestCase', 'env flag should_output')
 FmtTestCase = namedtuple('FmtTestCase', 'props expected')
 
 
-class UtilTests(StripeUnitTestCase):
+class UtilTests(StripeTestCase):
     DUMMY_REQ_ID = 'req_qsxPhqHyLxcoaM'
 
     def test_test_apikey(self):

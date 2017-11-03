@@ -3,40 +3,65 @@ from __future__ import absolute_import, division, print_function
 import tempfile
 
 import stripe
-from tests.helper import StripeResourceTest
+from tests.helper import StripeTestCase
 
 
-class FileUploadTest(StripeResourceTest):
+TEST_RESOURCE_ID = 'file_123'
 
-    def test_create_file_upload(self):
+
+class FileUploadTest(StripeTestCase):
+    FIXTURE = {
+        'id': TEST_RESOURCE_ID,
+        'object': 'file_upload'
+    }
+
+    def test_is_listable(self):
+        self.stub_request(
+            'get',
+            '/v1/files',
+            {
+                'object': 'list',
+                'data': [self.FIXTURE],
+            }
+        )
+
+        resources = stripe.FileUpload.list()
+        self.assert_requested(
+            'get',
+            '/v1/files'
+        )
+        self.assertIsInstance(resources.data, list)
+        self.assertIsInstance(resources.data[0], stripe.FileUpload)
+
+    def test_is_retrievable(self):
+        self.stub_request(
+            'get',
+            '/v1/files/%s' % TEST_RESOURCE_ID,
+            self.FIXTURE
+        )
+
+        resource = stripe.FileUpload.retrieve(TEST_RESOURCE_ID)
+        self.assert_requested(
+            'get',
+            '/v1/files/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.FileUpload)
+
+    def test_is_creatable(self):
+        self.stub_request(
+            'post',
+            '/v1/files',
+            self.FIXTURE
+        )
+
         test_file = tempfile.TemporaryFile()
-        stripe.FileUpload.create(
+        resource = stripe.FileUpload.create(
             purpose='dispute_evidence',
             file=test_file
         )
-        self.requestor_mock.request.assert_called_with(
+        self.assert_requested(
             'post',
             '/v1/files',
-            params={
-                'purpose': 'dispute_evidence',
-                'file': test_file
-            },
             headers={'Content-Type': 'multipart/form-data'}
         )
-
-    def test_fetch_file_upload(self):
-        stripe.FileUpload.retrieve("fil_foo")
-        self.requestor_mock.request.assert_called_with(
-            'get',
-            '/v1/files/fil_foo',
-            {},
-            None
-        )
-
-    def test_list_file_uploads(self):
-        stripe.FileUpload.list()
-        self.requestor_mock.request.assert_called_with(
-            'get',
-            '/v1/files',
-            {}
-        )
+        self.assertIsInstance(resource, stripe.FileUpload)

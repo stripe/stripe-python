@@ -1,39 +1,52 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeApiTestCase
+from tests.helper import StripeTestCase
 
 
 class MyCreatable(stripe.api_resources.abstract.CreateableAPIResource):
     pass
 
 
-class CreateableAPIResourceTests(StripeApiTestCase):
+class CreateableAPIResourceTests(StripeTestCase):
 
     def test_create(self):
-        self.mock_response({
-            'object': 'charge',
-            'foo': 'bar',
-        })
+        self.stub_request(
+            'post',
+            '/v1/mycreatables',
+            {
+                'object': 'charge',
+                'foo': 'bar',
+            }
+        )
 
         res = MyCreatable.create()
 
-        self.requestor_mock.request.assert_called_with(
-            'post', '/v1/mycreatables', {}, None)
-
+        self.assert_requested(
+            'post',
+            '/v1/mycreatables',
+            {}
+        )
         self.assertTrue(isinstance(res, stripe.Charge))
         self.assertEqual('bar', res.foo)
 
     def test_idempotent_create(self):
-        self.mock_response({
-            'object': 'charge',
-            'foo': 'bar',
-        })
+        self.stub_request(
+            'post',
+            '/v1/mycreatables',
+            {
+                'object': 'charge',
+                'foo': 'bar',
+            }
+        )
 
         res = MyCreatable.create(idempotency_key='foo')
 
-        self.requestor_mock.request.assert_called_with(
-            'post', '/v1/mycreatables', {}, {'Idempotency-Key': 'foo'})
-
+        self.assert_requested(
+            'post',
+            '/v1/mycreatables',
+            {},
+            {'Idempotency-Key': 'foo'}
+        )
         self.assertTrue(isinstance(res, stripe.Charge))
         self.assertEqual('bar', res.foo)
