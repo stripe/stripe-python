@@ -7,10 +7,7 @@ try:
 except ImportError:
     from distutils.core import setup
 
-try:
-    from distutils.command.build_py import build_py_2to3 as build_py
-except ImportError:
-    from distutils.command.build_py import build_py
+from distutils.command.build_py import build_py
 
 path, script = os.path.split(sys.argv[0])
 os.chdir(os.path.abspath(path))
@@ -54,12 +51,10 @@ setup(
     author_email='support@stripe.com',
     url='https://github.com/stripe/stripe-python',
     packages=['stripe', 'stripe.api_resources',
-              'stripe.api_resources.abstract',
-              'stripe.test', 'stripe.test.api_resources',
-              'stripe.test.api_resources.abstract'],
+              'stripe.api_resources.abstract'],
     package_data={'stripe': ['data/ca-certificates.crt']},
     install_requires=install_requires,
-    test_suite='stripe.test.all',
+    test_suite='tests',
     tests_require=['unittest2', 'mock'],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
