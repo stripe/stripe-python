@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.74.0 - 2017-11-07
+* [#368](https://github.com/stripe/stripe-python/pull/368) Remove API that allowed the creation of new disputes (this was an erroneous addition; it never worked because the API would not allow it)
+
 ## 1.73.0 - 2017-11-02
 * [#364](https://github.com/stripe/stripe-python/pull/364) Switch to vendored version of the `six` package for compatibility between Python 2 and 3
 
