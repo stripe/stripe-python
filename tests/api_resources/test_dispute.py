@@ -24,16 +24,6 @@ class DisputeTest(StripeResourceTest):
             }
         )
 
-    def test_create_dispute(self):
-        stripe.Dispute.create(idempotency_key='foo', **DUMMY_DISPUTE)
-
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/disputes',
-            DUMMY_DISPUTE,
-            {'Idempotency-Key': 'foo'},
-        )
-
     def test_retrieve_dispute(self):
         stripe.Dispute.retrieve('dp_test_id')
 
