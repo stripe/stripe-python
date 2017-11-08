@@ -11,9 +11,10 @@ class Invoice(CreateableAPIResource, ListableAPIResource,
     OBJECT_NAME = 'invoice'
 
     def pay(self, idempotency_key=None, **params):
+        url = self.instance_url() + '/pay'
         headers = util.populate_headers(idempotency_key)
-        return self.request(
-            'post', self.instance_url() + '/pay', params, headers)
+        self.refresh_from(self.request('post', url, params, headers))
+        return self
 
     @classmethod
     def upcoming(cls, api_key=None, stripe_version=None, stripe_account=None,

@@ -32,13 +32,13 @@ class Charge(CreateableAPIResource, ListableAPIResource,
         self.refresh_from({'dispute': response}, api_key, True)
         return self.dispute
 
-    def close_dispute(self, idempotency_key=None):
+    def close_dispute(self, idempotency_key=None, **params):
         requestor = api_requestor.APIRequestor(self.api_key,
                                                api_version=self.stripe_version,
                                                account=self.stripe_account)
         url = self.instance_url() + '/dispute/close'
         headers = util.populate_headers(idempotency_key)
-        response, api_key = requestor.request('post', url, {}, headers)
+        response, api_key = requestor.request('post', url, params, headers)
         self.refresh_from({'dispute': response}, api_key, True)
         return self.dispute
 

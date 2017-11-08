@@ -41,16 +41,10 @@ class Account(CreateableAPIResource, ListableAPIResource,
     def instance_url(self):
         return self._build_instance_url(self.get('id'))
 
-    def reject(self, reason=None, idempotency_key=None):
+    def reject(self, idempotency_key=None, **params):
         url = self.instance_url() + '/reject'
         headers = util.populate_headers(idempotency_key)
-        if reason:
-            params = {"reason": reason}
-        else:
-            params = {}
-        self.refresh_from(
-            self.request('post', url, params, headers)
-        )
+        self.refresh_from(self.request('post', url, params, headers))
         return self
 
     def deauthorize(self, **params):
