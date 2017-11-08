@@ -15,14 +15,22 @@ class TransferTest(StripeResourceTest):
         )
 
     def test_cancel_transfer(self):
+        self.mock_response({
+            'id': 'tr_cancel',
+            'status': 'canceled',
+        })
+
         transfer = stripe.Transfer(id='tr_cancel')
-        transfer.cancel()
+
+        self.assertTrue(transfer is transfer.cancel(idempotency_key='idem-foo'))
+        self.assertEquals('canceled', transfer.status)
+        self.assertEquals('tr_cancel', transfer.id)
 
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/transfers/tr_cancel/cancel',
             {},
-            None
+            {'Idempotency-Key': 'idem-foo'}
         )
 
 

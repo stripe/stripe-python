@@ -69,19 +69,35 @@ class InvoiceTest(StripeResourceTest):
         )
 
     def test_pay_invoice(self):
+        self.mock_response({
+            'id': 'ii_pay',
+            'paid': True,
+        })
+
         invoice = stripe.Invoice(id="ii_pay")
-        invoice.pay()
+
+        self.assertTrue(invoice is invoice.pay(idempotency_key='idem-foo'))
+        self.assertEquals(True, invoice.paid)
+        self.assertEquals('ii_pay', invoice.id)
 
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/invoices/ii_pay/pay',
             {},
-            None
+            {'Idempotency-Key': 'idem-foo'}
         )
 
     def test_pay_invoice_params(self):
+        self.mock_response({
+            'id': 'ii_pay',
+            'paid': True,
+        })
+
         invoice = stripe.Invoice(id="ii_pay")
-        invoice.pay(source="src_foo")
+
+        self.assertTrue(invoice is invoice.pay(source="src_foo"))
+        self.assertEquals(True, invoice.paid)
+        self.assertEquals('ii_pay', invoice.id)
 
         self.requestor_mock.request.assert_called_with(
             'post',

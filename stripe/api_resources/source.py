@@ -13,15 +13,16 @@ from stripe.six.moves.urllib.parse import quote_plus
 class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
     OBJECT_NAME = 'source'
 
-    def detach(self, **params):
+    def detach(self, idempotency_key=None, **params):
         if hasattr(self, 'customer') and self.customer:
             extn = quote_plus(util.utf8(self.id))
             customer = util.utf8(self.customer)
             base = Customer.class_url()
             owner_extn = quote_plus(customer)
             url = "%s/%s/sources/%s" % (base, owner_extn, extn)
+            headers = util.populate_headers(idempotency_key)
 
-            self.refresh_from(self.request('delete', url, params))
+            self.refresh_from(self.request('delete', url, params, headers))
             return self
 
         else:

@@ -57,17 +57,24 @@ class SourceTest(StripeResourceTest):
         self.assertRaises(NotImplementedError, source.detach)
 
     def test_detach_source_attached(self):
+        self.mock_response({
+            'id': 'src_foo'
+        })
+
         source = stripe.Source.construct_from({
             'id': 'src_foo',
             'customer': 'cus_bar',
         }, 'api_key')
-        source.detach()
+
+        self.assertTrue(source is source.detach(idempotency_key='idem-foo'))
+        self.assertFalse('customer' in source)
+        self.assertEquals('src_foo', source.id)
 
         self.requestor_mock.request.assert_called_with(
             'delete',
             '/v1/customers/cus_bar/sources/src_foo',
             {},
-            None
+            {'Idempotency-Key': 'idem-foo'}
         )
 
     def test_delete_source(self):

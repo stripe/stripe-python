@@ -8,8 +8,8 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 class Dispute(ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = 'dispute'
 
-    def close(self, idempotency_key=None):
+    def close(self, idempotency_key=None, **params):
         url = self.instance_url() + '/close'
         headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request('post', url, {}, headers))
+        self.refresh_from(self.request('post', url, params, headers))
         return self

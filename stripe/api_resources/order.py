@@ -17,9 +17,10 @@ class Order(CreateableAPIResource, UpdateableAPIResource,
         return super(Order, cls).create(**params)
 
     def pay(self, idempotency_key=None, **params):
+        url = self.instance_url() + '/pay'
         headers = util.populate_headers(idempotency_key)
-        return self.request(
-            'post', self.instance_url() + '/pay', params, headers)
+        self.refresh_from(self.request('post', url, params, headers))
+        return self
 
     def return_order(self, idempotency_key=None, **params):
         if "items" in params:

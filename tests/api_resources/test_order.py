@@ -15,13 +15,42 @@ class OrderTest(StripeResourceTest):
         )
 
     def test_pay_order(self):
+        self.mock_response({
+            'id': 'or_pay',
+            'status': 'paid',
+        })
+
         order = stripe.Order(id="or_pay")
-        order.pay()
+
+        self.assertTrue(order is order.pay())
+        self.assertEquals('paid', order.status)
+        self.assertEquals('or_pay', order.id)
 
         self.requestor_mock.request.assert_called_with(
             'post',
             '/v1/orders/or_pay/pay',
             {},
+            None
+        )
+
+    def test_pay_order_with_params(self):
+        self.mock_response({
+            'id': 'or_pay',
+            'status': 'paid',
+        })
+
+        order = stripe.Order(id="or_pay")
+
+        self.assertTrue(order is order.pay(source="src_foo"))
+        self.assertEquals('paid', order.status)
+        self.assertEquals('or_pay', order.id)
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/orders/or_pay/pay',
+            {
+                'source': 'src_foo',
+            },
             None
         )
 
