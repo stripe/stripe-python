@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.75.0 - 2017-11-08
+* [#369](https://github.com/stripe/stripe-python/pull/369) Make custom actions on various resources (e.g. `Account.reject`) more consistent with other APIs
+
 ## 1.74.0 - 2017-11-07
 * [#368](https://github.com/stripe/stripe-python/pull/368) Remove API that allowed the creation of new disputes (this was an erroneous addition; it never worked because the API would not allow it)
 
