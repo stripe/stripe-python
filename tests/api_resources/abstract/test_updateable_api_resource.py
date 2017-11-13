@@ -43,7 +43,6 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
             'post',
             '/v1/myupdateables/myid',
             {
-                'metadata': {},
                 'baz': 'updated',
             },
             {
@@ -134,14 +133,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.assertTrue(acct is acct.save())
 
-        # Note: ideally, we'd want the library to NOT issue requests in this
-        # case (i.e. the assert should actually be `assert_not_called()`).
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/myupdateables/myid',
-            {'metadata': {}},
-            None
-        )
+        self.requestor_mock.request.assert_not_called()
 
     def test_replace_nested_object(self):
         acct = MyUpdateable.construct_from({
@@ -209,7 +201,6 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
             '/v1/myupdateables/myid',
             {
                 'foo': 'bar',
-                'legal_entity': {},
             },
             None
         )
@@ -298,12 +289,7 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
 
         self.assertTrue(acct is acct.save())
 
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/myupdateables/myid',
-            {'legal_entity': {'address': {}}},
-            None
-        )
+        self.requestor_mock.request.assert_not_called()
 
     def test_save_replace_metadata_with_number(self):
         self.obj.baz = 'updated'

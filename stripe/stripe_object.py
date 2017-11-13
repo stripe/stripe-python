@@ -238,7 +238,9 @@ class StripeObject(dict):
             elif isinstance(v, stripe.api_resources.abstract.APIResource):
                 continue
             elif hasattr(v, 'serialize'):
-                params[k] = v.serialize(previous.get(k, None))
+                child = v.serialize(previous.get(k, None))
+                if child:
+                    params[k] = child
             elif k in unsaved_keys:
                 params[k] = _compute_diff(v, previous.get(k, None))
             elif k == 'additional_owners' and v is not None:
