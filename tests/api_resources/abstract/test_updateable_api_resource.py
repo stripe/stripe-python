@@ -75,6 +75,30 @@ class UpdateableAPIResourceTests(StripeApiTestCase):
             None
         )
 
+        # Saving again should not cause any request.
+        self.requestor_mock.request.reset_mock()
+        self.checkSave()
+        self.assertFalse(self.requestor_mock.request.called)
+
+        # Setting the same value should not cause any request.
+        self.obj.thats = 'it'
+        self.checkSave()
+        self.assertFalse(self.requestor_mock.request.called)
+
+        # Changing the value should cause a request.
+        self.obj.id = 'myid'
+        self.obj.thats = 'updated'
+        self.checkSave()
+
+        self.requestor_mock.request.assert_called_with(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'thats': 'updated',
+            },
+            None
+        )
+
     def test_add_key_to_nested_object(self):
         acct = MyUpdateable.construct_from({
             'id': 'myid',

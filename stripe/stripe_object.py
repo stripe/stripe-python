@@ -86,13 +86,14 @@ class StripeObject(dict):
                 "You may set %s.%s = None to delete the property" % (
                     k, str(self), k))
 
+        if not hasattr(self, k) or v != getattr(self, k):
+            # Allows for unpickling in Python 3.x
+            if not hasattr(self, '_unsaved_values'):
+                self._unsaved_values = set()
+
+            self._unsaved_values.add(k)
+
         super(StripeObject, self).__setitem__(k, v)
-
-        # Allows for unpickling in Python 3.x
-        if not hasattr(self, '_unsaved_values'):
-            self._unsaved_values = set()
-
-        self._unsaved_values.add(k)
 
     def __getitem__(self, k):
         try:
