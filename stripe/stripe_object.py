@@ -239,7 +239,7 @@ class StripeObject(dict):
                 continue
             elif hasattr(v, 'serialize'):
                 child = v.serialize(previous.get(k, None))
-                if child:
+                if child != {}:
                     params[k] = child
             elif k in unsaved_keys:
                 params[k] = _compute_diff(v, previous.get(k, None))

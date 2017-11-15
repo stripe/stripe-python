@@ -267,3 +267,17 @@ class StripeObjectTests(StripeUnitTestCase):
 
         # Verify that we're actually deep copying nested values.
         self.assertNotEqual(id(nested), id(copied.nested))
+
+    def test_serialize_empty_string_unsets(self):
+        class SerializeToEmptyString(stripe.stripe_object.StripeObject):
+            def serialize(self, previous):
+                return ''
+
+        nested = SerializeToEmptyString.construct_from({
+            'value': 'bar',
+        }, 'mykey')
+        obj = stripe.stripe_object.StripeObject.construct_from({
+            'nested': nested,
+        }, 'mykey')
+
+        self.assertEqual(obj.serialize(None), {'nested': ''})
