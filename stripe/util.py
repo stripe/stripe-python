@@ -10,7 +10,6 @@ import re
 import stripe
 from stripe import six
 
-
 STRIPE_LOG = os.environ.get('STRIPE_LOG')
 
 logger = logging.getLogger('stripe')
@@ -232,6 +231,15 @@ def convert_to_stripe_object(resp, api_key=None, stripe_version=None,
         load_object_classes()
     types = OBJECT_CLASSES.copy()
 
+    # If we get a StripeResponse, we'll want to return a
+    # StripeObject with the last_response field filled out with
+    # the raw API response information
+    stripe_response = None
+
+    if isinstance(resp, stripe.stripe_response.StripeResponse):
+        stripe_response = resp
+        resp = stripe_response.data
+
     if isinstance(resp, list):
         return [convert_to_stripe_object(i, api_key, stripe_version,
                                          stripe_account) for i in resp]
@@ -243,9 +251,11 @@ def convert_to_stripe_object(resp, api_key=None, stripe_version=None,
             klass = types.get(klass_name, stripe.stripe_object.StripeObject)
         else:
             klass = stripe.stripe_object.StripeObject
+
         return klass.construct_from(resp, api_key,
                                     stripe_version=stripe_version,
-                                    stripe_account=stripe_account)
+                                    stripe_account=stripe_account,
+                                    last_response=stripe_response)
     else:
         return resp
 

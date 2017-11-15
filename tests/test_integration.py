@@ -7,9 +7,9 @@ import stripe
 
 from mock import patch
 
-from stripe import six
+from stripe import six, util
 
-from tests.helper import (StripeTestCase, DUMMY_CHARGE)
+from tests.helper import (StripeTestCase, DUMMY_CHARGE, DUMMY_CHARGE_IDEMPOTENT)
 
 
 class FunctionalTests(StripeTestCase):
@@ -55,6 +55,7 @@ class FunctionalTests(StripeTestCase):
         charge2.junk = 'junk'
         charge2.refresh()
         self.assertRaises(AttributeError, lambda: charge2.junk)
+        
 
     def test_list_accessors(self):
         customer = stripe.Customer.create(source='tok_visa')
@@ -74,6 +75,33 @@ class FunctionalTests(StripeTestCase):
             self.fail('charge creation with expired card did not fail')
         except stripe.error.CardError as e:
             self.assertTrue(e.request_id.startswith('req_'))
+
+    def test_success_response_headers(self):
+        charge = stripe.Charge.create(**DUMMY_CHARGE_IDEMPOTENT)
+        self.assertTrue(charge.last_response != None)
+        self.assertTrue(charge.last_response.headers != None)
+        self.assertEqual(charge.last_response.code, 200)
+        self.assertEqual(charge.last_response.headers['idempotency-key'], '12345')
+        self.assertTrue(charge.last_response.headers['request-id'].startswith('req_'))
+        # ensure helper keys
+        self.assertEqual(charge.last_response.idempotency_key, '12345')
+        self.assertTrue(charge.last_response.request_id.startswith('req_'))
+        # verify the response body is available
+        parsed_body = util.json.loads(charge.last_response.body)
+        self.assertEqual(parsed_body['amount'], DUMMY_CHARGE_IDEMPOTENT['amount'])
+        self.assertEqual(parsed_body['currency'], DUMMY_CHARGE_IDEMPOTENT['currency'])
+
+    def test_success_list_response_headers(self):
+        charges = stripe.Charge.list()
+        self.assertTrue(charges.last_response != None)
+        self.assertTrue(charges.last_response.headers != None)
+        self.assertEqual(charges.last_response.code, 200)
+        self.assertTrue(charges.last_response.headers['request-id'].startswith('req_'))
+        self.assertTrue(charges.last_response.request_id.startswith('req_'))
+        # verify the response body is available
+        parsed_body = util.json.loads(charges.last_response.body)
+        self.assertTrue(isinstance(parsed_body['data'], list))
+        self.assertTrue(parsed_body['object'], 'list')
 
     def test_unicode(self):
         # Make sure unicode requests can be sent

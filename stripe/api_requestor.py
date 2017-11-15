@@ -10,6 +10,7 @@ import stripe
 from stripe import error, oauth_error, http_client, version, util, six
 from stripe.multipart_data_generator import MultipartDataGenerator
 from stripe.six.moves.urllib.parse import urlencode, urlsplit, urlunsplit
+from stripe.stripe_response import StripeResponse
 
 
 def _encode_datetime(dttime):
@@ -349,14 +350,15 @@ class APIRequestor(object):
         try:
             if hasattr(rbody, 'decode'):
                 rbody = rbody.decode('utf-8')
-            resp = util.json.loads(rbody)
+            resp = StripeResponse(rbody, rcode, rheaders)
         except Exception:
             raise error.APIError(
                 "Invalid response body from API: %s "
                 "(HTTP response code was %d)" % (rbody, rcode),
                 rbody, rcode, rheaders)
         if not (200 <= rcode < 300):
-            self.handle_error_response(rbody, rcode, resp, rheaders)
+            self.handle_error_response(rbody, rcode, resp.data, rheaders)
+
         return resp
 
     # Deprecated request handling.  Will all be removed in 2.0
