@@ -32,8 +32,13 @@ class Subscription(CreateableAPIResource, DeletableAPIResource,
         return super(Subscription, cls).create(**params)
 
     def serialize(self, previous):
-        updated_params = super(UpdateableAPIResource, self).serialize(previous)
-        if "items" in updated_params:
-            updated_params["items"] = util.convert_array_to_dict(
-                updated_params["items"])
-        return updated_params
+        if self._unsaved_values and "items" in self._unsaved_values:
+            self["items"] = util.convert_array_to_dict(self["items"])
+
+            # Ignore the previous values of `items` since it's likely the list
+            # object returned by the API and we want to treat `items` as a
+            # standalone parameter, not an update of the list object.
+            if self._previous and "items" in self._previous:
+                del self._previous["items"]
+
+        return super(UpdateableAPIResource, self).serialize(previous)
