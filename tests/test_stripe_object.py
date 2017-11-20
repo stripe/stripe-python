@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
+import datetime
 import pickle
 from copy import copy, deepcopy
 
@@ -178,6 +179,7 @@ class StripeObjectTests(StripeUnitTestCase):
             'foo', 'bar', myparam=5)
 
         obj['object'] = u'\u4e00boo\u1f00'
+        obj.date = datetime.datetime.fromtimestamp(1511136000)
 
         res = repr(obj)
 
@@ -186,6 +188,7 @@ class StripeObjectTests(StripeUnitTestCase):
 
         self.assertTrue(u'<StripeObject \u4e00boo\u1f00' in res)
         self.assertTrue(u'id=foo' in res)
+        self.assertTrue(u'"date": 1511136000' in res)
 
     def test_pickling(self):
         obj = stripe.stripe_object.StripeObject(
