@@ -1,7 +1,8 @@
 # Changelog
 
 ## 1.75.1 - 2017-11-29
-* [#999](https://github.com/stripe/stripe-python/pull/999) DESCRIBE CHANGES HERE (try to use the same style, tense, etc. as the other entries)
+* [#372](https://github.com/stripe/stripe-python/pull/372) Add only changed values to `_unsaved_values` in `StripeObject`
+* [#375](https://github.com/stripe/stripe-python/pull/375) Use a custom JSON encoder to handle `datetime` objects when serializing `StripeObject`s
 
 ## 1.75.0 - 2017-11-08
 * [#369](https://github.com/stripe/stripe-python/pull/369) Make custom actions on various resources (e.g. `Account.reject`) more consistent with other APIs
