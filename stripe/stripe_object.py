@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
+import datetime
 import warnings
 from copy import deepcopy
 
@@ -33,6 +34,12 @@ def _serialize_list(array, previous):
 
 
 class StripeObject(dict):
+    class ReprJSONEncoder(util.json.JSONEncoder):
+        def default(self, obj):
+            if isinstance(obj, datetime.datetime):
+                return api_requestor._encode_datetime(obj)
+            return super(StripeObject.ReprJSONEncoder, self).default(obj)
+
     def __init__(self, id=None, api_key=None, stripe_version=None,
                  stripe_account=None, **params):
         super(StripeObject, self).__init__()
@@ -212,7 +219,8 @@ class StripeObject(dict):
             return unicode_repr
 
     def __str__(self):
-        return util.json.dumps(self, sort_keys=True, indent=2)
+        return util.json.dumps(self, sort_keys=True, indent=2,
+                               cls=self.ReprJSONEncoder)
 
     def to_dict(self):
         warnings.warn(
