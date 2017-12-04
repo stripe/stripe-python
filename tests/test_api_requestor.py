@@ -2,6 +2,7 @@ from __future__ import absolute_import, division, print_function
 
 import datetime
 import unittest2
+import tempfile
 
 from mock import Mock, ANY
 
@@ -474,6 +475,15 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         self.assertRaises(stripe.oauth_error.InvalidGrantError,
                           self.requestor.request,
                           'get', self.valid_path, {})
+
+    def test_raw_request_with_file_param(self):
+        test_file = tempfile.NamedTemporaryFile()
+        test_file.write('\u263A'.encode('utf-16'))
+        test_file.seek(0)
+        params = {'file': test_file, 'purpose': 'dispute_evidence'}
+        supplied_headers = {'Content-Type': 'multipart/form-data'}
+        self.mock_response('{}', 200)
+        self.requestor.request('post', '/v1/files', params, supplied_headers)
 
 
 class DefaultClientTests(unittest2.TestCase):
