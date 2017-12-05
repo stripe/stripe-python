@@ -332,7 +332,8 @@ class APIRequestor(object):
 
         util.log_info('Request to Stripe api', method=method, path=abs_url)
         util.log_debug(
-            'Post details', post_data=post_data, api_version=self.api_version)
+            'Post details',
+            post_data=encoded_params, api_version=self.api_version)
 
         rbody, rcode, rheaders = self._client.request(
             method, abs_url, headers, post_data)
