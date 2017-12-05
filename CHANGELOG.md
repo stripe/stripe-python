@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.75.2 - 2017-12-05
+* [#378](https://github.com/stripe/stripe-python/pull/378) Log encoded version of parameters instead of raw POST data
+
 ## 1.75.1 - 2017-11-29
 * [#372](https://github.com/stripe/stripe-python/pull/372) Add only changed values to `_unsaved_values` in `StripeObject`
 * [#375](https://github.com/stripe/stripe-python/pull/375) Use a custom JSON encoder to handle `datetime` objects when serializing `StripeObject`s
