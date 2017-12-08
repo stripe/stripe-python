@@ -1,4 +1,7 @@
-# Stripe Python Library [![Build Status](https://travis-ci.org/stripe/stripe-python.svg?branch=master)](https://travis-ci.org/stripe/stripe-python)
+# Stripe Python Library
+
+[![Build Status](https://travis-ci.org/stripe/stripe-python.svg?branch=master)](https://travis-ci.org/stripe/stripe-python)
+[![Coverage Status](https://coveralls.io/repos/github/stripe/stripe-python/badge.svg?branch=master)](https://coveralls.io/github/stripe/stripe-python?branch=master)
 
 The Stripe Python library provides convenient access to the Stripe API from
 applications written in the Python language. It includes a pre-defined set of
