@@ -80,15 +80,6 @@ class RateLimitError(StripeError):
     pass
 
 
-class OAuthError(StripeError):
-    def __init__(self, type, description=None, http_body=None,
-                 http_status=None, json_body=None, headers=None):
-        description = description or type
-        super(OAuthError, self).__init__(
-            description, http_body, http_status, json_body, headers)
-        self.type = type
-
-
 class SignatureVerificationError(StripeError):
     def __init__(self, message, sig_header, http_body=None):
         super(SignatureVerificationError, self).__init__(
