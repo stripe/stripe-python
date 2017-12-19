@@ -43,6 +43,7 @@ from stripe.error import (  # noqa
     PermissionError,
     RateLimitError,
     CardError,
+    IdempotencyError,
     InvalidRequestError,
     SignatureVerificationError,
     StripeError)

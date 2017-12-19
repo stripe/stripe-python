@@ -191,9 +191,13 @@ class APIRequestor(object):
             return error.RateLimitError(
                 error_data.get('message'), rbody, rcode, resp, rheaders)
         elif rcode in [400, 404]:
-            return error.InvalidRequestError(
-                error_data.get('message'), error_data.get('param'),
-                error_data.get('code'), rbody, rcode, resp, rheaders)
+            if error_data.get('type') == "idempotency_error":
+                return error.IdempotencyError(
+                    error_data.get('message'), rbody, rcode, resp, rheaders)
+            else:
+                return error.InvalidRequestError(
+                    error_data.get('message'), error_data.get('param'),
+                    error_data.get('code'), rbody, rcode, resp, rheaders)
         elif rcode == 401:
             return error.AuthenticationError(
                 error_data.get('message'), rbody, rcode, resp, rheaders)

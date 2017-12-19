@@ -57,6 +57,10 @@ class CardError(StripeError):
         self.code = code
 
 
+class IdempotencyError(StripeError):
+    pass
+
+
 class InvalidRequestError(StripeError):
 
     def __init__(self, message, param, code=None, http_body=None,
