@@ -391,10 +391,24 @@ class APIRequestorRequestTests(StripeUnitTestCase):
                           self.requestor.request,
                           'get', self.valid_path, {})
 
-    def test_not_found(self):
+    def test_invalid_request_error_404(self):
         self.mock_response('{"error": {}}', 404)
 
         self.assertRaises(stripe.error.InvalidRequestError,
+                          self.requestor.request,
+                          'get', self.valid_path, {})
+
+    def test_invalid_request_error_400(self):
+        self.mock_response('{"error": {}}', 400)
+
+        self.assertRaises(stripe.error.InvalidRequestError,
+                          self.requestor.request,
+                          'get', self.valid_path, {})
+
+    def test_idempotency_error(self):
+        self.mock_response('{"error": {"type": "idempotency_error"}}', 400)
+
+        self.assertRaises(stripe.error.IdempotencyError,
                           self.requestor.request,
                           'get', self.valid_path, {})
 
