@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.76.0 - 2017-12-21
+* [#382](https://github.com/stripe/stripe-python/pull/382) Add new `IdempotencyError` type
+
 ## 1.75.3 - 2017-12-05
 * [#378](https://github.com/stripe/stripe-python/pull/378) Log encoded version of parameters instead of raw POST data
 
