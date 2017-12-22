@@ -8,6 +8,8 @@ from mock import Mock, ANY
 
 import stripe
 from stripe import six
+from stripe.stripe_response import StripeResponse
+from stripe import util
 
 from tests.helper import StripeUnitTestCase
 
@@ -274,7 +276,7 @@ class APIRequestorRequestTests(StripeUnitTestCase):
         for meth in VALID_API_METHODS:
             self.mock_response('{}', 200)
 
-            body, key = self.requestor.request(meth, self.valid_path, {})
+            resp, key = self.requestor.request(meth, self.valid_path, {})
 
             if meth == 'post':
                 post_data = ''
@@ -282,7 +284,10 @@ class APIRequestorRequestTests(StripeUnitTestCase):
                 post_data = None
 
             self.check_call(meth, post_data=post_data)
-            self.assertEqual({}, body)
+            self.assertTrue(isinstance(resp, StripeResponse))
+
+            self.assertEqual({}, resp.data)
+            self.assertEqual(util.json.loads(resp.body), resp.data)
 
     def test_methods_with_params_and_response(self):
         for meth in VALID_API_METHODS:
@@ -296,9 +301,16 @@ class APIRequestorRequestTests(StripeUnitTestCase):
             encoded = ('adict%5Bfrobble%5D=bits&adatetime=1356994800&'
                        'alist%5B%5D=1&alist%5B%5D=2&alist%5B%5D=3')
 
-            body, key = self.requestor.request(meth, self.valid_path,
+            resp, key = self.requestor.request(meth, self.valid_path,
                                                params)
-            self.assertEqual({'foo': 'bar', 'baz': 6}, body)
+            self.assertTrue(isinstance(resp, StripeResponse))
+
+            self.assertEqual({
+                'foo': 'bar',
+                'baz': 6 },
+            resp.data)
+            self.assertEqual(util.json.loads(resp.body),
+            resp.data)
 
             if meth == 'post':
                 self.check_call(
@@ -321,7 +333,7 @@ class APIRequestorRequestTests(StripeUnitTestCase):
 
         self.mock_response('{}', 200, requestor=requestor)
 
-        body, used_key = requestor.request('get', self.valid_path, {})
+        resp, used_key = requestor.request('get', self.valid_path, {})
 
         self.check_call('get', headers=APIHeaderMatcher(
             key, request_method='get'), requestor=requestor)

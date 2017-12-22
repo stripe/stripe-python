@@ -41,11 +41,12 @@ class StripeObject(dict):
             return super(StripeObject.ReprJSONEncoder, self).default(obj)
 
     def __init__(self, id=None, api_key=None, stripe_version=None,
-                 stripe_account=None, **params):
+                 stripe_account=None, last_response=None, **params):
         super(StripeObject, self).__init__()
 
         self._unsaved_values = set()
         self._transient_values = set()
+        self._last_response = last_response
 
         self._retrieve_params = params
         self._previous = None
@@ -56,6 +57,10 @@ class StripeObject(dict):
 
         if id:
             self['id'] = id
+
+    @property
+    def last_response(self):
+        return self._last_response
 
     def update(self, update_dict):
         for k in update_dict:
@@ -148,22 +153,26 @@ class StripeObject(dict):
 
     @classmethod
     def construct_from(cls, values, key, stripe_version=None,
-                       stripe_account=None):
+                       stripe_account=None, last_response=None):
         instance = cls(values.get('id'), api_key=key,
                        stripe_version=stripe_version,
-                       stripe_account=stripe_account)
+                       stripe_account=stripe_account,
+                       last_response=last_response)
         instance.refresh_from(values, api_key=key,
                               stripe_version=stripe_version,
-                              stripe_account=stripe_account)
+                              stripe_account=stripe_account,
+                              last_response=last_response)
         return instance
 
     def refresh_from(self, values, api_key=None, partial=False,
-                     stripe_version=None, stripe_account=None):
+                     stripe_version=None, stripe_account=None,
+                     last_response=None):
         self.api_key = api_key or getattr(values, 'api_key', None)
         self.stripe_version = \
             stripe_version or getattr(values, 'stripe_version', None)
         self.stripe_account = \
             stripe_account or getattr(values, 'stripe_account', None)
+        self._last_response = last_response
 
         # Wipe old state before setting new.  This is useful for e.g.
         # updating a customer, where there is no persistent card

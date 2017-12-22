@@ -19,6 +19,13 @@ DUMMY_CHARGE = {
     'source': 'tok_visa'
 }
 
+DUMMY_CHARGE_IDEMPOTENT = {
+    'amount': 100,
+    'currency': 'usd',
+    'source': 'tok_visa',
+    'idempotency_key': '12345'
+}
+
 DUMMY_PLAN = {
     'amount': 2000,
     'interval': 'month',
