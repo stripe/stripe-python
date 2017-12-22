@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import datetime
+import os
 import unittest2
 import tempfile
 
@@ -11,7 +12,7 @@ from stripe import six
 from stripe.stripe_response import StripeResponse
 from stripe import util
 
-from tests.helper import StripeUnitTestCase
+from tests.helper import StripeTestCase
 
 from six.moves.urllib.parse import urlsplit
 
@@ -54,6 +55,12 @@ class APIHeaderMatcher(object):
                 self._user_agent_match(other) and
                 self._x_stripe_ua_contains_app_info(other) and
                 self._extra_match(other))
+
+    def __repr__(self):
+        return ("APIHeaderMatcher(request_method=%s, api_key=%s, extra=%s, "
+                "user_agent=%s, app_info=%s)" %
+                (repr(self.request_method), repr(self.api_key),
+                 repr(self.extra), repr(self.user_agent), repr(self.app_info)))
 
     def _keys_match(self, other):
         expected_keys = list(set(self.EXP_KEYS + list(self.extra.keys())))
@@ -120,7 +127,7 @@ class UrlMatcher(object):
         return q_matcher == other
 
 
-class APIRequestorRequestTests(StripeUnitTestCase):
+class APIRequestorRequestTests(StripeTestCase):
     ENCODE_INPUTS = {
         'dict': {
             'astring': 'bar',
@@ -164,12 +171,19 @@ class APIRequestorRequestTests(StripeUnitTestCase):
     def setUp(self):
         super(APIRequestorRequestTests, self).setUp()
 
+        stripe.api_version = os.environ.get('STRIPE_API_VERSION', '2017-04-06')
+
         self.http_client = Mock(stripe.http_client.HTTPClient)
         self.http_client._verify_ssl_certs = True
         self.http_client.name = 'mockclient'
 
         self.requestor = stripe.api_requestor.APIRequestor(
             client=self.http_client)
+
+    def tearDown(self):
+        stripe.api_version = None
+
+        super(APIRequestorRequestTests, self).tearDown()
 
     def mock_response(self, return_body, return_code, requestor=None,
                       headers=None):
@@ -182,7 +196,7 @@ class APIRequestorRequestTests(StripeUnitTestCase):
     def check_call(self, meth, abs_url=None, headers=None,
                    post_data=None, requestor=None):
         if not abs_url:
-            abs_url = 'https://api.stripe.com%s' % (self.valid_path,)
+            abs_url = '%s%s' % (stripe.api_base, self.valid_path,)
         if not requestor:
             requestor = self.requestor
         if not headers:
@@ -250,16 +264,16 @@ class APIRequestorRequestTests(StripeUnitTestCase):
 
     def test_url_construction(self):
         CASES = (
-            ('https://api.stripe.com?foo=bar', '', {'foo': 'bar'}),
-            ('https://api.stripe.com?foo=bar', '?', {'foo': 'bar'}),
-            ('https://api.stripe.com', '', {}),
+            ('%s?foo=bar' % stripe.api_base, '', {'foo': 'bar'}),
+            ('%s?foo=bar' % stripe.api_base, '?', {'foo': 'bar'}),
+            (stripe.api_base, '', {}),
             (
-                'https://api.stripe.com/%20spaced?foo=bar%24&baz=5',
+                '%s/%%20spaced?foo=bar%%24&baz=5' % stripe.api_base,
                 '/%20spaced?foo=bar%24',
                 {'baz': '5'}
             ),
             (
-                'https://api.stripe.com?foo=bar&foo=bar',
+                '%s?foo=bar&foo=bar' % stripe.api_base,
                 '?foo=bar',
                 {'foo': 'bar'}
             ),
@@ -305,20 +319,16 @@ class APIRequestorRequestTests(StripeUnitTestCase):
                                                params)
             self.assertTrue(isinstance(resp, StripeResponse))
 
-            self.assertEqual({
-                'foo': 'bar',
-                'baz': 6 },
-            resp.data)
-            self.assertEqual(util.json.loads(resp.body),
-            resp.data)
+            self.assertEqual({'foo': 'bar', 'baz': 6}, resp.data)
+            self.assertEqual(util.json.loads(resp.body), resp.data)
 
             if meth == 'post':
                 self.check_call(
                     meth,
                     post_data=QueryMatcher(stripe.util.parse_qsl(encoded)))
             else:
-                abs_url = "https://api.stripe.com%s?%s" % (
-                    self.valid_path, encoded)
+                abs_url = "%s%s?%s" % (
+                    stripe.api_base, self.valid_path, encoded)
                 self.check_call(meth, abs_url=UrlMatcher(abs_url))
 
     def test_uses_headers(self):

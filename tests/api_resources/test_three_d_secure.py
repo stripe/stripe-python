@@ -1,37 +1,30 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeResourceTest
+from tests.helper import StripeTestCase
 
 
-class ThreeDSecureTest(StripeResourceTest):
+TEST_RESOURCE_ID = 'tdsrc_123'
 
-    def test_threedsecure_create(self):
-        stripe.ThreeDSecure.create(
-            card="tok_test",
-            amount=1500,
-            currency="usd",
-            return_url="https://example.org/3d-secure-result"
-        )
 
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/3d_secure',
-            {
-                'card': 'tok_test',
-                'amount': 1500,
-                'currency': 'usd',
-                'return_url': 'https://example.org/3d-secure-result'
-            },
-            None
-        )
-
-    def test_threedsecure_retrieve(self):
-        stripe.ThreeDSecure.retrieve('tdsrc_id')
-
-        self.requestor_mock.request.assert_called_with(
+class ThreeDSecureTest(StripeTestCase):
+    def test_is_retrievable(self):
+        resource = stripe.ThreeDSecure.retrieve(TEST_RESOURCE_ID)
+        self.assert_requested(
             'get',
-            '/v1/3d_secure/tdsrc_id',
-            {},
-            None
+            '/v1/3d_secure/%s' % TEST_RESOURCE_ID
         )
+        self.assertIsInstance(resource, stripe.ThreeDSecure)
+
+    def test_is_creatable(self):
+        resource = stripe.ThreeDSecure.create(
+            card="tok_123",
+            amount=100,
+            currency="usd",
+            return_url="url"
+        )
+        self.assert_requested(
+            'post',
+            '/v1/3d_secure'
+        )
+        self.assertIsInstance(resource, stripe.ThreeDSecure)

@@ -1,75 +1,77 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import (StripeResourceTest)
+from tests.helper import (StripeTestCase)
 
 
-class RecipientTest(StripeResourceTest):
+TEST_RESOURCE_ID = 'rp_123'
 
-    def test_list_recipients(self):
-        stripe.Recipient.list()
-        self.requestor_mock.request.assert_called_with(
+
+class RecipientTest(StripeTestCase):
+    def test_is_listable(self):
+        resources = stripe.Recipient.list()
+        self.assert_requested(
             'get',
-            '/v1/recipients',
-            {}
+            '/v1/recipients'
+        )
+        self.assertIsInstance(resources.data, list)
+        self.assertIsInstance(resources.data[0], stripe.Recipient)
+
+    def test_is_retrievable(self):
+        resource = stripe.Recipient.retrieve(TEST_RESOURCE_ID)
+        self.assert_requested(
+            'get',
+            '/v1/recipients/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.Recipient)
+
+    def test_is_creatable(self):
+        resource = stripe.Recipient.create(
+            type='individual',
+            name='NAME'
+        )
+        self.assert_requested(
+            'post',
+            '/v1/recipients'
+        )
+        self.assertIsInstance(resource, stripe.Recipient)
+
+    def test_is_saveable(self):
+        resource = stripe.Recipient.retrieve(TEST_RESOURCE_ID)
+        resource.metadata['key'] = 'value'
+        resource.save()
+        self.assert_requested(
+            'post',
+            '/v1/recipients/%s' % resource.id
         )
 
-    def test_recipient_transfers(self):
-        recipient = stripe.Recipient(id='rp_transfer')
-        recipient.transfers()
+    def test_is_modifiable(self):
+        resource = stripe.Recipient.modify(
+            TEST_RESOURCE_ID,
+            metadata={'key': 'value'}
+        )
+        self.assert_requested(
+            'post',
+            '/v1/recipients/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.Recipient)
 
-        self.requestor_mock.request.assert_called_with(
+    def test_is_deletable(self):
+        resource = stripe.Recipient.retrieve(TEST_RESOURCE_ID)
+        resource.delete()
+        self.assert_requested(
+            'delete',
+            '/v1/recipients/%s' % resource.id
+        )
+        self.assertIsInstance(resource, stripe.Recipient)
+
+    def test_can_list_transfers(self):
+        recipient = stripe.Recipient.retrieve(TEST_RESOURCE_ID)
+        resources = recipient.transfers()
+        self.assert_requested(
             'get',
             '/v1/transfers',
-            {'recipient': 'rp_transfer'},
+            {'recipient': recipient.id}
         )
-
-    def test_recipient_add_card(self):
-        recipient = stripe.Recipient.construct_from({
-            'id': 'rp_add_card',
-            'sources': {
-                'object': 'list',
-                'url': '/v1/recipients/rp_add_card/sources',
-            },
-        }, 'api_key')
-        recipient.sources.create(card='tok_visa_debit')
-
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/recipients/rp_add_card/sources',
-            {
-                'card': 'tok_visa_debit',
-            },
-            None
-        )
-
-    def test_recipient_update_card(self):
-        card = stripe.Card.construct_from({
-            'recipient': 'rp_update_card',
-            'id': 'ca_update_card',
-        }, 'api_key')
-        card.name = 'The Best'
-        card.save()
-
-        self.requestor_mock.request.assert_called_with(
-            'post',
-            '/v1/recipients/rp_update_card/cards/ca_update_card',
-            {
-                'name': 'The Best',
-            },
-            None
-        )
-
-    def test_recipient_delete_card(self):
-        card = stripe.Card.construct_from({
-            'recipient': 'rp_delete_card',
-            'id': 'ca_delete_card',
-        }, 'api_key')
-        card.delete()
-
-        self.requestor_mock.request.assert_called_with(
-            'delete',
-            '/v1/recipients/rp_delete_card/cards/ca_delete_card',
-            {},
-            None
-        )
+        self.assertIsInstance(resources.data, list)
+        self.assertIsInstance(resources.data[0], stripe.Transfer)

@@ -1,5 +1,7 @@
 sudo: false
+
 language: python
+
 python:
   - "2.6"
   - "2.7"
@@ -10,25 +12,49 @@ python:
   - "3.7-dev"
   - "pypy"
   - "pypy3"
+
 cache:
   apt: true
+  directories:
+    - stripe-mock
   pip: false
-env: PYCURL_SSL_LIBRARY=gnutls
+
+env:
+  global:
+    - PYCURL_SSL_LIBRARY=gnutls
+    - STRIPE_MOCK_VERSION=0.5.0
+
 addons:
   apt:
     packages:
       - libcurl4-gnutls-dev
       - librtmp-dev
+
+before_install:
+  # Unpack and start stripe-mock so that the test suite can talk to it
+  - |
+    if [ ! -d "stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}" ]; then
+      mkdir -p stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}/
+      curl -L "https://github.com/stripe/stripe-mock/releases/download/v${STRIPE_MOCK_VERSION}/stripe-mock_${STRIPE_MOCK_VERSION}_linux_amd64.tar.gz" -o "stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}_linux_amd64.tar.gz"
+      tar -zxf "stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}_linux_amd64.tar.gz" -C "stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}/"
+    fi
+  - |
+    stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}/stripe-mock > /dev/null &
+    STRIPE_MOCK_PID=$!
+
 install:
   - pip install -U setuptools pip
   - pip install unittest2 mock pycurl flake8 tox-travis coveralls
   - python setup.py clean --all
   - python setup.py install
+
 script:
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then flake8 stripe; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then flake8 stripe tests; fi
   - python -W all -bb -W error::BytesWarning -m coverage.__main__ run setup.py test
+
 after_success:
   coveralls
+
 matrix:
   allow_failures:
     - python: 3.7-dev

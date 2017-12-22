@@ -1,16 +1,36 @@
 from __future__ import absolute_import, division, print_function
 
+import unittest2
 from mock import MagicMock, Mock, patch
 
 import stripe
 from stripe import six
 
-from tests.helper import StripeUnitTestCase
-
 VALID_API_METHODS = ('get', 'post', 'delete')
 
 
-class HttpClientTests(StripeUnitTestCase):
+class StripeClientTestCase(unittest2.TestCase):
+    REQUEST_LIBRARIES = ['urlfetch', 'requests', 'pycurl', 'urllib.request']
+
+    def setUp(self):
+        super(StripeClientTestCase, self).setUp()
+
+        self.request_patchers = {}
+        self.request_mocks = {}
+        for lib in self.REQUEST_LIBRARIES:
+            patcher = patch("stripe.http_client.%s" % (lib,))
+
+            self.request_mocks[lib] = patcher.start()
+            self.request_patchers[lib] = patcher
+
+    def tearDown(self):
+        super(StripeClientTestCase, self).tearDown()
+
+        for patcher in six.itervalues(self.request_patchers):
+            patcher.stop()
+
+
+class HttpClientTests(StripeClientTestCase):
 
     def setUp(self):
         super(HttpClientTests, self).setUp()
@@ -109,7 +129,7 @@ class RequestsVerify(object):
         return other and other.endswith('stripe/data/ca-certificates.crt')
 
 
-class RequestsClientTests(StripeUnitTestCase, ClientTestBase):
+class RequestsClientTests(StripeClientTestCase, ClientTestBase):
     request_client = stripe.http_client.RequestsClient
 
     def setUp(self):
@@ -160,7 +180,7 @@ class RequestsClientTests(StripeUnitTestCase, ClientTestBase):
                                timeout=timeout)
 
 
-class UrlFetchClientTests(StripeUnitTestCase, ClientTestBase):
+class UrlFetchClientTests(StripeClientTestCase, ClientTestBase):
     request_client = stripe.http_client.UrlFetchClient
 
     def mock_response(self, mock, body, code):
@@ -185,7 +205,7 @@ class UrlFetchClientTests(StripeUnitTestCase, ClientTestBase):
         )
 
 
-class Urllib2ClientTests(StripeUnitTestCase, ClientTestBase):
+class Urllib2ClientTests(StripeClientTestCase, ClientTestBase):
     request_client = stripe.http_client.Urllib2Client
 
     def make_request(self, method, url, headers, post_data, proxy=None):
@@ -251,7 +271,7 @@ class Urllib2ClientHttpProxyTests(Urllib2ClientTests):
                     "http://slap/")
 
 
-class PycurlClientTests(StripeUnitTestCase, ClientTestBase):
+class PycurlClientTests(StripeClientTestCase, ClientTestBase):
     request_client = stripe.http_client.PycurlClient
 
     def make_request(self, method, url, headers, post_data, proxy=None):
@@ -357,7 +377,7 @@ class PycurlClientHttpsProxyTests(PycurlClientTests):
                 mock, meth, url, post_data, headers)
 
 
-class APIEncodeTest(StripeUnitTestCase):
+class APIEncodeTest(StripeClientTestCase):
 
     def test_encode_dict(self):
         body = {

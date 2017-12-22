@@ -4,7 +4,7 @@ import time
 
 import stripe
 from stripe import six
-from tests.helper import StripeUnitTestCase
+from tests.helper import StripeTestCase
 
 
 DUMMY_WEBHOOK_PAYLOAD = """{
@@ -15,7 +15,7 @@ DUMMY_WEBHOOK_PAYLOAD = """{
 DUMMY_WEBHOOK_SECRET = 'whsec_test_secret'
 
 
-class WebhookTests(StripeUnitTestCase):
+class WebhookTests(StripeTestCase):
     def test_construct_event(self):
         header = WebhookSignatureTests.generate_header()
         event = stripe.Webhook.construct_event(
@@ -55,7 +55,7 @@ class WebhookTests(StripeUnitTestCase):
         self.assertTrue(isinstance(event, stripe.Event))
 
 
-class WebhookSignatureTests(StripeUnitTestCase):
+class WebhookSignatureTests(StripeTestCase):
     @staticmethod
     def generate_header(**kwargs):
         timestamp = kwargs.get('timestamp', int(time.time()))

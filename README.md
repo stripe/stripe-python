@@ -137,7 +137,14 @@ API.
 
 ## Development
 
-Run all tests (modify `-e` according to your Python target):
+The test suite depends on [stripe-mock], so make sure to fetch and run it from a
+background terminal ([stripe-mock's README][stripe-mock] also contains
+instructions for installing via Homebrew and other methods):
+
+    go get -u github.com/stripe/stripe-mock
+    stripe-mock
+
+  Run all tests (modify `-e` according to your Python target):
 
     tox -e py27
 
@@ -152,7 +159,7 @@ Run a single test:
 Run the linter with:
 
     pip install flake8
-    flake8 stripe
+    flake8 stripe tests
 
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [connect]: https://stripe.com/connect

@@ -6,7 +6,7 @@ from copy import copy, deepcopy
 
 import stripe
 from stripe import util, six
-from tests.helper import StripeUnitTestCase
+from tests.helper import StripeTestCase
 
 
 SAMPLE_INVOICE = stripe.util.json.loads("""
@@ -58,7 +58,7 @@ SAMPLE_INVOICE = stripe.util.json.loads("""
 """)
 
 
-class StripeObjectTests(StripeUnitTestCase):
+class StripeObjectTests(StripeTestCase):
 
     def test_initializes_with_parameters(self):
         obj = stripe.stripe_object.StripeObject(

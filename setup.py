@@ -7,7 +7,6 @@ try:
 except ImportError:
     from distutils.core import setup
 
-from distutils.command.build_py import build_py
 
 path, script = os.path.split(sys.argv[0])
 os.chdir(os.path.abspath(path))
@@ -43,7 +42,6 @@ if sys.version_info < (3, 0):
 
 setup(
     name='stripe',
-    cmdclass={'build_py': build_py},
     version=VERSION,
     description='Stripe python bindings',
     long_description=long_description,

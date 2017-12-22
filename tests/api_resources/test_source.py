@@ -3,104 +3,90 @@ from __future__ import absolute_import, division, print_function
 import warnings
 
 import stripe
-from tests.helper import StripeResourceTest
+from tests.helper import StripeTestCase
 
 
-class SourceTest(StripeResourceTest):
+TEST_RESOURCE_ID = 'src_123'
 
-    def test_retrieve_resource(self):
-        stripe.Source.retrieve("src_foo")
-        self.requestor_mock.request.assert_called_with(
+
+class SourceTest(StripeTestCase):
+
+    def test_is_retrievable(self):
+        resource = stripe.Source.retrieve(TEST_RESOURCE_ID)
+        self.assert_requested(
             'get',
-            '/v1/sources/src_foo',
-            {},
-            None
+            '/v1/sources/%s' % TEST_RESOURCE_ID
         )
+        self.assertIsInstance(resource, stripe.Source)
 
-    def test_create_source(self):
-        stripe.Source.create(type="bitcoin", amount=1000, currency="usd",
-                             owner={"email": "jenny.rosen@example.com"})
-        self.requestor_mock.request.assert_called_with(
+    def test_is_creatable(self):
+        resource = stripe.Source.create(
+            type='card',
+            token='tok_123'
+        )
+        self.assert_requested(
             'post',
-            '/v1/sources',
-            {
-                'type': 'bitcoin',
-                'amount': 1000,
-                'currency': 'usd',
-                'owner': {'email': 'jenny.rosen@example.com'}
-            },
-            None
+            '/v1/sources'
         )
+        self.assertIsInstance(resource, stripe.Source)
 
-    def test_update_source(self):
-        source = stripe.Source.construct_from({
-            'id': 'src_foo',
-            'type': 'card',
-            'metadata': {},
-        }, 'api_key')
-        source.metadata['foo'] = 'bar'
-        source.save()
-
-        self.requestor_mock.request.assert_called_with(
+    def test_is_saveable(self):
+        resource = stripe.Source.retrieve(TEST_RESOURCE_ID)
+        resource.metadata['key'] = 'value'
+        resource.save()
+        self.assert_requested(
             'post',
-            '/v1/sources/src_foo',
-            {
-                'metadata': {'foo': 'bar'},
-            },
-            None
+            '/v1/sources/%s' % resource.id
         )
 
-    def test_detach_source_unattached(self):
-        source = stripe.Source.construct_from({
-            'id': 'src_foo',
-        }, 'api_key')
-        self.assertRaises(NotImplementedError, source.detach)
+    def test_is_modifiable(self):
+        resource = stripe.Source.modify(
+            TEST_RESOURCE_ID,
+            metadata={'key': 'value'}
+        )
+        self.assert_requested(
+            'post',
+            '/v1/sources/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.Source)
 
-    def test_detach_source_attached(self):
-        self.mock_response({
-            'id': 'src_foo'
-        })
-
-        source = stripe.Source.construct_from({
-            'id': 'src_foo',
-            'customer': 'cus_bar',
-        }, 'api_key')
-
-        self.assertTrue(source is source.detach(idempotency_key='idem-foo'))
-        self.assertFalse('customer' in source)
-        self.assertEquals('src_foo', source.id)
-
-        self.requestor_mock.request.assert_called_with(
+    def test_is_detachable_when_attached(self):
+        resource = stripe.Source.construct_from({
+            'id': TEST_RESOURCE_ID,
+            'object': 'source',
+            'customer': 'cus_123'
+        }, stripe.api_key)
+        source = resource.detach()
+        self.assertTrue(source is resource)
+        self.assert_requested(
             'delete',
-            '/v1/customers/cus_bar/sources/src_foo',
-            {},
-            {'Idempotency-Key': 'idem-foo'}
+            '/v1/customers/cus_123/sources/%s' % TEST_RESOURCE_ID
         )
 
-    def test_delete_source(self):
+    def test_is_not_detachable_when_unattached(self):
+        resource = stripe.Source.retrieve(TEST_RESOURCE_ID)
+        self.assertRaises(NotImplementedError, resource.detach)
+
+    def test_raises_a_warning_when_calling_delete(self):
         with warnings.catch_warnings(record=True) as w:
             warnings.simplefilter('always')
 
-            source = stripe.Source.construct_from({
-                'id': 'src_foo',
-                'customer': 'cus_bar',
-            }, 'api_key')
-            source.delete()
+            resource = stripe.Source.construct_from({
+                'id': TEST_RESOURCE_ID,
+                'object': 'source',
+                'customer': 'cus_123'
+            }, stripe.api_key)
+            resource.delete()
 
             self.assertEqual(1, len(w))
             self.assertEqual(w[0].category, DeprecationWarning)
 
-    def test_verify_source(self):
-        source = stripe.Source.construct_from({
-            'id': 'src_foo',
-            'type': 'ach_debit'
-        }, 'api_key')
-        source.verify(values=[32, 45])
-        self.requestor_mock.request.assert_called_with(
+    def test_is_verifiable(self):
+        resource = stripe.Source.retrieve(TEST_RESOURCE_ID)
+        source = resource.verify(values=[1, 2])
+        self.assertTrue(source is resource)
+        self.assert_requested(
             'post',
-            '/v1/sources/src_foo/verify',
-            {
-                'values': [32, 45],
-            },
-            None
+            '/v1/sources/%s/verify' % resource.id,
+            {'values': [1, 2]}
         )

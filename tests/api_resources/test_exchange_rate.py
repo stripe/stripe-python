@@ -1,26 +1,26 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeResourceTest
+from tests.helper import StripeTestCase
 
 
-class ExchangeRateTest(StripeResourceTest):
+TEST_RESOURCE_ID = 'usd'
 
+
+class ExchangeRateTest(StripeTestCase):
     def test_is_listable(self):
-        stripe.ExchangeRate.list()
-
-        self.requestor_mock.request.assert_called_with(
+        resources = stripe.ExchangeRate.list()
+        self.assert_requested(
             'get',
-            '/v1/exchange_rates',
-            {}
+            '/v1/exchange_rates'
         )
+        self.assertIsInstance(resources.data, list)
+        self.assertIsInstance(resources.data[0], stripe.ExchangeRate)
 
     def test_is_retrievable(self):
-        stripe.ExchangeRate.retrieve('usd')
-
-        self.requestor_mock.request.assert_called_with(
+        resource = stripe.ExchangeRate.retrieve(TEST_RESOURCE_ID)
+        self.assert_requested(
             'get',
-            '/v1/exchange_rates/usd',
-            {},
-            None
+            '/v1/exchange_rates/%s' % TEST_RESOURCE_ID
         )
+        self.assertIsInstance(resource, stripe.ExchangeRate)
