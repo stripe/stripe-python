@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.77.0 - 2017-12-21
+* [#371](https://github.com/stripe/stripe-python/pull/371) Add accessor `last_response` on `StripeObject` for accessing request ID and other metadata
+
 ## 1.76.0 - 2017-12-21
 * [#382](https://github.com/stripe/stripe-python/pull/382) Add new `IdempotencyError` type
 
