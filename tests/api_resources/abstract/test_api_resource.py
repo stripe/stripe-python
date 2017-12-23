@@ -1,18 +1,17 @@
 from __future__ import absolute_import, division, print_function
 
+import pytest
+
 import stripe
-from tests.helper import StripeTestCase
 
 
-class MyResource(stripe.api_resources.abstract.APIResource):
-    pass
+class TestAPIResource(object):
+    class MyResource(stripe.api_resources.abstract.APIResource):
+        pass
 
-
-class APIResourceTests(StripeTestCase):
-
-    def test_retrieve_and_refresh(self):
+    def test_retrieve_and_refresh(self, request_mock):
         url = '/v1/myresources/foo%2A'
-        self.stub_request(
+        request_mock.stub_request(
             'get',
             url,
             {
@@ -22,9 +21,9 @@ class APIResourceTests(StripeTestCase):
             rheaders={'request-id': 'req_id'}
         )
 
-        res = MyResource.retrieve('foo*', myparam=5)
+        res = self.MyResource.retrieve('foo*', myparam=5)
 
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             url,
             {
@@ -32,15 +31,15 @@ class APIResourceTests(StripeTestCase):
             },
             None
         )
-        self.assertEqual('scrobble', res.bobble)
-        self.assertEqual('foo2', res.id)
-        self.assertEqual('sk_test_123', res.api_key)
+        assert res.bobble == 'scrobble'
+        assert res.id == 'foo2'
+        assert res.api_key == 'sk_test_123'
 
-        self.assertTrue(res.last_response is not None)
-        self.assertEqual('req_id', res.last_response.request_id)
+        assert res.last_response is not None
+        assert res.last_response.request_id == 'req_id'
 
         url = '/v1/myresources/foo2'
-        self.stub_request(
+        request_mock.stub_request(
             'get',
             url,
             {
@@ -50,7 +49,7 @@ class APIResourceTests(StripeTestCase):
 
         res = res.refresh()
 
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             url,
             {
@@ -58,8 +57,9 @@ class APIResourceTests(StripeTestCase):
             },
             None
         )
-        self.assertEqual(5, res.frobble)
-        self.assertRaises(KeyError, res.__getitem__, 'bobble')
+        assert res.frobble == 5
+        with pytest.raises(KeyError):
+            res['bobble']
 
     def test_convert_to_stripe_object(self):
         sample = {
@@ -81,16 +81,15 @@ class APIResourceTests(StripeTestCase):
             sample, 'akey', None, None)
 
         # Types
-        self.assertTrue(isinstance(converted,
-                                   stripe.stripe_object.StripeObject))
-        self.assertTrue(isinstance(converted.adict, stripe.Charge))
-        self.assertEqual(1, len(converted.alist))
-        self.assertTrue(isinstance(converted.alist[0], stripe.Customer))
+        assert isinstance(converted, stripe.stripe_object.StripeObject)
+        assert isinstance(converted.adict, stripe.Charge)
+        assert len(converted.alist) == 1
+        assert isinstance(converted.alist[0], stripe.Customer)
 
         # Values
-        self.assertEqual('bar', converted.foo)
-        self.assertEqual(42, converted.adict.id)
-        self.assertEqual('chilango', converted.alist[0].name)
+        assert converted.foo == 'bar'
+        assert converted.adict.id == 42
+        assert converted.alist[0].name == 'chilango'
 
         # Stripping
         # TODO: We should probably be stripping out this property
@@ -98,11 +97,10 @@ class APIResourceTests(StripeTestCase):
 
     def test_convert_array_to_dict(self):
         out = stripe.util.convert_array_to_dict([{"foo": "bar"}])
-        self.assertEqual({"0": {"foo": "bar"}}, out)
-        self.assertEqual({"f": "b"},
-                         stripe.util.convert_array_to_dict({"f": "b"}))
+        assert out == {"0": {"foo": "bar"}}
+        assert stripe.util.convert_array_to_dict({"f": "b"}) == {"f": "b"}
 
     def test_raise_on_incorrect_id_type(self):
         for obj in [None, 1, 3.14, dict(), list(), set(), tuple(), object()]:
-            self.assertRaises(stripe.error.InvalidRequestError,
-                              MyResource.retrieve, obj)
+            with pytest.raises(stripe.error.InvalidRequestError):
+                self.MyResource.retrieve(obj)
