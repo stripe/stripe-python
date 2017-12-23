@@ -102,6 +102,10 @@ class RequestsClient(HTTPClient):
         self._timeout = timeout
         self._session = session or requests.Session()
 
+    def __del__(self):
+        if self._session:
+            self._session.close()
+
     def request(self, method, url, headers, post_data=None):
         kwargs = {}
         if self._verify_ssl_certs:

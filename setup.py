@@ -32,8 +32,12 @@ setup(
               'stripe.api_resources.abstract'],
     package_data={'stripe': ['data/ca-certificates.crt']},
     install_requires=install_requires,
-    test_suite='tests',
-    tests_require=['unittest2', 'mock'],
+    setup_requires=['pytest-runner'],
+    tests_require=[
+        'pytest >= 3.4',
+        'pytest-mock >= 1.7',
+        'pytest-cov >= 2.5',
+    ],
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
