@@ -1,31 +1,30 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeTestCase
 
 
 TEST_RESOURCE_ID = 'sku_123'
 
 
-class SKUTest(StripeTestCase):
-    def test_is_listable(self):
+class TestSKU(object):
+    def test_is_listable(self, request_mock):
         resources = stripe.SKU.list()
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/v1/skus'
         )
-        self.assertIsInstance(resources.data, list)
-        self.assertIsInstance(resources.data[0], stripe.SKU)
+        assert isinstance(resources.data, list)
+        assert isinstance(resources.data[0], stripe.SKU)
 
-    def test_is_retrievable(self):
+    def test_is_retrievable(self, request_mock):
         resource = stripe.SKU.retrieve(TEST_RESOURCE_ID)
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/v1/skus/%s' % TEST_RESOURCE_ID
         )
-        self.assertIsInstance(resource, stripe.SKU)
+        assert isinstance(resource, stripe.SKU)
 
-    def test_is_creatable(self):
+    def test_is_creatable(self, request_mock):
         resource = stripe.SKU.create(
             currency='usd',
             inventory=dict(
@@ -35,37 +34,37 @@ class SKUTest(StripeTestCase):
             price=100,
             product='prod_123'
         )
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/skus'
         )
-        self.assertIsInstance(resource, stripe.SKU)
+        assert isinstance(resource, stripe.SKU)
 
-    def test_is_saveable(self):
+    def test_is_saveable(self, request_mock):
         resource = stripe.SKU.retrieve(TEST_RESOURCE_ID)
         resource.metadata['key'] = 'value'
         resource.save()
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/skus/%s' % resource.id
         )
 
-    def test_is_modifiable(self):
+    def test_is_modifiable(self, request_mock):
         resource = stripe.SKU.modify(
             TEST_RESOURCE_ID,
             metadata={'key': 'value'}
         )
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/skus/%s' % TEST_RESOURCE_ID
         )
-        self.assertIsInstance(resource, stripe.SKU)
+        assert isinstance(resource, stripe.SKU)
 
-    def test_is_deletable(self):
+    def test_is_deletable(self, request_mock):
         resource = stripe.SKU.retrieve(TEST_RESOURCE_ID)
         resource.delete()
-        self.assert_requested(
+        request_mock.assert_requested(
             'delete',
             '/v1/skus/%s' % resource.id
         )
-        self.assertIsInstance(resource, stripe.SKU)
+        assert isinstance(resource, stripe.SKU)

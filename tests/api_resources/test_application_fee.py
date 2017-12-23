@@ -1,76 +1,75 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeTestCase
 
 
 TEST_RESOURCE_ID = 'fee_123'
 TEST_FEEREFUND_ID = 'fr_123'
 
 
-class ApplicationFeeTest(StripeTestCase):
-    def test_is_listable(self):
+class TestApplicationFee(object):
+    def test_is_listable(self, request_mock):
         resources = stripe.ApplicationFee.list()
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/v1/application_fees'
         )
-        self.assertIsInstance(resources.data, list)
-        self.assertIsInstance(resources.data[0], stripe.ApplicationFee)
+        assert isinstance(resources.data, list)
+        assert isinstance(resources.data[0], stripe.ApplicationFee)
 
-
-class ApplicationFeeRefundsTests(StripeTestCase):
-    def test_can_call_refund(self):
+    def test_is_refundable(self, request_mock):
         appfee = stripe.ApplicationFee.retrieve(TEST_RESOURCE_ID)
         resource = appfee.refund()
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/application_fees/%s/refund' % appfee.id
         )
-        self.assertIsInstance(resource, stripe.ApplicationFee)
-        self.assertTrue(resource is appfee)
+        assert isinstance(resource, stripe.ApplicationFee)
+        assert resource is appfee
 
-    def test_is_listable(self):
+
+class TestApplicationFeeRefunds(object):
+    def test_is_listable(self, request_mock):
         resources = stripe.ApplicationFee.list_refunds(TEST_RESOURCE_ID)
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/v1/application_fees/%s/refunds' % TEST_RESOURCE_ID
         )
-        self.assertIsInstance(resources.data, list)
-        self.assertIsInstance(resources.data[0], stripe.ApplicationFeeRefund)
+        assert isinstance(resources.data, list)
+        assert isinstance(resources.data[0], stripe.ApplicationFeeRefund)
 
-    def test_is_retrievable(self):
+    def test_is_retrievable(self, request_mock):
         resource = stripe.ApplicationFee.retrieve_refund(
             TEST_RESOURCE_ID,
             TEST_FEEREFUND_ID
         )
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/v1/application_fees/%s/refunds/%s' % (TEST_RESOURCE_ID,
                                                     TEST_FEEREFUND_ID)
         )
-        self.assertIsInstance(resource, stripe.ApplicationFeeRefund)
+        assert isinstance(resource, stripe.ApplicationFeeRefund)
 
-    def test_is_creatable(self):
+    def test_is_creatable(self, request_mock):
         resource = stripe.ApplicationFee.create_refund(
             TEST_RESOURCE_ID,
             amount=100
         )
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/application_fees/%s/refunds' % TEST_RESOURCE_ID
         )
-        self.assertIsInstance(resource, stripe.ApplicationFeeRefund)
+        assert isinstance(resource, stripe.ApplicationFeeRefund)
 
-    def test_is_modifiable(self):
+    def test_is_modifiable(self, request_mock):
         resource = stripe.ApplicationFee.modify_refund(
             TEST_RESOURCE_ID,
             TEST_FEEREFUND_ID,
             metadata={'foo': 'bar'}
         )
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/application_fees/%s/refunds/%s' % (TEST_RESOURCE_ID,
                                                     TEST_FEEREFUND_ID)
         )
-        self.assertIsInstance(resource, stripe.ApplicationFeeRefund)
+        assert isinstance(resource, stripe.ApplicationFeeRefund)
