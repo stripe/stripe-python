@@ -6,11 +6,9 @@ import re
 
 from stripe import six
 from stripe.multipart_data_generator import MultipartDataGenerator
-from tests.helper import StripeTestCase
 
 
-class MultipartDataGeneratorTests(StripeTestCase):
-
+class TestMultipartDataGenerator(object):
     def run_test_multipart_data_with_file(self, test_file):
         params = {
             "key1": b"ASCII value",
@@ -24,18 +22,18 @@ class MultipartDataGeneratorTests(StripeTestCase):
         if six.PY3:
             http_body = http_body.decode('utf-8')
 
-        self.assertTrue(re.search(
-            r"Content-Disposition: form-data; name=\"key1\"", http_body))
-        self.assertTrue(re.search(r"ASCII value", http_body))
-        self.assertTrue(re.search(
-            r"Content-Disposition: form-data; name=\"key2\"", http_body))
-        self.assertTrue(re.search(r"Üñìçôdé value", http_body))
-        self.assertTrue(re.search(
+        assert re.search(
+            r"Content-Disposition: form-data; name=\"key1\"", http_body)
+        assert re.search(r"ASCII value", http_body)
+        assert re.search(
+            r"Content-Disposition: form-data; name=\"key2\"", http_body)
+        assert re.search(r"Üñìçôdé value", http_body)
+        assert re.search(
             r"Content-Disposition: form-data; name=\"key3\"; "
             r"filename=\".+\"",
-            http_body))
-        self.assertTrue(re.search(
-            r"Content-Type: application/octet-stream", http_body))
+            http_body)
+        assert re.search(
+            r"Content-Type: application/octet-stream", http_body)
 
         test_file.seek(0)
         file_contents = test_file.read()
@@ -43,7 +41,7 @@ class MultipartDataGeneratorTests(StripeTestCase):
         if six.PY3 and isinstance(file_contents, bytes):
             file_contents = file_contents.decode('utf-8')
 
-        self.assertNotEqual(-1, http_body.find(file_contents))
+        assert http_body.find(file_contents) != -1
 
     def test_multipart_data_file_text(self):
         with open(__file__, mode='r') as test_file:

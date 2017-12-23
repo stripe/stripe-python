@@ -1,17 +1,14 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeTestCase
 
 
-class MyListable(stripe.api_resources.abstract.ListableAPIResource):
-    pass
+class TestListableAPIResource(object):
+    class MyListable(stripe.api_resources.abstract.ListableAPIResource):
+        pass
 
-
-class ListableAPIResourceTests(StripeTestCase):
-
-    def test_all(self):
-        self.stub_request(
+    def test_all(self, request_mock):
+        request_mock.stub_request(
             'get',
             '/v1/mylistables',
             {
@@ -32,17 +29,16 @@ class ListableAPIResourceTests(StripeTestCase):
             rheaders={'request-id': 'req_id'}
         )
 
-        res = MyListable.list()
-        self.assert_requested(
+        res = self.MyListable.list()
+        request_mock.assert_requested(
             'get',
             '/v1/mylistables',
             {}
         )
-        self.assertEqual(2, len(res.data))
-        self.assertTrue(all(isinstance(obj, stripe.Charge)
-                            for obj in res.data))
-        self.assertEqual('jose', res.data[0].name)
-        self.assertEqual('curly', res.data[1].name)
+        assert len(res.data) == 2
+        assert all(isinstance(obj, stripe.Charge) for obj in res.data)
+        assert res.data[0].name == 'jose'
+        assert res.data[1].name == 'curly'
 
-        self.assertTrue(res.last_response is not None)
-        self.assertEqual('req_id', res.last_response.request_id)
+        assert res.last_response is not None
+        assert res.last_response.request_id == 'req_id'
