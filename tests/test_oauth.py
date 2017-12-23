@@ -3,11 +3,10 @@ from __future__ import absolute_import, division, print_function
 from six.moves.urllib.parse import parse_qs, urlparse
 
 import stripe
-from tests.helper import StripeTestCase
 
 
-class OAuthTests(StripeTestCase):
-    def test_authorize_url(self):
+class TestOAuth(object):
+    def test_authorize_url(self, request_mock):
         url = stripe.OAuth.authorize_url(
             scope='read_write',
             state='csrf_token',
@@ -20,21 +19,19 @@ class OAuthTests(StripeTestCase):
         o = urlparse(url)
         params = parse_qs(o.query)
 
-        self.assertEqual('https', o.scheme)
-        self.assertEqual('connect.stripe.com', o.netloc)
-        self.assertEqual('/oauth/authorize', o.path)
+        assert o.scheme == 'https'
+        assert o.netloc == 'connect.stripe.com'
+        assert o.path == '/oauth/authorize'
 
-        self.assertEqual(['ca_123'], params['client_id'])
-        self.assertEqual(['read_write'], params['scope'])
-        self.assertEqual(['test@example.com'], params['stripe_user[email]'])
-        self.assertEqual(
-            ['https://example.com/profile/test'],
-            params['stripe_user[url]']
-        )
-        self.assertEqual(['US'], params['stripe_user[country]'])
+        assert params['client_id'] == ['ca_123']
+        assert params['scope'] == ['read_write']
+        assert params['stripe_user[email]'] == ['test@example.com']
+        assert params['stripe_user[url]'] == \
+            ['https://example.com/profile/test']
+        assert params['stripe_user[country]'] == ['US']
 
-    def test_token(self):
-        self.stub_request(
+    def test_token(self, request_mock):
+        request_mock.stub_request(
             'post',
             '/oauth/token',
             {
@@ -52,7 +49,7 @@ class OAuthTests(StripeTestCase):
             grant_type='authorization_code',
             code='this_is_an_authorization_code',
         )
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/oauth/token',
             {
@@ -60,10 +57,10 @@ class OAuthTests(StripeTestCase):
                 'code': 'this_is_an_authorization_code',
             }
         )
-        self.assertEqual('sk_access_token', resp['access_token'])
+        assert resp['access_token'] == 'sk_access_token'
 
-    def test_deauthorize(self):
-        self.stub_request(
+    def test_deauthorize(self, request_mock):
+        request_mock.stub_request(
             'post',
             '/oauth/deauthorize',
             {
@@ -72,7 +69,7 @@ class OAuthTests(StripeTestCase):
         )
 
         resp = stripe.OAuth.deauthorize(stripe_user_id='acct_test_deauth')
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/oauth/deauthorize',
             {
@@ -80,4 +77,4 @@ class OAuthTests(StripeTestCase):
                 'stripe_user_id': 'acct_test_deauth',
             }
         )
-        self.assertEqual('acct_test_deauth', resp['stripe_user_id'])
+        assert resp['stripe_user_id'] == 'acct_test_deauth'

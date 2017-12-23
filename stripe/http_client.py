@@ -166,6 +166,7 @@ class RequestsClient(HTTPClient):
 
     def close(self):
         if self._session is not None:
+            print("closing!")
             self._session.close()
 
 

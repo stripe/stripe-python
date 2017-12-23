@@ -152,13 +152,17 @@ Run all tests (modify `-e` according to your Python target):
 
     tox -e py27
 
+Run all tests in a single file:
+
+    tox -e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py
+
 Run a single test suite:
 
-    tox -e py27 -- --test-suite tests.api_resources.abstract.test_updateable_api_resource.UpdateableAPIResourceTests
+    tox -e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource
 
 Run a single test:
 
-    tox -e py27 -- --test-suite tests.api_resources.abstract.test_updateable_api_resource.UpdateableAPIResourceTests.test_save
+    tox -e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource::test_save
 
 Run the linter with:
 
