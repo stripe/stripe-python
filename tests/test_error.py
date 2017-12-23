@@ -3,11 +3,9 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import six, StripeError
-from tests.helper import StripeTestCase
 
 
-class StripeErrorTests(StripeTestCase):
-
+class TestError(object):
     def test_formatting(self):
         err = StripeError(u'öre')
         if six.PY3:

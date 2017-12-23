@@ -3,13 +3,7 @@ from __future__ import absolute_import, division, print_function
 import sys
 from collections import namedtuple
 
-try:
-    from unittest import mock
-except ImportError:
-    import mock
-
 from stripe import util
-from tests.helper import StripeTestCase
 from stripe.six.moves import builtins
 
 PRINT_FUNC_STRING = builtins.__name__ + '.print'
@@ -18,76 +12,56 @@ LogTestCase = namedtuple('LogTestCase', 'env flag should_output')
 FmtTestCase = namedtuple('FmtTestCase', 'props expected')
 
 
-class UtilTests(StripeTestCase):
+class TestUtil(object):
     DUMMY_REQ_ID = 'req_qsxPhqHyLxcoaM'
 
-    def test_test_apikey(self):
-        with mock.patch('stripe.api_key', 'sk_test_KOWobxXidxNlIx'):
-            link = util.dashboard_link(self.DUMMY_REQ_ID)
-            self.assertEqual(
-                link,
-                'https://dashboard.stripe.com/test/logs/' + self.DUMMY_REQ_ID,
-            )
+    def test_test_apikey(self, mocker):
+        mocker.patch('stripe.api_key', 'sk_test_KOWobxXidxNlIx')
+        link = util.dashboard_link(self.DUMMY_REQ_ID)
+        assert link == \
+            'https://dashboard.stripe.com/test/logs/' + self.DUMMY_REQ_ID
 
-    def test_live_apikey(self):
-        with mock.patch('stripe.api_key', 'sk_live_axwITqZSgTUXSN'):
-            link = util.dashboard_link(self.DUMMY_REQ_ID)
-            self.assertEqual(
-                link,
-                'https://dashboard.stripe.com/live/logs/' + self.DUMMY_REQ_ID,
-            )
+    def test_live_apikey(self, mocker):
+        mocker.patch('stripe.api_key', 'sk_live_axwITqZSgTUXSN')
+        link = util.dashboard_link(self.DUMMY_REQ_ID)
+        assert link == \
+            'https://dashboard.stripe.com/live/logs/' + self.DUMMY_REQ_ID
 
-    def test_no_apikey(self):
-        with mock.patch('stripe.api_key', None):
-            link = util.dashboard_link(self.DUMMY_REQ_ID)
-            self.assertEqual(
-                link,
-                'https://dashboard.stripe.com/test/logs/' + self.DUMMY_REQ_ID,
-            )
+    def test_no_apikey(self, mocker):
+        mocker.patch('stripe.api_key', None)
+        link = util.dashboard_link(self.DUMMY_REQ_ID)
+        assert link == \
+            'https://dashboard.stripe.com/test/logs/' + self.DUMMY_REQ_ID
 
-    def test_old_apikey(self):
-        with mock.patch('stripe.api_key', 'axwITqZSgTUXSN'):
-            link = util.dashboard_link(self.DUMMY_REQ_ID)
-            self.assertEqual(
-                link,
-                'https://dashboard.stripe.com/test/logs/' + self.DUMMY_REQ_ID,
-            )
+    def test_old_apikey(self, mocker):
+        mocker.patch('stripe.api_key', 'axwITqZSgTUXSN')
+        link = util.dashboard_link(self.DUMMY_REQ_ID)
+        assert link == \
+            'https://dashboard.stripe.com/test/logs/' + self.DUMMY_REQ_ID
 
-    def patch_val(self, var, value):
-        patcher = mock.patch(var, value)
-        patcher.start()
-        self.addCleanup(patcher.stop)
-
-    def patch_mock(self, var):
-        patcher = mock.patch(var)
-        mock_val = patcher.start()
-        self.addCleanup(patcher.stop)
-        return mock_val
-
-    def log_test_loop(self, test_cases, logging_func, logger_name):
+    def log_test_loop(self, test_cases, logging_func, logger_name, mocker):
         for case in test_cases:
-            with self.subTest(env=case.env, flag=case.flag):
-                try:
-                    logger_mock = self.patch_mock(logger_name)
-                    print_mock = self.patch_mock(PRINT_FUNC_STRING)
-                    self.patch_val('stripe.log', case.flag)
-                    self.patch_val('stripe.util.STRIPE_LOG', case.env)
+            try:
+                logger_mock = mocker.patch(logger_name)
+                print_mock = mocker.patch(PRINT_FUNC_STRING)
+                mocker.patch('stripe.log', case.flag)
+                mocker.patch('stripe.util.STRIPE_LOG', case.env)
 
-                    logging_func('foo \nbar', y=3)  # function under test
+                logging_func('foo \nbar', y=3)  # function under test
 
-                    if case.should_output:
-                        print_mock.assert_called_once_with(
-                            "message='foo \\nbar' y=3",
-                            file=sys.stderr,
-                        )
-                    else:
-                        print_mock.assert_not_called()
-                    logger_mock.assert_called_once_with(
-                        "message='foo \\nbar' y=3")
-                finally:
-                    self.doCleanups()
+                if case.should_output:
+                    print_mock.assert_called_once_with(
+                        "message='foo \\nbar' y=3",
+                        file=sys.stderr,
+                    )
+                else:
+                    print_mock.assert_not_called()
+                logger_mock.assert_called_once_with(
+                    "message='foo \\nbar' y=3")
+            finally:
+                mocker.stopall()
 
-    def test_log_debug(self):
+    def test_log_debug(self, mocker):
         # (STRIPE_LOG, stripe.log): should_output?
         test_cases = [
             LogTestCase(env=None, flag=None, should_output=False),
@@ -104,9 +78,10 @@ class UtilTests(StripeTestCase):
             test_cases,
             logging_func=util.log_debug,
             logger_name='stripe.util.logger.debug',
+            mocker=mocker
         )
 
-    def test_log_info(self):
+    def test_log_info(self, mocker):
         # (STRIPE_LOG, stripe.log): should_output?
         test_cases = [
             LogTestCase(env=None, flag=None, should_output=False),
@@ -123,6 +98,7 @@ class UtilTests(StripeTestCase):
             test_cases,
             logging_func=util.log_info,
             logger_name='stripe.util.logger.info',
+            mocker=mocker
         )
 
     def test_logfmt(self):
@@ -137,6 +113,5 @@ class UtilTests(StripeTestCase):
                         expected="'key with space'=True"),
         ]
         for case in cases:
-            with self.subTest(props=case.props):
-                result = util.logfmt(case.props)
-                self.assertEqual(result, case.expected)
+            result = util.logfmt(case.props)
+            assert result == case.expected

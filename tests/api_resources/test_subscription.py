@@ -1,86 +1,85 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeTestCase
 
 
 TEST_RESOURCE_ID = 'sub_123'
 
 
-class SubscriptionTest(StripeTestCase):
-    def test_is_listable(self):
+class TestSubscription(object):
+    def test_is_listable(self, request_mock):
         resources = stripe.Subscription.list()
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/v1/subscriptions'
         )
-        self.assertIsInstance(resources.data, list)
-        self.assertIsInstance(resources.data[0], stripe.Subscription)
+        assert isinstance(resources.data, list)
+        assert isinstance(resources.data[0], stripe.Subscription)
 
-    def test_is_retrievable(self):
+    def test_is_retrievable(self, request_mock):
         resource = stripe.Subscription.retrieve(TEST_RESOURCE_ID)
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/v1/subscriptions/%s' % TEST_RESOURCE_ID
         )
-        self.assertIsInstance(resource, stripe.Subscription)
+        assert isinstance(resource, stripe.Subscription)
 
-    def test_is_creatable(self):
+    def test_is_creatable(self, request_mock):
         resource = stripe.Subscription.create(
             customer='cus_123',
             plan='plan'
         )
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/subscriptions'
         )
-        self.assertIsInstance(resource, stripe.Subscription)
+        assert isinstance(resource, stripe.Subscription)
 
-    def test_is_saveable(self):
+    def test_is_saveable(self, request_mock):
         resource = stripe.Subscription.retrieve(TEST_RESOURCE_ID)
         resource.metadata['key'] = 'value'
         resource.save()
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/subscriptions/%s' % resource.id
         )
 
-    def test_is_modifiable(self):
+    def test_is_modifiable(self, request_mock):
         resource = stripe.Subscription.modify(
             TEST_RESOURCE_ID,
             metadata={'key': 'value'}
         )
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/subscriptions/%s' % TEST_RESOURCE_ID
         )
-        self.assertIsInstance(resource, stripe.Subscription)
+        assert isinstance(resource, stripe.Subscription)
 
-    def test_is_deletable(self):
+    def test_is_deletable(self, request_mock):
         resource = stripe.Subscription.retrieve(TEST_RESOURCE_ID)
         resource.delete()
-        self.assert_requested(
+        request_mock.assert_requested(
             'delete',
             '/v1/subscriptions/%s' % resource.id
         )
-        self.assertIsInstance(resource, stripe.Subscription)
+        assert isinstance(resource, stripe.Subscription)
 
-    def test_can_delete_discount(self):
+    def test_can_delete_discount(self, request_mock):
         sub = stripe.Subscription.retrieve(TEST_RESOURCE_ID)
         sub.delete_discount()
-        self.assert_requested(
+        request_mock.assert_requested(
             'delete',
             '/v1/subscriptions/%s/discount' % sub.id
         )
 
     # Test create/modify methods with subscription items
 
-    def test_is_creatable_with_items(self):
+    def test_is_creatable_with_items(self, request_mock):
         resource = stripe.Subscription.create(
             customer='cus_123',
             items=[{"plan": "foo", "quantity": 3}]
         )
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/subscriptions',
             {
@@ -93,14 +92,14 @@ class SubscriptionTest(StripeTestCase):
                 },
             },
         )
-        self.assertIsInstance(resource, stripe.Subscription)
+        assert isinstance(resource, stripe.Subscription)
 
-    def test_is_modifiable_with_items(self):
+    def test_is_modifiable_with_items(self, request_mock):
         resource = stripe.Subscription.modify(
             TEST_RESOURCE_ID,
             items=[{"id": "si", "plan": "foo"}]
         )
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/subscriptions/%s' % TEST_RESOURCE_ID,
             {
@@ -112,14 +111,14 @@ class SubscriptionTest(StripeTestCase):
                 },
             },
         )
-        self.assertIsInstance(resource, stripe.Subscription)
+        assert isinstance(resource, stripe.Subscription)
 
     # TODO: Fix this test
     # def test_is_saveable_with_items(self):
     #    resource = stripe.Subscription.retrieve(TEST_RESOURCE_ID)
     #    resource.items = [{"id": "si", "plan": "foo"}]
     #    resource.save()
-    #    self.assert_requested(
+    #    request_mock.assert_requested(
     #        'post',
     #        '/v1/subscriptions/%s' % TEST_RESOURCE_ID,
     #        {
@@ -131,6 +130,6 @@ class SubscriptionTest(StripeTestCase):
     #            },
     #        },
     #    )
-    #    self.assertIsInstance(resource, stripe.Subscription)
+    #    assert isinstance(resource, stripe.Subscription)
 
     # TODO: Test serialize

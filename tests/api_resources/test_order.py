@@ -1,78 +1,77 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeTestCase
 
 
 TEST_RESOURCE_ID = 'or_123'
 
 
-class OrderTest(StripeTestCase):
-    def test_is_listable(self):
+class TestOrder(object):
+    def test_is_listable(self, request_mock):
         resources = stripe.Order.list()
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/v1/orders'
         )
-        self.assertIsInstance(resources.data, list)
-        self.assertIsInstance(resources.data[0], stripe.Order)
+        assert isinstance(resources.data, list)
+        assert isinstance(resources.data[0], stripe.Order)
 
-    def test_is_retrievable(self):
+    def test_is_retrievable(self, request_mock):
         resource = stripe.Order.retrieve(TEST_RESOURCE_ID)
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/v1/orders/%s' % TEST_RESOURCE_ID
         )
-        self.assertIsInstance(resource, stripe.Order)
+        assert isinstance(resource, stripe.Order)
 
-    def test_is_creatable(self):
+    def test_is_creatable(self, request_mock):
         resource = stripe.Order.create(
             currency='usd'
         )
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/orders'
         )
-        self.assertIsInstance(resource, stripe.Order)
+        assert isinstance(resource, stripe.Order)
 
-    def test_is_saveable(self):
+    def test_is_saveable(self, request_mock):
         resource = stripe.Order.retrieve(TEST_RESOURCE_ID)
         resource.metadata['key'] = 'value'
         resource.save()
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/orders/%s' % resource.id
         )
 
-    def test_is_modifiable(self):
+    def test_is_modifiable(self, request_mock):
         resource = stripe.Order.modify(
             TEST_RESOURCE_ID,
             metadata={'key': 'value'}
         )
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/orders/%s' % TEST_RESOURCE_ID
         )
-        self.assertIsInstance(resource, stripe.Order)
+        assert isinstance(resource, stripe.Order)
 
-    def test_is_payable(self):
+    def test_is_payable(self, request_mock):
         order = stripe.Order.retrieve(TEST_RESOURCE_ID)
         resource = order.pay(source='src_123')
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/orders/%s/pay' % order.id,
             {
                 'source': 'src_123'
             }
         )
-        self.assertTrue(resource, stripe.Order)
-        self.assertTrue(resource is order)
+        assert isinstance(resource, stripe.Order)
+        assert resource is order
 
-    def test_is_returnable(self):
+    def test_is_returnable(self, request_mock):
         order = stripe.Order.retrieve(TEST_RESOURCE_ID)
         resource = order.return_order()
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/v1/orders/%s/returns' % order.id
         )
-        self.assertIsInstance(resource, stripe.OrderReturn)
+        assert isinstance(resource, stripe.OrderReturn)
