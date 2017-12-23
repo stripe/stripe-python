@@ -19,14 +19,14 @@ class BitcoinReceiverTest(StripeTestCase):
 
     def test_has_customer_instance_url(self):
         resource = self.construct_resource(customer='cus_123')
-        self.assertEquals(
+        self.assertEqual(
             '/v1/customers/cus_123/sources/%s' % TEST_RESOURCE_ID,
             resource.instance_url()
         )
 
     def test_has_receiver_instance_url(self):
         resource = self.construct_resource()
-        self.assertEquals(
+        self.assertEqual(
             '/v1/bitcoin/receivers/%s' % TEST_RESOURCE_ID,
             resource.instance_url()
         )
