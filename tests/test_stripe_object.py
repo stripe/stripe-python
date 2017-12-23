@@ -3,11 +3,11 @@ from __future__ import absolute_import, division, print_function
 import datetime
 import pickle
 from copy import copy, deepcopy
-from mock import Mock
+
+import pytest
 
 import stripe
 from stripe import util, six
-from tests.helper import StripeTestCase
 
 
 SAMPLE_INVOICE = stripe.util.json.loads("""
@@ -59,57 +59,58 @@ SAMPLE_INVOICE = stripe.util.json.loads("""
 """)
 
 
-class StripeObjectTests(StripeTestCase):
-
+class TestStripeObject(object):
     def test_initializes_with_parameters(self):
         obj = stripe.stripe_object.StripeObject(
             'foo', 'bar', myparam=5, yourparam='boo')
 
-        self.assertEqual('foo', obj.id)
-        self.assertEqual('bar', obj.api_key)
+        assert obj.id == 'foo'
+        assert obj.api_key == 'bar'
 
     def test_access(self):
         obj = stripe.stripe_object.StripeObject('myid', 'mykey', myparam=5)
 
         # Empty
-        self.assertRaises(AttributeError, getattr, obj, 'myattr')
-        self.assertRaises(KeyError, obj.__getitem__, 'myattr')
-        self.assertEqual('def', obj.get('myattr', 'def'))
-        self.assertEqual(None, obj.get('myattr'))
+        with pytest.raises(AttributeError):
+            obj.myattr
+        with pytest.raises(KeyError):
+            obj['myattr']
+        assert obj.get('myattr', 'def') == 'def'
+        assert obj.get('myattr') is None
 
         # Setters
         obj.myattr = 'myval'
         obj['myitem'] = 'itval'
-        self.assertEqual('sdef', obj.setdefault('mydef', 'sdef'))
+        assert obj.setdefault('mydef', 'sdef') == 'sdef'
 
         # Getters
-        self.assertEqual('myval', obj.setdefault('myattr', 'sdef'))
-        self.assertEqual('myval', obj.myattr)
-        self.assertEqual('myval', obj['myattr'])
-        self.assertEqual('myval', obj.get('myattr'))
+        assert obj.setdefault('myattr', 'sdef') == 'myval'
+        assert obj.myattr == 'myval'
+        assert obj['myattr'] == 'myval'
+        assert obj.get('myattr') == 'myval'
 
-        self.assertEqual(['id', 'myattr', 'mydef', 'myitem'],
-                         sorted(obj.keys()))
-        self.assertEqual(['itval', 'myid', 'myval', 'sdef'],
-                         sorted(obj.values()))
+        assert sorted(obj.keys()) == ['id', 'myattr', 'mydef', 'myitem']
+
+        assert sorted(obj.values()) == ['itval', 'myid', 'myval', 'sdef']
 
         # Illegal operations
-        self.assertRaises(ValueError, setattr, obj, 'foo', '')
+        with pytest.raises(ValueError):
+            obj.foo = ''
 
-    def test_refresh_from(self):
+    def test_refresh_from(self, mocker):
         obj = stripe.stripe_object.StripeObject.construct_from({
             'foo': 'bar',
             'trans': 'me',
         }, 'mykey')
 
-        self.assertEqual('mykey', obj.api_key)
-        self.assertEqual('bar', obj.foo)
-        self.assertEqual('me', obj['trans'])
-        self.assertEqual(None, obj.stripe_version)
-        self.assertEqual(None, obj.stripe_account)
-        self.assertEqual(None, obj.last_response)
+        assert obj.api_key == 'mykey'
+        assert obj.foo == 'bar'
+        assert obj['trans'] == 'me'
+        assert obj.stripe_version is None
+        assert obj.stripe_account is None
+        assert obj.last_response is None
 
-        last_response = Mock()
+        last_response = mocker.Mock()
         obj.refresh_from(
             {
                 'foo': 'baz',
@@ -120,21 +121,22 @@ class StripeObjectTests(StripeTestCase):
             last_response=last_response
         )
 
-        self.assertEqual(5, obj.johnny)
-        self.assertEqual('baz', obj.foo)
-        self.assertRaises(AttributeError, getattr, obj, 'trans')
-        self.assertEqual('key2', obj.api_key)
-        self.assertEqual('2017-08-15', obj.stripe_version)
-        self.assertEqual('acct_foo', obj.stripe_account)
-        self.assertEqual(last_response, obj.last_response)
+        assert obj.johnny == 5
+        assert obj.foo == 'baz'
+        with pytest.raises(AttributeError):
+            obj.trans
+        assert obj.api_key == 'key2'
+        assert obj.stripe_version == '2017-08-15'
+        assert obj.stripe_account == 'acct_foo'
+        assert obj.last_response == last_response
 
         obj.refresh_from({
             'trans': 4,
             'metadata': {'amount': 42}
         }, 'key2', True)
 
-        self.assertEqual('baz', obj.foo)
-        self.assertEqual(4, obj.trans)
+        assert obj.foo == 'baz'
+        assert obj.trans == 4
 
     def test_passing_nested_refresh(self):
         obj = stripe.stripe_object.StripeObject.construct_from({
@@ -148,20 +150,19 @@ class StripeObjectTests(StripeTestCase):
 
         nested = obj.foos.data[0]
 
-        self.assertEqual('key', obj.api_key)
-        self.assertEqual('nested', nested.id)
-        self.assertEqual('key', nested.api_key)
-        self.assertEqual('acct_foo', nested.stripe_account)
+        assert obj.api_key == 'key'
+        assert nested.id == 'nested'
+        assert nested.api_key == 'key'
+        assert nested.stripe_account == 'acct_foo'
 
     def test_refresh_from_nested_object(self):
         obj = stripe.stripe_object.StripeObject.construct_from(
             SAMPLE_INVOICE, 'key')
 
-        self.assertEqual(1, len(obj.lines.subscriptions))
-        self.assertTrue(
-            isinstance(obj.lines.subscriptions[0],
-                       stripe.stripe_object.StripeObject))
-        self.assertEqual('month', obj.lines.subscriptions[0].plan.interval)
+        assert len(obj.lines.subscriptions) == 1
+        assert isinstance(obj.lines.subscriptions[0],
+                          stripe.stripe_object.StripeObject)
+        assert obj.lines.subscriptions[0].plan.interval == 'month'
 
     def test_to_json(self):
         obj = stripe.stripe_object.StripeObject.construct_from(
@@ -171,17 +172,16 @@ class StripeObjectTests(StripeTestCase):
 
     def check_invoice_data(self, data):
         # Check rough structure
-        self.assertEqual(20, len(list(data.keys())))
-        self.assertEqual(3, len(list(data['lines'].keys())))
-        self.assertEqual(0, len(data['lines']['invoiceitems']))
-        self.assertEqual(1, len(data['lines']['subscriptions']))
+        assert len(list(data.keys())) == 20
+        assert len(list(data['lines'].keys())) == 3
+        assert len(data['lines']['invoiceitems']) == 0
+        assert len(data['lines']['subscriptions']) == 1
 
         # Check various data types
-        self.assertEqual(1338238728, data['date'])
-        self.assertEqual(None, data['next_payment_attempt'])
-        self.assertEqual(False, data['livemode'])
-        self.assertEqual('month',
-                         data['lines']['subscriptions'][0]['plan']['interval'])
+        assert data['date'] == 1338238728
+        assert data['next_payment_attempt'] is None
+        assert data['livemode'] is False
+        assert data['lines']['subscriptions'][0]['plan']['interval'] == 'month'
 
     def test_repr(self):
         obj = stripe.stripe_object.StripeObject(
@@ -195,9 +195,9 @@ class StripeObjectTests(StripeTestCase):
         if six.PY2:
             res = six.text_type(repr(obj), 'utf-8')
 
-        self.assertTrue(u'<StripeObject \u4e00boo\u1f00' in res)
-        self.assertTrue(u'id=foo' in res)
-        self.assertTrue(u'"date": 1511136000' in res)
+        assert u'<StripeObject \u4e00boo\u1f00' in res
+        assert u'id=foo' in res
+        assert u'"date": 1511136000' in res
 
     def test_pickling(self):
         obj = stripe.stripe_object.StripeObject(
@@ -213,28 +213,29 @@ class StripeObjectTests(StripeTestCase):
             api_key='bar', partial=True
         )
 
-        self.assertEqual('lalala', obj.fala)
+        assert obj.fala == 'lalala'
 
         pickled = pickle.dumps(obj)
         newobj = pickle.loads(pickled)
 
-        self.assertEqual('foo', newobj.id)
-        self.assertEqual('bar', newobj.api_key)
-        self.assertEqual('boo', newobj['object'])
-        self.assertEqual('lalala', newobj.fala)
-        self.assertEqual('', newobj.emptystring)
+        assert newobj.id == 'foo'
+        assert newobj.api_key == 'bar'
+        assert newobj['object'] == 'boo'
+        assert newobj.fala == 'lalala'
+        assert newobj.emptystring == ''
 
     def test_deletion(self):
         obj = stripe.stripe_object.StripeObject('id', 'key')
 
         obj.coupon = "foo"
-        self.assertEqual('foo', obj.coupon)
+        assert obj.coupon == 'foo'
 
         del obj.coupon
-        self.assertRaises(AttributeError, getattr, obj, 'coupon')
+        with pytest.raises(AttributeError):
+            obj.coupon
 
         obj.refresh_from({'coupon': 'foo'}, api_key='bar', partial=True)
-        self.assertEqual('foo', obj.coupon)
+        assert obj.coupon == 'foo'
 
     def test_copy(self):
         nested = stripe.stripe_object.StripeObject.construct_from({
@@ -248,15 +249,15 @@ class StripeObjectTests(StripeTestCase):
 
         copied = copy(obj)
 
-        self.assertEqual('', copied.empty)
-        self.assertEqual('foo', copied.value)
-        self.assertEqual('bar', copied.nested.value)
+        assert copied.empty == ''
+        assert copied.value == 'foo'
+        assert copied.nested.value == 'bar'
 
-        self.assertEqual('mykey', copied.api_key)
-        self.assertEqual('myaccount', copied.stripe_account)
+        assert copied.api_key == 'mykey'
+        assert copied.stripe_account == 'myaccount'
 
         # Verify that we're not deep copying nested values.
-        self.assertEqual(id(nested), id(copied.nested))
+        assert id(nested) == id(copied.nested)
 
     def test_deepcopy(self):
         nested = stripe.stripe_object.StripeObject.construct_from({
@@ -270,15 +271,15 @@ class StripeObjectTests(StripeTestCase):
 
         copied = deepcopy(obj)
 
-        self.assertEqual('', copied.empty)
-        self.assertEqual('foo', copied.value)
-        self.assertEqual('bar', copied.nested.value)
+        assert copied.empty == ''
+        assert copied.value == 'foo'
+        assert copied.nested.value == 'bar'
 
-        self.assertEqual('mykey', copied.api_key)
-        self.assertEqual('myaccount', copied.stripe_account)
+        assert copied.api_key == 'mykey'
+        assert copied.stripe_account == 'myaccount'
 
         # Verify that we're actually deep copying nested values.
-        self.assertNotEqual(id(nested), id(copied.nested))
+        assert id(nested) != id(copied.nested)
 
     def test_serialize_empty_string_unsets(self):
         class SerializeToEmptyString(stripe.stripe_object.StripeObject):
@@ -292,4 +293,4 @@ class StripeObjectTests(StripeTestCase):
             'nested': nested,
         }, 'mykey')
 
-        self.assertEqual(obj.serialize(None), {'nested': ''})
+        assert obj.serialize(None) == {'nested': ''}

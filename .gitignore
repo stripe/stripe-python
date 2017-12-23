@@ -12,6 +12,7 @@
 .tox/
 .coverage
 .cache
+.pytest_cache
 nosetests.xml
 coverage.xml
 htmlcov/
