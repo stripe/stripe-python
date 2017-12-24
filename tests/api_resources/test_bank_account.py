@@ -19,14 +19,14 @@ class BankAccountTest(StripeTestCase):
 
     def test_has_account_instance_url(self):
         resource = self.construct_resource(account='acct_123')
-        self.assertEquals(
+        self.assertEqual(
             '/v1/accounts/acct_123/external_accounts/%s' % TEST_RESOURCE_ID,
             resource.instance_url()
         )
 
     def test_has_customer_instance_url(self):
         resource = self.construct_resource(customer='cus_123')
-        self.assertEquals(
+        self.assertEqual(
             '/v1/customers/cus_123/sources/%s' % TEST_RESOURCE_ID,
             resource.instance_url()
         )

@@ -19,7 +19,7 @@ class ReversalTest(StripeTestCase):
 
     def test_has_instance_url(self):
         resource = self.construct_resource()
-        self.assertEquals(
+        self.assertEqual(
             '/v1/transfers/tr_123/reversals/%s' % TEST_RESOURCE_ID,
             resource.instance_url()
         )

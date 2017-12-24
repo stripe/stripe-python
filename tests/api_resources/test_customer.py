@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
+import warnings
+
 import stripe
 from tests.helper import (StripeTestCase)
 
@@ -81,7 +83,9 @@ class CustomerLegacySubscriptionTest(StripeTestCase):
             '/v1/customers/%s/subscription' % TEST_RESOURCE_ID,
         )
         resource = self.construct_resource()
-        resource.update_subscription(plan='plan')
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore')
+            resource.update_subscription(plan='plan')
         self.assert_requested(
             'post',
             '/v1/customers/%s/subscription' % TEST_RESOURCE_ID
@@ -93,7 +97,9 @@ class CustomerLegacySubscriptionTest(StripeTestCase):
             '/v1/customers/%s/subscription' % TEST_RESOURCE_ID
         )
         resource = self.construct_resource()
-        resource.cancel_subscription()
+        with warnings.catch_warnings():
+            warnings.simplefilter('ignore')
+            resource.cancel_subscription()
         self.assert_requested(
             'delete',
             '/v1/customers/%s/subscription' % TEST_RESOURCE_ID
