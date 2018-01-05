@@ -1,6 +1,5 @@
 import os
 import sys
-import warnings
 
 try:
     from setuptools import setup
@@ -10,7 +9,6 @@ except ImportError:
 
 path, script = os.path.split(sys.argv[0])
 os.chdir(os.path.abspath(path))
-
 
 with open('LONG_DESCRIPTION.rst') as f:
     long_description = f.read()
@@ -51,10 +49,8 @@ setup(
         "Operating System :: OS Independent",
         "Programming Language :: Python",
         "Programming Language :: Python :: 2",
-        "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
