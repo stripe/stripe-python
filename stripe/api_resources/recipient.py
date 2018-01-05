@@ -10,8 +10,3 @@ from stripe.api_resources.abstract import ListableAPIResource
 class Recipient(CreateableAPIResource, UpdateableAPIResource,
                 ListableAPIResource, DeletableAPIResource):
     OBJECT_NAME = 'recipient'
-
-    def transfers(self, **params):
-        params['recipient'] = self.id
-        transfers = Transfer.list(self.api_key, **params)
-        return transfers
