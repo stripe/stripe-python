@@ -1,7 +1,5 @@
 from __future__ import absolute_import, division, print_function
 
-import warnings
-
 from stripe import util
 from stripe.api_resources import Customer
 from stripe.api_resources.abstract import CreateableAPIResource
@@ -29,13 +27,6 @@ class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
             raise NotImplementedError(
                 "This source object does not appear to be currently attached "
                 "to a customer object.")
-
-    def delete(self, **params):
-        warnings.warn("The `Source.delete` method is deprecated and will "
-                      "be removed in future versions. Please use the "
-                      "`Source.detach` method instead",
-                      DeprecationWarning)
-        self.detach(**params)
 
     def source_transactions(self, **params):
         return self.request(
