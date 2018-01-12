@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.77.1 - 2018-01-12
+* [#389](https://github.com/stripe/stripe-python/pull/389) Register unsaved attributes on assignment regardless of new value
+
 ## 1.77.0 - 2017-12-21
 * [#371](https://github.com/stripe/stripe-python/pull/371) Add accessor `last_response` on `StripeObject` for accessing request ID and other metadata
 
