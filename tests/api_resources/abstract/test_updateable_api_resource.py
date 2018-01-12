@@ -16,7 +16,8 @@ class UpdateableAPIResourceTests(StripeTestCase):
             'post',
             '/v1/myupdateables/myid',
             {
-                'thats': 'it'
+                'id': 'myid',
+                'thats': 'it',
             }
         )
 
@@ -83,17 +84,35 @@ class UpdateableAPIResourceTests(StripeTestCase):
         self.checkSave()
         self.assert_no_request()
 
-        # Setting the same value should not cause any request.
+        # Setting the same value should cause a request.
+        self.stub_request(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'id': 'myid',
+                'thats': 'it',
+            }
+        )
+
         self.obj.thats = 'it'
         self.checkSave()
-        self.assert_no_request()
+
+        self.assert_requested(
+            'post',
+            '/v1/myupdateables/myid',
+            {
+                'thats': 'it',
+            },
+            None
+        )
 
         # Changing the value should cause a request.
         self.stub_request(
             'post',
             '/v1/myupdateables/myid',
             {
-                'thats': 'it'
+                'id': 'myid',
+                'thats': 'it',
             }
         )
 
