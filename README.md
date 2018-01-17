@@ -163,6 +163,7 @@ Run the linter with:
 
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [connect]: https://stripe.com/connect
+[stripe-mock]: https://github.com/stripe/stripe-mock
 
 <!--
 # vim: set tw=79:
