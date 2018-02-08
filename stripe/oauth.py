@@ -40,7 +40,7 @@ class OAuth(object):
         requestor = api_requestor.APIRequestor(api_base=connect_api_base)
         response, api_key = requestor.request(
             'post', '/oauth/token', params, None)
-        return response
+        return response.data
 
     @staticmethod
     def deauthorize(**params):
@@ -48,4 +48,4 @@ class OAuth(object):
         OAuth._set_client_id(params)
         response, api_key = requestor.request(
             'post', '/oauth/deauthorize', params, None)
-        return response
+        return response.data

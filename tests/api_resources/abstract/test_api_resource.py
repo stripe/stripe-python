@@ -18,7 +18,8 @@ class APIResourceTests(StripeTestCase):
             {
                 'id': 'foo2',
                 'bobble': 'scrobble',
-            }
+            },
+            rheaders={'request-id': 'req_id'}
         )
 
         res = MyResource.retrieve('foo*', myparam=5)
@@ -34,6 +35,9 @@ class APIResourceTests(StripeTestCase):
         self.assertEqual('scrobble', res.bobble)
         self.assertEqual('foo2', res.id)
         self.assertEqual('sk_test_123', res.api_key)
+
+        self.assertTrue(res.last_response is not None)
+        self.assertEqual('req_id', res.last_response.request_id)
 
         url = '/v1/myresources/foo2'
         self.stub_request(

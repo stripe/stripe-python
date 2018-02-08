@@ -3,6 +3,8 @@ from __future__ import absolute_import, division, print_function
 from mock import patch, ANY
 
 import stripe
+from stripe import six
+from stripe.stripe_response import StripeResponse
 
 
 class RequestMock(object):
@@ -28,14 +30,15 @@ class RequestMock(object):
         self.constructor_patcher.stop()
 
     def _patched_request(self, requestor, method, url, *args, **kwargs):
-        response_body = self._stub_request_handler.get_response(method, url)
-        if response_body is not None:
-            return response_body, stripe.api_key
+        response = self._stub_request_handler.get_response(method, url)
+        if response is not None:
+            return response, stripe.api_key
 
         return self._real_request(requestor, method, url, *args, **kwargs)
 
-    def stub_request(self, method, url, response_body={}):
-        self._stub_request_handler.register(method, url, response_body)
+    def stub_request(self, method, url, rbody={}, rcode=200, rheaders={}):
+        self._stub_request_handler.register(method, url, rbody, rcode,
+                                            rheaders)
 
     def assert_api_version(self, expected_api_version):
         # Note that this method only checks that an API version was provided
@@ -94,12 +97,15 @@ class StubRequestHandler(object):
     def __init__(self):
         self._entries = {}
 
-    def register(self, method, url, response_body={}):
-        self._entries[(method, url)] = response_body
+    def register(self, method, url, rbody={}, rcode=200, rheaders={}):
+        self._entries[(method, url)] = (rbody, rcode, rheaders)
 
     def get_response(self, method, url):
         if (method, url) in self._entries:
-            response_body = self._entries.pop((method, url))
-            return response_body
+            rbody, rcode, rheaders = self._entries.pop((method, url))
+            if not isinstance(rbody, six.string_types):
+                rbody = stripe.util.json.dumps(rbody)
+            stripe_response = StripeResponse(rbody, rcode, rheaders)
+            return stripe_response
 
         return None

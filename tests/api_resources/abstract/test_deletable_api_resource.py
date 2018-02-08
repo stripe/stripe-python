@@ -16,7 +16,8 @@ class DeletableAPIResourceTests(StripeTestCase):
             {
                 'id': 'mid',
                 'deleted': True,
-            }
+            },
+            rheaders={'request-id': 'req_id'}
         )
 
         obj = MyDeletable.construct_from({
@@ -31,3 +32,6 @@ class DeletableAPIResourceTests(StripeTestCase):
         )
         self.assertEqual(True, obj.deleted)
         self.assertEqual('mid', obj.id)
+
+        self.assertTrue(obj.last_response is not None)
+        self.assertEqual('req_id', obj.last_response.request_id)

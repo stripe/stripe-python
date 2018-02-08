@@ -3,6 +3,7 @@ from __future__ import absolute_import, division, print_function
 import datetime
 import pickle
 from copy import copy, deepcopy
+from mock import Mock
 
 import stripe
 from stripe import util, six
@@ -106,11 +107,18 @@ class StripeObjectTests(StripeTestCase):
         self.assertEqual('me', obj['trans'])
         self.assertEqual(None, obj.stripe_version)
         self.assertEqual(None, obj.stripe_account)
+        self.assertEqual(None, obj.last_response)
 
-        obj.refresh_from({
-            'foo': 'baz',
-            'johnny': 5,
-        }, 'key2', stripe_version='2017-08-15', stripe_account='acct_foo')
+        last_response = Mock()
+        obj.refresh_from(
+            {
+                'foo': 'baz',
+                'johnny': 5,
+            }, 'key2',
+            stripe_version='2017-08-15',
+            stripe_account='acct_foo',
+            last_response=last_response
+        )
 
         self.assertEqual(5, obj.johnny)
         self.assertEqual('baz', obj.foo)
@@ -118,6 +126,7 @@ class StripeObjectTests(StripeTestCase):
         self.assertEqual('key2', obj.api_key)
         self.assertEqual('2017-08-15', obj.stripe_version)
         self.assertEqual('acct_foo', obj.stripe_account)
+        self.assertEqual(last_response, obj.last_response)
 
         obj.refresh_from({
             'trans': 4,

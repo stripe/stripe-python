@@ -17,7 +17,8 @@ class CreateableAPIResourceTests(StripeTestCase):
             {
                 'object': 'charge',
                 'foo': 'bar',
-            }
+            },
+            rheaders={'request-id': 'req_id'}
         )
 
         res = MyCreatable.create()
@@ -30,6 +31,9 @@ class CreateableAPIResourceTests(StripeTestCase):
         self.assertTrue(isinstance(res, stripe.Charge))
         self.assertEqual('bar', res.foo)
 
+        self.assertTrue(res.last_response is not None)
+        self.assertEqual('req_id', res.last_response.request_id)
+
     def test_idempotent_create(self):
         self.stub_request(
             'post',
@@ -37,7 +41,8 @@ class CreateableAPIResourceTests(StripeTestCase):
             {
                 'object': 'charge',
                 'foo': 'bar',
-            }
+            },
+            rheaders={'idempotency-key': 'foo'}
         )
 
         res = MyCreatable.create(idempotency_key='foo')
@@ -50,3 +55,6 @@ class CreateableAPIResourceTests(StripeTestCase):
         )
         self.assertTrue(isinstance(res, stripe.Charge))
         self.assertEqual('bar', res.foo)
+
+        self.assertTrue(res.last_response is not None)
+        self.assertEqual('foo', res.last_response.idempotency_key)
