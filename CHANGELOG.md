@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.77.2 - 2018-02-08
+* [#394](https://github.com/stripe/stripe-python/pull/394) Make `last_response` available after calling `save()`
+
 ## 1.77.1 - 2018-01-12
 * [#389](https://github.com/stripe/stripe-python/pull/389) Register unsaved attributes on assignment regardless of new value
 
