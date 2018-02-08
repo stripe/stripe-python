@@ -28,7 +28,8 @@ class ListableAPIResourceTests(StripeTestCase):
                 ],
                 'url': '/v1/charges',
                 'has_more': False,
-            }
+            },
+            rheaders={'request-id': 'req_id'}
         )
 
         res = MyListable.list()
@@ -42,3 +43,6 @@ class ListableAPIResourceTests(StripeTestCase):
                             for obj in res.data))
         self.assertEqual('jose', res.data[0].name)
         self.assertEqual('curly', res.data[1].name)
+
+        self.assertTrue(res.last_response is not None)
+        self.assertEqual('req_id', res.last_response.request_id)

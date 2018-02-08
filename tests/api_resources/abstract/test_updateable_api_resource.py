@@ -18,7 +18,8 @@ class UpdateableAPIResourceTests(StripeTestCase):
             {
                 'id': 'myid',
                 'thats': 'it',
-            }
+            },
+            rheaders={'request-id': 'req_id'}
         )
 
         self.obj = MyUpdateable.construct_from({
@@ -78,6 +79,9 @@ class UpdateableAPIResourceTests(StripeTestCase):
             },
             None
         )
+
+        self.assertTrue(self.obj.last_response is not None)
+        self.assertEqual('req_id', self.obj.last_response.request_id)
 
         # Saving again should not cause any request.
         self.request_mock.reset_mock()

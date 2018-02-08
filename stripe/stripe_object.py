@@ -171,7 +171,8 @@ class StripeObject(dict):
             stripe_version or getattr(values, 'stripe_version', None)
         self.stripe_account = \
             stripe_account or getattr(values, 'stripe_account', None)
-        self._last_response = last_response
+        self._last_response = \
+            last_response or getattr(values, '_last_response', None)
 
         # Wipe old state before setting new.  This is useful for e.g.
         # updating a customer, where there is no persistent card

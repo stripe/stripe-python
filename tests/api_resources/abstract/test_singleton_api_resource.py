@@ -16,7 +16,8 @@ class SingletonAPIResourceTests(StripeTestCase):
             '/v1/mysingleton',
             {
                 'single': 'ton'
-            }
+            },
+            rheaders={'request-id': 'req_id'}
         )
 
         res = MySingleton.retrieve()
@@ -27,3 +28,5 @@ class SingletonAPIResourceTests(StripeTestCase):
             {}
         )
         self.assertEqual('ton', res.single)
+        self.assertTrue(res.last_response is not None)
+        self.assertEqual('req_id', res.last_response.request_id)
