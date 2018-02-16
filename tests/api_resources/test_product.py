@@ -27,7 +27,8 @@ class ProductTest(StripeTestCase):
 
     def test_is_creatable(self):
         resource = stripe.Product.create(
-            name='NAME'
+            name='NAME',
+            type='good'
         )
         self.assert_requested(
             'post',
