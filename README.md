@@ -150,11 +150,11 @@ instructions for installing via Homebrew and other methods):
 
 Run a single test suite:
 
-    tox -e py27 -- --test-suite stripe.test.resources.test_updateable.UpdateableAPIResourceTests
+    tox -e py27 -- --test-suite tests.api_resources.abstract.test_updateable_api_resource.UpdateableAPIResourceTests
 
 Run a single test:
 
-    tox -e py27 -- --test-suite stripe.test.resources.test_updateable.UpdateableAPIResourceTests.test_save
+    tox -e py27 -- --test-suite tests.api_resources.abstract.test_updateable_api_resource.UpdateableAPIResourceTests.test_save
 
 Run the linter with:
 
