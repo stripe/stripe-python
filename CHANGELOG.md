@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.78.0 - 2018-02-21
+* [#396](https://github.com/stripe/stripe-python/pull/396) Add support for topups
+
 ## 1.77.2 - 2018-02-08
 * [#394](https://github.com/stripe/stripe-python/pull/394) Make `last_response` available after calling `save()`
 
