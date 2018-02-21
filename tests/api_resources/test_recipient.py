@@ -64,14 +64,3 @@ class RecipientTest(StripeTestCase):
             '/v1/recipients/%s' % resource.id
         )
         self.assertIsInstance(resource, stripe.Recipient)
-
-    def test_can_list_transfers(self):
-        recipient = stripe.Recipient.retrieve(TEST_RESOURCE_ID)
-        resources = recipient.transfers()
-        self.assert_requested(
-            'get',
-            '/v1/transfers',
-            {'recipient': recipient.id}
-        )
-        self.assertIsInstance(resources.data, list)
-        self.assertIsInstance(resources.data[0], stripe.Transfer)
