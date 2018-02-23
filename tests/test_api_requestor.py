@@ -416,51 +416,45 @@ class APIRequestorRequestTests(StripeTestCase):
     def test_invalid_request_error_404(self):
         self.mock_response('{"error": {}}', 404)
 
-        self.assertRaises(stripe.error.InvalidRequestError,
-                          self.requestor.request,
-                          'get', self.valid_path, {})
+        with self.assertRaises(stripe.error.InvalidRequestError):
+            self.requestor.request('get', self.valid_path, {})
 
     def test_invalid_request_error_400(self):
         self.mock_response('{"error": {}}', 400)
 
-        self.assertRaises(stripe.error.InvalidRequestError,
-                          self.requestor.request,
-                          'get', self.valid_path, {})
+        with self.assertRaises(stripe.error.InvalidRequestError):
+            self.requestor.request('get', self.valid_path, {})
 
     def test_idempotency_error(self):
         self.mock_response('{"error": {"type": "idempotency_error"}}', 400)
 
-        self.assertRaises(stripe.error.IdempotencyError,
-                          self.requestor.request,
-                          'get', self.valid_path, {})
+        with self.assertRaises(stripe.error.IdempotencyError):
+            self.requestor.request('get', self.valid_path, {})
 
     def test_authentication_error(self):
         self.mock_response('{"error": {}}', 401)
 
-        self.assertRaises(stripe.error.AuthenticationError,
-                          self.requestor.request,
-                          'get', self.valid_path, {})
+        with self.assertRaises(stripe.error.AuthenticationError):
+            self.requestor.request('get', self.valid_path, {})
 
     def test_permissions_error(self):
         self.mock_response('{"error": {}}', 403)
 
-        self.assertRaises(stripe.error.PermissionError,
-                          self.requestor.request,
-                          'get', self.valid_path, {})
+        with self.assertRaises(stripe.error.PermissionError):
+            self.requestor.request('get', self.valid_path, {})
 
     def test_card_error(self):
-        self.mock_response('{"error": {}}', 402)
+        self.mock_response('{"error": {"code": "invalid_expiry_year"}}', 402)
 
-        self.assertRaises(stripe.error.CardError,
-                          self.requestor.request,
-                          'get', self.valid_path, {})
+        with self.assertRaises(stripe.error.CardError) as ctx:
+            self.requestor.request('get', self.valid_path, {})
+        self.assertEqual('invalid_expiry_year', ctx.exception.code)
 
     def test_rate_limit_error(self):
         self.mock_response('{"error": {}}', 429)
 
-        self.assertRaises(stripe.error.RateLimitError,
-                          self.requestor.request,
-                          'get', self.valid_path, {})
+        with self.assertRaises(stripe.error.RateLimitError):
+            self.requestor.request('get', self.valid_path, {})
 
     def test_old_rate_limit_error(self):
         """
@@ -468,49 +462,42 @@ class APIRequestorRequestTests(StripeTestCase):
         """
         self.mock_response('{"error": {"code":"rate_limit"}}', 400)
 
-        self.assertRaises(stripe.error.RateLimitError,
-                          self.requestor.request,
-                          'get', self.valid_path, {})
+        with self.assertRaises(stripe.error.RateLimitError):
+            self.requestor.request('get', self.valid_path, {})
 
     def test_server_error(self):
         self.mock_response('{"error": {}}', 500)
 
-        self.assertRaises(stripe.error.APIError,
-                          self.requestor.request,
-                          'get', self.valid_path, {})
+        with self.assertRaises(stripe.error.APIError):
+            self.requestor.request('get', self.valid_path, {})
 
     def test_invalid_json(self):
         self.mock_response('{', 200)
 
-        self.assertRaises(stripe.error.APIError,
-                          self.requestor.request,
-                          'get', self.valid_path, {})
+        with self.assertRaises(stripe.error.APIError):
+            self.requestor.request('get', self.valid_path, {})
 
     def test_invalid_method(self):
-        self.assertRaises(stripe.error.APIConnectionError,
-                          self.requestor.request,
-                          'foo', 'bar')
+        with self.assertRaises(stripe.error.APIConnectionError):
+            self.requestor.request('foo', 'bar')
 
     def test_oauth_invalid_requestor_error(self):
         self.mock_response('{"error": "invalid_request"}', 400)
 
-        self.assertRaises(stripe.oauth_error.InvalidRequestError,
-                          self.requestor.request,
-                          'get', self.valid_path, {})
+        with self.assertRaises(stripe.oauth_error.InvalidRequestError):
+            self.requestor.request('get', self.valid_path, {})
 
     def test_invalid_client_error(self):
         self.mock_response('{"error": "invalid_client"}', 401)
 
-        self.assertRaises(stripe.oauth_error.InvalidClientError,
-                          self.requestor.request,
-                          'get', self.valid_path, {})
+        with self.assertRaises(stripe.oauth_error.InvalidClientError):
+            self.requestor.request('get', self.valid_path, {})
 
     def test_invalid_grant_error(self):
         self.mock_response('{"error": "invalid_grant"}', 400)
 
-        self.assertRaises(stripe.oauth_error.InvalidGrantError,
-                          self.requestor.request,
-                          'get', self.valid_path, {})
+        with self.assertRaises(stripe.oauth_error.InvalidGrantError):
+            self.requestor.request('get', self.valid_path, {})
 
     def test_raw_request_with_file_param(self):
         test_file = tempfile.NamedTemporaryFile()
