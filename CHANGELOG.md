@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.79.0 - 2018-02-23
+* [#397](https://github.com/stripe/stripe-python/pull/397) Build universal wheels by default
+* [#398](https://github.com/stripe/stripe-python/pull/398) Add support for `code` attribute on all Stripe exceptions
+
 ## 1.78.0 - 2018-02-21
 * [#396](https://github.com/stripe/stripe-python/pull/396) Add support for topups
 
