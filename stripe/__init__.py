@@ -23,7 +23,7 @@ app_info = None
 # Set to either 'debug' or 'info', controls console logging
 log = None
 
-# Resource
+# API resources
 from stripe.api_resources import *  # noqa
 
 # OAuth
@@ -31,47 +31,6 @@ from stripe.oauth import OAuth  # noqa
 
 # Webhooks
 from stripe.webhook import Webhook, WebhookSignature  # noqa
-
-# Error imports.  Note that we may want to move these out of the root
-# namespace in the future and you should prefer to access them via
-# the fully qualified `stripe.error` module.
-
-from stripe.error import (  # noqa
-    APIConnectionError,
-    APIError,
-    AuthenticationError,
-    PermissionError,
-    RateLimitError,
-    CardError,
-    IdempotencyError,
-    InvalidRequestError,
-    SignatureVerificationError,
-    StripeError)
-
-# OAuth error classes are not imported into the root namespace and must be
-# accessed via stripe.oauth_error.<Exception>
-from stripe import oauth_error  # noqa
-
-# DEPRECATED: These imports will be moved out of the root stripe namespace
-# in version 2.0
-
-from stripe.version import VERSION  # noqa
-from stripe.api_requestor import APIRequestor  # noqa
-
-from stripe.stripe_object import StripeObject  # noqa
-from stripe.api_resources.abstract import (  # noqa
-    APIResource,
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    SingletonAPIResource,
-    UpdateableAPIResource)
-
-from stripe.resource import StripeObjectEncoder  # noqa
-from stripe.util import (  # noqa
-    convert_to_stripe_object,
-    json,
-    logger)
 
 
 # Sets some basic information about the running application that's sent along

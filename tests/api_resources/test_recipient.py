@@ -66,14 +66,3 @@ class TestRecipient(object):
             '/v1/recipients/%s' % resource_id
         )
         assert resource.deleted is True
-
-    def test_can_list_transfers(self, request_mock):
-        recipient = stripe.Recipient.retrieve(TEST_RESOURCE_ID)
-        resources = recipient.transfers()
-        request_mock.assert_requested(
-            'get',
-            '/v1/transfers',
-            {'recipient': recipient.id}
-        )
-        assert isinstance(resources.data, list)
-        assert isinstance(resources.data[0], stripe.Transfer)

@@ -10,7 +10,7 @@
     "python.linting.flake8Enabled": true,
 
     // Tests
-    "python.unitTest.unittestEnabled": true,
-    "python.unitTest.pyTestEnabled": false,
+    "python.unitTest.unittestEnabled": false,
+    "python.unitTest.pyTestEnabled": true,
     "python.unitTest.nosetestsEnabled": false
 }

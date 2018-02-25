@@ -1,7 +1,5 @@
 from __future__ import absolute_import, division, print_function
 
-import warnings
-
 import pytest
 
 import stripe
@@ -67,20 +65,6 @@ class TestSource(object):
         resource = stripe.Source.retrieve(TEST_RESOURCE_ID)
         with pytest.raises(NotImplementedError):
             resource.detach()
-
-    def test_raises_a_warning_when_calling_delete(self):
-        with warnings.catch_warnings(record=True) as w:
-            warnings.simplefilter('always')
-
-            resource = stripe.Source.construct_from({
-                'id': TEST_RESOURCE_ID,
-                'object': 'source',
-                'customer': 'cus_123'
-            }, stripe.api_key)
-            resource.delete()
-
-            assert len(w) == 1
-            assert w[0].category == DeprecationWarning
 
     def test_is_verifiable(self, request_mock):
         resource = stripe.Source.retrieve(TEST_RESOURCE_ID)
