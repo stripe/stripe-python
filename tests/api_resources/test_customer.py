@@ -1,7 +1,5 @@
 from __future__ import absolute_import, division, print_function
 
-import warnings
-
 import stripe
 
 
@@ -68,100 +66,12 @@ class TestCustomer(object):
         )
         assert resource.deleted is True
 
-    def test_can_add_invoice_item(self, request_mock):
-        resource = stripe.Customer.retrieve(TEST_RESOURCE_ID)
-        resource.add_invoice_item(
-            amount=100,
-            currency='usd'
-        )
-        request_mock.assert_requested(
-            'post',
-            '/v1/invoiceitems',
-            {
-                'amount': 100,
-                'currency': 'usd',
-                'customer': '%s' % resource.id
-            }
-        )
-
-    def test_can_invoices(self, request_mock):
-        resource = stripe.Customer.retrieve(TEST_RESOURCE_ID)
-        resource.invoices()
-        request_mock.assert_requested(
-            'get',
-            '/v1/invoices',
-            {
-                'customer': '%s' % resource.id
-            }
-        )
-
-    def test_can_invoice_items(self, request_mock):
-        resource = stripe.Customer.retrieve(TEST_RESOURCE_ID)
-        resource.invoice_items()
-        request_mock.assert_requested(
-            'get',
-            '/v1/invoiceitems',
-            {
-                'customer': '%s' % resource.id
-            }
-        )
-
-    def test_can_list_charges(self, request_mock):
-        resource = stripe.Customer.retrieve(TEST_RESOURCE_ID)
-        resource.charges()
-        request_mock.assert_requested(
-            'get',
-            '/v1/charges',
-            {
-                'customer': '%s' % resource.id
-            }
-        )
-
     def test_can_delete_discount(self, request_mock):
         resource = stripe.Customer.retrieve(TEST_RESOURCE_ID)
         resource.delete_discount()
         request_mock.assert_requested(
             'delete',
             '/v1/customers/%s/discount' % resource.id
-        )
-
-
-# stripe-mock does not handle the legacy subscription endpoint so we stub
-class TestCustomerLegacySubscription(object):
-    def construct_resource(self):
-        res_dict = {
-            'id': TEST_RESOURCE_ID,
-            'object': 'customer',
-            'metadata': {},
-        }
-        return stripe.Customer.construct_from(res_dict, stripe.api_key)
-
-    def test_can_update_legacy_subscription(self, request_mock):
-        request_mock.stub_request(
-            'post',
-            '/v1/customers/%s/subscription' % TEST_RESOURCE_ID,
-        )
-        resource = self.construct_resource()
-        with warnings.catch_warnings():
-            warnings.simplefilter('ignore')
-            resource.update_subscription(plan='plan')
-        request_mock.assert_requested(
-            'post',
-            '/v1/customers/%s/subscription' % TEST_RESOURCE_ID
-        )
-
-    def test_can_delete_legacy_subscription(self, request_mock):
-        request_mock.stub_request(
-            'delete',
-            '/v1/customers/%s/subscription' % TEST_RESOURCE_ID
-        )
-        resource = self.construct_resource()
-        with warnings.catch_warnings():
-            warnings.simplefilter('ignore')
-            resource.cancel_subscription()
-        request_mock.assert_requested(
-            'delete',
-            '/v1/customers/%s/subscription' % TEST_RESOURCE_ID
         )
 
 
