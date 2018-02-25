@@ -1,7 +1,5 @@
 from __future__ import absolute_import, division, print_function
 
-import warnings
-
 from stripe import util
 from stripe.stripe_object import StripeObject
 
@@ -13,13 +11,6 @@ class ListObject(StripeObject):
 
     def list(self, **params):
         return self.request('get', self['url'], params)
-
-    def all(self, **params):
-        warnings.warn("The `all` method is deprecated and will"
-                      "be removed in future versions. Please use the "
-                      "`list` method instead",
-                      DeprecationWarning)
-        return self.list(**params)
 
     def auto_paging_iter(self):
         page = self
