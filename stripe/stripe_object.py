@@ -1,7 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
 import datetime
-import warnings
 from copy import deepcopy
 
 import stripe
@@ -232,12 +231,6 @@ class StripeObject(dict):
                                cls=self.ReprJSONEncoder)
 
     def to_dict(self):
-        warnings.warn(
-            'The `to_dict` method is deprecated and will be removed in '
-            'version 2.0 of the Stripe bindings. The StripeObject is '
-            'itself now a subclass of `dict`.',
-            DeprecationWarning)
-
         return dict(self)
 
     @property

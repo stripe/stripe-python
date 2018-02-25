@@ -1,20 +1,10 @@
 from __future__ import absolute_import, division, print_function
 
-import warnings
-
 from stripe import api_requestor, util
 from stripe.api_resources.abstract.api_resource import APIResource
 
 
 class ListableAPIResource(APIResource):
-
-    @classmethod
-    def all(cls, *args, **params):
-        warnings.warn("The `all` class method is deprecated and will"
-                      "be removed in future versions. Please use the "
-                      "`list` class method instead",
-                      DeprecationWarning)
-        return cls.list(*args, **params)
 
     @classmethod
     def auto_paging_iter(cls, *args, **params):
