@@ -2,12 +2,12 @@
 
 from __future__ import absolute_import, division, print_function
 
-from stripe import six, StripeError
+from stripe import six, error
 
 
 class TestError(object):
     def test_formatting(self):
-        err = StripeError(u'öre')
+        err = error.StripeError(u'öre')
         if six.PY3:
             assert str(err) == u'öre'
         else:
@@ -15,7 +15,7 @@ class TestError(object):
             assert unicode(err) == u'öre'
 
     def test_formatting_with_request_id(self):
-        err = StripeError(u'öre', headers={'request-id': '123'})
+        err = error.StripeError(u'öre', headers={'request-id': '123'})
         if six.PY3:
             assert str(err) == u'Request 123: öre'
         else:
@@ -23,7 +23,7 @@ class TestError(object):
             assert unicode(err) == u'Request 123: öre'
 
     def test_formatting_with_none(self):
-        err = StripeError(None, headers={'request-id': '123'})
+        err = error.StripeError(None, headers={'request-id': '123'})
         if six.PY3:
             assert str(err) == u'Request 123: <empty message>'
         else:

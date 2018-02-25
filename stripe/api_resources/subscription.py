@@ -11,13 +11,12 @@ class Subscription(CreateableAPIResource, DeletableAPIResource,
                    UpdateableAPIResource, ListableAPIResource):
     OBJECT_NAME = 'subscription'
 
-    # TODO: Remove arg in next major release.
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(self.api_key,
                                                api_version=self.stripe_version,
                                                account=self.stripe_account)
         url = self.instance_url() + '/discount'
-        _, api_key = requestor.request('delete', url)
+        _, api_key = requestor.request('delete', url, params)
         self.refresh_from({'discount': None}, api_key, True)
 
     @classmethod
