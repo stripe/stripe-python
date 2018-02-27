@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.79.1 - 2018-02-27
+* [#401](https://github.com/stripe/stripe-python/pull/401) Drop conditional dependencies that incorrectly led to an added `simplejson` dependency in Python 3+ after switching to universal wheel
+
 ## 1.79.0 - 2018-02-23
 * [#397](https://github.com/stripe/stripe-python/pull/397) Build universal wheels by default
 * [#398](https://github.com/stripe/stripe-python/pull/398) Add support for `code` attribute on all Stripe exceptions
