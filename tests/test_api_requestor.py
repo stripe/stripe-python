@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import datetime
+import json
 import os
 import unittest2
 import tempfile
@@ -10,7 +11,6 @@ from mock import Mock, ANY
 import stripe
 from stripe import six
 from stripe.stripe_response import StripeResponse
-from stripe import util
 
 from tests.helper import StripeTestCase
 
@@ -80,7 +80,7 @@ class APIHeaderMatcher(object):
 
     def _x_stripe_ua_contains_app_info(self, other):
         if self.app_info:
-            ua = stripe.util.json.loads(other['X-Stripe-Client-User-Agent'])
+            ua = json.loads(other['X-Stripe-Client-User-Agent'])
             if 'application' not in ua:
                 return False
             return ua['application'] == self.app_info
@@ -301,7 +301,7 @@ class APIRequestorRequestTests(StripeTestCase):
             self.assertTrue(isinstance(resp, StripeResponse))
 
             self.assertEqual({}, resp.data)
-            self.assertEqual(util.json.loads(resp.body), resp.data)
+            self.assertEqual(json.loads(resp.body), resp.data)
 
     def test_methods_with_params_and_response(self):
         for meth in VALID_API_METHODS:
@@ -320,7 +320,7 @@ class APIRequestorRequestTests(StripeTestCase):
             self.assertTrue(isinstance(resp, StripeResponse))
 
             self.assertEqual({'foo': 'bar', 'baz': 6}, resp.data)
-            self.assertEqual(util.json.loads(resp.body), resp.data)
+            self.assertEqual(json.loads(resp.body), resp.data)
 
             if meth == 'post':
                 self.check_call(

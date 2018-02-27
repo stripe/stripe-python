@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
-from stripe import util
+import json
+
 from stripe.stripe_response import StripeResponse
 from tests.helper import StripeTestCase
 
@@ -34,7 +35,7 @@ class StripeResponseTests(StripeTestCase):
     def test_data(self):
         response, headers, body, code = \
             StripeResponseTests.mock_stripe_response()
-        self.assertEqual(response.data, util.json.loads(body))
+        self.assertEqual(response.data, json.loads(body))
 
     @staticmethod
     def mock_stripe_response():

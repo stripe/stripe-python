@@ -7,9 +7,10 @@ from __future__ import absolute_import, division, print_function
 # TODO: get rid of this module in the next major version.
 #
 
+import json
 import warnings
 
-from stripe import util
+from stripe import util  # noqa
 from stripe.util import (  # noqa
     convert_array_to_dict,
     convert_to_stripe_object,
@@ -26,7 +27,7 @@ from stripe.api_resources.abstract import (  # noqa
 from stripe.api_resources import *  # noqa
 
 
-class StripeObjectEncoder(util.json.JSONEncoder):
+class StripeObjectEncoder(json.JSONEncoder):
 
     def __init__(self, *args, **kwargs):
         warnings.warn(

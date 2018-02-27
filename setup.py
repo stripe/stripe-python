@@ -32,13 +32,6 @@ version_contents = {}
 with open(os.path.join('stripe', 'version.py')) as f:
     exec(f.read(), version_contents)
 
-# Get simplejson if we don't already have json
-if sys.version_info < (3, 0):
-    try:
-        from util import json
-    except ImportError:
-        install_requires.append('simplejson')
-
 
 setup(
     name='stripe',
