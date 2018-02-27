@@ -11,12 +11,6 @@ except ImportError:
 path, script = os.path.split(sys.argv[0])
 os.chdir(os.path.abspath(path))
 
-if sys.version_info < (2, 6):
-    warnings.warn(
-        'Python 2.5 is no longer officially supported by Stripe. '
-        'If you have any questions, please file an issue on Github or '
-        'contact us at support@stripe.com.',
-        DeprecationWarning)
 
 with open('LONG_DESCRIPTION.rst') as f:
     long_description = f.read()
@@ -38,10 +32,7 @@ setup(
               'stripe.api_resources.abstract'],
     package_data={'stripe': ['data/ca-certificates.crt']},
     install_requires=[
-        'simplejson;python_version<"3.0"',
-        'requests >= 0.8.8;python_version>="2.6"',
-        'requests >= 0.8.8, < 0.10.1;python_version<"2.6"',
-        'ssl;python_version<"2.6"',
+        'requests >= 0.8.8',
     ],
     test_suite='tests',
     tests_require=['unittest2', 'mock'],
