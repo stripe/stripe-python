@@ -1,16 +1,17 @@
 from __future__ import absolute_import, division, print_function
 
 import datetime
+import json
 import pickle
 from copy import copy, deepcopy
 
 import pytest
 
 import stripe
-from stripe import util, six
+from stripe import six
 
 
-SAMPLE_INVOICE = stripe.util.json.loads("""
+SAMPLE_INVOICE = json.loads("""
 {
   "amount_due": 1305,
   "attempt_count": 0,
@@ -168,7 +169,7 @@ class TestStripeObject(object):
         obj = stripe.stripe_object.StripeObject.construct_from(
             SAMPLE_INVOICE, 'key')
 
-        self.check_invoice_data(util.json.loads(str(obj)))
+        self.check_invoice_data(json.loads(str(obj)))
 
     def check_invoice_data(self, data):
         # Check rough structure

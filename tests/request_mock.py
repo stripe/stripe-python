@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
+import json
+
 import stripe
 from stripe import six
 from stripe.stripe_response import StripeResponse
@@ -100,7 +102,7 @@ class StubRequestHandler(object):
         if (method, url) in self._entries:
             rbody, rcode, rheaders = self._entries.pop((method, url))
             if not isinstance(rbody, six.string_types):
-                rbody = stripe.util.json.dumps(rbody)
+                rbody = json.dumps(rbody)
             stripe_response = StripeResponse(rbody, rcode, rheaders)
             return stripe_response
 
