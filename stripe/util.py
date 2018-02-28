@@ -2,7 +2,6 @@ from __future__ import absolute_import, division, print_function
 
 import hmac
 import io
-import json
 import logging
 import sys
 import os
@@ -20,7 +19,6 @@ logger = logging.getLogger('stripe')
 __all__ = [
     'io',
     'parse_qsl',
-    'json',
     'utf8',
     'log_info',
     'log_debug',

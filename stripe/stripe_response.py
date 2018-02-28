@@ -1,4 +1,6 @@
-from stripe import util
+from __future__ import absolute_import, division, print_function
+
+import json
 
 
 class StripeResponse:
@@ -7,7 +9,7 @@ class StripeResponse:
         self.body = body
         self.code = code
         self.headers = headers
-        self.data = util.json.loads(body)
+        self.data = json.loads(body)
 
     @property
     def idempotency_key(self):

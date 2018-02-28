@@ -133,7 +133,7 @@ class TestListObject(object):
             'nested': empty,
         }, 'mykey')
         serialized = str(obj)
-        deserialized = stripe.StripeObject.construct_from(
+        deserialized = stripe.stripe_object.StripeObject.construct_from(
             json.loads(serialized), 'mykey')
         assert deserialized.nested == empty
 
