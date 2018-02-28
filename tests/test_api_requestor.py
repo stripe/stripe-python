@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import datetime
+import json
 import tempfile
 
 import pytest
@@ -8,7 +9,6 @@ import pytest
 import stripe
 from stripe import six
 from stripe.stripe_response import StripeResponse
-from stripe import util
 
 from six.moves.urllib.parse import urlsplit
 
@@ -76,7 +76,7 @@ class APIHeaderMatcher(object):
 
     def _x_stripe_ua_contains_app_info(self, other):
         if self.app_info:
-            ua = stripe.util.json.loads(other['X-Stripe-Client-User-Agent'])
+            ua = json.loads(other['X-Stripe-Client-User-Agent'])
             if 'application' not in ua:
                 return False
             return ua['application'] == self.app_info
@@ -311,7 +311,7 @@ class TestAPIRequestor(object):
             assert isinstance(resp, StripeResponse)
 
             assert resp.data == {}
-            assert resp.data == util.json.loads(resp.body)
+            assert resp.data == json.loads(resp.body)
 
     def test_methods_with_params_and_response(self, requestor, mock_response,
                                               check_call):
@@ -330,7 +330,7 @@ class TestAPIRequestor(object):
             assert isinstance(resp, StripeResponse)
 
             assert resp.data == {'foo': 'bar', 'baz': 6}
-            assert resp.data == util.json.loads(resp.body)
+            assert resp.data == json.loads(resp.body)
 
             if method == 'post':
                 check_call(
