@@ -2,6 +2,7 @@ from __future__ import absolute_import, division, print_function
 
 import calendar
 import datetime
+import json
 import platform
 import time
 
@@ -209,7 +210,7 @@ class APIRequestor(object):
             ua['application'] = stripe.app_info
 
         headers = {
-            'X-Stripe-Client-User-Agent': util.json.dumps(ua),
+            'X-Stripe-Client-User-Agent': json.dumps(ua),
             'User-Agent': user_agent,
             'Authorization': 'Bearer %s' % (api_key,),
         }
