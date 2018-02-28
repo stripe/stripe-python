@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import hmac
+import json
 import time
 from hashlib import sha256
 
@@ -18,7 +19,7 @@ class Webhook(object):
             payload = payload.decode('utf-8')
         if api_key is None:
             api_key = stripe.api_key
-        data = util.json.loads(payload)
+        data = json.loads(payload)
         event = stripe.Event.construct_from(data, api_key)
 
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
