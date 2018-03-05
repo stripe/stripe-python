@@ -1,0 +1,4 @@
+[run]
+source = stripe
+omit =
+    stripe/six.py

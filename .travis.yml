@@ -12,21 +12,13 @@ python:
   - "pypy3"
 
 cache:
-  apt: true
   directories:
     - stripe-mock
   pip: false
 
 env:
   global:
-    - PYCURL_SSL_LIBRARY=gnutls
     - STRIPE_MOCK_VERSION=0.8.0
-
-addons:
-  apt:
-    packages:
-      - libcurl4-gnutls-dev
-      - librtmp-dev
 
 before_install:
   # Unpack and start stripe-mock so that the test suite can talk to it
@@ -41,20 +33,12 @@ before_install:
     STRIPE_MOCK_PID=$!
 
 install:
-  - pip install -U setuptools pip
-  - pip install pycurl flake8 coveralls
-  - python setup.py clean --all
+  - pip install -U setuptools pip flake8 coveralls
   - python setup.py install
 
 script:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then flake8 stripe tests; fi
-  - python -W all -bb -W error::BytesWarning setup.py test --addopts "--cov=stripe"
+  - python setup.py test -a "-n 8"
 
 after_success:
   coveralls
-
-matrix:
-  allow_failures:
-    - python: 3.7-dev
-    - python: pypy
-    - python: pypy3
