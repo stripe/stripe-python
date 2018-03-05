@@ -1,20 +1,31 @@
-import os
 import sys
+from codecs import open
+from os import path
+from setuptools import setup, find_packages
+from setuptools.command.test import test as TestCommand
 
-try:
-    from setuptools import setup
-except ImportError:
-    from distutils.core import setup
+
+class PyTest(TestCommand):
+    user_options = [('pytest-args=', 'a', "Arguments to pass into py.test")]
+
+    def initialize_options(self):
+        TestCommand.initialize_options(self)
+        self.pytest_args = '-n auto'
+
+    def run_tests(self):
+        import shlex
+        import pytest
+        errno = pytest.main(shlex.split(self.pytest_args))
+        sys.exit(errno)
 
 
-path, script = os.path.split(sys.argv[0])
-os.chdir(os.path.abspath(path))
+here = path.abspath(path.dirname(__file__))
 
-with open('LONG_DESCRIPTION.rst') as f:
+with open(path.join(here, 'LONG_DESCRIPTION.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 version_contents = {}
-with open(os.path.join('stripe', 'version.py')) as f:
+with open(path.join(here, 'stripe', 'version.py'), encoding='utf-8') as f:
     exec(f.read(), version_contents)
 
 tests_require = [
@@ -31,18 +42,27 @@ setup(
     author_email='support@stripe.com',
     url='https://github.com/stripe/stripe-python',
     license='MIT',
-    packages=['stripe', 'stripe.api_resources',
-              'stripe.api_resources.abstract'],
+    keywords='stripe api payments',
+    packages=find_packages(exclude=['tests', 'tests.*']),
     package_data={'stripe': ['data/ca-certificates.crt']},
+    zip_safe=False,
     install_requires=[
-        'requests >= 0.8.8',
+        'requests >= 2',
+        'requests[security] >= 2; python_version < "3.0"',
     ],
-    setup_requires=['pytest-runner'],
+    python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     tests_require=[
         'pytest >= 3.4',
         'pytest-mock >= 1.7',
+        'pytest-xdist >= 1.22',
         'pytest-cov >= 2.5',
     ],
+    cmdclass={'test': PyTest},
+    project_urls={
+        'Bug Tracker': 'https://github.com/stripe/stripe-python/issues',
+        'Documentation': 'https://stripe.com/docs/api/python',
+        'Source Code': 'https://github.com/stripe/stripe-python',
+    },
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
@@ -57,4 +77,5 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development :: Libraries :: Python Modules",
-    ])
+    ],
+)
