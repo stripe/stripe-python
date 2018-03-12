@@ -44,10 +44,14 @@ class StripeTestCase(unittest2.TestCase):
             'api_base': stripe.api_base,
             'api_key': stripe.api_key,
             'client_id': stripe.client_id,
+            'default_http_client': stripe.default_http_client,
         }
         stripe.api_base = 'http://localhost:%s' % MOCK_PORT
         stripe.api_key = 'sk_test_123'
         stripe.client_id = 'ca_123'
+
+        self.client = stripe.http_client.new_default_http_client()
+        stripe.default_http_client = self.client
 
         self.request_mock = RequestMock()
         self.request_mock.start()
@@ -57,9 +61,12 @@ class StripeTestCase(unittest2.TestCase):
 
         self.request_mock.stop()
 
+        self.client.close()
+
         stripe.api_base = stripe.orig_attrs['api_base']
         stripe.api_key = stripe.orig_attrs['api_key']
         stripe.client_id = stripe.orig_attrs['client_id']
+        stripe.default_http_client = stripe.orig_attrs['default_http_client']
 
     def stub_request(self, *args, **kwargs):
         return self.request_mock.stub_request(*args, **kwargs)
