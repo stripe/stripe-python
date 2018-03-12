@@ -59,12 +59,15 @@ class CustomerTest(StripeTestCase):
 
     def test_is_deletable(self):
         resource = stripe.Customer.retrieve(TEST_RESOURCE_ID)
+        # Unfortunately stripe-mock will return a resource with a different
+        # ID, so we need to store the original ID for the request assertion
+        resource_id = resource.id
         resource.delete()
         self.assert_requested(
             'delete',
-            '/v1/customers/%s' % resource.id
+            '/v1/customers/%s' % resource_id
         )
-        self.assertIsInstance(resource, stripe.Customer)
+        self.assertTrue(resource.deleted)
 
 
 # stripe-mock does not handle the legacy subscription endpoint so we stub

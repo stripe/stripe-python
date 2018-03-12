@@ -63,9 +63,12 @@ class SKUTest(StripeTestCase):
 
     def test_is_deletable(self):
         resource = stripe.SKU.retrieve(TEST_RESOURCE_ID)
+        # Unfortunately stripe-mock will return a resource with a different
+        # ID, so we need to store the original ID for the request assertion
+        resource_id = resource.id
         resource.delete()
         self.assert_requested(
             'delete',
-            '/v1/skus/%s' % resource.id
+            '/v1/skus/%s' % resource_id
         )
-        self.assertIsInstance(resource, stripe.SKU)
+        self.assertTrue(resource.deleted)
