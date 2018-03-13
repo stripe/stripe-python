@@ -6,18 +6,6 @@ from tests.helper import StripeTestCase
 
 class SourceTransactionTest(StripeTestCase):
     def test_is_listable(self):
-        # TODO: remove stub once stripe-mock supports source_transactions
-        self.stub_request(
-            'get',
-            '/v1/sources/src_123/source_transactions',
-            {
-                'object': 'list',
-                'data': [{
-                    'id': 'srxtxn_123',
-                    'object': 'source_transaction',
-                }],
-            }
-        )
         source = stripe.Source.construct_from({
             'id': 'src_123',
             'object': 'source'
