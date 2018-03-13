@@ -2,5 +2,10 @@
     "files.exclude": {
         "**/*.pyc": {"when": "$(basename).py"},
         "**/__pycache__": true
-    }
+    },
+
+    // Linting
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": true
 }
