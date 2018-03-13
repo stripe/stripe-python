@@ -33,12 +33,12 @@ before_install:
     STRIPE_MOCK_PID=$!
 
 install:
-  - pip install -U setuptools pip flake8 coveralls
-  - python setup.py install
+  - pip install --upgrade pipenv
+  - pipenv install --dev
 
 script:
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then flake8 stripe tests; fi
-  - python setup.py test -a "-n 8"
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then make lint; fi
+  - make ci
 
 after_success:
-  coveralls
+  make coveralls
