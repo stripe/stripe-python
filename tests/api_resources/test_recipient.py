@@ -58,12 +58,15 @@ class RecipientTest(StripeTestCase):
 
     def test_is_deletable(self):
         resource = stripe.Recipient.retrieve(TEST_RESOURCE_ID)
+        # Unfortunately stripe-mock will return a resource with a different
+        # ID, so we need to store the original ID for the request assertion
+        resource_id = resource.id
         resource.delete()
         self.assert_requested(
             'delete',
-            '/v1/recipients/%s' % resource.id
+            '/v1/recipients/%s' % resource_id
         )
-        self.assertIsInstance(resource, stripe.Recipient)
+        self.assertTrue(resource.deleted)
 
     def test_can_list_transfers(self):
         recipient = stripe.Recipient.retrieve(TEST_RESOURCE_ID)

@@ -61,6 +61,8 @@ class BankAccountTest(StripeTestCase):
             'delete',
             '/v1/customers/cus_123/sources/%s' % TEST_RESOURCE_ID
         )
+        # stripe-mock does not yet correctly handle deleting customer sources
+        # self.assertTrue(resource.deleted)
 
     def test_is_verifiable(self):
         resource = self.construct_resource(customer='cus_123')
