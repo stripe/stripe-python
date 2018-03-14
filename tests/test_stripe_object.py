@@ -193,7 +193,7 @@ class StripeObjectTests(StripeTestCase):
         res = repr(obj)
 
         if six.PY2:
-            res = unicode(repr(obj), 'utf-8')
+            res = six.text_type(repr(obj), 'utf-8')
 
         self.assertTrue(u'<StripeObject \u4e00boo\u1f00' in res)
         self.assertTrue(u'id=foo' in res)
