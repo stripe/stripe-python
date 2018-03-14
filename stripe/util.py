@@ -59,10 +59,7 @@ if not (json and hasattr(json, 'loads')):
 
 
 def utf8(value):
-    # Note the ordering of these conditionals: `unicode` isn't a symbol in
-    # Python 3 so make sure to check version before trying to use it. Python
-    # 2to3 will also boil out `unicode`.
-    if six.PY2 and isinstance(value, unicode):
+    if six.PY2 and isinstance(value, six.text_type):
         return value.encode('utf-8')
     else:
         return value

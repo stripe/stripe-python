@@ -53,16 +53,9 @@ class MultipartDataGenerator(object):
         return self.data.getvalue()
 
     def _write(self, value):
-        if six.PY2:
-            binary_type = str
-            text_type = unicode
-        else:
-            binary_type = bytes
-            text_type = str
-
-        if isinstance(value, binary_type):
+        if isinstance(value, six.binary_type):
             array = bytearray(value)
-        elif isinstance(value, text_type):
+        elif isinstance(value, six.text_type):
             array = bytearray(value, encoding='utf-8')
         else:
             raise TypeError("unexpected type: {value_type}"
