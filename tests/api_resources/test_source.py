@@ -63,7 +63,7 @@ class TestSource(object):
 
     def test_is_not_detachable_when_unattached(self):
         resource = stripe.Source.retrieve(TEST_RESOURCE_ID)
-        with pytest.raises(NotImplementedError):
+        with pytest.raises(stripe.error.InvalidRequestError):
             resource.detach()
 
     def test_is_verifiable(self, request_mock):
