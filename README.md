@@ -144,7 +144,11 @@ instructions for installing via Homebrew and other methods):
     go get -u github.com/stripe/stripe-mock
     stripe-mock
 
-  Run all tests (modify `-e` according to your Python target):
+Tests are managed by `tox`. Install using `pip`
+
+    pip install tox
+
+Run all tests (modify `-e` according to your Python target):
 
     tox -e py27
 
