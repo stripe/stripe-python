@@ -112,7 +112,7 @@ class AccountTest(StripeTestCase):
         resource = account.reject(reason='fraud')
         self.assert_requested(
             'post',
-            '/v1/accounts/%s/reject' % account.id
+            '/v1/accounts/%s/reject' % TEST_RESOURCE_ID
         )
         self.assertIsInstance(resource, stripe.Account)
         self.assertTrue(resource is account)

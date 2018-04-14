@@ -87,6 +87,6 @@ class SourceTest(StripeTestCase):
         self.assertTrue(source is resource)
         self.assert_requested(
             'post',
-            '/v1/sources/%s/verify' % resource.id,
+            '/v1/sources/%s/verify' % TEST_RESOURCE_ID,
             {'values': [1, 2]}
         )

@@ -25,7 +25,7 @@ class ApplicationFeeRefundsTests(StripeTestCase):
         resource = appfee.refund()
         self.assert_requested(
             'post',
-            '/v1/application_fees/%s/refund' % appfee.id
+            '/v1/application_fees/%s/refund' % TEST_RESOURCE_ID
         )
         self.assertIsInstance(resource, stripe.ApplicationFee)
         self.assertTrue(resource is appfee)

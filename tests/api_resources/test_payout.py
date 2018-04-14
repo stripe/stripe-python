@@ -61,6 +61,6 @@ class PayoutTest(StripeTestCase):
         resource = payout.cancel()
         self.assert_requested(
             'post',
-            '/v1/payouts/%s/cancel' % payout.id
+            '/v1/payouts/%s/cancel' % TEST_RESOURCE_ID
         )
         self.assertIsInstance(resource, stripe.Payout)

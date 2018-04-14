@@ -64,7 +64,7 @@ class ChargeMethodsTest(StripeTestCase):
         resource = charge.refund()
         self.assert_requested(
             'post',
-            '/v1/charges/%s/refund' % charge.id
+            '/v1/charges/%s/refund' % TEST_RESOURCE_ID
         )
         self.assertIsInstance(resource, stripe.Charge)
 
@@ -73,7 +73,7 @@ class ChargeMethodsTest(StripeTestCase):
         resource = charge.capture()
         self.assert_requested(
             'post',
-            '/v1/charges/%s/capture' % charge.id
+            '/v1/charges/%s/capture' % TEST_RESOURCE_ID
         )
         self.assertIsInstance(resource, stripe.Charge)
 
