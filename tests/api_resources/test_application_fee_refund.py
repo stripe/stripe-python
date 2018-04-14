@@ -16,7 +16,7 @@ class ApplicationFeeRefundTest(StripeTestCase):
         resource.save()
         self.assert_requested(
             'post',
-            '/v1/application_fees/%s/refunds/%s' % (appfee.id,
+            '/v1/application_fees/%s/refunds/%s' % (resource.fee,
                                                     resource.id)
         )
 
