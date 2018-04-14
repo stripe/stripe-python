@@ -39,54 +39,6 @@ class PlanTest(StripeTestCase):
         )
         self.assertIsInstance(resource, stripe.Plan)
 
-    def test_is_creatable_metered(self):
-        resource = stripe.Plan.create(
-            amount=100,
-            currency='usd',
-            id='plan_id',
-            interval='month',
-            name='plan_name',
-            usage_type='metered',
-        )
-        self.assert_requested(
-            'post',
-            '/v1/plans'
-        )
-        self.assertIsInstance(resource, stripe.Plan)
-
-    def test_is_creatable_tiered(self):
-        resource = stripe.Plan.create(
-            currency='usd',
-            id='plan_id',
-            interval='month',
-            name='plan_name',
-            billing_scheme='tiered',
-            tiers=[
-                {"up_to": 123, "amount": 123}, {"up_to": 'inf', "amount": 312}
-            ],
-            tiers_mode='volume',
-        )
-        self.assert_requested(
-            'post',
-            '/v1/plans'
-        )
-        self.assertIsInstance(resource, stripe.Plan)
-
-    def test_is_creatable_transform_usage(self):
-        resource = stripe.Plan.create(
-            amount=100,
-            currency='usd',
-            id='plan_id',
-            interval='month',
-            name='plan_name',
-            transform_usage={"divide_by": 100, "round": 'up'},
-        )
-        self.assert_requested(
-            'post',
-            '/v1/plans'
-        )
-        self.assertIsInstance(resource, stripe.Plan)
-
     def test_is_saveable(self):
         resource = stripe.Plan.retrieve(TEST_RESOURCE_ID)
         resource.metadata['key'] = 'value'
