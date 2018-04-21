@@ -32,6 +32,10 @@ class StripeError(Exception):
         else:
             return self._message
 
+    @property
+    def plain_message(self):
+        return self._message
+
 
 class APIError(StripeError):
     pass
