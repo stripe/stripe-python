@@ -45,3 +45,4 @@ from stripe.api_resources.three_d_secure import ThreeDSecure
 from stripe.api_resources.token import Token
 from stripe.api_resources.topup import Topup
 from stripe.api_resources.transfer import Transfer
+from stripe.api_resources.usage_record import UsageRecord
