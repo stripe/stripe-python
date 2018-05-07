@@ -3,6 +3,7 @@ from tests.helper import StripeTestCase
 
 
 TEST_RESOURCE_ID = 'issfr_123'
+TEST_CHARGE_ID = 'ch_123'
 
 
 class IssuerFraudRecordTest(StripeTestCase):
@@ -20,5 +21,13 @@ class IssuerFraudRecordTest(StripeTestCase):
         self.assert_requested(
             'get',
             '/v1/issuer_fraud_records/%s' % TEST_RESOURCE_ID
+        )
+        self.assertIsInstance(resource, stripe.IssuerFraudRecord)
+
+    def test_is_retrievable_by_charge(self):
+        resource = stripe.IssuerFraudRecord.retrieve(TEST_CHARGE_ID)
+        self.assert_requested(
+            'get',
+            '/v1/issuer_fraud_records?charge=%s' % TEST_CHARGE_ID
         )
         self.assertIsInstance(resource, stripe.IssuerFraudRecord)
