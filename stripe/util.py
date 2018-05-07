@@ -196,6 +196,7 @@ def load_object_classes():
         api_resources.FileUpload.OBJECT_NAME: api_resources.FileUpload,
         api_resources.Invoice.OBJECT_NAME: api_resources.Invoice,
         api_resources.InvoiceItem.OBJECT_NAME: api_resources.InvoiceItem,
+        api_resources.IssuerFraudRecord.OBJECT_NAME: api_resources.IssuerFraudRecord,
         api_resources.LoginLink.OBJECT_NAME: api_resources.LoginLink,
         api_resources.Order.OBJECT_NAME: api_resources.Order,
         api_resources.OrderReturn.OBJECT_NAME: api_resources.OrderReturn,
