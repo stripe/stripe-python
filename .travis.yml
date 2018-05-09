@@ -22,7 +22,7 @@ cache:
 env:
   global:
     - PYCURL_SSL_LIBRARY=gnutls
-    - STRIPE_MOCK_VERSION=0.12.0
+    - STRIPE_MOCK_VERSION=0.16.0
 
 addons:
   apt:
