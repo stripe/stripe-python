@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.81.0 - 2018-05-10
+* [#425](https://github.com/stripe/stripe-python/pull/425) Add support for issuer fraud records
+
 ## 1.80.0 - 2018-04-24
 * [#421](https://github.com/stripe/stripe-python/pull/421) Add support for flexible billing and usage records
 
