@@ -26,6 +26,7 @@ from stripe.api_resources.exchange_rate import ExchangeRate
 from stripe.api_resources.file_upload import FileUpload
 from stripe.api_resources.invoice import Invoice
 from stripe.api_resources.invoice_item import InvoiceItem
+from stripe.api_resources.issuer_fraud_record import IssuerFraudRecord
 from stripe.api_resources.login_link import LoginLink
 from stripe.api_resources.order import Order
 from stripe.api_resources.order_return import OrderReturn
