@@ -23,11 +23,3 @@ class IssuerFraudRecordTest(StripeTestCase):
             '/v1/issuer_fraud_records/%s' % TEST_RESOURCE_ID
         )
         self.assertIsInstance(resource, stripe.IssuerFraudRecord)
-
-    def test_is_retrievable_by_charge(self):
-        resource = stripe.IssuerFraudRecord.retrieve(TEST_CHARGE_ID)
-        self.assert_requested(
-            'get',
-            '/v1/issuer_fraud_records?charge=%s' % TEST_CHARGE_ID
-        )
-        self.assertIsInstance(resource, stripe.IssuerFraudRecord)
