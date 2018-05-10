@@ -3,7 +3,6 @@ from tests.helper import StripeTestCase
 
 
 TEST_RESOURCE_ID = 'issfr_123'
-TEST_CHARGE_ID = 'ch_123'
 
 
 class IssuerFraudRecordTest(StripeTestCase):
