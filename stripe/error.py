@@ -33,7 +33,11 @@ class StripeError(Exception):
             return self._message
 
     @property
-    def plain_message(self):
+    def user_message(self):
+        # Returns the underlying Exception (base class) message,
+        # which was available in python2 via error.message. As
+        # opposed to str(error), this omits the Request ch_...
+        # prefix that is not end-user friendly.
         return self._message
 
 
