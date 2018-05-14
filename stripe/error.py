@@ -32,12 +32,12 @@ class StripeError(Exception):
         else:
             return self._message
 
+    # Returns the underlying `Exception` (base class) message, which is usually
+    # the raw message returned by Stripe's API. This was previously available
+    # in python2 via `error.message`. Unlike `str(error)`, it omits "Request
+    # req_..." from the beginning of the string.
     @property
     def user_message(self):
-        # Returns the underlying Exception (base class) message,
-        # which was available in python2 via error.message. As
-        # opposed to str(error), this omits the Request ch_...
-        # prefix that is not end-user friendly.
         return self._message
 
 
