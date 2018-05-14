@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.82.1 - 2018-05-14
+* [#430](https://github.com/stripe/stripe-python/pull/430) Handle the case where request ID is `None` when formatting errors
+
 ## 1.82.0 - 2018-05-13
 * [#422](https://github.com/stripe/stripe-python/pull/422) Add `user_mesage` to `StripeError` for a way in Python 3 to avoid the "Request req_...:" string normally appended to error messages
 
