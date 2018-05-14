@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.82.0 - 2018-05-13
+* [#422](https://github.com/stripe/stripe-python/pull/422) Add `user_mesage` to `StripeError` for a way in Python 3 to avoid the "Request req_...:" string normally appended to error messages
+
 ## 1.81.0 - 2018-05-10
 * [#425](https://github.com/stripe/stripe-python/pull/425) Add support for issuer fraud records
 
