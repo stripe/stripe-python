@@ -26,11 +26,11 @@ class StripeError(Exception):
         self.request_id = self.headers.get('request-id', None)
 
     def __str__(self):
+        msg = self._message or "<empty message>"
         if self.request_id is not None:
-            msg = self._message or "<empty message>"
             return u"Request {0}: {1}".format(self.request_id, msg)
         else:
-            return self._message
+            return msg
 
     # Returns the underlying `Exception` (base class) message, which is usually
     # the raw message returned by Stripe's API. This was previously available
