@@ -24,10 +24,18 @@ class StripeErrorTests(StripeTestCase):
         else:
             self.assertEqual(u'Request 123: öre', str(err))
 
-    def test_formatting_with_none(self):
+    def test_formatting_with_message_none_and_request_id(self):
         err = StripeError(None, headers={'request-id': '123'})
         self.assertEqual(u'Request 123: <empty message>', six.text_type(err))
         if six.PY2:
             self.assertEqual('Request 123: <empty message>', str(err))
         else:
             self.assertEqual('Request 123: <empty message>', str(err))
+
+    def test_formatting_with_message_none_and_request_id_none(self):
+        err = StripeError(None)
+        self.assertEqual(u'<empty message>', six.text_type(err))
+        if six.PY2:
+            self.assertEqual('<empty message>', str(err))
+        else:
+            self.assertEqual('<empty message>', str(err))
