@@ -28,7 +28,6 @@ class SubscriptionTest(StripeTestCase):
     def test_is_creatable(self):
         resource = stripe.Subscription.create(
             customer='cus_123',
-            plan='plan'
         )
         self.assert_requested(
             'post',
