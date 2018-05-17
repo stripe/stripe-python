@@ -52,22 +52,26 @@ class AccountTest(StripeTestCase):
         # stripe-mock does not return additional owners so we construct
         account = stripe.Account.construct_from({
             'id': '%s' % TEST_RESOURCE_ID,
-            'additional_owners': [{
-                'first_name': 'name',
-                'verification': {},
-            }]
+            'legal_entity': {
+                'additional_owners': [{
+                    'first_name': 'name',
+                    'verification': {},
+                }],
+            }
         }, stripe.api_key)
-        owner = account.additional_owners[0]
+        owner = account.legal_entity.additional_owners[0]
         owner.verification.document = 'file_foo'
         resource = account.save()
         self.assert_requested(
             'post',
             '/v1/accounts/%s' % TEST_RESOURCE_ID,
             {
-                'additional_owners': {
-                    '0': {
-                        'verification': {
-                            'document': 'file_foo',
+                'legal_entity': {
+                    'additional_owners': {
+                        '0': {
+                            'verification': {
+                                'document': 'file_foo',
+                            },
                         },
                     },
                 },
