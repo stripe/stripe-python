@@ -386,7 +386,8 @@ class APIRequestorRequestTests(StripeTestCase):
             stripe.set_app_info(
                 'MyAwesomePlugin',
                 url='https://myawesomeplugin.info',
-                version='1.2.34'
+                version='1.2.34',
+                partner_id='partner_12345',
             )
 
             self.mock_response('{}', 200)
@@ -400,6 +401,7 @@ class APIRequestorRequestTests(StripeTestCase):
                     'name': 'MyAwesomePlugin',
                     'url': 'https://myawesomeplugin.info',
                     'version': '1.2.34',
+                    'partner_id': 'partner_12345',
                 }
             )
             self.check_call('get', headers=header_matcher)
