@@ -19,6 +19,11 @@ version_contents = {}
 with open(os.path.join('stripe', 'version.py')) as f:
     exec(f.read(), version_contents)
 
+tests_require = [
+    'mock',
+    'unittest2',
+]
+
 setup(
     name='stripe',
     version=version_contents['VERSION'],
@@ -35,7 +40,10 @@ setup(
         'requests >= 0.8.8',
     ],
     test_suite='tests',
-    tests_require=['unittest2', 'mock'],
+    tests_require=tests_require,
+    extras_require={
+        'testing': tests_require,
+    },
     classifiers=[
         "Development Status :: 5 - Production/Stable",
         "Intended Audience :: Developers",
