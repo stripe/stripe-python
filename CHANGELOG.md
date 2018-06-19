@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.82.2 - 2018-06-19
+* [#365](https://github.com/stripe/stripe-python/pull/365) Add `__repr__` methods to `StripeError` exception classes
+
 ## 1.82.1 - 2018-05-14
 * [#430](https://github.com/stripe/stripe-python/pull/430) Handle the case where request ID is `None` when formatting errors
 
