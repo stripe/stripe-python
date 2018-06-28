@@ -79,10 +79,11 @@ from stripe.util import (  # noqa
 # communicating with Stripe.
 #
 # Takes a name and optional version and plugin URL.
-def set_app_info(name, version=None, url=None):
+def set_app_info(name, partner_id=None, url=None, version=None):
     global app_info
     app_info = {
         'name': name,
-        'version': version,
+        'partner_id': partner_id,
         'url': url,
+        'version': version,
     }
