@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.83.0 - 2018-06-28
+* [#437](https://github.com/stripe/stripe-python/pull/437) Add support for `partner_id` in `stripe.set_app_info()`
+
 ## 1.82.2 - 2018-06-19
 * [#365](https://github.com/stripe/stripe-python/pull/365) Add `__repr__` methods to `StripeError` exception classes
 
