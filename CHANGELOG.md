@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.84.0 - 2018-06-29
+* [#436](https://github.com/stripe/stripe-python/pull/436) Add support for payment intents
+
 ## 1.83.0 - 2018-06-28
 * [#437](https://github.com/stripe/stripe-python/pull/437) Add support for `partner_id` in `stripe.set_app_info()`
 
