@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.84.1 - 2018-07-04
+* [#439](https://github.com/stripe/stripe-python/pull/439) Fix serialization of empty `ListObject`s
+
 ## 1.84.0 - 2018-06-29
 * [#436](https://github.com/stripe/stripe-python/pull/436) Add support for payment intents
 
