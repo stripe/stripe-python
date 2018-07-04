@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
+import json
+
 import stripe
 from tests.helper import StripeTestCase
 
@@ -10,7 +12,7 @@ class ListObjectTests(StripeTestCase):
         super(ListObjectTests, self).setUp()
 
         self.lo = stripe.ListObject.construct_from({
-            'id': 'me',
+            'object': 'list',
             'url': '/my/path',
             'data': ['foo'],
         }, 'mykey')
@@ -107,11 +109,21 @@ class ListObjectTests(StripeTestCase):
         self.assertTrue(self.lo)
 
         empty = stripe.ListObject.construct_from({
-            'id': 'me',
+            'object': 'list',
             'url': '/my/path',
             'data': [],
         }, 'mykey')
         self.assertFalse(empty)
+
+    def test_serialize_empty_list(self):
+        empty = stripe.ListObject.construct_from({
+            'object': 'list',
+            'data': [],
+        }, 'mykey')
+        serialized = str(empty)
+        deserialized = stripe.ListObject.construct_from(
+            json.loads(serialized), 'mykey')
+        self.assertEqual(empty, deserialized)
 
 
 class AutoPagingTests(StripeTestCase):

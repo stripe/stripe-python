@@ -40,6 +40,13 @@ class StripeObject(dict):
                 return api_requestor._encode_datetime(obj)
             return super(StripeObject.ReprJSONEncoder, self).default(obj)
 
+        def encode(self, obj):
+            # ListObject has a custom __len__ method, but we want to serialize
+            # its attributes even if __len__ returns 0.
+            if isinstance(obj, stripe.ListObject):
+                obj = dict(obj)
+            return super(StripeObject.ReprJSONEncoder, self).encode(obj)
+
     def __init__(self, id=None, api_key=None, stripe_version=None,
                  stripe_account=None, last_response=None, **params):
         super(StripeObject, self).__init__()
