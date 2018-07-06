@@ -125,6 +125,19 @@ class ListObjectTests(StripeTestCase):
             json.loads(serialized), 'mykey')
         self.assertEqual(empty, deserialized)
 
+    def test_serialize_nested_empty_list(self):
+        empty = stripe.ListObject.construct_from({
+            'object': 'list',
+            'data': [],
+        }, 'mykey')
+        obj = stripe.stripe_object.StripeObject.construct_from({
+            'nested': empty,
+        }, 'mykey')
+        serialized = str(obj)
+        deserialized = stripe.StripeObject.construct_from(
+            json.loads(serialized), 'mykey')
+        self.assertEqual(empty, deserialized.nested)
+
 
 class AutoPagingTests(StripeTestCase):
 
