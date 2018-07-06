@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.84.2 - 2018-07-06
+* [#441](https://github.com/stripe/stripe-python/pull/441) Better (hopefully) fix for serialization of empty `ListObject`s
+
 ## 1.84.1 - 2018-07-04
 * [#439](https://github.com/stripe/stripe-python/pull/439) Fix serialization of empty `ListObject`s
 
