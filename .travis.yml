@@ -3,9 +3,7 @@ sudo: false
 language: python
 
 python:
-  - "2.6"
   - "2.7"
-  - "3.3"
   - "3.4"
   - "3.5"
   - "3.6"
@@ -14,21 +12,13 @@ python:
   - "pypy3"
 
 cache:
-  apt: true
   directories:
     - stripe-mock
   pip: false
 
 env:
   global:
-    - PYCURL_SSL_LIBRARY=gnutls
     - STRIPE_MOCK_VERSION=0.19.0
-
-addons:
-  apt:
-    packages:
-      - libcurl4-gnutls-dev
-      - librtmp-dev
 
 before_install:
   # Unpack and start stripe-mock so that the test suite can talk to it
@@ -43,20 +33,12 @@ before_install:
     STRIPE_MOCK_PID=$!
 
 install:
-  - pip install -U setuptools pip
-  - pip install unittest2 mock pycurl flake8 tox-travis coveralls
-  - python setup.py clean --all
-  - python setup.py install
+  - pip install --upgrade pipenv
+  - pipenv install --dev
 
 script:
-  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then flake8 stripe tests; fi
-  - python -W all -bb -W error::BytesWarning -m coverage.__main__ run setup.py test
+  - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then make lint; fi
+  - make ci
 
 after_success:
-  coveralls
-
-matrix:
-  allow_failures:
-    - python: 3.7-dev
-    - python: pypy
-    - python: pypy3
+  make coveralls

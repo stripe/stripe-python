@@ -1,16 +1,14 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeTestCase
 
 
-class MyDeletable(stripe.api_resources.abstract.DeletableAPIResource):
-    pass
+class TestDeletableAPIResource(object):
+    class MyDeletable(stripe.api_resources.abstract.DeletableAPIResource):
+        pass
 
-
-class DeletableAPIResourceTests(StripeTestCase):
-    def test_delete(self):
-        self.stub_request(
+    def test_delete(self, request_mock):
+        request_mock.stub_request(
             'delete',
             '/v1/mydeletables/mid',
             {
@@ -20,18 +18,18 @@ class DeletableAPIResourceTests(StripeTestCase):
             rheaders={'request-id': 'req_id'}
         )
 
-        obj = MyDeletable.construct_from({
+        obj = self.MyDeletable.construct_from({
             'id': 'mid'
         }, 'mykey')
 
-        self.assertTrue(obj is obj.delete())
-        self.assert_requested(
+        assert obj is obj.delete()
+        request_mock.assert_requested(
             'delete',
             '/v1/mydeletables/mid',
             {}
         )
-        self.assertEqual(True, obj.deleted)
-        self.assertEqual('mid', obj.id)
+        assert obj.deleted is True
+        assert obj.id == 'mid'
 
-        self.assertTrue(obj.last_response is not None)
-        self.assertEqual('req_id', obj.last_response.request_id)
+        assert obj.last_response is not None
+        assert obj.last_response.request_id == 'req_id'

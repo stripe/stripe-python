@@ -1,8 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
-import warnings
-
-from stripe import util
+from stripe import error, util
 from stripe.api_resources import Customer
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
@@ -14,8 +12,10 @@ class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
     OBJECT_NAME = 'source'
 
     def detach(self, idempotency_key=None, **params):
+        token = util.utf8(self.id)
+
         if hasattr(self, 'customer') and self.customer:
-            extn = quote_plus(util.utf8(self.id))
+            extn = quote_plus(token)
             customer = util.utf8(self.customer)
             base = Customer.class_url()
             owner_extn = quote_plus(customer)
@@ -26,16 +26,9 @@ class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
             return self
 
         else:
-            raise NotImplementedError(
-                "This source object does not appear to be currently attached "
-                "to a customer object.")
-
-    def delete(self, **params):
-        warnings.warn("The `Source.delete` method is deprecated and will "
-                      "be removed in future versions. Please use the "
-                      "`Source.detach` method instead",
-                      DeprecationWarning)
-        self.detach(**params)
+            raise error.InvalidRequestError(
+                "Source %s does not appear to be currently attached "
+                "to a customer object." % token, 'id')
 
     def source_transactions(self, **params):
         return self.request(

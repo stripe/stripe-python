@@ -2,35 +2,34 @@ from __future__ import absolute_import, division, print_function
 
 import json
 
+import pytest
+
 import stripe
-from tests.helper import StripeTestCase
 
 
-class ListObjectTests(StripeTestCase):
-
-    def setUp(self):
-        super(ListObjectTests, self).setUp()
-
-        self.lo = stripe.ListObject.construct_from({
+class TestListObject(object):
+    @pytest.fixture
+    def list_object(self):
+        return stripe.ListObject.construct_from({
             'object': 'list',
             'url': '/my/path',
             'data': ['foo'],
         }, 'mykey')
 
-    def assertResponse(self, res):
-        self.assertTrue(isinstance(res[0], stripe.Charge))
-        self.assertEqual('bar', res[0].foo)
+    def assert_response(self, res):
+        assert isinstance(res[0], stripe.Charge)
+        assert res[0].foo == 'bar'
 
-    def test_for_loop(self):
+    def test_for_loop(self, list_object):
         seen = []
 
-        for item in self.lo:
+        for item in list_object:
             seen.append(item)
 
-        self.assertEqual(['foo'], seen)
+        assert seen == ['foo']
 
-    def test_list(self):
-        self.stub_request(
+    def test_list(self, request_mock, list_object):
+        request_mock.stub_request(
             'get',
             '/my/path',
             [
@@ -41,9 +40,9 @@ class ListObjectTests(StripeTestCase):
             ]
         )
 
-        res = self.lo.list(myparam='you')
+        res = list_object.list(myparam='you')
 
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/my/path',
             {
@@ -51,10 +50,10 @@ class ListObjectTests(StripeTestCase):
             },
             None
         )
-        self.assertResponse(res)
+        self.assert_response(res)
 
-    def test_create(self):
-        self.stub_request(
+    def test_create(self, request_mock, list_object):
+        request_mock.stub_request(
             'post',
             '/my/path',
             [
@@ -65,9 +64,9 @@ class ListObjectTests(StripeTestCase):
             ]
         )
 
-        res = self.lo.create(myparam='eter')
+        res = list_object.create(myparam='eter')
 
-        self.assert_requested(
+        request_mock.assert_requested(
             'post',
             '/my/path',
             {
@@ -75,10 +74,10 @@ class ListObjectTests(StripeTestCase):
             },
             None
         )
-        self.assertResponse(res)
+        self.assert_response(res)
 
-    def test_retrieve(self):
-        self.stub_request(
+    def test_retrieve(self, request_mock, list_object):
+        request_mock.stub_request(
             'get',
             '/my/path/myid',
             [
@@ -89,9 +88,9 @@ class ListObjectTests(StripeTestCase):
             ]
         )
 
-        res = self.lo.retrieve('myid', myparam='cow')
+        res = list_object.retrieve('myid', myparam='cow')
 
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/my/path/myid',
             {
@@ -100,20 +99,20 @@ class ListObjectTests(StripeTestCase):
             None
         )
 
-        self.assertResponse(res)
+        self.assert_response(res)
 
-    def test_len(self):
-        self.assertEqual(len(self.lo), 1)
+    def test_len(self, list_object):
+        assert len(list_object) == 1
 
-    def test_bool(self):
-        self.assertTrue(self.lo)
+    def test_bool(self, list_object):
+        assert list_object
 
         empty = stripe.ListObject.construct_from({
             'object': 'list',
             'url': '/my/path',
             'data': [],
         }, 'mykey')
-        self.assertFalse(empty)
+        assert bool(empty) is False
 
     def test_serialize_empty_list(self):
         empty = stripe.ListObject.construct_from({
@@ -123,7 +122,7 @@ class ListObjectTests(StripeTestCase):
         serialized = str(empty)
         deserialized = stripe.ListObject.construct_from(
             json.loads(serialized), 'mykey')
-        self.assertEqual(empty, deserialized)
+        assert deserialized == empty
 
     def test_serialize_nested_empty_list(self):
         empty = stripe.ListObject.construct_from({
@@ -134,12 +133,12 @@ class ListObjectTests(StripeTestCase):
             'nested': empty,
         }, 'mykey')
         serialized = str(obj)
-        deserialized = stripe.StripeObject.construct_from(
+        deserialized = stripe.stripe_object.StripeObject.construct_from(
             json.loads(serialized), 'mykey')
-        self.assertEqual(empty, deserialized.nested)
+        assert deserialized.nested == empty
 
 
-class AutoPagingTests(StripeTestCase):
+class TestAutoPaging:
 
     @staticmethod
     def pageable_model_response(ids, has_more):
@@ -150,26 +149,26 @@ class AutoPagingTests(StripeTestCase):
             'has_more': has_more,
         }
 
-    def test_iter_one_page(self):
+    def test_iter_one_page(self, request_mock):
         lo = stripe.ListObject.construct_from(
             self.pageable_model_response(['pm_123', 'pm_124'], False),
             'mykey'
         )
 
-        self.assert_no_request()
+        request_mock.assert_no_request()
 
         seen = [item['id'] for item in lo.auto_paging_iter()]
 
-        self.assertEqual(['pm_123', 'pm_124'], seen)
+        assert seen == ['pm_123', 'pm_124']
 
-    def test_iter_two_pages(self):
+    def test_iter_two_pages(self, request_mock):
         lo = stripe.ListObject.construct_from(
             self.pageable_model_response(['pm_123', 'pm_124'], True),
             'mykey'
         )
         lo._retrieve_params = {'foo': 'bar'}
 
-        self.stub_request(
+        request_mock.stub_request(
             'get',
             '/v1/pageablemodels',
             self.pageable_model_response(['pm_125', 'pm_126'], False)
@@ -177,7 +176,7 @@ class AutoPagingTests(StripeTestCase):
 
         seen = [item['id'] for item in lo.auto_paging_iter()]
 
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/v1/pageablemodels',
             {
@@ -187,10 +186,10 @@ class AutoPagingTests(StripeTestCase):
             None
         )
 
-        self.assertEqual(['pm_123', 'pm_124', 'pm_125', 'pm_126'], seen)
+        assert seen == ['pm_123', 'pm_124', 'pm_125', 'pm_126']
 
-    def test_class_method_two_pages(self):
-        self.stub_request(
+    def test_class_method_two_pages(self, request_mock):
+        request_mock.stub_request(
             'get',
             '/v1/charges',
             {
@@ -206,7 +205,7 @@ class AutoPagingTests(StripeTestCase):
             foo='bar'
         )]
 
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/v1/charges',
             {
@@ -214,4 +213,4 @@ class AutoPagingTests(StripeTestCase):
                 'foo': 'bar',
             }
         )
-        self.assertEqual(['ch_001'], seen)
+        assert seen == ['ch_001']

@@ -1,14 +1,13 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from tests.helper import StripeTestCase
 
 
-class BalanceTest(StripeTestCase):
-    def test_is_retrievable(self):
+class TestBalance(object):
+    def test_is_retrievable(self, request_mock):
         resource = stripe.Balance.retrieve()
-        self.assert_requested(
+        request_mock.assert_requested(
             'get',
             '/v1/balance'
         )
-        self.assertIsInstance(resource, stripe.Balance)
+        assert isinstance(resource, stripe.Balance)
