@@ -28,10 +28,6 @@ version_contents = {}
 with open(path.join(here, 'stripe', 'version.py'), encoding='utf-8') as f:
     exec(f.read(), version_contents)
 
-tests_require = [
-    'mock',
-    'unittest2',
-]
 
 setup(
     name='stripe',
@@ -75,6 +71,7 @@ setup(
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
