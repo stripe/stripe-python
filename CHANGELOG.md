@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.1 - 2018-07-10
+* [#445](https://github.com/stripe/stripe-python/pull/445) Fix `setup.py`
+
 ## 2.0.0 - 2018-07-10
 Major version release. List of backwards incompatible changes to watch out for:
 * The minimum Python versions are now 2.7 / 3.4. If you're using Python 2.6 or 3.3, consider upgrading to a more recent version.
