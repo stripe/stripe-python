@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.0.0 - 2018-07-10
+Major version release. List of backwards incompatible changes to watch out for:
+* The minimum Python versions are now 2.7 / 3.4. If you're using Python 2.6 or 3.3, consider upgrading to a more recent version.
+* Stripe exception classes should now be accessed via `stripe.error` rather than just `stripe`
+* Some older deprecated methods have been removed
+* Trying to detach an unattached source will now raise a `stripe.error.InvalidRequestError` exception instead of a `NotImplementedError` exception
+
+For more information, check out the [migration guide for v2](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v2)
+
+Pull requests included in this release:
+* [#385](https://github.com/stripe/stripe-python/pull/385) Drop support for Python 2.6 and 3.3
+* [#384](https://github.com/stripe/stripe-python/pull/384) Use py.test for tests
+* [#399](https://github.com/stripe/stripe-python/pull/399) Remove deprecated code
+* [#402](https://github.com/stripe/stripe-python/pull/402) Remove `util.json` and use `json` module directly everywhere
+* [#403](https://github.com/stripe/stripe-python/pull/403) Update setup.py and test flow
+* [#410](https://github.com/stripe/stripe-python/pull/410) Use pipenv
+* [#415](https://github.com/stripe/stripe-python/pull/415) Change exception when detaching unattached sources from `NotImplementedError` to `stripe.error.InvalidRequestError`
+
 ## 1.84.2 - 2018-07-06
 * [#441](https://github.com/stripe/stripe-python/pull/441) Better (hopefully) fix for serialization of empty `ListObject`s
 
