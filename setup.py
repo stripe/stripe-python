@@ -1,6 +1,6 @@
+import os
 import sys
 from codecs import open
-from os import path
 from setuptools import setup, find_packages
 from setuptools.command.test import test as TestCommand
 
@@ -19,19 +19,16 @@ class PyTest(TestCommand):
         sys.exit(errno)
 
 
-here = path.abspath(path.dirname(__file__))
+here = os.path.abspath(os.path.dirname(__file__))
 
-with open(path.join(here, 'LONG_DESCRIPTION.rst'), encoding='utf-8') as f:
+os.chdir(here)
+
+with open(os.path.join(here, 'LONG_DESCRIPTION.rst'), encoding='utf-8') as f:
     long_description = f.read()
 
 version_contents = {}
-with open(path.join(here, 'stripe', 'version.py'), encoding='utf-8') as f:
+with open(os.path.join(here, 'stripe', 'version.py'), encoding='utf-8') as f:
     exec(f.read(), version_contents)
-
-tests_require = [
-    'mock',
-    'unittest2',
-]
 
 setup(
     name='stripe',
@@ -75,6 +72,7 @@ setup(
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
