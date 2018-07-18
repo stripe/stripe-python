@@ -44,7 +44,7 @@ setup(
     package_data={'stripe': ['data/ca-certificates.crt']},
     zip_safe=False,
     install_requires=[
-        'requests >= 2',
+        'requests >= 2; python_version >= "3.0"',
         'requests[security] >= 2; python_version < "3.0"',
     ],
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
