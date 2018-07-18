@@ -1,7 +1,19 @@
 {
+    "editor.renderWhitespace": "all",
     "files.exclude": {
         "**/*.pyc": {"when": "$(basename).py"},
         "**/__pycache__": true
+    },
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    "files.trimTrailingWhitespace": true,
+    "[python]": {
+      "editor.detectIndentation": false,
+      "editor.insertSpaces": true,
+      "editor.rulers": [
+        80
+      ],
+      "editor.tabSize": 4,
     },
 
     // Linting
