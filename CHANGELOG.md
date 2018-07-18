@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.2 - 2018-07-18
+* [#448](https://github.com/stripe/stripe-python/pull/448) Avoid duplicate dependency on `requests` with Python 2.7
+
 ## 2.0.1 - 2018-07-10
 * [#445](https://github.com/stripe/stripe-python/pull/445) Fix `setup.py`
 
