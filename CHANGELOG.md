@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.0.3 - 2018-07-19
+* [#450](https://github.com/stripe/stripe-python/pull/450) Internal improvements to `ApiResource.class_url`
+
 ## 2.0.2 - 2018-07-18
 * [#448](https://github.com/stripe/stripe-python/pull/448) Avoid duplicate dependency on `requests` with Python 2.7
 
