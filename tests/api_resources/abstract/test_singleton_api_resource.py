@@ -5,7 +5,7 @@ import stripe
 
 class TestSingletonAPIResource(object):
     class MySingleton(stripe.api_resources.abstract.SingletonAPIResource):
-        pass
+        OBJECT_NAME = 'mysingleton'
 
     def test_retrieve(self, request_mock):
         request_mock.stub_request(

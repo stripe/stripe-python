@@ -13,8 +13,8 @@ class FileUpload(ListableAPIResource):
         return stripe.upload_api_base
 
     @classmethod
-    def class_name(cls):
-        return 'file'
+    def class_url(cls):
+        return '/v1/files'
 
     @classmethod
     def create(cls, api_key=None, api_version=None, stripe_account=None,

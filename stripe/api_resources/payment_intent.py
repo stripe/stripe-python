@@ -10,10 +10,6 @@ class PaymentIntent(CreateableAPIResource, UpdateableAPIResource,
                     ListableAPIResource):
     OBJECT_NAME = 'payment_intent'
 
-    @classmethod
-    def class_name(cls):
-        return 'payment_intent'
-
     def cancel(self, idempotency_key=None, **params):
         url = self.instance_url() + '/cancel'
         headers = util.populate_headers(idempotency_key)

@@ -7,7 +7,7 @@ import stripe
 
 class TestAPIResource(object):
     class MyResource(stripe.api_resources.abstract.APIResource):
-        pass
+        OBJECT_NAME = 'myresource'
 
     def test_retrieve_and_refresh(self, request_mock):
         url = '/v1/myresources/foo%2A'

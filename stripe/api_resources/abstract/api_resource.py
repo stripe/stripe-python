@@ -18,17 +18,15 @@ class APIResource(StripeObject):
         return self
 
     @classmethod
-    def class_name(cls):
+    def class_url(cls):
         if cls == APIResource:
             raise NotImplementedError(
                 'APIResource is an abstract class.  You should perform '
                 'actions on its subclasses (e.g. Charge, Customer)')
-        return str(quote_plus(cls.__name__.lower()))
-
-    @classmethod
-    def class_url(cls):
-        cls_name = cls.class_name()
-        return "/v1/%ss" % (cls_name,)
+        # Namespaces are separated in object names with periods (.) and in URLs
+        # with forward slashes (/), so replace the former with the latter.
+        base = cls.OBJECT_NAME.replace('.', '/')
+        return "/v1/%ss" % (base,)
 
     def instance_url(self):
         id = self.get('id')

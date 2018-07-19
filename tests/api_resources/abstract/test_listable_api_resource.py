@@ -5,7 +5,7 @@ import stripe
 
 class TestListableAPIResource(object):
     class MyListable(stripe.api_resources.abstract.ListableAPIResource):
-        pass
+        OBJECT_NAME = 'mylistable'
 
     def test_all(self, request_mock):
         request_mock.stub_request(
