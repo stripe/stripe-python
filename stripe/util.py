@@ -169,6 +169,17 @@ def load_object_classes():
             api_resources.InvoiceLineItem,
         api_resources.IssuerFraudRecord.OBJECT_NAME:
             api_resources.IssuerFraudRecord,
+        api_resources.issuing.Authorization.OBJECT_NAME:
+            api_resources.issuing.Authorization,
+        api_resources.issuing.Card.OBJECT_NAME: api_resources.issuing.Card,
+        api_resources.issuing.CardDetails.OBJECT_NAME:
+            api_resources.issuing.CardDetails,
+        api_resources.issuing.Cardholder.OBJECT_NAME:
+            api_resources.issuing.Cardholder,
+        api_resources.issuing.Dispute.OBJECT_NAME:
+            api_resources.issuing.Dispute,
+        api_resources.issuing.Transaction.OBJECT_NAME:
+            api_resources.issuing.Transaction,
         api_resources.LoginLink.OBJECT_NAME: api_resources.LoginLink,
         api_resources.Order.OBJECT_NAME: api_resources.Order,
         api_resources.OrderReturn.OBJECT_NAME: api_resources.OrderReturn,
