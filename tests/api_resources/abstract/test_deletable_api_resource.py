@@ -5,7 +5,7 @@ import stripe
 
 class TestDeletableAPIResource(object):
     class MyDeletable(stripe.api_resources.abstract.DeletableAPIResource):
-        pass
+        OBJECT_NAME = 'mydeletable'
 
     def test_delete(self, request_mock):
         request_mock.stub_request(

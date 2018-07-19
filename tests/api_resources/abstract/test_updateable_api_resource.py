@@ -7,7 +7,7 @@ import stripe
 
 class TestUpdateableAPIResource(object):
     class MyUpdateable(stripe.api_resources.abstract.UpdateableAPIResource):
-        pass
+        OBJECT_NAME = 'myupdateable'
 
     @pytest.fixture
     def obj(self, request_mock):

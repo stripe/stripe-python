@@ -8,10 +8,6 @@ class EphemeralKey(DeletableAPIResource):
     OBJECT_NAME = 'ephemeral_key'
 
     @classmethod
-    def class_name(cls):
-        return 'ephemeral_key'
-
-    @classmethod
     def create(cls, api_key=None, idempotency_key=None,
                stripe_version=None, stripe_account=None,
                **params):

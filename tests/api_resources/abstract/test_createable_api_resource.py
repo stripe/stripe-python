@@ -5,7 +5,7 @@ import stripe
 
 class TestCreateableAPIResource(object):
     class MyCreatable(stripe.api_resources.abstract.CreateableAPIResource):
-        pass
+        OBJECT_NAME = 'mycreatable'
 
     def test_create(self, request_mock):
         request_mock.stub_request(

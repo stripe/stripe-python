@@ -10,10 +10,6 @@ from stripe.api_resources.abstract import nested_resource_class_methods
 class ApplicationFee(ListableAPIResource):
     OBJECT_NAME = 'application_fee'
 
-    @classmethod
-    def class_name(cls):
-        return 'application_fee'
-
     def refund(self, idempotency_key=None, **params):
         headers = util.populate_headers(idempotency_key)
         url = self.instance_url() + '/refund'

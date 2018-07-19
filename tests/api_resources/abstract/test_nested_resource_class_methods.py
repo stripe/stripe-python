@@ -9,7 +9,7 @@ class TestNestedResourceClassMethods(object):
         operations=['create', 'retrieve', 'update', 'delete', 'list']
     )
     class MainResource(stripe.api_resources.abstract.APIResource):
-        pass
+        OBJECT_NAME = 'mainresource'
 
     def test_create_nested(self, request_mock):
         request_mock.stub_request(
