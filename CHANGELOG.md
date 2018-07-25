@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.1.0 - 2018-07-25
+* [#452](https://github.com/stripe/stripe-python/pull/452) Add `InvoiceLineItem` class
+
 ## 2.0.3 - 2018-07-19
 * [#450](https://github.com/stripe/stripe-python/pull/450) Internal improvements to `ApiResource.class_url`
 
