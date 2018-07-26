@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.2.0 - 2018-07-26
+* [#455](https://github.com/stripe/stripe-python/pull/455) Add support for Stripe Issuing
+
 ## 2.1.0 - 2018-07-25
 * [#452](https://github.com/stripe/stripe-python/pull/452) Add `InvoiceLineItem` class
 
