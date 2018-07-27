@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.3.0 - 2018-07-27
+* [#456](https://github.com/stripe/stripe-python/pull/456) Add support for Sigma scheduled query run objects
+
 ## 2.2.0 - 2018-07-26
 * [#455](https://github.com/stripe/stripe-python/pull/455) Add support for Stripe Issuing
 
