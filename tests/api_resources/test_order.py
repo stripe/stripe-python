@@ -40,7 +40,7 @@ class TestOrder(object):
         resource.save()
         request_mock.assert_requested(
             'post',
-            '/v1/orders/%s' % resource.id
+            '/v1/orders/%s' % TEST_RESOURCE_ID
         )
 
     def test_is_modifiable(self, request_mock):

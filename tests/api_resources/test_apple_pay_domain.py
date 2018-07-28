@@ -36,12 +36,9 @@ class TestApplePayDomain(object):
 
     def test_is_deletable(self, request_mock):
         resource = stripe.ApplePayDomain.retrieve(TEST_RESOURCE_ID)
-        # Unfortunately stripe-mock will return a resource with a different
-        # ID, so we need to store the original ID for the request assertion
-        resource_id = resource.id
         resource.delete()
         request_mock.assert_requested(
             'delete',
-            '/v1/apple_pay/domains/%s' % resource_id
+            '/v1/apple_pay/domains/%s' % TEST_RESOURCE_ID
         )
         assert resource.deleted is True

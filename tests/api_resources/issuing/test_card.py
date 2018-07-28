@@ -52,7 +52,7 @@ class TestCard(object):
         card = resource.save()
         request_mock.assert_requested(
             'post',
-            '/v1/issuing/cards/%s' % resource.id
+            '/v1/issuing/cards/%s' % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.issuing.Card)
         assert resource is card
@@ -62,6 +62,6 @@ class TestCard(object):
         card_details = resource.details()
         request_mock.assert_requested(
             'get',
-            '/v1/issuing/cards/%s/details' % resource.id
+            '/v1/issuing/cards/%s/details' % TEST_RESOURCE_ID
         )
         assert isinstance(card_details, stripe.issuing.CardDetails)

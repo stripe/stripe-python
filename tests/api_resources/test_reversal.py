@@ -34,8 +34,6 @@ class TestReversal(object):
         with pytest.raises(NotImplementedError):
             stripe.Reversal.retrieve(TEST_RESOURCE_ID)
 
-    # We don't use stripe-mock as the reversal returned has a transfer id that
-    # is different from the transfer used to access the reversal
     def test_is_saveable(self, request_mock):
         resource = self.construct_resource()
         resource.metadata['key'] = 'value'

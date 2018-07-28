@@ -42,7 +42,7 @@ class TestAccount(object):
         resource = account.save()
         request_mock.assert_requested(
             'post',
-            '/v1/accounts/%s' % resource.id
+            '/v1/accounts/%s' % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.Account)
         assert resource is account
@@ -92,13 +92,10 @@ class TestAccount(object):
 
     def test_is_deletable(self, request_mock):
         resource = stripe.Account.retrieve(TEST_RESOURCE_ID)
-        # Unfortunately stripe-mock will return a resource with a different
-        # ID, so we need to store the original ID for the request assertion
-        resource_id = resource.id
         resource.delete()
         request_mock.assert_requested(
             'delete',
-            '/v1/accounts/%s' % resource_id
+            '/v1/accounts/%s' % TEST_RESOURCE_ID
         )
         assert resource.deleted is True
 

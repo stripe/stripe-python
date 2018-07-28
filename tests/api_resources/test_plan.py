@@ -44,7 +44,7 @@ class TestPlan(object):
         resource.save()
         request_mock.assert_requested(
             'post',
-            '/v1/plans/%s' % resource.id
+            '/v1/plans/%s' % TEST_RESOURCE_ID
         )
 
     def test_is_modifiable(self, request_mock):
@@ -60,12 +60,9 @@ class TestPlan(object):
 
     def test_is_deletable(self, request_mock):
         resource = stripe.Plan.retrieve(TEST_RESOURCE_ID)
-        # Unfortunately stripe-mock will return a resource with a different
-        # ID, so we need to store the original ID for the request assertion
-        resource_id = resource.id
         resource.delete()
         request_mock.assert_requested(
             'delete',
-            '/v1/plans/%s' % resource_id
+            '/v1/plans/%s' % TEST_RESOURCE_ID
         )
         assert resource.deleted is True

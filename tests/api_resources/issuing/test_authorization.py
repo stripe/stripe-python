@@ -41,7 +41,7 @@ class TestAuthorization(object):
         authorization = resource.save()
         request_mock.assert_requested(
             'post',
-            '/v1/issuing/authorizations/%s' % resource.id
+            '/v1/issuing/authorizations/%s' % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.issuing.Authorization)
         assert resource is authorization

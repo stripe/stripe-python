@@ -55,7 +55,7 @@ class TestPaymentIntent(object):
         resource.save()
         request_mock.assert_requested(
             'post',
-            '/v1/payment_intents/%s' % resource.id,
+            '/v1/payment_intents/%s' % TEST_RESOURCE_ID,
             {'metadata': {'key': 'value'}}
         )
         assert isinstance(resource, stripe.PaymentIntent)

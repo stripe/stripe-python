@@ -52,7 +52,7 @@ class TestDispute(object):
         dispute = resource.save()
         request_mock.assert_requested(
             'post',
-            '/v1/issuing/disputes/%s' % resource.id
+            '/v1/issuing/disputes/%s' % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.issuing.Dispute)
         assert resource is dispute

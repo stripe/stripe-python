@@ -17,8 +17,8 @@ class TestApplicationFeeRefund(object):
         resource.save()
         request_mock.assert_requested(
             'post',
-            '/v1/application_fees/%s/refunds/%s' % (resource.fee,
-                                                    resource.id)
+            '/v1/application_fees/%s/refunds/%s' % (TEST_APPFEE_ID,
+                                                    TEST_RESOURCE_ID)
         )
 
     def test_is_modifiable(self, request_mock):
