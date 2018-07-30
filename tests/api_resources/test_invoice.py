@@ -40,7 +40,7 @@ class TestInvoice(object):
         resource.save()
         request_mock.assert_requested(
             'post',
-            '/v1/invoices/%s' % resource.id
+            '/v1/invoices/%s' % TEST_RESOURCE_ID
         )
 
     def test_is_modifiable(self, request_mock):
@@ -59,7 +59,7 @@ class TestInvoice(object):
         resource = resource.pay()
         request_mock.assert_requested(
             'post',
-            '/v1/invoices/%s/pay' % resource.id
+            '/v1/invoices/%s/pay' % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.Invoice)
 

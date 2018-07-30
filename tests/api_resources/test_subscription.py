@@ -40,7 +40,7 @@ class TestSubscription(object):
         resource.save()
         request_mock.assert_requested(
             'post',
-            '/v1/subscriptions/%s' % resource.id
+            '/v1/subscriptions/%s' % TEST_RESOURCE_ID
         )
 
     def test_is_modifiable(self, request_mock):
@@ -59,7 +59,7 @@ class TestSubscription(object):
         resource.delete()
         request_mock.assert_requested(
             'delete',
-            '/v1/subscriptions/%s' % resource.id
+            '/v1/subscriptions/%s' % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.Subscription)
 
@@ -112,23 +112,22 @@ class TestSubscription(object):
         )
         assert isinstance(resource, stripe.Subscription)
 
-    # TODO: Fix this test
-    # def test_is_saveable_with_items(self):
-    #    resource = stripe.Subscription.retrieve(TEST_RESOURCE_ID)
-    #    resource.items = [{"id": "si", "plan": "foo"}]
-    #    resource.save()
-    #    request_mock.assert_requested(
-    #        'post',
-    #        '/v1/subscriptions/%s' % TEST_RESOURCE_ID,
-    #        {
-    #            'items': {
-    #                "0": {
-    #                    "plan": "foo",
-    #                    "id": "si"
-    #                },
-    #            },
-    #        },
-    #    )
-    #    assert isinstance(resource, stripe.Subscription)
+    def test_is_saveable_with_items(self, request_mock):
+        resource = stripe.Subscription.retrieve(TEST_RESOURCE_ID)
+        resource.items = [{"id": "si", "plan": "foo"}]
+        resource.save()
+        request_mock.assert_requested(
+            'post',
+            '/v1/subscriptions/%s' % TEST_RESOURCE_ID,
+            {
+                'items': {
+                    "0": {
+                        "plan": "foo",
+                        "id": "si"
+                    },
+                },
+            },
+        )
+        assert isinstance(resource, stripe.Subscription)
 
     # TODO: Test serialize

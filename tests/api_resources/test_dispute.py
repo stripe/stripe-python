@@ -30,7 +30,7 @@ class TestDispute(object):
         resource.save()
         request_mock.assert_requested(
             'post',
-            '/v1/disputes/%s' % resource.id
+            '/v1/disputes/%s' % TEST_RESOURCE_ID
         )
 
     def test_is_modifiable(self, request_mock):
@@ -49,5 +49,5 @@ class TestDispute(object):
         resource.close()
         request_mock.assert_requested(
             'post',
-            '/v1/disputes/%s/close' % resource.id
+            '/v1/disputes/%s/close' % TEST_RESOURCE_ID
         )
