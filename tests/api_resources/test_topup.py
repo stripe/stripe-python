@@ -57,3 +57,12 @@ class TestTopup(object):
             '/v1/topups/%s' % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.Topup)
+
+    def test_is_cancelable(self, request_mock):
+        topup = stripe.Topup.retrieve(TEST_RESOURCE_ID)
+        resource = topup.cancel()
+        request_mock.assert_requested(
+            'post',
+            '/v1/topups/%s/cancel' % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.Topup)
