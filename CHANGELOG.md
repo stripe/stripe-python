@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.4.0 - 2018-08-03
+* [#460](https://github.com/stripe/stripe-python/pull/460) Add cancel support for topups
+* [#461](https://github.com/stripe/stripe-python/pull/461) Add support for file links
+
 ## 2.3.0 - 2018-07-27
 * [#456](https://github.com/stripe/stripe-python/pull/456) Add support for Sigma scheduled query run objects
 
