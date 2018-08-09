@@ -20,10 +20,6 @@ want to use the package, just run:
 
     pip install --upgrade stripe
 
-or
-
-    easy_install --upgrade stripe
-
 Install from source with:
 
     python setup.py install
