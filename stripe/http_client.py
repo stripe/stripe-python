@@ -25,6 +25,8 @@ except ImportError:
 
 try:
     import requests
+    from requests.packages.urllib3.util.retry import Retry
+    from requests.adapters import HTTPAdapter
 except ImportError:
     requests = None
 else:
@@ -101,10 +103,18 @@ class HTTPClient(object):
 class RequestsClient(HTTPClient):
     name = 'requests'
 
-    def __init__(self, timeout=80, session=None, **kwargs):
+    def __init__(self, timeout=80, session=None, retry=None, **kwargs):
         super(RequestsClient, self).__init__(**kwargs)
         self._timeout = timeout
         self._session = session or requests.Session()
+        retry = retry or Retry(
+            total=5,
+            backoff_factor=0.2,
+            status=5,
+            status_forcelist=[500, 502, 503, 504]
+        )
+        self._session.mount('http://', HTTPAdapter(max_retries=retry))
+        self._session.mount('https://', HTTPAdapter(max_retries=retry))
 
     def request(self, method, url, headers, post_data=None):
         kwargs = {}
