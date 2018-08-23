@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.6.0 - 2018-08-23
+* [#467](https://github.com/stripe/stripe-python/pull/467) Add support for usage record summaries
+
 ## 2.5.0 - 2018-08-16
 * [#463](https://github.com/stripe/stripe-python/pull/463) Remove unsupported Bitcoin endpoints (this is technically a breaking change, but we're releasing as a minor version because none of these APIs were usable anyway)
 
