@@ -207,6 +207,8 @@ def load_object_classes():
         api_resources.Topup.OBJECT_NAME: api_resources.Topup,
         api_resources.Transfer.OBJECT_NAME: api_resources.Transfer,
         api_resources.UsageRecord.OBJECT_NAME: api_resources.UsageRecord,
+        api_resources.UsageRecordSummary.OBJECT_NAME:
+            api_resources.UsageRecordSummary,
     }
 
 
