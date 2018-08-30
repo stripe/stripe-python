@@ -8,10 +8,15 @@ TEST_RESOURCE_ID = 'si_123'
 
 class TestSubscriptionItem(object):
     def test_is_listable(self, request_mock):
-        resources = stripe.SubscriptionItem.list()
+        resources = stripe.SubscriptionItem.list(
+            subscription="sub_123"
+        )
         request_mock.assert_requested(
             'get',
-            '/v1/subscription_items'
+            '/v1/subscription_items',
+            {
+                'subscription': 'sub_123',
+            }
         )
         assert isinstance(resources.data, list)
         assert isinstance(resources.data[0], stripe.SubscriptionItem)

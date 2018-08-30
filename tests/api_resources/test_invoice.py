@@ -64,7 +64,9 @@ class TestInvoice(object):
         assert isinstance(resource, stripe.Invoice)
 
     def test_can_upcoming(self, request_mock):
-        resource = stripe.Invoice.upcoming()
+        resource = stripe.Invoice.upcoming(
+            customer="cus_123"
+        )
         request_mock.assert_requested(
             'get',
             '/v1/invoices/upcoming'
@@ -73,6 +75,7 @@ class TestInvoice(object):
 
     def test_can_upcoming_and_subscription_items(self, request_mock):
         resource = stripe.Invoice.upcoming(
+            customer="cus_123",
             subscription_items=[
                 {"plan": "foo", "quantity": 3}
             ]
@@ -81,6 +84,7 @@ class TestInvoice(object):
             'get',
             '/v1/invoices/upcoming',
             {
+                'customer': 'cus_123',
                 'subscription_items': {
                     "0": {
                         "plan": "foo",
