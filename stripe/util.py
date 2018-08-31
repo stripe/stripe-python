@@ -192,6 +192,10 @@ def load_object_classes():
         api_resources.RecipientTransfer.OBJECT_NAME:
             api_resources.RecipientTransfer,
         api_resources.Refund.OBJECT_NAME: api_resources.Refund,
+        api_resources.reporting.ReportRun.OBJECT_NAME:
+            api_resources.reporting.ReportRun,
+        api_resources.reporting.ReportType.OBJECT_NAME:
+            api_resources.reporting.ReportType,
         api_resources.Reversal.OBJECT_NAME: api_resources.Reversal,
         api_resources.sigma.ScheduledQueryRun.OBJECT_NAME:
             api_resources.sigma.ScheduledQueryRun,
