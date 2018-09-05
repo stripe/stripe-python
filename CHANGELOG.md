@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.7.0 - 2018-09-05
+* [#469](https://github.com/stripe/stripe-python/pull/469) Add support for reporting resources
+
 ## 2.6.0 - 2018-08-23
 * [#467](https://github.com/stripe/stripe-python/pull/467) Add support for usage record summaries
 
