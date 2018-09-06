@@ -466,6 +466,12 @@ class TestAPIRequestor(object):
         )
         check_call(meth, headers=header_matcher, post_data='')
 
+    def test_fails_without_api_key(self, requestor):
+        stripe.api_key = None
+
+        with pytest.raises(stripe.error.AuthenticationError):
+            requestor.request('get', self.valid_path, {})
+
     def test_invalid_request_error_404(self, requestor, mock_response):
         mock_response('{"error": {}}', 404)
 

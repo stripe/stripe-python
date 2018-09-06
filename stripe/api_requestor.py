@@ -273,7 +273,6 @@ class APIRequestor(object):
                 'assistance.' % (method,))
 
         headers = self.request_headers(my_api_key, method)
-
         if supplied_headers is not None:
             for key, value in six.iteritems(supplied_headers):
                 headers[key] = value

@@ -188,6 +188,52 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
         return mock_response
 
     @pytest.fixture
+    def mock_error(self, mocker, session):
+        def mock_error(mock):
+            mock.exceptions.SSLError = Exception
+            session.request.side_effect = mock.exceptions.SSLError()
+            mock.Session = mocker.MagicMock(return_value=session)
+        return mock_error
+
+    # Note that unlike other modules, we don't use the "mock" argument here
+    # because we need to run the request call against the internal mock
+    # session.
+    @pytest.fixture
+    def check_call(self, session):
+        def check_call(mock, method, url, post_data, headers, timeout=80,
+                       times=None):
+            times = times or 1
+            args = (method, url)
+            kwargs = {'headers': headers,
+                      'data': post_data,
+                      'verify': RequestsVerify(),
+                      'proxies': {"http": "http://slap/",
+                                  "https": "http://slap/"},
+                      'timeout': timeout}
+            calls = [(args, kwargs) for _ in range(times)]
+            session.request.assert_has_calls(calls)
+
+        return check_call
+
+    def make_request(self, method, url, headers, post_data, timeout=80):
+        client = self.REQUEST_CLIENT(verify_ssl_certs=True,
+                                     timeout=timeout,
+                                     proxy='http://slap/')
+        return client.request(method, url, headers, post_data)
+
+    def test_timeout(self, request_mock, mock_response, check_call):
+        headers = {'my-header': 'header val'}
+        data = ''
+        mock_response(request_mock, '{"foo": "baz"}', 200)
+        self.make_request('POST', self.valid_url,
+                          headers, data, timeout=5)
+
+        check_call(None, 'POST', self.valid_url, data, headers, timeout=5)
+
+
+class TestRetryRequestClient(TestRequestsClient):
+
+    @pytest.fixture
     def response(self, mocker):
         def response(code=200):
             result = mocker.Mock()
@@ -195,14 +241,6 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
             result.status_code = code
             return result
         return response
-
-    @pytest.fixture
-    def mock_error(self, mocker, session):
-        def mock_error(mock):
-            mock.exceptions.RequestException = Exception
-            session.request.side_effect = mock.exceptions.RequestException()
-            mock.Session = mocker.MagicMock(return_value=session)
-        return mock_error
 
     @pytest.fixture
     def mock_retry(self, mocker, session, request_mock):
@@ -237,83 +275,67 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
 
         return mock_retry
 
-    # Note that unlike other modules, we don't use the "mock" argument here
-    # because we need to run the request call against the internal mock
-    # session.
     @pytest.fixture
-    def check_call(self, session):
-        def check_call(mock, method, url, post_data, headers, timeout=80,
-                       times=None):
-            times = times or 1
-            args = (method, url)
-            kwargs = {'headers': headers,
-                      'data': post_data,
-                      'verify': RequestsVerify(),
-                      'proxies': {"http": "http://slap/",
-                                  "https": "http://slap/"},
-                      'timeout': timeout}
-            calls = [(args, kwargs) for _ in range(times)]
-            session.request.assert_has_calls(calls)
+    def check_call_numbers(self, check_call):
+        valid_url = self.valid_url
 
-        return check_call
+        def check_call_numbers(times):
+            check_call(None, 'GET', valid_url, None, {}, times=times)
+        return check_call_numbers
 
-    def make_request(self, method, url, headers, post_data, timeout=80):
+    def make_request(self):
         client = self.REQUEST_CLIENT(verify_ssl_certs=True,
-                                     timeout=timeout,
+                                     timeout=80,
                                      proxy='http://slap/')
         client._sleep_time = lambda _: 0.001
-        return client.request_with_retry(method, url, headers, post_data)
-
-    def test_timeout(self, request_mock, mock_response, check_call):
-        headers = {'my-header': 'header val'}
-        data = ''
-        mock_response(request_mock, '{"foo": "baz"}', 200)
-        self.make_request('POST', self.valid_url,
-                          headers, data, timeout=5)
-
-        check_call(None, 'POST', self.valid_url, data, headers, timeout=5)
-
-    def test_exception(self, request_mock, mock_error):
-        pass
+        return client.request_with_retry('GET', self.valid_url, {}, None)
 
     def max_retries(self):
         return self.REQUEST_CLIENT.MAX_RETRIES
 
     def test_retry_error_until_response(self, mock_retry, response,
-                                        check_call):
+                                        check_call_numbers):
         mock_retry(retry_error_num=1, responses=[response(code=202)])
-        _, code, _ = self.make_request('GET', self.valid_url, {}, None)
+        _, code, _ = self.make_request()
         assert code == 202
-        check_call(None, 'GET', self.valid_url, None, {}, times=2)
+        check_call_numbers(2)
 
     def test_retry_error_until_exceeded(self, mock_retry, response,
-                                        check_call):
+                                        check_call_numbers):
         mock_retry(retry_error_num=3)
         with pytest.raises(stripe.error.APIConnectionError):
-            self.make_request('GET', self.valid_url, {}, None)
+            self.make_request()
 
-        check_call(None, 'GET', self.valid_url, None, {},
-                   times=self.max_retries())
+        check_call_numbers(self.max_retries())
 
-    def test_no_retry_error(self, mock_retry, response, check_call):
+    def test_no_retry_error(self, mock_retry, response, check_call_numbers):
         mock_retry(no_retry_error_num=3)
         with pytest.raises(stripe.error.APIConnectionError):
-            self.make_request('GET', self.valid_url, {}, None)
-        check_call(None, 'GET', self.valid_url, None, {}, times=1)
+            self.make_request()
+        check_call_numbers(1)
 
-    def test_retry_codes(self, mock_retry, response, check_call):
+    def test_retry_codes(self, mock_retry, response, check_call_numbers):
         mock_retry(responses=[response(code=409), response(code=202)])
-        _, code, _ = self.make_request('GET', self.valid_url, {}, None)
+        _, code, _ = self.make_request()
         assert code == 202
-        check_call(None, 'GET', self.valid_url, None, {}, times=2)
+        check_call_numbers(2)
 
     def test_retry_codes_until_exceeded(self, mock_retry, response,
-                                        check_call):
+                                        check_call_numbers):
         mock_retry(responses=[response(code=409)] * 3)
-        _, code, _ = self.make_request('GET', self.valid_url, {}, None)
+        _, code, _ = self.make_request()
         assert code == 409
-        check_call(None, 'GET', self.valid_url, None, {},
-                   times=self.max_retries())
+        check_call_numbers(self.max_retries())
+
+    # Basic requests client behavior tested in TestRequestsClient
+    def test_request(self, request_mock, mock_response, check_call):
+        pass
+
+    def test_exception(self, request_mock, mock_error):
+        pass
+
+    def test_timeout(self, request_mock, mock_response, check_call):
+        pass
 
 
 class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):

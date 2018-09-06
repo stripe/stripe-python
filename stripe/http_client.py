@@ -102,15 +102,15 @@ class HTTPClient(object):
 
     def request_with_retry(self, method, url, headers, post_data=None):
         num_retries = 0
-        response = None
-        connection_error = None
 
         while True:
             try:
                 num_retries += 1
                 response = self.request(method, url, headers, post_data)
+                connection_error = None
             except error.APIConnectionError as e:
                 connection_error = e
+                response = None
 
             if self.should_retry(response, connection_error, num_retries):
                 self._sleep(num_retries)
@@ -123,19 +123,10 @@ class HTTPClient(object):
     def should_retry(self, response, connection_error, num_retries):
         if response is not None:
             _, status_code, _ = response
-            should_retry = self.should_retry_on_codes(status_code)
+            should_retry = status_code == 409
         else:
             should_retry = connection_error.should_retry
-        return should_retry and num_retries <= HTTPClient.MAX_RETRIES
-
-    def should_retry_on_error(self, connection_error):
-        if isinstance(connection_error, error.APIConnectionError):
-            return error.should_retry
-        else:
-            return False
-
-    def should_retry_on_codes(self, code):
-        return code in [409]
+        return should_retry and num_retries < HTTPClient.MAX_RETRIES
 
     def _sleep(self, num_retries):
         time.sleep(self._sleep_time(num_retries))
@@ -146,7 +137,7 @@ class HTTPClient(object):
 
     def _add_jitter_time(self, sleep_seconds):
         # Randomize the value in [(sleep_seconds/ 2) to (sleep_seconds)]
-        # Also separated here to isolate randomness for testing purposes
+        # Also separated method here to isolate randomness for tests
         sleep_seconds *= (0.5 * (1 + random.uniform(0, 1)))
         return sleep_seconds
 
