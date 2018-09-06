@@ -5,6 +5,7 @@ import sys
 import textwrap
 import warnings
 import email
+import time, random
 
 from stripe import error, util, six
 
@@ -77,6 +78,10 @@ def new_default_http_client(*args, **kwargs):
 
 
 class HTTPClient(object):
+    MAX_RETRIES = 3
+    MAX_DELAY = 2
+    INITIAL_DELAY = 0.5
+
     def __init__(self, verify_ssl_certs=True, proxy=None):
         self._verify_ssl_certs = verify_ssl_certs
         if proxy:
@@ -93,9 +98,64 @@ class HTTPClient(object):
         raise NotImplementedError(
             'HTTPClient subclasses must implement `request`')
 
+    def request_with_retry(self, method, url, headers, post_data=None):
+        num_retries = 0
+        response = None
+        connection_error = None
+
+        while True:
+            try:
+                num_retries += 1
+                response = self.request(method, url, headers, post_data)
+            except error.APIConnectionError as e:
+                connection_error = e
+
+            if self.should_retry(response, connection_error, num_retries):
+                self._sleep(num_retries)
+            else:
+                if response is not None:
+                    return response
+                else:
+                    raise connection_error
+
+    def should_retry(self, response, connection_error, num_retries):
+        if response is not None:
+            _, status_code, _ = response
+            should_retry = self.should_retry_on_codes(status_code)
+        else:
+            should_retry = connection_error.should_retry
+        return should_retry and num_retries <= HTTPClient.MAX_RETRIES
+
+    def should_retry_on_error(self, connection_error):
+        if isinstance(connection_error, error.APIConnectionError):
+            return error.should_retry
+        else:
+            return False
+
+    def should_retry_on_codes(self, code):
+        return code in [409]
+
+    def _sleep(self, num_retries):
+        time.sleep(self._sleep_time(num_retries))
+
     def close(self):
         raise NotImplementedError(
             'HTTPClient subclasses must implement `close`')
+
+    def _sleep_time(self, num_retries):
+        # Apply exponential backoff with initial_network_retry_delay on the
+        # number of num_retries so far as inputs. Do not allow the number to exceed
+        # max_network_retry_delay.
+        sleep_seconds = min([HTTPClient.INITIAL_DELAY * (2**(num_retries - 1)), HTTPClient.MAX_DELAY])
+
+        # Apply some jitter by randomizing the value in the range of (sleep_seconds
+        # / 2) to (sleep_seconds).
+        sleep_seconds *= (0.5 * (1 + random.uniform(0, 1)))
+
+        # But never sleep less than the base sleep seconds.
+        sleep_seconds = max(HTTPClient.INITIAL_DELAY, sleep_seconds)
+
+        return sleep_seconds
 
 
 class RequestsClient(HTTPClient):
@@ -151,6 +211,7 @@ class RequestsClient(HTTPClient):
                    "If this problem persists, let us know at "
                    "support@stripe.com.")
             err = "%s: %s" % (type(e).__name__, str(e))
+            should_retry = True
         else:
             msg = ("Unexpected error communicating with Stripe. "
                    "It looks like there's probably a configuration "
@@ -161,8 +222,10 @@ class RequestsClient(HTTPClient):
                 err += " with error message %s" % (str(e),)
             else:
                 err += " with no error message"
+            should_retry = False
+
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
-        raise error.APIConnectionError(msg)
+        raise error.APIConnectionError(msg, should_retry=should_retry)
 
     def close(self):
         if self._session is not None:
