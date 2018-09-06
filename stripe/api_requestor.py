@@ -5,6 +5,7 @@ import datetime
 import json
 import platform
 import time
+import uuid
 
 import stripe
 from stripe import error, oauth_error, http_client, version, util, six
@@ -220,6 +221,7 @@ class APIRequestor(object):
 
         if method == 'post':
             headers['Content-Type'] = 'application/x-www-form-urlencoded'
+            headers.setdefault('Idempotency-Key', str(uuid.uuid4()))
 
         if self.api_version is not None:
             headers['Stripe-Version'] = self.api_version
