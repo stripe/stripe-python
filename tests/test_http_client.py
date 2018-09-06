@@ -155,12 +155,38 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
 
     @pytest.fixture
     def mock_retry(self, mocker, session, request_mock):
-        def mock_retry(retryable_error_num=0, non_retryable_error_num=0, responses=[]):
-            retryable_errors = [ZeroDivisionError()] * retryable_error_num
-            non_retryable_errors = [KeyError()] * non_retryable_error_num
-            request_mock.exceptions.RequestException = ArithmeticError
-            session.request.side_effect = retryable_errors + non_retryable_errors + responses
+        def mock_retry(retry_error_num=0,
+                       no_retry_error_num=0,
+                       uncaught_error_num=0,
+                       responses=[]):
+
+            # Mocking classes of exception we catch
+            # Any other exceptions with the same inheritance will work
+            # We consider request exceptions first, and differentiate which
+            # specific ones to retry.
+            root_error_class = Exception
+            request_mock.exceptions.RequestException = root_error_class
+
+            no_retry_parent_class = LookupError
+            no_retry_child_class = KeyError
+            request_mock.exceptions.SSLError = no_retry_parent_class
+            no_retry_errors = [no_retry_child_class()] * no_retry_error_num
+
+            retry_parent_class = EnvironmentError
+            retry_child_class = IOError
+            request_mock.exceptions.Timeout = retry_parent_class
+            request_mock.exceptions.ConnectionError = retry_parent_class
+            retry_errors = [retry_child_class()] * retry_error_num
+
+            uncaught_errors = [KeyboardInterrupt()] * uncaught_error_num
+
+            # Include mock responses as possible side-effects
+            # Eg. return proper responses after some exceptions
+            session.request.side_effect = retry_errors + no_retry_errors + \
+                                          uncaught_errors + responses
+
             request_mock.Session = mocker.MagicMock(return_value=session)
+
         return mock_retry
 
     # Note that unlike other modules, we don't use the "mock" argument here
@@ -168,16 +194,19 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
     # session.
     @pytest.fixture
     def check_call(self, session):
-        def check_call(mock, method, url, post_data, headers, timeout=80, times=None):
+        def check_call(mock, method, url, post_data, headers, timeout=80,
+                       times=None):
             times = times or 1
             args = (method, url)
             kwargs = {'headers': headers,
                       'data': post_data,
                       'verify': RequestsVerify(),
-                      'proxies': {"http": "http://slap/", "https": "http://slap/"},
+                      'proxies': {"http": "http://slap/",
+                                  "https": "http://slap/"},
                       'timeout': timeout}
             calls = [(args, kwargs) for _ in range(times)]
             session.request.assert_has_calls(calls)
+
         return check_call
 
     def make_request(self, method, url, headers, post_data, timeout=80):
@@ -202,36 +231,48 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
     def max_retries(self):
         return self.REQUEST_CLIENT.MAX_RETRIES
 
-    def test_retry_on_exception_until_response(self, mock_retry, response, check_call):
-        mock_retry(retryable_error_num=1, responses=[response(code=202)])
+    def test_retry_error_until_response(self, mock_retry, response,
+                                        check_call):
+        mock_retry(retry_error_num=1, responses=[response(code=202)])
         _, code, _ = self.make_request('GET', self.valid_url, {}, None)
         assert code == 202
         check_call(None, 'GET', self.valid_url, None, {}, times=2)
 
-    def test_retry_on_exception_until_exceeded(self, mock_retry, response, check_call):
-        mock_retry(retryable_error_num=3)
+    def test_retry_error_until_exceeded(self, mock_retry, response,
+                                        check_call):
+        mock_retry(retry_error_num=3)
         with pytest.raises(stripe.error.APIConnectionError):
             self.make_request('GET', self.valid_url, {}, None)
 
-        check_call(None, 'GET', self.valid_url, None, {}, times=self.max_retries())
+        check_call(None, 'GET', self.valid_url, None, {},
+                   times=self.max_retries())
 
-    def test_no_retry_on_exception(self, mock_retry, response, check_call):
-        mock_retry(non_retryable_error_num=3)
+    def test_retry_error_until_uncaught(self, mock_retry, response,
+                                        check_call):
+        mock_retry(retry_error_num=1, uncaught_error_num=1)
+        with pytest.raises(stripe.error.APIConnectionError):
+            self.make_request('GET', self.valid_url, {}, None)
+        check_call(None, 'GET', self.valid_url, None, {}, times=2)
+
+    def test_no_retry_error(self, mock_retry, response, check_call):
+        mock_retry(no_retry_error_num=3)
         with pytest.raises(stripe.error.APIConnectionError):
             self.make_request('GET', self.valid_url, {}, None)
         check_call(None, 'GET', self.valid_url, None, {}, times=1)
 
-    def test_retry_on_codes(self, mock_retry, response, check_call):
+    def test_retry_codes(self, mock_retry, response, check_call):
         mock_retry(responses=[response(code=409), response(code=202)])
         _, code, _ = self.make_request('GET', self.valid_url, {}, None)
         assert code == 202
         check_call(None, 'GET', self.valid_url, None, {}, times=2)
 
-    def test_retry_on_codes_until_exceeded(self, mock_retry, response, check_call):
-        mock_retry(responses=[response(code=409)]*3)
+    def test_retry_codes_until_exceeded(self, mock_retry, response,
+                                        check_call):
+        mock_retry(responses=[response(code=409)] * 3)
         _, code, _ = self.make_request('GET', self.valid_url, {}, None)
         assert code == 409
-        check_call(None, 'GET', self.valid_url, None, {}, times=self.max_retries())
+        check_call(None, 'GET', self.valid_url, None, {},
+                   times=self.max_retries())
 
 
 class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):

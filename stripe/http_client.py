@@ -5,7 +5,8 @@ import sys
 import textwrap
 import warnings
 import email
-import time, random
+import time
+import random
 
 from stripe import error, util, six
 
@@ -144,12 +145,14 @@ class HTTPClient(object):
 
     def _sleep_time(self, num_retries):
         # Apply exponential backoff with initial_network_retry_delay on the
-        # number of num_retries so far as inputs. Do not allow the number to exceed
-        # max_network_retry_delay.
-        sleep_seconds = min([HTTPClient.INITIAL_DELAY * (2**(num_retries - 1)), HTTPClient.MAX_DELAY])
+        # number of num_retries so far as inputs.
+        # Do not allow the number to exceed max_network_retry_delay.
+        sleep_seconds = min(
+            [HTTPClient.INITIAL_DELAY * (2 ** (num_retries - 1)),
+             HTTPClient.MAX_DELAY])
 
-        # Apply some jitter by randomizing the value in the range of (sleep_seconds
-        # / 2) to (sleep_seconds).
+        # Apply some jitter by randomizing the value in the range of
+        # (sleep_seconds/ 2) to (sleep_seconds).
         sleep_seconds *= (0.5 * (1 + random.uniform(0, 1)))
 
         # But never sleep less than the base sleep seconds.
@@ -206,12 +209,30 @@ class RequestsClient(HTTPClient):
         return content, status_code, result.headers
 
     def _handle_request_error(self, e):
-        if isinstance(e, requests.exceptions.RequestException):
+
+        # Catch SSL error first as it belongs to ConnectionError
+        if isinstance(e, requests.exceptions.SSLError):
+            msg = ("Could not verify Stripe's SSL certificate.  Please make "
+                   "sure that your network is not intercepting certificates.  "
+                   "If this problem persists, let us know at "
+                   "support@stripe.com.")
+            err = "%s: %s" % (type(e).__name__, str(e))
+            should_retry = False
+        # Retry only timeout and connect errors; similar to urllib3 Retry
+        elif isinstance(e, requests.exceptions.Timeout) or \
+                isinstance(e, requests.exceptions.ConnectionError):
             msg = ("Unexpected error communicating with Stripe.  "
                    "If this problem persists, let us know at "
                    "support@stripe.com.")
             err = "%s: %s" % (type(e).__name__, str(e))
             should_retry = True
+        # Catch all request specific with descriptive class/messages
+        elif isinstance(e, requests.exceptions.RequestException):
+            msg = ("Unexpected error communicating with Stripe.  "
+                   "If this problem persists, let us know at "
+                   "support@stripe.com.")
+            err = "%s: %s" % (type(e).__name__, str(e))
+            should_retry = False
         else:
             msg = ("Unexpected error communicating with Stripe. "
                    "It looks like there's probably a configuration "
