@@ -79,6 +79,7 @@ def new_default_http_client(*args, **kwargs):
 
 
 class HTTPClient(object):
+
     MAX_RETRIES = 3
     MAX_DELAY = 2
     INITIAL_DELAY = 0.5
@@ -143,17 +144,21 @@ class HTTPClient(object):
         raise NotImplementedError(
             'HTTPClient subclasses must implement `close`')
 
+    def _add_jitter_time(self, sleep_seconds):
+        # Randomize the value in [(sleep_seconds/ 2) to (sleep_seconds)]
+        # Also separated here to isolate randomness for testing purposes
+        sleep_seconds *= (0.5 * (1 + random.uniform(0, 1)))
+        return sleep_seconds
+
     def _sleep_time(self, num_retries):
         # Apply exponential backoff with initial_network_retry_delay on the
         # number of num_retries so far as inputs.
         # Do not allow the number to exceed max_network_retry_delay.
         sleep_seconds = min(
-            [HTTPClient.INITIAL_DELAY * (2 ** (num_retries - 1)),
-             HTTPClient.MAX_DELAY])
+            HTTPClient.INITIAL_DELAY * (2 ** (num_retries - 1)),
+            HTTPClient.MAX_DELAY)
 
-        # Apply some jitter by randomizing the value in the range of
-        # (sleep_seconds/ 2) to (sleep_seconds).
-        sleep_seconds *= (0.5 * (1 + random.uniform(0, 1)))
+        sleep_seconds = self._add_jitter_time(sleep_seconds)
 
         # But never sleep less than the base sleep seconds.
         sleep_seconds = max(HTTPClient.INITIAL_DELAY, sleep_seconds)

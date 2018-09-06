@@ -52,6 +52,57 @@ class TestNewDefaultHttpClient(StripeClientTestCase):
                            stripe.http_client.Urllib2Client)
 
 
+class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
+    from contextlib import contextmanager
+
+    def assert_sleep_times(self, client, until, expected):
+        assert len(expected) == until
+        actual = list(map(lambda i: client._sleep_time(i+1), range(until)))
+        assert expected == actual
+
+    @contextmanager
+    def mock_max_delay(self, new_value):
+        original_value = stripe.http_client.HTTPClient.MAX_DELAY
+        stripe.http_client.HTTPClient.MAX_DELAY = new_value
+        try:
+            yield self
+        finally:
+            stripe.http_client.HTTPClient.MAX_DELAY = original_value
+
+    def test_sleep_time_exponential_back_off(self):
+        client = stripe.http_client.new_default_http_client()
+        client._add_jitter_time = lambda t: t
+        with self.mock_max_delay(10):
+            self.assert_sleep_times(client, 5, [0.5, 1.0, 2.0, 4.0, 8.0])
+
+    def test_initial_delay_as_minimum(self):
+        client = stripe.http_client.new_default_http_client()
+        client._add_jitter_time = lambda t: t * 0.001
+        initial_delay = stripe.http_client.HTTPClient.INITIAL_DELAY
+        self.assert_sleep_times(client, 5, [initial_delay] * 5)
+
+    def test_maximum_delay(self):
+        client = stripe.http_client.new_default_http_client()
+        client._add_jitter_time = lambda t: t
+        max_delay = stripe.http_client.HTTPClient.MAX_DELAY
+        expected = [0.5, 1.0, max_delay, max_delay, max_delay]
+        self.assert_sleep_times(client, 5, expected)
+
+    def test_randomness_added(self):
+        client = stripe.http_client.new_default_http_client()
+        random_value = 0.8
+        client._add_jitter_time = lambda t: t * random_value
+        base_value = stripe.http_client.HTTPClient.INITIAL_DELAY * random_value
+
+        with self.mock_max_delay(10):
+            expected = [stripe.http_client.HTTPClient.INITIAL_DELAY,
+                        base_value * 2,
+                        base_value * 4,
+                        base_value * 8,
+                        base_value * 16]
+            self.assert_sleep_times(client, 5, expected)
+
+
 class ClientTestBase(object):
     @pytest.fixture
     def request_mock(self, request_mocks):
@@ -157,7 +208,6 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
     def mock_retry(self, mocker, session, request_mock):
         def mock_retry(retry_error_num=0,
                        no_retry_error_num=0,
-                       uncaught_error_num=0,
                        responses=[]):
 
             # Mocking classes of exception we catch
@@ -178,12 +228,10 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
             request_mock.exceptions.ConnectionError = retry_parent_class
             retry_errors = [retry_child_class()] * retry_error_num
 
-            uncaught_errors = [KeyboardInterrupt()] * uncaught_error_num
-
             # Include mock responses as possible side-effects
             # Eg. return proper responses after some exceptions
             session.request.side_effect = retry_errors + no_retry_errors + \
-                                          uncaught_errors + responses
+                responses
 
             request_mock.Session = mocker.MagicMock(return_value=session)
 
@@ -246,13 +294,6 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
 
         check_call(None, 'GET', self.valid_url, None, {},
                    times=self.max_retries())
-
-    def test_retry_error_until_uncaught(self, mock_retry, response,
-                                        check_call):
-        mock_retry(retry_error_num=1, uncaught_error_num=1)
-        with pytest.raises(stripe.error.APIConnectionError):
-            self.make_request('GET', self.valid_url, {}, None)
-        check_call(None, 'GET', self.valid_url, None, {}, times=2)
 
     def test_no_retry_error(self, mock_retry, response, check_call):
         mock_retry(no_retry_error_num=3)
