@@ -55,8 +55,8 @@ class TestNewDefaultHttpClient(StripeClientTestCase):
 class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
     from contextlib import contextmanager
 
-    def assert_sleep_times(self, client, until, expected):
-        assert len(expected) == until
+    def assert_sleep_times(self, client, expected):
+        until = len(expected)
         actual = list(map(lambda i: client._sleep_time(i+1), range(until)))
         assert expected == actual
 
@@ -73,20 +73,20 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
         client = stripe.http_client.new_default_http_client()
         client._add_jitter_time = lambda t: t
         with self.mock_max_delay(10):
-            self.assert_sleep_times(client, 5, [0.5, 1.0, 2.0, 4.0, 8.0])
+            self.assert_sleep_times(client, [0.5, 1.0, 2.0, 4.0, 8.0])
 
     def test_initial_delay_as_minimum(self):
         client = stripe.http_client.new_default_http_client()
         client._add_jitter_time = lambda t: t * 0.001
         initial_delay = stripe.http_client.HTTPClient.INITIAL_DELAY
-        self.assert_sleep_times(client, 5, [initial_delay] * 5)
+        self.assert_sleep_times(client, [initial_delay] * 5)
 
     def test_maximum_delay(self):
         client = stripe.http_client.new_default_http_client()
         client._add_jitter_time = lambda t: t
         max_delay = stripe.http_client.HTTPClient.MAX_DELAY
         expected = [0.5, 1.0, max_delay, max_delay, max_delay]
-        self.assert_sleep_times(client, 5, expected)
+        self.assert_sleep_times(client, expected)
 
     def test_randomness_added(self):
         client = stripe.http_client.new_default_http_client()
@@ -100,7 +100,7 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
                         base_value * 4,
                         base_value * 8,
                         base_value * 16]
-            self.assert_sleep_times(client, 5, expected)
+            self.assert_sleep_times(client, expected)
 
 
 class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
@@ -287,8 +287,8 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
                        no_retry_error_num=0,
                        responses=[]):
 
-            # Mocking classes of exception we catch
-            # Any other exceptions with the same inheritance will work
+            # Mocking classes of exception we catch. Any group of exceptions
+            # with the same inheritance pattern will work
             request_root_error_class = Exception
             request_mock.exceptions.RequestException = request_root_error_class
 
@@ -365,38 +365,40 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         assert code == 409
         check_call_numbers(self.max_retries())
 
-    def test_handle_request_error_retry(self, mock_retry, session):
+    @pytest.fixture
+    def connection_error(self, session):
         client = self.REQUEST_CLIENT()
-        request_mock = mock_retry(retry_error_num=1, no_retry_error_num=1)
 
-        with pytest.raises(stripe.error.APIConnectionError) as error:
-            client._handle_request_error(request_mock.exceptions.Timeout())
-        assert error.value.should_retry
+        def connection_error(given_exception):
+            with pytest.raises(stripe.error.APIConnectionError) as error:
+                client._handle_request_error(given_exception)
+            return error.value
+        return connection_error
 
-        with pytest.raises(stripe.error.APIConnectionError) as error:
-            client._handle_request_error(
-                request_mock.exceptions.ConnectionError())
-        assert error.value.should_retry
+    def test_handle_request_error_should_retry(self, connection_error,
+                                               mock_retry):
+        request_mock = mock_retry()
 
-    def test_handle_request_error_no_retry(self, mock_retry, session):
-        client = self.REQUEST_CLIENT()
-        request_mock = mock_retry(retry_error_num=1, no_retry_error_num=1)
+        error = connection_error(request_mock.exceptions.Timeout())
+        assert error.should_retry
 
-        with pytest.raises(stripe.error.APIConnectionError) as error:
-            client._handle_request_error(request_mock.exceptions.SSLError())
-        assert error.value.should_retry is False
+        error = connection_error(request_mock.exceptions.ConnectionError())
+        assert error.should_retry
 
-        with pytest.raises(stripe.error.APIConnectionError) as error:
-            client._handle_request_error(
-                request_mock.exceptions.RequestException())
-        assert error.value.should_retry is False
+    def test_handle_request_error_should_not_retry(self, connection_error,
+                                                   mock_retry):
+        request_mock = mock_retry()
 
-        with pytest.raises(stripe.error.APIConnectionError) as error:
-            client._handle_request_error(KeyError(""))
-        assert error.value.should_retry is False
+        error = connection_error(request_mock.exceptions.SSLError())
+        assert error.should_retry is False
 
-    # Skip basic requests client behavior tested in TestRequestsClient
+        error = connection_error(request_mock.exceptions.RequestException())
+        assert error.should_retry is False
 
+        error = connection_error(KeyError(""))
+        assert error.should_retry is False
+
+    # Skip inherited basic requests client tests
     def test_request(self, request_mock, mock_response, check_call):
         pass
 
