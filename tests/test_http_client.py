@@ -57,7 +57,8 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
 
     def assert_sleep_times(self, client, expected):
         until = len(expected)
-        actual = list(map(lambda i: client._sleep_time(i+1), range(until)))
+        actual = list(
+            map(lambda i: client._sleep_time_seconds(i + 1), range(until)))
         assert expected == actual
 
     @contextmanager

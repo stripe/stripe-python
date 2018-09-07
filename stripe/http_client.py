@@ -107,7 +107,15 @@ class HTTPClient(object):
                 response = None
 
             if self._should_retry(response, connection_error, num_retries):
-                self._sleep(num_retries)
+                if connection_error:
+                    util.log_info("Encountered a retryable error %s" %
+                                  connection_error.user_message)
+
+                sleep_time = self._sleep_time_seconds(num_retries)
+                util.log_info(("Initiating retry %i for request %s %s after "
+                               "sleeping %.2f seconds." %
+                               (num_retries, method, url, sleep_time)))
+                time.sleep(sleep_time)
             else:
                 if response is not None:
                     return response
@@ -123,6 +131,10 @@ class HTTPClient(object):
             _, status_code, _ = response
             should_retry = status_code == 409
         else:
+            # We generally want to retry on timeout and connection
+            # exceptions, but defer this decision to underlying subclass
+            # implementations. They should evaluate the driver-specific
+            # errors worthy of retries, and set flag on the error returned.
             should_retry = api_connection_error.should_retry
         return should_retry and num_retries < self._max_network_retries()
 
@@ -130,10 +142,7 @@ class HTTPClient(object):
         # Configured retries, isolated here for tests
         return max_network_retries
 
-    def _sleep(self, num_retries):
-        time.sleep(self._sleep_time(num_retries))
-
-    def _sleep_time(self, num_retries):
+    def _sleep_time_seconds(self, num_retries):
         # Apply exponential backoff with initial_network_retry_delay on the
         # number of num_retries so far as inputs.
         # Do not allow the number to exceed max_network_retry_delay.
@@ -145,7 +154,6 @@ class HTTPClient(object):
 
         # But never sleep less than the base sleep seconds.
         sleep_seconds = max(HTTPClient.INITIAL_DELAY, sleep_seconds)
-
         return sleep_seconds
 
     def _add_jitter_time(self, sleep_seconds):
