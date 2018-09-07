@@ -102,6 +102,16 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
                         base_value * 16]
             self.assert_sleep_times(client, expected)
 
+    def test_jitter_has_randomness_but_within_range(self):
+        client = stripe.http_client.new_default_http_client()
+
+        jittered_ones = set(
+            map(lambda _: client._add_jitter_time(1), list(range(100)))
+        )
+
+        assert len(jittered_ones) > 1
+        assert all(0.5 <= val <= 1 for val in jittered_ones)
+
 
 class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
 
@@ -154,7 +164,7 @@ class ClientTestBase(object):
 
     def make_request(self, method, url, headers, post_data):
         client = self.REQUEST_CLIENT(verify_ssl_certs=True)
-        return client.request(method, url, headers, post_data)
+        return client.request_with_retries(method, url, headers, post_data)
 
     @pytest.fixture
     def mock_response(self):
@@ -260,7 +270,7 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
         client = self.REQUEST_CLIENT(verify_ssl_certs=True,
                                      timeout=timeout,
                                      proxy='http://slap/')
-        return client.request(method, url, headers, post_data)
+        return client.request_with_retries(method, url, headers, post_data)
 
     def test_timeout(self, request_mock, mock_response, check_call):
         headers = {'my-header': 'header val'}
@@ -333,7 +343,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         client._sleep_time = lambda _: 0.0001
         # Override configured max retries
         client._max_network_retries = lambda: self.max_retries()
-        return client.request('GET', self.valid_url, {}, None)
+        return client.request_with_retries('GET', self.valid_url, {}, None)
 
     def test_retry_error_until_response(self, mock_retry, response,
                                         check_call_numbers):
@@ -395,12 +405,16 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
 
         error = connection_error(request_mock.exceptions.SSLError())
         assert error.should_retry is False
+        assert 'not verify Stripe\'s SSL certificate' in error.user_message
 
         error = connection_error(request_mock.exceptions.RequestException())
         assert error.should_retry is False
 
-        error = connection_error(KeyError(""))
+        # Mimic non-requests exception as not being children of Exception,
+        # See mock_retry for the exceptions setup
+        error = connection_error(BaseException(""))
         assert error.should_retry is False
+        assert 'configuration issue locally' in error.user_message
 
     # Skip inherited basic requests client tests
     def test_request(self, request_mock, mock_response, check_call):
@@ -454,7 +468,8 @@ class TestUrllib2Client(StripeClientTestCase, ClientTestBase):
         self.client = self.REQUEST_CLIENT(verify_ssl_certs=True,
                                           proxy=proxy)
         self.proxy = proxy
-        return self.client.request(method, url, headers, post_data)
+        return self.client.request_with_retries(method, url, headers,
+                                                post_data)
 
     @pytest.fixture
     def mock_response(self, mocker):
@@ -529,7 +544,8 @@ class TestPycurlClient(StripeClientTestCase, ClientTestBase):
         self.client = self.REQUEST_CLIENT(verify_ssl_certs=True,
                                           proxy=proxy)
         self.proxy = proxy
-        return self.client.request(method, url, headers, post_data)
+        return self.client.request_with_retries(method, url, headers,
+                                                post_data)
 
     @pytest.fixture
     def curl_mock(self, mocker):

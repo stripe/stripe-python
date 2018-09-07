@@ -282,7 +282,7 @@ class APIRequestor(object):
             'Post details',
             post_data=encoded_params, api_version=self.api_version)
 
-        rbody, rcode, rheaders = self._client.request(
+        rbody, rcode, rheaders = self._client.request_with_retries(
             method, abs_url, headers, post_data)
 
         util.log_info(

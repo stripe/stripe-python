@@ -221,7 +221,7 @@ class TestAPIRequestor(object):
     def mock_response(self, mocker, http_client):
         def mock_response(return_body, return_code, headers=None):
             print(return_code)
-            http_client.request = mocker.Mock(
+            http_client.request_with_retries = mocker.Mock(
                 return_value=(return_body, return_code, headers or {}))
         return mock_response
 
@@ -234,7 +234,7 @@ class TestAPIRequestor(object):
             if not headers:
                 headers = APIHeaderMatcher(request_method=method)
 
-            http_client.request.assert_called_with(
+            http_client.request_with_retries.assert_called_with(
                 method, abs_url, headers, post_data)
         return check_call
 
@@ -583,12 +583,12 @@ class TestDefaultClient(object):
         hc = mocker.Mock(stripe.http_client.HTTPClient)
         hc._verify_ssl_certs = True
         hc.name = 'mockclient'
-        hc.request = mocker.Mock(return_value=("{}", 200, {}))
+        hc.request_with_retries = mocker.Mock(return_value=("{}", 200, {}))
 
         stripe.default_http_client = hc
         stripe.Charge.list(limit=3)
 
-        hc.request.assert_called_with(
+        hc.request_with_retries.assert_called_with(
             'get',
             'https://api.stripe.com/v1/charges?limit=3',
             mocker.ANY,
