@@ -79,7 +79,6 @@ def new_default_http_client(*args, **kwargs):
 
 
 class HTTPClient(object):
-
     MAX_RETRIES = 3
     MAX_DELAY = 2
     INITIAL_DELAY = 0.5
@@ -96,24 +95,20 @@ class HTTPClient(object):
                     " ""https"" and/or ""http"" keys.")
         self._proxy = proxy.copy() if proxy else None
 
-    def delegated_request(self, method, url, headers, post_data=None):
-        raise NotImplementedError(
-            'HTTPClient subclasses must implement `request`')
-
     def request(self, method, url, headers, post_data=None):
         num_retries = 0
 
         while True:
             try:
                 num_retries += 1
-                response = self.delegated_request(method, url, headers,
-                                                  post_data)
+                response = self._delegated_request(method, url, headers,
+                                                   post_data)
                 connection_error = None
             except error.APIConnectionError as e:
                 connection_error = e
                 response = None
 
-            if self.should_retry(response, connection_error, num_retries):
+            if self._should_retry(response, connection_error, num_retries):
                 self._sleep(num_retries)
             else:
                 if response is not None:
@@ -121,26 +116,20 @@ class HTTPClient(object):
                 else:
                     raise connection_error
 
-    def should_retry(self, response, connection_error, num_retries):
+    def _delegated_request(self, method, url, headers, post_data=None):
+        raise NotImplementedError(
+            'HTTPClient subclasses must implement `request`')
+
+    def _should_retry(self, response, api_connection_error, num_retries):
         if response is not None:
             _, status_code, _ = response
             should_retry = status_code == 409
         else:
-            should_retry = connection_error.should_retry
+            should_retry = api_connection_error.should_retry
         return should_retry and num_retries < HTTPClient.MAX_RETRIES
 
     def _sleep(self, num_retries):
         time.sleep(self._sleep_time(num_retries))
-
-    def close(self):
-        raise NotImplementedError(
-            'HTTPClient subclasses must implement `close`')
-
-    def _add_jitter_time(self, sleep_seconds):
-        # Randomize the value in [(sleep_seconds/ 2) to (sleep_seconds)]
-        # Also separated method here to isolate randomness for tests
-        sleep_seconds *= (0.5 * (1 + random.uniform(0, 1)))
-        return sleep_seconds
 
     def _sleep_time(self, num_retries):
         # Apply exponential backoff with initial_network_retry_delay on the
@@ -157,6 +146,16 @@ class HTTPClient(object):
 
         return sleep_seconds
 
+    def _add_jitter_time(self, sleep_seconds):
+        # Randomize the value in [(sleep_seconds/ 2) to (sleep_seconds)]
+        # Also separated method here to isolate randomness for tests
+        sleep_seconds *= (0.5 * (1 + random.uniform(0, 1)))
+        return sleep_seconds
+
+    def close(self):
+        raise NotImplementedError(
+            'HTTPClient subclasses must implement `close`')
+
 
 class RequestsClient(HTTPClient):
     name = 'requests'
@@ -166,7 +165,7 @@ class RequestsClient(HTTPClient):
         self._timeout = timeout
         self._session = session or requests.Session()
 
-    def delegated_request(self, method, url, headers, post_data=None):
+    def _delegated_request(self, method, url, headers, post_data=None):
         kwargs = {}
         if self._verify_ssl_certs:
             kwargs['verify'] = os.path.join(
@@ -272,7 +271,7 @@ class UrlFetchClient(HTTPClient):
         # to 55 seconds to allow for a slow Stripe
         self._deadline = deadline
 
-    def delegated_request(self, method, url, headers, post_data=None):
+    def _delegated_request(self, method, url, headers, post_data=None):
         try:
             result = urlfetch.fetch(
                 url=url,
@@ -338,7 +337,7 @@ class PycurlClient(HTTPClient):
         headers = email.message_from_string(raw_headers)
         return dict((k.lower(), v) for k, v in six.iteritems(dict(headers)))
 
-    def delegated_request(self, method, url, headers, post_data=None):
+    def _delegated_request(self, method, url, headers, post_data=None):
         b = util.io.BytesIO()
         rheaders = util.io.BytesIO()
 
@@ -447,7 +446,7 @@ class Urllib2Client(HTTPClient):
             proxy = urllib.request.ProxyHandler(self._proxy)
             self._opener = urllib.request.build_opener(proxy)
 
-    def delegated_request(self, method, url, headers, post_data=None):
+    def _delegated_request(self, method, url, headers, post_data=None):
         if six.PY3 and isinstance(post_data, six.string_types):
             post_data = post_data.encode('utf-8')
 
