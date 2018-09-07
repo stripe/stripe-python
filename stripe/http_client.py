@@ -206,7 +206,8 @@ class RequestsClient(HTTPClient):
 
     def _handle_request_error(self, e):
 
-        # Catch SSL error first as it belongs to ConnectionError
+        # Catch SSL error first as it belongs to ConnectionError,
+        # but we don't want to retry
         if isinstance(e, requests.exceptions.SSLError):
             msg = ("Could not verify Stripe's SSL certificate.  Please make "
                    "sure that your network is not intercepting certificates.  "
@@ -222,7 +223,7 @@ class RequestsClient(HTTPClient):
                    "support@stripe.com.")
             err = "%s: %s" % (type(e).__name__, str(e))
             should_retry = True
-        # Catch all request specific with descriptive class/messages
+        # Catch remaining request exceptions
         elif isinstance(e, requests.exceptions.RequestException):
             msg = ("Unexpected error communicating with Stripe.  "
                    "If this problem persists, let us know at "

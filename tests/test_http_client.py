@@ -190,6 +190,7 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
     @pytest.fixture
     def mock_error(self, mocker, session):
         def mock_error(mock):
+            # The first kind of request exceptions we catch
             mock.exceptions.SSLError = Exception
             session.request.side_effect = mock.exceptions.SSLError()
             mock.Session = mocker.MagicMock(return_value=session)
@@ -231,7 +232,7 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
         check_call(None, 'POST', self.valid_url, data, headers, timeout=5)
 
 
-class TestRetryRequestClient(TestRequestsClient):
+class TestRequestClientRetryBehavior(TestRequestsClient):
 
     @pytest.fixture
     def response(self, mocker):
@@ -250,10 +251,8 @@ class TestRetryRequestClient(TestRequestsClient):
 
             # Mocking classes of exception we catch
             # Any other exceptions with the same inheritance will work
-            # We consider request exceptions first, and differentiate which
-            # specific ones to retry.
-            root_error_class = Exception
-            request_mock.exceptions.RequestException = root_error_class
+            request_root_error_class = Exception
+            request_mock.exceptions.RequestException = request_root_error_class
 
             no_retry_parent_class = LookupError
             no_retry_child_class = KeyError
@@ -272,7 +271,7 @@ class TestRetryRequestClient(TestRequestsClient):
                 responses
 
             request_mock.Session = mocker.MagicMock(return_value=session)
-
+            return request_mock
         return mock_retry
 
     @pytest.fixture
@@ -287,6 +286,7 @@ class TestRetryRequestClient(TestRequestsClient):
         client = self.REQUEST_CLIENT(verify_ssl_certs=True,
                                      timeout=80,
                                      proxy='http://slap/')
+        # Override sleep time to speed up tests
         client._sleep_time = lambda _: 0.001
         return client.request_with_retry('GET', self.valid_url, {}, None)
 
@@ -302,14 +302,14 @@ class TestRetryRequestClient(TestRequestsClient):
 
     def test_retry_error_until_exceeded(self, mock_retry, response,
                                         check_call_numbers):
-        mock_retry(retry_error_num=3)
+        mock_retry(retry_error_num=self.max_retries())
         with pytest.raises(stripe.error.APIConnectionError):
             self.make_request()
 
         check_call_numbers(self.max_retries())
 
     def test_no_retry_error(self, mock_retry, response, check_call_numbers):
-        mock_retry(no_retry_error_num=3)
+        mock_retry(no_retry_error_num=self.max_retries())
         with pytest.raises(stripe.error.APIConnectionError):
             self.make_request()
         check_call_numbers(1)
@@ -322,12 +322,39 @@ class TestRetryRequestClient(TestRequestsClient):
 
     def test_retry_codes_until_exceeded(self, mock_retry, response,
                                         check_call_numbers):
-        mock_retry(responses=[response(code=409)] * 3)
+        mock_retry(responses=[response(code=409)] * self.max_retries())
         _, code, _ = self.make_request()
         assert code == 409
         check_call_numbers(self.max_retries())
 
-    # Basic requests client behavior tested in TestRequestsClient
+    def test_handle_request_error_retry(self, mock_retry, session):
+        client = self.REQUEST_CLIENT()
+        request_mock = mock_retry(retry_error_num=1, no_retry_error_num=1)
+
+        with pytest.raises(stripe.error.APIConnectionError) as error:
+            client._handle_request_error(request_mock.exceptions.SSLError())
+        assert error.value.should_retry is False
+
+        with pytest.raises(stripe.error.APIConnectionError) as error:
+            client._handle_request_error(request_mock.exceptions.Timeout())
+        assert error.value.should_retry
+
+        with pytest.raises(stripe.error.APIConnectionError) as error:
+            client._handle_request_error(
+                request_mock.exceptions.ConnectionError())
+        assert error.value.should_retry
+
+        with pytest.raises(stripe.error.APIConnectionError) as error:
+            client._handle_request_error(
+                request_mock.exceptions.RequestException())
+        assert error.value.should_retry is False
+
+        with pytest.raises(stripe.error.APIConnectionError) as error:
+            client._handle_request_error(KeyError(""))
+        assert error.value.should_retry is False
+
+        # Basic requests client behavior tested in TestRequestsClient
+
     def test_request(self, request_mock, mock_response, check_call):
         pass
 

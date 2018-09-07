@@ -82,7 +82,6 @@ class APIHeaderMatcher(object):
     def _idempotency_key_match(self, other):
         if self.idempotency_key is not None:
             return other['Idempotency-Key'] == self.idempotency_key
-
         return True
 
     def _x_stripe_ua_contains_app_info(self, other):
@@ -454,8 +453,8 @@ class TestAPIRequestor(object):
         )
         check_call(meth, headers=header_matcher, post_data='')
 
-    def test_create_uuid4_idempotency_key(self, requestor, mock_response,
-                                          check_call):
+    def test_uuid4_idempotency_key_when_not_given(self, requestor,
+                                                  mock_response, check_call):
         mock_response('{}', 200)
         meth = 'post'
         requestor.request(meth, self.valid_path, {})
