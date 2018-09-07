@@ -121,24 +121,26 @@ class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
 
     def test_should_retry_on_error(self, mocker):
         client = stripe.http_client.new_default_http_client()
+        client._max_network_retries = lambda: 1
         api_connection_error = mocker.Mock()
 
         api_connection_error.should_retry = True
-        assert client._should_retry(None, api_connection_error, 1) is True
+        assert client._should_retry(None, api_connection_error, 0) is True
 
         api_connection_error.should_retry = False
-        assert client._should_retry(None, api_connection_error, 1) is False
+        assert client._should_retry(None, api_connection_error, 0) is False
 
     def test_should_retry_on_num_retries(self, mocker):
         client = stripe.http_client.new_default_http_client()
+        max_test_retries = 10
+        client._max_network_retries = lambda: max_test_retries
         api_connection_error = mocker.Mock()
         api_connection_error.should_retry = True
 
-        max_retries = stripe.http_client.HTTPClient.MAX_RETRIES
         assert client._should_retry(
-            None, api_connection_error, max_retries + 1) is False
+            None, api_connection_error, max_test_retries + 1) is False
         assert client._should_retry(
-            (None, 409, None), None, max_retries + 1) is False
+            (None, 409, None), None, max_test_retries + 1) is False
 
 
 class ClientTestBase(object):
@@ -320,16 +322,18 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
             check_call(None, 'GET', valid_url, None, {}, times=times)
         return check_call_numbers
 
+    def max_retries(self):
+        return 3
+
     def make_request(self):
         client = self.REQUEST_CLIENT(verify_ssl_certs=True,
                                      timeout=80,
                                      proxy='http://slap/')
         # Override sleep time to speed up tests
         client._sleep_time = lambda _: 0.0001
+        # Override configured max retries
+        client._max_network_retries = lambda: self.max_retries()
         return client.request('GET', self.valid_url, {}, None)
-
-    def max_retries(self):
-        return self.REQUEST_CLIENT.MAX_RETRIES
 
     def test_retry_error_until_response(self, mock_retry, response,
                                         check_call_numbers):

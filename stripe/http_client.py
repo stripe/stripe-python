@@ -8,7 +8,7 @@ import email
 import time
 import random
 
-from stripe import error, util, six
+from stripe import error, util, six, max_network_retries
 
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch
@@ -79,7 +79,6 @@ def new_default_http_client(*args, **kwargs):
 
 
 class HTTPClient(object):
-    MAX_RETRIES = 3
     MAX_DELAY = 2
     INITIAL_DELAY = 0.5
 
@@ -126,7 +125,11 @@ class HTTPClient(object):
             should_retry = status_code == 409
         else:
             should_retry = api_connection_error.should_retry
-        return should_retry and num_retries < HTTPClient.MAX_RETRIES
+        return should_retry and num_retries < self._max_network_retries()
+
+    def _max_network_retries(self):
+        # Configured retries, isolated here for tests
+        return max_network_retries
 
     def _sleep(self, num_retries):
         time.sleep(self._sleep_time(num_retries))
