@@ -62,3 +62,12 @@ class TestStripeErrorWithParamCode(object):
             assert repr(err) == \
                 "CardError(message='öre', param='cparam', code='ccode', " \
                 "http_status=403, request_id='123')"
+
+
+class TestApiConnectionError(object):
+    def test_default_no_retry(self):
+        err = error.APIConnectionError('msg')
+        assert err.should_retry is False
+
+        err = error.APIConnectionError('msg', should_retry=True)
+        assert err.should_retry

@@ -96,17 +96,18 @@ class HTTPClient(object):
                     " ""https"" and/or ""http"" keys.")
         self._proxy = proxy.copy() if proxy else None
 
-    def request(self, method, url, headers, post_data=None):
+    def delegated_request(self, method, url, headers, post_data=None):
         raise NotImplementedError(
             'HTTPClient subclasses must implement `request`')
 
-    def request_with_retry(self, method, url, headers, post_data=None):
+    def request(self, method, url, headers, post_data=None):
         num_retries = 0
 
         while True:
             try:
                 num_retries += 1
-                response = self.request(method, url, headers, post_data)
+                response = self.delegated_request(method, url, headers,
+                                                  post_data)
                 connection_error = None
             except error.APIConnectionError as e:
                 connection_error = e
@@ -165,7 +166,7 @@ class RequestsClient(HTTPClient):
         self._timeout = timeout
         self._session = session or requests.Session()
 
-    def request(self, method, url, headers, post_data=None):
+    def delegated_request(self, method, url, headers, post_data=None):
         kwargs = {}
         if self._verify_ssl_certs:
             kwargs['verify'] = os.path.join(
@@ -271,7 +272,7 @@ class UrlFetchClient(HTTPClient):
         # to 55 seconds to allow for a slow Stripe
         self._deadline = deadline
 
-    def request(self, method, url, headers, post_data=None):
+    def delegated_request(self, method, url, headers, post_data=None):
         try:
             result = urlfetch.fetch(
                 url=url,
@@ -337,7 +338,7 @@ class PycurlClient(HTTPClient):
         headers = email.message_from_string(raw_headers)
         return dict((k.lower(), v) for k, v in six.iteritems(dict(headers)))
 
-    def request(self, method, url, headers, post_data=None):
+    def delegated_request(self, method, url, headers, post_data=None):
         b = util.io.BytesIO()
         rheaders = util.io.BytesIO()
 
@@ -446,7 +447,7 @@ class Urllib2Client(HTTPClient):
             proxy = urllib.request.ProxyHandler(self._proxy)
             self._opener = urllib.request.build_opener(proxy)
 
-    def request(self, method, url, headers, post_data=None):
+    def delegated_request(self, method, url, headers, post_data=None):
         if six.PY3 and isinstance(post_data, six.string_types):
             post_data = post_data.encode('utf-8')
 

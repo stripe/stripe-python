@@ -288,7 +288,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
                                      proxy='http://slap/')
         # Override sleep time to speed up tests
         client._sleep_time = lambda _: 0.001
-        return client.request_with_retry('GET', self.valid_url, {}, None)
+        return client.request('GET', self.valid_url, {}, None)
 
     def max_retries(self):
         return self.REQUEST_CLIENT.MAX_RETRIES
