@@ -5,8 +5,10 @@ import sys
 import textwrap
 import warnings
 import email
+import time
+import random
 
-from stripe import error, util, six
+from stripe import error, util, six, max_network_retries
 
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch
@@ -77,6 +79,9 @@ def new_default_http_client(*args, **kwargs):
 
 
 class HTTPClient(object):
+    MAX_DELAY = 2
+    INITIAL_DELAY = 0.5
+
     def __init__(self, verify_ssl_certs=True, proxy=None):
         self._verify_ssl_certs = verify_ssl_certs
         if proxy:
@@ -89,9 +94,73 @@ class HTTPClient(object):
                     " ""https"" and/or ""http"" keys.")
         self._proxy = proxy.copy() if proxy else None
 
+    def request_with_retries(self, method, url, headers, post_data=None):
+        num_retries = 0
+
+        while True:
+            try:
+                num_retries += 1
+                response = self.request(method, url, headers, post_data)
+                connection_error = None
+            except error.APIConnectionError as e:
+                connection_error = e
+                response = None
+
+            if self._should_retry(response, connection_error, num_retries):
+                if connection_error:
+                    util.log_info("Encountered a retryable error %s" %
+                                  connection_error.user_message)
+
+                sleep_time = self._sleep_time_seconds(num_retries)
+                util.log_info(("Initiating retry %i for request %s %s after "
+                               "sleeping %.2f seconds." %
+                               (num_retries, method, url, sleep_time)))
+                time.sleep(sleep_time)
+            else:
+                if response is not None:
+                    return response
+                else:
+                    raise connection_error
+
     def request(self, method, url, headers, post_data=None):
         raise NotImplementedError(
             'HTTPClient subclasses must implement `request`')
+
+    def _should_retry(self, response, api_connection_error, num_retries):
+        if response is not None:
+            _, status_code, _ = response
+            should_retry = status_code == 409
+        else:
+            # We generally want to retry on timeout and connection
+            # exceptions, but defer this decision to underlying subclass
+            # implementations. They should evaluate the driver-specific
+            # errors worthy of retries, and set flag on the error returned.
+            should_retry = api_connection_error.should_retry
+        return should_retry and num_retries < self._max_network_retries()
+
+    def _max_network_retries(self):
+        # Configured retries, isolated here for tests
+        return max_network_retries
+
+    def _sleep_time_seconds(self, num_retries):
+        # Apply exponential backoff with initial_network_retry_delay on the
+        # number of num_retries so far as inputs.
+        # Do not allow the number to exceed max_network_retry_delay.
+        sleep_seconds = min(
+            HTTPClient.INITIAL_DELAY * (2 ** (num_retries - 1)),
+            HTTPClient.MAX_DELAY)
+
+        sleep_seconds = self._add_jitter_time(sleep_seconds)
+
+        # But never sleep less than the base sleep seconds.
+        sleep_seconds = max(HTTPClient.INITIAL_DELAY, sleep_seconds)
+        return sleep_seconds
+
+    def _add_jitter_time(self, sleep_seconds):
+        # Randomize the value in [(sleep_seconds/ 2) to (sleep_seconds)]
+        # Also separated method here to isolate randomness for tests
+        sleep_seconds *= (0.5 * (1 + random.uniform(0, 1)))
+        return sleep_seconds
 
     def close(self):
         raise NotImplementedError(
@@ -146,11 +215,31 @@ class RequestsClient(HTTPClient):
         return content, status_code, result.headers
 
     def _handle_request_error(self, e):
-        if isinstance(e, requests.exceptions.RequestException):
+
+        # Catch SSL error first as it belongs to ConnectionError,
+        # but we don't want to retry
+        if isinstance(e, requests.exceptions.SSLError):
+            msg = ("Could not verify Stripe's SSL certificate.  Please make "
+                   "sure that your network is not intercepting certificates.  "
+                   "If this problem persists, let us know at "
+                   "support@stripe.com.")
+            err = "%s: %s" % (type(e).__name__, str(e))
+            should_retry = False
+        # Retry only timeout and connect errors; similar to urllib3 Retry
+        elif isinstance(e, requests.exceptions.Timeout) or \
+                isinstance(e, requests.exceptions.ConnectionError):
             msg = ("Unexpected error communicating with Stripe.  "
                    "If this problem persists, let us know at "
                    "support@stripe.com.")
             err = "%s: %s" % (type(e).__name__, str(e))
+            should_retry = True
+        # Catch remaining request exceptions
+        elif isinstance(e, requests.exceptions.RequestException):
+            msg = ("Unexpected error communicating with Stripe.  "
+                   "If this problem persists, let us know at "
+                   "support@stripe.com.")
+            err = "%s: %s" % (type(e).__name__, str(e))
+            should_retry = False
         else:
             msg = ("Unexpected error communicating with Stripe. "
                    "It looks like there's probably a configuration "
@@ -161,8 +250,10 @@ class RequestsClient(HTTPClient):
                 err += " with error message %s" % (str(e),)
             else:
                 err += " with no error message"
+            should_retry = False
+
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
-        raise error.APIConnectionError(msg)
+        raise error.APIConnectionError(msg, should_retry=should_retry)
 
     def close(self):
         if self._session is not None:

@@ -53,7 +53,12 @@ class APIError(StripeError):
 
 
 class APIConnectionError(StripeError):
-    pass
+    def __init__(self, message, http_body=None, http_status=None,
+                 json_body=None, headers=None, code=None, should_retry=False):
+        super(APIConnectionError, self).__init__(message, http_body,
+                                                 http_status,
+                                                 json_body, headers, code)
+        self.should_retry = should_retry
 
 
 class StripeErrorWithParamCode(StripeError):

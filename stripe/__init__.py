@@ -19,6 +19,7 @@ verify_ssl_certs = True
 proxy = None
 default_http_client = None
 app_info = None
+max_network_retries = 0
 
 # Set to either 'debug' or 'info', controls console logging
 log = None

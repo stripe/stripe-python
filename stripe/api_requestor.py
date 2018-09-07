@@ -5,6 +5,7 @@ import datetime
 import json
 import platform
 import time
+import uuid
 
 import stripe
 from stripe import error, oauth_error, http_client, version, util, six
@@ -220,6 +221,7 @@ class APIRequestor(object):
 
         if method == 'post':
             headers['Content-Type'] = 'application/x-www-form-urlencoded'
+            headers.setdefault('Idempotency-Key', str(uuid.uuid4()))
 
         if self.api_version is not None:
             headers['Stripe-Version'] = self.api_version
@@ -271,7 +273,6 @@ class APIRequestor(object):
                 'assistance.' % (method,))
 
         headers = self.request_headers(my_api_key, method)
-
         if supplied_headers is not None:
             for key, value in six.iteritems(supplied_headers):
                 headers[key] = value
@@ -281,7 +282,7 @@ class APIRequestor(object):
             'Post details',
             post_data=encoded_params, api_version=self.api_version)
 
-        rbody, rcode, rheaders = self._client.request(
+        rbody, rcode, rheaders = self._client.request_with_retries(
             method, abs_url, headers, post_data)
 
         util.log_info(

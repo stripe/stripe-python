@@ -3,6 +3,7 @@ from __future__ import absolute_import, division, print_function
 import datetime
 import json
 import tempfile
+import uuid
 
 import pytest
 
@@ -35,28 +36,32 @@ class APIHeaderMatcher(object):
         'User-Agent',
         'X-Stripe-Client-User-Agent',
     ]
-    METHOD_EXTRA_KEYS = {"post": ["Content-Type"]}
+    METHOD_EXTRA_KEYS = {"post": ["Content-Type", "Idempotency-Key"]}
 
     def __init__(self, api_key=None, extra={}, request_method=None,
-                 user_agent=None, app_info=None):
+                 user_agent=None, app_info=None, idempotency_key=None):
         self.request_method = request_method
         self.api_key = api_key or stripe.api_key
         self.extra = extra
         self.user_agent = user_agent
         self.app_info = app_info
+        self.idempotency_key = idempotency_key
 
     def __eq__(self, other):
         return (self._keys_match(other) and
                 self._auth_match(other) and
                 self._user_agent_match(other) and
                 self._x_stripe_ua_contains_app_info(other) and
+                self._idempotency_key_match(other) and
                 self._extra_match(other))
 
     def __repr__(self):
         return ("APIHeaderMatcher(request_method=%s, api_key=%s, extra=%s, "
-                "user_agent=%s, app_info=%s)" %
+                "user_agent=%s, app_info=%s, idempotency_key=%s)" %
                 (repr(self.request_method), repr(self.api_key),
-                 repr(self.extra), repr(self.user_agent), repr(self.app_info)))
+                 repr(self.extra), repr(self.user_agent), repr(self.app_info),
+                 repr(self.idempotency_key))
+                )
 
     def _keys_match(self, other):
         expected_keys = list(set(self.EXP_KEYS + list(self.extra.keys())))
@@ -72,6 +77,11 @@ class APIHeaderMatcher(object):
         if self.user_agent is not None:
             return other['User-Agent'] == self.user_agent
 
+        return True
+
+    def _idempotency_key_match(self, other):
+        if self.idempotency_key is not None:
+            return other['Idempotency-Key'] == self.idempotency_key
         return True
 
     def _x_stripe_ua_contains_app_info(self, other):
@@ -127,6 +137,19 @@ class UrlMatcher(object):
 
     def __repr__(self):
         return ("UrlMatcher(exp_parts=%s)" % (repr(self.exp_parts)))
+
+
+class AnyUUID4Matcher(object):
+
+    def __eq__(self, other):
+        try:
+            uuid.UUID(other, version=4)
+        except ValueError:
+            return False
+        return True
+
+    def __repr__(self):
+        return "AnyUUID4Matcher()"
 
 
 class TestAPIRequestor(object):
@@ -198,7 +221,7 @@ class TestAPIRequestor(object):
     def mock_response(self, mocker, http_client):
         def mock_response(return_body, return_code, headers=None):
             print(return_code)
-            http_client.request = mocker.Mock(
+            http_client.request_with_retries = mocker.Mock(
                 return_value=(return_body, return_code, headers or {}))
         return mock_response
 
@@ -211,7 +234,7 @@ class TestAPIRequestor(object):
             if not headers:
                 headers = APIHeaderMatcher(request_method=method)
 
-            http_client.request.assert_called_with(
+            http_client.request_with_retries.assert_called_with(
                 method, abs_url, headers, post_data)
         return check_call
 
@@ -417,6 +440,31 @@ class TestAPIRequestor(object):
         finally:
             stripe.app_info = old
 
+    def test_uses_given_idempotency_key(self, requestor, mock_response,
+                                        check_call):
+        mock_response('{}', 200)
+        meth = 'post'
+        requestor.request(meth, self.valid_path, {},
+                          {'Idempotency-Key': '123abc'})
+
+        header_matcher = APIHeaderMatcher(
+            request_method=meth,
+            idempotency_key='123abc'
+        )
+        check_call(meth, headers=header_matcher, post_data='')
+
+    def test_uuid4_idempotency_key_when_not_given(self, requestor,
+                                                  mock_response, check_call):
+        mock_response('{}', 200)
+        meth = 'post'
+        requestor.request(meth, self.valid_path, {})
+
+        header_matcher = APIHeaderMatcher(
+            request_method=meth,
+            idempotency_key=AnyUUID4Matcher()
+        )
+        check_call(meth, headers=header_matcher, post_data='')
+
     def test_fails_without_api_key(self, requestor):
         stripe.api_key = None
 
@@ -535,12 +583,12 @@ class TestDefaultClient(object):
         hc = mocker.Mock(stripe.http_client.HTTPClient)
         hc._verify_ssl_certs = True
         hc.name = 'mockclient'
-        hc.request = mocker.Mock(return_value=("{}", 200, {}))
+        hc.request_with_retries = mocker.Mock(return_value=("{}", 200, {}))
 
         stripe.default_http_client = hc
         stripe.Charge.list(limit=3)
 
-        hc.request.assert_called_with(
+        hc.request_with_retries.assert_called_with(
             'get',
             'https://api.stripe.com/v1/charges?limit=3',
             mocker.ANY,

@@ -52,6 +52,108 @@ class TestNewDefaultHttpClient(StripeClientTestCase):
                            stripe.http_client.Urllib2Client)
 
 
+class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
+    from contextlib import contextmanager
+
+    def assert_sleep_times(self, client, expected):
+        until = len(expected)
+        actual = list(
+            map(lambda i: client._sleep_time_seconds(i + 1), range(until)))
+        assert expected == actual
+
+    @contextmanager
+    def mock_max_delay(self, new_value):
+        original_value = stripe.http_client.HTTPClient.MAX_DELAY
+        stripe.http_client.HTTPClient.MAX_DELAY = new_value
+        try:
+            yield self
+        finally:
+            stripe.http_client.HTTPClient.MAX_DELAY = original_value
+
+    def test_sleep_time_exponential_back_off(self):
+        client = stripe.http_client.new_default_http_client()
+        client._add_jitter_time = lambda t: t
+        with self.mock_max_delay(10):
+            self.assert_sleep_times(client, [0.5, 1.0, 2.0, 4.0, 8.0])
+
+    def test_initial_delay_as_minimum(self):
+        client = stripe.http_client.new_default_http_client()
+        client._add_jitter_time = lambda t: t * 0.001
+        initial_delay = stripe.http_client.HTTPClient.INITIAL_DELAY
+        self.assert_sleep_times(client, [initial_delay] * 5)
+
+    def test_maximum_delay(self):
+        client = stripe.http_client.new_default_http_client()
+        client._add_jitter_time = lambda t: t
+        max_delay = stripe.http_client.HTTPClient.MAX_DELAY
+        expected = [0.5, 1.0, max_delay, max_delay, max_delay]
+        self.assert_sleep_times(client, expected)
+
+    def test_randomness_added(self):
+        client = stripe.http_client.new_default_http_client()
+        random_value = 0.8
+        client._add_jitter_time = lambda t: t * random_value
+        base_value = stripe.http_client.HTTPClient.INITIAL_DELAY * random_value
+
+        with self.mock_max_delay(10):
+            expected = [stripe.http_client.HTTPClient.INITIAL_DELAY,
+                        base_value * 2,
+                        base_value * 4,
+                        base_value * 8,
+                        base_value * 16]
+            self.assert_sleep_times(client, expected)
+
+    def test_jitter_has_randomness_but_within_range(self):
+        client = stripe.http_client.new_default_http_client()
+
+        jittered_ones = set(
+            map(lambda _: client._add_jitter_time(1), list(range(100)))
+        )
+
+        assert len(jittered_ones) > 1
+        assert all(0.5 <= val <= 1 for val in jittered_ones)
+
+
+class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
+
+    def test_should_retry_on_codes(self):
+        one_xx = list(range(100, 104))
+        two_xx = list(range(200, 209))
+        three_xx = list(range(300, 308))
+        four_xx = list(range(400, 431))
+        five_xx = list(range(500, 512))
+
+        client = stripe.http_client.new_default_http_client()
+        codes = one_xx + two_xx + three_xx + four_xx + five_xx
+        codes.remove(409)
+
+        for code in codes:
+            assert client._should_retry((None, code, None), None, 1) is False
+
+    def test_should_retry_on_error(self, mocker):
+        client = stripe.http_client.new_default_http_client()
+        client._max_network_retries = lambda: 1
+        api_connection_error = mocker.Mock()
+
+        api_connection_error.should_retry = True
+        assert client._should_retry(None, api_connection_error, 0) is True
+
+        api_connection_error.should_retry = False
+        assert client._should_retry(None, api_connection_error, 0) is False
+
+    def test_should_retry_on_num_retries(self, mocker):
+        client = stripe.http_client.new_default_http_client()
+        max_test_retries = 10
+        client._max_network_retries = lambda: max_test_retries
+        api_connection_error = mocker.Mock()
+        api_connection_error.should_retry = True
+
+        assert client._should_retry(
+            None, api_connection_error, max_test_retries + 1) is False
+        assert client._should_retry(
+            (None, 409, None), None, max_test_retries + 1) is False
+
+
 class ClientTestBase(object):
     @pytest.fixture
     def request_mock(self, request_mocks):
@@ -63,7 +165,7 @@ class ClientTestBase(object):
 
     def make_request(self, method, url, headers, post_data):
         client = self.REQUEST_CLIENT(verify_ssl_certs=True)
-        return client.request(method, url, headers, post_data)
+        return client.request_with_retries(method, url, headers, post_data)
 
     @pytest.fixture
     def mock_response(self):
@@ -139,8 +241,9 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
     @pytest.fixture
     def mock_error(self, mocker, session):
         def mock_error(mock):
-            mock.exceptions.RequestException = Exception
-            session.request.side_effect = mock.exceptions.RequestException()
+            # The first kind of request exceptions we catch
+            mock.exceptions.SSLError = Exception
+            session.request.side_effect = mock.exceptions.SSLError()
             mock.Session = mocker.MagicMock(return_value=session)
         return mock_error
 
@@ -149,22 +252,26 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
     # session.
     @pytest.fixture
     def check_call(self, session):
-        def check_call(mock, method, url, post_data, headers, timeout=80):
-            session.request. \
-                assert_called_with(method, url,
-                                   headers=headers,
-                                   data=post_data,
-                                   verify=RequestsVerify(),
-                                   proxies={"http": "http://slap/",
-                                            "https": "http://slap/"},
-                                   timeout=timeout)
+        def check_call(mock, method, url, post_data, headers, timeout=80,
+                       times=None):
+            times = times or 1
+            args = (method, url)
+            kwargs = {'headers': headers,
+                      'data': post_data,
+                      'verify': RequestsVerify(),
+                      'proxies': {"http": "http://slap/",
+                                  "https": "http://slap/"},
+                      'timeout': timeout}
+            calls = [(args, kwargs) for _ in range(times)]
+            session.request.assert_has_calls(calls)
+
         return check_call
 
     def make_request(self, method, url, headers, post_data, timeout=80):
         client = self.REQUEST_CLIENT(verify_ssl_certs=True,
                                      timeout=timeout,
                                      proxy='http://slap/')
-        return client.request(method, url, headers, post_data)
+        return client.request_with_retries(method, url, headers, post_data)
 
     def test_timeout(self, request_mock, mock_response, check_call):
         headers = {'my-header': 'header val'}
@@ -174,6 +281,151 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
                           headers, data, timeout=5)
 
         check_call(None, 'POST', self.valid_url, data, headers, timeout=5)
+
+
+class TestRequestClientRetryBehavior(TestRequestsClient):
+
+    @pytest.fixture
+    def response(self, mocker):
+        def response(code=200):
+            result = mocker.Mock()
+            result.content = '{}'
+            result.status_code = code
+            return result
+        return response
+
+    @pytest.fixture
+    def mock_retry(self, mocker, session, request_mock):
+        def mock_retry(retry_error_num=0,
+                       no_retry_error_num=0,
+                       responses=[]):
+
+            # Mocking classes of exception we catch. Any group of exceptions
+            # with the same inheritance pattern will work
+            request_root_error_class = Exception
+            request_mock.exceptions.RequestException = request_root_error_class
+
+            no_retry_parent_class = LookupError
+            no_retry_child_class = KeyError
+            request_mock.exceptions.SSLError = no_retry_parent_class
+            no_retry_errors = [no_retry_child_class()] * no_retry_error_num
+
+            retry_parent_class = EnvironmentError
+            retry_child_class = IOError
+            request_mock.exceptions.Timeout = retry_parent_class
+            request_mock.exceptions.ConnectionError = retry_parent_class
+            retry_errors = [retry_child_class()] * retry_error_num
+
+            # Include mock responses as possible side-effects
+            # to simulate returning proper results after some exceptions
+            session.request.side_effect = retry_errors + no_retry_errors + \
+                responses
+
+            request_mock.Session = mocker.MagicMock(return_value=session)
+            return request_mock
+        return mock_retry
+
+    @pytest.fixture
+    def check_call_numbers(self, check_call):
+        valid_url = self.valid_url
+
+        def check_call_numbers(times):
+            check_call(None, 'GET', valid_url, None, {}, times=times)
+        return check_call_numbers
+
+    def max_retries(self):
+        return 3
+
+    def make_request(self):
+        client = self.REQUEST_CLIENT(verify_ssl_certs=True,
+                                     timeout=80,
+                                     proxy='http://slap/')
+        # Override sleep time to speed up tests
+        client._sleep_time = lambda _: 0.0001
+        # Override configured max retries
+        client._max_network_retries = lambda: self.max_retries()
+        return client.request_with_retries('GET', self.valid_url, {}, None)
+
+    def test_retry_error_until_response(self, mock_retry, response,
+                                        check_call_numbers):
+        mock_retry(retry_error_num=1, responses=[response(code=202)])
+        _, code, _ = self.make_request()
+        assert code == 202
+        check_call_numbers(2)
+
+    def test_retry_error_until_exceeded(self, mock_retry, response,
+                                        check_call_numbers):
+        mock_retry(retry_error_num=self.max_retries())
+        with pytest.raises(stripe.error.APIConnectionError):
+            self.make_request()
+
+        check_call_numbers(self.max_retries())
+
+    def test_no_retry_error(self, mock_retry, response, check_call_numbers):
+        mock_retry(no_retry_error_num=self.max_retries())
+        with pytest.raises(stripe.error.APIConnectionError):
+            self.make_request()
+        check_call_numbers(1)
+
+    def test_retry_codes(self, mock_retry, response, check_call_numbers):
+        mock_retry(responses=[response(code=409), response(code=202)])
+        _, code, _ = self.make_request()
+        assert code == 202
+        check_call_numbers(2)
+
+    def test_retry_codes_until_exceeded(self, mock_retry, response,
+                                        check_call_numbers):
+        mock_retry(responses=[response(code=409)] * self.max_retries())
+        _, code, _ = self.make_request()
+        assert code == 409
+        check_call_numbers(self.max_retries())
+
+    @pytest.fixture
+    def connection_error(self, session):
+        client = self.REQUEST_CLIENT()
+
+        def connection_error(given_exception):
+            with pytest.raises(stripe.error.APIConnectionError) as error:
+                client._handle_request_error(given_exception)
+            return error.value
+        return connection_error
+
+    def test_handle_request_error_should_retry(self, connection_error,
+                                               mock_retry):
+        request_mock = mock_retry()
+
+        error = connection_error(request_mock.exceptions.Timeout())
+        assert error.should_retry
+
+        error = connection_error(request_mock.exceptions.ConnectionError())
+        assert error.should_retry
+
+    def test_handle_request_error_should_not_retry(self, connection_error,
+                                                   mock_retry):
+        request_mock = mock_retry()
+
+        error = connection_error(request_mock.exceptions.SSLError())
+        assert error.should_retry is False
+        assert 'not verify Stripe\'s SSL certificate' in error.user_message
+
+        error = connection_error(request_mock.exceptions.RequestException())
+        assert error.should_retry is False
+
+        # Mimic non-requests exception as not being children of Exception,
+        # See mock_retry for the exceptions setup
+        error = connection_error(BaseException(""))
+        assert error.should_retry is False
+        assert 'configuration issue locally' in error.user_message
+
+    # Skip inherited basic requests client tests
+    def test_request(self, request_mock, mock_response, check_call):
+        pass
+
+    def test_exception(self, request_mock, mock_error):
+        pass
+
+    def test_timeout(self, request_mock, mock_response, check_call):
+        pass
 
 
 class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):
@@ -217,7 +469,8 @@ class TestUrllib2Client(StripeClientTestCase, ClientTestBase):
         self.client = self.REQUEST_CLIENT(verify_ssl_certs=True,
                                           proxy=proxy)
         self.proxy = proxy
-        return self.client.request(method, url, headers, post_data)
+        return self.client.request_with_retries(method, url, headers,
+                                                post_data)
 
     @pytest.fixture
     def mock_response(self, mocker):
@@ -292,7 +545,8 @@ class TestPycurlClient(StripeClientTestCase, ClientTestBase):
         self.client = self.REQUEST_CLIENT(verify_ssl_certs=True,
                                           proxy=proxy)
         self.proxy = proxy
-        return self.client.request(method, url, headers, post_data)
+        return self.client.request_with_retries(method, url, headers,
+                                                post_data)
 
     @pytest.fixture
     def curl_mock(self, mocker):
