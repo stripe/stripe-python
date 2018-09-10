@@ -93,6 +93,18 @@ A proxy can be configured with `stripe.proxy`:
 stripe.proxy = "https://user:pass@example.com:1234"
 ```
 
+### Configuring Automatic Retries
+
+Number of automatic retries on requests that fail due to an intermittent 
+network problem can be configured:
+
+``` python
+stripe.max_network_retries = 2
+```
+
+[Idempotency keys][idempotency-keys] are automatically generated and added to 
+requests, when not given, to guarantee that retries are safe.
+
 ### Logging
 
 The library can be configured to emit logging that will give you better insight
@@ -172,6 +184,7 @@ Run the linter with:
 [connect]: https://stripe.com/connect
 [pipenv]: https://github.com/pypa/pipenv
 [stripe-mock]: https://github.com/stripe/stripe-mock
+[idempotency-keys]: https://stripe.com/docs/api/ruby#idempotent_requests
 
 <!--
 # vim: set tw=79:
