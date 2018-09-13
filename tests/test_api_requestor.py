@@ -346,8 +346,8 @@ class TestAPIRequestor(object):
                 'adict': {'frobble': 'bits'},
                 'adatetime': datetime.datetime(2013, 1, 1, tzinfo=GMT1())
             }
-            encoded = ('adict%5Bfrobble%5D=bits&adatetime=1356994800&'
-                       'alist%5B0%5D=1&alist%5B1%5D=2&alist%5B2%5D=3')
+            encoded = ('adict[frobble]=bits&adatetime=1356994800&'
+                       'alist[0]=1&alist[1]=2&alist[2]=3')
 
             resp, key = requestor.request(method, self.valid_path, params)
             assert isinstance(resp, StripeResponse)
