@@ -680,5 +680,5 @@ class TestAPIEncode(StripeClientTestCase):
 
         values = [t for t in stripe.api_requestor._api_encode(body)]
 
-        assert ('foo[][dob][month]', 1) in values
-        assert ('foo[][name]', 'bat') in values
+        assert ('foo[0][dob][month]', 1) in values
+        assert ('foo[0][name]', 'bat') in values

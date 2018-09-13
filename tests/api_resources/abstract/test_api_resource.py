@@ -95,11 +95,6 @@ class TestAPIResource(object):
         # TODO: We should probably be stripping out this property
         # self.assertRaises(AttributeError, getattr, converted.adict, 'object')
 
-    def test_convert_array_to_dict(self):
-        out = stripe.util.convert_array_to_dict([{"foo": "bar"}])
-        assert out == {"0": {"foo": "bar"}}
-        assert stripe.util.convert_array_to_dict({"f": "b"}) == {"f": "b"}
-
     def test_raise_on_incorrect_id_type(self):
         for obj in [None, 1, 3.14, dict(), list(), set(), tuple(), object()]:
             with pytest.raises(stripe.error.InvalidRequestError):
