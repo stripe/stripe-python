@@ -251,6 +251,11 @@ class APIRequestor(object):
 
         encoded_params = urlencode(list(_api_encode(params or {})))
 
+        # Don't use strict form encoding by changing the square bracket control
+        # characters back to their literals. This is fine by the server, and
+        # makes these parameter strings easier to read.
+        encoded_params = encoded_params.replace('%5B', '[').replace('%5D', ']')
+
         if method == 'get' or method == 'delete':
             if params:
                 abs_url = _build_api_url(abs_url, encoded_params)
