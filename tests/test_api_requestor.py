@@ -177,15 +177,15 @@ class TestAPIRequestor(object):
             ('%s[adatetime]', 1356994800),
             ('%s[adict][foo]', 'bar'),
             ('%s[adict][boz]', 5),
-            ('%s[alist][]', 'foo'),
-            ('%s[alist][]', 'bar'),
-            ('%s[atuple][]', 1),
-            ('%s[atuple][]', 2),
+            ('%s[alist][0]', 'foo'),
+            ('%s[alist][1]', 'bar'),
+            ('%s[atuple][0]', 1),
+            ('%s[atuple][1]', 2),
         ],
         'list': [
-            ('%s[]', 1),
-            ('%s[]', 'foo'),
-            ('%s[]', 'baz'),
+            ('%s[0]', 1),
+            ('%s[1]', 'foo'),
+            ('%s[2]', 'baz'),
         ],
         'string': [('%s', 'boo')],
         'unicode': [('%s', stripe.util.utf8(u'\u1234'))],
@@ -347,7 +347,7 @@ class TestAPIRequestor(object):
                 'adatetime': datetime.datetime(2013, 1, 1, tzinfo=GMT1())
             }
             encoded = ('adict%5Bfrobble%5D=bits&adatetime=1356994800&'
-                       'alist%5B%5D=1&alist%5B%5D=2&alist%5B%5D=3')
+                       'alist%5B0%5D=1&alist%5B1%5D=2&alist%5B2%5D=3')
 
             resp, key = requestor.request(method, self.valid_path, params)
             assert isinstance(resp, StripeResponse)
