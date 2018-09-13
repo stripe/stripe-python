@@ -1,7 +1,11 @@
 # Changelog
 
+## 2.8.1 - 2018-09-13
+* [#474](https://github.com/stripe/stripe-python/pull/474) Don't URL-encode square brackets
+* [#473](https://github.com/stripe/stripe-python/pull/473) Integer-index encode all arrays
+
 ## 2.8.0 - 2018-09-10
-* [#999](https://github.com/stripe/stripe-python/pull/999) Add support for automatic network retries
+* [#470](https://github.com/stripe/stripe-python/pull/470) Add support for automatic network retries
 
 ## 2.7.0 - 2018-09-05
 * [#469](https://github.com/stripe/stripe-python/pull/469) Add support for reporting resources
