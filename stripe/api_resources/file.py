@@ -5,8 +5,13 @@ from stripe import api_requestor, util
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class FileUpload(ListableAPIResource):
-    OBJECT_NAME = 'file_upload'
+class File(ListableAPIResource):
+    # This resource can have two different object names. In latter API
+    # versions, only `file` is used, but since stripe-python may be used with
+    # any API version, we need to support deserializing the older
+    # `file_upload` object into the same class.
+    OBJECT_NAME = 'file'
+    OBJECT_NAME_ALT = 'file_upload'
 
     @classmethod
     def api_base(cls):
@@ -30,3 +35,7 @@ class FileUpload(ListableAPIResource):
             'post', url, params=params, headers=supplied_headers)
         return util.convert_to_stripe_object(response, api_key, api_version,
                                              stripe_account)
+
+
+# For backwards compatibility, the `File` class is aliased to `FileUpload`.
+FileUpload = File
