@@ -21,7 +21,12 @@ class MultipartDataGenerator(object):
             self._write(self.param_header())
             self._write(self.line_break)
             if hasattr(value, 'read'):
-                filename = value.name if hasattr(value, 'name') else "blob"
+                filename = "blob"
+                if hasattr(value, 'name'):
+                    # Convert the filename to string, just in case it's not
+                    # already one. E.g. `tempfile.TemporaryFile` has a `name`
+                    # attribute but it's an `int`.
+                    filename = str(value.name)
 
                 self._write("Content-Disposition: form-data; name=\"")
                 self._write(key)
