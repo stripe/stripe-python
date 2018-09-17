@@ -43,18 +43,21 @@ def setup_stripe():
         'api_key': stripe.api_key,
         'client_id': stripe.client_id,
         'default_http_client': stripe.default_http_client,
+        'upload_api_base': stripe.upload_api_base,
     }
     http_client = stripe.http_client.new_default_http_client()
     stripe.api_base = 'http://localhost:%s' % MOCK_PORT
     stripe.api_key = 'sk_test_123'
     stripe.client_id = 'ca_123'
     stripe.default_http_client = http_client
+    stripe.upload_api_base = 'http://localhost:%s' % MOCK_PORT
     yield
     http_client.close()
     stripe.api_base = orig_attrs['api_base']
     stripe.api_key = orig_attrs['api_key']
     stripe.client_id = orig_attrs['client_id']
     stripe.default_http_client = orig_attrs['default_http_client']
+    stripe.upload_api_base = orig_attrs['upload_api_base']
 
 
 @pytest.fixture
