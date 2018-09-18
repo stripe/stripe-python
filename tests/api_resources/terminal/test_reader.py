@@ -42,7 +42,7 @@ class TestReader(object):
         resource = stripe.terminal.Reader.retrieve(TEST_RESOURCE_ID)
         request_mock.assert_requested(
             'get',
-            '/v1/temrinal/readers/%s' % TEST_RESOURCE_ID
+            '/v1/terminal/readers/%s' % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.terminal.Reader)
 

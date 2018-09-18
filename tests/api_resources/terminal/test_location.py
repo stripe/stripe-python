@@ -48,7 +48,7 @@ class TestLocation(object):
         resource = stripe.terminal.Location.retrieve(TEST_RESOURCE_ID)
         request_mock.assert_requested(
             'get',
-            '/v1/temrinal/locations/%s' % TEST_RESOURCE_ID
+            '/v1/terminal/locations/%s' % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.terminal.Location)
 

@@ -11,6 +11,6 @@ class TestConnectionToken(object):
         resource = stripe.terminal.ConnectionToken.create()
         request_mock.assert_requested(
             'post',
-            '/v1/terminal/connection_token'
+            '/v1/terminal/connection_tokens'
         )
         assert isinstance(resource, stripe.terminal.ConnectionToken)
