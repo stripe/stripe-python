@@ -2,6 +2,8 @@ from __future__ import absolute_import, division, print_function
 
 import tempfile
 
+import pytest
+
 import stripe
 
 
@@ -9,6 +11,14 @@ TEST_RESOURCE_ID = 'file_123'
 
 
 class TestFileUpload(object):
+    @pytest.fixture
+    def setup_upload_api_base(self):
+        stripe.upload_api_base = stripe.api_base
+        stripe.api_base = None
+        yield
+        stripe.api_base = stripe.upload_api_base
+        stripe.upload_api_base = 'https://files.stripe.com'
+
     def test_is_listable(self, request_mock):
         resources = stripe.FileUpload.list()
         request_mock.assert_requested(
@@ -26,7 +36,7 @@ class TestFileUpload(object):
         )
         assert isinstance(resource, stripe.FileUpload)
 
-    def test_is_creatable(self, request_mock):
+    def test_is_creatable(self, setup_upload_api_base, request_mock):
         stripe.multipart_data_generator.MultipartDataGenerator\
             ._initialize_boundary = lambda self: 1234567890
         test_file = tempfile.TemporaryFile()
@@ -34,6 +44,7 @@ class TestFileUpload(object):
             purpose='dispute_evidence',
             file=test_file
         )
+        request_mock.assert_api_base(stripe.upload_api_base)
         request_mock.assert_requested(
             'post',
             '/v1/files',

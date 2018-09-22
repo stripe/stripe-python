@@ -35,6 +35,25 @@ class RequestMock(object):
         self._stub_request_handler.register(method, url, rbody, rcode,
                                             rheaders)
 
+    def assert_api_base(self, expected_api_base):
+        # Note that this method only checks that an API base was provided
+        # as a keyword argument in APIRequestor's constructor, not as a
+        # positional argument.
+
+        if 'api_base' not in self.constructor_patcher.call_args[1]:
+            msg = ("Expected APIRequestor to have been constructed with "
+                   "api_base='%s'. No API base was provided." %
+                   expected_api_base)
+            raise AssertionError(msg)
+
+        actual_api_base = \
+            self.constructor_patcher.call_args[1]['api_base']
+        if actual_api_base != expected_api_base:
+            msg = ("Expected APIRequestor to have been constructed with "
+                   "api_base='%s'. Constructed with api_base='%s' "
+                   "instead." % (expected_api_base, actual_api_base))
+            raise AssertionError(msg)
+
     def assert_api_version(self, expected_api_version):
         # Note that this method only checks that an API version was provided
         # as a keyword argument in APIRequestor's constructor, not as a

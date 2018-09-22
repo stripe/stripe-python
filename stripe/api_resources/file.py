@@ -14,10 +14,6 @@ class File(ListableAPIResource):
     OBJECT_NAME_ALT = 'file_upload'
 
     @classmethod
-    def api_base(cls):
-        return stripe.upload_api_base
-
-    @classmethod
     def class_url(cls):
         return '/v1/files'
 
@@ -25,7 +21,7 @@ class File(ListableAPIResource):
     def create(cls, api_key=None, api_version=None, stripe_account=None,
                **params):
         requestor = api_requestor.APIRequestor(
-            api_key, api_base=cls.api_base(), api_version=api_version,
+            api_key, api_base=stripe.upload_api_base, api_version=api_version,
             account=stripe_account)
         url = cls.class_url()
         supplied_headers = {
