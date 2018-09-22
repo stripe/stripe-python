@@ -22,7 +22,7 @@ cache:
 env:
   global:
     # If changing this number, please also change it in `tests/conftest.py`.
-    - STRIPE_MOCK_VERSION=0.30.0
+    - STRIPE_MOCK_VERSION=0.32.0
 
 before_install:
   # Unpack and start stripe-mock so that the test suite can talk to it

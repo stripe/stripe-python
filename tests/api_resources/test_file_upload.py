@@ -11,7 +11,7 @@ TEST_RESOURCE_ID = 'file_123'
 
 
 class TestFileUpload(object):
-    @pytest.fixture
+    @pytest.fixture(scope='function')
     def setup_upload_api_base(self):
         stripe.upload_api_base = stripe.api_base
         stripe.api_base = None
