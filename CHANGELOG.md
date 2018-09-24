@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.10.0 - 2018-09-24
+* [#478](https://github.com/stripe/stripe-python/pull/478) Add support for Stripe Terminal
+
 ## 2.9.0 - 2018-09-24
 * [#477](https://github.com/stripe/stripe-python/pull/477) Rename `FileUpload` to `File`
 
