@@ -23,8 +23,9 @@ from stripe.api_resources.dispute import Dispute
 from stripe.api_resources.ephemeral_key import EphemeralKey
 from stripe.api_resources.event import Event
 from stripe.api_resources.exchange_rate import ExchangeRate
+from stripe.api_resources.file import File
+from stripe.api_resources.file import FileUpload
 from stripe.api_resources.file_link import FileLink
-from stripe.api_resources.file_upload import FileUpload
 from stripe.api_resources.invoice import Invoice
 from stripe.api_resources.invoice_item import InvoiceItem
 from stripe.api_resources.invoice_line_item import InvoiceLineItem

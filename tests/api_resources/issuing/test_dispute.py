@@ -10,7 +10,7 @@ class TestDispute(object):
     def test_is_creatable(self, request_mock):
         resource = stripe.issuing.Dispute.create(
             reason='fraudulent',
-            transaction='ipi_123'
+            disputed_transaction='ipi_123'
         )
         request_mock.assert_requested(
             'post',

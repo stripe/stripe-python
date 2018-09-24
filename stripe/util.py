@@ -162,8 +162,9 @@ def load_object_classes():
         api_resources.EphemeralKey.OBJECT_NAME: api_resources.EphemeralKey,
         api_resources.Event.OBJECT_NAME: api_resources.Event,
         api_resources.ExchangeRate.OBJECT_NAME: api_resources.ExchangeRate,
+        api_resources.File.OBJECT_NAME: api_resources.File,
+        api_resources.File.OBJECT_NAME_ALT: api_resources.File,
         api_resources.FileLink.OBJECT_NAME: api_resources.FileLink,
-        api_resources.FileUpload.OBJECT_NAME: api_resources.FileUpload,
         api_resources.Invoice.OBJECT_NAME: api_resources.Invoice,
         api_resources.InvoiceItem.OBJECT_NAME: api_resources.InvoiceItem,
         api_resources.InvoiceLineItem.OBJECT_NAME:
