@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.9.0 - 2018-09-24
+* [#477](https://github.com/stripe/stripe-python/pull/477) Rename `FileUpload` to `File`
+
 ## 2.8.1 - 2018-09-13
 * [#474](https://github.com/stripe/stripe-python/pull/474) Don't URL-encode square brackets
 * [#473](https://github.com/stripe/stripe-python/pull/473) Integer-index encode all arrays
