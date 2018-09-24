@@ -214,6 +214,12 @@ def load_object_classes():
         api_resources.UsageRecord.OBJECT_NAME: api_resources.UsageRecord,
         api_resources.UsageRecordSummary.OBJECT_NAME:
             api_resources.UsageRecordSummary,
+        api_resources.terminal.Location.OBJECT_NAME:
+            api_resources.terminal.Location,
+        api_resources.terminal.ConnectionToken.OBJECT_NAME:
+            api_resources.terminal.ConnectionToken,
+        api_resources.terminal.Reader.OBJECT_NAME:
+            api_resources.terminal.Reader,
     }
 
 
