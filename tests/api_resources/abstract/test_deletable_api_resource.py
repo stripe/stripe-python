@@ -33,3 +33,26 @@ class TestDeletableAPIResource(object):
 
         assert obj.last_response is not None
         assert obj.last_response.request_id == 'req_id'
+
+    def test_remove(self, request_mock):
+        request_mock.stub_request(
+            'delete',
+            '/v1/mydeletables/mid',
+            {
+                'id': 'mid',
+                'deleted': True,
+            },
+            rheaders={'request-id': 'req_id'}
+        )
+
+        obj = self.MyDeletable.remove('mid')
+        request_mock.assert_requested(
+            'delete',
+            '/v1/mydeletables/mid',
+            {}
+        )
+        assert obj.deleted is True
+        assert obj.id == 'mid'
+
+        assert obj.last_response is not None
+        assert obj.last_response.request_id == 'req_id'
