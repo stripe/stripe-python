@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.10.1 - 2018-10-02
+* [#481](https://github.com/stripe/stripe-python/pull/481) Correct behavior of `stripe.max_network_retries` if it's reset after initial use
+
 ## 2.10.0 - 2018-09-24
 * [#478](https://github.com/stripe/stripe-python/pull/478) Add support for Stripe Terminal
 
