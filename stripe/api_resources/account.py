@@ -15,6 +15,10 @@ from stripe.six.moves.urllib.parse import quote_plus
     operations=['create', 'retrieve', 'update', 'delete', 'list']
 )
 @nested_resource_class_methods('login_link', operations=['create'])
+@nested_resource_class_methods(
+    'person',
+    operations=['create', 'retrieve', 'update', 'delete', 'list']
+)
 class Account(CreateableAPIResource, ListableAPIResource,
               UpdateableAPIResource, DeletableAPIResource):
     OBJECT_NAME = 'account'
@@ -40,6 +44,10 @@ class Account(CreateableAPIResource, ListableAPIResource,
 
     def instance_url(self):
         return self._build_instance_url(self.get('id'))
+
+    def persons(self, **params):
+        return self.request(
+            'get', self.instance_url() + '/persons', params)
 
     def reject(self, idempotency_key=None, **params):
         url = self.instance_url() + '/reject'

@@ -35,6 +35,7 @@ from stripe.api_resources.order import Order
 from stripe.api_resources.order_return import OrderReturn
 from stripe.api_resources.payment_intent import PaymentIntent
 from stripe.api_resources.payout import Payout
+from stripe.api_resources.person import Person
 from stripe.api_resources.plan import Plan
 from stripe.api_resources.product import Product
 from stripe.api_resources.recipient import Recipient
