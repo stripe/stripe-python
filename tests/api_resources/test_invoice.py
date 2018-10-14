@@ -54,12 +54,48 @@ class TestInvoice(object):
         )
         assert isinstance(resource, stripe.Invoice)
 
+    def test_is_deletable(self, request_mock):
+        resource = stripe.Invoice.retrieve(TEST_RESOURCE_ID)
+        resource.delete()
+        request_mock.assert_requested(
+            'delete',
+            '/v1/invoices/%s' % TEST_RESOURCE_ID
+        )
+        assert resource.deleted is True
+
+    def test_can_finalize_invoice(self, request_mock):
+        resource = stripe.Invoice.retrieve(TEST_RESOURCE_ID)
+        resource = resource.finalize_invoice()
+        request_mock.assert_requested(
+            'post',
+            '/v1/invoices/%s/finalize' % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.Invoice)
+
+    def test_can_mark_uncollectible(self, request_mock):
+        resource = stripe.Invoice.retrieve(TEST_RESOURCE_ID)
+        resource = resource.mark_uncollectible()
+        request_mock.assert_requested(
+            'post',
+            '/v1/invoices/%s/mark_uncollectible' % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.Invoice)
+
     def test_can_pay(self, request_mock):
         resource = stripe.Invoice.retrieve(TEST_RESOURCE_ID)
         resource = resource.pay()
         request_mock.assert_requested(
             'post',
             '/v1/invoices/%s/pay' % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.Invoice)
+
+    def test_can_send_invoice(self, request_mock):
+        resource = stripe.Invoice.retrieve(TEST_RESOURCE_ID)
+        resource = resource.send_invoice()
+        request_mock.assert_requested(
+            'post',
+            '/v1/invoices/%s/send' % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.Invoice)
 
@@ -70,5 +106,14 @@ class TestInvoice(object):
         request_mock.assert_requested(
             'get',
             '/v1/invoices/upcoming'
+        )
+        assert isinstance(resource, stripe.Invoice)
+
+    def test_can_void_invoice(self, request_mock):
+        resource = stripe.Invoice.retrieve(TEST_RESOURCE_ID)
+        resource = resource.void_invoice()
+        request_mock.assert_requested(
+            'post',
+            '/v1/invoices/%s/void' % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.Invoice)
