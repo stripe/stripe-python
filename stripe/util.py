@@ -215,6 +215,8 @@ def load_object_classes():
         api_resources.UsageRecord.OBJECT_NAME: api_resources.UsageRecord,
         api_resources.UsageRecordSummary.OBJECT_NAME:
             api_resources.UsageRecordSummary,
+        api_resources.WebhookEndpoint.OBJECT_NAME:
+            api_resources.WebhookEndpoint,
         api_resources.terminal.Location.OBJECT_NAME:
             api_resources.terminal.Location,
         api_resources.terminal.ConnectionToken.OBJECT_NAME:
