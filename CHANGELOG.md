@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.11.0 - 2018-10-30
+* [#482](https://github.com/stripe/stripe-python/pull/482) Add support for the `Person` resource
+* [#484](https://github.com/stripe/stripe-python/pull/484) Add support for the `WebhookEndpoint` resource
+
 ## 2.10.1 - 2018-10-02
 * [#481](https://github.com/stripe/stripe-python/pull/481) Correct behavior of `stripe.max_network_retries` if it's reset after initial use
 
