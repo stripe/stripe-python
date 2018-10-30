@@ -5,6 +5,7 @@ import stripe
 
 TEST_RESOURCE_ID = 'acct_123'
 TEST_EXTERNALACCOUNT_ID = 'ba_123'
+TEST_PERSON_ID = 'person_123'
 
 
 class TestAccount(object):
@@ -136,6 +137,16 @@ class TestAccount(object):
            }
         )
 
+    def test_can_call_persons(self, request_mock):
+        account = stripe.Account.retrieve(TEST_RESOURCE_ID)
+        resources = account.persons()
+        request_mock.assert_requested(
+            'get',
+            '/v1/accounts/%s/persons' % TEST_RESOURCE_ID
+        )
+        assert isinstance(resources.data, list)
+        assert isinstance(resources.data[0], stripe.Person)
+
 
 class TestAccountExternalAccounts(object):
     def test_is_listable(self, request_mock):
@@ -145,7 +156,6 @@ class TestAccountExternalAccounts(object):
             '/v1/accounts/%s/external_accounts' % TEST_RESOURCE_ID
         )
         assert isinstance(resources.data, list)
-        assert isinstance(resources.data[0], stripe.Card)
 
     def test_is_retrievable(self, request_mock):
         resource = stripe.Account.retrieve_external_account(
@@ -204,3 +214,66 @@ class TestAccountLoginLinks(object):
             '/v1/accounts/%s/login_links' % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.LoginLink)
+
+
+class TestAccountPersons(object):
+    def test_is_creatable(self, request_mock):
+        resource = stripe.Account.create_person(
+            TEST_RESOURCE_ID,
+            dob={
+                'day': 1,
+                'month': 1,
+                'year': 1980
+            }
+        )
+        request_mock.assert_requested(
+            'post',
+            '/v1/accounts/%s/persons' % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.Person)
+
+    def test_is_deletable(self, request_mock):
+        resource = stripe.Account.delete_person(
+            TEST_RESOURCE_ID,
+            TEST_PERSON_ID
+        )
+        request_mock.assert_requested(
+            'delete',
+            '/v1/accounts/%s/persons/%s' % (TEST_RESOURCE_ID,
+                                            TEST_PERSON_ID)
+        )
+        assert resource.deleted is True
+
+    def test_is_listable(self, request_mock):
+        resources = stripe.Account.list_persons(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            'get',
+            '/v1/accounts/%s/persons' % TEST_RESOURCE_ID
+        )
+        assert isinstance(resources.data, list)
+        assert isinstance(resources.data[0], stripe.Person)
+
+    def test_is_modifiable(self, request_mock):
+        resource = stripe.Account.modify_person(
+            TEST_RESOURCE_ID,
+            TEST_PERSON_ID,
+            metadata={'foo': 'bar'}
+        )
+        request_mock.assert_requested(
+            'post',
+            '/v1/accounts/%s/persons/%s' % (TEST_RESOURCE_ID,
+                                            TEST_PERSON_ID)
+        )
+        assert isinstance(resource, stripe.Person)
+
+    def test_is_retrievable(self, request_mock):
+        resource = stripe.Account.retrieve_person(
+            TEST_RESOURCE_ID,
+            TEST_PERSON_ID
+        )
+        request_mock.assert_requested(
+            'get',
+            '/v1/accounts/%s/persons/%s' % (TEST_RESOURCE_ID,
+                                            TEST_PERSON_ID)
+        )
+        assert isinstance(resource, stripe.Person)

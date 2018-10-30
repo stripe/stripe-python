@@ -187,6 +187,7 @@ def load_object_classes():
         api_resources.OrderReturn.OBJECT_NAME: api_resources.OrderReturn,
         api_resources.PaymentIntent.OBJECT_NAME: api_resources.PaymentIntent,
         api_resources.Payout.OBJECT_NAME: api_resources.Payout,
+        api_resources.Person.OBJECT_NAME: api_resources.Person,
         api_resources.Plan.OBJECT_NAME: api_resources.Plan,
         api_resources.Product.OBJECT_NAME: api_resources.Product,
         api_resources.Recipient.OBJECT_NAME: api_resources.Recipient,
