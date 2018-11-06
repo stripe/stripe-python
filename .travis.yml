@@ -37,8 +37,7 @@ before_install:
     STRIPE_MOCK_PID=$!
 
 install:
-  - pip install --upgrade pipenv
-  - pipenv install --dev
+  - make init
 
 script:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then make lint; fi
