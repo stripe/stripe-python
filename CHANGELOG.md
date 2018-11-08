@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.11.1 - 2018-11-08
+* [#491](https://github.com/stripe/stripe-python/pull/491) Bump minimum requests version to 2.20.0 (for [CVE-2018-18074](https://nvd.nist.gov/vuln/detail/CVE-2018-18074))
+
 ## 2.11.0 - 2018-10-30
 * [#482](https://github.com/stripe/stripe-python/pull/482) Add support for the `Person` resource
 * [#484](https://github.com/stripe/stripe-python/pull/484) Add support for the `WebhookEndpoint` resource
