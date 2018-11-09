@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.12.0 - 2018-11-08
+* [#483](https://github.com/stripe/stripe-python/pull/483) Add new API endpoints for the `Invoice` resource.
+
 ## 2.11.1 - 2018-11-08
 * [#491](https://github.com/stripe/stripe-python/pull/491) Bump minimum requests version to 2.20.0 (for [CVE-2018-18074](https://nvd.nist.gov/vuln/detail/CVE-2018-18074))
 
