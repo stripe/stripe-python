@@ -3,8 +3,7 @@ from __future__ import absolute_import, division, print_function
 import json
 
 
-class StripeResponse:
-
+class StripeResponse(object):
     def __init__(self, body, code, headers):
         self.body = body
         self.code = code
