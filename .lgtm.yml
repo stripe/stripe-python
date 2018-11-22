@@ -1,0 +1,5 @@
+extraction:
+  python:
+    index:
+      exclude:
+        - stripe/six.py
