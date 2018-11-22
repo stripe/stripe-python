@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.12.1 - 2018-11-22
+* [#495](https://github.com/stripe/stripe-python/pull/495) Make `StripeResponse` a new-style class
+
 ## 2.12.0 - 2018-11-08
 * [#483](https://github.com/stripe/stripe-python/pull/483) Add new API endpoints for the `Invoice` resource.
 
