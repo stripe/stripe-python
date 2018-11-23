@@ -1,5 +1,3 @@
-extraction:
-  python:
-    index:
-      exclude:
-        - stripe/six.py
+path_classifiers:
+  library:
+    - stripe/six.py
