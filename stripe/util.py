@@ -190,6 +190,10 @@ def load_object_classes():
         api_resources.Person.OBJECT_NAME: api_resources.Person,
         api_resources.Plan.OBJECT_NAME: api_resources.Plan,
         api_resources.Product.OBJECT_NAME: api_resources.Product,
+        api_resources.radar.ValueList.OBJECT_NAME:
+            api_resources.radar.ValueList,
+        api_resources.radar.ValueListItem.OBJECT_NAME:
+            api_resources.radar.ValueListItem,
         api_resources.Recipient.OBJECT_NAME: api_resources.Recipient,
         api_resources.RecipientTransfer.OBJECT_NAME:
             api_resources.RecipientTransfer,
