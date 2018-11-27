@@ -203,6 +203,7 @@ def load_object_classes():
         api_resources.reporting.ReportType.OBJECT_NAME:
             api_resources.reporting.ReportType,
         api_resources.Reversal.OBJECT_NAME: api_resources.Reversal,
+        api_resources.Review.OBJECT_NAME: api_resources.Review,
         api_resources.sigma.ScheduledQueryRun.OBJECT_NAME:
             api_resources.sigma.ScheduledQueryRun,
         api_resources.SKU.OBJECT_NAME: api_resources.SKU,
