@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.13.0 - 2018-11-27
+* [#489](https://github.com/stripe/stripe-python/pull/489) Add support for `ValueList` and `ValueListItem` for Radar
+
 ## 2.12.1 - 2018-11-22
 * [#495](https://github.com/stripe/stripe-python/pull/495) Make `StripeResponse` a new-style class
 
