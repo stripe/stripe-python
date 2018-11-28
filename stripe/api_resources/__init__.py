@@ -42,6 +42,7 @@ from stripe.api_resources.recipient import Recipient
 from stripe.api_resources.recipient_transfer import RecipientTransfer
 from stripe.api_resources.refund import Refund
 from stripe.api_resources.reversal import Reversal
+from stripe.api_resources.review import Review
 from stripe.api_resources.sku import SKU
 from stripe.api_resources.source import Source
 from stripe.api_resources.source_transaction import SourceTransaction
