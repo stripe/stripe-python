@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
+import os
+
 # Stripe Python bindings
 # API docs at http://stripe.com/docs/api
 # Authors:
@@ -20,6 +22,8 @@ proxy = None
 default_http_client = None
 app_info = None
 max_network_retries = 0
+ca_bundle_path = os.path.join(
+    os.path.dirname(__file__), 'data/ca-certificates.crt')
 
 # Set to either 'debug' or 'info', controls console logging
 log = None
