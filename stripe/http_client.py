@@ -1,6 +1,5 @@
 from __future__ import absolute_import, division, print_function
 
-import os
 import sys
 import textwrap
 import warnings
@@ -8,6 +7,7 @@ import email
 import time
 import random
 
+import stripe
 from stripe import error, util, six
 
 # - Requests is the preferred HTTP library
@@ -179,8 +179,7 @@ class RequestsClient(HTTPClient):
     def request(self, method, url, headers, post_data=None):
         kwargs = {}
         if self._verify_ssl_certs:
-            kwargs['verify'] = os.path.join(
-                os.path.dirname(__file__), 'data/ca-certificates.crt')
+            kwargs['verify'] = stripe.ca_bundle_path
         else:
             kwargs['verify'] = False
 
@@ -392,8 +391,7 @@ class PycurlClient(HTTPClient):
             ['%s: %s' % (k, v) for k, v in six.iteritems(dict(headers))]
         )
         if self._verify_ssl_certs:
-            self._curl.setopt(pycurl.CAINFO, os.path.join(
-                os.path.dirname(__file__), 'data/ca-certificates.crt'))
+            self._curl.setopt(pycurl.CAINFO, stripe.ca_bundle_path)
         else:
             self._curl.setopt(pycurl.SSL_VERIFYHOST, False)
 
