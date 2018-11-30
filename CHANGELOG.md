@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.15.0 - 2018-11-30
+* [#503](https://github.com/stripe/stripe-python/pull/503) Add support for providing custom CA certificate bundle
+
 ## 2.14.0 - 2018-11-28
 * [#500](https://github.com/stripe/stripe-python/pull/500) Add support for `Review` for Radar
 
