@@ -140,6 +140,7 @@ def load_object_classes():
 
         # business objects
         api_resources.Account.OBJECT_NAME: api_resources.Account,
+        api_resources.AccountLink.OBJECT_NAME: api_resources.AccountLink,
         api_resources.AlipayAccount.OBJECT_NAME: api_resources.AlipayAccount,
         api_resources.ApplePayDomain.OBJECT_NAME: api_resources.ApplePayDomain,
         api_resources.ApplicationFee.OBJECT_NAME: api_resources.ApplicationFee,

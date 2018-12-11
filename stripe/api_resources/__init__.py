@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.list_object import ListObject
 
 from stripe.api_resources.account import Account
+from stripe.api_resources.account_link import AccountLink
 from stripe.api_resources.alipay_account import AlipayAccount
 from stripe.api_resources.apple_pay_domain import ApplePayDomain
 from stripe.api_resources.application_fee import ApplicationFee
