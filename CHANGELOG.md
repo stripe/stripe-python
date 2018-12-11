@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.16.0 - 2018-12-10
+* [#507](https://github.com/stripe/stripe-python/pull/507) Add support for account links
+
 ## 2.15.0 - 2018-11-30
 * [#503](https://github.com/stripe/stripe-python/pull/503) Add support for providing custom CA certificate bundle
 
