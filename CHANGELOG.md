@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.17.0 - 2018-12-21
+* [#510](https://github.com/stripe/stripe-python/pull/510) Add support for Checkout sessions
+
 ## 2.16.0 - 2018-12-10
 * [#507](https://github.com/stripe/stripe-python/pull/507) Add support for account links
 
