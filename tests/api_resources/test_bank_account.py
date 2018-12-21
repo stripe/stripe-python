@@ -58,7 +58,6 @@ class TestBankAccountTest(object):
             'delete',
             '/v1/customers/cus_123/sources/%s' % TEST_RESOURCE_ID
         )
-        assert resource.deleted is True
 
     def test_is_verifiable(self, request_mock):
         resource = self.construct_resource(customer='cus_123')
