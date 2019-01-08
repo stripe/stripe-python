@@ -16,6 +16,10 @@
       "editor.tabSize": 4,
     },
 
+    // Formatting
+    "editor.formatOnSave": true,
+    "python.formatting.provider": "black",
+
     // Linting
     "python.linting.enabled": true,
     "python.linting.pylintEnabled": false,

@@ -26,7 +26,7 @@ Install from source with:
 
 ### Requirements
 
-* Python 2.7+ or Python 3.4+ (PyPy supported)
+- Python 2.7+ or Python 3.4+ (PyPy supported)
 
 ## Usage
 
@@ -34,7 +34,7 @@ The library needs to be configured with your account's secret key which is
 available in your [Stripe Dashboard][api-keys]. Set `stripe.api_key` to its
 value:
 
-``` python
+```python
 import stripe
 stripe.api_key = "sk_test_..."
 
@@ -51,7 +51,7 @@ For apps that need to use multiple keys during the lifetime of a process, like
 one that uses [Stripe Connect][connect], it's also possible to set a
 per-request key and/or account:
 
-``` python
+```python
 import stripe
 
 # list charges
@@ -73,7 +73,7 @@ stripe.Charge.retrieve(
 The library can be configured to use `urlfetch`, `requests`, `pycurl`, or
 `urllib2` with `stripe.default_http_client`:
 
-``` python
+```python
 client = stripe.http_client.UrlFetchClient()
 client = stripe.http_client.RequestsClient()
 client = stripe.http_client.PycurlClient()
@@ -89,20 +89,20 @@ as a last resort). We usually recommend that people use `requests`.
 
 A proxy can be configured with `stripe.proxy`:
 
-``` python
+```python
 stripe.proxy = "https://user:pass@example.com:1234"
 ```
 
 ### Configuring Automatic Retries
 
-Number of automatic retries on requests that fail due to an intermittent 
+Number of automatic retries on requests that fail due to an intermittent
 network problem can be configured:
 
-``` python
+```python
 stripe.max_network_retries = 2
 ```
 
-[Idempotency keys][idempotency-keys] are automatically generated and added to 
+[Idempotency keys][idempotency-keys] are automatically generated and added to
 requests, when not given, to guarantee that retries are safe.
 
 ### Logging
@@ -114,11 +114,13 @@ production use, but `debug` is also available for more verbosity.
 There are a few options for enabling it:
 
 1. Set the environment variable `STRIPE_LOG` to the value `debug` or `info`
+
    ```
    $ export STRIPE_LOG=debug
    ```
 
 2. Set `stripe.log`:
+
    ```py
    import stripe
    stripe.log = 'debug'
@@ -136,9 +138,9 @@ There are a few options for enabling it:
 If you're writing a plugin that uses the library, we'd appreciate it if you
 identified using `stripe.set_app_info()`:
 
-   ```py
-   stripe.set_app_info("MyAwesomePlugin", version="1.2.34", url="https://myawesomeplugin.info")
-   ```
+```py
+stripe.set_app_info("MyAwesomePlugin", version="1.2.34", url="https://myawesomeplugin.info")
+```
 
 This information is passed along when the library makes calls to the Stripe
 API.
@@ -180,7 +182,14 @@ Run the linter with:
 
     make lint
 
+The library uses [Black][black] for code formatting. Code must be formatted
+with Black before PRs are submitted, otherwise CI will fail. Run the formatter
+with:
+
+    make fmt
+
 [api-keys]: https://dashboard.stripe.com/account/apikeys
+[black]: https://github.com/ambv/black
 [connect]: https://stripe.com/connect
 [pipenv]: https://github.com/pypa/pipenv
 [stripe-mock]: https://github.com/stripe/stripe-mock
