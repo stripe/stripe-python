@@ -1,17 +1,12 @@
 [[source]]
-
 url = "https://pypi.python.org/simple"
 verify_ssl = true
 name = "pypi"
 
-
 [packages]
-
 "stripe" = {path = ".", editable = true}
 
-
 [dev-packages]
-
 pytest = ">=3.4"
 pytest-mock = ">=1.7"
 pytest-xdist = ">=1.22"
@@ -20,8 +15,11 @@ tox = "*"
 detox = "*"
 "flake8" = "*"
 coveralls = "*"
-
+black = "*"
+"flake8-bugbear" = "*"
 
 [requires]
-
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true

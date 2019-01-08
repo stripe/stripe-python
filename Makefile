@@ -11,5 +11,8 @@ ci:
 coveralls:
 	pipenv run coveralls
 
+fmt:
+	pipenv run tox -e fmt
+
 lint:
 	pipenv run tox -e lint

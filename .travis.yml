@@ -41,6 +41,7 @@ install:
 
 script:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then make lint; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.7' ]]; then pipenv run black --check --verbose .; fi
   - make ci
 
 after_success:
