@@ -220,7 +220,6 @@ class TestAPIRequestor(object):
     @pytest.fixture
     def mock_response(self, mocker, http_client):
         def mock_response(return_body, return_code, headers=None):
-            print(return_code)
             http_client.request_with_retries = mocker.Mock(
                 return_value=(return_body, return_code, headers or {}))
         return mock_response
