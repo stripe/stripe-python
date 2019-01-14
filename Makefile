@@ -6,7 +6,7 @@ test:
 	pipenv run tox -p auto
 
 ci:
-	pipenv run pytest --cov=stripe -n 8
+	pipenv run pytest --cov=stripe
 
 coveralls:
 	pipenv run coveralls
