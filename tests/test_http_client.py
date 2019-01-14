@@ -590,6 +590,18 @@ class TestPycurlClient(StripeClientTestCase, ClientTestBase):
         def check_call(mock, method, url, post_data, headers):
             lib_mock = request_mocks[self.REQUEST_CLIENT.name]
 
+            if self.client._proxy:
+                proxy = self.client._get_proxy(url)
+                assert proxy is not None
+                if proxy.hostname:
+                    mock.setopt.assert_any_call(lib_mock.PROXY, proxy.hostname)
+                if proxy.port:
+                    mock.setopt.assert_any_call(lib_mock.PROXYPORT, proxy.port)
+                if proxy.username or proxy.password:
+                    mock.setopt.assert_any_call(
+                        lib_mock.PROXYUSERPWD,
+                        "%s:%s" % (proxy.username, proxy.password))
+
             # A note on methodology here: we don't necessarily need to verify
             # _every_ call to setopt, but check a few of them to make sure the
             # right thing is happening. Keep an eye specifically on conditional
@@ -616,20 +628,6 @@ class TestPycurlClientHttpProxy(TestPycurlClient):
                     method, url, headers, post_data,
                     "http://user:withPwd@slap:8888/")
 
-    @pytest.fixture
-    def check_call(self, request_mocks, curl_mock):
-        def check_call(mock, meth, url, post_data, headers):
-            lib_mock = request_mocks[self.REQUEST_CLIENT.name]
-
-            curl_mock.setopt.assert_any_call(lib_mock.PROXY, "slap")
-            curl_mock.setopt.assert_any_call(lib_mock.PROXYPORT, 8888)
-            curl_mock.setopt.assert_any_call(lib_mock.PROXYUSERPWD,
-                                             "user:withPwd")
-
-            super(TestPycurlClientHttpProxy, self).check_call(request_mocks)(
-                mock, meth, url, post_data, headers)
-        return check_call
-
 
 class TestPycurlClientHttpsProxy(TestPycurlClient):
     def make_request(self, method, url, headers, post_data, proxy=None):
@@ -637,18 +635,6 @@ class TestPycurlClientHttpsProxy(TestPycurlClient):
                     method, url, headers, post_data,
                     {"http": "http://slap:8888/",
                      "https": "http://slap2:444/"})
-
-    @pytest.fixture
-    def check_call(self, request_mocks, curl_mock):
-        def check_call(mock, meth, url, post_data, headers):
-            lib_mock = request_mocks[self.REQUEST_CLIENT.name]
-
-            curl_mock.setopt.assert_any_call(lib_mock.PROXY, "slap2")
-            curl_mock.setopt.assert_any_call(lib_mock.PROXYPORT, 444)
-
-            super(TestPycurlClientHttpsProxy, self).check_call(request_mocks)(
-                mock, meth, url, post_data, headers)
-        return check_call
 
 
 class TestAPIEncode(StripeClientTestCase):
