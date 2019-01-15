@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.18.0 - 2019-01-15
+* [#518](https://github.com/stripe/stripe-python/pull/518) Add configurable telemetry to gather information on client-side request latency
+
 ## 2.17.0 - 2018-12-21
 * [#510](https://github.com/stripe/stripe-python/pull/510) Add support for Checkout sessions
 
