@@ -3,7 +3,7 @@ init:
 	pipenv install --dev --skip-lock
 
 test:
-	pipenv run detox
+	pipenv run tox -p auto
 
 ci:
 	pipenv run pytest --cov=stripe -n 8
