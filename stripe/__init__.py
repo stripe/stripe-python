@@ -21,6 +21,7 @@ verify_ssl_certs = True
 proxy = None
 default_http_client = None
 app_info = None
+enable_telemetry = False
 max_network_retries = 0
 ca_bundle_path = os.path.join(
     os.path.dirname(__file__), 'data/ca-certificates.crt')
