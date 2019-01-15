@@ -4,4 +4,4 @@ from stripe.api_resources.abstract import CreateableAPIResource
 
 
 class CheckoutSession(CreateableAPIResource):
-    OBJECT_NAME = 'checkout_session'
+    OBJECT_NAME = "checkout_session"

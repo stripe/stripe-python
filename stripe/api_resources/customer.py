@@ -9,17 +9,22 @@ from stripe.api_resources.abstract import nested_resource_class_methods
 
 
 @nested_resource_class_methods(
-    'source',
-    operations=['create', 'retrieve', 'update', 'delete', 'list']
+    "source", operations=["create", "retrieve", "update", "delete", "list"]
 )
-class Customer(CreateableAPIResource, UpdateableAPIResource,
-               ListableAPIResource, DeletableAPIResource):
-    OBJECT_NAME = 'customer'
+class Customer(
+    CreateableAPIResource,
+    UpdateableAPIResource,
+    ListableAPIResource,
+    DeletableAPIResource,
+):
+    OBJECT_NAME = "customer"
 
     def delete_discount(self, **params):
-        requestor = api_requestor.APIRequestor(self.api_key,
-                                               api_version=self.stripe_version,
-                                               account=self.stripe_account)
-        url = self.instance_url() + '/discount'
-        _, api_key = requestor.request('delete', url, params)
-        self.refresh_from({'discount': None}, api_key, True)
+        requestor = api_requestor.APIRequestor(
+            self.api_key,
+            api_version=self.stripe_version,
+            account=self.stripe_account,
+        )
+        url = self.instance_url() + "/discount"
+        _, api_key = requestor.request("delete", url, params)
+        self.refresh_from({"discount": None}, api_key, True)

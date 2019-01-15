@@ -6,6 +6,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class WebhookEndpoint(CreateableAPIResource, UpdateableAPIResource,
-                      DeletableAPIResource, ListableAPIResource):
-    OBJECT_NAME = 'webhook_endpoint'
+class WebhookEndpoint(
+    CreateableAPIResource,
+    UpdateableAPIResource,
+    DeletableAPIResource,
+    ListableAPIResource,
+):
+    OBJECT_NAME = "webhook_endpoint"

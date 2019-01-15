@@ -5,4 +5,4 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 
 class Transaction(ListableAPIResource, UpdateableAPIResource):
-    OBJECT_NAME = 'issuing.transaction'
+    OBJECT_NAME = "issuing.transaction"

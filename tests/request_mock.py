@@ -15,14 +15,16 @@ class RequestMock(object):
         self._stub_request_handler = StubRequestHandler()
 
         self.constructor_patcher = self._mocker.patch(
-            'stripe.api_requestor.APIRequestor.__init__',
+            "stripe.api_requestor.APIRequestor.__init__",
             side_effect=stripe.api_requestor.APIRequestor.__init__,
-            autospec=True)
+            autospec=True,
+        )
 
         self.request_patcher = self._mocker.patch(
-            'stripe.api_requestor.APIRequestor.request',
+            "stripe.api_requestor.APIRequestor.request",
             side_effect=self._patched_request,
-            autospec=True)
+            autospec=True,
+        )
 
     def _patched_request(self, requestor, method, url, *args, **kwargs):
         response = self._stub_request_handler.get_response(method, url)
@@ -32,26 +34,29 @@ class RequestMock(object):
         return self._real_request(requestor, method, url, *args, **kwargs)
 
     def stub_request(self, method, url, rbody={}, rcode=200, rheaders={}):
-        self._stub_request_handler.register(method, url, rbody, rcode,
-                                            rheaders)
+        self._stub_request_handler.register(
+            method, url, rbody, rcode, rheaders
+        )
 
     def assert_api_base(self, expected_api_base):
         # Note that this method only checks that an API base was provided
         # as a keyword argument in APIRequestor's constructor, not as a
         # positional argument.
 
-        if 'api_base' not in self.constructor_patcher.call_args[1]:
-            msg = ("Expected APIRequestor to have been constructed with "
-                   "api_base='%s'. No API base was provided." %
-                   expected_api_base)
+        if "api_base" not in self.constructor_patcher.call_args[1]:
+            msg = (
+                "Expected APIRequestor to have been constructed with "
+                "api_base='%s'. No API base was provided." % expected_api_base
+            )
             raise AssertionError(msg)
 
-        actual_api_base = \
-            self.constructor_patcher.call_args[1]['api_base']
+        actual_api_base = self.constructor_patcher.call_args[1]["api_base"]
         if actual_api_base != expected_api_base:
-            msg = ("Expected APIRequestor to have been constructed with "
-                   "api_base='%s'. Constructed with api_base='%s' "
-                   "instead." % (expected_api_base, actual_api_base))
+            msg = (
+                "Expected APIRequestor to have been constructed with "
+                "api_base='%s'. Constructed with api_base='%s' "
+                "instead." % (expected_api_base, actual_api_base)
+            )
             raise AssertionError(msg)
 
     def assert_api_version(self, expected_api_version):
@@ -59,18 +64,23 @@ class RequestMock(object):
         # as a keyword argument in APIRequestor's constructor, not as a
         # positional argument.
 
-        if 'api_version' not in self.constructor_patcher.call_args[1]:
-            msg = ("Expected APIRequestor to have been constructed with "
-                   "api_version='%s'. No API version was provided." %
-                   expected_api_version)
+        if "api_version" not in self.constructor_patcher.call_args[1]:
+            msg = (
+                "Expected APIRequestor to have been constructed with "
+                "api_version='%s'. No API version was provided."
+                % expected_api_version
+            )
             raise AssertionError(msg)
 
-        actual_api_version = \
-            self.constructor_patcher.call_args[1]['api_version']
+        actual_api_version = self.constructor_patcher.call_args[1][
+            "api_version"
+        ]
         if actual_api_version != expected_api_version:
-            msg = ("Expected APIRequestor to have been constructed with "
-                   "api_version='%s'. Constructed with api_version='%s' "
-                   "instead." % (expected_api_version, actual_api_version))
+            msg = (
+                "Expected APIRequestor to have been constructed with "
+                "api_version='%s'. Constructed with api_version='%s' "
+                "instead." % (expected_api_version, actual_api_version)
+            )
             raise AssertionError(msg)
 
     def assert_requested(self, method, url, params=None, headers=None):
@@ -101,9 +111,10 @@ class RequestMock(object):
 
     def assert_no_request(self):
         if self.request_patcher.call_count != 0:
-            msg = ("Expected 'request' to not have been called. "
-                   "Called %s times." %
-                   (self.request_patcher.call_count))
+            msg = (
+                "Expected 'request' to not have been called. "
+                "Called %s times." % (self.request_patcher.call_count)
+            )
             raise AssertionError(msg)
 
     def reset_mock(self):

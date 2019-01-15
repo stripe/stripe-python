@@ -6,17 +6,24 @@ from stripe.six.moves.urllib.parse import quote_plus
 
 
 class UpdateableAPIResource(APIResource):
-
     @classmethod
-    def _modify(cls, url, api_key=None, idempotency_key=None,
-                stripe_version=None, stripe_account=None, **params):
-        requestor = api_requestor.APIRequestor(api_key,
-                                               api_version=stripe_version,
-                                               account=stripe_account)
+    def _modify(
+        cls,
+        url,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
         headers = util.populate_headers(idempotency_key)
-        response, api_key = requestor.request('post', url, params, headers)
-        return util.convert_to_stripe_object(response, api_key, stripe_version,
-                                             stripe_account)
+        response, api_key = requestor.request("post", url, params, headers)
+        return util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account
+        )
 
     @classmethod
     def modify(cls, sid, **params):
@@ -28,8 +35,11 @@ class UpdateableAPIResource(APIResource):
         headers = util.populate_headers(idempotency_key)
 
         if updated_params:
-            self.refresh_from(self.request('post', self.instance_url(),
-                                           updated_params, headers))
+            self.refresh_from(
+                self.request(
+                    "post", self.instance_url(), updated_params, headers
+                )
+            )
         else:
             util.logger.debug("Trying to save already saved object %r", self)
         return self

@@ -6,10 +6,15 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class SubscriptionItem(CreateableAPIResource, DeletableAPIResource,
-                       UpdateableAPIResource, ListableAPIResource):
-    OBJECT_NAME = 'subscription_item'
+class SubscriptionItem(
+    CreateableAPIResource,
+    DeletableAPIResource,
+    UpdateableAPIResource,
+    ListableAPIResource,
+):
+    OBJECT_NAME = "subscription_item"
 
     def usage_record_summaries(self, **params):
         return self.request(
-            'get', self.instance_url() + '/usage_record_summaries', params)
+            "get", self.instance_url() + "/usage_record_summaries", params
+        )

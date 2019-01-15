@@ -9,7 +9,7 @@ from stripe.six.moves.urllib.parse import quote_plus
 
 
 class AlipayAccount(UpdateableAPIResource, DeletableAPIResource):
-    OBJECT_NAME = 'alipay_account'
+    OBJECT_NAME = "alipay_account"
 
     @classmethod
     def _build_instance_url(cls, customer, sid):
@@ -31,8 +31,15 @@ class AlipayAccount(UpdateableAPIResource, DeletableAPIResource):
         return cls._modify(url, **params)
 
     @classmethod
-    def retrieve(cls, id, api_key=None, stripe_version=None,
-                 stripe_account=None, **params):
+    def retrieve(
+        cls,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
         raise NotImplementedError(
             "Can't retrieve an Alipay account without a customer ID. "
-            "Use customer.sources.retrieve('alipay_account_id') instead.")
+            "Use customer.sources.retrieve('alipay_account_id') instead."
+        )

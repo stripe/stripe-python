@@ -6,6 +6,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class Coupon(CreateableAPIResource, UpdateableAPIResource,
-             DeletableAPIResource, ListableAPIResource):
-    OBJECT_NAME = 'coupon'
+class Coupon(
+    CreateableAPIResource,
+    UpdateableAPIResource,
+    DeletableAPIResource,
+    ListableAPIResource,
+):
+    OBJECT_NAME = "coupon"

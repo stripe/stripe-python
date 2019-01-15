@@ -5,10 +5,11 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class ApplePayDomain(CreateableAPIResource, ListableAPIResource,
-                     DeletableAPIResource):
-    OBJECT_NAME = 'apple_pay_domain'
+class ApplePayDomain(
+    CreateableAPIResource, ListableAPIResource, DeletableAPIResource
+):
+    OBJECT_NAME = "apple_pay_domain"
 
     @classmethod
     def class_url(cls):
-        return '/v1/apple_pay/domains'
+        return "/v1/apple_pay/domains"

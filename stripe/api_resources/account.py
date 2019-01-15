@@ -11,17 +11,20 @@ from stripe.six.moves.urllib.parse import quote_plus
 
 
 @nested_resource_class_methods(
-    'external_account',
-    operations=['create', 'retrieve', 'update', 'delete', 'list']
+    "external_account",
+    operations=["create", "retrieve", "update", "delete", "list"],
 )
-@nested_resource_class_methods('login_link', operations=['create'])
+@nested_resource_class_methods("login_link", operations=["create"])
 @nested_resource_class_methods(
-    'person',
-    operations=['create', 'retrieve', 'update', 'delete', 'list']
+    "person", operations=["create", "retrieve", "update", "delete", "list"]
 )
-class Account(CreateableAPIResource, ListableAPIResource,
-              UpdateableAPIResource, DeletableAPIResource):
-    OBJECT_NAME = 'account'
+class Account(
+    CreateableAPIResource,
+    ListableAPIResource,
+    UpdateableAPIResource,
+    DeletableAPIResource,
+):
+    OBJECT_NAME = "account"
 
     @classmethod
     def retrieve(cls, id=None, api_key=None, **params):
@@ -43,18 +46,17 @@ class Account(CreateableAPIResource, ListableAPIResource,
         return "%s/%s" % (base, extn)
 
     def instance_url(self):
-        return self._build_instance_url(self.get('id'))
+        return self._build_instance_url(self.get("id"))
 
     def persons(self, **params):
-        return self.request(
-            'get', self.instance_url() + '/persons', params)
+        return self.request("get", self.instance_url() + "/persons", params)
 
     def reject(self, idempotency_key=None, **params):
-        url = self.instance_url() + '/reject'
+        url = self.instance_url() + "/reject"
         headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request('post', url, params, headers))
+        self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def deauthorize(self, **params):
-        params['stripe_user_id'] = self.id
+        params["stripe_user_id"] = self.id
         return oauth.OAuth.deauthorize(**params)

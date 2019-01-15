@@ -8,10 +8,12 @@ import time
 
 
 class StripeMock(object):
-    PATH_SPEC = os.path.dirname(os.path.realpath(__file__)) \
-        + "/openapi/spec3.json"
-    PATH_FIXTURES = os.path.dirname(os.path.realpath(__file__)) \
-        + "/openapi/fixtures3.json"
+    PATH_SPEC = (
+        os.path.dirname(os.path.realpath(__file__)) + "/openapi/spec3.json"
+    )
+    PATH_FIXTURES = (
+        os.path.dirname(os.path.realpath(__file__)) + "/openapi/fixtures3.json"
+    )
 
     _port = -1
     _process = None
@@ -40,7 +42,7 @@ class StripeMock(object):
                 cls.PATH_FIXTURES,
             ],
             stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE
+            stderr=subprocess.PIPE,
         )
 
         time.sleep(1)

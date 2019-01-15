@@ -5,11 +5,11 @@ import pytest
 import stripe
 from stripe import six
 
-VALID_API_METHODS = ('get', 'post', 'delete')
+VALID_API_METHODS = ("get", "post", "delete")
 
 
 class StripeClientTestCase(object):
-    REQUEST_LIBRARIES = ['urlfetch', 'requests', 'pycurl', 'urllib.request']
+    REQUEST_LIBRARIES = ["urlfetch", "requests", "pycurl", "urllib.request"]
 
     @pytest.fixture
     def request_mocks(self, mocker):
@@ -23,7 +23,7 @@ class TestNewDefaultHttpClient(StripeClientTestCase):
     @pytest.fixture(autouse=True)
     def setup_warnings(self, request_mocks):
         original_filters = stripe.http_client.warnings.filters[:]
-        stripe.http_client.warnings.simplefilter('ignore')
+        stripe.http_client.warnings.simplefilter("ignore")
         yield
         stripe.http_client.warnings.filters = original_filters
 
@@ -36,20 +36,21 @@ class TestNewDefaultHttpClient(StripeClientTestCase):
         assert isinstance(inst, expected)
 
     def test_new_default_http_client_urlfetch(self):
-        self.check_default((),
-                           stripe.http_client.UrlFetchClient)
+        self.check_default((), stripe.http_client.UrlFetchClient)
 
     def test_new_default_http_client_requests(self):
-        self.check_default(('urlfetch',),
-                           stripe.http_client.RequestsClient)
+        self.check_default(("urlfetch",), stripe.http_client.RequestsClient)
 
     def test_new_default_http_client_pycurl(self):
-        self.check_default(('urlfetch', 'requests',),
-                           stripe.http_client.PycurlClient)
+        self.check_default(
+            ("urlfetch", "requests"), stripe.http_client.PycurlClient
+        )
 
     def test_new_default_http_client_urllib2(self):
-        self.check_default(('urlfetch', 'requests', 'pycurl'),
-                           stripe.http_client.Urllib2Client)
+        self.check_default(
+            ("urlfetch", "requests", "pycurl"),
+            stripe.http_client.Urllib2Client,
+        )
 
 
 class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
@@ -58,7 +59,8 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
     def assert_sleep_times(self, client, expected):
         until = len(expected)
         actual = list(
-            map(lambda i: client._sleep_time_seconds(i + 1), range(until)))
+            map(lambda i: client._sleep_time_seconds(i + 1), range(until))
+        )
         assert expected == actual
 
     @contextmanager
@@ -96,11 +98,13 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
         base_value = stripe.http_client.HTTPClient.INITIAL_DELAY * random_value
 
         with self.mock_max_delay(10):
-            expected = [stripe.http_client.HTTPClient.INITIAL_DELAY,
-                        base_value * 2,
-                        base_value * 4,
-                        base_value * 8,
-                        base_value * 16]
+            expected = [
+                stripe.http_client.HTTPClient.INITIAL_DELAY,
+                base_value * 2,
+                base_value * 4,
+                base_value * 8,
+                base_value * 16,
+            ]
             self.assert_sleep_times(client, expected)
 
     def test_jitter_has_randomness_but_within_range(self):
@@ -115,7 +119,6 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
 
 
 class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
-
     def test_should_retry_on_codes(self):
         one_xx = list(range(100, 104))
         two_xx = list(range(200, 209))
@@ -148,10 +151,16 @@ class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
         api_connection_error = mocker.Mock()
         api_connection_error.should_retry = True
 
-        assert client._should_retry(
-            None, api_connection_error, max_test_retries + 1) is False
-        assert client._should_retry(
-            (None, 409, None), None, max_test_retries + 1) is False
+        assert (
+            client._should_retry(
+                None, api_connection_error, max_test_retries + 1
+            )
+            is False
+        )
+        assert (
+            client._should_retry((None, 409, None), None, max_test_retries + 1)
+            is False
+        )
 
 
 class ClientTestBase(object):
@@ -160,8 +169,8 @@ class ClientTestBase(object):
         return request_mocks[self.REQUEST_CLIENT.name]
 
     @property
-    def valid_url(self, path='/foo'):
-        return 'https://api.stripe.com%s' % (path,)
+    def valid_url(self, path="/foo"):
+        return "https://api.stripe.com%s" % (path,)
 
     def make_request(self, method, url, headers, post_data):
         client = self.REQUEST_CLIENT(verify_ssl_certs=True)
@@ -171,21 +180,27 @@ class ClientTestBase(object):
     def mock_response(self):
         def mock_response(mock, body, code):
             raise NotImplementedError(
-                'You must implement this in your test subclass')
+                "You must implement this in your test subclass"
+            )
+
         return mock_response
 
     @pytest.fixture
     def mock_error(self):
         def mock_error(mock, error):
             raise NotImplementedError(
-                'You must implement this in your test subclass')
+                "You must implement this in your test subclass"
+            )
+
         return mock_error
 
     @pytest.fixture
     def check_call(self):
         def check_call(mock, method, abs_url, headers, params):
             raise NotImplementedError(
-                'You must implement this in your test subclass')
+                "You must implement this in your test subclass"
+            )
+
         return check_call
 
     def test_request(self, request_mock, mock_response, check_call):
@@ -193,16 +208,15 @@ class ClientTestBase(object):
 
         for method in VALID_API_METHODS:
             abs_url = self.valid_url
-            data = ''
+            data = ""
 
-            if method != 'post':
-                abs_url = '%s?%s' % (abs_url, data)
+            if method != "post":
+                abs_url = "%s?%s" % (abs_url, data)
                 data = None
 
-            headers = {'my-header': 'header val'}
+            headers = {"my-header": "header val"}
 
-            body, code, _ = self.make_request(
-                method, abs_url, headers, data)
+            body, code, _ = self.make_request(method, abs_url, headers, data)
 
             assert code == 200
             assert body == '{"foo": "baz"}'
@@ -212,12 +226,12 @@ class ClientTestBase(object):
     def test_exception(self, request_mock, mock_error):
         mock_error(request_mock)
         with pytest.raises(stripe.error.APIConnectionError):
-            self.make_request('get', self.valid_url, {}, None)
+            self.make_request("get", self.valid_url, {}, None)
 
 
 class RequestsVerify(object):
     def __eq__(self, other):
-        return other and other.endswith('stripe/data/ca-certificates.crt')
+        return other and other.endswith("stripe/data/ca-certificates.crt")
 
 
 class TestRequestsClient(StripeClientTestCase, ClientTestBase):
@@ -236,6 +250,7 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
 
             session.request = mocker.MagicMock(return_value=result)
             mock.Session = mocker.MagicMock(return_value=session)
+
         return mock_response
 
     @pytest.fixture
@@ -245,6 +260,7 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
             mock.exceptions.SSLError = Exception
             session.request.side_effect = mock.exceptions.SSLError()
             mock.Session = mocker.MagicMock(return_value=session)
+
         return mock_error
 
     # Note that unlike other modules, we don't use the "mock" argument here
@@ -252,53 +268,52 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
     # session.
     @pytest.fixture
     def check_call(self, session):
-        def check_call(mock, method, url, post_data, headers, timeout=80,
-                       times=None):
+        def check_call(
+            mock, method, url, post_data, headers, timeout=80, times=None
+        ):
             times = times or 1
             args = (method, url)
-            kwargs = {'headers': headers,
-                      'data': post_data,
-                      'verify': RequestsVerify(),
-                      'proxies': {"http": "http://slap/",
-                                  "https": "http://slap/"},
-                      'timeout': timeout}
+            kwargs = {
+                "headers": headers,
+                "data": post_data,
+                "verify": RequestsVerify(),
+                "proxies": {"http": "http://slap/", "https": "http://slap/"},
+                "timeout": timeout,
+            }
             calls = [(args, kwargs) for _ in range(times)]
             session.request.assert_has_calls(calls)
 
         return check_call
 
     def make_request(self, method, url, headers, post_data, timeout=80):
-        client = self.REQUEST_CLIENT(verify_ssl_certs=True,
-                                     timeout=timeout,
-                                     proxy='http://slap/')
+        client = self.REQUEST_CLIENT(
+            verify_ssl_certs=True, timeout=timeout, proxy="http://slap/"
+        )
         return client.request_with_retries(method, url, headers, post_data)
 
     def test_timeout(self, request_mock, mock_response, check_call):
-        headers = {'my-header': 'header val'}
-        data = ''
+        headers = {"my-header": "header val"}
+        data = ""
         mock_response(request_mock, '{"foo": "baz"}', 200)
-        self.make_request('POST', self.valid_url,
-                          headers, data, timeout=5)
+        self.make_request("POST", self.valid_url, headers, data, timeout=5)
 
-        check_call(None, 'POST', self.valid_url, data, headers, timeout=5)
+        check_call(None, "POST", self.valid_url, data, headers, timeout=5)
 
 
 class TestRequestClientRetryBehavior(TestRequestsClient):
-
     @pytest.fixture
     def response(self, mocker):
         def response(code=200):
             result = mocker.Mock()
-            result.content = '{}'
+            result.content = "{}"
             result.status_code = code
             return result
+
         return response
 
     @pytest.fixture
     def mock_retry(self, mocker, session, request_mock):
-        def mock_retry(retry_error_num=0,
-                       no_retry_error_num=0,
-                       responses=[]):
+        def mock_retry(retry_error_num=0, no_retry_error_num=0, responses=[]):
 
             # Mocking classes of exception we catch. Any group of exceptions
             # with the same inheritance pattern will work
@@ -318,11 +333,13 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
 
             # Include mock responses as possible side-effects
             # to simulate returning proper results after some exceptions
-            session.request.side_effect = retry_errors + no_retry_errors + \
-                responses
+            session.request.side_effect = (
+                retry_errors + no_retry_errors + responses
+            )
 
             request_mock.Session = mocker.MagicMock(return_value=session)
             return request_mock
+
         return mock_retry
 
     @pytest.fixture
@@ -330,31 +347,34 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         valid_url = self.valid_url
 
         def check_call_numbers(times):
-            check_call(None, 'GET', valid_url, None, {}, times=times)
+            check_call(None, "GET", valid_url, None, {}, times=times)
+
         return check_call_numbers
 
     def max_retries(self):
         return 3
 
     def make_request(self):
-        client = self.REQUEST_CLIENT(verify_ssl_certs=True,
-                                     timeout=80,
-                                     proxy='http://slap/')
+        client = self.REQUEST_CLIENT(
+            verify_ssl_certs=True, timeout=80, proxy="http://slap/"
+        )
         # Override sleep time to speed up tests
         client._sleep_time = lambda _: 0.0001
         # Override configured max retries
         client._max_network_retries = lambda: self.max_retries()
-        return client.request_with_retries('GET', self.valid_url, {}, None)
+        return client.request_with_retries("GET", self.valid_url, {}, None)
 
-    def test_retry_error_until_response(self, mock_retry, response,
-                                        check_call_numbers):
+    def test_retry_error_until_response(
+        self, mock_retry, response, check_call_numbers
+    ):
         mock_retry(retry_error_num=1, responses=[response(code=202)])
         _, code, _ = self.make_request()
         assert code == 202
         check_call_numbers(2)
 
-    def test_retry_error_until_exceeded(self, mock_retry, response,
-                                        check_call_numbers):
+    def test_retry_error_until_exceeded(
+        self, mock_retry, response, check_call_numbers
+    ):
         mock_retry(retry_error_num=self.max_retries())
         with pytest.raises(stripe.error.APIConnectionError):
             self.make_request()
@@ -373,8 +393,9 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         assert code == 202
         check_call_numbers(2)
 
-    def test_retry_codes_until_exceeded(self, mock_retry, response,
-                                        check_call_numbers):
+    def test_retry_codes_until_exceeded(
+        self, mock_retry, response, check_call_numbers
+    ):
         mock_retry(responses=[response(code=409)] * self.max_retries())
         _, code, _ = self.make_request()
         assert code == 409
@@ -388,10 +409,12 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
             with pytest.raises(stripe.error.APIConnectionError) as error:
                 client._handle_request_error(given_exception)
             return error.value
+
         return connection_error
 
-    def test_handle_request_error_should_retry(self, connection_error,
-                                               mock_retry):
+    def test_handle_request_error_should_retry(
+        self, connection_error, mock_retry
+    ):
         request_mock = mock_retry()
 
         error = connection_error(request_mock.exceptions.Timeout())
@@ -400,13 +423,14 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         error = connection_error(request_mock.exceptions.ConnectionError())
         assert error.should_retry
 
-    def test_handle_request_error_should_not_retry(self, connection_error,
-                                                   mock_retry):
+    def test_handle_request_error_should_not_retry(
+        self, connection_error, mock_retry
+    ):
         request_mock = mock_retry()
 
         error = connection_error(request_mock.exceptions.SSLError())
         assert error.should_retry is False
-        assert 'not verify Stripe\'s SSL certificate' in error.user_message
+        assert "not verify Stripe's SSL certificate" in error.user_message
 
         error = connection_error(request_mock.exceptions.RequestException())
         assert error.should_retry is False
@@ -415,7 +439,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         # See mock_retry for the exceptions setup
         error = connection_error(BaseException(""))
         assert error.should_retry is False
-        assert 'configuration issue locally' in error.user_message
+        assert "configuration issue locally" in error.user_message
 
     # Skip inherited basic requests client tests
     def test_request(self, request_mock, mock_response, check_call):
@@ -439,6 +463,7 @@ class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):
             result.status_code = code
 
             mock.fetch = mocker.Mock(return_value=result)
+
         return mock_response
 
     @pytest.fixture
@@ -446,6 +471,7 @@ class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):
         def mock_error(mock):
             mock.Error = mock.InvalidURLError = Exception
             mock.fetch.side_effect = mock.InvalidURLError()
+
         return mock_error
 
     @pytest.fixture
@@ -457,8 +483,9 @@ class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):
                 headers=headers,
                 validate_certificate=True,
                 deadline=55,
-                payload=post_data
+                payload=post_data,
             )
+
         return check_call
 
 
@@ -466,11 +493,11 @@ class TestUrllib2Client(StripeClientTestCase, ClientTestBase):
     REQUEST_CLIENT = stripe.http_client.Urllib2Client
 
     def make_request(self, method, url, headers, post_data, proxy=None):
-        self.client = self.REQUEST_CLIENT(verify_ssl_certs=True,
-                                          proxy=proxy)
+        self.client = self.REQUEST_CLIENT(verify_ssl_certs=True, proxy=proxy)
         self.proxy = proxy
-        return self.client.request_with_retries(method, url, headers,
-                                                post_data)
+        return self.client.request_with_retries(
+            method, url, headers, post_data
+        )
 
     @pytest.fixture
     def mock_response(self, mocker):
@@ -492,6 +519,7 @@ class TestUrllib2Client(StripeClientTestCase, ClientTestBase):
             mock.ProxyHandler = mocker.Mock(return_value=opener)
 
             mock.urlopen = mocker.Mock(return_value=response)
+
         return mock_response
 
     @pytest.fixture
@@ -500,13 +528,14 @@ class TestUrllib2Client(StripeClientTestCase, ClientTestBase):
             mock.urlopen.side_effect = ValueError
             mock.build_opener().open.side_effect = ValueError
             mock.build_opener.reset_mock()
+
         return mock_error
 
     @pytest.fixture
     def check_call(self):
         def check_call(mock, method, url, post_data, headers):
             if six.PY3 and isinstance(post_data, six.string_types):
-                post_data = post_data.encode('utf-8')
+                post_data = post_data.encode("utf-8")
 
             mock.Request.assert_called_with(url, post_data, headers)
 
@@ -520,33 +549,37 @@ class TestUrllib2Client(StripeClientTestCase, ClientTestBase):
                 mock.urlopen.assert_called_with(self.request_object)
                 assert not mock.build_opener.called
                 assert not mock.build_opener.open.called
+
         return check_call
 
 
 class TestUrllib2ClientHttpsProxy(TestUrllib2Client):
     def make_request(self, method, url, headers, post_data, proxy=None):
         return super(TestUrllib2ClientHttpsProxy, self).make_request(
-                    method, url, headers, post_data,
-                    {"http": "http://slap/",
-                     "https": "http://slap/"})
+            method,
+            url,
+            headers,
+            post_data,
+            {"http": "http://slap/", "https": "http://slap/"},
+        )
 
 
 class TestUrllib2ClientHttpProxy(TestUrllib2Client):
     def make_request(self, method, url, headers, post_data, proxy=None):
         return super(TestUrllib2ClientHttpProxy, self).make_request(
-                    method, url, headers, post_data,
-                    "http://slap/")
+            method, url, headers, post_data, "http://slap/"
+        )
 
 
 class TestPycurlClient(StripeClientTestCase, ClientTestBase):
     REQUEST_CLIENT = stripe.http_client.PycurlClient
 
     def make_request(self, method, url, headers, post_data, proxy=None):
-        self.client = self.REQUEST_CLIENT(verify_ssl_certs=True,
-                                          proxy=proxy)
+        self.client = self.REQUEST_CLIENT(verify_ssl_certs=True, proxy=proxy)
         self.proxy = proxy
-        return self.client.request_with_retries(method, url, headers,
-                                                post_data)
+        return self.client.request_with_retries(
+            method, url, headers, post_data
+        )
 
     @pytest.fixture
     def curl_mock(self, mocker):
@@ -560,7 +593,7 @@ class TestPycurlClient(StripeClientTestCase, ClientTestBase):
 
     @pytest.fixture
     def bio_getvalue(self, mocker):
-        bio_patcher = mocker.patch('stripe.util.io.BytesIO')
+        bio_patcher = mocker.patch("stripe.util.io.BytesIO")
         bio_mock = mocker.Mock()
         bio_patcher.return_value = bio_mock
         bio_getvalue = bio_mock.getvalue
@@ -569,8 +602,9 @@ class TestPycurlClient(StripeClientTestCase, ClientTestBase):
     @pytest.fixture
     def mock_response(self, bio_getvalue):
         def mock_response(mock, body, code):
-            bio_getvalue.return_value = body.encode('utf-8')
+            bio_getvalue.return_value = body.encode("utf-8")
             mock.getinfo.return_value = code
+
         return mock_response
 
     @pytest.fixture
@@ -579,10 +613,11 @@ class TestPycurlClient(StripeClientTestCase, ClientTestBase):
             class FakeException(BaseException):
                 @property
                 def args(self):
-                    return ('foo', 'bar')
+                    return ("foo", "bar")
 
             stripe.http_client.pycurl.error = FakeException
             mock.perform.side_effect = stripe.http_client.pycurl.error
+
         return mock_error
 
     @pytest.fixture
@@ -600,7 +635,8 @@ class TestPycurlClient(StripeClientTestCase, ClientTestBase):
                 if proxy.username or proxy.password:
                     mock.setopt.assert_any_call(
                         lib_mock.PROXYUSERPWD,
-                        "%s:%s" % (proxy.username, proxy.password))
+                        "%s:%s" % (proxy.username, proxy.password),
+                    )
 
             # A note on methodology here: we don't necessarily need to verify
             # _every_ call to setopt, but check a few of them to make sure the
@@ -610,61 +646,51 @@ class TestPycurlClient(StripeClientTestCase, ClientTestBase):
             mock.setopt.assert_any_call(lib_mock.NOSIGNAL, 1)
             mock.setopt.assert_any_call(lib_mock.URL, stripe.util.utf8(url))
 
-            if method == 'get':
+            if method == "get":
                 mock.setopt.assert_any_call(lib_mock.HTTPGET, 1)
-            elif method == 'post':
+            elif method == "post":
                 mock.setopt.assert_any_call(lib_mock.POST, 1)
             else:
-                mock.setopt.assert_any_call(lib_mock.CUSTOMREQUEST,
-                                            method.upper())
+                mock.setopt.assert_any_call(
+                    lib_mock.CUSTOMREQUEST, method.upper()
+                )
 
             mock.perform.assert_any_call()
+
         return check_call
 
 
 class TestPycurlClientHttpProxy(TestPycurlClient):
     def make_request(self, method, url, headers, post_data, proxy=None):
         return super(TestPycurlClientHttpProxy, self).make_request(
-                    method, url, headers, post_data,
-                    "http://user:withPwd@slap:8888/")
+            method, url, headers, post_data, "http://user:withPwd@slap:8888/"
+        )
 
 
 class TestPycurlClientHttpsProxy(TestPycurlClient):
     def make_request(self, method, url, headers, post_data, proxy=None):
         return super(TestPycurlClientHttpsProxy, self).make_request(
-                    method, url, headers, post_data,
-                    {"http": "http://slap:8888/",
-                     "https": "http://slap2:444/"})
+            method,
+            url,
+            headers,
+            post_data,
+            {"http": "http://slap:8888/", "https": "http://slap2:444/"},
+        )
 
 
 class TestAPIEncode(StripeClientTestCase):
-
     def test_encode_dict(self):
-        body = {
-            'foo': {
-                'dob': {
-                    'month': 1,
-                },
-                'name': 'bat'
-            },
-        }
+        body = {"foo": {"dob": {"month": 1}, "name": "bat"}}
 
         values = [t for t in stripe.api_requestor._api_encode(body)]
 
-        assert ('foo[dob][month]', 1) in values
-        assert ('foo[name]', 'bat') in values
+        assert ("foo[dob][month]", 1) in values
+        assert ("foo[name]", "bat") in values
 
     def test_encode_array(self):
-        body = {
-            'foo': [{
-                'dob': {
-                    'month': 1,
-                },
-                'name': 'bat'
-            }],
-        }
+        body = {"foo": [{"dob": {"month": 1}, "name": "bat"}]}
 
         values = [t for t in stripe.api_requestor._api_encode(body)]
 
-        assert ('foo[0][dob][month]', 1) in values
-        assert ('foo[0][name]', 'bat') in values
+        assert ("foo[0][dob][month]", 1) in values
+        assert ("foo[0][name]", "bat") in values

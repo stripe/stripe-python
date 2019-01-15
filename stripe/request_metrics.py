@@ -8,6 +8,6 @@ class RequestMetrics(object):
 
     def payload(self):
         return {
-            'request_id': self.request_id,
-            'request_duration_ms': self.request_duration_ms,
+            "request_id": self.request_id,
+            "request_duration_ms": self.request_duration_ms,
         }
