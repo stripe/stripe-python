@@ -1,3 +1,10 @@
 [flake8]
 exclude =
-    six.py
+    stripe/six.py
+
+# E501 is the "Line too long" error. We disable it because we use Black for
+# code formatting. Black makes a best effort to keep lines under the max
+# length, but can go over in some cases.
+# W503 goes against PEP8 rules. It's disabled by default, but must be disabled
+# explicitly when using `ignore`.
+ignore = E501, W503

@@ -5,17 +5,25 @@ from stripe.six import python_2_unicode_compatible
 
 @python_2_unicode_compatible
 class StripeError(Exception):
-
-    def __init__(self, message=None, http_body=None, http_status=None,
-                 json_body=None, headers=None, code=None):
+    def __init__(
+        self,
+        message=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+    ):
         super(StripeError, self).__init__(message)
 
-        if http_body and hasattr(http_body, 'decode'):
+        if http_body and hasattr(http_body, "decode"):
             try:
-                http_body = http_body.decode('utf-8')
+                http_body = http_body.decode("utf-8")
             except BaseException:
-                http_body = ('<Could not decode body as utf-8. '
-                             'Please report to support@stripe.com>')
+                http_body = (
+                    "<Could not decode body as utf-8. "
+                    "Please report to support@stripe.com>"
+                )
 
         self._message = message
         self.http_body = http_body
@@ -23,7 +31,7 @@ class StripeError(Exception):
         self.json_body = json_body
         self.headers = headers or {}
         self.code = code
-        self.request_id = self.headers.get('request-id', None)
+        self.request_id = self.headers.get("request-id", None)
 
     def __str__(self):
         msg = self._message or "<empty message>"
@@ -41,11 +49,12 @@ class StripeError(Exception):
         return self._message
 
     def __repr__(self):
-        return '%s(message=%r, http_status=%r, request_id=%r)' % (
+        return "%s(message=%r, http_status=%r, request_id=%r)" % (
             self.__class__.__name__,
             self._message,
             self.http_status,
-            self.request_id)
+            self.request_id,
+        )
 
 
 class APIError(StripeError):
@@ -53,34 +62,52 @@ class APIError(StripeError):
 
 
 class APIConnectionError(StripeError):
-    def __init__(self, message, http_body=None, http_status=None,
-                 json_body=None, headers=None, code=None, should_retry=False):
-        super(APIConnectionError, self).__init__(message, http_body,
-                                                 http_status,
-                                                 json_body, headers, code)
+    def __init__(
+        self,
+        message,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+        code=None,
+        should_retry=False,
+    ):
+        super(APIConnectionError, self).__init__(
+            message, http_body, http_status, json_body, headers, code
+        )
         self.should_retry = should_retry
 
 
 class StripeErrorWithParamCode(StripeError):
-
     def __repr__(self):
-        return ('%s(message=%r, param=%r, code=%r, http_status=%r, '
-                'request_id=%r)' % (
-                    self.__class__.__name__,
-                    self._message,
-                    self.param,
-                    self.code,
-                    self.http_status,
-                    self.request_id))
+        return (
+            "%s(message=%r, param=%r, code=%r, http_status=%r, "
+            "request_id=%r)"
+            % (
+                self.__class__.__name__,
+                self._message,
+                self.param,
+                self.code,
+                self.http_status,
+                self.request_id,
+            )
+        )
 
 
 class CardError(StripeErrorWithParamCode):
-
-    def __init__(self, message, param, code, http_body=None,
-                 http_status=None, json_body=None, headers=None):
+    def __init__(
+        self,
+        message,
+        param,
+        code,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+    ):
         super(CardError, self).__init__(
-            message, http_body, http_status, json_body,
-            headers, code)
+            message, http_body, http_status, json_body, headers, code
+        )
         self.param = param
 
 
@@ -89,12 +116,19 @@ class IdempotencyError(StripeError):
 
 
 class InvalidRequestError(StripeErrorWithParamCode):
-
-    def __init__(self, message, param, code=None, http_body=None,
-                 http_status=None, json_body=None, headers=None):
+    def __init__(
+        self,
+        message,
+        param,
+        code=None,
+        http_body=None,
+        http_status=None,
+        json_body=None,
+        headers=None,
+    ):
         super(InvalidRequestError, self).__init__(
-            message, http_body, http_status, json_body,
-            headers, code)
+            message, http_body, http_status, json_body, headers, code
+        )
         self.param = param
 
 
@@ -112,6 +146,5 @@ class RateLimitError(StripeError):
 
 class SignatureVerificationError(StripeError):
     def __init__(self, message, sig_header, http_body=None):
-        super(SignatureVerificationError, self).__init__(
-            message, http_body)
+        super(SignatureVerificationError, self).__init__(message, http_body)
         self.sig_header = sig_header

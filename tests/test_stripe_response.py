@@ -8,11 +8,11 @@ from stripe.stripe_response import StripeResponse
 class TestStripeResponse(object):
     def test_idempotency_key(self):
         response, headers, body, code = self.mock_stripe_response()
-        assert response.idempotency_key == headers['idempotency-key']
+        assert response.idempotency_key == headers["idempotency-key"]
 
     def test_request_id(self):
         response, headers, body, code = self.mock_stripe_response()
-        assert response.request_id == headers['request-id']
+        assert response.request_id == headers["request-id"]
 
     def test_code(self):
         response, headers, body, code = self.mock_stripe_response()
@@ -40,10 +40,7 @@ class TestStripeResponse(object):
 
     @staticmethod
     def mock_headers():
-        return {
-          'idempotency-key': '123456',
-          'request-id': 'req_123456'
-        }
+        return {"idempotency-key": "123456", "request-id": "req_123456"}
 
     @staticmethod
     def mock_body():

@@ -7,7 +7,7 @@ from stripe.six.moves.urllib.parse import quote_plus
 
 
 class Reversal(UpdateableAPIResource):
-    OBJECT_NAME = 'transfer_reversal'
+    OBJECT_NAME = "transfer_reversal"
 
     def instance_url(self):
         token = util.utf8(self.id)
@@ -21,10 +21,12 @@ class Reversal(UpdateableAPIResource):
     def modify(cls, sid, **params):
         raise NotImplementedError(
             "Can't modify a reversal without a transfer"
-            "ID. Call save on transfer.reversals.retrieve('reversal_id')")
+            "ID. Call save on transfer.reversals.retrieve('reversal_id')"
+        )
 
     @classmethod
     def retrieve(cls, id, api_key=None, **params):
         raise NotImplementedError(
             "Can't retrieve a reversal without a transfer"
-            "ID. Use transfer.reversals.retrieve('reversal_id')")
+            "ID. Use transfer.reversals.retrieve('reversal_id')"
+        )

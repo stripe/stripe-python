@@ -5,6 +5,7 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class Reader(CreateableAPIResource, ListableAPIResource,
-             UpdateableAPIResource):
-    OBJECT_NAME = 'terminal.reader'
+class Reader(
+    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
+):
+    OBJECT_NAME = "terminal.reader"

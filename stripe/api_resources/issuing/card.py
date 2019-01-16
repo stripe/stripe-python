@@ -5,10 +5,8 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class Card(CreateableAPIResource, ListableAPIResource,
-           UpdateableAPIResource):
-    OBJECT_NAME = 'issuing.card'
+class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+    OBJECT_NAME = "issuing.card"
 
     def details(self, idempotency_key=None, **params):
-        return self.request(
-            'get', self.instance_url() + '/details', params)
+        return self.request("get", self.instance_url() + "/details", params)

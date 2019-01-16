@@ -20,19 +20,19 @@ class MultipartDataGenerator(object):
 
             self._write(self.param_header())
             self._write(self.line_break)
-            if hasattr(value, 'read'):
+            if hasattr(value, "read"):
                 filename = "blob"
-                if hasattr(value, 'name'):
+                if hasattr(value, "name"):
                     # Convert the filename to string, just in case it's not
                     # already one. E.g. `tempfile.TemporaryFile` has a `name`
                     # attribute but it's an `int`.
                     filename = str(value.name)
 
-                self._write("Content-Disposition: form-data; name=\"")
+                self._write('Content-Disposition: form-data; name="')
                 self._write(key)
-                self._write("\"; filename=\"")
+                self._write('"; filename="')
                 self._write(filename)
-                self._write("\"")
+                self._write('"')
                 self._write(self.line_break)
                 self._write("Content-Type: application/octet-stream")
                 self._write(self.line_break)
@@ -40,9 +40,9 @@ class MultipartDataGenerator(object):
 
                 self._write_file(value)
             else:
-                self._write("Content-Disposition: form-data; name=\"")
+                self._write('Content-Disposition: form-data; name="')
                 self._write(key)
-                self._write("\"")
+                self._write('"')
                 self._write(self.line_break)
                 self._write(self.line_break)
                 self._write(value)
@@ -61,10 +61,11 @@ class MultipartDataGenerator(object):
         if isinstance(value, six.binary_type):
             array = bytearray(value)
         elif isinstance(value, six.text_type):
-            array = bytearray(value, encoding='utf-8')
+            array = bytearray(value, encoding="utf-8")
         else:
-            raise TypeError("unexpected type: {value_type}"
-                            .format(value_type=type(value)))
+            raise TypeError(
+                "unexpected type: {value_type}".format(value_type=type(value))
+            )
 
         self.data.write(array)
 
@@ -76,4 +77,4 @@ class MultipartDataGenerator(object):
             self._write(file_contents)
 
     def _initialize_boundary(self):
-        return random.randint(0, 2**63)
+        return random.randint(0, 2 ** 63)

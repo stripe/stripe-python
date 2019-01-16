@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function
 import stripe
 
 
-TEST_INVOICE_ID = 'in_123'
+TEST_INVOICE_ID = "in_123"
 
 
 class TestInvoiceLineItem(object):

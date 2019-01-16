@@ -42,6 +42,7 @@ install:
 
 script:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then make lint; fi
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.7' ]]; then make fmtcheck; fi
   - make ci
 
 after_success:

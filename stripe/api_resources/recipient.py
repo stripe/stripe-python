@@ -6,6 +6,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class Recipient(CreateableAPIResource, UpdateableAPIResource,
-                ListableAPIResource, DeletableAPIResource):
-    OBJECT_NAME = 'recipient'
+class Recipient(
+    CreateableAPIResource,
+    UpdateableAPIResource,
+    ListableAPIResource,
+    DeletableAPIResource,
+):
+    OBJECT_NAME = "recipient"

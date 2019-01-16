@@ -8,7 +8,7 @@ from stripe.six.moves.urllib.parse import quote_plus
 
 
 class ApplicationFeeRefund(UpdateableAPIResource):
-    OBJECT_NAME = 'fee_refund'
+    OBJECT_NAME = "fee_refund"
 
     @classmethod
     def _build_instance_url(cls, fee, sid):
@@ -31,4 +31,5 @@ class ApplicationFeeRefund(UpdateableAPIResource):
     def retrieve(cls, id, api_key=None, **params):
         raise NotImplementedError(
             "Can't retrieve a refund without an application fee ID. "
-            "Use application_fee.refunds.retrieve('refund_id') instead.")
+            "Use application_fee.refunds.retrieve('refund_id') instead."
+        )

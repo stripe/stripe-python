@@ -13,13 +13,13 @@ class StripeResponse(object):
     @property
     def idempotency_key(self):
         try:
-            return self.headers['idempotency-key']
+            return self.headers["idempotency-key"]
         except KeyError:
             return None
 
     @property
     def request_id(self):
         try:
-            return self.headers['request-id']
+            return self.headers["request-id"]
         except KeyError:
             return None

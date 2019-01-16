@@ -4,23 +4,23 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract.api_resource import APIResource
 from stripe.api_resources.abstract.singleton_api_resource import (
-    SingletonAPIResource
+    SingletonAPIResource,
 )
 
 from stripe.api_resources.abstract.createable_api_resource import (
-    CreateableAPIResource
+    CreateableAPIResource,
 )
 from stripe.api_resources.abstract.updateable_api_resource import (
-    UpdateableAPIResource
+    UpdateableAPIResource,
 )
 from stripe.api_resources.abstract.deletable_api_resource import (
-    DeletableAPIResource
+    DeletableAPIResource,
 )
 from stripe.api_resources.abstract.listable_api_resource import (
-    ListableAPIResource
+    ListableAPIResource,
 )
 from stripe.api_resources.abstract.verify_mixin import VerifyMixin
 
 from stripe.api_resources.abstract.nested_resource_class_methods import (
-    nested_resource_class_methods
+    nested_resource_class_methods,
 )
