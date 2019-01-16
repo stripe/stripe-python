@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
+import atexit
 import os
 import sys
 from distutils.version import StrictVersion
@@ -11,10 +12,23 @@ from stripe.six.moves.urllib.request import urlopen
 from stripe.six.moves.urllib.error import HTTPError
 
 from tests.request_mock import RequestMock
+from tests.stripe_mock import StripeMock
 
 
+# When changing this number, don't forget to change it in `.travis.yml` too.
 MOCK_MINIMUM_VERSION = '0.40.0'
-MOCK_PORT = os.environ.get('STRIPE_MOCK_PORT', 12111)
+
+# Starts stripe-mock if an OpenAPI spec override is found in `openapi/`, and
+# otherwise fall back to `STRIPE_MOCK_PORT` or 12111.
+if StripeMock.start():
+    MOCK_PORT = StripeMock.port()
+else:
+    MOCK_PORT = os.environ.get('STRIPE_MOCK_PORT', 12111)
+
+
+@atexit.register
+def stop_stripe_mock():
+    StripeMock.stop()
 
 
 try:
