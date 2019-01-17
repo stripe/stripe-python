@@ -32,6 +32,7 @@ log = None
 
 # API resources
 from stripe.api_resources import *  # noqa
+from stripe.api_resources import checkout  # noqa
 from stripe.api_resources import issuing  # noqa
 from stripe.api_resources import radar  # noqa
 from stripe.api_resources import reporting  # noqa
