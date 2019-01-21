@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
-from stripe import oauth, util
+import stripe
+from stripe import oauth, six, util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
@@ -60,3 +61,17 @@ class Account(
     def deauthorize(self, **params):
         params["stripe_user_id"] = self.id
         return oauth.OAuth.deauthorize(**params)
+
+    def serialize(self, previous):
+        params = super(Account, self).serialize(previous)
+        previous = previous or self._previous or {}
+
+        for k, v in six.iteritems(self):
+            if (
+                k == "individual"
+                and isinstance(v, stripe.api_resources.Person)
+                and k not in params
+            ):
+                params[k] = v.serialize(previous.get(k, None))
+
+        return params

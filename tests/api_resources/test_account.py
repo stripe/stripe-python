@@ -67,6 +67,32 @@ class TestAccount(object):
         assert isinstance(resource, stripe.Account)
         assert resource is account
 
+    def test_is_saveable_with_individual(self, request_mock):
+        individual = stripe.Person.construct_from(
+            {"id": "person_123", "object": "person", "first_name": "Jenny"},
+            stripe.api_key,
+        )
+        account = stripe.Account.construct_from(
+            {"id": "acct_123", "object": "account", "individual": individual},
+            stripe.api_key,
+        )
+
+        account.individual.first_name = "Jane"
+
+        request_mock.stub_request(
+            "post",
+            "/v1/accounts/%s" % TEST_RESOURCE_ID,
+            account.to_dict_recursive(),
+        )
+        resource = account.save()
+        request_mock.assert_requested(
+            "post",
+            "/v1/accounts/%s" % TEST_RESOURCE_ID,
+            {"individual": {"first_name": "Jane"}},
+        )
+        assert isinstance(resource, stripe.Account)
+        assert resource is account
+
     def test_is_modifiable(self, request_mock):
         resource = stripe.Account.modify(
             TEST_RESOURCE_ID, metadata={"key": "value"}
