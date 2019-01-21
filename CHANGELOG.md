@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.18.1 - 2019-01-21
+* [#525](https://github.com/stripe/stripe-python/pull/525) Properly serialize `individual` on `Account` objects
+
 ## 2.18.0 - 2019-01-15
 * [#518](https://github.com/stripe/stripe-python/pull/518) Add configurable telemetry to gather information on client-side request latency
 
