@@ -17,7 +17,6 @@ from stripe.api_resources.bitcoin_receiver import BitcoinReceiver
 from stripe.api_resources.bitcoin_transaction import BitcoinTransaction
 from stripe.api_resources.card import Card
 from stripe.api_resources.charge import Charge
-from stripe.api_resources.checkout_session import CheckoutSession
 from stripe.api_resources.country_spec import CountrySpec
 from stripe.api_resources.coupon import Coupon
 from stripe.api_resources.customer import Customer

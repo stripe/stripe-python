@@ -155,7 +155,7 @@ def load_object_classes():
         api_resources.BitcoinTransaction.OBJECT_NAME: api_resources.BitcoinTransaction,
         api_resources.Card.OBJECT_NAME: api_resources.Card,
         api_resources.Charge.OBJECT_NAME: api_resources.Charge,
-        api_resources.CheckoutSession.OBJECT_NAME: api_resources.CheckoutSession,
+        api_resources.checkout.Session.OBJECT_NAME: api_resources.checkout.Session,
         api_resources.CountrySpec.OBJECT_NAME: api_resources.CountrySpec,
         api_resources.Coupon.OBJECT_NAME: api_resources.Coupon,
         api_resources.Customer.OBJECT_NAME: api_resources.Customer,
