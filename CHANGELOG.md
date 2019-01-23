@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.19.0 - 2019-01-23
+* [#524](https://github.com/stripe/stripe-python/pull/524) Rename `CheckoutSession` to `Session` and move it under the `checkout` namespace. This is a breaking change, but we've reached out to affected merchants and all new merchants would use the new approach.
+
 ## 2.18.1 - 2019-01-21
 * [#525](https://github.com/stripe/stripe-python/pull/525) Properly serialize `individual` on `Account` objects
 
