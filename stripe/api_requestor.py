@@ -91,6 +91,9 @@ class APIRequestor(object):
         elif stripe.default_http_client:
             self._client = stripe.default_http_client
         else:
+            # If the stripe.default_http_client has not been set by the user
+            # yet, we'll set it here. This way, we aren't creating a new
+            # HttpClient for every request.
             stripe.default_http_client = http_client.new_default_http_client(
                 verify_ssl_certs=verify, proxy=proxy
             )
