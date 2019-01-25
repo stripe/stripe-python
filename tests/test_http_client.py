@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import pytest
+import json
 
 import stripe
 from stripe import six
@@ -163,6 +164,43 @@ class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
         )
 
 
+class TestHTTPClient(object):
+    @pytest.fixture(autouse=True)
+    def setup_stripe(self):
+        orig_attrs = {"enable_telemetry": stripe.enable_telemetry}
+        stripe.enable_telemetry = False
+        yield
+        stripe.enable_telemetry = orig_attrs["enable_telemetry"]
+
+    def test_sends_telemetry_on_second_request(self, mocker):
+        class TestClient(stripe.http_client.HTTPClient):
+            pass
+
+        stripe.enable_telemetry = True
+
+        url = "http://fake.url"
+
+        client = TestClient()
+
+        client.request = mocker.MagicMock(
+            return_value=["", 200, {"Request-Id": "req_123"}]
+        )
+        _, code, _ = client.request_with_retries("get", url, {}, None)
+        assert code == 200
+        client.request.assert_called_with("get", url, {}, None)
+
+        client.request = mocker.MagicMock(
+            return_value=["", 200, {"Request-Id": "req_234"}]
+        )
+        _, code, _ = client.request_with_retries("get", url, {}, None)
+        assert code == 200
+        args, _ = client.request.call_args
+        assert "X-Stripe-Client-Telemetry" in args[2]
+
+        telemetry = json.loads(args[2]["X-Stripe-Client-Telemetry"])
+        assert telemetry["last_request_metrics"]["request_id"] == "req_123"
+
+
 class ClientTestBase(object):
     @pytest.fixture
     def request_mock(self, request_mocks):
@@ -247,6 +285,7 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
             result = mocker.Mock()
             result.content = body
             result.status_code = code
+            result.headers = {}
 
             session.request = mocker.MagicMock(return_value=result)
             mock.Session = mocker.MagicMock(return_value=session)
@@ -303,10 +342,11 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
 class TestRequestClientRetryBehavior(TestRequestsClient):
     @pytest.fixture
     def response(self, mocker):
-        def response(code=200):
+        def response(code=200, headers={}):
             result = mocker.Mock()
             result.content = "{}"
             result.status_code = code
+            result.headers = headers
             return result
 
         return response
@@ -461,6 +501,7 @@ class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):
             result = mocker.Mock()
             result.content = body
             result.status_code = code
+            result.headers = {}
 
             mock.fetch = mocker.Mock(return_value=result)
 
