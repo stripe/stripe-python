@@ -231,18 +231,18 @@ class TestAPIRequestor(object):
         orig_attrs = {
             "api_key": stripe.api_key,
             "api_version": stripe.api_version,
-            "enable_telemetry": stripe.enable_telemetry,
             "default_http_client": stripe.default_http_client,
+            "enable_telemetry": stripe.enable_telemetry,
         }
         stripe.api_key = "sk_test_123"
         stripe.api_version = "2017-12-14"
-        stripe.enable_telemetry = False
         stripe.default_http_client = None
+        stripe.enable_telemetry = False
         yield
         stripe.api_key = orig_attrs["api_key"]
         stripe.api_version = orig_attrs["api_version"]
-        stripe.enable_telemetry = orig_attrs["enable_telemetry"]
         stripe.default_http_client = orig_attrs["default_http_client"]
+        stripe.enable_telemetry = orig_attrs["enable_telemetry"]
 
     @pytest.fixture
     def http_client(self, mocker):
