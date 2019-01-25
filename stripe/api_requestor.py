@@ -12,7 +12,6 @@ import stripe
 from stripe import error, oauth_error, http_client, version, util, six
 from stripe.multipart_data_generator import MultipartDataGenerator
 from stripe.six.moves.urllib.parse import urlencode, urlsplit, urlunsplit
-from stripe.request_metrics import RequestMetrics
 from stripe.stripe_response import StripeResponse
 
 
@@ -30,10 +29,6 @@ def _encode_nested_dict(key, data, fmt="%s[%s]"):
     for subkey, subvalue in six.iteritems(data):
         d[fmt % (key, subkey)] = subvalue
     return d
-
-
-def _now_ms():
-    return int(round(time.time() * 1000))
 
 
 def _api_encode(data):
@@ -109,8 +104,6 @@ class APIRequestor(object):
             )
             self._client = stripe.default_http_client
             self._default_proxy = proxy
-
-        self._last_request_metrics = None
 
     @classmethod
     def format_app_info(cls, info):
@@ -277,11 +270,6 @@ class APIRequestor(object):
         if self.api_version is not None:
             headers["Stripe-Version"] = self.api_version
 
-        if stripe.enable_telemetry and self._last_request_metrics:
-            headers["X-Stripe-Client-Telemetry"] = json.dumps(
-                {"last_request_metrics": self._last_request_metrics.payload()}
-            )
-
         return headers
 
     def request_raw(self, method, url, params=None, supplied_headers=None):
@@ -351,8 +339,6 @@ class APIRequestor(object):
             api_version=self.api_version,
         )
 
-        request_start = _now_ms()
-
         rbody, rcode, rheaders = self._client.request_with_retries(
             method, abs_url, headers, post_data
         )
@@ -366,11 +352,6 @@ class APIRequestor(object):
                 "Dashboard link for request",
                 link=util.dashboard_link(request_id),
             )
-            if stripe.enable_telemetry:
-                request_duration_ms = _now_ms() - request_start
-                self._last_request_metrics = RequestMetrics(
-                    request_id, request_duration_ms
-                )
 
         return rbody, rcode, rheaders, my_api_key
 

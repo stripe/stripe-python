@@ -45,7 +45,6 @@ class APIHeaderMatcher(object):
         user_agent=None,
         app_info=None,
         idempotency_key=None,
-        client_telemetry=None,
     ):
         self.request_method = request_method
         self.api_key = api_key or stripe.api_key
@@ -53,7 +52,6 @@ class APIHeaderMatcher(object):
         self.user_agent = user_agent
         self.app_info = app_info
         self.idempotency_key = idempotency_key
-        self.client_telemetry = client_telemetry
 
     def __eq__(self, other):
         return (
@@ -63,7 +61,6 @@ class APIHeaderMatcher(object):
             and self._x_stripe_ua_contains_app_info(other)
             and self._idempotency_key_match(other)
             and self._extra_match(other)
-            and self._check_telemetry(other)
         )
 
     def __repr__(self):
@@ -87,8 +84,6 @@ class APIHeaderMatcher(object):
             and self.request_method in self.METHOD_EXTRA_KEYS
         ):
             expected_keys.extend(self.METHOD_EXTRA_KEYS[self.request_method])
-        if self.client_telemetry:
-            expected_keys.append("X-Stripe-Client-Telemetry")
         return sorted(other.keys()) == sorted(expected_keys)
 
     def _auth_match(self, other):
@@ -118,24 +113,6 @@ class APIHeaderMatcher(object):
         for k, v in six.iteritems(self.extra):
             if other[k] != v:
                 return False
-
-        return True
-
-    def _check_telemetry(self, other):
-        if not self.client_telemetry:
-            return "X-Stripe-Client-Telemetry" not in other
-
-        if "X-Stripe-Client-Telemetry" not in other:
-            return False
-
-        telemetry = json.loads(other["X-Stripe-Client-Telemetry"])
-        req_id = telemetry["last_request_metrics"]["request_id"]
-
-        if req_id != self.client_telemetry["request_id"]:
-            return False
-
-        if "request_duration_ms" not in telemetry["last_request_metrics"]:
-            return False
 
         return True
 
@@ -412,32 +389,6 @@ class TestAPIRequestor(object):
         mock_response("{}", 200)
         requestor.request("get", self.valid_path, {}, {"foo": "bar"})
         check_call("get", headers=APIHeaderMatcher(extra={"foo": "bar"}))
-
-    def test_telemetry_headers_disabled(
-        self, requestor, mock_response, check_call
-    ):
-        mock_response("{}", 200, headers={"Request-Id": 1})
-        requestor.request("get", self.valid_path, {})
-        check_call("get", headers=APIHeaderMatcher(client_telemetry=None))
-
-        mock_response("{}", 200, headers={"Request-Id": 2})
-        requestor.request("get", self.valid_path, {})
-        check_call("get", headers=APIHeaderMatcher(client_telemetry=None))
-
-    def test_telemetry_headers_enabled(
-        self, requestor, mock_response, check_call
-    ):
-        stripe.enable_telemetry = True
-
-        mock_response("{}", 200, headers={"Request-Id": 1})
-        requestor.request("get", self.valid_path, {})
-        check_call("get", headers=APIHeaderMatcher(client_telemetry=None))
-
-        mock_response("{}", 200, headers={"Request-Id": 2})
-        requestor.request("get", self.valid_path, {})
-        check_call(
-            "get", headers=APIHeaderMatcher(client_telemetry={"request_id": 1})
-        )
 
     def test_uses_instance_key(self, http_client, mock_response, check_call):
         key = "fookey"
