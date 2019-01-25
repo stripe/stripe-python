@@ -86,13 +86,15 @@ class APIRequestor(object):
         from stripe import verify_ssl_certs as verify
         from stripe import proxy
 
-        self._client = (
-            client
-            or stripe.default_http_client
-            or http_client.new_default_http_client(
+        if client:
+            self._client = client
+        elif stripe.default_http_client:
+            self._client = stripe.default_http_client
+        else:
+            stripe.default_http_client = http_client.new_default_http_client(
                 verify_ssl_certs=verify, proxy=proxy
             )
-        )
+            self._client = stripe.default_http_client
 
         self._last_request_metrics = None
 
