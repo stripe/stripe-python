@@ -232,14 +232,17 @@ class TestAPIRequestor(object):
             "api_key": stripe.api_key,
             "api_version": stripe.api_version,
             "enable_telemetry": stripe.enable_telemetry,
+            "default_http_client": stripe.default_http_client,
         }
         stripe.api_key = "sk_test_123"
         stripe.api_version = "2017-12-14"
         stripe.enable_telemetry = False
+        stripe.default_http_client = None
         yield
         stripe.api_key = orig_attrs["api_key"]
         stripe.api_version = orig_attrs["api_version"]
         stripe.enable_telemetry = orig_attrs["enable_telemetry"]
+        stripe.default_http_client = orig_attrs["default_http_client"]
 
     @pytest.fixture
     def http_client(self, mocker):
@@ -484,6 +487,25 @@ class TestAPIRequestor(object):
                 extra={"Stripe-Account": account}, request_method="get"
             ),
         )
+
+    def test_sets_default_http_client(self, http_client):
+        assert not stripe.default_http_client
+
+        stripe.api_requestor.APIRequestor(client=http_client)
+
+        # default_http_client is not populated if a client is provided
+        assert not stripe.default_http_client
+
+        stripe.api_requestor.APIRequestor()
+
+        # default_http_client is set when no client is specified
+        assert stripe.default_http_client
+
+        new_default_client = stripe.default_http_client
+        stripe.api_requestor.APIRequestor()
+
+        # the newly created client is reused
+        assert stripe.default_http_client == new_default_client
 
     def test_uses_app_info(self, requestor, mock_response, check_call):
         try:
