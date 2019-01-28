@@ -42,9 +42,9 @@ def is_appengine_dev():
 
 
 def _console_log_level():
-    if stripe.log in ["debug", "info"]:
+    if stripe.log in ["debug", "info", "warning"]:
         return stripe.log
-    elif STRIPE_LOG in ["debug", "info"]:
+    elif STRIPE_LOG in ["debug", "info", "warning"]:
         return STRIPE_LOG
     else:
         return None

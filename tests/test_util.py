@@ -71,6 +71,8 @@ class TestUtil(object):
         # (STRIPE_LOG, stripe.log): should_output?
         test_cases = [
             LogTestCase(env=None, flag=None, should_output=False),
+            LogTestCase(env="warning", flag=None, should_output=False),
+            LogTestCase(env=None, flag="warning", should_output=False),
             LogTestCase(env=None, flag="debug", should_output=True),
             LogTestCase(env=None, flag="info", should_output=False),
             LogTestCase(env="debug", flag=None, should_output=True),
@@ -91,6 +93,8 @@ class TestUtil(object):
         # (STRIPE_LOG, stripe.log): should_output?
         test_cases = [
             LogTestCase(env=None, flag=None, should_output=False),
+            LogTestCase(env="warning", flag=None, should_output=False),
+            LogTestCase(env=None, flag="warning", should_output=False),
             LogTestCase(env=None, flag="debug", should_output=True),
             LogTestCase(env=None, flag="info", should_output=True),
             LogTestCase(env="debug", flag=None, should_output=True),
@@ -104,6 +108,28 @@ class TestUtil(object):
             test_cases,
             logging_func=util.log_info,
             logger_name="stripe.util.logger.info",
+            mocker=mocker,
+        )
+
+    def test_log_warning(self, mocker):
+        # (STRIPE_LOG, stripe.log): should_output?
+        test_cases = [
+            LogTestCase(env=None, flag=None, should_output=False),
+            LogTestCase(env="warning", flag=None, should_output=True),
+            LogTestCase(env=None, flag="warning", should_output=True),
+            LogTestCase(env=None, flag="debug", should_output=True),
+            LogTestCase(env=None, flag="info", should_output=True),
+            LogTestCase(env="debug", flag=None, should_output=True),
+            LogTestCase(env="debug", flag="debug", should_output=True),
+            LogTestCase(env="debug", flag="info", should_output=True),
+            LogTestCase(env="info", flag=None, should_output=True),
+            LogTestCase(env="info", flag="debug", should_output=True),
+            LogTestCase(env="info", flag="info", should_output=True),
+        ]
+        self.log_test_loop(
+            test_cases,
+            logging_func=util.log_warning,
+            logger_name="stripe.util.logger.warning",
             mocker=mocker,
         )
 
