@@ -83,6 +83,8 @@ class APIRequestor(object):
         self.api_version = api_version or stripe.api_version
         self.stripe_account = account
 
+        self._default_proxy = None
+
         from stripe import verify_ssl_certs as verify
         from stripe import proxy
 
@@ -90,6 +92,10 @@ class APIRequestor(object):
             self._client = client
         elif stripe.default_http_client:
             self._client = stripe.default_http_client
+            if proxy != self._default_proxy:
+                util.log_warning(
+                    "stripe.proxy was updated after sending a request - this is a no-op. To use a different proxy, set stripe.default_http_client to a new client configured with the proxy."
+                )
         else:
             # If the stripe.default_http_client has not been set by the user
             # yet, we'll set it here. This way, we aren't creating a new
@@ -98,6 +104,7 @@ class APIRequestor(object):
                 verify_ssl_certs=verify, proxy=proxy
             )
             self._client = stripe.default_http_client
+            self._default_proxy = proxy
 
         self._last_request_metrics = None
 
