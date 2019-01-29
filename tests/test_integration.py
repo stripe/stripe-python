@@ -1,5 +1,4 @@
 import sys
-import socket
 from threading import Thread
 import json
 
@@ -12,20 +11,13 @@ else:
     from http.server import BaseHTTPRequestHandler, HTTPServer
 
 
-def get_free_port():
-    s = socket.socket(socket.AF_INET, type=socket.SOCK_STREAM)
-    s.bind(("localhost", 0))
-    address, port = s.getsockname()
-    s.close()
-    return port
-
-
 class TestIntegration(object):
     @pytest.fixture(autouse=True)
     def close_mock_server(self):
         yield
         if self.mock_server:
             self.mock_server.shutdown()
+            self.mock_server.server_close()
             self.mock_server_thread.join()
 
     @pytest.fixture(autouse=True)
@@ -51,10 +43,9 @@ class TestIntegration(object):
 
     def setup_mock_server(self, handler):
         # Configure mock server.
-        self.mock_server_port = get_free_port()
-        self.mock_server = HTTPServer(
-            ("localhost", self.mock_server_port), handler
-        )
+        # Passing 0 as the port will cause a random free port to be chosen.
+        self.mock_server = HTTPServer(("localhost", 0), handler)
+        _, self.mock_server_port = self.mock_server.server_address
 
         # Start running mock server in a separate thread.
         # Daemon threads automatically shut down when the main process exits.
@@ -83,7 +74,7 @@ class TestIntegration(object):
         stripe.Balance.retrieve()
         assert MockServerRequestHandler.num_requests == 1
 
-    def test_hits_stripe_proxy(self, mocker):
+    def test_hits_proxy_through_default_http_client(self, mocker):
         class MockServerRequestHandler(BaseHTTPRequestHandler):
             num_requests = 0
 
@@ -113,7 +104,7 @@ class TestIntegration(object):
         )
         assert MockServerRequestHandler.num_requests == 2
 
-    def test_hits_client_proxy(self):
+    def test_hits_proxy_through_custom_client(self):
         class MockServerRequestHandler(BaseHTTPRequestHandler):
             num_requests = 0
 
