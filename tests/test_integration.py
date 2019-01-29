@@ -161,7 +161,7 @@ class TestIntegration(object):
                         assert req_id == "req_1"
                         # The first request took 31 ms, so the client perceived
                         # latency shouldn't be outside this range.
-                        assert 30 < duration_ms < 60
+                        assert 30 < duration_ms < 300
                     else:
                         assert False, (
                             "Should not have reached request %d" % req_num
