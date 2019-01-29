@@ -1,3 +1,5 @@
+from __future__ import absolute_import, division, print_function
+
 import sys
 from threading import Thread
 import json
@@ -141,16 +143,13 @@ class TestIntegration(object):
                     req_num = self.__class__.num_requests
                     if req_num == 1:
                         time.sleep(31 / 1000)  # 31 ms
-                        assert (
+                        assert not self.headers.get(
                             "X-Stripe-Client-Telemetry"
-                            not in self.headers.keys()
                         )
                     elif req_num == 2:
-                        assert (
-                            "X-Stripe-Client-Telemetry" in self.headers.keys()
-                        )
+                        assert self.headers.get("X-Stripe-Client-Telemetry")
                         telemetry = json.loads(
-                            self.headers["X-Stripe-Client-Telemetry"]
+                            self.headers.get("x-stripe-client-telemetry")
                         )
                         assert "last_request_metrics" in telemetry
                         req_id = telemetry["last_request_metrics"][
