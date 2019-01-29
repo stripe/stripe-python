@@ -110,12 +110,12 @@ class HTTPClient(object):
 
         self._thread_local = threading.local()
 
-        self._last_request_metrics = None
-
     def request_with_retries(self, method, url, headers, post_data=None):
-        if stripe.enable_telemetry and self._last_request_metrics:
+        if stripe.enable_telemetry and self._last_request_metrics():
             headers["X-Stripe-Client-Telemetry"] = json.dumps(
-                {"last_request_metrics": self._last_request_metrics.payload()}
+                {
+                    "last_request_metrics": self._last_request_metrics().payload()
+                }
             )
 
         num_retries = 0
@@ -153,8 +153,8 @@ class HTTPClient(object):
                     if "Request-Id" in rheaders and stripe.enable_telemetry:
                         request_id = rheaders["Request-Id"]
                         request_duration_ms = _now_ms() - request_start
-                        self._last_request_metrics = RequestMetrics(
-                            request_id, request_duration_ms
+                        self._set_last_request_metrics(
+                            RequestMetrics(request_id, request_duration_ms)
                         )
 
                     return response
@@ -204,6 +204,12 @@ class HTTPClient(object):
         # Also separated method here to isolate randomness for tests
         sleep_seconds *= 0.5 * (1 + random.uniform(0, 1))
         return sleep_seconds
+
+    def _last_request_metrics(self):
+        return getattr(self._thread_local, "last_request_metrics", None)
+
+    def _set_last_request_metrics(self, metrics):
+        self._thread_local.last_request_metrics = metrics
 
     def close(self):
         raise NotImplementedError(
