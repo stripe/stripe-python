@@ -2,6 +2,7 @@ import sys
 from threading import Thread
 import json
 import warnings
+import time
 
 import stripe
 import pytest
@@ -27,16 +28,19 @@ class TestIntegration(object):
             "api_base": stripe.api_base,
             "api_key": stripe.api_key,
             "default_http_client": stripe.default_http_client,
+            "enable_telemetry": stripe.enable_telemetry,
             "proxy": stripe.proxy,
         }
         stripe.api_base = "http://localhost:12111"  # stripe-mock
         stripe.api_key = "sk_test_123"
         stripe.default_http_client = None
+        stripe.enable_telemetry = False
         stripe.proxy = None
         yield
         stripe.api_base = orig_attrs["api_base"]
         stripe.api_key = orig_attrs["api_key"]
         stripe.default_http_client = orig_attrs["default_http_client"]
+        stripe.enable_telemetry = orig_attrs["enable_telemetry"]
         stripe.proxy = orig_attrs["proxy"]
 
     def setup_mock_server(self, handler):
@@ -126,3 +130,76 @@ class TestIntegration(object):
         )
         stripe.Balance.retrieve()
         assert MockServerRequestHandler.num_requests == 1
+
+    def test_passes_client_telemetry_when_enabled(self):
+        class MockServerRequestHandler(BaseHTTPRequestHandler):
+            num_requests = 0
+
+            def do_GET(self):
+                try:
+                    self.__class__.num_requests += 1
+                    req_num = self.__class__.num_requests
+                    if req_num == 1:
+                        time.sleep(31 / 1000)  # 31 ms
+                        assert (
+                            "X-Stripe-Client-Telemetry"
+                            not in self.headers.keys()
+                        )
+                    elif req_num == 2:
+                        assert (
+                            "X-Stripe-Client-Telemetry" in self.headers.keys()
+                        )
+                        telemetry = json.loads(
+                            self.headers["X-Stripe-Client-Telemetry"]
+                        )
+                        assert "last_request_metrics" in telemetry
+                        req_id = telemetry["last_request_metrics"][
+                            "request_id"
+                        ]
+                        duration_ms = telemetry["last_request_metrics"][
+                            "request_duration_ms"
+                        ]
+                        assert req_id == "req_1"
+                        # The first request took 31 ms, so the client perceived
+                        # latency shouldn't be outside this range.
+                        assert 30 < duration_ms < 60
+                    else:
+                        assert False, (
+                            "Should not have reached request %d" % req_num
+                        )
+
+                    self.send_response(200)
+                    self.send_header(
+                        "Content-Type", "application/json; charset=utf-8"
+                    )
+                    self.send_header("Request-Id", "req_%d" % req_num)
+                    self.end_headers()
+                    self.wfile.write(json.dumps({}).encode("utf-8"))
+                except AssertionError as ex:
+                    # Throwing assertions on the server side causes a
+                    # connection error to be logged instead of an assertion
+                    # failure. Instead, we return the assertion failure as
+                    # json so it can be logged as a StripeError.
+                    self.send_response(400)
+                    self.send_header(
+                        "Content-Type", "application/json; charset=utf-8"
+                    )
+                    self.end_headers()
+                    self.wfile.write(
+                        json.dumps(
+                            {
+                                "error": {
+                                    "type": "invalid_request_error",
+                                    "message": str(ex),
+                                }
+                            }
+                        ).encode("utf-8")
+                    )
+
+        self.setup_mock_server(MockServerRequestHandler)
+        stripe.api_base = "http://localhost:%s" % self.mock_server_port
+        stripe.enable_telemetry = True
+
+        stripe.Balance.retrieve()
+        stripe.Balance.retrieve()
+        assert MockServerRequestHandler.num_requests == 2
