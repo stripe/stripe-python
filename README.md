@@ -113,8 +113,7 @@ production use, but `debug` is also available for more verbosity.
 
 There are a few options for enabling it:
 
-1. Set the environment variable `STRIPE_LOG` to the value `debug`, `info` or
-   `warning`
+1. Set the environment variable `STRIPE_LOG` to the value `debug` or `info`
 
    ```
    $ export STRIPE_LOG=debug

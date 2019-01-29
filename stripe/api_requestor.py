@@ -6,6 +6,7 @@ import json
 import platform
 import time
 import uuid
+import warnings
 
 import stripe
 from stripe import error, oauth_error, http_client, version, util, six
@@ -93,8 +94,11 @@ class APIRequestor(object):
         elif stripe.default_http_client:
             self._client = stripe.default_http_client
             if proxy != self._default_proxy:
-                util.log_warning(
-                    "stripe.proxy was updated after sending a request - this is a no-op. To use a different proxy, set stripe.default_http_client to a new client configured with the proxy."
+                warnings.warn(
+                    "stripe.proxy was updated after sending a "
+                    "request - this is a no-op. To use a different proxy, "
+                    "set stripe.default_http_client to a new client "
+                    "configured with the proxy."
                 )
         else:
             # If the stripe.default_http_client has not been set by the user

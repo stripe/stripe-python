@@ -1,6 +1,7 @@
 import sys
 from threading import Thread
 import json
+import warnings
 
 import stripe
 import pytest
@@ -26,19 +27,16 @@ class TestIntegration(object):
             "api_base": stripe.api_base,
             "api_key": stripe.api_key,
             "default_http_client": stripe.default_http_client,
-            "log": stripe.log,
             "proxy": stripe.proxy,
         }
         stripe.api_base = "http://localhost:12111"  # stripe-mock
         stripe.api_key = "sk_test_123"
         stripe.default_http_client = None
-        stripe.log = "warning"
         stripe.proxy = None
         yield
         stripe.api_base = orig_attrs["api_base"]
         stripe.api_key = orig_attrs["api_key"]
         stripe.default_http_client = orig_attrs["default_http_client"]
-        stripe.log = orig_attrs["log"]
         stripe.proxy = orig_attrs["proxy"]
 
     def setup_mock_server(self, handler):
@@ -74,7 +72,7 @@ class TestIntegration(object):
         stripe.Balance.retrieve()
         assert MockServerRequestHandler.num_requests == 1
 
-    def test_hits_proxy_through_default_http_client(self, mocker):
+    def test_hits_proxy_through_default_http_client(self):
         class MockServerRequestHandler(BaseHTTPRequestHandler):
             num_requests = 0
 
@@ -90,18 +88,20 @@ class TestIntegration(object):
                 return
 
         self.setup_mock_server(MockServerRequestHandler)
-        logger_mock = mocker.patch("stripe.util.log_warning")
 
         stripe.proxy = "http://localhost:%s" % self.mock_server_port
         stripe.Balance.retrieve()
         assert MockServerRequestHandler.num_requests == 1
 
         stripe.proxy = "http://bad-url"
-        logger_mock.assert_not_called()
-        stripe.Balance.retrieve()
-        logger_mock.assert_called_with(
-            "stripe.proxy was updated after sending a request - this is a no-op. To use a different proxy, set stripe.default_http_client to a new client configured with the proxy."
-        )
+
+        with warnings.catch_warnings(record=True) as w:
+            stripe.Balance.retrieve()
+            assert len(w) == 1
+            assert "stripe.proxy was updated after sending a request" in str(
+                w[0].message
+            )
+
         assert MockServerRequestHandler.num_requests == 2
 
     def test_hits_proxy_through_custom_client(self):

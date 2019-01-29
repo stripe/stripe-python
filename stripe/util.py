@@ -20,7 +20,6 @@ __all__ = [
     "io",
     "parse_qsl",
     "utf8",
-    "log_warning",
     "log_info",
     "log_debug",
     "dashboard_link",
@@ -42,9 +41,9 @@ def is_appengine_dev():
 
 
 def _console_log_level():
-    if stripe.log in ["debug", "info", "warning"]:
+    if stripe.log in ["debug", "info"]:
         return stripe.log
-    elif STRIPE_LOG in ["debug", "info", "warning"]:
+    elif STRIPE_LOG in ["debug", "info"]:
         return STRIPE_LOG
     else:
         return None
@@ -62,13 +61,6 @@ def log_info(message, **params):
     if _console_log_level() in ["debug", "info"]:
         print(msg, file=sys.stderr)
     logger.info(msg)
-
-
-def log_warning(message, **params):
-    msg = logfmt(dict(message=message, **params))
-    if _console_log_level() in ["debug", "info", "warning"]:
-        print(msg, file=sys.stderr)
-    logger.warning(msg)
 
 
 def _test_or_live_environment():
