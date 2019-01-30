@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.20.3 - 2019-01-30
+* [#530](https://github.com/stripe/stripe-python/pull/530) Fix client telemetry implementation
+
 ## 2.20.2 - 2019-01-30
 * [#534](https://github.com/stripe/stripe-python/pull/534) Fix session initialization for multi-threaded environments
 
