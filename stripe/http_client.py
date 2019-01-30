@@ -6,6 +6,7 @@ import warnings
 import email
 import time
 import random
+import threading
 
 import stripe
 from stripe import error, util, six
@@ -101,6 +102,8 @@ class HTTPClient(object):
                 )
         self._proxy = proxy.copy() if proxy else None
 
+        self._thread_local = threading.local()
+
     def request_with_retries(self, method, url, headers, post_data=None):
         num_retries = 0
 
@@ -191,7 +194,7 @@ class RequestsClient(HTTPClient):
     def __init__(self, timeout=80, session=None, **kwargs):
         super(RequestsClient, self).__init__(**kwargs)
         self._timeout = timeout
-        self._session = session or requests.Session()
+        self._thread_local.session = session or requests.Session()
 
     def request(self, method, url, headers, post_data=None):
         kwargs = {}
@@ -205,7 +208,7 @@ class RequestsClient(HTTPClient):
 
         try:
             try:
-                result = self._session.request(
+                result = self._thread_local.session.request(
                     method,
                     url,
                     headers=headers,
@@ -285,8 +288,8 @@ class RequestsClient(HTTPClient):
         raise error.APIConnectionError(msg, should_retry=should_retry)
 
     def close(self):
-        if self._session is not None:
-            self._session.close()
+        if self._thread_local.session is not None:
+            self._thread_local.session.close()
 
 
 class UrlFetchClient(HTTPClient):
