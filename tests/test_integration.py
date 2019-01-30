@@ -1,22 +1,23 @@
 from __future__ import absolute_import, division, print_function
 
-import platform
-import sys
-from threading import Thread, Lock
 import json
-import warnings
+import platform
+from threading import Thread, Lock
 import time
+import warnings
 
-import stripe
 import pytest
+import stripe
+from stripe.six.moves.BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
+from stripe.six.moves.socketserver import ThreadingMixIn
+
 
 if platform.python_implementation() == "PyPy":
     pytest.skip("skip integration tests with PyPy", allow_module_level=True)
 
-if sys.version_info[0] < 3:
-    from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
-else:
-    from http.server import BaseHTTPRequestHandler, HTTPServer
+
+class MockHTTPServer(ThreadingMixIn, HTTPServer):
+    pass
 
 
 class TestIntegration(object):
@@ -55,7 +56,7 @@ class TestIntegration(object):
     def setup_mock_server(self, handler):
         # Configure mock server.
         # Passing 0 as the port will cause a random free port to be chosen.
-        self.mock_server = HTTPServer(("localhost", 0), handler)
+        self.mock_server = MockHTTPServer(("localhost", 0), handler)
         _, self.mock_server_port = self.mock_server.server_address
 
         # Start running mock server in a separate thread.
@@ -254,3 +255,68 @@ class TestIntegration(object):
 
         assert MockServerRequestHandler.num_requests == 20
         assert len(MockServerRequestHandler.seen_metrics) == 10
+
+    def _test_client_is_thread_safe(self, client_ctor):
+        class MockServerRequestHandler(BaseHTTPRequestHandler):
+            num_requests = 0
+            lock = Lock()
+
+            def do_GET(self):
+                with self.__class__.lock:
+                    self.__class__.num_requests += 1
+                    req_num = self.__class__.num_requests
+
+                time.sleep(req_num * 10 / 1000)
+
+                self.send_response(200)
+                self.send_header(
+                    "Content-Type", "application/json; charset=utf-8"
+                )
+                self.end_headers()
+                self.wfile.write(
+                    json.dumps({"req_num": req_num}).encode("utf-8")
+                )
+                return
+
+        self.setup_mock_server(MockServerRequestHandler)
+        stripe.api_base = "http://localhost:%s" % self.mock_server_port
+
+        stripe.default_http_client = client_ctor()
+
+        seen_responses = set()
+        seen_responses_lock = Lock()
+
+        def work():
+            res = stripe.Balance.retrieve()
+            req_num = res["req_num"]
+            with seen_responses_lock:
+                seen_responses.add(req_num)
+
+        threads = [Thread(target=work) for i in range(10)]
+        for t in threads:
+            t.start()
+        for t in threads:
+            t.join()
+
+        # server should have seen 10 unique requests
+        assert MockServerRequestHandler.num_requests == 10
+        # client should have seen 10 unique responses
+        assert len(seen_responses) == 10
+
+    def test_requests_client_thread_safety(self):
+        self._test_client_is_thread_safe(stripe.http_client.RequestsClient)
+
+    @pytest.mark.skipif(
+        stripe.http_client.urlfetch is None, reason="requires urlfetch"
+    )
+    def test_urlfetch_client_thread_safety(self):
+        self._test_client_is_thread_safe(stripe.http_client.UrlFetchClient)
+
+    @pytest.mark.skipif(
+        stripe.http_client.pycurl is None, reason="requires pycurl"
+    )
+    def test_pycurl_client_thread_safety(self):
+        self._test_client_is_thread_safe(stripe.http_client.PycurlClient)
+
+    def test_urllib2_client_thread_safety(self):
+        self._test_client_is_thread_safe(stripe.http_client.Urllib2Client)

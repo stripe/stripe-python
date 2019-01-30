@@ -26,6 +26,7 @@ env:
   global:
     # If changing this number, please also change it in `tests/conftest.py`.
     - STRIPE_MOCK_VERSION=0.60.0
+    - PYCURL_SSL_LIBRARY=openssl
 
 before_install:
   # Unpack and start stripe-mock so that the test suite can talk to it
@@ -43,6 +44,8 @@ before_install:
 install:
   - pip install --upgrade pip virtualenv
   - make venv
+  - source venv/bin/activate
+  - pip install pycurl
 
 script:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then make lint; fi

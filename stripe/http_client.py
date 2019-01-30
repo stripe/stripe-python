@@ -404,9 +404,6 @@ class PycurlClient(HTTPClient):
             verify_ssl_certs=verify_ssl_certs, proxy=proxy
         )
 
-        # Initialize this within the object so that we can reuse connections.
-        self._curl = pycurl.Curl()
-
         # need to urlparse the proxy, since PyCurl
         # consumes the proxy url in small pieces
         if self._proxy:
@@ -414,6 +411,11 @@ class PycurlClient(HTTPClient):
             proxy = self._proxy
             for scheme, value in six.iteritems(proxy):
                 proxy[scheme] = urlparse(value)
+
+    def _curl(self):
+        if getattr(self._thread_local, "curl", None) is None:
+            self._thread_local.curl = pycurl.Curl()
+        return self._thread_local.curl
 
     def parse_headers(self, data):
         if "\r\n" not in data:
@@ -425,6 +427,7 @@ class PycurlClient(HTTPClient):
     def request(self, method, url, headers, post_data=None):
         b = util.io.BytesIO()
         rheaders = util.io.BytesIO()
+        _curl = self._curl()
 
         # Pycurl's design is a little weird: although we set per-request
         # options on this object, it's also capable of maintaining established
@@ -432,51 +435,51 @@ class PycurlClient(HTTPClient):
         # pristine state, but notably reset() doesn't reset connections, so we
         # still get to take advantage of those by virtue of re-using the same
         # object.
-        self._curl.reset()
+        _curl.reset()
 
         proxy = self._get_proxy(url)
         if proxy:
             if proxy.hostname:
-                self._curl.setopt(pycurl.PROXY, proxy.hostname)
+                _curl.setopt(pycurl.PROXY, proxy.hostname)
             if proxy.port:
-                self._curl.setopt(pycurl.PROXYPORT, proxy.port)
+                _curl.setopt(pycurl.PROXYPORT, proxy.port)
             if proxy.username or proxy.password:
-                self._curl.setopt(
+                _curl.setopt(
                     pycurl.PROXYUSERPWD,
                     "%s:%s" % (proxy.username, proxy.password),
                 )
 
         if method == "get":
-            self._curl.setopt(pycurl.HTTPGET, 1)
+            _curl.setopt(pycurl.HTTPGET, 1)
         elif method == "post":
-            self._curl.setopt(pycurl.POST, 1)
-            self._curl.setopt(pycurl.POSTFIELDS, post_data)
+            _curl.setopt(pycurl.POST, 1)
+            _curl.setopt(pycurl.POSTFIELDS, post_data)
         else:
-            self._curl.setopt(pycurl.CUSTOMREQUEST, method.upper())
+            _curl.setopt(pycurl.CUSTOMREQUEST, method.upper())
 
         # pycurl doesn't like unicode URLs
-        self._curl.setopt(pycurl.URL, util.utf8(url))
+        _curl.setopt(pycurl.URL, util.utf8(url))
 
-        self._curl.setopt(pycurl.WRITEFUNCTION, b.write)
-        self._curl.setopt(pycurl.HEADERFUNCTION, rheaders.write)
-        self._curl.setopt(pycurl.NOSIGNAL, 1)
-        self._curl.setopt(pycurl.CONNECTTIMEOUT, 30)
-        self._curl.setopt(pycurl.TIMEOUT, 80)
-        self._curl.setopt(
+        _curl.setopt(pycurl.WRITEFUNCTION, b.write)
+        _curl.setopt(pycurl.HEADERFUNCTION, rheaders.write)
+        _curl.setopt(pycurl.NOSIGNAL, 1)
+        _curl.setopt(pycurl.CONNECTTIMEOUT, 30)
+        _curl.setopt(pycurl.TIMEOUT, 80)
+        _curl.setopt(
             pycurl.HTTPHEADER,
             ["%s: %s" % (k, v) for k, v in six.iteritems(dict(headers))],
         )
         if self._verify_ssl_certs:
-            self._curl.setopt(pycurl.CAINFO, stripe.ca_bundle_path)
+            _curl.setopt(pycurl.CAINFO, stripe.ca_bundle_path)
         else:
-            self._curl.setopt(pycurl.SSL_VERIFYHOST, False)
+            _curl.setopt(pycurl.SSL_VERIFYHOST, False)
 
         try:
-            self._curl.perform()
+            _curl.perform()
         except pycurl.error as e:
             self._handle_request_error(e)
         rbody = b.getvalue().decode("utf-8")
-        rcode = self._curl.getinfo(pycurl.RESPONSE_CODE)
+        rcode = _curl.getinfo(pycurl.RESPONSE_CODE)
         headers = self.parse_headers(rheaders.getvalue().decode("utf-8"))
 
         return rbody, rcode, headers
