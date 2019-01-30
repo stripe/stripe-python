@@ -7,9 +7,11 @@ import email
 import time
 import random
 import threading
+import json
 
 import stripe
 from stripe import error, util, six
+from stripe.request_metrics import RequestMetrics
 
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch
@@ -61,6 +63,10 @@ except ImportError:
 from stripe.six.moves.urllib.parse import urlparse
 
 
+def _now_ms():
+    return int(round(time.time() * 1000))
+
+
 def new_default_http_client(*args, **kwargs):
     if urlfetch:
         impl = UrlFetchClient
@@ -105,9 +111,13 @@ class HTTPClient(object):
         self._thread_local = threading.local()
 
     def request_with_retries(self, method, url, headers, post_data=None):
+        self._add_telemetry_header(headers)
+
         num_retries = 0
 
         while True:
+            request_start = _now_ms()
+
             try:
                 num_retries += 1
                 response = self.request(method, url, headers, post_data)
@@ -134,6 +144,8 @@ class HTTPClient(object):
                 time.sleep(sleep_time)
             else:
                 if response is not None:
+                    self._record_request_metrics(response, request_start)
+
                     return response
                 else:
                     raise connection_error
@@ -181,6 +193,25 @@ class HTTPClient(object):
         # Also separated method here to isolate randomness for tests
         sleep_seconds *= 0.5 * (1 + random.uniform(0, 1))
         return sleep_seconds
+
+    def _add_telemetry_header(self, headers):
+        last_request_metrics = getattr(
+            self._thread_local, "last_request_metrics", None
+        )
+        if stripe.enable_telemetry and last_request_metrics:
+            telemetry = {
+                "last_request_metrics": last_request_metrics.payload()
+            }
+            headers["X-Stripe-Client-Telemetry"] = json.dumps(telemetry)
+
+    def _record_request_metrics(self, response, request_start):
+        _, _, rheaders = response
+        if "Request-Id" in rheaders and stripe.enable_telemetry:
+            request_id = rheaders["Request-Id"]
+            request_duration_ms = _now_ms() - request_start
+            self._thread_local.last_request_metrics = RequestMetrics(
+                request_id, request_duration_ms
+            )
 
     def close(self):
         raise NotImplementedError(
