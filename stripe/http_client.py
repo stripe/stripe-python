@@ -111,12 +111,7 @@ class HTTPClient(object):
         self._thread_local = threading.local()
 
     def request_with_retries(self, method, url, headers, post_data=None):
-        if stripe.enable_telemetry and self._last_request_metrics():
-            headers["X-Stripe-Client-Telemetry"] = json.dumps(
-                {
-                    "last_request_metrics": self._last_request_metrics().payload()
-                }
-            )
+        self._add_telemetry_header(headers)
 
         num_retries = 0
 
@@ -149,13 +144,7 @@ class HTTPClient(object):
                 time.sleep(sleep_time)
             else:
                 if response is not None:
-                    rheaders = response[2]
-                    if "Request-Id" in rheaders and stripe.enable_telemetry:
-                        request_id = rheaders["Request-Id"]
-                        request_duration_ms = _now_ms() - request_start
-                        self._set_last_request_metrics(
-                            RequestMetrics(request_id, request_duration_ms)
-                        )
+                    self._record_request_metrics(response, request_start)
 
                     return response
                 else:
@@ -205,11 +194,24 @@ class HTTPClient(object):
         sleep_seconds *= 0.5 * (1 + random.uniform(0, 1))
         return sleep_seconds
 
-    def _last_request_metrics(self):
-        return getattr(self._thread_local, "last_request_metrics", None)
+    def _add_telemetry_header(self, headers):
+        last_request_metrics = getattr(
+            self._thread_local, "last_request_metrics", None
+        )
+        if stripe.enable_telemetry and last_request_metrics:
+            telemetry = {
+                "last_request_metrics": last_request_metrics.payload()
+            }
+            headers["X-Stripe-Client-Telemetry"] = json.dumps(telemetry)
 
-    def _set_last_request_metrics(self, metrics):
-        self._thread_local.last_request_metrics = metrics
+    def _record_request_metrics(self, response, request_start):
+        _, _, rheaders = response
+        if "Request-Id" in rheaders and stripe.enable_telemetry:
+            request_id = rheaders["Request-Id"]
+            request_duration_ms = _now_ms() - request_start
+            self._thread_local.last_request_metrics = RequestMetrics(
+                request_id, request_duration_ms
+            )
 
     def close(self):
         raise NotImplementedError(
