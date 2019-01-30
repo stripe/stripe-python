@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.20.2 - 2019-01-30
+* [#534](https://github.com/stripe/stripe-python/pull/534) Fix session initialization for multi-threaded environments
+
 ## 2.20.1 - 2019-01-30
 * [#531](https://github.com/stripe/stripe-python/pull/531) Make `RequestsClient` thread-safe
 
