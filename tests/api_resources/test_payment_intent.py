@@ -22,7 +22,7 @@ class TestPaymentIntent(object):
 
     def test_is_creatable(self, request_mock):
         resource = stripe.PaymentIntent.create(
-            allowed_source_types=["card"], amount="1234", currency="amount"
+            amount="1234", currency="amount", payment_method_types=["card"]
         )
         request_mock.assert_requested("post", "/v1/payment_intents")
         assert isinstance(resource, stripe.PaymentIntent)
