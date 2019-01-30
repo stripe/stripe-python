@@ -193,6 +193,7 @@ class RequestsClient(HTTPClient):
 
     def __init__(self, timeout=80, session=None, **kwargs):
         super(RequestsClient, self).__init__(**kwargs)
+        self._session = session
         self._timeout = timeout
 
     def request(self, method, url, headers, post_data=None):
@@ -206,7 +207,7 @@ class RequestsClient(HTTPClient):
             kwargs["proxies"] = self._proxy
 
         if getattr(self._thread_local, "session", None) is None:
-            self._thread_local.session = requests.Session()
+            self._thread_local.session = self._session or requests.Session()
 
         try:
             try:
