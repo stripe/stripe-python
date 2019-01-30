@@ -194,7 +194,6 @@ class RequestsClient(HTTPClient):
     def __init__(self, timeout=80, session=None, **kwargs):
         super(RequestsClient, self).__init__(**kwargs)
         self._timeout = timeout
-        self._thread_local.session = session or requests.Session()
 
     def request(self, method, url, headers, post_data=None):
         kwargs = {}
@@ -205,6 +204,9 @@ class RequestsClient(HTTPClient):
 
         if self._proxy:
             kwargs["proxies"] = self._proxy
+
+        if getattr(self._thread_local, "session", None) is None:
+            self._thread_local.session = requests.Session()
 
         try:
             try:
@@ -288,7 +290,7 @@ class RequestsClient(HTTPClient):
         raise error.APIConnectionError(msg, should_retry=should_retry)
 
     def close(self):
-        if self._thread_local.session is not None:
+        if getattr(self._thread_local, "session", None) is not None:
             self._thread_local.session.close()
 
 
