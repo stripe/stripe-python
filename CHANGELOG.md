@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.20.1 - 2019-01-30
+* [#531](https://github.com/stripe/stripe-python/pull/531) Make `RequestsClient` thread-safe
+
 ## 2.20.0 - 2019-01-29
 * [#526](https://github.com/stripe/stripe-python/pull/526) Reuse the default HTTP client by default
 
