@@ -49,6 +49,10 @@ from stripe.api_resources.source import Source
 from stripe.api_resources.source_transaction import SourceTransaction
 from stripe.api_resources.subscription import Subscription
 from stripe.api_resources.subscription_item import SubscriptionItem
+from stripe.api_resources.subscription_schedule import SubscriptionSchedule
+from stripe.api_resources.subscription_schedule_revision import (
+    SubscriptionScheduleRevision,
+)
 from stripe.api_resources.three_d_secure import ThreeDSecure
 from stripe.api_resources.token import Token
 from stripe.api_resources.topup import Topup

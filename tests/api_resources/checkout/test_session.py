@@ -9,7 +9,6 @@ TEST_RESOURCE_ID = "loc_123"
 class TestSession(object):
     def test_is_creatable(self, request_mock):
         resource = stripe.checkout.Session.create(
-            allowed_source_types=["card"],
             cancel_url="https://stripe.com/cancel",
             client_reference_id="1234",
             line_items=[
@@ -23,6 +22,7 @@ class TestSession(object):
                 }
             ],
             payment_intent_data={"receipt_email": "test@stripe.com"},
+            payment_method_types=["card"],
             success_url="https://stripe.com/success",
         )
         request_mock.assert_requested("post", "/v1/checkout/sessions")
