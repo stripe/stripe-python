@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.21.0 - 2019-02-12
+* [#532](https://github.com/stripe/stripe-python/pull/532) Add support for subscription schedules
+
 ## 2.20.3 - 2019-01-30
 * [#530](https://github.com/stripe/stripe-python/pull/530) Fix client telemetry implementation
 
