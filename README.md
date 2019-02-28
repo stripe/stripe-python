@@ -47,9 +47,9 @@ stripe.Charge.retrieve("ch_1A2PUG2eZvKYlo2C4Rej1B9d")
 
 ### Per-request Configuration
 
-For apps that need to use multiple keys during the lifetime of a process, like
-one that uses [Stripe Connect][connect], it's also possible to set a
-per-request key and/or account:
+Configure individual requests with keyword arguments. For example, you can make
+requests with a specific [Stripe Version](https://stripe.com/docs/api#versioning)
+or as a [connected account](https://stripe.com/docs/connect/authentication#authentication-via-the-stripe-account-header):
 
 ```python
 import stripe
@@ -57,14 +57,16 @@ import stripe
 # list charges
 stripe.Charge.list(
     api_key="sk_test_...",
-    stripe_account="acct_..."
+    stripe_account="acct_...",
+    stripe_version="2019-02-19"
 )
 
 # retrieve single charge
 stripe.Charge.retrieve(
     "ch_1A2PUG2eZvKYlo2C4Rej1B9d",
     api_key="sk_test_...",
-    stripe_account="acct_..."
+    stripe_account="acct_...",
+    stripe_version="2019-02-19"
 )
 ```
 
