@@ -45,6 +45,9 @@ from stripe.oauth import OAuth  # noqa
 # Webhooks
 from stripe.webhook import Webhook, WebhookSignature  # noqa
 
+# Errors
+from stripe.error import *
+
 
 # Sets some basic information about the running application that's sent along
 # with API requests. Useful for plugin authors to identify their plugin when
