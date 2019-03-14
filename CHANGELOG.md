@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.22.0 - 2019-03-14
+* [#541](https://github.com/stripe/stripe-python/pull/541) Add `stripe.util.convert_to_dict` method for converting `StripeObject` instances to regular `dict`s
+
 ## 2.21.0 - 2019-02-12
 * [#532](https://github.com/stripe/stripe-python/pull/532) Add support for subscription schedules
 
