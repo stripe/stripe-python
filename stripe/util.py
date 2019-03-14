@@ -260,6 +260,26 @@ def convert_to_stripe_object(
         return resp
 
 
+def convert_to_dict(obj):
+    """Converts a StripeObject back to a regular dict.
+
+    Nested StripeObjects are also converted back to regular dicts.
+
+    :param obj: The StripeObject to convert.
+
+    :returns: The StripeObject as a dict.
+    """
+    if isinstance(obj, list):
+        return [convert_to_dict(i) for i in obj]
+    # This works by virtue of the fact that StripeObjects _are_ dicts. The dict
+    # comprehension returns a regular dict and recursively applies the
+    # conversion to each value.
+    elif isinstance(obj, dict):
+        return {k: convert_to_dict(v) for k, v in six.iteritems(obj)}
+    else:
+        return obj
+
+
 def populate_headers(idempotency_key):
     if idempotency_key is not None:
         return {"Idempotency-Key": idempotency_key}

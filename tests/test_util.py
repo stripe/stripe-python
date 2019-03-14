@@ -3,6 +3,7 @@ from __future__ import absolute_import, division, print_function
 import sys
 from collections import namedtuple
 
+import stripe
 from stripe import util
 from stripe.six.moves import builtins
 
@@ -125,3 +126,28 @@ class TestUtil(object):
         for case in cases:
             result = util.logfmt(case.props)
             assert result == case.expected
+
+    def test_convert_to_stripe_object_and_back(self):
+        resp = {
+            "object": "balance",
+            "available": [
+                {
+                    "amount": 234,
+                    "currency": "usd",
+                    "source_types": {"card": 234},
+                }
+            ],
+            "livemode": False,
+        }
+
+        obj = util.convert_to_stripe_object(resp)
+        assert type(obj) == stripe.Balance
+        assert type(obj.available) == list
+        assert type(obj.available[0]) == stripe.stripe_object.StripeObject
+
+        d = util.convert_to_dict(obj)
+        assert type(d) == dict
+        assert type(d["available"]) == list
+        assert type(d["available"][0]) == dict
+
+        assert d == resp
