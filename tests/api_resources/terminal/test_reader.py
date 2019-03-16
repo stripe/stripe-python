@@ -45,3 +45,11 @@ class TestReader(object):
         )
         assert isinstance(resource, stripe.terminal.Reader)
         assert resource is reader
+
+    def test_is_deletable(self, request_mock):
+        resource = stripe.terminal.Reader.retrieve(TEST_RESOURCE_ID)
+        resource.delete()
+        request_mock.assert_requested(
+            "delete", "/v1/terminal/readers/%s" % TEST_RESOURCE_ID
+        )
+        assert resource.deleted is True
