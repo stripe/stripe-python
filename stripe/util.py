@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
+import functools
 import hmac
 import io
 import logging
@@ -285,3 +286,23 @@ def populate_headers(idempotency_key):
     if idempotency_key is not None:
         return {"Idempotency-Key": idempotency_key}
     return None
+
+
+class class_method_variant(object):
+    def __init__(self, class_method_name):
+        self.class_method_name = class_method_name
+
+    def __call__(self, method):
+        self.method = method
+        return self
+
+    def __get__(self, obj=None, objtype=None):
+        @functools.wraps(self.method)
+        def _wrapper(*args, **kwargs):
+            if obj is not None:
+                return self.method(obj, *args, **kwargs)
+            else:
+                class_method = getattr(objtype, self.class_method_name)
+                return class_method(*args, **kwargs)
+
+        return _wrapper
