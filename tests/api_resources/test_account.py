@@ -37,36 +37,6 @@ class TestAccount(object):
         assert isinstance(resource, stripe.Account)
         assert resource is account
 
-    def test_is_saveable_with_additional_owners(self, request_mock):
-        # stripe-mock does not return additional owners so we construct
-        account = stripe.Account.construct_from(
-            {
-                "id": "%s" % TEST_RESOURCE_ID,
-                "legal_entity": {
-                    "additional_owners": [
-                        {"first_name": "name", "verification": {}}
-                    ]
-                },
-            },
-            stripe.api_key,
-        )
-        owner = account.legal_entity.additional_owners[0]
-        owner.verification.document = "file_foo"
-        resource = account.save()
-        request_mock.assert_requested(
-            "post",
-            "/v1/accounts/%s" % TEST_RESOURCE_ID,
-            {
-                "legal_entity": {
-                    "additional_owners": {
-                        "0": {"verification": {"document": "file_foo"}}
-                    }
-                }
-            },
-        )
-        assert isinstance(resource, stripe.Account)
-        assert resource is account
-
     def test_is_saveable_with_individual(self, request_mock):
         individual = stripe.Person.construct_from(
             {"id": "person_123", "object": "person", "first_name": "Jenny"},

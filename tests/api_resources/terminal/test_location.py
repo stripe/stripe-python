@@ -52,3 +52,11 @@ class TestLocation(object):
         )
         assert isinstance(resource, stripe.terminal.Location)
         assert resource is location
+
+    def test_is_deletable(self, request_mock):
+        resource = stripe.terminal.Location.retrieve(TEST_RESOURCE_ID)
+        resource.delete()
+        request_mock.assert_requested(
+            "delete", "/v1/terminal/locations/%s" % TEST_RESOURCE_ID
+        )
+        assert resource.deleted is True
