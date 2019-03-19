@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function
 import stripe
 
 
-TEST_RESOURCE_ID = "loc_123"
+TEST_RESOURCE_ID = "cs_123"
 
 
 class TestSession(object):
@@ -26,4 +26,11 @@ class TestSession(object):
             success_url="https://stripe.com/success",
         )
         request_mock.assert_requested("post", "/v1/checkout/sessions")
+        assert isinstance(resource, stripe.checkout.Session)
+
+    def test_is_retrievable(self, request_mock):
+        resource = stripe.checkout.Session.retrieve(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "get", "/v1/checkout/sessions/%s" % TEST_RESOURCE_ID
+        )
         assert isinstance(resource, stripe.checkout.Session)
