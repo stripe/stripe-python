@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.23.0 - 2019-03-18
+* [#537](https://github.com/stripe/stripe-python/pull/537) Add support for the `PaymentMethod` resource and APIs
+* [#540](https://github.com/stripe/stripe-python/pull/540) Add support for retrieving a Checkout `Session`
+* [#542](https://github.com/stripe/stripe-python/pull/542) Add support for deleting a Terminal `Location` and `Reader`
+
 ## 2.22.0 - 2019-03-14
 * [#541](https://github.com/stripe/stripe-python/pull/541) Add `stripe.util.convert_to_dict` method for converting `StripeObject` instances to regular `dict`s
 
