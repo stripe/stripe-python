@@ -35,6 +35,13 @@ class TestInvoiceItem(object):
             "post", "/v1/invoiceitems/%s" % TEST_RESOURCE_ID
         )
 
+    def test_can_delete(self, request_mock):
+        resource = stripe.InvoiceItem.delete(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "delete", "/v1/invoiceitems/%s" % TEST_RESOURCE_ID
+        )
+        assert resource.deleted is True
+
     def test_is_modifiable(self, request_mock):
         resource = stripe.InvoiceItem.modify(
             TEST_RESOURCE_ID, metadata={"key": "value"}

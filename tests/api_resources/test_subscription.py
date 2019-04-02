@@ -50,6 +50,13 @@ class TestSubscription(object):
         )
         assert isinstance(resource, stripe.Subscription)
 
+    def test_can_delete(self, request_mock):
+        resource = stripe.Subscription.delete(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "delete", "/v1/subscriptions/%s" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.Subscription)
+
     def test_can_delete_discount(self, request_mock):
         sub = stripe.Subscription.retrieve(TEST_RESOURCE_ID)
         sub.delete_discount()

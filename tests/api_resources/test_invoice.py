@@ -50,6 +50,13 @@ class TestInvoice(object):
         )
         assert resource.deleted is True
 
+    def test_can_delete(self, request_mock):
+        resource = stripe.Invoice.delete(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "delete", "/v1/invoices/%s" % TEST_RESOURCE_ID
+        )
+        assert resource.deleted is True
+
     def test_can_finalize_invoice(self, request_mock):
         resource = stripe.Invoice.retrieve(TEST_RESOURCE_ID)
         resource = resource.finalize_invoice()
