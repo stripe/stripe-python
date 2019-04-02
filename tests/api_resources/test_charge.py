@@ -60,6 +60,13 @@ class TestCharge(object):
         )
         assert isinstance(resource, stripe.Charge)
 
+    def test_can_capture(self, request_mock):
+        resource = stripe.Charge.capture(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "post", "/v1/charges/%s/capture" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.Charge)
+
     def test_can_update_dispute(self, request_mock):
         charge = stripe.Charge.retrieve(TEST_RESOURCE_ID)
         resource = charge.update_dispute()
