@@ -36,6 +36,7 @@ setup(
     version=version_contents["VERSION"],
     description="Python bindings for the Stripe API",
     long_description=long_description,
+    long_description_content_type="text/x-rst",
     author="Stripe",
     author_email="support@stripe.com",
     url="https://github.com/stripe/stripe-python",
