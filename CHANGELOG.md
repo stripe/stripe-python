@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.24.0 - 2019-04-03
+* [#543](https://github.com/stripe/stripe-python/pull/543) Add `delete` class method on deletable API resources
+* [#547](https://github.com/stripe/stripe-python/pull/547) Add class methods for all custom API requests (e.g. `Charge.capture`)
+
 ## 2.23.0 - 2019-03-18
 * [#537](https://github.com/stripe/stripe-python/pull/537) Add support for the `PaymentMethod` resource and APIs
 * [#540](https://github.com/stripe/stripe-python/pull/540) Add support for retrieving a Checkout `Session`
