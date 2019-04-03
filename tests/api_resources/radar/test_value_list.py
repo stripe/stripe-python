@@ -49,3 +49,10 @@ class TestValueList(object):
             "delete", "/v1/radar/value_lists/%s" % TEST_RESOURCE_ID
         )
         assert resource.deleted is True
+
+    def test_can_delete(self, request_mock):
+        resource = stripe.radar.ValueList.delete(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "delete", "/v1/radar/value_lists/%s" % TEST_RESOURCE_ID
+        )
+        assert resource.deleted is True

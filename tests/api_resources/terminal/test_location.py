@@ -60,3 +60,10 @@ class TestLocation(object):
             "delete", "/v1/terminal/locations/%s" % TEST_RESOURCE_ID
         )
         assert resource.deleted is True
+
+    def test_can_delete(self, request_mock):
+        resource = stripe.terminal.Location.delete(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "delete", "/v1/terminal/locations/%s" % TEST_RESOURCE_ID
+        )
+        assert resource.deleted is True

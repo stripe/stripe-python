@@ -80,6 +80,13 @@ class TestAccount(object):
         )
         assert resource.deleted is True
 
+    def test_can_delete(self, request_mock):
+        resource = stripe.Account.delete(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "delete", "/v1/accounts/%s" % TEST_RESOURCE_ID
+        )
+        assert resource.deleted is True
+
     def test_can_retrieve_no_id(self, request_mock):
         resource = stripe.Account.retrieve()
         request_mock.assert_requested("get", "/v1/account")

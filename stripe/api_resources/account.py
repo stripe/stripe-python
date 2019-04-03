@@ -35,7 +35,8 @@ class Account(
 
     @classmethod
     def modify(cls, id=None, **params):
-        return cls._modify(cls._build_instance_url(id), **params)
+        url = cls._build_instance_url(id)
+        return cls._static_request("post", url, **params)
 
     @classmethod
     def _build_instance_url(cls, sid):
