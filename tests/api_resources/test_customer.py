@@ -66,6 +66,12 @@ class TestCustomer(object):
             "delete", "/v1/customers/%s/discount" % TEST_RESOURCE_ID
         )
 
+    def test_can_delete_discount_class_method(self, request_mock):
+        stripe.Customer.delete_discount(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "delete", "/v1/customers/%s/discount" % TEST_RESOURCE_ID
+        )
+
 
 class TestCustomerSources(object):
     def test_is_creatable(self, request_mock):

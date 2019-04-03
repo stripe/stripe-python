@@ -52,8 +52,14 @@ class TestPaymentIntent(object):
 
     def test_can_cancel(self, request_mock):
         resource = stripe.PaymentIntent.retrieve(TEST_RESOURCE_ID)
-
         resource.cancel()
+        request_mock.assert_requested(
+            "post", "/v1/payment_intents/%s/cancel" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.PaymentIntent)
+
+    def test_can_cancel_classmethod(self, request_mock):
+        resource = stripe.PaymentIntent.cancel(TEST_RESOURCE_ID)
         request_mock.assert_requested(
             "post", "/v1/payment_intents/%s/cancel" % TEST_RESOURCE_ID
         )
@@ -61,8 +67,14 @@ class TestPaymentIntent(object):
 
     def test_can_capture(self, request_mock):
         resource = stripe.PaymentIntent.retrieve(TEST_RESOURCE_ID)
-
         resource.capture()
+        request_mock.assert_requested(
+            "post", "/v1/payment_intents/%s/capture" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.PaymentIntent)
+
+    def test_can_capture_classmethod(self, request_mock):
+        resource = stripe.PaymentIntent.capture(TEST_RESOURCE_ID)
         request_mock.assert_requested(
             "post", "/v1/payment_intents/%s/capture" % TEST_RESOURCE_ID
         )
@@ -70,8 +82,14 @@ class TestPaymentIntent(object):
 
     def test_can_confirm(self, request_mock):
         resource = stripe.PaymentIntent.retrieve(TEST_RESOURCE_ID)
-
         resource.confirm()
+        request_mock.assert_requested(
+            "post", "/v1/payment_intents/%s/confirm" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.PaymentIntent)
+
+    def test_can_confirm_classmethod(self, request_mock):
+        resource = stripe.PaymentIntent.confirm(TEST_RESOURCE_ID)
         request_mock.assert_requested(
             "post", "/v1/payment_intents/%s/confirm" % TEST_RESOURCE_ID
         )

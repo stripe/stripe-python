@@ -39,7 +39,7 @@ class TestAuthorization(object):
         assert isinstance(resource, stripe.issuing.Authorization)
         assert resource is authorization
 
-    def test_is_approveable(self, request_mock):
+    def test_can_approve(self, request_mock):
         resource = stripe.issuing.Authorization.retrieve(TEST_RESOURCE_ID)
         authorization = resource.approve()
         request_mock.assert_requested(
@@ -48,7 +48,14 @@ class TestAuthorization(object):
         assert isinstance(resource, stripe.issuing.Authorization)
         assert resource is authorization
 
-    def test_is_declineable(self, request_mock):
+    def test_can_approve_classmethod(self, request_mock):
+        resource = stripe.issuing.Authorization.approve(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "post", "/v1/issuing/authorizations/%s/approve" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.issuing.Authorization)
+
+    def test_can_decline(self, request_mock):
         resource = stripe.issuing.Authorization.retrieve(TEST_RESOURCE_ID)
         authorization = resource.decline()
         request_mock.assert_requested(
@@ -56,3 +63,10 @@ class TestAuthorization(object):
         )
         assert isinstance(resource, stripe.issuing.Authorization)
         assert resource is authorization
+
+    def test_can_decline_classmethod(self, request_mock):
+        resource = stripe.issuing.Authorization.decline(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "post", "/v1/issuing/authorizations/%s/decline" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.issuing.Authorization)

@@ -3,8 +3,11 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import custom_method
 
 
+@custom_method("approve", http_verb="post")
+@custom_method("decline", http_verb="post")
 class Authorization(ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "issuing.authorization"
 

@@ -37,9 +37,17 @@ class TestDispute(object):
         )
         assert isinstance(resource, stripe.Dispute)
 
-    def test_is_closeable(self, request_mock):
+    def test_can_close(self, request_mock):
         resource = stripe.Dispute.retrieve(TEST_RESOURCE_ID)
         resource.close()
         request_mock.assert_requested(
             "post", "/v1/disputes/%s/close" % TEST_RESOURCE_ID
         )
+        assert isinstance(resource, stripe.Dispute)
+
+    def test_can_close_classmethod(self, request_mock):
+        resource = stripe.Dispute.close(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "post", "/v1/disputes/%s/close" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.Dispute)

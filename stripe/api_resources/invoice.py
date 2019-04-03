@@ -5,8 +5,14 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import custom_method
 
 
+@custom_method("finalize_invoice", http_verb="post", http_path="finalize")
+@custom_method("mark_uncollectible", http_verb="post")
+@custom_method("pay", http_verb="post")
+@custom_method("send_invoice", http_verb="post", http_path="send")
+@custom_method("void_invoice", http_verb="post", http_path="void")
 class Invoice(
     CreateableAPIResource,
     UpdateableAPIResource,

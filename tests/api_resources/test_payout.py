@@ -49,3 +49,10 @@ class TestPayout(object):
             "post", "/v1/payouts/%s/cancel" % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.Payout)
+
+    def test_can_cancel_classmethod(self, request_mock):
+        resource = stripe.Payout.cancel(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "post", "/v1/payouts/%s/cancel" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.Payout)

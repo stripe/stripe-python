@@ -4,8 +4,11 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import custom_method
 
 
+@custom_method("attach", http_verb="post")
+@custom_method("detach", http_verb="post")
 class PaymentMethod(
     CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
 ):

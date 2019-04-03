@@ -52,9 +52,27 @@ class TestPaymentMethod(object):
         )
         assert isinstance(resource, stripe.PaymentMethod)
 
+    def test_can_attach_classmethod(self, request_mock):
+        resource = stripe.PaymentMethod.attach(
+            TEST_RESOURCE_ID, customer="cus_123"
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/payment_methods/%s/attach" % TEST_RESOURCE_ID,
+            {"customer": "cus_123"},
+        )
+        assert isinstance(resource, stripe.PaymentMethod)
+
     def test_can_detach(self, request_mock):
         resource = stripe.PaymentMethod.retrieve(TEST_RESOURCE_ID)
         resource = resource.detach()
+        request_mock.assert_requested(
+            "post", "/v1/payment_methods/%s/detach" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.PaymentMethod)
+
+    def test_can_detach_classmethod(self, request_mock):
+        resource = stripe.PaymentMethod.detach(TEST_RESOURCE_ID)
         request_mock.assert_requested(
             "post", "/v1/payment_methods/%s/detach" % TEST_RESOURCE_ID
         )

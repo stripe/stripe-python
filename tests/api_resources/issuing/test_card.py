@@ -51,3 +51,10 @@ class TestCard(object):
             "get", "/v1/issuing/cards/%s/details" % TEST_RESOURCE_ID
         )
         assert isinstance(card_details, stripe.issuing.CardDetails)
+
+    def test_can_retrieve_details_classmethod(self, request_mock):
+        card_details = stripe.issuing.Card.details(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "get", "/v1/issuing/cards/%s/details" % TEST_RESOURCE_ID
+        )
+        assert isinstance(card_details, stripe.issuing.CardDetails)
