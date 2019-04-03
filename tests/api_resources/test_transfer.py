@@ -45,7 +45,7 @@ class TestTransfer(object):
         )
         assert isinstance(resource, stripe.Transfer)
 
-    def test_is_cancelable(self, request_mock):
+    def test_can_cancel(self, request_mock):
         # stripe-mock does not handle this anymore as it was on an old
         # API version so we stub instead.
         request_mock.stub_request(
@@ -66,6 +66,20 @@ class TestTransfer(object):
             "post", "/v1/transfers/%s/cancel" % TEST_RESOURCE_ID
         )
         assert isinstance(transfer_canceled, stripe.Transfer)
+
+    def test_can_cancel_classmethod(self, request_mock):
+        # stripe-mock does not handle this anymore as it was on an old
+        # API version so we stub instead.
+        request_mock.stub_request(
+            "post",
+            "/v1/transfers/%s/cancel" % TEST_RESOURCE_ID,
+            {"id": "%s" % TEST_RESOURCE_ID, "object": "transfer"},
+        )
+        transfer = stripe.Transfer.cancel(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "post", "/v1/transfers/%s/cancel" % TEST_RESOURCE_ID
+        )
+        assert isinstance(transfer, stripe.Transfer)
 
 
 class TestTransferReversals:

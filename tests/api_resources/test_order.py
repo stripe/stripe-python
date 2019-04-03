@@ -42,19 +42,37 @@ class TestOrder(object):
         )
         assert isinstance(resource, stripe.Order)
 
-    def test_is_payable(self, request_mock):
+    def test_can_pay(self, request_mock):
         order = stripe.Order.retrieve(TEST_RESOURCE_ID)
         resource = order.pay(source="src_123")
         request_mock.assert_requested(
-            "post", "/v1/orders/%s/pay" % order.id, {"source": "src_123"}
+            "post",
+            "/v1/orders/%s/pay" % TEST_RESOURCE_ID,
+            {"source": "src_123"},
         )
         assert isinstance(resource, stripe.Order)
         assert resource is order
 
-    def test_is_returnable(self, request_mock):
+    def test_can_pay_classmethod(self, request_mock):
+        resource = stripe.Order.pay(TEST_RESOURCE_ID, source="src_123")
+        request_mock.assert_requested(
+            "post",
+            "/v1/orders/%s/pay" % TEST_RESOURCE_ID,
+            {"source": "src_123"},
+        )
+        assert isinstance(resource, stripe.Order)
+
+    def test_can_return(self, request_mock):
         order = stripe.Order.retrieve(TEST_RESOURCE_ID)
         resource = order.return_order()
         request_mock.assert_requested(
-            "post", "/v1/orders/%s/returns" % order.id
+            "post", "/v1/orders/%s/returns" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.OrderReturn)
+
+    def test_can_return_classmethod(self, request_mock):
+        resource = stripe.Order.return_order(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "post", "/v1/orders/%s/returns" % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.OrderReturn)

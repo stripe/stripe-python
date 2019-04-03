@@ -63,3 +63,9 @@ class TestSubscription(object):
         request_mock.assert_requested(
             "delete", "/v1/subscriptions/%s/discount" % sub.id
         )
+
+    def test_can_delete_discount_classmethod(self, request_mock):
+        stripe.Subscription.delete_discount(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "delete", "/v1/subscriptions/%s/discount" % TEST_RESOURCE_ID
+        )

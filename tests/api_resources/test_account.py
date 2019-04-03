@@ -96,10 +96,21 @@ class TestAccount(object):
         account = stripe.Account.retrieve(TEST_RESOURCE_ID)
         resource = account.reject(reason="fraud")
         request_mock.assert_requested(
-            "post", "/v1/accounts/%s/reject" % TEST_RESOURCE_ID
+            "post",
+            "/v1/accounts/%s/reject" % TEST_RESOURCE_ID,
+            {"reason": "fraud"},
         )
         assert isinstance(resource, stripe.Account)
         assert resource is account
+
+    def test_can_reject_classmethod(self, request_mock):
+        resource = stripe.Account.reject(TEST_RESOURCE_ID, reason="fraud")
+        request_mock.assert_requested(
+            "post",
+            "/v1/accounts/%s/reject" % TEST_RESOURCE_ID,
+            {"reason": "fraud"},
+        )
+        assert isinstance(resource, stripe.Account)
 
     def test_is_deauthorizable(self, request_mock):
         account = stripe.Account.retrieve(TEST_RESOURCE_ID)

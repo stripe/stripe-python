@@ -4,8 +4,11 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import custom_method
 
 
+@custom_method("pay", http_verb="post")
+@custom_method("return_order", http_verb="post", http_path="returns")
 class Order(CreateableAPIResource, UpdateableAPIResource, ListableAPIResource):
     OBJECT_NAME = "order"
 
