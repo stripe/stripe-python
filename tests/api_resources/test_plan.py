@@ -24,7 +24,7 @@ class TestPlan(object):
             currency="usd",
             id="plan_id",
             interval="month",
-            name="plan_name",
+            nickname="plan_nickname",
         )
         request_mock.assert_requested("post", "/v1/plans")
         assert isinstance(resource, stripe.Plan)
