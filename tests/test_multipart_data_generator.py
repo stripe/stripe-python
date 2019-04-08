@@ -14,6 +14,13 @@ class TestMultipartDataGenerator(object):
             "key1": b"ASCII value",
             "key2": u"Üñìçôdé value",
             "key3": test_file,
+            "key4": {
+                "string": "Hello!",
+                "int": 234,
+                "float": 3.14159,
+                "bool": True,
+                "dict": {"foo": "bar"},
+            },
         }
         generator = MultipartDataGenerator()
         generator.add_params(params)
@@ -36,6 +43,29 @@ class TestMultipartDataGenerator(object):
             http_body,
         )
         assert re.search(r"Content-Type: application/octet-stream", http_body)
+        assert re.search(
+            r"Content-Disposition: form-data; name=\"key4\[string\]\"",
+            http_body,
+        )
+        assert re.search(r"Hello!", http_body)
+        assert re.search(
+            r"Content-Disposition: form-data; name=\"key4\[int\]\"", http_body
+        )
+        assert re.search(r"234", http_body)
+        assert re.search(
+            r"Content-Disposition: form-data; name=\"key4\[float\]\"",
+            http_body,
+        )
+        assert re.search(r"3.14159", http_body)
+        assert re.search(
+            r"Content-Disposition: form-data; name=\"key4\[bool\]\"", http_body
+        )
+        assert re.search(r"True", http_body)
+        assert re.search(
+            r"Content-Disposition: form-data; name=\"key4\[dict\]\[foo\]\"",
+            http_body,
+        )
+        assert re.search(r"bar", http_body)
 
         test_file.seek(0)
         file_contents = test_file.read()

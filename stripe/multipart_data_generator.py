@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function
 import random
 import io
 
-from stripe import six
+import stripe
 
 
 class MultipartDataGenerator(object):
@@ -14,7 +14,10 @@ class MultipartDataGenerator(object):
         self.chunk_size = chunk_size
 
     def add_params(self, params):
-        for key, value in six.iteritems(params):
+        # Flatten parameters first
+        params = dict(stripe.api_requestor._api_encode(params))
+
+        for key, value in stripe.six.iteritems(params):
             if value is None:
                 continue
 
@@ -45,7 +48,7 @@ class MultipartDataGenerator(object):
                 self._write('"')
                 self._write(self.line_break)
                 self._write(self.line_break)
-                self._write(value)
+                self._write(str(value))
 
             self._write(self.line_break)
 
@@ -58,9 +61,9 @@ class MultipartDataGenerator(object):
         return self.data.getvalue()
 
     def _write(self, value):
-        if isinstance(value, six.binary_type):
+        if isinstance(value, stripe.six.binary_type):
             array = bytearray(value)
-        elif isinstance(value, six.text_type):
+        elif isinstance(value, stripe.six.text_type):
             array = bytearray(value, encoding="utf-8")
         else:
             raise TypeError(

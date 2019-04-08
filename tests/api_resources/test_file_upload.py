@@ -36,7 +36,9 @@ class TestFileUpload(object):
         )
         test_file = tempfile.TemporaryFile()
         resource = stripe.FileUpload.create(
-            purpose="dispute_evidence", file=test_file
+            purpose="dispute_evidence",
+            file=test_file,
+            file_link_data={"create": True},
         )
         request_mock.assert_api_base(stripe.upload_api_base)
         request_mock.assert_requested(
