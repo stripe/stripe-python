@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.24.1 - 2019-04-08
+* [#550](https://github.com/stripe/stripe-python/pull/550) Fix encoding of nested parameters in multipart requests
+
 ## 2.24.0 - 2019-04-03
 * [#543](https://github.com/stripe/stripe-python/pull/543) Add `delete` class method on deletable API resources
 * [#547](https://github.com/stripe/stripe-python/pull/547) Add class methods for all custom API requests (e.g. `Charge.capture`)
