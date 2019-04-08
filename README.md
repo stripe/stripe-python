@@ -195,7 +195,7 @@ with:
 [connect]: https://stripe.com/connect
 [pipenv]: https://github.com/pypa/pipenv
 [stripe-mock]: https://github.com/stripe/stripe-mock
-[idempotency-keys]: https://stripe.com/docs/api/ruby#idempotent_requests
+[idempotency-keys]: https://stripe.com/docs/api/idempotent_requests?lang=python
 
 <!--
 # vim: set tw=79:
