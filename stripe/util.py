@@ -159,6 +159,7 @@ def load_object_classes():
         api_resources.checkout.Session.OBJECT_NAME: api_resources.checkout.Session,
         api_resources.CountrySpec.OBJECT_NAME: api_resources.CountrySpec,
         api_resources.Coupon.OBJECT_NAME: api_resources.Coupon,
+        api_resources.CreditNote.OBJECT_NAME: api_resources.CreditNote,
         api_resources.Customer.OBJECT_NAME: api_resources.Customer,
         api_resources.Dispute.OBJECT_NAME: api_resources.Dispute,
         api_resources.EphemeralKey.OBJECT_NAME: api_resources.EphemeralKey,

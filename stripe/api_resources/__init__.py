@@ -19,6 +19,7 @@ from stripe.api_resources.card import Card
 from stripe.api_resources.charge import Charge
 from stripe.api_resources.country_spec import CountrySpec
 from stripe.api_resources.coupon import Coupon
+from stripe.api_resources.credit_note import CreditNote
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.dispute import Dispute
 from stripe.api_resources.ephemeral_key import EphemeralKey
