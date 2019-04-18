@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.25.0 - 2019-04-18
+* [#551](https://github.com/stripe/stripe-python/pull/551) Add support for the `CreditNote` resource and APIs
+
 ## 2.24.1 - 2019-04-08
 * [#550](https://github.com/stripe/stripe-python/pull/550) Fix encoding of nested parameters in multipart requests
 
