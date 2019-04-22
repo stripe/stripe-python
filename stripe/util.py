@@ -204,6 +204,7 @@ def load_object_classes():
         api_resources.SubscriptionItem.OBJECT_NAME: api_resources.SubscriptionItem,
         api_resources.SubscriptionSchedule.OBJECT_NAME: api_resources.SubscriptionSchedule,
         api_resources.SubscriptionScheduleRevision.OBJECT_NAME: api_resources.SubscriptionScheduleRevision,
+        api_resources.TaxId.OBJECT_NAME: api_resources.TaxId,
         api_resources.ThreeDSecure.OBJECT_NAME: api_resources.ThreeDSecure,
         api_resources.Token.OBJECT_NAME: api_resources.Token,
         api_resources.Topup.OBJECT_NAME: api_resources.Topup,

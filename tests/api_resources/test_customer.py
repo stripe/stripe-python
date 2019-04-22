@@ -6,6 +6,7 @@ import stripe
 TEST_RESOURCE_ID = "cus_123"
 TEST_SUB_ID = "sub_123"
 TEST_SOURCE_ID = "ba_123"
+TEST_TAX_ID_ID = "txi_123"
 
 
 class TestCustomer(object):
@@ -107,5 +108,36 @@ class TestCustomerSources(object):
         resources = stripe.Customer.list_sources(TEST_RESOURCE_ID)
         request_mock.assert_requested(
             "get", "/v1/customers/%s/sources" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resources.data, list)
+
+
+class TestCustomerTaxIds(object):
+    def test_is_creatable(self, request_mock):
+        stripe.Customer.create_tax_id(
+            TEST_RESOURCE_ID, type="eu_vat", value="11111"
+        )
+        request_mock.assert_requested(
+            "post", "/v1/customers/%s/tax_ids" % TEST_RESOURCE_ID
+        )
+
+    def test_is_retrievable(self, request_mock):
+        stripe.Customer.retrieve_tax_id(TEST_RESOURCE_ID, TEST_TAX_ID_ID)
+        request_mock.assert_requested(
+            "get",
+            "/v1/customers/%s/tax_ids/%s" % (TEST_RESOURCE_ID, TEST_TAX_ID_ID),
+        )
+
+    def test_is_deletable(self, request_mock):
+        stripe.Customer.delete_tax_id(TEST_RESOURCE_ID, TEST_TAX_ID_ID)
+        request_mock.assert_requested(
+            "delete",
+            "/v1/customers/%s/tax_ids/%s" % (TEST_RESOURCE_ID, TEST_TAX_ID_ID),
+        )
+
+    def test_is_listable(self, request_mock):
+        resources = stripe.Customer.list_tax_ids(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "get", "/v1/customers/%s/tax_ids" % TEST_RESOURCE_ID
         )
         assert isinstance(resources.data, list)
