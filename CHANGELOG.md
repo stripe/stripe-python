@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.26.0 - 2019-04-22
+* [#555](https://github.com/stripe/stripe-python/pull/555) Add support for the `TaxId` resource and APIs
+
 ## 2.25.0 - 2019-04-18
 * [#551](https://github.com/stripe/stripe-python/pull/551) Add support for the `CreditNote` resource and APIs
 
