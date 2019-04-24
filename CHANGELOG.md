@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.27.0 - 2019-04-24
+* [#554](https://github.com/stripe/stripe-python/pull/554) Add support for the `TaxRate` resource and APIs
+
 ## 2.26.0 - 2019-04-22
 * [#555](https://github.com/stripe/stripe-python/pull/555) Add support for the `TaxId` resource and APIs
 
