@@ -56,6 +56,7 @@ from stripe.api_resources.subscription_schedule_revision import (
     SubscriptionScheduleRevision,
 )
 from stripe.api_resources.tax_id import TaxId
+from stripe.api_resources.tax_rate import TaxRate
 from stripe.api_resources.three_d_secure import ThreeDSecure
 from stripe.api_resources.token import Token
 from stripe.api_resources.topup import Topup
