@@ -18,7 +18,7 @@ class TestEphemeralKey(object):
 
     def test_is_not_creatable_without_an_explicit_api_version(self):
         with pytest.raises(
-            ValueError, message="stripe_version must be specified"
+            ValueError, match="stripe_version must be specified"
         ):
             stripe.EphemeralKey.create(customer="cus_123")
 
