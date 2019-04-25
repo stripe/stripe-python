@@ -8,6 +8,9 @@
 *.egg
 *.class
 
+# Poetry lock file
+poetry.lock
+
 # Unit test / coverage reports
 .tox/
 .coverage

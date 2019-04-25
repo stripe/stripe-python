@@ -16,6 +16,7 @@ matrix:
 cache:
   directories:
     - stripe-mock
+    - "${HOME}/.cache/pypoetry"
   pip: true
 
 env:
@@ -37,7 +38,10 @@ before_install:
   - export PATH="${PATH}:${PWD}/stripe-mock/stripe-mock_${STRIPE_MOCK_VERSION}"
 
 install:
-  - make init
+  - pip install --upgrade pip
+  - curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+  - source ${HOME}/.poetry/env
+  - poetry install -v
 
 script:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then make lint; fi
