@@ -10,14 +10,13 @@ matrix:
     - python: "3.6"
     - python: "3.7"
       dist: xenial
-      sudo: true # workaround for https://github.com/travis-ci/travis-ci/issues/9815
     - python: "pypy"
     - python: "pypy3"
 
 cache:
   directories:
     - stripe-mock
-  pip: false
+  pip: true
 
 env:
   global:
