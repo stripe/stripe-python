@@ -7,6 +7,7 @@ import logging
 import sys
 import os
 import re
+import warnings
 
 import stripe
 from stripe import six
@@ -303,9 +304,42 @@ class class_method_variant(object):
         @functools.wraps(self.method)
         def _wrapper(*args, **kwargs):
             if obj is not None:
+                self._deprecation_warning(obj)
                 return self.method(obj, *args, **kwargs)
             else:
                 class_method = getattr(objtype, self.class_method_name)
                 return class_method(*args, **kwargs)
 
         return _wrapper
+
+    def _deprecation_warning(self, obj):
+        if (
+            not isinstance(obj, stripe.api_resources.abstract.APIResource)
+            or "id" not in obj
+        ):
+            return
+
+        message = "This instance method is deprecated. Use the class method {module_name}.{class_name}.{method_name}({sid}, ...) instead.".format(
+            module_name=self._public_module_name(obj.__class__.__module__),
+            class_name=obj.__class__.__name__,
+            method_name=self.method.__name__,
+            sid=repr(obj["id"]),
+        )
+        warnings.simplefilter("always", DeprecationWarning)
+        warnings.warn(message, category=DeprecationWarning, stacklevel=3)
+        warnings.simplefilter("default", DeprecationWarning)
+
+    @staticmethod
+    def _public_module_name(module_name):
+        """Converts a fully qualified module name to a public short name.
+
+        Examples:
+        - `stripe.api_resources.customer` -> `stripe`
+        - `stripe.api_resources.issuing.card` -> `stripe.issuing`
+        """
+        parts = module_name.split(".")
+        # remove 'api_resources'
+        del parts[1]
+        # remove resource package
+        del parts[-1]
+        return ".".join(parts)
