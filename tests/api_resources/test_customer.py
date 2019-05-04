@@ -7,6 +7,7 @@ TEST_RESOURCE_ID = "cus_123"
 TEST_SUB_ID = "sub_123"
 TEST_SOURCE_ID = "ba_123"
 TEST_TAX_ID_ID = "txi_123"
+TEST_TRANSACTION_ID = "cbtxn_123"
 
 
 class TestCustomer(object):
@@ -139,5 +140,32 @@ class TestCustomerTaxIds(object):
         resources = stripe.Customer.list_tax_ids(TEST_RESOURCE_ID)
         request_mock.assert_requested(
             "get", "/v1/customers/%s/tax_ids" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resources.data, list)
+
+
+class TestCustomerTransactions(object):
+    def test_is_creatable(self, request_mock):
+        stripe.Customer.create_balance_transaction(
+            TEST_RESOURCE_ID, amount=1234, currency="usd"
+        )
+        request_mock.assert_requested(
+            "post", "/v1/customers/%s/balance_transactions" % TEST_RESOURCE_ID
+        )
+
+    def test_is_retrievable(self, request_mock):
+        stripe.Customer.retrieve_balance_transaction(
+            TEST_RESOURCE_ID, TEST_TRANSACTION_ID
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/customers/%s/balance_transactions/%s"
+            % (TEST_RESOURCE_ID, TEST_TRANSACTION_ID),
+        )
+
+    def test_is_listable(self, request_mock):
+        resources = stripe.Customer.list_balance_transactions(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "get", "/v1/customers/%s/balance_transactions" % TEST_RESOURCE_ID
         )
         assert isinstance(resources.data, list)
