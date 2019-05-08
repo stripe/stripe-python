@@ -28,6 +28,12 @@ class Account(
 ):
     OBJECT_NAME = "account"
 
+    def reject(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/reject"
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("post", url, params, headers))
+        return self
+
     @classmethod
     def retrieve(cls, id=None, api_key=None, **params):
         instance = cls(id, api_key, **params)
@@ -53,12 +59,6 @@ class Account(
 
     def persons(self, **params):
         return self.request("get", self.instance_url() + "/persons", params)
-
-    def reject(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/reject"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
 
     def deauthorize(self, **params):
         params["stripe_user_id"] = self.id
