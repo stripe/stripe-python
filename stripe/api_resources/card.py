@@ -1,15 +1,15 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import error, util
+from stripe.api_resources.abstract import DeletableAPIResource
+from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.recipient import Recipient
-from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.six.moves.urllib.parse import quote_plus
 
 
-class Card(UpdateableAPIResource, DeletableAPIResource):
+class Card(DeletableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "card"
 
     def instance_url(self):

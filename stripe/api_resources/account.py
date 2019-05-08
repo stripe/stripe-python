@@ -4,10 +4,10 @@ import stripe
 from stripe import oauth, six, util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import custom_method
+from stripe.api_resources.abstract import nested_resource_class_methods
 from stripe.six.moves.urllib.parse import quote_plus
 
 
@@ -22,9 +22,9 @@ from stripe.six.moves.urllib.parse import quote_plus
 )
 class Account(
     CreateableAPIResource,
+    DeletableAPIResource,
     ListableAPIResource,
     UpdateableAPIResource,
-    DeletableAPIResource,
 ):
     OBJECT_NAME = "account"
 

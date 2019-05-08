@@ -2,15 +2,13 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import custom_method
 
 
 @custom_method("capture", http_verb="post")
-class Charge(
-    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
-):
+class Charge(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "charge"
 
     def refund(self, idempotency_key=None, **params):

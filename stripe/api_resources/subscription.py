@@ -3,8 +3,8 @@ from __future__ import absolute_import, division, print_function
 from stripe import api_requestor
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import custom_method
 
 
@@ -12,8 +12,8 @@ from stripe.api_resources.abstract import custom_method
 class Subscription(
     CreateableAPIResource,
     DeletableAPIResource,
-    UpdateableAPIResource,
     ListableAPIResource,
+    UpdateableAPIResource,
 ):
     OBJECT_NAME = "subscription"
 

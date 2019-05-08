@@ -2,14 +2,14 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import custom_method
 
 
 @custom_method("pay", http_verb="post")
 @custom_method("return_order", http_verb="post", http_path="returns")
-class Order(CreateableAPIResource, UpdateableAPIResource, ListableAPIResource):
+class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "order"
 
     def pay(self, idempotency_key=None, **params):
