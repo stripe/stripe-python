@@ -2,14 +2,14 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import custom_method
+from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 @custom_method("void_credit_note", http_verb="post", http_path="void")
 class CreditNote(
-    CreateableAPIResource, UpdateableAPIResource, ListableAPIResource
+    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
 ):
     OBJECT_NAME = "credit_note"
 

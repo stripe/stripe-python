@@ -3,11 +3,11 @@ from __future__ import absolute_import, division, print_function
 import stripe
 from stripe import oauth, six, util
 from stripe.api_resources.abstract import CreateableAPIResource
+from stripe.api_resources.abstract import custom_method
 from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
-from stripe.api_resources.abstract import custom_method
+from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.six.moves.urllib.parse import quote_plus
 
 
@@ -27,11 +27,17 @@ from stripe.six.moves.urllib.parse import quote_plus
 )
 class Account(
     CreateableAPIResource,
+    DeletableAPIResource,
     ListableAPIResource,
     UpdateableAPIResource,
-    DeletableAPIResource,
 ):
     OBJECT_NAME = "account"
+
+    def reject(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/reject"
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("post", url, params, headers))
+        return self
 
     @classmethod
     def retrieve(cls, id=None, api_key=None, **params):
@@ -61,12 +67,6 @@ class Account(
 
     # We are not adding a helper for capabilities here as the Account object already has a
     # capabilities property which is a hash and not the sub-list of capabilities.
-
-    def reject(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/reject"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
 
     def deauthorize(self, **params):
         params["stripe_user_id"] = self.id

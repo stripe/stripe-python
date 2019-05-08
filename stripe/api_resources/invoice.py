@@ -2,10 +2,10 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import custom_method
+from stripe.api_resources.abstract import DeletableAPIResource
+from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 @custom_method("finalize_invoice", http_verb="post", http_path="finalize")
@@ -15,9 +15,9 @@ from stripe.api_resources.abstract import custom_method
 @custom_method("void_invoice", http_verb="post", http_path="void")
 class Invoice(
     CreateableAPIResource,
-    UpdateableAPIResource,
     DeletableAPIResource,
     ListableAPIResource,
+    UpdateableAPIResource,
 ):
     OBJECT_NAME = "invoice"
 
@@ -45,6 +45,12 @@ class Invoice(
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
+    def void_invoice(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/void"
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("post", url, params, headers))
+        return self
+
     @classmethod
     def upcoming(
         cls, api_key=None, stripe_version=None, stripe_account=None, **params
@@ -57,9 +63,3 @@ class Invoice(
         return util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account
         )
-
-    def void_invoice(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/void"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self

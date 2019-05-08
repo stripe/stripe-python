@@ -1,15 +1,15 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import error, util
+from stripe.api_resources.abstract import DeletableAPIResource
+from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import VerifyMixin
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
-from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import VerifyMixin
 from stripe.six.moves.urllib.parse import quote_plus
 
 
-class BankAccount(UpdateableAPIResource, DeletableAPIResource, VerifyMixin):
+class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
     OBJECT_NAME = "bank_account"
 
     def instance_url(self):

@@ -6,11 +6,12 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 
 class File(ListableAPIResource):
+    OBJECT_NAME = "file"
+
     # This resource can have two different object names. In latter API
     # versions, only `file` is used, but since stripe-python may be used with
     # any API version, we need to support deserializing the older
     # `file_upload` object into the same class.
-    OBJECT_NAME = "file"
     OBJECT_NAME_ALT = "file_upload"
 
     @classmethod
