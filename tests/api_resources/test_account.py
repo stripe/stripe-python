@@ -4,6 +4,7 @@ import stripe
 
 
 TEST_RESOURCE_ID = "acct_123"
+TEST_CAPABILITY_ID = "acap_123"
 TEST_EXTERNALACCOUNT_ID = "ba_123"
 TEST_PERSON_ID = "person_123"
 
@@ -132,6 +133,38 @@ class TestAccount(object):
         )
         assert isinstance(resources.data, list)
         assert isinstance(resources.data[0], stripe.Person)
+
+
+class TestAccountCapabilities(object):
+    def test_is_listable(self, request_mock):
+        resources = stripe.Account.list_capabilities(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "get", "/v1/accounts/%s/capabilities" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resources.data, list)
+        assert isinstance(resources.data[0], stripe.Capability)
+
+    def test_is_modifiable(self, request_mock):
+        resource = stripe.Account.modify_capability(
+            TEST_RESOURCE_ID, TEST_CAPABILITY_ID, requested=True
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/accounts/%s/capabilities/%s"
+            % (TEST_RESOURCE_ID, TEST_CAPABILITY_ID),
+        )
+        assert isinstance(resource, stripe.Capability)
+
+    def test_is_retrievable(self, request_mock):
+        resource = stripe.Account.retrieve_capability(
+            TEST_RESOURCE_ID, TEST_CAPABILITY_ID
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/accounts/%s/capabilities/%s"
+            % (TEST_RESOURCE_ID, TEST_CAPABILITY_ID),
+        )
+        assert isinstance(resource, stripe.Capability)
 
 
 class TestAccountExternalAccounts(object):

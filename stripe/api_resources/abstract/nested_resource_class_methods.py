@@ -4,9 +4,13 @@ from stripe import api_requestor, util
 from stripe.six.moves.urllib.parse import quote_plus
 
 
-def nested_resource_class_methods(resource, path=None, operations=None):
+def nested_resource_class_methods(
+    resource, path=None, operations=None, resource_plural=None
+):
+    if resource_plural is None:
+        resource_plural = "%ss" % resource
     if path is None:
-        path = "%ss" % resource
+        path = resource_plural
     if operations is None:
         raise ValueError("operations list required")
 
@@ -109,7 +113,7 @@ def nested_resource_class_methods(resource, path=None, operations=None):
                         "get", url, **params
                     )
 
-                list_method = "list_%ss" % resource
+                list_method = "list_%s" % resource_plural
                 setattr(cls, list_method, classmethod(list_nested_resources))
 
             else:
