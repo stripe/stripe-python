@@ -8,7 +8,9 @@ from stripe.api_resources.abstract import custom_method
 
 
 @custom_method("cancel", http_verb="post")
-class Payout(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+class Payout(
+    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
+):
     OBJECT_NAME = "payout"
 
     def cancel(self, idempotency_key=None, **params):

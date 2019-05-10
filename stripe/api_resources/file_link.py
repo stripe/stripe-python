@@ -6,8 +6,6 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class FileLink(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
 ):
     OBJECT_NAME = "file_link"

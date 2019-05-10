@@ -12,9 +12,7 @@ from stripe.api_resources.abstract import nested_resource_class_methods
 @custom_method("release", http_verb="post")
 @nested_resource_class_methods("revision", operations=["retrieve", "list"])
 class SubscriptionSchedule(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
 ):
     OBJECT_NAME = "subscription_schedule"
 

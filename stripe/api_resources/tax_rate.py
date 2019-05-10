@@ -6,8 +6,6 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class TaxRate(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
 ):
     OBJECT_NAME = "tax_rate"

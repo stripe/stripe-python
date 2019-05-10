@@ -11,9 +11,7 @@ from stripe.api_resources.abstract import custom_method
 @custom_method("capture", http_verb="post")
 @custom_method("confirm", http_verb="post")
 class PaymentIntent(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
 ):
     OBJECT_NAME = "payment_intent"
 
