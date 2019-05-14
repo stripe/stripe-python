@@ -154,6 +154,7 @@ def load_object_classes():
         api_resources.BankAccount.OBJECT_NAME: api_resources.BankAccount,
         api_resources.BitcoinReceiver.OBJECT_NAME: api_resources.BitcoinReceiver,
         api_resources.BitcoinTransaction.OBJECT_NAME: api_resources.BitcoinTransaction,
+        api_resources.Capability.OBJECT_NAME: api_resources.Capability,
         api_resources.Card.OBJECT_NAME: api_resources.Card,
         api_resources.Charge.OBJECT_NAME: api_resources.Charge,
         api_resources.checkout.Session.OBJECT_NAME: api_resources.checkout.Session,

@@ -13,6 +13,11 @@ from stripe.six.moves.urllib.parse import quote_plus
 
 @custom_method("reject", http_verb="post")
 @nested_resource_class_methods(
+    "capability",
+    operations=["retrieve", "update", "list"],
+    resource_plural="capabilities",
+)
+@nested_resource_class_methods(
     "external_account",
     operations=["create", "retrieve", "update", "delete", "list"],
 )
@@ -53,6 +58,9 @@ class Account(
 
     def persons(self, **params):
         return self.request("get", self.instance_url() + "/persons", params)
+
+    # We are not adding a helper for capabilities here as the Account object already has a
+    # capabilities property which is a hash and not the sub-list of capabilities.
 
     def reject(self, idempotency_key=None, **params):
         url = self.instance_url() + "/reject"
