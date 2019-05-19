@@ -94,9 +94,9 @@ class HTTPClient(object):
     def __init__(self, verify_ssl_certs=True, proxy=None):
         self._verify_ssl_certs = verify_ssl_certs
         if proxy:
-            if type(proxy) is str:
+            if isinstance(proxy, str):
                 proxy = {"http": proxy, "https": proxy}
-            if not (type(proxy) is dict):
+            if not isinstance(proxy, dict):
                 raise ValueError(
                     "Proxy(ies) must be specified as either a string "
                     "URL or a dict() with string URL under the"
