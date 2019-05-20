@@ -39,9 +39,7 @@ class OAuth(object):
     @staticmethod
     def token(**params):
         requestor = api_requestor.APIRequestor(api_base=connect_api_base)
-        response, _ = requestor.request(
-            "post", "/oauth/token", params, None
-        )
+        response, _ = requestor.request("post", "/oauth/token", params, None)
         return response.data
 
     @staticmethod
