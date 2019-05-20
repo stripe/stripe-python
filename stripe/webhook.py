@@ -60,7 +60,7 @@ class WebhookSignature(object):
                 payload,
             )
 
-        if len(signatures) == 0:
+        if not signatures:
             raise error.SignatureVerificationError(
                 "No signatures found with expected scheme "
                 "%s" % cls.EXPECTED_SCHEME,

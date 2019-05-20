@@ -225,7 +225,7 @@ def convert_to_stripe_object(
 ):
     global OBJECT_CLASSES
 
-    if len(OBJECT_CLASSES) == 0:
+    if not OBJECT_CLASSES:
         load_object_classes()
     types = OBJECT_CLASSES.copy()
 
