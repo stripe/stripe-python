@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.28.1 - 2019-05-20
+* [#572](https://github.com/stripe/stripe-python/pull/572) Fix a few code quality issues
+
 ## 2.28.0 - 2019-05-14
 * [#566](https://github.com/stripe/stripe-python/pull/566) Add support for the `Capability` resource and APIs
 
