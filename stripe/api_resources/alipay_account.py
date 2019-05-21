@@ -1,14 +1,13 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.customer import Customer
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-
+from stripe.api_resources.customer import Customer
 from stripe.six.moves.urllib.parse import quote_plus
 
 
-class AlipayAccount(UpdateableAPIResource, DeletableAPIResource):
+class AlipayAccount(DeletableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "alipay_account"
 
     @classmethod
