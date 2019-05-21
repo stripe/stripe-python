@@ -40,6 +40,9 @@ class Account(
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
+    # We are not adding a helper for capabilities here as the Account object already has a
+    # capabilities property which is a hash and not the sub-list of capabilities.
+
     @classmethod
     def retrieve(cls, id=None, api_key=None, **params):
         instance = cls(id, api_key, **params)
@@ -65,9 +68,6 @@ class Account(
 
     def persons(self, **params):
         return self.request("get", self.instance_url() + "/persons", params)
-
-    # We are not adding a helper for capabilities here as the Account object already has a
-    # capabilities property which is a hash and not the sub-list of capabilities.
 
     def deauthorize(self, **params):
         params["stripe_user_id"] = self.id
