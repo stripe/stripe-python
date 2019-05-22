@@ -285,8 +285,9 @@ class RequestsClient(HTTPClient):
             err = "%s: %s" % (type(e).__name__, str(e))
             should_retry = False
         # Retry only timeout and connect errors; similar to urllib3 Retry
-        elif isinstance(e, requests.exceptions.Timeout) or isinstance(
-            e, requests.exceptions.ConnectionError
+        elif isinstance(
+            e,
+            (requests.exceptions.Timeout, requests.exceptions.ConnectionError),
         ):
             msg = (
                 "Unexpected error communicating with Stripe.  "
@@ -411,8 +412,8 @@ class PycurlClient(HTTPClient):
         if self._proxy:
             # now that we have the parser, get the proxy url pieces
             proxy = self._proxy
-            for scheme in proxy:
-                proxy[scheme] = urlparse(proxy[scheme])
+            for scheme, value in proxy.items():
+                proxy[scheme] = urlparse(value)
 
     def parse_headers(self, data):
         if "\r\n" not in data:
@@ -514,11 +515,7 @@ class PycurlClient(HTTPClient):
             proxy = self._proxy
             scheme = url.split(":")[0] if url else None
             if scheme:
-                if scheme in proxy:
-                    return proxy[scheme]
-                scheme = scheme[0:-1]
-                if scheme in proxy:
-                    return proxy[scheme]
+                return proxy.get(scheme, proxy.get(scheme[0:-1]))
         return None
 
     def close(self):

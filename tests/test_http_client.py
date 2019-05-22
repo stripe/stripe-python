@@ -581,7 +581,7 @@ class TestUrllib2Client(StripeClientTestCase, ClientTestBase):
             mock.Request.assert_called_with(url, post_data, headers)
 
             if self.client._proxy:
-                assert type(self.client._proxy) is dict
+                assert isinstance(self.client._proxy, dict)
                 mock.ProxyHandler.assert_called_with(self.client._proxy)
                 mock.build_opener.open.assert_called_with(self.request_object)
                 assert not mock.urlopen.called
