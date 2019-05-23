@@ -141,13 +141,13 @@ class TestUtil(object):
         }
 
         obj = util.convert_to_stripe_object(resp)
-        assert type(obj) == stripe.Balance
+        assert isinstance(obj, stripe.Balance)
         assert type(obj.available) == list
-        assert type(obj.available[0]) == stripe.stripe_object.StripeObject
+        assert isinstance(obj.available[0], stripe.stripe_object.StripeObject)
 
         d = util.convert_to_dict(obj)
-        assert type(d) == dict
-        assert type(d["available"]) == list
-        assert type(d["available"][0]) == dict
+        assert isinstance(d, dict)
+        assert isinstance(d["available"], list)
+        assert isinstance(d["available"][0], dict)
 
         assert d == resp

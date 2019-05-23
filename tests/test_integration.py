@@ -242,7 +242,7 @@ class TestIntegration(object):
             stripe.Balance.retrieve()
             stripe.Balance.retrieve()
 
-        threads = [Thread(target=work) for i in range(10)]
+        threads = [Thread(target=work) for _ in range(10)]
         for t in threads:
             t.start()
         for t in threads:
