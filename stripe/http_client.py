@@ -412,7 +412,7 @@ class PycurlClient(HTTPClient):
         if self._proxy:
             # now that we have the parser, get the proxy url pieces
             proxy = self._proxy
-            for scheme, value in proxy.items():
+            for scheme, value in six.iteritems(proxy):
                 proxy[scheme] = urlparse(value)
 
     def parse_headers(self, data):
