@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.28.2 - 2019-05-23
+* [#574](https://github.com/stripe/stripe-python/pull/574) Fix a few more code quality issues
+
 ## 2.28.1 - 2019-05-20
 * [#572](https://github.com/stripe/stripe-python/pull/572) Fix a few code quality issues
 
