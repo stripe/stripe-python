@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.29.0 - 2019-05-23
+* [#575](https://github.com/stripe/stripe-python/pull/575) Add support for `radar.early_fraud_warning` resource
+
 ## 2.28.2 - 2019-05-23
 * [#574](https://github.com/stripe/stripe-python/pull/574) Fix a few more code quality issues
 
