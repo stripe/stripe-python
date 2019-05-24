@@ -1,7 +1,7 @@
 version = 1
 
 test_patterns = [
-  'tests/*'
+  'tests/**'
 ]
 
 exclude_patterns = [
@@ -9,6 +9,9 @@ exclude_patterns = [
 ]
 
 [[analyzers]]
-name = 'python'
-enabled = true
-runtime_version = '2.x.x'
+  name = 'python'
+  enabled = true
+  runtime_version = '2.x.x'
+
+  [analyzers.meta]
+    "max_line_length" = 100
