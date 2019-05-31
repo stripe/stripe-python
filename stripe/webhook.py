@@ -18,12 +18,11 @@ class Webhook(object):
     ):
         if hasattr(payload, "decode"):
             payload = payload.decode("utf-8")
-        if api_key is None:
-            api_key = stripe.api_key
-        data = json.loads(payload)
-        event = stripe.Event.construct_from(data, api_key)
 
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
+
+        data = json.loads(payload)
+        event = stripe.Event.construct_from(data, api_key or stripe.api_key)
 
         return event
 
