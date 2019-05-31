@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.29.3 - 2019-05-31
+Version 2.29.2 was non-functional due to a bugged `version.py` file. This release is identical to 2.29.2 save for the version number.
+
 ## 2.29.2 - 2019-05-31
 * [#561](https://github.com/stripe/stripe-python/pull/561) Replace pipenv with poetry
 

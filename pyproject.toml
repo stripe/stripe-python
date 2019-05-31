@@ -19,7 +19,7 @@ exclude = '''
 
 [tool.poetry]
 name = "stripe"
-version = "2.29.2"
+version = "2.29.3"
 description = "Python bindings for the Stripe API"
 
 license = "MIT"
