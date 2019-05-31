@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.29.1 - 2019-05-31
+* [#578](https://github.com/stripe/stripe-python/pull/578) Verify signatures before deserializing events
+
 ## 2.29.0 - 2019-05-23
 * [#575](https://github.com/stripe/stripe-python/pull/575) Add support for `radar.early_fraud_warning` resource
 
