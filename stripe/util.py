@@ -130,11 +130,6 @@ else:
         return result == 0
 
 
-# DEPRECATED
-def load_object_classes():
-    get_object_classes()
-
-
 def get_object_classes():
     # This is here to avoid a circular dependency
     from stripe.object_classes import OBJECT_CLASSES
@@ -144,9 +139,6 @@ def get_object_classes():
 def convert_to_stripe_object(
     resp, api_key=None, stripe_version=None, stripe_account=None
 ):
-    # Can we remove this copy?
-    types = get_object_classes().copy()
-
     # If we get a StripeResponse, we'll want to return a
     # StripeObject with the last_response field filled out with
     # the raw API response information
@@ -169,7 +161,7 @@ def convert_to_stripe_object(
         resp = resp.copy()
         klass_name = resp.get("object")
         if isinstance(klass_name, six.string_types):
-            klass = types.get(klass_name, stripe.stripe_object.StripeObject)
+            klass = get_object_classes().get(klass_name, stripe.stripe_object.StripeObject)
         else:
             klass = stripe.stripe_object.StripeObject
 
