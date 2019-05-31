@@ -72,6 +72,9 @@ OBJECT_CLASSES = {
     api_resources.SubscriptionScheduleRevision.OBJECT_NAME: api_resources.SubscriptionScheduleRevision,
     api_resources.TaxId.OBJECT_NAME: api_resources.TaxId,
     api_resources.TaxRate.OBJECT_NAME: api_resources.TaxRate,
+    api_resources.terminal.ConnectionToken.OBJECT_NAME: api_resources.terminal.ConnectionToken,
+    api_resources.terminal.Location.OBJECT_NAME: api_resources.terminal.Location,
+    api_resources.terminal.Reader.OBJECT_NAME: api_resources.terminal.Reader,
     api_resources.ThreeDSecure.OBJECT_NAME: api_resources.ThreeDSecure,
     api_resources.Token.OBJECT_NAME: api_resources.Token,
     api_resources.Topup.OBJECT_NAME: api_resources.Topup,
@@ -79,7 +82,4 @@ OBJECT_CLASSES = {
     api_resources.UsageRecord.OBJECT_NAME: api_resources.UsageRecord,
     api_resources.UsageRecordSummary.OBJECT_NAME: api_resources.UsageRecordSummary,
     api_resources.WebhookEndpoint.OBJECT_NAME: api_resources.WebhookEndpoint,
-    api_resources.terminal.Location.OBJECT_NAME: api_resources.terminal.Location,
-    api_resources.terminal.ConnectionToken.OBJECT_NAME: api_resources.terminal.ConnectionToken,
-    api_resources.terminal.Reader.OBJECT_NAME: api_resources.terminal.Reader,
 }

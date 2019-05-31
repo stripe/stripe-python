@@ -133,6 +133,7 @@ else:
 def get_object_classes():
     # This is here to avoid a circular dependency
     from stripe.object_classes import OBJECT_CLASSES
+
     return OBJECT_CLASSES
 
 
@@ -161,7 +162,9 @@ def convert_to_stripe_object(
         resp = resp.copy()
         klass_name = resp.get("object")
         if isinstance(klass_name, six.string_types):
-            klass = get_object_classes().get(klass_name, stripe.stripe_object.StripeObject)
+            klass = get_object_classes().get(
+                klass_name, stripe.stripe_object.StripeObject
+            )
         else:
             klass = stripe.stripe_object.StripeObject
 
