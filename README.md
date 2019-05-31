@@ -156,9 +156,9 @@ instructions for installing via Homebrew and other methods):
     go get -u github.com/stripe/stripe-mock
     stripe-mock
 
-Install [pipenv][pipenv], then install all dependencies for the project:
+Install [poetry][poetry], then install all dependencies for the project:
 
-    pipenv install --dev
+    poetry install
 
 Run all tests on all supported Python versions:
 
@@ -166,19 +166,19 @@ Run all tests on all supported Python versions:
 
 Run all tests for a specific Python version (modify `-e` according to your Python target):
 
-    pipenv run tox -e py27
+    poetry run tox -e py27
 
 Run all tests in a single file:
 
-    pipenv run tox -e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py
+    poetry run tox -e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py
 
 Run a single test suite:
 
-    pipenv run tox -e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource
+    poetry run tox -e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource
 
 Run a single test:
 
-    pipenv run tox -e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource::test_save
+    poetry run tox -e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource::test_save
 
 Run the linter with:
 
@@ -193,7 +193,7 @@ with:
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [black]: https://github.com/ambv/black
 [connect]: https://stripe.com/connect
-[pipenv]: https://github.com/pypa/pipenv
+[poetry]: https://github.com/sdispater/poetry
 [stripe-mock]: https://github.com/stripe/stripe-mock
 [idempotency-keys]: https://stripe.com/docs/api/idempotent_requests?lang=python
 
