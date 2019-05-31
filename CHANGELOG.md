@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.29.2 - 2019-05-31
+* [#561](https://github.com/stripe/stripe-python/pull/561) Replace pipenv with poetry
+
 ## 2.29.1 - 2019-05-31
 * [#578](https://github.com/stripe/stripe-python/pull/578) Verify signatures before deserializing events
 
