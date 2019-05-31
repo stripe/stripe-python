@@ -4,6 +4,13 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.list_object import ListObject
 
+from stripe.api_resources import checkout
+from stripe.api_resources import issuing
+from stripe.api_resources import radar
+from stripe.api_resources import reporting
+from stripe.api_resources import sigma
+from stripe.api_resources import terminal
+
 from stripe.api_resources.account import Account
 from stripe.api_resources.account_link import AccountLink
 from stripe.api_resources.alipay_account import AlipayAccount
