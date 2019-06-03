@@ -156,9 +156,9 @@ instructions for installing via Homebrew and other methods):
     go get -u github.com/stripe/stripe-mock
     stripe-mock
 
-Install [poetry][poetry], then install all dependencies for the project:
+Run the following command to set up the development virtualenv:
 
-    poetry install
+    make init
 
 Run all tests on all supported Python versions:
 
@@ -166,19 +166,19 @@ Run all tests on all supported Python versions:
 
 Run all tests for a specific Python version (modify `-e` according to your Python target):
 
-    poetry run tox -e py27
+    TOX_ARGS="-e py27" make test
 
 Run all tests in a single file:
 
-    poetry run tox -e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py
+    TOX_ARGS="-e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py" make test
 
 Run a single test suite:
 
-    poetry run tox -e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource
+    TOX_ARGS="-e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource" make test
 
 Run a single test:
 
-    poetry run tox -e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource::test_save
+    TOX_ARGS="-e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource::test_save" make test
 
 Run the linter with:
 

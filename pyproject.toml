@@ -1,7 +1,3 @@
-[build-system]
-requires = ["poetry>=0.12"]
-build-backend = "poetry.masonry.api"
-
 [tool.black]
 line-length=79
 exclude = '''
@@ -13,58 +9,7 @@ exclude = '''
   | _build/
   | build/
   | dist/
+  | venv/
   | stripe/six.py
 )
 '''
-
-[tool.poetry]
-name = "stripe"
-version = "2.29.3"
-description = "Python bindings for the Stripe API"
-
-license = "MIT"
-
-authors = [
-    "Stripe <support@stripe.com>"
-]
-
-readme = 'LONG_DESCRIPTION.rst'
-
-repository = "https://github.com/stripe/stripe-python"
-homepage = "https://github.com/stripe/stripe-python"
-documentation = "https://stripe.com/docs/api?lang=python"
-
-keywords = ['stripe', 'api', 'payments']
-
-include = [
-  "data/ca-certificates.crt",
-  "stripe/**/*.py",
-  "tests/**/*.py",
-  ".coveragerc",
-  ".flake8",
-  "CHANGELOG.md",
-  "LICENSE",
-  "LONG_DESCRIPTION.rst",
-  "README.md",
-  "VERSION",
-  "pyproject.toml",
-  "pytest.ini",
-  "tox.ini"
-]
-
-[tool.poetry.dependencies]
-python = "~2.7 || ^3.4"
-requests = [
-  { version = "^2.20", python = "~2.7", extras = [ "security" ] },
-  { version = "^2.20", python = "^3.4" }
-]
-toml = "^0.9"
-
-[tool.poetry.dev-dependencies]
-coveralls = "^1.7"
-flake8 = "^3.7"
-pytest = "^4.4"
-pytest-cov = "^2.6"
-pytest-mock = "^1.10"
-pytest-xdist = "^1.28"
-tox = "^3.9"

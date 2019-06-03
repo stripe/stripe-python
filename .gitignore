@@ -1,24 +1,56 @@
-/.eggs
-/build
-/dist
-/MANIFEST
-/stripe.egg-info
-.python-version
-*.pyc
-*.egg
-*.class
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
 
-# Poetry lock file
-poetry.lock
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+pip-wheel-metadata/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
 
 # Unit test / coverage reports
+htmlcov/
 .tox/
+.nox/
 .coverage
+.coverage.*
 .cache
-.pytest_cache
 nosetests.xml
 coverage.xml
-htmlcov/
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# pyenv
+.python-version
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
 
 # Visual Studio Code
 .vscode/*

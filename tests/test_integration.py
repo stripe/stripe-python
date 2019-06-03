@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
+import platform
 import sys
 from threading import Thread, Lock
 import json
@@ -8,6 +9,9 @@ import time
 
 import stripe
 import pytest
+
+if platform.python_implementation() == "PyPy":
+    pytest.skip("skip integration tests with PyPy", allow_module_level=True)
 
 if sys.version_info[0] < 3:
     from BaseHTTPServer import BaseHTTPRequestHandler, HTTPServer
