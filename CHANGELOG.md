@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.29.4 - 2019-06-03
+* [#583](https://github.com/stripe/stripe-python/pull/583) Remove Poetry and reinstate `setup.py`
+
 ## 2.29.3 - 2019-05-31
 Version 2.29.2 was non-functional due to a bugged `version.py` file. This release is identical to 2.29.2 save for the version number.
 
