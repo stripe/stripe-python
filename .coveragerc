@@ -1,4 +1,5 @@
 [run]
+branch = true
 source = stripe
 omit =
     stripe/six.py
