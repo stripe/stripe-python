@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.30.0 - 2019-06-17
+* [#564](https://github.com/stripe/stripe-python/pull/564) Add support for `CustomerBalanceTransaction` resource and APIs
+
 ## 2.29.4 - 2019-06-03
 * [#583](https://github.com/stripe/stripe-python/pull/583) Remove Poetry and reinstate `setup.py`
 
