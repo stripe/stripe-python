@@ -18,11 +18,15 @@ See the [Python API docs](https://stripe.com/docs/api/python#intro).
 You don't need this source code unless you want to modify the package. If you just
 want to use the package, just run:
 
-    pip install --upgrade stripe
+```sh
+pip install --upgrade stripe
+```
 
 Install from source with:
 
-    python setup.py install
+```sh
+python setup.py install
+```
 
 ### Requirements
 
@@ -117,19 +121,20 @@ There are a few options for enabling it:
 
 1. Set the environment variable `STRIPE_LOG` to the value `debug` or `info`
 
-   ```
+   ```sh
    $ export STRIPE_LOG=debug
    ```
 
 2. Set `stripe.log`:
 
-   ```py
+   ```python
    import stripe
    stripe.log = 'debug'
    ```
 
 3. Enable it through Python's logging module:
-   ```py
+
+   ```python
    import logging
    logging.basicConfig()
    logging.getLogger('stripe').setLevel(logging.DEBUG)
@@ -147,48 +152,77 @@ stripe.set_app_info("MyAwesomePlugin", version="1.2.34", url="https://myawesomep
 This information is passed along when the library makes calls to the Stripe
 API.
 
+### Request latency telemetry
+
+By default, the library sends request latency telemetry to Stripe. These
+numbers help Stripe improve the overall latency of its API for all users.
+
+You can disable this behavior if you prefer:
+
+```python
+stripe.enable_telemetry = False
+```
+
 ## Development
 
 The test suite depends on [stripe-mock], so make sure to fetch and run it from a
 background terminal ([stripe-mock's README][stripe-mock] also contains
 instructions for installing via Homebrew and other methods):
 
-    go get -u github.com/stripe/stripe-mock
-    stripe-mock
+```sh
+go get -u github.com/stripe/stripe-mock
+stripe-mock
+```
 
 Run the following command to set up the development virtualenv:
 
-    make init
+```sh
+make init
+```
 
 Run all tests on all supported Python versions:
 
-    make test
+```sh
+make test
+```
 
 Run all tests for a specific Python version (modify `-e` according to your Python target):
 
-    TOX_ARGS="-e py27" make test
+```sh
+TOX_ARGS="-e py37" make test
+```
 
 Run all tests in a single file:
 
-    TOX_ARGS="-e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py" make test
+```sh
+TOX_ARGS="-e py37 -- tests/api_resources/abstract/test_updateable_api_resource.py" make test
+```
 
 Run a single test suite:
 
-    TOX_ARGS="-e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource" make test
+```sh
+TOX_ARGS="-e py37 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource" make test
+```
 
 Run a single test:
 
-    TOX_ARGS="-e py27 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource::test_save" make test
+```sh
+TOX_ARGS="-e py37 -- tests/api_resources/abstract/test_updateable_api_resource.py::TestUpdateableAPIResource::test_save" make test
+```
 
 Run the linter with:
 
-    make lint
+```sh
+make lint
+```
 
 The library uses [Black][black] for code formatting. Code must be formatted
 with Black before PRs are submitted, otherwise CI will fail. Run the formatter
 with:
 
-    make fmt
+```sh
+make fmt
+```
 
 [api-keys]: https://dashboard.stripe.com/account/apikeys
 [black]: https://github.com/ambv/black
