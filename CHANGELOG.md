@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.30.1 - 2019-06-20
+* [#589](https://github.com/stripe/stripe-python/pull/589) Fix support for `CustomerBalanceTransaction`
+
 ## 2.30.0 - 2019-06-17
 * [#564](https://github.com/stripe/stripe-python/pull/564) Add support for `CustomerBalanceTransaction` resource and APIs
 
