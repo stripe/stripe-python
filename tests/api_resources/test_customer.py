@@ -115,12 +115,13 @@ class TestCustomerSources(object):
 
 class TestCustomerTaxIds(object):
     def test_is_creatable(self, request_mock):
-        stripe.Customer.create_tax_id(
+        resource = stripe.Customer.create_tax_id(
             TEST_RESOURCE_ID, type="eu_vat", value="11111"
         )
         request_mock.assert_requested(
             "post", "/v1/customers/%s/tax_ids" % TEST_RESOURCE_ID
         )
+        assert isinstance(resource, stripe.TaxId)
 
     def test_is_retrievable(self, request_mock):
         stripe.Customer.retrieve_tax_id(TEST_RESOURCE_ID, TEST_TAX_ID_ID)
@@ -146,12 +147,13 @@ class TestCustomerTaxIds(object):
 
 class TestCustomerTransactions(object):
     def test_is_creatable(self, request_mock):
-        stripe.Customer.create_balance_transaction(
+        resource = stripe.Customer.create_balance_transaction(
             TEST_RESOURCE_ID, amount=1234, currency="usd"
         )
         request_mock.assert_requested(
             "post", "/v1/customers/%s/balance_transactions" % TEST_RESOURCE_ID
         )
+        assert isinstance(resource, stripe.CustomerBalanceTransaction)
 
     def test_is_retrievable(self, request_mock):
         stripe.Customer.retrieve_balance_transaction(
