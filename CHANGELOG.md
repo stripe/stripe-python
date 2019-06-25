@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.31.0 - 2019-06-24
+* [#587](https://github.com/stripe/stripe-python/pull/587) Enable request latency telemetry by default
+
 ## 2.30.1 - 2019-06-20
 * [#589](https://github.com/stripe/stripe-python/pull/589) Fix support for `CustomerBalanceTransaction`
 
