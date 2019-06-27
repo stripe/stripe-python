@@ -63,6 +63,7 @@ OBJECT_CLASSES = {
     api_resources.reporting.ReportType.OBJECT_NAME: api_resources.reporting.ReportType,
     api_resources.Reversal.OBJECT_NAME: api_resources.Reversal,
     api_resources.Review.OBJECT_NAME: api_resources.Review,
+    api_resources.SetupIntent.OBJECT_NAME: api_resources.SetupIntent,
     api_resources.sigma.ScheduledQueryRun.OBJECT_NAME: api_resources.sigma.ScheduledQueryRun,
     api_resources.SKU.OBJECT_NAME: api_resources.SKU,
     api_resources.Source.OBJECT_NAME: api_resources.Source,
