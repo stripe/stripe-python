@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.32.0 - 2019-06-27
+* [#590](https://github.com/stripe/stripe-python/pull/590) Add support for the `SetupIntent` resource and APIs
+
 ## 2.31.0 - 2019-06-24
 * [#587](https://github.com/stripe/stripe-python/pull/587) Enable request latency telemetry by default
 
