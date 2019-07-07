@@ -37,7 +37,9 @@ class TestWebhookEndpoint(object):
 
     def test_is_modifiable(self, request_mock):
         resource = stripe.WebhookEndpoint.modify(
-            TEST_RESOURCE_ID, enabled_events=["charge.succeeded"]
+            TEST_RESOURCE_ID,
+            enabled_events=["charge.succeeded"],
+            url="https://stripe.com",
         )
         request_mock.assert_requested(
             "post", "/v1/webhook_endpoints/%s" % TEST_RESOURCE_ID

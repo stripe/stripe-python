@@ -44,11 +44,13 @@ class APIResource(StripeObject):
         extn = quote_plus(id)
         return "%s/%s" % (base, extn)
 
+    # The `method_` and `url_` arguments are suffixed with an underscore to
+    # avoid conflicting with actual request parameters in `params`.
     @classmethod
     def _static_request(
         cls,
-        method,
-        url,
+        method_,
+        url_,
         api_key=None,
         idempotency_key=None,
         stripe_version=None,
@@ -59,7 +61,7 @@ class APIResource(StripeObject):
             api_key, api_version=stripe_version, account=stripe_account
         )
         headers = util.populate_headers(idempotency_key)
-        response, api_key = requestor.request(method, url, params, headers)
+        response, api_key = requestor.request(method_, url_, params, headers)
         return util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account
         )
