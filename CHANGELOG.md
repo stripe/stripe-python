@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.32.1 - 2019-07-08
+* [#592](https://github.com/stripe/stripe-python/pull/592) Fix argument name conflict
+
 ## 2.32.0 - 2019-06-27
 * [#590](https://github.com/stripe/stripe-python/pull/590) Add support for the `SetupIntent` resource and APIs
 
