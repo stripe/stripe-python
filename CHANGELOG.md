@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.33.2 - 2019-08-06
+* [#601](https://github.com/stripe/stripe-python/pull/601) Add support for passing full objects instead of IDs to custom methods
+* [#603](https://github.com/stripe/stripe-python/pull/603) Bump vendored six to latest version
+
 ## 2.33.1 - 2019-08-06
 * [#599](https://github.com/stripe/stripe-python/pull/599) Fix `del` statement to not raise `KeyError`
 
