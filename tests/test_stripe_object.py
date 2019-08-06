@@ -236,6 +236,17 @@ class TestStripeObject(object):
         obj.refresh_from({"coupon": "foo"}, api_key="bar", partial=True)
         assert obj.coupon == "foo"
 
+    def test_deletion_metadata(self):
+        obj = stripe.stripe_object.StripeObject.construct_from(
+            {"metadata": {"key": "value"}}, "mykey"
+        )
+
+        assert obj.metadata["key"] == "value"
+
+        del obj.metadata["key"]
+        with pytest.raises(KeyError):
+            obj.metadata["key"]
+
     def test_copy(self):
         nested = stripe.stripe_object.StripeObject.construct_from(
             {"value": "bar"}, "mykey"
