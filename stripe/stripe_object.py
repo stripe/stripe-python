@@ -134,7 +134,7 @@ class StripeObject(dict):
         super(StripeObject, self).__delitem__(k)
 
         # Allows for unpickling in Python 3.x
-        if hasattr(self, "_unsaved_values"):
+        if hasattr(self, "_unsaved_values") and k in self._unsaved_values:
             self._unsaved_values.remove(k)
 
     # Custom unpickling method that uses `update` to update the dictionary
