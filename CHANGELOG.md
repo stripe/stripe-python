@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.33.1 - 2019-08-06
+* [#599](https://github.com/stripe/stripe-python/pull/599) Fix `del` statement to not raise `KeyError`
+
 ## 2.33.0 - 2019-07-30
 * [#595](https://github.com/stripe/stripe-python/pull/595) Listing `BalanceTransaction` objects now uses `/v1/balance_transactions` instead of `/v1/balance/history`
 
