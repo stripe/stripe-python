@@ -71,7 +71,6 @@ OBJECT_CLASSES = {
     api_resources.Subscription.OBJECT_NAME: api_resources.Subscription,
     api_resources.SubscriptionItem.OBJECT_NAME: api_resources.SubscriptionItem,
     api_resources.SubscriptionSchedule.OBJECT_NAME: api_resources.SubscriptionSchedule,
-    api_resources.SubscriptionScheduleRevision.OBJECT_NAME: api_resources.SubscriptionScheduleRevision,
     api_resources.TaxId.OBJECT_NAME: api_resources.TaxId,
     api_resources.TaxRate.OBJECT_NAME: api_resources.TaxRate,
     api_resources.terminal.ConnectionToken.OBJECT_NAME: api_resources.terminal.ConnectionToken,
