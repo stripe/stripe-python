@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.34.0 - 2019-08-09
+* [#604](https://github.com/stripe/stripe-python/pull/604) Remove subscription schedule revisions
+  - This is technically a breaking change. We've chosen to release it as a minor vesion bump because the associated API is unused.
+
 ## 2.33.2 - 2019-08-06
 * [#601](https://github.com/stripe/stripe-python/pull/601) Add support for passing full objects instead of IDs to custom methods
 * [#603](https://github.com/stripe/stripe-python/pull/603) Bump vendored six to latest version
