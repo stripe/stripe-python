@@ -5,12 +5,10 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import custom_method
-from stripe.api_resources.abstract import nested_resource_class_methods
 
 
 @custom_method("cancel", http_verb="post")
 @custom_method("release", http_verb="post")
-@nested_resource_class_methods("revision", operations=["retrieve", "list"])
 class SubscriptionSchedule(
     CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
 ):

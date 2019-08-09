@@ -64,9 +64,6 @@ from stripe.api_resources.source_transaction import SourceTransaction
 from stripe.api_resources.subscription import Subscription
 from stripe.api_resources.subscription_item import SubscriptionItem
 from stripe.api_resources.subscription_schedule import SubscriptionSchedule
-from stripe.api_resources.subscription_schedule_revision import (
-    SubscriptionScheduleRevision,
-)
 from stripe.api_resources.tax_id import TaxId
 from stripe.api_resources.tax_rate import TaxRate
 from stripe.api_resources.three_d_secure import ThreeDSecure
