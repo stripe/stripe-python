@@ -25,6 +25,3 @@ class SubscriptionSchedule(
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
-
-    def revisions(self, **params):
-        return self.request("get", self.instance_url() + "/revisions", params)

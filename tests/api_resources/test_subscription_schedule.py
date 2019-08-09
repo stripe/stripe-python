@@ -4,7 +4,6 @@ import stripe
 
 
 TEST_RESOURCE_ID = "sub_sched_123"
-TEST_REVISION_ID = "sub_sched_rev_123"
 
 
 class TestSubscriptionScheduleSchedule(object):
@@ -72,28 +71,3 @@ class TestSubscriptionScheduleSchedule(object):
             "post", "/v1/subscription_schedules/%s/release" % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.SubscriptionSchedule)
-
-
-class TestSubscriptionScheduleRevisions(object):
-    def test_is_listable(self, request_mock):
-        resources = stripe.SubscriptionSchedule.list_revisions(
-            TEST_RESOURCE_ID
-        )
-        request_mock.assert_requested(
-            "get", "/v1/subscription_schedules/%s/revisions" % TEST_RESOURCE_ID
-        )
-        assert isinstance(resources.data, list)
-        assert isinstance(
-            resources.data[0], stripe.SubscriptionScheduleRevision
-        )
-
-    def test_is_retrievable(self, request_mock):
-        resource = stripe.SubscriptionSchedule.retrieve_revision(
-            TEST_RESOURCE_ID, TEST_REVISION_ID
-        )
-        request_mock.assert_requested(
-            "get",
-            "/v1/subscription_schedules/%s/revisions/%s"
-            % (TEST_RESOURCE_ID, TEST_REVISION_ID),
-        )
-        assert isinstance(resource, stripe.SubscriptionScheduleRevision)
