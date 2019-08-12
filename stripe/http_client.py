@@ -119,7 +119,6 @@ class HTTPClient(object):
             request_start = _now_ms()
 
             try:
-                num_retries += 1
                 response = self.request(method, url, headers, post_data)
                 connection_error = None
             except error.APIConnectionError as e:
@@ -132,7 +131,7 @@ class HTTPClient(object):
                         "Encountered a retryable error %s"
                         % connection_error.user_message
                     )
-
+                num_retries += 1
                 sleep_time = self._sleep_time_seconds(num_retries)
                 util.log_info(
                     (
