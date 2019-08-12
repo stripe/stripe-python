@@ -493,6 +493,7 @@ class PycurlClient(HTTPClient):
                 "https://twitter.com/stripestatus, or let us know at "
                 "support@stripe.com."
             )
+            should_retry = True
         elif e.args[0] in [pycurl.E_SSL_CACERT, pycurl.E_SSL_PEER_CERTIFICATE]:
             msg = (
                 "Could not verify Stripe's SSL certificate.  Please make "
@@ -500,14 +501,16 @@ class PycurlClient(HTTPClient):
                 "If this problem persists, let us know at "
                 "support@stripe.com."
             )
+            should_retry = False
         else:
             msg = (
                 "Unexpected error communicating with Stripe. If this "
                 "problem persists, let us know at support@stripe.com."
             )
+            should_retry = False
 
         msg = textwrap.fill(msg) + "\n\n(Network error: " + e.args[1] + ")"
-        raise error.APIConnectionError(msg)
+        raise error.APIConnectionError(msg, should_retry=should_retry)
 
     def _get_proxy(self, url):
         if self._proxy:
