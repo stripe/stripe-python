@@ -101,12 +101,15 @@ stripe.proxy = "https://user:pass@example.com:1234"
 
 ### Configuring Automatic Retries
 
-Number of automatic retries on requests that fail due to an intermittent
-network problem can be configured:
+You can enable automatic retries on requests that fail due to a transient
+problem by configuring the maximum number of retries:
 
 ```python
 stripe.max_network_retries = 2
 ```
+
+Various errors can trigger a retry, for example a connection error or a timeout,
+but also an API response whose HTTP status code is `409`.
 
 [Idempotency keys][idempotency-keys] are automatically generated and added to
 requests, when not given, to guarantee that retries are safe.
