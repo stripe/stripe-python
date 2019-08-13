@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.35.0 - 2019-08-12
+* [#607](https://github.com/stripe/stripe-python/pull/607) Add `SubscriptionItem.create_usage_record` method
+
 ## 2.34.0 - 2019-08-09
 * [#604](https://github.com/stripe/stripe-python/pull/604) Remove subscription schedule revisions
   - This is technically a breaking change. We've chosen to release it as a minor vesion bump because the associated API is unused.
