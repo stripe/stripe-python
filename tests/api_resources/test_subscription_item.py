@@ -64,3 +64,18 @@ class TestSubscriptionItem(object):
             "delete", "/v1/subscription_items/%s" % TEST_RESOURCE_ID
         )
         assert resource.deleted is True
+
+
+class TestUsageRecords(object):
+    def test_is_creatable(self, request_mock):
+        resource = stripe.SubscriptionItem.create_usage_record(
+            TEST_RESOURCE_ID,
+            quantity=5000,
+            timestamp=1524182400,
+            action="increment",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/subscription_items/%s/usage_records" % TEST_RESOURCE_ID,
+        )
+        assert isinstance(resource, stripe.UsageRecord)
