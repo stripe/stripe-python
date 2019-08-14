@@ -108,8 +108,8 @@ problem by configuring the maximum number of retries:
 stripe.max_network_retries = 2
 ```
 
-Various errors can trigger a retry, for example a connection error or a timeout,
-but also an API response whose HTTP status code is `409`.
+Various errors can trigger a retry, like a connection error or a timeout, and
+also certain API responses like HTTP status `409 Conflict`.
 
 [Idempotency keys][idempotency-keys] are automatically generated and added to
 requests, when not given, to guarantee that retries are safe.
