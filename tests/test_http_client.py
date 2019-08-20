@@ -436,10 +436,10 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
     def test_retry_codes_until_exceeded(
         self, mock_retry, response, check_call_numbers
     ):
-        mock_retry(responses=[response(code=409)] * self.max_retries())
+        mock_retry(responses=[response(code=409)] * (self.max_retries() + 1))
         _, code, _ = self.make_request()
         assert code == 409
-        check_call_numbers(self.max_retries())
+        check_call_numbers(self.max_retries() + 1)
 
     @pytest.fixture
     def connection_error(self, session):
