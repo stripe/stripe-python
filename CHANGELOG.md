@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.35.1 - 2019-08-20
+* [#605](https://github.com/stripe/stripe-python/pull/605) Fix automatic retries of failed requests
+* [#606](https://github.com/stripe/stripe-python/pull/606) Clarify what `max_network_retries` does
+
 ## 2.35.0 - 2019-08-12
 * [#607](https://github.com/stripe/stripe-python/pull/607) Add `SubscriptionItem.create_usage_record` method
 
