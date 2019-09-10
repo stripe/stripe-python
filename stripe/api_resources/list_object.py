@@ -1,6 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
-from stripe import util
+from stripe import api_requestor, util
 from stripe.stripe_object import StripeObject
 
 from stripe.six.moves.urllib.parse import quote_plus
@@ -9,8 +9,19 @@ from stripe.six.moves.urllib.parse import quote_plus
 class ListObject(StripeObject):
     OBJECT_NAME = "list"
 
-    def list(self, **params):
-        return self.request("get", self["url"], params)
+    def list(
+        self, api_key=None, stripe_version=None, stripe_account=None, **params
+    ):
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
+        url = self.get("url")
+        response, api_key = requestor.request("get", url, params)
+        stripe_object = util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account
+        )
+        stripe_object._retrieve_params = params
+        return stripe_object
 
     def auto_paging_iter(self):
         page = self
@@ -28,17 +39,40 @@ class ListObject(StripeObject):
             params["starting_after"] = item_id
             page = self.list(**params)
 
-    def create(self, idempotency_key=None, **params):
+    def create(
+        self,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
+        url = self.get("url")
         headers = util.populate_headers(idempotency_key)
-        return self.request("post", self["url"], params, headers)
+        response, api_key = requestor.request("post", url, params, headers)
+        return util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account
+        )
 
-    def retrieve(self, id, **params):
-        base = self.get("url")
-        id = util.utf8(id)
-        extn = quote_plus(id)
-        url = "%s/%s" % (base, extn)
-
-        return self.request("get", url, params)
+    def retrieve(
+        self,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
+        url = "%s/%s" % (self.get("url"), quote_plus(util.utf8(id)))
+        response, api_key = requestor.request("get", url, params)
+        return util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account
+        )
 
     def __iter__(self):
         return getattr(self, "data", []).__iter__()

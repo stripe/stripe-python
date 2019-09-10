@@ -14,10 +14,6 @@ class TestListObject(object):
             {"object": "list", "url": "/my/path", "data": ["foo"]}, "mykey"
         )
 
-    def assert_response(self, res):
-        assert isinstance(res[0], stripe.Charge)
-        assert res[0].foo == "bar"
-
     def test_for_loop(self, list_object):
         seen = []
 
@@ -28,40 +24,51 @@ class TestListObject(object):
 
     def test_list(self, request_mock, list_object):
         request_mock.stub_request(
-            "get", "/my/path", [{"object": "charge", "foo": "bar"}]
+            "get",
+            "/my/path",
+            {"object": "list", "data": [{"object": "charge", "foo": "bar"}]},
         )
 
-        res = list_object.list(myparam="you")
+        res = list_object.list(myparam="you", stripe_account="acct_123")
 
         request_mock.assert_requested(
             "get", "/my/path", {"myparam": "you"}, None
         )
-        self.assert_response(res)
+        assert isinstance(res, stripe.ListObject)
+        assert res.stripe_account == "acct_123"
+        assert isinstance(res.data, list)
+        assert isinstance(res.data[0], stripe.Charge)
+        assert res.data[0].foo == "bar"
 
     def test_create(self, request_mock, list_object):
         request_mock.stub_request(
-            "post", "/my/path", [{"object": "charge", "foo": "bar"}]
+            "post", "/my/path", {"object": "charge", "foo": "bar"}
         )
 
-        res = list_object.create(myparam="eter")
+        res = list_object.create(myparam="eter", stripe_account="acct_123")
 
         request_mock.assert_requested(
             "post", "/my/path", {"myparam": "eter"}, None
         )
-        self.assert_response(res)
+        assert isinstance(res, stripe.Charge)
+        assert res.foo == "bar"
+        assert res.stripe_account == "acct_123"
 
     def test_retrieve(self, request_mock, list_object):
         request_mock.stub_request(
-            "get", "/my/path/myid", [{"object": "charge", "foo": "bar"}]
+            "get", "/my/path/myid", {"object": "charge", "foo": "bar"}
         )
 
-        res = list_object.retrieve("myid", myparam="cow")
+        res = list_object.retrieve(
+            "myid", myparam="cow", stripe_account="acct_123"
+        )
 
         request_mock.assert_requested(
             "get", "/my/path/myid", {"myparam": "cow"}, None
         )
-
-        self.assert_response(res)
+        assert isinstance(res, stripe.Charge)
+        assert res.foo == "bar"
+        assert res.stripe_account == "acct_123"
 
     def test_len(self, list_object):
         assert len(list_object) == 1
