@@ -12,13 +12,13 @@ class ListObject(StripeObject):
     def list(
         self, api_key=None, stripe_version=None, stripe_account=None, **params
     ):
-        requestor = api_requestor.APIRequestor(
-            api_key, api_version=stripe_version, account=stripe_account
-        )
-        url = self.get("url")
-        response, api_key = requestor.request("get", url, params)
-        stripe_object = util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account
+        stripe_object = self._request(
+            "get",
+            self.get("url"),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            **params
         )
         stripe_object._retrieve_params = params
         return stripe_object
@@ -47,14 +47,14 @@ class ListObject(StripeObject):
         stripe_account=None,
         **params
     ):
-        requestor = api_requestor.APIRequestor(
-            api_key, api_version=stripe_version, account=stripe_account
-        )
-        url = self.get("url")
-        headers = util.populate_headers(idempotency_key)
-        response, api_key = requestor.request("post", url, params, headers)
-        return util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account
+        return self._request(
+            "post",
+            self.get("url"),
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            **params
         )
 
     def retrieve(
@@ -65,13 +65,14 @@ class ListObject(StripeObject):
         stripe_account=None,
         **params
     ):
-        requestor = api_requestor.APIRequestor(
-            api_key, api_version=stripe_version, account=stripe_account
-        )
         url = "%s/%s" % (self.get("url"), quote_plus(util.utf8(id)))
-        response, api_key = requestor.request("get", url, params)
-        return util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account
+        return self._request(
+            "get",
+            url,
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            **params
         )
 
     def __iter__(self):
@@ -79,3 +80,27 @@ class ListObject(StripeObject):
 
     def __len__(self):
         return getattr(self, "data", []).__len__()
+
+    def _request(
+        self,
+        method,
+        url,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        api_key = api_key or self.api_key
+        stripe_version = stripe_version or self.stripe_version
+        stripe_account = stripe_account or self.stripe_account
+
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
+        headers = util.populate_headers(idempotency_key)
+        response, api_key = requestor.request(method, url, params, headers)
+        stripe_object = util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account
+        )
+        return stripe_object
