@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.36.1 - 2019-09-11
+* [#612](https://github.com/stripe/stripe-python/pull/612) Use `ListObject` properties as default values in request methods
+
 ## 2.36.0 - 2019-09-10
 * [#610](https://github.com/stripe/stripe-python/pull/610) Add support for header parameters in `ListObject` request methods
 
