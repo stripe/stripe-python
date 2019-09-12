@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.36.2 - 2019-09-12
+* [#614](https://github.com/stripe/stripe-python/pull/614) Use `OrderedDict` to maintain key order in API requests and responses
+
 ## 2.36.1 - 2019-09-11
 * [#612](https://github.com/stripe/stripe-python/pull/612) Use `ListObject` properties as default values in request methods
 
