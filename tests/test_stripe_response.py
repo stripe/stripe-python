@@ -1,7 +1,9 @@
 from __future__ import absolute_import, division, print_function
 
 import json
+from collections import OrderedDict
 
+from stripe import six
 from stripe.stripe_response import StripeResponse
 
 
@@ -28,7 +30,13 @@ class TestStripeResponse(object):
 
     def test_data(self):
         response, _, body, _ = self.mock_stripe_response()
-        assert response.data == json.loads(body)
+        deserialized = json.loads(body, object_pairs_hook=OrderedDict)
+        assert response.data == deserialized
+
+        # Previous assert does not check order, so explicitly check order here
+        assert list(six.iterkeys(response.data["metadata"])) == list(
+            six.iterkeys(deserialized["metadata"])
+        )
 
     @staticmethod
     def mock_stripe_response():
@@ -44,4 +52,15 @@ class TestStripeResponse(object):
 
     @staticmethod
     def mock_body():
-        return '{ "id": "ch_12345", "object": "charge", "amount": 1 }'
+        return """{
+    "id": "ch_12345",
+    "object": "charge",
+    "amount": 1,
+    "metadata": {
+        "one": "1",
+        "two": "2",
+        "three": "3",
+        "four": "4",
+        "five": "5"
+    }
+}"""
