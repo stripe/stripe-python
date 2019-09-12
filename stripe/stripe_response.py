@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import json
+from collections import OrderedDict
 
 
 class StripeResponse(object):
@@ -8,7 +9,7 @@ class StripeResponse(object):
         self.body = body
         self.code = code
         self.headers = headers
-        self.data = json.loads(body)
+        self.data = json.loads(body, object_pairs_hook=OrderedDict)
 
     @property
     def idempotency_key(self):

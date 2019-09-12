@@ -4,6 +4,7 @@ import datetime
 import json
 import tempfile
 import uuid
+from collections import OrderedDict
 
 import pytest
 
@@ -308,6 +309,25 @@ class TestAPIRequestor(object):
 
         assert key == "foo[0][bar]"
         assert value == "bat"
+
+    def test_ordereddict_encoding(self):
+        params = {
+            "ordered": OrderedDict(
+                [
+                    ("one", 1),
+                    ("two", 2),
+                    ("three", 3),
+                    ("nested", OrderedDict([("a", "a"), ("b", "b")])),
+                ]
+            )
+        }
+        encoded = list(stripe.api_requestor._api_encode(params))
+
+        assert encoded[0][0] == "ordered[one]"
+        assert encoded[1][0] == "ordered[two]"
+        assert encoded[2][0] == "ordered[three]"
+        assert encoded[3][0] == "ordered[nested][a]"
+        assert encoded[4][0] == "ordered[nested][b]"
 
     def test_url_construction(self, requestor, mock_response, check_call):
         CASES = (

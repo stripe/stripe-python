@@ -7,6 +7,7 @@ import platform
 import time
 import uuid
 import warnings
+from collections import OrderedDict
 
 import stripe
 from stripe import error, oauth_error, http_client, version, util, six
@@ -25,7 +26,7 @@ def _encode_datetime(dttime):
 
 
 def _encode_nested_dict(key, data, fmt="%s[%s]"):
-    d = {}
+    d = OrderedDict()
     for subkey, subvalue in six.iteritems(data):
         d[fmt % (key, subkey)] = subvalue
     return d

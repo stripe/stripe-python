@@ -3,6 +3,7 @@ from __future__ import absolute_import, division, print_function
 import hmac
 import json
 import time
+from collections import OrderedDict
 from hashlib import sha256
 
 import stripe
@@ -21,7 +22,7 @@ class Webhook(object):
 
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 
-        data = json.loads(payload)
+        data = json.loads(payload, object_pairs_hook=OrderedDict)
         event = stripe.Event.construct_from(data, api_key or stripe.api_key)
 
         return event
