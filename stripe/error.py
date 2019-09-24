@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
+import stripe
 from stripe.six import python_2_unicode_compatible
 
 
@@ -32,6 +33,7 @@ class StripeError(Exception):
         self.headers = headers or {}
         self.code = code
         self.request_id = self.headers.get("request-id", None)
+        self.error = self.construct_error_object()
 
     def __str__(self):
         msg = self._message or "<empty message>"
@@ -54,6 +56,14 @@ class StripeError(Exception):
             self._message,
             self.http_status,
             self.request_id,
+        )
+
+    def construct_error_object(self):
+        if self.json_body is None or "error" not in self.json_body:
+            return None
+
+        return stripe.api_resources.error_object.ErrorObject.construct_from(
+            self.json_body["error"], stripe.api_key
         )
 
 

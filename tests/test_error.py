@@ -52,6 +52,14 @@ class TestStripeError(object):
                 "request_id='123')"
             )
 
+    def test_error_object(self):
+        err = error.StripeError(
+            "message", json_body={"error": {"code": "some_error"}}
+        )
+        assert err.error is not None
+        assert err.error.code == "some_error"
+        assert err.error.charge is None
+
 
 class TestStripeErrorWithParamCode(object):
     def test_repr(self):
