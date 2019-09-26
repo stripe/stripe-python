@@ -205,6 +205,12 @@ def populate_headers(idempotency_key):
     return None
 
 
+def merge_dicts(x, y):
+    z = x.copy()
+    z.update(y)
+    return z
+
+
 class class_method_variant(object):
     def __init__(self, class_method_name):
         self.class_method_name = class_method_name

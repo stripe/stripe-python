@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
+import stripe
 from stripe.error import StripeError
 
 
@@ -15,6 +16,14 @@ class OAuthError(StripeError):
     ):
         super(OAuthError, self).__init__(
             description, http_body, http_status, json_body, headers, code
+        )
+
+    def construct_error_object(self):
+        if self.json_body is None:
+            return None
+
+        return stripe.api_resources.error_object.OAuthErrorObject.construct_from(
+            self.json_body, stripe.api_key
         )
 
 
