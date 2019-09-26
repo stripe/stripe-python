@@ -60,6 +60,10 @@ class TestStripeError(object):
         assert err.error.code == "some_error"
         assert err.error.charge is None
 
+    def test_error_object_not_dict(self):
+        err = error.StripeError("message", json_body={"error": "not a dict"})
+        assert err.error is None
+
 
 class TestStripeErrorWithParamCode(object):
     def test_repr(self):
