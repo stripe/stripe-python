@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.37.0 - 2019-09-26
+* [#619](https://github.com/stripe/stripe-python/pull/619) Add `ErrorObject` to `StripeError` exceptions
+* [#616](https://github.com/stripe/stripe-python/pull/616) Pass `CFLAGS` and `LDFLAGS` when running tests
+
 ## 2.36.2 - 2019-09-12
 * [#614](https://github.com/stripe/stripe-python/pull/614) Use `OrderedDict` to maintain key order in API requests and responses
 
