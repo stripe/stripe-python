@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.37.1 - 2019-09-26
+* [#620](https://github.com/stripe/stripe-python/pull/620) Check that `error` is a dict before trying to use it to create a `StripeError`
+
 ## 2.37.0 - 2019-09-26
 * [#619](https://github.com/stripe/stripe-python/pull/619) Add `ErrorObject` to `StripeError` exceptions
 * [#616](https://github.com/stripe/stripe-python/pull/616) Pass `CFLAGS` and `LDFLAGS` when running tests
