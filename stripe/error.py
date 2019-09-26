@@ -59,7 +59,11 @@ class StripeError(Exception):
         )
 
     def construct_error_object(self):
-        if self.json_body is None or "error" not in self.json_body:
+        if (
+            self.json_body is None
+            or "error" not in self.json_body
+            or not isinstance(self.json_body["error"], dict)
+        ):
             return None
 
         return stripe.api_resources.error_object.ErrorObject.construct_from(
