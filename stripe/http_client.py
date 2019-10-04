@@ -155,16 +155,41 @@ class HTTPClient(object):
         )
 
     def _should_retry(self, response, api_connection_error, num_retries):
-        if response is not None:
-            _, status_code, _ = response
-            should_retry = status_code == 409
-        else:
+        if num_retries >= self._max_network_retries():
+            return False
+
+        if response is None:
             # We generally want to retry on timeout and connection
             # exceptions, but defer this decision to underlying subclass
             # implementations. They should evaluate the driver-specific
             # errors worthy of retries, and set flag on the error returned.
-            should_retry = api_connection_error.should_retry
-        return should_retry and num_retries < self._max_network_retries()
+            return api_connection_error.should_retry
+
+        _, status_code, rheaders = response
+
+        # The API may ask us not to retry (eg; if doing so would be a no-op)
+        # or advise us to retry (eg; in cases of lock timeouts); we defer to that.
+        #
+        # Note that we expect the headers object to be a CaseInsensitiveDict, as is the case with the requests library.
+        if rheaders is not None and "stripe-should-retry" in rheaders:
+            if rheaders["stripe-should-retry"] == "false":
+                return False
+            if rheaders["stripe-should-retry"] == "true":
+                return True
+
+        # Retry on conflict errors.
+        if status_code == 409:
+            return True
+
+        # Retry on 500, 503, and other internal errors.
+        #
+        # Note that we expect the stripe-should-retry header to be false
+        # in most cases when a 500 is returned, since our idempotency framework
+        # would typically replay it anyway.
+        if status_code >= 500:
+            return True
+
+        return False
 
     def _max_network_retries(self):
         from stripe import max_network_retries
