@@ -199,7 +199,8 @@ class HTTPClient(object):
         return max_network_retries
 
     def _retry_after_header(self, response=None):
-        if response is None: return None
+        if response is None:
+            return None
         _, _, rheaders = response
 
         try:
@@ -222,7 +223,7 @@ class HTTPClient(object):
         sleep_seconds = max(HTTPClient.INITIAL_DELAY, sleep_seconds)
 
         # And never sleep less than the time the API asks us to wait, assuming it's a reasonable ask.
-        retry_after = self._retry_after_header(response)
+        retry_after = self._retry_after_header(response) or 0
         if retry_after <= HTTPClient.MAX_RETRY_AFTER:
             sleep_seconds = max(retry_after, sleep_seconds)
 
