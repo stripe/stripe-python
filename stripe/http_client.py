@@ -90,6 +90,7 @@ def new_default_http_client(*args, **kwargs):
 class HTTPClient(object):
     MAX_DELAY = 2
     INITIAL_DELAY = 0.5
+    MAX_RETRY_AFTER_WAIT = 60
 
     def __init__(self, verify_ssl_certs=True, proxy=None):
         self._verify_ssl_certs = verify_ssl_certs
@@ -132,7 +133,7 @@ class HTTPClient(object):
                         % connection_error.user_message
                     )
                 num_retries += 1
-                sleep_time = self._sleep_time_seconds(num_retries)
+                sleep_time = self._sleep_time_seconds(num_retries, response)
                 util.log_info(
                     (
                         "Initiating retry %i for request %s %s after "
@@ -197,7 +198,7 @@ class HTTPClient(object):
         # Configured retries, isolated here for tests
         return max_network_retries
 
-    def _sleep_time_seconds(self, num_retries):
+    def _sleep_time_seconds(self, num_retries, response=None):
         # Apply exponential backoff with initial_network_retry_delay on the
         # number of num_retries so far as inputs.
         # Do not allow the number to exceed max_network_retry_delay.
@@ -210,6 +211,17 @@ class HTTPClient(object):
 
         # But never sleep less than the base sleep seconds.
         sleep_seconds = max(HTTPClient.INITIAL_DELAY, sleep_seconds)
+
+        # And never sleep less than the time the API asks us to wait, assuming it's a reasonable ask.
+        if response is not None:
+            _, _, rheaders = response
+            try:
+                retry_after = int(rheaders['retry-after'])
+            except (KeyError, ValueError):
+                retry_after = None
+            if retry_after is not None and retry_after <= HTTPClient.MAX_RETRY_AFTER_WAIT:
+                sleep_seconds = max(retry_after, sleep_seconds)
+
         return sleep_seconds
 
     def _add_jitter_time(self, sleep_seconds):
