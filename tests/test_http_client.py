@@ -97,11 +97,17 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
         client._add_jitter_time = lambda t: t
 
         # Prefer retry-after if it's bigger
-        assert 30 == client._sleep_time_seconds(2, (None, 409, {'retry-after': '30'}))
+        assert 30 == client._sleep_time_seconds(
+            2, (None, 409, {"retry-after": "30"})
+        )
         # Prefer default if it's bigger
-        assert 2 == client._sleep_time_seconds(3, (None, 409, {'retry-after': '1'}))
+        assert 2 == client._sleep_time_seconds(
+            3, (None, 409, {"retry-after": "1"})
+        )
         # Ignore crazy-big values
-        assert 1 == client._sleep_time_seconds(2, (None, 409, {'retry-after': '300'}))
+        assert 1 == client._sleep_time_seconds(
+            2, (None, 409, {"retry-after": "300"})
+        )
 
     def test_randomness_added(self):
         client = stripe.http_client.new_default_http_client()
