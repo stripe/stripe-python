@@ -92,6 +92,23 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
         expected = [0.5, 1.0, max_delay, max_delay, max_delay]
         self.assert_sleep_times(client, expected)
 
+    def test_retry_after_header(self):
+        client = stripe.http_client.new_default_http_client()
+        client._add_jitter_time = lambda t: t
+
+        # Prefer retry-after if it's bigger
+        assert 30 == client._sleep_time_seconds(
+            2, (None, 409, {"retry-after": "30"})
+        )
+        # Prefer default if it's bigger
+        assert 2 == client._sleep_time_seconds(
+            3, (None, 409, {"retry-after": "1"})
+        )
+        # Ignore crazy-big values
+        assert 1 == client._sleep_time_seconds(
+            2, (None, 409, {"retry-after": "300"})
+        )
+
     def test_randomness_added(self):
         client = stripe.http_client.new_default_http_client()
         random_value = 0.8
@@ -125,14 +142,20 @@ class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
         two_xx = list(range(200, 209))
         three_xx = list(range(300, 308))
         four_xx = list(range(400, 431))
-        five_xx = list(range(500, 512))
 
         client = stripe.http_client.new_default_http_client()
-        codes = one_xx + two_xx + three_xx + four_xx + five_xx
+        client._max_network_retries = lambda: 1
+        codes = one_xx + two_xx + three_xx + four_xx
         codes.remove(409)
 
+        # These status codes should not be retried by default.
         for code in codes:
-            assert client._should_retry((None, code, None), None, 1) is False
+            assert client._should_retry((None, code, None), None, 0) is False
+
+        # These status codes should be retried by default.
+        assert client._should_retry((None, 409, None), None, 0) is True
+        assert client._should_retry((None, 500, None), None, 0) is True
+        assert client._should_retry((None, 503, None), None, 0) is True
 
     def test_should_retry_on_error(self, mocker):
         client = stripe.http_client.new_default_http_client()
@@ -144,6 +167,24 @@ class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
 
         api_connection_error.should_retry = False
         assert client._should_retry(None, api_connection_error, 0) is False
+
+    def test_should_retry_on_stripe_should_retry_true(self, mocker):
+        client = stripe.http_client.new_default_http_client()
+        client._max_network_retries = lambda: 1
+        headers = {"stripe-should-retry": "true"}
+
+        # Ordinarily, we would not retry a 400, but with the header as true, we would.
+        assert client._should_retry((None, 400, {}), None, 0) is False
+        assert client._should_retry((None, 400, headers), None, 0) is True
+
+    def test_should_retry_on_stripe_should_retry_false(self, mocker):
+        client = stripe.http_client.new_default_http_client()
+        client._max_network_retries = lambda: 1
+        headers = {"stripe-should-retry": "false"}
+
+        # Ordinarily, we would retry a 500, but with the header as false, we would not.
+        assert client._should_retry((None, 500, {}), None, 0) is True
+        assert client._should_retry((None, 500, headers), None, 0) is False
 
     def test_should_retry_on_num_retries(self, mocker):
         client = stripe.http_client.new_default_http_client()

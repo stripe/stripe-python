@@ -180,7 +180,7 @@ stripe-mock
 Run the following command to set up the development virtualenv:
 
 ```sh
-make init
+make
 ```
 
 Run all tests on all supported Python versions:

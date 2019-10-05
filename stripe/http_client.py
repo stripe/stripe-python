@@ -90,6 +90,7 @@ def new_default_http_client(*args, **kwargs):
 class HTTPClient(object):
     MAX_DELAY = 2
     INITIAL_DELAY = 0.5
+    MAX_RETRY_AFTER = 60
 
     def __init__(self, verify_ssl_certs=True, proxy=None):
         self._verify_ssl_certs = verify_ssl_certs
@@ -132,7 +133,7 @@ class HTTPClient(object):
                         % connection_error.user_message
                     )
                 num_retries += 1
-                sleep_time = self._sleep_time_seconds(num_retries)
+                sleep_time = self._sleep_time_seconds(num_retries, response)
                 util.log_info(
                     (
                         "Initiating retry %i for request %s %s after "
@@ -155,16 +156,41 @@ class HTTPClient(object):
         )
 
     def _should_retry(self, response, api_connection_error, num_retries):
-        if response is not None:
-            _, status_code, _ = response
-            should_retry = status_code == 409
-        else:
+        if num_retries >= self._max_network_retries():
+            return False
+
+        if response is None:
             # We generally want to retry on timeout and connection
             # exceptions, but defer this decision to underlying subclass
             # implementations. They should evaluate the driver-specific
             # errors worthy of retries, and set flag on the error returned.
-            should_retry = api_connection_error.should_retry
-        return should_retry and num_retries < self._max_network_retries()
+            return api_connection_error.should_retry
+
+        _, status_code, rheaders = response
+
+        # The API may ask us not to retry (eg; if doing so would be a no-op)
+        # or advise us to retry (eg; in cases of lock timeouts); we defer to that.
+        #
+        # Note that we expect the headers object to be a CaseInsensitiveDict, as is the case with the requests library.
+        if rheaders is not None and "stripe-should-retry" in rheaders:
+            if rheaders["stripe-should-retry"] == "false":
+                return False
+            if rheaders["stripe-should-retry"] == "true":
+                return True
+
+        # Retry on conflict errors.
+        if status_code == 409:
+            return True
+
+        # Retry on 500, 503, and other internal errors.
+        #
+        # Note that we expect the stripe-should-retry header to be false
+        # in most cases when a 500 is returned, since our idempotency framework
+        # would typically replay it anyway.
+        if status_code >= 500:
+            return True
+
+        return False
 
     def _max_network_retries(self):
         from stripe import max_network_retries
@@ -172,7 +198,17 @@ class HTTPClient(object):
         # Configured retries, isolated here for tests
         return max_network_retries
 
-    def _sleep_time_seconds(self, num_retries):
+    def _retry_after_header(self, response=None):
+        if response is None:
+            return None
+        _, _, rheaders = response
+
+        try:
+            return int(rheaders["retry-after"])
+        except (KeyError, ValueError):
+            return None
+
+    def _sleep_time_seconds(self, num_retries, response=None):
         # Apply exponential backoff with initial_network_retry_delay on the
         # number of num_retries so far as inputs.
         # Do not allow the number to exceed max_network_retry_delay.
@@ -185,6 +221,12 @@ class HTTPClient(object):
 
         # But never sleep less than the base sleep seconds.
         sleep_seconds = max(HTTPClient.INITIAL_DELAY, sleep_seconds)
+
+        # And never sleep less than the time the API asks us to wait, assuming it's a reasonable ask.
+        retry_after = self._retry_after_header(response) or 0
+        if retry_after <= HTTPClient.MAX_RETRY_AFTER:
+            sleep_seconds = max(retry_after, sleep_seconds)
+
         return sleep_seconds
 
     def _add_jitter_time(self, sleep_seconds):
