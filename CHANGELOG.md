@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.37.2 - 2019-10-04
+* [#621](https://github.com/stripe/stripe-python/pull/621) Implement support for stripe-should-retry and retry-after headers
+
 ## 2.37.1 - 2019-09-26
 * [#620](https://github.com/stripe/stripe-python/pull/620) Check that `error` is a dict before trying to use it to create a `StripeError`
 
