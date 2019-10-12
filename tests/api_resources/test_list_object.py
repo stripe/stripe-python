@@ -14,14 +14,6 @@ class TestListObject(object):
             {"object": "list", "url": "/my/path", "data": ["foo"]}, "mykey"
         )
 
-    def test_for_loop(self, list_object):
-        seen = []
-
-        for item in list_object:
-            seen.append(item)
-
-        assert seen == ["foo"]
-
     def test_list(self, request_mock, list_object):
         request_mock.stub_request(
             "get",
@@ -87,6 +79,26 @@ class TestListObject(object):
         assert res.foo == "bar"
         assert res.stripe_account == "acct_123"
 
+    def test_is_empty(self):
+        lo = stripe.ListObject.construct_from({"data": []}, None)
+        assert lo.is_empty is True
+
+    def test_empty_list(self):
+        lo = stripe.ListObject.empty_list()
+        assert lo.is_empty
+
+    def test_iter(self):
+        arr = [{"id": 1}, {"id": 2}, {"id": 3}]
+        expected = stripe.util.convert_to_stripe_object(arr)
+        lo = stripe.ListObject.construct_from({"data": arr}, None)
+        assert list(lo) == expected
+
+    def test_iter_reversed(self):
+        arr = [{"id": 1}, {"id": 2}, {"id": 3}]
+        expected = stripe.util.convert_to_stripe_object(list(reversed(arr)))
+        lo = stripe.ListObject.construct_from({"data": arr}, None)
+        assert list(reversed(lo)) == expected
+
     def test_len(self, list_object):
         assert len(list_object) == 1
 
@@ -97,6 +109,132 @@ class TestListObject(object):
             {"object": "list", "url": "/my/path", "data": []}, "mykey"
         )
         assert bool(empty) is False
+
+    def test_next_page(self, request_mock):
+        lo = stripe.ListObject.construct_from(
+            {
+                "object": "list",
+                "data": [{"id": 1}],
+                "has_more": True,
+                "url": "/things",
+            },
+            None,
+        )
+
+        request_mock.stub_request(
+            "get",
+            "/things",
+            {
+                "object": "list",
+                "data": [{"id": 2}],
+                "has_more": False,
+                "url": "/things",
+            },
+        )
+
+        next_lo = lo.next_page()
+        assert not next_lo.is_empty
+        assert next_lo.data[0].id == 2
+
+    def test_next_page_with_filters(self, request_mock):
+        lo = stripe.ListObject.construct_from(
+            {
+                "object": "list",
+                "data": [{"id": 1}],
+                "has_more": True,
+                "url": "/things",
+            },
+            None,
+        )
+        lo._retrieve_params = {"expand": ["data.source"], "limit": 3}
+
+        request_mock.stub_request(
+            "get",
+            "/things",
+            {
+                "object": "list",
+                "data": [{"id": 2}],
+                "has_more": False,
+                "url": "/things",
+            },
+        )
+
+        next_lo = lo.next_page()
+        assert next_lo._retrieve_params == {
+            "expand": ["data.source"],
+            "limit": 3,
+            "starting_after": 1,
+        }
+
+    def test_next_page_empty_list(self):
+        lo = stripe.ListObject.construct_from(
+            {
+                "object": "list",
+                "data": [{"id": 1}],
+                "has_more": False,
+                "url": "/things",
+            },
+            None,
+        )
+
+        next_lo = lo.next_page()
+        assert next_lo == stripe.ListObject.empty_list()
+
+    def test_prev_page(self, request_mock):
+        lo = stripe.ListObject.construct_from(
+            {
+                "object": "list",
+                "data": [{"id": 2}],
+                "has_more": True,
+                "url": "/things",
+            },
+            None,
+        )
+
+        request_mock.stub_request(
+            "get",
+            "/things",
+            {
+                "object": "list",
+                "data": [{"id": 1}],
+                "has_more": False,
+                "url": "/things",
+            },
+        )
+
+        previous_lo = lo.previous_page()
+        assert not previous_lo.is_empty
+        assert previous_lo.data[0].id == 1
+
+    def test_prev_page_with_filters(self, request_mock):
+        lo = stripe.ListObject.construct_from(
+            {
+                "object": "list",
+                "data": [{"id": 2}],
+                "has_more": True,
+                "url": "/things",
+            },
+            None,
+        )
+        lo._retrieve_params = {"expand": ["data.source"], "limit": 3}
+
+        request_mock.stub_request(
+            "get",
+            "/things",
+            {
+                "object": "list",
+                "data": [{"id": 1}],
+                "has_more": False,
+                "url": "/things",
+            },
+        )
+
+        previous_lo = lo.previous_page()
+        assert previous_lo._retrieve_params == {
+            "expand": ["data.source"],
+            "limit": 3,
+            "ending_before": 2,
+        }
 
     def test_serialize_empty_list(self):
         empty = stripe.ListObject.construct_from(
@@ -165,6 +303,29 @@ class TestAutoPaging:
         )
 
         assert seen == ["pm_123", "pm_124", "pm_125", "pm_126"]
+
+    def test_iter_reverse(self, request_mock):
+        lo = stripe.ListObject.construct_from(
+            self.pageable_model_response(["pm_125", "pm_126"], True), "mykey"
+        )
+        lo._retrieve_params = {"foo": "bar", "ending_before": "pm_127"}
+
+        request_mock.stub_request(
+            "get",
+            "/v1/pageablemodels",
+            self.pageable_model_response(["pm_123", "pm_124"], False),
+        )
+
+        seen = [item["id"] for item in lo.auto_paging_iter()]
+
+        request_mock.assert_requested(
+            "get",
+            "/v1/pageablemodels",
+            {"ending_before": "pm_125", "foo": "bar"},
+            None,
+        )
+
+        assert seen == ["pm_126", "pm_125", "pm_124", "pm_123"]
 
     def test_class_method_two_pages(self, request_mock):
         request_mock.stub_request(
