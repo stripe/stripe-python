@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.38.0 - 2019-10-29
+* [#623](https://github.com/stripe/stripe-python/pull/623) Add support for reverse pagination
+* [#624](https://github.com/stripe/stripe-python/pull/624) Contributor Convenant
+
 ## 2.37.2 - 2019-10-04
 * [#621](https://github.com/stripe/stripe-python/pull/621) Implement support for stripe-should-retry and retry-after headers
 
