@@ -73,7 +73,7 @@ class TestSourceTransactions(object):
     def test_is_listable(self, request_mock):
         resource = stripe.Source.list_source_transactions(TEST_RESOURCE_ID)
         request_mock.assert_requested(
-            "get", "/v1/sources/%s/source_transactions" % TEST_RESOURCE_ID,
+            "get", "/v1/sources/%s/source_transactions" % TEST_RESOURCE_ID
         )
         assert isinstance(resource.data, list)
         assert isinstance(resource.data[0], stripe.SourceTransaction)
