@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.40.0 - 2019-11-08
+* [#627](https://github.com/stripe/stripe-python/pull/627) Add list_usage_record_summaries and list_source_transactions
+
 ## 2.39.0 - 2019-11-06
 * [#625](https://github.com/stripe/stripe-python/pull/625) Add support for `Mandate`
 
