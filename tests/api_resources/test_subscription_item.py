@@ -79,3 +79,17 @@ class TestUsageRecords(object):
             "/v1/subscription_items/%s/usage_records" % TEST_RESOURCE_ID,
         )
         assert isinstance(resource, stripe.UsageRecord)
+
+
+class TestUsageRecordSummaries(object):
+    def test_is_listable(self, request_mock):
+        resource = stripe.SubscriptionItem.list_usage_record_summaries(
+            TEST_RESOURCE_ID
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/subscription_items/%s/usage_record_summaries"
+            % TEST_RESOURCE_ID,
+        )
+        assert isinstance(resource.data, list)
+        assert isinstance(resource.data[0], stripe.UsageRecordSummary)

@@ -6,9 +6,11 @@ from stripe.api_resources import Customer
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import VerifyMixin
+from stripe.api_resources.abstract import nested_resource_class_methods
 from stripe.six.moves.urllib.parse import quote_plus
 
 
+@nested_resource_class_methods("source_transaction", operations=["list"])
 class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
     OBJECT_NAME = "source"
 
@@ -34,6 +36,8 @@ class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
             )
 
     def source_transactions(self, **params):
+        """source_transactions is deprecated, use Source.list_source_transactions instead.
+        """
         return self.request(
             "get", self.instance_url() + "/source_transactions", params
         )
