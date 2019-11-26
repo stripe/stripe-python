@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.41.0 - 2019-11-26
+* [#630](https://github.com/stripe/stripe-python/pull/630) Add support for `CreditNote` preview
+
 ## 2.40.0 - 2019-11-08
 * [#627](https://github.com/stripe/stripe-python/pull/627) Add list_usage_record_summaries and list_source_transactions
 
