@@ -44,6 +44,11 @@ class TestCreditNote(object):
         )
         assert isinstance(resource, stripe.CreditNote)
 
+    def test_can_preview(self, request_mock):
+        resource = stripe.CreditNote.preview(invoice="in_123", amount=500,)
+        request_mock.assert_requested("get", "/v1/credit_notes/preview")
+        assert isinstance(resource, stripe.CreditNote)
+
     def test_can_void_credit_note(self, request_mock):
         resource = stripe.CreditNote.retrieve(TEST_RESOURCE_ID)
         resource = resource.void_credit_note()
