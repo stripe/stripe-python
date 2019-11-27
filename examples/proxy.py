@@ -9,20 +9,20 @@ stripe.api_key = os.environ.get("STRIPE_SECRET_KEY")
 
 print("Attempting charge...")
 
-stripe.proxy = {
+proxy = {
     "http": "http://<user>:<pass>@<proxy>:<port>",
     "https": "http://<user>:<pass>@<proxy>:<port>",
 }
 
 clients = (
     stripe.http_client.RequestsClient(
-        verify_ssl_certs=stripe.verify_ssl_certs, proxy=stripe.proxy
+        verify_ssl_certs=stripe.verify_ssl_certs, proxy=proxy
     ),
     stripe.http_client.PycurlClient(
-        verify_ssl_certs=stripe.verify_ssl_certs, proxy=stripe.proxy
+        verify_ssl_certs=stripe.verify_ssl_certs, proxy=proxy
     ),
     stripe.http_client.Urllib2Client(
-        verify_ssl_certs=stripe.verify_ssl_certs, proxy=stripe.proxy
+        verify_ssl_certs=stripe.verify_ssl_certs, proxy=proxy
     ),
 )
 
