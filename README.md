@@ -11,7 +11,7 @@ API.
 
 ## Documentation
 
-See the [Python API docs](https://stripe.com/docs/api/python#intro).
+See the [Python API docs](https://stripe.com/docs/api?lang=python).
 
 ## Installation
 
