@@ -29,7 +29,7 @@ class MultipartDataGenerator(object):
                     # Convert the filename to string, just in case it's not
                     # already one. E.g. `tempfile.TemporaryFile` has a `name`
                     # attribute but it's an `int`.
-                    filename = str(value.name)
+                    filename = stripe.six.text_type(value.name)
 
                 self._write('Content-Disposition: form-data; name="')
                 self._write(key)

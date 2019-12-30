@@ -86,3 +86,8 @@ class TestMultipartDataGenerator(object):
     def test_multipart_data_stringio(self):
         string = six.StringIO("foo")
         self.run_test_multipart_data_with_file(string)
+
+    def test_multipart_data_unicode_file_name(self):
+        string = six.StringIO("foo")
+        string.name = u"паспорт.png"
+        self.run_test_multipart_data_with_file(string)
