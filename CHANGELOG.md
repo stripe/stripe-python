@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.41.1 - 2019-12-30
+* [#636](https://github.com/stripe/stripe-python/pull/636) Fix uploading files with Unicode names (Python 2.7)
+* [#635](https://github.com/stripe/stripe-python/pull/635) Update Python API docs inline link
+* [#631](https://github.com/stripe/stripe-python/pull/631) Update `proxy.py`
+
 ## 2.41.0 - 2019-11-26
 * [#630](https://github.com/stripe/stripe-python/pull/630) Add support for `CreditNote` preview
 
