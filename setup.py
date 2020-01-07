@@ -56,11 +56,10 @@ setup(
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     tests_require=[
         "pytest >= 4.6.2, < 4.7",
-        "pytest-mock >= 1.10.4",
-        "pytest-xdist >= 1.28.0",
-        "pytest-cov >= 2.7.1",
-        # coverage 5.0 pre-releases don't work, and setuptools doesn't ignore
-        # pre-releases (cf. https://github.com/pypa/setuptools/issues/855)
+        "pytest-mock >= 2.0.0",
+        "pytest-xdist >= 1.31.0",
+        "pytest-cov >= 2.8.1",
+        # TODO: upgrade to coverage 5 when we drop support for Python 3.4
         "coverage >= 4.5.3, < 5",
     ],
     cmdclass={"test": PyTest},
