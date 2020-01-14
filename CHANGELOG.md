@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.42.0 - 2020-01-14
+* [#640](https://github.com/stripe/stripe-python/pull/640) Add support for `CreditNoteLineItem`
+* [#639](https://github.com/stripe/stripe-python/pull/639) Pin black version
+* [#637](https://github.com/stripe/stripe-python/pull/637) Start testing Python 3.8
+
 ## 2.41.1 - 2019-12-30
 * [#636](https://github.com/stripe/stripe-python/pull/636) Fix uploading files with Unicode names (Python 2.7)
 * [#635](https://github.com/stripe/stripe-python/pull/635) Update Python API docs inline link
