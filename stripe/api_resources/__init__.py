@@ -29,6 +29,7 @@ from stripe.api_resources.charge import Charge
 from stripe.api_resources.country_spec import CountrySpec
 from stripe.api_resources.coupon import Coupon
 from stripe.api_resources.credit_note import CreditNote
+from stripe.api_resources.credit_note_line_item import CreditNoteLineItem
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.customer_balance_transaction import (
     CustomerBalanceTransaction,
