@@ -25,6 +25,7 @@ OBJECT_CLASSES = {
     api_resources.CountrySpec.OBJECT_NAME: api_resources.CountrySpec,
     api_resources.Coupon.OBJECT_NAME: api_resources.Coupon,
     api_resources.CreditNote.OBJECT_NAME: api_resources.CreditNote,
+    api_resources.CreditNoteLineItem.OBJECT_NAME: api_resources.CreditNoteLineItem,
     api_resources.Customer.OBJECT_NAME: api_resources.Customer,
     api_resources.CustomerBalanceTransaction.OBJECT_NAME: api_resources.CustomerBalanceTransaction,
     api_resources.Dispute.OBJECT_NAME: api_resources.Dispute,
