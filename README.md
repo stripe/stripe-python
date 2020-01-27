@@ -30,7 +30,7 @@ python setup.py install
 
 ### Requirements
 
-- Python 2.7+ or Python 3.4+ (PyPy supported)
+-   Python 2.7+ or Python 3.4+ (PyPy supported)
 
 ## Usage
 
@@ -42,11 +42,11 @@ value:
 import stripe
 stripe.api_key = "sk_test_..."
 
-# list charges
-stripe.Charge.list()
+# list customers
+stripe.Customer.list()
 
-# retrieve single charge
-stripe.Charge.retrieve("ch_1A2PUG2eZvKYlo2C4Rej1B9d")
+# retrieve single Customer
+stripe.Customer.retrieve("cus_123456789")
 ```
 
 ### Per-request Configuration
@@ -58,16 +58,16 @@ or as a [connected account](https://stripe.com/docs/connect/authentication#authe
 ```python
 import stripe
 
-# list charges
-stripe.Charge.list(
+# list customers
+stripe.Customer.list(
     api_key="sk_test_...",
     stripe_account="acct_...",
     stripe_version="2019-02-19"
 )
 
-# retrieve single charge
-stripe.Charge.retrieve(
-    "ch_1A2PUG2eZvKYlo2C4Rej1B9d",
+# retrieve single customer
+stripe.Customer.retrieve(
+    "cus_123456789",
     api_key="sk_test_...",
     stripe_account="acct_...",
     stripe_version="2019-02-19"
@@ -124,24 +124,24 @@ There are a few options for enabling it:
 
 1. Set the environment variable `STRIPE_LOG` to the value `debug` or `info`
 
-   ```sh
-   $ export STRIPE_LOG=debug
-   ```
+    ```sh
+    $ export STRIPE_LOG=debug
+    ```
 
 2. Set `stripe.log`:
 
-   ```python
-   import stripe
-   stripe.log = 'debug'
-   ```
+    ```python
+    import stripe
+    stripe.log = 'debug'
+    ```
 
 3. Enable it through Python's logging module:
 
-   ```python
-   import logging
-   logging.basicConfig()
-   logging.getLogger('stripe').setLevel(logging.DEBUG)
-   ```
+    ```python
+    import logging
+    logging.basicConfig()
+    logging.getLogger('stripe').setLevel(logging.DEBUG)
+    ```
 
 ### Writing a Plugin
 
