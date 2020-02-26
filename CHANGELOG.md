@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.43.0 - 2020-02-26
+* [#644](https://github.com/stripe/stripe-python/pull/644) Add support for listing Checkout `Session`
+
 ## 2.42.0 - 2020-01-14
 * [#640](https://github.com/stripe/stripe-python/pull/640) Add support for `CreditNoteLineItem`
 * [#639](https://github.com/stripe/stripe-python/pull/639) Pin black version
