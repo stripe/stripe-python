@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.44.0 - 2020-03-23
+* [#646](https://github.com/stripe/stripe-python/pull/646) Allow overriding API key in OAuth methods
+
 ## 2.43.0 - 2020-02-26
 * [#644](https://github.com/stripe/stripe-python/pull/644) Add support for listing Checkout `Session`
 
