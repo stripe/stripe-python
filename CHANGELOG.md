@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.45.0 - 2020-04-06
+* [#648](https://github.com/stripe/stripe-python/pull/648) Add support for Express links in `authorize_url` for `OAuth`
+
 ## 2.44.0 - 2020-03-23
 * [#646](https://github.com/stripe/stripe-python/pull/646) Allow overriding API key in OAuth methods
 
