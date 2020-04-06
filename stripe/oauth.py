@@ -27,8 +27,12 @@ class OAuth(object):
         )
 
     @staticmethod
-    def authorize_url(**params):
-        path = "/oauth/authorize"
+    def authorize_url(express=False, **params):
+        if express is False:
+            path = "/oauth/authorize"
+        else:
+            path = "/express/oauth/authorize"
+
         OAuth._set_client_id(params)
         if "response_type" not in params:
             params["response_type"] = "code"

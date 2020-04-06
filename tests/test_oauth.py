@@ -16,13 +16,18 @@ class TestOAuth(object):
                 "country": "US",
             },
         )
-
         o = urlparse(url)
         params = parse_qs(o.query)
+
+        url_express = stripe.OAuth.authorize_url(
+            express=True, scope="read_write", state="csrf_token"
+        )
+        o_express = urlparse(url_express)
 
         assert o.scheme == "https"
         assert o.netloc == "connect.stripe.com"
         assert o.path == "/oauth/authorize"
+        assert o_express.path == "/express/oauth/authorize"
 
         assert params["client_id"] == ["ca_123"]
         assert params["scope"] == ["read_write"]
