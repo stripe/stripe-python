@@ -45,14 +45,30 @@ class TestCard(object):
         assert resource is card
 
     def test_can_retrieve_details(self, request_mock):
-        resource = stripe.issuing.Card.retrieve(TEST_RESOURCE_ID)
-        card_details = resource.details()
+        # stripe-mock does not handle this anymore so we stub instead.
+        request_mock.stub_request(
+            "get",
+            "/v1/issuing/cards/%s/details" % TEST_RESOURCE_ID,
+            {"object": "issuing.card_details"},
+        )
+        card = stripe.issuing.Card.construct_from(
+            {"id": "%s" % TEST_RESOURCE_ID, "object": "issuing.card"},
+            stripe.api_key,
+        )
+        card_details = card.details()
         request_mock.assert_requested(
             "get", "/v1/issuing/cards/%s/details" % TEST_RESOURCE_ID
         )
         assert isinstance(card_details, stripe.issuing.CardDetails)
 
     def test_can_retrieve_details_classmethod(self, request_mock):
+        # stripe-mock does not handle this anymore so we stub instead.
+        request_mock.stub_request(
+            "get",
+            "/v1/issuing/cards/%s/details" % TEST_RESOURCE_ID,
+            {"object": "issuing.card_details"},
+        )
+
         card_details = stripe.issuing.Card.details(TEST_RESOURCE_ID)
         request_mock.assert_requested(
             "get", "/v1/issuing/cards/%s/details" % TEST_RESOURCE_ID
