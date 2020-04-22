@@ -8,9 +8,7 @@ TEST_RESOURCE_ID = "idp_123"
 
 class TestDispute(object):
     def test_is_creatable(self, request_mock):
-        resource = stripe.issuing.Dispute.create(
-            reason="fraudulent", disputed_transaction="ipi_123"
-        )
+        resource = stripe.issuing.Dispute.create()
         request_mock.assert_requested("post", "/v1/issuing/disputes")
         assert isinstance(resource, stripe.issuing.Dispute)
 
@@ -21,9 +19,7 @@ class TestDispute(object):
         assert isinstance(resources.data[0], stripe.issuing.Dispute)
 
     def test_is_modifiable(self, request_mock):
-        resource = stripe.issuing.Dispute.modify(
-            TEST_RESOURCE_ID, metadata={"key": "value"}
-        )
+        resource = stripe.issuing.Dispute.modify(TEST_RESOURCE_ID)
         request_mock.assert_requested(
             "post", "/v1/issuing/disputes/%s" % TEST_RESOURCE_ID
         )
@@ -35,13 +31,3 @@ class TestDispute(object):
             "get", "/v1/issuing/disputes/%s" % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.issuing.Dispute)
-
-    def test_is_saveable(self, request_mock):
-        resource = stripe.issuing.Dispute.retrieve(TEST_RESOURCE_ID)
-        resource.metadata["key"] = "value"
-        dispute = resource.save()
-        request_mock.assert_requested(
-            "post", "/v1/issuing/disputes/%s" % TEST_RESOURCE_ID
-        )
-        assert isinstance(resource, stripe.issuing.Dispute)
-        assert resource is dispute
