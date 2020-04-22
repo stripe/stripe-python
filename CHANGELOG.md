@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.46.0 - 2020-04-22
+* [#651](https://github.com/stripe/stripe-python/pull/651) Add support for `billing_portal` namespace and `Session` resource and APIs
+
 ## 2.45.0 - 2020-04-06
 * [#648](https://github.com/stripe/stripe-python/pull/648) Add support for Express links in `authorize_url` for `OAuth`
 
