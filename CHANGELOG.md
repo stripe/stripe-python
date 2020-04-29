@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.47.0 - 2020-04-29
+* [#652](https://github.com/stripe/stripe-python/pull/652) Add support for the `Price` resource and APIs
+
 ## 2.46.0 - 2020-04-22
 * [#651](https://github.com/stripe/stripe-python/pull/651) Add support for `billing_portal` namespace and `Session` resource and APIs
 
