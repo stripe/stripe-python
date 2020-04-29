@@ -55,6 +55,7 @@ from stripe.api_resources.payment_method import PaymentMethod
 from stripe.api_resources.payout import Payout
 from stripe.api_resources.person import Person
 from stripe.api_resources.plan import Plan
+from stripe.api_resources.price import Price
 from stripe.api_resources.product import Product
 from stripe.api_resources.recipient import Recipient
 from stripe.api_resources.recipient_transfer import RecipientTransfer
