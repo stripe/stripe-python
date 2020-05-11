@@ -46,6 +46,7 @@ from stripe.api_resources.invoice import Invoice
 from stripe.api_resources.invoice_item import InvoiceItem
 from stripe.api_resources.invoice_line_item import InvoiceLineItem
 from stripe.api_resources.issuer_fraud_record import IssuerFraudRecord
+from stripe.api_resources.line_item import LineItem
 from stripe.api_resources.login_link import LoginLink
 from stripe.api_resources.mandate import Mandate
 from stripe.api_resources.order import Order

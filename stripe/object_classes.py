@@ -46,6 +46,7 @@ OBJECT_CLASSES = {
     api_resources.issuing.Cardholder.OBJECT_NAME: api_resources.issuing.Cardholder,
     api_resources.issuing.Dispute.OBJECT_NAME: api_resources.issuing.Dispute,
     api_resources.issuing.Transaction.OBJECT_NAME: api_resources.issuing.Transaction,
+    api_resources.LineItem.OBJECT_NAME: api_resources.LineItem,
     api_resources.LoginLink.OBJECT_NAME: api_resources.LoginLink,
     api_resources.Mandate.OBJECT_NAME: api_resources.Mandate,
     api_resources.Order.OBJECT_NAME: api_resources.Order,
