@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.48.0 - 2020-05-11
+* [#655](https://github.com/stripe/stripe-python/pull/655) Add support for the `LineItem` resource and APIs
+
 ## 2.47.0 - 2020-04-29
 * [#652](https://github.com/stripe/stripe-python/pull/652) Add support for the `Price` resource and APIs
 
