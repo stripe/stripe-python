@@ -43,11 +43,25 @@ import stripe
 stripe.api_key = "sk_test_..."
 
 # list customers
-stripe.Customer.list()
+customers = stripe.Customer.list()
 
-# retrieve single Customer
-stripe.Customer.retrieve("cus_123456789")
+# print the first customer's email
+print(customers.data[0].email)
+
+# retrieve specific Customer
+customer = stripe.Customer.retrieve("cus_123456789")
+
+# print that customer's email
+print(customer.email)
 ```
+
+### Handling exceptions
+
+Unsuccessful requests raise exceptions. The class of the exception will reflect
+the sort of error that occurred. Please see the [Api
+Reference](https://stripe.com/docs/api/errors/handling) for a description of
+the error classes you should handle, and for information on how to inspect
+these errors.
 
 ### Per-request Configuration
 
