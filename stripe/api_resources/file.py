@@ -21,12 +21,19 @@ class File(ListableAPIResource):
 
     @classmethod
     def create(
-        cls, api_key=None, api_version=None, stripe_account=None, **params
+        # 'api_version' is deprecated, please use 'stripe_version'
+        cls,
+        api_key=None,
+        api_version=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
     ):
+        version = api_version or stripe_version
         requestor = api_requestor.APIRequestor(
             api_key,
             api_base=stripe.upload_api_base,
-            api_version=api_version,
+            api_version=version,
             account=stripe_account,
         )
         url = cls.class_url()
@@ -35,7 +42,7 @@ class File(ListableAPIResource):
             "post", url, params=params, headers=supplied_headers
         )
         return util.convert_to_stripe_object(
-            response, api_key, api_version, stripe_account
+            response, api_key, version, stripe_account
         )
 
 
