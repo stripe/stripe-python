@@ -50,23 +50,23 @@ class TestFile(object):
         )
         assert isinstance(resource, stripe.File)
 
-    def test_create_respects_stripe_version(self, setup_upload_api_base, request_mock):
+    def test_create_respects_stripe_version(
+        self, setup_upload_api_base, request_mock
+    ):
         test_file = tempfile.TemporaryFile()
         stripe.File.create(
-            purpose="dispute_evidence",
-            file=test_file,
-            stripe_version="foo"
+            purpose="dispute_evidence", file=test_file, stripe_version="foo"
         )
         request_mock.assert_api_version("foo")
 
     # You can use api_version instead of stripe_version
     # in File.create. We preserve it for backwards compatibility
-    def test_create_respects_api_version(self, setup_upload_api_base, request_mock):
+    def test_create_respects_api_version(
+        self, setup_upload_api_base, request_mock
+    ):
         test_file = tempfile.TemporaryFile()
         stripe.File.create(
-            purpose="dispute_evidence",
-            file=test_file,
-            api_version="foo"
+            purpose="dispute_evidence", file=test_file, api_version="foo"
         )
         request_mock.assert_api_version("foo")
 
