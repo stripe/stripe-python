@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.49.0 - 2020-07-17
+* [#665](https://github.com/stripe/stripe-python/pull/665) Support stripe.File.create(stripe_version='...')
+
 ## 2.48.0 - 2020-05-11
 * [#655](https://github.com/stripe/stripe-python/pull/655) Add support for the `LineItem` resource and APIs
 
