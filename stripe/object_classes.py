@@ -58,6 +58,7 @@ OBJECT_CLASSES = {
     api_resources.Plan.OBJECT_NAME: api_resources.Plan,
     api_resources.Price.OBJECT_NAME: api_resources.Price,
     api_resources.Product.OBJECT_NAME: api_resources.Product,
+    api_resources.PromotionCode.OBJECT_NAME: api_resources.PromotionCode,
     api_resources.radar.EarlyFraudWarning.OBJECT_NAME: api_resources.radar.EarlyFraudWarning,
     api_resources.radar.ValueList.OBJECT_NAME: api_resources.radar.ValueList,
     api_resources.radar.ValueListItem.OBJECT_NAME: api_resources.radar.ValueListItem,
