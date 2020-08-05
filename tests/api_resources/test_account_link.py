@@ -9,7 +9,7 @@ class TestAccountLink(object):
             account="acct_123",
             refresh_url="https://stripe.com/failure",
             return_url="https://stripe.com/success",
-            type="custom_account_verification",
+            type="account_onboarding",
         )
         request_mock.assert_requested("post", "/v1/account_links")
         assert isinstance(resource, stripe.AccountLink)
