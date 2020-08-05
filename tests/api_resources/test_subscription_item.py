@@ -24,29 +24,29 @@ class TestSubscriptionItem(object):
 
     def test_is_creatable(self, request_mock):
         resource = stripe.SubscriptionItem.create(
-            plan="plan", subscription="sub_123"
+            price="price_123", subscription="sub_123"
         )
         request_mock.assert_requested("post", "/v1/subscription_items")
         assert isinstance(resource, stripe.SubscriptionItem)
 
     def test_is_saveable(self, request_mock):
         resource = stripe.SubscriptionItem.retrieve(TEST_RESOURCE_ID)
-        resource.plan = "plan"
+        resource.price = "price_123"
         resource.save()
         request_mock.assert_requested(
             "post",
             "/v1/subscription_items/%s" % TEST_RESOURCE_ID,
-            {"plan": "plan"},
+            {"price": "price_123"},
         )
 
     def test_is_modifiable(self, request_mock):
         resource = stripe.SubscriptionItem.modify(
-            TEST_RESOURCE_ID, plan="plan"
+            TEST_RESOURCE_ID, price="price_123"
         )
         request_mock.assert_requested(
             "post",
             "/v1/subscription_items/%s" % TEST_RESOURCE_ID,
-            {"plan": "plan"},
+            {"price": "price_123"},
         )
         assert isinstance(resource, stripe.SubscriptionItem)
 
