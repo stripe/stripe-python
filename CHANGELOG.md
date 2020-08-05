@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.50.0 - 2020-08-05
+* [#669](https://github.com/stripe/stripe-python/pull/669) Add support for the `PromotionCode` resource and APIs
+
 ## 2.49.0 - 2020-07-17
 * [#665](https://github.com/stripe/stripe-python/pull/665) Support stripe.File.create(stripe_version='...')
 
