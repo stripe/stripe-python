@@ -53,7 +53,7 @@ class TestSource(object):
             "delete", "/v1/customers/cus_123/sources/%s" % TEST_RESOURCE_ID
         )
 
-    def test_is_not_detachable_when_unattached(self):
+    def test_is_not_detachable_when_unattached(self, request_mock):
         resource = stripe.Source.retrieve(TEST_RESOURCE_ID)
         with pytest.raises(stripe.error.InvalidRequestError):
             resource.detach()

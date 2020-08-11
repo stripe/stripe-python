@@ -14,6 +14,9 @@ $(VENV_NAME)/bin/activate: setup.py
 test: venv
 	@${VENV_NAME}/bin/tox -p auto $(TOX_ARGS)
 
+test-nomock: venv
+	@${VENV_NAME}/bin/tox -p auto -- --nomock $(TOX_ARGS)
+
 ci: venv
 	@${VENV_NAME}/bin/python setup.py test -a "-n auto --cov=stripe"
 
