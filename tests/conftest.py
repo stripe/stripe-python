@@ -61,7 +61,7 @@ def pytest_addoption(parser):
 
 
 def pytest_runtest_setup(item):
-    if 'request_mock' in item.funcargnames and item.config.getoption("--nomock"):
+    if 'request_mock' in item.fixturenames and item.config.getoption("--nomock"):
         pytest.skip("run stripe-mock locally and remove --nomock flag to run skipped tests")
 
 
