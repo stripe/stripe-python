@@ -31,27 +31,47 @@ def stop_stripe_mock():
     StripeMock.stop()
 
 
-try:
-    resp = urlopen("http://localhost:%s/" % MOCK_PORT)
-    info = resp.info()
-except HTTPError as e:
-    info = e.info()
-except Exception:
-    sys.exit(
-        "Couldn't reach stripe-mock at `localhost:%s`. Is "
-        "it running? Please see README for setup instructions." % MOCK_PORT
+def pytest_configure(config):
+    if not config.getoption("--nomock"):
+        try:
+            resp = urlopen("http://localhost:%s/" % MOCK_PORT)
+            info = resp.info()
+            version = info.get("Stripe-Mock-Version")
+            if version != "master" and StrictVersion(version) < StrictVersion(
+                MOCK_MINIMUM_VERSION
+            ):
+                sys.exit(
+                    "Your version of stripe-mock (%s) is too old. The minimum "
+                    "version to run this test suite is %s. Please "
+                    "see its repository for upgrade instructions."
+                    % (version, MOCK_MINIMUM_VERSION)
+                )
+
+        except HTTPError as e:
+            info = e.info()
+        except Exception:
+            sys.exit(
+                "Couldn't reach stripe-mock at `localhost:%s`. Is "
+                "it running? Please see README for setup instructions."
+                % MOCK_PORT
+            )
+
+
+def pytest_addoption(parser):
+    parser.addoption(
+        "--nomock",
+        action="store_true",
+        help="only run tests that don't need stripe-mock",
     )
 
-version = info.get("Stripe-Mock-Version")
-if version != "master" and StrictVersion(version) < StrictVersion(
-    MOCK_MINIMUM_VERSION
-):
-    sys.exit(
-        "Your version of stripe-mock (%s) is too old. The minimum "
-        "version to run this test suite is %s. Please "
-        "see its repository for upgrade instructions."
-        % (version, MOCK_MINIMUM_VERSION)
-    )
+
+def pytest_runtest_setup(item):
+    if "request_mock" in item.fixturenames and item.config.getoption(
+        "--nomock"
+    ):
+        pytest.skip(
+            "run stripe-mock locally and remove --nomock flag to run skipped tests"
+        )
 
 
 @pytest.fixture(autouse=True)
