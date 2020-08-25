@@ -52,17 +52,26 @@ def pytest_configure(config):
         except Exception:
             sys.exit(
                 "Couldn't reach stripe-mock at `localhost:%s`. Is "
-                "it running? Please see README for setup instructions." % MOCK_PORT
+                "it running? Please see README for setup instructions."
+                % MOCK_PORT
             )
 
 
 def pytest_addoption(parser):
-    parser.addoption("--nomock", action="store_true", help="only run tests that don't need stripe-mock")
+    parser.addoption(
+        "--nomock",
+        action="store_true",
+        help="only run tests that don't need stripe-mock",
+    )
 
 
 def pytest_runtest_setup(item):
-    if 'request_mock' in item.fixturenames and item.config.getoption("--nomock"):
-        pytest.skip("run stripe-mock locally and remove --nomock flag to run skipped tests")
+    if "request_mock" in item.fixturenames and item.config.getoption(
+        "--nomock"
+    ):
+        pytest.skip(
+            "run stripe-mock locally and remove --nomock flag to run skipped tests"
+        )
 
 
 @pytest.fixture(autouse=True)
