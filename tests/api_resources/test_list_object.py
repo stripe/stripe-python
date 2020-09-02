@@ -49,17 +49,10 @@ class TestListObject(object):
     def test_create_maintains_list_properties(self, request_mock, list_object):
         # Testing with real requests because our mock makes it impossible to
         # test otherwise
-        customer = stripe.Customer.retrieve(
-            "cus_123", api_key="sk_test_custom"
-        )
-
-        res = customer.sources.create(source="tok_123")
-
+        charge = stripe.Charge.retrieve("ch_123", api_key="sk_test_custom")
+        res = charge.refunds.create(amount=123)
         request_mock.assert_requested(
-            "post",
-            "/v1/customers/cus_123/sources",
-            {"source": "tok_123"},
-            None,
+            "post", "/v1/charges/ch_123/refunds", {"amount": 123}, None
         )
         assert res.api_key == "sk_test_custom"
 
