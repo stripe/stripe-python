@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.51.0 - 2020-09-02
+* [#676](https://github.com/stripe/stripe-python/pull/676) Add support for the Issuing Dispute Submit API
+
 ## 2.50.0 - 2020-08-05
 * [#669](https://github.com/stripe/stripe-python/pull/669) Add support for the `PromotionCode` resource and APIs
 
