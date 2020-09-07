@@ -17,6 +17,9 @@ class Webhook(object):
     def construct_event(
         payload, sig_header, secret, tolerance=DEFAULT_TOLERANCE, api_key=None
     ):
+        if api_key is None:
+            raise ValueError("api key is None")
+
         if hasattr(payload, "decode"):
             payload = payload.decode("utf-8")
 
