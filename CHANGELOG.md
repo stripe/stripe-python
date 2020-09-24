@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.52.0 - 2020-09-24
+* [#999](https://github.com/stripe/stripe-python/pull/999) DESCRIBE CHANGES HERE (try to use the same style, tense, etc. as the other entries)
+
 ## 2.51.0 - 2020-09-02
 * [#676](https://github.com/stripe/stripe-python/pull/676) Add support for the Issuing Dispute Submit API
 
