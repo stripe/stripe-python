@@ -21,7 +21,7 @@ class TestProduct(object):
         assert isinstance(resource, stripe.Product)
 
     def test_is_creatable(self, request_mock):
-        resource = stripe.Product.create(name="NAME", type="good")
+        resource = stripe.Product.create(name="NAME")
         request_mock.assert_requested("post", "/v1/products")
         assert isinstance(resource, stripe.Product)
 
