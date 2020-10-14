@@ -56,3 +56,18 @@ class TestPayout(object):
             "post", "/v1/payouts/%s/cancel" % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.Payout)
+
+    def test_can_reverse(self, request_mock):
+        payout = stripe.Payout.retrieve(TEST_RESOURCE_ID)
+        resource = payout.reverse()
+        request_mock.assert_requested(
+            "post", "/v1/payouts/%s/reverse" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.Payout)
+
+    def test_can_reverse_classmethod(self, request_mock):
+        resource = stripe.Payout.reverse(TEST_RESOURCE_ID)
+        request_mock.assert_requested(
+            "post", "/v1/payouts/%s/reverse" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.Payout)
