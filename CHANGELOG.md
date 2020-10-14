@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.55.0 - 2020-10-14
+* [#684](https://github.com/stripe/stripe-python/pull/684) Add support for the Payout Reverse API
+
 ## 2.54.0 - 2020-09-29
 * [#681](https://github.com/stripe/stripe-python/pull/681) Add support for the `SetupAttempt` resource and List API
 
