@@ -22,6 +22,12 @@ class Invoice(
 ):
     OBJECT_NAME = "invoice"
 
+    STATUS_DRAFT = "draft"
+    STATUS_OPEN = "open"
+    STATUS_PAID = "paid"
+    STATUS_VOID = "void"
+    STATUS_UNCOLLECTIBLE = "uncollectible"
+
     def finalize_invoice(self, idempotency_key=None, **params):
         url = self.instance_url() + "/finalize"
         headers = util.populate_headers(idempotency_key)
