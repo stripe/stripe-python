@@ -284,9 +284,7 @@ class StripeObject(dict):
                 d[k] = v.to_dict_recursive()
             if isinstance(v, list):
                 d[k] = [
-                    i.to_dict_recursive()
-                    if isinstance(i, StripeObject)
-                    else i
+                    i.to_dict_recursive() if isinstance(i, StripeObject) else i
                     for i in v
                 ]
         return d
