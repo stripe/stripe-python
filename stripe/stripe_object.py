@@ -282,6 +282,13 @@ class StripeObject(dict):
         for k, v in six.iteritems(d):
             if isinstance(v, StripeObject):
                 d[k] = v.to_dict_recursive()
+            if isinstance(v, list):
+                d[k] = [
+                    i.to_dict_recursive()
+                    if isinstance(i, StripeObject)
+                    else i
+                    for i in v
+                ]
         return d
 
     @property
