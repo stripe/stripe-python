@@ -304,9 +304,8 @@ class TestStripeObject(object):
             stripe_account="myaccount",
         )
 
-        for item in obj.to_dict_recursive()['nested']:
+        for item in obj.to_dict_recursive()["nested"]:
             assert not isinstance(item, stripe.stripe_object.StripeObject)
-
 
     def test_serialize_empty_string_unsets(self):
         class SerializeToEmptyString(stripe.stripe_object.StripeObject):
