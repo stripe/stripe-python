@@ -305,7 +305,7 @@ class TestStripeObject(object):
         )
 
         for item in obj.to_dict_recursive()['nested']:
-            assert not isinstance(item, StripeObject)
+            assert not isinstance(item, stripe.stripe_object.StripeObject)
 
 
     def test_serialize_empty_string_unsets(self):
