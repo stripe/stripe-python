@@ -291,6 +291,23 @@ class TestStripeObject(object):
         # Verify that we're actually deep copying nested values.
         assert id(nested) != id(copied.nested)
 
+    def test_to_dict_recursive(self):
+        foo = stripe.stripe_object.StripeObject.construct_from(
+            {"value": "foo"}, "mykey"
+        )
+        bar = stripe.stripe_object.StripeObject.construct_from(
+            {"value": "bar"}, "mykey"
+        )
+        obj = stripe.stripe_object.StripeObject.construct_from(
+            {"empty": "", "value": "foobar", "nested": [foo, bar]},
+            "mykey",
+            stripe_account="myaccount",
+        )
+
+        for item in obj.to_dict_recursive()['nested']:
+            assert not isinstance(item, StripeObject)
+
+
     def test_serialize_empty_string_unsets(self):
         class SerializeToEmptyString(stripe.stripe_object.StripeObject):
             def serialize(self, previous):
