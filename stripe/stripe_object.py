@@ -278,11 +278,20 @@ class StripeObject(dict):
         return dict(self)
 
     def to_dict_recursive(self):
-        d = dict(self)
-        for k, v in six.iteritems(d):
-            if isinstance(v, StripeObject):
-                d[k] = v.to_dict_recursive()
-        return d
+        def maybe_to_dict_recursive(value):
+            if value is None:
+                return None
+            elif isinstance(value, StripeObject):
+                return value.to_dict_recursive()
+            else:
+                return value
+
+        return {
+            key: list(map(maybe_to_dict_recursive, value))
+            if isinstance(value, list)
+            else maybe_to_dict_recursive(value)
+            for key, value in six.iteritems(dict(self))
+        }
 
     @property
     def stripe_id(self):
