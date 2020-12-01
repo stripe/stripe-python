@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.55.1 - 2020-12-01
+* [#698](https://github.com/stripe/stripe-python/pull/698) Fix issue where StripeObjects in lists would not be converted to dicts
+* [#699](https://github.com/stripe/stripe-python/pull/699) Start testing Python 3.9
+* [#691](https://github.com/stripe/stripe-python/pull/691) Include the examples in the built sources
+
 ## 2.55.0 - 2020-10-14
 * [#684](https://github.com/stripe/stripe-python/pull/684) Add support for the Payout Reverse API
 
