@@ -24,7 +24,7 @@ app_info = None
 enable_telemetry = True
 max_network_retries = 0
 ca_bundle_path = os.path.join(
-    os.path.dirname(__file__), "data/ca-certificates.crt"
+    os.path.dirname(__file__), "data", "ca-certificates.crt"
 )
 
 # Set to either 'debug' or 'info', controls console logging
