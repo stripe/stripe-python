@@ -59,7 +59,7 @@ setup(
         'pytest >= 6.0.0; python_version >= "3.5"',
         "pytest-mock >= 2.0.0",
         "pytest-xdist >= 1.31.0",
-        "pytest-cov >= 2.8.1",
+        "pytest-cov >= 2.8.1, < 2.11.0",
         # TODO: upgrade to coverage 5 when we drop support for Python 3.4
         "coverage >= 4.5.3, < 5",
     ],
