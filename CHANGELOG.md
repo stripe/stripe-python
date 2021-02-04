@@ -12,9 +12,6 @@
 * [#681](https://github.com/stripe/stripe-python/pull/681) Add support for the `SetupAttempt` resource and List API
 * 2.52.0 and 2.53.0 were empty releases that contained no additional changes.
 
-## 2.52.0 - 2020-09-24
-* [#999](https://github.com/stripe/stripe-python/pull/999) DESCRIBE CHANGES HERE (try to use the same style, tense, etc. as the other entries)
-
 ## 2.51.0 - 2020-09-02
 * [#676](https://github.com/stripe/stripe-python/pull/676) Add support for the Issuing Dispute Submit API
 
