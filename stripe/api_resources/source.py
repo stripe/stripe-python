@@ -8,7 +8,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import VerifyMixin
 from stripe.api_resources.abstract import nested_resource_class_methods
-from stripe.six.moves.urllib.parse import quote_plus
+from urllib.parse import quote_plus
 
 
 @nested_resource_class_methods("source_transaction", operations=["list"])

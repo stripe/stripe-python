@@ -8,7 +8,6 @@ from copy import copy, deepcopy
 import pytest
 
 import stripe
-from stripe import six
 
 
 SAMPLE_INVOICE = json.loads(
@@ -190,9 +189,6 @@ class TestStripeObject(object):
         obj.date = datetime.datetime.fromtimestamp(1511136000)
 
         res = repr(obj)
-
-        if six.PY2:
-            res = six.text_type(repr(obj), "utf-8")
 
         assert u"<StripeObject \u4e00boo\u1f00" in res
         assert u"id=foo" in res

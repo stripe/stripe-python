@@ -20,6 +20,5 @@ exclude = '''
   | build/
   | dist/
   | venv/
-  | stripe/six.py
 )
 '''

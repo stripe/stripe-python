@@ -1,7 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.six.moves.urllib.parse import quote_plus
+from urllib.parse import quote_plus
 
 
 def custom_method(name, http_verb, http_path=None, is_streaming=False):

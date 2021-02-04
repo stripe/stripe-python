@@ -1,10 +1,8 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from stripe.six import python_2_unicode_compatible
 
 
-@python_2_unicode_compatible
 class StripeError(Exception):
     def __init__(
         self,

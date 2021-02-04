@@ -10,7 +10,7 @@ import threading
 import json
 
 import stripe
-from stripe import error, util, six
+from stripe import error, util
 from stripe.request_metrics import RequestMetrics
 
 # - Requests is the preferred HTTP library
@@ -18,7 +18,7 @@ from stripe.request_metrics import RequestMetrics
 # - Use Pycurl if it's there (at least it verifies SSL certs)
 # - Fall back to urllib2 with a warning if needed
 try:
-    from stripe.six.moves import urllib
+    import urllib
 except ImportError:
     # Try to load in urllib2, but don't sweat it if it's not available.
     pass
@@ -60,7 +60,7 @@ except ImportError:
     urlfetch = None
 
 # proxy support for the pycurl client
-from stripe.six.moves.urllib.parse import urlparse
+from urllib.parse import urlparse
 
 
 def _now_ms():
@@ -509,7 +509,7 @@ class PycurlClient(HTTPClient):
         if self._proxy:
             # now that we have the parser, get the proxy url pieces
             proxy = self._proxy
-            for scheme, value in six.iteritems(proxy):
+            for scheme, value in proxy.items():
                 proxy[scheme] = urlparse(value)
 
     def parse_headers(self, data):
@@ -517,7 +517,7 @@ class PycurlClient(HTTPClient):
             return {}
         raw_headers = data.split("\r\n", 1)[1]
         headers = email.message_from_string(raw_headers)
-        return dict((k.lower(), v) for k, v in six.iteritems(dict(headers)))
+        return dict((k.lower(), v) for k, v in dict(headers).items())
 
     def request(self, method, url, headers, post_data=None):
         return self._request_internal(
@@ -571,7 +571,7 @@ class PycurlClient(HTTPClient):
         self._curl.setopt(pycurl.TIMEOUT, 80)
         self._curl.setopt(
             pycurl.HTTPHEADER,
-            ["%s: %s" % (k, v) for k, v in six.iteritems(dict(headers))],
+            ["%s: %s" % (k, v) for k, v in dict(headers).items()],
         )
         if self._verify_ssl_certs:
             self._curl.setopt(pycurl.CAINFO, stripe.ca_bundle_path)
@@ -662,7 +662,7 @@ class Urllib2Client(HTTPClient):
         )
 
     def _request_internal(self, method, url, headers, post_data, is_streaming):
-        if six.PY3 and isinstance(post_data, six.string_types):
+        if isinstance(post_data, str):
             post_data = post_data.encode("utf-8")
 
         req = urllib.request.Request(url, post_data, headers)
@@ -692,7 +692,7 @@ class Urllib2Client(HTTPClient):
             headers = dict(e.info())
         except (urllib.error.URLError, ValueError) as e:
             self._handle_request_error(e)
-        lh = dict((k.lower(), v) for k, v in six.iteritems(dict(headers)))
+        lh = dict((k.lower(), v) for k, v in dict(headers).items())
         return rcontent, rcode, lh
 
     def _handle_request_error(self, e):

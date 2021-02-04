@@ -5,7 +5,7 @@ from stripe import util
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.customer import Customer
-from stripe.six.moves.urllib.parse import quote_plus
+from urllib.parse import quote_plus
 
 
 class AlipayAccount(DeletableAPIResource, UpdateableAPIResource):

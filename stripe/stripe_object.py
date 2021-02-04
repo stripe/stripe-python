@@ -5,7 +5,7 @@ import json
 from copy import deepcopy
 
 import stripe
-from stripe import api_requestor, util, six
+from stripe import api_requestor, util
 
 
 def _compute_diff(current, previous):
@@ -218,7 +218,7 @@ class StripeObject(dict):
 
         self._transient_values = self._transient_values - set(values)
 
-        for k, v in six.iteritems(values):
+        for k, v in values.items():
             super(StripeObject, self).__setitem__(
                 k,
                 util.convert_to_stripe_object(
@@ -263,10 +263,10 @@ class StripeObject(dict):
     def __repr__(self):
         ident_parts = [type(self).__name__]
 
-        if isinstance(self.get("object"), six.string_types):
+        if isinstance(self.get("object"), str):
             ident_parts.append(self.get("object"))
 
-        if isinstance(self.get("id"), six.string_types):
+        if isinstance(self.get("id"), str):
             ident_parts.append("id=%s" % (self.get("id"),))
 
         unicode_repr = "<%s at %s> JSON: %s" % (
@@ -275,10 +275,7 @@ class StripeObject(dict):
             str(self),
         )
 
-        if six.PY2:
-            return unicode_repr.encode("utf-8")
-        else:
-            return unicode_repr
+        return unicode_repr
 
     def __str__(self):
         return json.dumps(
@@ -304,7 +301,7 @@ class StripeObject(dict):
             key: list(map(maybe_to_dict_recursive, value))
             if isinstance(value, list)
             else maybe_to_dict_recursive(value)
-            for key, value in six.iteritems(dict(self))
+            for key, value in dict(self).items()
         }
 
     @property
@@ -316,7 +313,7 @@ class StripeObject(dict):
         unsaved_keys = self._unsaved_values or set()
         previous = previous or self._previous or {}
 
-        for k, v in six.iteritems(self):
+        for k, v in self.items():
             if k == "id" or (isinstance(k, str) and k.startswith("_")):
                 continue
             elif isinstance(v, stripe.api_resources.abstract.APIResource):
@@ -347,7 +344,7 @@ class StripeObject(dict):
 
         copied._retrieve_params = self._retrieve_params
 
-        for k, v in six.iteritems(self):
+        for k, v in self.items():
             # Call parent's __setitem__ to avoid checks that we've added in the
             # overridden version that can throw exceptions.
             super(StripeObject, copied).__setitem__(k, v)
@@ -363,7 +360,7 @@ class StripeObject(dict):
         copied = self.__copy__()
         memo[id(self)] = copied
 
-        for k, v in six.iteritems(self):
+        for k, v in self.items():
             # Call parent's __setitem__ to avoid checks that we've added in the
             # overridden version that can throw exceptions.
             super(StripeObject, copied).__setitem__(k, deepcopy(v, memo))

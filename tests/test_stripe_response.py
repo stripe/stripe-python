@@ -5,7 +5,6 @@ from collections import OrderedDict
 
 import pytest
 
-from stripe import six
 from stripe.stripe_response import StripeResponseBase, StripeResponse
 
 
@@ -43,8 +42,8 @@ class TestStripeResponse(ResponseTestBase):
         assert mock_response.data == deserialized
 
         # Previous assert does not check order, so explicitly check order here
-        assert list(six.iterkeys(mock_response.data["metadata"])) == list(
-            six.iterkeys(deserialized["metadata"])
+        assert list(mock_response.data["metadata"].keys()) == list(
+            deserialized["metadata"].keys()
         )
 
     @pytest.fixture

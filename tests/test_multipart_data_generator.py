@@ -3,8 +3,8 @@
 from __future__ import absolute_import, division, print_function
 
 import re
+from io import StringIO
 
-from stripe import six
 from stripe.multipart_data_generator import MultipartDataGenerator
 
 
@@ -24,10 +24,7 @@ class TestMultipartDataGenerator(object):
         }
         generator = MultipartDataGenerator()
         generator.add_params(params)
-        http_body = generator.get_post_data()
-
-        if six.PY3:
-            http_body = http_body.decode("utf-8")
+        http_body = generator.get_post_data().decode("utf-8")
 
         assert re.search(
             r"Content-Disposition: form-data; name=\"key1\"", http_body
@@ -70,7 +67,7 @@ class TestMultipartDataGenerator(object):
         test_file.seek(0)
         file_contents = test_file.read()
 
-        if six.PY3 and isinstance(file_contents, bytes):
+        if isinstance(file_contents, bytes):
             file_contents = file_contents.decode("utf-8")
 
         assert http_body.find(file_contents) != -1
@@ -84,10 +81,10 @@ class TestMultipartDataGenerator(object):
             self.run_test_multipart_data_with_file(test_file)
 
     def test_multipart_data_stringio(self):
-        string = six.StringIO("foo")
+        string = StringIO("foo")
         self.run_test_multipart_data_with_file(string)
 
     def test_multipart_data_unicode_file_name(self):
-        string = six.StringIO("foo")
+        string = StringIO("foo")
         string.name = u"паспорт.png"
         self.run_test_multipart_data_with_file(string)

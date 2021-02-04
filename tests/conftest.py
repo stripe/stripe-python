@@ -8,8 +8,8 @@ from distutils.version import StrictVersion
 import pytest
 
 import stripe
-from stripe.six.moves.urllib.request import urlopen
-from stripe.six.moves.urllib.error import HTTPError
+from urllib.request import urlopen
+from urllib.error import HTTPError
 
 from tests.request_mock import RequestMock
 from tests.stripe_mock import StripeMock

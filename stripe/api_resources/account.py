@@ -2,7 +2,7 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from stripe import oauth, six
+from stripe import oauth
 from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
@@ -10,7 +10,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import custom_method
 from stripe.api_resources.abstract import nested_resource_class_methods
-from stripe.six.moves.urllib.parse import quote_plus
+from urllib.parse import quote_plus
 
 
 @custom_method("reject", http_verb="post")
@@ -79,7 +79,7 @@ class Account(
         params = super(Account, self).serialize(previous)
         previous = previous or self._previous or {}
 
-        for k, v in six.iteritems(self):
+        for k, v in self.items():
             if (
                 k == "individual"
                 and isinstance(v, stripe.api_resources.Person)
