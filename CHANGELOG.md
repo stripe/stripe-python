@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.55.2 - 2021-02-05
+* [#704](https://github.com/stripe/stripe-python/pull/704) Fix CA bundle path issue
+
 ## 2.55.1 - 2020-12-01
 * [#698](https://github.com/stripe/stripe-python/pull/698) Fix issue where StripeObjects in lists would not be converted to dicts
 * [#699](https://github.com/stripe/stripe-python/pull/699) Start testing Python 3.9
