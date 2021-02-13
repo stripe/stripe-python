@@ -7,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  php-cs-fixer:
+  lint:
     runs-on: ubuntu-latest
 
     steps:
@@ -20,7 +20,7 @@ jobs:
       run: make lint
 
 
-  phpstan:
+  fmt:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -32,7 +32,6 @@ jobs:
       run: make fmtcheck
 
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
