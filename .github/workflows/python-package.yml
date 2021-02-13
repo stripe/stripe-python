@@ -1,6 +1,3 @@
-# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
-# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
-
 name: Python package
 
 on:
@@ -10,7 +7,7 @@ on:
     branches: [ master ]
 
 jobs:
-  lint:
+  php-cs-fixer:
     runs-on: ubuntu-latest
 
     steps:
@@ -23,7 +20,7 @@ jobs:
       run: make lint
 
 
-  fmtcheck:
+  phpstan:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -60,14 +57,6 @@ jobs:
         key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
         restore-keys: |
           ${{ runner.os }}-pip-
-
-    - name: docker cache
-      uses: actions/cache@v2
-      with:
-        path: /var/lib/docker
-        key: ${{ runner.os }}-docker-
-        restore-keys: |
-          ${{ runner.os }}-docker-
 
     # Might be sensible to cache the docker image but this seems to be
     # not fully supported by github actions yet, as of Feb 2021
