@@ -8,7 +8,7 @@ from urllib.parse import quote_plus
 class UpdateableAPIResource(APIResource):
     @classmethod
     def modify(cls, sid, **params):
-        url = "%s/%s" % (cls.class_url(), quote_plus(util.utf8(sid)))
+        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cls._static_request("post", url, **params)
 
     def save(self, idempotency_key=None):

@@ -206,7 +206,7 @@ class TestAPIRequestor(object):
         ],
         "list": [("%s[0]", 1), ("%s[1]", "foo"), ("%s[2]", "baz")],
         "string": [("%s", "boo")],
-        "unicode": [("%s", stripe.util.utf8(u"\u1234"))],
+        "unicode": [("%s", u"\u1234")],
         "datetime": [("%s", 1356994801)],
         "none": [],
     }

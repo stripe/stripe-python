@@ -2,7 +2,6 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import error
-from stripe import util
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import VerifyMixin
@@ -15,26 +14,21 @@ class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
     OBJECT_NAME = "bank_account"
 
     def instance_url(self):
-        token = util.utf8(self.id)
-        extn = quote_plus(token)
+        extn = quote_plus(self.id)
         if hasattr(self, "customer"):
-            customer = util.utf8(self.customer)
-
             base = Customer.class_url()
-            owner_extn = quote_plus(customer)
+            owner_extn = quote_plus(self.customer)
             class_base = "sources"
 
         elif hasattr(self, "account"):
-            account = util.utf8(self.account)
-
             base = Account.class_url()
-            owner_extn = quote_plus(account)
+            owner_extn = quote_plus(self.account)
             class_base = "external_accounts"
 
         else:
             raise error.InvalidRequestError(
                 "Could not determine whether bank_account_id %s is "
-                "attached to a customer or an account." % token,
+                "attached to a customer or an account." % self.id,
                 "id",
             )
 

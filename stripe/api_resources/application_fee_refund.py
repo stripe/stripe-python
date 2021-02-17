@@ -1,7 +1,6 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import util
 from stripe.api_resources import ApplicationFee
 from stripe.api_resources.abstract import UpdateableAPIResource
 from urllib.parse import quote_plus
@@ -12,8 +11,6 @@ class ApplicationFeeRefund(UpdateableAPIResource):
 
     @classmethod
     def _build_instance_url(cls, fee, sid):
-        fee = util.utf8(fee)
-        sid = util.utf8(sid)
         base = ApplicationFee.class_url()
         cust_extn = quote_plus(fee)
         extn = quote_plus(sid)

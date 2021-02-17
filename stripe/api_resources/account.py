@@ -60,7 +60,6 @@ class Account(
     def _build_instance_url(cls, sid):
         if not sid:
             return "/v1/account"
-        sid = util.utf8(sid)
         base = cls.class_url()
         extn = quote_plus(sid)
         return "%s/%s" % (base, extn)

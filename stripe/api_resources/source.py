@@ -16,13 +16,10 @@ class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
     OBJECT_NAME = "source"
 
     def detach(self, idempotency_key=None, **params):
-        token = util.utf8(self.id)
-
         if hasattr(self, "customer") and self.customer:
-            extn = quote_plus(token)
-            customer = util.utf8(self.customer)
+            extn = quote_plus(self.id)
             base = Customer.class_url()
-            owner_extn = quote_plus(customer)
+            owner_extn = quote_plus(self.customer)
             url = "%s/%s/sources/%s" % (base, owner_extn, extn)
             headers = util.populate_headers(idempotency_key)
 
@@ -32,7 +29,7 @@ class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
         else:
             raise error.InvalidRequestError(
                 "Source %s does not appear to be currently attached "
-                "to a customer object." % token,
+                "to a customer object." % self.id,
                 "id",
             )
 

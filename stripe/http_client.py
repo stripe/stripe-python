@@ -561,8 +561,7 @@ class PycurlClient(HTTPClient):
         else:
             self._curl.setopt(pycurl.CUSTOMREQUEST, method.upper())
 
-        # pycurl doesn't like unicode URLs
-        self._curl.setopt(pycurl.URL, util.utf8(url))
+        self._curl.setopt(pycurl.URL, url)
 
         self._curl.setopt(pycurl.WRITEFUNCTION, b.write)
         self._curl.setopt(pycurl.HEADERFUNCTION, rheaders.write)

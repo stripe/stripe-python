@@ -69,7 +69,7 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     ):
         url = "%s/%s/%s" % (
             cls.class_url(),
-            quote_plus(util.utf8(sid)),
+            quote_plus(sid),
             "pdf",
         )
         requestor = api_requestor.APIRequestor(

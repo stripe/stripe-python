@@ -49,7 +49,7 @@ class ListObject(StripeObject):
         stripe_account=None,
         **params
     ):
-        url = "%s/%s" % (self.get("url"), quote_plus(util.utf8(id)))
+        url = "%s/%s" % (self.get("url"), quote_plus(id))
         return self._request(
             "get",
             url,
