@@ -17,12 +17,12 @@ test: venv
 test-nomock: venv
 	@${VENV_NAME}/bin/tox -p auto -- --nomock $(TOX_ARGS)
 
-ci: venv
-	@${VENV_NAME}/bin/python setup.py test -a "-n auto --cov=stripe"
+test-travis: venv
+	${VENV_NAME}/bin/python -m pip install -U tox-travis
+	@${VENV_NAME}/bin/tox -p auto $(TOX_ARGS)
 
 coveralls: venv
-	@${VENV_NAME}/bin/$(PIP) install --upgrade coveralls
-	@${VENV_NAME}/bin/coveralls
+	@${VENV_NAME}/bin/tox -e coveralls
 
 fmt: venv
 	@${VENV_NAME}/bin/tox -e fmt
@@ -34,6 +34,6 @@ lint: venv
 	@${VENV_NAME}/bin/tox -e lint
 
 clean:
-	@rm -rf $(VENV_NAME) build/ dist/
+	@rm -rf $(VENV_NAME) .coverage .coverage.* build/ dist/ htmlcov/
 
-.PHONY: venv test ci coveralls fmt fmtcheck lint clean
+.PHONY: venv test test-nomock test-travis coveralls fmt fmtcheck lint clean
