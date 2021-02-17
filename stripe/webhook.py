@@ -7,7 +7,7 @@ from collections import OrderedDict
 from hashlib import sha256
 
 import stripe
-from stripe import error, util
+from stripe import error
 
 
 class Webhook(object):
@@ -70,7 +70,7 @@ class WebhookSignature(object):
 
         signed_payload = "%d.%s" % (timestamp, payload)
         expected_sig = cls._compute_signature(signed_payload, secret)
-        if not any(util.secure_compare(expected_sig, s) for s in signatures):
+        if not any(hmac.compare_digest(expected_sig, s) for s in signatures):
             raise error.SignatureVerificationError(
                 "No signatures found matching the expected signature for "
                 "payload",
