@@ -65,3 +65,6 @@ jobs:
 
     - name: Test with pytest
       run: make test
+
+    - name: Coveralls
+      run: env
