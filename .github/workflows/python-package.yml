@@ -44,7 +44,8 @@ jobs:
       uses: actions/setup-python@v2
       with:
         python-version: ${{ matrix.python-version }}
-
+    - name: Upgrade pip and virtualenv to latest
+      run: pip install --upgrade pip virtualenv
     - name: Get pip cache dir
       id: pip-cache
       run: |
@@ -65,6 +66,3 @@ jobs:
 
     - name: Test with pytest
       run: make test
-
-    - name: Coveralls
-      run: env
