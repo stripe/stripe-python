@@ -134,8 +134,10 @@ class TestIntegration(object):
 
         self.setup_mock_server(MockServerRequestHandler)
 
-        stripe.default_http_client = stripe.http_client.new_default_http_client(
-            proxy="http://localhost:%s" % self.mock_server_port
+        stripe.default_http_client = (
+            stripe.http_client.new_default_http_client(
+                proxy="http://localhost:%s" % self.mock_server_port
+            )
         )
         stripe.Balance.retrieve()
         assert MockServerRequestHandler.num_requests == 1
