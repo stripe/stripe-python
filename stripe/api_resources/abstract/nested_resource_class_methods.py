@@ -36,7 +36,7 @@ def nested_resource_class_methods(
             idempotency_key=None,
             stripe_version=None,
             stripe_account=None,
-            **params
+            **params,
         ):
             requestor = api_requestor.APIRequestor(
                 api_key, api_version=stripe_version, account=stripe_account

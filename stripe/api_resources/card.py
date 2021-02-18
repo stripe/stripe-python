@@ -56,7 +56,7 @@ class Card(DeletableAPIResource, UpdateableAPIResource):
         api_key=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        **params,
     ):
         raise NotImplementedError(
             "Can't retrieve a card without a customer, recipient or account "

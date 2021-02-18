@@ -49,7 +49,7 @@ class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
         api_key=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        **params,
     ):
         raise NotImplementedError(
             "Can't retrieve a bank account without a customer or account ID. "

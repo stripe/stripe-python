@@ -326,7 +326,7 @@ class RequestsClient(HTTPClient):
                     headers=headers,
                     data=post_data,
                     timeout=self._timeout,
-                    **kwargs
+                    **kwargs,
                 )
             except TypeError as e:
                 raise TypeError(

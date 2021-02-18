@@ -16,7 +16,7 @@ class EphemeralKey(DeletableAPIResource):
         idempotency_key=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        **params,
     ):
         if stripe_version is None:
             raise ValueError(

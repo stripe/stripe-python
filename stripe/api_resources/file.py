@@ -28,7 +28,7 @@ class File(ListableAPIResource):
         api_version=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        **params,
     ):
         version = api_version or stripe_version
         requestor = api_requestor.APIRequestor(

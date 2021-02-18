@@ -65,7 +65,7 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         idempotency_key=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        **params,
     ):
         url = "%s/%s/%s" % (
             cls.class_url(),
@@ -89,7 +89,7 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         api_version=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        **params,
     ):
         version = api_version or stripe_version
         requestor = api_requestor.APIRequestor(

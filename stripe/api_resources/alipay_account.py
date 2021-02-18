@@ -34,7 +34,7 @@ class AlipayAccount(DeletableAPIResource, UpdateableAPIResource):
         api_key=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        **params,
     ):
         raise NotImplementedError(
             "Can't retrieve an Alipay account without a customer ID. "

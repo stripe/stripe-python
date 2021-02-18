@@ -7,23 +7,23 @@ from stripe import error
 
 class TestStripeError(object):
     def test_formatting(self):
-        err = error.StripeError(u"öre")
-        assert str(err) == u"öre"
+        err = error.StripeError("öre")
+        assert str(err) == "öre"
 
     def test_formatting_with_request_id(self):
-        err = error.StripeError(u"öre", headers={"request-id": "123"})
-        assert str(err) == u"Request 123: öre"
+        err = error.StripeError("öre", headers={"request-id": "123"})
+        assert str(err) == "Request 123: öre"
 
     def test_formatting_with_none(self):
         err = error.StripeError(None, headers={"request-id": "123"})
-        assert str(err) == u"Request 123: <empty message>"
+        assert str(err) == "Request 123: <empty message>"
 
     def test_formatting_with_message_none_and_request_id_none(self):
         err = error.StripeError(None)
-        assert str(err) == u"<empty message>"
+        assert str(err) == "<empty message>"
 
     def test_repr(self):
-        err = error.StripeError(u"öre", headers={"request-id": "123"})
+        err = error.StripeError("öre", headers={"request-id": "123"})
         assert (
             repr(err) == "StripeError(message='öre', http_status=None, "
             "request_id='123')"
@@ -45,7 +45,7 @@ class TestStripeError(object):
 class TestStripeErrorWithParamCode(object):
     def test_repr(self):
         err = error.CardError(
-            u"öre",
+            "öre",
             param="cparam",
             code="ccode",
             http_status=403,

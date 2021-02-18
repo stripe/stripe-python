@@ -185,14 +185,14 @@ class TestStripeObject(object):
     def test_repr(self):
         obj = stripe.stripe_object.StripeObject("foo", "bar", myparam=5)
 
-        obj["object"] = u"\u4e00boo\u1f00"
+        obj["object"] = "\u4e00boo\u1f00"
         obj.date = datetime.datetime.fromtimestamp(1511136000)
 
         res = repr(obj)
 
-        assert u"<StripeObject \u4e00boo\u1f00" in res
-        assert u"id=foo" in res
-        assert u'"date": 1511136000' in res
+        assert "<StripeObject \u4e00boo\u1f00" in res
+        assert "id=foo" in res
+        assert '"date": 1511136000' in res
 
     def test_pickling(self):
         obj = stripe.stripe_object.StripeObject("foo", "bar", myparam=5)

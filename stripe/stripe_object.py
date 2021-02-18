@@ -47,7 +47,7 @@ class StripeObject(dict):
         stripe_version=None,
         stripe_account=None,
         last_response=None,
-        **params
+        **params,
     ):
         super(StripeObject, self).__init__()
 

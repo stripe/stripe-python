@@ -12,7 +12,7 @@ class TestMultipartDataGenerator(object):
     def run_test_multipart_data_with_file(self, test_file):
         params = {
             "key1": b"ASCII value",
-            "key2": u"Üñìçôdé value",
+            "key2": "Üñìçôdé value",
             "key3": test_file,
             "key4": {
                 "string": "Hello!",
@@ -86,5 +86,5 @@ class TestMultipartDataGenerator(object):
 
     def test_multipart_data_unicode_file_name(self):
         string = StringIO("foo")
-        string.name = u"паспорт.png"
+        string.name = "паспорт.png"
         self.run_test_multipart_data_with_file(string)

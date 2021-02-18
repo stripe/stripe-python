@@ -15,7 +15,7 @@ class UsageRecord(APIResource):
         idempotency_key=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        **params,
     ):
         if "subscription_item" not in params:
             raise ValueError("Params must have a subscription_item key")

@@ -18,7 +18,7 @@ class ListObject(StripeObject):
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
-            **params
+            **params,
         )
         stripe_object._retrieve_params = params
         return stripe_object
@@ -29,7 +29,7 @@ class ListObject(StripeObject):
         idempotency_key=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        **params,
     ):
         return self._request(
             "post",
@@ -38,7 +38,7 @@ class ListObject(StripeObject):
             idempotency_key=idempotency_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
-            **params
+            **params,
         )
 
     def retrieve(
@@ -47,7 +47,7 @@ class ListObject(StripeObject):
         api_key=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        **params,
     ):
         url = "%s/%s" % (self.get("url"), quote_plus(id))
         return self._request(
@@ -56,7 +56,7 @@ class ListObject(StripeObject):
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
-            **params
+            **params,
         )
 
     def _request(
@@ -67,7 +67,7 @@ class ListObject(StripeObject):
         idempotency_key=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        **params,
     ):
         api_key = api_key or self.api_key
         stripe_version = stripe_version or self.stripe_version
@@ -158,7 +158,7 @@ class ListObject(StripeObject):
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
-            **params_with_filters
+            **params_with_filters,
         )
 
     def previous_page(
@@ -181,5 +181,5 @@ class ListObject(StripeObject):
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
-            **params_with_filters
+            **params_with_filters,
         )
