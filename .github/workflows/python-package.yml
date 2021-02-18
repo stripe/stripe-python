@@ -64,4 +64,4 @@ jobs:
       run: docker run -d -p 12111-12112:12111-12112 stripemock/stripe-mock && sleep 5
 
     - name: Test with pytest
-      run: make ci
+      run: make test
