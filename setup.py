@@ -1,25 +1,6 @@
 import os
-import sys
 from codecs import open
 from setuptools import setup, find_packages
-from setuptools.command.test import test as TestCommand
-
-
-class PyTest(TestCommand):
-    user_options = [("pytest-args=", "a", "Arguments to pass to pytest")]
-
-    def initialize_options(self):
-        TestCommand.initialize_options(self)
-        self.pytest_args = "-n auto"
-
-    def run_tests(self):
-        import shlex
-
-        # import here, cause outside the eggs aren't loaded
-        import pytest
-
-        errno = pytest.main(shlex.split(self.pytest_args))
-        sys.exit(errno)
 
 
 here = os.path.abspath(os.path.dirname(__file__))
@@ -54,16 +35,6 @@ setup(
         'requests[security] >= 2.20; python_version < "3.0"',
     ],
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
-    tests_require=[
-        'pytest >= 4.6.2, < 4.7; python_version < "3.5"',
-        'pytest >= 6.0.0; python_version >= "3.5"',
-        "pytest-mock >= 2.0.0",
-        "pytest-xdist >= 1.31.0",
-        "pytest-cov >= 2.8.1, < 2.11.0",
-        # TODO: upgrade to coverage 5 when we drop support for Python 3.4
-        "coverage >= 4.5.3, < 5",
-    ],
-    cmdclass={"test": PyTest},
     project_urls={
         "Bug Tracker": "https://github.com/stripe/stripe-python/issues",
         "Documentation": "https://stripe.com/docs/api/python",

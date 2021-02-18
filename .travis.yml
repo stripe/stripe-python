@@ -1,6 +1,6 @@
 sudo: false
 
-dist: xenial
+dist: focal
 
 language: python
 
@@ -8,14 +8,15 @@ matrix:
   include:
     - python: "2.7"
     - python: "3.4"
+      dist: xenial
     - python: "3.5"
     - python: "3.6"
     - python: "3.7"
     - python: "3.8"
     - python: "3.9"
     - python: "3.10-dev"
-    - python: "pypy2.7-6.0"
-    - python: "pypy3.5-6.0"
+    - python: "pypy2"
+    - python: "pypy3"
   allow_failures:
     - python: "3.10-dev"
 
@@ -48,7 +49,7 @@ install:
 
 script:
   - if [[ $TRAVIS_PYTHON_VERSION == '2.7' ]]; then make lint; fi
-  - if [[ $TRAVIS_PYTHON_VERSION == '3.8' ]]; then make fmtcheck; fi
-  - make ci
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.9' ]]; then make fmtcheck; fi
+  - make test-travis
 
 after_success: make coveralls

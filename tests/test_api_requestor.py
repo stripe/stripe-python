@@ -12,7 +12,7 @@ import stripe
 from stripe import six
 from stripe.stripe_response import StripeResponse
 
-from six.moves.urllib.parse import urlsplit
+from stripe.six.moves.urllib.parse import urlsplit
 
 
 VALID_API_METHODS = ("get", "post", "delete")
