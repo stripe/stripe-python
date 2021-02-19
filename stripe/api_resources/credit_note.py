@@ -10,7 +10,9 @@ from stripe.api_resources.abstract import custom_method
 
 @custom_method("void_credit_note", http_verb="post", http_path="void")
 class CreditNote(
-    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
+    CreateableAPIResource,
+    ListableAPIResource,
+    UpdateableAPIResource,
 ):
     OBJECT_NAME = "credit_note"
 

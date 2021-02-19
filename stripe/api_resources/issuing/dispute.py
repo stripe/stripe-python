@@ -9,7 +9,9 @@ from stripe.api_resources.abstract import custom_method
 
 @custom_method("submit", http_verb="post")
 class Dispute(
-    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
+    CreateableAPIResource,
+    ListableAPIResource,
+    UpdateableAPIResource,
 ):
     OBJECT_NAME = "issuing.dispute"
 
