@@ -6,8 +6,6 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Cardholder(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
 ):
     OBJECT_NAME = "issuing.cardholder"

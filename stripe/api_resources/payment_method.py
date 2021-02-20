@@ -10,9 +10,7 @@ from stripe.api_resources.abstract import custom_method
 @custom_method("attach", http_verb="post")
 @custom_method("detach", http_verb="post")
 class PaymentMethod(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
 ):
     OBJECT_NAME = "payment_method"
 

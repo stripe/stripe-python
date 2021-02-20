@@ -24,8 +24,7 @@ from stripe.six.moves.urllib.parse import quote_plus
 )
 @nested_resource_class_methods("login_link", operations=["create"])
 @nested_resource_class_methods(
-    "person",
-    operations=["create", "retrieve", "update", "delete", "list"],
+    "person", operations=["create", "retrieve", "update", "delete", "list"]
 )
 class Account(
     CreateableAPIResource,

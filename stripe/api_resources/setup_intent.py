@@ -10,9 +10,7 @@ from stripe.api_resources.abstract import custom_method
 @custom_method("cancel", http_verb="post")
 @custom_method("confirm", http_verb="post")
 class SetupIntent(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
 ):
     OBJECT_NAME = "setup_intent"
 

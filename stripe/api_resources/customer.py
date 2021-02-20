@@ -11,16 +11,13 @@ from stripe.api_resources.abstract import nested_resource_class_methods
 
 @custom_method("delete_discount", http_verb="delete", http_path="discount")
 @nested_resource_class_methods(
-    "balance_transaction",
-    operations=["create", "retrieve", "update", "list"],
+    "balance_transaction", operations=["create", "retrieve", "update", "list"]
 )
 @nested_resource_class_methods(
-    "source",
-    operations=["create", "retrieve", "update", "delete", "list"],
+    "source", operations=["create", "retrieve", "update", "delete", "list"]
 )
 @nested_resource_class_methods(
-    "tax_id",
-    operations=["create", "retrieve", "delete", "list"],
+    "tax_id", operations=["create", "retrieve", "delete", "list"]
 )
 class Customer(
     CreateableAPIResource,
