@@ -36,8 +36,7 @@ class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
             )
 
     def source_transactions(self, **params):
-        """source_transactions is deprecated, use Source.list_source_transactions instead.
-        """
+        """source_transactions is deprecated, use Source.list_source_transactions instead."""
         return self.request(
             "get", self.instance_url() + "/source_transactions", params
         )
