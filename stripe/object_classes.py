@@ -16,6 +16,7 @@ OBJECT_CLASSES = {
     api_resources.Balance.OBJECT_NAME: api_resources.Balance,
     api_resources.BalanceTransaction.OBJECT_NAME: api_resources.BalanceTransaction,
     api_resources.BankAccount.OBJECT_NAME: api_resources.BankAccount,
+    api_resources.billing_portal.Configuration.OBJECT_NAME: api_resources.billing_portal.Configuration,
     api_resources.billing_portal.Session.OBJECT_NAME: api_resources.billing_portal.Session,
     api_resources.BitcoinReceiver.OBJECT_NAME: api_resources.BitcoinReceiver,
     api_resources.BitcoinTransaction.OBJECT_NAME: api_resources.BitcoinTransaction,
