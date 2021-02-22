@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.56.0 - 2021-02-22
+* [#713](https://github.com/stripe/stripe-python/pull/713) Add support for the Billing Portal Configuration API
+
 ## 2.55.2 - 2021-02-05
 * [#704](https://github.com/stripe/stripe-python/pull/704) Fix CA bundle path issue
 
