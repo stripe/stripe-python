@@ -50,6 +50,7 @@ class TestCharge(object):
         request_mock.assert_requested(
             "post", "/v1/charges/%s" % TEST_RESOURCE_ID
         )
+        assert isinstance(resource, stripe.Charge)
 
     def test_is_modifiable(self, request_mock):
         resource = stripe.Charge.modify(
