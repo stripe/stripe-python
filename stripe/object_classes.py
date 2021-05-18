@@ -37,6 +37,8 @@ OBJECT_CLASSES = {
     api_resources.File.OBJECT_NAME: api_resources.File,
     api_resources.File.OBJECT_NAME_ALT: api_resources.File,
     api_resources.FileLink.OBJECT_NAME: api_resources.FileLink,
+    api_resources.identity.VerificationReport.OBJECT_NAME: api_resources.identity.VerificationReport,
+    api_resources.identity.VerificationSession.OBJECT_NAME: api_resources.identity.VerificationSession,
     api_resources.Invoice.OBJECT_NAME: api_resources.Invoice,
     api_resources.InvoiceItem.OBJECT_NAME: api_resources.InvoiceItem,
     api_resources.InvoiceLineItem.OBJECT_NAME: api_resources.InvoiceLineItem,

@@ -6,7 +6,8 @@ from stripe.api_resources.abstract import nested_resource_class_methods
 
 
 @nested_resource_class_methods(
-    "refund", operations=["create", "retrieve", "update", "list"]
+    "refund",
+    operations=["create", "retrieve", "update", "list"],
 )
 class ApplicationFee(ListableAPIResource):
     OBJECT_NAME = "application_fee"
