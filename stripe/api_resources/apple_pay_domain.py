@@ -6,7 +6,9 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 
 class ApplePayDomain(
-    CreateableAPIResource, DeletableAPIResource, ListableAPIResource
+    CreateableAPIResource,
+    DeletableAPIResource,
+    ListableAPIResource,
 ):
     OBJECT_NAME = "apple_pay_domain"
 

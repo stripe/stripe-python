@@ -7,6 +7,7 @@ from stripe.api_resources.list_object import ListObject
 
 from stripe.api_resources import billing_portal
 from stripe.api_resources import checkout
+from stripe.api_resources import identity
 from stripe.api_resources import issuing
 from stripe.api_resources import radar
 from stripe.api_resources import reporting
