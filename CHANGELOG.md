@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.57.0 - 2021-05-19
+* [#720](https://github.com/stripe/stripe-python/pull/720) Add support for Identity VerificationSession and VerificationReport APIs
+
 ## 2.56.0 - 2021-02-22
 * [#713](https://github.com/stripe/stripe-python/pull/713) Add support for the Billing Portal Configuration API
 
