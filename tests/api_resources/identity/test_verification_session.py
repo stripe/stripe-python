@@ -10,7 +10,7 @@ class TestVerificationSession(object):
     def test_is_creatable(self, request_mock):
         resource = stripe.identity.VerificationSession.create(type="id_number")
         request_mock.assert_requested(
-            "post", "/v1/identity/verification_session"
+            "post", "/v1/identity/verification_sessions"
         )
         assert isinstance(resource, stripe.identity.VerificationSession)
 
