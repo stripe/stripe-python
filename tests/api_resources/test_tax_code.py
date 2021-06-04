@@ -8,7 +8,7 @@ TEST_RESOURCE_ID = "txcd_123"
 
 class TestTaxCode(object):
     def test_is_listable(self, request_mock):
-        resources = stripe.TaxRate.list()
+        resources = stripe.TaxCode.list()
         request_mock.assert_requested("get", "/v1/tax_codes")
         assert isinstance(resources.data, list)
         assert isinstance(resources.data[0], stripe.TaxCode)
