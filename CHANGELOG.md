@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.58.0 - 2021-06-04
+* [#722](https://github.com/stripe/stripe-python/pull/722) API Updates
+  * Add support for new `TaxCode` API.
+
 ## 2.57.0 - 2021-05-19
 * [#720](https://github.com/stripe/stripe-python/pull/720) Add support for Identity VerificationSession and VerificationReport APIs
 
