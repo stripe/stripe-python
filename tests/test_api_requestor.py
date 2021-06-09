@@ -9,11 +9,12 @@ from collections import OrderedDict
 import pytest
 
 import stripe
-from stripe import six
-from stripe.stripe_response import StripeResponse
+from stripe import six, util
+from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
 from stripe.six.moves.urllib.parse import urlsplit
 
+import urllib3
 
 VALID_API_METHODS = ("get", "post", "delete")
 
@@ -245,14 +246,20 @@ class TestAPIRequestor(object):
 
     @pytest.fixture
     def check_call(self, http_client):
-        def check_call(method, abs_url=None, headers=None, post_data=None):
+        def check_call(
+            method,
+            abs_url=None,
+            headers=None,
+            post_data=None,
+            request_options=None,
+        ):
             if not abs_url:
                 abs_url = "%s%s" % (stripe.api_base, self.valid_path)
             if not headers:
                 headers = APIHeaderMatcher(request_method=method)
 
             http_client.request_with_retries.assert_called_with(
-                method, abs_url, headers, post_data
+                method, abs_url, headers, post_data, request_options
             )
 
         return check_call
@@ -294,13 +301,17 @@ class TestAPIRequestor(object):
     def test_param_encoding(self, requestor, mock_response, check_call):
         mock_response("{}", 200)
 
-        requestor.request("get", "", self.ENCODE_INPUTS)
+        requestor.request(
+            "get", "", self.ENCODE_INPUTS, request_options={"stream": True}
+        )
 
         expectation = []
         for type_, values in six.iteritems(self.ENCODE_EXPECTATIONS):
             expectation.extend([(k % (type_,), str(v)) for k, v in values])
 
-        check_call("get", QueryMatcher(expectation))
+        check_call(
+            "get", QueryMatcher(expectation), request_options={"stream": True}
+        )
 
     def test_dictionary_list_encoding(self):
         params = {"foo": {"0": {"bar": "bat"}}}
@@ -370,6 +381,28 @@ class TestAPIRequestor(object):
             assert resp.data == {}
             assert resp.data == json.loads(resp.body)
 
+    def test_empty_methods_streaming_response(
+        self, requestor, mock_response, check_call
+    ):
+        for meth in VALID_API_METHODS:
+            mock_response(util.io.BytesIO(b"thisisdata"), 200)
+
+            resp, key = requestor.request(
+                meth,
+                self.valid_path,
+                {},
+            )
+
+            if meth == "post":
+                post_data = ""
+            else:
+                post_data = None
+
+            check_call(meth, post_data=post_data)
+            assert isinstance(resp, StripeStreamResponse)
+
+            assert resp.io.getvalue() == b"thisisdata"
+
     def test_methods_with_params_and_response(
         self, requestor, mock_response, check_call
     ):
@@ -404,6 +437,50 @@ class TestAPIRequestor(object):
                     encoded,
                 )
                 check_call(method, abs_url=UrlMatcher(abs_url))
+
+    def test_methods_with_params_and_streaming_response(
+        self, requestor, mock_response, check_call
+    ):
+        for method in VALID_API_METHODS:
+            mock_response(util.io.BytesIO(b'{"foo": "bar", "baz": 6}'), 200)
+
+            params = {
+                "alist": [1, 2, 3],
+                "adict": {"frobble": "bits"},
+                "adatetime": datetime.datetime(2013, 1, 1, tzinfo=GMT1()),
+            }
+            encoded = (
+                "adict[frobble]=bits&adatetime=1356994800&"
+                "alist[0]=1&alist[1]=2&alist[2]=3"
+            )
+
+            resp, key = requestor.request(
+                method,
+                self.valid_path,
+                params,
+                request_options={"stream": True},
+            )
+            assert isinstance(resp, StripeStreamResponse)
+
+            assert resp.io.getvalue() == b'{"foo": "bar", "baz": 6}'
+
+            if method == "post":
+                check_call(
+                    method,
+                    post_data=QueryMatcher(stripe.util.parse_qsl(encoded)),
+                    request_options={"stream": True},
+                )
+            else:
+                abs_url = "%s%s?%s" % (
+                    stripe.api_base,
+                    self.valid_path,
+                    encoded,
+                )
+                check_call(
+                    method,
+                    abs_url=UrlMatcher(abs_url),
+                    request_options={"stream": True},
+                )
 
     def test_uses_headers(self, requestor, mock_response, check_call):
         mock_response("{}", 200)
@@ -624,6 +701,33 @@ class TestAPIRequestor(object):
         with pytest.raises(stripe.oauth_error.InvalidGrantError):
             requestor.request("get", self.valid_path, {})
 
+    def test_extract_error_from_stream_request_for_bytes(
+        self, requestor, mock_response
+    ):
+        mock_response(util.io.BytesIO(b'{"error": "invalid_grant"}'), 400)
+
+        with pytest.raises(stripe.oauth_error.InvalidGrantError):
+            requestor.request(
+                "get", self.valid_path, {}, request_options={"stream": True}
+            )
+
+    def test_extract_error_from_stream_request_for_response(
+        self, requestor, mock_response
+    ):
+        # Responses don't have getvalue, they only have a read method.
+        mock_response(
+            urllib3.response.HTTPResponse(
+                body=util.io.BytesIO(b'{"error": "invalid_grant"}'),
+                preload_content=False,
+            ),
+            400,
+        )
+
+        with pytest.raises(stripe.oauth_error.InvalidGrantError):
+            requestor.request(
+                "get", self.valid_path, {}, request_options={"stream": True}
+            )
+
     def test_raw_request_with_file_param(self, requestor, mock_response):
         test_file = tempfile.NamedTemporaryFile()
         test_file.write("\u263A".encode("utf-16"))
@@ -659,5 +763,6 @@ class TestDefaultClient(object):
             "get",
             "https://api.stripe.com/v1/charges?limit=3",
             mocker.ANY,
+            None,
             None,
         )

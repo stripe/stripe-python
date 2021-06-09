@@ -13,7 +13,7 @@ import stripe
 from stripe import error, oauth_error, http_client, version, util, six
 from stripe.multipart_data_generator import MultipartDataGenerator
 from stripe.six.moves.urllib.parse import urlencode, urlsplit, urlunsplit
-from stripe.stripe_response import StripeResponse
+from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
 
 def _encode_datetime(dttime):
@@ -115,11 +115,13 @@ class APIRequestor(object):
             str += " (%s)" % (info["url"],)
         return str
 
-    def request(self, method, url, params=None, headers=None):
-        rbody, rcode, rheaders, my_api_key = self.request_raw(
-            method.lower(), url, params, headers
+    def request(
+        self, method, url, params=None, headers=None, request_options=None
+    ):
+        rcontent, rcode, rheaders, my_api_key = self.request_raw(
+            method.lower(), url, params, headers, request_options
         )
-        resp = self.interpret_response(rbody, rcode, rheaders)
+        resp = self.interpret_response(rcontent, rcode, rheaders)
         return resp, my_api_key
 
     def handle_error_response(self, rbody, rcode, resp, rheaders):
@@ -273,7 +275,14 @@ class APIRequestor(object):
 
         return headers
 
-    def request_raw(self, method, url, params=None, supplied_headers=None):
+    def request_raw(
+        self,
+        method,
+        url,
+        params=None,
+        supplied_headers=None,
+        request_options=None,
+    ):
         """
         Mechanism for issuing an API call
         """
@@ -340,12 +349,12 @@ class APIRequestor(object):
             api_version=self.api_version,
         )
 
-        rbody, rcode, rheaders = self._client.request_with_retries(
-            method, abs_url, headers, post_data
+        rcontent, rcode, rheaders = self._client.request_with_retries(
+            method, abs_url, headers, post_data, request_options
         )
 
         util.log_info("Stripe API response", path=abs_url, response_code=rcode)
-        util.log_debug("API response body", body=rbody)
+        util.log_debug("API response body", body=rcontent)
 
         if "Request-Id" in rheaders:
             request_id = rheaders["Request-Id"]
@@ -354,22 +363,49 @@ class APIRequestor(object):
                 link=util.dashboard_link(request_id),
             )
 
-        return rbody, rcode, rheaders, my_api_key
+        return rcontent, rcode, rheaders, my_api_key
 
-    def interpret_response(self, rbody, rcode, rheaders):
+    def interpret_response(self, raw_response_content, rcode, rheaders):
+        is_error = not 200 <= rcode < 300
+
+        # IO streams are handled with minimal processing for success cases, as
+        # these represent a streaming request. When an error is received, we
+        # need to read from the stream and parse the received JSON, treating it
+        # like a standard JSON response.
+        if isinstance(raw_response_content, util.io.IOBase):
+            if is_error:
+                if hasattr(raw_response_content, "getvalue"):
+                    json_content = raw_response_content.getvalue()
+                elif hasattr(raw_response_content, "read"):
+                    json_content = raw_response_content.read()
+                else:
+                    raise NotImplementedError(
+                        "HTTP client %s does not return an IOBase object which "
+                        "can be consumed when streaming a response."
+                    )
+
+            else:
+                return StripeStreamResponse(
+                    raw_response_content, rcode, rheaders
+                )
+        else:
+            json_content = raw_response_content
+
         try:
-            if hasattr(rbody, "decode"):
-                rbody = rbody.decode("utf-8")
-            resp = StripeResponse(rbody, rcode, rheaders)
+            if hasattr(json_content, "decode"):
+                json_content = json_content.decode("utf-8")
+            resp = StripeResponse(json_content, rcode, rheaders)
         except Exception:
             raise error.APIError(
                 "Invalid response body from API: %s "
-                "(HTTP response code was %d)" % (rbody, rcode),
-                rbody,
+                "(HTTP response code was %d)" % (json_content, rcode),
+                json_content,
                 rcode,
                 rheaders,
             )
-        if not 200 <= rcode < 300:
-            self.handle_error_response(rbody, rcode, resp.data, rheaders)
+        if is_error:
+            self.handle_error_response(
+                json_content, rcode, resp.data, rheaders
+            )
 
         return resp

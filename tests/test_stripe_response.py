@@ -3,55 +3,58 @@ from __future__ import absolute_import, division, print_function
 import json
 from collections import OrderedDict
 
+import pytest
+
 from stripe import six
-from stripe.stripe_response import StripeResponse
+from stripe.stripe_response import StripeResponseBase, StripeResponse
 
 
-class TestStripeResponse(object):
-    def test_idempotency_key(self):
-        response, headers, _, _ = self.mock_stripe_response()
-        assert response.idempotency_key == headers["idempotency-key"]
+class ResponseTestBase(object):
+    @pytest.fixture
+    def mock_headers(self):
+        return {"idempotency-key": "123456", "request-id": "req_123456"}
 
-    def test_request_id(self):
-        response, headers, _, _ = self.mock_stripe_response()
-        assert response.request_id == headers["request-id"]
+    @pytest.fixture
+    def mock_response(self, mock_headers):
+        code = 200
+        headers = mock_headers
+        response = StripeResponseBase(code, headers)
+        return response
 
-    def test_code(self):
-        response, _, _, code = self.mock_stripe_response()
-        assert response.code == code
+    def test_idempotency_key(self, mock_response, mock_headers):
+        assert mock_response.idempotency_key == mock_headers["idempotency-key"]
 
-    def test_headers(self):
-        response, headers, _, _ = self.mock_stripe_response()
-        assert response.headers == headers
+    def test_request_id(self, mock_response, mock_headers):
+        assert mock_response.request_id == mock_headers["request-id"]
 
-    def test_body(self):
-        response, _, body, _ = self.mock_stripe_response()
-        assert response.body == body
+    def test_code(self, mock_response, mock_headers):
+        assert mock_response.code == 200
 
-    def test_data(self):
-        response, _, body, _ = self.mock_stripe_response()
-        deserialized = json.loads(body, object_pairs_hook=OrderedDict)
-        assert response.data == deserialized
+    def test_headers(self, mock_response, mock_headers):
+        assert mock_response.headers == mock_headers
+
+
+class TestStripeResponse(ResponseTestBase):
+    def test_body(self, mock_response, mock_body):
+        assert mock_response.body == mock_body
+
+    def test_data(self, mock_response, mock_body):
+        deserialized = json.loads(mock_body, object_pairs_hook=OrderedDict)
+        assert mock_response.data == deserialized
 
         # Previous assert does not check order, so explicitly check order here
-        assert list(six.iterkeys(response.data["metadata"])) == list(
+        assert list(six.iterkeys(mock_response.data["metadata"])) == list(
             six.iterkeys(deserialized["metadata"])
         )
 
-    @staticmethod
-    def mock_stripe_response():
+    @pytest.fixture
+    def mock_response(self, mock_headers, mock_body):
         code = 200
-        headers = TestStripeResponse.mock_headers()
-        body = TestStripeResponse.mock_body()
-        response = StripeResponse(body, code, headers)
-        return response, headers, body, code
+        response = StripeResponse(mock_body, code, mock_headers)
+        return response
 
-    @staticmethod
-    def mock_headers():
-        return {"idempotency-key": "123456", "request-id": "req_123456"}
-
-    @staticmethod
-    def mock_body():
+    @pytest.fixture
+    def mock_body(self):
         return """{
     "id": "ch_12345",
     "object": "charge",

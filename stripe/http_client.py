@@ -111,7 +111,9 @@ class HTTPClient(object):
 
         self._thread_local = threading.local()
 
-    def request_with_retries(self, method, url, headers, post_data=None):
+    def request_with_retries(
+        self, method, url, headers, post_data=None, request_options=None
+    ):
         self._add_telemetry_header(headers)
 
         num_retries = 0
@@ -120,7 +122,9 @@ class HTTPClient(object):
             request_start = _now_ms()
 
             try:
-                response = self.request(method, url, headers, post_data)
+                response = self.request(
+                    method, url, headers, post_data, request_options
+                )
                 connection_error = None
             except error.APIConnectionError as e:
                 connection_error = e
@@ -150,7 +154,9 @@ class HTTPClient(object):
                 else:
                     raise connection_error
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self, method, url, headers, post_data=None, request_options=None
+    ):
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request`"
         )
@@ -268,7 +274,11 @@ class RequestsClient(HTTPClient):
         self._session = session
         self._timeout = timeout
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self, method, url, headers, post_data=None, request_options=None
+    ):
+        request_options = request_options or {}
+
         kwargs = {}
         if self._verify_ssl_certs:
             kwargs["verify"] = stripe.ca_bundle_path
@@ -277,6 +287,9 @@ class RequestsClient(HTTPClient):
 
         if self._proxy:
             kwargs["proxies"] = self._proxy
+
+        if request_options.get("stream"):
+            kwargs["stream"] = True
 
         if getattr(self._thread_local, "session", None) is None:
             self._thread_local.session = self._session or requests.Session()
@@ -301,10 +314,14 @@ class RequestsClient(HTTPClient):
                     "underlying error was: %s" % (e,)
                 )
 
-            # This causes the content to actually be read, which could cause
-            # e.g. a socket timeout. TODO: The other fetch methods probably
-            # are susceptible to the same and should be updated.
-            content = result.content
+            if request_options.get("stream"):
+                content = result.raw
+            else:
+                # This causes the content to actually be read, which could cause
+                # e.g. a socket timeout. TODO: The other fetch methods probably
+                # are susceptible to the same and should be updated.
+                content = result.content
+
             status_code = result.status_code
         except Exception as e:
             # Would catch just requests.exceptions.RequestException, but can
@@ -390,7 +407,11 @@ class UrlFetchClient(HTTPClient):
         # to 55 seconds to allow for a slow Stripe
         self._deadline = deadline
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self, method, url, headers, post_data=None, request_options=None
+    ):
+        request_options = request_options or {}
+
         try:
             result = urlfetch.fetch(
                 url=url,
@@ -406,7 +427,12 @@ class UrlFetchClient(HTTPClient):
         except urlfetch.Error as e:
             self._handle_request_error(e, url)
 
-        return result.content, result.status_code, result.headers
+        if request_options.get("stream"):
+            content = util.io.BytesIO(str.encode(result.content))
+        else:
+            content = result.content
+
+        return content, result.status_code, result.headers
 
     def _handle_request_error(self, e, url):
         if isinstance(e, urlfetch.InvalidURLError):
@@ -463,7 +489,11 @@ class PycurlClient(HTTPClient):
         headers = email.message_from_string(raw_headers)
         return dict((k.lower(), v) for k, v in six.iteritems(dict(headers)))
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self, method, url, headers, post_data=None, request_options=None
+    ):
+        request_options = request_options or {}
+
         b = util.io.BytesIO()
         rheaders = util.io.BytesIO()
 
@@ -516,11 +546,17 @@ class PycurlClient(HTTPClient):
             self._curl.perform()
         except pycurl.error as e:
             self._handle_request_error(e)
-        rbody = b.getvalue().decode("utf-8")
+
+        if request_options.get("stream"):
+            b.seek(0)
+            rcontent = b
+        else:
+            rcontent = b.getvalue().decode("utf-8")
+
         rcode = self._curl.getinfo(pycurl.RESPONSE_CODE)
         headers = self.parse_headers(rheaders.getvalue().decode("utf-8"))
 
-        return rbody, rcode, headers
+        return rcontent, rcode, headers
 
     def _handle_request_error(self, e):
         if e.args[0] in [
@@ -579,7 +615,11 @@ class Urllib2Client(HTTPClient):
             proxy = urllib.request.ProxyHandler(self._proxy)
             self._opener = urllib.request.build_opener(proxy)
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self, method, url, headers, post_data=None, request_options=None
+    ):
+        request_options = request_options or {}
+
         if six.PY3 and isinstance(post_data, six.string_types):
             post_data = post_data.encode("utf-8")
 
@@ -596,17 +636,22 @@ class Urllib2Client(HTTPClient):
                 if self._opener
                 else urllib.request.urlopen(req)
             )
-            rbody = response.read()
+
+            if request_options.get("stream"):
+                rcontent = response
+            else:
+                rcontent = response.read()
+
             rcode = response.code
             headers = dict(response.info())
         except urllib.error.HTTPError as e:
             rcode = e.code
-            rbody = e.read()
+            rcontent = e.read()
             headers = dict(e.info())
         except (urllib.error.URLError, ValueError) as e:
             self._handle_request_error(e)
         lh = dict((k.lower(), v) for k, v in six.iteritems(dict(headers)))
-        return rbody, rcode, lh
+        return rcontent, rcode, lh
 
     def _handle_request_error(self, e):
         msg = (
