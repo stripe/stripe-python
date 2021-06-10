@@ -16,7 +16,7 @@ from tests.stripe_mock import StripeMock
 
 
 # When changing this number, don't forget to change it in `.travis.yml` too.
-MOCK_MINIMUM_VERSION = "0.106.0"
+MOCK_MINIMUM_VERSION = "0.107.0"
 
 # Starts stripe-mock if an OpenAPI spec override is found in `openapi/`, and
 # otherwise fall back to `STRIPE_MOCK_PORT` or 12111.
