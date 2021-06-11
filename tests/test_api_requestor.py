@@ -245,22 +245,36 @@ class TestAPIRequestor(object):
         return mock_response
 
     @pytest.fixture
+    def mock_streaming_response(self, mocker, http_client):
+        def mock_streaming_response(return_body, return_code, headers=None):
+            http_client.request_stream_with_retries = mocker.Mock(
+                return_value=(return_body, return_code, headers or {})
+            )
+
+        return mock_streaming_response
+
+    @pytest.fixture
     def check_call(self, http_client):
         def check_call(
             method,
             abs_url=None,
             headers=None,
             post_data=None,
-            request_options=None,
+            is_streaming=False,
         ):
             if not abs_url:
                 abs_url = "%s%s" % (stripe.api_base, self.valid_path)
             if not headers:
                 headers = APIHeaderMatcher(request_method=method)
 
-            http_client.request_with_retries.assert_called_with(
-                method, abs_url, headers, post_data, request_options
-            )
+            if is_streaming:
+                http_client.request_stream_with_retries.assert_called_with(
+                    method, abs_url, headers, post_data
+                )
+            else:
+                http_client.request_with_retries.assert_called_with(
+                    method, abs_url, headers, post_data
+                )
 
         return check_call
 
@@ -301,17 +315,13 @@ class TestAPIRequestor(object):
     def test_param_encoding(self, requestor, mock_response, check_call):
         mock_response("{}", 200)
 
-        requestor.request(
-            "get", "", self.ENCODE_INPUTS, request_options={"stream": True}
-        )
+        requestor.request("get", "", self.ENCODE_INPUTS)
 
         expectation = []
         for type_, values in six.iteritems(self.ENCODE_EXPECTATIONS):
             expectation.extend([(k % (type_,), str(v)) for k, v in values])
 
-        check_call(
-            "get", QueryMatcher(expectation), request_options={"stream": True}
-        )
+        check_call("get", QueryMatcher(expectation))
 
     def test_dictionary_list_encoding(self):
         params = {"foo": {"0": {"bar": "bat"}}}
@@ -382,12 +392,12 @@ class TestAPIRequestor(object):
             assert resp.data == json.loads(resp.body)
 
     def test_empty_methods_streaming_response(
-        self, requestor, mock_response, check_call
+        self, requestor, mock_streaming_response, check_call
     ):
         for meth in VALID_API_METHODS:
-            mock_response(util.io.BytesIO(b"thisisdata"), 200)
+            mock_streaming_response(util.io.BytesIO(b"thisisdata"), 200)
 
-            resp, key = requestor.request(
+            resp, key = requestor.request_stream(
                 meth,
                 self.valid_path,
                 {},
@@ -398,7 +408,7 @@ class TestAPIRequestor(object):
             else:
                 post_data = None
 
-            check_call(meth, post_data=post_data)
+            check_call(meth, post_data=post_data, is_streaming=True)
             assert isinstance(resp, StripeStreamResponse)
 
             assert resp.io.getvalue() == b"thisisdata"
@@ -439,10 +449,12 @@ class TestAPIRequestor(object):
                 check_call(method, abs_url=UrlMatcher(abs_url))
 
     def test_methods_with_params_and_streaming_response(
-        self, requestor, mock_response, check_call
+        self, requestor, mock_streaming_response, check_call
     ):
         for method in VALID_API_METHODS:
-            mock_response(util.io.BytesIO(b'{"foo": "bar", "baz": 6}'), 200)
+            mock_streaming_response(
+                util.io.BytesIO(b'{"foo": "bar", "baz": 6}'), 200
+            )
 
             params = {
                 "alist": [1, 2, 3],
@@ -454,11 +466,10 @@ class TestAPIRequestor(object):
                 "alist[0]=1&alist[1]=2&alist[2]=3"
             )
 
-            resp, key = requestor.request(
+            resp, key = requestor.request_stream(
                 method,
                 self.valid_path,
                 params,
-                request_options={"stream": True},
             )
             assert isinstance(resp, StripeStreamResponse)
 
@@ -468,7 +479,7 @@ class TestAPIRequestor(object):
                 check_call(
                     method,
                     post_data=QueryMatcher(stripe.util.parse_qsl(encoded)),
-                    request_options={"stream": True},
+                    is_streaming=True,
                 )
             else:
                 abs_url = "%s%s?%s" % (
@@ -477,9 +488,7 @@ class TestAPIRequestor(object):
                     encoded,
                 )
                 check_call(
-                    method,
-                    abs_url=UrlMatcher(abs_url),
-                    request_options={"stream": True},
+                    method, abs_url=UrlMatcher(abs_url), is_streaming=True
                 )
 
     def test_uses_headers(self, requestor, mock_response, check_call):
@@ -702,20 +711,20 @@ class TestAPIRequestor(object):
             requestor.request("get", self.valid_path, {})
 
     def test_extract_error_from_stream_request_for_bytes(
-        self, requestor, mock_response
+        self, requestor, mock_streaming_response
     ):
-        mock_response(util.io.BytesIO(b'{"error": "invalid_grant"}'), 400)
+        mock_streaming_response(
+            util.io.BytesIO(b'{"error": "invalid_grant"}'), 400
+        )
 
         with pytest.raises(stripe.oauth_error.InvalidGrantError):
-            requestor.request(
-                "get", self.valid_path, {}, request_options={"stream": True}
-            )
+            requestor.request_stream("get", self.valid_path, {})
 
     def test_extract_error_from_stream_request_for_response(
-        self, requestor, mock_response
+        self, requestor, mock_streaming_response
     ):
         # Responses don't have getvalue, they only have a read method.
-        mock_response(
+        mock_streaming_response(
             urllib3.response.HTTPResponse(
                 body=util.io.BytesIO(b'{"error": "invalid_grant"}'),
                 preload_content=False,
@@ -724,9 +733,7 @@ class TestAPIRequestor(object):
         )
 
         with pytest.raises(stripe.oauth_error.InvalidGrantError):
-            requestor.request(
-                "get", self.valid_path, {}, request_options={"stream": True}
-            )
+            requestor.request_stream("get", self.valid_path, {})
 
     def test_raw_request_with_file_param(self, requestor, mock_response):
         test_file = tempfile.NamedTemporaryFile()
@@ -763,6 +770,5 @@ class TestDefaultClient(object):
             "get",
             "https://api.stripe.com/v1/charges?limit=3",
             mocker.ANY,
-            None,
             None,
         )

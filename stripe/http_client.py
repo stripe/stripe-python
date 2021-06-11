@@ -111,8 +111,20 @@ class HTTPClient(object):
 
         self._thread_local = threading.local()
 
-    def request_with_retries(
-        self, method, url, headers, post_data=None, request_options=None
+    def request_with_retries(self, method, url, headers, post_data=None):
+        return self._request_with_retries_internal(
+            method, url, headers, post_data, is_streaming=False
+        )
+
+    def request_stream_with_retries(
+        self, method, url, headers, post_data=None
+    ):
+        return self._request_with_retries_internal(
+            method, url, headers, post_data, is_streaming=True
+        )
+
+    def _request_with_retries_internal(
+        self, method, url, headers, post_data, is_streaming
     ):
         self._add_telemetry_header(headers)
 
@@ -122,9 +134,12 @@ class HTTPClient(object):
             request_start = _now_ms()
 
             try:
-                response = self.request(
-                    method, url, headers, post_data, request_options
-                )
+                if is_streaming:
+                    response = self.request_stream(
+                        method, url, headers, post_data
+                    )
+                else:
+                    response = self.request(method, url, headers, post_data)
                 connection_error = None
             except error.APIConnectionError as e:
                 connection_error = e
@@ -154,11 +169,14 @@ class HTTPClient(object):
                 else:
                     raise connection_error
 
-    def request(
-        self, method, url, headers, post_data=None, request_options=None
-    ):
+    def request(self, method, url, headers, post_data=None):
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request`"
+        )
+
+    def request_stream(self, method, url, headers, post_data=None):
+        raise NotImplementedError(
+            "HTTPClient subclasses must implement `request_stream`"
         )
 
     def _should_retry(self, response, api_connection_error, num_retries):
@@ -274,11 +292,17 @@ class RequestsClient(HTTPClient):
         self._session = session
         self._timeout = timeout
 
-    def request(
-        self, method, url, headers, post_data=None, request_options=None
-    ):
-        request_options = request_options or {}
+    def request(self, method, url, headers, post_data=None):
+        return self._request_internal(
+            method, url, headers, post_data, is_streaming=False
+        )
 
+    def request_stream(self, method, url, headers, post_data=None):
+        return self._request_internal(
+            method, url, headers, post_data, is_streaming=True
+        )
+
+    def _request_internal(self, method, url, headers, post_data, is_streaming):
         kwargs = {}
         if self._verify_ssl_certs:
             kwargs["verify"] = stripe.ca_bundle_path
@@ -288,7 +312,7 @@ class RequestsClient(HTTPClient):
         if self._proxy:
             kwargs["proxies"] = self._proxy
 
-        if request_options.get("stream"):
+        if is_streaming:
             kwargs["stream"] = True
 
         if getattr(self._thread_local, "session", None) is None:
@@ -314,7 +338,7 @@ class RequestsClient(HTTPClient):
                     "underlying error was: %s" % (e,)
                 )
 
-            if request_options.get("stream"):
+            if is_streaming:
                 content = result.raw
             else:
                 # This causes the content to actually be read, which could cause
@@ -407,11 +431,17 @@ class UrlFetchClient(HTTPClient):
         # to 55 seconds to allow for a slow Stripe
         self._deadline = deadline
 
-    def request(
-        self, method, url, headers, post_data=None, request_options=None
-    ):
-        request_options = request_options or {}
+    def request(self, method, url, headers, post_data=None):
+        return self._request_internal(
+            method, url, headers, post_data, is_streaming=False
+        )
 
+    def request_stream(self, method, url, headers, post_data=None):
+        return self._request_internal(
+            method, url, headers, post_data, is_streaming=True
+        )
+
+    def _request_internal(self, method, url, headers, post_data, is_streaming):
         try:
             result = urlfetch.fetch(
                 url=url,
@@ -427,7 +457,7 @@ class UrlFetchClient(HTTPClient):
         except urlfetch.Error as e:
             self._handle_request_error(e, url)
 
-        if request_options.get("stream"):
+        if is_streaming:
             content = util.io.BytesIO(str.encode(result.content))
         else:
             content = result.content
@@ -489,11 +519,17 @@ class PycurlClient(HTTPClient):
         headers = email.message_from_string(raw_headers)
         return dict((k.lower(), v) for k, v in six.iteritems(dict(headers)))
 
-    def request(
-        self, method, url, headers, post_data=None, request_options=None
-    ):
-        request_options = request_options or {}
+    def request(self, method, url, headers, post_data=None):
+        return self._request_internal(
+            method, url, headers, post_data, is_streaming=False
+        )
 
+    def request_stream(self, method, url, headers, post_data=None):
+        return self._request_internal(
+            method, url, headers, post_data, is_streaming=True
+        )
+
+    def _request_internal(self, method, url, headers, post_data, is_streaming):
         b = util.io.BytesIO()
         rheaders = util.io.BytesIO()
 
@@ -547,7 +583,7 @@ class PycurlClient(HTTPClient):
         except pycurl.error as e:
             self._handle_request_error(e)
 
-        if request_options.get("stream"):
+        if is_streaming:
             b.seek(0)
             rcontent = b
         else:
@@ -615,11 +651,17 @@ class Urllib2Client(HTTPClient):
             proxy = urllib.request.ProxyHandler(self._proxy)
             self._opener = urllib.request.build_opener(proxy)
 
-    def request(
-        self, method, url, headers, post_data=None, request_options=None
-    ):
-        request_options = request_options or {}
+    def request(self, method, url, headers, post_data=None):
+        return self._request_internal(
+            method, url, headers, post_data, is_streaming=False
+        )
 
+    def request_stream(self, method, url, headers, post_data=None):
+        return self._request_internal(
+            method, url, headers, post_data, is_streaming=True
+        )
+
+    def _request_internal(self, method, url, headers, post_data, is_streaming):
         if six.PY3 and isinstance(post_data, six.string_types):
             post_data = post_data.encode("utf-8")
 
@@ -637,7 +679,7 @@ class Urllib2Client(HTTPClient):
                 else urllib.request.urlopen(req)
             )
 
-            if request_options.get("stream"):
+            if is_streaming:
                 rcontent = response
             else:
                 rcontent = response.read()
