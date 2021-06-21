@@ -65,3 +65,23 @@ class APIResource(StripeObject):
         return util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account
         )
+
+    # The `method_` and `url_` arguments are suffixed with an underscore to
+    # avoid conflicting with actual request parameters in `params`.
+    @classmethod
+    def _static_request_stream(
+        cls,
+        method_,
+        url_,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
+        headers = util.populate_headers(idempotency_key)
+        response, _ = requestor.request_stream(method_, url_, params, headers)
+        return response
