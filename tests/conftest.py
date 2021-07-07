@@ -14,8 +14,6 @@ from stripe.six.moves.urllib.error import HTTPError
 from tests.request_mock import RequestMock
 from tests.stripe_mock import StripeMock
 
-
-# When changing this number, don't forget to change it in `.travis.yml` too.
 MOCK_MINIMUM_VERSION = "0.107.0"
 
 # Starts stripe-mock if an OpenAPI spec override is found in `openapi/`, and
