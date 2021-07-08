@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import custom_method
 
 @custom_method("accept", http_verb="post")
 @custom_method("cancel", http_verb="post")
-@custom_method("finalize", http_verb="post")
+@custom_method("finalize_quote", http_verb="post", http_path="finalize")
 @custom_method("list_line_items", http_verb="get", http_path="line_items")
 @custom_method("pdf", http_verb="get", is_streaming=True)
 class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
@@ -27,7 +27,7 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
-    def finalize(self, idempotency_key=None, **params):
+    def finalize_quote(self, idempotency_key=None, **params):
         url = self.instance_url() + "/finalize"
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
