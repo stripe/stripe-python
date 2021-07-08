@@ -1,5 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
+import stripe
+from stripe import api_requestor
 from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
@@ -39,7 +41,20 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         self.refresh_from(self.request("get", url, params, headers))
         return self
 
-    def pdf(self, idempotency_key=None, **params):
+    def pdf(
+        self,
+        api_key=None,
+        api_version=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        version = api_version or stripe_version
+        requestor = api_requestor.APIRequestor(
+            api_key,
+            api_base=stripe.upload_api_base,
+            api_version=version,
+            account=stripe_account,
+        )
         url = self.instance_url() + "/pdf"
-        headers = util.populate_headers(idempotency_key)
-        return self.request_stream("get", url, params, headers)
+        return requestor.request_stream("get", url, params=params)
