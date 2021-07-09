@@ -8,6 +8,13 @@ TEST_RESOURCE_ID = "qt_123"
 
 
 class TestQuote(object):
+    @pytest.fixture(scope="function")
+    def setup_upload_api_base(self):
+        stripe.upload_api_base = stripe.api_base
+        yield
+        stripe.api_base = stripe.upload_api_base
+        stripe.upload_api_base = "https://files.stripe.com"
+
     def test_is_listable(self, request_mock):
         resources = stripe.Quote.list()
         request_mock.assert_requested("get", "/v1/quotes")
@@ -87,13 +94,6 @@ class TestQuote(object):
             "post", "/v1/quotes/%s/accept" % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.Quote)
-
-    @pytest.fixture(scope="function")
-    def setup_upload_api_base(self):
-        stripe.upload_api_base = stripe.api_base
-        yield
-        stripe.api_base = stripe.upload_api_base
-        stripe.upload_api_base = "https://files.stripe.com"
 
     def test_can_pdf(self, setup_upload_api_base, request_mock):
         resource = stripe.Quote.retrieve(TEST_RESOURCE_ID)
