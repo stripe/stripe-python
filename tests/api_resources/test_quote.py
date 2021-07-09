@@ -107,6 +107,7 @@ class TestQuote(object):
 
     def test_can_pdf_classmethod(self, setup_upload_api_base, request_mock):
         stream = stripe.Quote.pdf(TEST_RESOURCE_ID)
+        request_mock.assert_api_base(stripe.upload_api_base)
         request_mock.assert_requested_stream(
             "get", "/v1/quotes/%s/pdf" % TEST_RESOURCE_ID
         )
