@@ -14,7 +14,7 @@ from stripe.six.moves.urllib.error import HTTPError
 from tests.request_mock import RequestMock
 from tests.stripe_mock import StripeMock
 
-MOCK_MINIMUM_VERSION = "0.107.0"
+MOCK_MINIMUM_VERSION = "0.109.0"
 
 # Starts stripe-mock if an OpenAPI spec override is found in `openapi/`, and
 # otherwise fall back to `STRIPE_MOCK_PORT` or 12111.
