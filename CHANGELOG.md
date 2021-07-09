@@ -1,5 +1,8 @@
 # Changelog
 
+## 2.59.0 - 2021-07-09
+* [#727](https://github.com/stripe/stripe-python/pull/727) [#725](https://github.com/stripe/stripe-python/pull/725) Add support for new `Quote` API.
+
 ## 2.58.0 - 2021-06-04
 * [#722](https://github.com/stripe/stripe-python/pull/722) API Updates
   * Add support for new `TaxCode` API.
