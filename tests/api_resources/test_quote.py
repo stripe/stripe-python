@@ -110,7 +110,6 @@ class TestQuote(object):
         assert isinstance(resources.data, list)
         assert isinstance(resources.data[0], stripe.LineItem)
 
-
     def test_can_list_computed_upfront_line_items(self, request_mock):
         resources = stripe.Quote.list_computed_upfront_line_items(TEST_RESOURCE_ID)
         request_mock.assert_requested(
@@ -125,6 +124,7 @@ class TestQuote(object):
             "post", "/v1/quotes/%s/computed_upfront_line_items" % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.Quote)
+
     def test_can_pdf(self, setup_upload_api_base, request_mock):
         resource = stripe.Quote.retrieve(TEST_RESOURCE_ID)
         stream, _ = resource.pdf()
