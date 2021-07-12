@@ -96,16 +96,17 @@ class TestQuote(object):
         assert isinstance(resource, stripe.Quote)
 
     def test_can_list_line_items(self, request_mock):
-        resource = stripe.Quote.list_line_items(TEST_RESOURCE_ID)
+        resources = stripe.Quote.list_line_items(TEST_RESOURCE_ID)
         request_mock.assert_requested(
-            "post", "/v1/quotes/%s/line_items" % TEST_RESOURCE_ID
+            "get", "/v1/quotes/%s/line_items" % TEST_RESOURCE_ID
         )
-        assert isinstance(resource, stripe.Quote)
+        assert isinstance(resources.data, list)
+        assert isinstance(resources.data[0], stripe.LineItem)
 
     def test_can_list_line_items_classmethod(self, request_mock):
         resources = stripe.Quote.list_line_items(TEST_RESOURCE_ID)
         request_mock.assert_requested(
-            "post", "/v1/quotes/%s/line_items" % TEST_RESOURCE_ID
+            "get", "/v1/quotes/%s/line_items" % TEST_RESOURCE_ID
         )
         assert isinstance(resources.data, list)
         assert isinstance(resources.data[0], stripe.LineItem)
@@ -115,7 +116,7 @@ class TestQuote(object):
             TEST_RESOURCE_ID
         )
         request_mock.assert_requested(
-            "post",
+            "get",
             "/v1/quotes/%s/computed_upfront_line_items" % TEST_RESOURCE_ID,
         )
         assert isinstance(resources.data, list)
@@ -128,7 +129,7 @@ class TestQuote(object):
             TEST_RESOURCE_ID
         )
         request_mock.assert_requested(
-            "post",
+            "get",
             "/v1/quotes/%s/computed_upfront_line_items" % TEST_RESOURCE_ID,
         )
         assert isinstance(resources.data[0], stripe.LineItem)
