@@ -13,6 +13,11 @@ from stripe.six.moves.urllib.parse import quote_plus
 @custom_method("accept", http_verb="post")
 @custom_method("cancel", http_verb="post")
 @custom_method("finalize_quote", http_verb="post", http_path="finalize")
+@custom_method(
+    "list_computed_upfront_line_items",
+    http_verb="get",
+    http_path="computed_upfront_line_items",
+)
 @custom_method("list_line_items", http_verb="get", http_path="line_items")
 class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "quote"
@@ -33,6 +38,12 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         url = self.instance_url() + "/finalize"
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
+        return self
+
+    def list_computed_upfront_line_items(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/computed_upfront_line_items"
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("get", url, params, headers))
         return self
 
     def list_line_items(self, idempotency_key=None, **params):
