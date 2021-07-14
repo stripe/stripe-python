@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.60.0 - 2021-07-14
+* [#728](https://github.com/stripe/stripe-python/pull/728) API Updates
+  * Add support for `list_computed_upfront_line_items` method on resource `Quote`
+
 ## 2.59.0 - 2021-07-09
 * [#727](https://github.com/stripe/stripe-python/pull/727) [#725](https://github.com/stripe/stripe-python/pull/725) Add support for new `Quote` API.
 
