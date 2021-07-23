@@ -7,8 +7,8 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import custom_method
 
 
-@custom_method("pay", http_verb="post")
 @custom_method("return_order", http_verb="post", http_path="returns")
+@custom_method("pay", http_verb="post")
 class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "order"
 
