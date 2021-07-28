@@ -19,6 +19,9 @@ from stripe.api_resources.abstract.deletable_api_resource import (
 from stripe.api_resources.abstract.listable_api_resource import (
     ListableAPIResource,
 )
+from stripe.api_resources.abstract.searchable_api_resource import (
+    SearchableAPIResource,
+)
 from stripe.api_resources.abstract.verify_mixin import VerifyMixin
 
 from stripe.api_resources.abstract.custom_method import custom_method
