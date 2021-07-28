@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.error_object import ErrorObject, OAuthErrorObject
 from stripe.api_resources.list_object import ListObject
+from stripe.api_resources.search_result_object import SearchResultObject
 
 from stripe.api_resources import billing_portal
 from stripe.api_resources import checkout

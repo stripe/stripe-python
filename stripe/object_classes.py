@@ -7,6 +7,7 @@ from stripe import api_resources
 OBJECT_CLASSES = {
     # data structures
     api_resources.ListObject.OBJECT_NAME: api_resources.ListObject,
+    api_resources.SearchResultObject.OBJECT_NAME: api_resources.SearchResultObject,
     # business objects
     api_resources.Account.OBJECT_NAME: api_resources.Account,
     api_resources.AccountLink.OBJECT_NAME: api_resources.AccountLink,
