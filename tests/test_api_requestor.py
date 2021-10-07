@@ -2,7 +2,6 @@ from __future__ import absolute_import, division, print_function
 
 import datetime
 import json
-import platform
 import tempfile
 import uuid
 from collections import OrderedDict
@@ -115,8 +114,7 @@ class APIHeaderMatcher(object):
     def _x_stripe_ua_handles_failed_platform_function(self, other):
         if self.fail_platform_call:
             ua = json.loads(other["X-Stripe-Client-User-Agent"])
-            # Only the platform property should be set to none.
-            return ua["platform"] is None and ua["lang_version"] is not None
+            return ua["platform"] == "(disabled)"
         return True
 
     def _extra_match(self, other):
