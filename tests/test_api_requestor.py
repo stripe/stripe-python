@@ -2,6 +2,7 @@ from __future__ import absolute_import, division, print_function
 
 import datetime
 import json
+import platform
 import tempfile
 import uuid
 from collections import OrderedDict
@@ -607,8 +608,9 @@ class TestAPIRequestor(object):
         def fail():
             raise RuntimeError
 
-        with mocker.patch("platform.platform", side_effect=fail):
-            requestor.request("get", self.valid_path, {}, {})
+        mocker.patch("platform.platform", side_effect=fail)
+
+        requestor.request("get", self.valid_path, {}, {})
 
         check_call("get", headers=APIHeaderMatcher(fail_platform_call=True))
 
