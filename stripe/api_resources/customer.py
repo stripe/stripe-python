@@ -2,6 +2,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import api_requestor
+from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
@@ -11,6 +12,11 @@ from stripe.api_resources.abstract import nested_resource_class_methods
 
 
 @custom_method("delete_discount", http_verb="delete", http_path="discount")
+@custom_method(
+    "list_payment_methods",
+    http_verb="get",
+    http_path="payment_methods",
+)
 @nested_resource_class_methods(
     "balance_transaction",
     operations=["create", "retrieve", "update", "list"],
@@ -30,6 +36,12 @@ class Customer(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "customer"
+
+    def list_payment_methods(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/payment_methods"
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("get", url, params, headers))
+        return self
 
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(
