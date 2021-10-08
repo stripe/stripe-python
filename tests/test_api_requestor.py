@@ -47,6 +47,7 @@ class APIHeaderMatcher(object):
         user_agent=None,
         app_info=None,
         idempotency_key=None,
+        fail_platform_call=False,
     ):
         self.request_method = request_method
         self.api_key = api_key or stripe.api_key
@@ -54,6 +55,7 @@ class APIHeaderMatcher(object):
         self.user_agent = user_agent
         self.app_info = app_info
         self.idempotency_key = idempotency_key
+        self.fail_platform_call = fail_platform_call
 
     def __eq__(self, other):
         return (
@@ -61,22 +63,20 @@ class APIHeaderMatcher(object):
             and self._auth_match(other)
             and self._user_agent_match(other)
             and self._x_stripe_ua_contains_app_info(other)
+            and self._x_stripe_ua_handles_failed_platform_function(other)
             and self._idempotency_key_match(other)
             and self._extra_match(other)
         )
 
     def __repr__(self):
-        return (
-            "APIHeaderMatcher(request_method=%s, api_key=%s, extra=%s, "
-            "user_agent=%s, app_info=%s, idempotency_key=%s)"
-            % (
-                repr(self.request_method),
-                repr(self.api_key),
-                repr(self.extra),
-                repr(self.user_agent),
-                repr(self.app_info),
-                repr(self.idempotency_key),
-            )
+        return "APIHeaderMatcher(request_method=%s, api_key=%s, extra=%s, " "user_agent=%s, app_info=%s, idempotency_key=%s, fail_platform_call=%s)" % (
+            repr(self.request_method),
+            repr(self.api_key),
+            repr(self.extra),
+            repr(self.user_agent),
+            repr(self.app_info),
+            repr(self.idempotency_key),
+            repr(self.fail_platform_call),
         )
 
     def _keys_match(self, other):
@@ -109,6 +109,12 @@ class APIHeaderMatcher(object):
                 return False
             return ua["application"] == self.app_info
 
+        return True
+
+    def _x_stripe_ua_handles_failed_platform_function(self, other):
+        if self.fail_platform_call:
+            ua = json.loads(other["X-Stripe-Client-User-Agent"])
+            return ua["platform"] == "(disabled)"
         return True
 
     def _extra_match(self, other):
@@ -591,6 +597,20 @@ class TestAPIRequestor(object):
             check_call("get", headers=header_matcher)
         finally:
             stripe.app_info = old
+
+    def test_handles_failed_platform_call(
+        self, requestor, mocker, mock_response, check_call
+    ):
+        mock_response("{}", 200)
+
+        def fail():
+            raise RuntimeError
+
+        mocker.patch("platform.platform", side_effect=fail)
+
+        requestor.request("get", self.valid_path, {}, {})
+
+        check_call("get", headers=APIHeaderMatcher(fail_platform_call=True))
 
     def test_uses_given_idempotency_key(
         self, requestor, mock_response, check_call

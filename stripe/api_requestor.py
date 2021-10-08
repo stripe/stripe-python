@@ -256,8 +256,8 @@ class APIRequestor(object):
         ]:
             try:
                 val = func()
-            except Exception as e:
-                val = "!! %s" % (e,)
+            except Exception:
+                val = "(disabled)"
             ua[attr] = val
         if stripe.app_info:
             ua["application"] = stripe.app_info
