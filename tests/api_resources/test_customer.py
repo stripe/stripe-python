@@ -175,7 +175,7 @@ class TestCustomerTransactions(object):
 
 class TestCustomerPaymentMethods(object):
     def test_is_listable(self, request_mock):
-        stripe.Customer.list_payment_methods(TEST_RESOURCE_ID)
+        stripe.Customer.list_payment_methods(TEST_RESOURCE_ID, type="card")
         request_mock.assert_request(
             "get", "/v1/customers/%s/payment_methods" % TEST_RESOURCE_ID
         )
