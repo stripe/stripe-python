@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.61.0 - 2021-10-11
+* [#738](https://github.com/stripe/stripe-python/pull/738) API Updates
+  * Add support for `list_payment_methods` method on resource `Customer`
+* [#736](https://github.com/stripe/stripe-python/pull/736) Stop sending raw exception message as part of Stripe user agent.
+
 ## 2.60.0 - 2021-07-14
 * [#728](https://github.com/stripe/stripe-python/pull/728) API Updates
   * Add support for `list_computed_upfront_line_items` method on resource `Quote`
