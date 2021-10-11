@@ -1019,3 +1019,10 @@ class TestGeneratedExamples(object):
             "delete",
             "/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
         )
+
+    def test_customer_list_payment_methods(self, request_mock):
+        stripe.Customer.list_payment_methods("cus_xyz", type="card")
+        request_mock.assert_requested(
+            "get",
+            "/v1/customers/cus_xyz/payment_methods",
+        )
