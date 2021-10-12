@@ -522,6 +522,16 @@ class TestGeneratedExamples(object):
         stripe.CreditNote.list(limit=3)
         request_mock.assert_requested("get", "/v1/credit_notes")
 
+    def test_customer_customerbalancetransaction_retrieve(self, request_mock):
+        stripe.Customer.retrieve_balance_transaction(
+            "cus_xxxxxxxxxxxxx",
+            "cbtxn_xxxxxxxxxxxxx",
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/customers/cus_xxxxxxxxxxxxx/balance_transactions/cbtxn_xxxxxxxxxxxxx",
+        )
+
     def test_billing_portal_session_create(self, request_mock):
         stripe.billing_portal.Session.create(
             customer="cus_xxxxxxxxxxxxx",
@@ -571,6 +581,15 @@ class TestGeneratedExamples(object):
         stripe.billing_portal.Configuration.list(limit=3)
         request_mock.assert_requested(
             "get", "/v1/billing_portal/configurations"
+        )
+
+    def test_customer_taxid_retrieve(self, request_mock):
+        stripe.Customer.retrieve_tax_id(
+            "cus_xxxxxxxxxxxxx", "txi_xxxxxxxxxxxxx"
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/customers/cus_xxxxxxxxxxxxx/tax_ids/txi_xxxxxxxxxxxxx",
         )
 
     def test_invoice_create(self, request_mock):
@@ -911,6 +930,47 @@ class TestGeneratedExamples(object):
         stripe.ApplicationFee.list(limit=3)
         request_mock.assert_requested("get", "/v1/application_fees")
 
+    def test_applicationfee_feerefund_retrieve(self, request_mock):
+        stripe.ApplicationFee.retrieve_refund(
+            "fee_xxxxxxxxxxxxx",
+            "fr_xxxxxxxxxxxxx",
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
+        )
+
+    def test_applicationfee_feerefund_update(self, request_mock):
+        stripe.ApplicationFee.modify_refund(
+            "fee_xxxxxxxxxxxxx",
+            "fr_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
+        )
+
+    def test_account_capability_retrieve(self, request_mock):
+        stripe.Account.retrieve_capability(
+            "acct_xxxxxxxxxxxxx", "card_payments"
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
+        )
+
+    def test_account_capability_update(self, request_mock):
+        stripe.Account.modify_capability(
+            "acct_xxxxxxxxxxxxx",
+            "card_payments",
+            requested=True,
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
+        )
+
     def test_countryspec_list(self, request_mock):
         stripe.CountrySpec.list(limit=3)
         request_mock.assert_requested("get", "/v1/country_specs")
@@ -918,6 +978,26 @@ class TestGeneratedExamples(object):
     def test_countryspec_retrieve(self, request_mock):
         stripe.CountrySpec.retrieve("US")
         request_mock.assert_requested("get", "/v1/country_specs/US")
+
+    def test_account_person_retrieve(self, request_mock):
+        stripe.Account.retrieve_person(
+            "acct_xxxxxxxxxxxxx", "person_xxxxxxxxxxxxx"
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
+        )
+
+    def test_account_person_update(self, request_mock):
+        stripe.Account.modify_person(
+            "acct_xxxxxxxxxxxxx",
+            "person_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/persons/person_xxxxxxxxxxxxx",
+        )
 
     def test_topup_create(self, request_mock):
         stripe.Topup.create(
@@ -968,6 +1048,26 @@ class TestGeneratedExamples(object):
     def test_transfer_list(self, request_mock):
         stripe.Transfer.list(limit=3)
         request_mock.assert_requested("get", "/v1/transfers")
+
+    def test_transfer_transferreversal_retrieve(self, request_mock):
+        stripe.Transfer.retrieve_reversal(
+            "tr_xxxxxxxxxxxxx", "trr_xxxxxxxxxxxxx"
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
+        )
+
+    def test_transfer_transferreversal_update(self, request_mock):
+        stripe.Transfer.modify_reversal(
+            "tr_xxxxxxxxxxxxx",
+            "trr_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
+        )
 
     def test_radar_earlyfraudwarning_retrieve(self, request_mock):
         stripe.radar.EarlyFraudWarning.retrieve("issfr_xxxxxxxxxxxxx")
