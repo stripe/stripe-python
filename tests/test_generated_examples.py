@@ -444,6 +444,27 @@ class TestGeneratedExamples(object):
         )
         request_mock.assert_requested("post", "/v1/sources/src_xxxxxxxxxxxxx")
 
+    def test_checkout_session_create(self, request_mock):
+        stripe.checkout.Session.create(
+            success_url="https://example.com/success",
+            cancel_url="https://example.com/cancel",
+            payment_method_types=["card"],
+            line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 2}],
+            mode="payment",
+        )
+        request_mock.assert_requested("post", "/v1/checkout/sessions")
+
+    def test_checkout_session_retrieve(self, request_mock):
+        stripe.checkout.Session.retrieve("cs_test_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx",
+        )
+
+    def test_checkout_session_list(self, request_mock):
+        stripe.checkout.Session.list(limit=3)
+        request_mock.assert_requested("get", "/v1/checkout/sessions")
+
     def test_coupon_create(self, request_mock):
         stripe.Coupon.create(
             percent_off=25,
@@ -500,6 +521,57 @@ class TestGeneratedExamples(object):
     def test_creditnote_list(self, request_mock):
         stripe.CreditNote.list(limit=3)
         request_mock.assert_requested("get", "/v1/credit_notes")
+
+    def test_billing_portal_session_create(self, request_mock):
+        stripe.billing_portal.Session.create(
+            customer="cus_xxxxxxxxxxxxx",
+            return_url="https://example.com/account",
+        )
+        request_mock.assert_requested("post", "/v1/billing_portal/sessions")
+
+    def test_billing_portal_configuration_create(self, request_mock):
+        stripe.billing_portal.Configuration.create(
+            features={
+                "customer_update": {
+                    "allowed_updates": ["email", "tax_id"],
+                    "enabled": True,
+                },
+                "invoice_history": {"enabled": True},
+            },
+            business_profile={
+                "privacy_policy_url": "https://example.com/privacy",
+                "terms_of_service_url": "https://example.com/terms",
+            },
+        )
+        request_mock.assert_requested(
+            "post", "/v1/billing_portal/configurations"
+        )
+
+    def test_billing_portal_configuration_update(self, request_mock):
+        stripe.billing_portal.Configuration.modify(
+            "bpc_xxxxxxxxxxxxx",
+            business_profile={
+                "privacy_policy_url": "https://example.com/privacy",
+                "terms_of_service_url": "https://example.com/terms",
+            },
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
+        )
+
+    def test_billing_portal_configuration_retrieve(self, request_mock):
+        stripe.billing_portal.Configuration.retrieve("bpc_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/billing_portal/configurations/bpc_xxxxxxxxxxxxx",
+        )
+
+    def test_billing_portal_configuration_list(self, request_mock):
+        stripe.billing_portal.Configuration.list(limit=3)
+        request_mock.assert_requested(
+            "get", "/v1/billing_portal/configurations"
+        )
 
     def test_invoice_create(self, request_mock):
         stripe.Invoice.create(customer="cus_xxxxxxxxxxxxx")
@@ -897,6 +969,17 @@ class TestGeneratedExamples(object):
         stripe.Transfer.list(limit=3)
         request_mock.assert_requested("get", "/v1/transfers")
 
+    def test_radar_earlyfraudwarning_retrieve(self, request_mock):
+        stripe.radar.EarlyFraudWarning.retrieve("issfr_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/radar/early_fraud_warnings/issfr_xxxxxxxxxxxxx",
+        )
+
+    def test_radar_earlyfraudwarning_list(self, request_mock):
+        stripe.radar.EarlyFraudWarning.list(limit=3)
+        request_mock.assert_requested("get", "/v1/radar/early_fraud_warnings")
+
     def test_review_approve(self, request_mock):
         stripe.Review.approve("prv_xxxxxxxxxxxxx")
         request_mock.assert_requested(
@@ -911,6 +994,316 @@ class TestGeneratedExamples(object):
     def test_review_list(self, request_mock):
         stripe.Review.list(limit=3)
         request_mock.assert_requested("get", "/v1/reviews")
+
+    def test_radar_valuelist_create(self, request_mock):
+        stripe.radar.ValueList.create(
+            alias="custom_ip_xxxxxxxxxxxxx",
+            name="Custom IP Blocklist",
+            item_type="ip_address",
+        )
+        request_mock.assert_requested("post", "/v1/radar/value_lists")
+
+    def test_radar_valuelist_retrieve(self, request_mock):
+        stripe.radar.ValueList.retrieve("rsl_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
+        )
+
+    def test_radar_valuelist_update(self, request_mock):
+        stripe.radar.ValueList.modify(
+            "rsl_xxxxxxxxxxxxx",
+            name="Updated IP Block List",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
+        )
+
+    def test_radar_valuelist_delete(self, request_mock):
+        stripe.radar.ValueList.delete("rsl_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "delete",
+            "/v1/radar/value_lists/rsl_xxxxxxxxxxxxx",
+        )
+
+    def test_radar_valuelist_list(self, request_mock):
+        stripe.radar.ValueList.list(limit=3)
+        request_mock.assert_requested("get", "/v1/radar/value_lists")
+
+    def test_radar_valuelistitem_create(self, request_mock):
+        stripe.radar.ValueListItem.create(
+            value_list="rsl_xxxxxxxxxxxxx",
+            value="1.2.3.4",
+        )
+        request_mock.assert_requested("post", "/v1/radar/value_list_items")
+
+    def test_radar_valuelistitem_retrieve(self, request_mock):
+        stripe.radar.ValueListItem.retrieve("rsli_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
+        )
+
+    def test_radar_valuelistitem_delete(self, request_mock):
+        stripe.radar.ValueListItem.delete("rsli_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "delete",
+            "/v1/radar/value_list_items/rsli_xxxxxxxxxxxxx",
+        )
+
+    def test_radar_valuelistitem_list(self, request_mock):
+        stripe.radar.ValueListItem.list(
+            limit=3, value_list="rsl_xxxxxxxxxxxxx"
+        )
+        request_mock.assert_requested("get", "/v1/radar/value_list_items")
+
+    def test_issuing_authorization_retrieve(self, request_mock):
+        stripe.issuing.Authorization.retrieve("iauth_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
+        )
+
+    def test_issuing_authorization_update(self, request_mock):
+        stripe.issuing.Authorization.modify(
+            "iauth_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx",
+        )
+
+    def test_issuing_authorization_approve(self, request_mock):
+        stripe.issuing.Authorization.approve("iauth_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/approve",
+        )
+
+    def test_issuing_authorization_decline(self, request_mock):
+        stripe.issuing.Authorization.decline("iauth_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/issuing/authorizations/iauth_xxxxxxxxxxxxx/decline",
+        )
+
+    def test_issuing_authorization_list(self, request_mock):
+        stripe.issuing.Authorization.list(limit=3)
+        request_mock.assert_requested("get", "/v1/issuing/authorizations")
+
+    def test_issuing_cardholder_create(self, request_mock):
+        stripe.issuing.Cardholder.create(
+            type="individual",
+            name="Jenny Rosen",
+            email="jenny.rosen@example.com",
+            phone_number="+18888675309",
+            billing={
+                "address": {
+                    "line1": "1234 Main Street",
+                    "city": "San Francisco",
+                    "state": "CA",
+                    "country": "US",
+                    "postal_code": "94111",
+                },
+            },
+        )
+        request_mock.assert_requested("post", "/v1/issuing/cardholders")
+
+    def test_issuing_cardholder_retrieve(self, request_mock):
+        stripe.issuing.Cardholder.retrieve("ich_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
+        )
+
+    def test_issuing_cardholder_update(self, request_mock):
+        stripe.issuing.Cardholder.modify(
+            "ich_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/issuing/cardholders/ich_xxxxxxxxxxxxx",
+        )
+
+    def test_issuing_cardholder_list(self, request_mock):
+        stripe.issuing.Cardholder.list(limit=3)
+        request_mock.assert_requested("get", "/v1/issuing/cardholders")
+
+    def test_issuing_card_create(self, request_mock):
+        stripe.issuing.Card.create(
+            cardholder="ich_xxxxxxxxxxxxx",
+            currency="usd",
+            type="virtual",
+        )
+        request_mock.assert_requested("post", "/v1/issuing/cards")
+
+    def test_issuing_card_retrieve(self, request_mock):
+        stripe.issuing.Card.retrieve("ic_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get", "/v1/issuing/cards/ic_xxxxxxxxxxxxx"
+        )
+
+    def test_issuing_card_update(self, request_mock):
+        stripe.issuing.Card.modify(
+            "ic_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
+        )
+        request_mock.assert_requested(
+            "post", "/v1/issuing/cards/ic_xxxxxxxxxxxxx"
+        )
+
+    def test_issuing_card_list(self, request_mock):
+        stripe.issuing.Card.list(limit=3)
+        request_mock.assert_requested("get", "/v1/issuing/cards")
+
+    def test_issuing_dispute_create(self, request_mock):
+        stripe.issuing.Dispute.create(
+            transaction="ipi_xxxxxxxxxxxxx",
+            evidence={
+                "reason": "fraudulent",
+                "fraudulent": {"explanation": "Purchase was unrecognized."},
+            },
+        )
+        request_mock.assert_requested("post", "/v1/issuing/disputes")
+
+    def test_issuing_dispute_submit(self, request_mock):
+        stripe.issuing.Dispute.submit("idp_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/issuing/disputes/idp_xxxxxxxxxxxxx/submit",
+        )
+
+    def test_issuing_dispute_retrieve(self, request_mock):
+        stripe.issuing.Dispute.retrieve("idp_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/issuing/disputes/idp_xxxxxxxxxxxxx",
+        )
+
+    def test_issuing_dispute_update(self, request_mock):
+        stripe.issuing.Dispute.modify(
+            "idp_xxxxxxxxxxxxx",
+            evidence={
+                "reason": "not_received",
+                "not_received": {
+                    "expected_at": 1590000000,
+                    "explanation": "",
+                    "product_description": "Baseball cap",
+                    "product_type": "merchandise",
+                },
+            },
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/issuing/disputes/idp_xxxxxxxxxxxxx",
+        )
+
+    def test_issuing_dispute_list(self, request_mock):
+        stripe.issuing.Dispute.list(limit=3)
+        request_mock.assert_requested("get", "/v1/issuing/disputes")
+
+    def test_issuing_transaction_retrieve(self, request_mock):
+        stripe.issuing.Transaction.retrieve("ipi_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
+        )
+
+    def test_issuing_transaction_update(self, request_mock):
+        stripe.issuing.Transaction.modify(
+            "ipi_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/issuing/transactions/ipi_xxxxxxxxxxxxx",
+        )
+
+    def test_issuing_transaction_list(self, request_mock):
+        stripe.issuing.Transaction.list(limit=3)
+        request_mock.assert_requested("get", "/v1/issuing/transactions")
+
+    def test_terminal_connectiontoken_create(self, request_mock):
+        stripe.terminal.ConnectionToken.create()
+        request_mock.assert_requested("post", "/v1/terminal/connection_tokens")
+
+    def test_terminal_location_create(self, request_mock):
+        stripe.terminal.Location.create(
+            display_name="My First Store",
+            address={
+                "line1": "1234 Main Street",
+                "city": "San Francisco",
+                "country": "US",
+                "postal_code": "94111",
+            },
+        )
+        request_mock.assert_requested("post", "/v1/terminal/locations")
+
+    def test_terminal_location_retrieve(self, request_mock):
+        stripe.terminal.Location.retrieve("tml_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/terminal/locations/tml_xxxxxxxxxxxxx",
+        )
+
+    def test_terminal_location_update(self, request_mock):
+        stripe.terminal.Location.modify(
+            "tml_xxxxxxxxxxxxx",
+            display_name="My First Store",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/terminal/locations/tml_xxxxxxxxxxxxx",
+        )
+
+    def test_terminal_location_delete(self, request_mock):
+        stripe.terminal.Location.delete("tml_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "delete",
+            "/v1/terminal/locations/tml_xxxxxxxxxxxxx",
+        )
+
+    def test_terminal_location_list(self, request_mock):
+        stripe.terminal.Location.list(limit=3)
+        request_mock.assert_requested("get", "/v1/terminal/locations")
+
+    def test_terminal_reader_create(self, request_mock):
+        stripe.terminal.Reader.create(
+            registration_code="puppies-plug-could",
+            label="Blue Rabbit",
+            location="tml_1234",
+        )
+        request_mock.assert_requested("post", "/v1/terminal/readers")
+
+    def test_terminal_reader_retrieve(self, request_mock):
+        stripe.terminal.Reader.retrieve("tmr_P400-123-456-789")
+        request_mock.assert_requested(
+            "get",
+            "/v1/terminal/readers/tmr_P400-123-456-789",
+        )
+
+    def test_terminal_reader_update(self, request_mock):
+        stripe.terminal.Reader.modify(
+            "tmr_P400-123-456-789", label="Blue Rabbit"
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/terminal/readers/tmr_P400-123-456-789",
+        )
+
+    def test_terminal_reader_delete(self, request_mock):
+        stripe.terminal.Reader.delete("tmr_P400-123-456-789")
+        request_mock.assert_requested(
+            "delete",
+            "/v1/terminal/readers/tmr_P400-123-456-789",
+        )
+
+    def test_terminal_reader_list(self, request_mock):
+        stripe.terminal.Reader.list(limit=3)
+        request_mock.assert_requested("get", "/v1/terminal/readers")
 
     def test_order_create(self, request_mock):
         stripe.Order.create(
@@ -984,6 +1377,49 @@ class TestGeneratedExamples(object):
     def test_sku_delete(self, request_mock):
         stripe.SKU.delete("sku_xxxxxxxxxxxxx")
         request_mock.assert_requested("delete", "/v1/skus/sku_xxxxxxxxxxxxx")
+
+    def test_sigma_scheduledqueryrun_retrieve(self, request_mock):
+        stripe.sigma.ScheduledQueryRun.retrieve("sqr_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx",
+        )
+
+    def test_sigma_scheduledqueryrun_list(self, request_mock):
+        stripe.sigma.ScheduledQueryRun.list(limit=3)
+        request_mock.assert_requested("get", "/v1/sigma/scheduled_query_runs")
+
+    def test_reporting_reportrun_create(self, request_mock):
+        stripe.reporting.ReportRun.create(
+            report_type="balance.summary.1",
+            parameters={
+                "interval_start": 1522540800,
+                "interval_end": 1525132800,
+            },
+        )
+        request_mock.assert_requested("post", "/v1/reporting/report_runs")
+
+    def test_reporting_reportrun_retrieve(self, request_mock):
+        stripe.reporting.ReportRun.retrieve("frr_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/reporting/report_runs/frr_xxxxxxxxxxxxx",
+        )
+
+    def test_reporting_reportrun_list(self, request_mock):
+        stripe.reporting.ReportRun.list(limit=3)
+        request_mock.assert_requested("get", "/v1/reporting/report_runs")
+
+    def test_reporting_reporttype_retrieve(self, request_mock):
+        stripe.reporting.ReportType.retrieve("balance.summary.1")
+        request_mock.assert_requested(
+            "get",
+            "/v1/reporting/report_types/balance.summary.1",
+        )
+
+    def test_reporting_reporttype_list(self, request_mock):
+        stripe.reporting.ReportType.list()
+        request_mock.assert_requested("get", "/v1/reporting/report_types")
 
     def test_webhookendpoint_create(self, request_mock):
         stripe.WebhookEndpoint.create(
