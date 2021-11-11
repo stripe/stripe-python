@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.62.0 - 2021-11-11
+* [#745](https://github.com/stripe/stripe-python/pull/745) API Updates
+  * Add support for `expire` method on resource `Checkout.Session`
+
 ## 2.61.0 - 2021-10-11
 * [#738](https://github.com/stripe/stripe-python/pull/738) API Updates
   * Add support for `list_payment_methods` method on resource `Customer`
