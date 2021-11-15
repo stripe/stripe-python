@@ -1562,10 +1562,3 @@ class TestGeneratedExamples(object):
             "get",
             "/v1/customers/cus_xyz/payment_methods",
         )
-
-    def test_checkout_session_expire(self, request_mock):
-        stripe.checkout.Session.expire("sess_xyz")
-        request_mock.assert_requested(
-            "post",
-            "/v1/checkout/sessions/sess_xyz/expire",
-        )
