@@ -14,3 +14,4 @@ class WebhookEndpoint(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "webhook_endpoint"
+

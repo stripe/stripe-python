@@ -76,6 +76,7 @@ OBJECT_CLASSES = {
     api_resources.Review.OBJECT_NAME: api_resources.Review,
     api_resources.SetupAttempt.OBJECT_NAME: api_resources.SetupAttempt,
     api_resources.SetupIntent.OBJECT_NAME: api_resources.SetupIntent,
+    api_resources.ShippingRate.OBJECT_NAME: api_resources.ShippingRate,
     api_resources.sigma.ScheduledQueryRun.OBJECT_NAME: api_resources.sigma.ScheduledQueryRun,
     api_resources.SKU.OBJECT_NAME: api_resources.SKU,
     api_resources.Source.OBJECT_NAME: api_resources.Source,
