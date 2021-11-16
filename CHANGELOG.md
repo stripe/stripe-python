@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.63.0 - 2021-11-16
+* [#748](https://github.com/stripe/stripe-python/pull/748) API Updates
+  * Add support for new resource `ShippingRate`
+
 ## 2.62.0 - 2021-11-11
 * [#745](https://github.com/stripe/stripe-python/pull/745) API Updates
   * Add support for `expire` method on resource `Checkout.Session`
