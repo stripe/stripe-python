@@ -1569,3 +1569,35 @@ class TestGeneratedExamples(object):
             "post",
             "/v1/checkout/sessions/sess_xyz/expire",
         )
+
+    def test_shippingrate_create(self, request_mock):
+        stripe.ShippingRate.create(
+            display_name="Sample Shipper",
+            fixed_amount={"currency": "usd", "amount": 400},
+            type="fixed_amount",
+        )
+        request_mock.assert_requested("post", "/v1/shipping_rates")
+
+    def test_shippingrate_list(self, request_mock):
+        stripe.ShippingRate.list()
+        request_mock.assert_requested("get", "/v1/shipping_rates")
+
+    def test_checkout_session_create2(self, request_mock):
+        stripe.checkout.Session.create(
+            success_url="https://example.com/success",
+            cancel_url="https://example.com/cancel",
+            mode="payment",
+            shipping_options=[
+                {"shipping_rate": "shr_standard"},
+                {
+                    "shipping_rate_data": {
+                        "display_name": "Standard",
+                        "delivery_estimate": {
+                            "minimum": {"unit": "day", "value": 5},
+                            "maximum": {"unit": "day", "value": 7},
+                        },
+                    },
+                },
+            ],
+        )
+        request_mock.assert_requested("post", "/v1/checkout/sessions")
