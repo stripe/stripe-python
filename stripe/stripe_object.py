@@ -100,10 +100,11 @@ class StripeObject(dict):
     def __setitem__(self, k, v):
         if v == "":
             raise ValueError(
-                "You cannot set %s to an empty string. "
-                "We interpret empty strings as None in requests."
-                "You may set %s.%s = None to delete the property"
-                % (k, str(self), k)
+                "You cannot set %s to an empty string on this object. "
+                "The empty string is treated specially in our requests. "
+                "If you'd like to delete the property using the save() method on this object, you may set %s.%s = None. "
+                "Alternatively, you can pass %s='' to delete the property when using a resource method such as modify()."
+                % (k, str(self), k, k)
             )
 
         # Allows for unpickling in Python 3.x
