@@ -40,8 +40,10 @@ class Customer(
     def list_payment_methods(self, idempotency_key=None, **params):
         url = self.instance_url() + "/payment_methods"
         headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("get", url, params, headers))
-        return self
+        resp = self.request("get", url, params, headers)
+        stripe_object = util.convert_to_stripe_object(resp)
+        stripe_object._retrieve_params = params
+        return stripe_object
 
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(
