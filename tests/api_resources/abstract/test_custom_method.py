@@ -9,6 +9,9 @@ class TestCustomMethod(object):
         "do_stuff", http_verb="post", http_path="do_the_thing"
     )
     @stripe.api_resources.abstract.custom_method(
+        "do_list_stuff", http_verb="get", http_path="do_the_list_thing"
+    )
+    @stripe.api_resources.abstract.custom_method(
         "do_stream_stuff",
         http_verb="post",
         http_path="do_the_stream_thing",
@@ -42,6 +45,60 @@ class TestCustomMethod(object):
             "post", "/v1/myresources/mid/do_the_thing", {"foo": "bar"}
         )
         assert obj.thing_done is True
+
+    def test_call_custom_list_method_class_paginates(self, request_mock):
+        request_mock.stub_request(
+            "get",
+            "/v1/myresources/mid/do_the_list_thing",
+            {
+                "object": "list",
+                "url": "/v1/myresources/mid/do_the_list_thing",
+                "has_more": True,
+                "data": [
+                    {"id": "cus_1", "object": "customer"},
+                    {"id": "cus_2", "object": "customer"},
+                ],
+            },
+            rheaders={"request-id": "req_123"},
+        )
+
+        resp = self.MyResource.do_list_stuff("mid", param1="abc", param2="def")
+
+        request_mock.assert_requested(
+            "get",
+            "/v1/myresources/mid/do_the_list_thing",
+            {"param1": "abc", "param2": "def"},
+        )
+
+        # Stub out the second request which will happen automatically.
+        request_mock.stub_request(
+            "get",
+            "/v1/myresources/mid/do_the_list_thing",
+            {
+                "object": "list",
+                "url": "/v1/myresources/mid/do_the_list_thing",
+                "has_more": False,
+                "data": [
+                    {"id": "cus_3", "object": "customer"},
+                ],
+            },
+            rheaders={"request-id": "req_123"},
+        )
+
+        # Iterate through entire content
+        ids = []
+        for i in resp.auto_paging_iter():
+            ids.append(i.id)
+
+        # Explicitly assert that the pagination parameter were kept for the
+        # second request along with the starting_after param.
+        request_mock.assert_requested(
+            "get",
+            "/v1/myresources/mid/do_the_list_thing",
+            {"starting_after": "cus_2", "param1": "abc", "param2": "def"},
+        )
+
+        assert ids == ["cus_1", "cus_2", "cus_3"]
 
     def test_call_custom_stream_method_class(self, request_mock):
         request_mock.stub_request_stream(
