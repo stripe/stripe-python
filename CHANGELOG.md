@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.64.0 - 2021-12-21
+* [#757](https://github.com/stripe/stripe-python/pull/757) Update class custom methods to save list object parameters.
+* [#756](https://github.com/stripe/stripe-python/pull/756) Introduce custom listing methods on objects.
+* [#754](https://github.com/stripe/stripe-python/pull/754) Clarify metadata deletion message.
+
 ## 2.63.0 - 2021-11-16
 * [#748](https://github.com/stripe/stripe-python/pull/748) API Updates
   * Add support for new resource `ShippingRate`
