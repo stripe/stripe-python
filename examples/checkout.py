@@ -28,6 +28,7 @@ def load_dot_env():
                     key, value = line.split('=', 1)
                     os.environ[key] = value
 
+
 load_dot_env()
 stripe.api_key = os.environ['STRIPE_SECRET_KEY']
 
