@@ -35,7 +35,6 @@ stripe.api_key = os.environ['STRIPE_SECRET_KEY']
 base_url = 'http://[::1]:5000'      # use localhost (ipv4 is http://127.0.0.1) in development
 # base_url = 'https://lenerva.com'  # use domain in production
 
-
 # in the backend,
 #  handle success and cancel redirects
 #  ensure that the payment_status == 'paid' before processing the order
