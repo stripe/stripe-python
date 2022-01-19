@@ -14,3 +14,4 @@ class SKU(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "sku"
+

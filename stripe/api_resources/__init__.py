@@ -34,9 +34,7 @@ from stripe.api_resources.coupon import Coupon
 from stripe.api_resources.credit_note import CreditNote
 from stripe.api_resources.credit_note_line_item import CreditNoteLineItem
 from stripe.api_resources.customer import Customer
-from stripe.api_resources.customer_balance_transaction import (
-    CustomerBalanceTransaction,
-)
+from stripe.api_resources.customer_balance_transaction import CustomerBalanceTransaction
 from stripe.api_resources.dispute import Dispute
 from stripe.api_resources.ephemeral_key import EphemeralKey
 from stripe.api_resources.event import Event
@@ -54,6 +52,7 @@ from stripe.api_resources.mandate import Mandate
 from stripe.api_resources.order import Order
 from stripe.api_resources.order_return import OrderReturn
 from stripe.api_resources.payment_intent import PaymentIntent
+from stripe.api_resources.payment_link import PaymentLink
 from stripe.api_resources.payment_method import PaymentMethod
 from stripe.api_resources.payout import Payout
 from stripe.api_resources.person import Person

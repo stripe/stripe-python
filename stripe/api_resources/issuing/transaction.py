@@ -7,3 +7,4 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 class Transaction(ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "issuing.transaction"
+

@@ -56,6 +56,7 @@ OBJECT_CLASSES = {
     api_resources.Order.OBJECT_NAME: api_resources.Order,
     api_resources.OrderReturn.OBJECT_NAME: api_resources.OrderReturn,
     api_resources.PaymentIntent.OBJECT_NAME: api_resources.PaymentIntent,
+    api_resources.PaymentLink.OBJECT_NAME: api_resources.PaymentLink,
     api_resources.PaymentMethod.OBJECT_NAME: api_resources.PaymentMethod,
     api_resources.Payout.OBJECT_NAME: api_resources.Payout,
     api_resources.Person.OBJECT_NAME: api_resources.Person,

@@ -10,16 +10,14 @@ from stripe.api_resources.abstract import custom_method
 
 
 @custom_method("capture", http_verb="post")
-class Charge(
-    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
-):
+class Charge(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "charge"
-
     def capture(self, idempotency_key=None, **params):
         url = self.instance_url() + "/capture"
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
+
 
     def refund(self, idempotency_key=None, **params):
         url = self.instance_url() + "/refund"
@@ -64,3 +62,4 @@ class Charge(
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
+
