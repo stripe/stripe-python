@@ -2,67 +2,77 @@ name: Python package
 
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   lint:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 2
-      uses: actions/setup-python@v2
-      with:
-        python-version: 2.7
-    - name: lint
-      run: make lint
-
+      - uses: actions/checkout@v2
+      - name: Set up Python 2
+        uses: actions/setup-python@v2
+        with:
+          python-version: "2.7"
+      - name: lint
+        run: make lint
 
   fmt:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - name: Set up Python 3
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.9
-    - name: fmtcheck
-      run: make fmtcheck
+      - uses: actions/checkout@v2
+      - name: Set up Python 3
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+      - name: fmtcheck
+        run: make fmtcheck
 
   build:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [2.7, 3.5, 3.6, 3.7, 3.8, 3.9, pypy-2.7, pypy-3.7]
+        python-version:
+          [
+            "2.7",
+            "3.5",
+            "3.6",
+            "3.7",
+            "3.8",
+            "3.9",
+            "3.10",
+            "pypy-2.7",
+            "pypy-3.7",
+          ]
 
     steps:
-    - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Upgrade pip and virtualenv to latest
-      run: pip install --upgrade pip virtualenv
-    - name: Get pip cache dir
-      id: pip-cache
-      run: |
-        python -c "from pip._internal.locations import USER_CACHE_DIR; print('::set-output name=dir::' + USER_CACHE_DIR)"
-    - name: pip cache
-      uses: actions/cache@v2
-      with:
-        path: ${{ steps.pip-cache.outputs.dir }}
-        key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Upgrade pip and virtualenv to latest
+        run: pip install --upgrade pip virtualenv
+      - name: Get pip cache dir
+        id: pip-cache
+        run: |
+          python -c "from pip._internal.locations import USER_CACHE_DIR; print('::set-output name=dir::' + USER_CACHE_DIR)"
+      - name: pip cache
+        uses: actions/cache@v2
+        with:
+          path: ${{ steps.pip-cache.outputs.dir }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('setup.py') }}
+          restore-keys: |
+            ${{ runner.os }}-pip-
 
-    # Might be sensible to cache the docker image but this seems to be
-    # not fully supported by github actions yet, as of Feb 2021
-    # https://github.com/actions/cache/issues/81
-    - name: Start stripe-mock
-      run: docker run -d -p 12111-12112:12111-12112 stripe/stripe-mock && sleep 5
+      # Might be sensible to cache the docker image but this seems to be
+      # not fully supported by github actions yet, as of Feb 2021
+      # https://github.com/actions/cache/issues/81
+      - name: Start stripe-mock
+        run: docker run -d -p 12111-12112:12111-12112 stripe/stripe-mock && sleep 5
 
-    - name: Test with pytest
-      run: make test
+      - name: Test with pytest
+        run: make test
