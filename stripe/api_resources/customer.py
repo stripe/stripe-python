@@ -36,6 +36,7 @@ class Customer(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "customer"
+
     def list_payment_methods(self, idempotency_key=None, **params):
         url = self.instance_url() + "/payment_methods"
         headers = util.populate_headers(idempotency_key)
@@ -43,7 +44,6 @@ class Customer(
         stripe_object = util.convert_to_stripe_object(resp)
         stripe_object._retrieve_params = params
         return stripe_object
-
 
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(
@@ -54,4 +54,3 @@ class Customer(
         url = self.instance_url() + "/discount"
         _, api_key = requestor.request("delete", url, params)
         self.refresh_from({"discount": None}, api_key, True)
-

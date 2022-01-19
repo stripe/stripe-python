@@ -18,4 +18,3 @@ class ApplicationFee(ListableAPIResource):
         url = self.instance_url() + "/refund"
         self.refresh_from(self.request("post", url, params, headers))
         return self
-

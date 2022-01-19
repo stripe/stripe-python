@@ -6,4 +6,3 @@ from stripe.api_resources.abstract import APIResource
 
 class Mandate(APIResource):
     OBJECT_NAME = "mandate"
-
