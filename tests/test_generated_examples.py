@@ -1601,3 +1601,27 @@ class TestGeneratedExamples(object):
             ],
         )
         request_mock.assert_requested("post", "/v1/checkout/sessions")
+
+    def test_paymentintent_create2(self, request_mock):
+        stripe.PaymentIntent.create(
+            amount=1099,
+            currency="eur",
+            automatic_payment_methods={"enabled": True},
+        )
+        request_mock.assert_requested("post", "/v1/payment_intents")
+
+    def test_paymentlink_create(self, request_mock):
+        stripe.PaymentLink.create(
+            line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
+        )
+        request_mock.assert_requested("post", "/v1/payment_links")
+
+    def test_paymentlink_list_line_items(self, request_mock):
+        stripe.PaymentLink.list_line_items("pl_xyz")
+        request_mock.assert_requested(
+            "get", "/v1/payment_links/pl_xyz/line_items"
+        )
+
+    def test_paymentlink_retrieve(self, request_mock):
+        stripe.PaymentLink.retrieve("pl_xyz")
+        request_mock.assert_requested("get", "/v1/payment_links/pl_xyz")
