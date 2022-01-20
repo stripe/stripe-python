@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.65.0 - 2022-01-20
+* [#766](https://github.com/stripe/stripe-python/pull/766) API Updates
+  * Add support for new resource `PaymentLink`
+* [#763](https://github.com/stripe/stripe-python/pull/763) Start testing Python 3.10
+
 ## 2.64.0 - 2021-12-21
 * [#757](https://github.com/stripe/stripe-python/pull/757) Update class custom methods to save list object parameters.
 * [#756](https://github.com/stripe/stripe-python/pull/756) Introduce custom listing methods on objects.
