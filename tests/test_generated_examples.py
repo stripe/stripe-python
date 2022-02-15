@@ -1625,3 +1625,17 @@ class TestGeneratedExamples(object):
     def test_paymentlink_retrieve(self, request_mock):
         stripe.PaymentLink.retrieve("pl_xyz")
         request_mock.assert_requested("get", "/v1/payment_links/pl_xyz")
+
+    def test_paymentintent_verify_microdeposits(self, request_mock):
+        stripe.PaymentIntent.verify_microdeposits("pi_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
+        )
+
+    def test_setupintent_verify_microdeposits(self, request_mock):
+        stripe.SetupIntent.verify_microdeposits("seti_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
+        )
