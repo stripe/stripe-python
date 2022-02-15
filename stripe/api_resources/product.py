@@ -14,3 +14,4 @@ class Product(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "product"
+

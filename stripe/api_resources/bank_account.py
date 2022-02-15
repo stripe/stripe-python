@@ -62,3 +62,4 @@ class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
             "Use customer.sources.retrieve('bank_account_id') or "
             "account.external_accounts.retrieve('bank_account_id') instead."
         )
+

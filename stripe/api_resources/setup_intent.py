@@ -10,13 +10,13 @@ from stripe.api_resources.abstract import custom_method
 
 @custom_method("cancel", http_verb="post")
 @custom_method("confirm", http_verb="post")
+@custom_method("verify_microdeposits", http_verb="post")
 class SetupIntent(
     CreateableAPIResource,
     ListableAPIResource,
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "setup_intent"
-
     def cancel(self, idempotency_key=None, **params):
         url = self.instance_url() + "/cancel"
         headers = util.populate_headers(idempotency_key)
@@ -28,3 +28,11 @@ class SetupIntent(
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
+
+    def verify_microdeposits(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/verify_microdeposits"
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("post", url, params, headers))
+        return self
+
+

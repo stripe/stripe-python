@@ -13,3 +13,4 @@ class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
 
     def details(self, idempotency_key=None, **params):
         return self.request("get", self.instance_url() + "/details", params)
+
