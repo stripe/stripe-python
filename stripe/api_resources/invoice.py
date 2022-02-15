@@ -22,6 +22,7 @@ class Invoice(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "invoice"
+
     def finalize_invoice(self, idempotency_key=None, **params):
         url = self.instance_url() + "/finalize"
         headers = util.populate_headers(idempotency_key)
@@ -52,7 +53,6 @@ class Invoice(
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
-
     @classmethod
     def upcoming(
         cls, api_key=None, stripe_version=None, stripe_account=None, **params
@@ -65,4 +65,3 @@ class Invoice(
         return util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account
         )
-

@@ -14,4 +14,3 @@ class Coupon(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "coupon"
-
