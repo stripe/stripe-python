@@ -46,7 +46,9 @@ def custom_method(name, http_verb, http_path=None, is_streaming=False):
                 quote_plus(util.utf8(sid)),
                 http_path,
             )
-            return resource_cls._static_request_stream(http_verb, url, **params)
+            return resource_cls._static_request_stream(
+                http_verb, url, **params
+            )
 
         if is_streaming:
             class_method_impl = classmethod(custom_method_request_stream)

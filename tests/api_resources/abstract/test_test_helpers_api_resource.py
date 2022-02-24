@@ -1,18 +1,17 @@
 from __future__ import absolute_import, division, print_function
 
-import pytest
-
 import stripe
 from stripe import util
 
 
 class TestTestHelperAPIResource(object):
-
     @stripe.api_resources.abstract.test_helpers
     class MyTestHelpersResource(stripe.api_resources.abstract.APIResource):
         OBJECT_NAME = "myresource"
 
-        @stripe.api_resources.abstract.custom_method("do_stuff", http_verb="post", http_path="do_the_thing")
+        @stripe.api_resources.abstract.custom_method(
+            "do_stuff", http_verb="post", http_path="do_the_thing"
+        )
         class TestHelpers:
             def __init__(self, resource):
                 self.resource = resource
@@ -20,9 +19,10 @@ class TestTestHelperAPIResource(object):
             def do_stuff(self, idempotency_key=None, **params):
                 url = self.resource.instance_url() + "/do_the_thing"
                 headers = util.populate_headers(idempotency_key)
-                self.resource.refresh_from(self.resource.request("post", url, params, headers))
+                self.resource.refresh_from(
+                    self.resource.request("post", url, params, headers)
+                )
                 return self.resource
-
 
     def test_call_custom_method_class(self, request_mock):
         request_mock.stub_request(
