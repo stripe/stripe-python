@@ -23,6 +23,8 @@ from stripe.api_resources.abstract.verify_mixin import VerifyMixin
 
 from stripe.api_resources.abstract.custom_method import custom_method
 
+from stripe.api_resources.abstract.test_helpers import test_helpers
+
 from stripe.api_resources.abstract.nested_resource_class_methods import (
     nested_resource_class_methods,
 )
