@@ -1,9 +1,12 @@
 # Changelog
 
+## 2.67.0 - 2022-03-01
+* [#774](https://github.com/stripe/stripe-python/pull/774) API Updates
+  * Add support for new resource `TestHelpers.TestClock`
+
 ## 2.66.0 - 2022-02-16
 * [#771](https://github.com/stripe/stripe-python/pull/771) API Updates
   * Add support for `verify_microdeposits` method on resources `PaymentIntent` and `SetupIntent`
-  
 
 ## 2.65.0 - 2022-01-20
 * [#766](https://github.com/stripe/stripe-python/pull/766) API Updates
