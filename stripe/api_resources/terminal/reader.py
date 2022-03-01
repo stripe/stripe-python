@@ -14,4 +14,3 @@ class Reader(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "terminal.reader"
-

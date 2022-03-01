@@ -14,4 +14,3 @@ class Plan(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "plan"
-

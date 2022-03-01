@@ -8,4 +8,3 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 class Price(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "price"
-

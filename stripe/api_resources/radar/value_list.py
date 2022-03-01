@@ -14,4 +14,3 @@ class ValueList(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "radar.value_list"
-

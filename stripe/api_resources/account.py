@@ -35,12 +35,12 @@ class Account(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "account"
+
     def reject(self, idempotency_key=None, **params):
         url = self.instance_url() + "/reject"
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
-
 
     # We are not adding a helper for capabilities here as the Account object already has a
     # capabilities property which is a hash and not the sub-list of capabilities.
@@ -88,4 +88,3 @@ class Account(
                 params[k] = v.serialize(previous.get(k, None))
 
         return params
-

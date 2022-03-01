@@ -14,4 +14,3 @@ class InvoiceItem(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "invoiceitem"
-

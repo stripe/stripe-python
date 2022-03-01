@@ -6,6 +6,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 
 
-class Refund(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+class Refund(
+    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
+):
     OBJECT_NAME = "refund"
-
