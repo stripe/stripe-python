@@ -6,3 +6,4 @@ from stripe.api_resources.abstract import APIResource
 
 class LineItem(APIResource):
     OBJECT_NAME = "item"
+
