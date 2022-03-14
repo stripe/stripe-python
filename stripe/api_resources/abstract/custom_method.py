@@ -14,23 +14,13 @@ def custom_method(name, http_verb, http_path=None, is_streaming=False):
         http_path = name
 
     def wrapper(cls):
-        # Custom method can be defined on the resource class or TestHelpers class
-        # In TestHelpers case, the _resource_cls attribute will contain the
-        # resource implementation
-        def get_resource_class(cls):
-            resource_cls = getattr(cls, "_resource_cls", None)
-            if resource_cls is None:
-                resource_cls = cls
-            return resource_cls
-
         def custom_method_request(cls, sid, **params):
-            resource_cls = get_resource_class(cls)
             url = "%s/%s/%s" % (
-                resource_cls.class_url(),
+                cls.class_url(),
                 quote_plus(util.utf8(sid)),
                 http_path,
             )
-            obj = resource_cls._static_request(http_verb, url, **params)
+            obj = cls._static_request(http_verb, url, **params)
 
             # For list objects, we have to attach the parameters so that they
             # can be referenced in auto-pagination and ensure consistency.
@@ -40,15 +30,12 @@ def custom_method(name, http_verb, http_path=None, is_streaming=False):
             return obj
 
         def custom_method_request_stream(cls, sid, **params):
-            resource_cls = get_resource_class(cls)
             url = "%s/%s/%s" % (
-                resource_cls.class_url(),
+                cls.class_url(),
                 quote_plus(util.utf8(sid)),
                 http_path,
             )
-            return resource_cls._static_request_stream(
-                http_verb, url, **params
-            )
+            return cls._static_request_stream(http_verb, url, **params)
 
         if is_streaming:
             class_method_impl = classmethod(custom_method_request_stream)
