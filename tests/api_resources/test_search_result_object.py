@@ -89,7 +89,7 @@ class TestSearchResultObject(object):
         next_sro = sro.next_search_result_page()
 
         request_mock.assert_requested(
-            "get", "/things", {"next_page": "next_page_token"}, None
+            "get", "/things", {"page": "next_page_token"}, None
         )
         assert not next_sro.is_empty
         assert next_sro.data[0].id == 2
@@ -114,6 +114,7 @@ class TestSearchResultObject(object):
                 "object": "list",
                 "data": [{"id": 2}],
                 "has_more": False,
+                "next_page": None,
                 "url": "/things",
             },
         )
@@ -122,7 +123,7 @@ class TestSearchResultObject(object):
         assert next_sro._retrieve_params == {
             "expand": ["data.source"],
             "limit": 3,
-            "next_page": "next_page_token",
+            "page": "next_page_token",
         }
 
     def test_next_search_result_page_empty_search_result(self):
@@ -131,6 +132,7 @@ class TestSearchResultObject(object):
                 "object": "list",
                 "data": [{"id": 1}],
                 "has_more": False,
+                "next_page": None,
                 "url": "/things",
             },
             None,
@@ -171,10 +173,8 @@ class TestAutoPaging:
             "url": "/v1/pageablemodels",
             "data": [{"id": id, "object": "pageablemodel"} for id in ids],
             "has_more": has_more,
+            "next_page": next_page_token
         }
-
-        if next_page_token is not None:
-            model["next_page"] = next_page_token
 
         return model
 
@@ -208,7 +208,7 @@ class TestAutoPaging:
         request_mock.assert_requested(
             "get",
             "/v1/pageablemodels",
-            {"next_page": "token", "foo": "bar"},
+            {"page": "token", "foo": "bar"},
             None,
         )
 

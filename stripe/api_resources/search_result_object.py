@@ -78,7 +78,7 @@ class SearchResultObject(StripeObject):
         cls, api_key=None, stripe_version=None, stripe_account=None
     ):
         return cls.construct_from(
-            {"data": [], "has_more": False},
+            {"data": [], "has_more": False, "next_page": None},
             key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
@@ -100,7 +100,7 @@ class SearchResultObject(StripeObject):
             )
 
         params_with_filters = self._retrieve_params.copy()
-        params_with_filters.update({"next_page": self.next_page})
+        params_with_filters.update({"page": self.next_page})
         params_with_filters.update(params)
 
         return self.search(
