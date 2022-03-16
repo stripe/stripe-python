@@ -173,7 +173,7 @@ class TestAutoPaging:
             "url": "/v1/pageablemodels",
             "data": [{"id": id, "object": "pageablemodel"} for id in ids],
             "has_more": has_more,
-            "next_page": next_page_token
+            "next_page": next_page_token,
         }
 
         return model
