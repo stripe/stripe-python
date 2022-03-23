@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.68.0 - 2022-03-23
+* [#781](https://github.com/stripe/stripe-python/pull/781) API Updates
+  * Add support for `cancel` method on resource `Refund`
+* [#777](https://github.com/stripe/stripe-python/pull/777) Add support for SearchResult.
+
 ## 2.67.0 - 2022-03-01
 * [#774](https://github.com/stripe/stripe-python/pull/774) API Updates
   * Add support for new resource `TestHelpers.TestClock`
