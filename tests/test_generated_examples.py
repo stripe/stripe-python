@@ -122,8 +122,7 @@ class TestGeneratedExamples(object):
 
     def test_filelink_update(self, request_mock):
         stripe.FileLink.modify(
-            "link_xxxxxxxxxxxxx",
-            metadata={"order_id": "6735"},
+            "link_xxxxxxxxxxxxx", metadata={"order_id": "6735"}
         )
         request_mock.assert_requested(
             "post", "/v1/file_links/link_xxxxxxxxxxxxx"
@@ -504,8 +503,7 @@ class TestGeneratedExamples(object):
 
     def test_creditnote_update(self, request_mock):
         stripe.CreditNote.modify(
-            "cn_xxxxxxxxxxxxx",
-            metadata={"order_id": "6735"},
+            "cn_xxxxxxxxxxxxx", metadata={"order_id": "6735"}
         )
         request_mock.assert_requested(
             "post", "/v1/credit_notes/cn_xxxxxxxxxxxxx"
@@ -663,8 +661,7 @@ class TestGeneratedExamples(object):
 
     def test_invoiceitem_update(self, request_mock):
         stripe.InvoiceItem.modify(
-            "ii_xxxxxxxxxxxxx",
-            metadata={"order_id": "6735"},
+            "ii_xxxxxxxxxxxxx", metadata={"order_id": "6735"}
         )
         request_mock.assert_requested(
             "post", "/v1/invoiceitems/ii_xxxxxxxxxxxxx"
