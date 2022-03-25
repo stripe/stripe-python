@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
+import pytest
 from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 
@@ -42,7 +43,7 @@ class TestTestHelperAPIResource(object):
         )
         assert obj.thing_done is True
 
-    def test_call_custom_method_instance(self, request_mock):
+    def test_call_custom_method_instance_via_property(self, request_mock):
         request_mock.stub_request(
             "post",
             "/v1/test_helpers/myresources/mid/do_the_thing",
@@ -59,3 +60,7 @@ class TestTestHelperAPIResource(object):
             {"foo": "bar"},
         )
         assert obj.thing_done is True
+
+    def test_helper_decorator_raises_for_non_resource(self):
+        with pytest.raises(ValueError):
+            stripe.api_resources.abstract.test_helpers(str)

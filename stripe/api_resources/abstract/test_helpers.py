@@ -2,9 +2,15 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import error, util, six
 from stripe.six.moves.urllib.parse import quote_plus
+from stripe.api_resources.abstract import APIResource
 
 
 class APIResourceTestHelpers:
+    """
+    The base type for the TestHelper nested classes.
+    Handles request URL generation for test_helper custom methods.
+    """
+
     def __init__(self, resource):
         self.resource = resource
 
@@ -38,8 +44,27 @@ class APIResourceTestHelpers:
 
 
 def test_helpers(cls):
+    """
+    test_helpers decorator adds a test_helpers property and
+    wires the parent resource class to the nested TestHelpers class.
+
+    Should only be used on types that inherit from APIResource
+
+    @test_helpers
+    class Foo(APIResource):
+
+      class TestHelpers(APIResourceTestHelpers):
+
+    """
+
     def test_helpers_getter(self):
         return self.TestHelpers(self)
+
+    if not issubclass(cls, APIResource):
+        raise ValueError(
+            "Could not apply @test_helpers decorator to %r."
+            " The class should a subclass of APIResource." % cls
+        )
 
     cls.TestHelpers._resource_cls = cls
     cls.TestHelpers._static_request = cls._static_request
