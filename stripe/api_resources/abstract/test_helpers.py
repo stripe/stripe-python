@@ -9,6 +9,11 @@ class APIResourceTestHelpers:
     """
     The base type for the TestHelper nested classes.
     Handles request URL generation for test_helper custom methods.
+    Should be used in combination with the @test_helpers decorator.
+
+    @test_helpers
+    class Foo(APIResource):
+      class TestHelpers(APIResourceTestHelpers):
     """
 
     def __init__(self, resource):
@@ -48,13 +53,11 @@ def test_helpers(cls):
     test_helpers decorator adds a test_helpers property and
     wires the parent resource class to the nested TestHelpers class.
 
-    Should only be used on types that inherit from APIResource
+    Should only be used on types that inherit from APIResource.
 
     @test_helpers
     class Foo(APIResource):
-
       class TestHelpers(APIResourceTestHelpers):
-
     """
 
     def test_helpers_getter(self):
