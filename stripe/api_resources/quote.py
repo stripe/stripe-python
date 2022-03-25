@@ -1,8 +1,7 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-import stripe
-from stripe import api_requestor
+from stripe import api_requestor, upload_api_base
 from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
@@ -74,7 +73,7 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         )
         requestor = api_requestor.APIRequestor(
             api_key,
-            api_base=stripe.upload_api_base,
+            api_base=upload_api_base,
             api_version=stripe_version,
             account=stripe_account,
         )
@@ -94,7 +93,7 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         version = api_version or stripe_version
         requestor = api_requestor.APIRequestor(
             api_key,
-            api_base=stripe.upload_api_base,
+            api_base=upload_api_base,
             api_version=version,
             account=stripe_account,
         )
