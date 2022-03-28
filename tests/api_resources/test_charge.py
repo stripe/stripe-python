@@ -13,6 +13,20 @@ class TestCharge(object):
         assert isinstance(resources.data, list)
         assert isinstance(resources.data[0], stripe.Charge)
 
+    def test_is_searchable(self, request_mock):
+        resources = stripe.Charge.search(query="currency:\"USD\"")
+        request_mock.assert_requested("get", "/v1/charges/search", {'query': 'currency:"USD"'})
+        assert resources.total_count == 1
+        assert isinstance(resources.data, list)
+        assert isinstance(resources.data[0], stripe.Charge)
+
+        cnt = 0
+        for c in resources.auto_paging_iter():
+            assert isinstance(c, stripe.Charge)
+            cnt += 1
+
+        assert cnt == 1
+
     def test_is_retrievable(self, request_mock):
         resource = stripe.Charge.retrieve(TEST_RESOURCE_ID)
         request_mock.assert_requested(
