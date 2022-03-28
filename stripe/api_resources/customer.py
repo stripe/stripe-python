@@ -6,6 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import custom_method
 from stripe.api_resources.abstract import nested_resource_class_methods
@@ -33,6 +34,7 @@ class Customer(
     CreateableAPIResource,
     DeletableAPIResource,
     ListableAPIResource,
+    SearchableAPIResource,
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "customer"
@@ -44,6 +46,14 @@ class Customer(
         stripe_object = util.convert_to_stripe_object(resp)
         stripe_object._retrieve_params = params
         return stripe_object
+
+    @classmethod
+    def search(cls, *args, **kwargs):
+        return cls._search(search_url="/v1/customers/search", *args, **kwargs)
+
+    @classmethod
+    def search_auto_paging_iter(cls, *args, **kwargs):
+        return cls.search(*args, **kwargs).auto_paging_iter()
 
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(
