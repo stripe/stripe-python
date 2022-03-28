@@ -14,8 +14,10 @@ class TestCharge(object):
         assert isinstance(resources.data[0], stripe.Charge)
 
     def test_is_searchable(self, request_mock):
-        resources = stripe.Charge.search(query="currency:\"USD\"")
-        request_mock.assert_requested("get", "/v1/charges/search", {'query': 'currency:"USD"'})
+        resources = stripe.Charge.search(query='currency:"USD"')
+        request_mock.assert_requested(
+            "get", "/v1/charges/search", {"query": 'currency:"USD"'}
+        )
         assert resources.total_count == 1
         assert isinstance(resources.data, list)
         assert isinstance(resources.data[0], stripe.Charge)
