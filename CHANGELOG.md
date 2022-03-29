@@ -1,5 +1,13 @@
 # Changelog
 
+## 2.69.0 - 2022-03-29
+* [#783](https://github.com/stripe/stripe-python/pull/783) API Updates
+  * Add support for Search API
+    * Add support for `search` method on resources `Charge`, `Customer`, `Invoice`, `PaymentIntent`, `Price`, `Product`, and `Subscription`
+* [#784](https://github.com/stripe/stripe-python/pull/784) Pin click dependency to 8.0.4 to avoid breakage in black
+* [#773](https://github.com/stripe/stripe-python/pull/773) Add infrastructure for test-helper methods
+* [#782](https://github.com/stripe/stripe-python/pull/782) Revert Orders to use qualified name for upload_api_base
+
 ## 2.68.0 - 2022-03-23
 * [#781](https://github.com/stripe/stripe-python/pull/781) API Updates
   * Add support for `cancel` method on resource `Refund`
