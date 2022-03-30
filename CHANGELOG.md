@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.70.0 - 2022-03-30
+* [#785](https://github.com/stripe/stripe-python/pull/785) API Updates
+  * Add support for `cancel_action`, `process_payment_intent`, `process_setup_intent`, and `set_reader_display` methods on resource `Terminal.Reader`
+
 ## 2.69.0 - 2022-03-29
 * [#783](https://github.com/stripe/stripe-python/pull/783) API Updates
   * Add support for Search API
