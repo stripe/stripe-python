@@ -9,6 +9,7 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import custom_method
 
 
+@custom_method("apply_customer_balance", http_verb="post")
 @custom_method("cancel", http_verb="post")
 @custom_method("capture", http_verb="post")
 @custom_method("confirm", http_verb="post")
@@ -20,6 +21,12 @@ class PaymentIntent(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "payment_intent"
+
+    def apply_customer_balance(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/apply_customer_balance"
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("post", url, params, headers))
+        return self
 
     def cancel(self, idempotency_key=None, **params):
         url = self.instance_url() + "/cancel"
