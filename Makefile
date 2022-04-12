@@ -36,4 +36,10 @@ lint: venv
 clean:
 	@rm -rf $(VENV_NAME) .coverage .coverage.* build/ dist/ htmlcov/
 
-.PHONY: venv test test-nomock test-travis coveralls fmt fmtcheck lint clean
+update-version:
+	@echo "$(VERSION)" > VERSION
+	@perl -pi -e 's|VERSION = "[.\d]+"|VERSION = "$(VERSION)"|' stripe/version.py
+
+codegen-format: fmt
+
+.PHONY: venv test test-nomock test-travis coveralls fmt fmtcheck lint clean update-version codegen-format
