@@ -42,4 +42,4 @@ update-version:
 
 codegen-format: fmt
 
-.PHONY: venv test test-nomock test-travis coveralls fmt fmtcheck lint clean update-version codegen-format
+.PHONY: clean codegen-format coveralls fmt fmtcheck lint test test-nomock test-travis update-version venv
