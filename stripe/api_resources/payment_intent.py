@@ -13,6 +13,7 @@ from stripe.api_resources.abstract import custom_method
 @custom_method("cancel", http_verb="post")
 @custom_method("capture", http_verb="post")
 @custom_method("confirm", http_verb="post")
+@custom_method("increment_authorization", http_verb="post")
 @custom_method("verify_microdeposits", http_verb="post")
 class PaymentIntent(
     CreateableAPIResource,
@@ -42,6 +43,12 @@ class PaymentIntent(
 
     def confirm(self, idempotency_key=None, **params):
         url = self.instance_url() + "/confirm"
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("post", url, params, headers))
+        return self
+
+    def increment_authorization(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/increment_authorization"
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
