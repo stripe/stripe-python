@@ -38,7 +38,6 @@ class Customer(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "customer"
-
     def list_payment_methods(self, idempotency_key=None, **params):
         url = self.instance_url() + "/payment_methods"
         headers = util.populate_headers(idempotency_key)
@@ -49,11 +48,14 @@ class Customer(
 
     @classmethod
     def search(cls, *args, **kwargs):
-        return cls._search(search_url="/v1/customers/search", *args, **kwargs)
+        return cls._search( search_url="/v1/customers/search", *args, **kwargs)
+
 
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
+
+
 
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(
@@ -64,3 +66,4 @@ class Customer(
         url = self.instance_url() + "/discount"
         _, api_key = requestor.request("delete", url, params)
         self.refresh_from({"discount": None}, api_key, True)
+
