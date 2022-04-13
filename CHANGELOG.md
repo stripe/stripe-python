@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.72.0 - 2022-04-13
+* [#791](https://github.com/stripe/stripe-python/pull/791) API Updates
+  * Add support for `increment_authorization` method on resource `PaymentIntent`
+
 ## 2.71.0 - 2022-04-08
 * [#788](https://github.com/stripe/stripe-python/pull/788) API Updates
   * Add support for `apply_customer_balance` method on resource `PaymentIntent`
