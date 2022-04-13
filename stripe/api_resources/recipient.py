@@ -14,4 +14,3 @@ class Recipient(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "recipient"
-

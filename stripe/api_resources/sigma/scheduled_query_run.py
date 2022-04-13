@@ -10,4 +10,3 @@ class ScheduledQueryRun(ListableAPIResource):
     @classmethod
     def class_url(cls):
         return "/v1/sigma/scheduled_query_runs"
-

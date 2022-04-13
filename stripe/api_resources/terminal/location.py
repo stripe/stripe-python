@@ -14,4 +14,3 @@ class Location(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "terminal.location"
-

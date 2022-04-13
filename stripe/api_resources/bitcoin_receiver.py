@@ -26,4 +26,3 @@ class BitcoinReceiver(ListableAPIResource):
     @classmethod
     def class_url(cls):
         return "/v1/bitcoin/receivers"
-

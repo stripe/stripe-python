@@ -6,4 +6,3 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 class Event(ListableAPIResource):
     OBJECT_NAME = "event"
-
