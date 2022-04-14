@@ -22,7 +22,6 @@ class PaymentIntent(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "payment_intent"
-
     def apply_customer_balance(self, idempotency_key=None, **params):
         url = self.instance_url() + "/apply_customer_balance"
         headers = util.populate_headers(idempotency_key)
@@ -61,10 +60,12 @@ class PaymentIntent(
 
     @classmethod
     def search(cls, *args, **kwargs):
-        return cls._search(
-            search_url="/v1/payment_intents/search", *args, **kwargs
-        )
+        return cls._search( search_url="/v1/payment_intents/search", *args, **kwargs)
+
 
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
+
+
+
