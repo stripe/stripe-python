@@ -12,4 +12,3 @@ class ValueListItem(
     ListableAPIResource,
 ):
     OBJECT_NAME = "radar.value_list_item"
-

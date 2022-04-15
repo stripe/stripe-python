@@ -10,4 +10,3 @@ class ThreeDSecure(CreateableAPIResource):
     @classmethod
     def class_url(cls):
         return "/v1/3d_secure"
-

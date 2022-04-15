@@ -19,4 +19,3 @@ class FundingInstructions(CreateableAPIResource, ListableAPIResource):
         raise NotImplementedError(
             "Can't list funding instructions without a customer ID. Use customer.create_funding_instruction(...)"
         )
-

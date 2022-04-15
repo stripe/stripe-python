@@ -12,4 +12,3 @@ class FileLink(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "file_link"
-
