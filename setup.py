@@ -37,6 +37,7 @@ setup(
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     project_urls={
         "Bug Tracker": "https://github.com/stripe/stripe-python/issues",
+        "Changes": "https://github.com/stripe/stripe-python/blob/master/CHANGELOG.md",
         "Documentation": "https://stripe.com/docs/api/?lang=python",
         "Source Code": "https://github.com/stripe/stripe-python",
     },
