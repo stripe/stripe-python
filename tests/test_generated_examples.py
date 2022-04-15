@@ -1665,3 +1665,52 @@ class TestGeneratedExamples(object):
             "post",
             "/v1/test_helpers/test_clocks/clock_xyz/advance",
         )
+
+    def test_customer_fundinginstructions_create(self, request_mock):
+        stripe.Customer.create_funding_instruction(
+            "cus_123",
+            bank_transfer={
+                "requested_address_types": ["zengin"],
+                "type": "jp_bank_transfer",
+            },
+            currency="usd",
+            funding_type="bank_transfer",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/customers/cus_123/funding_instructions",
+        )
+
+    def test_customer_fundinginstructions_list(self, request_mock):
+        stripe.Customer.list_funding_instructions("cus_123")
+        request_mock.assert_requested(
+            "get",
+            "/v1/customers/cus_123/funding_instructions",
+        )
+
+    def test_terminal_configuration_list(self, request_mock):
+        stripe.terminal.Configuration.list()
+        request_mock.assert_requested("get", "/v1/terminal/configurations")
+
+    def test_terminal_configuration_retrieve(self, request_mock):
+        stripe.terminal.Configuration.retrieve("uc_123")
+        request_mock.assert_requested(
+            "get", "/v1/terminal/configurations/uc_123"
+        )
+
+    def test_terminal_configuration_create(self, request_mock):
+        stripe.terminal.Configuration.create()
+        request_mock.assert_requested("post", "/v1/terminal/configurations")
+
+    def test_terminal_configuration_update(self, request_mock):
+        stripe.terminal.Configuration.modify("uc_123")
+        request_mock.assert_requested(
+            "post", "/v1/terminal/configurations/uc_123"
+        )
+
+    def test_terminal_configuration_delete(self, request_mock):
+        stripe.terminal.Configuration.delete("uc_123")
+        request_mock.assert_requested(
+            "delete",
+            "/v1/terminal/configurations/uc_123",
+        )

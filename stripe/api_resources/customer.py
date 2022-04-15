@@ -23,6 +23,10 @@ from stripe.api_resources.abstract import nested_resource_class_methods
     operations=["create", "retrieve", "update", "list"],
 )
 @nested_resource_class_methods(
+    "funding_instruction",
+    operations=["create", "list"],
+)
+@nested_resource_class_methods(
     "source",
     operations=["create", "retrieve", "update", "delete", "list"],
 )
