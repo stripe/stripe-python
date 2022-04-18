@@ -14,6 +14,11 @@ from stripe.api_resources.abstract import nested_resource_class_methods
 
 @custom_method("delete_discount", http_verb="delete", http_path="discount")
 @custom_method(
+    "create_funding_instructions",
+    http_verb="post",
+    http_path="funding_instructions",
+)
+@custom_method(
     "list_payment_methods",
     http_verb="get",
     http_path="payment_methods",
@@ -21,10 +26,6 @@ from stripe.api_resources.abstract import nested_resource_class_methods
 @nested_resource_class_methods(
     "balance_transaction",
     operations=["create", "retrieve", "update", "list"],
-)
-@nested_resource_class_methods(
-    "funding_instruction",
-    operations=["create", "list"],
 )
 @nested_resource_class_methods(
     "source",
@@ -42,6 +43,13 @@ class Customer(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "customer"
+
+    def create_funding_instructions(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/funding_instructions"
+        headers = util.populate_headers(idempotency_key)
+        resp = self.request("post", url, params, headers)
+        stripe_object = util.convert_to_stripe_object(resp)
+        return stripe_object
 
     def list_payment_methods(self, idempotency_key=None, **params):
         url = self.instance_url() + "/payment_methods"

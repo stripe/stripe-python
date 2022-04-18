@@ -53,7 +53,6 @@ class Reader(
         def present_payment_method(self, idempotency_key=None, **params):
             url = self.instance_url() + "/present_payment_method"
             headers = util.populate_headers(idempotency_key)
-            self.resource.refresh_from(
-                self.resource.request("post", url, params, headers)
-            )
-            return self.resource
+            resp = self.resource.request("post", url, params, headers)
+            stripe_object = util.convert_to_stripe_object(resp)
+            return stripe_object

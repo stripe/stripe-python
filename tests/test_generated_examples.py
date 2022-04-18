@@ -1666,8 +1666,8 @@ class TestGeneratedExamples(object):
             "/v1/test_helpers/test_clocks/clock_xyz/advance",
         )
 
-    def test_customer_fundinginstructions_create(self, request_mock):
-        stripe.Customer.create_funding_instruction(
+    def test_customer_create_funding_instructions(self, request_mock):
+        stripe.Customer.create_funding_instructions(
             "cus_123",
             bank_transfer={
                 "requested_address_types": ["zengin"],
@@ -1678,13 +1678,6 @@ class TestGeneratedExamples(object):
         )
         request_mock.assert_requested(
             "post",
-            "/v1/customers/cus_123/funding_instructions",
-        )
-
-    def test_customer_fundinginstructions_list(self, request_mock):
-        stripe.Customer.list_funding_instructions("cus_123")
-        request_mock.assert_requested(
-            "get",
             "/v1/customers/cus_123/funding_instructions",
         )
 
@@ -1703,7 +1696,10 @@ class TestGeneratedExamples(object):
         request_mock.assert_requested("post", "/v1/terminal/configurations")
 
     def test_terminal_configuration_update(self, request_mock):
-        stripe.terminal.Configuration.modify("uc_123")
+        stripe.terminal.Configuration.modify(
+            "uc_123",
+            tipping={"usd": {"fixed_amounts": [10]}},
+        )
         request_mock.assert_requested(
             "post", "/v1/terminal/configurations/uc_123"
         )
