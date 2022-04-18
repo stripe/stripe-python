@@ -47,8 +47,9 @@ class Customer(
     def create_funding_instructions(self, idempotency_key=None, **params):
         url = self.instance_url() + "/funding_instructions"
         headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        resp = self.request("post", url, params, headers)
+        stripe_object = util.convert_to_stripe_object(resp)
+        return stripe_object
 
     def list_payment_methods(self, idempotency_key=None, **params):
         url = self.instance_url() + "/payment_methods"
