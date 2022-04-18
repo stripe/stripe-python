@@ -6,3 +6,4 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 class VerificationReport(ListableAPIResource):
     OBJECT_NAME = "identity.verification_report"
+

@@ -72,3 +72,4 @@ class Card(DeletableAPIResource, UpdateableAPIResource):
             "recipient.cards.retrieve('card_id'), or "
             "account.external_accounts.retrieve('card_id') instead."
         )
+

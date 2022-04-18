@@ -15,9 +15,10 @@ class TestClock(
     ListableAPIResource,
 ):
     OBJECT_NAME = "test_helpers.test_clock"
-
     def advance(self, idempotency_key=None, **params):
         url = self.instance_url() + "/advance"
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
+
+
