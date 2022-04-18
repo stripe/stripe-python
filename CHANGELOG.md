@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.73.0 - 2022-04-18
+* [#792](https://github.com/stripe/stripe-python/pull/792) [#794](https://github.com/stripe/stripe-python/pull/794) [#795](https://github.com/stripe/stripe-python/pull/795) API Updates
+  * Add support for new resources `FundingInstructions` and `Terminal.Configuration`
+
 ## 2.72.0 - 2022-04-13
 * [#791](https://github.com/stripe/stripe-python/pull/791) API Updates
   * Add support for `increment_authorization` method on resource `PaymentIntent`
