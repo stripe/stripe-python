@@ -6,4 +6,3 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 class SetupAttempt(ListableAPIResource):
     OBJECT_NAME = "setup_attempt"
-
