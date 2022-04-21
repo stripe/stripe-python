@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.74.0 - 2022-04-21
+* [#796](https://github.com/stripe/stripe-python/pull/796) API Updates
+  * Add support for `expire` test helper method on resource `Refund`
+
 ## 2.73.0 - 2022-04-18
 * [#792](https://github.com/stripe/stripe-python/pull/792) [#794](https://github.com/stripe/stripe-python/pull/794) [#795](https://github.com/stripe/stripe-python/pull/795) API Updates
   * Add support for new resources `FundingInstructions` and `Terminal.Configuration`
