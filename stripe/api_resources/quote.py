@@ -22,6 +22,7 @@ from stripe.six.moves.urllib.parse import quote_plus
 @custom_method("list_line_items", http_verb="get", http_path="line_items")
 class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "quote"
+
     def accept(self, idempotency_key=None, **params):
         url = self.instance_url() + "/accept"
         headers = util.populate_headers(idempotency_key)
@@ -56,31 +57,30 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_object._retrieve_params = params
         return stripe_object
 
-
     @classmethod
     def _cls_pdf(
-      cls,
-      sid,
-      api_key=None,
-      idempotency_key=None,
-      stripe_version=None,
-      stripe_account=None,
-      **params
+        cls,
+        sid,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
     ):
-      url = "%s/%s/%s" % (
-          cls.class_url(),
-          quote_plus(util.utf8(sid)),
-          "pdf",
-      )
-      requestor = api_requestor.APIRequestor(
-          api_key,
-          api_base=stripe.upload_api_base,
-          api_version=stripe_version,
-          account=stripe_account,
-      )
-      headers = util.populate_headers(idempotency_key)
-      response, _ = requestor.request_stream("get", url, params, headers)
-      return response
+        url = "%s/%s/%s" % (
+            cls.class_url(),
+            quote_plus(util.utf8(sid)),
+            "pdf",
+        )
+        requestor = api_requestor.APIRequestor(
+            api_key,
+            api_base=stripe.upload_api_base,
+            api_version=stripe_version,
+            account=stripe_account,
+        )
+        headers = util.populate_headers(idempotency_key)
+        response, _ = requestor.request_stream("get", url, params, headers)
+        return response
 
     @util.class_method_variant("_cls_pdf")
     def pdf(
@@ -100,4 +100,3 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         )
         url = self.instance_url() + "/pdf"
         return requestor.request_stream("get", url, params=params)
-

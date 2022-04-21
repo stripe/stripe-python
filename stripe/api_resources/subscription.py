@@ -19,16 +19,16 @@ class Subscription(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "subscription"
+
     @classmethod
     def search(cls, *args, **kwargs):
-        return cls._search( search_url="/v1/subscriptions/search", *args, **kwargs)
-
+        return cls._search(
+            search_url="/v1/subscriptions/search", *args, **kwargs
+        )
 
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
-
-
 
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(
@@ -39,4 +39,3 @@ class Subscription(
         url = self.instance_url() + "/discount"
         _, api_key = requestor.request("delete", url, params)
         self.refresh_from({"discount": None}, api_key, True)
-

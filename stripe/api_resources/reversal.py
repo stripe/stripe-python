@@ -31,4 +31,3 @@ class Reversal(UpdateableAPIResource):
             "Can't retrieve a reversal without a transfer"
             "ID. Use transfer.reversals.retrieve('reversal_id')"
         )
-

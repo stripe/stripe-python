@@ -43,4 +43,3 @@ class AlipayAccount(DeletableAPIResource, UpdateableAPIResource):
             "Can't retrieve an Alipay account without a customer ID. "
             "Use customer.sources.retrieve('alipay_account_id') instead."
         )
-
