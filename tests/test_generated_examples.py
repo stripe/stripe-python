@@ -1710,3 +1710,10 @@ class TestGeneratedExamples(object):
             "delete",
             "/v1/terminal/configurations/uc_123",
         )
+
+    def test_refund_expire(self, request_mock):
+        stripe.Refund.TestHelpers.expire("re_123")
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/refunds/re_123/expire",
+        )
