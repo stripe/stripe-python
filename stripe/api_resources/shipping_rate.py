@@ -12,3 +12,4 @@ class ShippingRate(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "shipping_rate"
+

@@ -14,3 +14,4 @@ class Configuration(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "terminal.configuration"
+
