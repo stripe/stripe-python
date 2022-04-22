@@ -41,7 +41,7 @@ jobs:
           set -x
           source venv/bin/activate
           python setup.py clean --all sdist bdist_wheel --universal
-          python -m twine --check
+          python -m twine check dist/*
 
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v2
@@ -119,4 +119,7 @@ jobs:
       - name: Install tools
         run: make venv
       - name: Publish packages to PyPy
-        run: python -m twine upload sign dist/*
+        run: |
+          set -x
+          source venv/bin/activate
+          python -m twine upload --sign dist/*
