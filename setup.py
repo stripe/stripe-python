@@ -60,5 +60,5 @@ setup(
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
-    setup_requires=['wheel']
+    setup_requires=["wheel"],
 )
