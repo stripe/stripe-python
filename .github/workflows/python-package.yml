@@ -116,10 +116,23 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: "3.10"
+
+      - name: Configure GPG Key
+        run: |
+          echo -n "$GPG_SIGNING_PUBKEY$GPG_SIGNING_PRIVKEY" | gpg --import  --pinentry-mode loopback --batch --passphrase '${GPG_SIGNING_KEY_PASSWORD}'
+        env:
+          GPG_SIGNING_PUBKEY: ${{ secrets.GPG_SIGNING_PUBKEY }}
+          GPG_SIGNING_PRIVKEY: ${{ secrets.GPG_SIGNING_PRIVKEY }}
+          GPG_SIGNING_PASSPHRASE: ${{ secrets.GPG_SIGNING_PASSPHRASE }}
       - name: Install tools
         run: make venv
       - name: Publish packages to PyPy
         run: |
           set -x
           source venv/bin/activate
-          python -m twine upload --sign dist/*
+          python -m twine upload --identity $GPG_SIGNING_KEYID --sign dist/*
+        env:
+          GPG_SIGNING_KEYID: ${{ secrets.GPG_SIGNING_KEYID }}
+          TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
+
