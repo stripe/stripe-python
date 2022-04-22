@@ -37,7 +37,7 @@ jobs:
         run: make venv
 
       - name: Build and check package
-        run:
+        run: |
           set -x
           source venv/bin/activate
           python setup.py clean --all sdist bdist_wheel --universal
