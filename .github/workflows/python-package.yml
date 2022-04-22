@@ -36,11 +36,12 @@ jobs:
       - name: Install tools
         run: make venv
 
-      - name: Build package
-        run: python setup.py clean --all sdist bdist_wheel --universal
-
-      - name: Check package
-        run: python -m twine --check
+      - name: Build and check package
+        run:
+          set -x
+          source venv/bin/activate
+          python setup.py clean --all sdist bdist_wheel --universal
+          python -m twine --check
 
       - name: 'Upload Artifact'
         uses: actions/upload-artifact@v2
