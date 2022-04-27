@@ -122,7 +122,8 @@ jobs:
       - name: Configure GPG Key
         run: |
           set -x
-          echo -n "$GPG_SIGNING_PUBKEY$GPG_SIGNING_PRIVKEY" | gpg --import  --pinentry-mode loopback --batch --passphrase '${GPG_SIGNING_KEY_PASSWORD}'
+          gpg --import <(echo $GPG_SIGNING_PUBKEY)
+          gpg --pinentry-mode loopback --batch --passphrase $GPG_SIGNING_PASSPHRASE <(echo $GPG_SIGNING_PRIVKEY)
         env:
           GPG_SIGNING_PUBKEY: ${{ secrets.GPG_SIGNING_PUBKEY }}
           GPG_SIGNING_PRIVKEY: ${{ secrets.GPG_SIGNING_PRIVKEY }}
