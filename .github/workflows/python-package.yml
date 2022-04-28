@@ -133,6 +133,7 @@ jobs:
       - name: Publish packages to PyPy
         run: |
           set -x
+          export GPG_TTY=$(tty)
           source venv/bin/activate
           python -m twine upload --identity $GPG_SIGNING_KEYID --sign dist/*
         env:
