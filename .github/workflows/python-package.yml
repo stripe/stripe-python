@@ -3,7 +3,7 @@ name: CI
 on:
   workflow_dispatch: {}
   push:
-    branches: [master, pakrym/release-pipeline]
+    branches: [master]
     tags:
       - v[0-9]+.[0-9]+.[0-9]+*
   pull_request:
@@ -104,7 +104,10 @@ jobs:
 
   publish:
     name: Publish
-    if: (((github.event_name == 'workflow_dispatch')) && (github.ref == 'refs/heads/pakrym/release-pipeline' || startsWith(github.ref, 'refs/tags/v')) && endsWith(github.actor, '-stripe'))
+    if: >-
+      ((github.event_name == 'workflow_dispatch') || (github.event_name == 'push')) &&
+      startsWith(github.ref, 'refs/tags/v') &&
+      endsWith(github.actor, '-stripe')
     needs: [build, test, lint]
     runs-on: ubuntu-latest
     steps:
@@ -132,11 +135,11 @@ jobs:
         run: |
           set -ex
           source venv/bin/activate
-          export VERSION=(cat VERSION)
+          export VERSION=$(cat VERSION)
           gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION.tar.gz
           gpg --detach-sign --local-user $GPG_SIGNING_KEYID  --pinentry-mode loopback --passphrase $GPG_SIGNING_PASSPHRASE -a dist/stripe-$VERSION-py2.py3-none-any.whl
 
-          python -m twine upload dist/stripe-$VERSION.tar.gz  dist/stripe-$VERSION-py2.py3-none-any.whl dist/stripe-$VERSION.tar.gz.asc dist/stripe-$VERSION-py2.py3-none-any.whl.asc
+          python -m twine upload --verbose dist/stripe-$VERSION.tar.gz  dist/stripe-$VERSION-py2.py3-none-any.whl dist/stripe-$VERSION.tar.gz.asc dist/stripe-$VERSION-py2.py3-none-any.whl.asc
         env:
           GPG_SIGNING_KEYID: ${{ secrets.GPG_SIGNING_KEYID }}
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
