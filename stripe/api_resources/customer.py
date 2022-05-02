@@ -24,6 +24,11 @@ from stripe.api_resources.abstract import nested_resource_class_methods
     http_path="payment_methods",
 )
 @nested_resource_class_methods(
+    "cash_balance",
+    operations=["retrieve", "update"],
+    resource_plural="cash_balance",
+)
+@nested_resource_class_methods(
     "balance_transaction",
     operations=["create", "retrieve", "update", "list"],
 )
