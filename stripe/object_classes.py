@@ -24,6 +24,7 @@ OBJECT_CLASSES = {
     api_resources.BitcoinTransaction.OBJECT_NAME: api_resources.BitcoinTransaction,
     api_resources.Capability.OBJECT_NAME: api_resources.Capability,
     api_resources.Card.OBJECT_NAME: api_resources.Card,
+    api_resources.CashBalance.OBJECT_NAME: api_resources.CashBalance,
     api_resources.Charge.OBJECT_NAME: api_resources.Charge,
     api_resources.checkout.Session.OBJECT_NAME: api_resources.checkout.Session,
     api_resources.CountrySpec.OBJECT_NAME: api_resources.CountrySpec,
