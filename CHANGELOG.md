@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.75.0 - 2022-05-03
+* [#805](https://github.com/stripe/stripe-python/pull/805) API Updates
+  * Add support for new resource `CashBalance`
+
 ## 2.74.0 - 2022-04-21
 * [#796](https://github.com/stripe/stripe-python/pull/796) API Updates
   * Add support for `expire` test helper method on resource `Refund`
