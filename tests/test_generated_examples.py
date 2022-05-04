@@ -1402,53 +1402,6 @@ class TestGeneratedExamples(object):
         stripe.terminal.Reader.list(limit=3)
         request_mock.assert_requested("get", "/v1/terminal/readers")
 
-    def test_order_create(self, request_mock):
-        stripe.Order.create(
-            currency="usd",
-            email="jenny.rosen@example.com",
-            items=[{"type": "sku", "parent": "sku_xxxxxxxxxxxxx"}],
-            shipping={
-                "name": "Jenny Rosen",
-                "address": {
-                    "line1": "1234 Main Street",
-                    "city": "San Francisco",
-                    "state": "CA",
-                    "country": "US",
-                    "postal_code": "94111",
-                },
-            },
-        )
-        request_mock.assert_requested("post", "/v1/orders")
-
-    def test_order_retrieve(self, request_mock):
-        stripe.Order.retrieve("or_xxxxxxxxxxxxx")
-        request_mock.assert_requested("get", "/v1/orders/or_xxxxxxxxxxxxx")
-
-    def test_order_update(self, request_mock):
-        stripe.Order.modify("or_xxxxxxxxxxxxx", metadata={"order_id": "6735"})
-        request_mock.assert_requested("post", "/v1/orders/or_xxxxxxxxxxxxx")
-
-    def test_order_pay(self, request_mock):
-        stripe.Order.pay("or_xxxxxxxxxxxxx", source="tok_xxxx")
-        request_mock.assert_requested(
-            "post", "/v1/orders/or_xxxxxxxxxxxxx/pay"
-        )
-
-    def test_order_list(self, request_mock):
-        stripe.Order.list(limit=3)
-        request_mock.assert_requested("get", "/v1/orders")
-
-    def test_orderreturn_retrieve(self, request_mock):
-        stripe.OrderReturn.retrieve("orret_xxxxxxxxxxxxx")
-        request_mock.assert_requested(
-            "get",
-            "/v1/order_returns/orret_xxxxxxxxxxxxx",
-        )
-
-    def test_orderreturn_list(self, request_mock):
-        stripe.OrderReturn.list(limit=3)
-        request_mock.assert_requested("get", "/v1/order_returns")
-
     def test_sku_create(self, request_mock):
         stripe.SKU.create(
             attributes={"size": "Medium", "gender": "Unisex"},
