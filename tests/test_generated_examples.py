@@ -122,8 +122,7 @@ class TestGeneratedExamples(object):
 
     def test_filelink_update(self, request_mock):
         stripe.FileLink.modify(
-            "link_xxxxxxxxxxxxx",
-            metadata={"order_id": "6735"},
+            "link_xxxxxxxxxxxxx", metadata={"order_id": "6735"}
         )
         request_mock.assert_requested(
             "post", "/v1/file_links/link_xxxxxxxxxxxxx"
@@ -504,8 +503,7 @@ class TestGeneratedExamples(object):
 
     def test_creditnote_update(self, request_mock):
         stripe.CreditNote.modify(
-            "cn_xxxxxxxxxxxxx",
-            metadata={"order_id": "6735"},
+            "cn_xxxxxxxxxxxxx", metadata={"order_id": "6735"}
         )
         request_mock.assert_requested(
             "post", "/v1/credit_notes/cn_xxxxxxxxxxxxx"
@@ -663,8 +661,7 @@ class TestGeneratedExamples(object):
 
     def test_invoiceitem_update(self, request_mock):
         stripe.InvoiceItem.modify(
-            "ii_xxxxxxxxxxxxx",
-            metadata={"order_id": "6735"},
+            "ii_xxxxxxxxxxxxx", metadata={"order_id": "6735"}
         )
         request_mock.assert_requested(
             "post", "/v1/invoiceitems/ii_xxxxxxxxxxxxx"
@@ -1625,3 +1622,98 @@ class TestGeneratedExamples(object):
     def test_paymentlink_retrieve(self, request_mock):
         stripe.PaymentLink.retrieve("pl_xyz")
         request_mock.assert_requested("get", "/v1/payment_links/pl_xyz")
+
+    def test_paymentintent_verify_microdeposits(self, request_mock):
+        stripe.PaymentIntent.verify_microdeposits("pi_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
+        )
+
+    def test_setupintent_verify_microdeposits(self, request_mock):
+        stripe.SetupIntent.verify_microdeposits("seti_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
+        )
+
+    def test_test_helpers_testclock_create(self, request_mock):
+        stripe.test_helpers.TestClock.create(frozen_time=123, name="cogsworth")
+        request_mock.assert_requested("post", "/v1/test_helpers/test_clocks")
+
+    def test_test_helpers_testclock_retrieve(self, request_mock):
+        stripe.test_helpers.TestClock.retrieve("clock_xyz")
+        request_mock.assert_requested(
+            "get",
+            "/v1/test_helpers/test_clocks/clock_xyz",
+        )
+
+    def test_test_helpers_testclock_list(self, request_mock):
+        stripe.test_helpers.TestClock.list()
+        request_mock.assert_requested("get", "/v1/test_helpers/test_clocks")
+
+    def test_test_helpers_testclock_delete(self, request_mock):
+        stripe.test_helpers.TestClock.delete("clock_xyz")
+        request_mock.assert_requested(
+            "delete",
+            "/v1/test_helpers/test_clocks/clock_xyz",
+        )
+
+    def test_test_helpers_testclock_advance(self, request_mock):
+        stripe.test_helpers.TestClock.advance("clock_xyz", frozen_time=142)
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/test_clocks/clock_xyz/advance",
+        )
+
+    def test_customer_create_funding_instructions(self, request_mock):
+        stripe.Customer.create_funding_instructions(
+            "cus_123",
+            bank_transfer={
+                "requested_address_types": ["zengin"],
+                "type": "jp_bank_transfer",
+            },
+            currency="usd",
+            funding_type="bank_transfer",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/customers/cus_123/funding_instructions",
+        )
+
+    def test_terminal_configuration_list(self, request_mock):
+        stripe.terminal.Configuration.list()
+        request_mock.assert_requested("get", "/v1/terminal/configurations")
+
+    def test_terminal_configuration_retrieve(self, request_mock):
+        stripe.terminal.Configuration.retrieve("uc_123")
+        request_mock.assert_requested(
+            "get", "/v1/terminal/configurations/uc_123"
+        )
+
+    def test_terminal_configuration_create(self, request_mock):
+        stripe.terminal.Configuration.create()
+        request_mock.assert_requested("post", "/v1/terminal/configurations")
+
+    def test_terminal_configuration_update(self, request_mock):
+        stripe.terminal.Configuration.modify(
+            "uc_123",
+            tipping={"usd": {"fixed_amounts": [10]}},
+        )
+        request_mock.assert_requested(
+            "post", "/v1/terminal/configurations/uc_123"
+        )
+
+    def test_terminal_configuration_delete(self, request_mock):
+        stripe.terminal.Configuration.delete("uc_123")
+        request_mock.assert_requested(
+            "delete",
+            "/v1/terminal/configurations/uc_123",
+        )
+
+    def test_refund_expire(self, request_mock):
+        stripe.Refund.TestHelpers.expire("re_123")
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/refunds/re_123/expire",
+        )

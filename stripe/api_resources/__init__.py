@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.error_object import ErrorObject, OAuthErrorObject
 from stripe.api_resources.list_object import ListObject
+from stripe.api_resources.search_result_object import SearchResultObject
 
 from stripe.api_resources import billing_portal
 from stripe.api_resources import checkout
@@ -14,6 +15,7 @@ from stripe.api_resources import radar
 from stripe.api_resources import reporting
 from stripe.api_resources import sigma
 from stripe.api_resources import terminal
+from stripe.api_resources import test_helpers
 
 from stripe.api_resources.account import Account
 from stripe.api_resources.account_link import AccountLink
@@ -28,6 +30,7 @@ from stripe.api_resources.bitcoin_receiver import BitcoinReceiver
 from stripe.api_resources.bitcoin_transaction import BitcoinTransaction
 from stripe.api_resources.capability import Capability
 from stripe.api_resources.card import Card
+from stripe.api_resources.cash_balance import CashBalance
 from stripe.api_resources.charge import Charge
 from stripe.api_resources.country_spec import CountrySpec
 from stripe.api_resources.coupon import Coupon
@@ -44,6 +47,7 @@ from stripe.api_resources.exchange_rate import ExchangeRate
 from stripe.api_resources.file import File
 from stripe.api_resources.file import FileUpload
 from stripe.api_resources.file_link import FileLink
+from stripe.api_resources.funding_instructions import FundingInstructions
 from stripe.api_resources.invoice import Invoice
 from stripe.api_resources.invoice_item import InvoiceItem
 from stripe.api_resources.invoice_line_item import InvoiceLineItem
