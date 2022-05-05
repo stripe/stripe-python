@@ -11,6 +11,7 @@ from stripe.api_resources.abstract import custom_method
 @custom_method("cancel", http_verb="post")
 @custom_method("list_line_items", http_verb="get", http_path="line_items")
 @custom_method("reopen", http_verb="post")
+@custom_method("submit", http_verb="post")
 class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "order"
 
@@ -30,6 +31,12 @@ class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
 
     def reopen(self, idempotency_key=None, **params):
         url = self.instance_url() + "/reopen"
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("post", url, params, headers))
+        return self
+
+    def submit(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/submit"
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self

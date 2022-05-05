@@ -1670,3 +1670,35 @@ class TestGeneratedExamples(object):
             "post",
             "/v1/test_helpers/refunds/re_123/expire",
         )
+
+    def test_order_create(self, request_mock):
+        stripe.Order.create(
+            description="description",
+            currency="usd",
+            line_items=[{"description": "my line item"}],
+        )
+        request_mock.assert_requested("post", "/v1/orders")
+
+    def test_order_update(self, request_mock):
+        stripe.Order.modify("order_xyz")
+        request_mock.assert_requested("post", "/v1/orders/order_xyz")
+
+    def test_order_list_line_items(self, request_mock):
+        stripe.Order.list_line_items("order_xyz")
+        request_mock.assert_requested("get", "/v1/orders/order_xyz/line_items")
+
+    def test_order_cancel(self, request_mock):
+        stripe.Order.cancel("order_xyz")
+        request_mock.assert_requested("post", "/v1/orders/order_xyz/cancel")
+
+    def test_order_reopen(self, request_mock):
+        stripe.Order.reopen("order_xyz")
+        request_mock.assert_requested("post", "/v1/orders/order_xyz/reopen")
+
+    def test_order_submit(self, request_mock):
+        stripe.Order.submit("order_xyz", expected_total=100)
+        request_mock.assert_requested("post", "/v1/orders/order_xyz/submit")
+
+    def test_order_update2(self, request_mock):
+        stripe.Order.modify("order_xyz")
+        request_mock.assert_requested("post", "/v1/orders/order_xyz")
