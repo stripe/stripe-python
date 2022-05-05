@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.76.0 - 2022-05-05
+* [#808](https://github.com/stripe/stripe-python/pull/808) API Updates
+  * Add support for new resources `FinancialConnections.AccountOwner`, `FinancialConnections.AccountOwnership`, `FinancialConnections.Account`, and `FinancialConnections.Session`
+  
+
 ## 2.75.0 - 2022-05-03
 * [#805](https://github.com/stripe/stripe-python/pull/805) API Updates
   * Add support for new resource `CashBalance`
