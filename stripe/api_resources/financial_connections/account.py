@@ -7,7 +7,7 @@ from stripe.api_resources.abstract import custom_method
 
 
 @custom_method("disconnect", http_verb="post")
-@custom_method("refresh", http_verb="post")
+@custom_method("refresh_account", http_verb="post", http_path="refresh")
 class Account(APIResource):
     OBJECT_NAME = "financial_connections.account"
 
@@ -17,7 +17,7 @@ class Account(APIResource):
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
-    def refresh(self, idempotency_key=None, **params):
+    def refresh_account(self, idempotency_key=None, **params):
         url = self.instance_url() + "/refresh"
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))

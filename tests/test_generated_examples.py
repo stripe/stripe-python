@@ -1702,3 +1702,43 @@ class TestGeneratedExamples(object):
     def test_order_update2(self, request_mock):
         stripe.Order.modify("order_xyz")
         request_mock.assert_requested("post", "/v1/orders/order_xyz")
+
+    def test_financial_connections_account_retrieve(self, request_mock):
+        stripe.financial_connections.Account.retrieve("fca_xyz")
+        request_mock.assert_requested(
+            "get",
+            "/v1/financial_connections/accounts/fca_xyz",
+        )
+
+    def test_financial_connections_account_refresh_account(self, request_mock):
+        stripe.financial_connections.Account.refresh_account(
+            "fca_xyz",
+            features=["balance"],
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/financial_connections/accounts/fca_xyz/refresh",
+        )
+
+    def test_financial_connections_account_disconnect(self, request_mock):
+        stripe.financial_connections.Account.disconnect("fca_xyz")
+        request_mock.assert_requested(
+            "post",
+            "/v1/financial_connections/accounts/fca_xyz/disconnect",
+        )
+
+    def test_financial_connections_session_create(self, request_mock):
+        stripe.financial_connections.Session.create(
+            account_holder={"type": "customer", "customer": "cus_123"},
+            permissions=["balances"],
+        )
+        request_mock.assert_requested(
+            "post", "/v1/financial_connections/sessions"
+        )
+
+    def test_financial_connections_session_retrieve(self, request_mock):
+        stripe.financial_connections.Session.retrieve("fcsess_xyz")
+        request_mock.assert_requested(
+            "get",
+            "/v1/financial_connections/sessions/fcsess_xyz",
+        )
