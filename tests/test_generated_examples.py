@@ -1402,53 +1402,6 @@ class TestGeneratedExamples(object):
         stripe.terminal.Reader.list(limit=3)
         request_mock.assert_requested("get", "/v1/terminal/readers")
 
-    def test_order_create(self, request_mock):
-        stripe.Order.create(
-            currency="usd",
-            email="jenny.rosen@example.com",
-            items=[{"type": "sku", "parent": "sku_xxxxxxxxxxxxx"}],
-            shipping={
-                "name": "Jenny Rosen",
-                "address": {
-                    "line1": "1234 Main Street",
-                    "city": "San Francisco",
-                    "state": "CA",
-                    "country": "US",
-                    "postal_code": "94111",
-                },
-            },
-        )
-        request_mock.assert_requested("post", "/v1/orders")
-
-    def test_order_retrieve(self, request_mock):
-        stripe.Order.retrieve("or_xxxxxxxxxxxxx")
-        request_mock.assert_requested("get", "/v1/orders/or_xxxxxxxxxxxxx")
-
-    def test_order_update(self, request_mock):
-        stripe.Order.modify("or_xxxxxxxxxxxxx", metadata={"order_id": "6735"})
-        request_mock.assert_requested("post", "/v1/orders/or_xxxxxxxxxxxxx")
-
-    def test_order_pay(self, request_mock):
-        stripe.Order.pay("or_xxxxxxxxxxxxx", source="tok_xxxx")
-        request_mock.assert_requested(
-            "post", "/v1/orders/or_xxxxxxxxxxxxx/pay"
-        )
-
-    def test_order_list(self, request_mock):
-        stripe.Order.list(limit=3)
-        request_mock.assert_requested("get", "/v1/orders")
-
-    def test_orderreturn_retrieve(self, request_mock):
-        stripe.OrderReturn.retrieve("orret_xxxxxxxxxxxxx")
-        request_mock.assert_requested(
-            "get",
-            "/v1/order_returns/orret_xxxxxxxxxxxxx",
-        )
-
-    def test_orderreturn_list(self, request_mock):
-        stripe.OrderReturn.list(limit=3)
-        request_mock.assert_requested("get", "/v1/order_returns")
-
     def test_sku_create(self, request_mock):
         stripe.SKU.create(
             attributes={"size": "Medium", "gender": "Unisex"},
@@ -1716,4 +1669,76 @@ class TestGeneratedExamples(object):
         request_mock.assert_requested(
             "post",
             "/v1/test_helpers/refunds/re_123/expire",
+        )
+
+    def test_order_create(self, request_mock):
+        stripe.Order.create(
+            description="description",
+            currency="usd",
+            line_items=[{"description": "my line item"}],
+        )
+        request_mock.assert_requested("post", "/v1/orders")
+
+    def test_order_update(self, request_mock):
+        stripe.Order.modify("order_xyz")
+        request_mock.assert_requested("post", "/v1/orders/order_xyz")
+
+    def test_order_list_line_items(self, request_mock):
+        stripe.Order.list_line_items("order_xyz")
+        request_mock.assert_requested("get", "/v1/orders/order_xyz/line_items")
+
+    def test_order_cancel(self, request_mock):
+        stripe.Order.cancel("order_xyz")
+        request_mock.assert_requested("post", "/v1/orders/order_xyz/cancel")
+
+    def test_order_reopen(self, request_mock):
+        stripe.Order.reopen("order_xyz")
+        request_mock.assert_requested("post", "/v1/orders/order_xyz/reopen")
+
+    def test_order_submit(self, request_mock):
+        stripe.Order.submit("order_xyz", expected_total=100)
+        request_mock.assert_requested("post", "/v1/orders/order_xyz/submit")
+
+    def test_order_update2(self, request_mock):
+        stripe.Order.modify("order_xyz")
+        request_mock.assert_requested("post", "/v1/orders/order_xyz")
+
+    def test_financial_connections_account_retrieve(self, request_mock):
+        stripe.financial_connections.Account.retrieve("fca_xyz")
+        request_mock.assert_requested(
+            "get",
+            "/v1/financial_connections/accounts/fca_xyz",
+        )
+
+    def test_financial_connections_account_refresh_account(self, request_mock):
+        stripe.financial_connections.Account.refresh_account(
+            "fca_xyz",
+            features=["balance"],
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/financial_connections/accounts/fca_xyz/refresh",
+        )
+
+    def test_financial_connections_account_disconnect(self, request_mock):
+        stripe.financial_connections.Account.disconnect("fca_xyz")
+        request_mock.assert_requested(
+            "post",
+            "/v1/financial_connections/accounts/fca_xyz/disconnect",
+        )
+
+    def test_financial_connections_session_create(self, request_mock):
+        stripe.financial_connections.Session.create(
+            account_holder={"type": "customer", "customer": "cus_123"},
+            permissions=["balances"],
+        )
+        request_mock.assert_requested(
+            "post", "/v1/financial_connections/sessions"
+        )
+
+    def test_financial_connections_session_retrieve(self, request_mock):
+        stripe.financial_connections.Session.retrieve("fcsess_xyz")
+        request_mock.assert_requested(
+            "get",
+            "/v1/financial_connections/sessions/fcsess_xyz",
         )
