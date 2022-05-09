@@ -1,9 +1,17 @@
-# Changelog
+
+## 3.0.0 - 2022-05-09
+* [#809](https://github.com/stripe/stripe-python/pull/809) Release of major version v3.0.0. The [migration guide](https://github.com/stripe/stripe-python/wiki/Migration-Guide-for-v3) contains more information.
+  (⚠️ = breaking changes):
+  * ⚠️ Replace the legacy `Order` API with the new `Order` API.
+    * New methods: `cancel`, `list_line_items`, `reopen`, and `submit`
+    * Removed methods: `pay` and `return_order`
+    * Removed resources: `OrderItem` and `OrderReturn`
+  * ⚠️ Rename `financial_connections.account.refresh` to `financial_connections.refresh_account`
+  * Add support for `amount_discount`, `amount_tax`, and `product` on `LineItem`
 
 ## 2.76.0 - 2022-05-05
 * [#808](https://github.com/stripe/stripe-python/pull/808) API Updates
   * Add support for new resources `FinancialConnections.AccountOwner`, `FinancialConnections.AccountOwnership`, `FinancialConnections.Account`, and `FinancialConnections.Session`
-  
 
 ## 2.75.0 - 2022-05-03
 * [#805](https://github.com/stripe/stripe-python/pull/805) API Updates
