@@ -157,4 +157,4 @@ class TestUtil(object):
     def test_sanitize_id(self):
         sanitized_id = util.sanitize_id("cu  %x 123")
         assert isinstance(sanitized_id, six.text_type)
-        assert sanitized_id == "cu++%25x123"
+        assert sanitized_id == "cu++%25x+123"
