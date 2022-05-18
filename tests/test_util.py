@@ -3,6 +3,8 @@ from __future__ import absolute_import, division, print_function
 import sys
 from collections import namedtuple
 
+import six
+
 import stripe
 from stripe import util
 from stripe.six.moves import builtins
@@ -154,5 +156,5 @@ class TestUtil(object):
 
     def test_sanitize_id(self):
         sanitized_id = util.sanitize_id("cu  %x 123")
-        assert sanitized_id.decode('utf-8')
+        assert isinstance(sanitized_id, six.text_type)
         assert sanitized_id == "cu++%25x123"
