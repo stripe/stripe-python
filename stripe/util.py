@@ -213,6 +213,7 @@ def sanitize_id(id):
     quotedId = quote_plus(utf8id)
     return quotedId
 
+
 class class_method_variant(object):
     def __init__(self, class_method_name):
         self.class_method_name = class_method_name
@@ -239,4 +240,3 @@ class class_method_variant(object):
                 return class_method(*args, **kwargs)
 
         return _wrapper
-
