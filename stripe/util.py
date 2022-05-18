@@ -239,3 +239,4 @@ class class_method_variant(object):
                 return class_method(*args, **kwargs)
 
         return _wrapper
+
