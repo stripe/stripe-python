@@ -10,8 +10,7 @@ import re
 
 import stripe
 from stripe import six
-from stripe.six.moves.urllib.parse import parse_qsl
-
+from stripe.six.moves.urllib.parse import parse_qsl, quote_plus
 
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
@@ -209,6 +208,10 @@ def merge_dicts(x, y):
     z.update(y)
     return z
 
+def sanitize_id(id):
+    utf8id = utf8(id)
+    quotedId = quote_plus(utf8id)
+    return quotedId
 
 class class_method_variant(object):
     def __init__(self, class_method_name):

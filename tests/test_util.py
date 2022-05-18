@@ -151,3 +151,8 @@ class TestUtil(object):
         assert isinstance(d["available"][0], dict)
 
         assert d == resp
+
+    def test_sanitize_id(self):
+        sanitized_id = util.sanitize_id("cu  %x 123")
+        assert sanitized_id.decode('utf-8')
+        assert sanitized_id == "cu++%25x123"
