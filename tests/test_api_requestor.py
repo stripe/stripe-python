@@ -9,11 +9,12 @@ from collections import OrderedDict
 import pytest
 
 import stripe
-from stripe import six
-from stripe.stripe_response import StripeResponse
+from stripe import six, util
+from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
 from stripe.six.moves.urllib.parse import urlsplit
 
+import urllib3
 
 VALID_API_METHODS = ("get", "post", "delete")
 
@@ -46,6 +47,7 @@ class APIHeaderMatcher(object):
         user_agent=None,
         app_info=None,
         idempotency_key=None,
+        fail_platform_call=False,
     ):
         self.request_method = request_method
         self.api_key = api_key or stripe.api_key
@@ -53,6 +55,7 @@ class APIHeaderMatcher(object):
         self.user_agent = user_agent
         self.app_info = app_info
         self.idempotency_key = idempotency_key
+        self.fail_platform_call = fail_platform_call
 
     def __eq__(self, other):
         return (
@@ -60,22 +63,20 @@ class APIHeaderMatcher(object):
             and self._auth_match(other)
             and self._user_agent_match(other)
             and self._x_stripe_ua_contains_app_info(other)
+            and self._x_stripe_ua_handles_failed_platform_function(other)
             and self._idempotency_key_match(other)
             and self._extra_match(other)
         )
 
     def __repr__(self):
-        return (
-            "APIHeaderMatcher(request_method=%s, api_key=%s, extra=%s, "
-            "user_agent=%s, app_info=%s, idempotency_key=%s)"
-            % (
-                repr(self.request_method),
-                repr(self.api_key),
-                repr(self.extra),
-                repr(self.user_agent),
-                repr(self.app_info),
-                repr(self.idempotency_key),
-            )
+        return "APIHeaderMatcher(request_method=%s, api_key=%s, extra=%s, " "user_agent=%s, app_info=%s, idempotency_key=%s, fail_platform_call=%s)" % (
+            repr(self.request_method),
+            repr(self.api_key),
+            repr(self.extra),
+            repr(self.user_agent),
+            repr(self.app_info),
+            repr(self.idempotency_key),
+            repr(self.fail_platform_call),
         )
 
     def _keys_match(self, other):
@@ -108,6 +109,12 @@ class APIHeaderMatcher(object):
                 return False
             return ua["application"] == self.app_info
 
+        return True
+
+    def _x_stripe_ua_handles_failed_platform_function(self, other):
+        if self.fail_platform_call:
+            ua = json.loads(other["X-Stripe-Client-User-Agent"])
+            return ua["platform"] == "(disabled)"
         return True
 
     def _extra_match(self, other):
@@ -244,16 +251,36 @@ class TestAPIRequestor(object):
         return mock_response
 
     @pytest.fixture
+    def mock_streaming_response(self, mocker, http_client):
+        def mock_streaming_response(return_body, return_code, headers=None):
+            http_client.request_stream_with_retries = mocker.Mock(
+                return_value=(return_body, return_code, headers or {})
+            )
+
+        return mock_streaming_response
+
+    @pytest.fixture
     def check_call(self, http_client):
-        def check_call(method, abs_url=None, headers=None, post_data=None):
+        def check_call(
+            method,
+            abs_url=None,
+            headers=None,
+            post_data=None,
+            is_streaming=False,
+        ):
             if not abs_url:
                 abs_url = "%s%s" % (stripe.api_base, self.valid_path)
             if not headers:
                 headers = APIHeaderMatcher(request_method=method)
 
-            http_client.request_with_retries.assert_called_with(
-                method, abs_url, headers, post_data
-            )
+            if is_streaming:
+                http_client.request_stream_with_retries.assert_called_with(
+                    method, abs_url, headers, post_data
+                )
+            else:
+                http_client.request_with_retries.assert_called_with(
+                    method, abs_url, headers, post_data
+                )
 
         return check_call
 
@@ -370,6 +397,28 @@ class TestAPIRequestor(object):
             assert resp.data == {}
             assert resp.data == json.loads(resp.body)
 
+    def test_empty_methods_streaming_response(
+        self, requestor, mock_streaming_response, check_call
+    ):
+        for meth in VALID_API_METHODS:
+            mock_streaming_response(util.io.BytesIO(b"thisisdata"), 200)
+
+            resp, key = requestor.request_stream(
+                meth,
+                self.valid_path,
+                {},
+            )
+
+            if meth == "post":
+                post_data = ""
+            else:
+                post_data = None
+
+            check_call(meth, post_data=post_data, is_streaming=True)
+            assert isinstance(resp, StripeStreamResponse)
+
+            assert resp.io.getvalue() == b"thisisdata"
+
     def test_methods_with_params_and_response(
         self, requestor, mock_response, check_call
     ):
@@ -404,6 +453,49 @@ class TestAPIRequestor(object):
                     encoded,
                 )
                 check_call(method, abs_url=UrlMatcher(abs_url))
+
+    def test_methods_with_params_and_streaming_response(
+        self, requestor, mock_streaming_response, check_call
+    ):
+        for method in VALID_API_METHODS:
+            mock_streaming_response(
+                util.io.BytesIO(b'{"foo": "bar", "baz": 6}'), 200
+            )
+
+            params = {
+                "alist": [1, 2, 3],
+                "adict": {"frobble": "bits"},
+                "adatetime": datetime.datetime(2013, 1, 1, tzinfo=GMT1()),
+            }
+            encoded = (
+                "adict[frobble]=bits&adatetime=1356994800&"
+                "alist[0]=1&alist[1]=2&alist[2]=3"
+            )
+
+            resp, key = requestor.request_stream(
+                method,
+                self.valid_path,
+                params,
+            )
+            assert isinstance(resp, StripeStreamResponse)
+
+            assert resp.io.getvalue() == b'{"foo": "bar", "baz": 6}'
+
+            if method == "post":
+                check_call(
+                    method,
+                    post_data=QueryMatcher(stripe.util.parse_qsl(encoded)),
+                    is_streaming=True,
+                )
+            else:
+                abs_url = "%s%s?%s" % (
+                    stripe.api_base,
+                    self.valid_path,
+                    encoded,
+                )
+                check_call(
+                    method, abs_url=UrlMatcher(abs_url), is_streaming=True
+                )
 
     def test_uses_headers(self, requestor, mock_response, check_call):
         mock_response("{}", 200)
@@ -505,6 +597,20 @@ class TestAPIRequestor(object):
             check_call("get", headers=header_matcher)
         finally:
             stripe.app_info = old
+
+    def test_handles_failed_platform_call(
+        self, requestor, mocker, mock_response, check_call
+    ):
+        mock_response("{}", 200)
+
+        def fail():
+            raise RuntimeError
+
+        mocker.patch("platform.platform", side_effect=fail)
+
+        requestor.request("get", self.valid_path, {}, {})
+
+        check_call("get", headers=APIHeaderMatcher(fail_platform_call=True))
 
     def test_uses_given_idempotency_key(
         self, requestor, mock_response, check_call
@@ -623,6 +729,31 @@ class TestAPIRequestor(object):
 
         with pytest.raises(stripe.oauth_error.InvalidGrantError):
             requestor.request("get", self.valid_path, {})
+
+    def test_extract_error_from_stream_request_for_bytes(
+        self, requestor, mock_streaming_response
+    ):
+        mock_streaming_response(
+            util.io.BytesIO(b'{"error": "invalid_grant"}'), 400
+        )
+
+        with pytest.raises(stripe.oauth_error.InvalidGrantError):
+            requestor.request_stream("get", self.valid_path, {})
+
+    def test_extract_error_from_stream_request_for_response(
+        self, requestor, mock_streaming_response
+    ):
+        # Responses don't have getvalue, they only have a read method.
+        mock_streaming_response(
+            urllib3.response.HTTPResponse(
+                body=util.io.BytesIO(b'{"error": "invalid_grant"}'),
+                preload_content=False,
+            ),
+            400,
+        )
+
+        with pytest.raises(stripe.oauth_error.InvalidGrantError):
+            requestor.request_stream("get", self.valid_path, {})
 
     def test_raw_request_with_file_param(self, requestor, mock_response):
         test_file = tempfile.NamedTemporaryFile()

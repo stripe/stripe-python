@@ -1,3 +1,4 @@
+# File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
 from stripe import api_requestor
@@ -10,7 +11,9 @@ from stripe.api_resources.abstract import custom_method
 
 @custom_method("void_credit_note", http_verb="post", http_path="void")
 class CreditNote(
-    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
+    CreateableAPIResource,
+    ListableAPIResource,
+    UpdateableAPIResource,
 ):
     OBJECT_NAME = "credit_note"
 

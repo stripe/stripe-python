@@ -10,8 +10,7 @@ import re
 
 import stripe
 from stripe import six
-from stripe.six.moves.urllib.parse import parse_qsl
-
+from stripe.six.moves.urllib.parse import parse_qsl, quote_plus
 
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
@@ -105,7 +104,6 @@ if hasattr(hmac, "compare_digest"):
     # Prefer the stdlib implementation, when available.
     def secure_compare(val1, val2):
         return hmac.compare_digest(utf8(val1), utf8(val2))
-
 
 else:
 
@@ -209,6 +207,12 @@ def merge_dicts(x, y):
     z = x.copy()
     z.update(y)
     return z
+
+
+def sanitize_id(id):
+    utf8id = utf8(id)
+    quotedId = quote_plus(utf8id)
+    return quotedId
 
 
 class class_method_variant(object):

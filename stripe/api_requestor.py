@@ -13,7 +13,7 @@ import stripe
 from stripe import error, oauth_error, http_client, version, util, six
 from stripe.multipart_data_generator import MultipartDataGenerator
 from stripe.six.moves.urllib.parse import urlencode, urlsplit, urlunsplit
-from stripe.stripe_response import StripeResponse
+from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
 
 def _encode_datetime(dttime):
@@ -117,9 +117,16 @@ class APIRequestor(object):
 
     def request(self, method, url, params=None, headers=None):
         rbody, rcode, rheaders, my_api_key = self.request_raw(
-            method.lower(), url, params, headers
+            method.lower(), url, params, headers, is_streaming=False
         )
         resp = self.interpret_response(rbody, rcode, rheaders)
+        return resp, my_api_key
+
+    def request_stream(self, method, url, params=None, headers=None):
+        stream, rcode, rheaders, my_api_key = self.request_raw(
+            method.lower(), url, params, headers, is_streaming=True
+        )
+        resp = self.interpret_streaming_response(stream, rcode, rheaders)
         return resp, my_api_key
 
     def handle_error_response(self, rbody, rcode, resp, rheaders):
@@ -249,8 +256,8 @@ class APIRequestor(object):
         ]:
             try:
                 val = func()
-            except Exception as e:
-                val = "!! %s" % (e,)
+            except Exception:
+                val = "(disabled)"
             ua[attr] = val
         if stripe.app_info:
             ua["application"] = stripe.app_info
@@ -273,7 +280,14 @@ class APIRequestor(object):
 
         return headers
 
-    def request_raw(self, method, url, params=None, supplied_headers=None):
+    def request_raw(
+        self,
+        method,
+        url,
+        params=None,
+        supplied_headers=None,
+        is_streaming=False,
+    ):
         """
         Mechanism for issuing an API call
         """
@@ -340,12 +354,21 @@ class APIRequestor(object):
             api_version=self.api_version,
         )
 
-        rbody, rcode, rheaders = self._client.request_with_retries(
-            method, abs_url, headers, post_data
-        )
+        if is_streaming:
+            (
+                rcontent,
+                rcode,
+                rheaders,
+            ) = self._client.request_stream_with_retries(
+                method, abs_url, headers, post_data
+            )
+        else:
+            rcontent, rcode, rheaders = self._client.request_with_retries(
+                method, abs_url, headers, post_data
+            )
 
         util.log_info("Stripe API response", path=abs_url, response_code=rcode)
-        util.log_debug("API response body", body=rbody)
+        util.log_debug("API response body", body=rcontent)
 
         if "Request-Id" in rheaders:
             request_id = rheaders["Request-Id"]
@@ -354,7 +377,10 @@ class APIRequestor(object):
                 link=util.dashboard_link(request_id),
             )
 
-        return rbody, rcode, rheaders, my_api_key
+        return rcontent, rcode, rheaders, my_api_key
+
+    def _should_handle_code_as_error(self, rcode):
+        return not 200 <= rcode < 300
 
     def interpret_response(self, rbody, rcode, rheaders):
         try:
@@ -369,7 +395,26 @@ class APIRequestor(object):
                 rcode,
                 rheaders,
             )
-        if not 200 <= rcode < 300:
+        if self._should_handle_code_as_error(rcode):
             self.handle_error_response(rbody, rcode, resp.data, rheaders)
-
         return resp
+
+    def interpret_streaming_response(self, stream, rcode, rheaders):
+        # Streaming response are handled with minimal processing for the success
+        # case (ie. we don't want to read the content). When an error is
+        # received, we need to read from the stream and parse the received JSON,
+        # treating it like a standard JSON response.
+        if self._should_handle_code_as_error(rcode):
+            if hasattr(stream, "getvalue"):
+                json_content = stream.getvalue()
+            elif hasattr(stream, "read"):
+                json_content = stream.read()
+            else:
+                raise NotImplementedError(
+                    "HTTP client %s does not return an IOBase object which "
+                    "can be consumed when streaming a response."
+                )
+
+            return self.interpret_response(json_content, rcode, rheaders)
+        else:
+            return StripeStreamResponse(stream, rcode, rheaders)

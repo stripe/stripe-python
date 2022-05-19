@@ -1,4 +1,99 @@
-# Changelog
+
+## 3.0.0 - 2022-05-09
+* [#809](https://github.com/stripe/stripe-python/pull/809) Release of major version v3.0.0. The [migration guide](https://github.com/stripe/stripe-python/wiki/Migration-Guide-for-v3) contains more information.
+  (⚠️ = breaking changes):
+  * ⚠️ Replace the legacy `Order` API with the new `Order` API.
+    * New methods: `cancel`, `list_line_items`, `reopen`, and `submit`
+    * Removed methods: `pay` and `return_order`
+    * Removed resources: `OrderItem` and `OrderReturn`
+  * ⚠️ Rename `financial_connections.account.refresh` to `financial_connections.refresh_account`
+  * Add support for `amount_discount`, `amount_tax`, and `product` on `LineItem`
+
+## 2.76.0 - 2022-05-05
+* [#808](https://github.com/stripe/stripe-python/pull/808) API Updates
+  * Add support for new resources `FinancialConnections.AccountOwner`, `FinancialConnections.AccountOwnership`, `FinancialConnections.Account`, and `FinancialConnections.Session`
+
+## 2.75.0 - 2022-05-03
+* [#805](https://github.com/stripe/stripe-python/pull/805) API Updates
+  * Add support for new resource `CashBalance`
+
+## 2.74.0 - 2022-04-21
+* [#796](https://github.com/stripe/stripe-python/pull/796) API Updates
+  * Add support for `expire` test helper method on resource `Refund`
+
+## 2.73.0 - 2022-04-18
+* [#792](https://github.com/stripe/stripe-python/pull/792) [#794](https://github.com/stripe/stripe-python/pull/794) [#795](https://github.com/stripe/stripe-python/pull/795) API Updates
+  * Add support for new resources `FundingInstructions` and `Terminal.Configuration`
+
+## 2.72.0 - 2022-04-13
+* [#791](https://github.com/stripe/stripe-python/pull/791) API Updates
+  * Add support for `increment_authorization` method on resource `PaymentIntent`
+
+## 2.71.0 - 2022-04-08
+* [#788](https://github.com/stripe/stripe-python/pull/788) API Updates
+  * Add support for `apply_customer_balance` method on resource `PaymentIntent`
+
+## 2.70.0 - 2022-03-30
+* [#785](https://github.com/stripe/stripe-python/pull/785) API Updates
+  * Add support for `cancel_action`, `process_payment_intent`, `process_setup_intent`, and `set_reader_display` methods on resource `Terminal.Reader`
+
+## 2.69.0 - 2022-03-29
+* [#783](https://github.com/stripe/stripe-python/pull/783) API Updates
+  * Add support for Search API
+    * Add support for `search` method on resources `Charge`, `Customer`, `Invoice`, `PaymentIntent`, `Price`, `Product`, and `Subscription`
+* [#784](https://github.com/stripe/stripe-python/pull/784) Pin click dependency to 8.0.4 to avoid breakage in black
+* [#773](https://github.com/stripe/stripe-python/pull/773) Add infrastructure for test-helper methods
+* [#782](https://github.com/stripe/stripe-python/pull/782) Revert Orders to use qualified name for upload_api_base
+
+## 2.68.0 - 2022-03-23
+* [#781](https://github.com/stripe/stripe-python/pull/781) API Updates
+  * Add support for `cancel` method on resource `Refund`
+* [#777](https://github.com/stripe/stripe-python/pull/777) Add support for SearchResult.
+
+## 2.67.0 - 2022-03-01
+* [#774](https://github.com/stripe/stripe-python/pull/774) API Updates
+  * Add support for new resource `TestHelpers.TestClock`
+
+## 2.66.0 - 2022-02-16
+* [#771](https://github.com/stripe/stripe-python/pull/771) API Updates
+  * Add support for `verify_microdeposits` method on resources `PaymentIntent` and `SetupIntent`
+
+## 2.65.0 - 2022-01-20
+* [#766](https://github.com/stripe/stripe-python/pull/766) API Updates
+  * Add support for new resource `PaymentLink`
+* [#763](https://github.com/stripe/stripe-python/pull/763) Start testing Python 3.10
+
+## 2.64.0 - 2021-12-21
+* [#757](https://github.com/stripe/stripe-python/pull/757) Update class custom methods to save list object parameters.
+* [#756](https://github.com/stripe/stripe-python/pull/756) Introduce custom listing methods on objects.
+* [#754](https://github.com/stripe/stripe-python/pull/754) Clarify metadata deletion message.
+
+## 2.63.0 - 2021-11-16
+* [#748](https://github.com/stripe/stripe-python/pull/748) API Updates
+  * Add support for new resource `ShippingRate`
+
+## 2.62.0 - 2021-11-11
+* [#745](https://github.com/stripe/stripe-python/pull/745) API Updates
+  * Add support for `expire` method on resource `Checkout.Session`
+
+## 2.61.0 - 2021-10-11
+* [#738](https://github.com/stripe/stripe-python/pull/738) API Updates
+  * Add support for `list_payment_methods` method on resource `Customer`
+* [#736](https://github.com/stripe/stripe-python/pull/736) Stop sending raw exception message as part of Stripe user agent.
+
+## 2.60.0 - 2021-07-14
+* [#728](https://github.com/stripe/stripe-python/pull/728) API Updates
+  * Add support for `list_computed_upfront_line_items` method on resource `Quote`
+
+## 2.59.0 - 2021-07-09
+* [#727](https://github.com/stripe/stripe-python/pull/727) [#725](https://github.com/stripe/stripe-python/pull/725) Add support for new `Quote` API.
+
+## 2.58.0 - 2021-06-04
+* [#722](https://github.com/stripe/stripe-python/pull/722) API Updates
+  * Add support for new `TaxCode` API.
+
+## 2.57.0 - 2021-05-19
+* [#720](https://github.com/stripe/stripe-python/pull/720) Add support for Identity VerificationSession and VerificationReport APIs
 
 ## 2.56.0 - 2021-02-22
 * [#713](https://github.com/stripe/stripe-python/pull/713) Add support for the Billing Portal Configuration API

@@ -171,3 +171,20 @@ class TestCustomerTransactions(object):
             "get", "/v1/customers/%s/balance_transactions" % TEST_RESOURCE_ID
         )
         assert isinstance(resources.data, list)
+
+
+class TestCustomerPaymentMethods(object):
+    def test_is_listable(self, request_mock):
+        stripe.Customer.list_payment_methods(TEST_RESOURCE_ID, type="card")
+        request_mock.assert_requested(
+            "get", "/v1/customers/%s/payment_methods" % TEST_RESOURCE_ID
+        )
+
+    def test_is_listable_on_object(self, request_mock):
+        resource = stripe.Customer.retrieve(
+            TEST_RESOURCE_ID
+        ).list_payment_methods(TEST_RESOURCE_ID, type="card")
+        request_mock.assert_requested(
+            "get", "/v1/customers/%s/payment_methods" % TEST_RESOURCE_ID
+        )
+        assert isinstance(resource, stripe.ListObject)

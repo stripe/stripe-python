@@ -1,3 +1,4 @@
+# File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
 import stripe
@@ -24,7 +25,8 @@ from stripe.six.moves.urllib.parse import quote_plus
 )
 @nested_resource_class_methods("login_link", operations=["create"])
 @nested_resource_class_methods(
-    "person", operations=["create", "retrieve", "update", "delete", "list"]
+    "person",
+    operations=["create", "retrieve", "update", "delete", "list"],
 )
 class Account(
     CreateableAPIResource,

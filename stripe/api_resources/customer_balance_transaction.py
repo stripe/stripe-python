@@ -1,8 +1,9 @@
+# File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.customer import Customer
 from stripe.api_resources.abstract import APIResource
+from stripe.api_resources.customer import Customer
 from stripe.six.moves.urllib.parse import quote_plus
 
 

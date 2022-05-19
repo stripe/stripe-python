@@ -1,3 +1,4 @@
+# File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
@@ -7,19 +8,35 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import custom_method
 
 
-@custom_method("pay", http_verb="post")
-@custom_method("return_order", http_verb="post", http_path="returns")
+@custom_method("cancel", http_verb="post")
+@custom_method("list_line_items", http_verb="get", http_path="line_items")
+@custom_method("reopen", http_verb="post")
+@custom_method("submit", http_verb="post")
 class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "order"
 
-    def pay(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/pay"
+    def cancel(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/cancel"
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
-    def return_order(self, idempotency_key=None, **params):
+    def list_line_items(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/line_items"
         headers = util.populate_headers(idempotency_key)
-        return self.request(
-            "post", self.instance_url() + "/returns", params, headers
-        )
+        resp = self.request("get", url, params, headers)
+        stripe_object = util.convert_to_stripe_object(resp)
+        stripe_object._retrieve_params = params
+        return stripe_object
+
+    def reopen(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/reopen"
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("post", url, params, headers))
+        return self
+
+    def submit(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/submit"
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("post", url, params, headers))
+        return self

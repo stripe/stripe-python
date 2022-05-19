@@ -37,7 +37,8 @@ setup(
     python_requires=">=2.7, !=3.0.*, !=3.1.*, !=3.2.*, !=3.3.*",
     project_urls={
         "Bug Tracker": "https://github.com/stripe/stripe-python/issues",
-        "Documentation": "https://stripe.com/docs/api/python",
+        "Changes": "https://github.com/stripe/stripe-python/blob/master/CHANGELOG.md",
+        "Documentation": "https://stripe.com/docs/api/?lang=python",
         "Source Code": "https://github.com/stripe/stripe-python",
     },
     classifiers=[
@@ -55,7 +56,9 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: Implementation :: PyPy",
         "Topic :: Software Development :: Libraries :: Python Modules",
     ],
+    setup_requires=["wheel"],
 )
