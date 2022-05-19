@@ -16,6 +16,7 @@ class FinancialAccount(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "treasury.financial_account"
+
     def retrieve_features(self, idempotency_key=None, **params):
         url = self.instance_url() + "/features"
         headers = util.populate_headers(idempotency_key)
@@ -29,4 +30,3 @@ class FinancialAccount(
         resp = self.request("post", url, params, headers)
         stripe_object = util.convert_to_stripe_object(resp)
         return stripe_object
-

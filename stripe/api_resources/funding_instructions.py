@@ -6,4 +6,3 @@ from stripe.stripe_object import StripeObject
 
 class FundingInstructions(StripeObject):
     OBJECT_NAME = "funding_instructions"
-

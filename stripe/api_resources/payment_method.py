@@ -16,6 +16,7 @@ class PaymentMethod(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "payment_method"
+
     def attach(self, idempotency_key=None, **params):
         url = self.instance_url() + "/attach"
         headers = util.populate_headers(idempotency_key)
@@ -27,4 +28,3 @@ class PaymentMethod(
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
-

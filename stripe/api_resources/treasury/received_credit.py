@@ -21,8 +21,11 @@ class ReceivedCredit(ListableAPIResource):
             stripe_account=None,
             **params
         ):
-            requestor = api_requestor.APIRequestor(api_key, api_version=stripe_version, account=stripe_account)
+            requestor = api_requestor.APIRequestor(
+                api_key, api_version=stripe_version, account=stripe_account
+            )
             url = cls.class_url() + "/received_credits"
             response, api_key = requestor.request(post, url, params)
-            return util.convert_to_stripe_object(response, api_key, stripe_version, stripe_account)
-
+            return util.convert_to_stripe_object(
+                response, api_key, stripe_version, stripe_account
+            )

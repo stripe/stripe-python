@@ -15,10 +15,10 @@ class CashBalance(APIResource):
         base = Customer.class_url()
         cust_extn = quote_plus(customer)
         return "%s/%s/cash_balance" % (base, cust_extn)
+
     @classmethod
     def retrieve(cls, id, api_key=None, **params):
         raise NotImplementedError(
             "Can't retrieve a Customer Cash Balance without a Customer ID. "
             "Use Customer.retrieve_cash_balance('cus_123')"
         )
-

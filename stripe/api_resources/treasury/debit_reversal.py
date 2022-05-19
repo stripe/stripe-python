@@ -7,4 +7,3 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 class DebitReversal(CreateableAPIResource, ListableAPIResource):
     OBJECT_NAME = "treasury.debit_reversal"
-

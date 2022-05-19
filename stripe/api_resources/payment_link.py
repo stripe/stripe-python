@@ -15,6 +15,7 @@ class PaymentLink(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "payment_link"
+
     def list_line_items(self, idempotency_key=None, **params):
         url = self.instance_url() + "/line_items"
         headers = util.populate_headers(idempotency_key)
@@ -22,4 +23,3 @@ class PaymentLink(
         stripe_object = util.convert_to_stripe_object(resp)
         stripe_object._retrieve_params = params
         return stripe_object
-

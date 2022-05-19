@@ -12,4 +12,3 @@ class Cardholder(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "issuing.cardholder"
-

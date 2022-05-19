@@ -6,4 +6,3 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 class Transaction(ListableAPIResource):
     OBJECT_NAME = "treasury.transaction"
-
