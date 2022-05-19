@@ -9,6 +9,7 @@ from stripe.api_resources.search_result_object import SearchResultObject
 
 from stripe.api_resources import billing_portal
 from stripe.api_resources import checkout
+from stripe.api_resources import financial_connections
 from stripe.api_resources import identity
 from stripe.api_resources import issuing
 from stripe.api_resources import radar
@@ -56,7 +57,6 @@ from stripe.api_resources.line_item import LineItem
 from stripe.api_resources.login_link import LoginLink
 from stripe.api_resources.mandate import Mandate
 from stripe.api_resources.order import Order
-from stripe.api_resources.order_return import OrderReturn
 from stripe.api_resources.payment_intent import PaymentIntent
 from stripe.api_resources.payment_link import PaymentLink
 from stripe.api_resources.payment_method import PaymentMethod
