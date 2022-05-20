@@ -17,6 +17,7 @@ from stripe.api_resources import reporting
 from stripe.api_resources import sigma
 from stripe.api_resources import terminal
 from stripe.api_resources import test_helpers
+from stripe.api_resources import treasury
 
 from stripe.api_resources.account import Account
 from stripe.api_resources.account_link import AccountLink

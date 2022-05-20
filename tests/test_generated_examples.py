@@ -3,20 +3,346 @@ import stripe
 
 
 class TestGeneratedExamples(object):
+    def test_customer_list_payment_methods(self, request_mock):
+        stripe.Customer.list_payment_methods("cus_xyz", type="card")
+        request_mock.assert_requested(
+            "get",
+            "/v1/customers/cus_xyz/payment_methods",
+        )
+
+    def test_checkout_session_expire(self, request_mock):
+        stripe.checkout.Session.expire("sess_xyz")
+        request_mock.assert_requested(
+            "post",
+            "/v1/checkout/sessions/sess_xyz/expire",
+        )
+
+    def test_shippingrate_create(self, request_mock):
+        stripe.ShippingRate.create(
+            display_name="Sample Shipper",
+            fixed_amount={"currency": "usd", "amount": 400},
+            type="fixed_amount",
+        )
+        request_mock.assert_requested("post", "/v1/shipping_rates")
+
+    def test_shippingrate_list(self, request_mock):
+        stripe.ShippingRate.list()
+        request_mock.assert_requested("get", "/v1/shipping_rates")
+
+    def test_checkout_session_create(self, request_mock):
+        stripe.checkout.Session.create(
+            success_url="https://example.com/success",
+            cancel_url="https://example.com/cancel",
+            mode="payment",
+            shipping_options=[
+                {"shipping_rate": "shr_standard"},
+                {
+                    "shipping_rate_data": {
+                        "display_name": "Standard",
+                        "delivery_estimate": {
+                            "minimum": {"unit": "day", "value": 5},
+                            "maximum": {"unit": "day", "value": 7},
+                        },
+                    },
+                },
+            ],
+        )
+        request_mock.assert_requested("post", "/v1/checkout/sessions")
+
+    def test_paymentintent_create(self, request_mock):
+        stripe.PaymentIntent.create(
+            amount=1099,
+            currency="eur",
+            automatic_payment_methods={"enabled": True},
+        )
+        request_mock.assert_requested("post", "/v1/payment_intents")
+
+    def test_paymentlink_create(self, request_mock):
+        stripe.PaymentLink.create(
+            line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
+        )
+        request_mock.assert_requested("post", "/v1/payment_links")
+
+    def test_paymentlink_list_line_items(self, request_mock):
+        stripe.PaymentLink.list_line_items("pl_xyz")
+        request_mock.assert_requested(
+            "get", "/v1/payment_links/pl_xyz/line_items"
+        )
+
+    def test_paymentlink_retrieve(self, request_mock):
+        stripe.PaymentLink.retrieve("pl_xyz")
+        request_mock.assert_requested("get", "/v1/payment_links/pl_xyz")
+
+    def test_paymentintent_verify_microdeposits(self, request_mock):
+        stripe.PaymentIntent.verify_microdeposits("pi_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
+        )
+
+    def test_setupintent_verify_microdeposits(self, request_mock):
+        stripe.SetupIntent.verify_microdeposits("seti_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
+        )
+
+    def test_test_helpers_testclock_create(self, request_mock):
+        stripe.test_helpers.TestClock.create(frozen_time=123, name="cogsworth")
+        request_mock.assert_requested("post", "/v1/test_helpers/test_clocks")
+
+    def test_test_helpers_testclock_retrieve(self, request_mock):
+        stripe.test_helpers.TestClock.retrieve("clock_xyz")
+        request_mock.assert_requested(
+            "get",
+            "/v1/test_helpers/test_clocks/clock_xyz",
+        )
+
+    def test_test_helpers_testclock_list(self, request_mock):
+        stripe.test_helpers.TestClock.list()
+        request_mock.assert_requested("get", "/v1/test_helpers/test_clocks")
+
+    def test_test_helpers_testclock_delete(self, request_mock):
+        stripe.test_helpers.TestClock.delete("clock_xyz")
+        request_mock.assert_requested(
+            "delete",
+            "/v1/test_helpers/test_clocks/clock_xyz",
+        )
+
+    def test_test_helpers_testclock_advance(self, request_mock):
+        stripe.test_helpers.TestClock.advance("clock_xyz", frozen_time=142)
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/test_clocks/clock_xyz/advance",
+        )
+
+    def test_customer_create_funding_instructions(self, request_mock):
+        stripe.Customer.create_funding_instructions(
+            "cus_123",
+            bank_transfer={
+                "requested_address_types": ["zengin"],
+                "type": "jp_bank_transfer",
+            },
+            currency="usd",
+            funding_type="bank_transfer",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/customers/cus_123/funding_instructions",
+        )
+
+    def test_terminal_configuration_list(self, request_mock):
+        stripe.terminal.Configuration.list()
+        request_mock.assert_requested("get", "/v1/terminal/configurations")
+
+    def test_terminal_configuration_retrieve(self, request_mock):
+        stripe.terminal.Configuration.retrieve("uc_123")
+        request_mock.assert_requested(
+            "get", "/v1/terminal/configurations/uc_123"
+        )
+
+    def test_terminal_configuration_create(self, request_mock):
+        stripe.terminal.Configuration.create()
+        request_mock.assert_requested("post", "/v1/terminal/configurations")
+
+    def test_terminal_configuration_update(self, request_mock):
+        stripe.terminal.Configuration.modify(
+            "uc_123",
+            tipping={"usd": {"fixed_amounts": [10]}},
+        )
+        request_mock.assert_requested(
+            "post", "/v1/terminal/configurations/uc_123"
+        )
+
+    def test_terminal_configuration_delete(self, request_mock):
+        stripe.terminal.Configuration.delete("uc_123")
+        request_mock.assert_requested(
+            "delete",
+            "/v1/terminal/configurations/uc_123",
+        )
+
+    def test_refund_expire(self, request_mock):
+        stripe.Refund.TestHelpers.expire("re_123")
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/refunds/re_123/expire",
+        )
+
+    def test_order_create(self, request_mock):
+        stripe.Order.create(
+            description="description",
+            currency="usd",
+            line_items=[{"description": "my line item"}],
+        )
+        request_mock.assert_requested("post", "/v1/orders")
+
+    def test_order_update(self, request_mock):
+        stripe.Order.modify("order_xyz")
+        request_mock.assert_requested("post", "/v1/orders/order_xyz")
+
+    def test_order_list_line_items(self, request_mock):
+        stripe.Order.list_line_items("order_xyz")
+        request_mock.assert_requested("get", "/v1/orders/order_xyz/line_items")
+
+    def test_order_cancel(self, request_mock):
+        stripe.Order.cancel("order_xyz")
+        request_mock.assert_requested("post", "/v1/orders/order_xyz/cancel")
+
+    def test_order_reopen(self, request_mock):
+        stripe.Order.reopen("order_xyz")
+        request_mock.assert_requested("post", "/v1/orders/order_xyz/reopen")
+
+    def test_order_submit(self, request_mock):
+        stripe.Order.submit("order_xyz", expected_total=100)
+        request_mock.assert_requested("post", "/v1/orders/order_xyz/submit")
+
+    def test_order_update2(self, request_mock):
+        stripe.Order.modify("order_xyz")
+        request_mock.assert_requested("post", "/v1/orders/order_xyz")
+
+    def test_financial_connections_account_retrieve(self, request_mock):
+        stripe.financial_connections.Account.retrieve("fca_xyz")
+        request_mock.assert_requested(
+            "get",
+            "/v1/financial_connections/accounts/fca_xyz",
+        )
+
+    def test_financial_connections_account_refresh_account(self, request_mock):
+        stripe.financial_connections.Account.refresh_account(
+            "fca_xyz",
+            features=["balance"],
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/financial_connections/accounts/fca_xyz/refresh",
+        )
+
+    def test_financial_connections_account_disconnect(self, request_mock):
+        stripe.financial_connections.Account.disconnect("fca_xyz")
+        request_mock.assert_requested(
+            "post",
+            "/v1/financial_connections/accounts/fca_xyz/disconnect",
+        )
+
+    def test_financial_connections_session_create(self, request_mock):
+        stripe.financial_connections.Session.create(
+            account_holder={"type": "customer", "customer": "cus_123"},
+            permissions=["balances"],
+        )
+        request_mock.assert_requested(
+            "post", "/v1/financial_connections/sessions"
+        )
+
+    def test_financial_connections_session_retrieve(self, request_mock):
+        stripe.financial_connections.Session.retrieve("fcsess_xyz")
+        request_mock.assert_requested(
+            "get",
+            "/v1/financial_connections/sessions/fcsess_xyz",
+        )
+
+    def test_financial_connections_account_list(self, request_mock):
+        stripe.financial_connections.Account.list()
+        request_mock.assert_requested(
+            "get", "/v1/financial_connections/accounts"
+        )
+
+    def test_financial_connections_account_list_owners(self, request_mock):
+        stripe.financial_connections.Account.list_owners(
+            "fca_xyz",
+            ownership="fcaowns_xyz",
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/financial_connections/accounts/fca_xyz/owners",
+        )
+
+    def test_treasury_inboundtransfer_fail(self, request_mock):
+        stripe.treasury.InboundTransfer.TestHelpers.fail(
+            "ibt_123",
+            failure_details={"code": "account_closed"},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/treasury/inbound_transfers/ibt_123/fail",
+        )
+
+    def test_treasury_inboundtransfer_return_inbound_transfer(
+        self, request_mock
+    ):
+        stripe.treasury.InboundTransfer.TestHelpers.return_inbound_transfer(
+            "ibt_123",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/treasury/inbound_transfers/ibt_123/return",
+        )
+
+    def test_treasury_inboundtransfer_succeed(self, request_mock):
+        stripe.treasury.InboundTransfer.TestHelpers.succeed("ibt_123")
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/treasury/inbound_transfers/ibt_123/succeed",
+        )
+
+    def test_treasury_outboundtransfer_post(self, request_mock):
+        stripe.treasury.OutboundTransfer.TestHelpers.post("obt_123")
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/treasury/outbound_transfers/obt_123/post",
+        )
+
+    def test_treasury_outboundtransfer_fail(self, request_mock):
+        stripe.treasury.OutboundTransfer.TestHelpers.fail("obt_123")
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/treasury/outbound_transfers/obt_123/fail",
+        )
+
+    def test_treasury_outboundtransfer_return_outbound_transfer(
+        self, request_mock
+    ):
+        stripe.treasury.OutboundTransfer.TestHelpers.return_outbound_transfer(
+            "obt_123",
+            returned_details={"code": "account_closed"},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/treasury/outbound_transfers/obt_123/return",
+        )
+
+    def test_treasury_receivedcredit_create(self, request_mock):
+        stripe.treasury.ReceivedCredit.TestHelpers.create(
+            financial_account="fa_123",
+            network="ach",
+            amount=1234,
+            currency="usd",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/treasury/received_credits",
+        )
+
+    def test_treasury_receiveddebit_create(self, request_mock):
+        stripe.treasury.ReceivedDebit.TestHelpers.create(
+            financial_account="fa_123",
+            network="ach",
+            amount=1234,
+            currency="usd",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/treasury/received_debits",
+        )
+
     def test_customer_list(self, request_mock):
         stripe.Customer.list(limit=3)
         request_mock.assert_requested("get", "/v1/customers")
 
-    def test_balancetransaction_retrieve(self, request_mock):
-        stripe.BalanceTransaction.retrieve("txn_xxxxxxxxxxxxx")
-        request_mock.assert_requested(
-            "get",
-            "/v1/balance_transactions/txn_xxxxxxxxxxxxx",
+    def test_customer_search(self, request_mock):
+        stripe.Customer.search(
+            query="name:'fakename' AND metadata['foo']:'bar'"
         )
-
-    def test_balancetransaction_list(self, request_mock):
-        stripe.BalanceTransaction.list(limit=3)
-        request_mock.assert_requested("get", "/v1/balance_transactions")
+        request_mock.assert_requested("get", "/v1/customers/search")
 
     def test_charge_create(self, request_mock):
         stripe.Charge.create(
@@ -46,6 +372,12 @@ class TestGeneratedExamples(object):
         stripe.Charge.list(limit=3)
         request_mock.assert_requested("get", "/v1/charges")
 
+    def test_charge_search(self, request_mock):
+        stripe.Charge.search(
+            query="amount>999 AND metadata['order_id']:'6735'"
+        )
+        request_mock.assert_requested("get", "/v1/charges/search")
+
     def test_customer_create(self, request_mock):
         stripe.Customer.create(
             description="My First Test Customer (created for API docs)",
@@ -73,6 +405,12 @@ class TestGeneratedExamples(object):
     def test_customer_list2(self, request_mock):
         stripe.Customer.list(limit=3)
         request_mock.assert_requested("get", "/v1/customers")
+
+    def test_customer_search2(self, request_mock):
+        stripe.Customer.search(
+            query="name:'fakename' AND metadata['foo']:'bar'"
+        )
+        request_mock.assert_requested("get", "/v1/customers/search")
 
     def test_dispute_retrieve(self, request_mock):
         stripe.Dispute.retrieve("dp_xxxxxxxxxxxxx")
@@ -138,7 +476,7 @@ class TestGeneratedExamples(object):
             "get", "/v1/mandates/mandate_xxxxxxxxxxxxx"
         )
 
-    def test_paymentintent_create(self, request_mock):
+    def test_paymentintent_create2(self, request_mock):
         stripe.PaymentIntent.create(
             amount=2000,
             currency="usd",
@@ -190,6 +528,29 @@ class TestGeneratedExamples(object):
         stripe.PaymentIntent.list(limit=3)
         request_mock.assert_requested("get", "/v1/payment_intents")
 
+    def test_paymentintent_increment_authorization(self, request_mock):
+        stripe.PaymentIntent.increment_authorization(
+            "pi_xxxxxxxxxxxxx",
+            amount=2099,
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx/increment_authorization",
+        )
+
+    def test_paymentintent_search(self, request_mock):
+        stripe.PaymentIntent.search(
+            query="status:'succeeded' AND metadata['order_id']:'6735'",
+        )
+        request_mock.assert_requested("get", "/v1/payment_intents/search")
+
+    def test_paymentintent_apply_customer_balance(self, request_mock):
+        stripe.PaymentIntent.apply_customer_balance("pi_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/payment_intents/pi_xxxxxxxxxxxxx/apply_customer_balance",
+        )
+
     def test_setupintent_create(self, request_mock):
         stripe.SetupIntent.create(payment_method_types=["card"])
         request_mock.assert_requested("post", "/v1/setup_intents")
@@ -232,7 +593,7 @@ class TestGeneratedExamples(object):
         request_mock.assert_requested("get", "/v1/setup_intents")
 
     def test_setupattempt_list(self, request_mock):
-        stripe.SetupAttempt.list(setup_intent="seti_xxxxxxxxxxxxx", limit=3)
+        stripe.SetupAttempt.list(limit=3, setup_intent="si_xyz")
         request_mock.assert_requested("get", "/v1/setup_attempts")
 
     def test_payout_create(self, request_mock):
@@ -264,55 +625,6 @@ class TestGeneratedExamples(object):
             "/v1/payouts/po_xxxxxxxxxxxxx/reverse",
         )
 
-    def test_product_create(self, request_mock):
-        stripe.Product.create(name="Gold Special")
-        request_mock.assert_requested("post", "/v1/products")
-
-    def test_product_retrieve(self, request_mock):
-        stripe.Product.retrieve("prod_xxxxxxxxxxxxx")
-        request_mock.assert_requested("get", "/v1/products/prod_xxxxxxxxxxxxx")
-
-    def test_product_update(self, request_mock):
-        stripe.Product.modify(
-            "prod_xxxxxxxxxxxxx", metadata={"order_id": "6735"}
-        )
-        request_mock.assert_requested(
-            "post", "/v1/products/prod_xxxxxxxxxxxxx"
-        )
-
-    def test_product_list(self, request_mock):
-        stripe.Product.list(limit=3)
-        request_mock.assert_requested("get", "/v1/products")
-
-    def test_product_delete(self, request_mock):
-        stripe.Product.delete("prod_xxxxxxxxxxxxx")
-        request_mock.assert_requested(
-            "delete", "/v1/products/prod_xxxxxxxxxxxxx"
-        )
-
-    def test_price_create(self, request_mock):
-        stripe.Price.create(
-            unit_amount=2000,
-            currency="usd",
-            recurring={"interval": "month"},
-            product="prod_xxxxxxxxxxxxx",
-        )
-        request_mock.assert_requested("post", "/v1/prices")
-
-    def test_price_retrieve(self, request_mock):
-        stripe.Price.retrieve("price_xxxxxxxxxxxxx")
-        request_mock.assert_requested("get", "/v1/prices/price_xxxxxxxxxxxxx")
-
-    def test_price_update(self, request_mock):
-        stripe.Price.modify(
-            "price_xxxxxxxxxxxxx", metadata={"order_id": "6735"}
-        )
-        request_mock.assert_requested("post", "/v1/prices/price_xxxxxxxxxxxxx")
-
-    def test_price_list(self, request_mock):
-        stripe.Price.list(limit=3)
-        request_mock.assert_requested("get", "/v1/prices")
-
     def test_refund_create(self, request_mock):
         stripe.Refund.create(charge="ch_xxxxxxxxxxxxx")
         request_mock.assert_requested("post", "/v1/refunds")
@@ -325,6 +637,12 @@ class TestGeneratedExamples(object):
         stripe.Refund.modify("re_xxxxxxxxxxxxx", metadata={"order_id": "6735"})
         request_mock.assert_requested("post", "/v1/refunds/re_xxxxxxxxxxxxx")
 
+    def test_refund_cancel(self, request_mock):
+        stripe.Refund.cancel("re_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post", "/v1/refunds/re_xxxxxxxxxxxxx/cancel"
+        )
+
     def test_refund_list(self, request_mock):
         stripe.Refund.list(limit=3)
         request_mock.assert_requested("get", "/v1/refunds")
@@ -334,7 +652,7 @@ class TestGeneratedExamples(object):
             card={
                 "number": "4242424242424242",
                 "exp_month": "5",
-                "exp_year": "2022",
+                "exp_year": "2023",
                 "cvc": "314",
             },
         )
@@ -390,7 +708,7 @@ class TestGeneratedExamples(object):
             card={
                 "number": "4242424242424242",
                 "exp_month": 5,
-                "exp_year": 2022,
+                "exp_year": 2023,
                 "cvc": "314",
             },
         )
@@ -415,6 +733,13 @@ class TestGeneratedExamples(object):
     def test_paymentmethod_list(self, request_mock):
         stripe.PaymentMethod.list(customer="cus_xxxxxxxxxxxxx", type="card")
         request_mock.assert_requested("get", "/v1/payment_methods")
+
+    def test_customer_list_payment_methods2(self, request_mock):
+        stripe.Customer.list_payment_methods("cus_xxxxxxxxxxxxx", type="card")
+        request_mock.assert_requested(
+            "get",
+            "/v1/customers/cus_xxxxxxxxxxxxx/payment_methods",
+        )
 
     def test_paymentmethod_attach(self, request_mock):
         stripe.PaymentMethod.attach(
@@ -443,15 +768,193 @@ class TestGeneratedExamples(object):
         )
         request_mock.assert_requested("post", "/v1/sources/src_xxxxxxxxxxxxx")
 
-    def test_checkout_session_create(self, request_mock):
+    def test_product_create(self, request_mock):
+        stripe.Product.create(name="Gold Special")
+        request_mock.assert_requested("post", "/v1/products")
+
+    def test_product_retrieve(self, request_mock):
+        stripe.Product.retrieve("prod_xxxxxxxxxxxxx")
+        request_mock.assert_requested("get", "/v1/products/prod_xxxxxxxxxxxxx")
+
+    def test_product_update(self, request_mock):
+        stripe.Product.modify(
+            "prod_xxxxxxxxxxxxx", metadata={"order_id": "6735"}
+        )
+        request_mock.assert_requested(
+            "post", "/v1/products/prod_xxxxxxxxxxxxx"
+        )
+
+    def test_product_list(self, request_mock):
+        stripe.Product.list(limit=3)
+        request_mock.assert_requested("get", "/v1/products")
+
+    def test_product_delete(self, request_mock):
+        stripe.Product.delete("prod_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "delete", "/v1/products/prod_xxxxxxxxxxxxx"
+        )
+
+    def test_product_search(self, request_mock):
+        stripe.Product.search(
+            query="active:'true' AND metadata['order_id']:'6735'"
+        )
+        request_mock.assert_requested("get", "/v1/products/search")
+
+    def test_price_create(self, request_mock):
+        stripe.Price.create(
+            unit_amount=2000,
+            currency="usd",
+            recurring={"interval": "month"},
+            product="prod_xxxxxxxxxxxxx",
+        )
+        request_mock.assert_requested("post", "/v1/prices")
+
+    def test_price_retrieve(self, request_mock):
+        stripe.Price.retrieve("price_xxxxxxxxxxxxx")
+        request_mock.assert_requested("get", "/v1/prices/price_xxxxxxxxxxxxx")
+
+    def test_price_update(self, request_mock):
+        stripe.Price.modify(
+            "price_xxxxxxxxxxxxx", metadata={"order_id": "6735"}
+        )
+        request_mock.assert_requested("post", "/v1/prices/price_xxxxxxxxxxxxx")
+
+    def test_price_list(self, request_mock):
+        stripe.Price.list(limit=3)
+        request_mock.assert_requested("get", "/v1/prices")
+
+    def test_price_search(self, request_mock):
+        stripe.Price.search(
+            query="active:'true' AND metadata['order_id']:'6735'"
+        )
+        request_mock.assert_requested("get", "/v1/prices/search")
+
+    def test_coupon_create(self, request_mock):
+        stripe.Coupon.create(
+            percent_off=25.5,
+            duration="repeating",
+            duration_in_months=3,
+        )
+        request_mock.assert_requested("post", "/v1/coupons")
+
+    def test_coupon_retrieve(self, request_mock):
+        stripe.Coupon.retrieve("Z4OV52SU")
+        request_mock.assert_requested("get", "/v1/coupons/Z4OV52SU")
+
+    def test_coupon_update(self, request_mock):
+        stripe.Coupon.modify("Z4OV52SU", metadata={"order_id": "6735"})
+        request_mock.assert_requested("post", "/v1/coupons/Z4OV52SU")
+
+    def test_coupon_delete(self, request_mock):
+        stripe.Coupon.delete("Z4OV52SU")
+        request_mock.assert_requested("delete", "/v1/coupons/Z4OV52SU")
+
+    def test_coupon_list(self, request_mock):
+        stripe.Coupon.list(limit=3)
+        request_mock.assert_requested("get", "/v1/coupons")
+
+    def test_promotioncode_create(self, request_mock):
+        stripe.PromotionCode.create(coupon="Z4OV52SU")
+        request_mock.assert_requested("post", "/v1/promotion_codes")
+
+    def test_promotioncode_update(self, request_mock):
+        stripe.PromotionCode.modify(
+            "promo_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/promotion_codes/promo_xxxxxxxxxxxxx",
+        )
+
+    def test_promotioncode_retrieve(self, request_mock):
+        stripe.PromotionCode.retrieve("promo_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/promotion_codes/promo_xxxxxxxxxxxxx",
+        )
+
+    def test_promotioncode_list(self, request_mock):
+        stripe.PromotionCode.list(limit=3)
+        request_mock.assert_requested("get", "/v1/promotion_codes")
+
+    def test_taxcode_list(self, request_mock):
+        stripe.TaxCode.list(limit=3)
+        request_mock.assert_requested("get", "/v1/tax_codes")
+
+    def test_taxcode_retrieve(self, request_mock):
+        stripe.TaxCode.retrieve("txcd_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get", "/v1/tax_codes/txcd_xxxxxxxxxxxxx"
+        )
+
+    def test_taxrate_create(self, request_mock):
+        stripe.TaxRate.create(
+            display_name="VAT",
+            description="VAT Germany",
+            jurisdiction="DE",
+            percentage=16,
+            inclusive=False,
+        )
+        request_mock.assert_requested("post", "/v1/tax_rates")
+
+    def test_taxrate_retrieve(self, request_mock):
+        stripe.TaxRate.retrieve("txr_xxxxxxxxxxxxx")
+        request_mock.assert_requested("get", "/v1/tax_rates/txr_xxxxxxxxxxxxx")
+
+    def test_taxrate_update(self, request_mock):
+        stripe.TaxRate.modify("txr_xxxxxxxxxxxxx", active=False)
+        request_mock.assert_requested(
+            "post", "/v1/tax_rates/txr_xxxxxxxxxxxxx"
+        )
+
+    def test_taxrate_list(self, request_mock):
+        stripe.TaxRate.list(limit=3)
+        request_mock.assert_requested("get", "/v1/tax_rates")
+
+    def test_shippingrate_create2(self, request_mock):
+        stripe.ShippingRate.create(
+            display_name="Ground shipping",
+            type="fixed_amount",
+            fixed_amount={"amount": 500, "currency": "usd"},
+        )
+        request_mock.assert_requested("post", "/v1/shipping_rates")
+
+    def test_shippingrate_retrieve(self, request_mock):
+        stripe.ShippingRate.retrieve("shr_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get", "/v1/shipping_rates/shr_xxxxxxxxxxxxx"
+        )
+
+    def test_shippingrate_update(self, request_mock):
+        stripe.ShippingRate.modify(
+            "shr_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/shipping_rates/shr_xxxxxxxxxxxxx",
+        )
+
+    def test_shippingrate_list2(self, request_mock):
+        stripe.ShippingRate.list(limit=3)
+        request_mock.assert_requested("get", "/v1/shipping_rates")
+
+    def test_checkout_session_create2(self, request_mock):
         stripe.checkout.Session.create(
             success_url="https://example.com/success",
             cancel_url="https://example.com/cancel",
-            payment_method_types=["card"],
             line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 2}],
             mode="payment",
         )
         request_mock.assert_requested("post", "/v1/checkout/sessions")
+
+    def test_checkout_session_expire2(self, request_mock):
+        stripe.checkout.Session.expire("cs_test_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/checkout/sessions/cs_test_xxxxxxxxxxxxx/expire",
+        )
 
     def test_checkout_session_retrieve(self, request_mock):
         stripe.checkout.Session.retrieve("cs_test_xxxxxxxxxxxxx")
@@ -464,29 +967,29 @@ class TestGeneratedExamples(object):
         stripe.checkout.Session.list(limit=3)
         request_mock.assert_requested("get", "/v1/checkout/sessions")
 
-    def test_coupon_create(self, request_mock):
-        stripe.Coupon.create(
-            percent_off=25,
-            duration="repeating",
-            duration_in_months=3,
+    def test_paymentlink_create2(self, request_mock):
+        stripe.PaymentLink.create(
+            line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
         )
-        request_mock.assert_requested("post", "/v1/coupons")
+        request_mock.assert_requested("post", "/v1/payment_links")
 
-    def test_coupon_retrieve(self, request_mock):
-        stripe.Coupon.retrieve("25_5OFF")
-        request_mock.assert_requested("get", "/v1/coupons/25_5OFF")
+    def test_paymentlink_retrieve2(self, request_mock):
+        stripe.PaymentLink.retrieve("plink_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/payment_links/plink_xxxxxxxxxxxxx",
+        )
 
-    def test_coupon_update(self, request_mock):
-        stripe.Coupon.modify("co_xxxxxxxxxxxxx", metadata={"order_id": "6735"})
-        request_mock.assert_requested("post", "/v1/coupons/co_xxxxxxxxxxxxx")
+    def test_paymentlink_update(self, request_mock):
+        stripe.PaymentLink.modify("plink_xxxxxxxxxxxxx", active=False)
+        request_mock.assert_requested(
+            "post",
+            "/v1/payment_links/plink_xxxxxxxxxxxxx",
+        )
 
-    def test_coupon_delete(self, request_mock):
-        stripe.Coupon.delete("co_xxxxxxxxxxxxx")
-        request_mock.assert_requested("delete", "/v1/coupons/co_xxxxxxxxxxxxx")
-
-    def test_coupon_list(self, request_mock):
-        stripe.Coupon.list(limit=3)
-        request_mock.assert_requested("get", "/v1/coupons")
+    def test_paymentlink_list(self, request_mock):
+        stripe.PaymentLink.list(limit=3)
+        request_mock.assert_requested("get", "/v1/payment_links")
 
     def test_creditnote_create(self, request_mock):
         stripe.CreditNote.create(
@@ -646,6 +1149,12 @@ class TestGeneratedExamples(object):
         stripe.Invoice.list(limit=3)
         request_mock.assert_requested("get", "/v1/invoices")
 
+    def test_invoice_search(self, request_mock):
+        stripe.Invoice.search(
+            query="total>999 AND metadata['order_id']:'6735'"
+        )
+        request_mock.assert_requested("get", "/v1/invoices/search")
+
     def test_invoiceitem_create(self, request_mock):
         stripe.InvoiceItem.create(
             customer="cus_xxxxxxxxxxxxx",
@@ -706,30 +1215,43 @@ class TestGeneratedExamples(object):
         stripe.Plan.list(limit=3)
         request_mock.assert_requested("get", "/v1/plans")
 
-    def test_promotioncode_create(self, request_mock):
-        stripe.PromotionCode.create(coupon="25_5OFF")
-        request_mock.assert_requested("post", "/v1/promotion_codes")
-
-    def test_promotioncode_update(self, request_mock):
-        stripe.PromotionCode.modify(
-            "promo_xxxxxxxxxxxxx",
-            metadata={"order_id": "6735"},
+    def test_quote_create(self, request_mock):
+        stripe.Quote.create(
+            customer="cus_xxxxxxxxxxxxx",
+            line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 2}],
         )
+        request_mock.assert_requested("post", "/v1/quotes")
+
+    def test_quote_retrieve(self, request_mock):
+        stripe.Quote.retrieve("qt_xxxxxxxxxxxxx")
+        request_mock.assert_requested("get", "/v1/quotes/qt_xxxxxxxxxxxxx")
+
+    def test_quote_update(self, request_mock):
+        stripe.Quote.modify("qt_xxxxxxxxxxxxx", metadata={"order_id": "6735"})
+        request_mock.assert_requested("post", "/v1/quotes/qt_xxxxxxxxxxxxx")
+
+    def test_quote_finalize_quote(self, request_mock):
+        stripe.Quote.finalize_quote("qt_xxxxxxxxxxxxx")
         request_mock.assert_requested(
             "post",
-            "/v1/promotion_codes/promo_xxxxxxxxxxxxx",
+            "/v1/quotes/qt_xxxxxxxxxxxxx/finalize",
         )
 
-    def test_promotioncode_retrieve(self, request_mock):
-        stripe.PromotionCode.retrieve("promo_xxxxxxxxxxxxx")
+    def test_quote_accept(self, request_mock):
+        stripe.Quote.accept("qt_xxxxxxxxxxxxx")
         request_mock.assert_requested(
-            "get",
-            "/v1/promotion_codes/promo_xxxxxxxxxxxxx",
+            "post", "/v1/quotes/qt_xxxxxxxxxxxxx/accept"
         )
 
-    def test_promotioncode_list(self, request_mock):
-        stripe.PromotionCode.list(limit=3)
-        request_mock.assert_requested("get", "/v1/promotion_codes")
+    def test_quote_cancel(self, request_mock):
+        stripe.Quote.cancel("qt_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post", "/v1/quotes/qt_xxxxxxxxxxxxx/cancel"
+        )
+
+    def test_quote_list(self, request_mock):
+        stripe.Quote.list(limit=3)
+        request_mock.assert_requested("get", "/v1/quotes")
 
     def test_subscription_create(self, request_mock):
         stripe.Subscription.create(
@@ -756,6 +1278,12 @@ class TestGeneratedExamples(object):
     def test_subscription_list(self, request_mock):
         stripe.Subscription.list(limit=3)
         request_mock.assert_requested("get", "/v1/subscriptions")
+
+    def test_subscription_search(self, request_mock):
+        stripe.Subscription.search(
+            query="status:'active' AND metadata['order_id']:'6735'",
+        )
+        request_mock.assert_requested("get", "/v1/subscriptions/search")
 
     def test_subscriptionitem_create(self, request_mock):
         stripe.SubscriptionItem.create(
@@ -796,7 +1324,7 @@ class TestGeneratedExamples(object):
     def test_subscriptionschedule_create(self, request_mock):
         stripe.SubscriptionSchedule.create(
             customer="cus_xxxxxxxxxxxxx",
-            start_date=1620753115,
+            start_date=1652909005,
             end_behavior="release",
             phases=[
                 {
@@ -842,29 +1370,37 @@ class TestGeneratedExamples(object):
         stripe.SubscriptionSchedule.list(limit=3)
         request_mock.assert_requested("get", "/v1/subscription_schedules")
 
-    def test_taxrate_create(self, request_mock):
-        stripe.TaxRate.create(
-            display_name="VAT",
-            description="VAT Germany",
-            jurisdiction="DE",
-            percentage=16,
-            inclusive=False,
-        )
-        request_mock.assert_requested("post", "/v1/tax_rates")
+    def test_test_helpers_testclock_create2(self, request_mock):
+        stripe.test_helpers.TestClock.create(frozen_time=1577836800)
+        request_mock.assert_requested("post", "/v1/test_helpers/test_clocks")
 
-    def test_taxrate_retrieve(self, request_mock):
-        stripe.TaxRate.retrieve("txr_xxxxxxxxxxxxx")
-        request_mock.assert_requested("get", "/v1/tax_rates/txr_xxxxxxxxxxxxx")
-
-    def test_taxrate_update(self, request_mock):
-        stripe.TaxRate.modify("txr_xxxxxxxxxxxxx", active=False)
+    def test_test_helpers_testclock_retrieve2(self, request_mock):
+        stripe.test_helpers.TestClock.retrieve("clock_xxxxxxxxxxxxx")
         request_mock.assert_requested(
-            "post", "/v1/tax_rates/txr_xxxxxxxxxxxxx"
+            "get",
+            "/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
         )
 
-    def test_taxrate_list(self, request_mock):
-        stripe.TaxRate.list(limit=3)
-        request_mock.assert_requested("get", "/v1/tax_rates")
+    def test_test_helpers_testclock_delete2(self, request_mock):
+        stripe.test_helpers.TestClock.delete("clock_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "delete",
+            "/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx",
+        )
+
+    def test_test_helpers_testclock_advance2(self, request_mock):
+        stripe.test_helpers.TestClock.advance(
+            "clock_xxxxxxxxxxxxx",
+            frozen_time=1652390605,
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/test_clocks/clock_xxxxxxxxxxxxx/advance",
+        )
+
+    def test_test_helpers_testclock_list2(self, request_mock):
+        stripe.test_helpers.TestClock.list(limit=3)
+        request_mock.assert_requested("get", "/v1/test_helpers/test_clocks")
 
     def test_account_create(self, request_mock):
         stripe.Account.create(
@@ -1376,31 +1912,327 @@ class TestGeneratedExamples(object):
         request_mock.assert_requested("post", "/v1/terminal/readers")
 
     def test_terminal_reader_retrieve(self, request_mock):
-        stripe.terminal.Reader.retrieve("tmr_P400-123-456-789")
+        stripe.terminal.Reader.retrieve("tmr_xxxxxxxxxxxxx")
         request_mock.assert_requested(
             "get",
-            "/v1/terminal/readers/tmr_P400-123-456-789",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
         )
 
     def test_terminal_reader_update(self, request_mock):
-        stripe.terminal.Reader.modify(
-            "tmr_P400-123-456-789", label="Blue Rabbit"
-        )
+        stripe.terminal.Reader.modify("tmr_xxxxxxxxxxxxx", label="Blue Rabbit")
         request_mock.assert_requested(
             "post",
-            "/v1/terminal/readers/tmr_P400-123-456-789",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
         )
 
     def test_terminal_reader_delete(self, request_mock):
-        stripe.terminal.Reader.delete("tmr_P400-123-456-789")
+        stripe.terminal.Reader.delete("tmr_xxxxxxxxxxxxx")
         request_mock.assert_requested(
             "delete",
-            "/v1/terminal/readers/tmr_P400-123-456-789",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx",
         )
 
     def test_terminal_reader_list(self, request_mock):
         stripe.terminal.Reader.list(limit=3)
         request_mock.assert_requested("get", "/v1/terminal/readers")
+
+    def test_terminal_reader_process_payment_intent(self, request_mock):
+        stripe.terminal.Reader.process_payment_intent(
+            "tmr_xxxxxxxxxxxxx",
+            payment_intent="pi_xxxxxxxxxxxxx",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_payment_intent",
+        )
+
+    def test_terminal_reader_process_setup_intent(self, request_mock):
+        stripe.terminal.Reader.process_setup_intent(
+            "tmr_xxxxxxxxxxxxx",
+            setup_intent="seti_xxxxxxxxxxxxx",
+            customer_consent_collected=True,
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx/process_setup_intent",
+        )
+
+    def test_terminal_reader_cancel_action(self, request_mock):
+        stripe.terminal.Reader.cancel_action("tmr_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/terminal/readers/tmr_xxxxxxxxxxxxx/cancel_action",
+        )
+
+    def test_terminal_configuration_create2(self, request_mock):
+        stripe.terminal.Configuration.create(
+            bbpos_wisepos_e={"splashscreen": "file_xxxxxxxxxxxxx"},
+        )
+        request_mock.assert_requested("post", "/v1/terminal/configurations")
+
+    def test_terminal_configuration_retrieve2(self, request_mock):
+        stripe.terminal.Configuration.retrieve("tmc_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
+        )
+
+    def test_terminal_configuration_update2(self, request_mock):
+        stripe.terminal.Configuration.modify(
+            "tmc_xxxxxxxxxxxxx",
+            bbpos_wisepos_e={"splashscreen": "file_xxxxxxxxxxxxx"},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
+        )
+
+    def test_terminal_configuration_delete2(self, request_mock):
+        stripe.terminal.Configuration.delete("tmc_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "delete",
+            "/v1/terminal/configurations/tmc_xxxxxxxxxxxxx",
+        )
+
+    def test_terminal_configuration_list2(self, request_mock):
+        stripe.terminal.Configuration.list(limit=3)
+        request_mock.assert_requested("get", "/v1/terminal/configurations")
+
+    def test_treasury_financialaccount_create(self, request_mock):
+        stripe.treasury.FinancialAccount.create(
+            supported_currencies=["usd"],
+            features={},
+        )
+        request_mock.assert_requested(
+            "post", "/v1/treasury/financial_accounts"
+        )
+
+    def test_treasury_financialaccount_update(self, request_mock):
+        stripe.treasury.FinancialAccount.modify(
+            "fa_xxxxxxxxxxxxx",
+            metadata={"order_id": "6735"},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
+        )
+
+    def test_treasury_financialaccount_retrieve(self, request_mock):
+        stripe.treasury.FinancialAccount.retrieve("fa_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx",
+        )
+
+    def test_treasury_financialaccount_list(self, request_mock):
+        stripe.treasury.FinancialAccount.list(limit=3)
+        request_mock.assert_requested("get", "/v1/treasury/financial_accounts")
+
+    def test_treasury_financialaccount_update_features(self, request_mock):
+        stripe.treasury.FinancialAccount.update_features("fa_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features",
+        )
+
+    def test_treasury_financialaccount_retrieve_features(self, request_mock):
+        stripe.treasury.FinancialAccount.retrieve_features("fa_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/treasury/financial_accounts/fa_xxxxxxxxxxxxx/features",
+        )
+
+    def test_treasury_transaction_retrieve(self, request_mock):
+        stripe.treasury.Transaction.retrieve("trxn_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/treasury/transactions/trxn_xxxxxxxxxxxxx",
+        )
+
+    def test_treasury_transaction_list(self, request_mock):
+        stripe.treasury.Transaction.list(
+            financial_account="fa_xxxxxxxxxxxxx",
+            limit=3,
+        )
+        request_mock.assert_requested("get", "/v1/treasury/transactions")
+
+    def test_treasury_transactionentry_retrieve(self, request_mock):
+        stripe.treasury.TransactionEntry.retrieve("trxne_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/treasury/transaction_entries/trxne_xxxxxxxxxxxxx",
+        )
+
+    def test_treasury_transactionentry_list(self, request_mock):
+        stripe.treasury.TransactionEntry.list(
+            financial_account="fa_xxxxxxxxxxxxx",
+            limit=3,
+        )
+        request_mock.assert_requested(
+            "get", "/v1/treasury/transaction_entries"
+        )
+
+    def test_treasury_outboundtransfer_create(self, request_mock):
+        stripe.treasury.OutboundTransfer.create(
+            financial_account="fa_xxxxxxxxxxxxx",
+            destination_payment_method="pm_xxxxxxxxxxxxx",
+            amount=500,
+            currency="usd",
+            description="OutboundTransfer to my external bank account",
+        )
+        request_mock.assert_requested(
+            "post", "/v1/treasury/outbound_transfers"
+        )
+
+    def test_treasury_outboundtransfer_cancel(self, request_mock):
+        stripe.treasury.OutboundTransfer.cancel("obt_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx/cancel",
+        )
+
+    def test_treasury_outboundtransfer_retrieve(self, request_mock):
+        stripe.treasury.OutboundTransfer.retrieve("obt_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/treasury/outbound_transfers/obt_xxxxxxxxxxxxx",
+        )
+
+    def test_treasury_outboundtransfer_list(self, request_mock):
+        stripe.treasury.OutboundTransfer.list(
+            financial_account="fa_xxxxxxxxxxxxx",
+            limit=3,
+        )
+        request_mock.assert_requested("get", "/v1/treasury/outbound_transfers")
+
+    def test_treasury_outboundpayment_create(self, request_mock):
+        stripe.treasury.OutboundPayment.create(
+            financial_account="fa_xxxxxxxxxxxxx",
+            amount=10000,
+            currency="usd",
+            customer="cu_xxxxxxxxxxxxx",
+            destination_payment_method="pm_xxxxxxxxxxxxx",
+            description="OutboundPayment to a 3rd party",
+        )
+        request_mock.assert_requested("post", "/v1/treasury/outbound_payments")
+
+    def test_treasury_outboundpayment_cancel(self, request_mock):
+        stripe.treasury.OutboundPayment.cancel("obp_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/treasury/outbound_payments/obp_xxxxxxxxxxxxx/cancel",
+        )
+
+    def test_treasury_outboundpayment_retrieve(self, request_mock):
+        stripe.treasury.OutboundPayment.retrieve("obp_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/treasury/outbound_payments/obp_xxxxxxxxxxxxx",
+        )
+
+    def test_treasury_outboundpayment_list(self, request_mock):
+        stripe.treasury.OutboundPayment.list(
+            financial_account="fa_xxxxxxxxxxxxx",
+            limit=3,
+        )
+        request_mock.assert_requested("get", "/v1/treasury/outbound_payments")
+
+    def test_treasury_inboundtransfer_create(self, request_mock):
+        stripe.treasury.InboundTransfer.create(
+            financial_account="fa_xxxxxxxxxxxxx",
+            amount=10000,
+            currency="usd",
+            origin_payment_method="pm_xxxxxxxxxxxxx",
+            description="InboundTransfer from my bank account",
+        )
+        request_mock.assert_requested("post", "/v1/treasury/inbound_transfers")
+
+    def test_treasury_inboundtransfer_retrieve(self, request_mock):
+        stripe.treasury.InboundTransfer.retrieve("ibt_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx",
+        )
+
+    def test_treasury_inboundtransfer_list(self, request_mock):
+        stripe.treasury.InboundTransfer.list(
+            financial_account="fa_xxxxxxxxxxxxx",
+            limit=3,
+        )
+        request_mock.assert_requested("get", "/v1/treasury/inbound_transfers")
+
+    def test_treasury_inboundtransfer_cancel(self, request_mock):
+        stripe.treasury.InboundTransfer.cancel("ibt_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/treasury/inbound_transfers/ibt_xxxxxxxxxxxxx/cancel",
+        )
+
+    def test_treasury_receivedcredit_retrieve(self, request_mock):
+        stripe.treasury.ReceivedCredit.retrieve("rc_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/treasury/received_credits/rc_xxxxxxxxxxxxx",
+        )
+
+    def test_treasury_receivedcredit_list(self, request_mock):
+        stripe.treasury.ReceivedCredit.list(
+            financial_account="fa_xxxxxxxxxxxxx",
+            limit=3,
+        )
+        request_mock.assert_requested("get", "/v1/treasury/received_credits")
+
+    def test_treasury_receiveddebit_retrieve(self, request_mock):
+        stripe.treasury.ReceivedDebit.retrieve("rd_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/treasury/received_debits/rd_xxxxxxxxxxxxx",
+        )
+
+    def test_treasury_receiveddebit_list(self, request_mock):
+        stripe.treasury.ReceivedDebit.list(
+            financial_account="fa_xxxxxxxxxxxxx",
+            limit=3,
+        )
+        request_mock.assert_requested("get", "/v1/treasury/received_debits")
+
+    def test_treasury_creditreversal_create(self, request_mock):
+        stripe.treasury.CreditReversal.create(
+            received_credit="rc_xxxxxxxxxxxxx"
+        )
+        request_mock.assert_requested("post", "/v1/treasury/credit_reversals")
+
+    def test_treasury_creditreversal_retrieve(self, request_mock):
+        stripe.treasury.CreditReversal.retrieve("credrev_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/treasury/credit_reversals/credrev_xxxxxxxxxxxxx",
+        )
+
+    def test_treasury_creditreversal_list(self, request_mock):
+        stripe.treasury.CreditReversal.list(
+            financial_account="fa_xxxxxxxxxxxxx",
+            limit=3,
+        )
+        request_mock.assert_requested("get", "/v1/treasury/credit_reversals")
+
+    def test_treasury_debitreversal_create(self, request_mock):
+        stripe.treasury.DebitReversal.create(received_debit="rd_xxxxxxxxxxxxx")
+        request_mock.assert_requested("post", "/v1/treasury/debit_reversals")
+
+    def test_treasury_debitreversal_retrieve(self, request_mock):
+        stripe.treasury.DebitReversal.retrieve("debrev_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/treasury/debit_reversals/debrev_xxxxxxxxxxxxx",
+        )
+
+    def test_treasury_debitreversal_list(self, request_mock):
+        stripe.treasury.DebitReversal.list(
+            financial_account="fa_xxxxxxxxxxxxx",
+            limit=3,
+        )
+        request_mock.assert_requested("get", "/v1/treasury/debit_reversals")
 
     def test_sku_create(self, request_mock):
         stripe.SKU.create(
@@ -1471,6 +2303,112 @@ class TestGeneratedExamples(object):
         stripe.reporting.ReportType.list()
         request_mock.assert_requested("get", "/v1/reporting/report_types")
 
+    def test_financial_connections_account_retrieve2(self, request_mock):
+        stripe.financial_connections.Account.retrieve("fca_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx",
+        )
+
+    def test_financial_connections_account_list2(self, request_mock):
+        stripe.financial_connections.Account.list(
+            account_holder={"customer": "cus_xxxxxxxxxxxxx"},
+        )
+        request_mock.assert_requested(
+            "get", "/v1/financial_connections/accounts"
+        )
+
+    def test_financial_connections_account_list_owners2(self, request_mock):
+        stripe.financial_connections.Account.list_owners(
+            "fca_xxxxxxxxxxxxx",
+            limit=3,
+            ownership="fcaowns_xxxxxxxxxxxxx",
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/financial_connections/accounts/fca_xxxxxxxxxxxxx/owners",
+        )
+
+    def test_financial_connections_session_create2(self, request_mock):
+        stripe.financial_connections.Session.create(
+            account_holder={
+                "type": "customer",
+                "customer": "cus_xxxxxxxxxxxxx",
+            },
+            permissions=["payment_method", "balances"],
+            filters={"countries": ["US"]},
+        )
+        request_mock.assert_requested(
+            "post", "/v1/financial_connections/sessions"
+        )
+
+    def test_financial_connections_session_retrieve2(self, request_mock):
+        stripe.financial_connections.Session.retrieve("fcsess_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/financial_connections/sessions/fcsess_xxxxxxxxxxxxx",
+        )
+
+    def test_source_retrieve2(self, request_mock):
+        stripe.Source.retrieve("src_xxxxxxxxxxxxx")
+        request_mock.assert_requested("get", "/v1/sources/src_xxxxxxxxxxxxx")
+
+    def test_identity_verificationsession_create(self, request_mock):
+        stripe.identity.VerificationSession.create(type="document")
+        request_mock.assert_requested(
+            "post", "/v1/identity/verification_sessions"
+        )
+
+    def test_identity_verificationsession_list(self, request_mock):
+        stripe.identity.VerificationSession.list(limit=3)
+        request_mock.assert_requested(
+            "get", "/v1/identity/verification_sessions"
+        )
+
+    def test_identity_verificationsession_retrieve(self, request_mock):
+        stripe.identity.VerificationSession.retrieve("vs_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
+        )
+
+    def test_identity_verificationsession_update(self, request_mock):
+        stripe.identity.VerificationSession.modify(
+            "vs_xxxxxxxxxxxxx",
+            type="id_number",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx",
+        )
+
+    def test_identity_verificationsession_cancel(self, request_mock):
+        stripe.identity.VerificationSession.cancel("vs_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/cancel",
+        )
+
+    def test_identity_verificationsession_redact(self, request_mock):
+        stripe.identity.VerificationSession.redact("vs_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "post",
+            "/v1/identity/verification_sessions/vs_xxxxxxxxxxxxx/redact",
+        )
+
+    def test_identity_verificationreport_retrieve(self, request_mock):
+        stripe.identity.VerificationReport.retrieve("vr_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/identity/verification_reports/vr_xxxxxxxxxxxxx",
+        )
+
+    def test_identity_verificationreport_list(self, request_mock):
+        stripe.identity.VerificationReport.list(limit=3)
+        request_mock.assert_requested(
+            "get", "/v1/identity/verification_reports"
+        )
+
     def test_webhookendpoint_create(self, request_mock):
         stripe.WebhookEndpoint.create(
             url="https://example.com/my/webhook/endpoint",
@@ -1504,241 +2442,4 @@ class TestGeneratedExamples(object):
         request_mock.assert_requested(
             "delete",
             "/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
-        )
-
-    def test_customer_list_payment_methods(self, request_mock):
-        stripe.Customer.list_payment_methods("cus_xyz", type="card")
-        request_mock.assert_requested(
-            "get",
-            "/v1/customers/cus_xyz/payment_methods",
-        )
-
-    def test_checkout_session_expire(self, request_mock):
-        stripe.checkout.Session.expire("sess_xyz")
-        request_mock.assert_requested(
-            "post",
-            "/v1/checkout/sessions/sess_xyz/expire",
-        )
-
-    def test_shippingrate_create(self, request_mock):
-        stripe.ShippingRate.create(
-            display_name="Sample Shipper",
-            fixed_amount={"currency": "usd", "amount": 400},
-            type="fixed_amount",
-        )
-        request_mock.assert_requested("post", "/v1/shipping_rates")
-
-    def test_shippingrate_list(self, request_mock):
-        stripe.ShippingRate.list()
-        request_mock.assert_requested("get", "/v1/shipping_rates")
-
-    def test_checkout_session_create2(self, request_mock):
-        stripe.checkout.Session.create(
-            success_url="https://example.com/success",
-            cancel_url="https://example.com/cancel",
-            mode="payment",
-            shipping_options=[
-                {"shipping_rate": "shr_standard"},
-                {
-                    "shipping_rate_data": {
-                        "display_name": "Standard",
-                        "delivery_estimate": {
-                            "minimum": {"unit": "day", "value": 5},
-                            "maximum": {"unit": "day", "value": 7},
-                        },
-                    },
-                },
-            ],
-        )
-        request_mock.assert_requested("post", "/v1/checkout/sessions")
-
-    def test_paymentintent_create2(self, request_mock):
-        stripe.PaymentIntent.create(
-            amount=1099,
-            currency="eur",
-            automatic_payment_methods={"enabled": True},
-        )
-        request_mock.assert_requested("post", "/v1/payment_intents")
-
-    def test_paymentlink_create(self, request_mock):
-        stripe.PaymentLink.create(
-            line_items=[{"price": "price_xxxxxxxxxxxxx", "quantity": 1}],
-        )
-        request_mock.assert_requested("post", "/v1/payment_links")
-
-    def test_paymentlink_list_line_items(self, request_mock):
-        stripe.PaymentLink.list_line_items("pl_xyz")
-        request_mock.assert_requested(
-            "get", "/v1/payment_links/pl_xyz/line_items"
-        )
-
-    def test_paymentlink_retrieve(self, request_mock):
-        stripe.PaymentLink.retrieve("pl_xyz")
-        request_mock.assert_requested("get", "/v1/payment_links/pl_xyz")
-
-    def test_paymentintent_verify_microdeposits(self, request_mock):
-        stripe.PaymentIntent.verify_microdeposits("pi_xxxxxxxxxxxxx")
-        request_mock.assert_requested(
-            "post",
-            "/v1/payment_intents/pi_xxxxxxxxxxxxx/verify_microdeposits",
-        )
-
-    def test_setupintent_verify_microdeposits(self, request_mock):
-        stripe.SetupIntent.verify_microdeposits("seti_xxxxxxxxxxxxx")
-        request_mock.assert_requested(
-            "post",
-            "/v1/setup_intents/seti_xxxxxxxxxxxxx/verify_microdeposits",
-        )
-
-    def test_test_helpers_testclock_create(self, request_mock):
-        stripe.test_helpers.TestClock.create(frozen_time=123, name="cogsworth")
-        request_mock.assert_requested("post", "/v1/test_helpers/test_clocks")
-
-    def test_test_helpers_testclock_retrieve(self, request_mock):
-        stripe.test_helpers.TestClock.retrieve("clock_xyz")
-        request_mock.assert_requested(
-            "get",
-            "/v1/test_helpers/test_clocks/clock_xyz",
-        )
-
-    def test_test_helpers_testclock_list(self, request_mock):
-        stripe.test_helpers.TestClock.list()
-        request_mock.assert_requested("get", "/v1/test_helpers/test_clocks")
-
-    def test_test_helpers_testclock_delete(self, request_mock):
-        stripe.test_helpers.TestClock.delete("clock_xyz")
-        request_mock.assert_requested(
-            "delete",
-            "/v1/test_helpers/test_clocks/clock_xyz",
-        )
-
-    def test_test_helpers_testclock_advance(self, request_mock):
-        stripe.test_helpers.TestClock.advance("clock_xyz", frozen_time=142)
-        request_mock.assert_requested(
-            "post",
-            "/v1/test_helpers/test_clocks/clock_xyz/advance",
-        )
-
-    def test_customer_create_funding_instructions(self, request_mock):
-        stripe.Customer.create_funding_instructions(
-            "cus_123",
-            bank_transfer={
-                "requested_address_types": ["zengin"],
-                "type": "jp_bank_transfer",
-            },
-            currency="usd",
-            funding_type="bank_transfer",
-        )
-        request_mock.assert_requested(
-            "post",
-            "/v1/customers/cus_123/funding_instructions",
-        )
-
-    def test_terminal_configuration_list(self, request_mock):
-        stripe.terminal.Configuration.list()
-        request_mock.assert_requested("get", "/v1/terminal/configurations")
-
-    def test_terminal_configuration_retrieve(self, request_mock):
-        stripe.terminal.Configuration.retrieve("uc_123")
-        request_mock.assert_requested(
-            "get", "/v1/terminal/configurations/uc_123"
-        )
-
-    def test_terminal_configuration_create(self, request_mock):
-        stripe.terminal.Configuration.create()
-        request_mock.assert_requested("post", "/v1/terminal/configurations")
-
-    def test_terminal_configuration_update(self, request_mock):
-        stripe.terminal.Configuration.modify(
-            "uc_123",
-            tipping={"usd": {"fixed_amounts": [10]}},
-        )
-        request_mock.assert_requested(
-            "post", "/v1/terminal/configurations/uc_123"
-        )
-
-    def test_terminal_configuration_delete(self, request_mock):
-        stripe.terminal.Configuration.delete("uc_123")
-        request_mock.assert_requested(
-            "delete",
-            "/v1/terminal/configurations/uc_123",
-        )
-
-    def test_refund_expire(self, request_mock):
-        stripe.Refund.TestHelpers.expire("re_123")
-        request_mock.assert_requested(
-            "post",
-            "/v1/test_helpers/refunds/re_123/expire",
-        )
-
-    def test_order_create(self, request_mock):
-        stripe.Order.create(
-            description="description",
-            currency="usd",
-            line_items=[{"description": "my line item"}],
-        )
-        request_mock.assert_requested("post", "/v1/orders")
-
-    def test_order_update(self, request_mock):
-        stripe.Order.modify("order_xyz")
-        request_mock.assert_requested("post", "/v1/orders/order_xyz")
-
-    def test_order_list_line_items(self, request_mock):
-        stripe.Order.list_line_items("order_xyz")
-        request_mock.assert_requested("get", "/v1/orders/order_xyz/line_items")
-
-    def test_order_cancel(self, request_mock):
-        stripe.Order.cancel("order_xyz")
-        request_mock.assert_requested("post", "/v1/orders/order_xyz/cancel")
-
-    def test_order_reopen(self, request_mock):
-        stripe.Order.reopen("order_xyz")
-        request_mock.assert_requested("post", "/v1/orders/order_xyz/reopen")
-
-    def test_order_submit(self, request_mock):
-        stripe.Order.submit("order_xyz", expected_total=100)
-        request_mock.assert_requested("post", "/v1/orders/order_xyz/submit")
-
-    def test_order_update2(self, request_mock):
-        stripe.Order.modify("order_xyz")
-        request_mock.assert_requested("post", "/v1/orders/order_xyz")
-
-    def test_financial_connections_account_retrieve(self, request_mock):
-        stripe.financial_connections.Account.retrieve("fca_xyz")
-        request_mock.assert_requested(
-            "get",
-            "/v1/financial_connections/accounts/fca_xyz",
-        )
-
-    def test_financial_connections_account_refresh_account(self, request_mock):
-        stripe.financial_connections.Account.refresh_account(
-            "fca_xyz",
-            features=["balance"],
-        )
-        request_mock.assert_requested(
-            "post",
-            "/v1/financial_connections/accounts/fca_xyz/refresh",
-        )
-
-    def test_financial_connections_account_disconnect(self, request_mock):
-        stripe.financial_connections.Account.disconnect("fca_xyz")
-        request_mock.assert_requested(
-            "post",
-            "/v1/financial_connections/accounts/fca_xyz/disconnect",
-        )
-
-    def test_financial_connections_session_create(self, request_mock):
-        stripe.financial_connections.Session.create(
-            account_holder={"type": "customer", "customer": "cus_123"},
-            permissions=["balances"],
-        )
-        request_mock.assert_requested(
-            "post", "/v1/financial_connections/sessions"
-        )
-
-    def test_financial_connections_session_retrieve(self, request_mock):
-        stripe.financial_connections.Session.retrieve("fcsess_xyz")
-        request_mock.assert_requested(
-            "get",
-            "/v1/financial_connections/sessions/fcsess_xyz",
         )
