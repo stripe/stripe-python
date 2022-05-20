@@ -1,3 +1,13 @@
+## 3.1.0 - 2022-05-19
+* [#810](https://github.com/stripe/stripe-python/pull/810) API Updates
+  * Add support for new resources `Treasury.CreditReversal`, `Treasury.DebitReversal`, `Treasury.FinancialAccountFeatures`, `Treasury.FinancialAccount`, `Treasury.FlowDetails`, `Treasury.InboundTransfer`, `Treasury.OutboundPayment`, `Treasury.OutboundTransfer`, `Treasury.ReceivedCredit`, `Treasury.ReceivedDebit`, `Treasury.TransactionEntry`, and `Treasury.Transaction`
+  * Add support for `retrieve_payment_method` method on resource `Customer`
+  * Add support for `list_owners` and `list` methods on resource `FinancialConnections.Account`
+* [#719](https://github.com/stripe/stripe-python/pull/719) Set daemon attribute instead of using setDaemon method that was deprecated in Python 3.10
+* [#767](https://github.com/stripe/stripe-python/pull/767) Bump vendored six to 1.16.0
+* [#806](https://github.com/stripe/stripe-python/pull/806) Start testing on pypy-3.8
+* [#811](https://github.com/stripe/stripe-python/pull/811) Add sanitize_id method
+
 
 ## 3.0.0 - 2022-05-09
 * [#809](https://github.com/stripe/stripe-python/pull/809) Release of major version v3.0.0. The [migration guide](https://github.com/stripe/stripe-python/wiki/Migration-Guide-for-v3) contains more information.
