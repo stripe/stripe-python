@@ -15,6 +15,7 @@ OBJECT_CLASSES = {
     api_resources.ApplePayDomain.OBJECT_NAME: api_resources.ApplePayDomain,
     api_resources.ApplicationFee.OBJECT_NAME: api_resources.ApplicationFee,
     api_resources.ApplicationFeeRefund.OBJECT_NAME: api_resources.ApplicationFeeRefund,
+    api_resources.apps.Secret.OBJECT_NAME: api_resources.apps.Secret,
     api_resources.Balance.OBJECT_NAME: api_resources.Balance,
     api_resources.BalanceTransaction.OBJECT_NAME: api_resources.BalanceTransaction,
     api_resources.BankAccount.OBJECT_NAME: api_resources.BankAccount,
