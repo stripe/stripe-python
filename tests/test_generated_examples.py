@@ -334,6 +334,24 @@ class TestGeneratedExamples(object):
             "/v1/test_helpers/treasury/received_debits",
         )
 
+    def test_apps_secret_create(self, request_mock):
+        stripe.apps.Secret.create(
+            name="sec_123",
+            payload="very secret string",
+            scope={"type": "account"},
+        )
+        request_mock.assert_requested("post", "/v1/apps/secrets")
+
+    def test_apps_secret_find(self, request_mock):
+        stripe.apps.Secret.find(name="sec_123", scope={"type": "account"})
+        request_mock.assert_requested("get", "/v1/apps/secrets/find")
+
+    def test_apps_secret_delete_where(self, request_mock):
+        stripe.apps.Secret.delete_where(
+            name="sec_123", scope={"type": "account"}
+        )
+        request_mock.assert_requested("post", "/v1/apps/secrets/delete")
+
     def test_customer_list(self, request_mock):
         stripe.Customer.list(limit=3)
         request_mock.assert_requested("get", "/v1/customers")
