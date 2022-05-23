@@ -12,3 +12,4 @@ class TaxRate(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "tax_rate"
+

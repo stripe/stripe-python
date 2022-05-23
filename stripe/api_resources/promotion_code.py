@@ -12,3 +12,4 @@ class PromotionCode(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "promotion_code"
+

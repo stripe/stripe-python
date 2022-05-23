@@ -48,7 +48,6 @@ class Customer(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "customer"
-
     def create_funding_instructions(self, idempotency_key=None, **params):
         url = self.instance_url() + "/funding_instructions"
         headers = util.populate_headers(idempotency_key)
@@ -74,30 +73,19 @@ class Customer(
         stripe_account=None,
         **params
     ):
-        requestor = api_requestor.APIRequestor(
-            api_key, api_version=stripe_version, account=stripe_account
-        )
-        url = (
-            "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                customer=util.sanitize_id(customer),
-                payment_method=util.sanitize_id(payment_method),
-            )
-        )
+        requestor = api_requestor.APIRequestor(api_key, api_version=stripe_version, account=stripe_account)
+        url = "/v1/customers/{customer}/payment_methods/{payment_method}".format(customer=util.sanitize_id(customer), payment_method=util.sanitize_id(payment_method))
         response, api_key = requestor.request("get", url, params)
-        return util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account
-        )
+        return util.convert_to_stripe_object(response, api_key, stripe_version, stripe_account)
 
     @util.class_method_variant("_cls_retrieve_payment_method")
     def retrieve_payment_method(
-        self, payment_method, idempotency_key=None, **params
+        self,
+        payment_method,
+        idempotency_key=None,
+        **params
     ):
-        url = (
-            "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                customer=util.sanitize_id(self.get("id")),
-                payment_method=util.sanitize_id(payment_method),
-            )
-        )
+        url = "/v1/customers/{customer}/payment_methods/{payment_method}".format(customer=util.sanitize_id(self.get("id")), payment_method=util.sanitize_id(payment_method))
         headers = util.populate_headers(idempotency_key)
         resp = self.request("get", url, params, headers)
         stripe_object = util.convert_to_stripe_object(resp)
@@ -105,11 +93,14 @@ class Customer(
 
     @classmethod
     def search(cls, *args, **kwargs):
-        return cls._search(search_url="/v1/customers/search", *args, **kwargs)
+        return cls._search( search_url="/v1/customers/search", *args, **kwargs)
+
 
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
+
+
 
     def delete_discount(self, **params):
         requestor = api_requestor.APIRequestor(
@@ -120,3 +111,4 @@ class Customer(
         url = self.instance_url() + "/discount"
         _, api_key = requestor.request("delete", url, params)
         self.refresh_from({"discount": None}, api_key, True)
+
