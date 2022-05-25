@@ -16,7 +16,6 @@ class VerificationSession(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "identity.verification_session"
-
     def cancel(self, idempotency_key=None, **params):
         url = self.instance_url() + "/cancel"
         headers = util.populate_headers(idempotency_key)
@@ -28,3 +27,4 @@ class VerificationSession(
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
+

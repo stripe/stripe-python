@@ -14,7 +14,6 @@ from stripe.api_resources.abstract import custom_method
 @custom_method("submit", http_verb="post")
 class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "order"
-
     def cancel(self, idempotency_key=None, **params):
         url = self.instance_url() + "/cancel"
         headers = util.populate_headers(idempotency_key)
@@ -40,3 +39,4 @@ class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
+
