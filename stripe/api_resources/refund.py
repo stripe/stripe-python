@@ -12,23 +12,20 @@ from stripe.api_resources.abstract import test_helpers
 
 @test_helpers
 @custom_method("cancel", http_verb="post")
-class Refund(
-    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
-):
+class Refund(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "refund"
-
     def cancel(self, idempotency_key=None, **params):
         url = self.instance_url() + "/cancel"
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
+
     @custom_method("expire", http_verb="post")
     class TestHelpers(APIResourceTestHelpers):
         def expire(self, idempotency_key=None, **params):
             url = self.instance_url() + "/expire"
             headers = util.populate_headers(idempotency_key)
-            self.resource.refresh_from(
-                self.resource.request("post", url, params, headers)
-            )
+            self.resource.refresh_from(self.resource.request("post", url, params, headers))
             return self.resource
+

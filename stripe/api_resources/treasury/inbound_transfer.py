@@ -13,12 +13,12 @@ from stripe.api_resources.abstract import test_helpers
 @custom_method("cancel", http_verb="post")
 class InboundTransfer(CreateableAPIResource, ListableAPIResource):
     OBJECT_NAME = "treasury.inbound_transfer"
-
     def cancel(self, idempotency_key=None, **params):
         url = self.instance_url() + "/cancel"
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
+
 
     @custom_method("fail", http_verb="post")
     @custom_method(
@@ -31,23 +31,18 @@ class InboundTransfer(CreateableAPIResource, ListableAPIResource):
         def fail(self, idempotency_key=None, **params):
             url = self.instance_url() + "/fail"
             headers = util.populate_headers(idempotency_key)
-            self.resource.refresh_from(
-                self.resource.request("post", url, params, headers)
-            )
+            self.resource.refresh_from(self.resource.request("post", url, params, headers))
             return self.resource
 
         def return_inbound_transfer(self, idempotency_key=None, **params):
             url = self.instance_url() + "/return"
             headers = util.populate_headers(idempotency_key)
-            self.resource.refresh_from(
-                self.resource.request("post", url, params, headers)
-            )
+            self.resource.refresh_from(self.resource.request("post", url, params, headers))
             return self.resource
 
         def succeed(self, idempotency_key=None, **params):
             url = self.instance_url() + "/succeed"
             headers = util.populate_headers(idempotency_key)
-            self.resource.refresh_from(
-                self.resource.request("post", url, params, headers)
-            )
+            self.resource.refresh_from(self.resource.request("post", url, params, headers))
             return self.resource
+

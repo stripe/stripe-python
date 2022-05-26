@@ -23,7 +23,6 @@ class Reader(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "terminal.reader"
-
     def cancel_action(self, idempotency_key=None, **params):
         url = self.instance_url() + "/cancel_action"
         headers = util.populate_headers(idempotency_key)
@@ -48,12 +47,12 @@ class Reader(
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
+
     @custom_method("present_payment_method", http_verb="post")
     class TestHelpers(APIResourceTestHelpers):
         def present_payment_method(self, idempotency_key=None, **params):
             url = self.instance_url() + "/present_payment_method"
             headers = util.populate_headers(idempotency_key)
-            self.resource.refresh_from(
-                self.resource.request("post", url, params, headers)
-            )
+            self.resource.refresh_from(self.resource.request("post", url, params, headers))
             return self.resource
+
