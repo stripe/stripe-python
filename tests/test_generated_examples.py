@@ -352,6 +352,21 @@ class TestGeneratedExamples(object):
         )
         request_mock.assert_requested("post", "/v1/apps/secrets/delete")
 
+    def test_customer_cashbalance_retrieve(self, request_mock):
+        stripe.Customer.retrieve_cash_balance("cus_123")
+        request_mock.assert_requested(
+            "get", "/v1/customers/cus_123/cash_balance"
+        )
+
+    def test_customer_cashbalance_update(self, request_mock):
+        stripe.Customer.modify_cash_balance(
+            "cus_123",
+            settings={"reconciliation_mode": "manual"},
+        )
+        request_mock.assert_requested(
+            "post", "/v1/customers/cus_123/cash_balance"
+        )
+
     def test_customer_list(self, request_mock):
         stripe.Customer.list(limit=3)
         request_mock.assert_requested("get", "/v1/customers")
