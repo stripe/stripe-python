@@ -1,3 +1,6 @@
+## 3.3.0 - 2022-06-08
+* [#818](https://github.com/stripe/stripe-python/pull/818) fix: Update cash balance methods to no longer require nested ID.
+
 ## 3.2.0 - 2022-05-23
 * [#812](https://github.com/stripe/stripe-python/pull/812) API Updates
   * Add support for new resource `Apps.Secret`
