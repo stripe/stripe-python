@@ -13,6 +13,7 @@ from stripe.api_resources.abstract import nested_resource_class_methods
 from stripe.six.moves.urllib.parse import quote_plus
 
 
+@custom_method("persons", http_verb="get")
 @custom_method("reject", http_verb="post")
 @nested_resource_class_methods(
     "capability",
@@ -35,6 +36,14 @@ class Account(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "account"
+
+    def persons(self, idempotency_key=None, **params):
+        url = self.instance_url() + "/persons"
+        headers = util.populate_headers(idempotency_key)
+        resp = self.request("get", url, params, headers)
+        stripe_object = util.convert_to_stripe_object(resp)
+        stripe_object._retrieve_params = params
+        return stripe_object
 
     def reject(self, idempotency_key=None, **params):
         url = self.instance_url() + "/reject"
@@ -67,9 +76,6 @@ class Account(
 
     def instance_url(self):
         return self._build_instance_url(self.get("id"))
-
-    def persons(self, **params):
-        return self.request("get", self.instance_url() + "/persons", params)
 
     def deauthorize(self, **params):
         params["stripe_user_id"] = self.id
