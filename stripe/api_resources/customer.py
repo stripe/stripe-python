@@ -24,11 +24,6 @@ from stripe.api_resources.abstract import nested_resource_class_methods
     http_path="payment_methods",
 )
 @nested_resource_class_methods(
-    "cash_balance",
-    operations=["retrieve", "update"],
-    resource_plural="cash_balance",
-)
-@nested_resource_class_methods(
     "balance_transaction",
     operations=["create", "retrieve", "update", "list"],
 )
@@ -120,3 +115,47 @@ class Customer(
         url = self.instance_url() + "/discount"
         _, api_key = requestor.request("delete", url, params)
         self.refresh_from({"discount": None}, api_key, True)
+
+    @classmethod
+    def retrieve_cash_balance(
+        cls,
+        customer,
+        nested_id=None,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        # The nested_id parameter is required for backwards compatibility purposes and is ignored.
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
+        url = "/v1/customers/{customer}/cash_balance".format(
+            customer=util.sanitize_id(customer)
+        )
+        response, api_key = requestor.request("get", url, params)
+        return util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account
+        )
+
+    @classmethod
+    def modify_cash_balance(
+        cls,
+        customer,
+        nested_id=None,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        # The nested_id parameter is required for backwards compatibility purposes and is ignored.
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
+        url = "/v1/customers/{customer}/cash_balance".format(
+            customer=util.sanitize_id(customer)
+        )
+        response, api_key = requestor.request("post", url, params)
+        return util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account
+        )
