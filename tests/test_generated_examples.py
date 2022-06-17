@@ -367,6 +367,17 @@ class TestGeneratedExamples(object):
             "post", "/v1/customers/cus_123/cash_balance"
         )
 
+    def test_customer_fund_cash_balance(self, request_mock):
+        stripe.Customer.TestHelpers.fund_cash_balance(
+            "cus_123",
+            amount=30,
+            currency="eur",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/customers/cus_123/fund_cash_balance",
+        )
+
     def test_customer_list(self, request_mock):
         stripe.Customer.list(limit=3)
         request_mock.assert_requested("get", "/v1/customers")
