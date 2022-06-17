@@ -1,3 +1,9 @@
+## 3.4.0 - 2022-06-17
+* [#824](https://github.com/stripe/stripe-python/pull/824) API Updates
+  * Add support for `fund_cash_balance` test helper method on resource `Customer`
+  
+* [#823](https://github.com/stripe/stripe-python/pull/823) Trigger workflows on beta branches
+
 ## 3.3.0 - 2022-06-08
 * [#818](https://github.com/stripe/stripe-python/pull/818) fix: Update cash balance methods to no longer require nested ID.
 
