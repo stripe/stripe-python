@@ -13,8 +13,7 @@ class APIResource(StripeObject):
         return instance
 
     def refresh(self):
-        self.refresh_from(self.request("get", self.instance_url()))
-        return self
+        return self._request_and_refresh("get", self.instance_url())
 
     @classmethod
     def class_url(cls):
@@ -44,6 +43,55 @@ class APIResource(StripeObject):
         extn = quote_plus(id)
         return "%s/%s" % (base, extn)
 
+    def _request(self,
+                 method_,
+                 url_,
+                 api_key,
+                 idempotency_key,
+                 stripe_version,
+                 stripe_account,
+                 headers,
+                 params):
+        obj = StripeObject._request(
+            self,
+            method_,
+            url_,
+            api_key,
+            idempotency_key,
+            stripe_version,
+            stripe_account,
+            headers,
+            params)
+
+        if type(self) is type(obj):
+            self.refresh_from(obj)
+            return self
+        else:
+            return obj
+
+    def _request_and_refresh(self,
+                             method_,
+                             url_,
+                             api_key=None,
+                             idempotency_key=None,
+                             stripe_version=None,
+                             stripe_account=None,
+                             headers=None,
+                             params=None):
+        obj = StripeObject._request(
+            self,
+            method_,
+            url_,
+            api_key,
+            idempotency_key,
+            stripe_version,
+            stripe_account,
+            headers,
+            params)
+
+        self.refresh_from(obj)
+        return self
+
     # The `method_` and `url_` arguments are suffixed with an underscore to
     # avoid conflicting with actual request parameters in `params`.
     @classmethod
@@ -63,7 +111,7 @@ class APIResource(StripeObject):
         headers = util.populate_headers(idempotency_key)
         response, api_key = requestor.request(method_, url_, params, headers)
         return util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account
+            response, api_key, stripe_version, stripe_account, params
         )
 
     # The `method_` and `url_` arguments are suffixed with an underscore to

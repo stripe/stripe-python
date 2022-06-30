@@ -13,5 +13,13 @@ class DeletableAPIResource(APIResource):
 
     @util.class_method_variant("_cls_delete")
     def delete(self, **params):
-        self.refresh_from(self.request("delete", self.instance_url(), params))
-        return self
+        return self._request(
+            "delete",
+            self.get("url"),
+            None,
+            None,
+            None,
+            None,
+            None,
+            params
+        )

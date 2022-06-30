@@ -233,18 +233,41 @@ class StripeObject(dict):
         return None
 
     def request(self, method, url, params=None, headers=None):
+        return StripeObject._request(self, method, url, None, None, None, None, headers, params)
+
+    def _request(self,
+                 method_,
+                 url_,
+                 api_key,
+                 idempotency_key,
+                 stripe_version,
+                 stripe_account,
+                 headers,
+                 params):
+        if stripe_account is None:
+            stripe_account = self.stripe_account
+        if stripe_version is None:
+            stripe_version = self.stripe_version
+        if api_key is None:
+            api_key = self.api_key
         if params is None:
             params = self._retrieve_params
+
         requestor = api_requestor.APIRequestor(
-            key=self.api_key,
+            key=api_key,
             api_base=self.api_base(),
-            api_version=self.stripe_version,
-            account=self.stripe_account,
+            api_version=stripe_version,
+            account=stripe_account,
         )
-        response, api_key = requestor.request(method, url, params, headers)
+
+        if idempotency_key is not None:
+            headers = {} if headers is None else headers.copy()
+            headers.update(util.populate_headers(idempotency_key))
+
+        response, api_key = requestor.request(method_, url_, params, headers)
 
         return util.convert_to_stripe_object(
-            response, api_key, self.stripe_version, self.stripe_account
+            response, api_key, stripe_version, stripe_account, params
         )
 
     def request_stream(self, method, url, params=None, headers=None):

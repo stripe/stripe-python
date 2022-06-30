@@ -13,13 +13,16 @@ class UpdateableAPIResource(APIResource):
 
     def save(self, idempotency_key=None):
         updated_params = self.serialize(None)
-        headers = util.populate_headers(idempotency_key)
-
         if updated_params:
-            self.refresh_from(
-                self.request(
-                    "post", self.instance_url(), updated_params, headers
-                )
+            self._request_and_refresh(
+                "post",
+                self.instance_url(),
+                None,
+                idempotency_key,
+                None,
+                None,
+                None,
+                updated_params
             )
         else:
             util.logger.debug("Trying to save already saved object %r", self)
