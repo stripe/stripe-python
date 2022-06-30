@@ -3,6 +3,8 @@ from __future__ import absolute_import, division, print_function
 from stripe import api_requestor, util
 from stripe.six.moves.urllib.parse import quote_plus
 
+from stripe.api_resources.abstract import APIResource
+
 
 def nested_resource_class_methods(
     resource, path=None, operations=None, resource_plural=None
@@ -38,14 +40,14 @@ def nested_resource_class_methods(
             stripe_account=None,
             **params
         ):
-            requestor = api_requestor.APIRequestor(
-                api_key, api_version=stripe_version, account=stripe_account
-            )
-            headers = util.populate_headers(idempotency_key)
-            response, api_key = requestor.request(method, url, params, headers)
-            return util.convert_to_stripe_object(
-                response, api_key, stripe_version, stripe_account, params
-            )
+            return APIResource._static_request(
+                method,
+                url,
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                **params)
 
         resource_request_method = "%ss_request" % resource
         setattr(

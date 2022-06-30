@@ -244,14 +244,10 @@ class StripeObject(dict):
                  stripe_account,
                  headers,
                  params):
-        if stripe_account is None:
-            stripe_account = self.stripe_account
-        if stripe_version is None:
-            stripe_version = self.stripe_version
-        if api_key is None:
-            api_key = self.api_key
-        if params is None:
-            params = self._retrieve_params
+        stripe_account = stripe_account or self.stripe_account
+        stripe_version = stripe_version or self.stripe_version
+        api_key = api_key or self.api_key
+        params = params or self._retrieve_params
 
         requestor = api_requestor.APIRequestor(
             key=api_key,
