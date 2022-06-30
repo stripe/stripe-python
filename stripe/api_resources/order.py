@@ -16,13 +16,17 @@ class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "order"
 
     def cancel(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/cancel"
+        url = "/v1/orders/{id}/cancel".format(
+            id=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def list_line_items(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/line_items"
+        url = "/v1/orders/{id}/line_items".format(
+            id=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         resp = self.request("get", url, params, headers)
         stripe_object = util.convert_to_stripe_object(resp)
@@ -30,13 +34,17 @@ class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         return stripe_object
 
     def reopen(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/reopen"
+        url = "/v1/orders/{id}/reopen".format(
+            id=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def submit(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/submit"
+        url = "/v1/orders/{id}/submit".format(
+            id=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self

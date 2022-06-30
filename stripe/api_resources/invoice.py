@@ -26,31 +26,41 @@ class Invoice(
     OBJECT_NAME = "invoice"
 
     def finalize_invoice(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/finalize"
+        url = "/v1/invoices/{invoice}/finalize".format(
+            invoice=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def mark_uncollectible(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/mark_uncollectible"
+        url = "/v1/invoices/{invoice}/mark_uncollectible".format(
+            invoice=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def pay(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/pay"
+        url = "/v1/invoices/{invoice}/pay".format(
+            invoice=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def send_invoice(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/send"
+        url = "/v1/invoices/{invoice}/send".format(
+            invoice=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def void_invoice(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/void"
+        url = "/v1/invoices/{invoice}/void".format(
+            invoice=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
