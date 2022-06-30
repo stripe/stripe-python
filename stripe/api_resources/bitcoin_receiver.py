@@ -10,6 +10,10 @@ from stripe.six.moves.urllib.parse import quote_plus
 class BitcoinReceiver(ListableAPIResource):
     OBJECT_NAME = "bitcoin_receiver"
 
+    @classmethod
+    def class_url(cls):
+        return "/v1/bitcoin/receivers"
+
     def instance_url(self):
         token = util.utf8(self.id)
         extn = quote_plus(token)
@@ -22,7 +26,3 @@ class BitcoinReceiver(ListableAPIResource):
         else:
             base = BitcoinReceiver.class_url()
             return "%s/%s" % (base, extn)
-
-    @classmethod
-    def class_url(cls):
-        return "/v1/bitcoin/receivers"

@@ -18,7 +18,9 @@ class CreditNote(
     OBJECT_NAME = "credit_note"
 
     def void_credit_note(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/void"
+        url = "/v1/credit_notes/{id}/void".format(
+            id=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self

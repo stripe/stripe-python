@@ -26,6 +26,7 @@ class ReceivedDebit(ListableAPIResource):
             )
             url = "/v1/test_helpers/treasury/received_debits"
             response, api_key = requestor.request("post", url, params)
-            return util.convert_to_stripe_object(
+            stripe_object = util.convert_to_stripe_object(
                 response, api_key, stripe_version, stripe_account
             )
+            return stripe_object

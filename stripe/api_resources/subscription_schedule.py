@@ -18,13 +18,17 @@ class SubscriptionSchedule(
     OBJECT_NAME = "subscription_schedule"
 
     def cancel(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/cancel"
+        url = "/v1/subscription_schedules/{schedule}/cancel".format(
+            schedule=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def release(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/release"
+        url = "/v1/subscription_schedules/{schedule}/release".format(
+            schedule=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
