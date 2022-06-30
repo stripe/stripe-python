@@ -210,6 +210,10 @@ class TestGeneratedExamples(object):
             "get", "/v1/payment_links/pl_xyz/line_items"
         )
 
+    def test_setupattempt_list(self, request_mock):
+        stripe.SetupAttempt.list(limit=3, setup_intent="si_xyz")
+        request_mock.assert_requested("get", "/v1/setup_attempts")
+
     def test_setupintent_verify_microdeposits(self, request_mock):
         stripe.SetupIntent.verify_microdeposits("seti_xxxxxxxxxxxxx")
         request_mock.assert_requested(
@@ -268,6 +272,34 @@ class TestGeneratedExamples(object):
         request_mock.assert_requested(
             "post",
             "/v1/test_helpers/customers/cus_123/fund_cash_balance",
+        )
+
+    def test_issuing_card_deliver_card(self, request_mock):
+        stripe.issuing.Card.TestHelpers.deliver_card("card_123")
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/issuing/cards/card_123/shipping/deliver",
+        )
+
+    def test_issuing_card_fail_card(self, request_mock):
+        stripe.issuing.Card.TestHelpers.fail_card("card_123")
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/issuing/cards/card_123/shipping/fail",
+        )
+
+    def test_issuing_card_return_card(self, request_mock):
+        stripe.issuing.Card.TestHelpers.return_card("card_123")
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/issuing/cards/card_123/shipping/return",
+        )
+
+    def test_issuing_card_ship_card(self, request_mock):
+        stripe.issuing.Card.TestHelpers.ship_card("card_123")
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/issuing/cards/card_123/shipping/ship",
         )
 
     def test_refund_expire(self, request_mock):
@@ -394,38 +426,6 @@ class TestGeneratedExamples(object):
             },
         )
         request_mock.assert_requested("post", "/v1/tokens")
-
-    def test_setupattempt_list(self, request_mock):
-        stripe.SetupAttempt.list(limit=3, setup_intent="si_xyz")
-        request_mock.assert_requested("get", "/v1/setup_attempts")
-
-    def test_issuing_card_deliver_card(self, request_mock):
-        stripe.issuing.Card.TestHelpers.deliver_card("card_123")
-        request_mock.assert_requested(
-            "post",
-            "/v1/test_helpers/issuing/cards/card_123/shipping/deliver",
-        )
-
-    def test_issuing_card_fail_card(self, request_mock):
-        stripe.issuing.Card.TestHelpers.fail_card("card_123")
-        request_mock.assert_requested(
-            "post",
-            "/v1/test_helpers/issuing/cards/card_123/shipping/fail",
-        )
-
-    def test_issuing_card_return_card(self, request_mock):
-        stripe.issuing.Card.TestHelpers.return_card("card_123")
-        request_mock.assert_requested(
-            "post",
-            "/v1/test_helpers/issuing/cards/card_123/shipping/return",
-        )
-
-    def test_issuing_card_ship_card(self, request_mock):
-        stripe.issuing.Card.TestHelpers.ship_card("card_123")
-        request_mock.assert_requested(
-            "post",
-            "/v1/test_helpers/issuing/cards/card_123/shipping/ship",
-        )
 
     def test_accountlink_create(self, request_mock):
         stripe.AccountLink.create(
