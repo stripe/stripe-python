@@ -16,16 +16,6 @@ from stripe.api_resources.abstract import test_helpers
 
 @custom_method("delete_discount", http_verb="delete", http_path="discount")
 @test_helpers
-@custom_method(
-    "create_funding_instructions",
-    http_verb="post",
-    http_path="funding_instructions",
-)
-@custom_method(
-    "list_payment_methods",
-    http_verb="get",
-    http_path="payment_methods",
-)
 @nested_resource_class_methods(
     "balance_transaction",
     operations=["create", "retrieve", "update", "list"],
@@ -47,6 +37,28 @@ class Customer(
 ):
     OBJECT_NAME = "customer"
 
+    @classmethod
+    def _cls_create_funding_instructions(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
+        url = "/v1/customers/{customer}/funding_instructions".format(
+            customer=util.sanitize_id(customer)
+        )
+        response, api_key = requestor.request("post", url, params)
+        stripe_object = util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account
+        )
+        return stripe_object
+
+    @util.class_method_variant("_cls_create_funding_instructions")
     def create_funding_instructions(self, idempotency_key=None, **params):
         url = "/v1/customers/{customer}/funding_instructions".format(
             customer=util.sanitize_id(self.get("id"))
@@ -56,6 +68,29 @@ class Customer(
         stripe_object = util.convert_to_stripe_object(resp)
         return stripe_object
 
+    @classmethod
+    def _cls_list_payment_methods(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
+        url = "/v1/customers/{customer}/payment_methods".format(
+            customer=util.sanitize_id(customer)
+        )
+        response, api_key = requestor.request("get", url, params)
+        stripe_object = util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account
+        )
+        stripe_object._retrieve_params = params
+        return stripe_object
+
+    @util.class_method_variant("_cls_list_payment_methods")
     def list_payment_methods(self, idempotency_key=None, **params):
         url = "/v1/customers/{customer}/payment_methods".format(
             customer=util.sanitize_id(self.get("id"))

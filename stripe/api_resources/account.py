@@ -2,19 +2,17 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
+from stripe import api_requestor
 from stripe import oauth, six
 from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import custom_method
 from stripe.api_resources.abstract import nested_resource_class_methods
 from stripe.six.moves.urllib.parse import quote_plus
 
 
-@custom_method("persons", http_verb="get")
-@custom_method("reject", http_verb="post")
 @nested_resource_class_methods(
     "capability",
     operations=["retrieve", "update", "list"],
@@ -37,6 +35,29 @@ class Account(
 ):
     OBJECT_NAME = "account"
 
+    @classmethod
+    def _cls_persons(
+        cls,
+        account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
+        url = "/v1/accounts/{account}/persons".format(
+            account=util.sanitize_id(account)
+        )
+        response, api_key = requestor.request("get", url, params)
+        stripe_object = util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account
+        )
+        stripe_object._retrieve_params = params
+        return stripe_object
+
+    @util.class_method_variant("_cls_persons")
     def persons(self, idempotency_key=None, **params):
         url = "/v1/accounts/{account}/persons".format(
             account=util.sanitize_id(self.get("id"))
@@ -47,6 +68,28 @@ class Account(
         stripe_object._retrieve_params = params
         return stripe_object
 
+    @classmethod
+    def _cls_reject(
+        cls,
+        account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
+        url = "/v1/accounts/{account}/reject".format(
+            account=util.sanitize_id(account)
+        )
+        response, api_key = requestor.request("post", url, params)
+        stripe_object = util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account
+        )
+        return stripe_object
+
+    @util.class_method_variant("_cls_reject")
     def reject(self, idempotency_key=None, **params):
         url = "/v1/accounts/{account}/reject".format(
             account=util.sanitize_id(self.get("id"))

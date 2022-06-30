@@ -6,15 +6,35 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import custom_method
 from stripe.api_resources.abstract import test_helpers
 
 
 @test_helpers
-@custom_method("cancel", http_verb="post")
 class OutboundPayment(CreateableAPIResource, ListableAPIResource):
     OBJECT_NAME = "treasury.outbound_payment"
 
+    @classmethod
+    def _cls_cancel(
+        cls,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
+        url = "/v1/treasury/outbound_payments/{id}/cancel".format(
+            id=util.sanitize_id(id)
+        )
+        response, api_key = requestor.request("post", url, params)
+        stripe_object = util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account
+        )
+        return stripe_object
+
+    @util.class_method_variant("_cls_cancel")
     def cancel(self, idempotency_key=None, **params):
         url = "/v1/treasury/outbound_payments/{id}/cancel".format(
             id=util.sanitize_id(self.get("id"))
