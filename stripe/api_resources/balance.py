@@ -6,3 +6,7 @@ from stripe.api_resources.abstract import SingletonAPIResource
 
 class Balance(SingletonAPIResource):
     OBJECT_NAME = "balance"
+
+    @classmethod
+    def class_url(cls):
+        return "/v1/balance"

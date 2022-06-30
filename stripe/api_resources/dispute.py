@@ -12,7 +12,9 @@ class Dispute(ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "dispute"
 
     def close(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/close"
+        url = "/v1/disputes/{dispute}/close".format(
+            dispute=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
