@@ -32,10 +32,30 @@ class ListObject(StripeObject):
         **params
     ):
         return self._request(
-            "get",
+            "post",
             self.get("url"),
             api_key,
             idempotency_key,
+            stripe_version,
+            stripe_account,
+            None,
+            params
+        )
+
+    def retrieve(
+        self,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        url = "%s/%s" % (self.get("url"), quote_plus(util.utf8(id)))
+        return self._request(
+            "get",
+            url,
+            api_key,
+            None,
             stripe_version,
             stripe_account,
             None,
