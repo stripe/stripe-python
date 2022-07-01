@@ -38,18 +38,24 @@ class Account(
     OBJECT_NAME = "account"
 
     def persons(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/persons"
-        headers = util.populate_headers(idempotency_key)
-        resp = self.request("get", url, params, headers)
-        stripe_object = util.convert_to_stripe_object(resp)
-        stripe_object._retrieve_params = params
-        return stripe_object
+        return self._request(
+            "get",
+            "/v1/accounts/{account}/persons".format(
+                account=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def reject(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/reject"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/accounts/{account}/reject".format(
+                account=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     # We are not adding a helper for capabilities here as the Account object already has a
     # capabilities property which is a hash and not the sub-list of capabilities.
@@ -63,7 +69,7 @@ class Account(
     @classmethod
     def modify(cls, id=None, **params):
         url = cls._build_instance_url(id)
-        return cls._static_request("post", url, **params)
+        return cls._static_request("post", url, params=params)
 
     @classmethod
     def _build_instance_url(cls, sid):

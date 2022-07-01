@@ -14,24 +14,24 @@ class Secret(CreateableAPIResource, ListableAPIResource):
     def delete_where(
         cls, api_key=None, stripe_version=None, stripe_account=None, **params
     ):
-        requestor = api_requestor.APIRequestor(
-            api_key, api_version=stripe_version, account=stripe_account
-        )
-        url = "/v1/apps/secrets/delete"
-        response, api_key = requestor.request("post", url, params)
-        return util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account
+        return cls._static_request(
+            "post",
+            "/v1/apps/secrets/delete",
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
         )
 
     @classmethod
     def find(
         cls, api_key=None, stripe_version=None, stripe_account=None, **params
     ):
-        requestor = api_requestor.APIRequestor(
-            api_key, api_version=stripe_version, account=stripe_account
-        )
-        url = "/v1/apps/secrets/find"
-        response, api_key = requestor.request("get", url, params)
-        return util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account
+        return cls._static_request(
+            "get",
+            "/v1/apps/secrets/find",
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
         )

@@ -17,7 +17,11 @@ class Dispute(
     OBJECT_NAME = "issuing.dispute"
 
     def submit(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/submit"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/issuing/disputes/{dispute}/submit".format(
+                dispute=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )

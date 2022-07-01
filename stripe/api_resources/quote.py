@@ -24,38 +24,54 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "quote"
 
     def accept(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/accept"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/quotes/{quote}/accept".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def cancel(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/cancel"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/quotes/{quote}/cancel".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def finalize_quote(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/finalize"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/quotes/{quote}/finalize".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def list_computed_upfront_line_items(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/computed_upfront_line_items"
-        headers = util.populate_headers(idempotency_key)
-        resp = self.request("get", url, params, headers)
-        stripe_object = util.convert_to_stripe_object(resp)
-        stripe_object._retrieve_params = params
-        return stripe_object
+        return self._request(
+            "get",
+            "/v1/quotes/{quote}/computed_upfront_line_items".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def list_line_items(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/line_items"
-        headers = util.populate_headers(idempotency_key)
-        resp = self.request("get", url, params, headers)
-        stripe_object = util.convert_to_stripe_object(resp)
-        stripe_object._retrieve_params = params
-        return stripe_object
+        return self._request(
+            "get",
+            "/v1/quotes/{quote}/line_items".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     @classmethod
     def _cls_pdf(

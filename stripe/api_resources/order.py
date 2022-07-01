@@ -16,27 +16,41 @@ class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "order"
 
     def cancel(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/cancel"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/orders/{id}/cancel".format(
+                id=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def list_line_items(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/line_items"
-        headers = util.populate_headers(idempotency_key)
-        resp = self.request("get", url, params, headers)
-        stripe_object = util.convert_to_stripe_object(resp)
-        stripe_object._retrieve_params = params
-        return stripe_object
+        return self._request(
+            "get",
+            "/v1/orders/{id}/line_items".format(
+                id=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def reopen(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/reopen"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/orders/{id}/reopen".format(
+                id=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def submit(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/submit"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/orders/{id}/submit".format(
+                id=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )

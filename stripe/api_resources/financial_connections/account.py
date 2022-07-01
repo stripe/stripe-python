@@ -13,21 +13,31 @@ class Account(ListableAPIResource):
     OBJECT_NAME = "financial_connections.account"
 
     def disconnect(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/disconnect"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/financial_connections/accounts/{account}/disconnect".format(
+                account=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def list_owners(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/owners"
-        headers = util.populate_headers(idempotency_key)
-        resp = self.request("get", url, params, headers)
-        stripe_object = util.convert_to_stripe_object(resp)
-        stripe_object._retrieve_params = params
-        return stripe_object
+        return self._request(
+            "get",
+            "/v1/financial_connections/accounts/{account}/owners".format(
+                account=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def refresh_account(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/refresh"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/financial_connections/accounts/{account}/refresh".format(
+                account=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )

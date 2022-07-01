@@ -17,9 +17,11 @@ class PaymentLink(
     OBJECT_NAME = "payment_link"
 
     def list_line_items(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/line_items"
-        headers = util.populate_headers(idempotency_key)
-        resp = self.request("get", url, params, headers)
-        stripe_object = util.convert_to_stripe_object(resp)
-        stripe_object._retrieve_params = params
-        return stripe_object
+        return self._request(
+            "get",
+            "/v1/payment_links/{payment_link}/line_items".format(
+                payment_link=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )

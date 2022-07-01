@@ -16,8 +16,8 @@ class SearchableAPIResource(APIResource):
         return cls._static_request(
             "get",
             search_url,
-            api_key,
-            None,
-            stripe_version,
-            stripe_account,
-            **params)
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )

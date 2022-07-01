@@ -174,8 +174,9 @@ def convert_to_stripe_object(
             last_response=stripe_response,
         )
 
-        if hasattr(obj, 'object') and \
-           ((obj.object == 'list') or (obj.object == 'search_result')):
+        if hasattr(obj, "object") and (
+            (obj.object == "list") or (obj.object == "search_result")
+        ):
             obj._retrieve_params = params
 
         return obj

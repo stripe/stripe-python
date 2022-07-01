@@ -19,19 +19,31 @@ class SetupIntent(
     OBJECT_NAME = "setup_intent"
 
     def cancel(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/cancel"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/setup_intents/{intent}/cancel".format(
+                intent=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def confirm(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/confirm"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/setup_intents/{intent}/confirm".format(
+                intent=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def verify_microdeposits(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/verify_microdeposits"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/setup_intents/{intent}/verify_microdeposits".format(
+                intent=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )

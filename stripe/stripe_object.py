@@ -56,7 +56,7 @@ class StripeObject(dict):
         self._last_response = last_response
 
         self._retrieve_params = params
-        self._previous=None
+        self._previous = None
 
         object.__setattr__(self, "api_key", api_key)
         object.__setattr__(self, "stripe_version", stripe_version)
@@ -234,21 +234,20 @@ class StripeObject(dict):
 
     def request(self, method, url, params=None, headers=None):
         return StripeObject._request(
-            self,
-            method,
-            url,
-            headers=headers,
-            params=params)
+            self, method, url, headers=headers, params=params
+        )
 
-    def _request(self,
-                 method_,
-                 url_,
-                 api_key=None,
-                 idempotency_key=None,
-                 stripe_version=None,
-                 stripe_account=None,
-                 headers=None,
-                 params=None):
+    def _request(
+        self,
+        method_,
+        url_,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        headers=None,
+        params=None,
+    ):
         stripe_account = stripe_account or self.stripe_account
         stripe_version = stripe_version or self.stripe_version
         api_key = api_key or self.api_key

@@ -43,15 +43,17 @@ class APIResource(StripeObject):
         extn = quote_plus(id)
         return "%s/%s" % (base, extn)
 
-    def _request(self,
-                 method_,
-                 url_,
-                 api_key=None,
-                 idempotency_key=None,
-                 stripe_version=None,
-                 stripe_account=None,
-                 headers=None,
-                 params=None):
+    def _request(
+        self,
+        method_,
+        url_,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        headers=None,
+        params=None,
+    ):
         obj = StripeObject._request(
             self,
             method_,
@@ -61,7 +63,8 @@ class APIResource(StripeObject):
             stripe_version,
             stripe_account,
             headers,
-            params)
+            params,
+        )
 
         if type(self) is type(obj):
             self.refresh_from(obj)
@@ -69,15 +72,17 @@ class APIResource(StripeObject):
         else:
             return obj
 
-    def _request_and_refresh(self,
-                             method_,
-                             url_,
-                             api_key=None,
-                             idempotency_key=None,
-                             stripe_version=None,
-                             stripe_account=None,
-                             headers=None,
-                             params=None):
+    def _request_and_refresh(
+        self,
+        method_,
+        url_,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        headers=None,
+        params=None,
+    ):
         obj = StripeObject._request(
             self,
             method_,
@@ -87,7 +92,8 @@ class APIResource(StripeObject):
             stripe_version,
             stripe_account,
             headers,
-            params)
+            params,
+        )
 
         self.refresh_from(obj)
         return self
@@ -103,7 +109,7 @@ class APIResource(StripeObject):
         idempotency_key=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        params=None,
     ):
         requestor = api_requestor.APIRequestor(
             api_key, api_version=stripe_version, account=stripe_account
@@ -125,7 +131,7 @@ class APIResource(StripeObject):
         idempotency_key=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        params=None,
     ):
         requestor = api_requestor.APIRequestor(
             api_key, api_version=stripe_version, account=stripe_account

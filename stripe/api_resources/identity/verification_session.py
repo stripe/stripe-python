@@ -18,13 +18,21 @@ class VerificationSession(
     OBJECT_NAME = "identity.verification_session"
 
     def cancel(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/cancel"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/identity/verification_sessions/{session}/cancel".format(
+                session=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def redact(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/redact"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/identity/verification_sessions/{session}/redact".format(
+                session=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )

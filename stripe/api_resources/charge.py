@@ -20,10 +20,14 @@ class Charge(
     OBJECT_NAME = "charge"
 
     def capture(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/capture"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/charges/{charge}/capture".format(
+                charge=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     @classmethod
     def search(cls, *args, **kwargs):

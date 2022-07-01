@@ -18,7 +18,7 @@ class ListObject(StripeObject):
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
-            params=params
+            params=params,
         )
 
     def create(
@@ -36,7 +36,7 @@ class ListObject(StripeObject):
             idempotency_key=idempotency_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
-            params=params
+            params=params,
         )
 
     def retrieve(
@@ -54,7 +54,7 @@ class ListObject(StripeObject):
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
-            params=params
+            params=params,
         )
 
     def __getitem__(self, k):

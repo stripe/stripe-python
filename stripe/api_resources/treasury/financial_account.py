@@ -18,15 +18,21 @@ class FinancialAccount(
     OBJECT_NAME = "treasury.financial_account"
 
     def retrieve_features(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/features"
-        headers = util.populate_headers(idempotency_key)
-        resp = self.request("get", url, params, headers)
-        stripe_object = util.convert_to_stripe_object(resp)
-        return stripe_object
+        return self._request(
+            "get",
+            "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                financial_account=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def update_features(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/features"
-        headers = util.populate_headers(idempotency_key)
-        resp = self.request("post", url, params, headers)
-        stripe_object = util.convert_to_stripe_object(resp)
-        return stripe_object
+        return self._request(
+            "post",
+            "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                financial_account=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )

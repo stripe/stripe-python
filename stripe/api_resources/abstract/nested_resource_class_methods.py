@@ -43,11 +43,12 @@ def nested_resource_class_methods(
             return APIResource._static_request(
                 method,
                 url,
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
-                **params)
+                api_key=api_key,
+                idempotency_key=idempotency_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
 
         resource_request_method = "%ss_request" % resource
         setattr(

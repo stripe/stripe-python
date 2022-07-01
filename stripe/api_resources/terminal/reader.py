@@ -1,6 +1,7 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
+from stripe import api_requestor
 from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
@@ -25,35 +26,73 @@ class Reader(
     OBJECT_NAME = "terminal.reader"
 
     def cancel_action(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/cancel_action"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/terminal/readers/{reader}/cancel_action".format(
+                reader=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def process_payment_intent(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/process_payment_intent"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/terminal/readers/{reader}/process_payment_intent".format(
+                reader=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def process_setup_intent(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/process_setup_intent"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/terminal/readers/{reader}/process_setup_intent".format(
+                reader=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def set_reader_display(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/set_reader_display"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/terminal/readers/{reader}/set_reader_display".format(
+                reader=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
-    @custom_method("present_payment_method", http_verb="post")
     class TestHelpers(APIResourceTestHelpers):
-        def present_payment_method(self, idempotency_key=None, **params):
-            url = self.instance_url() + "/present_payment_method"
-            headers = util.populate_headers(idempotency_key)
-            self.resource.refresh_from(
-                self.resource.request("post", url, params, headers)
+        @classmethod
+        def _cls_present_payment_method(
+            cls,
+            reader,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
+                    reader=util.sanitize_id(reader)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             )
-            return self.resource
+
+        @util.class_method_variant("_cls_present_payment_method")
+        def present_payment_method(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
+                    reader=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )

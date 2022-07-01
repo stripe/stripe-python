@@ -26,34 +26,67 @@ class Invoice(
     OBJECT_NAME = "invoice"
 
     def finalize_invoice(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/finalize"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/invoices/{invoice}/finalize".format(
+                invoice=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def mark_uncollectible(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/mark_uncollectible"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/invoices/{invoice}/mark_uncollectible".format(
+                invoice=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def pay(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/pay"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/invoices/{invoice}/pay".format(
+                invoice=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     def send_invoice(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/send"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/invoices/{invoice}/send".format(
+                invoice=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def upcoming(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/invoices/upcoming",
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     def void_invoice(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/void"
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+        return self._request(
+            "post",
+            "/v1/invoices/{invoice}/void".format(
+                invoice=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     @classmethod
     def search(cls, *args, **kwargs):
@@ -62,16 +95,3 @@ class Invoice(
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
-
-    @classmethod
-    def upcoming(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
-    ):
-        requestor = api_requestor.APIRequestor(
-            api_key, api_version=stripe_version, account=stripe_account
-        )
-        url = cls.class_url() + "/upcoming"
-        response, api_key = requestor.request("get", url, params)
-        return util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account
-        )
