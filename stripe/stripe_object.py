@@ -56,7 +56,7 @@ class StripeObject(dict):
         self._last_response = last_response
 
         self._retrieve_params = params
-        self._previous = None
+        self._previous=None
 
         object.__setattr__(self, "api_key", api_key)
         object.__setattr__(self, "stripe_version", stripe_version)
@@ -102,7 +102,7 @@ class StripeObject(dict):
             raise ValueError(
                 "You cannot set %s to an empty string on this object. "
                 "The empty string is treated specially in our requests. "
-                "If you'd like to delete the property using the save() method on this object, you may set %s.%s = None. "
+                "If you'd like to delete the property using the save() method on this object, you may set %s.%s=None. "
                 "Alternatively, you can pass %s='' to delete the property when using a resource method such as modify()."
                 % (k, str(self), k, k)
             )
@@ -233,17 +233,22 @@ class StripeObject(dict):
         return None
 
     def request(self, method, url, params=None, headers=None):
-        return StripeObject._request(self, method, url, None, None, None, None, headers, params)
+        return StripeObject._request(
+            self,
+            method,
+            url,
+            headers=headers,
+            params=params)
 
     def _request(self,
                  method_,
                  url_,
-                 api_key,
-                 idempotency_key,
-                 stripe_version,
-                 stripe_account,
-                 headers,
-                 params):
+                 api_key=None,
+                 idempotency_key=None,
+                 stripe_version=None,
+                 stripe_account=None,
+                 headers=None,
+                 params=None):
         stripe_account = stripe_account or self.stripe_account
         stripe_version = stripe_version or self.stripe_version
         api_key = api_key or self.api_key

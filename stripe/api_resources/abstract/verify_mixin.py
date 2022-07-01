@@ -7,10 +7,6 @@ class VerifyMixin(object):
         return self._request(
                 "post",
                 url,
-                None,
-                idempotency_key,
-                None,
-                None,
-                None,
-                params
+                idempotency_key=idempotency_key,
+                params=params
             )

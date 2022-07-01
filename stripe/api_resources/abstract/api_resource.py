@@ -46,12 +46,12 @@ class APIResource(StripeObject):
     def _request(self,
                  method_,
                  url_,
-                 api_key,
-                 idempotency_key,
-                 stripe_version,
-                 stripe_account,
-                 headers,
-                 params):
+                 api_key=None,
+                 idempotency_key=None,
+                 stripe_version=None,
+                 stripe_account=None,
+                 headers=None,
+                 params=None):
         obj = StripeObject._request(
             self,
             method_,

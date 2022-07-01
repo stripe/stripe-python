@@ -13,12 +13,10 @@ class SearchResultObject(StripeObject):
         return self._request(
             "get",
             self.get("url"),
-            api_key,
-            None,
-            stripe_version,
-            stripe_account,
-            None,
-            params
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params
         )
 
     def __getitem__(self, k):

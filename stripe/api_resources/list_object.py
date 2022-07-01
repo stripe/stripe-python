@@ -15,12 +15,10 @@ class ListObject(StripeObject):
         return self._request(
             "get",
             self.get("url"),
-            api_key,
-            None,
-            stripe_version,
-            stripe_account,
-            None,
-            params
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params
         )
 
     def create(
@@ -34,12 +32,11 @@ class ListObject(StripeObject):
         return self._request(
             "post",
             self.get("url"),
-            api_key,
-            idempotency_key,
-            stripe_version,
-            stripe_account,
-            None,
-            params
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params
         )
 
     def retrieve(
@@ -54,12 +51,10 @@ class ListObject(StripeObject):
         return self._request(
             "get",
             url,
-            api_key,
-            None,
-            stripe_version,
-            stripe_account,
-            None,
-            params
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params
         )
 
     def __getitem__(self, k):
