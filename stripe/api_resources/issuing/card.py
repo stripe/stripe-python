@@ -1,7 +1,6 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import api_requestor
 from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
@@ -45,7 +44,7 @@ class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                    card=util.sanitize_id(self.get("id"))
+                    card=util.sanitize_id(self.resource.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -76,7 +75,7 @@ class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                    card=util.sanitize_id(self.get("id"))
+                    card=util.sanitize_id(self.resource.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -107,7 +106,7 @@ class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                    card=util.sanitize_id(self.get("id"))
+                    card=util.sanitize_id(self.resource.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -138,7 +137,7 @@ class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                    card=util.sanitize_id(self.get("id"))
+                    card=util.sanitize_id(self.resource.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,

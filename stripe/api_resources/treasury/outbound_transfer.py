@@ -1,7 +1,6 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import api_requestor
 from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
@@ -51,7 +50,7 @@ class OutboundTransfer(CreateableAPIResource, ListableAPIResource):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
-                    outbound_transfer=util.sanitize_id(self.get("id"))
+                    outbound_transfer=util.sanitize_id(self.resource.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -82,7 +81,7 @@ class OutboundTransfer(CreateableAPIResource, ListableAPIResource):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
-                    outbound_transfer=util.sanitize_id(self.get("id"))
+                    outbound_transfer=util.sanitize_id(self.resource.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -113,7 +112,7 @@ class OutboundTransfer(CreateableAPIResource, ListableAPIResource):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
-                    outbound_transfer=util.sanitize_id(self.get("id"))
+                    outbound_transfer=util.sanitize_id(self.resource.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,

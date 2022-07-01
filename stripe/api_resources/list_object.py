@@ -1,6 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
-from stripe import api_requestor, six, util
+from stripe import six, util
 from stripe.stripe_object import StripeObject
 
 from stripe.six.moves.urllib.parse import quote_plus

@@ -1,7 +1,6 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import api_requestor
 from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
@@ -54,7 +53,7 @@ class Refund(
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/refunds/{refund}/expire".format(
-                    refund=util.sanitize_id(self.get("id"))
+                    refund=util.sanitize_id(self.resource.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,

@@ -191,7 +191,7 @@ class Customer(
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                    customer=util.sanitize_id(self.get("id"))
+                    customer=util.sanitize_id(self.resource.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
