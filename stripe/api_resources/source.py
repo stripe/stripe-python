@@ -6,14 +6,23 @@ from stripe import util
 from stripe.api_resources import Customer
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import VerifyMixin
+from stripe.api_resources.abstract import custom_method
 from stripe.api_resources.abstract import nested_resource_class_methods
 from stripe.six.moves.urllib.parse import quote_plus
 
 
+@custom_method("verify", http_verb="post")
 @nested_resource_class_methods("source_transaction", operations=["list"])
-class Source(CreateableAPIResource, UpdateableAPIResource, VerifyMixin):
+class Source(CreateableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "source"
+
+    def verify(self, idempotency_key=None, **params):
+        url = "/v1/sources/{source}/verify".format(
+            source=util.sanitize_id(self.get("id"))
+        )
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("post", url, params, headers))
+        return self
 
     def detach(self, idempotency_key=None, **params):
         token = util.utf8(self.id)
