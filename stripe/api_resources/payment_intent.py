@@ -24,37 +24,49 @@ class PaymentIntent(
     OBJECT_NAME = "payment_intent"
 
     def apply_customer_balance(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/apply_customer_balance"
+        url = "/v1/payment_intents/{intent}/apply_customer_balance".format(
+            intent=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def cancel(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/cancel"
+        url = "/v1/payment_intents/{intent}/cancel".format(
+            intent=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def capture(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/capture"
+        url = "/v1/payment_intents/{intent}/capture".format(
+            intent=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def confirm(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/confirm"
+        url = "/v1/payment_intents/{intent}/confirm".format(
+            intent=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def increment_authorization(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/increment_authorization"
+        url = "/v1/payment_intents/{intent}/increment_authorization".format(
+            intent=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def verify_microdeposits(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/verify_microdeposits"
+        url = "/v1/payment_intents/{intent}/verify_microdeposits".format(
+            intent=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self

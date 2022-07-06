@@ -48,14 +48,18 @@ class Customer(
     OBJECT_NAME = "customer"
 
     def create_funding_instructions(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/funding_instructions"
+        url = "/v1/customers/{customer}/funding_instructions".format(
+            customer=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         resp = self.request("post", url, params, headers)
         stripe_object = util.convert_to_stripe_object(resp)
         return stripe_object
 
     def list_payment_methods(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/payment_methods"
+        url = "/v1/customers/{customer}/payment_methods".format(
+            customer=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         resp = self.request("get", url, params, headers)
         stripe_object = util.convert_to_stripe_object(resp)
@@ -82,9 +86,10 @@ class Customer(
             )
         )
         response, api_key = requestor.request("get", url, params)
-        return util.convert_to_stripe_object(
+        stripe_object = util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account
         )
+        return stripe_object
 
     @util.class_method_variant("_cls_retrieve_payment_method")
     def retrieve_payment_method(
@@ -137,9 +142,10 @@ class Customer(
             customer=util.sanitize_id(customer)
         )
         response, api_key = requestor.request("get", url, params)
-        return util.convert_to_stripe_object(
+        stripe_object = util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account
         )
+        return stripe_object
 
     @classmethod
     def modify_cash_balance(
@@ -159,14 +165,38 @@ class Customer(
             customer=util.sanitize_id(customer)
         )
         response, api_key = requestor.request("post", url, params)
-        return util.convert_to_stripe_object(
+        stripe_object = util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account
         )
+        return stripe_object
 
-    @custom_method("fund_cash_balance", http_verb="post")
     class TestHelpers(APIResourceTestHelpers):
+        @classmethod
+        def _cls_fund_cash_balance(
+            cls,
+            customer,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            requestor = api_requestor.APIRequestor(
+                api_key, api_version=stripe_version, account=stripe_account
+            )
+            url = "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
+                customer=util.sanitize_id(customer)
+            )
+            response, api_key = requestor.request("post", url, params)
+            stripe_object = util.convert_to_stripe_object(
+                response, api_key, stripe_version, stripe_account
+            )
+            return stripe_object
+
+        @util.class_method_variant("_cls_fund_cash_balance")
         def fund_cash_balance(self, idempotency_key=None, **params):
-            url = self.instance_url() + "/fund_cash_balance"
+            url = "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
+                customer=util.sanitize_id(self.get("id"))
+            )
             headers = util.populate_headers(idempotency_key)
             self.resource.refresh_from(
                 self.resource.request("post", url, params, headers)

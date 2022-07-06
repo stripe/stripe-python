@@ -19,9 +19,10 @@ class Secret(CreateableAPIResource, ListableAPIResource):
         )
         url = "/v1/apps/secrets/delete"
         response, api_key = requestor.request("post", url, params)
-        return util.convert_to_stripe_object(
+        stripe_object = util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account
         )
+        return stripe_object
 
     @classmethod
     def find(
@@ -32,6 +33,7 @@ class Secret(CreateableAPIResource, ListableAPIResource):
         )
         url = "/v1/apps/secrets/find"
         response, api_key = requestor.request("get", url, params)
-        return util.convert_to_stripe_object(
+        stripe_object = util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account
         )
+        return stripe_object

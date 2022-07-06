@@ -24,25 +24,33 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "quote"
 
     def accept(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/accept"
+        url = "/v1/quotes/{quote}/accept".format(
+            quote=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def cancel(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/cancel"
+        url = "/v1/quotes/{quote}/cancel".format(
+            quote=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def finalize_quote(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/finalize"
+        url = "/v1/quotes/{quote}/finalize".format(
+            quote=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
     def list_computed_upfront_line_items(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/computed_upfront_line_items"
+        url = "/v1/quotes/{quote}/computed_upfront_line_items".format(
+            quote=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         resp = self.request("get", url, params, headers)
         stripe_object = util.convert_to_stripe_object(resp)
@@ -50,7 +58,9 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         return stripe_object
 
     def list_line_items(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/line_items"
+        url = "/v1/quotes/{quote}/line_items".format(
+            quote=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         resp = self.request("get", url, params, headers)
         stripe_object = util.convert_to_stripe_object(resp)

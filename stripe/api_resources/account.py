@@ -38,7 +38,9 @@ class Account(
     OBJECT_NAME = "account"
 
     def persons(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/persons"
+        url = "/v1/accounts/{account}/persons".format(
+            account=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         resp = self.request("get", url, params, headers)
         stripe_object = util.convert_to_stripe_object(resp)
@@ -46,7 +48,9 @@ class Account(
         return stripe_object
 
     def reject(self, idempotency_key=None, **params):
-        url = self.instance_url() + "/reject"
+        url = "/v1/accounts/{account}/reject".format(
+            account=util.sanitize_id(self.get("id"))
+        )
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
