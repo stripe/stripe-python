@@ -8,13 +8,10 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import custom_method
 from stripe.api_resources.abstract import nested_resource_class_methods
 from stripe.six.moves.urllib.parse import quote_plus
 
 
-@custom_method("persons", http_verb="get")
-@custom_method("reject", http_verb="post")
 @nested_resource_class_methods(
     "capability",
     operations=["retrieve", "update", "list"],
@@ -37,6 +34,27 @@ class Account(
 ):
     OBJECT_NAME = "account"
 
+    @classmethod
+    def _cls_persons(
+        cls,
+        account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/accounts/{account}/persons".format(
+                account=util.sanitize_id(account)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_persons")
     def persons(self, idempotency_key=None, **params):
         return self._request(
             "get",
@@ -47,6 +65,27 @@ class Account(
             params=params,
         )
 
+    @classmethod
+    def _cls_reject(
+        cls,
+        account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/accounts/{account}/reject".format(
+                account=util.sanitize_id(account)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_reject")
     def reject(self, idempotency_key=None, **params):
         return self._request(
             "post",

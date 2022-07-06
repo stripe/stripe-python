@@ -7,10 +7,8 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import custom_method
 
 
-@custom_method("capture", http_verb="post")
 class Charge(
     CreateableAPIResource,
     ListableAPIResource,
@@ -19,6 +17,27 @@ class Charge(
 ):
     OBJECT_NAME = "charge"
 
+    @classmethod
+    def _cls_capture(
+        cls,
+        charge,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/charges/{charge}/capture".format(
+                charge=util.sanitize_id(charge)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_capture")
     def capture(self, idempotency_key=None, **params):
         return self._request(
             "post",

@@ -5,15 +5,34 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import custom_method
 from stripe.api_resources.abstract import test_helpers
 
 
 @test_helpers
-@custom_method("cancel", http_verb="post")
 class InboundTransfer(CreateableAPIResource, ListableAPIResource):
     OBJECT_NAME = "treasury.inbound_transfer"
 
+    @classmethod
+    def _cls_cancel(
+        cls,
+        inbound_transfer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
+                inbound_transfer=util.sanitize_id(inbound_transfer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_cancel")
     def cancel(self, idempotency_key=None, **params):
         return self._request(
             "post",

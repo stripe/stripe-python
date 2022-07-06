@@ -6,17 +6,36 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import custom_method
 from stripe.api_resources.abstract import test_helpers
 
 
 @test_helpers
-@custom_method("cancel", http_verb="post")
 class Refund(
     CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
 ):
     OBJECT_NAME = "refund"
 
+    @classmethod
+    def _cls_cancel(
+        cls,
+        refund,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/refunds/{refund}/cancel".format(
+                refund=util.sanitize_id(refund)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_cancel")
     def cancel(self, idempotency_key=None, **params):
         return self._request(
             "post",

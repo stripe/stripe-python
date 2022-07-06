@@ -5,10 +5,8 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import custom_method
 
 
-@custom_method("void_credit_note", http_verb="post", http_path="void")
 class CreditNote(
     CreateableAPIResource,
     ListableAPIResource,
@@ -29,6 +27,25 @@ class CreditNote(
             params=params,
         )
 
+    @classmethod
+    def _cls_void_credit_note(
+        cls,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/credit_notes/{id}/void".format(id=util.sanitize_id(id)),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_void_credit_note")
     def void_credit_note(self, idempotency_key=None, **params):
         return self._request(
             "post",

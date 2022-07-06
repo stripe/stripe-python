@@ -5,11 +5,8 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import custom_method
 
 
-@custom_method("retrieve_features", http_verb="get", http_path="features")
-@custom_method("update_features", http_verb="post", http_path="features")
 class FinancialAccount(
     CreateableAPIResource,
     ListableAPIResource,
@@ -17,6 +14,27 @@ class FinancialAccount(
 ):
     OBJECT_NAME = "treasury.financial_account"
 
+    @classmethod
+    def _cls_retrieve_features(
+        cls,
+        financial_account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                financial_account=util.sanitize_id(financial_account)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_retrieve_features")
     def retrieve_features(self, idempotency_key=None, **params):
         return self._request(
             "get",
@@ -27,6 +45,27 @@ class FinancialAccount(
             params=params,
         )
 
+    @classmethod
+    def _cls_update_features(
+        cls,
+        financial_account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                financial_account=util.sanitize_id(financial_account)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_update_features")
     def update_features(self, idempotency_key=None, **params):
         return self._request(
             "post",

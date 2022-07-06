@@ -16,16 +16,6 @@ from stripe.api_resources.abstract import test_helpers
 
 @custom_method("delete_discount", http_verb="delete", http_path="discount")
 @test_helpers
-@custom_method(
-    "create_funding_instructions",
-    http_verb="post",
-    http_path="funding_instructions",
-)
-@custom_method(
-    "list_payment_methods",
-    http_verb="get",
-    http_path="payment_methods",
-)
 @nested_resource_class_methods(
     "balance_transaction",
     operations=["create", "retrieve", "update", "list"],
@@ -47,6 +37,27 @@ class Customer(
 ):
     OBJECT_NAME = "customer"
 
+    @classmethod
+    def _cls_create_funding_instructions(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/customers/{customer}/funding_instructions".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_create_funding_instructions")
     def create_funding_instructions(self, idempotency_key=None, **params):
         return self._request(
             "post",
@@ -57,6 +68,27 @@ class Customer(
             params=params,
         )
 
+    @classmethod
+    def _cls_list_payment_methods(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/customers/{customer}/payment_methods".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_list_payment_methods")
     def list_payment_methods(self, idempotency_key=None, **params):
         return self._request(
             "get",
@@ -125,13 +157,11 @@ class Customer(
     def retrieve_cash_balance(
         cls,
         customer,
-        nested_id=None,
         api_key=None,
         stripe_version=None,
         stripe_account=None,
         **params
     ):
-        # The nested_id parameter is required for backwards compatibility purposes and is ignored.
         return cls._static_request(
             "get",
             "/v1/customers/{customer}/cash_balance".format(
@@ -147,13 +177,11 @@ class Customer(
     def modify_cash_balance(
         cls,
         customer,
-        nested_id=None,
         api_key=None,
         stripe_version=None,
         stripe_account=None,
         **params
     ):
-        # The nested_id parameter is required for backwards compatibility purposes and is ignored.
         return cls._static_request(
             "post",
             "/v1/customers/{customer}/cash_balance".format(
