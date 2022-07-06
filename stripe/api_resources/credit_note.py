@@ -17,14 +17,6 @@ class CreditNote(
 ):
     OBJECT_NAME = "credit_note"
 
-    def void_credit_note(self, idempotency_key=None, **params):
-        url = "/v1/credit_notes/{id}/void".format(
-            id=util.sanitize_id(self.get("id"))
-        )
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
-
     @classmethod
     def preview(
         cls, api_key=None, stripe_version=None, stripe_account=None, **params
@@ -32,8 +24,17 @@ class CreditNote(
         requestor = api_requestor.APIRequestor(
             api_key, api_version=stripe_version, account=stripe_account
         )
-        url = cls.class_url() + "/preview"
+        url = "/v1/credit_notes/preview"
         response, api_key = requestor.request("get", url, params)
-        return util.convert_to_stripe_object(
+        stripe_object = util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account
         )
+        return stripe_object
+
+    def void_credit_note(self, idempotency_key=None, **params):
+        url = "/v1/credit_notes/{id}/void".format(
+            id=util.sanitize_id(self.get("id"))
+        )
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("post", url, params, headers))
+        return self

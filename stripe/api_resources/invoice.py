@@ -57,6 +57,20 @@ class Invoice(
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
+    @classmethod
+    def upcoming(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ):
+        requestor = api_requestor.APIRequestor(
+            api_key, api_version=stripe_version, account=stripe_account
+        )
+        url = "/v1/invoices/upcoming"
+        response, api_key = requestor.request("get", url, params)
+        stripe_object = util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account
+        )
+        return stripe_object
+
     def void_invoice(self, idempotency_key=None, **params):
         url = "/v1/invoices/{invoice}/void".format(
             invoice=util.sanitize_id(self.get("id"))
@@ -72,16 +86,3 @@ class Invoice(
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
-
-    @classmethod
-    def upcoming(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
-    ):
-        requestor = api_requestor.APIRequestor(
-            api_key, api_version=stripe_version, account=stripe_account
-        )
-        url = cls.class_url() + "/upcoming"
-        response, api_key = requestor.request("get", url, params)
-        return util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account
-        )

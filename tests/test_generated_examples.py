@@ -147,6 +147,10 @@ class TestGeneratedExamples(object):
             "/v1/financial_connections/sessions/fcsess_xyz",
         )
 
+    def test_invoice_upcoming(self, request_mock):
+        stripe.Invoice.upcoming(customer="cus_9utnxg47pWjV1e")
+        request_mock.assert_requested("get", "/v1/invoices/upcoming")
+
     def test_order_create(self, request_mock):
         stripe.Order.create(
             description="description",
@@ -735,6 +739,19 @@ class TestGeneratedExamples(object):
             "post",
             "/v1/credit_notes/cn_xxxxxxxxxxxxx/void",
         )
+
+    def test_creditnote_preview(self, request_mock):
+        stripe.CreditNote.preview(
+            invoice="in_xxxxxxxxxxxxx",
+            lines=[
+                {
+                    "type": "invoice_line_item",
+                    "invoice_line_item": "il_xxxxxxxxxxxxx",
+                    "quantity": 1,
+                },
+            ],
+        )
+        request_mock.assert_requested("get", "/v1/credit_notes/preview")
 
     def test_customer_list(self, request_mock):
         stripe.Customer.list(limit=3)
