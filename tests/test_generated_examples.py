@@ -147,6 +147,10 @@ class TestGeneratedExamples(object):
             "/v1/financial_connections/sessions/fcsess_xyz",
         )
 
+    def test_invoice_upcoming(self, request_mock):
+        stripe.Invoice.upcoming(customer="cus_9utnxg47pWjV1e")
+        request_mock.assert_requested("get", "/v1/invoices/upcoming")
+
     def test_order_create(self, request_mock):
         stripe.Order.create(
             description="description",
@@ -209,6 +213,19 @@ class TestGeneratedExamples(object):
         request_mock.assert_requested(
             "get", "/v1/payment_links/pl_xyz/line_items"
         )
+
+    def test_price_create(self, request_mock):
+        stripe.Price.create(
+            unit_amount=2000,
+            currency="usd",
+            currency_options={
+                "uah": {"unit_amount": 5000},
+                "eur": {"unit_amount": 1800},
+            },
+            recurring={"interval": "month"},
+            product="prod_xxxxxxxxxxxxx",
+        )
+        request_mock.assert_requested("post", "/v1/prices")
 
     def test_setupattempt_list(self, request_mock):
         stripe.SetupAttempt.list(limit=3, setup_intent="si_xyz")
@@ -735,6 +752,19 @@ class TestGeneratedExamples(object):
             "post",
             "/v1/credit_notes/cn_xxxxxxxxxxxxx/void",
         )
+
+    def test_creditnote_preview(self, request_mock):
+        stripe.CreditNote.preview(
+            invoice="in_xxxxxxxxxxxxx",
+            lines=[
+                {
+                    "type": "invoice_line_item",
+                    "invoice_line_item": "il_xxxxxxxxxxxxx",
+                    "quantity": 1,
+                },
+            ],
+        )
+        request_mock.assert_requested("get", "/v1/credit_notes/preview")
 
     def test_customer_list(self, request_mock):
         stripe.Customer.list(limit=3)
@@ -1429,7 +1459,7 @@ class TestGeneratedExamples(object):
         stripe.Price.list(limit=3)
         request_mock.assert_requested("get", "/v1/prices")
 
-    def test_price_create(self, request_mock):
+    def test_price_create2(self, request_mock):
         stripe.Price.create(
             unit_amount=2000,
             currency="usd",

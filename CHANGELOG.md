@@ -1,3 +1,5 @@
+# Changelog
+
 ## 3.5.0 - 2022-06-30
 * [#831](https://github.com/stripe/stripe-python/pull/831) API Updates
   * Add support for `deliver_card`, `fail_card`, `return_card`, and `ship_card` test helper methods on resource `Issuing.Card`
@@ -25,7 +27,6 @@
 * [#767](https://github.com/stripe/stripe-python/pull/767) Bump vendored six to 1.16.0
 * [#806](https://github.com/stripe/stripe-python/pull/806) Start testing on pypy-3.8
 * [#811](https://github.com/stripe/stripe-python/pull/811) Add sanitize_id method
-
 
 ## 3.0.0 - 2022-05-09
 * [#809](https://github.com/stripe/stripe-python/pull/809) Release of major version v3.0.0. The [migration guide](https://github.com/stripe/stripe-python/wiki/Migration-Guide-for-v3) contains more information.
@@ -774,11 +775,6 @@ Pull requests included in this release:
 * PEP8ified the codebase and enforced with a test.
 * Proper encoding of timezone aware datetimes
 
-### Backwards incompatible changes
-* The `to_dict` and `values` methods on resources no longer recursively convert objects to plain `dict`s.  All resources now inherit from `dict` but are functionally different in that you cannot set a value to an empty string and cannot delete items.
-* The `previous_metadata` attribute on resources is now protected.
-* Timezone aware `datetime` objects passed to the API will now be encoded in a way that does not depend on the local system time.  If you are passing timezone-aware datetimes to our API and your server time is not already in UTC, this will change the value passed to our API.
-
 ## 1.10.8 - 2013-12-02
 * Add stripe.ApplicationFee resource
 
@@ -855,3 +851,4 @@ Pull requests included in this release:
 
 ## 1.6.1 - 2011-09-14
 * Parameters with value None are no longer included in API requests
+
