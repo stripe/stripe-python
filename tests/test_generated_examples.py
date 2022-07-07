@@ -214,6 +214,19 @@ class TestGeneratedExamples(object):
             "get", "/v1/payment_links/pl_xyz/line_items"
         )
 
+    def test_price_create(self, request_mock):
+        stripe.Price.create(
+            unit_amount=2000,
+            currency="usd",
+            currency_options={
+                "uah": {"unit_amount": 5000},
+                "eur": {"unit_amount": 1800},
+            },
+            recurring={"interval": "month"},
+            product="prod_xxxxxxxxxxxxx",
+        )
+        request_mock.assert_requested("post", "/v1/prices")
+
     def test_setupattempt_list(self, request_mock):
         stripe.SetupAttempt.list(limit=3, setup_intent="si_xyz")
         request_mock.assert_requested("get", "/v1/setup_attempts")
@@ -1446,7 +1459,7 @@ class TestGeneratedExamples(object):
         stripe.Price.list(limit=3)
         request_mock.assert_requested("get", "/v1/prices")
 
-    def test_price_create(self, request_mock):
+    def test_price_create2(self, request_mock):
         stripe.Price.create(
             unit_amount=2000,
             currency="usd",
