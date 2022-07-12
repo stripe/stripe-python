@@ -54,6 +54,13 @@ class TestGeneratedExamples(object):
             "/v1/checkout/sessions/sess_xyz/expire",
         )
 
+    def test_checkout_session_list_line_items(self, request_mock):
+        stripe.checkout.Session.list_line_items("sess_xyz")
+        request_mock.assert_requested(
+            "get",
+            "/v1/checkout/sessions/sess_xyz/line_items",
+        )
+
     def test_customer_cashbalance_retrieve(self, request_mock):
         stripe.Customer.retrieve_cash_balance("cus_123")
         request_mock.assert_requested(
@@ -146,6 +153,10 @@ class TestGeneratedExamples(object):
             "get",
             "/v1/financial_connections/sessions/fcsess_xyz",
         )
+
+    def test_invoice_upcoming(self, request_mock):
+        stripe.Invoice.upcoming(customer="cus_9utnxg47pWjV1e")
+        request_mock.assert_requested("get", "/v1/invoices/upcoming")
 
     def test_order_create(self, request_mock):
         stripe.Order.create(
@@ -735,6 +746,19 @@ class TestGeneratedExamples(object):
             "post",
             "/v1/credit_notes/cn_xxxxxxxxxxxxx/void",
         )
+
+    def test_creditnote_preview(self, request_mock):
+        stripe.CreditNote.preview(
+            invoice="in_xxxxxxxxxxxxx",
+            lines=[
+                {
+                    "type": "invoice_line_item",
+                    "invoice_line_item": "il_xxxxxxxxxxxxx",
+                    "quantity": 1,
+                },
+            ],
+        )
+        request_mock.assert_requested("get", "/v1/credit_notes/preview")
 
     def test_customer_list(self, request_mock):
         stripe.Customer.list(limit=3)
