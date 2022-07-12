@@ -22,7 +22,7 @@ class ApplicationFeeRefund(UpdateableAPIResource):
     @classmethod
     def modify(cls, fee, sid, **params):
         url = cls._build_instance_url(fee, sid)
-        return cls._static_request("post", url, **params)
+        return cls._static_request("post", url, params=params)
 
     def instance_url(self):
         return self._build_instance_url(self.fee, self.id)

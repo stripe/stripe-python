@@ -7,65 +7,162 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import custom_method
 from stripe.six.moves.urllib.parse import quote_plus
 
 
-@custom_method("accept", http_verb="post")
-@custom_method("cancel", http_verb="post")
-@custom_method("finalize_quote", http_verb="post", http_path="finalize")
-@custom_method(
-    "list_computed_upfront_line_items",
-    http_verb="get",
-    http_path="computed_upfront_line_items",
-)
-@custom_method("list_line_items", http_verb="get", http_path="line_items")
 class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "quote"
 
+    @classmethod
+    def _cls_accept(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/quotes/{quote}/accept".format(quote=util.sanitize_id(quote)),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_accept")
     def accept(self, idempotency_key=None, **params):
-        url = "/v1/quotes/{quote}/accept".format(
-            quote=util.sanitize_id(self.get("id"))
+        return self._request(
+            "post",
+            "/v1/quotes/{quote}/accept".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
         )
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
 
+    @classmethod
+    def _cls_cancel(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/quotes/{quote}/cancel".format(quote=util.sanitize_id(quote)),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_cancel")
     def cancel(self, idempotency_key=None, **params):
-        url = "/v1/quotes/{quote}/cancel".format(
-            quote=util.sanitize_id(self.get("id"))
+        return self._request(
+            "post",
+            "/v1/quotes/{quote}/cancel".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
         )
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
 
+    @classmethod
+    def _cls_finalize_quote(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/quotes/{quote}/finalize".format(
+                quote=util.sanitize_id(quote)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_finalize_quote")
     def finalize_quote(self, idempotency_key=None, **params):
-        url = "/v1/quotes/{quote}/finalize".format(
-            quote=util.sanitize_id(self.get("id"))
+        return self._request(
+            "post",
+            "/v1/quotes/{quote}/finalize".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
         )
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
 
+    @classmethod
+    def _cls_list_computed_upfront_line_items(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/quotes/{quote}/computed_upfront_line_items".format(
+                quote=util.sanitize_id(quote)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_list_computed_upfront_line_items")
     def list_computed_upfront_line_items(self, idempotency_key=None, **params):
-        url = "/v1/quotes/{quote}/computed_upfront_line_items".format(
-            quote=util.sanitize_id(self.get("id"))
+        return self._request(
+            "get",
+            "/v1/quotes/{quote}/computed_upfront_line_items".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
         )
-        headers = util.populate_headers(idempotency_key)
-        resp = self.request("get", url, params, headers)
-        stripe_object = util.convert_to_stripe_object(resp)
-        stripe_object._retrieve_params = params
-        return stripe_object
 
-    def list_line_items(self, idempotency_key=None, **params):
-        url = "/v1/quotes/{quote}/line_items".format(
-            quote=util.sanitize_id(self.get("id"))
+    @classmethod
+    def _cls_list_line_items(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/quotes/{quote}/line_items".format(
+                quote=util.sanitize_id(quote)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
         )
-        headers = util.populate_headers(idempotency_key)
-        resp = self.request("get", url, params, headers)
-        stripe_object = util.convert_to_stripe_object(resp)
-        stripe_object._retrieve_params = params
-        return stripe_object
+
+    @util.class_method_variant("_cls_list_line_items")
+    def list_line_items(self, idempotency_key=None, **params):
+        return self._request(
+            "get",
+            "/v1/quotes/{quote}/line_items".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     @classmethod
     def _cls_pdf(

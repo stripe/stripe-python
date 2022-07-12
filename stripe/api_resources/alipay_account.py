@@ -28,7 +28,7 @@ class AlipayAccount(DeletableAPIResource, UpdateableAPIResource):
     @classmethod
     def modify(cls, customer, id, **params):
         url = cls._build_instance_url(customer, id)
-        return cls._static_request("post", url, **params)
+        return cls._static_request("post", url, params=params)
 
     @classmethod
     def retrieve(

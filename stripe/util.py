@@ -136,7 +136,7 @@ def get_object_classes():
 
 
 def convert_to_stripe_object(
-    resp, api_key=None, stripe_version=None, stripe_account=None
+    resp, api_key=None, stripe_version=None, stripe_account=None, params=None
 ):
     # If we get a StripeResponse, we'll want to return a
     # StripeObject with the last_response field filled out with
@@ -166,13 +166,20 @@ def convert_to_stripe_object(
         else:
             klass = stripe.stripe_object.StripeObject
 
-        return klass.construct_from(
+        obj = klass.construct_from(
             resp,
             api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
             last_response=stripe_response,
         )
+
+        if hasattr(obj, "object") and (
+            (obj.object == "list") or (obj.object == "search_result")
+        ):
+            obj._retrieve_params = params
+
+        return obj
     else:
         return resp
 

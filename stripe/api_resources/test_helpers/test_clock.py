@@ -5,10 +5,8 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import custom_method
 
 
-@custom_method("advance", http_verb="post")
 class TestClock(
     CreateableAPIResource,
     DeletableAPIResource,
@@ -16,10 +14,33 @@ class TestClock(
 ):
     OBJECT_NAME = "test_helpers.test_clock"
 
-    def advance(self, idempotency_key=None, **params):
-        url = "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
-            test_clock=util.sanitize_id(self.get("id"))
+    @classmethod
+    def _cls_advance(
+        cls,
+        test_clock,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
+                test_clock=util.sanitize_id(test_clock)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
         )
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+
+    @util.class_method_variant("_cls_advance")
+    def advance(self, idempotency_key=None, **params):
+        return self._request(
+            "post",
+            "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
+                test_clock=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )

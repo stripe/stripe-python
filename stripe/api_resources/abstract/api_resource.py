@@ -13,8 +13,7 @@ class APIResource(StripeObject):
         return instance
 
     def refresh(self):
-        self.refresh_from(self.request("get", self.instance_url()))
-        return self
+        return self._request_and_refresh("get", self.instance_url())
 
     @classmethod
     def class_url(cls):
@@ -46,6 +45,65 @@ class APIResource(StripeObject):
 
     # The `method_` and `url_` arguments are suffixed with an underscore to
     # avoid conflicting with actual request parameters in `params`.
+    def _request(
+        self,
+        method_,
+        url_,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        headers=None,
+        params=None,
+    ):
+        obj = StripeObject._request(
+            self,
+            method_,
+            url_,
+            api_key,
+            idempotency_key,
+            stripe_version,
+            stripe_account,
+            headers,
+            params,
+        )
+
+        if type(self) is type(obj):
+            self.refresh_from(obj)
+            return self
+        else:
+            return obj
+
+    # The `method_` and `url_` arguments are suffixed with an underscore to
+    # avoid conflicting with actual request parameters in `params`.
+    def _request_and_refresh(
+        self,
+        method_,
+        url_,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        headers=None,
+        params=None,
+    ):
+        obj = StripeObject._request(
+            self,
+            method_,
+            url_,
+            api_key,
+            idempotency_key,
+            stripe_version,
+            stripe_account,
+            headers,
+            params,
+        )
+
+        self.refresh_from(obj)
+        return self
+
+    # The `method_` and `url_` arguments are suffixed with an underscore to
+    # avoid conflicting with actual request parameters in `params`.
     @classmethod
     def _static_request(
         cls,
@@ -55,7 +113,7 @@ class APIResource(StripeObject):
         idempotency_key=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        params=None,
     ):
         requestor = api_requestor.APIRequestor(
             api_key, api_version=stripe_version, account=stripe_account
@@ -63,7 +121,7 @@ class APIResource(StripeObject):
         headers = util.populate_headers(idempotency_key)
         response, api_key = requestor.request(method_, url_, params, headers)
         return util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account
+            response, api_key, stripe_version, stripe_account, params
         )
 
     # The `method_` and `url_` arguments are suffixed with an underscore to
@@ -77,7 +135,7 @@ class APIResource(StripeObject):
         idempotency_key=None,
         stripe_version=None,
         stripe_account=None,
-        **params
+        params=None,
     ):
         requestor = api_requestor.APIRequestor(
             api_key, api_version=stripe_version, account=stripe_account
