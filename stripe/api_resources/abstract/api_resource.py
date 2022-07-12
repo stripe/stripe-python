@@ -43,6 +43,8 @@ class APIResource(StripeObject):
         extn = quote_plus(id)
         return "%s/%s" % (base, extn)
 
+    # The `method_` and `url_` arguments are suffixed with an underscore to
+    # avoid conflicting with actual request parameters in `params`.
     def _request(
         self,
         method_,
@@ -72,6 +74,8 @@ class APIResource(StripeObject):
         else:
             return obj
 
+    # The `method_` and `url_` arguments are suffixed with an underscore to
+    # avoid conflicting with actual request parameters in `params`.
     def _request_and_refresh(
         self,
         method_,

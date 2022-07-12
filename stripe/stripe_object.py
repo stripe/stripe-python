@@ -237,6 +237,8 @@ class StripeObject(dict):
             self, method, url, headers=headers, params=params
         )
 
+    # The `method_` and `url_` arguments are suffixed with an underscore to
+    # avoid conflicting with actual request parameters in `params`.
     def _request(
         self,
         method_,
