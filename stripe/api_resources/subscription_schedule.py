@@ -8,6 +8,7 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import custom_method
 
 
+@custom_method("amend", http_verb="post")
 @custom_method("cancel", http_verb="post")
 @custom_method("release", http_verb="post")
 class SubscriptionSchedule(
@@ -16,6 +17,14 @@ class SubscriptionSchedule(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "subscription_schedule"
+
+    def amend(self, idempotency_key=None, **params):
+        url = "/v1/subscription_schedules/{schedule}/amend".format(
+            schedule=util.sanitize_id(self.get("id"))
+        )
+        headers = util.populate_headers(idempotency_key)
+        self.refresh_from(self.request("post", url, params, headers))
+        return self
 
     def cancel(self, idempotency_key=None, **params):
         url = "/v1/subscription_schedules/{schedule}/cancel".format(
