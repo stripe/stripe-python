@@ -1,5 +1,19 @@
 # Changelog
 
+## 3.6.0b1 - 2022-07-22
+* [#843](https://github.com/stripe/stripe-python/pull/843) API Updates for beta branch
+  - Updated stable APIs to the latest version
+  - Add `QuotePhase` resource
+* [#840](https://github.com/stripe/stripe-python/pull/840) API Updates for beta branch
+  - Updated stable APIs to the latest version
+  - Add `SubscriptionSchedule.amend` method.
+* [#837](https://github.com/stripe/stripe-python/pull/837) API Updates for beta branch
+  - Include `server_side_confirmation_beta=v1` beta
+  - Add `secretKeyConfirmation` to `PaymentIntent`
+* [#834](https://github.com/stripe/stripe-python/pull/834) API Updates for beta branch
+  - Updated stable APIs to the latest version
+* [#826](https://github.com/stripe/stripe-python/pull/826) Use the generated API version
+
 ## 3.5.0 - 2022-06-30
 * [#831](https://github.com/stripe/stripe-python/pull/831) API Updates
   * Add support for `deliver_card`, `fail_card`, `return_card`, and `ship_card` test helper methods on resource `Issuing.Card`
