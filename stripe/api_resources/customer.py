@@ -1,7 +1,6 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import api_requestor
 from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
@@ -9,12 +8,10 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import custom_method
 from stripe.api_resources.abstract import nested_resource_class_methods
 from stripe.api_resources.abstract import test_helpers
 
 
-@custom_method("delete_discount", http_verb="delete", http_path="discount")
 @test_helpers
 @nested_resource_class_methods(
     "balance_transaction",
@@ -62,6 +59,37 @@ class Customer(
         return self._request(
             "post",
             "/v1/customers/{customer}/funding_instructions".format(
+                customer=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def _cls_delete_discount(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "delete",
+            "/v1/customers/{customer}/discount".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_delete_discount")
+    def delete_discount(self, idempotency_key=None, **params):
+        return self._request(
+            "delete",
+            "/v1/customers/{customer}/discount".format(
                 customer=util.sanitize_id(self.get("id"))
             ),
             idempotency_key=idempotency_key,
@@ -142,16 +170,6 @@ class Customer(
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
-
-    def delete_discount(self, **params):
-        requestor = api_requestor.APIRequestor(
-            self.api_key,
-            api_version=self.stripe_version,
-            account=self.stripe_account,
-        )
-        url = self.instance_url() + "/discount"
-        _, api_key = requestor.request("delete", url, params)
-        self.refresh_from({"discount": None}, api_key, True)
 
     @classmethod
     def retrieve_cash_balance(
