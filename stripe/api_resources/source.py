@@ -6,13 +6,42 @@ from stripe import util
 from stripe.api_resources import Customer
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import nested_resource_class_methods
 from stripe.six.moves.urllib.parse import quote_plus
 
 
-@nested_resource_class_methods("source_transaction", operations=["list"])
 class Source(CreateableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "source"
+
+    @classmethod
+    def _cls_list_source_transactions(
+        cls,
+        source,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/sources/{source}/source_transactions".format(
+                source=util.sanitize_id(source)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_list_source_transactions")
+    def list_source_transactions(self, idempotency_key=None, **params):
+        return self._request(
+            "get",
+            "/v1/sources/{source}/source_transactions".format(
+                source=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     @classmethod
     def _cls_verify(
@@ -65,9 +94,3 @@ class Source(CreateableAPIResource, UpdateableAPIResource):
                 "to a customer object." % token,
                 "id",
             )
-
-    def source_transactions(self, **params):
-        """source_transactions is deprecated, use Source.list_source_transactions instead."""
-        return self.request(
-            "get", self.instance_url() + "/source_transactions", params
-        )

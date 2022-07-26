@@ -166,12 +166,16 @@ class TestGeneratedExamples(object):
         )
         request_mock.assert_requested("post", "/v1/orders")
 
-    def test_order_update(self, request_mock):
-        stripe.Order.modify("order_xyz")
-        request_mock.assert_requested("post", "/v1/orders/order_xyz")
+    def test_order_retrieve(self, request_mock):
+        stripe.Order.retrieve("order_xyz")
+        request_mock.assert_requested("get", "/v1/orders/order_xyz")
 
-    def test_order_update2(self, request_mock):
-        stripe.Order.modify("order_xyz")
+    def test_order_update(self, request_mock):
+        stripe.Order.modify(
+            "order_xyz",
+            metadata={"reference_number": "123"},
+            ip_address="0.0.0.0",
+        )
         request_mock.assert_requested("post", "/v1/orders/order_xyz")
 
     def test_order_cancel(self, request_mock):
@@ -220,6 +224,19 @@ class TestGeneratedExamples(object):
         request_mock.assert_requested(
             "get", "/v1/payment_links/pl_xyz/line_items"
         )
+
+    def test_price_create(self, request_mock):
+        stripe.Price.create(
+            unit_amount=2000,
+            currency="usd",
+            currency_options={
+                "uah": {"unit_amount": 5000},
+                "eur": {"unit_amount": 1800},
+            },
+            recurring={"interval": "month"},
+            product="prod_xxxxxxxxxxxxx",
+        )
+        request_mock.assert_requested("post", "/v1/prices")
 
     def test_setupattempt_list(self, request_mock):
         stripe.SetupAttempt.list(limit=3, setup_intent="si_xyz")
@@ -1453,7 +1470,7 @@ class TestGeneratedExamples(object):
         stripe.Price.list(limit=3)
         request_mock.assert_requested("get", "/v1/prices")
 
-    def test_price_create(self, request_mock):
+    def test_price_create2(self, request_mock):
         stripe.Price.create(
             unit_amount=2000,
             currency="usd",

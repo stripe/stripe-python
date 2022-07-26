@@ -8,7 +8,7 @@ class TestSourceTransaction(object):
         source = stripe.Source.construct_from(
             {"id": "src_123", "object": "source"}, stripe.api_key
         )
-        source_transactions = source.source_transactions()
+        source_transactions = source.list_source_transactions()
         request_mock.assert_requested(
             "get", "/v1/sources/src_123/source_transactions"
         )

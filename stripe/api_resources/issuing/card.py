@@ -6,17 +6,12 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import custom_method
 from stripe.api_resources.abstract import test_helpers
 
 
-@custom_method("details", http_verb="get")
 @test_helpers
 class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "issuing.card"
-
-    def details(self, idempotency_key=None, **params):
-        return self.request("get", self.instance_url() + "/details", params)
 
     class TestHelpers(APIResourceTestHelpers):
         @classmethod
