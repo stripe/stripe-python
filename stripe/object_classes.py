@@ -93,7 +93,6 @@ OBJECT_CLASSES = {
     api_resources.terminal.Location.OBJECT_NAME: api_resources.terminal.Location,
     api_resources.terminal.Reader.OBJECT_NAME: api_resources.terminal.Reader,
     api_resources.test_helpers.TestClock.OBJECT_NAME: api_resources.test_helpers.TestClock,
-    api_resources.ThreeDSecure.OBJECT_NAME: api_resources.ThreeDSecure,
     api_resources.Token.OBJECT_NAME: api_resources.Token,
     api_resources.Topup.OBJECT_NAME: api_resources.Topup,
     api_resources.Transfer.OBJECT_NAME: api_resources.Transfer,
