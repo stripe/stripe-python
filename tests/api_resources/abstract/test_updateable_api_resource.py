@@ -24,6 +24,7 @@ class TestUpdateableAPIResource(object):
                 "foo": "bar",
                 "baz": "boz",
                 "metadata": {"size": "l", "score": 4, "height": 10},
+                "object": "obj",
             },
             "mykey",
         )

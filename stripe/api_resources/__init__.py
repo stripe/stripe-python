@@ -22,15 +22,12 @@ from stripe.api_resources import treasury
 
 from stripe.api_resources.account import Account
 from stripe.api_resources.account_link import AccountLink
-from stripe.api_resources.alipay_account import AlipayAccount
 from stripe.api_resources.apple_pay_domain import ApplePayDomain
 from stripe.api_resources.application_fee import ApplicationFee
 from stripe.api_resources.application_fee_refund import ApplicationFeeRefund
 from stripe.api_resources.balance import Balance
 from stripe.api_resources.balance_transaction import BalanceTransaction
 from stripe.api_resources.bank_account import BankAccount
-from stripe.api_resources.bitcoin_receiver import BitcoinReceiver
-from stripe.api_resources.bitcoin_transaction import BitcoinTransaction
 from stripe.api_resources.capability import Capability
 from stripe.api_resources.card import Card
 from stripe.api_resources.cash_balance import CashBalance
@@ -54,7 +51,6 @@ from stripe.api_resources.funding_instructions import FundingInstructions
 from stripe.api_resources.invoice import Invoice
 from stripe.api_resources.invoice_item import InvoiceItem
 from stripe.api_resources.invoice_line_item import InvoiceLineItem
-from stripe.api_resources.issuer_fraud_record import IssuerFraudRecord
 from stripe.api_resources.line_item import LineItem
 from stripe.api_resources.login_link import LoginLink
 from stripe.api_resources.mandate import Mandate
@@ -69,8 +65,6 @@ from stripe.api_resources.price import Price
 from stripe.api_resources.product import Product
 from stripe.api_resources.promotion_code import PromotionCode
 from stripe.api_resources.quote import Quote
-from stripe.api_resources.recipient import Recipient
-from stripe.api_resources.recipient_transfer import RecipientTransfer
 from stripe.api_resources.refund import Refund
 from stripe.api_resources.reversal import Reversal
 from stripe.api_resources.review import Review
@@ -86,7 +80,6 @@ from stripe.api_resources.subscription_schedule import SubscriptionSchedule
 from stripe.api_resources.tax_code import TaxCode
 from stripe.api_resources.tax_id import TaxId
 from stripe.api_resources.tax_rate import TaxRate
-from stripe.api_resources.three_d_secure import ThreeDSecure
 from stripe.api_resources.token import Token
 from stripe.api_resources.topup import Topup
 from stripe.api_resources.transfer import Transfer

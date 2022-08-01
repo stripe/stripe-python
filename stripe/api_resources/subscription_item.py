@@ -21,9 +21,3 @@ class SubscriptionItem(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "subscription_item"
-
-    def usage_record_summaries(self, **params):
-        """usage_record_summaries is deprecated, use SubscriptionItem.list_usage_record_summaries instead."""
-        return self.request(
-            "get", self.instance_url() + "/usage_record_summaries", params
-        )
