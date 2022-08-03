@@ -174,8 +174,13 @@ def convert_to_stripe_object(
             last_response=stripe_response,
         )
 
-        if hasattr(obj, "object") and (
-            (obj.object == "list") or (obj.object == "search_result")
+        # We only need to update _retrieve_params when special params were
+        # actually passed. Otherwise, leave it as is as the list / search result
+        # constructors will instantiate their own params.
+        if (
+            params is not None
+            and hasattr(obj, "object")
+            and ((obj.object == "list") or (obj.object == "search_result"))
         ):
             obj._retrieve_params = params
 
