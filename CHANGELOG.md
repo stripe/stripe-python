@@ -1,3 +1,6 @@
+## 4.0.2 - 2022-08-03
+* [#855](https://github.com/stripe/stripe-python/pull/855) Fix issue where auto_paging_iter failed on nested list objects.
+
 ## 4.0.1 - 2022-08-02
 * [#850](https://github.com/stripe/stripe-python/pull/850) Fix incorrect handling of additional request parameters
   * Fixes issue where using special parameter like `api_key`, `idempotency_key`, `stripe_version`, `stripe_account`, `headers` can cause a `Received unknown parameter error`.
