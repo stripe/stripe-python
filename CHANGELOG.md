@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.1.0b1 - 2022-08-03
+* [#848](https://github.com/stripe/stripe-python/pull/848) API Updates for beta branch
+  - Updated stable APIs to the latest version
+  - Added the `Order` resource support
+
 ## 4.0.2 - 2022-08-03
 * [#855](https://github.com/stripe/stripe-python/pull/855) Fix issue where auto_paging_iter failed on nested list objects.
 
