@@ -136,3 +136,11 @@ class TestInvoice(object):
             "post", "/v1/invoices/%s/void" % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.Invoice)
+
+    def test_can_iterate_lines(self, request_mock):
+        resource = stripe.Invoice.retrieve(TEST_RESOURCE_ID)
+        assert isinstance(resource.lines.data, list)
+        assert isinstance(resource.lines.data[0], stripe.InvoiceLineItem)
+        seen = [item["id"] for item in resource.lines.auto_paging_iter()]
+
+        assert seen.__len__() > 0
