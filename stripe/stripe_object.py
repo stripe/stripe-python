@@ -255,6 +255,26 @@ class StripeObject(dict):
         api_key = api_key or self.api_key
         params = params or self._retrieve_params
 
+        if api_key is None and params and "api_key" in params:
+            api_key = params["api_key"]
+            del params["api_key"]
+
+        if idempotency_key is None and params and "idempotency_key" in params:
+            idempotency_key = params["idempotency_key"]
+            del params["idempotency_key"]
+
+        if stripe_version is None and params and "stripe_version" in params:
+            stripe_version = params["stripe_version"]
+            del params["stripe_version"]
+
+        if stripe_account is None and params and "stripe_account" in params:
+            stripe_account = params["stripe_account"]
+            del params["stripe_account"]
+
+        if headers is None and params and "headers" in params:
+            headers = params["headers"]
+            del params["headers"]
+
         requestor = api_requestor.APIRequestor(
             key=api_key,
             api_base=self.api_base(),
