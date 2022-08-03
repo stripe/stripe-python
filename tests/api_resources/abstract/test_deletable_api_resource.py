@@ -60,3 +60,28 @@ class TestDeletableAPIResource(object):
 
         assert obj.last_response is not None
         assert obj.last_response.request_id == "req_id"
+
+    def test_delete_with_all_special_fields(self, request_mock):
+        request_mock.stub_request(
+            "delete",
+            "/v1/mydeletables/foo",
+            {"id": "foo", "bobble": "new_scrobble"},
+            {"Idempotency-Key": "IdempotencyKey"},
+        )
+
+        self.MyDeletable.delete(
+            "foo",
+            stripe_version="2017-08-15",
+            api_key="APIKEY",
+            idempotency_key="IdempotencyKey",
+            stripe_account="Acc",
+            bobble="new_scrobble",
+        )
+
+        request_mock.assert_requested(
+            "delete",
+            "/v1/mydeletables/foo",
+            {"bobble": "new_scrobble"},
+            {"Idempotency-Key": "IdempotencyKey"},
+        )
+        request_mock.assert_api_version("2017-08-15")

@@ -102,7 +102,7 @@ class StripeObject(dict):
             raise ValueError(
                 "You cannot set %s to an empty string on this object. "
                 "The empty string is treated specially in our requests. "
-                "If you'd like to delete the property using the save() method on this object, you may set %s.%s = None. "
+                "If you'd like to delete the property using the save() method on this object, you may set %s.%s=None. "
                 "Alternatively, you can pass %s='' to delete the property when using a resource method such as modify()."
                 % (k, str(self), k, k)
             )
@@ -233,18 +233,56 @@ class StripeObject(dict):
         return None
 
     def request(self, method, url, params=None, headers=None):
-        if params is None:
-            params = self._retrieve_params
-        requestor = api_requestor.APIRequestor(
-            key=self.api_key,
-            api_base=self.api_base(),
-            api_version=self.stripe_version,
-            account=self.stripe_account,
+        return StripeObject._request(
+            self, method, url, headers=headers, params=params
         )
-        response, api_key = requestor.request(method, url, params, headers)
+
+    # The `method_` and `url_` arguments are suffixed with an underscore to
+    # avoid conflicting with actual request parameters in `params`.
+    def _request(
+        self,
+        method_,
+        url_,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        headers=None,
+        params=None,
+    ):
+        params = None if params is None else params.copy()
+        api_key = util.read_special_variable(params, "api_key", api_key)
+        idempotency_key = util.read_special_variable(
+            params, "idempotency_key", idempotency_key
+        )
+        stripe_version = util.read_special_variable(
+            params, "stripe_version", stripe_version
+        )
+        stripe_account = util.read_special_variable(
+            params, "stripe_account", stripe_account
+        )
+        headers = util.read_special_variable(params, "headers", headers)
+
+        stripe_account = stripe_account or self.stripe_account
+        stripe_version = stripe_version or self.stripe_version
+        api_key = api_key or self.api_key
+        params = params or self._retrieve_params
+
+        requestor = api_requestor.APIRequestor(
+            key=api_key,
+            api_base=self.api_base(),
+            api_version=stripe_version,
+            account=stripe_account,
+        )
+
+        if idempotency_key is not None:
+            headers = {} if headers is None else headers.copy()
+            headers.update(util.populate_headers(idempotency_key))
+
+        response, api_key = requestor.request(method_, url_, params, headers)
 
         return util.convert_to_stripe_object(
-            response, api_key, self.stripe_version, self.stripe_account
+            response, api_key, stripe_version, stripe_account, params
         )
 
     def request_stream(self, method, url, params=None, headers=None):

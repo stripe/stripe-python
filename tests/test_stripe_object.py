@@ -34,28 +34,60 @@ SAMPLE_INVOICE = json.loads(
   "subtotal": 10000,
   "total": 10000,
   "lines": {
-    "invoiceitems": [],
-    "prorations": [],
-    "subscriptions": [
+    "object": "list",
+    "data": [
       {
-        "plan": {
-          "interval": "month",
-          "object": "plan",
-          "identifier": "expensive",
-          "currency": "usd",
-          "livemode": false,
-          "amount": 10000,
-          "name": "Expensive Plan",
-          "trial_period_days": null,
-          "id": "expensive"
-        },
+        "id": "il_1LSiex2eZvKYlo2CZ5IspTNx",
+        "object": "line_item",
+        "amount": 2499,
+        "amount_excluding_tax": 2499,
+        "currency": "usd",
+        "description": "My First Invoice Item (created for API docs)",
+        "discount_amounts": [],
+        "discountable": true,
+        "discounts": [],
+        "invoice_item": "ii_1LSiex2eZvKYlo2C0X4adTLR",
+        "livemode": false,
+        "metadata": {},
         "period": {
-          "end": 1340917128,
-          "start": 1338238728
+          "end": 1659537295,
+          "start": 1659537295
         },
-        "amount": 10000
+        "price": {
+          "id": "price_1LSicu2eZvKYlo2C4WSIaXEp",
+          "object": "price",
+          "active": true,
+          "billing_scheme": "per_unit",
+          "created": 1659537168,
+          "currency": "usd",
+          "custom_unit_amount": null,
+          "livemode": false,
+          "lookup_key": null,
+          "metadata": {},
+          "nickname": null,
+          "product": "prod_MB4mvosUV5tObf",
+          "recurring": null,
+          "tax_behavior": "unspecified",
+          "tiers_mode": null,
+          "transform_quantity": null,
+          "type": "one_time",
+          "unit_amount": 2499,
+          "unit_amount_decimal": "2499"
+        },
+        "proration": false,
+        "proration_details": {
+          "credited_items": null
+        },
+        "quantity": 1,
+        "subscription": null,
+        "tax_amounts": [],
+        "tax_rates": [],
+        "type": "invoiceitem",
+        "unit_amount_excluding_tax": "2499"
       }
-    ]
+    ],
+    "has_more": false,
+    "url": "/v1/invoices/in_t9mHb2hpK7mml1/lines"
   }
 }
 """
@@ -157,11 +189,32 @@ class TestStripeObject(object):
             SAMPLE_INVOICE, "key"
         )
 
-        assert len(obj.lines.subscriptions) == 1
+        assert len(obj.lines) == 1
+        assert isinstance(obj.lines, stripe.ListObject)
+        assert isinstance(obj.lines.data[0], stripe.InvoiceLineItem)
         assert isinstance(
-            obj.lines.subscriptions[0], stripe.stripe_object.StripeObject
+            obj.lines.data[0].price, stripe.stripe_object.StripeObject
         )
-        assert obj.lines.subscriptions[0].plan.interval == "month"
+        assert isinstance(obj.lines.data[0].price, stripe.Price)
+        assert obj.lines.data[0].price.billing_scheme == "per_unit"
+
+    def test_refresh_from_nested_object_can_be_paged(self):
+        obj = stripe.stripe_object.StripeObject.construct_from(
+            SAMPLE_INVOICE, "key"
+        )
+
+        assert len(obj.lines) == 1
+        assert isinstance(obj.lines, stripe.ListObject)
+        seen = [item["id"] for item in obj.lines.auto_paging_iter()]
+
+        assert seen == ["il_1LSiex2eZvKYlo2CZ5IspTNx"]
+
+        assert isinstance(obj.lines.data[0], stripe.InvoiceLineItem)
+        assert isinstance(
+            obj.lines.data[0].price, stripe.stripe_object.StripeObject
+        )
+        assert isinstance(obj.lines.data[0].price, stripe.Price)
+        assert obj.lines.data[0].price.billing_scheme == "per_unit"
 
     def test_to_json(self):
         obj = stripe.stripe_object.StripeObject.construct_from(
@@ -173,15 +226,16 @@ class TestStripeObject(object):
     def check_invoice_data(self, data):
         # Check rough structure
         assert len(list(data.keys())) == 20
-        assert len(list(data["lines"].keys())) == 3
-        assert len(data["lines"]["invoiceitems"]) == 0
-        assert len(data["lines"]["subscriptions"]) == 1
+        assert len(list(data["lines"]["data"][0].keys())) == 22
+        assert len(data["lines"]["data"]) == 1
 
         # Check various data types
         assert data["date"] == 1338238728
         assert data["next_payment_attempt"] is None
         assert data["livemode"] is False
-        assert data["lines"]["subscriptions"][0]["plan"]["interval"] == "month"
+        assert (
+            data["lines"]["data"][0]["price"]["billing_scheme"] == "per_unit"
+        )
 
     def test_repr(self):
         obj = stripe.stripe_object.StripeObject("foo", "bar", myparam=5)

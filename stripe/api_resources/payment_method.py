@@ -5,11 +5,8 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import custom_method
 
 
-@custom_method("attach", http_verb="post")
-@custom_method("detach", http_verb="post")
 class PaymentMethod(
     CreateableAPIResource,
     ListableAPIResource,
@@ -17,18 +14,64 @@ class PaymentMethod(
 ):
     OBJECT_NAME = "payment_method"
 
-    def attach(self, idempotency_key=None, **params):
-        url = "/v1/payment_methods/{payment_method}/attach".format(
-            payment_method=util.sanitize_id(self.get("id"))
+    @classmethod
+    def _cls_attach(
+        cls,
+        payment_method,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/payment_methods/{payment_method}/attach".format(
+                payment_method=util.sanitize_id(payment_method)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
         )
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
 
-    def detach(self, idempotency_key=None, **params):
-        url = "/v1/payment_methods/{payment_method}/detach".format(
-            payment_method=util.sanitize_id(self.get("id"))
+    @util.class_method_variant("_cls_attach")
+    def attach(self, idempotency_key=None, **params):
+        return self._request(
+            "post",
+            "/v1/payment_methods/{payment_method}/attach".format(
+                payment_method=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
         )
-        headers = util.populate_headers(idempotency_key)
-        self.refresh_from(self.request("post", url, params, headers))
-        return self
+
+    @classmethod
+    def _cls_detach(
+        cls,
+        payment_method,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/payment_methods/{payment_method}/detach".format(
+                payment_method=util.sanitize_id(payment_method)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_detach")
+    def detach(self, idempotency_key=None, **params):
+        return self._request(
+            "post",
+            "/v1/payment_methods/{payment_method}/detach".format(
+                payment_method=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
