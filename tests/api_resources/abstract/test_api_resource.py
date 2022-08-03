@@ -88,10 +88,9 @@ class TestAPIResource(object):
     def test_passing_api_version(self):
         customer = stripe.Customer.create(
             name="Foo Bar",
-            email="foobar@example.com",
-            metadata={"key": "value"},
             email="foobar2@example.com",
-            api_version="2020-08-27"
+            metadata={"key": "value"},
+            api_version="2020-08-27",
         )
 
         assert isinstance(customer, stripe.Customer)
