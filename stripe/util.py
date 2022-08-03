@@ -136,7 +136,7 @@ def get_object_classes():
 
 
 def convert_to_stripe_object(
-    resp, api_key=None, stripe_version=None, stripe_account=None
+    resp, api_key=None, stripe_version=None, stripe_account=None, params=None
 ):
     # If we get a StripeResponse, we'll want to return a
     # StripeObject with the last_response field filled out with
@@ -166,13 +166,25 @@ def convert_to_stripe_object(
         else:
             klass = stripe.stripe_object.StripeObject
 
-        return klass.construct_from(
+        obj = klass.construct_from(
             resp,
             api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
             last_response=stripe_response,
         )
+
+        # We only need to update _retrieve_params when special params were
+        # actually passed. Otherwise, leave it as is as the list / search result
+        # constructors will instantiate their own params.
+        if (
+            params is not None
+            and hasattr(obj, "object")
+            and ((obj.object == "list") or (obj.object == "search_result"))
+        ):
+            obj._retrieve_params = params
+
+        return obj
     else:
         return resp
 
@@ -201,6 +213,20 @@ def populate_headers(idempotency_key):
     if idempotency_key is not None:
         return {"Idempotency-Key": idempotency_key}
     return None
+
+
+def read_special_variable(params, key_name, default_value):
+    value = default_value
+    params_value = None
+
+    if params is not None and key_name in params:
+        params_value = params[key_name]
+        del params[key_name]
+
+    if value is None:
+        value = params_value
+
+    return value
 
 
 def merge_dicts(x, y):

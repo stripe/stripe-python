@@ -38,6 +38,25 @@ class TestAPIResource(object):
         with pytest.raises(KeyError):
             res["bobble"]
 
+    def test_request_with_special_fields_prefers_explicit(self, request_mock):
+        url = "/v1/myresources/foo"
+        request_mock.stub_request(
+            "get",
+            url,
+            {"id": "foo2", "bobble": "scrobble"},
+        )
+
+        self.MyResource._static_request(
+            "get",
+            "/v1/myresources/foo",
+            idempotency_key="explicit",
+            params={"idempotency_key": "params", "bobble": "scrobble"},
+        )
+
+        request_mock.assert_requested(
+            "get", url, {"bobble": "scrobble"}, {"Idempotency-Key": "explicit"}
+        )
+
     def test_convert_to_stripe_object(self):
         sample = {
             "foo": "bar",

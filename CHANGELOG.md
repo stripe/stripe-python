@@ -1,5 +1,23 @@
 # Changelog
 
+## 4.0.2 - 2022-08-03
+* [#855](https://github.com/stripe/stripe-python/pull/855) Fix issue where auto_paging_iter failed on nested list objects.
+
+## 4.0.1 - 2022-08-02
+* [#850](https://github.com/stripe/stripe-python/pull/850) Fix incorrect handling of additional request parameters
+  * Fixes issue where using special parameter like `api_key`, `idempotency_key`, `stripe_version`, `stripe_account`, `headers` can cause a `Received unknown parameter error`.
+
+## 4.0.0 - 2022-08-02
+
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v4. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-08-01.
+
+"⚠️" symbol highlights breaking changes.
+
+* [#847](https://github.com/stripe/stripe-python/pull/847) API Updates
+* [#845](https://github.com/stripe/stripe-python/pull/845) Next major release changes
+* [#836](https://github.com/stripe/stripe-python/pull/836) API Updates. Add Price.create tests.
+* [#835](https://github.com/stripe/stripe-python/pull/835) API Updates. Use auto-generation for credit_note and invoice methods.
+
 ## 3.6.0b1 - 2022-07-22
 * [#843](https://github.com/stripe/stripe-python/pull/843) API Updates for beta branch
   - Updated stable APIs to the latest version

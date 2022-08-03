@@ -28,13 +28,6 @@ class TestCard(object):
             == "/v1/customers/cus_123/sources/%s" % TEST_RESOURCE_ID
         )
 
-    def test_has_recipient_instance_url(self):
-        resource = self.construct_resource(recipient="rp_123")
-        assert (
-            resource.instance_url()
-            == "/v1/recipients/rp_123/cards/%s" % TEST_RESOURCE_ID
-        )
-
     # The previous tests already ensure that the request will be routed to the
     # correct URL, so we only test the API operations once.
 

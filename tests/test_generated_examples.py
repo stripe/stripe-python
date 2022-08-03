@@ -54,6 +54,13 @@ class TestGeneratedExamples(object):
             "/v1/checkout/sessions/sess_xyz/expire",
         )
 
+    def test_checkout_session_list_line_items(self, request_mock):
+        stripe.checkout.Session.list_line_items("sess_xyz")
+        request_mock.assert_requested(
+            "get",
+            "/v1/checkout/sessions/sess_xyz/line_items",
+        )
+
     def test_customer_cashbalance_retrieve(self, request_mock):
         stripe.Customer.retrieve_cash_balance("cus_123")
         request_mock.assert_requested(
@@ -159,12 +166,16 @@ class TestGeneratedExamples(object):
         )
         request_mock.assert_requested("post", "/v1/orders")
 
-    def test_order_update(self, request_mock):
-        stripe.Order.modify("order_xyz")
-        request_mock.assert_requested("post", "/v1/orders/order_xyz")
+    def test_order_retrieve(self, request_mock):
+        stripe.Order.retrieve("order_xyz")
+        request_mock.assert_requested("get", "/v1/orders/order_xyz")
 
-    def test_order_update2(self, request_mock):
-        stripe.Order.modify("order_xyz")
+    def test_order_update(self, request_mock):
+        stripe.Order.modify(
+            "order_xyz",
+            metadata={"reference_number": "123"},
+            ip_address="0.0.0.0",
+        )
         request_mock.assert_requested("post", "/v1/orders/order_xyz")
 
     def test_order_cancel(self, request_mock):
