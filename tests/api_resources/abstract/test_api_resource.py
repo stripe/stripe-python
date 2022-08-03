@@ -1,8 +1,10 @@
 from __future__ import absolute_import, division, print_function
+from sys import api_version
 
 import pytest
 
 import stripe
+import random
 
 
 class TestAPIResource(object):
@@ -68,3 +70,29 @@ class TestAPIResource(object):
         for obj in [None, 1, 3.14, dict(), list(), set(), tuple(), object()]:
             with pytest.raises(stripe.error.InvalidRequestError):
                 self.MyResource.retrieve(obj)
+
+    def test_passing_idempotency_key(self):
+        customer = stripe.Customer.create(
+            name="Foo Bar",
+            email="foobar@example.com",
+        )
+
+        updated_customer = stripe.Customer.modify(
+            customer.id,
+            metadata={"key": "value"},
+            email="foobar2@example.com",
+            idempotency_key="key" + str(random.randint(1, 9999)),
+        )
+
+        assert isinstance(updated_customer, stripe.Customer)
+
+    def test_passing_api_version(self):
+        customer = stripe.Customer.create(
+            name="Foo Bar",
+            email="foobar@example.com",
+            metadata={"key": "value"},
+            email="foobar2@example.com",
+            api_version="2020-08-27"
+        )
+
+        assert isinstance(customer, stripe.Customer)
