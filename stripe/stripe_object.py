@@ -250,11 +250,18 @@ class StripeObject(dict):
         headers=None,
         params=None,
     ):
-        params, api_key = util.read_special_variable(params, "api_key", api_key)
-        params, idempotency_key = util.read_special_variable(params, "idempotency_key", idempotency_key)
-        params, stripe_version = util.read_special_variable(params, "stripe_version", stripe_version)
-        params, stripe_account = util.read_special_variable(params, "stripe_account", stripe_account)
-        params, headers = util.read_special_variable(params, "headers", headers)
+        params = None if params is None else params.copy()
+        api_key = util.read_special_variable(params, "api_key", api_key)
+        idempotency_key = util.read_special_variable(
+            params, "idempotency_key", idempotency_key
+        )
+        stripe_version = util.read_special_variable(
+            params, "stripe_version", stripe_version
+        )
+        stripe_account = util.read_special_variable(
+            params, "stripe_account", stripe_account
+        )
+        headers = util.read_special_variable(params, "headers", headers)
 
         stripe_account = stripe_account or self.stripe_account
         stripe_version = stripe_version or self.stripe_version
