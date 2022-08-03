@@ -272,6 +272,10 @@ class StripeObject(dict):
             stripe_account = params["stripe_account"]
             del params["stripe_account"]
 
+        if headers is None and params and "headers" in params:
+            headers = params["headers"]
+            del params["headers"]
+
         requestor = api_requestor.APIRequestor(
             key=api_key,
             api_base=self.api_base(),
