@@ -250,7 +250,6 @@ class StripeObject(dict):
         headers=None,
         params=None,
     ):
-
         stripe_account = stripe_account or self.stripe_account
         stripe_version = stripe_version or self.stripe_version
         api_key = api_key or self.api_key
