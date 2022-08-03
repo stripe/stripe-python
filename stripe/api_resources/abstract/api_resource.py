@@ -115,10 +115,27 @@ class APIResource(StripeObject):
         stripe_account=None,
         params=None,
     ):
+        params = None if params is None else params.copy()
+        api_key = util.read_special_variable(params, "api_key", api_key)
+        idempotency_key = util.read_special_variable(
+            params, "idempotency_key", idempotency_key
+        )
+        stripe_version = util.read_special_variable(
+            params, "stripe_version", stripe_version
+        )
+        stripe_account = util.read_special_variable(
+            params, "stripe_account", stripe_account
+        )
+        headers = util.read_special_variable(params, "headers", None)
+
         requestor = api_requestor.APIRequestor(
             api_key, api_version=stripe_version, account=stripe_account
         )
-        headers = util.populate_headers(idempotency_key)
+
+        if idempotency_key is not None:
+            headers = {} if headers is None else headers.copy()
+            headers.update(util.populate_headers(idempotency_key))
+
         response, api_key = requestor.request(method_, url_, params, headers)
         return util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account, params
@@ -137,9 +154,26 @@ class APIResource(StripeObject):
         stripe_account=None,
         params=None,
     ):
+        params = None if params is None else params.copy()
+        api_key = util.read_special_variable(params, "api_key", api_key)
+        idempotency_key = util.read_special_variable(
+            params, "idempotency_key", idempotency_key
+        )
+        stripe_version = util.read_special_variable(
+            params, "stripe_version", stripe_version
+        )
+        stripe_account = util.read_special_variable(
+            params, "stripe_account", stripe_account
+        )
+        headers = util.read_special_variable(params, "headers", None)
+
         requestor = api_requestor.APIRequestor(
             api_key, api_version=stripe_version, account=stripe_account
         )
-        headers = util.populate_headers(idempotency_key)
+
+        if idempotency_key is not None:
+            headers = {} if headers is None else headers.copy()
+            headers.update(util.populate_headers(idempotency_key))
+
         response, _ = requestor.request_stream(method_, url_, params, headers)
         return response
