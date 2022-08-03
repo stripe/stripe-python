@@ -233,13 +233,14 @@ class TestCustomMethod(object):
             rheaders={"request-id": "req_id"},
         )
 
-        self.MyResource.do_stuff("mid",
-                                 foo="bar",
-                                 stripe_version="2017-08-15",
-                                 api_key="APIKEY",
-                                 idempotency_key="IdempotencyKey",
-                                 stripe_account="Acc"
-                                 )
+        self.MyResource.do_stuff(
+            "mid",
+            foo="bar",
+            stripe_version="2017-08-15",
+            api_key="APIKEY",
+            idempotency_key="IdempotencyKey",
+            stripe_account="Acc",
+        )
 
         request_mock.assert_requested(
             "post",
@@ -249,7 +250,9 @@ class TestCustomMethod(object):
         )
         request_mock.assert_api_version("2017-08-15")
 
-    def test_call_custom_method_class_newcodegen_special_fields(self, request_mock):
+    def test_call_custom_method_class_newcodegen_special_fields(
+        self, request_mock
+    ):
         request_mock.stub_request(
             "post",
             "/v1/myresources/mid/do_the_thing",
@@ -257,13 +260,14 @@ class TestCustomMethod(object):
             rheaders={"request-id": "req_id"},
         )
 
-        self.MyResource.do_stuff_new_codegen("mid",
-                                             foo="bar",
-                                             stripe_version="2017-08-15",
-                                             api_key="APIKEY",
-                                             idempotency_key="IdempotencyKey",
-                                             stripe_account="Acc"
-                                             )
+        self.MyResource.do_stuff_new_codegen(
+            "mid",
+            foo="bar",
+            stripe_version="2017-08-15",
+            api_key="APIKEY",
+            idempotency_key="IdempotencyKey",
+            stripe_account="Acc",
+        )
 
         request_mock.assert_requested(
             "post",
@@ -273,7 +277,9 @@ class TestCustomMethod(object):
         )
         request_mock.assert_api_version("2017-08-15")
 
-    def test_call_custom_method_instance_newcodegen_special_fields(self, request_mock):
+    def test_call_custom_method_instance_newcodegen_special_fields(
+        self, request_mock
+    ):
         request_mock.stub_request(
             "post",
             "/v1/myresources/mid/do_the_thing",
@@ -282,21 +288,19 @@ class TestCustomMethod(object):
         )
 
         obj = self.MyResource.construct_from({"id": "mid"}, "mykey")
-        obj.do_stuff_new_codegen(foo="bar",
-                                 stripe_version="2017-08-15",
-                                 api_key="APIKEY",
-                                 idempotency_key="IdempotencyKey",
-                                 stripe_account="Acc",
-                                 headers={"extra_header": "val"},
-                                 )
+        obj.do_stuff_new_codegen(
+            foo="bar",
+            stripe_version="2017-08-15",
+            api_key="APIKEY",
+            idempotency_key="IdempotencyKey",
+            stripe_account="Acc",
+            headers={"extra_header": "val"},
+        )
 
         request_mock.assert_requested(
             "post",
             "/v1/myresources/mid/do_the_thing",
             {"foo": "bar"},
-            {
-                "Idempotency-Key": "IdempotencyKey",
-                "extra_header": "val"
-            },
+            {"Idempotency-Key": "IdempotencyKey", "extra_header": "val"},
         )
         request_mock.assert_api_version("2017-08-15")

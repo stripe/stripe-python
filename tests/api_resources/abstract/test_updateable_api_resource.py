@@ -355,22 +355,20 @@ class TestUpdateableAPIResource(object):
             {"Idempotency-Key": "IdempotencyKey"},
         )
 
-        self.MyUpdateable.modify("foo",
-                                 stripe_version="2017-08-15",
-                                 api_key="APIKEY",
-                                 idempotency_key="IdempotencyKey",
-                                 stripe_account="Acc",
-                                 bobble="new_scrobble",
-                                 headers={"extra_header": "val"},
-                                 )
+        self.MyUpdateable.modify(
+            "foo",
+            stripe_version="2017-08-15",
+            api_key="APIKEY",
+            idempotency_key="IdempotencyKey",
+            stripe_account="Acc",
+            bobble="new_scrobble",
+            headers={"extra_header": "val"},
+        )
 
         request_mock.assert_requested(
             "post",
             "/v1/myupdateables/foo",
             {"bobble": "new_scrobble"},
-            {
-                "Idempotency-Key": "IdempotencyKey",
-                "extra_header": "val"
-            },
+            {"Idempotency-Key": "IdempotencyKey", "extra_header": "val"},
         )
         request_mock.assert_api_version("2017-08-15")

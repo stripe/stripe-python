@@ -69,13 +69,14 @@ class TestDeletableAPIResource(object):
             {"Idempotency-Key": "IdempotencyKey"},
         )
 
-        self.MyDeletable.delete("foo",
-                                stripe_version="2017-08-15",
-                                api_key="APIKEY",
-                                idempotency_key="IdempotencyKey",
-                                stripe_account="Acc",
-                                bobble="new_scrobble"
-                                )
+        self.MyDeletable.delete(
+            "foo",
+            stripe_version="2017-08-15",
+            api_key="APIKEY",
+            idempotency_key="IdempotencyKey",
+            stripe_account="Acc",
+            bobble="new_scrobble",
+        )
 
         request_mock.assert_requested(
             "delete",
