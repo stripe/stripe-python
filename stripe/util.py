@@ -210,6 +210,21 @@ def populate_headers(idempotency_key):
     return None
 
 
+def read_special_variable(params, key_name, default_value):
+    value = default_value
+    params_value = None
+
+    if params is not None and key_name in params:
+        params_value = params[key_name]
+        params = params.copy()
+        del params[key_name]
+
+    if value is None:
+        value = params_value
+
+    return params, value
+
+
 def merge_dicts(x, y):
     z = x.copy()
     z.update(y)
