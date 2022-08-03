@@ -346,3 +346,31 @@ class TestUpdateableAPIResource(object):
         res.save()
 
         request_mock.assert_api_version("2017-08-15")
+
+    def test_modify_with_all_special_fields(self, request_mock, obj):
+        request_mock.stub_request(
+            "post",
+            "/v1/myupdateables/foo",
+            {"id": "foo", "bobble": "new_scrobble"},
+            {"Idempotency-Key": "IdempotencyKey"},
+        )
+
+        self.MyUpdateable.modify("foo",
+                                 stripe_version="2017-08-15",
+                                 api_key="APIKEY",
+                                 idempotency_key="IdempotencyKey",
+                                 stripe_account="Acc",
+                                 bobble="new_scrobble",
+                                 headers={"extra_header": "val"},
+                                 )
+
+        request_mock.assert_requested(
+            "post",
+            "/v1/myupdateables/foo",
+            {"bobble": "new_scrobble"},
+            {
+                "Idempotency-Key": "IdempotencyKey",
+                "extra_header": "val"
+            },
+        )
+        request_mock.assert_api_version("2017-08-15")
