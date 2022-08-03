@@ -1,3 +1,7 @@
+## 4.0.1 - 2022-08-02
+* [#850](https://github.com/stripe/stripe-python/pull/850) Fix incorrect handling of additional request parameters
+  * Fixes issue where using special parameter like `api_key`, `idempotency_key`, `stripe_version`, `stripe_account`, `headers` can cause a `Received unknown parameter error`.
+
 ## 4.0.0 - 2022-08-02
 
 Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the SDK, read more detailed description at https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v4. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-08-01.
