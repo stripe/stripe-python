@@ -2,4 +2,4 @@
 
 
 class _ApiVersion:
-    CURRENT = "2020-08-27; server_side_confirmation_beta=v1"
+    CURRENT = "2022-08-01; server_side_confirmation_beta=v1; orders_beta=v4"
