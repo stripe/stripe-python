@@ -50,17 +50,12 @@ class TestAPIResource(object):
             "get",
             "/v1/myresources/foo",
             idempotency_key="explicit",
-            params={
-                "idempotency_key": "params",
-                "bobble": "scrobble"
-            }
+            params={"idempotency_key": "params", "bobble": "scrobble"},
         )
 
         request_mock.assert_requested(
-            "get",
-            url,
-            {"bobble": "scrobble"},
-            {"Idempotency-Key": "explicit"})
+            "get", url, {"bobble": "scrobble"}, {"Idempotency-Key": "explicit"}
+        )
 
     def test_convert_to_stripe_object(self):
         sample = {
