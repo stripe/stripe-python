@@ -1,3 +1,5 @@
+# Changelog
+
 ## 4.0.2 - 2022-08-03
 * [#855](https://github.com/stripe/stripe-python/pull/855) Fix issue where auto_paging_iter failed on nested list objects.
 
