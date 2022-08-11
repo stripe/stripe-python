@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.1.0b2 - 2022-08-11
+* [#859](https://github.com/stripe/stripe-python/pull/859) API Updates for beta branch
+  - Updated stable APIs to the latest version
+  - Add `refund_payment` method to Terminal resource
+
 ## 4.1.0b1 - 2022-08-03
 * [#848](https://github.com/stripe/stripe-python/pull/848) API Updates for beta branch
   - Updated stable APIs to the latest version
