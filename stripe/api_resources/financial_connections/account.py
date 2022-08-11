@@ -7,7 +7,6 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 class Account(ListableAPIResource):
     OBJECT_NAME = "financial_connections.account"
-
     @classmethod
     def _cls_disconnect(
         cls,
@@ -17,27 +16,11 @@ class Account(ListableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/financial_connections/accounts/{account}/disconnect".format(
-                account=util.sanitize_id(account)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/financial_connections/accounts/{account}/disconnect".format(account=util.sanitize_id(account)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_disconnect")
     def disconnect(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/financial_connections/accounts/{account}/disconnect".format(
-                account=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/financial_connections/accounts/{account}/disconnect".format(account=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_list_owners(
@@ -48,27 +31,11 @@ class Account(ListableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "get",
-            "/v1/financial_connections/accounts/{account}/owners".format(
-                account=util.sanitize_id(account)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("get", "/v1/financial_connections/accounts/{account}/owners".format(account=util.sanitize_id(account)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_list_owners")
     def list_owners(self, idempotency_key=None, **params):
-        return self._request(
-            "get",
-            "/v1/financial_connections/accounts/{account}/owners".format(
-                account=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("get", "/v1/financial_connections/accounts/{account}/owners".format(account=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_refresh_account(
@@ -79,24 +46,9 @@ class Account(ListableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/financial_connections/accounts/{account}/refresh".format(
-                account=util.sanitize_id(account)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/financial_connections/accounts/{account}/refresh".format(account=util.sanitize_id(account)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_refresh_account")
     def refresh_account(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/financial_connections/accounts/{account}/refresh".format(
-                account=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/financial_connections/accounts/{account}/refresh".format(account=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+

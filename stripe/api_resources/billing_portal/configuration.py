@@ -12,3 +12,4 @@ class Configuration(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "billing_portal.configuration"
+

@@ -21,3 +21,4 @@ class SubscriptionItem(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "subscription_item"
+

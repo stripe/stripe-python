@@ -7,11 +7,8 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 
 
-class Payout(
-    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
-):
+class Payout(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "payout"
-
     @classmethod
     def _cls_cancel(
         cls,
@@ -21,27 +18,11 @@ class Payout(
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/payouts/{payout}/cancel".format(
-                payout=util.sanitize_id(payout)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/payouts/{payout}/cancel".format(payout=util.sanitize_id(payout)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_cancel")
     def cancel(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/payouts/{payout}/cancel".format(
-                payout=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/payouts/{payout}/cancel".format(payout=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_reverse(
@@ -52,24 +33,9 @@ class Payout(
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/payouts/{payout}/reverse".format(
-                payout=util.sanitize_id(payout)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/payouts/{payout}/reverse".format(payout=util.sanitize_id(payout)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_reverse")
     def reverse(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/payouts/{payout}/reverse".format(
-                payout=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/payouts/{payout}/reverse".format(payout=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+

@@ -23,3 +23,4 @@ class TaxId(APIResource):
         raise NotImplementedError(
             "Can't retrieve a tax id without a customer ID. Use customer.retrieve_tax_id('tax_id')"
         )
+

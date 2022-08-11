@@ -6,3 +6,4 @@ from stripe.stripe_object import StripeObject
 
 class LineItem(StripeObject):
     OBJECT_NAME = "item"
+

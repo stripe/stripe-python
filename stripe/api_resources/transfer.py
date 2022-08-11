@@ -17,3 +17,4 @@ class Transfer(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "transfer"
+

@@ -13,7 +13,6 @@ class Dispute(
     UpdateableAPIResource,
 ):
     OBJECT_NAME = "issuing.dispute"
-
     @classmethod
     def _cls_submit(
         cls,
@@ -23,24 +22,9 @@ class Dispute(
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/issuing/disputes/{dispute}/submit".format(
-                dispute=util.sanitize_id(dispute)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/issuing/disputes/{dispute}/submit".format(dispute=util.sanitize_id(dispute)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_submit")
     def submit(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/issuing/disputes/{dispute}/submit".format(
-                dispute=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/issuing/disputes/{dispute}/submit".format(dispute=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+
