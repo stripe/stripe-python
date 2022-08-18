@@ -11,6 +11,10 @@ from stripe.api_resources.abstract import test_helpers
 
 @test_helpers
 class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+    """
+    You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
+    """
+
     OBJECT_NAME = "issuing.card"
 
     class TestHelpers(APIResourceTestHelpers):

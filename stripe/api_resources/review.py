@@ -6,6 +6,13 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 
 class Review(ListableAPIResource):
+    """
+    Reviews can be used to supplement automated fraud detection with human expertise.
+
+    Learn more about [Radar](/radar) and reviewing payments
+    [here](https://stripe.com/docs/radar/reviews).
+    """
+
     OBJECT_NAME = "review"
 
     @classmethod

@@ -12,6 +12,12 @@ class Dispute(
     ListableAPIResource,
     UpdateableAPIResource,
 ):
+    """
+    As a [card issuer](https://stripe.com/docs/issuing), you can dispute transactions that the cardholder does not recognize, suspects to be fraudulent, or has other issues with.
+
+    Related guide: [Disputing Transactions](https://stripe.com/docs/issuing/purchases/disputes)
+    """
+
     OBJECT_NAME = "issuing.dispute"
 
     @classmethod

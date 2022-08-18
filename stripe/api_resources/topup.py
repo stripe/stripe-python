@@ -8,6 +8,14 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Topup(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+    """
+    To top up your Stripe balance, you create a top-up object. You can retrieve
+    individual top-ups, as well as list all top-ups. Top-ups are identified by a
+    unique, random ID.
+
+    Related guide: [Topping Up your Platform Account](https://stripe.com/docs/connect/top-ups).
+    """
+
     OBJECT_NAME = "topup"
 
     @classmethod

@@ -12,6 +12,14 @@ class PaymentMethod(
     ListableAPIResource,
     UpdateableAPIResource,
 ):
+    """
+    PaymentMethod objects represent your customer's payment instruments.
+    You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+    Customer objects to store instrument details for future payments.
+
+    Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+    """
+
     OBJECT_NAME = "payment_method"
 
     @classmethod

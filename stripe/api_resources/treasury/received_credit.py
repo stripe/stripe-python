@@ -8,6 +8,10 @@ from stripe.api_resources.abstract import test_helpers
 
 @test_helpers
 class ReceivedCredit(ListableAPIResource):
+    """
+    ReceivedCredits represent funds sent to a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
+    """
+
     OBJECT_NAME = "treasury.received_credit"
 
     class TestHelpers(APIResourceTestHelpers):
