@@ -1,5 +1,11 @@
 # Changelog
 
+## 4.1.0 - 2022-08-19
+* [#861](https://github.com/stripe/stripe-python/pull/861) API Updates
+  * Add support for new resource `CustomerCashBalanceTransaction`
+* [#860](https://github.com/stripe/stripe-python/pull/860) Add a support section to the readme
+* [#717](https://github.com/stripe/stripe-python/pull/717) Fix test TestCharge.test_is_saveable().
+
 ## 4.0.2 - 2022-08-03
 * [#855](https://github.com/stripe/stripe-python/pull/855) Fix issue where auto_paging_iter failed on nested list objects.
 
