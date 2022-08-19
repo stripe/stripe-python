@@ -8,6 +8,13 @@ from stripe.six.moves.urllib.parse import quote_plus
 
 
 class TaxId(APIResource):
+    """
+    You can add one or multiple tax IDs to a [customer](https://stripe.com/docs/api/customers).
+    A customer's tax IDs are displayed on invoices and credit notes issued for the customer.
+
+    Related guide: [Customer Tax Identification Numbers](https://stripe.com/docs/billing/taxes/tax-ids).
+    """
+
     OBJECT_NAME = "tax_id"
 
     def instance_url(self):

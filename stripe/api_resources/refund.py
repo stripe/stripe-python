@@ -13,6 +13,14 @@ from stripe.api_resources.abstract import test_helpers
 class Refund(
     CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
 ):
+    """
+    `Refund` objects allow you to refund a charge that has previously been created
+    but not yet refunded. Funds will be refunded to the credit or debit card that
+    was originally charged.
+
+    Related guide: [Refunds](https://stripe.com/docs/refunds).
+    """
+
     OBJECT_NAME = "refund"
 
     @classmethod

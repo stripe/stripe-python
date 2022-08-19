@@ -8,6 +8,22 @@ from stripe.six.moves.urllib.parse import quote_plus
 
 
 class Reversal(UpdateableAPIResource):
+    """
+    [Stripe Connect](https://stripe.com/docs/connect) platforms can reverse transfers made to a
+    connected account, either entirely or partially, and can also specify whether
+    to refund any related application fees. Transfer reversals add to the
+    platform's balance and subtract from the destination account's balance.
+
+    Reversing a transfer that was made for a [destination
+    charge](/docs/connect/destination-charges) is allowed only up to the amount of
+    the charge. It is possible to reverse a
+    [transfer_group](https://stripe.com/docs/connect/charges-transfers#transfer-options)
+    transfer only if the destination account has enough balance to cover the
+    reversal.
+
+    Related guide: [Reversing Transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers).
+    """
+
     OBJECT_NAME = "transfer_reversal"
 
     def instance_url(self):

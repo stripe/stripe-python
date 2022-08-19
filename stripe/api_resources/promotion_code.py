@@ -11,4 +11,9 @@ class PromotionCode(
     ListableAPIResource,
     UpdateableAPIResource,
 ):
+    """
+    A Promotion Code represents a customer-redeemable code for a [coupon](https://stripe.com/docs/api#coupons). It can be used to
+    create multiple codes for a single coupon.
+    """
+
     OBJECT_NAME = "promotion_code"

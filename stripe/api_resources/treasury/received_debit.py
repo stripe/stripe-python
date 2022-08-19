@@ -8,6 +8,10 @@ from stripe.api_resources.abstract import test_helpers
 
 @test_helpers
 class ReceivedDebit(ListableAPIResource):
+    """
+    ReceivedDebits represent funds pulled from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts). These are not initiated from the FinancialAccount.
+    """
+
     OBJECT_NAME = "treasury.received_debit"
 
     class TestHelpers(APIResourceTestHelpers):

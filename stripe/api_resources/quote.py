@@ -11,6 +11,11 @@ from stripe.six.moves.urllib.parse import quote_plus
 
 
 class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+    """
+    A Quote is a way to model prices that you'd like to provide to a customer.
+    Once accepted, it will automatically create an invoice, subscription or subscription schedule.
+    """
+
     OBJECT_NAME = "quote"
 
     @classmethod

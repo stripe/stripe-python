@@ -13,4 +13,8 @@ class Configuration(
     ListableAPIResource,
     UpdateableAPIResource,
 ):
+    """
+    A Configurations object represents how features should be configured for terminal readers.
+    """
+
     OBJECT_NAME = "terminal.configuration"
