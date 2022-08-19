@@ -112,7 +112,7 @@ jobs:
         run: make test-gh-actions
 
       - name: Coveralls
-        run: coveralls --service=github
+        run: make test-coverage
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
