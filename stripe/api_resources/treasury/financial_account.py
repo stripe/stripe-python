@@ -14,7 +14,7 @@ class FinancialAccount(
 ):
     """
     Stripe Treasury provides users with a container for money called a FinancialAccount that is separate from their Payments balance.
-    FinancialAccounts serve as the source and destination of Treasury’s money movement APIs.
+    FinancialAccounts serve as the source and destination of Treasury's money movement APIs.
     """
 
     OBJECT_NAME = "treasury.financial_account"
