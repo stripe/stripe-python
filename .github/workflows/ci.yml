@@ -111,6 +111,11 @@ jobs:
       - name: Test with pytest
         run: make test-gh-actions
 
+      - name: Coveralls
+        run: coveralls --service=github
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   publish:
     name: Publish
     if: >-
