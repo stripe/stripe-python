@@ -112,7 +112,7 @@ jobs:
         run: make test-gh-actions
 
       - name: Coveralls
-        if: ${{ matrix.python-version }} != "2.7" && ${{ matrix.python-version }} != "pypy-2.7"
+        if: matrix.python-version != "2.7" && matrix.python-version != "pypy-2.7"
         run: make coveralls
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
