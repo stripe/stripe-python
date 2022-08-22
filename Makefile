@@ -23,7 +23,7 @@ test-gh-actions: venv
 
 coveralls: venv
 	${VENV_NAME}/bin/python -m pip install -U coveralls
-	@${VENV_NAME}/bin/tox -e coveralls --service=github
+	@${VENV_NAME}/bin/tox -e coveralls
 
 fmt: venv
 	@${VENV_NAME}/bin/tox -e fmt
