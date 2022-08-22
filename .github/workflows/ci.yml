@@ -114,25 +114,24 @@ jobs:
       - name: Test with pytest
         run: make test-gh-actions
 
-      - name: Coveralls
-        run: make coveralls
-        env:
-          # python-version: "3.10"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          COVERALLS_PARALLEL: true
-
   coveralls:
     name: Indicate completion to coveralls.io
     needs: test
     runs-on: ubuntu-latest
     container: python:3-slim
     steps:
+    - name: Coveralls
+      run: make coveralls
+      env:
+        python-version: "3.10"
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Finished
       run: |
         pip3 install --upgrade coveralls
         coveralls --service=github --finish
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
   publish:
     name: Publish
