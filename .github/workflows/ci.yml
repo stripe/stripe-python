@@ -136,10 +136,8 @@ jobs:
       run: make coveralls
       env:
         python-version: "3.10"
+        path-to-lcov: ./.coverage*
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        COVERALLS_DEBUG: true
-        COVERALLS_BASE_PATH: stripe/
-
 
   publish:
     name: Publish
