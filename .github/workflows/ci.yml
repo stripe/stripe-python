@@ -117,7 +117,7 @@ jobs:
       - name: Coveralls
         run: make coveralls
         env:
-          python-version: "3.10"
+          # python-version: "3.10"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           COVERALLS_PARALLEL: true
 
@@ -151,8 +151,8 @@ jobs:
           path: dist
       - name: Set up Python 3
         uses: actions/setup-python@v2
-        # with:
-        #   python-version: "3.10"
+        with:
+          python-version: "3.10"
 
       - name: Configure GPG Key
         run: |
