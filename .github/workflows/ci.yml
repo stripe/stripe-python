@@ -77,9 +77,6 @@ jobs:
             "pypy-3.7",
             "pypy-3.8",
           ]
-        exclude:
-          - python-version: "2.7"
-          - python-version: "pypy-2.7"
 
     steps:
       - uses: actions/checkout@v2
@@ -115,11 +112,12 @@ jobs:
         run: make test-gh-actions
 
   coveralls:
-    name: Indicate completion to coveralls.io
+    name: Coveralls
     needs: test
     runs-on: ubuntu-latest
-    container: python:3-slim
     steps:
+    - uses: actions/checkout@v2
+
     - name: Coveralls
       run: make coveralls
       env:
