@@ -77,6 +77,17 @@ jobs:
             "pypy-3.7",
             "pypy-3.8",
           ]
+        exclude: # DELETE ME
+          - python-version: "2.7"
+          - python-version: "3.5"
+          - python-version: "3.6"
+          - python-version: "3.7"
+          - python-version: "3.8"
+          - python-version: "3.9"
+          - python-version: "3.10"
+          - python-version: "pypy-2.7"
+          - python-version: "pypy-3.7"
+          - python-version: "pypy-3.8"
 
     steps:
       - uses: actions/checkout@v2
@@ -126,12 +137,8 @@ jobs:
       env:
         python-version: "3.10"
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-    - name: Finished
-      run: |
-        pip3 install --upgrade coveralls
-        coveralls --service=github --finish
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        COVERALLS_DEBUG: true
+        COVERALLS_BASE_PATH: stripe/
 
 
   publish:
