@@ -22,6 +22,7 @@ test-gh-actions: venv
 	@${VENV_NAME}/bin/tox -p auto $(TOX_ARGS)
 
 coveralls: venv
+	${VENV_NAME}/bin/python -m pip install -U coveralls
 	@${VENV_NAME}/bin/tox -e coveralls
 
 fmt: venv
