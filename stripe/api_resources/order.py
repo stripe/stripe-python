@@ -8,6 +8,14 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+    """
+    An Order describes a purchase being made by a customer, including the
+    products & quantities being purchased, the order status, the payment information,
+    and the billing/shipping details.
+
+    Related guide: [Orders overview](https://stripe.com/docs/orders)
+    """
+
     OBJECT_NAME = "order"
 
     @classmethod

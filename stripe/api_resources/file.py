@@ -8,6 +8,16 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 
 class File(ListableAPIResource):
+    """
+    This is an object representing a file hosted on Stripe's servers. The
+    file may have been uploaded by yourself using the [create file](https://stripe.com/docs/api#create_file)
+    request (for example, when uploading dispute evidence) or it may have
+    been created by Stripe (for example, the results of a [Sigma scheduled
+    query](#scheduled_queries)).
+
+    Related guide: [File Upload Guide](https://stripe.com/docs/file-upload).
+    """
+
     OBJECT_NAME = "file"
 
     # This resource can have two different object names. In latter API

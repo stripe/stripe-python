@@ -6,6 +6,10 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 
 class Account(ListableAPIResource):
+    """
+    A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
+    """
+
     OBJECT_NAME = "financial_connections.account"
 
     @classmethod

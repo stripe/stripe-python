@@ -8,6 +8,12 @@ from stripe.six.moves.urllib.parse import quote_plus
 
 
 class Capability(UpdateableAPIResource):
+    """
+    This is an object representing a capability for a Stripe account.
+
+    Related guide: [Account capabilities](https://stripe.com/docs/connect/account-capabilities).
+    """
+
     OBJECT_NAME = "capability"
 
     def instance_url(self):

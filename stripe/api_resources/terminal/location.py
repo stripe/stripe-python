@@ -13,4 +13,10 @@ class Location(
     ListableAPIResource,
     UpdateableAPIResource,
 ):
+    """
+    A Location represents a grouping of readers.
+
+    Related guide: [Fleet Management](https://stripe.com/docs/terminal/fleet/locations).
+    """
+
     OBJECT_NAME = "terminal.location"

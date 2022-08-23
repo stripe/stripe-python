@@ -16,6 +16,12 @@ class Subscription(
     SearchableAPIResource,
     UpdateableAPIResource,
 ):
+    """
+    Subscriptions allow you to charge a customer on a recurring basis.
+
+    Related guide: [Creating Subscriptions](https://stripe.com/docs/billing/subscriptions/creating).
+    """
+
     OBJECT_NAME = "subscription"
 
     @classmethod

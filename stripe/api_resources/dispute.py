@@ -7,6 +7,16 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Dispute(ListableAPIResource, UpdateableAPIResource):
+    """
+    A dispute occurs when a customer questions your charge with their card issuer.
+    When this happens, you're given the opportunity to respond to the dispute with
+    evidence that shows that the charge is legitimate. You can find more
+    information about the dispute process in our [Disputes and
+    Fraud](/docs/disputes) documentation.
+
+    Related guide: [Disputes and Fraud](https://stripe.com/docs/disputes).
+    """
+
     OBJECT_NAME = "dispute"
 
     @classmethod

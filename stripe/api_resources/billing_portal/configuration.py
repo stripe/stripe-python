@@ -11,4 +11,8 @@ class Configuration(
     ListableAPIResource,
     UpdateableAPIResource,
 ):
+    """
+    A portal configuration describes the functionality and behavior of a portal session.
+    """
+
     OBJECT_NAME = "billing_portal.configuration"

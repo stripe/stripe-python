@@ -5,4 +5,8 @@ from stripe.stripe_object import StripeObject
 
 
 class LineItem(StripeObject):
+    """
+    A line item.
+    """
+
     OBJECT_NAME = "item"

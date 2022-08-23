@@ -31,6 +31,7 @@ OBJECT_CLASSES = {
     api_resources.CreditNoteLineItem.OBJECT_NAME: api_resources.CreditNoteLineItem,
     api_resources.Customer.OBJECT_NAME: api_resources.Customer,
     api_resources.CustomerBalanceTransaction.OBJECT_NAME: api_resources.CustomerBalanceTransaction,
+    api_resources.CustomerCashBalanceTransaction.OBJECT_NAME: api_resources.CustomerCashBalanceTransaction,
     api_resources.Dispute.OBJECT_NAME: api_resources.Dispute,
     api_resources.EphemeralKey.OBJECT_NAME: api_resources.EphemeralKey,
     api_resources.Event.OBJECT_NAME: api_resources.Event,
