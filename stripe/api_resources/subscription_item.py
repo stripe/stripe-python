@@ -20,4 +20,9 @@ class SubscriptionItem(
     ListableAPIResource,
     UpdateableAPIResource,
 ):
+    """
+    Subscription items allow you to create customer subscriptions with more than
+    one plan, making it easy to represent complex billing relationships.
+    """
+
     OBJECT_NAME = "subscription_item"

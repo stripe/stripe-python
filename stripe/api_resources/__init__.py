@@ -22,6 +22,7 @@ from stripe.api_resources import treasury
 
 from stripe.api_resources.account import Account
 from stripe.api_resources.account_link import AccountLink
+from stripe.api_resources.account_session import AccountSession
 from stripe.api_resources.apple_pay_domain import ApplePayDomain
 from stripe.api_resources.application_fee import ApplicationFee
 from stripe.api_resources.application_fee_refund import ApplicationFeeRefund
@@ -39,6 +40,9 @@ from stripe.api_resources.credit_note_line_item import CreditNoteLineItem
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.customer_balance_transaction import (
     CustomerBalanceTransaction,
+)
+from stripe.api_resources.customer_cash_balance_transaction import (
+    CustomerCashBalanceTransaction,
 )
 from stripe.api_resources.dispute import Dispute
 from stripe.api_resources.ephemeral_key import EphemeralKey

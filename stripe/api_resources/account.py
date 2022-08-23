@@ -32,6 +32,15 @@ class Account(
     ListableAPIResource,
     UpdateableAPIResource,
 ):
+    """
+    This is an object representing a Stripe account. You can retrieve it to see
+    properties on the account like its current e-mail address or if the account is
+    enabled yet to make live charges.
+
+    Some properties, marked below, are available only to platforms that want to
+    [create and manage Express or Custom accounts](https://stripe.com/docs/connect/accounts).
+    """
+
     OBJECT_NAME = "account"
 
     @classmethod

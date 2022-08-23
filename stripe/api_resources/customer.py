@@ -18,6 +18,10 @@ from stripe.api_resources.abstract import test_helpers
     operations=["create", "retrieve", "update", "list"],
 )
 @nested_resource_class_methods(
+    "cash_balance_transaction",
+    operations=["retrieve", "list"],
+)
+@nested_resource_class_methods(
     "source",
     operations=["create", "retrieve", "update", "delete", "list"],
 )
@@ -32,6 +36,12 @@ class Customer(
     SearchableAPIResource,
     UpdateableAPIResource,
 ):
+    """
+    This object represents a customer of your business. It lets you create recurring charges and track payments that belong to the same customer.
+
+    Related guide: [Save a card during payment](https://stripe.com/docs/payments/save-during-payment).
+    """
+
     OBJECT_NAME = "customer"
 
     @classmethod

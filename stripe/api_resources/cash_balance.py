@@ -8,6 +8,10 @@ from stripe.six.moves.urllib.parse import quote_plus
 
 
 class CashBalance(APIResource):
+    """
+    A customer's `Cash balance` represents real funds. Customers can add funds to their cash balance by sending a bank transfer. These funds can be used for payment and can eventually be paid out to your bank account.
+    """
+
     OBJECT_NAME = "cash_balance"
 
     def instance_url(self):

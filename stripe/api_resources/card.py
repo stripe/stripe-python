@@ -11,6 +11,14 @@ from stripe.six.moves.urllib.parse import quote_plus
 
 
 class Card(DeletableAPIResource, UpdateableAPIResource):
+    """
+    You can store multiple cards on a customer in order to charge the customer
+    later. You can also store multiple debit cards on a recipient in order to
+    transfer to those cards later.
+
+    Related guide: [Card Payments with Sources](https://stripe.com/docs/sources/cards).
+    """
+
     OBJECT_NAME = "card"
 
     def instance_url(self):

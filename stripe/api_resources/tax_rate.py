@@ -11,4 +11,10 @@ class TaxRate(
     ListableAPIResource,
     UpdateableAPIResource,
 ):
+    """
+    Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+
+    Related guide: [Tax Rates](https://stripe.com/docs/billing/taxes/tax-rates).
+    """
+
     OBJECT_NAME = "tax_rate"
