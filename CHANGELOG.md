@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.2.0b1 - 2022-08-23
+* [#866](https://github.com/stripe/stripe-python/pull/866) API Updates for beta branch
+  - Updated stable APIs to the latest version
+  - `Stripe-Version` beta headers are not pinned by-default and need to be manually specified, please refer to [beta SDKs README section](https://github.com/stripe/stripe-dotnet/blob/master/README.md#beta-sdks)
+
 ## 4.1.0 - 2022-08-19
 * [#861](https://github.com/stripe/stripe-python/pull/861) API Updates
   * Add support for new resource `CustomerCashBalanceTransaction`
