@@ -12,7 +12,7 @@ class Dispute(ListableAPIResource, UpdateableAPIResource):
     When this happens, you're given the opportunity to respond to the dispute with
     evidence that shows that the charge is legitimate. You can find more
     information about the dispute process in our [Disputes and
-    Fraud](/docs/disputes) documentation.
+    Fraud](https://stripe.com/docs/disputes) documentation.
 
     Related guide: [Disputes and Fraud](https://stripe.com/docs/disputes).
     """

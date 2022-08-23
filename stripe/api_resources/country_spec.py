@@ -11,7 +11,7 @@ class CountrySpec(ListableAPIResource):
     Country Specs API makes these rules available to your integration.
 
     You can also view the information from this API call as [an online
-    guide](/docs/connect/required-verification-information).
+    guide](https://stripe.com/docs/connect/required-verification-information).
     """
 
     OBJECT_NAME = "country_spec"

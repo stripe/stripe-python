@@ -41,7 +41,7 @@ class Invoice(
     Stripe applies any customer credit on the account before determining the
     amount due for the invoice (i.e., the amount that will be actually
     charged). If the amount due for the invoice is less than Stripe's [minimum allowed charge
-    per currency](/docs/currencies#minimum-and-maximum-charge-amounts), the
+    per currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts), the
     invoice is automatically marked paid, and we add the amount due to the
     customer's credit balance which is applied to the next invoice.
 
