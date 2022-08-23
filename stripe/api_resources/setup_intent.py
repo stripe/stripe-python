@@ -23,7 +23,7 @@ class SetupIntent(
     you through the setup process.
 
     Successful SetupIntents result in payment credentials that are optimized for future payments.
-    For example, cardholders in [certain regions](/guides/strong-customer-authentication) may need to be run through
+    For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) may need to be run through
     [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication) at the time of payment method collection
     in order to streamline later [off-session payments](https://stripe.com/docs/payments/setup-intents).
     If the SetupIntent is used with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer), upon success,

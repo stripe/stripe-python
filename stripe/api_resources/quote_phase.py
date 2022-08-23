@@ -6,6 +6,10 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 
 class QuotePhase(ListableAPIResource):
+    """
+    A quote phase describes the line items, coupons, and trialing status of a subscription for a predefined time period.
+    """
+
     OBJECT_NAME = "quote_phase"
 
     @classmethod

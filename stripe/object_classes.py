@@ -11,6 +11,7 @@ OBJECT_CLASSES = {
     # business objects
     api_resources.Account.OBJECT_NAME: api_resources.Account,
     api_resources.AccountLink.OBJECT_NAME: api_resources.AccountLink,
+    api_resources.AccountSession.OBJECT_NAME: api_resources.AccountSession,
     api_resources.ApplePayDomain.OBJECT_NAME: api_resources.ApplePayDomain,
     api_resources.ApplicationFee.OBJECT_NAME: api_resources.ApplicationFee,
     api_resources.ApplicationFeeRefund.OBJECT_NAME: api_resources.ApplicationFeeRefund,

@@ -13,7 +13,7 @@ class File(ListableAPIResource):
     file may have been uploaded by yourself using the [create file](https://stripe.com/docs/api#create_file)
     request (for example, when uploading dispute evidence) or it may have
     been created by Stripe (for example, the results of a [Sigma scheduled
-    query](#scheduled_queries)).
+    query](https://stripe.com/docs/api#scheduled_queries)).
 
     Related guide: [File Upload Guide](https://stripe.com/docs/file-upload).
     """
