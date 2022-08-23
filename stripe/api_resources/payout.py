@@ -13,9 +13,9 @@ class Payout(
     """
     A `Payout` object is created when you receive funds from Stripe, or when you
     initiate a payout to either a bank account or debit card of a [connected
-    Stripe account](/docs/connect/bank-debit-card-payouts). You can retrieve individual payouts,
+    Stripe account](https://stripe.com/docs/connect/bank-debit-card-payouts). You can retrieve individual payouts,
     as well as list all payouts. Payouts are made on [varying
-    schedules](/docs/connect/manage-payout-schedule), depending on your country and
+    schedules](https://stripe.com/docs/connect/manage-payout-schedule), depending on your country and
     industry.
 
     Related guide: [Receiving Payouts](https://stripe.com/docs/payouts).
