@@ -2,7 +2,7 @@
 
 [![pypi](https://img.shields.io/pypi/v/stripe.svg)](https://pypi.python.org/pypi/stripe)
 [![Build Status](https://github.com/stripe/stripe-python/actions/workflows/python-package.yml/badge.svg?branch=master)](https://github.com/stripe/stripe-python/actions?query=branch%3Amaster)
-
+[![Coverage Status](https://coveralls.io/repos/github/stripe/stripe-python/badge.svg?branch=master)](https://coveralls.io/github/stripe/stripe-python?branch=master)
 
 The Stripe Python library provides convenient access to the Stripe API from
 applications written in the Python language. It includes a pre-defined set of
@@ -10,16 +10,11 @@ classes for API resources that initialize themselves dynamically from API
 responses which makes it compatible with a wide range of versions of the Stripe
 API.
 
-## Support
-
-New features and bug fixes are released on the latest major version of the Stripe Python library. If you are on an older major version, we recommend that you upgrade to the latest in order to use the new features and bug fixes including those for security vulnerabilities. Older major versions of the package will continue to be available for use, but will not be receiving any updates.
-
 ## Documentation
 
 See the [Python API docs](https://stripe.com/docs/api?lang=python).
 
 See [video demonstrations][youtube-playlist] covering how to use the library.
-
 
 ## Installation
 
@@ -187,6 +182,31 @@ You can disable this behavior if you prefer:
 ```python
 stripe.enable_telemetry = False
 ```
+
+### Beta SDKs
+
+Stripe has features in the beta phase that can be accessed via the beta version of this package.
+We would love for you to try these and share feedback with us before these features reach the stable phase.
+To install a beta version use `pip install` with the exact version you'd like to use:
+
+```
+pip install stripe==4.1.0b2
+```
+
+> **Note**
+> There can be breaking changes between beta versions. Therefore we recommend pinning the package version to a specific beta version in your [requirements file](https://pip.pypa.io/en/stable/user_guide/#requirements-files) or `setup.py`. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest beta version.
+
+We highly recommend keeping an eye on when the beta feature you are interested in goes from beta to stable so that you can move from using a beta version of the SDK to the stable version.
+
+If your beta feature requires a `Stripe-Version` header to be sent, use the `stripe.api_version` field to set it:
+
+```python
+stripe.api_version += "; feature_beta=v3"
+```
+
+## Support
+
+New features and bug fixes are released on the latest major version of the Stripe Python library. If you are on an older major version, we recommend that you upgrade to the latest in order to use the new features and bug fixes including those for security vulnerabilities. Older major versions of the package will continue to be available for use, but will not be receiving any updates.
 
 ## Development
 
