@@ -45,6 +45,8 @@ OBJECT_CLASSES = {
     api_resources.financial_connections.AccountOwnership.OBJECT_NAME: api_resources.financial_connections.AccountOwnership,
     api_resources.financial_connections.Session.OBJECT_NAME: api_resources.financial_connections.Session,
     api_resources.FundingInstructions.OBJECT_NAME: api_resources.FundingInstructions,
+    api_resources.gift_cards.Card.OBJECT_NAME: api_resources.gift_cards.Card,
+    api_resources.gift_cards.Transaction.OBJECT_NAME: api_resources.gift_cards.Transaction,
     api_resources.identity.VerificationReport.OBJECT_NAME: api_resources.identity.VerificationReport,
     api_resources.identity.VerificationSession.OBJECT_NAME: api_resources.identity.VerificationSession,
     api_resources.Invoice.OBJECT_NAME: api_resources.Invoice,
