@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.2.0 - 2022-09-23
+* [#877](https://github.com/stripe/stripe-python/pull/877) API Updates
+  * Add `upcoming_lines` method to the `Invoice` resource.
+* [#873](https://github.com/stripe/stripe-python/pull/873) Add abstract methods for SearchableAPIResource
+* [#867](https://github.com/stripe/stripe-python/pull/867) API Updates
+  * Update links in documentation to be absolute.
+
 ## 4.1.0 - 2022-08-19
 * [#861](https://github.com/stripe/stripe-python/pull/861) API Updates
   * Add support for new resource `CustomerCashBalanceTransaction`
