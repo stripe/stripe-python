@@ -21,3 +21,11 @@ class SearchableAPIResource(APIResource):
             stripe_account=stripe_account,
             params=params,
         )
+
+    @classmethod
+    def search(cls, *args, **kwargs):
+        raise NotImplementedError
+
+    @classmethod
+    def search_auto_paging_iter(cls, *args, **kwargs):
+        raise NotImplementedError
