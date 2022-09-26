@@ -1,5 +1,10 @@
 # Changelog
 
+## 4.3.0b1 - 2022-09-26
+* [#878](https://github.com/stripe/stripe-python/pull/878) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add `FinancingOffer`, `FinancingSummary` and `FinancingTransaction` resources.
+
 ## 4.2.0 - 2022-09-23
 * [#877](https://github.com/stripe/stripe-python/pull/877) API Updates
   * Add `upcoming_lines` method to the `Invoice` resource.
