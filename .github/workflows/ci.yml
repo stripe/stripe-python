@@ -1,4 +1,4 @@
-name: CI
+name: stripe
 
 on:
   workflow_dispatch: {}
