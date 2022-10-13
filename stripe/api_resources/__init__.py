@@ -73,7 +73,6 @@ from stripe.api_resources.review import Review
 from stripe.api_resources.setup_attempt import SetupAttempt
 from stripe.api_resources.setup_intent import SetupIntent
 from stripe.api_resources.shipping_rate import ShippingRate
-from stripe.api_resources.sku import SKU
 from stripe.api_resources.source import Source
 from stripe.api_resources.source_transaction import SourceTransaction
 from stripe.api_resources.subscription import Subscription
