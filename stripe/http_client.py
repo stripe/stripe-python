@@ -76,7 +76,7 @@ def new_default_http_client(*args, **kwargs):
         impl = PycurlClient
     else:
         impl = Urllib2Client
-        if sys.version_info < (2, 7, 9),
+        if sys.version_info < (2, 7, 9):
             warnings.warn(
                 "Warning: the Stripe library is falling back to urllib2 "
                 "because neither requests nor pycurl are installed. "
