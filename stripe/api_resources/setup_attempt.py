@@ -13,4 +13,3 @@ class SetupAttempt(ListableAPIResource):
     """
 
     OBJECT_NAME = "setup_attempt"
-

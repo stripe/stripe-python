@@ -18,4 +18,3 @@ class TaxRate(
     """
 
     OBJECT_NAME = "tax_rate"
-

@@ -10,4 +10,3 @@ class FinancingTransaction(ListableAPIResource):
     """
 
     OBJECT_NAME = "capital.financing_transaction"
-

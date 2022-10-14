@@ -70,4 +70,3 @@ class Card(DeletableAPIResource, UpdateableAPIResource):
             "ID. Use customer.sources.retrieve('card_id'), or"
             "account.external_accounts.retrieve('card_id') instead."
         )
-
