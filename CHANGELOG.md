@@ -1,8 +1,5 @@
 # Changelog
 
-## 4.3.0b2 - 2022-10-07
-* [#999](https://github.com/stripe/stripe-python/pull/999) DESCRIBE CHANGES HERE (try to use the same style, tense, etc. as the other entries)
-
 ## 4.3.0b1 - 2022-09-26
 * [#878](https://github.com/stripe/stripe-python/pull/878) API Updates for beta branch
   * Updated stable APIs to the latest version
