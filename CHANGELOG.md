@@ -18,6 +18,7 @@
 ## 4.2.0b2 - 2022-08-26
 * [#869](https://github.com/stripe/stripe-python/pull/869) API Updates for beta branch
   * Updated stable APIs to the latest version
+  * Add support for the beta [Gift Card API](https://stripe.com/docs/gift-cards).
 
 ## 4.2.0b1 - 2022-08-23
 * [#866](https://github.com/stripe/stripe-python/pull/866) API Updates for beta branch
