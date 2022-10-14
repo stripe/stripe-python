@@ -22,7 +22,6 @@ class Transaction(
     """
 
     OBJECT_NAME = "gift_cards.transaction"
-
     @classmethod
     def _cls_cancel(
         cls,
@@ -32,27 +31,11 @@ class Transaction(
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/gift_cards/transactions/{id}/cancel".format(
-                id=util.sanitize_id(id)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/gift_cards/transactions/{id}/cancel".format(id=util.sanitize_id(id)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_cancel")
     def cancel(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/gift_cards/transactions/{id}/cancel".format(
-                id=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/gift_cards/transactions/{id}/cancel".format(id=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_confirm(
@@ -63,24 +46,9 @@ class Transaction(
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/gift_cards/transactions/{id}/confirm".format(
-                id=util.sanitize_id(id)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/gift_cards/transactions/{id}/confirm".format(id=util.sanitize_id(id)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_confirm")
     def confirm(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/gift_cards/transactions/{id}/confirm".format(
-                id=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/gift_cards/transactions/{id}/confirm".format(id=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+

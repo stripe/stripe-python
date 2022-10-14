@@ -23,11 +23,12 @@ class Price(
     """
 
     OBJECT_NAME = "price"
-
     @classmethod
     def search(cls, *args, **kwargs):
-        return cls._search(search_url="/v1/prices/search", *args, **kwargs)
+        return cls._search( search_url="/v1/prices/search", *args, **kwargs)
+
 
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
+

@@ -24,3 +24,4 @@ class Balance(SingletonAPIResource):
     @classmethod
     def class_url(cls):
         return "/v1/balance"
+

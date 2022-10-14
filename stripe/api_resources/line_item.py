@@ -10,3 +10,4 @@ class LineItem(StripeObject):
     """
 
     OBJECT_NAME = "item"
+

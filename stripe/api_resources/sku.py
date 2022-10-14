@@ -23,3 +23,4 @@ class SKU(
     """
 
     OBJECT_NAME = "sku"
+

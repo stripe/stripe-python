@@ -25,3 +25,4 @@ class Plan(
     """
 
     OBJECT_NAME = "plan"
+
