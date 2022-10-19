@@ -38,7 +38,7 @@ class Reversal(UpdateableAPIResource):
     def modify(cls, sid, **params):
         raise NotImplementedError(
             "Can't modify a reversal without a transfer"
-            "ID. Call save on transfer.reversals.retrieve('reversal_id')"
+            "ID. Call modify on transfer.reversals.retrieve('reversal_id')"
         )
 
     @classmethod

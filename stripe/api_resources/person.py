@@ -31,7 +31,7 @@ class Person(UpdateableAPIResource):
     def modify(cls, sid, **params):
         raise NotImplementedError(
             "Can't modify a person without an account"
-            "ID. Call save on account.persons.retrieve('person_id')"
+            "ID. Call modify on account.persons.retrieve('person_id')"
         )
 
     @classmethod

@@ -52,7 +52,7 @@ class Card(DeletableAPIResource, UpdateableAPIResource):
     def modify(cls, sid, **params):
         raise NotImplementedError(
             "Can't modify a card without a customer or account "
-            "ID. Call save on customer.sources.retrieve('card_id'), or "
+            "ID. Call modify on customer.sources.retrieve('card_id'), or "
             "account.external_accounts.retrieve('card_id') instead."
         )
 
