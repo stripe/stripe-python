@@ -4,7 +4,6 @@ from stripe import util
 from stripe.api_resources.abstract.api_resource import APIResource
 from stripe.six.moves.urllib.parse import quote_plus
 
-import warnings
 
 class UpdateableAPIResource(APIResource):
     @classmethod
@@ -13,13 +12,11 @@ class UpdateableAPIResource(APIResource):
         return cls._static_request("post", url, params=params)
 
     def save(self, idempotency_key=None):
-        warnings.warn(
-            """
-            The `save` method is deprecated and will be removed in
-            a future major version of the library.
-            Use the class method `modify` on the resource instead.
-            """,
-            DeprecationWarning)
+        """
+        The `save` method is deprecated and will be removed in a future major version of the library.
+
+        Use the class method `modify` on the resource instead.
+        """
         updated_params = self.serialize(None)
         if updated_params:
             self._request_and_refresh(
