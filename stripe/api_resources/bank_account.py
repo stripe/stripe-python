@@ -54,7 +54,7 @@ class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
     def modify(cls, sid, **params):
         raise NotImplementedError(
             "Can't modify a bank account without a customer or account ID. "
-            "Call save on customer.sources.retrieve('bank_account_id') or "
+            "Call modify on customer.sources.retrieve('bank_account_id') or "
             "account.external_accounts.retrieve('bank_account_id') instead."
         )
 
