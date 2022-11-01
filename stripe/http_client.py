@@ -76,13 +76,14 @@ def new_default_http_client(*args, **kwargs):
         impl = PycurlClient
     else:
         impl = Urllib2Client
-        warnings.warn(
-            "Warning: the Stripe library is falling back to urllib2/urllib "
-            "because neither requests nor pycurl are installed. "
-            "urllib2's SSL implementation doesn't verify server "
-            "certificates. For improved security, we suggest installing "
-            "requests."
-        )
+        if sys.version_info < (2, 7, 9):
+            warnings.warn(
+                "Warning: the Stripe library is falling back to urllib2 "
+                "because neither requests nor pycurl are installed. "
+                "urllib2's SSL implementation doesn't verify server "
+                "certificates. For improved security, we suggest installing "
+                "requests."
+            )
 
     return impl(*args, **kwargs)
 
