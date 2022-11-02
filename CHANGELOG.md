@@ -1,5 +1,12 @@
 # Changelog
 
+## 4.3.0b3 - 2022-11-02
+* [#890](https://github.com/stripe/stripe-python/pull/890) API Updates for beta branch
+  * Updated beta APIs to the latest stable version
+* [#885](https://github.com/stripe/stripe-python/pull/885) Update changelog for the Gift Card API
+* [#884](https://github.com/stripe/stripe-python/pull/884) API Updates for beta branch
+  * Updated stable APIs to the latest version
+
 ## 4.3.0b1 - 2022-09-26
 * [#878](https://github.com/stripe/stripe-python/pull/878) API Updates for beta branch
   * Updated stable APIs to the latest version
