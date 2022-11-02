@@ -30,13 +30,15 @@ class Person(UpdateableAPIResource):
     @classmethod
     def modify(cls, sid, **params):
         raise NotImplementedError(
-            "Can't modify a person without an account"
-            "ID. Call modify on account.persons.retrieve('person_id')"
+            "Can't modify a person without an account ID. "
+            "Use stripe.Account.modify_person('account_id', 'person_id', ...) "
+            "(see https://stripe.com/docs/api/persons/update)."
         )
 
     @classmethod
     def retrieve(cls, id, api_key=None, **params):
         raise NotImplementedError(
-            "Can't retrieve a person without an account"
-            "ID. Use account.persons.retrieve('person_id')"
+            "Can't retrieve a person without an account ID. "
+            "Use stripe.Account.retrieve_person('account_id', 'person_id') "
+            "(see https://stripe.com/docs/api/persons/retrieve)."
         )
