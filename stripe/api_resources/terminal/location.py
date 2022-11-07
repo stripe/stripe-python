@@ -20,3 +20,4 @@ class Location(
     """
 
     OBJECT_NAME = "terminal.location"
+

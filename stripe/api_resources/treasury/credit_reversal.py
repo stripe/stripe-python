@@ -11,3 +11,4 @@ class CreditReversal(CreateableAPIResource, ListableAPIResource):
     """
 
     OBJECT_NAME = "treasury.credit_reversal"
+

@@ -26,3 +26,4 @@ class SubscriptionItem(
     """
 
     OBJECT_NAME = "subscription_item"
+

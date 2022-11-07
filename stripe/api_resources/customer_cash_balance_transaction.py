@@ -13,3 +13,4 @@ class CustomerCashBalanceTransaction(ListableAPIResource):
     """
 
     OBJECT_NAME = "customer_cash_balance_transaction"
+

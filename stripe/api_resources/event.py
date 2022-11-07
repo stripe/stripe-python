@@ -38,3 +38,4 @@ class Event(ListableAPIResource):
     """
 
     OBJECT_NAME = "event"
+

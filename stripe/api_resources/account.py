@@ -42,7 +42,6 @@ class Account(
     """
 
     OBJECT_NAME = "account"
-
     @classmethod
     def _cls_persons(
         cls,
@@ -52,27 +51,11 @@ class Account(
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "get",
-            "/v1/accounts/{account}/persons".format(
-                account=util.sanitize_id(account)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("get", "/v1/accounts/{account}/persons".format(account=util.sanitize_id(account)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_persons")
     def persons(self, idempotency_key=None, **params):
-        return self._request(
-            "get",
-            "/v1/accounts/{account}/persons".format(
-                account=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("get", "/v1/accounts/{account}/persons".format(account=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_reject(
@@ -83,27 +66,12 @@ class Account(
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/accounts/{account}/reject".format(
-                account=util.sanitize_id(account)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/accounts/{account}/reject".format(account=util.sanitize_id(account)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_reject")
     def reject(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/accounts/{account}/reject".format(
-                account=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/accounts/{account}/reject".format(account=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+
 
     # We are not adding a helper for capabilities here as the Account object already has a
     # capabilities property which is a hash and not the sub-list of capabilities.
@@ -148,3 +116,4 @@ class Account(
                 params[k] = v.serialize(previous.get(k, None))
 
         return params
+

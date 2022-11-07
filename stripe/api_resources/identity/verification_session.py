@@ -27,7 +27,6 @@ class VerificationSession(
     """
 
     OBJECT_NAME = "identity.verification_session"
-
     @classmethod
     def _cls_cancel(
         cls,
@@ -37,27 +36,11 @@ class VerificationSession(
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/identity/verification_sessions/{session}/cancel".format(
-                session=util.sanitize_id(session)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/identity/verification_sessions/{session}/cancel".format(session=util.sanitize_id(session)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_cancel")
     def cancel(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/identity/verification_sessions/{session}/cancel".format(
-                session=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/identity/verification_sessions/{session}/cancel".format(session=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_redact(
@@ -68,24 +51,9 @@ class VerificationSession(
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/identity/verification_sessions/{session}/redact".format(
-                session=util.sanitize_id(session)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/identity/verification_sessions/{session}/redact".format(session=util.sanitize_id(session)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_redact")
     def redact(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/identity/verification_sessions/{session}/redact".format(
-                session=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/identity/verification_sessions/{session}/redact".format(session=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+

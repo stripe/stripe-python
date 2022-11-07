@@ -15,3 +15,4 @@ class Transaction(ListableAPIResource, UpdateableAPIResource):
     """
 
     OBJECT_NAME = "issuing.transaction"
+

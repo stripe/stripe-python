@@ -12,3 +12,4 @@ class ConnectionToken(CreateableAPIResource):
     """
 
     OBJECT_NAME = "terminal.connection_token"
+

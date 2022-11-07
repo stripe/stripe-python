@@ -23,7 +23,6 @@ class Charge(
     """
 
     OBJECT_NAME = "charge"
-
     @classmethod
     def _cls_capture(
         cls,
@@ -33,35 +32,22 @@ class Charge(
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/charges/{charge}/capture".format(
-                charge=util.sanitize_id(charge)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/charges/{charge}/capture".format(charge=util.sanitize_id(charge)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_capture")
     def capture(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/charges/{charge}/capture".format(
-                charge=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/charges/{charge}/capture".format(charge=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def search(cls, *args, **kwargs):
-        return cls._search(search_url="/v1/charges/search", *args, **kwargs)
+        return cls._search( search_url="/v1/charges/search", *args, **kwargs)
+
 
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
+
+
 
     def mark_as_fraudulent(self, idempotency_key=None):
         params = {"fraud_details": {"user_report": "fraudulent"}}
@@ -76,3 +62,4 @@ class Charge(
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
+
