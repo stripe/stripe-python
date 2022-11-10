@@ -10,4 +10,3 @@ class AccountOwnership(StripeObject):
     """
 
     OBJECT_NAME = "financial_connections.account_ownership"
-

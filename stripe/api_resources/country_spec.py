@@ -15,4 +15,3 @@ class CountrySpec(ListableAPIResource):
     """
 
     OBJECT_NAME = "country_spec"
-

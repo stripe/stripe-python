@@ -43,6 +43,7 @@ class Customer(
     """
 
     OBJECT_NAME = "customer"
+
     @classmethod
     def _cls_create_funding_instructions(
         cls,
@@ -52,11 +53,27 @@ class Customer(
         stripe_account=None,
         **params
     ):
-        return cls._static_request("post", "/v1/customers/{customer}/funding_instructions".format(customer=util.sanitize_id(customer)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "post",
+            "/v1/customers/{customer}/funding_instructions".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @util.class_method_variant("_cls_create_funding_instructions")
     def create_funding_instructions(self, idempotency_key=None, **params):
-        return self._request("post", "/v1/customers/{customer}/funding_instructions".format(customer=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+        return self._request(
+            "post",
+            "/v1/customers/{customer}/funding_instructions".format(
+                customer=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     @classmethod
     def _cls_delete_discount(
@@ -67,11 +84,27 @@ class Customer(
         stripe_account=None,
         **params
     ):
-        return cls._static_request("delete", "/v1/customers/{customer}/discount".format(customer=util.sanitize_id(customer)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "delete",
+            "/v1/customers/{customer}/discount".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @util.class_method_variant("_cls_delete_discount")
     def delete_discount(self, idempotency_key=None, **params):
-        return self._request("delete", "/v1/customers/{customer}/discount".format(customer=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+        return self._request(
+            "delete",
+            "/v1/customers/{customer}/discount".format(
+                customer=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     @classmethod
     def _cls_list_payment_methods(
@@ -82,11 +115,27 @@ class Customer(
         stripe_account=None,
         **params
     ):
-        return cls._static_request("get", "/v1/customers/{customer}/payment_methods".format(customer=util.sanitize_id(customer)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "get",
+            "/v1/customers/{customer}/payment_methods".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @util.class_method_variant("_cls_list_payment_methods")
     def list_payment_methods(self, idempotency_key=None, **params):
-        return self._request("get", "/v1/customers/{customer}/payment_methods".format(customer=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+        return self._request(
+            "get",
+            "/v1/customers/{customer}/payment_methods".format(
+                customer=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     @classmethod
     def _cls_retrieve_payment_method(
@@ -98,27 +147,39 @@ class Customer(
         stripe_account=None,
         **params
     ):
-        return cls._static_request("get", "/v1/customers/{customer}/payment_methods/{payment_method}".format(customer=util.sanitize_id(customer), payment_method=util.sanitize_id(payment_method)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "get",
+            "/v1/customers/{customer}/payment_methods/{payment_method}".format(
+                customer=util.sanitize_id(customer),
+                payment_method=util.sanitize_id(payment_method),
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @util.class_method_variant("_cls_retrieve_payment_method")
     def retrieve_payment_method(
-        self,
-        payment_method,
-        idempotency_key=None,
-        **params
+        self, payment_method, idempotency_key=None, **params
     ):
-        return self._request("get", "/v1/customers/{customer}/payment_methods/{payment_method}".format(customer=util.sanitize_id(self.get("id")), payment_method=util.sanitize_id(payment_method)), idempotency_key=idempotency_key, params=params)
+        return self._request(
+            "get",
+            "/v1/customers/{customer}/payment_methods/{payment_method}".format(
+                customer=util.sanitize_id(self.get("id")),
+                payment_method=util.sanitize_id(payment_method),
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     @classmethod
     def search(cls, *args, **kwargs):
-        return cls._search( search_url="/v1/customers/search", *args, **kwargs)
-
+        return cls._search(search_url="/v1/customers/search", *args, **kwargs)
 
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
-
-
 
     @classmethod
     def retrieve_cash_balance(
@@ -129,7 +190,16 @@ class Customer(
         stripe_account=None,
         **params
     ):
-        return cls._static_request("get", "/v1/customers/{customer}/cash_balance".format(customer=util.sanitize_id(customer)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "get",
+            "/v1/customers/{customer}/cash_balance".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @classmethod
     def modify_cash_balance(
@@ -140,8 +210,16 @@ class Customer(
         stripe_account=None,
         **params
     ):
-        return cls._static_request("post", "/v1/customers/{customer}/cash_balance".format(customer=util.sanitize_id(customer)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
-
+        return cls._static_request(
+            "post",
+            "/v1/customers/{customer}/cash_balance".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     class TestHelpers(APIResourceTestHelpers):
         @classmethod
@@ -153,9 +231,24 @@ class Customer(
             stripe_account=None,
             **params
         ):
-            return cls._static_request("post", "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(customer=util.sanitize_id(customer)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
+                    customer=util.sanitize_id(customer)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
 
         @util.class_method_variant("_cls_fund_cash_balance")
         def fund_cash_balance(self, idempotency_key=None, **params):
-            return self.resource._request("post", "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(customer=util.sanitize_id(self.resource.get("id"))), idempotency_key=idempotency_key, params=params)
-
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
+                    customer=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )

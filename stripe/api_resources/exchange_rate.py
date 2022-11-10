@@ -20,4 +20,3 @@ class ExchangeRate(ListableAPIResource):
     """
 
     OBJECT_NAME = "exchange_rate"
-

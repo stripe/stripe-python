@@ -20,4 +20,3 @@ class VerificationReport(ListableAPIResource):
     """
 
     OBJECT_NAME = "identity.verification_report"
-

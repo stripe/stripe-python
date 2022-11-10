@@ -41,4 +41,3 @@ class ApplicationFeeRefund(UpdateableAPIResource):
             "Can't retrieve a refund without an application fee ID. "
             "Use application_fee.refunds.retrieve('refund_id') instead."
         )
-

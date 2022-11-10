@@ -27,12 +27,11 @@ class Product(
     """
 
     OBJECT_NAME = "product"
+
     @classmethod
     def search(cls, *args, **kwargs):
-        return cls._search( search_url="/v1/products/search", *args, **kwargs)
-
+        return cls._search(search_url="/v1/products/search", *args, **kwargs)
 
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
-

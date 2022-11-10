@@ -40,4 +40,3 @@ class Person(UpdateableAPIResource):
             "Can't retrieve a person without an account"
             "ID. Use account.persons.retrieve('person_id')"
         )
-

@@ -10,7 +10,9 @@ from stripe.api_resources.abstract import test_helpers
 
 
 @test_helpers
-class Refund(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+class Refund(
+    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
+):
     """
     `Refund` objects allow you to refund a charge that has previously been created
     but not yet refunded. Funds will be refunded to the credit or debit card that
@@ -24,6 +26,7 @@ class Refund(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     """
 
     OBJECT_NAME = "refund"
+
     @classmethod
     def _cls_cancel(
         cls,
@@ -33,12 +36,27 @@ class Refund(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request("post", "/v1/refunds/{refund}/cancel".format(refund=util.sanitize_id(refund)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "post",
+            "/v1/refunds/{refund}/cancel".format(
+                refund=util.sanitize_id(refund)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @util.class_method_variant("_cls_cancel")
     def cancel(self, idempotency_key=None, **params):
-        return self._request("post", "/v1/refunds/{refund}/cancel".format(refund=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
-
+        return self._request(
+            "post",
+            "/v1/refunds/{refund}/cancel".format(
+                refund=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     class TestHelpers(APIResourceTestHelpers):
         @classmethod
@@ -50,9 +68,24 @@ class Refund(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
             stripe_account=None,
             **params
         ):
-            return cls._static_request("post", "/v1/test_helpers/refunds/{refund}/expire".format(refund=util.sanitize_id(refund)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/refunds/{refund}/expire".format(
+                    refund=util.sanitize_id(refund)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
 
         @util.class_method_variant("_cls_expire")
         def expire(self, idempotency_key=None, **params):
-            return self.resource._request("post", "/v1/test_helpers/refunds/{refund}/expire".format(refund=util.sanitize_id(self.resource.get("id"))), idempotency_key=idempotency_key, params=params)
-
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/refunds/{refund}/expire".format(
+                    refund=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )

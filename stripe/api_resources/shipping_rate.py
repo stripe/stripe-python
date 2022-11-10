@@ -18,4 +18,3 @@ class ShippingRate(
     """
 
     OBJECT_NAME = "shipping_rate"
-

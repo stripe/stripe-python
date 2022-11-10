@@ -20,4 +20,3 @@ class ValueList(
     """
 
     OBJECT_NAME = "radar.value_list"
-
