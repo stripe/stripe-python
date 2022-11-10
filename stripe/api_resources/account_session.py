@@ -16,3 +16,4 @@ class AccountSession(CreateableAPIResource):
     """
 
     OBJECT_NAME = "account_session"
+

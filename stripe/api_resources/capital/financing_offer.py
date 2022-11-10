@@ -12,7 +12,6 @@ class FinancingOffer(ListableAPIResource):
     """
 
     OBJECT_NAME = "capital.financing_offer"
-
     @classmethod
     def _cls_mark_delivered(
         cls,
@@ -22,24 +21,9 @@ class FinancingOffer(ListableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
-                financing_offer=util.sanitize_id(financing_offer)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(financing_offer=util.sanitize_id(financing_offer)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_mark_delivered")
     def mark_delivered(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
-                financing_offer=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(financing_offer=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+

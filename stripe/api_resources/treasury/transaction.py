@@ -10,3 +10,4 @@ class Transaction(ListableAPIResource):
     """
 
     OBJECT_NAME = "treasury.transaction"
+
