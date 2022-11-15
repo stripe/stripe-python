@@ -3,4 +3,4 @@
 
 
 class _ApiVersion:
-    CURRENT = "2022-11-09"
+    CURRENT = "2022-11-15"
