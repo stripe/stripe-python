@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
@@ -17,10 +18,6 @@ class Refund(
     `Refund` objects allow you to refund a charge that has previously been created
     but not yet refunded. Funds will be refunded to the credit or debit card that
     was originally charged.
-
-    Stripe Tax users with recurring payments and invoices can create [Credit Notes](https://stripe.com/docs/api/credit_notes),
-    which reduce overall tax liability because tax is correctly recalculated and
-    apportioned to the related invoice.
 
     Related guide: [Refunds](https://stripe.com/docs/refunds).
     """

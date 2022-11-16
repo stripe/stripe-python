@@ -1773,32 +1773,6 @@ class TestGeneratedExamples(object):
             "/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx",
         )
 
-    def test_sku_list(self, request_mock):
-        stripe.SKU.list(limit=3)
-        request_mock.assert_requested("get", "/v1/skus")
-
-    def test_sku_create(self, request_mock):
-        stripe.SKU.create(
-            attributes={"size": "Medium", "gender": "Unisex"},
-            price=1500,
-            currency="usd",
-            inventory={"type": "finite", "quantity": 500},
-            product="prod_xxxxxxxxxxxxx",
-        )
-        request_mock.assert_requested("post", "/v1/skus")
-
-    def test_sku_delete(self, request_mock):
-        stripe.SKU.delete("sku_xxxxxxxxxxxxx")
-        request_mock.assert_requested("delete", "/v1/skus/sku_xxxxxxxxxxxxx")
-
-    def test_sku_retrieve(self, request_mock):
-        stripe.SKU.retrieve("sku_xxxxxxxxxxxxx")
-        request_mock.assert_requested("get", "/v1/skus/sku_xxxxxxxxxxxxx")
-
-    def test_sku_update(self, request_mock):
-        stripe.SKU.modify("sku_xxxxxxxxxxxxx", metadata={"order_id": "6735"})
-        request_mock.assert_requested("post", "/v1/skus/sku_xxxxxxxxxxxxx")
-
     def test_source_retrieve(self, request_mock):
         stripe.Source.retrieve("src_xxxxxxxxxxxxx")
         request_mock.assert_requested("get", "/v1/sources/src_xxxxxxxxxxxxx")

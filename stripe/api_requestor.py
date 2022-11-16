@@ -232,9 +232,9 @@ class APIRequestor(object):
         elif error_code == "invalid_scope":
             return oauth_error.InvalidScopeError(*args)
         elif error_code == "unsupported_grant_type":
-            return oauth_error.UnsupportedGrantTypError(*args)
+            return oauth_error.UnsupportedGrantTypeError(*args)
         elif error_code == "unsupported_response_type":
-            return oauth_error.UnsupportedResponseTypError(*args)
+            return oauth_error.UnsupportedResponseTypeError(*args)
 
         return None
 
