@@ -237,8 +237,8 @@ def merge_dicts(x, y):
 
 def sanitize_id(id):
     utf8id = utf8(id)
-    quotedId = quote_plus(utf8id)
-    return quotedId
+    quoted_id = quote_plus(utf8id)
+    return quoted_id
 
 
 class class_method_variant(object):
