@@ -14,7 +14,7 @@ Breaking changes that arose during code generation of the library that we postpo
 
 ### ⚠️ Changed
 - Dropped support for Python version 3.4 and 3.5 (#881). We now support Python 2.7 or 3.6+.
-- Fixed mixtyped names for two OAuth exceptions: `UnsupportedGrantTypError`->`UnsupportedGrantTypeError` and `UnsupportedResponseTypError`->`UnsupportedResponseTypeError` (#872).
+- Fixed mistyped names for two OAuth exceptions: `UnsupportedGrantTypError`->`UnsupportedGrantTypeError` and `UnsupportedResponseTypError`->`UnsupportedResponseTypeError` (#872).
 
 ### Deprecated
 - Deprecate `save` method on resources (#887). Use `modify` instead.
