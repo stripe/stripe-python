@@ -61,6 +61,7 @@ from stripe.api_resources.invoice_line_item import InvoiceLineItem
 from stripe.api_resources.line_item import LineItem
 from stripe.api_resources.login_link import LoginLink
 from stripe.api_resources.mandate import Mandate
+from stripe.api_resources.order import Order
 from stripe.api_resources.payment_intent import PaymentIntent
 from stripe.api_resources.payment_link import PaymentLink
 from stripe.api_resources.payment_method import PaymentMethod
