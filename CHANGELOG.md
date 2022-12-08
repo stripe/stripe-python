@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.0b1 - 2022-12-08
+* [#902](https://github.com/stripe/stripe-python/pull/902) API Updates for beta branch
+  * Updated stable APIs to the latest version
+* [#898](https://github.com/stripe/stripe-python/pull/898) API Updates for beta branch
+  * Updated stable APIs to the latest version
+
 ## 5.0.0 - 2022-11-16
 
 Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-11-15.
