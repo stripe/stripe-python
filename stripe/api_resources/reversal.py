@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
@@ -37,13 +38,15 @@ class Reversal(UpdateableAPIResource):
     @classmethod
     def modify(cls, sid, **params):
         raise NotImplementedError(
-            "Can't modify a reversal without a transfer"
-            "ID. Call save on transfer.reversals.retrieve('reversal_id')"
+            "Can't modify a reversal without a transfer ID. "
+            "Use stripe.Transfer.modify_reversal('transfer_id', 'reversal_id', ...) "
+            "(see https://stripe.com/docs/api/transfer_reversals/update)."
         )
 
     @classmethod
     def retrieve(cls, id, api_key=None, **params):
         raise NotImplementedError(
-            "Can't retrieve a reversal without a transfer"
-            "ID. Use transfer.reversals.retrieve('reversal_id')"
+            "Can't retrieve a reversal without a transfer ID. "
+            "Use stripe.Transfer.retrieve_reversal('transfer_id', 'reversal_id') "
+            "(see https://stripe.com/docs/api/transfer_reversals/retrieve)."
         )
