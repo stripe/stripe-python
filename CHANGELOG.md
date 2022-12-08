@@ -1,5 +1,17 @@
 # Changelog
 
+## 5.0.0 - 2022-11-16
+
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-11-15.
+
+"⚠️" symbol highlights breaking changes.
+
+* [#895](https://github.com/stripe/stripe-python/pull/895) Next major release changes
+* [#889](https://github.com/stripe/stripe-python/pull/889) API Updates
+
+* [#888](https://github.com/stripe/stripe-python/pull/888) Do not run Coveralls if secret token is not available
+* [#875](https://github.com/stripe/stripe-python/pull/875) hide misleading ssl security warning in python>=2.7.9
+
 ## 4.3.0b3 - 2022-11-02
 * [#890](https://github.com/stripe/stripe-python/pull/890) API Updates for beta branch
   * Updated beta APIs to the latest stable version

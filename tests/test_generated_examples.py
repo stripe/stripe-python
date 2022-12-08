@@ -158,42 +158,6 @@ class TestGeneratedExamples(object):
         stripe.Invoice.upcoming(customer="cus_9utnxg47pWjV1e")
         request_mock.assert_requested("get", "/v1/invoices/upcoming")
 
-    def test_order_create(self, request_mock):
-        stripe.Order.create(
-            description="description",
-            currency="usd",
-            line_items=[{"description": "my line item"}],
-        )
-        request_mock.assert_requested("post", "/v1/orders")
-
-    def test_order_retrieve(self, request_mock):
-        stripe.Order.retrieve("order_xyz")
-        request_mock.assert_requested("get", "/v1/orders/order_xyz")
-
-    def test_order_update(self, request_mock):
-        stripe.Order.modify(
-            "order_xyz",
-            metadata={"reference_number": "123"},
-            ip_address="0.0.0.0",
-        )
-        request_mock.assert_requested("post", "/v1/orders/order_xyz")
-
-    def test_order_cancel(self, request_mock):
-        stripe.Order.cancel("order_xyz")
-        request_mock.assert_requested("post", "/v1/orders/order_xyz/cancel")
-
-    def test_order_list_line_items(self, request_mock):
-        stripe.Order.list_line_items("order_xyz")
-        request_mock.assert_requested("get", "/v1/orders/order_xyz/line_items")
-
-    def test_order_reopen(self, request_mock):
-        stripe.Order.reopen("order_xyz")
-        request_mock.assert_requested("post", "/v1/orders/order_xyz/reopen")
-
-    def test_order_submit(self, request_mock):
-        stripe.Order.submit("order_xyz", expected_total=100)
-        request_mock.assert_requested("post", "/v1/orders/order_xyz/submit")
-
     def test_paymentintent_create(self, request_mock):
         stripe.PaymentIntent.create(
             amount=1099,
@@ -1256,10 +1220,6 @@ class TestGeneratedExamples(object):
             "get", "/v1/mandates/mandate_xxxxxxxxxxxxx"
         )
 
-    def test_order_list(self, request_mock):
-        stripe.Order.list(limit=3)
-        request_mock.assert_requested("get", "/v1/orders")
-
     def test_paymentintent_list(self, request_mock):
         stripe.PaymentIntent.list(limit=3)
         request_mock.assert_requested("get", "/v1/payment_intents")
@@ -1812,32 +1772,6 @@ class TestGeneratedExamples(object):
             "get",
             "/v1/sigma/scheduled_query_runs/sqr_xxxxxxxxxxxxx",
         )
-
-    def test_sku_list(self, request_mock):
-        stripe.SKU.list(limit=3)
-        request_mock.assert_requested("get", "/v1/skus")
-
-    def test_sku_create(self, request_mock):
-        stripe.SKU.create(
-            attributes={"size": "Medium", "gender": "Unisex"},
-            price=1500,
-            currency="usd",
-            inventory={"type": "finite", "quantity": 500},
-            product="prod_xxxxxxxxxxxxx",
-        )
-        request_mock.assert_requested("post", "/v1/skus")
-
-    def test_sku_delete(self, request_mock):
-        stripe.SKU.delete("sku_xxxxxxxxxxxxx")
-        request_mock.assert_requested("delete", "/v1/skus/sku_xxxxxxxxxxxxx")
-
-    def test_sku_retrieve(self, request_mock):
-        stripe.SKU.retrieve("sku_xxxxxxxxxxxxx")
-        request_mock.assert_requested("get", "/v1/skus/sku_xxxxxxxxxxxxx")
-
-    def test_sku_update(self, request_mock):
-        stripe.SKU.modify("sku_xxxxxxxxxxxxx", metadata={"order_id": "6735"})
-        request_mock.assert_requested("post", "/v1/skus/sku_xxxxxxxxxxxxx")
 
     def test_source_retrieve(self, request_mock):
         stripe.Source.retrieve("src_xxxxxxxxxxxxx")
