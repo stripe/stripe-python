@@ -11,3 +11,4 @@ class TaxCode(ListableAPIResource):
     """
 
     OBJECT_NAME = "tax_code"
+
