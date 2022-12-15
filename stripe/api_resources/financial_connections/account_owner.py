@@ -7,4 +7,3 @@ from stripe.stripe_object import StripeObject
 
 class AccountOwner(StripeObject):
     OBJECT_NAME = "financial_connections.account_owner"
-

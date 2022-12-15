@@ -20,23 +20,29 @@ class Secret(CreateableAPIResource, ListableAPIResource):
     """
 
     OBJECT_NAME = "apps.secret"
+
     @classmethod
     def delete_where(
-        cls,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
     ):
-        return cls._static_request("post", "/v1/apps/secrets/delete", api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "post",
+            "/v1/apps/secrets/delete",
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @classmethod
     def find(
-        cls,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
     ):
-        return cls._static_request("get", "/v1/apps/secrets/find", api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
-
+        return cls._static_request(
+            "get",
+            "/v1/apps/secrets/find",
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
