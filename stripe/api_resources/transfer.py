@@ -31,4 +31,3 @@ class Transfer(
     """
 
     OBJECT_NAME = "transfer"
-

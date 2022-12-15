@@ -43,4 +43,3 @@ class Person(UpdateableAPIResource):
             "Use stripe.Account.retrieve_person('account_id', 'person_id') "
             "(see https://stripe.com/docs/api/persons/retrieve)."
         )
-
