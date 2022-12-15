@@ -78,6 +78,35 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         )
 
     @classmethod
+    def _cls_draft_quote(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/quotes/{quote}/draft".format(quote=util.sanitize_id(quote)),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_draft_quote")
+    def draft_quote(self, idempotency_key=None, **params):
+        return self._request(
+            "post",
+            "/v1/quotes/{quote}/draft".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
     def _cls_finalize_quote(
         cls,
         quote,
@@ -164,6 +193,159 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         return self._request(
             "get",
             "/v1/quotes/{quote}/line_items".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def _cls_list_lines(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/quotes/{quote}/lines".format(quote=util.sanitize_id(quote)),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_list_lines")
+    def list_lines(self, idempotency_key=None, **params):
+        return self._request(
+            "get",
+            "/v1/quotes/{quote}/lines".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def _cls_preview_invoice_lines(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/quotes/{quote}/preview_invoice_lines".format(
+                quote=util.sanitize_id(quote)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_preview_invoice_lines")
+    def preview_invoice_lines(self, idempotency_key=None, **params):
+        return self._request(
+            "get",
+            "/v1/quotes/{quote}/preview_invoice_lines".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def _cls_preview_invoices(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/quotes/{quote}/preview_invoices".format(
+                quote=util.sanitize_id(quote)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_preview_invoices")
+    def preview_invoices(self, idempotency_key=None, **params):
+        return self._request(
+            "get",
+            "/v1/quotes/{quote}/preview_invoices".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def _cls_preview_subscription_schedules(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/quotes/{quote}/preview_subscription_schedules".format(
+                quote=util.sanitize_id(quote)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_preview_subscription_schedules")
+    def preview_subscription_schedules(self, idempotency_key=None, **params):
+        return self._request(
+            "get",
+            "/v1/quotes/{quote}/preview_subscription_schedules".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def _cls_reestimate(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/quotes/{quote}/reestimate".format(
+                quote=util.sanitize_id(quote)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_reestimate")
+    def reestimate(self, idempotency_key=None, **params):
+        return self._request(
+            "post",
+            "/v1/quotes/{quote}/reestimate".format(
                 quote=util.sanitize_id(self.get("id"))
             ),
             idempotency_key=idempotency_key,
