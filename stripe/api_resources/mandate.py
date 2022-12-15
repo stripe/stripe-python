@@ -11,3 +11,4 @@ class Mandate(APIResource):
     """
 
     OBJECT_NAME = "mandate"
+

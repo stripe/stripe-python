@@ -19,7 +19,6 @@ class Dispute(ListableAPIResource, UpdateableAPIResource):
     """
 
     OBJECT_NAME = "dispute"
-
     @classmethod
     def _cls_close(
         cls,
@@ -29,24 +28,9 @@ class Dispute(ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/disputes/{dispute}/close".format(
-                dispute=util.sanitize_id(dispute)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/disputes/{dispute}/close".format(dispute=util.sanitize_id(dispute)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_close")
     def close(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/disputes/{dispute}/close".format(
-                dispute=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/disputes/{dispute}/close".format(dispute=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+
