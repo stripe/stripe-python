@@ -15,3 +15,4 @@ class TransactionEntry(ListableAPIResource):
     @classmethod
     def class_url(cls):
         return "/v1/treasury/transaction_entries"
+
