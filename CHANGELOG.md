@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.1.0b2 - 2022-12-15
+* [#906](https://github.com/stripe/stripe-python/pull/906) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add support for new resources `QuoteLine`, `TaxCalculation`, and `TaxTransaction`
+  * Add support for `create` and `list_line_items` methods on resource `TaxCalculation`
+  * Add support for `create_reversal`, `create`, and `retrieve` methods on resource `TaxTransaction`
+
 ## 5.1.0b1 - 2022-12-08
 * [#902](https://github.com/stripe/stripe-python/pull/902) API Updates for beta branch
   * Updated stable APIs to the latest version
