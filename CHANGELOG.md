@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.1.0b3 - 2022-12-22
+* [#910](https://github.com/stripe/stripe-python/pull/910) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Move `stripe.TaxCalculation` and `stripe.TaxTranscation` to `stripe.tax.Calculation` and `stripe.tax.Transaction`.
+
 ## 5.1.0b2 - 2022-12-15
 * [#906](https://github.com/stripe/stripe-python/pull/906) API Updates for beta branch
   * Updated stable APIs to the latest version
