@@ -6,7 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 
 
-class TaxCalculation(CreateableAPIResource):
+class Calculation(CreateableAPIResource):
     """
     A Tax `Calculation` allows you to calculate the tax to collect from your customer.
     """

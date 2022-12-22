@@ -19,6 +19,7 @@ from stripe.api_resources import issuing
 from stripe.api_resources import radar
 from stripe.api_resources import reporting
 from stripe.api_resources import sigma
+from stripe.api_resources import tax
 from stripe.api_resources import terminal
 from stripe.api_resources import test_helpers
 from stripe.api_resources import treasury
@@ -84,11 +85,9 @@ from stripe.api_resources.source_transaction import SourceTransaction
 from stripe.api_resources.subscription import Subscription
 from stripe.api_resources.subscription_item import SubscriptionItem
 from stripe.api_resources.subscription_schedule import SubscriptionSchedule
-from stripe.api_resources.tax_calculation import TaxCalculation
 from stripe.api_resources.tax_code import TaxCode
 from stripe.api_resources.tax_id import TaxId
 from stripe.api_resources.tax_rate import TaxRate
-from stripe.api_resources.tax_transaction import TaxTransaction
 from stripe.api_resources.token import Token
 from stripe.api_resources.topup import Topup
 from stripe.api_resources.transfer import Transfer

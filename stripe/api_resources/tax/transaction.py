@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 
 
-class TaxTransaction(CreateableAPIResource):
+class Transaction(CreateableAPIResource):
     """
     A Tax `Transaction` records the tax collected from or refunded to your customer.
     """
