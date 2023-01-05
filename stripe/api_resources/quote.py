@@ -229,6 +229,37 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         )
 
     @classmethod
+    def _cls_mark_stale_quote(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/quotes/{quote}/mark_stale".format(
+                quote=util.sanitize_id(quote)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_mark_stale_quote")
+    def mark_stale_quote(self, idempotency_key=None, **params):
+        return self._request(
+            "post",
+            "/v1/quotes/{quote}/mark_stale".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
     def _cls_preview_invoice_lines(
         cls,
         quote,
