@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.1.0b4 - 2023-01-05
+* [#912](https://github.com/stripe/stripe-python/pull/912) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add support for `mark_stale_quote` method on resource `Quote`
+
 ## 5.1.0b3 - 2022-12-22
 * [#910](https://github.com/stripe/stripe-python/pull/910) API Updates for beta branch
   * Updated stable APIs to the latest version
