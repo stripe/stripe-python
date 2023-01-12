@@ -88,7 +88,9 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     ):
         return cls._static_request(
             "post",
-            "/v1/quotes/{quote}/draft".format(quote=util.sanitize_id(quote)),
+            "/v1/quotes/{quote}/mark_draft".format(
+                quote=util.sanitize_id(quote)
+            ),
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
@@ -99,7 +101,7 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     def draft_quote(self, idempotency_key=None, **params):
         return self._request(
             "post",
-            "/v1/quotes/{quote}/draft".format(
+            "/v1/quotes/{quote}/mark_draft".format(
                 quote=util.sanitize_id(self.get("id"))
             ),
             idempotency_key=idempotency_key,
