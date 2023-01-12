@@ -17,3 +17,4 @@ class Configuration(
     """
 
     OBJECT_NAME = "billing_portal.configuration"
+

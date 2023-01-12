@@ -25,7 +25,6 @@ class Source(CreateableAPIResource, UpdateableAPIResource):
     """
 
     OBJECT_NAME = "source"
-
     @classmethod
     def _cls_list_source_transactions(
         cls,
@@ -35,27 +34,11 @@ class Source(CreateableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "get",
-            "/v1/sources/{source}/source_transactions".format(
-                source=util.sanitize_id(source)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("get", "/v1/sources/{source}/source_transactions".format(source=util.sanitize_id(source)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_list_source_transactions")
     def list_source_transactions(self, idempotency_key=None, **params):
-        return self._request(
-            "get",
-            "/v1/sources/{source}/source_transactions".format(
-                source=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("get", "/v1/sources/{source}/source_transactions".format(source=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_verify(
@@ -66,27 +49,12 @@ class Source(CreateableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/sources/{source}/verify".format(
-                source=util.sanitize_id(source)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/sources/{source}/verify".format(source=util.sanitize_id(source)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_verify")
     def verify(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/sources/{source}/verify".format(
-                source=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/sources/{source}/verify".format(source=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+
 
     def detach(self, idempotency_key=None, **params):
         token = util.utf8(self.id)
@@ -108,3 +76,4 @@ class Source(CreateableAPIResource, UpdateableAPIResource):
                 "to a customer object." % token,
                 "id",
             )
+

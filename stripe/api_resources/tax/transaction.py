@@ -11,16 +11,13 @@ class Transaction(CreateableAPIResource):
     """
 
     OBJECT_NAME = "tax.transaction"
-
     @classmethod
     def create_reversal(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/tax/transactions/create_reversal",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/tax/transactions/create_reversal", api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+

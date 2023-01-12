@@ -18,7 +18,6 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     """
 
     OBJECT_NAME = "quote"
-
     @classmethod
     def _cls_accept(
         cls,
@@ -28,25 +27,11 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/accept".format(quote=util.sanitize_id(quote)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/quotes/{quote}/accept".format(quote=util.sanitize_id(quote)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_accept")
     def accept(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/accept".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/quotes/{quote}/accept".format(quote=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_cancel(
@@ -57,25 +42,11 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/cancel".format(quote=util.sanitize_id(quote)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/quotes/{quote}/cancel".format(quote=util.sanitize_id(quote)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_cancel")
     def cancel(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/cancel".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/quotes/{quote}/cancel".format(quote=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_draft_quote(
@@ -86,25 +57,11 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/draft".format(quote=util.sanitize_id(quote)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/quotes/{quote}/mark_draft".format(quote=util.sanitize_id(quote)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_draft_quote")
     def draft_quote(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/draft".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/quotes/{quote}/mark_draft".format(quote=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_finalize_quote(
@@ -115,27 +72,11 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/finalize".format(
-                quote=util.sanitize_id(quote)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/quotes/{quote}/finalize".format(quote=util.sanitize_id(quote)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_finalize_quote")
     def finalize_quote(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/finalize".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/quotes/{quote}/finalize".format(quote=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_list_computed_upfront_line_items(
@@ -146,27 +87,11 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                quote=util.sanitize_id(quote)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("get", "/v1/quotes/{quote}/computed_upfront_line_items".format(quote=util.sanitize_id(quote)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_list_computed_upfront_line_items")
     def list_computed_upfront_line_items(self, idempotency_key=None, **params):
-        return self._request(
-            "get",
-            "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("get", "/v1/quotes/{quote}/computed_upfront_line_items".format(quote=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_list_line_items(
@@ -177,27 +102,11 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/line_items".format(
-                quote=util.sanitize_id(quote)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("get", "/v1/quotes/{quote}/line_items".format(quote=util.sanitize_id(quote)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_list_line_items")
     def list_line_items(self, idempotency_key=None, **params):
-        return self._request(
-            "get",
-            "/v1/quotes/{quote}/line_items".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("get", "/v1/quotes/{quote}/line_items".format(quote=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_list_lines(
@@ -208,25 +117,11 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/lines".format(quote=util.sanitize_id(quote)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("get", "/v1/quotes/{quote}/lines".format(quote=util.sanitize_id(quote)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_list_lines")
     def list_lines(self, idempotency_key=None, **params):
-        return self._request(
-            "get",
-            "/v1/quotes/{quote}/lines".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("get", "/v1/quotes/{quote}/lines".format(quote=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_mark_stale_quote(
@@ -237,27 +132,11 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/mark_stale".format(
-                quote=util.sanitize_id(quote)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/quotes/{quote}/mark_stale".format(quote=util.sanitize_id(quote)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_mark_stale_quote")
     def mark_stale_quote(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/mark_stale".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/quotes/{quote}/mark_stale".format(quote=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_preview_invoice_lines(
@@ -268,27 +147,11 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/preview_invoice_lines".format(
-                quote=util.sanitize_id(quote)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("get", "/v1/quotes/{quote}/preview_invoice_lines".format(quote=util.sanitize_id(quote)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_preview_invoice_lines")
     def preview_invoice_lines(self, idempotency_key=None, **params):
-        return self._request(
-            "get",
-            "/v1/quotes/{quote}/preview_invoice_lines".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("get", "/v1/quotes/{quote}/preview_invoice_lines".format(quote=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_preview_invoices(
@@ -299,27 +162,11 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/preview_invoices".format(
-                quote=util.sanitize_id(quote)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("get", "/v1/quotes/{quote}/preview_invoices".format(quote=util.sanitize_id(quote)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_preview_invoices")
     def preview_invoices(self, idempotency_key=None, **params):
-        return self._request(
-            "get",
-            "/v1/quotes/{quote}/preview_invoices".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("get", "/v1/quotes/{quote}/preview_invoices".format(quote=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_preview_subscription_schedules(
@@ -330,27 +177,11 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/preview_subscription_schedules".format(
-                quote=util.sanitize_id(quote)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("get", "/v1/quotes/{quote}/preview_subscription_schedules".format(quote=util.sanitize_id(quote)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_preview_subscription_schedules")
     def preview_subscription_schedules(self, idempotency_key=None, **params):
-        return self._request(
-            "get",
-            "/v1/quotes/{quote}/preview_subscription_schedules".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("get", "/v1/quotes/{quote}/preview_subscription_schedules".format(quote=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_reestimate(
@@ -361,52 +192,37 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/reestimate".format(
-                quote=util.sanitize_id(quote)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/quotes/{quote}/reestimate".format(quote=util.sanitize_id(quote)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_reestimate")
     def reestimate(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/reestimate".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/quotes/{quote}/reestimate".format(quote=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+
 
     @classmethod
     def _cls_pdf(
-        cls,
-        sid,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+      cls,
+      sid,
+      api_key=None,
+      idempotency_key=None,
+      stripe_version=None,
+      stripe_account=None,
+      **params
     ):
-        url = "%s/%s/%s" % (
-            cls.class_url(),
-            quote_plus(util.utf8(sid)),
-            "pdf",
-        )
-        requestor = api_requestor.APIRequestor(
-            api_key,
-            api_base=stripe.upload_api_base,
-            api_version=stripe_version,
-            account=stripe_account,
-        )
-        headers = util.populate_headers(idempotency_key)
-        response, _ = requestor.request_stream("get", url, params, headers)
-        return response
+      url = "%s/%s/%s" % (
+          cls.class_url(),
+          quote_plus(util.utf8(sid)),
+          "pdf",
+      )
+      requestor = api_requestor.APIRequestor(
+          api_key,
+          api_base=stripe.upload_api_base,
+          api_version=stripe_version,
+          account=stripe_account,
+      )
+      headers = util.populate_headers(idempotency_key)
+      response, _ = requestor.request_stream("get", url, params, headers)
+      return response
 
     @util.class_method_variant("_cls_pdf")
     def pdf(
@@ -426,3 +242,4 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         )
         url = self.instance_url() + "/pdf"
         return requestor.request_stream("get", url, params=params)
+
