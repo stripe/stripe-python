@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.1.0b5 - 2023-01-12
+* [#914](https://github.com/stripe/stripe-python/pull/914) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Change `quote.draft_quote` implementation to from calling `POST /v1/quotes/{quote}/draft` to `POST /v1/quotes/{quote}/mark_draft`
+  * Add support for `tax.Registration` resource
+
 ## 5.1.0b4 - 2023-01-05
 * [#912](https://github.com/stripe/stripe-python/pull/912) API Updates for beta branch
   * Updated stable APIs to the latest version
