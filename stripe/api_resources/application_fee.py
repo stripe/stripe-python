@@ -13,6 +13,7 @@ from stripe.api_resources.abstract import nested_resource_class_methods
 )
 class ApplicationFee(ListableAPIResource):
     OBJECT_NAME = "application_fee"
+
     @classmethod
     def _cls_refund(
         cls,
@@ -22,9 +23,24 @@ class ApplicationFee(ListableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request("post", "/v1/application_fees/{id}/refunds".format(id=util.sanitize_id(id)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "post",
+            "/v1/application_fees/{id}/refunds".format(
+                id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @util.class_method_variant("_cls_refund")
     def refund(self, idempotency_key=None, **params):
-        return self._request("post", "/v1/application_fees/{id}/refunds".format(id=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
-
+        return self._request(
+            "post",
+            "/v1/application_fees/{id}/refunds".format(
+                id=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )

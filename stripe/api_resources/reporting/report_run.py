@@ -19,4 +19,3 @@ class ReportRun(CreateableAPIResource, ListableAPIResource):
     """
 
     OBJECT_NAME = "reporting.report_run"
-

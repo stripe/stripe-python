@@ -39,6 +39,7 @@ class SetupIntent(
     """
 
     OBJECT_NAME = "setup_intent"
+
     @classmethod
     def _cls_cancel(
         cls,
@@ -48,11 +49,27 @@ class SetupIntent(
         stripe_account=None,
         **params
     ):
-        return cls._static_request("post", "/v1/setup_intents/{intent}/cancel".format(intent=util.sanitize_id(intent)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "post",
+            "/v1/setup_intents/{intent}/cancel".format(
+                intent=util.sanitize_id(intent)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @util.class_method_variant("_cls_cancel")
     def cancel(self, idempotency_key=None, **params):
-        return self._request("post", "/v1/setup_intents/{intent}/cancel".format(intent=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+        return self._request(
+            "post",
+            "/v1/setup_intents/{intent}/cancel".format(
+                intent=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     @classmethod
     def _cls_confirm(
@@ -63,11 +80,27 @@ class SetupIntent(
         stripe_account=None,
         **params
     ):
-        return cls._static_request("post", "/v1/setup_intents/{intent}/confirm".format(intent=util.sanitize_id(intent)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "post",
+            "/v1/setup_intents/{intent}/confirm".format(
+                intent=util.sanitize_id(intent)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @util.class_method_variant("_cls_confirm")
     def confirm(self, idempotency_key=None, **params):
-        return self._request("post", "/v1/setup_intents/{intent}/confirm".format(intent=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+        return self._request(
+            "post",
+            "/v1/setup_intents/{intent}/confirm".format(
+                intent=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     @classmethod
     def _cls_verify_microdeposits(
@@ -78,9 +111,24 @@ class SetupIntent(
         stripe_account=None,
         **params
     ):
-        return cls._static_request("post", "/v1/setup_intents/{intent}/verify_microdeposits".format(intent=util.sanitize_id(intent)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "post",
+            "/v1/setup_intents/{intent}/verify_microdeposits".format(
+                intent=util.sanitize_id(intent)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @util.class_method_variant("_cls_verify_microdeposits")
     def verify_microdeposits(self, idempotency_key=None, **params):
-        return self._request("post", "/v1/setup_intents/{intent}/verify_microdeposits".format(intent=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
-
+        return self._request(
+            "post",
+            "/v1/setup_intents/{intent}/verify_microdeposits".format(
+                intent=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )

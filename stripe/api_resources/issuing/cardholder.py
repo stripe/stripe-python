@@ -19,4 +19,3 @@ class Cardholder(
     """
 
     OBJECT_NAME = "issuing.cardholder"
-
