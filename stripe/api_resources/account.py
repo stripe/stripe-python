@@ -14,13 +14,13 @@ from stripe.six.moves.urllib.parse import quote_plus
 
 
 @nested_resource_class_methods(
+    "external_account",
+    operations=["create", "retrieve", "update", "delete", "list"],
+)
+@nested_resource_class_methods(
     "capability",
     operations=["retrieve", "update", "list"],
     resource_plural="capabilities",
-)
-@nested_resource_class_methods(
-    "external_account",
-    operations=["create", "retrieve", "update", "delete", "list"],
 )
 @nested_resource_class_methods("login_link", operations=["create"])
 @nested_resource_class_methods(
