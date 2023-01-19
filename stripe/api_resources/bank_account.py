@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
@@ -54,8 +55,10 @@ class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
     def modify(cls, sid, **params):
         raise NotImplementedError(
             "Can't modify a bank account without a customer or account ID. "
-            "Call save on customer.sources.retrieve('bank_account_id') or "
-            "account.external_accounts.retrieve('bank_account_id') instead."
+            "Use stripe.Customer.modify_source('customer_id', 'bank_account_id', ...) "
+            "(see https://stripe.com/docs/api/customer_bank_accounts/update) or "
+            "stripe.Account.modify_external_account('customer_id', 'bank_account_id', ...) "
+            "(see https://stripe.com/docs/api/external_account_bank_accounts/update)."
         )
 
     @classmethod
@@ -69,6 +72,8 @@ class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
     ):
         raise NotImplementedError(
             "Can't retrieve a bank account without a customer or account ID. "
-            "Use customer.sources.retrieve('bank_account_id') or "
-            "account.external_accounts.retrieve('bank_account_id') instead."
+            "Use stripe.customer.retrieve_source('customer_id', 'bank_account_id') "
+            "(see https://stripe.com/docs/api/customer_bank_accounts/retrieve) or "
+            "stripe.Account.retrieve_external_account('account_id', 'bank_account_id') "
+            "(see https://stripe.com/docs/api/external_account_bank_accounts/retrieve)."
         )

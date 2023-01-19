@@ -1,5 +1,37 @@
 # Changelog
 
+## 5.0.0 - 2022-11-16
+
+Breaking changes that arose during code generation of the library that we postponed for the next major version. For changes to the Stripe products, read more at https://stripe.com/docs/upgrades#2022-11-15.
+
+"⚠️" symbol highlights breaking changes.
+
+* [#895](https://github.com/stripe/stripe-python/pull/895) Next major release changes
+* [#889](https://github.com/stripe/stripe-python/pull/889) API Updates
+
+* [#888](https://github.com/stripe/stripe-python/pull/888) Do not run Coveralls if secret token is not available
+* [#875](https://github.com/stripe/stripe-python/pull/875) hide misleading ssl security warning in python>=2.7.9
+
+### ⚠️ Changed
+- Dropped support for Python version 3.4 and 3.5 (#881). We now support Python 2.7 or 3.6+.
+- Fixed mistyped names for two OAuth exceptions: `UnsupportedGrantTypError`->`UnsupportedGrantTypeError` and `UnsupportedResponseTypError`->`UnsupportedResponseTypeError` (#872).
+
+### Deprecated
+- Deprecate `save` method on resources (#887). Use `modify` instead.
+   ```python
+  # Before
+  customer = stripe.Customer.retrieve("cus_123")
+  customer.email = "example@test.com"
+  customer.save()
+
+  # After
+  stripe.Customer.modify("cus_123", email="example@test.com")
+   ```
+
+### ⚠️ Removed
+- Removed `Orders` resource (#882).
+- Removed `SKU` resource (#883).
+
 ## 4.2.0 - 2022-09-23
 * [#877](https://github.com/stripe/stripe-python/pull/877) API Updates
   * Add `upcoming_lines` method to the `Invoice` resource.

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
@@ -14,16 +15,16 @@ from stripe.api_resources.abstract import test_helpers
 
 @test_helpers
 @nested_resource_class_methods(
+    "source",
+    operations=["create", "retrieve", "update", "delete", "list"],
+)
+@nested_resource_class_methods(
     "balance_transaction",
     operations=["create", "retrieve", "update", "list"],
 )
 @nested_resource_class_methods(
     "cash_balance_transaction",
     operations=["retrieve", "list"],
-)
-@nested_resource_class_methods(
-    "source",
-    operations=["create", "retrieve", "update", "delete", "list"],
 )
 @nested_resource_class_methods(
     "tax_id",
