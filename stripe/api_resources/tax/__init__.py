@@ -6,4 +6,5 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.tax.calculation import Calculation
 from stripe.api_resources.tax.registration import Registration
+from stripe.api_resources.tax.settings import Settings
 from stripe.api_resources.tax.transaction import Transaction
