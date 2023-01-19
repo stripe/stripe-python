@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.1.0b6 - 2023-01-19
+* [#915](https://github.com/stripe/stripe-python/pull/915) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add support for `Tax.Settings` resource.
+
 ## 5.1.0b5 - 2023-01-12
 * [#914](https://github.com/stripe/stripe-python/pull/914) API Updates for beta branch
   * Updated stable APIs to the latest version
