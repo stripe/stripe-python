@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.1.0b7 - 2023-01-26
+* [#917](https://github.com/stripe/stripe-python/pull/917) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add support for `list_transactions` method on resource `Tax.Transaction`
+
 ## 5.1.0b6 - 2023-01-19
 * [#915](https://github.com/stripe/stripe-python/pull/915) API Updates for beta branch
   * Updated stable APIs to the latest version
