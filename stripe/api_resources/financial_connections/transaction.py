@@ -5,10 +5,10 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class TaxCode(ListableAPIResource):
+class Transaction(ListableAPIResource):
     """
-    [Tax codes](https://stripe.com/docs/tax/tax-categories) classify goods and services for tax purposes.
+    A Transaction represents a real transaction that affects a Financial Connections Account balance.
     """
 
-    OBJECT_NAME = "tax_code"
+    OBJECT_NAME = "financial_connections.transaction"
 

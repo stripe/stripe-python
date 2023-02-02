@@ -40,3 +40,4 @@ class UsageRecord(APIResource):
         return util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account
         )
+

@@ -11,3 +11,4 @@ class Session(CreateableAPIResource):
     """
 
     OBJECT_NAME = "financial_connections.session"
+

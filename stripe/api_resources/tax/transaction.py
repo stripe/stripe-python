@@ -12,19 +12,15 @@ class Transaction(CreateableAPIResource):
     """
 
     OBJECT_NAME = "tax.transaction"
-
     @classmethod
     def create_reversal(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/tax/transactions/create_reversal",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/tax/transactions/create_reversal", api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @classmethod
     def _cls_list_line_items(
@@ -35,37 +31,19 @@ class Transaction(CreateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "get",
-            "/v1/tax/transactions/{transaction}/line_items".format(
-                transaction=util.sanitize_id(transaction)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("get", "/v1/tax/transactions/{transaction}/line_items".format(transaction=util.sanitize_id(transaction)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_list_line_items")
     def list_line_items(self, idempotency_key=None, **params):
-        return self._request(
-            "get",
-            "/v1/tax/transactions/{transaction}/line_items".format(
-                transaction=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("get", "/v1/tax/transactions/{transaction}/line_items".format(transaction=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def list_transactions(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
     ):
-        return cls._static_request(
-            "get",
-            "/v1/tax/transactions",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("get", "/v1/tax/transactions", api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+

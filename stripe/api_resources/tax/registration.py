@@ -19,3 +19,4 @@ class Registration(
     """
 
     OBJECT_NAME = "tax.registration"
+

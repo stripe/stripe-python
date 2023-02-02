@@ -50,3 +50,4 @@ class Reversal(UpdateableAPIResource):
             "Use stripe.Transfer.retrieve_reversal('transfer_id', 'reversal_id') "
             "(see https://stripe.com/docs/api/transfer_reversals/retrieve)."
         )
+

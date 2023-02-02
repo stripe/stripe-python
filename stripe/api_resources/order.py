@@ -18,7 +18,6 @@ class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     """
 
     OBJECT_NAME = "order"
-
     @classmethod
     def _cls_cancel(
         cls,
@@ -28,25 +27,11 @@ class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/orders/{id}/cancel".format(id=util.sanitize_id(id)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/orders/{id}/cancel".format(id=util.sanitize_id(id)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_cancel")
     def cancel(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/orders/{id}/cancel".format(
-                id=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/orders/{id}/cancel".format(id=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_list_line_items(
@@ -57,25 +42,11 @@ class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "get",
-            "/v1/orders/{id}/line_items".format(id=util.sanitize_id(id)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("get", "/v1/orders/{id}/line_items".format(id=util.sanitize_id(id)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_list_line_items")
     def list_line_items(self, idempotency_key=None, **params):
-        return self._request(
-            "get",
-            "/v1/orders/{id}/line_items".format(
-                id=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("get", "/v1/orders/{id}/line_items".format(id=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_reopen(
@@ -86,25 +57,11 @@ class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/orders/{id}/reopen".format(id=util.sanitize_id(id)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/orders/{id}/reopen".format(id=util.sanitize_id(id)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_reopen")
     def reopen(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/orders/{id}/reopen".format(
-                id=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/orders/{id}/reopen".format(id=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_submit(
@@ -115,22 +72,9 @@ class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/orders/{id}/submit".format(id=util.sanitize_id(id)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/orders/{id}/submit".format(id=util.sanitize_id(id)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_submit")
     def submit(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/orders/{id}/submit".format(
-                id=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/orders/{id}/submit".format(id=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+
