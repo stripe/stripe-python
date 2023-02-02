@@ -14,4 +14,3 @@ class BalanceTransaction(ListableAPIResource):
     """
 
     OBJECT_NAME = "balance_transaction"
-
