@@ -4,8 +4,10 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import nested_resource_class_methods
 
 
+@nested_resource_class_methods("inferred_balance", operations=["list"])
 class Account(ListableAPIResource):
     """
     A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.

@@ -92,6 +92,37 @@ class Subscription(
         )
 
     @classmethod
+    def _cls_resume(
+        cls,
+        subscription,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/subscriptions/{subscription}/resume".format(
+                subscription=util.sanitize_id(subscription)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_resume")
+    def resume(self, idempotency_key=None, **params):
+        return self._request(
+            "post",
+            "/v1/subscriptions/{subscription}/resume".format(
+                subscription=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
     def search(cls, *args, **kwargs):
         return cls._search(
             search_url="/v1/subscriptions/search", *args, **kwargs

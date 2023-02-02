@@ -489,6 +489,17 @@ class TestGeneratedExamples(object):
             "/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
         )
 
+    def test_subscription_resume(self, request_mock):
+        stripe.Subscription.resume(
+            "sub_xxxxxxxxxxxxx",
+            proration_date=1675400000,
+            proration_behavior="always_invoice",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/subscriptions/sub_xxxxxxxxxxxxx/resume",
+        )
+
     def test_account_person_retrieve(self, request_mock):
         stripe.Account.retrieve_person(
             "acct_xxxxxxxxxxxxx", "person_xxxxxxxxxxxxx"

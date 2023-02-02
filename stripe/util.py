@@ -53,14 +53,14 @@ def log_debug(message, **params):
     msg = logfmt(dict(message=message, **params))
     if _console_log_level() == "debug":
         print(msg, file=sys.stderr)
-    logger.debug(msg)
+    logger.debug(msg, params)
 
 
 def log_info(message, **params):
     msg = logfmt(dict(message=message, **params))
     if _console_log_level() in ["debug", "info"]:
         print(msg, file=sys.stderr)
-    logger.info(msg)
+    logger.info(msg, params)
 
 
 def _test_or_live_environment():
