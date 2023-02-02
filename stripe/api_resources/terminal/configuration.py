@@ -19,4 +19,3 @@ class Configuration(
     """
 
     OBJECT_NAME = "terminal.configuration"
-

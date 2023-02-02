@@ -12,6 +12,7 @@ class QuotePhase(ListableAPIResource):
     """
 
     OBJECT_NAME = "quote_phase"
+
     @classmethod
     def _cls_list_line_items(
         cls,
@@ -21,9 +22,24 @@ class QuotePhase(ListableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request("get", "/v1/quote_phases/{quote_phase}/line_items".format(quote_phase=util.sanitize_id(quote_phase)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "get",
+            "/v1/quote_phases/{quote_phase}/line_items".format(
+                quote_phase=util.sanitize_id(quote_phase)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @util.class_method_variant("_cls_list_line_items")
     def list_line_items(self, idempotency_key=None, **params):
-        return self._request("get", "/v1/quote_phases/{quote_phase}/line_items".format(quote_phase=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
-
+        return self._request(
+            "get",
+            "/v1/quote_phases/{quote_phase}/line_items".format(
+                quote_phase=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )

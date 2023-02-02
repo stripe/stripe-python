@@ -77,4 +77,3 @@ class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
             "stripe.Account.retrieve_external_account('account_id', 'bank_account_id') "
             "(see https://stripe.com/docs/api/external_account_bank_accounts/retrieve)."
         )
-
