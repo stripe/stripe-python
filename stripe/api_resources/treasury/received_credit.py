@@ -24,11 +24,5 @@ class ReceivedCredit(ListableAPIResource):
             stripe_account=None,
             **params
         ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/treasury/received_credits",
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
-            )
+            return cls._static_request("post", "/v1/test_helpers/treasury/received_credits", api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+
