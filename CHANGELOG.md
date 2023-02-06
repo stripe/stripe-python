@@ -1,5 +1,8 @@
 # Changelog
 
+## 5.1.1 - 2023-02-06
+* [#923](https://github.com/stripe/stripe-python/pull/923) Bugfix: revert "Pass params into logger.{info,debug}"
+
 ## 5.1.0 - 2023-02-02
 * [#920](https://github.com/stripe/stripe-python/pull/920) API Updates
   * Add support for `resume` method on resource `Subscription`
