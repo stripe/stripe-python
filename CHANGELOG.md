@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.0 - 2023-02-16
+* [#924](https://github.com/stripe/stripe-python/pull/924) API Updates
+  * Add support for `refund_payment` method on resource `Terminal.Reader`
+
 ## 5.1.1 - 2023-02-06
 * [#923](https://github.com/stripe/stripe-python/pull/923) Bugfix: revert "Pass params into logger.{info,debug}"
 
