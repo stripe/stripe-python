@@ -120,6 +120,37 @@ class Reader(
         )
 
     @classmethod
+    def _cls_refund_payment(
+        cls,
+        reader,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/terminal/readers/{reader}/refund_payment".format(
+                reader=util.sanitize_id(reader)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_refund_payment")
+    def refund_payment(self, idempotency_key=None, **params):
+        return self._request(
+            "post",
+            "/v1/terminal/readers/{reader}/refund_payment".format(
+                reader=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
     def _cls_set_reader_display(
         cls,
         reader,
