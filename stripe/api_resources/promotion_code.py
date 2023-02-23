@@ -18,4 +18,3 @@ class PromotionCode(
     """
 
     OBJECT_NAME = "promotion_code"
-

@@ -7,4 +7,3 @@ from stripe.stripe_object import StripeObject
 
 class CreditNoteLineItem(StripeObject):
     OBJECT_NAME = "credit_note_line_item"
-

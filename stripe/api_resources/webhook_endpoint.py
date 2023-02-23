@@ -25,4 +25,3 @@ class WebhookEndpoint(
     """
 
     OBJECT_NAME = "webhook_endpoint"
-

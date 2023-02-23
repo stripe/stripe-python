@@ -17,4 +17,3 @@ class ApplePayDomain(
     @classmethod
     def class_url(cls):
         return "/v1/apple_pay/domains"
-
