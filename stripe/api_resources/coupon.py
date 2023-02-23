@@ -21,3 +21,4 @@ class Coupon(
     """
 
     OBJECT_NAME = "coupon"
+

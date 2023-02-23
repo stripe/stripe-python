@@ -34,12 +34,7 @@ class File(ListableAPIResource):
     @classmethod
     def create(
         # 'api_version' is deprecated, please use 'stripe_version'
-        cls,
-        api_key=None,
-        api_version=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        cls, api_key=None, api_version=None, stripe_version=None, stripe_account=None, **params
     ):
         version = api_version or stripe_version
         requestor = api_requestor.APIRequestor(
@@ -56,7 +51,6 @@ class File(ListableAPIResource):
         return util.convert_to_stripe_object(
             response, api_key, version, stripe_account
         )
-
 
 # For backwards compatibility, the `File` class is aliased to `FileUpload`.
 FileUpload = File
