@@ -12,6 +12,7 @@ class Calculation(CreateableAPIResource):
     """
 
     OBJECT_NAME = "tax.calculation"
+
     @classmethod
     def _cls_list_line_items(
         cls,
@@ -21,9 +22,24 @@ class Calculation(CreateableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request("get", "/v1/tax/calculations/{calculation}/line_items".format(calculation=util.sanitize_id(calculation)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "get",
+            "/v1/tax/calculations/{calculation}/line_items".format(
+                calculation=util.sanitize_id(calculation)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @util.class_method_variant("_cls_list_line_items")
     def list_line_items(self, idempotency_key=None, **params):
-        return self._request("get", "/v1/tax/calculations/{calculation}/line_items".format(calculation=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
-
+        return self._request(
+            "get",
+            "/v1/tax/calculations/{calculation}/line_items".format(
+                calculation=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )

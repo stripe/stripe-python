@@ -75,4 +75,3 @@ class Card(DeletableAPIResource, UpdateableAPIResource):
             "stripe.Account.retrieve_external_account('account_id', 'card_id') "
             "(see https://stripe.com/docs/api/external_account_cards/retrieve)."
         )
-

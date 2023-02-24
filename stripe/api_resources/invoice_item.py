@@ -29,4 +29,3 @@ class InvoiceItem(
     """
 
     OBJECT_NAME = "invoiceitem"
-

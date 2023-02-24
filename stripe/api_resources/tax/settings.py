@@ -18,4 +18,3 @@ class Settings(SingletonAPIResource, UpdateableAPIResource):
     @classmethod
     def class_url(cls):
         return "/v1/tax/settings"
-

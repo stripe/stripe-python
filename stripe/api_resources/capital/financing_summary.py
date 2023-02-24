@@ -16,4 +16,3 @@ class FinancingSummary(SingletonAPIResource):
     @classmethod
     def class_url(cls):
         return "/v1/capital/financing_summary"
-

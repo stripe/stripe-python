@@ -14,4 +14,3 @@ class EarlyFraudWarning(ListableAPIResource):
     """
 
     OBJECT_NAME = "radar.early_fraud_warning"
-

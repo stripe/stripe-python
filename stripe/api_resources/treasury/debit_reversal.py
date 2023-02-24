@@ -12,4 +12,3 @@ class DebitReversal(CreateableAPIResource, ListableAPIResource):
     """
 
     OBJECT_NAME = "treasury.debit_reversal"
-

@@ -14,13 +14,16 @@ class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     """
 
     OBJECT_NAME = "gift_cards.card"
+
     @classmethod
     def validate(
-        cls,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
     ):
-        return cls._static_request("post", "/v1/gift_cards/cards/validate", api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
-
+        return cls._static_request(
+            "post",
+            "/v1/gift_cards/cards/validate",
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )

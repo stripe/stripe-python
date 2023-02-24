@@ -26,6 +26,7 @@ class Session(CreateableAPIResource, ListableAPIResource):
     """
 
     OBJECT_NAME = "checkout.session"
+
     @classmethod
     def _cls_expire(
         cls,
@@ -35,11 +36,27 @@ class Session(CreateableAPIResource, ListableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request("post", "/v1/checkout/sessions/{session}/expire".format(session=util.sanitize_id(session)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "post",
+            "/v1/checkout/sessions/{session}/expire".format(
+                session=util.sanitize_id(session)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @util.class_method_variant("_cls_expire")
     def expire(self, idempotency_key=None, **params):
-        return self._request("post", "/v1/checkout/sessions/{session}/expire".format(session=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+        return self._request(
+            "post",
+            "/v1/checkout/sessions/{session}/expire".format(
+                session=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
 
     @classmethod
     def _cls_list_line_items(
@@ -50,9 +67,24 @@ class Session(CreateableAPIResource, ListableAPIResource):
         stripe_account=None,
         **params
     ):
-        return cls._static_request("get", "/v1/checkout/sessions/{session}/line_items".format(session=util.sanitize_id(session)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
+        return cls._static_request(
+            "get",
+            "/v1/checkout/sessions/{session}/line_items".format(
+                session=util.sanitize_id(session)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
 
     @util.class_method_variant("_cls_list_line_items")
     def list_line_items(self, idempotency_key=None, **params):
-        return self._request("get", "/v1/checkout/sessions/{session}/line_items".format(session=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
-
+        return self._request(
+            "get",
+            "/v1/checkout/sessions/{session}/line_items".format(
+                session=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )

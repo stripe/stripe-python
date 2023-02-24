@@ -11,4 +11,3 @@ class InferredBalance(ListableAPIResource):
     """
 
     OBJECT_NAME = "financial_connections.account_inferred_balance"
-

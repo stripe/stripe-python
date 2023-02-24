@@ -24,4 +24,3 @@ class Session(CreateableAPIResource):
     """
 
     OBJECT_NAME = "billing_portal.session"
-
