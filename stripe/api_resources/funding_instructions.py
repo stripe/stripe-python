@@ -15,3 +15,4 @@ class FundingInstructions(StripeObject):
     """
 
     OBJECT_NAME = "funding_instructions"
+

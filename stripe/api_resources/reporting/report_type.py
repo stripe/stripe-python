@@ -18,3 +18,4 @@ class ReportType(ListableAPIResource):
     """
 
     OBJECT_NAME = "reporting.report_type"
+

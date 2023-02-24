@@ -14,3 +14,4 @@ class AccountLink(CreateableAPIResource):
     """
 
     OBJECT_NAME = "account_link"
+

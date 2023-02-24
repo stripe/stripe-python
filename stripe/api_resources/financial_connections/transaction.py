@@ -11,3 +11,4 @@ class Transaction(ListableAPIResource):
     """
 
     OBJECT_NAME = "financial_connections.transaction"
+

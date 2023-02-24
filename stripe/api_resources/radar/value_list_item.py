@@ -19,3 +19,4 @@ class ValueListItem(
     """
 
     OBJECT_NAME = "radar.value_list_item"
+

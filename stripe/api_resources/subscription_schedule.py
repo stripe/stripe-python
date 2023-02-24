@@ -20,7 +20,6 @@ class SubscriptionSchedule(
     """
 
     OBJECT_NAME = "subscription_schedule"
-
     @classmethod
     def _cls_amend(
         cls,
@@ -30,27 +29,11 @@ class SubscriptionSchedule(
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/amend".format(
-                schedule=util.sanitize_id(schedule)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/subscription_schedules/{schedule}/amend".format(schedule=util.sanitize_id(schedule)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_amend")
     def amend(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/amend".format(
-                schedule=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/subscription_schedules/{schedule}/amend".format(schedule=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_cancel(
@@ -61,27 +44,11 @@ class SubscriptionSchedule(
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/cancel".format(
-                schedule=util.sanitize_id(schedule)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/subscription_schedules/{schedule}/cancel".format(schedule=util.sanitize_id(schedule)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_cancel")
     def cancel(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/cancel".format(
-                schedule=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/subscription_schedules/{schedule}/cancel".format(schedule=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
 
     @classmethod
     def _cls_release(
@@ -92,24 +59,9 @@ class SubscriptionSchedule(
         stripe_account=None,
         **params
     ):
-        return cls._static_request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/release".format(
-                schedule=util.sanitize_id(schedule)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
+        return cls._static_request("post", "/v1/subscription_schedules/{schedule}/release".format(schedule=util.sanitize_id(schedule)), api_key=api_key, stripe_version=stripe_version, stripe_account=stripe_account, params=params)
 
     @util.class_method_variant("_cls_release")
     def release(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/release".format(
-                schedule=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
+        return self._request("post", "/v1/subscription_schedules/{schedule}/release".format(schedule=util.sanitize_id(self.get("id"))), idempotency_key=idempotency_key, params=params)
+

@@ -32,3 +32,4 @@ class Token(CreateableAPIResource):
     """
 
     OBJECT_NAME = "token"
+
