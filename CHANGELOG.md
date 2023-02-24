@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.3.0b1 - 2023-02-23
+* [#931](https://github.com/stripe/stripe-python/pull/931) API Updates for beta branch
+  * Updated stable APIs to the latest version
+
 ## 5.2.0 - 2023-02-16
 * [#924](https://github.com/stripe/stripe-python/pull/924) API Updates
   * Add support for `refund_payment` method on resource `Terminal.Reader`
