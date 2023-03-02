@@ -1030,6 +1030,10 @@ class TestGeneratedExamples(object):
         stripe.Invoice.retrieve("in_xxxxxxxxxxxxx")
         request_mock.assert_requested("get", "/v1/invoices/in_xxxxxxxxxxxxx")
 
+    def test_invoice_retrieve2(self, request_mock):
+        stripe.Invoice.retrieve("in_xxxxxxxxxxxxx", expand=["customer"])
+        request_mock.assert_requested("get", "/v1/invoices/in_xxxxxxxxxxxxx")
+
     def test_invoice_update(self, request_mock):
         stripe.Invoice.modify(
             "in_xxxxxxxxxxxxx", metadata={"order_id": "6735"}
