@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.3.0b2 - 2023-03-03
+* [#935](https://github.com/stripe/stripe-python/pull/935) API Updates for beta branch
+  * Updated stable APIs to the latest version
+  * Add support for new resources `Issuing.CardBundle` and `Issuing.CardDesign`
+  * Add support for `list` and `retrieve` methods on resource `CardBundle`
+  * Add support for `list`, `modify`, and `retrieve` methods on resource `CardDesign`
+
 ## 5.3.0b1 - 2023-02-23
 * [#931](https://github.com/stripe/stripe-python/pull/931) API Updates for beta branch
   * Updated stable APIs to the latest version
