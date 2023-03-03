@@ -60,6 +60,8 @@ OBJECT_CLASSES = {
     api_resources.InvoiceLineItem.OBJECT_NAME: api_resources.InvoiceLineItem,
     api_resources.issuing.Authorization.OBJECT_NAME: api_resources.issuing.Authorization,
     api_resources.issuing.Card.OBJECT_NAME: api_resources.issuing.Card,
+    api_resources.issuing.CardBundle.OBJECT_NAME: api_resources.issuing.CardBundle,
+    api_resources.issuing.CardDesign.OBJECT_NAME: api_resources.issuing.CardDesign,
     api_resources.issuing.Cardholder.OBJECT_NAME: api_resources.issuing.Cardholder,
     api_resources.issuing.Dispute.OBJECT_NAME: api_resources.issuing.Dispute,
     api_resources.issuing.Transaction.OBJECT_NAME: api_resources.issuing.Transaction,
