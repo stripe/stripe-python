@@ -56,16 +56,3 @@ class Transaction(CreateableAPIResource):
             idempotency_key=idempotency_key,
             params=params,
         )
-
-    @classmethod
-    def list_transactions(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/tax/transactions",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
