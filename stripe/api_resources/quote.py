@@ -265,6 +265,7 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     def _cls_preview_invoice_lines(
         cls,
         quote,
+        preview_invoice,
         api_key=None,
         stripe_version=None,
         stripe_account=None,
@@ -272,8 +273,9 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     ):
         return cls._static_request(
             "get",
-            "/v1/quotes/{quote}/preview_invoice_lines".format(
-                quote=util.sanitize_id(quote)
+            "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
+                quote=util.sanitize_id(quote),
+                preview_invoice=util.sanitize_id(preview_invoice),
             ),
             api_key=api_key,
             stripe_version=stripe_version,
@@ -282,11 +284,14 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
         )
 
     @util.class_method_variant("_cls_preview_invoice_lines")
-    def preview_invoice_lines(self, idempotency_key=None, **params):
+    def preview_invoice_lines(
+        self, preview_invoice, idempotency_key=None, **params
+    ):
         return self._request(
             "get",
-            "/v1/quotes/{quote}/preview_invoice_lines".format(
-                quote=util.sanitize_id(self.get("id"))
+            "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
+                quote=util.sanitize_id(self.get("id")),
+                preview_invoice=util.sanitize_id(preview_invoice),
             ),
             idempotency_key=idempotency_key,
             params=params,
