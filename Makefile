@@ -17,10 +17,6 @@ test: venv
 test-nomock: venv
 	@${VENV_NAME}/bin/tox -p auto -- --nomock $(TOX_ARGS)
 
-test-gh-actions: venv
-	${VENV_NAME}/bin/python -m pip install -U tox-gh-actions
-	@${VENV_NAME}/bin/tox -p auto $(TOX_ARGS)
-
 coveralls: venv
 	${VENV_NAME}/bin/python -m pip install -U coveralls
 	@${VENV_NAME}/bin/tox -e coveralls
@@ -44,3 +40,7 @@ update-version:
 codegen-format: fmt
 
 .PHONY: clean codegen-format coveralls fmt fmtcheck lint test test-nomock test-travis update-version venv
+
+ci-test: venv
+	${VENV_NAME}/bin/python -m pip install -U tox-gh-actions
+	@${VENV_NAME}/bin/tox -p auto $(TOX_ARGS)
