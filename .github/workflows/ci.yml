@@ -104,14 +104,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pip-
 
-      # Might be sensible to cache the docker image but this seems to be
-      # not fully supported by github actions yet, as of Feb 2021
-      # https://github.com/actions/cache/issues/81
-      - name: Start stripe-mock
-        run: docker run -d -p 12111-12112:12111-12112 stripe/stripe-mock && sleep 5
+      - uses: stripe/openapi/actions/stripe-mock@master
 
       - name: Test with pytest
-        run: make test-gh-actions
+        run: make ci-test
 
       - name: Calculate and publish coverage
         run: make coveralls
@@ -162,3 +158,7 @@ jobs:
           TWINE_USERNAME: ${{ secrets.TWINE_USERNAME }}
           TWINE_PASSWORD: ${{ secrets.TWINE_PASSWORD }}
           GPG_SIGNING_PASSPHRASE: ${{ secrets.GPG_SIGNING_PASSPHRASE }}
+      - uses: stripe/openapi/actions/notify-release@master
+        if: always()
+        with:
+          bot_token: ${{ secrets.SLACK_BOT_TOKEN }}
