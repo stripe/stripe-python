@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.3.0b4 - 2023-03-16
+* [#940](https://github.com/stripe/stripe-python/pull/940) Update generated code for beta (new)
+  * Add support for `create_from_calculation` method on resource `Tax.Transaction`
+* [#938](https://github.com/stripe/stripe-python/pull/938) Update generated code for beta (new)
+  * Remove support for resources `Capital.FinancingOffer` and `Capital.FinancingSummary`
+  * Remove support for `list`, `mark_delivered`, and `retrieve` methods on resource `FinancingOffer`
+  * Remove support for `retrieve` method on resource `FinancingSummary`
+
 ## 5.3.0b3 - 2023-03-09
 * [#936](https://github.com/stripe/stripe-python/pull/936) API Updates for beta branch
   * Updated stable APIs to the latest version
