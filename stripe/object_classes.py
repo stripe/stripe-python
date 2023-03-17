@@ -23,6 +23,8 @@ OBJECT_CLASSES = {
     api_resources.billing_portal.Configuration.OBJECT_NAME: api_resources.billing_portal.Configuration,
     api_resources.billing_portal.Session.OBJECT_NAME: api_resources.billing_portal.Session,
     api_resources.Capability.OBJECT_NAME: api_resources.Capability,
+    api_resources.capital.FinancingOffer.OBJECT_NAME: api_resources.capital.FinancingOffer,
+    api_resources.capital.FinancingSummary.OBJECT_NAME: api_resources.capital.FinancingSummary,
     api_resources.capital.FinancingTransaction.OBJECT_NAME: api_resources.capital.FinancingTransaction,
     api_resources.Card.OBJECT_NAME: api_resources.Card,
     api_resources.CashBalance.OBJECT_NAME: api_resources.CashBalance,
