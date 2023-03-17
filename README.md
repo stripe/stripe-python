@@ -190,7 +190,7 @@ We would love for you to try these and share feedback with us before these featu
 To install a beta version use `pip install` with the exact version you'd like to use:
 
 ```
-pip install stripe==5.3.0b1
+pip install stripe==5.3.0b3
 ```
 
 > **Note**
