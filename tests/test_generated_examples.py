@@ -2521,3 +2521,13 @@ class TestGeneratedExamples(object):
             "post",
             "/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
         )
+
+    def test_tax_transaction_create_from_calculation(self, request_mock):
+        stripe.tax.Transaction.create_from_calculation(
+            calculation="xxx",
+            reference="yyy",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/tax/transactions/create_from_calculation",
+        )
