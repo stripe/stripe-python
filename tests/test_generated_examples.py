@@ -2521,3 +2521,19 @@ class TestGeneratedExamples(object):
             "post",
             "/v1/webhook_endpoints/we_xxxxxxxxxxxxx",
         )
+
+    def test_tax_transaction_create_from_calculation(self, request_mock):
+        stripe.tax.Transaction.create_from_calculation(
+            calculation="xxx",
+            reference="yyy",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/tax/transactions/create_from_calculation",
+        )
+
+    def test_tax_calculation_list_line_items(self, request_mock):
+        stripe.tax.Calculation.list_line_items("xxx")
+        request_mock.assert_requested(
+            "get", "/v1/tax/calculations/xxx/line_items"
+        )
