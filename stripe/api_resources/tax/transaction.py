@@ -8,7 +8,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 
 class Transaction(CreateableAPIResource):
     """
-    A Tax `Transaction` records the tax collected from or refunded to your customer.
+    A Tax transaction records the tax collected from or refunded to your customer.
     """
 
     OBJECT_NAME = "tax.transaction"
