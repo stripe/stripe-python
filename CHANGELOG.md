@@ -5,6 +5,12 @@
   * Add support for new resources `Tax.CalculationLineItem` and `Tax.TransactionLineItem`
   * Add support for `collect_inputs` method on resource `Terminal.Reader`
 
+## 5.3.0 - 2023-03-23
+* [#947](https://github.com/stripe/stripe-python/pull/947) Update generated code
+  * Add support for new resources `Tax.CalculationLineItem`, `Tax.Calculation`, `Tax.TransactionLineItem`, and `Tax.Transaction`
+  * Add support for `create` and `list_line_items` methods on resource `Calculation`
+  * Add support for `create_from_calculation`, `create_reversal`, `create`, `list_line_items`, and `retrieve` methods on resource `Transaction`
+
 ## 5.3.0b4 - 2023-03-16
 * [#940](https://github.com/stripe/stripe-python/pull/940) Update generated code for beta (new)
   * Add support for `create_from_calculation` method on resource `Tax.Transaction`
