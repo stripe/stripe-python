@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.5.0b1 - 2023-03-30
+* [#950](https://github.com/stripe/stripe-python/pull/950) Update generated code for beta
+
+
 ## 5.4.0 - 2023-03-30
 * [#951](https://github.com/stripe/stripe-python/pull/951) Update generated code
   * Remove support for `create` method on resource `Tax.Transaction`
