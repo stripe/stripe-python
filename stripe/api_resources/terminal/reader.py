@@ -89,6 +89,68 @@ class Reader(
         )
 
     @classmethod
+    def _cls_collect_payment_method(
+        cls,
+        reader,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                reader=util.sanitize_id(reader)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_collect_payment_method")
+    def collect_payment_method(self, idempotency_key=None, **params):
+        return self._request(
+            "post",
+            "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                reader=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def _cls_confirm_payment_intent(
+        cls,
+        reader,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                reader=util.sanitize_id(reader)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_confirm_payment_intent")
+    def confirm_payment_intent(self, idempotency_key=None, **params):
+        return self._request(
+            "post",
+            "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                reader=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
     def _cls_process_payment_intent(
         cls,
         reader,
