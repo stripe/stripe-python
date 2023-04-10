@@ -2537,3 +2537,11 @@ class TestGeneratedExamples(object):
         request_mock.assert_requested(
             "get", "/v1/tax/calculations/xxx/line_items"
         )
+
+    def test_paymentintent_create3(self, request_mock):
+        stripe.PaymentIntent.create(
+            amount=200,
+            currency="usd",
+            payment_method_data={"type": "p24", "p24": {"bank": "blik"}},
+        )
+        request_mock.assert_requested("post", "/v1/payment_intents")
