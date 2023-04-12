@@ -39,6 +39,8 @@ from stripe.oauth import OAuth  # noqa
 # Webhooks
 from stripe.webhook import Webhook, WebhookSignature  # noqa
 
+from stripe.stripe_client import StripeClient  # noqa
+
 
 # Sets some basic information about the running application that's sent along
 # with API requests. Useful for plugin authors to identify their plugin when
