@@ -115,16 +115,9 @@ class APIRequestor(object):
             str += " (%s)" % (info["url"],)
         return str
 
-    def request(self, method, url, params=None, headers=None):
+    def request(self, method, url, params=None, headers=None, is_json=False):
         rbody, rcode, rheaders, my_api_key = self.request_raw(
-            method.lower(), url, params, headers, is_streaming=False, is_json=False
-        )
-        resp = self.interpret_response(rbody, rcode, rheaders)
-        return resp, my_api_key
-
-    def request_json(self, method, url, params=None, headers=None):
-        rbody, rcode, rheaders, my_api_key = self.request_raw(
-            method.lower(), url, params, headers, is_streaming=False, is_json=True
+            method.lower(), url, params, headers, is_streaming=False, is_json=is_json
         )
         resp = self.interpret_response(rbody, rcode, rheaders)
         return resp, my_api_key

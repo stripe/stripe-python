@@ -63,12 +63,7 @@ class StripeClient(object):
             headers = {} if headers is None else headers.copy()
             headers.update(util.populate_headers(idempotency_key))
 
-        response = None
-        api_key = None
-        if is_json:
-          response, api_key = requestor.request_json(method_, url_, params, headers)
-        else:
-          response, api_key = requestor.request(method_, url_, params, headers)
+        response, api_key = requestor.request(method_, url_, params, headers, is_json=is_json)
 
         return util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account, params
