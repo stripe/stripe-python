@@ -14,6 +14,15 @@ class StripeClient(object):
             params=params,
         )
 
+    def v1_llama_create(self, params=None, idempotency_key=None):
+        return self._request(
+            "post",
+            "/v1/llamas",
+            idempotency_key=idempotency_key,
+            params=params,
+            is_json=True
+        )
+
     def _request(
         self,
         method_,
@@ -24,6 +33,7 @@ class StripeClient(object):
         stripe_account=None,
         headers=None,
         params=None,
+        is_json=False
     ):
         params = None if params is None else params.copy()
         api_key = util.read_special_variable(params, "api_key", api_key)

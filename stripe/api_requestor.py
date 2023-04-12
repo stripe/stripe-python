@@ -117,10 +117,18 @@ class APIRequestor(object):
 
     def request(self, method, url, params=None, headers=None):
         rbody, rcode, rheaders, my_api_key = self.request_raw(
-            method.lower(), url, params, headers, is_streaming=False
+            method.lower(), url, params, headers, is_streaming=False, is_json=True
         )
         resp = self.interpret_response(rbody, rcode, rheaders)
         return resp, my_api_key
+
+    def request_json(self, method, url, params=None, headers=None):
+        rbody, rcode, rheaders, my_api_key = self.request_raw(
+            method.lower(), url, params, headers, is_streaming=False, is_json=True
+        )
+        resp = self.interpret_response(rbody, rcode, rheaders)
+        return resp, my_api_key
+
 
     def request_stream(self, method, url, params=None, headers=None):
         stream, rcode, rheaders, my_api_key = self.request_raw(
@@ -238,7 +246,7 @@ class APIRequestor(object):
 
         return None
 
-    def request_headers(self, api_key, method):
+    def request_headers(self, api_key, method, is_json=False):
         user_agent = "Stripe/v1 PythonBindings/%s" % (version.VERSION,)
         if stripe.app_info:
             user_agent += " " + self.format_app_info(stripe.app_info)
@@ -272,7 +280,10 @@ class APIRequestor(object):
             headers["Stripe-Account"] = self.stripe_account
 
         if method == "post":
-            headers["Content-Type"] = "application/x-www-form-urlencoded"
+            if is_json:
+                headers["Content-Type"] = "application/json"
+            else:
+                headers["Content-Type"] = "application/x-www-form-urlencoded"
             headers.setdefault("Idempotency-Key", str(uuid.uuid4()))
 
         if self.api_version is not None:
@@ -287,6 +298,7 @@ class APIRequestor(object):
         params=None,
         supplied_headers=None,
         is_streaming=False,
+        is_json=False
     ):
         """
         Mechanism for issuing an API call
@@ -310,12 +322,17 @@ class APIRequestor(object):
 
         abs_url = "%s%s" % (self.api_base, url)
 
-        encoded_params = urlencode(list(_api_encode(params or {})))
+        encoded_params = None
+        if is_json and method == "post":
+            encoded_params = json.JSONEncoder().encode(params or {})
+        else:
+            encoded_params = urlencode(list(_api_encode(params or {})))
+            # Don't use strict form encoding by changing the square bracket control
+            # characters back to their literals. This is fine by the server, and
+            # makes these parameter strings easier to read.
+            encoded_params = encoded_params.replace("%5B", "[").replace("%5D", "]")
 
-        # Don't use strict form encoding by changing the square bracket control
-        # characters back to their literals. This is fine by the server, and
-        # makes these parameter strings easier to read.
-        encoded_params = encoded_params.replace("%5B", "[").replace("%5D", "]")
+
 
         if method == "get" or method == "delete":
             if params:
@@ -342,7 +359,7 @@ class APIRequestor(object):
                 "assistance." % (method,)
             )
 
-        headers = self.request_headers(my_api_key, method)
+        headers = self.request_headers(my_api_key, method, is_json=is_json)
         if supplied_headers is not None:
             for key, value in six.iteritems(supplied_headers):
                 headers[key] = value
