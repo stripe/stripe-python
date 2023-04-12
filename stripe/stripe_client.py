@@ -1,7 +1,8 @@
 from __future__ import absolute_import, division, print_function
 
-from stripe import util
-from stripe.stripe_object import StripeObject
+from stripe import api_requestor, util
+
+# from stripe.stripe_object import StripeObject
 
 
 class StripeClient(object):
@@ -24,14 +25,36 @@ class StripeClient(object):
         headers=None,
         params=None,
     ):
-        obj = StripeObject()
-        return obj._request(
-            method_,
-            url_,
-            api_key,
-            idempotency_key,
-            stripe_version,
-            stripe_account,
-            headers,
-            params,
+        params = None if params is None else params.copy()
+        api_key = util.read_special_variable(params, "api_key", api_key)
+        idempotency_key = util.read_special_variable(
+            params, "idempotency_key", idempotency_key
+        )
+        stripe_version = util.read_special_variable(
+            params, "stripe_version", stripe_version
+        )
+        stripe_account = util.read_special_variable(
+            params, "stripe_account", stripe_account
+        )
+        headers = util.read_special_variable(params, "headers", headers)
+
+        stripe_account = stripe_account
+        stripe_version = stripe_version
+        api_key = api_key
+        params = params
+
+        requestor = api_requestor.APIRequestor(
+            key=api_key,
+            api_version=stripe_version,
+            account=stripe_account,
+        )
+
+        if idempotency_key is not None:
+            headers = {} if headers is None else headers.copy()
+            headers.update(util.populate_headers(idempotency_key))
+
+        response, api_key = requestor.request(method_, url_, params, headers)
+
+        return util.convert_to_stripe_object(
+            response, api_key, stripe_version, stripe_account, params
         )
