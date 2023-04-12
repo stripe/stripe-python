@@ -17,6 +17,7 @@ from stripe.api_resources import issuing
 from stripe.api_resources import radar
 from stripe.api_resources import reporting
 from stripe.api_resources import sigma
+from stripe.api_resources import tax
 from stripe.api_resources import terminal
 from stripe.api_resources import test_helpers
 from stripe.api_resources import treasury
