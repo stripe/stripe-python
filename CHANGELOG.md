@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.5.0b2 - 2023-04-13
+* [#954](https://github.com/stripe/stripe-python/pull/954) Update generated code for beta
+  * Add support for `collect_payment_method` and `confirm_payment_intent` methods on resource `Terminal.Reader`
+* [#953](https://github.com/stripe/stripe-python/pull/953) Update generated code for beta
+
+
 ## 5.5.0b1 - 2023-03-30
 * [#950](https://github.com/stripe/stripe-python/pull/950) Update generated code for beta
 
