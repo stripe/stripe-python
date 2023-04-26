@@ -74,6 +74,7 @@ class APIRequestor(object):
         api_base=None,
         api_version=None,
         account=None,
+        encoding=None
     ):
         self.api_base = api_base or stripe.api_base
         self.api_key = key
@@ -81,6 +82,7 @@ class APIRequestor(object):
         self.stripe_account = account
 
         self._default_proxy = None
+        self.encoding = encoding or 'form'
 
         from stripe import verify_ssl_certs as verify
         from stripe import proxy
@@ -287,6 +289,7 @@ class APIRequestor(object):
         params=None,
         supplied_headers=None,
         is_streaming=False,
+        encoding=None
     ):
         """
         Mechanism for issuing an API call
