@@ -32,6 +32,12 @@ def _encode_nested_dict(key, data, fmt="%s[%s]"):
     return d
 
 
+def _json_encode_date_callback(value):
+    if isinstance(value, datetime.datetime):
+        return _encode_datetime(value)
+    return value
+
+
 def _api_encode(data):
     for key, value in six.iteritems(data):
         key = util.utf8(key)
@@ -74,7 +80,6 @@ class APIRequestor(object):
         api_base=None,
         api_version=None,
         account=None,
-        encoding=None
     ):
         self.api_base = api_base or stripe.api_base
         self.api_key = key
@@ -82,7 +87,6 @@ class APIRequestor(object):
         self.stripe_account = account
 
         self._default_proxy = None
-        self.encoding = encoding or 'form'
 
         from stripe import verify_ssl_certs as verify
         from stripe import proxy
@@ -117,16 +121,16 @@ class APIRequestor(object):
             str += " (%s)" % (info["url"],)
         return str
 
-    def request(self, method, url, params=None, headers=None):
+    def request(self, method, url, params=None, headers=None, encoding=None):
         rbody, rcode, rheaders, my_api_key = self.request_raw(
-            method.lower(), url, params, headers, is_streaming=False
+            method.lower(), url, params, headers, is_streaming=False, encoding=encoding
         )
         resp = self.interpret_response(rbody, rcode, rheaders)
         return resp, my_api_key
 
-    def request_stream(self, method, url, params=None, headers=None):
+    def request_stream(self, method, url, params=None, headers=None, encoding=None):
         stream, rcode, rheaders, my_api_key = self.request_raw(
-            method.lower(), url, params, headers, is_streaming=True
+            method.lower(), url, params, headers, is_streaming=True, encoding=encoding
         )
         resp = self.interpret_streaming_response(stream, rcode, rheaders)
         return resp, my_api_key
@@ -240,7 +244,7 @@ class APIRequestor(object):
 
         return None
 
-    def request_headers(self, api_key, method):
+    def request_headers(self, api_key, method, encoding):
         user_agent = "Stripe/v1 PythonBindings/%s" % (version.VERSION,)
         if stripe.app_info:
             user_agent += " " + self.format_app_info(stripe.app_info)
@@ -274,8 +278,11 @@ class APIRequestor(object):
             headers["Stripe-Account"] = self.stripe_account
 
         if method == "post":
-            headers["Content-Type"] = "application/x-www-form-urlencoded"
             headers.setdefault("Idempotency-Key", str(uuid.uuid4()))
+            if encoding == 'json':
+                headers["Content-Type"] = "application/json"
+            else:
+                headers["Content-Type"] = "application/x-www-form-urlencoded"
 
         if self.api_version is not None:
             headers["Stripe-Version"] = self.api_version
@@ -320,6 +327,11 @@ class APIRequestor(object):
         # makes these parameter strings easier to read.
         encoded_params = encoded_params.replace("%5B", "[").replace("%5D", "]")
 
+        if encoding == 'json':
+            encoded_body = json.dumps(params or {}, default=_json_encode_date_callback)
+        else:
+            encoded_body = encoded_params
+
         if method == "get" or method == "delete":
             if params:
                 abs_url = _build_api_url(abs_url, encoded_params)
@@ -337,7 +349,7 @@ class APIRequestor(object):
                     "Content-Type"
                 ] = "multipart/form-data; boundary=%s" % (generator.boundary,)
             else:
-                post_data = encoded_params
+                post_data = encoded_body
         else:
             raise error.APIConnectionError(
                 "Unrecognized HTTP method %r.  This may indicate a bug in the "
@@ -345,7 +357,7 @@ class APIRequestor(object):
                 "assistance." % (method,)
             )
 
-        headers = self.request_headers(my_api_key, method)
+        headers = self.request_headers(my_api_key, method, encoding)
         if supplied_headers is not None:
             for key, value in six.iteritems(supplied_headers):
                 headers[key] = value

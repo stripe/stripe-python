@@ -10,6 +10,7 @@ import pytest
 
 import stripe
 from stripe import six, util
+from stripe.api_requestor import _json_encode_date_callback
 from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
 from stripe.six.moves.urllib.parse import urlsplit
@@ -328,6 +329,16 @@ class TestAPIRequestor(object):
             expectation.extend([(k % (type_,), str(v)) for k, v in values])
 
         check_call("get", QueryMatcher(expectation))
+
+    def test_param_encoding_json(self, requestor, mock_response, check_call):
+        mock_response("{}", 200)
+
+        requestor.request("post", "/foo", self.ENCODE_INPUTS, encoding='json')
+
+        expectation = json.dumps(self.ENCODE_INPUTS, default=_json_encode_date_callback)
+        check_call("post", None, {
+            "Content-Type": "application/json",
+        }, expectation)
 
     def test_dictionary_list_encoding(self):
         params = {"foo": {"0": {"bar": "bat"}}}
