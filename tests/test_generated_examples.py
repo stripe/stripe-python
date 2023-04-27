@@ -1434,6 +1434,15 @@ class TestGeneratedExamples(object):
         )
         request_mock.assert_requested("post", "/v1/plans")
 
+    def test_plan_create2(self, request_mock):
+        stripe.Plan.create(
+            amount=2000,
+            currency="usd",
+            interval="month",
+            product={"name": "My product"},
+        )
+        request_mock.assert_requested("post", "/v1/plans")
+
     def test_plan_delete(self, request_mock):
         stripe.Plan.delete("price_xxxxxxxxxxxxx")
         request_mock.assert_requested(
