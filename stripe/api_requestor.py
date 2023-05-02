@@ -123,14 +123,26 @@ class APIRequestor(object):
 
     def request(self, method, url, params=None, headers=None, encoding=None):
         rbody, rcode, rheaders, my_api_key = self.request_raw(
-            method.lower(), url, params, headers, is_streaming=False, encoding=encoding
+            method.lower(),
+            url,
+            params,
+            headers,
+            is_streaming=False,
+            encoding=encoding,
         )
         resp = self.interpret_response(rbody, rcode, rheaders)
         return resp, my_api_key
 
-    def request_stream(self, method, url, params=None, headers=None, encoding=None):
+    def request_stream(
+        self, method, url, params=None, headers=None, encoding=None
+    ):
         stream, rcode, rheaders, my_api_key = self.request_raw(
-            method.lower(), url, params, headers, is_streaming=True, encoding=encoding
+            method.lower(),
+            url,
+            params,
+            headers,
+            is_streaming=True,
+            encoding=encoding,
         )
         resp = self.interpret_streaming_response(stream, rcode, rheaders)
         return resp, my_api_key
@@ -279,7 +291,7 @@ class APIRequestor(object):
 
         if method == "post":
             headers.setdefault("Idempotency-Key", str(uuid.uuid4()))
-            if encoding == 'json':
+            if encoding == "json":
                 headers["Content-Type"] = "application/json"
             else:
                 headers["Content-Type"] = "application/x-www-form-urlencoded"
@@ -296,7 +308,7 @@ class APIRequestor(object):
         params=None,
         supplied_headers=None,
         is_streaming=False,
-        encoding=None
+        encoding=None,
     ):
         """
         Mechanism for issuing an API call
@@ -327,8 +339,10 @@ class APIRequestor(object):
         # makes these parameter strings easier to read.
         encoded_params = encoded_params.replace("%5B", "[").replace("%5D", "]")
 
-        if encoding == 'json':
-            encoded_body = json.dumps(params or {}, default=_json_encode_date_callback)
+        if encoding == "json":
+            encoded_body = json.dumps(
+                params or {}, default=_json_encode_date_callback
+            )
         else:
             encoded_body = encoded_params
 

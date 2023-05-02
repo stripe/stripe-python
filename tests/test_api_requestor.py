@@ -47,6 +47,7 @@ class APIHeaderMatcher(object):
         request_method=None,
         user_agent=None,
         app_info=None,
+        content_type=None,
         idempotency_key=None,
         fail_platform_call=False,
     ):
@@ -55,6 +56,7 @@ class APIHeaderMatcher(object):
         self.extra = extra
         self.user_agent = user_agent
         self.app_info = app_info
+        self.content_type = content_type
         self.idempotency_key = idempotency_key
         self.fail_platform_call = fail_platform_call
 
@@ -65,17 +67,19 @@ class APIHeaderMatcher(object):
             and self._user_agent_match(other)
             and self._x_stripe_ua_contains_app_info(other)
             and self._x_stripe_ua_handles_failed_platform_function(other)
+            and self._content_type_match(other)
             and self._idempotency_key_match(other)
             and self._extra_match(other)
         )
 
     def __repr__(self):
-        return "APIHeaderMatcher(request_method=%s, api_key=%s, extra=%s, " "user_agent=%s, app_info=%s, idempotency_key=%s, fail_platform_call=%s)" % (
+        return "APIHeaderMatcher(request_method=%s, api_key=%s, extra=%s, " "user_agent=%s, app_info=%s, content_type=%s, idempotency_key=%s, fail_platform_call=%s)" % (
             repr(self.request_method),
             repr(self.api_key),
             repr(self.extra),
             repr(self.user_agent),
             repr(self.app_info),
+            repr(self.content_type),
             repr(self.idempotency_key),
             repr(self.fail_platform_call),
         )
@@ -95,6 +99,12 @@ class APIHeaderMatcher(object):
     def _user_agent_match(self, other):
         if self.user_agent is not None:
             return other["User-Agent"] == self.user_agent
+
+        return True
+
+    def _content_type_match(self, other):
+        if self.content_type is not None:
+            return other["Content-Type"] == self.content_type
 
         return True
 
@@ -333,12 +343,21 @@ class TestAPIRequestor(object):
     def test_param_encoding_json(self, requestor, mock_response, check_call):
         mock_response("{}", 200)
 
-        requestor.request("post", "/foo", self.ENCODE_INPUTS, encoding='json')
+        requestor.request(
+            "post", self.valid_path, self.ENCODE_INPUTS, encoding="json"
+        )
 
-        expectation = json.dumps(self.ENCODE_INPUTS, default=_json_encode_date_callback)
-        check_call("post", None, {
-            "Content-Type": "application/json",
-        }, expectation)
+        expectation = json.dumps(
+            self.ENCODE_INPUTS, default=_json_encode_date_callback
+        )
+
+        check_call(
+            "post",
+            headers=APIHeaderMatcher(
+                content_type="application/json", request_method="post"
+            ),
+            post_data=expectation,
+        )
 
     def test_dictionary_list_encoding(self):
         params = {"foo": {"0": {"bar": "bat"}}}

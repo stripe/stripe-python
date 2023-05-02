@@ -8,35 +8,38 @@ class TestRawRequest(object):
         request_mock.stub_request(
             "get",
             "/v1/accounts/acct_123",
-            "{\"id\": \"acct_123\", \"object\": \"account\"}",
+            '{"id": "acct_123", "object": "account"}',
         )
 
-        resp = stripe.raw_request(
-            "get", "/v1/accounts/acct_123"
-        )
+        resp = stripe.raw_request("get", "/v1/accounts/acct_123")
         request_mock.assert_requested(
-            "get",
-            "/v1/accounts/acct_123", None,
+            "get", "/v1/accounts/acct_123", {}, None, "form"
         )
 
-        assert resp.body == "{\"id\": \"acct_123\", \"object\": \"account\"}"
+        assert resp.body == '{"id": "acct_123", "object": "account"}'
 
-    # same test as above but also pass stripe-account header
+        deserialized = stripe.deserialize(resp)
+        assert isinstance(deserialized, stripe.Account)
+
     def test_form_request_with_extra_headers(self, request_mock):
         request_mock.stub_request(
             "get",
             "/v1/accounts/acct_123",
-            "{\"id\": \"acct_123\", \"object\": \"account\"}",
+            '{"id": "acct_123", "object": "account"}',
         )
 
         resp = stripe.raw_request(
-            "get", "/v1/accounts/acct_123", headers={"Stripe-Account": "acct_123"}
+            "get",
+            "/v1/accounts/acct_123",
+            headers={"Stripe-Account": "acct_123"},
         )
+
         request_mock.assert_requested(
             "get",
             "/v1/accounts/acct_123",
             {},
             {"Stripe-Account": "acct_123"},
+            "form",
         )
 
-        assert resp.body == "{\"id\": \"acct_123\", \"object\": \"account\"}"
+        assert resp.body == '{"id": "acct_123", "object": "account"}'
