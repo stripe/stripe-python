@@ -9,7 +9,7 @@ def _raw_request(method_, url_, **params):
     )
     stripe_version = util.read_special_variable(params, "stripe_version", None)
     stripe_account = util.read_special_variable(params, "stripe_account", None)
-    encoding = util.read_special_variable(params, "encoding", "form")
+    encoding = util.read_special_variable(params, "encoding", None)
     headers = util.read_special_variable(params, "headers", None)
 
     requestor = api_requestor.APIRequestor(

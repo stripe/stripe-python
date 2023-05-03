@@ -13,7 +13,7 @@ class TestRawRequest(object):
 
         resp = stripe.raw_request("get", "/v1/accounts/acct_123")
         request_mock.assert_requested(
-            "get", "/v1/accounts/acct_123", {}, None, "form"
+            "get", "/v1/accounts/acct_123", {}, None, None
         )
 
         assert resp.body == '{"id": "acct_123", "object": "account"}'
@@ -39,7 +39,7 @@ class TestRawRequest(object):
             "/v1/accounts/acct_123",
             {},
             {"Stripe-Account": "acct_123"},
-            "form",
+            None,
         )
 
         assert resp.body == '{"id": "acct_123", "object": "account"}'
