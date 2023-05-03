@@ -241,59 +241,9 @@ class TestAPIRequestor(object):
         stripe.enable_telemetry = orig_attrs["enable_telemetry"]
 
     @pytest.fixture
-    def http_client(self, mocker):
-        http_client = mocker.Mock(stripe.http_client.HTTPClient)
-        http_client._verify_ssl_certs = True
-        http_client.name = "mockclient"
-        return http_client
-
-    @pytest.fixture
     def requestor(self, http_client):
         requestor = stripe.api_requestor.APIRequestor(client=http_client)
         return requestor
-
-    @pytest.fixture
-    def mock_response(self, mocker, http_client):
-        def mock_response(return_body, return_code, headers=None):
-            http_client.request_with_retries = mocker.Mock(
-                return_value=(return_body, return_code, headers or {})
-            )
-
-        return mock_response
-
-    @pytest.fixture
-    def mock_streaming_response(self, mocker, http_client):
-        def mock_streaming_response(return_body, return_code, headers=None):
-            http_client.request_stream_with_retries = mocker.Mock(
-                return_value=(return_body, return_code, headers or {})
-            )
-
-        return mock_streaming_response
-
-    @pytest.fixture
-    def check_call(self, http_client):
-        def check_call(
-            method,
-            abs_url=None,
-            headers=None,
-            post_data=None,
-            is_streaming=False,
-        ):
-            if not abs_url:
-                abs_url = "%s%s" % (stripe.api_base, self.valid_path)
-            if not headers:
-                headers = APIHeaderMatcher(request_method=method)
-
-            if is_streaming:
-                http_client.request_stream_with_retries.assert_called_with(
-                    method, abs_url, headers, post_data
-                )
-            else:
-                http_client.request_with_retries.assert_called_with(
-                    method, abs_url, headers, post_data
-                )
-
-        return check_call
 
     @property
     def valid_path(self):
