@@ -193,6 +193,21 @@ To install a beta version use `pip install` with the exact version you'd like to
 pip install stripe==5.3.0b3
 ```
 
+### Custom requests
+
+If you would like to send a request to an undocumented API (for example you are in a private beta), or if you prefer to bypass the method definitions in the library and specify your request details directly, you can use the `raw_request` method on `stripe`.
+
+```python
+response = stripe.raw_request(
+    "post", "/v1/beta_endpoint", param=123, stripe_version="2022-11-15; feature_beta=v3"
+)
+
+# (Optional) response is a StripeResponse. You can use `stripe.deserialize` to get a StripeObject.
+deserialized_resp = stripe.deserialize(response)
+
+# Handle response...
+```
+
 > **Note**
 > There can be breaking changes between beta versions. Therefore we recommend pinning the package version to a specific beta version in your [requirements file](https://pip.pypa.io/en/stable/user_guide/#requirements-files) or `setup.py`. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest beta version.
 
