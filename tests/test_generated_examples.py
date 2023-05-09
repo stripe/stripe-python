@@ -3218,3 +3218,10 @@ class TestGeneratedExamples(object):
             "post",
             "/v1/payment_intents",
         )
+
+    def test_quote_list_line_items(self, request_mock):
+        stripe.Quote.list_line_items("qt_xxxxxxxxxxxxx")
+        request_mock.assert_requested(
+            "get",
+            "/v1/quotes/qt_xxxxxxxxxxxxx/line_items",
+        )
