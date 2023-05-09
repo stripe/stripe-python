@@ -10,7 +10,7 @@ def _raw_request(method_, url_, **params):
     client = util.read_special_variable(params, "client", None)  # for testing
     stripe_version = util.read_special_variable(params, "stripe_version", None)
     stripe_account = util.read_special_variable(params, "stripe_account", None)
-    encoding = util.read_special_variable(params, "encoding", None)
+    api_mode = util.read_special_variable(params, "api_mode", None)
     headers = util.read_special_variable(params, "headers", None)
 
     requestor = api_requestor.APIRequestor(
@@ -24,7 +24,7 @@ def _raw_request(method_, url_, **params):
         headers = {} if headers is None else headers.copy()
         headers.update(util.populate_headers(idempotency_key))
 
-    response, _ = requestor.request(method_, url_, params, headers, encoding)
+    response, _ = requestor.request(method_, url_, params, headers, api_mode)
     return response
 
 

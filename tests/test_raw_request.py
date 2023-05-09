@@ -68,11 +68,14 @@ class TestRawRequest(object):
         deserialized = stripe.deserialize(resp)
         assert isinstance(deserialized, stripe.Account)
 
-    def test_json_request_post(self, http_client, mock_response, check_call):
+    def test_preview_request_post(
+        self, http_client, mock_response, check_call
+    ):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
         params = dict(
-            {"client": http_client, "encoding": "json"}, **self.ENCODE_INPUTS
+            {"client": http_client, "api_mode": "preview"},
+            **self.ENCODE_INPUTS
         )
         expectation = json.dumps(self.ENCODE_INPUTS)
 

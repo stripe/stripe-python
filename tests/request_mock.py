@@ -113,25 +113,25 @@ class RequestMock(object):
             raise AssertionError(msg)
 
     def assert_requested(
-        self, method, url, params=None, headers=None, encoding=None
+        self, method, url, params=None, headers=None, api_mode=None
     ):
         self.assert_requested_internal(
-            self.request_patcher, method, url, params, headers, encoding
+            self.request_patcher, method, url, params, headers, api_mode
         )
 
     def assert_requested_stream(
-        self, method, url, params=None, headers=None, encoding=None
+        self, method, url, params=None, headers=None, api_mode=None
     ):
         self.assert_requested_internal(
-            self.request_stream_patcher, method, url, params, headers, encoding
+            self.request_stream_patcher, method, url, params, headers, api_mode
         )
 
     def assert_requested_internal(
-        self, patcher, method, url, params, headers, encoding
+        self, patcher, method, url, params, headers, api_mode
     ):
         params = params or self._mocker.ANY
         headers = headers or self._mocker.ANY
-        encoding = encoding or self._mocker.ANY
+        api_mode = api_mode or self._mocker.ANY
         called = False
         exception = None
 
@@ -141,7 +141,7 @@ class RequestMock(object):
             (self._mocker.ANY, method, url),
             (self._mocker.ANY, method, url, params),
             (self._mocker.ANY, method, url, params, headers),
-            (self._mocker.ANY, method, url, params, headers, encoding),
+            (self._mocker.ANY, method, url, params, headers, api_mode),
         ]
 
         for args in possible_called_args:

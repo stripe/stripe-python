@@ -290,11 +290,13 @@ class TestAPIRequestor(object):
 
         check_call("get", QueryMatcher(expectation))
 
-    def test_param_encoding_json(self, requestor, mock_response, check_call):
+    def test_param_api_mode_preview(
+        self, requestor, mock_response, check_call
+    ):
         mock_response("{}", 200)
 
         requestor.request(
-            "post", self.valid_path, self.ENCODE_INPUTS, encoding="json"
+            "post", self.valid_path, self.ENCODE_INPUTS, api_mode="preview"
         )
 
         expectation = json.dumps(
