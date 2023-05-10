@@ -1,13 +1,12 @@
 from stripe import raw_request
 
-PREVIEW_STRIPE_VERSION = "20230509T165653"
-
+from stripe.api_version import _ApiVersion
 
 
 class Preview(object):
     def _get_default_opts(self, params):
         if "stripe_version" not in params:
-            params["stripe_version"] = PREVIEW_STRIPE_VERSION
+            params["stripe_version"] = _ApiVersion.PREVIEW
         if "api_mode" not in params:
             params["api_mode"] = "preview"
         return params
