@@ -70,10 +70,11 @@ class TestPreview(object):
     def test_override_default_options(self, request_mock):
         expected_body = '{"id": "acc_123"}'
         stripe_version_override = "2022-11-15"
+        stripe_context = "acct_x"
         self.set_body(expected_body)
 
         resp = stripe.preview.post(
-            "/v2/accounts", stripe_version=stripe_version_override
+            "/v2/accounts", stripe_version=stripe_version_override, stripe_context=stripe_context
         )
 
         req = self.mock_request.mock_calls[0]
@@ -82,4 +83,5 @@ class TestPreview(object):
         assert method == "post"
         assert headers["Content-Type"] == "application/json"
         assert headers["Stripe-Version"] == stripe_version_override
+        assert headers["Stripe-Context"] == stripe_context
         assert resp.body == expected_body

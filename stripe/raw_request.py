@@ -11,6 +11,7 @@ def _raw_request(method_, url_, **params):
     stripe_version = util.read_special_variable(params, "stripe_version", None)
     stripe_account = util.read_special_variable(params, "stripe_account", None)
     api_mode = util.read_special_variable(params, "api_mode", None)
+    stripe_context = util.read_special_variable(params, "stripe_context", None)
     headers = util.read_special_variable(params, "headers", None)
 
     requestor = api_requestor.APIRequestor(
@@ -23,6 +24,14 @@ def _raw_request(method_, url_, **params):
     if idempotency_key is not None:
         headers = {} if headers is None else headers.copy()
         headers.update(util.populate_headers(idempotency_key))
+
+    # stripe-context goes *here* and not in api_requestor. Properties
+    # go on api_requestor when you want them to persist onto requests
+    # made when you call instance methods on APIResources that come from
+    # the first request. No need for that here, as we aren't deserializing APIResources
+    if stripe_context is not None:
+        headers = {} if headers is None else headers.copy()
+        headers.update({"Stripe-Context": stripe_context})
 
     response, _ = requestor.request(method_, url_, params, headers, api_mode)
     return response
