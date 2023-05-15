@@ -12,7 +12,7 @@ class Capability(UpdateableAPIResource):
     """
     This is an object representing a capability for a Stripe account.
 
-    Related guide: [Account capabilities](https://stripe.com/docs/connect/account-capabilities).
+    Related guide: [Account capabilities](https://stripe.com/docs/connect/account-capabilities)
     """
 
     OBJECT_NAME = "capability"

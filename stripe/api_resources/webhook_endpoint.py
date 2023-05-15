@@ -21,7 +21,7 @@ class WebhookEndpoint(
 
     Most users configure webhooks from [the dashboard](https://dashboard.stripe.com/webhooks), which provides a user interface for registering and testing your webhook endpoints.
 
-    Related guide: [Setting up Webhooks](https://stripe.com/docs/webhooks/configure).
+    Related guide: [Setting up webhooks](https://stripe.com/docs/webhooks/configure)
     """
 
     OBJECT_NAME = "webhook_endpoint"
