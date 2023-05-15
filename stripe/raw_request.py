@@ -1,4 +1,5 @@
 from stripe import api_requestor, util
+from stripe.api_version import _ApiVersion
 
 
 def _raw_request(method_, url_, **params):
@@ -13,6 +14,9 @@ def _raw_request(method_, url_, **params):
     api_mode = util.read_special_variable(params, "api_mode", None)
     stripe_context = util.read_special_variable(params, "stripe_context", None)
     headers = util.read_special_variable(params, "headers", None)
+
+    if api_mode == "preview":
+        stripe_version = stripe_version or _ApiVersion.PREVIEW
 
     requestor = api_requestor.APIRequestor(
         key=api_key,
