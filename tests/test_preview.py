@@ -31,7 +31,7 @@ class TestPreview(object):
         resp = stripe.preview.get("/v2/accounts/acc_123")
 
         req = self.mock_request.mock_calls[0]
-        method, abs_url, headers, post_data = req.args
+        method, abs_url, headers = req.args
 
         assert method == "get"
         assert "Content-Type" not in headers
@@ -60,7 +60,7 @@ class TestPreview(object):
         resp = stripe.preview.delete("/v2/accounts/acc_123")
 
         req = self.mock_request.mock_calls[0]
-        method, abs_url, headers, post_data = req.args
+        method, abs_url, headers = req.args
 
         assert method == "delete"
         assert "Content-Type" not in headers
