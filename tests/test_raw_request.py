@@ -7,12 +7,17 @@ import pytest
 
 import stripe
 from stripe.api_version import _ApiVersion
-from stripe.six.moves.urllib.parse import urlencode
 
 from tests.test_api_requestor import APIHeaderMatcher
+from tests.test_api_requestor import GMT1
+
 
 class TestRawRequest(object):
-    ENCODE_INPUTS = {"type": "standard", "int": 123, "datetime": datetime.datetime(2013, 1, 1, second=1)}
+    ENCODE_INPUTS = {
+        "type": "standard",
+        "int": 123,
+        "datetime": datetime.datetime(2013, 1, 1, second=1, tzinfo=GMT1()),
+    }
     POST_REL_URL = "/v1/accounts"
     GET_REL_URL = "/v1/accounts/acct_123"
     POST_ABS_URL = stripe.api_base + POST_REL_URL
@@ -49,7 +54,7 @@ class TestRawRequest(object):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
         params = dict(**{"client": http_client}, **self.ENCODE_INPUTS)
-        expectation = "type=standard&int=123&datetime=1357027201"
+        expectation = "type=standard&int=123&datetime=1356994801"
 
         resp = stripe.raw_request("post", self.POST_REL_URL, **params)
 
@@ -75,7 +80,9 @@ class TestRawRequest(object):
             **{"client": http_client, "api_mode": "preview"},
             **self.ENCODE_INPUTS
         )
-        expectation = '{"type": "standard", "int": 123, "datetime": 1357027201}'
+        expectation = (
+            '{"type": "standard", "int": 123, "datetime": 1356994801}'
+        )
 
         resp = stripe.raw_request("post", self.POST_REL_URL, **params)
 
@@ -121,7 +128,7 @@ class TestRawRequest(object):
             abs_url=self.GET_ABS_URL,
             headers=APIHeaderMatcher(
                 extra={"Stripe-Version": _ApiVersion.PREVIEW},
-                request_method="get"
+                request_method="get",
             ),
         )
 
@@ -130,7 +137,11 @@ class TestRawRequest(object):
     ):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
         stripe_version_override = "2023-05-15.preview"
-        params = {"client": http_client, "api_mode": "preview", "stripe_version": stripe_version_override}
+        params = {
+            "client": http_client,
+            "api_mode": "preview",
+            "stripe_version": stripe_version_override,
+        }
 
         stripe.raw_request("post", self.POST_REL_URL, **params)
 
@@ -140,7 +151,7 @@ class TestRawRequest(object):
             headers=APIHeaderMatcher(
                 extra={"Stripe-Version": stripe_version_override},
                 content_type="application/json",
-                request_method="post"
+                request_method="post",
             ),
             post_data=json.dumps({}),
         )

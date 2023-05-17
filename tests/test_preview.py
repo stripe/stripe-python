@@ -74,7 +74,9 @@ class TestPreview(object):
         self.set_body(expected_body)
 
         resp = stripe.preview.post(
-            "/v2/accounts", stripe_version=stripe_version_override, stripe_context=stripe_context
+            "/v2/accounts",
+            stripe_version=stripe_version_override,
+            stripe_context=stripe_context,
         )
 
         req = self.mock_request.mock_calls[0]
