@@ -31,8 +31,9 @@ class TestPreview(object):
         resp = stripe.preview.get("/v2/accounts/acc_123")
 
         req = self.mock_request.mock_calls[0]
-        method = req.args[0]
-        headers = req.args[2]
+        args = tuple(req.args)
+        method = args[0]
+        headers = args[2]
 
         assert method == "get"
         assert "Content-Type" not in headers
@@ -47,8 +48,9 @@ class TestPreview(object):
         resp = stripe.preview.post("/v2/accounts", p1=1, p2="string")
 
         req = self.mock_request.mock_calls[0]
-        method = req.args[0]
-        headers = req.args[2]
+        args = tuple(req.args)
+        method = args[0]
+        headers = args[2]
 
         assert method == "post"
         assert headers["Content-Type"] == "application/json"
@@ -62,8 +64,9 @@ class TestPreview(object):
         resp = stripe.preview.delete("/v2/accounts/acc_123")
 
         req = self.mock_request.mock_calls[0]
-        method = req.args[0]
-        headers = req.args[2]
+        args = tuple(req.args)
+        method = args[0]
+        headers = args[2]
 
         assert method == "delete"
         assert "Content-Type" not in headers
@@ -83,8 +86,9 @@ class TestPreview(object):
         )
 
         req = self.mock_request.mock_calls[0]
-        method = req.args[0]
-        headers = req.args[2]
+        args = tuple(req.args)
+        method = args[0]
+        headers = args[2]
 
         assert method == "post"
         assert headers["Content-Type"] == "application/json"
