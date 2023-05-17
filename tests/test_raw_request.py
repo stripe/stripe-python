@@ -1,6 +1,7 @@
 from __future__ import absolute_import, division, print_function
 
 import json
+import datetime
 
 import pytest
 
@@ -10,9 +11,8 @@ from stripe.six.moves.urllib.parse import urlencode
 
 from tests.test_api_requestor import APIHeaderMatcher
 
-
 class TestRawRequest(object):
-    ENCODE_INPUTS = {"type": "standard"}
+    ENCODE_INPUTS = {"type": "standard", "int": 123, "datetime": datetime.datetime(2013, 1, 1, second=1)}
     POST_REL_URL = "/v1/accounts"
     GET_REL_URL = "/v1/accounts/acct_123"
     POST_ABS_URL = stripe.api_base + POST_REL_URL
@@ -49,7 +49,7 @@ class TestRawRequest(object):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
         params = dict(**{"client": http_client}, **self.ENCODE_INPUTS)
-        expectation = urlencode(self.ENCODE_INPUTS)
+        expectation = "type=standard&int=123&datetime=1357027201"
 
         resp = stripe.raw_request("post", self.POST_REL_URL, **params)
 
@@ -75,7 +75,7 @@ class TestRawRequest(object):
             **{"client": http_client, "api_mode": "preview"},
             **self.ENCODE_INPUTS
         )
-        expectation = json.dumps(self.ENCODE_INPUTS)
+        expectation = '{"type": "standard", "int": 123, "datetime": 1357027201}'
 
         resp = stripe.raw_request("post", self.POST_REL_URL, **params)
 
