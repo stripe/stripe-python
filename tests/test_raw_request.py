@@ -14,11 +14,16 @@ from tests.test_api_requestor import GMT1
 
 
 class TestRawRequest(object):
-    ENCODE_INPUTS = {
-        "type": "standard",
-        "int": 123,
-        "datetime": datetime.datetime(2013, 1, 1, second=1, tzinfo=GMT1()),
-    }
+    ENCODE_INPUTS = OrderedDict(
+        [
+            ("type", "standard"),
+            ("int", 123),
+            (
+                "datetime",
+                datetime.datetime(2013, 1, 1, second=1, tzinfo=GMT1()),
+            ),
+        ],
+    )
     POST_REL_URL = "/v1/accounts"
     GET_REL_URL = "/v1/accounts/acct_123"
     POST_ABS_URL = stripe.api_base + POST_REL_URL
@@ -52,10 +57,11 @@ class TestRawRequest(object):
     def test_form_request_post(self, mock_response, check_call):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
-        params = OrderedDict(**self.ENCODE_INPUTS)
         expectation = "type=standard&int=123&datetime=1356994801"
 
-        resp = stripe.raw_request("post", self.POST_REL_URL, **params)
+        resp = stripe.raw_request(
+            "post", self.POST_REL_URL, **self.ENCODE_INPUTS
+        )
 
         check_call(
             "post",
@@ -73,7 +79,9 @@ class TestRawRequest(object):
     def test_preview_request_post(self, mock_response, check_call):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
-        params = OrderedDict({"api_mode": "preview"}, **self.ENCODE_INPUTS)
+        params = OrderedDict(
+            list(self.ENCODE_INPUTS.items()) + [("api_mode", "preview")]
+        )
         expectation = (
             '{"type": "standard", "int": 123, "datetime": 1356994801}'
         )
