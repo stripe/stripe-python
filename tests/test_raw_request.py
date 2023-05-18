@@ -42,9 +42,7 @@ class TestRawRequest(object):
     def test_form_request_get(self, mock_response, check_call):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
-        params = {}
-
-        resp = stripe.raw_request("get", self.GET_REL_URL, **params)
+        resp = stripe.raw_request("get", self.GET_REL_URL)
 
         check_call("get", abs_url=self.GET_ABS_URL)
 
