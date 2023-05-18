@@ -39,7 +39,7 @@ class TestRawRequest(object):
         stripe.api_version = orig_attrs["api_version"]
         stripe.default_http_client = orig_attrs["default_http_client"]
 
-    def test_form_request_get(self, http_client, mock_response, check_call):
+    def test_form_request_get(self, mock_response, check_call):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
         params = {}
@@ -51,10 +51,10 @@ class TestRawRequest(object):
         deserialized = stripe.deserialize(resp)
         assert isinstance(deserialized, stripe.Account)
 
-    def test_form_request_post(self, http_client, mock_response, check_call):
+    def test_form_request_post(self, mock_response, check_call):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
-        params = OrderedDict({"client": http_client}, **self.ENCODE_INPUTS)
+        params = OrderedDict(**self.ENCODE_INPUTS)
         expectation = "type=standard&int=123&datetime=1356994801"
 
         resp = stripe.raw_request("post", self.POST_REL_URL, **params)
@@ -72,15 +72,10 @@ class TestRawRequest(object):
         deserialized = stripe.deserialize(resp)
         assert isinstance(deserialized, stripe.Account)
 
-    def test_preview_request_post(
-        self, http_client, mock_response, check_call
-    ):
+    def test_preview_request_post(self, mock_response, check_call):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
-        params = OrderedDict(
-            {"client": http_client, "api_mode": "preview"},
-            **self.ENCODE_INPUTS
-        )
+        params = OrderedDict({"api_mode": "preview"}, **self.ENCODE_INPUTS)
         expectation = (
             '{"type": "standard", "int": 123, "datetime": 1356994801}'
         )
@@ -100,13 +95,11 @@ class TestRawRequest(object):
         deserialized = stripe.deserialize(resp)
         assert isinstance(deserialized, stripe.Account)
 
-    def test_form_request_with_extra_headers(
-        self, http_client, mock_response, check_call
-    ):
+    def test_form_request_with_extra_headers(self, mock_response, check_call):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
         extraHeaders = {"foo": "bar", "Stripe-Account": "acct_123"}
-        params = {"client": http_client, "headers": extraHeaders}
+        params = {"headers": extraHeaders}
 
         stripe.raw_request("get", self.GET_REL_URL, **params)
 
@@ -117,10 +110,10 @@ class TestRawRequest(object):
         )
 
     def test_preview_request_default_api_version(
-        self, http_client, mock_response, check_call
+        self, mock_response, check_call
     ):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
-        params = {"client": http_client, "api_mode": "preview"}
+        params = {"api_mode": "preview"}
 
         stripe.raw_request("get", self.GET_REL_URL, **params)
 
@@ -134,12 +127,11 @@ class TestRawRequest(object):
         )
 
     def test_preview_request_overridden_api_version(
-        self, http_client, mock_response, check_call
+        self, mock_response, check_call
     ):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
         stripe_version_override = "2023-05-15.preview"
         params = {
-            "client": http_client,
             "api_mode": "preview",
             "stripe_version": stripe_version_override,
         }

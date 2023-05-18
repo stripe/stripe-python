@@ -8,7 +8,6 @@ def _raw_request(method_, url_, **params):
     idempotency_key = util.read_special_variable(
         params, "idempotency_key", None
     )
-    client = util.read_special_variable(params, "client", None)  # for testing
     stripe_version = util.read_special_variable(params, "stripe_version", None)
     stripe_account = util.read_special_variable(params, "stripe_account", None)
     api_mode = util.read_special_variable(params, "api_mode", None)
@@ -20,7 +19,6 @@ def _raw_request(method_, url_, **params):
 
     requestor = api_requestor.APIRequestor(
         key=api_key,
-        client=client,
         api_version=stripe_version,
         account=stripe_account,
     )
