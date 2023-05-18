@@ -3,6 +3,7 @@ from __future__ import absolute_import, division, print_function
 import pytest
 import stripe
 from stripe.api_version import _ApiVersion
+from tests.test_api_requestor import APIHeaderMatcher
 
 
 class TestPreview(object):
@@ -25,55 +26,64 @@ class TestPreview(object):
         stripe.default_http_client = orig_attrs["default_http_client"]
         stripe.api_key = orig_attrs["api_key"]
 
-    def test_get(self, request_mock):
+    def test_get(self):
         expected_body = '{"id": "acc_123"}'
         self.set_body(expected_body)
+
         resp = stripe.preview.get("/v2/accounts/acc_123")
 
-        req = self.mock_request.mock_calls[0]
-        args = tuple(req.args)
-        method = args[0]
-        headers = args[2]
+        self.mock_request.assert_called_with(
+            "get",
+            "%s/v2/accounts/acc_123" % stripe.api_base,
+            APIHeaderMatcher(
+                request_method="get",
+                content_type=None,
+                extra={"Stripe-Version": _ApiVersion.PREVIEW},
+            ),
+            None,
+        )
 
-        assert method == "get"
-        assert "Content-Type" not in headers
-        assert headers["Stripe-Version"] == _ApiVersion.PREVIEW
-        assert headers["Stripe-Version"] == _ApiVersion.PREVIEW
         assert resp.body == expected_body
 
-    def test_post(self, request_mock):
+    def test_post(self):
         expected_body = '{"id": "acc_123"}'
         self.set_body(expected_body)
 
         resp = stripe.preview.post("/v2/accounts", p1=1, p2="string")
 
-        req = self.mock_request.mock_calls[0]
-        args = tuple(req.args)
-        method = args[0]
-        headers = args[2]
+        self.mock_request.assert_called_with(
+            "post",
+            "%s/v2/accounts" % stripe.api_base,
+            APIHeaderMatcher(
+                request_method="post",
+                content_type="application/json",
+                extra={"Stripe-Version": _ApiVersion.PREVIEW},
+            ),
+            '{"p1": 1, "p2": "string"}',
+        )
 
-        assert method == "post"
-        assert headers["Content-Type"] == "application/json"
-        assert headers["Stripe-Version"] == _ApiVersion.PREVIEW
         assert resp.body == expected_body
 
-    def test_delete(self, request_mock):
+    def test_delete(self):
         expected_body = '{"id": "acc_123"}'
         self.set_body(expected_body)
 
         resp = stripe.preview.delete("/v2/accounts/acc_123")
 
-        req = self.mock_request.mock_calls[0]
-        args = tuple(req.args)
-        method = args[0]
-        headers = args[2]
+        self.mock_request.assert_called_with(
+            "delete",
+            "%s/v2/accounts/acc_123" % stripe.api_base,
+            APIHeaderMatcher(
+                request_method="delete",
+                content_type=None,
+                extra={"Stripe-Version": _ApiVersion.PREVIEW},
+            ),
+            None,
+        )
 
-        assert method == "delete"
-        assert "Content-Type" not in headers
-        assert headers["Stripe-Version"] == _ApiVersion.PREVIEW
         assert resp.body == expected_body
 
-    def test_override_default_options(self, request_mock):
+    def test_override_default_options(self):
         expected_body = '{"id": "acc_123"}'
         stripe_version_override = "2022-11-15"
         stripe_context = "acct_x"
@@ -85,13 +95,18 @@ class TestPreview(object):
             stripe_context=stripe_context,
         )
 
-        req = self.mock_request.mock_calls[0]
-        args = tuple(req.args)
-        method = args[0]
-        headers = args[2]
+        self.mock_request.assert_called_with(
+            "post",
+            "%s/v2/accounts" % stripe.api_base,
+            APIHeaderMatcher(
+                request_method="post",
+                content_type="application/json",
+                extra={
+                    "Stripe-Context": stripe_context,
+                    "Stripe-Version": stripe_version_override,
+                },
+            ),
+            "{}",
+        )
 
-        assert method == "post"
-        assert headers["Content-Type"] == "application/json"
-        assert headers["Stripe-Version"] == stripe_version_override
-        assert headers["Stripe-Context"] == stripe_context
         assert resp.body == expected_body
