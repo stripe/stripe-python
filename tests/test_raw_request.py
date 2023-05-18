@@ -25,7 +25,7 @@ class TestRawRequest(object):
     GET_ABS_URL = stripe.api_base + GET_REL_URL
 
     @pytest.fixture(autouse=True)
-    def setup_stripe(self):
+    def setup_stripe(self, http_client):
         orig_attrs = {
             "api_key": stripe.api_key,
             "api_version": stripe.api_version,
@@ -33,7 +33,7 @@ class TestRawRequest(object):
         }
         stripe.api_key = "sk_test_123"
         stripe.api_version = "2017-12-14"
-        stripe.default_http_client = None
+        stripe.default_http_client = http_client
         yield
         stripe.api_key = orig_attrs["api_key"]
         stripe.api_version = orig_attrs["api_version"]
@@ -42,7 +42,7 @@ class TestRawRequest(object):
     def test_form_request_get(self, http_client, mock_response, check_call):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
-        params = {"client": http_client}
+        params = {}
 
         resp = stripe.raw_request("get", self.GET_REL_URL, **params)
 
