@@ -7,6 +7,7 @@ from collections import OrderedDict
 import pytest
 
 import stripe
+from stripe.api_requestor import _json_encode_date_callback
 from stripe.api_version import _ApiVersion
 
 from tests.test_api_requestor import APIHeaderMatcher
@@ -79,11 +80,9 @@ class TestRawRequest(object):
     def test_preview_request_post(self, mock_response, check_call):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
-        params = OrderedDict(
-            list(self.ENCODE_INPUTS.items()) + [("api_mode", "preview")]
-        )
-        expectation = (
-            '{"type": "standard", "int": 123, "datetime": 1356994801}'
+        params = dict({"api_mode": "preview"}, **self.ENCODE_INPUTS)
+        expectation = json.dumps(
+            self.ENCODE_INPUTS, default=_json_encode_date_callback
         )
 
         resp = stripe.raw_request("post", self.POST_REL_URL, **params)
