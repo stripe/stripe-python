@@ -30,14 +30,13 @@ class TestPreview(object):
         expected_body = '{"id": "acc_123"}'
         self.set_body(expected_body)
 
-        resp = stripe.preview.get("/v2/accounts/acc_123")
+        resp = stripe.preview.get("/v1/accounts/acc_123")
 
         self.mock_request.assert_called_with(
             "get",
-            "%s/v2/accounts/acc_123" % stripe.api_base,
+            "%s/v1/accounts/acc_123" % stripe.api_base,
             APIHeaderMatcher(
                 request_method="get",
-                content_type=None,
                 extra={"Stripe-Version": _ApiVersion.PREVIEW},
             ),
             None,
@@ -49,11 +48,11 @@ class TestPreview(object):
         expected_body = '{"id": "acc_123"}'
         self.set_body(expected_body)
 
-        resp = stripe.preview.post("/v2/accounts", arg="string")
+        resp = stripe.preview.post("/v1/accounts", arg="string")
 
         self.mock_request.assert_called_with(
             "post",
-            "%s/v2/accounts" % stripe.api_base,
+            "%s/v1/accounts" % stripe.api_base,
             APIHeaderMatcher(
                 request_method="post",
                 content_type="application/json",
@@ -68,11 +67,11 @@ class TestPreview(object):
         expected_body = '{"id": "acc_123"}'
         self.set_body(expected_body)
 
-        resp = stripe.preview.delete("/v2/accounts/acc_123")
+        resp = stripe.preview.delete("/v1/accounts/acc_123")
 
         self.mock_request.assert_called_with(
             "delete",
-            "%s/v2/accounts/acc_123" % stripe.api_base,
+            "%s/v1/accounts/acc_123" % stripe.api_base,
             APIHeaderMatcher(
                 request_method="delete",
                 content_type=None,
@@ -90,14 +89,14 @@ class TestPreview(object):
         self.set_body(expected_body)
 
         resp = stripe.preview.post(
-            "/v2/accounts",
+            "/v1/accounts",
             stripe_version=stripe_version_override,
             stripe_context=stripe_context,
         )
 
         self.mock_request.assert_called_with(
             "post",
-            "%s/v2/accounts" % stripe.api_base,
+            "%s/v1/accounts" % stripe.api_base,
             APIHeaderMatcher(
                 request_method="post",
                 content_type="application/json",

@@ -204,8 +204,6 @@ response = stripe.raw_request(
 
 # (Optional) response is a StripeResponse. You can use `stripe.deserialize` to get a StripeObject.
 deserialized_resp = stripe.deserialize(response)
-
-# Handle response...
 ```
 
 > **Note**
