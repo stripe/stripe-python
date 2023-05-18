@@ -74,7 +74,6 @@ class TestPreview(object):
             "%s/v1/accounts/acc_123" % stripe.api_base,
             APIHeaderMatcher(
                 request_method="delete",
-                content_type=None,
                 extra={"Stripe-Version": _ApiVersion.PREVIEW},
             ),
             None,

@@ -2,6 +2,7 @@ from __future__ import absolute_import, division, print_function
 
 import json
 import datetime
+from collections import OrderedDict
 
 import pytest
 
@@ -53,7 +54,7 @@ class TestRawRequest(object):
     def test_form_request_post(self, http_client, mock_response, check_call):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
-        params = dict({"client": http_client}, **self.ENCODE_INPUTS)
+        params = OrderedDict({"client": http_client}, **self.ENCODE_INPUTS)
         expectation = "type=standard&int=123&datetime=1356994801"
 
         resp = stripe.raw_request("post", self.POST_REL_URL, **params)
@@ -76,7 +77,7 @@ class TestRawRequest(object):
     ):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
-        params = dict(
+        params = OrderedDict(
             {"client": http_client, "api_mode": "preview"},
             **self.ENCODE_INPUTS
         )
