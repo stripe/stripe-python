@@ -49,7 +49,7 @@ class TestPreview(object):
         expected_body = '{"id": "acc_123"}'
         self.set_body(expected_body)
 
-        resp = stripe.preview.post("/v2/accounts", p1=1, p2="string")
+        resp = stripe.preview.post("/v2/accounts", arg="string")
 
         self.mock_request.assert_called_with(
             "post",
@@ -59,7 +59,7 @@ class TestPreview(object):
                 content_type="application/json",
                 extra={"Stripe-Version": _ApiVersion.PREVIEW},
             ),
-            '{"p1": 1, "p2": "string"}',
+            '{"arg": "string"}',
         )
 
         assert resp.body == expected_body
