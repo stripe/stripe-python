@@ -77,7 +77,7 @@ class TestRawRequest(object):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
         params = dict(
-            **{"client": http_client, "api_mode": "preview"},
+            {"client": http_client, "api_mode": "preview"},
             **self.ENCODE_INPUTS
         )
         expectation = (
