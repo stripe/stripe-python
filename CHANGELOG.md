@@ -1,5 +1,13 @@
 # Changelog
 
+## 5.5.0b3 - 2023-05-19
+* [#966](https://github.com/stripe/stripe-python/pull/966) Update generated code for beta
+  * Add support for `subscribe` and `unsubscribe` methods on resource `FinancialConnections.Account`
+* [#965](https://github.com/stripe/stripe-python/pull/965) Add raw_request
+* [#964](https://github.com/stripe/stripe-python/pull/964) Update generated code for beta
+* [#961](https://github.com/stripe/stripe-python/pull/961) Update generated code for beta
+
+
 ## 5.5.0b2 - 2023-04-13
 * [#954](https://github.com/stripe/stripe-python/pull/954) Update generated code for beta
   * Add support for `collect_payment_method` and `confirm_payment_intent` methods on resource `Terminal.Reader`
