@@ -10,7 +10,7 @@ class BalanceTransaction(ListableAPIResource):
     Balance transactions represent funds moving through your Stripe account.
     They're created for every type of transaction that comes into or flows out of your Stripe account balance.
 
-    Related guide: [Balance Transaction Types](https://stripe.com/docs/reports/balance-transaction-types).
+    Related guide: [Balance transaction types](https://stripe.com/docs/reports/balance-transaction-types)
     """
 
     OBJECT_NAME = "balance_transaction"

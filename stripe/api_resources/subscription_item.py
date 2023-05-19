@@ -9,7 +9,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
 
 
-@nested_resource_class_methods("usage_record", operations=["create"])
+@nested_resource_class_methods(
+    "usage_record",
+    operations=["create"],
+)
 @nested_resource_class_methods(
     "usage_record_summary",
     operations=["list"],
