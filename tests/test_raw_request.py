@@ -2,29 +2,35 @@ from __future__ import absolute_import, division, print_function
 
 import json
 import datetime
-from collections import OrderedDict
 
 import pytest
 
 import stripe
-from stripe.api_requestor import _json_encode_date_callback
 from stripe.api_version import _ApiVersion
 
 from tests.test_api_requestor import APIHeaderMatcher
 from tests.test_api_requestor import GMT1
+from tests.test_api_requestor import QueryMatcher
+
+
+class JSONMatcher(object):
+    def __init__(self, expected_json):
+        self.expected = json.loads(expected_json)
+
+    def __eq__(self, other_json):
+        other = json.loads(other_json)
+        return self.expected == other
+
+    def __repr__(self):
+        return "JSONMatcher(%r)" % self.expected
 
 
 class TestRawRequest(object):
-    ENCODE_INPUTS = OrderedDict(
-        [
-            ("type", "standard"),
-            ("int", 123),
-            (
-                "datetime",
-                datetime.datetime(2013, 1, 1, second=1, tzinfo=GMT1()),
-            ),
-        ],
-    )
+    ENCODE_INPUTS = {
+        "type": "standard",
+        "int": 123,
+        "datetime": datetime.datetime(2013, 1, 1, second=1, tzinfo=GMT1()),
+    }
     POST_REL_URL = "/v1/accounts"
     GET_REL_URL = "/v1/accounts/acct_123"
     POST_ABS_URL = stripe.api_base + POST_REL_URL
@@ -71,7 +77,7 @@ class TestRawRequest(object):
                 content_type="application/x-www-form-urlencoded",
                 request_method="post",
             ),
-            post_data=expectation,
+            post_data=QueryMatcher(stripe.util.parse_qsl(expectation)),
         )
 
         deserialized = stripe.deserialize(resp)
@@ -81,8 +87,8 @@ class TestRawRequest(object):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
 
         params = dict({"api_mode": "preview"}, **self.ENCODE_INPUTS)
-        expectation = json.dumps(
-            self.ENCODE_INPUTS, default=_json_encode_date_callback
+        expectation = (
+            '{"type": "standard", "int": 123, "datetime": 1356994801}'
         )
 
         resp = stripe.raw_request("post", self.POST_REL_URL, **params)
@@ -94,7 +100,7 @@ class TestRawRequest(object):
                 content_type="application/json",
                 request_method="post",
             ),
-            post_data=expectation,
+            post_data=JSONMatcher(expectation),
         )
 
         deserialized = stripe.deserialize(resp)
