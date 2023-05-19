@@ -11,6 +11,7 @@ import stripe
 from stripe.six.moves.urllib.request import urlopen
 from stripe.six.moves.urllib.error import HTTPError
 
+from tests.test_api_requestor import APIHeaderMatcher
 from tests.request_mock import RequestMock
 from tests.stripe_mock import StripeMock
 
@@ -96,3 +97,57 @@ def setup_stripe():
 @pytest.fixture
 def request_mock(mocker):
     return RequestMock(mocker)
+
+
+@pytest.fixture
+def http_client(mocker):
+    http_client = mocker.Mock(stripe.http_client.HTTPClient)
+    http_client._verify_ssl_certs = True
+    http_client.name = "mockclient"
+    return http_client
+
+
+@pytest.fixture
+def mock_response(mocker, http_client):
+    def mock_response(return_body, return_code, headers=None):
+        http_client.request_with_retries = mocker.Mock(
+            return_value=(return_body, return_code, headers or {})
+        )
+
+    return mock_response
+
+
+@pytest.fixture
+def mock_streaming_response(mocker, http_client):
+    def mock_streaming_response(return_body, return_code, headers=None):
+        http_client.request_stream_with_retries = mocker.Mock(
+            return_value=(return_body, return_code, headers or {})
+        )
+
+    return mock_streaming_response
+
+
+@pytest.fixture
+def check_call(http_client):
+    def check_call(
+        method,
+        abs_url=None,
+        headers=None,
+        post_data=None,
+        is_streaming=False,
+    ):
+        if not abs_url:
+            abs_url = "%s%s" % (stripe.api_base, "/foo")
+        if not headers:
+            headers = APIHeaderMatcher(request_method=method)
+
+        if is_streaming:
+            http_client.request_stream_with_retries.assert_called_with(
+                method, abs_url, headers, post_data
+            )
+        else:
+            http_client.request_with_retries.assert_called_with(
+                method, abs_url, headers, post_data
+            )
+
+    return check_call

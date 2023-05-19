@@ -10,6 +10,7 @@ import pytest
 
 import stripe
 from stripe import six, util
+from stripe.api_requestor import _json_encode_date_callback
 from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
 from stripe.six.moves.urllib.parse import urlsplit
@@ -46,6 +47,7 @@ class APIHeaderMatcher(object):
         request_method=None,
         user_agent=None,
         app_info=None,
+        content_type=None,
         idempotency_key=None,
         fail_platform_call=False,
     ):
@@ -54,6 +56,7 @@ class APIHeaderMatcher(object):
         self.extra = extra
         self.user_agent = user_agent
         self.app_info = app_info
+        self.content_type = content_type
         self.idempotency_key = idempotency_key
         self.fail_platform_call = fail_platform_call
 
@@ -64,17 +67,19 @@ class APIHeaderMatcher(object):
             and self._user_agent_match(other)
             and self._x_stripe_ua_contains_app_info(other)
             and self._x_stripe_ua_handles_failed_platform_function(other)
+            and self._content_type_match(other)
             and self._idempotency_key_match(other)
             and self._extra_match(other)
         )
 
     def __repr__(self):
-        return "APIHeaderMatcher(request_method=%s, api_key=%s, extra=%s, " "user_agent=%s, app_info=%s, idempotency_key=%s, fail_platform_call=%s)" % (
+        return "APIHeaderMatcher(request_method=%s, api_key=%s, extra=%s, " "user_agent=%s, app_info=%s, content_type=%s, idempotency_key=%s, fail_platform_call=%s)" % (
             repr(self.request_method),
             repr(self.api_key),
             repr(self.extra),
             repr(self.user_agent),
             repr(self.app_info),
+            repr(self.content_type),
             repr(self.idempotency_key),
             repr(self.fail_platform_call),
         )
@@ -94,6 +99,12 @@ class APIHeaderMatcher(object):
     def _user_agent_match(self, other):
         if self.user_agent is not None:
             return other["User-Agent"] == self.user_agent
+
+        return True
+
+    def _content_type_match(self, other):
+        if self.content_type is not None:
+            return other["Content-Type"] == self.content_type
 
         return True
 
@@ -230,59 +241,9 @@ class TestAPIRequestor(object):
         stripe.enable_telemetry = orig_attrs["enable_telemetry"]
 
     @pytest.fixture
-    def http_client(self, mocker):
-        http_client = mocker.Mock(stripe.http_client.HTTPClient)
-        http_client._verify_ssl_certs = True
-        http_client.name = "mockclient"
-        return http_client
-
-    @pytest.fixture
     def requestor(self, http_client):
         requestor = stripe.api_requestor.APIRequestor(client=http_client)
         return requestor
-
-    @pytest.fixture
-    def mock_response(self, mocker, http_client):
-        def mock_response(return_body, return_code, headers=None):
-            http_client.request_with_retries = mocker.Mock(
-                return_value=(return_body, return_code, headers or {})
-            )
-
-        return mock_response
-
-    @pytest.fixture
-    def mock_streaming_response(self, mocker, http_client):
-        def mock_streaming_response(return_body, return_code, headers=None):
-            http_client.request_stream_with_retries = mocker.Mock(
-                return_value=(return_body, return_code, headers or {})
-            )
-
-        return mock_streaming_response
-
-    @pytest.fixture
-    def check_call(self, http_client):
-        def check_call(
-            method,
-            abs_url=None,
-            headers=None,
-            post_data=None,
-            is_streaming=False,
-        ):
-            if not abs_url:
-                abs_url = "%s%s" % (stripe.api_base, self.valid_path)
-            if not headers:
-                headers = APIHeaderMatcher(request_method=method)
-
-            if is_streaming:
-                http_client.request_stream_with_retries.assert_called_with(
-                    method, abs_url, headers, post_data
-                )
-            else:
-                http_client.request_with_retries.assert_called_with(
-                    method, abs_url, headers, post_data
-                )
-
-        return check_call
 
     @property
     def valid_path(self):
@@ -328,6 +289,27 @@ class TestAPIRequestor(object):
             expectation.extend([(k % (type_,), str(v)) for k, v in values])
 
         check_call("get", QueryMatcher(expectation))
+
+    def test_param_api_mode_preview(
+        self, requestor, mock_response, check_call
+    ):
+        mock_response("{}", 200)
+
+        requestor.request(
+            "post", self.valid_path, self.ENCODE_INPUTS, api_mode="preview"
+        )
+
+        expectation = json.dumps(
+            self.ENCODE_INPUTS, default=_json_encode_date_callback
+        )
+
+        check_call(
+            "post",
+            headers=APIHeaderMatcher(
+                content_type="application/json", request_method="post"
+            ),
+            post_data=expectation,
+        )
 
     def test_dictionary_list_encoding(self):
         params = {"foo": {"0": {"bar": "bat"}}}

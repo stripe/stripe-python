@@ -40,6 +40,12 @@ from stripe.oauth import OAuth  # noqa
 # Webhooks
 from stripe.webhook import Webhook, WebhookSignature  # noqa
 
+from stripe.raw_request import _raw_request as raw_request  # noqa
+
+from stripe.raw_request import _deserialize as deserialize  # noqa
+
+from stripe.preview import preview  # noqa
+
 
 # Sets some basic information about the running application that's sent along
 # with API requests. Useful for plugin authors to identify their plugin when
