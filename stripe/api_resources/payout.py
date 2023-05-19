@@ -19,7 +19,7 @@ class Payout(
     schedules](https://stripe.com/docs/connect/manage-payout-schedule), depending on your country and
     industry.
 
-    Related guide: [Receiving Payouts](https://stripe.com/docs/payouts).
+    Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
     """
 
     OBJECT_NAME = "payout"

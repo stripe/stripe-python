@@ -49,7 +49,7 @@ class Invoice(
     More details on the customer's credit balance are
     [here](https://stripe.com/docs/billing/customer/balance).
 
-    Related guide: [Send Invoices to Customers](https://stripe.com/docs/billing/invoices/sending).
+    Related guide: [Send invoices to customers](https://stripe.com/docs/billing/invoices/sending)
     """
 
     OBJECT_NAME = "invoice"

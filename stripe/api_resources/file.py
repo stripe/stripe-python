@@ -16,7 +16,7 @@ class File(ListableAPIResource):
     been created by Stripe (for example, the results of a [Sigma scheduled
     query](https://stripe.com/docs/api#scheduled_queries)).
 
-    Related guide: [File Upload Guide](https://stripe.com/docs/file-upload).
+    Related guide: [File upload guide](https://stripe.com/docs/file-upload)
     """
 
     OBJECT_NAME = "file"

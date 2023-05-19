@@ -22,7 +22,7 @@ class Session(CreateableAPIResource, ListableAPIResource):
     You can create a Checkout Session on your server and redirect to its URL
     to begin Checkout.
 
-    Related guide: [Checkout Quickstart](https://stripe.com/docs/checkout/quickstart).
+    Related guide: [Checkout quickstart](https://stripe.com/docs/checkout/quickstart)
     """
 
     OBJECT_NAME = "checkout.session"

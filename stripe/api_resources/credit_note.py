@@ -16,7 +16,7 @@ class CreditNote(
     """
     Issue a credit note to adjust an invoice's amount after the invoice is finalized.
 
-    Related guide: [Credit Notes](https://stripe.com/docs/billing/invoices/credit-notes).
+    Related guide: [Credit notes](https://stripe.com/docs/billing/invoices/credit-notes)
     """
 
     OBJECT_NAME = "credit_note"
