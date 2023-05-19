@@ -19,7 +19,7 @@ class Refund(
     but not yet refunded. Funds will be refunded to the credit or debit card that
     was originally charged.
 
-    Related guide: [Refunds](https://stripe.com/docs/refunds).
+    Related guide: [Refunds](https://stripe.com/docs/refunds)
     """
 
     OBJECT_NAME = "refund"

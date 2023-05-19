@@ -10,7 +10,7 @@ class Calculation(CreateableAPIResource):
     """
     A Tax Calculation allows you to calculate the tax to collect from your customer.
 
-    Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom).
+    Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom)
     """
 
     OBJECT_NAME = "tax.calculation"

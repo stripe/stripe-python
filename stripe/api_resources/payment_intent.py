@@ -26,7 +26,7 @@ class PaymentIntent(
     throughout its lifetime as it interfaces with Stripe.js to perform
     authentication flows and ultimately creates at most one successful charge.
 
-    Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents).
+    Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
     """
 
     OBJECT_NAME = "payment_intent"

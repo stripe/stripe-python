@@ -22,7 +22,7 @@ class Reversal(UpdateableAPIResource):
     transfer only if the destination account has enough balance to cover the
     reversal.
 
-    Related guide: [Reversing Transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers).
+    Related guide: [Reversing transfers](https://stripe.com/docs/connect/charges-transfers#reversing-transfers)
     """
 
     OBJECT_NAME = "transfer_reversal"
