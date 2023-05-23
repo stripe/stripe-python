@@ -3235,3 +3235,23 @@ class TestGeneratedExamples(object):
             "get",
             "/v1/quotes/qt_xxxxxxxxxxxxx/line_items",
         )
+
+    def test_tax_calculation_create(self, request_mock):
+        stripe.tax.Calculation.create(
+            currency="usd",
+            line_items=[{"amount": 1000, "reference": "L1"}],
+            customer_details={
+                "address": {
+                    "line1": "354 Oyster Point Blvd",
+                    "city": "South San Francisco",
+                    "state": "CA",
+                    "postal_code": "94080",
+                    "country": "US",
+                },
+                "address_source": "shipping",
+            },
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/tax/calculations",
+        )
