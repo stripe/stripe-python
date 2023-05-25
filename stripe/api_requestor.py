@@ -177,11 +177,15 @@ class APIRequestor(object):
         raise err
 
     def specific_api_error(self, rbody, rcode, resp, rheaders, error_data):
+        message_field_name = "message"
+        if error_data.get("developer_message") is not None:
+            message_field_name = "developer_message"
+
         util.log_info(
             "Stripe API error received",
             error_code=error_data.get("code"),
             error_type=error_data.get("type"),
-            error_message=error_data.get("message"),
+            error_message=error_data.get(message_field_name),
             error_param=error_data.get("param"),
         )
 
@@ -190,16 +194,24 @@ class APIRequestor(object):
             rcode == 400 and error_data.get("code") == "rate_limit"
         ):
             return error.RateLimitError(
-                error_data.get("message"), rbody, rcode, resp, rheaders
+                error_data.get(message_field_name),
+                rbody,
+                rcode,
+                resp,
+                rheaders,
             )
         elif rcode in [400, 404]:
             if error_data.get("type") == "idempotency_error":
                 return error.IdempotencyError(
-                    error_data.get("message"), rbody, rcode, resp, rheaders
+                    error_data.get(message_field_name),
+                    rbody,
+                    rcode,
+                    resp,
+                    rheaders,
                 )
             else:
                 return error.InvalidRequestError(
-                    error_data.get("message"),
+                    error_data.get(message_field_name),
                     error_data.get("param"),
                     error_data.get("code"),
                     rbody,
@@ -209,11 +221,15 @@ class APIRequestor(object):
                 )
         elif rcode == 401:
             return error.AuthenticationError(
-                error_data.get("message"), rbody, rcode, resp, rheaders
+                error_data.get(message_field_name),
+                rbody,
+                rcode,
+                resp,
+                rheaders,
             )
         elif rcode == 402:
             return error.CardError(
-                error_data.get("message"),
+                error_data.get(message_field_name),
                 error_data.get("param"),
                 error_data.get("code"),
                 rbody,
@@ -223,11 +239,19 @@ class APIRequestor(object):
             )
         elif rcode == 403:
             return error.PermissionError(
-                error_data.get("message"), rbody, rcode, resp, rheaders
+                error_data.get(message_field_name),
+                rbody,
+                rcode,
+                resp,
+                rheaders,
             )
         else:
             return error.APIError(
-                error_data.get("message"), rbody, rcode, resp, rheaders
+                error_data.get(message_field_name),
+                rbody,
+                rcode,
+                resp,
+                rheaders,
             )
 
     def specific_oauth_error(self, rbody, rcode, resp, rheaders, error_code):
