@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.5.0b4 - 2023-06-01
+* [#973](https://github.com/stripe/stripe-python/pull/973) Update generated code for beta
+* [#969](https://github.com/stripe/stripe-python/pull/969) Update generated code for beta
+* [#971](https://github.com/stripe/stripe-python/pull/971) Handle developer message in preview error responses
+
 ## 5.5.0b3 - 2023-05-19
 * [#966](https://github.com/stripe/stripe-python/pull/966) Update generated code for beta
   * Add support for `subscribe` and `unsubscribe` methods on resource `FinancialConnections.Account`
