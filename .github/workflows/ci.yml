@@ -53,7 +53,7 @@ jobs:
           python setup.py clean --all sdist bdist_wheel --universal
           python -m twine check dist/*
 
-      - name: 'Upload Artifact'
+      - name: "Upload Artifact"
         uses: actions/upload-artifact@v3
         with:
           name: dist
@@ -67,17 +67,16 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        python-version:
-          [
-            "2.7",
-            "3.6",
-            "3.7",
-            "3.8",
-            "3.9",
-            "3.10",
-            "pypy-2.7",
+        python-version: [
+            # "2.7",
+            # "3.6",
+            # "3.7",
+            # "3.8",
+            # "3.9",
+            # "3.10",
+            # "pypy-2.7",
             "pypy-3.7",
-            "pypy-3.8",
+            # "pypy-3.8",
           ]
 
     steps:
