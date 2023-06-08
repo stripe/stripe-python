@@ -10,6 +10,7 @@ OBJECT_CLASSES = {
     api_resources.ListObject.OBJECT_NAME: api_resources.ListObject,
     api_resources.SearchResultObject.OBJECT_NAME: api_resources.SearchResultObject,
     # business objects
+    api_resources.AcceptedFinancing.OBJECT_NAME: api_resources.AcceptedFinancing,
     api_resources.Account.OBJECT_NAME: api_resources.Account,
     api_resources.AccountLink.OBJECT_NAME: api_resources.AccountLink,
     api_resources.AccountSession.OBJECT_NAME: api_resources.AccountSession,
