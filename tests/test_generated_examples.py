@@ -1069,6 +1069,16 @@ class TestGeneratedExamples(object):
             "/v1/credit_notes/cn_xxxxxxxxxxxxx/void",
         )
 
+    def test_creditnote_creditnotelineitem_list(self, request_mock):
+        stripe.CreditNote.list_lines(
+            "cn_xxxxxxxxxxxxx",
+            limit=3,
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/credit_notes/cn_xxxxxxxxxxxxx/lines",
+        )
+
     def test_creditnote_preview(self, request_mock):
         stripe.CreditNote.preview(
             invoice="in_xxxxxxxxxxxxx",
@@ -3624,4 +3634,14 @@ class TestGeneratedExamples(object):
         request_mock.assert_requested(
             "post",
             "/v1/tax/calculations",
+        )
+
+    def test_creditnote_preview_lines(self, request_mock):
+        stripe.CreditNote.preview_lines(
+            limit=3,
+            invoice="in_xxxxxxxxxxxxx",
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/credit_notes/preview/lines",
         )
