@@ -6,8 +6,13 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import nested_resource_class_methods
 
 
+@nested_resource_class_methods(
+    "line",
+    operations=["list"],
+)
 class CreditNote(
     CreateableAPIResource,
     ListableAPIResource,
@@ -28,6 +33,19 @@ class CreditNote(
         return cls._static_request(
             "get",
             "/v1/credit_notes/preview",
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def preview_lines(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/credit_notes/preview/lines",
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
