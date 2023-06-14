@@ -159,6 +159,22 @@ There are a few options for enabling it:
     logging.basicConfig()
     logging.getLogger('stripe').setLevel(logging.DEBUG)
     ```
+### Accessing response code and headers
+
+You can access the response code and headers using the `last_response` property of the returned resource. 
+
+```python
+customer = stripe.Customer.retrieve(
+    "cus_123456789",
+    api_key="sk_test_...",
+    stripe_account="acct_...",
+    stripe_version="2019-02-19"
+)
+
+
+print(customer.last_response.code)
+print(customer.last_response.headers)
+```
 
 ### Writing a Plugin
 
