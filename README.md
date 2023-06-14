@@ -159,9 +159,10 @@ There are a few options for enabling it:
     logging.basicConfig()
     logging.getLogger('stripe').setLevel(logging.DEBUG)
     ```
+
 ### Accessing response code and headers
 
-You can access the response code and headers using the `last_response` property of the returned resource. 
+You can access the HTTP response code and headers using the `last_response` property of the returned resource. 
 
 ```python
 customer = stripe.Customer.retrieve(
