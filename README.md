@@ -166,12 +166,8 @@ You can access the HTTP response code and headers using the `last_response` prop
 
 ```python
 customer = stripe.Customer.retrieve(
-    "cus_123456789",
-    api_key="sk_test_...",
-    stripe_account="acct_...",
-    stripe_version="2019-02-19"
+    "cus_123456789"
 )
-
 
 print(customer.last_response.code)
 print(customer.last_response.headers)
