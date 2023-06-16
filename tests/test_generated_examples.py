@@ -704,8 +704,8 @@ class TestGeneratedExamples(object):
             "/v1/accounts/acct_xxxxxxxxxxxxx/login_links",
         )
 
-    def test_account_persons(self, request_mock):
-        stripe.Account.persons(
+    def test_account_person_list(self, request_mock):
+        stripe.Account.list_persons(
             "acct_xxxxxxxxxxxxx",
             limit=3,
         )
@@ -780,8 +780,8 @@ class TestGeneratedExamples(object):
             "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
         )
 
-    def test_applicationfee_refund(self, request_mock):
-        stripe.ApplicationFee.refund("fee_xxxxxxxxxxxxx")
+    def test_applicationfee_feerefund_create(self, request_mock):
+        stripe.ApplicationFee.create_refund("fee_xxxxxxxxxxxxx")
         request_mock.assert_requested(
             "post",
             "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
