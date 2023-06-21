@@ -48,6 +48,7 @@ from stripe.api_resources.customer_balance_transaction import (
 from stripe.api_resources.customer_cash_balance_transaction import (
     CustomerCashBalanceTransaction,
 )
+from stripe.api_resources.customer_session import CustomerSession
 from stripe.api_resources.dispute import Dispute
 from stripe.api_resources.ephemeral_key import EphemeralKey
 from stripe.api_resources.event import Event
