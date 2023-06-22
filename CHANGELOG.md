@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.5.0b5 - 2023-06-22
+* [#982](https://github.com/stripe/stripe-python/pull/982) Update generated code for beta
+  * Add support for new resource `CustomerSession`
+  * Add support for `create` method on resource `CustomerSession`
+* [#979](https://github.com/stripe/stripe-python/pull/979) Update generated code for beta
+* [#976](https://github.com/stripe/stripe-python/pull/976) Update generated code for beta
+
 ## 5.5.0b4 - 2023-06-02
 * [#973](https://github.com/stripe/stripe-python/pull/973) Update generated code for beta
 * [#969](https://github.com/stripe/stripe-python/pull/969) Update generated code for beta
