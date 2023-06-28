@@ -162,7 +162,7 @@ There are a few options for enabling it:
 
 ### Accessing response code and headers
 
-You can access the HTTP response code and headers using the `last_response` property of the returned resource. 
+You can access the HTTP response code and headers using the `last_response` property of the returned resource.
 
 ```python
 customer = stripe.Customer.retrieve(
@@ -206,6 +206,17 @@ To install a beta version use `pip install` with the exact version you'd like to
 pip install stripe==5.3.0b3
 ```
 
+> **Note**
+> There can be breaking changes between beta versions. Therefore we recommend pinning the package version to a specific beta version in your [requirements file](https://pip.pypa.io/en/stable/user_guide/#requirements-files) or `setup.py`. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest beta version.
+
+We highly recommend keeping an eye on when the beta feature you are interested in goes from beta to stable so that you can move from using a beta version of the SDK to the stable version.
+
+If your beta feature requires a `Stripe-Version` header to be sent, use the `stripe.api_version` field to set it:
+
+```python
+stripe.api_version += "; feature_beta=v3"
+```
+
 ### Custom requests
 
 If you would like to send a request to an undocumented API (for example you are in a private beta), or if you prefer to bypass the method definitions in the library and specify your request details directly, you can use the `raw_request` method on `stripe`.
@@ -217,17 +228,6 @@ response = stripe.raw_request(
 
 # (Optional) response is a StripeResponse. You can use `stripe.deserialize` to get a StripeObject.
 deserialized_resp = stripe.deserialize(response)
-```
-
-> **Note**
-> There can be breaking changes between beta versions. Therefore we recommend pinning the package version to a specific beta version in your [requirements file](https://pip.pypa.io/en/stable/user_guide/#requirements-files) or `setup.py`. This way you can install the same version each time without breaking changes unless you are intentionally looking for the latest beta version.
-
-We highly recommend keeping an eye on when the beta feature you are interested in goes from beta to stable so that you can move from using a beta version of the SDK to the stable version.
-
-If your beta feature requires a `Stripe-Version` header to be sent, use the `stripe.api_version` field to set it:
-
-```python
-stripe.api_version += "; feature_beta=v3"
 ```
 
 ## Support
