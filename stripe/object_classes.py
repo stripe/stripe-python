@@ -9,6 +9,7 @@ OBJECT_CLASSES = {
     # data structures
     api_resources.ListObject.OBJECT_NAME: api_resources.ListObject,
     api_resources.SearchResultObject.OBJECT_NAME: api_resources.SearchResultObject,
+    api_resources.File.OBJECT_NAME_ALT: api_resources.File,
     # business objects
     api_resources.Account.OBJECT_NAME: api_resources.Account,
     api_resources.AccountLink.OBJECT_NAME: api_resources.AccountLink,
@@ -38,7 +39,6 @@ OBJECT_CLASSES = {
     api_resources.Event.OBJECT_NAME: api_resources.Event,
     api_resources.ExchangeRate.OBJECT_NAME: api_resources.ExchangeRate,
     api_resources.File.OBJECT_NAME: api_resources.File,
-    api_resources.File.OBJECT_NAME_ALT: api_resources.File,
     api_resources.FileLink.OBJECT_NAME: api_resources.FileLink,
     api_resources.financial_connections.Account.OBJECT_NAME: api_resources.financial_connections.Account,
     api_resources.financial_connections.AccountOwner.OBJECT_NAME: api_resources.financial_connections.AccountOwner,
