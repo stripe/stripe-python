@@ -73,6 +73,7 @@ OBJECT_CLASSES = {
     api_resources.PaymentIntent.OBJECT_NAME: api_resources.PaymentIntent,
     api_resources.PaymentLink.OBJECT_NAME: api_resources.PaymentLink,
     api_resources.PaymentMethod.OBJECT_NAME: api_resources.PaymentMethod,
+    api_resources.PaymentMethodConfiguration.OBJECT_NAME: api_resources.PaymentMethodConfiguration,
     api_resources.Payout.OBJECT_NAME: api_resources.Payout,
     api_resources.Person.OBJECT_NAME: api_resources.Person,
     api_resources.Plan.OBJECT_NAME: api_resources.Plan,
