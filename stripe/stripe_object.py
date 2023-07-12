@@ -3,6 +3,7 @@ from __future__ import absolute_import, division, print_function
 import datetime
 import json
 from copy import deepcopy
+from typing import TYPE_CHECKING
 
 import stripe
 from stripe import api_requestor, util
@@ -82,14 +83,16 @@ class StripeObject(dict):
         self[k] = v
         return None
 
-    def __getattr__(self, k):
-        if k[0] == "_":
-            raise AttributeError(k)
+    if not TYPE_CHECKING:
 
-        try:
-            return self[k]
-        except KeyError as err:
-            raise AttributeError(*err.args)
+        def __getattr__(self, k):
+            if k[0] == "_":
+                raise AttributeError(k)
+
+            try:
+                return self[k]
+            except KeyError as err:
+                raise AttributeError(*err.args)
 
     def __delattr__(self, k):
         if k[0] == "_" or k in self.__dict__:
