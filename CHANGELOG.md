@@ -1,5 +1,15 @@
 # Changelog
 
+## 5.6.0b1 - 2023-07-13
+* [#991](https://github.com/stripe/stripe-python/pull/991) Update generated code for beta
+  Release specs are identical.
+* [#989](https://github.com/stripe/stripe-python/pull/989) Update generated code for beta
+  * Add support for new resource `PaymentMethodConfiguration`
+  * Add support for `create`, `list`, `modify`, and `retrieve` methods on resource `PaymentMethodConfiguration`
+* [#985](https://github.com/stripe/stripe-python/pull/985) Update generated code for beta
+
+* [#986](https://github.com/stripe/stripe-python/pull/986) Consolidate beta SDKs section
+
 ## 5.5.0 - 2023-07-13
 * [#990](https://github.com/stripe/stripe-python/pull/990) Update generated code
   * Add support for new resource `Tax.Settings`
