@@ -67,6 +67,9 @@ from stripe.api_resources.order import Order
 from stripe.api_resources.payment_intent import PaymentIntent
 from stripe.api_resources.payment_link import PaymentLink
 from stripe.api_resources.payment_method import PaymentMethod
+from stripe.api_resources.payment_method_configuration import (
+    PaymentMethodConfiguration,
+)
 from stripe.api_resources.payout import Payout
 from stripe.api_resources.person import Person
 from stripe.api_resources.plan import Plan
