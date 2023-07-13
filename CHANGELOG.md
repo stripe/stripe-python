@@ -1,5 +1,33 @@
 # Changelog
 
+## 5.5.0 - 2023-07-13
+* [#990](https://github.com/stripe/stripe-python/pull/990) Update generated code
+  * Add support for new resource `Tax.Settings`
+  * Add support for `modify` and `retrieve` methods on resource `Settings`
+* [#981](https://github.com/stripe/stripe-python/pull/981) Update generated code
+
+* [#984](https://github.com/stripe/stripe-python/pull/984) Stop testing Python 2.7
+* [#978](https://github.com/stripe/stripe-python/pull/978) Update generated code
+  * Release specs are identical.
+* [#977](https://github.com/stripe/stripe-python/pull/977) Add information about accessing response headers
+* [#972](https://github.com/stripe/stripe-python/pull/972) Update generated code
+
+* [#975](https://github.com/stripe/stripe-python/pull/975) Add constraints.txt
+* [#974](https://github.com/stripe/stripe-python/pull/974) Pin cryptography version
+* [#970](https://github.com/stripe/stripe-python/pull/970) Update generated code
+
+* [#967](https://github.com/stripe/stripe-python/pull/967) Update generated code
+  
+  Documentation updates.
+* [#963](https://github.com/stripe/stripe-python/pull/963) Update generated code
+
+* [#962](https://github.com/stripe/stripe-python/pull/962) ci: Fix github action warnings
+* [#960](https://github.com/stripe/stripe-python/pull/960) Fix build status badge in README.md
+* [#955](https://github.com/stripe/stripe-python/pull/955) Update generated code
+
+* [#958](https://github.com/stripe/stripe-python/pull/958) Fix coveralls condition
+* [#952](https://github.com/stripe/stripe-python/pull/952) Update generated code
+
 ## 5.5.0b5 - 2023-06-22
 * [#982](https://github.com/stripe/stripe-python/pull/982) Update generated code for beta
   * Add support for new resource `CustomerSession`
@@ -19,16 +47,13 @@
 * [#964](https://github.com/stripe/stripe-python/pull/964) Update generated code for beta
 * [#961](https://github.com/stripe/stripe-python/pull/961) Update generated code for beta
 
-
 ## 5.5.0b2 - 2023-04-13
 * [#954](https://github.com/stripe/stripe-python/pull/954) Update generated code for beta
   * Add support for `collect_payment_method` and `confirm_payment_intent` methods on resource `Terminal.Reader`
 * [#953](https://github.com/stripe/stripe-python/pull/953) Update generated code for beta
 
-
 ## 5.5.0b1 - 2023-03-30
 * [#950](https://github.com/stripe/stripe-python/pull/950) Update generated code for beta
-
 
 ## 5.4.0 - 2023-03-30
 * [#951](https://github.com/stripe/stripe-python/pull/951) Update generated code
