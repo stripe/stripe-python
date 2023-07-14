@@ -1,0 +1,12 @@
+-from typing import Any
++from _typeshed import Incomplete
+ 
+ class RequestMetrics:
+ 
+ 
+     def payload(self):
+         ...
+-    request_duration_ms: Any
+-    request_id: Any
++    request_duration_ms: Incomplete
++    request_id: Incomplete

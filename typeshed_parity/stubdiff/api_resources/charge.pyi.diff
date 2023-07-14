@@ -1,0 +1,34 @@
+-from stripe import api_requestor as api_requestor
+-from stripe.api_resources.abstract import CreateableAPIResource as CreateableAPIResource, ListableAPIResource as ListableAPIResource, SearchableAPIResource as SearchableAPIResource, UpdateableAPIResource as UpdateableAPIResource, custom_method as custom_method
++from _typeshed import Incomplete
++from stripe import util as util
++from stripe.api_resources.abstract import CreateableAPIResource as CreateableAPIResource, ListableAPIResource as ListableAPIResource, SearchableAPIResource as SearchableAPIResource, UpdateableAPIResource as UpdateableAPIResource
+ 
+ class Charge(CreateableAPIResource, ListableAPIResource, SearchableAPIResource, UpdateableAPIResource):
+-    OBJECT_NAME: str
+-
+-    def capture(idempotency_key: str | None, self=None, **params):
+-        ...
+ 
+-    def close_dispute(idempotency_key: str | None, self=None, **params):
++    @classmethod
++    def search(cls, *args, **kwargs):
+         ...
+ 
+-    def mark_as_fraudulent(idempotency_key: str | None, self=None):
++    @classmethod
++    def search_auto_paging_iter(cls, *args, **kwargs):
+         ...
++    OBJECT_NAME: str
+ 
+-    def mark_as_safe(idempotency_key: str | None, self=None):
++    def capture(idempotency_key: Incomplete | None, self=..., **params):
+         ...
+ 
+-    def refund(idempotency_key: str | None, self=None, **params):
++    def mark_as_fraudulent(idempotency_key: Incomplete | None, self=...):
+         ...
+ 
+-    def update_dispute(idempotency_key: str | None, self=None, **params):
++    def mark_as_safe(idempotency_key: Incomplete | None, self=...):
+         ...

@@ -1,0 +1,16 @@
+-from collections.abc import Iterator
+ from stripe.api_resources.abstract.api_resource import APIResource as APIResource
+-from stripe.api_resources.search_result_object import SearchResultObject
+-from typing_extensions import Self
+ 
+ class SearchableAPIResource(APIResource):
+ 
+     @classmethod
+-    def search(cls, *args: str | None, **kwargs) -> SearchResultObject[Self]:
++    def search(cls, *args, **kwargs) -> None:
+         ...
+ 
+     @classmethod
+-    def search_auto_paging_iter(cls, *args: str | None, **kwargs) -> Iterator[Self]:
++    def search_auto_paging_iter(cls, *args, **kwargs) -> None:
+         ...

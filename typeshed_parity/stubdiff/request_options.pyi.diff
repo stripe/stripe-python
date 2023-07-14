@@ -1,0 +1,22 @@
++from _typeshed import Incomplete
++from stripe.client_options import _ClientOptions
+ 
++class _RequestOptions:
++
++    @classmethod
++    def extract_from_dict(cls, d):
++        ...
++
++    @staticmethod
++    def merge(base: str, client: _ClientOptions, request=...):
++        ...
++    api_base: Incomplete
++    api_key: Incomplete
++
++    def __init__(api_base: Incomplete | None, api_key: Incomplete | None=..., self=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=...) -> None:
++        ...
++
++    def to_dict(self):
++        ...
++    stripe_account: Incomplete
++    stripe_version: Incomplete

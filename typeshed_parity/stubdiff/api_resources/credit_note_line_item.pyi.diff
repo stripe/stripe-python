@@ -1,0 +1,6 @@
+-from stripe.stripe_object import StripeObject as StripeObject
++from stripe.api_resources.abstract import ListableAPIResource as ListableAPIResource
+ 
+-class CreditNoteLineItem(StripeObject):
++class CreditNoteLineItem(ListableAPIResource):
+     OBJECT_NAME: str

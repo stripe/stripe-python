@@ -1,0 +1,23 @@
+ from _typeshed import Incomplete
++from stripe import util as util
+ from stripe.api_resources.abstract import UpdateableAPIResource as UpdateableAPIResource
+ from stripe.api_resources.account import Account as Account
+-from typing import NoReturn
++from stripe.six.moves.urllib.parse import quote_plus as quote_plus
+ 
+ class Person(UpdateableAPIResource):
+ 
+     @classmethod
+-    def modify(cls, sid, **params) -> NoReturn:
++    def modify(cls, sid, **params) -> None:
+         ...
+ 
+     @classmethod
+-    def retrieve(api_key: Incomplete | None, cls, id=None, **params) -> NoReturn:
++    def retrieve(api_key: Incomplete | None, cls, id=..., **params) -> None:
+         ...
+     OBJECT_NAME: str
+ 
+-    def instance_url(self) -> str:
++    def instance_url(self):
+         ...

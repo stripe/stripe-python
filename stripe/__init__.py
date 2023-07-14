@@ -14,9 +14,9 @@ from stripe.api_version import _ApiVersion
 
 api_key = None
 client_id = None
-api_base = "https://api.stripe.com"
-connect_api_base = "https://connect.stripe.com"
-upload_api_base = "https://files.stripe.com"
+api_base = DEFAULT_API_BASE
+connect_api_base = DEFAULT_CONNECT_API_BASE
+upload_api_base = DEFAULT_UPLOAD_API_BASE
 api_version = _ApiVersion.CURRENT
 verify_ssl_certs = True
 proxy = None

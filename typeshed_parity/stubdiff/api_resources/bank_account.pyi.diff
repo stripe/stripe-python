@@ -1,0 +1,25 @@
+ from _typeshed import Incomplete
+-from stripe import error as error
++from stripe import error as error, util as util
+ from stripe.api_resources.abstract import DeletableAPIResource as DeletableAPIResource, UpdateableAPIResource as UpdateableAPIResource, VerifyMixin as VerifyMixin
+ from stripe.api_resources.account import Account as Account
+ from stripe.api_resources.customer import Customer as Customer
+-from typing import NoReturn
++from stripe.six.moves.urllib.parse import quote_plus as quote_plus
+ 
+ class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
+ 
+     @classmethod
+-    def modify(cls, sid, **params) -> NoReturn:
++    def modify(cls, sid, **params) -> None:
+         ...
+ 
+     @classmethod
+-    def retrieve(api_key: Incomplete | None, cls, id=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None, **params) -> NoReturn:
++    def retrieve(api_key: Incomplete | None, cls, id=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., **params) -> None:
+         ...
+     OBJECT_NAME: str
+ 
+-    def instance_url(self) -> str:
++    def instance_url(self):
+         ...

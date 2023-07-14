@@ -1,0 +1,74 @@
+ from _typeshed import Incomplete
+-from typing import Any
++from stripe.six import python_2_unicode_compatible as python_2_unicode_compatible
+ 
+ class APIConnectionError(StripeError):
+ 
+-    def __init__(code: Incomplete | None, headers: Incomplete | None, http_body: Incomplete | None=False, http_status: Incomplete | None=None, json_body: Incomplete | None=None, message=None, self=None, should_retry: bool=None) -> None:
++    def __init__(code: Incomplete | None, headers: Incomplete | None, http_body: Incomplete | None=..., http_status: Incomplete | None=..., json_body: Incomplete | None=..., message=..., self=..., should_retry: bool=...) -> None:
+         ...
+-    should_retry: Any
++    should_retry: Incomplete
+ 
+ class APIError(StripeError):
+     ...
+ 
+ class CardError(StripeErrorWithParamCode):
+ 
+-    def __init__(code, headers: Incomplete | None, http_body: Incomplete | None, http_status: Incomplete | None, json_body: Incomplete | None=None, message=None, param=None, self=None) -> None:
++    def __init__(code, headers: Incomplete | None, http_body: Incomplete | None, http_status: Incomplete | None, json_body: Incomplete | None=..., message=..., param=..., self=...) -> None:
+         ...
+-    param: Any
++    param: Incomplete
+ 
+ class IdempotencyError(StripeError):
+     ...
+ 
+ class InvalidRequestError(StripeErrorWithParamCode):
+ 
+-    def __init__(code: Incomplete | None, headers: Incomplete | None, http_body: Incomplete | None, http_status: Incomplete | None=None, json_body: Incomplete | None=None, message=None, param=None, self=None) -> None:
++    def __init__(code: Incomplete | None, headers: Incomplete | None, http_body: Incomplete | None, http_status: Incomplete | None=..., json_body: Incomplete | None=..., message=..., param=..., self=...) -> None:
+         ...
+-    param: Any
++    param: Incomplete
+ 
+ class PermissionError(StripeError):
+     ...
+ 
+ class SignatureVerificationError(StripeError):
+ 
+-    def __init__(http_body: Incomplete | None, message, self, sig_header=None) -> None:
++    def __init__(http_body: Incomplete | None, message, self, sig_header=...) -> None:
+         ...
+-    sig_header: Any
++    sig_header: Incomplete
+ 
+ class StripeError(Exception):
+ 
+     @property
+     def user_message(self):
+         ...
+-    code: Any
++    code: Incomplete
+ 
+-    def __init__(code: Incomplete | None, headers: Incomplete | None=None, http_body: Incomplete | None=None, http_status: Incomplete | None=None, json_body: Incomplete | None=None, message: Incomplete | None=None, self=None) -> None:
++    def __init__(code: Incomplete | None, headers: Incomplete | None=..., http_body: Incomplete | None=..., http_status: Incomplete | None=..., json_body: Incomplete | None=..., message: Incomplete | None=..., self=...) -> None:
+         ...
+ 
+     def construct_error_object(self):
+         ...
+-    error: Any
+-    headers: Any
+-    http_body: Any
+-    http_status: Any
+-    json_body: Any
+-    request_id: Any
++    error: Incomplete
++    headers: Incomplete
++    http_body: Incomplete
++    http_status: Incomplete
++    json_body: Incomplete
++    request_id: Incomplete
+ 
+ class StripeErrorWithParamCode(StripeError):
+     ...

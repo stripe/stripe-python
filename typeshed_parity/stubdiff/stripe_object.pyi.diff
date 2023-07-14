@@ -1,0 +1,94 @@
+ from _typeshed import Incomplete
+-from stripe import api_requestor as api_requestor
+-from typing import Any
+-from typing_extensions import Self
++from stripe import api_requestor as api_requestor, util as util
++from stripe.api_requestor import APIRequestor as APIRequestor
+ import json
+ 
+-class StripeObject(dict[Any, Any]):
++class StripeObject(dict):
+ 
+     @classmethod
+     def api_base(cls) -> None:
+         ...
+ 
+     @classmethod
+-    def construct_from(cls, key: str | None, last_response: Incomplete | None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None, values: Any=None) -> Self:
++    def construct_from(cls, key, last_response: Incomplete | None, requestor: Incomplete | None=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., values=...):
+         ...
+ 
+     @property
+     def last_response(self):
+         ...
+ 
++    @property
++    def requestor(self):
++        ...
++
+     @property
+     def stripe_id(self):
+         ...
+-    api_key: Any
++    api_key: Incomplete
+ 
+     class ReprJSONEncoder(json.JSONEncoder):
+ 
+         def default(obj, self):
+             ...
+ 
+-    def __copy__(self) -> StripeObject:
++    def __copy__(self):
+         ...
+ 
+-    def __deepcopy__(memo: Any, self) -> StripeObject:
++    def __deepcopy__(memo, self):
+         ...
+ 
+-    def __delattr__(k: str, self) -> None:
++    def __delattr__(k, self):
+         ...
+ 
+     def __delitem__(k, self) -> None:
+         ...
+ 
+-    def __getattr__(k: str, self):
+-        ...
+-
+     def __getitem__(k, self):
+         ...
+ 
+-    def __init__(api_key: Incomplete | None, id: Incomplete | None=None, last_response: Incomplete | None=None, self=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None, **params) -> None:
++    def __init__(api_key: Incomplete | None, id: Incomplete | None=..., last_response: Incomplete | None=..., requestor: Incomplete | None=..., self=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., **params) -> None:
+         ...
+ 
+     def __reduce__(self):
+         ...
+ 
+-    def __setattr__(k: str, self, v) -> None:
++    def __setattr__(k, self, v):
+         ...
+ 
+     def __setitem__(k, self, v) -> None:
+         ...
+ 
+-    def refresh_from(api_key: Incomplete | None, last_response: Incomplete | None, partial: bool=False, self=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None, values: Any=None) -> None:
++    def refresh_from(api_key: Incomplete | None, last_response: Incomplete | None, partial: bool=..., requestor: Incomplete | None=..., self=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., values=...) -> None:
+         ...
+ 
+-    def request(headers: Incomplete | None, method, params: Incomplete | None, self=None, url=None):
++    def request(headers: Incomplete | None, method, params: Incomplete | None, self=..., url=...):
+         ...
+ 
+-    def request_stream(headers: Incomplete | None, method, params: Incomplete | None, self=None, url=None):
++    def request_stream(api_mode: Incomplete | None, headers: Incomplete | None, method, params: Incomplete | None=..., self=..., url=...):
+         ...
+ 
+     def serialize(previous, self):
+ 
+     def update(self, update_dict):
+         ...
+-    stripe_account: Any
+-    stripe_version: Any
++    stripe_account: Incomplete
++    stripe_version: Incomplete

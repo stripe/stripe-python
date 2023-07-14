@@ -1,0 +1,7 @@
++from _typeshed import Incomplete
++
+ class VerifyMixin:
+ 
+-    def verify(idempotency_key: str | None, self=None, **params):
++    def verify(idempotency_key: Incomplete | None, self=..., **params):
+         ...

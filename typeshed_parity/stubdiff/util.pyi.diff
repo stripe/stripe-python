@@ -1,0 +1,43 @@
+ from _typeshed import Incomplete
+-from stripe.stripe_object import StripeObject
+-from stripe.stripe_response import StripeResponse
+-from typing import Any, overload
+-from typing_extensions import TypeAlias
+-
+-@overload
+-def convert_to_stripe_object(api_key: Incomplete | None, resp: _RespType=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None) -> StripeObject:
+-    ...
+-
+-@overload
+-def convert_to_stripe_object(api_key: Incomplete | None, resp: list[Any]=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None) -> list[Any]:
+-    ...
+-
+-@overload
+-def populate_headers(idempotency_key: None) -> None:
+-    ...
+-
+-@overload
+-def populate_headers(idempotency_key: str) -> dict[str, str]:
+-    ...
+-_RespType: TypeAlias = dict[Any, Any] | StripeObject | StripeResponse
++from stripe.six.moves.urllib.parse import parse_qsl as parse_qsl
++import io as io
+ 
+ class class_method_variant:
+-    class_method_name: Any
++    class_method_name: Incomplete
+ 
+     def __call__(method, self):
+         ...
+ 
+-    def __get__(obj, objtype: Incomplete | None, self=None):
++    def __get__(obj, objtype: Incomplete | None, self=...):
+         ...
+ 
+     def __init__(class_method_name, self) -> None:
+         ...
+-    method: Any
++    method: Incomplete
+ 
+ def dashboard_link(request_id):
+     ...

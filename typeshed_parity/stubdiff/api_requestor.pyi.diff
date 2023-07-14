@@ -1,0 +1,52 @@
+ from _typeshed import Incomplete
+-from stripe import error as error, http_client as http_client, oauth_error as oauth_error, version as version
++from stripe import ensure_default_http_client as ensure_default_http_client, error as error, oauth_error as oauth_error, util as util, version as version
++from stripe.client_options import _ClientOptions
+ from stripe.multipart_data_generator import MultipartDataGenerator as MultipartDataGenerator
++from stripe.six.moves.urllib.parse import urlencode as urlencode, urlsplit as urlsplit, urlunsplit as urlunsplit
+ from stripe.stripe_response import StripeResponse as StripeResponse, StripeStreamResponse as StripeStreamResponse
+-from typing import Any
+ 
+ class APIRequestor:
+ 
+     @classmethod
+     def format_app_info(cls, info):
+         ...
+-    api_base: Any
+-    api_key: Any
+-    api_version: Any
+ 
+-    def __init__(account: Incomplete | None, api_base: Incomplete | None=None, api_version: Incomplete | None=None, client: Incomplete | None=None, key: Incomplete | None=None, self=None) -> None:
++    @classmethod
++    def global_instance(cls):
++        ...
++
++    def __init__(client: Incomplete | None, options: _ClientOptions=..., self=...) -> None:
+         ...
+ 
+     def handle_error_response(rbody, rcode, resp, rheaders, self) -> None:
+     def interpret_streaming_response(rcode, rheaders, self, stream):
+         ...
+ 
+-    def request(headers: Incomplete | None, method, params: Incomplete | None, self=None, url=None):
++    def request(api_mode: Incomplete | None, headers: Incomplete | None, method, params: Incomplete | None=..., request_options: Incomplete | None=..., self=..., url=...):
+         ...
+ 
+-    def request_headers(api_key, method, self):
++    def request_headers(api_mode, method, options, self):
+         ...
+ 
+-    def request_raw(is_streaming: bool, method, params: Incomplete | None, self=False, supplied_headers: Incomplete | None=None, url=None):
++    def request_raw(api_mode: Incomplete | None, is_streaming: bool, method, params: Incomplete | None=..., request_options: Incomplete | None=..., self=..., supplied_headers: Incomplete | None=..., url=...):
+         ...
+ 
+-    def request_stream(headers: Incomplete | None, method, params: Incomplete | None, self=None, url=None):
++    def request_stream(api_mode: Incomplete | None, headers: Incomplete | None, method, params: Incomplete | None=..., request_options: Incomplete | None=..., self=..., url=...):
+         ...
+ 
+     def specific_api_error(error_data, rbody, rcode, resp, rheaders, self):
+ 
+     def specific_oauth_error(error_code, rbody, rcode, resp, rheaders, self):
+         ...
+-    stripe_account: Any
++    options: Incomplete

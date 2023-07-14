@@ -1,0 +1,6 @@
+-from stripe.api_resources.abstract import APIResource as APIResource
++from stripe.stripe_object import StripeObject as StripeObject
+ 
+-class LineItem(APIResource):
++class LineItem(StripeObject):
+     OBJECT_NAME: str

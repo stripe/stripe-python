@@ -1,0 +1,15 @@
+ from _typeshed import Incomplete
+ from stripe.stripe_object import StripeObject as StripeObject
++from stripe.util import merge_dicts as merge_dicts
+ 
+ class ErrorObject(StripeObject):
+ 
+-    def refresh_from(api_key: Incomplete | None, last_response: Incomplete | None, partial: bool=False, self=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None, values=None):
++    def refresh_from(api_key: Incomplete | None, last_response: Incomplete | None, partial: bool=..., requestor: Incomplete | None=..., self=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., values=...):
+         ...
+ 
+ class OAuthErrorObject(StripeObject):
+ 
+-    def refresh_from(api_key: Incomplete | None, last_response: Incomplete | None, partial: bool=False, self=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None, values=None):
++    def refresh_from(api_key: Incomplete | None, last_response: Incomplete | None, partial: bool=..., requestor: Incomplete | None=..., self=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., values=...):
+         ...

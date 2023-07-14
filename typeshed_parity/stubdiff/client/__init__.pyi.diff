@@ -1,0 +1,3 @@
+-
++from stripe.client.stripe_client import StripeClient as StripeClient
++from stripe.client.stripe_service import StripeService as StripeService

@@ -1,0 +1,8 @@
++from _typeshed import Incomplete
++from stripe import util as util
+ 
++class StripeService:
++
++    def __init__(requestor, self) -> None:
++        ...
++    requestor: Incomplete

@@ -1,0 +1,7 @@
+ from _typeshed import Incomplete
++from stripe import util as util
++from stripe.six.moves.urllib.parse import quote_plus as quote_plus
+ 
+-def custom_method(http_path: Incomplete | None, http_verb, is_streaming: bool=False, name=None):
++def custom_method(http_path: Incomplete | None, http_verb, is_streaming: bool=..., name=...):
+     ...

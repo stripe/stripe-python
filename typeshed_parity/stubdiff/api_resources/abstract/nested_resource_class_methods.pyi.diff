@@ -1,0 +1,8 @@
+ from _typeshed import Incomplete
+-from stripe import api_requestor as api_requestor
++from stripe.api_resources.abstract import APIResource as APIResource
++from stripe.six.moves.urllib.parse import quote_plus as quote_plus
+ 
+-def nested_resource_class_methods(operations: Incomplete | None, path: Incomplete | None=None, resource=None, resource_plural: Incomplete | None=None):
++def nested_resource_class_methods(operations: Incomplete | None, path: Incomplete | None=..., resource=..., resource_plural: Incomplete | None=...):
+     ...

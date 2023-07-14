@@ -1,0 +1,20 @@
++from _typeshed import Incomplete
++from stripe import error as error, util as util
++from stripe.api_resources.abstract import APIResource as APIResource
++from stripe.six.moves.urllib.parse import quote_plus as quote_plus
+ 
++class APIResourceTestHelpers:
++
++    @classmethod
++    def class_url(cls):
++        ...
++
++    def __init__(resource, self) -> None:
++        ...
++
++    def instance_url(self):
++        ...
++    resource: Incomplete
++
++def test_helpers(cls):
++    ...

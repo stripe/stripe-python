@@ -1,0 +1,51 @@
+-from collections.abc import Iterator
+-from stripe.stripe_object import StripeObject
+-from typing import Any, ClassVar, Generic, TypeVar
+-from typing_extensions import Literal, Self
+-_T = TypeVar('_T')
++from _typeshed import Incomplete
++from collections.abc import Generator
++from stripe.stripe_object import StripeObject as StripeObject
+ 
+-class SearchResultObject(Generic[_T], StripeObject):
++class SearchResultObject(StripeObject):
+ 
+     @classmethod
+-    def empty_search_result(api_key: str | None, cls=None, stripe_account: str | None=None, stripe_version: str | None=None) -> Self:
++    def empty_search_result(api_key: Incomplete | None, cls=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=...):
+         ...
+ 
+     @property
+-    def is_empty(self) -> bool:
++    def is_empty(self):
+         ...
+-    OBJECT_NAME: ClassVar[Literal['search_result']]
+-    data: list[_T]
++    OBJECT_NAME: str
+ 
+-    def __getitem__(k: str, self) -> Any:
++    def __getitem__(k, self):
+         ...
+ 
+-    def __iter__(self) -> Iterator[_T]:
++    def __iter__(self):
+         ...
+ 
+     def __len__(self) -> int:
+         ...
+ 
+-    def auto_paging_iter(self) -> Iterator[_T]:
++    def auto_paging_iter(self) -> Generator[Incomplete, None, None]:
+         ...
+ 
+-    def next_search_result_page(api_key: str | None, self=None, stripe_account: str | None=None, stripe_version: str | None=None, **params) -> Self:
++    def next_search_result_page(api_key: Incomplete | None, self=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., **params):
+         ...
+ 
+-    def search(api_key: str | None, self=None, stripe_account: str | None=None, stripe_version: str | None=None, **params) -> Self:
++    def search(api_key: Incomplete | None, self=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., **params):
+         ...
+-    has_more: bool
+-    next_page: str
+-    total_count: int
+-    url: str

@@ -1,0 +1,99 @@
+-from stripe import api_requestor as api_requestor
+-from stripe.api_resources.abstract import CreateableAPIResource as CreateableAPIResource, DeletableAPIResource as DeletableAPIResource, ListableAPIResource as ListableAPIResource, SearchableAPIResource as SearchableAPIResource, UpdateableAPIResource as UpdateableAPIResource, custom_method as custom_method, nested_resource_class_methods as nested_resource_class_methods
++from _typeshed import Incomplete
++from stripe import util as util
++from stripe.api_resources.abstract import APIResourceTestHelpers as APIResourceTestHelpers, CreateableAPIResource as CreateableAPIResource, DeletableAPIResource as DeletableAPIResource, ListableAPIResource as ListableAPIResource, SearchableAPIResource as SearchableAPIResource, UpdateableAPIResource as UpdateableAPIResource, nested_resource_class_methods as nested_resource_class_methods, test_helpers as test_helpers
+ 
+ class Customer(CreateableAPIResource, DeletableAPIResource, ListableAPIResource, SearchableAPIResource, UpdateableAPIResource):
+ 
+     @classmethod
+-    def balance_transactions_request(api_key, cls, idempotency_key, method=None, stripe_account=None, stripe_version=None, url=None, **params):
++    def modify_cash_balance(api_key: Incomplete | None, cls, customer=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., **params):
+         ...
+ 
+     @classmethod
+-    def balance_transactions_url(cls, id, nested_id=None):
++    def retrieve_cash_balance(api_key: Incomplete | None, cls, customer=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., **params):
+         ...
+ 
+     @classmethod
+-    def create_balance_transaction(cls, id, **params):
++    def search(cls, *args, **kwargs):
+         ...
+ 
+     @classmethod
+-    def create_source(cls, id, **params):
+-        ...
+-
+-    @classmethod
+-    def create_tax_id(cls, id, **params):
+-        ...
+-
+-    @classmethod
+-    def delete_source(cls, id, nested_id, **params):
+-        ...
+-
+-    @classmethod
+-    def delete_tax_id(cls, id, nested_id, **params):
+-        ...
+-
+-    @classmethod
+-    def list_balance_transactions(cls, id, **params):
+-        ...
+-
+-    @classmethod
+-    def list_sources(cls, id, **params):
+-        ...
+-
+-    @classmethod
+-    def list_tax_ids(cls, id, **params):
+-        ...
+-
+-    @classmethod
+-    def modify_balance_transaction(cls, id, nested_id, **params):
+-        ...
+-
+-    @classmethod
+-    def modify_source(cls, id, nested_id, **params):
+-        ...
+-
+-    @classmethod
+-    def retrieve_balance_transaction(cls, id, nested_id, **params):
+-        ...
+-
+-    @classmethod
+-    def retrieve_source(cls, id, nested_id, **params):
++    def search_auto_paging_iter(cls, *args, **kwargs):
+         ...
++    OBJECT_NAME: str
+ 
+-    @classmethod
+-    def retrieve_tax_id(cls, id, nested_id, **params):
+-        ...
++    class TestHelpers(APIResourceTestHelpers):
+ 
+-    @classmethod
+-    def sources_request(api_key, cls, idempotency_key, method=None, stripe_account=None, stripe_version=None, url=None, **params):
+-        ...
++        def fund_cash_balance(idempotency_key: Incomplete | None, self=..., **params):
++            ...
+ 
+-    @classmethod
+-    def sources_url(cls, id, nested_id=None):
++    def create_funding_instructions(idempotency_key: Incomplete | None, self=..., **params):
+         ...
+ 
+-    @classmethod
+-    def tax_ids_request(api_key, cls, idempotency_key, method=None, stripe_account=None, stripe_version=None, url=None, **params):
++    def delete_discount(idempotency_key: Incomplete | None, self=..., **params):
+         ...
+ 
+-    @classmethod
+-    def tax_ids_url(cls, id, nested_id=None):
++    def list_payment_methods(idempotency_key: Incomplete | None, self=..., **params):
+         ...
+-    OBJECT_NAME: str
+ 
+-    def delete_discount(self, **params) -> None:
++    def retrieve_payment_method(idempotency_key: Incomplete | None, payment_method, self=..., **params):
+         ...

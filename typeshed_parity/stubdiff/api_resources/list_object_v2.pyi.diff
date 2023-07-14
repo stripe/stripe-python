@@ -1,0 +1,26 @@
++from _typeshed import Incomplete
++from collections.abc import Generator
++from stripe.stripe_object import StripeObject as StripeObject
++
++class ListObjectV2(StripeObject):
++    OBJECT_NAME: str
++
++    def __getitem__(k, self):
++        ...
++
++    def __iter__(self):
++        ...
++
++    def __len__(self) -> int:
++        ...
++
++    def __reversed__(self):
++        ...
++
++    def auto_paging_iter(self) -> Generator[Incomplete, None, None]:
++        ...
++
++    def set_last_request(params, self, url) -> None:
++        ...
++    last_request: Incomplete
+\ No newline at end of file

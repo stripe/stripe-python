@@ -1,0 +1,16 @@
+-from stripe.api_resources.abstract import CreateableAPIResource as CreateableAPIResource, ListableAPIResource as ListableAPIResource, UpdateableAPIResource as UpdateableAPIResource, custom_method as custom_method
+-from typing_extensions import Self
++from _typeshed import Incomplete
++from stripe import util as util
++from stripe.api_resources.abstract import CreateableAPIResource as CreateableAPIResource, ListableAPIResource as ListableAPIResource, UpdateableAPIResource as UpdateableAPIResource
+ 
+ class PaymentMethod(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+     OBJECT_NAME: str
+ 
+-    def attach(idempotency_key: str | None, self=None, **params) -> Self:
++    def attach(idempotency_key: Incomplete | None, self=..., **params):
+         ...
+ 
+-    def detach(idempotency_key: str | None, self=None, **params) -> Self:
++    def detach(idempotency_key: Incomplete | None, self=..., **params):
+         ...

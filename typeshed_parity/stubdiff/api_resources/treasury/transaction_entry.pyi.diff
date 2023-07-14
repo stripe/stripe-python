@@ -1,0 +1,8 @@
++from stripe.api_resources.abstract import ListableAPIResource as ListableAPIResource
+ 
++class TransactionEntry(ListableAPIResource):
++
++    @classmethod
++    def class_url(cls):
++        ...
++    OBJECT_NAME: str

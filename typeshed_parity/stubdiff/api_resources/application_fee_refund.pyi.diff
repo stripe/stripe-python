@@ -1,0 +1,24 @@
+ from _typeshed import Incomplete
++from stripe import util as util
+ from stripe.api_resources import ApplicationFee as ApplicationFee
+ from stripe.api_resources.abstract import UpdateableAPIResource as UpdateableAPIResource
+-from typing import NoReturn
+-from typing_extensions import Self
++from stripe.six.moves.urllib.parse import quote_plus as quote_plus
+ 
+ class ApplicationFeeRefund(UpdateableAPIResource):
+ 
+     @classmethod
+-    def modify(cls, fee, sid: str, **params) -> Self:
++    def modify(cls, fee, sid, **params):
+         ...
+ 
+     @classmethod
+-    def retrieve(api_key: Incomplete | None, cls, id=None, **params) -> NoReturn:
++    def retrieve(api_key: Incomplete | None, cls, id=..., **params) -> None:
+         ...
+     OBJECT_NAME: str
+ 
+-    def instance_url(self) -> str:
++    def instance_url(self):
+         ...

@@ -1,0 +1,11 @@
++from _typeshed import Incomplete
++from stripe.api_resources.abstract import APIResourceTestHelpers as APIResourceTestHelpers, ListableAPIResource as ListableAPIResource, test_helpers as test_helpers
+ 
++class ReceivedDebit(ListableAPIResource):
++    OBJECT_NAME: str
++
++    class TestHelpers(APIResourceTestHelpers):
++
++        @classmethod
++        def create(api_key: Incomplete | None, cls=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., **params):
++            ...

@@ -1,0 +1,20 @@
+ from _typeshed import Incomplete
+ from stripe import api_requestor as api_requestor, connect_api_base as connect_api_base, error as error
++from stripe.six.moves.urllib.parse import urlencode as urlencode
+ 
+ class OAuth:
+ 
+     @staticmethod
+-    def authorize_url(express: bool=False, **params):
++    def authorize_url(express: bool=..., **params):
+         ...
+ 
+     @staticmethod
+-    def deauthorize(api_key: Incomplete | None=None, **params):
++    def deauthorize(api_key: Incomplete | None=..., **params):
+         ...
+ 
+     @staticmethod
+-    def token(api_key: Incomplete | None=None, **params):
++    def token(api_key: Incomplete | None=..., **params):
+         ...

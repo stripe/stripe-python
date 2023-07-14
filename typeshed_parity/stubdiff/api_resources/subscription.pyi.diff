@@ -1,0 +1,26 @@
+-from stripe import api_requestor as api_requestor
+-from stripe.api_resources.abstract import CreateableAPIResource as CreateableAPIResource, DeletableAPIResource as DeletableAPIResource, ListableAPIResource as ListableAPIResource, SearchableAPIResource as SearchableAPIResource, UpdateableAPIResource as UpdateableAPIResource, custom_method as custom_method
++from _typeshed import Incomplete
++from stripe import util as util
++from stripe.api_resources.abstract import CreateableAPIResource as CreateableAPIResource, DeletableAPIResource as DeletableAPIResource, ListableAPIResource as ListableAPIResource, SearchableAPIResource as SearchableAPIResource, UpdateableAPIResource as UpdateableAPIResource
+ 
+ class Subscription(CreateableAPIResource, DeletableAPIResource, ListableAPIResource, SearchableAPIResource, UpdateableAPIResource):
++
++    @classmethod
++    def search(cls, *args, **kwargs):
++        ...
++
++    @classmethod
++    def search_auto_paging_iter(cls, *args, **kwargs):
++        ...
+     OBJECT_NAME: str
+ 
+-    def delete_discount(self, **params) -> None:
++    def cancel(idempotency_key: Incomplete | None, self=..., **params):
++        ...
++
++    def delete_discount(idempotency_key: Incomplete | None, self=..., **params):
++        ...
++
++    def resume(idempotency_key: Incomplete | None, self=..., **params):
+         ...

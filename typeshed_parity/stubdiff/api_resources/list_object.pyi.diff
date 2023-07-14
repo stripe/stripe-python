@@ -1,0 +1,48 @@
+ from _typeshed import Incomplete
+-from collections.abc import Iterator
+-from stripe import api_requestor as api_requestor
++from collections.abc import Generator
++from stripe import util as util
++from stripe.six.moves.urllib.parse import quote_plus as quote_plus
+ from stripe.stripe_object import StripeObject as StripeObject
+-from typing import Any
+ 
+ class ListObject(StripeObject):
+ 
+     @classmethod
+-    def empty_list(api_key: Incomplete | None, cls=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None) -> ListObject:
++    def empty_list(api_key: Incomplete | None, cls=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=...):
+         ...
+ 
+     @property
+-    def is_empty(self) -> bool:
++    def is_empty(self):
+         ...
+     OBJECT_NAME: str
+ 
+     def __reversed__(self):
+         ...
+ 
+-    def auto_paging_iter(self) -> Iterator[Any]:
++    def auto_paging_iter(self) -> Generator[Incomplete, None, None]:
+         ...
+ 
+-    def create(api_key: Incomplete | None, idempotency_key: str | None=None, self=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None, **params):
++    def create(api_key: Incomplete | None, idempotency_key: Incomplete | None=..., self=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., **params):
+         ...
+ 
+-    def list(api_key: Incomplete | None, self=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None, **params) -> ListObject:
++    def list(api_key: Incomplete | None, self=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., **params):
+         ...
+ 
+-    def next_page(api_key: Incomplete | None, self=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None, **params) -> ListObject:
++    def next_page(api_key: Incomplete | None, self=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., **params):
+         ...
+ 
+-    def previous_page(api_key: Incomplete | None, self=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None, **params) -> ListObject:
++    def previous_page(api_key: Incomplete | None, self=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., **params):
+         ...
+ 
+-    def retrieve(api_key: Incomplete | None, id, self=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None, **params):
++    def retrieve(api_key: Incomplete | None, id, self=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., **params):
+         ...

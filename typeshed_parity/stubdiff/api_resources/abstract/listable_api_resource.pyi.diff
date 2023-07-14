@@ -1,0 +1,18 @@
+ from _typeshed import Incomplete
+-from collections.abc import Iterator
+-from stripe import api_requestor as api_requestor
+ from stripe.api_resources.abstract.api_resource import APIResource as APIResource
+-from stripe.api_resources.list_object import ListObject
+-from typing import Any
+ 
+ class ListableAPIResource(APIResource):
+ 
+     @classmethod
+-    def auto_paging_iter(cls, *args, **params) -> Iterator[Any]:
++    def auto_paging_iter(cls, *args, **params):
+         ...
+ 
+     @classmethod
+-    def list(api_key: Incomplete | None, cls=None, stripe_account: Incomplete | None=None, stripe_version: Incomplete | None=None, **params) -> ListObject:
++    def list(api_key: Incomplete | None, cls=..., stripe_account: Incomplete | None=..., stripe_version: Incomplete | None=..., **params):
+         ...

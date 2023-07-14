@@ -1,0 +1,11 @@
+-from stripe.api_resources.abstract import ListableAPIResource as ListableAPIResource, custom_method as custom_method
++from _typeshed import Incomplete
++from stripe import util as util
++from stripe.api_resources.abstract import ListableAPIResource as ListableAPIResource
+ 
+ class Review(ListableAPIResource):
+     OBJECT_NAME: str
+ 
+-    def approve(idempotency_key: str | None, self=None, **params):
++    def approve(idempotency_key: Incomplete | None, self=..., **params):
+         ...

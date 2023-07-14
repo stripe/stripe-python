@@ -1,0 +1,40 @@
+-from stripe.api_resources.abstract import CreateableAPIResource as CreateableAPIResource, ListableAPIResource as ListableAPIResource, SearchableAPIResource as SearchableAPIResource, UpdateableAPIResource as UpdateableAPIResource, custom_method as custom_method
+-from typing import overload
++from _typeshed import Incomplete
++from stripe import util as util
++from stripe.api_resources.abstract import CreateableAPIResource as CreateableAPIResource, ListableAPIResource as ListableAPIResource, SearchableAPIResource as SearchableAPIResource, UpdateableAPIResource as UpdateableAPIResource
+ 
+ class PaymentIntent(CreateableAPIResource, ListableAPIResource, SearchableAPIResource, UpdateableAPIResource):
+ 
+     @classmethod
+-    @overload
+-    def confirm(cls, idempotency_key: str | None=None, **params):
++    def search(cls, *args, **kwargs):
+         ...
+ 
+     @classmethod
+-    @overload
+-    def confirm(api_key: str | None, cls, intent: str=..., stripe_account: str | None=..., stripe_version: str | None=..., **params):
++    def search_auto_paging_iter(cls, *args, **kwargs):
+         ...
+     OBJECT_NAME: str
+ 
+-    def cancel(idempotency_key: str | None, self=None, **params):
++    def apply_customer_balance(idempotency_key: Incomplete | None, self=..., **params):
+         ...
+ 
+-    def capture(idempotency_key: str | None, self=None, **params):
++    def cancel(idempotency_key: Incomplete | None, self=..., **params):
++        ...
++
++    def capture(idempotency_key: Incomplete | None, self=..., **params):
++        ...
++
++    def confirm(idempotency_key: Incomplete | None, self=..., **params):
++        ...
++
++    def increment_authorization(idempotency_key: Incomplete | None, self=..., **params):
++        ...
++
++    def verify_microdeposits(idempotency_key: Incomplete | None, self=..., **params):
+         ...

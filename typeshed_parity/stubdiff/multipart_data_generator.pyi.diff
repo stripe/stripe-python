@@ -1,0 +1,16 @@
+-from typing import Any
++from _typeshed import Incomplete
+ 
+ class MultipartDataGenerator:
+-    boundary: Any
+-    chunk_size: Any
+-    data: Any
++    boundary: Incomplete
++    chunk_size: Incomplete
++    data: Incomplete
+ 
+-    def __init__(chunk_size: int, self=1028) -> None:
++    def __init__(chunk_size: int, self=...) -> None:
+         ...
+ 
+     def add_params(params, self) -> None:

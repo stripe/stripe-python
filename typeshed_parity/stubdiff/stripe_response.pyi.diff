@@ -1,0 +1,28 @@
+-from typing import Any
++from _typeshed import Incomplete
+ 
+ class StripeResponse(StripeResponseBase):
+-    body: Any
+-    data: Any
++    body: Incomplete
++    data: Incomplete
+ 
+     def __init__(body, code, headers, self) -> None:
+         ...
+     @property
+     def request_id(self):
+         ...
+-    code: Any
++    code: Incomplete
+ 
+     def __init__(code, headers, self) -> None:
+         ...
+-    headers: Any
++    headers: Incomplete
+ 
+ class StripeStreamResponse(StripeResponseBase):
+ 
+     def __init__(code, headers, io, self) -> None:
+         ...
+-    io: Any
++    io: Incomplete

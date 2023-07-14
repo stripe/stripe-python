@@ -1,0 +1,84 @@
++from _typeshed import Incomplete
++from stripe import error as error, util as util
++from stripe.api_requestor import APIRequestor as APIRequestor
++from stripe.client import StripeService as StripeService
+ 
++class CheckoutService(StripeService):
++
++    def __init__(requestor, self) -> None:
++        ...
++    sessions: Incomplete
++
++class CustomerService(StripeService):
++
++    def create(self, **params):
++        ...
++
++    def create_funding_instructions(customer, self, **params):
++        ...
++
++    def delete(customer, self, **params):
++        ...
++
++    def delete_discount(customer, self, **params):
++        ...
++
++    def list(self, **params):
++        ...
++
++    def list_payment_methods(customer, self, **params):
++        ...
++
++    def retrieve(customer, self, **params):
++        ...
++
++    def retrieve_payment_method(customer, payment_method, self, **params):
++        ...
++
++    def search(self, **params):
++        ...
++
++    def update(customer, self, **params):
++        ...
++
++class FinancialAccountService(StripeService):
++
++    def list(self, **params):
++        ...
++
++    def retrieve(id, self, **params):
++        ...
++
++class SessionService(StripeService):
++
++    def create(self, **params):
++        ...
++
++    def expire(self, session, **params):
++        ...
++
++    def list(self, **params):
++        ...
++
++    def list_line_items(self, session, **params):
++        ...
++
++    def retrieve(self, session, **params):
++        ...
++
++class StripeClient:
++    checkout: Incomplete
++    customers: Incomplete
++
++    def __init__(api_key: str, http_client: Incomplete | None=..., self=..., **options) -> None:
++        ...
++    financial_accounts: Incomplete
++    requestor: Incomplete
++    sessions: Incomplete
++    v2: Incomplete
++
++class V2Service(StripeService):
++
++    def __init__(requestor, self) -> None:
++        ...
++    financial_accounts: Incomplete

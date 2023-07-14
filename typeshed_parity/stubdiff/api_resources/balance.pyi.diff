@@ -1,0 +1,8 @@
+ from stripe.api_resources.abstract import SingletonAPIResource as SingletonAPIResource
+ 
+ class Balance(SingletonAPIResource):
++
++    @classmethod
++    def class_url(cls):
++        ...
+     OBJECT_NAME: str

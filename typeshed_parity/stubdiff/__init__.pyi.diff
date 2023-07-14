@@ -1,0 +1,43 @@
+ from _typeshed import Incomplete
+ from stripe.api_resources import *
++from stripe.client import StripeClient as StripeClient
++from stripe.http_client import new_default_http_client as new_default_http_client
+ from stripe.oauth import OAuth as OAuth
+ from stripe.webhook import Webhook as Webhook, WebhookSignature as WebhookSignature
+-from typing import Any
+-api_base: str
+-api_key: str | None
+-api_version: Any
+-app_info: Any
+-ca_bundle_path: Any
+-client_id: Any
+-connect_api_base: str
++DEFAULT_API_BASE: str
++DEFAULT_CONNECT_API_BASE: str
++DEFAULT_UPLOAD_API_BASE: str
++api_base = DEFAULT_API_BASE
++api_key: Incomplete
++api_version: Incomplete
++app_info: Incomplete
++ca_bundle_path: Incomplete
++client_id: Incomplete
++connect_api_base = DEFAULT_CONNECT_API_BASE
+ 
+-def set_app_info(name, partner_id: Incomplete | None=None, url: Incomplete | None=None, version: Incomplete | None=None) -> None:
++def ensure_default_http_client() -> None:
+     ...
+-default_http_client: Any
++
++def set_app_info(name, partner_id: Incomplete | None=..., url: Incomplete | None=..., version: Incomplete | None=...) -> None:
++    ...
++default_http_client: Incomplete
+ enable_telemetry: bool
+-log: Any
++log: Incomplete
+ max_network_retries: int
+-proxy: Any
+-upload_api_base: str
++preview_api_version: Incomplete
++proxy: Incomplete
++upload_api_base = DEFAULT_UPLOAD_API_BASE
+ verify_ssl_certs: bool

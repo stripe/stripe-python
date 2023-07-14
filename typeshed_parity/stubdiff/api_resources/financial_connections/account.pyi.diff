@@ -1,0 +1,15 @@
++from _typeshed import Incomplete
++from stripe import util as util
++from stripe.api_resources.abstract import ListableAPIResource as ListableAPIResource
+ 
++class Account(ListableAPIResource):
++    OBJECT_NAME: str
++
++    def disconnect(idempotency_key: Incomplete | None, self=..., **params):
++        ...
++
++    def list_owners(idempotency_key: Incomplete | None, self=..., **params):
++        ...
++
++    def refresh_account(idempotency_key: Incomplete | None, self=..., **params):
++        ...

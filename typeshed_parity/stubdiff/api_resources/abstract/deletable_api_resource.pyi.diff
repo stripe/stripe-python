@@ -1,0 +1,11 @@
++from stripe import util as util
+ from stripe.api_resources.abstract.api_resource import APIResource as APIResource
+-from typing_extensions import Self
++from stripe.six.moves.urllib.parse import quote_plus as quote_plus
+ 
+ class DeletableAPIResource(APIResource):
+ 
+-    @classmethod
+-    def delete(cls, sid: str=..., **params) -> Self:
++    def delete(self, **params):
+         ...

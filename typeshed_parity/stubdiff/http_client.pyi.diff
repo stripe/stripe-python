@@ -1,0 +1,119 @@
+ from _typeshed import Incomplete
+-from stripe import error as error
++from stripe import error as error, util as util
+ from stripe.request_metrics import RequestMetrics as RequestMetrics
+-from typing import Any
++from stripe.six.moves import urllib as urllib
++from stripe.six.moves.urllib.parse import urlparse as urlparse
+ 
+ class HTTPClient:
+     INITIAL_DELAY: float
+     MAX_DELAY: int
+     MAX_RETRY_AFTER: int
+ 
+-    def __init__(proxy: Incomplete | None, self=None, verify_ssl_certs: bool=True) -> None:
++    def __init__(proxy: Incomplete | None, self=..., verify_ssl_certs: bool=...) -> None:
+         ...
+ 
+     def close(self) -> None:
+         ...
+ 
+-    def request(headers, method, post_data: Incomplete | None, self, url=None) -> None:
++    def request(headers, method, post_data: Incomplete | None, self, url=...) -> None:
+         ...
+ 
+-    def request_stream(headers, method, post_data: Incomplete | None, self, url=None) -> None:
++    def request_stream(headers, method, post_data: Incomplete | None, self, url=...) -> None:
+         ...
+ 
+-    def request_stream_with_retries(headers, method, post_data: Incomplete | None, self, url=None):
++    def request_stream_with_retries(headers, method, post_data: Incomplete | None, self, url=...):
+         ...
+ 
+-    def request_with_retries(headers, method, post_data: Incomplete | None, self, url=None):
++    def request_with_retries(headers, method, post_data: Incomplete | None, self, url=...):
+         ...
+ 
+ class PycurlClient(HTTPClient):
+ 
+-    def __init__(proxy: Incomplete | None, self=None, verify_ssl_certs: bool=True) -> None:
++    def __init__(proxy: Incomplete | None, self=..., verify_ssl_certs: bool=...) -> None:
+         ...
+ 
+     def close(self) -> None:
+     def parse_headers(data, self):
+         ...
+ 
+-    def request(headers, method, post_data: Incomplete | None, self, url=None):
++    def request(headers, method, post_data: Incomplete | None, self, url=...):
+         ...
+ 
+-    def request_stream(headers, method, post_data: Incomplete | None, self, url=None):
++    def request_stream(headers, method, post_data: Incomplete | None, self, url=...):
+         ...
+     name: str
+ 
+ class RequestsClient(HTTPClient):
+ 
+-    def __init__(self, session: Incomplete | None=80, timeout: int=None, **kwargs) -> None:
++    def __init__(self, session: Incomplete | None=..., timeout: int=..., **kwargs) -> None:
+         ...
+ 
+     def close(self) -> None:
+         ...
+ 
+-    def request(headers, method, post_data: Incomplete | None, self, url=None):
++    def request(headers, method, post_data: Incomplete | None, self, url=...):
+         ...
+ 
+-    def request_stream(headers, method, post_data: Incomplete | None, self, url=None):
++    def request_stream(headers, method, post_data: Incomplete | None, self, url=...):
+         ...
+     name: str
+ 
+ class UrlFetchClient(HTTPClient):
+ 
+-    def __init__(deadline: int, proxy: Incomplete | None=55, self=None, verify_ssl_certs: bool=True) -> None:
++    def __init__(deadline: int, proxy: Incomplete | None=..., self=..., verify_ssl_certs: bool=...) -> None:
+         ...
+ 
+     def close(self) -> None:
+         ...
+ 
+-    def request(headers, method, post_data: Incomplete | None, self, url=None):
++    def request(headers, method, post_data: Incomplete | None, self, url=...):
+         ...
+ 
+-    def request_stream(headers, method, post_data: Incomplete | None, self, url=None):
++    def request_stream(headers, method, post_data: Incomplete | None, self, url=...):
+         ...
+     name: str
+ 
+ class Urllib2Client(HTTPClient):
+ 
+-    def __init__(proxy: Incomplete | None, self=None, verify_ssl_certs: bool=True) -> None:
++    def __init__(proxy: Incomplete | None, self=..., verify_ssl_certs: bool=...) -> None:
+         ...
+ 
+     def close(self) -> None:
+         ...
+ 
+-    def request(headers, method, post_data: Incomplete | None, self, url=None):
++    def request(headers, method, post_data: Incomplete | None, self, url=...):
+         ...
+ 
+-    def request_stream(headers, method, post_data: Incomplete | None, self, url=None):
++    def request_stream(headers, method, post_data: Incomplete | None, self, url=...):
+         ...
+     name: str
+ 
+ def new_default_http_client(*args, **kwargs):
+     ...
+-major: Any
+-minor: Any
+-patch: Any
+-version: Any
++major: Incomplete
++minor: Incomplete
++patch: Incomplete
++version: Incomplete

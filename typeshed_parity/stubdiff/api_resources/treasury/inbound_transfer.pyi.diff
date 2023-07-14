@@ -1,0 +1,20 @@
++from _typeshed import Incomplete
++from stripe import util as util
++from stripe.api_resources.abstract import APIResourceTestHelpers as APIResourceTestHelpers, CreateableAPIResource as CreateableAPIResource, ListableAPIResource as ListableAPIResource, test_helpers as test_helpers
+ 
++class InboundTransfer(CreateableAPIResource, ListableAPIResource):
++    OBJECT_NAME: str
++
++    class TestHelpers(APIResourceTestHelpers):
++
++        def fail(idempotency_key: Incomplete | None, self=..., **params):
++            ...
++
++        def return_inbound_transfer(idempotency_key: Incomplete | None, self=..., **params):
++            ...
++
++        def succeed(idempotency_key: Incomplete | None, self=..., **params):
++            ...
++
++    def cancel(idempotency_key: Incomplete | None, self=..., **params):
++        ...

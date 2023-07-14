@@ -1,0 +1,24 @@
+-from stripe import Event, error as error
+-from typing_extensions import Literal
++from _typeshed import Incomplete
++from stripe import error as error, util as util
+ 
+ class Webhook:
+ 
+     @staticmethod
+-    def construct_event(api_key: str | None, payload: bytes | str, secret: str, sig_header: str=300, tolerance: int=None) -> Event:
++    def construct_event(api_key: Incomplete | None, payload, secret, sig_header=..., tolerance=...):
+         ...
+     DEFAULT_TOLERANCE: int
+ 
+ class WebhookSignature:
+ 
+     @classmethod
+-    def verify_header(cls, header: str, payload: bytes | str, secret: str, tolerance: int | None=None) -> Literal[True]:
+-        ...
+-
+-    @staticmethod
+-    def _compute_signature(payload: str, secret: str) -> str:
++    def verify_header(cls, header, payload, secret, tolerance: Incomplete | None=...):
+         ...
+     EXPECTED_SCHEME: str
