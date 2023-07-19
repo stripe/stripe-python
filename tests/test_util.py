@@ -145,7 +145,7 @@ class TestUtil(object):
         assert isinstance(obj.available, list)
         assert isinstance(obj.available[0], stripe.stripe_object.StripeObject)
 
-        d = util.convert_to_dict(obj)
+        d = obj.to_dict_recursive()
         assert isinstance(d, dict)
         assert isinstance(d["available"], list)
         assert isinstance(d["available"][0], dict)

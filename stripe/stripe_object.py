@@ -11,8 +11,11 @@ from stripe import api_requestor, util
 def _compute_diff(current, previous):
     if isinstance(current, dict):
         previous = previous or {}
+        previous_dict = (
+            previous._dict if isinstance(previous, StripeObject) else previous
+        )
         diff = current.copy()
-        for key in set(previous.keys()) - set(diff.keys()):
+        for key in set(previous_dict.keys()) - set(diff.keys()):
             diff[key] = ""
         return diff
     return current if current is not None else ""
@@ -33,7 +36,7 @@ def _serialize_list(array, previous):
     return params
 
 
-class StripeObject(dict):
+class StripeObject:
     class ReprJSONEncoder(json.JSONEncoder):
         def default(self, obj):
             if isinstance(obj, datetime.datetime):
@@ -49,7 +52,7 @@ class StripeObject(dict):
         last_response=None,
         **params
     ):
-        super(StripeObject, self).__init__()
+        self._dict = {}
 
         self._unsaved_values = set()
         self._transient_values = set()
@@ -73,21 +76,30 @@ class StripeObject(dict):
         for k in update_dict:
             self._unsaved_values.add(k)
 
-        return super(StripeObject, self).update(update_dict)
+        return self._dict.update(update_dict)
 
     def __setattr__(self, k, v):
         if k[0] == "_" or k in self.__dict__:
             return super(StripeObject, self).__setattr__(k, v)
 
-        self[k] = v
+        self.__setitem__(k, v)
         return None
+
+    def __eq__(self, other):
+        return self is other or (self._dict == other._dict)
+
+    def setdefault(self, k, default):
+        return self._dict.setdefault(k, default)
+
+    def get(self, k, default=None):
+        return self._dict.get(k, default)
 
     def __getattr__(self, k):
         if k[0] == "_":
             raise AttributeError(k)
 
         try:
-            return self[k]
+            return self._dict[k]
         except KeyError as err:
             raise AttributeError(*err.args)
 
@@ -95,7 +107,7 @@ class StripeObject(dict):
         if k[0] == "_" or k in self.__dict__:
             return super(StripeObject, self).__delattr__(k)
         else:
-            del self[k]
+            del self._dict[k]
 
     def __setitem__(self, k, v):
         if v == "":
@@ -113,11 +125,11 @@ class StripeObject(dict):
 
         self._unsaved_values.add(k)
 
-        super(StripeObject, self).__setitem__(k, v)
+        self._dict.__setitem__(k, v)
 
     def __getitem__(self, k):
         try:
-            return super(StripeObject, self).__getitem__(k)
+            return self._dict.__getitem__(k)
         except KeyError as err:
             if k in self._transient_values:
                 raise KeyError(
@@ -126,13 +138,16 @@ class StripeObject(dict):
                     "the result returned by Stripe's API, probably as a "
                     "result of a save().  The attributes currently "
                     "available on this object are: %s"
-                    % (k, k, ", ".join(list(self.keys())))
+                    % (k, k, ", ".join(list(self._dict.keys())))
                 )
             else:
                 raise err
 
+    def __contains__(self, k):
+        return self._dict.__contains__(k)
+
     def __delitem__(self, k):
-        super(StripeObject, self).__delitem__(k)
+        self._dict.__delitem__(k)
 
         # Allows for unpickling in Python 3.x
         if hasattr(self, "_unsaved_values") and k in self._unsaved_values:
@@ -151,12 +166,12 @@ class StripeObject(dict):
         reduce_value = (
             type(self),  # callable
             (  # args
-                self.get("id", None),
+                self._dict.get("id", None),
                 self.api_key,
                 self.stripe_version,
                 self.stripe_account,
             ),
-            dict(self),  # state
+            dict(self._dict),  # state
         )
         return reduce_value
 
@@ -205,21 +220,25 @@ class StripeObject(dict):
             values, "_last_response", None
         )
 
+        values_dict = values if isinstance(values, dict) else values.to_dict()
+
         # Wipe old state before setting new.  This is useful for e.g.
         # updating a customer, where there is no persistent card
         # parameter.  Mark those values which don't persist as transient
         if partial:
             self._unsaved_values = self._unsaved_values - set(values)
         else:
-            removed = set(self.keys()) - set(values)
+            # import pdb; pdb.set_trace()
+            # print type of values
+            removed = set(self._dict.keys()) - set(values_dict)
             self._transient_values = self._transient_values | removed
             self._unsaved_values = set()
-            self.clear()
+            self._dict.clear()
 
-        self._transient_values = self._transient_values - set(values)
+        self._transient_values = self._transient_values - set(values_dict)
 
-        for k, v in values.items():
-            super(StripeObject, self).__setitem__(
+        for k, v in iter(values_dict.items()):
+            self._dict.__setitem__(
                 k,
                 util.convert_to_stripe_object(
                     v, api_key, stripe_version, stripe_account
@@ -301,11 +320,12 @@ class StripeObject(dict):
     def __repr__(self):
         ident_parts = [type(self).__name__]
 
-        if isinstance(self.get("object"), str):
-            ident_parts.append(self.get("object"))
+        obj = self._dict.get("object")
+        if isinstance(obj, str):
+            ident_parts.append(obj)
 
-        if isinstance(self.get("id"), str):
-            ident_parts.append("id=%s" % (self.get("id"),))
+        if isinstance(self._dict.get("id"), str):
+            ident_parts.append("id=%s" % (self._dict.get("id"),))
 
         unicode_repr = "<%s at %s> JSON: %s" % (
             " ".join(ident_parts),
@@ -324,7 +344,7 @@ class StripeObject(dict):
         )
 
     def to_dict(self):
-        return dict(self)
+        return dict(self._dict)
 
     def to_dict_recursive(self):
         def maybe_to_dict_recursive(value):
@@ -339,7 +359,7 @@ class StripeObject(dict):
             key: list(map(maybe_to_dict_recursive, value))
             if isinstance(value, list)
             else maybe_to_dict_recursive(value)
-            for key, value in dict(self).items()
+            for key, value in iter(dict(self._dict).items())
         }
 
     @property
@@ -351,7 +371,7 @@ class StripeObject(dict):
         unsaved_keys = self._unsaved_values or set()
         previous = previous or self._previous or {}
 
-        for k, v in self.items():
+        for k, v in iter(self._dict.items()):
             if k == "id" or (isinstance(k, str) and k.startswith("_")):
                 continue
             elif isinstance(v, stripe.api_resources.abstract.APIResource):
@@ -374,7 +394,7 @@ class StripeObject(dict):
     # arguments so that we can bypass these possible exceptions on __setitem__.
     def __copy__(self):
         copied = StripeObject(
-            self.get("id"),
+            self._dict.get("id"),
             self.api_key,
             stripe_version=self.stripe_version,
             stripe_account=self.stripe_account,
@@ -382,10 +402,10 @@ class StripeObject(dict):
 
         copied._retrieve_params = self._retrieve_params
 
-        for k, v in self.items():
+        for k, v in iter(self._dict.items()):
             # Call parent's __setitem__ to avoid checks that we've added in the
             # overridden version that can throw exceptions.
-            super(StripeObject, copied).__setitem__(k, v)
+            copied._dict.__setitem__(k, v)
 
         return copied
 
@@ -398,9 +418,9 @@ class StripeObject(dict):
         copied = self.__copy__()
         memo[id(self)] = copied
 
-        for k, v in self.items():
+        for k, v in iter(self._dict.items()):
             # Call parent's __setitem__ to avoid checks that we've added in the
             # overridden version that can throw exceptions.
-            super(StripeObject, copied).__setitem__(k, deepcopy(v, memo))
+            copied._dict.__setitem__(k, deepcopy(v, memo))
 
         return copied

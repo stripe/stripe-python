@@ -145,7 +145,7 @@ class Account(
         params = super(Account, self).serialize(previous)
         previous = previous or self._previous or {}
 
-        for k, v in iter(self.items()):
+        for k, v in iter(self.to_dict().items()):
             if (
                 k == "individual"
                 and isinstance(v, stripe.api_resources.Person)

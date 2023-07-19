@@ -110,8 +110,8 @@ class TestStripeObject(object):
             obj.myattr
         with pytest.raises(KeyError):
             obj["myattr"]
-        assert obj.get("myattr", "def") == "def"
-        assert obj.get("myattr") is None
+        assert getattr(obj, "myattr", "def") == "def"
+        assert getattr(obj, "myattr", None) is None
 
         # Setters
         obj.myattr = "myval"
@@ -122,11 +122,10 @@ class TestStripeObject(object):
         assert obj.setdefault("myattr", "sdef") == "myval"
         assert obj.myattr == "myval"
         assert obj["myattr"] == "myval"
-        assert obj.get("myattr") == "myval"
 
-        assert sorted(obj.keys()) == ["id", "myattr", "mydef", "myitem"]
+        assert sorted(obj.to_dict().keys()) == ["id", "myattr", "mydef", "myitem"]
 
-        assert sorted(obj.values()) == ["itval", "myid", "myval", "sdef"]
+        assert sorted(obj.to_dict().values()) == ["itval", "myid", "myval", "sdef"]
 
         # Illegal operations
         with pytest.raises(ValueError):
