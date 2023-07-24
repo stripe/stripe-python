@@ -100,6 +100,7 @@ OBJECT_CLASSES = {
     api_resources.SubscriptionItem.OBJECT_NAME: api_resources.SubscriptionItem,
     api_resources.SubscriptionSchedule.OBJECT_NAME: api_resources.SubscriptionSchedule,
     api_resources.tax.Calculation.OBJECT_NAME: api_resources.tax.Calculation,
+    api_resources.tax.Form.OBJECT_NAME: api_resources.tax.Form,
     api_resources.tax.Registration.OBJECT_NAME: api_resources.tax.Registration,
     api_resources.tax.Settings.OBJECT_NAME: api_resources.tax.Settings,
     api_resources.tax.Transaction.OBJECT_NAME: api_resources.tax.Transaction,
