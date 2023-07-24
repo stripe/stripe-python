@@ -160,6 +160,19 @@ There are a few options for enabling it:
     logging.getLogger('stripe').setLevel(logging.DEBUG)
     ```
 
+### Accessing response code and headers
+
+You can access the HTTP response code and headers using the `last_response` property of the returned resource. 
+
+```python
+customer = stripe.Customer.retrieve(
+    "cus_123456789"
+)
+
+print(customer.last_response.code)
+print(customer.last_response.headers)
+```
+
 ### Writing a Plugin
 
 If you're writing a plugin that uses the library, we'd appreciate it if you
