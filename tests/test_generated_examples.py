@@ -3655,3 +3655,17 @@ class TestGeneratedExamples(object):
             "get",
             "/v1/credit_notes/preview/lines",
         )
+
+    def test_quote_pdf(self, request_mock):
+        stripe.Quote.pdf("qt_xxxxxxxxxxxxx")
+        request_mock.assert_requested_stream(
+            "get",
+            "/v1/quotes/qt_xxxxxxxxxxxxx/pdf",
+        )
+
+    def test_tax_form_pdf(self, request_mock):
+        stripe.tax.Form.pdf("form_xxxxxxxxxxxxx")
+        request_mock.assert_requested_stream(
+            "get",
+            "/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
+        )
