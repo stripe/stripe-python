@@ -24,12 +24,12 @@ except ImportError:
     pass
 
 try:
-    import pycurl
+    import pycurl  # pyright: ignore
 except ImportError:
     pycurl = None
 
 try:
-    import requests
+    import requests  # pyright: ignore
 except ImportError:
     requests = None
 else:
@@ -55,7 +55,7 @@ else:
             requests = None
 
 try:
-    from google.appengine.api import urlfetch
+    from google.appengine.api import urlfetch  # type: ignore
 except ImportError:
     urlfetch = None
 
@@ -168,7 +168,7 @@ class HTTPClient(object):
 
                     return response
                 else:
-                    raise connection_error
+                    raise connection_error  # type: ignore
 
     def request(self, method, url, headers, post_data=None):
         raise NotImplementedError(
@@ -317,7 +317,7 @@ class RequestsClient(HTTPClient):
             kwargs["stream"] = True
 
         if getattr(self._thread_local, "session", None) is None:
-            self._thread_local.session = self._session or requests.Session()
+            self._thread_local.session = self._session or requests.Session()  # type: ignore
 
         try:
             try:
@@ -352,13 +352,13 @@ class RequestsClient(HTTPClient):
             # Would catch just requests.exceptions.RequestException, but can
             # also raise ValueError, RuntimeError, etc.
             self._handle_request_error(e)
-        return content, status_code, result.headers
+        return content, status_code, result.headers  # type: ignore
 
     def _handle_request_error(self, e):
 
         # Catch SSL error first as it belongs to ConnectionError,
         # but we don't want to retry
-        if isinstance(e, requests.exceptions.SSLError):
+        if isinstance(e, requests.exceptions.SSLError):  # type: ignore
             msg = (
                 "Could not verify Stripe's SSL certificate.  Please make "
                 "sure that your network is not intercepting certificates.  "
@@ -370,7 +370,7 @@ class RequestsClient(HTTPClient):
         # Retry only timeout and connect errors; similar to urllib3 Retry
         elif isinstance(
             e,
-            (requests.exceptions.Timeout, requests.exceptions.ConnectionError),
+            (requests.exceptions.Timeout, requests.exceptions.ConnectionError),  # type: ignore
         ):
             msg = (
                 "Unexpected error communicating with Stripe.  "
@@ -380,7 +380,7 @@ class RequestsClient(HTTPClient):
             err = "%s: %s" % (type(e).__name__, str(e))
             should_retry = True
         # Catch remaining request exceptions
-        elif isinstance(e, requests.exceptions.RequestException):
+        elif isinstance(e, requests.exceptions.RequestException):  # type: ignore
             msg = (
                 "Unexpected error communicating with Stripe.  "
                 "If this problem persists, let us know at "
@@ -444,7 +444,7 @@ class UrlFetchClient(HTTPClient):
 
     def _request_internal(self, method, url, headers, post_data, is_streaming):
         try:
-            result = urlfetch.fetch(
+            result = urlfetch.fetch(  # type: ignore
                 url=url,
                 method=method,
                 headers=headers,
@@ -455,27 +455,27 @@ class UrlFetchClient(HTTPClient):
                 deadline=self._deadline,
                 payload=post_data,
             )
-        except urlfetch.Error as e:
+        except urlfetch.Error as e:  # type: ignore
             self._handle_request_error(e, url)
 
         if is_streaming:
-            content = util.io.BytesIO(str.encode(result.content))
+            content = util.io.BytesIO(str.encode(result.content))  # type: ignore
         else:
-            content = result.content
+            content = result.content  # type: ignore
 
-        return content, result.status_code, result.headers
+        return content, result.status_code, result.headers  # type: ignore
 
     def _handle_request_error(self, e, url):
-        if isinstance(e, urlfetch.InvalidURLError):
+        if isinstance(e, urlfetch.InvalidURLError):  # type: ignore
             msg = (
                 "The Stripe library attempted to fetch an "
                 "invalid URL (%r). This is likely due to a bug "
                 "in the Stripe Python bindings. Please let us know "
                 "at support@stripe.com." % (url,)
             )
-        elif isinstance(e, urlfetch.DownloadError):
+        elif isinstance(e, urlfetch.DownloadError):  # type: ignore
             msg = "There was a problem retrieving data from Stripe."
-        elif isinstance(e, urlfetch.ResponseTooLargeError):
+        elif isinstance(e, urlfetch.ResponseTooLargeError):  # type: ignore
             msg = (
                 "There was a problem receiving all of your data from "
                 "Stripe.  This is likely due to a bug in Stripe. "
@@ -503,15 +503,15 @@ class PycurlClient(HTTPClient):
         )
 
         # Initialize this within the object so that we can reuse connections.
-        self._curl = pycurl.Curl()
+        self._curl = pycurl.Curl()  # type: ignore
 
         # need to urlparse the proxy, since PyCurl
         # consumes the proxy url in small pieces
         if self._proxy:
             # now that we have the parser, get the proxy url pieces
             proxy = self._proxy
-            for scheme, value in proxy.items():
-                proxy[scheme] = urlparse(value)
+            for scheme, value in iter(proxy.items()):
+                proxy[scheme] = urlparse(value)  # type: ignore
 
     def parse_headers(self, data):
         if "\r\n" not in data:
@@ -544,44 +544,44 @@ class PycurlClient(HTTPClient):
 
         proxy = self._get_proxy(url)
         if proxy:
-            if proxy.hostname:
-                self._curl.setopt(pycurl.PROXY, proxy.hostname)
-            if proxy.port:
-                self._curl.setopt(pycurl.PROXYPORT, proxy.port)
-            if proxy.username or proxy.password:
+            if proxy.hostname:  # type: ignore
+                self._curl.setopt(pycurl.PROXY, proxy.hostname)  # type: ignore
+            if proxy.port:  # type: ignore
+                self._curl.setopt(pycurl.PROXYPORT, proxy.port)  # type: ignore
+            if proxy.username or proxy.password:  # type: ignore
                 self._curl.setopt(
-                    pycurl.PROXYUSERPWD,
-                    "%s:%s" % (proxy.username, proxy.password),
+                    pycurl.PROXYUSERPWD,  # type: ignore
+                    "%s:%s" % (proxy.username, proxy.password),  # type: ignore
                 )
 
         if method == "get":
-            self._curl.setopt(pycurl.HTTPGET, 1)
+            self._curl.setopt(pycurl.HTTPGET, 1)  # type: ignore
         elif method == "post":
-            self._curl.setopt(pycurl.POST, 1)
-            self._curl.setopt(pycurl.POSTFIELDS, post_data)
+            self._curl.setopt(pycurl.POST, 1)  # type: ignore
+            self._curl.setopt(pycurl.POSTFIELDS, post_data)  # type: ignore
         else:
-            self._curl.setopt(pycurl.CUSTOMREQUEST, method.upper())
+            self._curl.setopt(pycurl.CUSTOMREQUEST, method.upper())  # type: ignore
 
         # pycurl doesn't like unicode URLs
-        self._curl.setopt(pycurl.URL, url)
+        self._curl.setopt(pycurl.URL, url)  # type: ignore
 
-        self._curl.setopt(pycurl.WRITEFUNCTION, b.write)
-        self._curl.setopt(pycurl.HEADERFUNCTION, rheaders.write)
-        self._curl.setopt(pycurl.NOSIGNAL, 1)
-        self._curl.setopt(pycurl.CONNECTTIMEOUT, 30)
-        self._curl.setopt(pycurl.TIMEOUT, 80)
+        self._curl.setopt(pycurl.WRITEFUNCTION, b.write)  # type: ignore
+        self._curl.setopt(pycurl.HEADERFUNCTION, rheaders.write)  # type: ignore
+        self._curl.setopt(pycurl.NOSIGNAL, 1)  # type: ignore
+        self._curl.setopt(pycurl.CONNECTTIMEOUT, 30)  # type: ignore
+        self._curl.setopt(pycurl.TIMEOUT, 80)  # type: ignore
         self._curl.setopt(
-            pycurl.HTTPHEADER,
-            ["%s: %s" % (k, v) for k, v in dict(headers).items()],
+            pycurl.HTTPHEADER,  # type: ignore
+            ["%s: %s" % (k, v) for k, v in iter(dict(headers).items())],
         )
         if self._verify_ssl_certs:
-            self._curl.setopt(pycurl.CAINFO, stripe.ca_bundle_path)
+            self._curl.setopt(pycurl.CAINFO, stripe.ca_bundle_path)  # type: ignore
         else:
-            self._curl.setopt(pycurl.SSL_VERIFYHOST, False)
+            self._curl.setopt(pycurl.SSL_VERIFYHOST, False)  # type: ignore
 
         try:
             self._curl.perform()
-        except pycurl.error as e:
+        except pycurl.error as e:  # type: ignore
             self._handle_request_error(e)
 
         if is_streaming:
@@ -590,16 +590,16 @@ class PycurlClient(HTTPClient):
         else:
             rcontent = b.getvalue().decode("utf-8")
 
-        rcode = self._curl.getinfo(pycurl.RESPONSE_CODE)
+        rcode = self._curl.getinfo(pycurl.RESPONSE_CODE)  # type: ignore
         headers = self.parse_headers(rheaders.getvalue().decode("utf-8"))
 
         return rcontent, rcode, headers
 
     def _handle_request_error(self, e):
         if e.args[0] in [
-            pycurl.E_COULDNT_CONNECT,
-            pycurl.E_COULDNT_RESOLVE_HOST,
-            pycurl.E_OPERATION_TIMEOUTED,
+            pycurl.E_COULDNT_CONNECT,  # type: ignore
+            pycurl.E_COULDNT_RESOLVE_HOST,  # type: ignore
+            pycurl.E_OPERATION_TIMEOUTED,  # type: ignore
         ]:
             msg = (
                 "Could not connect to Stripe.  Please check your "
@@ -609,7 +609,7 @@ class PycurlClient(HTTPClient):
                 "support@stripe.com."
             )
             should_retry = True
-        elif e.args[0] in [pycurl.E_SSL_CACERT, pycurl.E_SSL_PEER_CERTIFICATE]:
+        elif e.args[0] in [pycurl.E_SSL_CACERT, pycurl.E_SSL_PEER_CERTIFICATE]:  # type: ignore
             msg = (
                 "Could not verify Stripe's SSL certificate.  Please make "
                 "sure that your network is not intercepting certificates.  "
@@ -649,8 +649,8 @@ class Urllib2Client(HTTPClient):
         # prepare and cache proxy tied opener here
         self._opener = None
         if self._proxy:
-            proxy = urllib.request.ProxyHandler(self._proxy)
-            self._opener = urllib.request.build_opener(proxy)
+            proxy = urllib.request.ProxyHandler(self._proxy)  # type: ignore
+            self._opener = urllib.request.build_opener(proxy)  # type: ignore
 
     def request(self, method, url, headers, post_data=None):
         return self._request_internal(
@@ -666,7 +666,7 @@ class Urllib2Client(HTTPClient):
         if isinstance(post_data, str):
             post_data = post_data.encode("utf-8")
 
-        req = urllib.request.Request(url, post_data, headers)
+        req = urllib.request.Request(url, post_data, headers)  # type: ignore
 
         if method not in ("get", "post"):
             req.get_method = lambda: method.upper()
@@ -677,7 +677,7 @@ class Urllib2Client(HTTPClient):
             response = (
                 self._opener.open(req)
                 if self._opener
-                else urllib.request.urlopen(req)
+                else urllib.request.urlopen(req)  # type: ignore
             )
 
             if is_streaming:
@@ -687,14 +687,14 @@ class Urllib2Client(HTTPClient):
 
             rcode = response.code
             headers = dict(response.info())
-        except urllib.error.HTTPError as e:
+        except urllib.error.HTTPError as e:  # type: ignore
             rcode = e.code
             rcontent = e.read()
             headers = dict(e.info())
-        except (urllib.error.URLError, ValueError) as e:
+        except (urllib.error.URLError, ValueError) as e:  # type: ignore
             self._handle_request_error(e)
-        lh = dict((k.lower(), v) for k, v in dict(headers).items())
-        return rcontent, rcode, lh
+        lh = dict((k.lower(), v) for k, v in iter(dict(headers).items()))
+        return rcontent, rcode, lh  # type: ignore
 
     def _handle_request_error(self, e):
         msg = (

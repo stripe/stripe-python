@@ -280,7 +280,7 @@ class StripeObject(dict):
 
         if idempotency_key is not None:
             headers = {} if headers is None else headers.copy()
-            headers.update(util.populate_headers(idempotency_key))
+            headers.update(util.populate_headers(idempotency_key))  # type: ignore
 
         response, api_key = requestor.request(method_, url_, params, headers)
 
@@ -305,7 +305,7 @@ class StripeObject(dict):
         ident_parts = [type(self).__name__]
 
         if isinstance(self.get("object"), str):
-            ident_parts.append(self.get("object"))
+            ident_parts.append(self.get("object"))  # type: ignore
 
         if isinstance(self.get("id"), str):
             ident_parts.append("id=%s" % (self.get("id"),))
@@ -347,7 +347,7 @@ class StripeObject(dict):
 
     @property
     def stripe_id(self):
-        return self.id
+        return self.id  # type: ignore
 
     def serialize(self, previous):
         params = {}
@@ -357,7 +357,7 @@ class StripeObject(dict):
         for k, v in self.items():
             if k == "id" or (isinstance(k, str) and k.startswith("_")):
                 continue
-            elif isinstance(v, stripe.api_resources.abstract.APIResource):
+            elif isinstance(v, stripe.api_resources.abstract.APIResource):  # type: ignore
                 continue
             elif hasattr(v, "serialize"):
                 child = v.serialize(previous.get(k, None))

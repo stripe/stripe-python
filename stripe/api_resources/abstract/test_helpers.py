@@ -2,6 +2,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import error
 from urllib.parse import quote_plus
+from typing import Any
 
 
 class APIResourceTestHelpers:
@@ -14,6 +15,9 @@ class APIResourceTestHelpers:
     class Foo(APIResource):
       class TestHelpers(APIResourceTestHelpers):
     """
+
+    # TODO (types)
+    _static_request: Any
 
     def __init__(self, resource):
         self.resource = resource
@@ -35,7 +39,7 @@ class APIResourceTestHelpers:
             )
         # Namespaces are separated in object names with periods (.) and in URLs
         # with forward slashes (/), so replace the former with the latter.
-        base = cls._resource_cls.OBJECT_NAME.replace(".", "/")
+        base = cls._resource_cls.OBJECT_NAME.replace(".", "/")  # type: ignore
         return "/v1/test_helpers/%ss" % (base,)
 
     def instance_url(self):
