@@ -6,7 +6,7 @@ from stripe.api_resources.abstract.api_resource import APIResource
 class ListableAPIResource(APIResource):
     @classmethod
     def auto_paging_iter(cls, *args, **params):
-        return cls.list(*args, **params).auto_paging_iter()
+        return cls.list(*args, **params).auto_paging_iter()  # type: ignore
 
     @classmethod
     def list(

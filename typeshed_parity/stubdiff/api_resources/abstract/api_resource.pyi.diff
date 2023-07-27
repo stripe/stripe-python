@@ -5,6 +5,7 @@
 +from stripe.six.moves.urllib.parse import quote_plus as quote_plus
  from stripe.stripe_object import StripeObject as StripeObject
 -from typing_extensions import Self
++from typing import ClassVar
  
  class APIResource(StripeObject):
  
@@ -17,6 +18,7 @@
 -    def retrieve(api_key: Incomplete | None, cls, id=None, **params) -> Self:
 +    def retrieve(api_key: Incomplete | None, cls, id=..., **params):
          ...
++    OBJECT_NAME: ClassVar[str]
  
 -    def instance_url(self) -> str:
 +    def instance_url(self):

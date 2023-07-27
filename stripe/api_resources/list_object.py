@@ -87,13 +87,13 @@ class ListObject(StripeObject):
             ):
                 for item in reversed(page):
                     yield item
-                page = page.previous_page()
+                page = page.previous_page()  # type: ignore
             else:
                 for item in page:
                     yield item
-                page = page.next_page()
+                page = page.next_page()  # type: ignore
 
-            if page.is_empty:
+            if page.is_empty:  # type: ignore
                 break
 
     @classmethod
@@ -110,19 +110,19 @@ class ListObject(StripeObject):
 
     @property
     def is_empty(self):
-        return not self.data
+        return not self.data  # type: ignore
 
     def next_page(
         self, api_key=None, stripe_version=None, stripe_account=None, **params
     ):
-        if not self.has_more:
+        if not self.has_more:  # type: ignore
             return self.empty_list(
                 api_key=api_key,
                 stripe_version=stripe_version,
                 stripe_account=stripe_account,
             )
 
-        last_id = self.data[-1].id
+        last_id = self.data[-1].id  # type: ignore
 
         params_with_filters = self._retrieve_params.copy()
         params_with_filters.update({"starting_after": last_id})
@@ -138,14 +138,14 @@ class ListObject(StripeObject):
     def previous_page(
         self, api_key=None, stripe_version=None, stripe_account=None, **params
     ):
-        if not self.has_more:
+        if not self.has_more:  # type: ignore
             return self.empty_list(
                 api_key=api_key,
                 stripe_version=stripe_version,
                 stripe_account=stripe_account,
             )
 
-        first_id = self.data[0].id
+        first_id = self.data[0].id  # type: ignore
 
         params_with_filters = self._retrieve_params.copy()
         params_with_filters.update({"ending_before": first_id})

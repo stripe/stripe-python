@@ -95,6 +95,9 @@ jobs:
 
       - uses: stripe/openapi/actions/stripe-mock@master
 
+      - name: Typecheck with pyright
+        run: make pyright
+
       - name: Test with pytest
         run: make ci-test
 

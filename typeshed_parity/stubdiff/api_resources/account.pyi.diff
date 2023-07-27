@@ -1,7 +1,7 @@
  from _typeshed import Incomplete
 -from stripe import oauth as oauth
 -from stripe.api_resources.abstract import CreateableAPIResource as CreateableAPIResource, DeletableAPIResource as DeletableAPIResource, ListableAPIResource as ListableAPIResource, UpdateableAPIResource as UpdateableAPIResource, custom_method as custom_method, nested_resource_class_methods as nested_resource_class_methods
-+from stripe import oauth as oauth, util as util
++from stripe import api_resources as api_resources, oauth as oauth, util as util
 +from stripe.api_resources.abstract import CreateableAPIResource as CreateableAPIResource, DeletableAPIResource as DeletableAPIResource, ListableAPIResource as ListableAPIResource, UpdateableAPIResource as UpdateableAPIResource, nested_resource_class_methods as nested_resource_class_methods
 +from stripe.six.moves.urllib.parse import quote_plus as quote_plus
  

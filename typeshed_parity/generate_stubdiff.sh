@@ -14,8 +14,8 @@ set -ueo pipefail
 # If no argument is provided, use the default python
 PYTHON=${1:-python}
 
-TYPESHED_DIR="typeshed"
-${PYTHON} -c "import mypy.stubgen; mypy.stubgen.main(['-p', 'stripe'])"
+TYPESHED_DIR="typeshed_parity/typeshed"
+venv/bin/stubgen -p stripe
 
 # Make sure `find` produces relative paths
 pushd out/stripe > /dev/null
@@ -39,13 +39,13 @@ function filter_diff {
 process_file() {
   FILE="$1"
   OUTPUT_FILE="$FILE.diff"
-  OUTPATH="stubdiff/$OUTPUT_FILE"
+  OUTPATH="typeshed_parity/stubdiff/$OUTPUT_FILE"
   mkdir -p $(dirname $OUTPATH)
 
   TYPESHED_SORTED=$(mktemp)
   STUBGEN_SORTED=$(mktemp)
-  cat $TYPESHED_DIR/stubs/stripe/stripe/$FILE | ${PYTHON} pyi_sort.py > $TYPESHED_SORTED
-  cat out/stripe/$FILE | ${PYTHON} pyi_sort.py > $STUBGEN_SORTED
+  cat $TYPESHED_DIR/stubs/stripe/stripe/$FILE | ${PYTHON} typeshed_parity/pyi_sort.py > $TYPESHED_SORTED
+  cat out/stripe/$FILE | ${PYTHON} typeshed_parity/pyi_sort.py > $STUBGEN_SORTED
   git diff --no-index $TYPESHED_SORTED $STUBGEN_SORTED | filter_diff > $OUTPATH
 }
 

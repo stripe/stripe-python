@@ -3,6 +3,7 @@ from __future__ import absolute_import, division, print_function
 from stripe import error, util
 from urllib.parse import quote_plus
 from stripe.api_resources.abstract import APIResource
+from typing import Any
 
 
 class APIResourceTestHelpers:
@@ -15,6 +16,9 @@ class APIResourceTestHelpers:
     class Foo(APIResource):
       class TestHelpers(APIResourceTestHelpers):
     """
+
+    # TODO (types)
+    _static_request: Any
 
     def __init__(self, resource):
         self.resource = resource
@@ -36,7 +40,7 @@ class APIResourceTestHelpers:
             )
         # Namespaces are separated in object names with periods (.) and in URLs
         # with forward slashes (/), so replace the former with the latter.
-        base = cls._resource_cls.OBJECT_NAME.replace(".", "/")
+        base = cls._resource_cls.OBJECT_NAME.replace(".", "/")  # type: ignore
         return "/v1/test_helpers/%ss" % (base,)
 
     def instance_url(self):
@@ -72,9 +76,9 @@ def test_helpers(cls):
             " The class should a subclass of APIResource." % cls
         )
 
-    cls.TestHelpers._resource_cls = cls
-    cls.TestHelpers._static_request = cls._static_request
-    cls.TestHelpers._static_request_stream = cls._static_request_stream
+    cls.TestHelpers._resource_cls = cls  # type: ignore
+    cls.TestHelpers._static_request = cls._static_request  # type: ignore
+    cls.TestHelpers._static_request_stream = cls._static_request_stream  # type: ignore
 
-    cls.test_helpers = property(test_helpers_getter)
+    cls.test_helpers = property(test_helpers_getter)  # type: ignore
     return cls

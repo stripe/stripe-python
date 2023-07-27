@@ -23,17 +23,17 @@ class Card(DeletableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "card"
 
     def instance_url(self):
-        token = util.utf8(self.id)
+        token = self.id  # type: ignore
         extn = quote_plus(token)
         if hasattr(self, "customer"):
-            customer = util.utf8(self.customer)
+            customer = self.customer  # type: ignore
 
             base = Customer.class_url()
             owner_extn = quote_plus(customer)
             class_base = "sources"
 
         elif hasattr(self, "account"):
-            account = util.utf8(self.account)
+            account = self.account  # type: ignore
 
             base = Account.class_url()
             owner_extn = quote_plus(account)

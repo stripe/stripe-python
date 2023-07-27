@@ -32,7 +32,7 @@ ca_bundle_path = os.path.join(
 log = None
 
 # API resources
-from stripe.api_resources import *  # noqa
+from stripe.api_resources import *  # pyright: ignore # noqa
 
 # OAuth
 from stripe.oauth import OAuth  # noqa
