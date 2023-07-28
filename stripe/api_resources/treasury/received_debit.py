@@ -5,9 +5,24 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import test_helpers
+from typing import Type
 
 
-@test_helpers
+class _TestHelpers(APIResourceTestHelpers):
+    @classmethod
+    def create(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/test_helpers/treasury/received_debits",
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+
 class ReceivedDebit(ListableAPIResource):
     """
     ReceivedDebits represent funds pulled from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts). These are not initiated from the FinancialAccount.
@@ -15,20 +30,11 @@ class ReceivedDebit(ListableAPIResource):
 
     OBJECT_NAME = "treasury.received_debit"
 
-    class TestHelpers(APIResourceTestHelpers):
-        @classmethod
-        def create(
-            cls,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/treasury/received_debits",
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
-            )
+    TestHelpers = _TestHelpers
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
+
+_TestHelpers._resource_cls = ReceivedDebit

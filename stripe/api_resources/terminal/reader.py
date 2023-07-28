@@ -9,9 +9,42 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import test_helpers
+from typing import Type
 
 
-@test_helpers
+class _TestHelpers(APIResourceTestHelpers):
+    @classmethod
+    def _cls_present_payment_method(
+        cls,
+        reader,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
+                reader=util.sanitize_id(reader)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_present_payment_method")
+    def present_payment_method(self, idempotency_key=None, **params):
+        return self.resource._request(
+            "post",
+            "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
+                reader=util.sanitize_id(self.resource.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+
 class Reader(
     CreateableAPIResource,
     DeletableAPIResource,
@@ -181,34 +214,11 @@ class Reader(
             params=params,
         )
 
-    class TestHelpers(APIResourceTestHelpers):
-        @classmethod
-        def _cls_present_payment_method(
-            cls,
-            reader,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                    reader=util.sanitize_id(reader)
-                ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
-            )
+    TestHelpers = _TestHelpers
 
-        @util.class_method_variant("_cls_present_payment_method")
-        def present_payment_method(self, idempotency_key=None, **params):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                    reader=util.sanitize_id(self.resource.get("id"))
-                ),
-                idempotency_key=idempotency_key,
-                params=params,
-            )
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
+
+_TestHelpers._resource_cls = Reader

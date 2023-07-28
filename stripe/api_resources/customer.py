@@ -11,9 +11,42 @@ from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
 from stripe.api_resources.abstract import test_helpers
+from typing import Type
 
 
-@test_helpers
+class _TestHelpers(APIResourceTestHelpers):
+    @classmethod
+    def _cls_fund_cash_balance(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_fund_cash_balance")
+    def fund_cash_balance(self, idempotency_key=None, **params):
+        return self.resource._request(
+            "post",
+            "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
+                customer=util.sanitize_id(self.resource.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+
 @nested_resource_class_methods(
     "balance_transaction",
     operations=["create", "retrieve", "update", "list"],
@@ -222,34 +255,11 @@ class Customer(
             params=params,
         )
 
-    class TestHelpers(APIResourceTestHelpers):
-        @classmethod
-        def _cls_fund_cash_balance(
-            cls,
-            customer,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                    customer=util.sanitize_id(customer)
-                ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
-            )
+    TestHelpers = _TestHelpers
 
-        @util.class_method_variant("_cls_fund_cash_balance")
-        def fund_cash_balance(self, idempotency_key=None, **params):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                    customer=util.sanitize_id(self.resource.get("id"))
-                ),
-                idempotency_key=idempotency_key,
-                params=params,
-            )
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
+
+_TestHelpers._resource_cls = Customer
