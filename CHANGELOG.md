@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.6.0b2 - 2023-07-28
+* [#995](https://github.com/stripe/stripe-python/pull/995) Update generated code for beta
+  * Add support for new resource `Tax.Form`
+  * Add support for `list`, `pdf`, and `retrieve` methods on resource `Form`
+* [#992](https://github.com/stripe/stripe-python/pull/992) Update generated code for beta
+
+
 ## 5.6.0b1 - 2023-07-13
 * [#991](https://github.com/stripe/stripe-python/pull/991) Update generated code for beta
   Release specs are identical.
@@ -27,7 +34,7 @@
 * [#970](https://github.com/stripe/stripe-python/pull/970) Update generated code
 
 * [#967](https://github.com/stripe/stripe-python/pull/967) Update generated code
-  
+
   Documentation updates.
 * [#963](https://github.com/stripe/stripe-python/pull/963) Update generated code
 
