@@ -1,7 +1,14 @@
 +from _typeshed import Incomplete
++from stripe.stripe_object import StripeObject as StripeObject
++from typing_extensions import Protocol
 +
  class VerifyMixin:
  
 -    def verify(idempotency_key: str | None, self=None, **params):
 +    def verify(idempotency_key: Incomplete | None, self=..., **params):
++        ...
++
++class _Verifiable(Protocol):
++
++    def instance_url(self) -> str:
          ...

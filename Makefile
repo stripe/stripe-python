@@ -17,6 +17,7 @@ test-nomock: venv
 	@${VENV_NAME}/bin/tox -p auto -- --nomock $(TOX_ARGS)
 
 stubdiff:
+	${VENV_NAME}/bin/python -m pip install -U mypy -c constraints.txt
 	./typeshed_parity/generate_stubdiff.sh ${VENV_NAME}/bin/python
 
 stubdiff_pristine:
