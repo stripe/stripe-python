@@ -734,13 +734,6 @@ class TestAPIRequestor(object):
             400,
         )
 
-    def test_developer_message_in_error(self, requestor, mock_response):
-        mock_response('{"error": {"developer_message": "Unacceptable"}}', 400)
-
-        with pytest.raises(stripe.error.InvalidRequestError) as excinfo:
-            requestor.request("get", self.valid_path, {})
-        assert excinfo.value.user_message == "Unacceptable"
-
     def test_raw_request_with_file_param(self, requestor, mock_response):
         test_file = tempfile.NamedTemporaryFile()
         test_file.write("\u263A".encode("utf-16"))

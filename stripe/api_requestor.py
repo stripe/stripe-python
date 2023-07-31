@@ -177,9 +177,7 @@ class APIRequestor(object):
         raise err
 
     def specific_api_error(self, rbody, rcode, resp, rheaders, error_data):
-        message = error_data.get("message") or error_data.get(
-            "developer_message"
-        )
+        message = error_data.get("message")
 
         util.log_info(
             "Stripe API error received",
