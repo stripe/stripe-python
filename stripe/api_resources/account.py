@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-import stripe
+from stripe import api_resources
 from stripe import oauth, six
 from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
@@ -148,7 +148,7 @@ class Account(
         for k, v in six.iteritems(self):
             if (
                 k == "individual"
-                and isinstance(v, stripe.api_resources.Person)
+                and isinstance(v, api_resources.Person)
                 and k not in params
             ):
                 params[k] = v.serialize(previous.get(k, None))
