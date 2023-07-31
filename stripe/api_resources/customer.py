@@ -10,7 +10,6 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
-from stripe.api_resources.abstract import test_helpers
 
 
 @nested_resource_class_methods(
