@@ -20,6 +20,14 @@ class APIResourceTestHelpers:
         self.resource = resource
 
     @classmethod
+    def _static_request(cls, *args, **kwargs):
+        return cls._resource_cls._static_request(*args, **kwargs)
+
+    @classmethod
+    def _static_request_stream(cls, *args, **kwargs):
+        return cls._resource_cls._static_request_stream(*args, **kwargs)
+
+    @classmethod
     def class_url(cls):
         if cls == APIResourceTestHelpers:
             raise NotImplementedError(
@@ -48,16 +56,11 @@ class APIResourceTestHelpers:
         return "%s/%s" % (base, extn)
 
 
+# TODO (next major)
 def test_helpers(cls):
     """
-    test_helpers decorator adds a test_helpers property and
-    wires the parent resource class to the nested TestHelpers class.
-
-    Should only be used on types that inherit from APIResource.
-
-    @test_helpers
-    class Foo(APIResource):
-      class TestHelpers(APIResourceTestHelpers):
+    The test_helpers decorator is deprecated and will be removed in a future version
+    of the library.
     """
 
     def test_helpers_getter(self):
