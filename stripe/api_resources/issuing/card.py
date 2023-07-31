@@ -8,133 +8,6 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import test_helpers
-from typing import Type
-
-
-class _TestHelpers(APIResourceTestHelpers):
-    @classmethod
-    def _cls_deliver_card(
-        cls,
-        card,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                card=util.sanitize_id(card)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_deliver_card")
-    def deliver_card(self, idempotency_key=None, **params):
-        return self.resource._request(
-            "post",
-            "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                card=util.sanitize_id(self.resource.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
-
-    @classmethod
-    def _cls_fail_card(
-        cls,
-        card,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                card=util.sanitize_id(card)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_fail_card")
-    def fail_card(self, idempotency_key=None, **params):
-        return self.resource._request(
-            "post",
-            "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                card=util.sanitize_id(self.resource.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
-
-    @classmethod
-    def _cls_return_card(
-        cls,
-        card,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                card=util.sanitize_id(card)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_return_card")
-    def return_card(self, idempotency_key=None, **params):
-        return self.resource._request(
-            "post",
-            "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                card=util.sanitize_id(self.resource.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
-
-    @classmethod
-    def _cls_ship_card(
-        cls,
-        card,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                card=util.sanitize_id(card)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_ship_card")
-    def ship_card(self, idempotency_key=None, **params):
-        return self.resource._request(
-            "post",
-            "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                card=util.sanitize_id(self.resource.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
 
 
 class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
@@ -144,11 +17,134 @@ class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
 
     OBJECT_NAME = "issuing.card"
 
-    TestHelpers = _TestHelpers
+    class TestHelpers(APIResourceTestHelpers):
+        @classmethod
+        def _cls_deliver_card(
+            cls,
+            card,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
+                    card=util.sanitize_id(card)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @util.class_method_variant("_cls_deliver_card")
+        def deliver_card(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
+                    card=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )
+
+        @classmethod
+        def _cls_fail_card(
+            cls,
+            card,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
+                    card=util.sanitize_id(card)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @util.class_method_variant("_cls_fail_card")
+        def fail_card(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
+                    card=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )
+
+        @classmethod
+        def _cls_return_card(
+            cls,
+            card,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
+                    card=util.sanitize_id(card)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @util.class_method_variant("_cls_return_card")
+        def return_card(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
+                    card=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )
+
+        @classmethod
+        def _cls_ship_card(
+            cls,
+            card,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
+                    card=util.sanitize_id(card)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @util.class_method_variant("_cls_ship_card")
+        def ship_card(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
+                    card=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )
 
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
 
 
-_TestHelpers._resource_cls = Card
+Card.TestHelpers._resource_cls = Card

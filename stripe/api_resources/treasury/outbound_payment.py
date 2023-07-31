@@ -7,102 +7,6 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import test_helpers
-from typing import Type
-
-
-class _TestHelpers(APIResourceTestHelpers):
-    @classmethod
-    def _cls_fail(
-        cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
-                id=util.sanitize_id(id)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_fail")
-    def fail(self, idempotency_key=None, **params):
-        return self.resource._request(
-            "post",
-            "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
-                id=util.sanitize_id(self.resource.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
-
-    @classmethod
-    def _cls_post(
-        cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
-                id=util.sanitize_id(id)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_post")
-    def post(self, idempotency_key=None, **params):
-        return self.resource._request(
-            "post",
-            "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
-                id=util.sanitize_id(self.resource.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
-
-    @classmethod
-    def _cls_return_outbound_payment(
-        cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
-                id=util.sanitize_id(id)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_return_outbound_payment")
-    def return_outbound_payment(self, idempotency_key=None, **params):
-        return self.resource._request(
-            "post",
-            "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
-                id=util.sanitize_id(self.resource.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
 
 
 class OutboundPayment(CreateableAPIResource, ListableAPIResource):
@@ -145,11 +49,103 @@ class OutboundPayment(CreateableAPIResource, ListableAPIResource):
             params=params,
         )
 
-    TestHelpers = _TestHelpers
+    class TestHelpers(APIResourceTestHelpers):
+        @classmethod
+        def _cls_fail(
+            cls,
+            id,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
+                    id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @util.class_method_variant("_cls_fail")
+        def fail(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
+                    id=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )
+
+        @classmethod
+        def _cls_post(
+            cls,
+            id,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
+                    id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @util.class_method_variant("_cls_post")
+        def post(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
+                    id=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )
+
+        @classmethod
+        def _cls_return_outbound_payment(
+            cls,
+            id,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
+                    id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @util.class_method_variant("_cls_return_outbound_payment")
+        def return_outbound_payment(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
+                    id=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )
 
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
 
 
-_TestHelpers._resource_cls = OutboundPayment
+OutboundPayment.TestHelpers._resource_cls = OutboundPayment
