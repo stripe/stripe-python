@@ -2,10 +2,16 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import error
 from urllib.parse import quote_plus
-from typing import Any
+
+from typing import Any, ClassVar, TypeVar
+from typing_extensions import Protocol
+
+from stripe.api_resources.abstract.api_resource import APIResource
+
+T = TypeVar("T", bound=APIResource)
 
 
-class APIResourceTestHelpers:
+class APIResourceTestHelpers(Protocol[T]):
     """
     The base type for the TestHelper nested classes.
     Handles request URL generation for test_helper custom methods.
@@ -16,8 +22,8 @@ class APIResourceTestHelpers:
       class TestHelpers(APIResourceTestHelpers):
     """
 
-    # TODO (types)
-    _static_request: Any
+    _resource_cls: ClassVar[Any] = None
+    resource: T
 
     def __init__(self, resource):
         self.resource = resource
@@ -43,7 +49,7 @@ class APIResourceTestHelpers:
         return "/v1/test_helpers/%ss" % (base,)
 
     def instance_url(self):
-        id = self.resource.get("id")
+        id = getattr(self.resource, "id", None)
 
         if not isinstance(id, str):
             raise error.InvalidRequestError(
