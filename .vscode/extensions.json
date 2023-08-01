@@ -2,6 +2,7 @@
   "recommendations": [
     "ms-python.python",
     "bungcip.better-toml",
-    "EditorConfig.editorconfig"
+    "editorconfig.editorconfig",
+    "ms-vscode.cpptools-extension-pack"
   ]
 }
