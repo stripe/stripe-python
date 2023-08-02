@@ -6,10 +6,8 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import test_helpers
 
 
-@test_helpers
 class CardDesign(ListableAPIResource, UpdateableAPIResource):
     """
     A Card Design is a logical grouping of a Card Bundle, card logo, and carrier text that represents a product line.
@@ -79,3 +77,10 @@ class CardDesign(ListableAPIResource, UpdateableAPIResource):
                 idempotency_key=idempotency_key,
                 params=params,
             )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
+
+CardDesign.TestHelpers._resource_cls = CardDesign

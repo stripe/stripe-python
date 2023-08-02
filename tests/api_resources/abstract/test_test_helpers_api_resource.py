@@ -1,13 +1,11 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-import pytest
 from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 
 
 class TestTestHelperAPIResource(object):
-    @stripe.api_resources.abstract.test_helpers
     class MyTestHelpersResource(stripe.api_resources.abstract.APIResource):
         OBJECT_NAME = "myresource"
 
@@ -25,6 +23,12 @@ class TestTestHelperAPIResource(object):
                     self.resource.request("post", url, params, headers)
                 )
                 return self.resource
+
+        @property
+        def test_helpers(self):
+            return self.TestHelpers(self)
+
+    MyTestHelpersResource.TestHelpers._resource_cls = MyTestHelpersResource
 
     def test_call_custom_method_class(self, request_mock):
         request_mock.stub_request(
@@ -60,7 +64,3 @@ class TestTestHelperAPIResource(object):
             {"foo": "bar"},
         )
         assert obj.thing_done is True
-
-    def test_helper_decorator_raises_for_non_resource(self):
-        with pytest.raises(ValueError):
-            stripe.api_resources.abstract.test_helpers(str)

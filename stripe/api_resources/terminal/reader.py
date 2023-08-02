@@ -8,10 +8,8 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import test_helpers
 
 
-@test_helpers
 class Reader(
     CreateableAPIResource,
     DeletableAPIResource,
@@ -305,3 +303,10 @@ class Reader(
                 idempotency_key=idempotency_key,
                 params=params,
             )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
+
+Reader.TestHelpers._resource_cls = Reader
