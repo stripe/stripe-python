@@ -40,6 +40,10 @@ from stripe.oauth import OAuth  # noqa
 # Webhooks
 from stripe.webhook import Webhook, WebhookSignature  # noqa
 
+from stripe.stripe_response import StripeResponse  # noqa
+
+from stripe.stripe_object import StripeObject  # noqa
+
 
 # Sets some basic information about the running application that's sent along
 # with API requests. Useful for plugin authors to identify their plugin when
