@@ -259,7 +259,7 @@ class class_method_variant(object):
                 # Method was called as an instance method, e.g.
                 # instance.method(...)
                 return self.method(obj, *args, **kwargs)
-            elif len(args) > 0 and isinstance(args[0], objtype):
+            elif len(args) > 0 and objtype is not None and isinstance(args[0], objtype):
                 # Method was called as a class method with the instance as the
                 # first argument, e.g. Class.method(instance, ...) which in
                 # Python is the same thing as calling an instance method
