@@ -1,5 +1,12 @@
 # Changelog
 
+## 5.6.0b3 - 2023-08-03
+* [#1004](https://github.com/stripe/stripe-python/pull/1004) Update generated code for beta
+  * Add support for `submit_card` test helper method on resource `Issuing.Card`
+* [#999](https://github.com/stripe/stripe-python/pull/999) Update generated code for beta
+
+* [#997](https://github.com/stripe/stripe-python/pull/997) Remove developer_message support
+
 ## 5.6.0b2 - 2023-07-28
 * [#995](https://github.com/stripe/stripe-python/pull/995) Update generated code for beta
   * Add support for new resource `Tax.Form`
