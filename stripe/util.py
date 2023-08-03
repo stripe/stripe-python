@@ -136,7 +136,7 @@ def convert_to_stripe_object(
     # the raw API response information
     stripe_response = None
 
-    if isinstance(resp, stripe.StripeResponse):
+    if isinstance(resp, stripe.stripe_response.StripeResponse):
         stripe_response = resp
         resp = stripe_response.data
 
@@ -147,13 +147,17 @@ def convert_to_stripe_object(
             )
             for i in resp
         ]
-    elif isinstance(resp, dict) and not isinstance(resp, stripe.StripeObject):
+    elif isinstance(resp, dict) and not isinstance(
+        resp, stripe.stripe_object.StripeObject
+    ):
         resp = resp.copy()
         klass_name = resp.get("object")
         if isinstance(klass_name, str):
-            klass = get_object_classes().get(klass_name, stripe.StripeObject)
+            klass = get_object_classes().get(
+                klass_name, stripe.stripe_object.StripeObject
+            )
         else:
-            klass = stripe.StripeObject
+            klass = stripe.stripe_object.StripeObject
 
         obj = klass.construct_from(
             resp,

@@ -34,17 +34,15 @@ log = None
 # API resources
 from stripe.api_resources import *  # noqa
 
-from stripe.api_resources.abstract import APIResource  # noqa
-
 # OAuth
 from stripe.oauth import OAuth  # noqa
 
 # Webhooks
 from stripe.webhook import Webhook, WebhookSignature  # noqa
 
-from stripe.stripe_response import StripeResponse  # noqa
-
-from stripe.stripe_object import StripeObject  # noqa
+from . import stripe_response  # noqa
+from . import stripe_object  # noqa
+from . import api_resources  # noqa
 
 
 # Sets some basic information about the running application that's sent along

@@ -358,7 +358,7 @@ class StripeObject(dict):
         for k, v in self.items():
             if k == "id" or (isinstance(k, str) and k.startswith("_")):
                 continue
-            elif isinstance(v, stripe.APIResource):
+            elif isinstance(v, stripe.abstract.APIResource):
                 continue
             elif hasattr(v, "serialize"):
                 child = v.serialize(previous.get(k, None))
