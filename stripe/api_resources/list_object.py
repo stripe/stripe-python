@@ -1,9 +1,9 @@
 from __future__ import absolute_import, division, print_function
 
-from stripe import six, util
+from stripe import util
 from stripe.stripe_object import StripeObject
 
-from stripe.six.moves.urllib.parse import quote_plus
+from urllib.parse import quote_plus
 
 
 class ListObject(StripeObject):
@@ -58,7 +58,7 @@ class ListObject(StripeObject):
         )
 
     def __getitem__(self, k):
-        if isinstance(k, six.string_types):
+        if isinstance(k, str):
             return super(ListObject, self).__getitem__(k)
         else:
             raise KeyError(
