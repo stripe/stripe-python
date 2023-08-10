@@ -40,7 +40,7 @@ python setup.py install
 [The Python Software Foundation (PSF)](https://www.python.org/psf-landing/) community [announced the end of support of Python 2](https://www.python.org/doc/sunset-python-2/) on 01 January 2020.
 Starting with version 6.0.0 Stripe SDK Python packages will no longer support Python 2.7. To continue to get new features and security updates, please make sure to update your Python runtime to Python 3.6+.
 
-The last version of Stripe SDK that supports Python 2.7 is 5.5.0.
+The last version of the Stripe SDK that supports Python 2.7 is 5.5.0.
 
 ## Usage
 
