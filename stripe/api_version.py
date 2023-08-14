@@ -2,5 +2,5 @@
 # File generated from our OpenAPI spec
 
 
-class _ApiVersion:
-    CURRENT = "2022-11-15"
+class ApiVersion:
+    CURRENT = "2023-08-16"
