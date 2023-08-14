@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function
 import json
 
 import stripe
-from stripe import six, util
+from stripe import util
 from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
 
@@ -187,7 +187,7 @@ class StubRequestHandler(object):
             if expect_stream != is_streaming:
                 return None
 
-            if not isinstance(rbody, six.string_types):
+            if not isinstance(rbody, str):
                 rbody = json.dumps(rbody)
             if is_streaming:
                 stripe_response = StripeStreamResponse(

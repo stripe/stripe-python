@@ -6,10 +6,8 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import test_helpers
 
 
-@test_helpers
 class OutboundPayment(CreateableAPIResource, ListableAPIResource):
     """
     Use OutboundPayments to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).
@@ -143,3 +141,10 @@ class OutboundPayment(CreateableAPIResource, ListableAPIResource):
                 idempotency_key=idempotency_key,
                 params=params,
             )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
+
+OutboundPayment.TestHelpers._resource_cls = OutboundPayment

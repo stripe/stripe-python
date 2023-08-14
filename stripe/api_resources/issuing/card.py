@@ -7,10 +7,8 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import test_helpers
 
 
-@test_helpers
 class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     """
     You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
@@ -142,3 +140,10 @@ class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
                 idempotency_key=idempotency_key,
                 params=params,
             )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
+
+Card.TestHelpers._resource_cls = Card
