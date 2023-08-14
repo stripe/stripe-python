@@ -4,10 +4,8 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import test_helpers
 
 
-@test_helpers
 class ReceivedCredit(ListableAPIResource):
     """
     ReceivedCredits represent funds sent to a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
@@ -32,3 +30,10 @@ class ReceivedCredit(ListableAPIResource):
                 stripe_account=stripe_account,
                 params=params,
             )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
+
+ReceivedCredit.TestHelpers._resource_cls = ReceivedCredit

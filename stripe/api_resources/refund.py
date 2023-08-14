@@ -7,10 +7,8 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import test_helpers
 
 
-@test_helpers
 class Refund(
     CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
 ):
@@ -86,3 +84,10 @@ class Refund(
                 idempotency_key=idempotency_key,
                 params=params,
             )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
+
+Refund.TestHelpers._resource_cls = Refund

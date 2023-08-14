@@ -6,10 +6,8 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import test_helpers
 
 
-@test_helpers
 class InboundTransfer(CreateableAPIResource, ListableAPIResource):
     """
     Use [InboundTransfers](https://stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://stripe.com/docs/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
@@ -141,3 +139,10 @@ class InboundTransfer(CreateableAPIResource, ListableAPIResource):
                 idempotency_key=idempotency_key,
                 params=params,
             )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
+
+InboundTransfer.TestHelpers._resource_cls = InboundTransfer

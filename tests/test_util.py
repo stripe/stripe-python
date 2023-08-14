@@ -5,8 +5,7 @@ from collections import namedtuple
 
 import stripe
 from stripe import util
-from stripe.six import ensure_text
-from stripe.six.moves import builtins
+import builtins
 
 PRINT_FUNC_STRING = builtins.__name__ + ".print"
 
@@ -143,7 +142,7 @@ class TestUtil(object):
 
         obj = util.convert_to_stripe_object(resp)
         assert isinstance(obj, stripe.Balance)
-        assert type(obj.available) == list
+        assert isinstance(obj.available, list)
         assert isinstance(obj.available[0], stripe.stripe_object.StripeObject)
 
         d = util.convert_to_dict(obj)
@@ -155,5 +154,4 @@ class TestUtil(object):
 
     def test_sanitize_id(self):
         sanitized_id = util.sanitize_id("cu  %x 123")
-        assert ensure_text(sanitized_id)
         assert sanitized_id == "cu++%25x+123"
