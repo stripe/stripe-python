@@ -33,7 +33,7 @@
 
   Going forward, each major release of this library will be *pinned* by default to the latest Stripe API Version at the time of release.
 
-  That is, instead of upgrading stripe-python and separately upgrading your Stripe API Version through the Stripe Dashboard. whenever you upgrade major versions of stripe-python, you should also upgrade your integration to be compatible with the latest Stripe API version.
+  That is, instead of upgrading stripe-python and separately upgrading your Stripe API Version through the Stripe Dashboard, whenever you upgrade major versions of stripe-python, you should also upgrade your integration to be compatible with the latest Stripe API version.
 
 * [#1013](https://github.com/stripe/stripe-python/pull/1013) ⚠️Removed @test_helper decorator
   * This is technically breaking but unlikely to affect most users.
