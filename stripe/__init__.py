@@ -12,6 +12,11 @@ import os
 # Configuration variables
 from stripe.api_version import _ApiVersion
 
+# Constants
+DEFAULT_API_BASE = "https://api.stripe.com"
+DEFAULT_CONNECT_API_BASE = "https://connect.stripe.com"
+DEFAULT_UPLOAD_API_BASE = "https://files.stripe.com"
+
 api_key = None
 client_id = None
 api_base = DEFAULT_API_BASE
