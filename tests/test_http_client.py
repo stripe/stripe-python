@@ -5,7 +5,7 @@ import json
 
 import stripe
 import urllib3
-from stripe import six, util
+from stripe import util
 
 VALID_API_METHODS = ("get", "post", "delete")
 
@@ -775,7 +775,7 @@ class TestUrllib2Client(StripeClientTestCase, ClientTestBase):
         def check_call(
             mock, method, url, post_data, headers, is_streaming=False
         ):
-            if six.PY3 and isinstance(post_data, six.string_types):
+            if isinstance(post_data, str):
                 post_data = post_data.encode("utf-8")
 
             mock.Request.assert_called_with(url, post_data, headers)
@@ -912,7 +912,7 @@ class TestPycurlClient(StripeClientTestCase, ClientTestBase):
             # statements where things are more likely to go wrong.
 
             mock.setopt.assert_any_call(lib_mock.NOSIGNAL, 1)
-            mock.setopt.assert_any_call(lib_mock.URL, stripe.util.utf8(url))
+            mock.setopt.assert_any_call(lib_mock.URL, url)
 
             if method == "get":
                 mock.setopt.assert_any_call(lib_mock.HTTPGET, 1)

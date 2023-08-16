@@ -9,10 +9,10 @@ from collections import OrderedDict
 import pytest
 
 import stripe
-from stripe import six, util
+from stripe import util
 from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
-from stripe.six.moves.urllib.parse import urlsplit
+from urllib.parse import urlsplit
 
 import urllib3
 
@@ -118,7 +118,7 @@ class APIHeaderMatcher(object):
         return True
 
     def _extra_match(self, other):
-        for k, v in six.iteritems(self.extra):
+        for k, v in self.extra.items():
             if other[k] != v:
                 return False
 
@@ -206,7 +206,7 @@ class TestAPIRequestor(object):
         ],
         "list": [("%s[0]", 1), ("%s[1]", "foo"), ("%s[2]", "baz")],
         "string": [("%s", "boo")],
-        "unicode": [("%s", stripe.util.utf8(u"\u1234"))],
+        "unicode": [("%s", u"\u1234")],
         "datetime": [("%s", 1356994801)],
         "none": [],
     }
@@ -324,7 +324,7 @@ class TestAPIRequestor(object):
         requestor.request("get", "", self.ENCODE_INPUTS)
 
         expectation = []
-        for type_, values in six.iteritems(self.ENCODE_EXPECTATIONS):
+        for type_, values in self.ENCODE_EXPECTATIONS.items():
             expectation.extend([(k % (type_,), str(v)) for k, v in values])
 
         check_call("get", QueryMatcher(expectation))

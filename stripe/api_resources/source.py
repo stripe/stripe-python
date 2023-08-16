@@ -7,7 +7,7 @@ from stripe import util
 from stripe.api_resources import Customer
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.six.moves.urllib.parse import quote_plus
+from urllib.parse import quote_plus
 
 
 class Source(CreateableAPIResource, UpdateableAPIResource):
@@ -89,11 +89,11 @@ class Source(CreateableAPIResource, UpdateableAPIResource):
         )
 
     def detach(self, idempotency_key=None, **params):
-        token = util.utf8(self.id)
+        token = self.id
 
         if hasattr(self, "customer") and self.customer:
             extn = quote_plus(token)
-            customer = util.utf8(self.customer)
+            customer = self.customer
             base = Customer.class_url()
             owner_extn = quote_plus(customer)
             url = "%s/%s/sources/%s" % (base, owner_extn, extn)

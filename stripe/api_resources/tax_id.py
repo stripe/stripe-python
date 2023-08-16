@@ -2,10 +2,9 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import util
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.customer import Customer
-from stripe.six.moves.urllib.parse import quote_plus
+from urllib.parse import quote_plus
 
 
 class TaxId(APIResource):
@@ -19,8 +18,8 @@ class TaxId(APIResource):
     OBJECT_NAME = "tax_id"
 
     def instance_url(self):
-        token = util.utf8(self.id)
-        customer = util.utf8(self.customer)
+        token = self.id
+        customer = self.customer
         base = Customer.class_url()
         cust_extn = quote_plus(customer)
         extn = quote_plus(token)

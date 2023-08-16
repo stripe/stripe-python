@@ -17,7 +17,7 @@ class MultipartDataGenerator(object):
         # Flatten parameters first
         params = dict(stripe.api_requestor._api_encode(params))
 
-        for key, value in stripe.six.iteritems(params):
+        for key, value in params.items():
             if value is None:
                 continue
 
@@ -29,7 +29,7 @@ class MultipartDataGenerator(object):
                     # Convert the filename to string, just in case it's not
                     # already one. E.g. `tempfile.TemporaryFile` has a `name`
                     # attribute but it's an `int`.
-                    filename = stripe.six.text_type(value.name)
+                    filename = str(value.name)
 
                 self._write('Content-Disposition: form-data; name="')
                 self._write(key)
@@ -61,9 +61,9 @@ class MultipartDataGenerator(object):
         return self.data.getvalue()
 
     def _write(self, value):
-        if isinstance(value, stripe.six.binary_type):
+        if isinstance(value, bytes):
             array = bytearray(value)
-        elif isinstance(value, stripe.six.text_type):
+        elif isinstance(value, str):
             array = bytearray(value, encoding="utf-8")
         else:
             raise TypeError(
