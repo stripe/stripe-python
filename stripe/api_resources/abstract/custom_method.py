@@ -17,7 +17,7 @@ def custom_method(name, http_verb, http_path=None, is_streaming=False):
         def custom_method_request(cls, sid, **params):
             url = "%s/%s/%s" % (
                 cls.class_url(),
-                quote_plus(util.utf8(sid)),
+                quote_plus(sid),
                 http_path,
             )
             obj = cls._static_request(http_verb, url, params=params)
@@ -32,7 +32,7 @@ def custom_method(name, http_verb, http_path=None, is_streaming=False):
         def custom_method_request_stream(cls, sid, **params):
             url = "%s/%s/%s" % (
                 cls.class_url(),
-                quote_plus(util.utf8(sid)),
+                quote_plus(sid),
                 http_path,
             )
             return cls._static_request_stream(http_verb, url, params=params)

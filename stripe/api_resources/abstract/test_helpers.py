@@ -50,7 +50,6 @@ class APIResourceTestHelpers:
                 "id",
             )
 
-        id = util.utf8(id)
         base = self.class_url()
         extn = quote_plus(id)
         return "%s/%s" % (base, extn)

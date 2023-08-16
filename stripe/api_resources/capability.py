@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import util
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.account import Account
 from urllib.parse import quote_plus
@@ -18,8 +17,8 @@ class Capability(UpdateableAPIResource):
     OBJECT_NAME = "capability"
 
     def instance_url(self):
-        token = util.utf8(self.id)
-        account = util.utf8(self.account)
+        token = self.id
+        account = self.account
         base = Account.class_url()
         acct_extn = quote_plus(account)
         extn = quote_plus(token)
