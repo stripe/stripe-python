@@ -1,9 +1,8 @@
 from __future__ import absolute_import, division, print_function
 
-from stripe import six, util
 from stripe.stripe_object import StripeObject
 
-from stripe.six.moves.urllib.parse import quote_plus
+from urllib.parse import quote_plus
 
 
 class ListObject(StripeObject):
@@ -47,7 +46,7 @@ class ListObject(StripeObject):
         stripe_account=None,
         **params
     ):
-        url = "%s/%s" % (self.get("url"), quote_plus(util.utf8(id)))
+        url = "%s/%s" % (self.get("url"), quote_plus(id))
         return self._request(
             "get",
             url,
@@ -58,7 +57,7 @@ class ListObject(StripeObject):
         )
 
     def __getitem__(self, k):
-        if isinstance(k, six.string_types):
+        if isinstance(k, str):
             return super(ListObject, self).__getitem__(k)
         else:
             raise KeyError(
@@ -128,12 +127,14 @@ class ListObject(StripeObject):
         params_with_filters.update({"starting_after": last_id})
         params_with_filters.update(params)
 
-        return self.list(
+        result = self.list(
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
             **params_with_filters
         )
+        assert isinstance(result, ListObject)
+        return result
 
     def previous_page(
         self, api_key=None, stripe_version=None, stripe_account=None, **params
