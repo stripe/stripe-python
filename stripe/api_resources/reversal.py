@@ -28,8 +28,8 @@ class Reversal(UpdateableAPIResource):
     OBJECT_NAME = "transfer_reversal"
 
     def instance_url(self):
-        token = util.utf8(self.id)
-        transfer = util.utf8(self.transfer)
+        token = self.id
+        transfer = self.transfer
         base = Transfer.class_url()
         cust_extn = quote_plus(transfer)
         extn = quote_plus(token)

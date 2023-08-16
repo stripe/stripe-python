@@ -26,17 +26,17 @@ class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
     OBJECT_NAME = "bank_account"
 
     def instance_url(self):
-        token = util.utf8(self.id)
+        token = self.id
         extn = quote_plus(token)
         if hasattr(self, "customer"):
-            customer = util.utf8(self.customer)
+            customer = "self.customer"
 
             base = Customer.class_url()
             owner_extn = quote_plus(customer)
             class_base = "sources"
 
         elif hasattr(self, "account"):
-            account = util.utf8(self.account)
+            account = "self.account"
 
             base = Account.class_url()
             owner_extn = quote_plus(account)
