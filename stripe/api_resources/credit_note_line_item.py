@@ -6,4 +6,8 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 
 class CreditNoteLineItem(ListableAPIResource):
+    """
+    The credit note line item object
+    """
+
     OBJECT_NAME = "credit_note_line_item"
