@@ -59,14 +59,14 @@ class TestSearchResultObject(object):
         assert search_result_object
 
         empty = stripe.SearchResultObject.construct_from(
-            {"object": "list", "url": "/my/path", "data": []}, "mykey"
+            {"object": "search_result", "url": "/my/path", "data": []}, "mykey"
         )
         assert bool(empty) is False
 
     def test_next_search_result_page(self, request_mock):
         sro = stripe.SearchResultObject.construct_from(
             {
-                "object": "list",
+                "object": "search_result",
                 "data": [{"id": 1}],
                 "has_more": True,
                 "next_page": "next_page_token",
@@ -79,7 +79,7 @@ class TestSearchResultObject(object):
             "get",
             "/things",
             {
-                "object": "list",
+                "object": "search_result",
                 "data": [{"id": 2}],
                 "has_more": False,
                 "url": "/things",
@@ -97,7 +97,7 @@ class TestSearchResultObject(object):
     def test_next_search_result_page_with_filters(self, request_mock):
         sro = stripe.SearchResultObject.construct_from(
             {
-                "object": "list",
+                "object": "search_result",
                 "data": [{"id": 1}],
                 "has_more": True,
                 "next_page": "next_page_token",
@@ -111,7 +111,7 @@ class TestSearchResultObject(object):
             "get",
             "/things",
             {
-                "object": "list",
+                "object": "search_result",
                 "data": [{"id": 2}],
                 "has_more": False,
                 "next_page": None,
@@ -129,7 +129,7 @@ class TestSearchResultObject(object):
     def test_next_search_result_page_empty_search_result(self):
         sro = stripe.SearchResultObject.construct_from(
             {
-                "object": "list",
+                "object": "search_result",
                 "data": [{"id": 1}],
                 "has_more": False,
                 "next_page": None,
@@ -143,7 +143,7 @@ class TestSearchResultObject(object):
 
     def test_serialize_empty_search_result(self):
         empty = stripe.SearchResultObject.construct_from(
-            {"object": "list", "data": []}, "mykey"
+            {"object": "search_result", "data": []}, "mykey"
         )
         serialized = str(empty)
         deserialized = stripe.SearchResultObject.construct_from(
@@ -153,7 +153,7 @@ class TestSearchResultObject(object):
 
     def test_serialize_nested_empty_search_result(self):
         empty = stripe.SearchResultObject.construct_from(
-            {"object": "list", "data": []}, "mykey"
+            {"object": "search_result", "data": []}, "mykey"
         )
         obj = stripe.stripe_object.StripeObject.construct_from(
             {"nested": empty}, "mykey"
