@@ -3,7 +3,6 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import error
-from stripe import util
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.account import Account
@@ -23,17 +22,17 @@ class Card(DeletableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "card"
 
     def instance_url(self):
-        token = util.utf8(self.id)
+        token = self.id
         extn = quote_plus(token)
         if hasattr(self, "customer"):
-            customer = util.utf8(self.customer)
+            customer = self.customer
 
             base = Customer.class_url()
             owner_extn = quote_plus(customer)
             class_base = "sources"
 
         elif hasattr(self, "account"):
-            account = util.utf8(self.account)
+            account = self.account
 
             base = Account.class_url()
             owner_extn = quote_plus(account)

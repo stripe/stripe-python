@@ -1,6 +1,5 @@
 from __future__ import absolute_import, division, print_function
 
-from stripe import util
 from stripe.stripe_object import StripeObject
 
 from urllib.parse import quote_plus
@@ -47,7 +46,7 @@ class ListObject(StripeObject):
         stripe_account=None,
         **params
     ):
-        url = "%s/%s" % (self.get("url"), quote_plus(util.utf8(id)))
+        url = "%s/%s" % (self.get("url"), quote_plus(id))
         return self._request(
             "get",
             url,

@@ -1,6 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
-from stripe import error, util
+from stripe import error
 from urllib.parse import quote_plus
 from stripe.api_resources.abstract import APIResource
 
@@ -50,7 +50,6 @@ class APIResourceTestHelpers:
                 "id",
             )
 
-        id = util.utf8(id)
         base = self.class_url()
         extn = quote_plus(id)
         return "%s/%s" % (base, extn)

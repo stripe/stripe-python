@@ -34,7 +34,6 @@ def _encode_nested_dict(key, data, fmt="%s[%s]"):
 
 def _api_encode(data):
     for key, value in data.items():
-        key = util.utf8(key)
         if value is None:
             continue
         elif hasattr(value, "stripe_id"):
@@ -46,7 +45,7 @@ def _api_encode(data):
                     for k, v in _api_encode(subdict):
                         yield (k, v)
                 else:
-                    yield ("%s[%d]" % (key, i), util.utf8(sv))
+                    yield ("%s[%d]" % (key, i), sv)
         elif isinstance(value, dict):
             subdict = _encode_nested_dict(key, value)
             for subkey, subvalue in _api_encode(subdict):
@@ -54,7 +53,7 @@ def _api_encode(data):
         elif isinstance(value, datetime.datetime):
             yield (key, _encode_datetime(value))
         else:
-            yield (key, util.utf8(value))
+            yield (key, value)
 
 
 def _build_api_url(url, query):

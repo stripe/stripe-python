@@ -912,7 +912,7 @@ class TestPycurlClient(StripeClientTestCase, ClientTestBase):
             # statements where things are more likely to go wrong.
 
             mock.setopt.assert_any_call(lib_mock.NOSIGNAL, 1)
-            mock.setopt.assert_any_call(lib_mock.URL, stripe.util.utf8(url))
+            mock.setopt.assert_any_call(lib_mock.URL, url)
 
             if method == "get":
                 mock.setopt.assert_any_call(lib_mock.HTTPGET, 1)
