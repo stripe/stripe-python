@@ -777,13 +777,12 @@ class TestDefaultClient(object):
         stripe.api_key = orig_attrs["api_key"]
         stripe.default_http_client = orig_attrs["default_http_client"]
 
-    def test_default_http_client_called(self, http_client_mock):
-        http_client_mock.stub_request(
-            "get",
-            "/v1/charges?limit=3",
-            '{"object": "list", "data": []}',
-            200,
-            {},
+    def test_default_http_client_called(self, mocker):
+        hc = mocker.Mock(stripe.http_client.HTTPClient)
+        hc._verify_ssl_certs = True
+        hc.name = "mockclient"
+        hc.request_with_retries = mocker.Mock(
+            return_value=('{"object": "list", "data": []}', 200, {})
         )
 
         stripe.default_http_client = hc
