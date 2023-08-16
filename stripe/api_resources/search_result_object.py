@@ -76,9 +76,11 @@ class SearchResultObject(StripeObject):
         params_with_filters.update({"page": self.next_page})
         params_with_filters.update(params)
 
-        return self.search(
+        result = self.search(
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
             **params_with_filters
         )
+        assert isinstance(result, SearchResultObject)
+        return result
