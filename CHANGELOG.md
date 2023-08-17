@@ -29,7 +29,7 @@
 
      If you were already initializing stripe-python with an explicit API Version, upgrading to v6 will not affect your integration.
 
-     Read the [v6 migration guide](https://github.com/stripe-python/wiki/Migration-guide-for-v6) for more details.
+     Read the [v6 migration guide](https://github.com/stripe/stripe-python/wiki/Migration-guide-for-v6) for more details.
 
   Going forward, each major release of this library will be *pinned* by default to the latest Stripe API Version at the time of release.
 
