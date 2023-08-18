@@ -1,6 +1,5 @@
 from __future__ import absolute_import, division, print_function
 
-from stripe import six
 from stripe.stripe_object import StripeObject
 
 
@@ -20,7 +19,7 @@ class SearchResultObject(StripeObject):
         )
 
     def __getitem__(self, k):
-        if isinstance(k, six.string_types):
+        if isinstance(k, str):
             return super(SearchResultObject, self).__getitem__(k)
         else:
             raise KeyError(
@@ -77,9 +76,11 @@ class SearchResultObject(StripeObject):
         params_with_filters.update({"page": self.next_page})
         params_with_filters.update(params)
 
-        return self.search(
+        result = self.search(
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
             **params_with_filters
         )
+        assert isinstance(result, SearchResultObject)
+        return result

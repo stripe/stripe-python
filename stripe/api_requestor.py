@@ -10,9 +10,9 @@ import warnings
 from collections import OrderedDict
 
 import stripe
-from stripe import error, oauth_error, http_client, version, util, six
+from stripe import error, oauth_error, http_client, version, util
 from stripe.multipart_data_generator import MultipartDataGenerator
-from stripe.six.moves.urllib.parse import urlencode, urlsplit, urlunsplit
+from urllib.parse import urlencode, urlsplit, urlunsplit
 from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
 
@@ -27,7 +27,7 @@ def _encode_datetime(dttime):
 
 def _encode_nested_dict(key, data, fmt="%s[%s]"):
     d = OrderedDict()
-    for subkey, subvalue in six.iteritems(data):
+    for subkey, subvalue in data.items():
         d[fmt % (key, subkey)] = subvalue
     return d
 
@@ -39,8 +39,7 @@ def _json_encode_date_callback(value):
 
 
 def _api_encode(data):
-    for key, value in six.iteritems(data):
-        key = util.utf8(key)
+    for key, value in data.items():
         if value is None:
             continue
         elif hasattr(value, "stripe_id"):
@@ -52,7 +51,7 @@ def _api_encode(data):
                     for k, v in _api_encode(subdict):
                         yield (k, v)
                 else:
-                    yield ("%s[%d]" % (key, i), util.utf8(sv))
+                    yield ("%s[%d]" % (key, i), sv)
         elif isinstance(value, dict):
             subdict = _encode_nested_dict(key, value)
             for subkey, subvalue in _api_encode(subdict):
@@ -60,7 +59,7 @@ def _api_encode(data):
         elif isinstance(value, datetime.datetime):
             yield (key, _encode_datetime(value))
         else:
-            yield (key, util.utf8(value))
+            yield (key, value)
 
 
 def _build_api_url(url, query):
@@ -164,7 +163,7 @@ class APIRequestor(object):
         # OAuth errors are a JSON object where `error` is a string. In
         # contrast, in API errors, `error` is a hash with sub-keys. We use
         # this property to distinguish between OAuth and API errors.
-        if isinstance(error_data, six.string_types):
+        if isinstance(error_data, str):
             err = self.specific_oauth_error(
                 rbody, rcode, resp, rheaders, error_data
             )
@@ -395,7 +394,7 @@ class APIRequestor(object):
 
         headers = self.request_headers(my_api_key, method, api_mode)
         if supplied_headers is not None:
-            for key, value in six.iteritems(supplied_headers):
+            for key, value in supplied_headers.items():
                 headers[key] = value
 
         util.log_info("Request to Stripe api", method=method, path=abs_url)
