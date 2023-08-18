@@ -3,13 +3,12 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import error
-from stripe import util
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import VerifyMixin
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
-from stripe.six.moves.urllib.parse import quote_plus
+from urllib.parse import quote_plus
 
 
 class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
@@ -26,17 +25,17 @@ class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
     OBJECT_NAME = "bank_account"
 
     def instance_url(self):
-        token = util.utf8(self.id)
+        token = self.id
         extn = quote_plus(token)
         if hasattr(self, "customer"):
-            customer = util.utf8(self.customer)
+            customer = self.customer
 
             base = Customer.class_url()
             owner_extn = quote_plus(customer)
             class_base = "sources"
 
         elif hasattr(self, "account"):
-            account = util.utf8(self.account)
+            account = self.account
 
             base = Account.class_url()
             owner_extn = quote_plus(account)

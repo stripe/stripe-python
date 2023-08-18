@@ -8,7 +8,7 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.six.moves.urllib.parse import quote_plus
+from urllib.parse import quote_plus
 
 
 class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
@@ -402,7 +402,7 @@ class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     ):
         url = "%s/%s/%s" % (
             cls.class_url(),
-            quote_plus(util.utf8(sid)),
+            quote_plus(sid),
             "pdf",
         )
         requestor = api_requestor.APIRequestor(

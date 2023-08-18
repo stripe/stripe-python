@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 import stripe
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import ListableAPIResource
-from stripe.six.moves.urllib.parse import quote_plus
+from urllib.parse import quote_plus
 
 
 class Form(ListableAPIResource):
@@ -29,7 +29,7 @@ class Form(ListableAPIResource):
     ):
         url = "%s/%s/%s" % (
             cls.class_url(),
-            quote_plus(util.utf8(sid)),
+            quote_plus(sid),
             "pdf",
         )
         requestor = api_requestor.APIRequestor(
