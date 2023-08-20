@@ -9,7 +9,27 @@ class UpdateableAPIResource(APIResource):
     @classmethod
     def modify(cls, sid, **params):
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
-        return cls._static_request("post", url, params=params)
+
+        def _format_values(original_data):
+            '''
+            Local function that will format the params before passing them to the API 
+            this is done do users can input an empyt list and it will be sent as ''
+            '''
+            new_dict = {}
+
+            for current_key, current_value in original_data.items():
+                if isinstance(current_value, dict):
+                    new_dict[current_key] = _format_values(current_value)
+                elif isinstance(current_value, list) and len(current_value) == 0:
+                    #if we are given an empty list
+                    new_dict[current_key] = ""
+                else:
+                    #if we are at the end of the search add the value as is 
+                    new_dict[current_key] = current_value
+
+            return new_dict
+
+        return cls._static_request("post", url, params=_format_values(params))
 
     def save(self, idempotency_key=None):
         """
