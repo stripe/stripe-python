@@ -6,7 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
-from typing import Type
+from typing_extensions import Type
 
 
 class OutboundTransfer(CreateableAPIResource, ListableAPIResource):

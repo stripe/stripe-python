@@ -3,7 +3,7 @@ from __future__ import absolute_import, division, print_function
 import datetime
 import json
 from copy import deepcopy
-from typing import TYPE_CHECKING
+from typing_extensions import TYPE_CHECKING
 
 import stripe
 from stripe import api_requestor, util
