@@ -84,11 +84,11 @@ class ListObject(StripeObject):
                 "ending_before" in self._retrieve_params
                 and "starting_after" not in self._retrieve_params
             ):
-                for item in reversed(page):
+                for item in reversed(page):  # type: ignore
                     yield item
                 page = page.previous_page()  # type: ignore
             else:
-                for item in page:
+                for item in page:  # type: ignore
                     yield item
                 page = page.next_page()  # type: ignore
 
