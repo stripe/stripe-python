@@ -4,7 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import ListableAPIResource
-from stripe.typing import Type
+from typing_extensions import Type
 
 
 class ReceivedCredit(ListableAPIResource):
