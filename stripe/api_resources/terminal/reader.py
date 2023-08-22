@@ -8,7 +8,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from typing_extensions import Type
+from stripe.typing import Type
 
 
 class Reader(

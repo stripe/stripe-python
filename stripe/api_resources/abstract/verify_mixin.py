@@ -1,5 +1,5 @@
 from __future__ import absolute_import, division, print_function
-from typing_extensions import Optional, Protocol
+from stripe.typing import Optional, Protocol
 
 from stripe.stripe_object import StripeObject
 

@@ -3,7 +3,9 @@ from __future__ import absolute_import, division, print_function
 from stripe import error
 from urllib.parse import quote_plus
 
-from typing_extensions import Any, ClassVar, TypeVar, Protocol
+from typing import ClassVar
+
+from stripe.typing import Any, TypeVar, Protocol
 
 from stripe.api_resources.abstract.api_resource import APIResource
 
