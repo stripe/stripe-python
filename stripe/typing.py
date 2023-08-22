@@ -11,19 +11,23 @@
 
 # Note: we can't re-export *everything* here, unfortunately. Some special
 # forms can't be aliased.
+
 # > The following special forms cannot be re-exported: Final, ClassVar, and InitVar in pyright.
 # (https://github.com/microsoft/pyright/discussions/4845#discussioncomment-5440032)
 
-from typing import Optional as Optional
-from typing import cast as cast
-from typing import Dict as Dict
-from typing import Any as Any
-from typing import TypeVar as TypeVar
-from typing import Union as Union
-from typing_extensions import TYPE_CHECKING as TYPE_CHECKING
-from typing_extensions import Literal as Literal
-from typing_extensions import NoReturn as NoReturn
-from typing_extensions import Protocol as Protocol
-from typing_extensions import Type as Type
-from typing_extensions import TypedDict as TypedDict
-from typing_extensions import overload as overload
+# Also aliasing @typing.overload will confuse pyflakes so needs to
+# be imported directly to avoid spurious "redefinition" F811 linter errors.
+# https://github.com/PyCQA/flake8/issues/1575#issuecomment-1075451224
+
+from typing import Optional as Optional  # noqa: F401
+from typing import cast as cast  # noqa: F401
+from typing import Dict as Dict  # noqa: F401
+from typing import Any as Any  # noqa: F401
+from typing import TypeVar as TypeVar  # noqa: F401
+from typing import Union as Union  # noqa: F401
+from typing_extensions import TYPE_CHECKING as TYPE_CHECKING  # noqa: F401
+from typing_extensions import Literal as Literal  # noqa: F401
+from typing_extensions import NoReturn as NoReturn  # noqa: F401
+from typing_extensions import Protocol as Protocol  # noqa: F401
+from typing_extensions import Type as Type  # noqa: F401
+from typing_extensions import TypedDict as TypedDict  # noqa: F401
