@@ -11,8 +11,7 @@ import re
 import stripe
 from urllib.parse import parse_qsl, quote_plus
 
-from typing import overload
-from stripe.typing import Literal, Union
+from stripe.typing import overload, Literal, Union
 
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
