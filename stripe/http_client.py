@@ -13,7 +13,7 @@ import stripe
 from stripe import error, util
 from stripe.request_metrics import RequestMetrics
 
-from typing_extensions import NoReturn, Optional, cast, TypedDict
+from typing_extensions import NoReturn, Optional, cast, TypedDict, Dict
 
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch
@@ -541,7 +541,7 @@ class PycurlClient(HTTPClient):
             # Note: self._proxy is actually dict[str, str] because this is the
             # type on the superclass. Here, we reassign self._proxy into
             # dict[str, ParseResult]
-            proxy_ = cast("dict[str, str]", self._proxy)
+            proxy_ = cast(Dict[str, str], self._proxy)
             for scheme, value in iter(proxy_.items()):
                 self._proxy[scheme] = urlparse(value)
 
