@@ -11,13 +11,18 @@ VALID_API_METHODS = ("get", "post", "delete")
 
 
 class StripeClientTestCase(object):
-    REQUEST_LIBRARIES = ["urlfetch", "requests", "pycurl", "urllib.request"]
+    REQUEST_LIBRARIES = [
+        ("urlfetch", "stripe.http_client.urlfetch"),
+        ("requests", "stripe.http_client.requests"),
+        ("pycurl", "stripe.http_client.pycurl"),
+        ("urllib.request", "stripe.http_client.urllibrequest"),
+    ]
 
     @pytest.fixture
     def request_mocks(self, mocker):
         request_mocks = {}
-        for lib in self.REQUEST_LIBRARIES:
-            request_mocks[lib] = mocker.patch("stripe.http_client.%s" % (lib,))
+        for lib, mockpath in self.REQUEST_LIBRARIES:
+            request_mocks[lib] = mocker.patch(mockpath)
         return request_mocks
 
 

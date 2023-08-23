@@ -41,9 +41,9 @@ class SearchResultObject(StripeObject):
         while True:
             for item in page:
                 yield item
-            page = page.next_search_result_page()
+            page = page.next_search_result_page()  # type: ignore
 
-            if page.is_empty:
+            if page.is_empty:  # type: ignore
                 break
 
     @classmethod
@@ -60,12 +60,12 @@ class SearchResultObject(StripeObject):
 
     @property
     def is_empty(self):
-        return not self.data
+        return not self.data  # type: ignore
 
     def next_search_result_page(
         self, api_key=None, stripe_version=None, stripe_account=None, **params
     ):
-        if not self.has_more:
+        if not self.has_more:  # type: ignore
             return self.empty_search_result(
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -73,7 +73,7 @@ class SearchResultObject(StripeObject):
             )
 
         params_with_filters = self._retrieve_params.copy()
-        params_with_filters.update({"page": self.next_page})
+        params_with_filters.update({"page": self.next_page})  # type: ignore
         params_with_filters.update(params)
 
         result = self.search(

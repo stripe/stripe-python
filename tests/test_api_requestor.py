@@ -760,7 +760,9 @@ class TestDefaultClient(object):
         hc = mocker.Mock(stripe.http_client.HTTPClient)
         hc._verify_ssl_certs = True
         hc.name = "mockclient"
-        hc.request_with_retries = mocker.Mock(return_value=("{}", 200, {}))
+        hc.request_with_retries = mocker.Mock(
+            return_value=('{"object": "list", "data": []}', 200, {})
+        )
 
         stripe.default_http_client = hc
         stripe.Charge.list(limit=3)

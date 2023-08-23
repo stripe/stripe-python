@@ -20,8 +20,8 @@ class Person(UpdateableAPIResource):
     OBJECT_NAME = "person"
 
     def instance_url(self):
-        token = self.id
-        account = self.account
+        token = self.id  # type: ignore
+        account = self.account  # type: ignore
         base = Account.class_url()
         acct_extn = quote_plus(account)
         extn = quote_plus(token)

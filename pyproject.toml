@@ -20,6 +20,7 @@ exclude = '''
   | build/
   | dist/
   | venv/
-  | stripe/six.py
 )
 '''
+[tool.pyright]
+include=["stripe"]

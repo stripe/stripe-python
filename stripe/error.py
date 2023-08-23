@@ -64,7 +64,7 @@ class StripeError(Exception):
         ):
             return None
 
-        return stripe.api_resources.error_object.ErrorObject.construct_from(
+        return stripe.api_resources.error_object.ErrorObject.construct_from(  # type: ignore
             self.json_body["error"], stripe.api_key
         )
 
@@ -98,7 +98,7 @@ class StripeErrorWithParamCode(StripeError):
             % (
                 self.__class__.__name__,
                 self._message,
-                self.param,
+                self.param,  # type: ignore
                 self.code,
                 self.http_status,
                 self.request_id,
