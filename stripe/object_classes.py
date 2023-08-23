@@ -82,6 +82,8 @@ OBJECT_CLASSES = {
     api_resources.PromotionCode.OBJECT_NAME: api_resources.PromotionCode,
     api_resources.Quote.OBJECT_NAME: api_resources.Quote,
     api_resources.QuotePhase.OBJECT_NAME: api_resources.QuotePhase,
+    api_resources.QuotePreviewInvoice.OBJECT_NAME: api_resources.QuotePreviewInvoice,
+    api_resources.QuotePreviewSchedule.OBJECT_NAME: api_resources.QuotePreviewSchedule,
     api_resources.radar.EarlyFraudWarning.OBJECT_NAME: api_resources.radar.EarlyFraudWarning,
     api_resources.radar.ValueList.OBJECT_NAME: api_resources.radar.ValueList,
     api_resources.radar.ValueListItem.OBJECT_NAME: api_resources.radar.ValueListItem,
