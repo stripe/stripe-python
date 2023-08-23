@@ -24,8 +24,12 @@ class SearchableAPIResource(APIResource):
             stripe_account=stripe_account,
             params=params,
         )
-        # TODO (types)
-        return cast(SearchResultObject, ret)
+        if not isinstance(ret, SearchResultObject):
+            raise TypeError(
+                "Expected list object from API, got %s" % (type(ret).__name__,)
+            )
+
+        return ret
 
     @classmethod
     def search(cls, *args, **kwargs):

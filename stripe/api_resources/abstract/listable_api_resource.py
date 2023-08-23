@@ -22,8 +22,6 @@ class ListableAPIResource(APIResource):
             params=params,
         )
 
-        # TODO: note, this is technically a breaking change of stripe-python-next vs.
-        # stripe-python.
         if not isinstance(result, ListObject):
             raise TypeError(
                 "Expected list object from API, got %s"
