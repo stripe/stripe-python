@@ -3,8 +3,6 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract.api_resource import APIResource
 from stripe.api_resources.search_result_object import SearchResultObject
 
-from typing import cast
-
 
 class SearchableAPIResource(APIResource):
     @classmethod
