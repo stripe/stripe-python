@@ -24,7 +24,8 @@ class SearchableAPIResource(APIResource):
         )
         if not isinstance(ret, SearchResultObject):
             raise TypeError(
-                "Expected list object from API, got %s" % (type(ret).__name__,)
+                "Expected search result from API, got %s"
+                % (type(ret).__name__,)
             )
 
         return ret
