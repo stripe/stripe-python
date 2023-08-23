@@ -9,6 +9,18 @@ class TypingImportsChecker:
     name = __name__
     version = "0.1.0"
 
+    # Rules:
+    # * typing_extensions v4.1.1 is the latest that supports Python 3.6
+    # so don't depend on anything from a more recent version than that.
+    #
+    # If we need something newer, maybe we can provide it for users on
+    # newer versions with a conditional import, but we'll cross that
+    # bridge when we come to it.
+
+    # If a symbol exists in both `typing` and `typing_extensions`, which
+    # should you use? Prefer `typing_extensions` if the symbol available there.
+    # in 4.1.1. In typing_extensions 4.7.0, `typing_extensions` started re-exporting
+    # EVERYTHING from `typing` but this is not the case in v4.1.1.
     allowed_typing_extensions_imports = [
         "Literal",
         "NoReturn",
