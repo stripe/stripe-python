@@ -22,7 +22,7 @@ class APIResourceTestHelpers(Protocol[T]):
       class TestHelpers(APIResourceTestHelpers):
     """
 
-    _resource_cls: ClassVar[Any] = None
+    _resource_cls: ClassVar[Any]
     resource: T
 
     def __init__(self, resource):
