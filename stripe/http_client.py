@@ -13,7 +13,8 @@ import stripe
 from stripe import error, util
 from stripe.request_metrics import RequestMetrics
 
-from typing_extensions import NoReturn, Optional, cast, TypedDict, Dict
+from typing import Dict, Optional, cast
+from typing_extensions import NoReturn, TypedDict
 
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch
