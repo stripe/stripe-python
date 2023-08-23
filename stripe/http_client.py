@@ -517,12 +517,12 @@ class UrlFetchClient(HTTPClient):
 
 
 class PycurlClient(HTTPClient):
-    class _ParsedProxy(TypedDict):
+    class _ParsedProxy(TypedDict, total=False):
         http: Optional[ParseResult]
         https: Optional[ParseResult]
 
     name = "pycurl"
-    _parsed_proxy: _ParsedProxy
+    _parsed_proxy: Optional[_ParsedProxy]
 
     def __init__(self, verify_ssl_certs=True, proxy=None):
         super(PycurlClient, self).__init__(
@@ -534,6 +534,7 @@ class PycurlClient(HTTPClient):
         # Initialize this within the object so that we can reuse connections.
         self._curl = pycurl.Curl()
 
+        self._parsed_proxy = {}
         # need to urlparse the proxy, since PyCurl
         # consumes the proxy url in small pieces
         if self._proxy:
