@@ -11,7 +11,7 @@ import re
 import stripe
 from urllib.parse import parse_qsl, quote_plus
 
-from typing import Union, overload
+from typing import Union, overload, Dict
 from typing_extensions import Literal
 
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
@@ -205,7 +205,7 @@ def convert_to_dict(obj):
 @overload
 def populate_headers(
     idempotency_key: str,
-) -> "dict[Literal['Idempotency-Key'], str]":
+) -> Dict[Literal["Idempotency-Key"], str]:
     ...
 
 
