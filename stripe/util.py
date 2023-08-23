@@ -11,6 +11,9 @@ import re
 import stripe
 from urllib.parse import parse_qsl, quote_plus
 
+from typing import Union, overload, Dict
+from typing_extensions import Literal
+
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
 logger = logging.getLogger("stripe")
@@ -114,7 +117,7 @@ else:
                 result |= x ^ y
         else:
             for x, y in zip(val1, val2):
-                result |= ord(x) ^ ord(y)
+                result |= ord(x) ^ ord(y)  # type: ignore
         return result == 0
 
 
@@ -133,7 +136,7 @@ def convert_to_stripe_object(
     # the raw API response information
     stripe_response = None
 
-    if isinstance(resp, stripe.stripe_response.StripeResponse):
+    if isinstance(resp, stripe.stripe_response.StripeResponse):  # type: ignore
         stripe_response = resp
         resp = stripe_response.data
 
@@ -145,16 +148,16 @@ def convert_to_stripe_object(
             for i in resp
         ]
     elif isinstance(resp, dict) and not isinstance(
-        resp, stripe.stripe_object.StripeObject
+        resp, stripe.stripe_object.StripeObject  # type: ignore
     ):
         resp = resp.copy()
         klass_name = resp.get("object")
         if isinstance(klass_name, str):
             klass = get_object_classes().get(
-                klass_name, stripe.stripe_object.StripeObject
+                klass_name, stripe.stripe_object.StripeObject  # type: ignore
             )
         else:
-            klass = stripe.stripe_object.StripeObject
+            klass = stripe.stripe_object.StripeObject  # type: ignore
 
         obj = klass.construct_from(
             resp,
@@ -199,7 +202,19 @@ def convert_to_dict(obj):
         return obj
 
 
-def populate_headers(idempotency_key):
+@overload
+def populate_headers(
+    idempotency_key: str,
+) -> Dict[Literal["Idempotency-Key"], str]:
+    ...
+
+
+@overload
+def populate_headers(idempotency_key: None) -> None:
+    ...
+
+
+def populate_headers(idempotency_key: Union[str, None]) -> Union[dict, None]:
     if idempotency_key is not None:
         return {"Idempotency-Key": idempotency_key}
     return None
@@ -245,7 +260,7 @@ class class_method_variant(object):
                 # Method was called as an instance method, e.g.
                 # instance.method(...)
                 return self.method(obj, *args, **kwargs)
-            elif len(args) > 0 and isinstance(args[0], objtype):
+            elif len(args) > 0 and isinstance(args[0], objtype):  # type: ignore
                 # Method was called as a class method with the instance as the
                 # first argument, e.g. Class.method(instance, ...) which in
                 # Python is the same thing as calling an instance method

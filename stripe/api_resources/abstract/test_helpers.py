@@ -3,8 +3,15 @@ from __future__ import absolute_import, division, print_function
 from stripe import error
 from urllib.parse import quote_plus
 
+from typing import TypeVar, ClassVar, Any
+from typing_extensions import Protocol
 
-class APIResourceTestHelpers:
+from stripe.api_resources.abstract.api_resource import APIResource
+
+T = TypeVar("T", bound=APIResource)
+
+
+class APIResourceTestHelpers(Protocol[T]):
     """
     The base type for the TestHelper nested classes.
     Handles request URL generation for test_helper custom methods.
@@ -14,6 +21,9 @@ class APIResourceTestHelpers:
     class Foo(APIResource):
       class TestHelpers(APIResourceTestHelpers):
     """
+
+    _resource_cls: ClassVar[Any]
+    resource: T
 
     def __init__(self, resource):
         self.resource = resource
@@ -35,11 +45,11 @@ class APIResourceTestHelpers:
             )
         # Namespaces are separated in object names with periods (.) and in URLs
         # with forward slashes (/), so replace the former with the latter.
-        base = cls._resource_cls.OBJECT_NAME.replace(".", "/")
+        base = cls._resource_cls.OBJECT_NAME.replace(".", "/")  # type: ignore
         return "/v1/test_helpers/%ss" % (base,)
 
     def instance_url(self):
-        id = self.resource.get("id")
+        id = getattr(self.resource, "id", None)
 
         if not isinstance(id, str):
             raise error.InvalidRequestError(

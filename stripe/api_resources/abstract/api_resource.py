@@ -3,9 +3,12 @@ from __future__ import absolute_import, division, print_function
 from stripe import api_requestor, error, util
 from stripe.stripe_object import StripeObject
 from urllib.parse import quote_plus
+from typing import ClassVar
 
 
 class APIResource(StripeObject):
+    OBJECT_NAME: ClassVar[str]
+
     @classmethod
     def retrieve(cls, id, api_key=None, **params):
         instance = cls(id, api_key, **params)
@@ -133,7 +136,7 @@ class APIResource(StripeObject):
 
         if idempotency_key is not None:
             headers = {} if headers is None else headers.copy()
-            headers.update(util.populate_headers(idempotency_key))
+            headers.update(util.populate_headers(idempotency_key))  # type: ignore
 
         response, api_key = requestor.request(method_, url_, params, headers)
         return util.convert_to_stripe_object(
@@ -172,7 +175,7 @@ class APIResource(StripeObject):
 
         if idempotency_key is not None:
             headers = {} if headers is None else headers.copy()
-            headers.update(util.populate_headers(idempotency_key))
+            headers.update(util.populate_headers(idempotency_key))  # type: ignore
 
         response, _ = requestor.request_stream(method_, url_, params, headers)
         return response
