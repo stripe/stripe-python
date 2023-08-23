@@ -13,7 +13,7 @@ import stripe
 from stripe import error, util
 from stripe.request_metrics import RequestMetrics
 
-from typing import Dict, Optional, cast
+from typing import Optional
 from typing_extensions import NoReturn, TypedDict
 
 # - Requests is the preferred HTTP library
@@ -516,14 +516,13 @@ class UrlFetchClient(HTTPClient):
         pass
 
 
-class _Proxy(TypedDict):
-    http: Optional[ParseResult]
-    https: Optional[ParseResult]
-
-
 class PycurlClient(HTTPClient):
+    class _ParsedProxy(TypedDict):
+        http: Optional[ParseResult]
+        https: Optional[ParseResult]
+
     name = "pycurl"
-    _proxy: _Proxy
+    _parsed_proxy: _ParsedProxy
 
     def __init__(self, verify_ssl_certs=True, proxy=None):
         super(PycurlClient, self).__init__(
@@ -542,9 +541,9 @@ class PycurlClient(HTTPClient):
             # Note: self._proxy is actually dict[str, str] because this is the
             # type on the superclass. Here, we reassign self._proxy into
             # dict[str, ParseResult]
-            proxy_ = cast(Dict[str, str], self._proxy)
-            for scheme, value in iter(proxy_.items()):
-                self._proxy[scheme] = urlparse(value)
+            proxy_ = self._proxy
+            for scheme, value in proxy_.items():
+                self._parsed_proxy[scheme] = urlparse(value)
 
     def parse_headers(self, data):
         if "\r\n" not in data:
@@ -664,8 +663,8 @@ class PycurlClient(HTTPClient):
         raise error.APIConnectionError(msg, should_retry=should_retry)
 
     def _get_proxy(self, url) -> Optional[ParseResult]:
-        if self._proxy:
-            proxy = self._proxy
+        if self._parsed_proxy:
+            proxy = self._parsed_proxy
             scheme = url.split(":")[0] if url else None
             if scheme:
                 return proxy.get(scheme, proxy.get(scheme[0:-1]))
