@@ -137,7 +137,7 @@ class Account(
         return self._build_instance_url(self.get("id"))
 
     def deauthorize(self, **params):
-        params["stripe_user_id"] = self.id  # type: ignore
+        params["stripe_user_id"] = self.id
         return oauth.OAuth.deauthorize(**params)
 
     def serialize(self, previous):

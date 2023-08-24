@@ -18,8 +18,8 @@ class TaxId(APIResource):
     OBJECT_NAME = "tax_id"
 
     def instance_url(self):
-        token = self.id  # type: ignore
-        customer = self.customer  # type: ignore
+        token = self.id
+        customer = self.customer
         base = Customer.class_url()
         cust_extn = quote_plus(customer)
         extn = quote_plus(token)

@@ -7,7 +7,6 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from typing_extensions import Type
 
 
 class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
@@ -18,8 +17,6 @@ class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "issuing.card"
 
     class TestHelpers(APIResourceTestHelpers):
-        _resource_cls: Type["Card"]
-
         @classmethod
         def _cls_deliver_card(
             cls,

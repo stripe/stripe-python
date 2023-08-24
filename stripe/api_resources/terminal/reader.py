@@ -8,7 +8,6 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from typing_extensions import Type
 
 
 class Reader(
@@ -274,8 +273,6 @@ class Reader(
         )
 
     class TestHelpers(APIResourceTestHelpers):
-        _resource_cls: Type["Reader"]
-
         @classmethod
         def _cls_present_payment_method(
             cls,

@@ -17,8 +17,8 @@ class Capability(UpdateableAPIResource):
     OBJECT_NAME = "capability"
 
     def instance_url(self):
-        token = self.id  # type: ignore
-        account = self.account  # type: ignore
+        token = self.id
+        account = self.account
         base = Account.class_url()
         acct_extn = quote_plus(account)
         extn = quote_plus(token)

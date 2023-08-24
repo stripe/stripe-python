@@ -7,7 +7,6 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from typing_extensions import Type
 
 
 class Refund(
@@ -55,8 +54,6 @@ class Refund(
         )
 
     class TestHelpers(APIResourceTestHelpers):
-        _resource_cls: Type["Refund"]
-
         @classmethod
         def _cls_expire(
             cls,

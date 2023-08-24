@@ -6,7 +6,6 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
-from typing_extensions import Type
 
 
 class OutboundTransfer(CreateableAPIResource, ListableAPIResource):
@@ -50,8 +49,6 @@ class OutboundTransfer(CreateableAPIResource, ListableAPIResource):
         )
 
     class TestHelpers(APIResourceTestHelpers):
-        _resource_cls: Type["OutboundTransfer"]
-
         @classmethod
         def _cls_fail(
             cls,

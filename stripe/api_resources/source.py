@@ -89,11 +89,11 @@ class Source(CreateableAPIResource, UpdateableAPIResource):
         )
 
     def detach(self, idempotency_key=None, **params):
-        token = self.id  # type: ignore
+        token = self.id
 
-        if hasattr(self, "customer") and self.customer:  # type: ignore
+        if hasattr(self, "customer") and self.customer:
             extn = quote_plus(token)
-            customer = self.customer  # type: ignore
+            customer = self.customer
             base = Customer.class_url()
             owner_extn = quote_plus(customer)
             url = "%s/%s/sources/%s" % (base, owner_extn, extn)
