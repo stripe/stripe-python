@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.1.0 - 2023-08-24
+* [#1016](https://github.com/stripe/stripe-python/pull/1016) Update generated code
+* [#1020](https://github.com/stripe/stripe-python/pull/1020) Adds type annotations, and dependency on `typing_extensions`.
+
 ## 6.1.0b2 - 2023-08-23
 * [#1006](https://github.com/stripe/stripe-python/pull/1006) [#1017](https://github.com/stripe/stripe-python/pull/1017) Update generated code for beta
 * [#1020](https://github.com/stripe/stripe-python/pull/1020) Adds type_annotations, and dependency on `typing_extensions`.

@@ -1,4 +1,6 @@
 from __future__ import absolute_import, division, print_function
+from typing_extensions import Self
+from typing import List
 
 from stripe.stripe_object import StripeObject
 
@@ -7,6 +9,9 @@ from urllib.parse import quote_plus
 
 class ListObject(StripeObject):
     OBJECT_NAME = "list"
+    data: List[StripeObject]
+    has_more: bool
+    url: str
 
     def list(
         self, api_key=None, stripe_version=None, stripe_account=None, **params
@@ -86,13 +91,13 @@ class ListObject(StripeObject):
             ):
                 for item in reversed(page):  # type: ignore
                     yield item
-                page = page.previous_page()  # type: ignore
+                page = page.previous_page()
             else:
                 for item in page:  # type: ignore
                     yield item
-                page = page.next_page()  # type: ignore
+                page = page.next_page()
 
-            if page.is_empty:  # type: ignore
+            if page.is_empty:
                 break
 
     @classmethod
@@ -109,19 +114,23 @@ class ListObject(StripeObject):
 
     @property
     def is_empty(self):
-        return not self.data  # type: ignore
+        return not self.data
 
     def next_page(
         self, api_key=None, stripe_version=None, stripe_account=None, **params
-    ):
-        if not self.has_more:  # type: ignore
+    ) -> Self:
+        if not self.has_more:
             return self.empty_list(
                 api_key=api_key,
                 stripe_version=stripe_version,
                 stripe_account=stripe_account,
             )
 
-        last_id = self.data[-1].id  # type: ignore
+        last_id = getattr(self.data[-1], "id")
+        if not last_id:
+            raise ValueError(
+                "Unexpected: element in .data of list object had no id"
+            )
 
         params_with_filters = self._retrieve_params.copy()
         params_with_filters.update({"starting_after": last_id})
@@ -138,23 +147,29 @@ class ListObject(StripeObject):
 
     def previous_page(
         self, api_key=None, stripe_version=None, stripe_account=None, **params
-    ):
-        if not self.has_more:  # type: ignore
+    ) -> Self:
+        if not self.has_more:
             return self.empty_list(
                 api_key=api_key,
                 stripe_version=stripe_version,
                 stripe_account=stripe_account,
             )
 
-        first_id = self.data[0].id  # type: ignore
+        first_id = getattr(self.data[0], "id")
+        if not first_id:
+            raise ValueError(
+                "Unexpected: element in .data of list object had no id"
+            )
 
         params_with_filters = self._retrieve_params.copy()
         params_with_filters.update({"ending_before": first_id})
         params_with_filters.update(params)
 
-        return self.list(
+        result = self.list(
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
             **params_with_filters
         )
+        assert isinstance(result, ListObject)
+        return result
