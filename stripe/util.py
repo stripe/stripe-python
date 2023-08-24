@@ -11,8 +11,8 @@ import re
 import stripe
 from urllib.parse import parse_qsl, quote_plus
 
-from typing import Union, overload, Dict
-from typing_extensions import Literal
+from typing_extensions import Type, Literal
+from typing import Union, overload, Dict, cast
 
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
@@ -117,7 +117,7 @@ else:
                 result |= x ^ y
         else:
             for x, y in zip(val1, val2):
-                result |= ord(x) ^ ord(y)  # type: ignore
+                result |= ord(cast(str, x)) ^ ord(cast(str, y))
         return result == 0
 
 
@@ -136,7 +136,7 @@ def convert_to_stripe_object(
     # the raw API response information
     stripe_response = None
 
-    if isinstance(resp, stripe.stripe_response.StripeResponse):  # type: ignore
+    if isinstance(resp, stripe.stripe_response.StripeResponse):
         stripe_response = resp
         resp = stripe_response.data
 
@@ -148,16 +148,16 @@ def convert_to_stripe_object(
             for i in resp
         ]
     elif isinstance(resp, dict) and not isinstance(
-        resp, stripe.stripe_object.StripeObject  # type: ignore
+        resp, stripe.stripe_object.StripeObject
     ):
         resp = resp.copy()
         klass_name = resp.get("object")
         if isinstance(klass_name, str):
             klass = get_object_classes().get(
-                klass_name, stripe.stripe_object.StripeObject  # type: ignore
+                klass_name, stripe.stripe_object.StripeObject
             )
         else:
-            klass = stripe.stripe_object.StripeObject  # type: ignore
+            klass = stripe.stripe_object.StripeObject
 
         obj = klass.construct_from(
             resp,
@@ -173,7 +173,10 @@ def convert_to_stripe_object(
         if (
             params is not None
             and hasattr(obj, "object")
-            and ((obj.object == "list") or (obj.object == "search_result"))
+            and (
+                (getattr(obj, "object") == "list")
+                or (getattr(obj, "object") == "search_result")
+            )
         ):
             obj._retrieve_params = params
 
@@ -253,14 +256,18 @@ class class_method_variant(object):
         self.method = method
         return self
 
-    def __get__(self, obj, objtype=None):
+    def __get__(self, obj, objtype: Type = None):
         @functools.wraps(self.method)
         def _wrapper(*args, **kwargs):
             if obj is not None:
                 # Method was called as an instance method, e.g.
                 # instance.method(...)
                 return self.method(obj, *args, **kwargs)
-            elif len(args) > 0 and isinstance(args[0], objtype):  # type: ignore
+            elif (
+                len(args) > 0
+                and objtype is not None
+                and isinstance(args[0], objtype)
+            ):
                 # Method was called as a class method with the instance as the
                 # first argument, e.g. Class.method(instance, ...) which in
                 # Python is the same thing as calling an instance method
