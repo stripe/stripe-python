@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import ListableAPIResource
+from typing_extensions import Type
 
 
 class ReceivedCredit(ListableAPIResource):
@@ -14,6 +15,8 @@ class ReceivedCredit(ListableAPIResource):
     OBJECT_NAME = "treasury.received_credit"
 
     class TestHelpers(APIResourceTestHelpers):
+        _resource_cls: Type["ReceivedCredit"]
+
         @classmethod
         def create(
             cls,

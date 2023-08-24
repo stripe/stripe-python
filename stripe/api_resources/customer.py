@@ -10,6 +10,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from typing_extensions import Type
 
 
 @nested_resource_class_methods(
@@ -221,6 +222,8 @@ class Customer(
         )
 
     class TestHelpers(APIResourceTestHelpers):
+        _resource_cls: Type["Customer"]
+
         @classmethod
         def _cls_fund_cash_balance(
             cls,

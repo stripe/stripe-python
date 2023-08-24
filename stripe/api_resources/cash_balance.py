@@ -15,7 +15,7 @@ class CashBalance(APIResource):
     OBJECT_NAME = "cash_balance"
 
     def instance_url(self):
-        customer = self.customer
+        customer = self.customer  # type: ignore
         base = Customer.class_url()
         cust_extn = quote_plus(customer)
         return "%s/%s/cash_balance" % (base, cust_extn)

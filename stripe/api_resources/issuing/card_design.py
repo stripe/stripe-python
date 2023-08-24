@@ -6,6 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing_extensions import Type
 
 
 class CardDesign(ListableAPIResource, UpdateableAPIResource):
@@ -16,6 +17,8 @@ class CardDesign(ListableAPIResource, UpdateableAPIResource):
     OBJECT_NAME = "issuing.card_design"
 
     class TestHelpers(APIResourceTestHelpers):
+        _resource_cls: Type["CardDesign"]
+
         @classmethod
         def _cls_activate_testmode(
             cls,
