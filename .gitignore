@@ -41,7 +41,7 @@ coverage.xml
 .pytest_cache/
 
 # pyenv
-.python_version
+.python-version
 
 # Environments
 .env
