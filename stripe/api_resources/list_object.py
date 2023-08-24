@@ -1,5 +1,6 @@
 from __future__ import absolute_import, division, print_function
 from typing_extensions import Self
+from typing import List
 
 from stripe.stripe_object import StripeObject
 
@@ -8,7 +9,7 @@ from urllib.parse import quote_plus
 
 class ListObject(StripeObject):
     OBJECT_NAME = "list"
-    data: list
+    data: List[StripeObject]
     has_more: bool
     url: str
 
@@ -125,7 +126,11 @@ class ListObject(StripeObject):
                 stripe_account=stripe_account,
             )
 
-        last_id = self.data[-1].id
+        last_id = getattr(self.data[-1], "id")
+        if not last_id:
+            raise ValueError(
+                "Unexpected: element in .data of list object had no id"
+            )
 
         params_with_filters = self._retrieve_params.copy()
         params_with_filters.update({"starting_after": last_id})
@@ -150,7 +155,11 @@ class ListObject(StripeObject):
                 stripe_account=stripe_account,
             )
 
-        first_id = self.data[0].id
+        first_id = getattr(self.data[0], "id")
+        if not first_id:
+            raise ValueError(
+                "Unexpected: element in .data of list object had no id"
+            )
 
         params_with_filters = self._retrieve_params.copy()
         params_with_filters.update({"ending_before": first_id})

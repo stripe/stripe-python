@@ -1,12 +1,13 @@
 from __future__ import absolute_import, division, print_function
 from typing_extensions import Self
+from typing import List
 
 from stripe.stripe_object import StripeObject
 
 
 class SearchResultObject(StripeObject):
     OBJECT_NAME = "search_result"
-    data: list
+    data: List[StripeObject]
     has_more: bool
     next_page: str
 

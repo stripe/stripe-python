@@ -40,6 +40,7 @@ class TypingImportsChecker:
         "cast",
         "overload",
         "Dict",
+        "List",
     ]
 
     def __init__(self, tree: ast.AST):
