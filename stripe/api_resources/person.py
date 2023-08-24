@@ -4,6 +4,11 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.account import Account
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 
@@ -18,10 +23,40 @@ class Person(UpdateableAPIResource["Person"]):
     """
 
     OBJECT_NAME = "person"
+    account: str
+    address: Any
+    address_kana: Optional[Any]
+    address_kanji: Optional[Any]
+    created: str
+    dob: Any
+    email: Optional[str]
+    first_name: Optional[str]
+    first_name_kana: Optional[str]
+    first_name_kanji: Optional[str]
+    full_name_aliases: List[str]
+    future_requirements: Optional[Any]
+    gender: Optional[str]
+    id: str
+    id_number_provided: bool
+    id_number_secondary_provided: bool
+    last_name: Optional[str]
+    last_name_kana: Optional[str]
+    last_name_kanji: Optional[str]
+    maiden_name: Optional[str]
+    metadata: Dict[str, str]
+    nationality: Optional[str]
+    object: Literal["person"]
+    phone: Optional[str]
+    political_exposure: str
+    registered_address: Any
+    relationship: Any
+    requirements: Optional[Any]
+    ssn_last_4_provided: bool
+    verification: Any
 
     def instance_url(self):
-        token = self.id  # type: ignore
-        account = self.account  # type: ignore
+        token = self.id
+        account = self.account
         base = Account.class_url()
         acct_extn = quote_plus(account)
         extn = quote_plus(token)

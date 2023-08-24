@@ -7,6 +7,11 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 
 
 class PaymentIntent(
@@ -30,6 +35,45 @@ class PaymentIntent(
     """
 
     OBJECT_NAME = "payment_intent"
+    amount: int
+    amount_capturable: int
+    amount_details: Any
+    amount_received: int
+    application: Optional[Any]
+    application_fee_amount: Optional[int]
+    automatic_payment_methods: Optional[Any]
+    canceled_at: Optional[str]
+    cancellation_reason: Optional[str]
+    capture_method: str
+    client_secret: Optional[str]
+    confirmation_method: str
+    created: str
+    currency: str
+    customer: Optional[Any]
+    description: Optional[str]
+    id: str
+    invoice: Optional[Any]
+    last_payment_error: Optional[Any]
+    latest_charge: Optional[Any]
+    livemode: bool
+    metadata: Dict[str, str]
+    next_action: Optional[Any]
+    object: Literal["payment_intent"]
+    on_behalf_of: Optional[Any]
+    payment_method: Optional[Any]
+    payment_method_options: Optional[Any]
+    payment_method_types: List[str]
+    processing: Optional[Any]
+    receipt_email: Optional[str]
+    review: Optional[Any]
+    setup_future_usage: Optional[str]
+    shipping: Optional[Any]
+    source: Optional[Any]
+    statement_descriptor: Optional[str]
+    statement_descriptor_suffix: Optional[str]
+    status: str
+    transfer_data: Optional[Any]
+    transfer_group: Optional[str]
 
     @classmethod
     def _cls_apply_customer_balance(

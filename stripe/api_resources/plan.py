@@ -6,6 +6,11 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Plan(
@@ -26,3 +31,23 @@ class Plan(
     """
 
     OBJECT_NAME = "plan"
+    active: bool
+    aggregate_usage: Optional[str]
+    amount: Optional[int]
+    amount_decimal: Optional[float]
+    billing_scheme: str
+    created: str
+    currency: str
+    id: str
+    interval: str
+    interval_count: int
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    nickname: Optional[str]
+    object: Literal["plan"]
+    product: Optional[Any]
+    tiers: List[Any]
+    tiers_mode: Optional[str]
+    transform_usage: Optional[Any]
+    trial_period_days: Optional[int]
+    usage_type: str

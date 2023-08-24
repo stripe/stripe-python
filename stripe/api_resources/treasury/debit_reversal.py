@@ -4,6 +4,10 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 
 
 class DebitReversal(
@@ -15,3 +19,18 @@ class DebitReversal(
     """
 
     OBJECT_NAME = "treasury.debit_reversal"
+    amount: int
+    created: str
+    currency: str
+    financial_account: Optional[str]
+    hosted_regulatory_receipt_url: Optional[str]
+    id: str
+    linked_flows: Optional[Any]
+    livemode: bool
+    metadata: Dict[str, str]
+    network: str
+    object: Literal["treasury.debit_reversal"]
+    received_debit: str
+    status: str
+    status_transitions: Any
+    transaction: Optional[Any]

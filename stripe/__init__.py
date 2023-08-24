@@ -34,6 +34,8 @@ log = None
 # API resources
 from stripe.api_resources import *  # pyright: ignore # noqa
 
+from stripe.api_resources import abstract  # pyright: ignore # noqa
+
 # OAuth
 from stripe.oauth import OAuth  # noqa
 

@@ -4,6 +4,9 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import ListableAPIResource
+from typing import Any
+from typing import Optional
+from typing_extensions import Literal
 from typing_extensions import Type
 
 
@@ -13,8 +16,24 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     """
 
     OBJECT_NAME = "treasury.received_debit"
+    amount: int
+    created: str
+    currency: str
+    description: str
+    failure_code: Optional[str]
+    financial_account: Optional[str]
+    hosted_regulatory_receipt_url: Optional[str]
+    id: str
+    initiating_payment_method_details: Any
+    linked_flows: Any
+    livemode: bool
+    network: str
+    object: Literal["treasury.received_debit"]
+    reversal_details: Optional[Any]
+    status: str
+    transaction: Optional[Any]
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["ReceivedDebit"]):
         _resource_cls: Type["ReceivedDebit"]
 
         @classmethod

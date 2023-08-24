@@ -6,6 +6,11 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 
 
 class PaymentLink(
@@ -22,6 +27,36 @@ class PaymentLink(
     """
 
     OBJECT_NAME = "payment_link"
+    active: bool
+    after_completion: Any
+    allow_promotion_codes: bool
+    application_fee_amount: Optional[int]
+    application_fee_percent: Optional[float]
+    automatic_tax: Any
+    billing_address_collection: str
+    consent_collection: Optional[Any]
+    currency: str
+    custom_fields: List[Any]
+    custom_text: Any
+    customer_creation: str
+    id: str
+    invoice_creation: Optional[Any]
+    line_items: Any
+    livemode: bool
+    metadata: Dict[str, str]
+    object: Literal["payment_link"]
+    on_behalf_of: Optional[Any]
+    payment_intent_data: Optional[Any]
+    payment_method_collection: str
+    payment_method_types: Optional[List[str]]
+    phone_number_collection: Any
+    shipping_address_collection: Optional[Any]
+    shipping_options: List[Any]
+    submit_type: str
+    subscription_data: Optional[Any]
+    tax_id_collection: Any
+    transfer_data: Optional[Any]
+    url: str
 
     @classmethod
     def _cls_list_line_items(

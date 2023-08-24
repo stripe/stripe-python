@@ -6,6 +6,18 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.treasury.financial_account_features import (
+        FinancialAccountFeatures,
+    )
 
 
 class FinancialAccount(
@@ -19,6 +31,22 @@ class FinancialAccount(
     """
 
     OBJECT_NAME = "treasury.financial_account"
+    active_features: List[str]
+    balance: Any
+    country: str
+    created: str
+    features: "FinancialAccountFeatures"
+    financial_addresses: List[Any]
+    id: str
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    object: Literal["treasury.financial_account"]
+    pending_features: List[str]
+    platform_restrictions: Optional[Any]
+    restricted_features: List[str]
+    status: str
+    status_details: Any
+    supported_currencies: List[str]
 
     @classmethod
     def _cls_retrieve_features(

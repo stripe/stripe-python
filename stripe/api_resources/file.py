@@ -6,6 +6,9 @@ import stripe
 from stripe import api_requestor
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
+from typing import Any
+from typing import Optional
+from typing_extensions import Literal
 
 
 class File(ListableAPIResource["File"]):
@@ -20,6 +23,17 @@ class File(ListableAPIResource["File"]):
     """
 
     OBJECT_NAME = "file"
+    created: str
+    expires_at: Optional[str]
+    filename: Optional[str]
+    id: str
+    links: Optional[Any]
+    object: Literal["file"]
+    purpose: str
+    size: int
+    title: Optional[str]
+    type: Optional[str]
+    url: Optional[str]
 
     # This resource can have two different object names. In latter API
     # versions, only `file` is used, but since stripe-python may be used with

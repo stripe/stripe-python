@@ -3,6 +3,10 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
+from typing import Any
+from typing import Dict
+from typing import List
+from typing_extensions import Literal
 
 
 class CountrySpec(ListableAPIResource["CountrySpec"]):
@@ -16,3 +20,11 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
     """
 
     OBJECT_NAME = "country_spec"
+    default_currency: str
+    id: str
+    object: Literal["country_spec"]
+    supported_bank_account_currencies: Dict[str, List[str]]
+    supported_payment_currencies: List[str]
+    supported_payment_methods: List[str]
+    supported_transfer_countries: List[str]
+    verification_fields: Any

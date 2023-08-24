@@ -6,6 +6,11 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 
 
 class SubscriptionSchedule(
@@ -20,6 +25,24 @@ class SubscriptionSchedule(
     """
 
     OBJECT_NAME = "subscription_schedule"
+    application: Optional[Any]
+    canceled_at: Optional[str]
+    completed_at: Optional[str]
+    created: str
+    current_phase: Optional[Any]
+    customer: Any
+    default_settings: Any
+    end_behavior: str
+    id: str
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    object: Literal["subscription_schedule"]
+    phases: List[Any]
+    released_at: Optional[str]
+    released_subscription: Optional[str]
+    status: str
+    subscription: Optional[Any]
+    test_clock: Optional[Any]
 
     @classmethod
     def _cls_cancel(

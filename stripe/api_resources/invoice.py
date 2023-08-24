@@ -8,6 +8,17 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.tax_rate import TaxRate
+    from stripe.api_resources.discount import Discount
 
 
 class Invoice(
@@ -53,6 +64,87 @@ class Invoice(
     """
 
     OBJECT_NAME = "invoice"
+    account_country: Optional[str]
+    account_name: Optional[str]
+    account_tax_ids: Optional[List[Any]]
+    amount_due: int
+    amount_paid: int
+    amount_remaining: int
+    amount_shipping: int
+    application: Optional[Any]
+    application_fee_amount: Optional[int]
+    attempt_count: int
+    attempted: bool
+    auto_advance: bool
+    automatic_tax: Any
+    billing_reason: Optional[str]
+    charge: Optional[Any]
+    collection_method: str
+    created: str
+    currency: str
+    custom_fields: Optional[List[Any]]
+    customer: Optional[Any]
+    customer_address: Optional[Any]
+    customer_email: Optional[str]
+    customer_name: Optional[str]
+    customer_phone: Optional[str]
+    customer_shipping: Optional[Any]
+    customer_tax_exempt: Optional[str]
+    customer_tax_ids: Optional[List[Any]]
+    default_payment_method: Optional[Any]
+    default_source: Optional[Any]
+    default_tax_rates: List["TaxRate"]
+    description: Optional[str]
+    discount: Optional["Discount"]
+    discounts: Optional[List[Any]]
+    due_date: Optional[str]
+    effective_at: Optional[str]
+    ending_balance: Optional[int]
+    footer: Optional[str]
+    from_invoice: Optional[Any]
+    hosted_invoice_url: Optional[str]
+    id: str
+    invoice_pdf: Optional[str]
+    last_finalization_error: Optional[Any]
+    latest_revision: Optional[Any]
+    lines: Any
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    next_payment_attempt: Optional[str]
+    number: Optional[str]
+    object: Literal["invoice"]
+    on_behalf_of: Optional[Any]
+    paid: bool
+    paid_out_of_band: bool
+    payment_intent: Optional[Any]
+    payment_settings: Any
+    period_end: str
+    period_start: str
+    post_payment_credit_notes_amount: int
+    pre_payment_credit_notes_amount: int
+    quote: Optional[Any]
+    receipt_number: Optional[str]
+    rendering_options: Optional[Any]
+    shipping_cost: Optional[Any]
+    shipping_details: Optional[Any]
+    starting_balance: int
+    statement_descriptor: Optional[str]
+    status: Optional[str]
+    status_transitions: Any
+    subscription: Optional[Any]
+    subscription_details: Optional[Any]
+    subscription_proration_date: int
+    subtotal: int
+    subtotal_excluding_tax: Optional[int]
+    tax: Optional[int]
+    test_clock: Optional[Any]
+    threshold_reason: Any
+    total: int
+    total_discount_amounts: Optional[List[Any]]
+    total_excluding_tax: Optional[int]
+    total_tax_amounts: List[Any]
+    transfer_data: Optional[Any]
+    webhooks_delivered_at: Optional[str]
 
     @classmethod
     def _cls_finalize_invoice(

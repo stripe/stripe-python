@@ -4,6 +4,10 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.customer import Customer
 from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 
@@ -13,9 +17,14 @@ class CashBalance(StripeObject):
     """
 
     OBJECT_NAME = "cash_balance"
+    available: Optional[Dict[str, int]]
+    customer: str
+    livemode: bool
+    object: Literal["cash_balance"]
+    settings: Any
 
     def instance_url(self):
-        customer = self.customer  # type: ignore
+        customer = self.customer
         base = Customer.class_url()
         cust_extn = quote_plus(customer)
         return "%s/%s/cash_balance" % (base, cust_extn)

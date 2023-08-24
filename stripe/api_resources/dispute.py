@@ -5,6 +5,16 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.balance_transaction import BalanceTransaction
 
 
 class Dispute(
@@ -21,6 +31,23 @@ class Dispute(
     """
 
     OBJECT_NAME = "dispute"
+    amount: int
+    balance_transactions: List["BalanceTransaction"]
+    charge: Any
+    created: str
+    currency: str
+    evidence: Any
+    evidence_details: Any
+    id: str
+    is_charge_refundable: bool
+    livemode: bool
+    metadata: Dict[str, str]
+    network_reason_code: Optional[str]
+    object: Literal["dispute"]
+    payment_intent: Optional[Any]
+    payment_method_details: Any
+    reason: str
+    status: str
 
     @classmethod
     def _cls_close(

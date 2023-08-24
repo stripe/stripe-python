@@ -4,6 +4,9 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from typing import Any
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
@@ -20,6 +23,15 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     """
 
     OBJECT_NAME = "apps.secret"
+    created: str
+    deleted: bool
+    expires_at: Optional[str]
+    id: str
+    livemode: bool
+    name: str
+    object: Literal["apps.secret"]
+    payload: Optional[str]
+    scope: Any
 
     @classmethod
     def delete_where(

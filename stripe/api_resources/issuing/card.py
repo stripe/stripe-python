@@ -7,7 +7,16 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 from typing_extensions import Type
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.issuing.cardholder import Cardholder
 
 
 class Card(
@@ -20,8 +29,31 @@ class Card(
     """
 
     OBJECT_NAME = "issuing.card"
+    brand: str
+    cancellation_reason: Optional[str]
+    cardholder: "Cardholder"
+    created: str
+    currency: str
+    cvc: str
+    exp_month: int
+    exp_year: int
+    financial_account: Optional[str]
+    id: str
+    last4: str
+    livemode: bool
+    metadata: Dict[str, str]
+    number: str
+    object: Literal["issuing.card"]
+    replaced_by: Optional[Any]
+    replacement_for: Optional[Any]
+    replacement_reason: Optional[str]
+    shipping: Optional[Any]
+    spending_controls: Any
+    status: str
+    type: str
+    wallets: Optional[Any]
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["Card"]):
         _resource_cls: Type["Card"]
 
         @classmethod

@@ -7,6 +7,10 @@ from stripe import util
 from stripe.api_resources import Customer
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 
@@ -25,6 +29,44 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     """
 
     OBJECT_NAME = "source"
+    ach_credit_transfer: Any
+    ach_debit: Any
+    acss_debit: Any
+    alipay: Any
+    amount: Optional[int]
+    au_becs_debit: Any
+    bancontact: Any
+    card: Any
+    card_present: Any
+    client_secret: str
+    code_verification: Any
+    created: str
+    currency: Optional[str]
+    customer: str
+    eps: Any
+    flow: str
+    giropay: Any
+    id: str
+    ideal: Any
+    klarna: Any
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    multibanco: Any
+    object: Literal["source"]
+    owner: Optional[Any]
+    p24: Any
+    receiver: Any
+    redirect: Any
+    sepa_credit_transfer: Any
+    sepa_debit: Any
+    sofort: Any
+    source_order: Any
+    statement_descriptor: Optional[str]
+    status: str
+    three_d_secure: Any
+    type: str
+    usage: Optional[str]
+    wechat: Any
 
     @classmethod
     def _cls_list_source_transactions(
@@ -89,11 +131,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     def detach(self, idempotency_key=None, **params):
-        token = self.id  # type: ignore
+        token = self.id
 
-        if hasattr(self, "customer") and self.customer:  # type: ignore
+        if hasattr(self, "customer") and self.customer:
             extn = quote_plus(token)
-            customer = self.customer  # type: ignore
+            customer = self.customer
             base = Customer.class_url()
             owner_extn = quote_plus(customer)
             url = "%s/%s/sources/%s" % (base, owner_extn, extn)

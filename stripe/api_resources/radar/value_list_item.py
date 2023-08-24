@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from typing_extensions import Literal
 
 
 class ValueListItem(
@@ -19,3 +20,10 @@ class ValueListItem(
     """
 
     OBJECT_NAME = "radar.value_list_item"
+    created: str
+    created_by: str
+    id: str
+    livemode: bool
+    object: Literal["radar.value_list_item"]
+    value: str
+    value_list: str

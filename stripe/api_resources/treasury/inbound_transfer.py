@@ -6,6 +6,10 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 from typing_extensions import Type
 
 
@@ -18,6 +22,26 @@ class InboundTransfer(
     """
 
     OBJECT_NAME = "treasury.inbound_transfer"
+    amount: int
+    cancelable: bool
+    created: str
+    currency: str
+    description: Optional[str]
+    failure_details: Optional[Any]
+    financial_account: str
+    hosted_regulatory_receipt_url: Optional[str]
+    id: str
+    linked_flows: Any
+    livemode: bool
+    metadata: Dict[str, str]
+    object: Literal["treasury.inbound_transfer"]
+    origin_payment_method: str
+    origin_payment_method_details: Optional[Any]
+    returned: Optional[bool]
+    statement_descriptor: str
+    status: str
+    status_transitions: Any
+    transaction: Optional[Any]
 
     @classmethod
     def _cls_cancel(
@@ -50,7 +74,7 @@ class InboundTransfer(
             params=params,
         )
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["InboundTransfer"]):
         _resource_cls: Type["InboundTransfer"]
 
         @classmethod

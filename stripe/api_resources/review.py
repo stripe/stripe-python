@@ -4,6 +4,9 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
+from typing import Any
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Review(ListableAPIResource["Review"]):
@@ -15,6 +18,20 @@ class Review(ListableAPIResource["Review"]):
     """
 
     OBJECT_NAME = "review"
+    billing_zip: Optional[str]
+    charge: Optional[Any]
+    closed_reason: Optional[str]
+    created: str
+    id: str
+    ip_address: Optional[str]
+    ip_address_location: Optional[Any]
+    livemode: bool
+    object: Literal["review"]
+    open: bool
+    opened_reason: str
+    payment_intent: Any
+    reason: str
+    session: Optional[Any]
 
     @classmethod
     def _cls_approve(

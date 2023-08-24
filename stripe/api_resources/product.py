@@ -7,6 +7,11 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Product(
@@ -28,6 +33,24 @@ class Product(
     """
 
     OBJECT_NAME = "product"
+    active: bool
+    created: str
+    default_price: Optional[Any]
+    description: Optional[str]
+    id: str
+    images: List[str]
+    livemode: bool
+    metadata: Dict[str, str]
+    name: str
+    object: Literal["product"]
+    package_dimensions: Optional[Any]
+    shippable: Optional[bool]
+    statement_descriptor: Optional[str]
+    tax_code: Optional[Any]
+    type: str
+    unit_label: Optional[str]
+    updated: str
+    url: Optional[str]
 
     @classmethod
     def search(cls, *args, **kwargs):

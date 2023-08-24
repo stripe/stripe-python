@@ -5,10 +5,17 @@ from __future__ import absolute_import, division, print_function
 from stripe import api_requestor
 from stripe import util
 from stripe.api_resources.abstract import DeletableAPIResource
+from typing_extensions import Literal
 
 
 class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
     OBJECT_NAME = "ephemeral_key"
+    created: str
+    expires: str
+    id: str
+    livemode: bool
+    object: Literal["ephemeral_key"]
+    secret: str
 
     @classmethod
     def create(

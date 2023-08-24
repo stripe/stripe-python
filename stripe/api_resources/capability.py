@@ -4,6 +4,9 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.account import Account
+from typing import Any
+from typing import Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 
@@ -15,10 +18,18 @@ class Capability(UpdateableAPIResource["Capability"]):
     """
 
     OBJECT_NAME = "capability"
+    account: Any
+    future_requirements: Any
+    id: str
+    object: Literal["capability"]
+    requested: bool
+    requested_at: Optional[str]
+    requirements: Any
+    status: str
 
     def instance_url(self):
-        token = self.id  # type: ignore
-        account = self.account  # type: ignore
+        token = self.id
+        account = self.account
         base = Account.class_url()
         acct_extn = quote_plus(account)
         extn = quote_plus(token)

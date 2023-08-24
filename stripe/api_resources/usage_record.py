@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import APIResource
+from typing_extensions import Literal
 
 
 class UsageRecord(APIResource["UsageRecord"]):
@@ -15,6 +16,12 @@ class UsageRecord(APIResource["UsageRecord"]):
     """
 
     OBJECT_NAME = "usage_record"
+    id: str
+    livemode: bool
+    object: Literal["usage_record"]
+    quantity: int
+    subscription_item: str
+    timestamp: str
 
     @classmethod
     def create(

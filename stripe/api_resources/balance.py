@@ -3,6 +3,9 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import SingletonAPIResource
+from typing import Any
+from typing import List
+from typing_extensions import Literal
 
 
 class Balance(SingletonAPIResource["Balance"]):
@@ -21,6 +24,13 @@ class Balance(SingletonAPIResource["Balance"]):
     """
 
     OBJECT_NAME = "balance"
+    available: List[Any]
+    connect_reserved: List[Any]
+    instant_available: List[Any]
+    issuing: Any
+    livemode: bool
+    object: Literal["balance"]
+    pending: List[Any]
 
     @classmethod
     def class_url(cls):

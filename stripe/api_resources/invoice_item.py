@@ -6,6 +6,18 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.plan import Plan
+    from stripe.api_resources.price import Price
+    from stripe.api_resources.tax_rate import TaxRate
 
 
 class InvoiceItem(
@@ -29,3 +41,26 @@ class InvoiceItem(
     """
 
     OBJECT_NAME = "invoiceitem"
+    amount: int
+    currency: str
+    customer: Any
+    date: str
+    description: Optional[str]
+    discountable: bool
+    discounts: Optional[List[Any]]
+    id: str
+    invoice: Optional[Any]
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    object: Literal["invoiceitem"]
+    period: Any
+    plan: Optional["Plan"]
+    price: Optional["Price"]
+    proration: bool
+    quantity: int
+    subscription: Optional[Any]
+    subscription_item: str
+    tax_rates: Optional[List["TaxRate"]]
+    test_clock: Optional[Any]
+    unit_amount: Optional[int]
+    unit_amount_decimal: Optional[float]

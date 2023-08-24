@@ -8,6 +8,11 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 
@@ -22,6 +27,41 @@ class Quote(
     """
 
     OBJECT_NAME = "quote"
+    amount_subtotal: int
+    amount_total: int
+    application: Optional[Any]
+    application_fee_amount: Optional[int]
+    application_fee_percent: Optional[float]
+    automatic_tax: Any
+    collection_method: str
+    computed: Any
+    created: str
+    currency: Optional[str]
+    customer: Optional[Any]
+    default_tax_rates: List[Any]
+    description: Optional[str]
+    discounts: List[Any]
+    expires_at: str
+    footer: Optional[str]
+    from_quote: Optional[Any]
+    header: Optional[str]
+    id: str
+    invoice: Optional[Any]
+    invoice_settings: Optional[Any]
+    line_items: Any
+    livemode: bool
+    metadata: Dict[str, str]
+    number: Optional[str]
+    object: Literal["quote"]
+    on_behalf_of: Optional[Any]
+    status: str
+    status_transitions: Any
+    subscription: Optional[Any]
+    subscription_data: Any
+    subscription_schedule: Optional[Any]
+    test_clock: Optional[Any]
+    total_details: Any
+    transfer_data: Optional[Any]
 
     @classmethod
     def _cls_accept(

@@ -6,6 +6,10 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 
 
 class PaymentMethod(
@@ -22,6 +26,48 @@ class PaymentMethod(
     """
 
     OBJECT_NAME = "payment_method"
+    acss_debit: Any
+    affirm: Any
+    afterpay_clearpay: Any
+    alipay: Any
+    au_becs_debit: Any
+    bacs_debit: Any
+    bancontact: Any
+    billing_details: Any
+    blik: Any
+    boleto: Any
+    card: Any
+    card_present: Any
+    cashapp: Any
+    created: str
+    customer: Optional[Any]
+    customer_balance: Any
+    eps: Any
+    fpx: Any
+    giropay: Any
+    grabpay: Any
+    id: str
+    ideal: Any
+    interac_present: Any
+    klarna: Any
+    konbini: Any
+    link: Any
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    object: Literal["payment_method"]
+    oxxo: Any
+    p24: Any
+    paynow: Any
+    paypal: Any
+    pix: Any
+    promptpay: Any
+    radar_options: Any
+    sepa_debit: Any
+    sofort: Any
+    type: str
+    us_bank_account: Any
+    wechat_pay: Any
+    zip: Any
 
     @classmethod
     def _cls_attach(

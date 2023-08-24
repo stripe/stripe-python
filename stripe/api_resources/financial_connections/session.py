@@ -3,6 +3,10 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
+from typing import Any
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Session(CreateableAPIResource["Session"]):
@@ -11,3 +15,13 @@ class Session(CreateableAPIResource["Session"]):
     """
 
     OBJECT_NAME = "financial_connections.session"
+    account_holder: Optional[Any]
+    accounts: Any
+    client_secret: str
+    filters: Any
+    id: str
+    livemode: bool
+    object: Literal["financial_connections.session"]
+    permissions: List[str]
+    prefetch: Optional[List[str]]
+    return_url: str

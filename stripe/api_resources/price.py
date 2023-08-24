@@ -6,6 +6,11 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Price(
@@ -24,6 +29,27 @@ class Price(
     """
 
     OBJECT_NAME = "price"
+    active: bool
+    billing_scheme: str
+    created: str
+    currency: str
+    currency_options: Dict[str, Any]
+    custom_unit_amount: Optional[Any]
+    id: str
+    livemode: bool
+    lookup_key: Optional[str]
+    metadata: Dict[str, str]
+    nickname: Optional[str]
+    object: Literal["price"]
+    product: Any
+    recurring: Optional[Any]
+    tax_behavior: Optional[str]
+    tiers: List[Any]
+    tiers_mode: Optional[str]
+    transform_quantity: Optional[Any]
+    type: str
+    unit_amount: Optional[int]
+    unit_amount_decimal: Optional[float]
 
     @classmethod
     def search(cls, *args, **kwargs):

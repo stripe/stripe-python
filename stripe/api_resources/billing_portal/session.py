@@ -3,6 +3,9 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
+from typing import Any
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Session(CreateableAPIResource["Session"]):
@@ -24,3 +27,14 @@ class Session(CreateableAPIResource["Session"]):
     """
 
     OBJECT_NAME = "billing_portal.session"
+    configuration: Any
+    created: str
+    customer: str
+    flow: Optional[Any]
+    id: str
+    livemode: bool
+    locale: Optional[str]
+    object: Literal["billing_portal.session"]
+    on_behalf_of: Optional[str]
+    return_url: Optional[str]
+    url: str

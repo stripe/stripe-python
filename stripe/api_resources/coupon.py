@@ -6,6 +6,10 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Coupon(
@@ -21,3 +25,20 @@ class Coupon(
     """
 
     OBJECT_NAME = "coupon"
+    amount_off: Optional[int]
+    applies_to: Any
+    created: str
+    currency: Optional[str]
+    currency_options: Dict[str, Any]
+    duration: str
+    duration_in_months: Optional[int]
+    id: str
+    livemode: bool
+    max_redemptions: Optional[int]
+    metadata: Optional[Dict[str, str]]
+    name: Optional[str]
+    object: Literal["coupon"]
+    percent_off: Optional[float]
+    redeem_by: Optional[str]
+    times_redeemed: int
+    valid: bool

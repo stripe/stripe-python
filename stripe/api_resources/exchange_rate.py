@@ -3,6 +3,8 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
+from typing import Dict
+from typing_extensions import Literal
 
 
 class ExchangeRate(ListableAPIResource["ExchangeRate"]):
@@ -21,3 +23,6 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
     """
 
     OBJECT_NAME = "exchange_rate"
+    id: str
+    object: Literal["exchange_rate"]
+    rates: Dict[str, float]

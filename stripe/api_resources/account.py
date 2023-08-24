@@ -10,7 +10,16 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.person import Person
 
 
 @nested_resource_class_methods(
@@ -48,6 +57,28 @@ class Account(
     """
 
     OBJECT_NAME = "account"
+    business_profile: Optional[Any]
+    business_type: Optional[str]
+    capabilities: Any
+    charges_enabled: bool
+    company: Any
+    controller: Any
+    country: str
+    created: str
+    default_currency: str
+    details_submitted: bool
+    email: Optional[str]
+    external_accounts: Any
+    future_requirements: Any
+    id: str
+    individual: "Person"
+    metadata: Dict[str, str]
+    object: Literal["account"]
+    payouts_enabled: bool
+    requirements: Any
+    settings: Optional[Any]
+    tos_acceptance: Any
+    type: str
 
     @classmethod
     def _cls_persons(
@@ -137,7 +168,7 @@ class Account(
         return self._build_instance_url(self.get("id"))
 
     def deauthorize(self, **params):
-        params["stripe_user_id"] = self.id  # type: ignore
+        params["stripe_user_id"] = self.id
         return oauth.OAuth.deauthorize(**params)
 
     def serialize(self, previous):

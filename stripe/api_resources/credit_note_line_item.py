@@ -3,6 +3,15 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
+from typing import Any
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.tax_rate import TaxRate
 
 
 class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
@@ -11,3 +20,19 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
     """
 
     OBJECT_NAME = "credit_note_line_item"
+    amount: int
+    amount_excluding_tax: Optional[int]
+    description: Optional[str]
+    discount_amount: int
+    discount_amounts: List[Any]
+    id: str
+    invoice_line_item: str
+    livemode: bool
+    object: Literal["credit_note_line_item"]
+    quantity: Optional[int]
+    tax_amounts: List[Any]
+    tax_rates: List["TaxRate"]
+    type: str
+    unit_amount: Optional[int]
+    unit_amount_decimal: Optional[float]
+    unit_amount_excluding_tax: Optional[float]
