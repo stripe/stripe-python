@@ -7,8 +7,7 @@ venv: $(VENV_NAME)/bin/activate
 $(VENV_NAME)/bin/activate: setup.py
 	$(PIP) install --upgrade pip virtualenv
 	@test -d $(VENV_NAME) || $(PYTHON) -m virtualenv --clear $(VENV_NAME)
-	${VENV_NAME}/bin/python -m pip install -U pip tox twine -c constraints.txt
-	${VENV_NAME}/bin/python -m pip install -e .
+	${VENV_NAME}/bin/python -m pip install -U pip tox twine pyright -c constraints.txt
 	@touch $(VENV_NAME)/bin/activate
 
 test: venv
@@ -24,6 +23,18 @@ ci-test: venv
 coveralls: venv
 	${VENV_NAME}/bin/python -m pip install -U coveralls
 	@${VENV_NAME}/bin/tox -e coveralls
+
+pyright: venv
+	# In order for pyright to be able to follow imports, we need "editable_mode=compat" to force setuptools to do
+	# an editable install via a .pth file mechanism and not "import hooks". See
+	# the "editable installs" section of https://github.com/microsoft/pyright/blob/main/docs/import-resolution.md#editable-installs
+
+	# This command might fail if we're on python 3.6, as versions of pip that
+	# support python 3.6 don't know about "--config-settings", but in this case
+	# we don't need to pass config-settings anyway because "editable_mode=compat" just
+	# means to perform as these old versions of pip already do.
+	pip install -e . --config-settings editable_mode=compat || pip install -e .
+	@${VENV_NAME}/bin/pyright
 
 fmt: venv
 	@${VENV_NAME}/bin/tox -e fmt
@@ -43,4 +54,4 @@ update-version:
 
 codegen-format: fmt
 
-.PHONY: ci-test clean codegen-format coveralls fmt fmtcheck lint test test-nomock test-travis update-version venv
+.PHONY: ci-test clean codegen-format coveralls fmt fmtcheck lint test test-nomock test-travis update-version venv pyright

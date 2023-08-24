@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.1.0b1 - 2023-08-23
+* [#1017](https://github.com/stripe/stripe-python/pull/1017)
+  * Updated stable APIs to the latest version
+
 ## 6.0.0 - 2023-08-16
 **⚠️ ACTION REQUIRED: the breaking change in this release likely affects you ⚠️**
 * [#1001](https://github.com/stripe/stripe-python/pull/1001) [#1008](https://github.com/stripe/stripe-python/pull/1008) Remove support for Python 2.

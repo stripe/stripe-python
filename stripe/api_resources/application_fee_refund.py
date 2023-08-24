@@ -31,7 +31,7 @@ class ApplicationFeeRefund(UpdateableAPIResource):
         return cls._static_request("post", url, params=params)
 
     def instance_url(self):
-        return self._build_instance_url(self.fee, self.id)
+        return self._build_instance_url(self.fee, self.id)  # type: ignore
 
     @classmethod
     def retrieve(cls, id, api_key=None, **params):

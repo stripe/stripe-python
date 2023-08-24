@@ -68,7 +68,7 @@ class TestSearchableAPIResource(object):
             "get",
             "/v1/mysearchables/search",
             {
-                "object": "list",
+                "object": "search_result",
                 "data": [
                     {"object": "charge", "name": "test"},
                 ],

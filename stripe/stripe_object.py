@@ -3,6 +3,7 @@ from __future__ import absolute_import, division, print_function
 import datetime
 import json
 from copy import deepcopy
+from typing_extensions import TYPE_CHECKING
 
 import stripe
 from stripe import api_requestor, util
@@ -82,14 +83,16 @@ class StripeObject(dict):
         self[k] = v
         return None
 
-    def __getattr__(self, k):
-        if k[0] == "_":
-            raise AttributeError(k)
+    if not TYPE_CHECKING:
 
-        try:
-            return self[k]
-        except KeyError as err:
-            raise AttributeError(*err.args)
+        def __getattr__(self, k):
+            if k[0] == "_":
+                raise AttributeError(k)
+
+            try:
+                return self[k]
+            except KeyError as err:
+                raise AttributeError(*err.args)
 
     def __delattr__(self, k):
         if k[0] == "_" or k in self.__dict__:
@@ -277,7 +280,7 @@ class StripeObject(dict):
 
         if idempotency_key is not None:
             headers = {} if headers is None else headers.copy()
-            headers.update(util.populate_headers(idempotency_key))
+            headers.update(util.populate_headers(idempotency_key))  # type: ignore
 
         response, api_key = requestor.request(method_, url_, params, headers)
 
@@ -302,7 +305,7 @@ class StripeObject(dict):
         ident_parts = [type(self).__name__]
 
         if isinstance(self.get("object"), str):
-            ident_parts.append(self.get("object"))
+            ident_parts.append(self.get("object"))  # type: ignore
 
         if isinstance(self.get("id"), str):
             ident_parts.append("id=%s" % (self.get("id"),))
@@ -344,7 +347,7 @@ class StripeObject(dict):
 
     @property
     def stripe_id(self):
-        return self.id
+        return self.id  # type: ignore
 
     def serialize(self, previous):
         params = {}
@@ -354,7 +357,7 @@ class StripeObject(dict):
         for k, v in self.items():
             if k == "id" or (isinstance(k, str) and k.startswith("_")):
                 continue
-            elif isinstance(v, stripe.api_resources.abstract.APIResource):
+            elif isinstance(v, stripe.api_resources.abstract.APIResource):  # type: ignore
                 continue
             elif hasattr(v, "serialize"):
                 child = v.serialize(previous.get(k, None))
