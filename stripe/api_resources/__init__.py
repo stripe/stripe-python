@@ -3,7 +3,6 @@
 from __future__ import absolute_import, division, print_function
 
 # flake8: noqa
-from . import abstract
 
 from stripe.api_resources.error_object import ErrorObject, OAuthErrorObject
 from stripe.api_resources.list_object import ListObject
@@ -79,6 +78,8 @@ from stripe.api_resources.product import Product
 from stripe.api_resources.promotion_code import PromotionCode
 from stripe.api_resources.quote import Quote
 from stripe.api_resources.quote_phase import QuotePhase
+from stripe.api_resources.quote_preview_invoice import QuotePreviewInvoice
+from stripe.api_resources.quote_preview_schedule import QuotePreviewSchedule
 from stripe.api_resources.refund import Refund
 from stripe.api_resources.reversal import Reversal
 from stripe.api_resources.review import Review
