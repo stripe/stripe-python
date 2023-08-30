@@ -5,8 +5,9 @@ from urllib.parse import quote_plus
 
 from typing import TypeVar, ClassVar, Any
 from typing_extensions import Protocol
+from stripe.api_resources.abstract import APIResource
 
-T = TypeVar("T")
+T = TypeVar("T", bound=APIResource[Any])
 
 
 class APIResourceTestHelpers(Protocol[T]):
