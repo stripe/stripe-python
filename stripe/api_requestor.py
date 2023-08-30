@@ -15,6 +15,8 @@ from stripe.multipart_data_generator import MultipartDataGenerator
 from urllib.parse import urlencode, urlsplit, urlunsplit
 from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
+from typing import Dict, Union, Optional
+
 
 def _encode_datetime(dttime):
     if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
@@ -66,6 +68,8 @@ def _build_api_url(url, query):
 
 
 class APIRequestor(object):
+    _default_proxy: Optional[Union[str, Dict[str, str]]]
+
     def __init__(
         self,
         key=None,
