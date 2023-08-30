@@ -1,6 +1,6 @@
 from __future__ import absolute_import, division, print_function
 
-from typing import Optional
+from typing import Optional, Any, Dict
 from typing_extensions import Protocol
 
 from stripe.stripe_object import StripeObject
@@ -15,7 +15,7 @@ class _Verifiable(Protocol):
         method: str,
         url: str,
         idempotency_key: Optional[str],
-        params: dict,
+        params: Dict[str, Any],
     ) -> StripeObject:
         ...
 
