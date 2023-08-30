@@ -4,6 +4,7 @@ import datetime
 import json
 from copy import deepcopy
 from typing_extensions import TYPE_CHECKING
+from typing import Any, Dict
 
 import stripe
 from stripe import api_requestor, util
@@ -34,7 +35,7 @@ def _serialize_list(array, previous):
     return params
 
 
-class StripeObject(dict):
+class StripeObject(Dict[str, Any]):
     class ReprJSONEncoder(json.JSONEncoder):
         def default(self, obj):
             if isinstance(obj, datetime.datetime):
@@ -356,7 +357,7 @@ class StripeObject(dict):
         previous = previous or self._previous or {}
 
         for k, v in self.items():
-            if k == "id" or (isinstance(k, str) and k.startswith("_")):
+            if k == "id" or k.startswith("_"):
                 continue
             elif isinstance(v, stripe.abstract.APIResource):
                 continue

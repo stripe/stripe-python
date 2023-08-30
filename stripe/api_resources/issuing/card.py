@@ -21,7 +21,7 @@ class Card(
 
     OBJECT_NAME = "issuing.card"
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["Card"]):
         _resource_cls: Type["Card"]
 
         @classmethod

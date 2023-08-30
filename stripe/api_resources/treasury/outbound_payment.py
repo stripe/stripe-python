@@ -52,7 +52,7 @@ class OutboundPayment(
             params=params,
         )
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["OutboundPayment"]):
         _resource_cls: Type["OutboundPayment"]
 
         @classmethod

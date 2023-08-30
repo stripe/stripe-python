@@ -52,7 +52,7 @@ class OutboundTransfer(
             params=params,
         )
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["OutboundTransfer"]):
         _resource_cls: Type["OutboundTransfer"]
 
         @classmethod

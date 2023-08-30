@@ -221,7 +221,7 @@ class Customer(
             params=params,
         )
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["Customer"]):
         _resource_cls: Type["Customer"]
 
         @classmethod

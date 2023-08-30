@@ -56,7 +56,7 @@ class Refund(
             params=params,
         )
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["Refund"]):
         _resource_cls: Type["Refund"]
 
         @classmethod
