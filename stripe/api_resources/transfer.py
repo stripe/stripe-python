@@ -13,9 +13,9 @@ from stripe.api_resources.abstract import nested_resource_class_methods
     operations=["create", "retrieve", "update", "list"],
 )
 class Transfer(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Transfer"],
+    ListableAPIResource["Transfer"],
+    UpdateableAPIResource["Transfer"],
 ):
     """
     A `Transfer` object is created when you move funds between Stripe accounts as

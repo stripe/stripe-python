@@ -10,7 +10,11 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from typing_extensions import Type
 
 
-class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+class Card(
+    CreateableAPIResource["Card"],
+    ListableAPIResource["Card"],
+    UpdateableAPIResource["Card"],
+):
     """
     You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
     """

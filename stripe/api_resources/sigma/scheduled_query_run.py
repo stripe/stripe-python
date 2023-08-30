@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class ScheduledQueryRun(ListableAPIResource):
+class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
     """
     If you have [scheduled a Sigma query](https://stripe.com/docs/sigma/scheduled-queries), you'll
     receive a `sigma.scheduled_query_run.created` webhook each time the query

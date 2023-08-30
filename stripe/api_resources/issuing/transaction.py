@@ -6,7 +6,10 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 
 
-class Transaction(ListableAPIResource, UpdateableAPIResource):
+class Transaction(
+    ListableAPIResource["Transaction"],
+    UpdateableAPIResource["Transaction"],
+):
     """
     Any use of an [issued card](https://stripe.com/docs/issuing) that results in funds entering or leaving
     your Stripe account, such as a completed purchase or refund, is represented by an Issuing

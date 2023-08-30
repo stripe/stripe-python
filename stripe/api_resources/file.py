@@ -8,7 +8,7 @@ from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class File(ListableAPIResource):
+class File(ListableAPIResource["File"]):
     """
     This is an object representing a file hosted on Stripe's servers. The
     file may have been uploaded by yourself using the [create file](https://stripe.com/docs/api#create_file)

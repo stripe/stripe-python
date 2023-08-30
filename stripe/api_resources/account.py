@@ -31,10 +31,10 @@ from urllib.parse import quote_plus
     operations=["create", "retrieve", "update", "delete", "list"],
 )
 class Account(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Account"],
+    DeletableAPIResource["Account"],
+    ListableAPIResource["Account"],
+    UpdateableAPIResource["Account"],
 ):
     """
     This is an object representing a Stripe account. You can retrieve it to see

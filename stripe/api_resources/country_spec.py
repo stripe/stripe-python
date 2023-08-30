@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class CountrySpec(ListableAPIResource):
+class CountrySpec(ListableAPIResource["CountrySpec"]):
     """
     Stripe needs to collect certain pieces of information about each account
     created. These requirements can differ depending on the account's country. The

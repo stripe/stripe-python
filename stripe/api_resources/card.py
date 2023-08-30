@@ -10,7 +10,7 @@ from stripe.api_resources.customer import Customer
 from urllib.parse import quote_plus
 
 
-class Card(DeletableAPIResource, UpdateableAPIResource):
+class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     You can store multiple cards on a customer in order to charge the customer
     later. You can also store multiple debit cards on a recipient in order to

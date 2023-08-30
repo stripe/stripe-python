@@ -11,7 +11,9 @@ from typing_extensions import Type
 
 
 class Refund(
-    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
+    CreateableAPIResource["Refund"],
+    ListableAPIResource["Refund"],
+    UpdateableAPIResource["Refund"],
 ):
     """
     `Refund` objects allow you to refund a charge that has previously been created

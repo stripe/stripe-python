@@ -7,7 +7,7 @@ from stripe.api_resources.transfer import Transfer
 from urllib.parse import quote_plus
 
 
-class Reversal(UpdateableAPIResource):
+class Reversal(UpdateableAPIResource["Reversal"]):
     """
     [Stripe Connect](https://stripe.com/docs/connect) platforms can reverse transfers made to a
     connected account, either entirely or partially, and can also specify whether

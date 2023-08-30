@@ -19,10 +19,10 @@ from stripe.api_resources.abstract import nested_resource_class_methods
     resource_plural="usage_record_summaries",
 )
 class SubscriptionItem(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["SubscriptionItem"],
+    DeletableAPIResource["SubscriptionItem"],
+    ListableAPIResource["SubscriptionItem"],
+    UpdateableAPIResource["SubscriptionItem"],
 ):
     """
     Subscription items allow you to create customer subscriptions with more than

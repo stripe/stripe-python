@@ -41,6 +41,7 @@ class TypingImportsChecker:
         "overload",
         "Dict",
         "List",
+        "Generic",
     ]
 
     def __init__(self, tree: ast.AST):

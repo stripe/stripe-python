@@ -2,10 +2,15 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract.api_resource import APIResource
 
+from typing import TypeVar
+from stripe.stripe_object import StripeObject
 
-class SingletonAPIResource(APIResource):
+T = TypeVar("T", bound="StripeObject")
+
+
+class SingletonAPIResource(APIResource[T]):
     @classmethod
-    def retrieve(cls, **params):
+    def retrieve(cls, **params) -> T:
         return super(SingletonAPIResource, cls).retrieve(None, **params)
 
     @classmethod

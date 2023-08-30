@@ -10,7 +10,7 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from urllib.parse import quote_plus
 
 
-class Source(CreateableAPIResource, UpdateableAPIResource):
+class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     """
     `Source` objects allow you to accept a variety of payment methods. They
     represent a customer's payment instrument, and can be used with the Stripe API

@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class Event(ListableAPIResource):
+class Event(ListableAPIResource["Event"]):
     """
     Events are our way of letting you know when something interesting happens in
     your account. When an interesting event occurs, we create a new `Event`
