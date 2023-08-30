@@ -16,7 +16,7 @@ class CardDesign(ListableAPIResource, UpdateableAPIResource):
 
     OBJECT_NAME = "issuing.card_design"
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["CardDesign"]):
         _resource_cls: Type["CardDesign"]
 
         @classmethod

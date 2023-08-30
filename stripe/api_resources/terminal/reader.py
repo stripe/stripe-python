@@ -273,7 +273,7 @@ class Reader(
             params=params,
         )
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["Reader"]):
         _resource_cls: Type["Reader"]
 
         @classmethod

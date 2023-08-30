@@ -14,7 +14,7 @@ class ReceivedDebit(ListableAPIResource):
 
     OBJECT_NAME = "treasury.received_debit"
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["ReceivedDebit"]):
         _resource_cls: Type["ReceivedDebit"]
 
         @classmethod
