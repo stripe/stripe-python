@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 # flake8: noqa
 
+from . import abstract
 from stripe.api_resources.error_object import ErrorObject, OAuthErrorObject
 from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
@@ -24,6 +25,7 @@ from stripe.api_resources import treasury
 
 from stripe.api_resources.account import Account
 from stripe.api_resources.account_link import AccountLink
+from stripe.api_resources.account_session import AccountSession
 from stripe.api_resources.apple_pay_domain import ApplePayDomain
 from stripe.api_resources.application_fee import ApplicationFee
 from stripe.api_resources.application_fee_refund import ApplicationFeeRefund
