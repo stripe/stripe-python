@@ -11,8 +11,8 @@ import re
 import stripe
 from urllib.parse import parse_qsl, quote_plus
 
-from typing_extensions import Type, Literal
-from typing import Union, overload, Dict, cast
+from typing_extensions import Type
+from typing import Union, overload, Dict, cast, Any, Optional
 
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
@@ -208,7 +208,7 @@ def convert_to_dict(obj):
 @overload
 def populate_headers(
     idempotency_key: str,
-) -> Dict[Literal["Idempotency-Key"], str]:
+) -> Dict[str, str]:
     ...
 
 
@@ -217,7 +217,9 @@ def populate_headers(idempotency_key: None) -> None:
     ...
 
 
-def populate_headers(idempotency_key: Union[str, None]) -> Union[dict, None]:
+def populate_headers(
+    idempotency_key: Union[str, None]
+) -> Union[Dict[str, str], None]:
     if idempotency_key is not None:
         return {"Idempotency-Key": idempotency_key}
     return None
@@ -256,7 +258,7 @@ class class_method_variant(object):
         self.method = method
         return self
 
-    def __get__(self, obj, objtype: Type = None):
+    def __get__(self, obj, objtype: Optional[Type[Any]] = None):
         @functools.wraps(self.method)
         def _wrapper(*args, **kwargs):
             if obj is not None:

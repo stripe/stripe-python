@@ -47,7 +47,7 @@ class InboundTransfer(CreateableAPIResource, ListableAPIResource):
             params=params,
         )
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["InboundTransfer"]):
         _resource_cls: Type["InboundTransfer"]
 
         @classmethod

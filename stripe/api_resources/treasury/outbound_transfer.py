@@ -49,7 +49,7 @@ class OutboundTransfer(CreateableAPIResource, ListableAPIResource):
             params=params,
         )
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["OutboundTransfer"]):
         _resource_cls: Type["OutboundTransfer"]
 
         @classmethod
