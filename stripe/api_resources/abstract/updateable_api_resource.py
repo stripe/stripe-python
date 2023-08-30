@@ -3,13 +3,13 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract.api_resource import APIResource
 from urllib.parse import quote_plus
-from typing import Generic, TypeVar, cast
+from typing import TypeVar, cast
 from stripe.stripe_object import StripeObject
 
 T = TypeVar("T", bound="StripeObject")
 
 
-class UpdateableAPIResource(APIResource[T], Generic[T]):
+class UpdateableAPIResource(APIResource[T]):
     @classmethod
     def modify(cls, sid, **params) -> T:
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
