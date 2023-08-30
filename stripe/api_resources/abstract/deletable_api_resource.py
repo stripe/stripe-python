@@ -13,7 +13,7 @@ class DeletableAPIResource(APIResource[T]):
     @classmethod
     def _cls_delete(cls, sid, **params) -> T:
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
-        return cls._static_request("delete", url, params=params)
+        return cast(T, cls._static_request("delete", url, params=params))
 
     @util.class_method_variant("_cls_delete")
     def delete(self, **params) -> T:
