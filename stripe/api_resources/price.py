@@ -9,10 +9,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Price(
-    CreateableAPIResource,
-    ListableAPIResource,
-    SearchableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Price"],
+    ListableAPIResource["Price"],
+    SearchableAPIResource["Price"],
+    UpdateableAPIResource["Price"],
 ):
     """
     Prices define the unit cost, currency, and (optional) billing cycle for both recurring and one-time purchases of products.

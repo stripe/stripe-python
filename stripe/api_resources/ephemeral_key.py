@@ -7,7 +7,7 @@ from stripe import util
 from stripe.api_resources.abstract import DeletableAPIResource
 
 
-class EphemeralKey(DeletableAPIResource):
+class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
     OBJECT_NAME = "ephemeral_key"
 
     @classmethod

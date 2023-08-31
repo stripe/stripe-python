@@ -10,11 +10,11 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Product(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    SearchableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Product"],
+    DeletableAPIResource["Product"],
+    ListableAPIResource["Product"],
+    SearchableAPIResource["Product"],
+    UpdateableAPIResource["Product"],
 ):
     """
     Products describe the specific goods or services you offer to your customers.

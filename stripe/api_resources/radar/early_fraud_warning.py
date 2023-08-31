@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class EarlyFraudWarning(ListableAPIResource):
+class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
     """
     An early fraud warning indicates that the card issuer has notified us that a
     charge may be fraudulent.

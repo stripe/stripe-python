@@ -9,9 +9,9 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 
 class TestClock(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
+    CreateableAPIResource["TestClock"],
+    DeletableAPIResource["TestClock"],
+    ListableAPIResource["TestClock"],
 ):
     """
     A test clock enables deterministic control over objects in testmode. With a test clock, you can create

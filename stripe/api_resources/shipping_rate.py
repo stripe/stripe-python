@@ -8,9 +8,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class ShippingRate(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["ShippingRate"],
+    ListableAPIResource["ShippingRate"],
+    UpdateableAPIResource["ShippingRate"],
 ):
     """
     Shipping rates describe the price of shipping presented to your customers and

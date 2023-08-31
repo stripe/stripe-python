@@ -9,9 +9,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class PaymentMethod(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["PaymentMethod"],
+    ListableAPIResource["PaymentMethod"],
+    UpdateableAPIResource["PaymentMethod"],
 ):
     """
     PaymentMethod objects represent your customer's payment instruments.

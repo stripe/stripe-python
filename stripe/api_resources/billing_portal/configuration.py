@@ -8,9 +8,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Configuration(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Configuration"],
+    ListableAPIResource["Configuration"],
+    UpdateableAPIResource["Configuration"],
 ):
     """
     A portal configuration describes the functionality and behavior of a portal session.
