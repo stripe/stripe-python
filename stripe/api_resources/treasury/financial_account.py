@@ -6,7 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import Dict
 from typing import List
 from typing import Optional
@@ -32,20 +32,20 @@ class FinancialAccount(
 
     OBJECT_NAME = "treasury.financial_account"
     active_features: List[str]
-    balance: Any
+    balance: StripeObject
     country: str
     created: str
     features: "FinancialAccountFeatures"
-    financial_addresses: List[Any]
+    financial_addresses: List[StripeObject]
     id: str
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["treasury.financial_account"]
     pending_features: List[str]
-    platform_restrictions: Optional[Any]
+    platform_restrictions: Optional[StripeObject]
     restricted_features: List[str]
     status: str
-    status_details: Any
+    status_details: StripeObject
     supported_currencies: List[str]
 
     @classmethod

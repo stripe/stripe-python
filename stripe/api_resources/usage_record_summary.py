@@ -3,7 +3,6 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Optional
 from typing_extensions import Literal
 
@@ -14,6 +13,6 @@ class UsageRecordSummary(StripeObject):
     invoice: Optional[str]
     livemode: bool
     object: Literal["usage_record_summary"]
-    period: Any
+    period: StripeObject
     subscription_item: str
     total_usage: int

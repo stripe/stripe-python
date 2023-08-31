@@ -7,6 +7,7 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -43,7 +44,7 @@ class Product(
     metadata: Dict[str, str]
     name: str
     object: Literal["product"]
-    package_dimensions: Optional[Any]
+    package_dimensions: Optional[StripeObject]
     shippable: Optional[bool]
     statement_descriptor: Optional[str]
     tax_code: Optional[Any]

@@ -3,7 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import List
 from typing import Optional
 from typing_extensions import Literal
@@ -24,13 +24,13 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
     amount_excluding_tax: Optional[int]
     description: Optional[str]
     discount_amount: int
-    discount_amounts: List[Any]
+    discount_amounts: List[StripeObject]
     id: str
     invoice_line_item: str
     livemode: bool
     object: Literal["credit_note_line_item"]
     quantity: Optional[int]
-    tax_amounts: List[Any]
+    tax_amounts: List[StripeObject]
     tax_rates: List["TaxRate"]
     type: str
     unit_amount: Optional[int]

@@ -8,6 +8,7 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -37,13 +38,13 @@ class Subscription(
     OBJECT_NAME = "subscription"
     application: Optional[Any]
     application_fee_percent: Optional[float]
-    automatic_tax: Any
+    automatic_tax: StripeObject
     billing_cycle_anchor: str
-    billing_thresholds: Optional[Any]
+    billing_thresholds: Optional[StripeObject]
     cancel_at: Optional[str]
     cancel_at_period_end: bool
     canceled_at: Optional[str]
-    cancellation_details: Optional[Any]
+    cancellation_details: Optional[StripeObject]
     collection_method: str
     created: str
     currency: str
@@ -65,18 +66,18 @@ class Subscription(
     next_pending_invoice_item_invoice: Optional[str]
     object: Literal["subscription"]
     on_behalf_of: Optional[Any]
-    pause_collection: Optional[Any]
-    payment_settings: Optional[Any]
-    pending_invoice_item_interval: Optional[Any]
+    pause_collection: Optional[StripeObject]
+    payment_settings: Optional[StripeObject]
+    pending_invoice_item_interval: Optional[StripeObject]
     pending_setup_intent: Optional[Any]
-    pending_update: Optional[Any]
+    pending_update: Optional[StripeObject]
     schedule: Optional[Any]
     start_date: str
     status: str
     test_clock: Optional[Any]
-    transfer_data: Optional[Any]
+    transfer_data: Optional[StripeObject]
     trial_end: Optional[str]
-    trial_settings: Optional[Any]
+    trial_settings: Optional[StripeObject]
     trial_start: Optional[str]
 
     @classmethod

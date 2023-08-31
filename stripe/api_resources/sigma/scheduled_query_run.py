@@ -3,7 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import Optional
 from typing_extensions import Literal
 
@@ -24,7 +24,7 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
     OBJECT_NAME = "scheduled_query_run"
     created: str
     data_load_time: str
-    error: Any
+    error: StripeObject
     file: Optional["File"]
     id: str
     livemode: bool

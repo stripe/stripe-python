@@ -8,6 +8,7 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import VerifyMixin
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -43,12 +44,12 @@ class BankAccount(
     customer: Optional[Any]
     default_for_currency: Optional[bool]
     fingerprint: Optional[str]
-    future_requirements: Optional[Any]
+    future_requirements: Optional[StripeObject]
     id: str
     last4: str
     metadata: Optional[Dict[str, str]]
     object: Literal["bank_account"]
-    requirements: Optional[Any]
+    requirements: Optional[StripeObject]
     routing_number: Optional[str]
     status: str
 

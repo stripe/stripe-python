@@ -6,6 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -34,14 +35,14 @@ class Dispute(
     balance_transactions: Optional[List["BalanceTransaction"]]
     created: str
     currency: str
-    evidence: Any
+    evidence: StripeObject
     id: str
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["issuing.dispute"]
     status: str
     transaction: Any
-    treasury: Optional[Any]
+    treasury: Optional[StripeObject]
 
     @classmethod
     def _cls_submit(

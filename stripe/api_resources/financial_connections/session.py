@@ -3,6 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import List
 from typing import Optional
@@ -15,10 +16,10 @@ class Session(CreateableAPIResource["Session"]):
     """
 
     OBJECT_NAME = "financial_connections.session"
-    account_holder: Optional[Any]
+    account_holder: Optional[StripeObject]
     accounts: Any
     client_secret: str
-    filters: Any
+    filters: StripeObject
     id: str
     livemode: bool
     object: Literal["financial_connections.session"]

@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -31,5 +32,5 @@ class CreditReversal(
     object: Literal["treasury.credit_reversal"]
     received_credit: str
     status: str
-    status_transitions: Any
+    status_transitions: StripeObject
     transaction: Optional[Any]

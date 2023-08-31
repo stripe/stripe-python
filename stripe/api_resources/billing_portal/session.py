@@ -3,6 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Optional
 from typing_extensions import Literal
@@ -30,7 +31,7 @@ class Session(CreateableAPIResource["Session"]):
     configuration: Any
     created: str
     customer: str
-    flow: Optional[Any]
+    flow: Optional[StripeObject]
     id: str
     livemode: bool
     locale: Optional[str]

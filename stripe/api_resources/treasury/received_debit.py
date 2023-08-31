@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Optional
 from typing_extensions import Literal
@@ -24,12 +25,12 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     financial_account: Optional[str]
     hosted_regulatory_receipt_url: Optional[str]
     id: str
-    initiating_payment_method_details: Any
-    linked_flows: Any
+    initiating_payment_method_details: StripeObject
+    linked_flows: StripeObject
     livemode: bool
     network: str
     object: Literal["treasury.received_debit"]
-    reversal_details: Optional[Any]
+    reversal_details: Optional[StripeObject]
     status: str
     transaction: Optional[Any]
 

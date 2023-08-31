@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -33,7 +34,7 @@ class Authorization(
 
     OBJECT_NAME = "issuing.authorization"
     amount: int
-    amount_details: Optional[Any]
+    amount_details: Optional[StripeObject]
     approved: bool
     authorization_method: str
     balance_transactions: List["BalanceTransaction"]
@@ -45,16 +46,16 @@ class Authorization(
     livemode: bool
     merchant_amount: int
     merchant_currency: str
-    merchant_data: Any
+    merchant_data: StripeObject
     metadata: Dict[str, str]
-    network_data: Optional[Any]
+    network_data: Optional[StripeObject]
     object: Literal["issuing.authorization"]
-    pending_request: Optional[Any]
-    request_history: List[Any]
+    pending_request: Optional[StripeObject]
+    request_history: List[StripeObject]
     status: str
     transactions: List["Transaction"]
-    treasury: Optional[Any]
-    verification_data: Any
+    treasury: Optional[StripeObject]
+    verification_data: StripeObject
     wallet: Optional[str]
 
     @classmethod

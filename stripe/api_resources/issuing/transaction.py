@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -24,7 +25,7 @@ class Transaction(
 
     OBJECT_NAME = "issuing.transaction"
     amount: int
-    amount_details: Optional[Any]
+    amount_details: Optional[StripeObject]
     authorization: Optional[Any]
     balance_transaction: Optional[Any]
     card: Any
@@ -36,10 +37,10 @@ class Transaction(
     livemode: bool
     merchant_amount: int
     merchant_currency: str
-    merchant_data: Any
+    merchant_data: StripeObject
     metadata: Dict[str, str]
     object: Literal["issuing.transaction"]
-    purchase_details: Optional[Any]
-    treasury: Optional[Any]
+    purchase_details: Optional[StripeObject]
+    treasury: Optional[StripeObject]
     type: str
     wallet: Optional[str]

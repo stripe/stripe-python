@@ -10,6 +10,7 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -57,27 +58,27 @@ class Account(
     """
 
     OBJECT_NAME = "account"
-    business_profile: Optional[Any]
+    business_profile: Optional[StripeObject]
     business_type: Optional[str]
-    capabilities: Any
+    capabilities: StripeObject
     charges_enabled: bool
-    company: Any
-    controller: Any
+    company: StripeObject
+    controller: StripeObject
     country: str
     created: str
     default_currency: str
     details_submitted: bool
     email: Optional[str]
     external_accounts: Any
-    future_requirements: Any
+    future_requirements: StripeObject
     id: str
     individual: "Person"
     metadata: Dict[str, str]
     object: Literal["account"]
     payouts_enabled: bool
-    requirements: Any
-    settings: Optional[Any]
-    tos_acceptance: Any
+    requirements: StripeObject
+    settings: Optional[StripeObject]
+    tos_acceptance: StripeObject
     type: str
 
     @classmethod

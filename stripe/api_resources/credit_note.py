@@ -7,6 +7,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -37,7 +38,7 @@ class CreditNote(
     customer: Any
     customer_balance_transaction: Optional[Any]
     discount_amount: int
-    discount_amounts: List[Any]
+    discount_amounts: List[StripeObject]
     effective_at: Optional[str]
     id: str
     invoice: Any
@@ -51,11 +52,11 @@ class CreditNote(
     pdf: str
     reason: Optional[str]
     refund: Optional[Any]
-    shipping_cost: Optional[Any]
+    shipping_cost: Optional[StripeObject]
     status: str
     subtotal: int
     subtotal_excluding_tax: Optional[int]
-    tax_amounts: List[Any]
+    tax_amounts: List[StripeObject]
     total: int
     total_excluding_tax: Optional[int]
     type: str

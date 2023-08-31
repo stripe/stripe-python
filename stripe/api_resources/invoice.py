@@ -8,6 +8,7 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -76,21 +77,21 @@ class Invoice(
     attempt_count: int
     attempted: bool
     auto_advance: bool
-    automatic_tax: Any
+    automatic_tax: StripeObject
     billing_reason: Optional[str]
     charge: Optional[Any]
     collection_method: str
     created: str
     currency: str
-    custom_fields: Optional[List[Any]]
+    custom_fields: Optional[List[StripeObject]]
     customer: Optional[Any]
-    customer_address: Optional[Any]
+    customer_address: Optional[StripeObject]
     customer_email: Optional[str]
     customer_name: Optional[str]
     customer_phone: Optional[str]
-    customer_shipping: Optional[Any]
+    customer_shipping: Optional[StripeObject]
     customer_tax_exempt: Optional[str]
-    customer_tax_ids: Optional[List[Any]]
+    customer_tax_ids: Optional[List[StripeObject]]
     default_payment_method: Optional[Any]
     default_source: Optional[Any]
     default_tax_rates: List["TaxRate"]
@@ -101,11 +102,11 @@ class Invoice(
     effective_at: Optional[str]
     ending_balance: Optional[int]
     footer: Optional[str]
-    from_invoice: Optional[Any]
+    from_invoice: Optional[StripeObject]
     hosted_invoice_url: Optional[str]
     id: str
     invoice_pdf: Optional[str]
-    last_finalization_error: Optional[Any]
+    last_finalization_error: Optional[StripeObject]
     latest_revision: Optional[Any]
     lines: Any
     livemode: bool
@@ -117,33 +118,33 @@ class Invoice(
     paid: bool
     paid_out_of_band: bool
     payment_intent: Optional[Any]
-    payment_settings: Any
+    payment_settings: StripeObject
     period_end: str
     period_start: str
     post_payment_credit_notes_amount: int
     pre_payment_credit_notes_amount: int
     quote: Optional[Any]
     receipt_number: Optional[str]
-    rendering_options: Optional[Any]
-    shipping_cost: Optional[Any]
-    shipping_details: Optional[Any]
+    rendering_options: Optional[StripeObject]
+    shipping_cost: Optional[StripeObject]
+    shipping_details: Optional[StripeObject]
     starting_balance: int
     statement_descriptor: Optional[str]
     status: Optional[str]
-    status_transitions: Any
+    status_transitions: StripeObject
     subscription: Optional[Any]
-    subscription_details: Optional[Any]
+    subscription_details: Optional[StripeObject]
     subscription_proration_date: int
     subtotal: int
     subtotal_excluding_tax: Optional[int]
     tax: Optional[int]
     test_clock: Optional[Any]
-    threshold_reason: Any
+    threshold_reason: StripeObject
     total: int
-    total_discount_amounts: Optional[List[Any]]
+    total_discount_amounts: Optional[List[StripeObject]]
     total_excluding_tax: Optional[int]
-    total_tax_amounts: List[Any]
-    transfer_data: Optional[Any]
+    total_tax_amounts: List[StripeObject]
+    transfer_data: Optional[StripeObject]
     webhooks_delivered_at: Optional[str]
 
     @classmethod

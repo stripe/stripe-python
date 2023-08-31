@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -36,8 +37,8 @@ class Dispute(
     charge: Any
     created: str
     currency: str
-    evidence: Any
-    evidence_details: Any
+    evidence: StripeObject
+    evidence_details: StripeObject
     id: str
     is_charge_refundable: bool
     livemode: bool
@@ -45,7 +46,7 @@ class Dispute(
     network_reason_code: Optional[str]
     object: Literal["dispute"]
     payment_intent: Optional[Any]
-    payment_method_details: Any
+    payment_method_details: StripeObject
     reason: str
     status: str
 

@@ -7,6 +7,7 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -47,11 +48,11 @@ class Card(
     replaced_by: Optional[Any]
     replacement_for: Optional[Any]
     replacement_reason: Optional[str]
-    shipping: Optional[Any]
-    spending_controls: Any
+    shipping: Optional[StripeObject]
+    spending_controls: StripeObject
     status: str
     type: str
-    wallets: Optional[Any]
+    wallets: Optional[StripeObject]
 
     class TestHelpers(APIResourceTestHelpers["Card"]):
         _resource_cls: Type["Card"]

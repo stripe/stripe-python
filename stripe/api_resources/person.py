@@ -4,7 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.account import Account
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import Dict
 from typing import List
 from typing import Optional
@@ -24,17 +24,17 @@ class Person(UpdateableAPIResource["Person"]):
 
     OBJECT_NAME = "person"
     account: str
-    address: Any
-    address_kana: Optional[Any]
-    address_kanji: Optional[Any]
+    address: StripeObject
+    address_kana: Optional[StripeObject]
+    address_kanji: Optional[StripeObject]
     created: str
-    dob: Any
+    dob: StripeObject
     email: Optional[str]
     first_name: Optional[str]
     first_name_kana: Optional[str]
     first_name_kanji: Optional[str]
     full_name_aliases: List[str]
-    future_requirements: Optional[Any]
+    future_requirements: Optional[StripeObject]
     gender: Optional[str]
     id: str
     id_number_provided: bool
@@ -48,11 +48,11 @@ class Person(UpdateableAPIResource["Person"]):
     object: Literal["person"]
     phone: Optional[str]
     political_exposure: str
-    registered_address: Any
-    relationship: Any
-    requirements: Optional[Any]
+    registered_address: StripeObject
+    relationship: StripeObject
+    requirements: Optional[StripeObject]
     ssn_last_4_provided: bool
-    verification: Any
+    verification: StripeObject
 
     def instance_url(self):
         token = self.id

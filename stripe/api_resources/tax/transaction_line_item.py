@@ -3,7 +3,6 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Dict
 from typing import Optional
 from typing_extensions import Literal
@@ -20,7 +19,7 @@ class TransactionLineItem(StripeObject):
     product: Optional[str]
     quantity: int
     reference: str
-    reversal: Optional[Any]
+    reversal: Optional[StripeObject]
     tax_behavior: str
     tax_code: str
     type: str

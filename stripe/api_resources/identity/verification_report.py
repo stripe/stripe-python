@@ -3,7 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import Optional
 from typing_extensions import Literal
 
@@ -25,12 +25,12 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
 
     OBJECT_NAME = "identity.verification_report"
     created: str
-    document: Any
+    document: StripeObject
     id: str
-    id_number: Any
+    id_number: StripeObject
     livemode: bool
     object: Literal["identity.verification_report"]
-    options: Any
-    selfie: Any
+    options: StripeObject
+    selfie: StripeObject
     type: str
     verification_session: Optional[str]

@@ -7,6 +7,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -35,7 +36,7 @@ class Charge(
     application_fee_amount: Optional[int]
     authorization_code: str
     balance_transaction: Optional[Any]
-    billing_details: Any
+    billing_details: StripeObject
     calculated_statement_descriptor: Optional[str]
     captured: bool
     created: str
@@ -46,34 +47,34 @@ class Charge(
     failure_balance_transaction: Optional[Any]
     failure_code: Optional[str]
     failure_message: Optional[str]
-    fraud_details: Optional[Any]
+    fraud_details: Optional[StripeObject]
     id: str
     invoice: Optional[Any]
-    level3: Any
+    level3: StripeObject
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["charge"]
     on_behalf_of: Optional[Any]
-    outcome: Optional[Any]
+    outcome: Optional[StripeObject]
     paid: bool
     payment_intent: Optional[Any]
     payment_method: Optional[str]
-    payment_method_details: Optional[Any]
-    radar_options: Any
+    payment_method_details: Optional[StripeObject]
+    radar_options: StripeObject
     receipt_email: Optional[str]
     receipt_number: Optional[str]
     receipt_url: Optional[str]
     refunded: bool
     refunds: Optional[Any]
     review: Optional[Any]
-    shipping: Optional[Any]
+    shipping: Optional[StripeObject]
     source: Optional[Any]
     source_transfer: Optional[Any]
     statement_descriptor: Optional[str]
     statement_descriptor_suffix: Optional[str]
     status: str
     transfer: Any
-    transfer_data: Optional[Any]
+    transfer_data: Optional[StripeObject]
     transfer_group: Optional[str]
 
     @classmethod

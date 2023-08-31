@@ -23,7 +23,7 @@ class InvoiceLineItem(StripeObject):
     amount_excluding_tax: Optional[int]
     currency: str
     description: Optional[str]
-    discount_amounts: Optional[List[Any]]
+    discount_amounts: Optional[List[StripeObject]]
     discountable: bool
     discounts: Optional[List[Any]]
     id: str
@@ -31,15 +31,15 @@ class InvoiceLineItem(StripeObject):
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["line_item"]
-    period: Any
+    period: StripeObject
     plan: Optional["Plan"]
     price: Optional["Price"]
     proration: bool
-    proration_details: Optional[Any]
+    proration_details: Optional[StripeObject]
     quantity: Optional[int]
     subscription: Optional[Any]
     subscription_item: Any
-    tax_amounts: List[Any]
+    tax_amounts: List[StripeObject]
     tax_rates: List["TaxRate"]
     type: str
     unit_amount_excluding_tax: Optional[float]

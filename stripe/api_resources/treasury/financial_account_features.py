@@ -3,7 +3,6 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing_extensions import Literal
 
 
@@ -14,11 +13,11 @@ class FinancialAccountFeatures(StripeObject):
     """
 
     OBJECT_NAME = "treasury.financial_account_features"
-    card_issuing: Any
-    deposit_insurance: Any
-    financial_addresses: Any
-    inbound_transfers: Any
-    intra_stripe_flows: Any
+    card_issuing: StripeObject
+    deposit_insurance: StripeObject
+    financial_addresses: StripeObject
+    inbound_transfers: StripeObject
+    intra_stripe_flows: StripeObject
     object: Literal["treasury.financial_account_features"]
-    outbound_payments: Any
-    outbound_transfers: Any
+    outbound_payments: StripeObject
+    outbound_transfers: StripeObject

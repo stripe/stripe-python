@@ -6,7 +6,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import Dict
 from typing_extensions import Literal
 
@@ -24,7 +24,7 @@ class Location(
     """
 
     OBJECT_NAME = "terminal.location"
-    address: Any
+    address: StripeObject
     configuration_overrides: str
     display_name: str
     id: str

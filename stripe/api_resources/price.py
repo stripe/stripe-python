@@ -6,6 +6,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -33,8 +34,8 @@ class Price(
     billing_scheme: str
     created: str
     currency: str
-    currency_options: Dict[str, Any]
-    custom_unit_amount: Optional[Any]
+    currency_options: Dict[str, StripeObject]
+    custom_unit_amount: Optional[StripeObject]
     id: str
     livemode: bool
     lookup_key: Optional[str]
@@ -42,11 +43,11 @@ class Price(
     nickname: Optional[str]
     object: Literal["price"]
     product: Any
-    recurring: Optional[Any]
+    recurring: Optional[StripeObject]
     tax_behavior: Optional[str]
-    tiers: List[Any]
+    tiers: List[StripeObject]
     tiers_mode: Optional[str]
-    transform_quantity: Optional[Any]
+    transform_quantity: Optional[StripeObject]
     type: str
     unit_amount: Optional[int]
     unit_amount_decimal: Optional[float]

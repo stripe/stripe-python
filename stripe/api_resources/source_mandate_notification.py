@@ -3,7 +3,6 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Optional
 from typing_extensions import Literal
 
@@ -21,15 +20,15 @@ class SourceMandateNotification(StripeObject):
     """
 
     OBJECT_NAME = "source_mandate_notification"
-    acss_debit: Any
+    acss_debit: StripeObject
     amount: Optional[int]
-    bacs_debit: Any
+    bacs_debit: StripeObject
     created: str
     id: str
     livemode: bool
     object: Literal["source_mandate_notification"]
     reason: str
-    sepa_debit: Any
+    sepa_debit: StripeObject
     source: "Source"
     status: str
     type: str

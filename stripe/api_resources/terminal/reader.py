@@ -8,6 +8,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -28,7 +29,7 @@ class Reader(
     """
 
     OBJECT_NAME = "terminal.reader"
-    action: Optional[Any]
+    action: Optional[StripeObject]
     device_sw_version: Optional[str]
     device_type: str
     id: str

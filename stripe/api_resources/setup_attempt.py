@@ -3,6 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import List
 from typing import Optional
@@ -28,8 +29,8 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
     object: Literal["setup_attempt"]
     on_behalf_of: Optional[Any]
     payment_method: Any
-    payment_method_details: Any
-    setup_error: Optional[Any]
+    payment_method_details: StripeObject
+    setup_error: Optional[StripeObject]
     setup_intent: Any
     status: str
     usage: str

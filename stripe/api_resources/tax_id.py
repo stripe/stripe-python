@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.customer import Customer
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Optional
 from typing_extensions import Literal
@@ -27,7 +28,7 @@ class TaxId(APIResource["TaxId"]):
     object: Literal["tax_id"]
     type: str
     value: str
-    verification: Optional[Any]
+    verification: Optional[StripeObject]
 
     def instance_url(self):
         token = self.id

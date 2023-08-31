@@ -6,6 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -30,7 +31,7 @@ class OutboundTransfer(
     currency: str
     description: Optional[str]
     destination_payment_method: Optional[str]
-    destination_payment_method_details: Any
+    destination_payment_method_details: StripeObject
     expected_arrival_date: str
     financial_account: str
     hosted_regulatory_receipt_url: Optional[str]
@@ -38,10 +39,10 @@ class OutboundTransfer(
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["treasury.outbound_transfer"]
-    returned_details: Optional[Any]
+    returned_details: Optional[StripeObject]
     statement_descriptor: str
     status: str
-    status_transitions: Any
+    status_transitions: StripeObject
     transaction: Any
 
     @classmethod

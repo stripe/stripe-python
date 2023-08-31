@@ -3,7 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import Dict
 from typing import List
 from typing_extensions import Literal
@@ -27,4 +27,4 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
     supported_payment_currencies: List[str]
     supported_payment_methods: List[str]
     supported_transfer_countries: List[str]
-    verification_fields: Any
+    verification_fields: StripeObject

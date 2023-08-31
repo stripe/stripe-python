@@ -4,7 +4,6 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.customer import Customer
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Dict
 from typing import Optional
 from typing_extensions import Literal
@@ -21,7 +20,7 @@ class CashBalance(StripeObject):
     customer: str
     livemode: bool
     object: Literal["cash_balance"]
-    settings: Any
+    settings: StripeObject
 
     def instance_url(self):
         customer = self.customer

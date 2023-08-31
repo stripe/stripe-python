@@ -6,6 +6,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -46,8 +47,8 @@ class Plan(
     nickname: Optional[str]
     object: Literal["plan"]
     product: Optional[Any]
-    tiers: List[Any]
+    tiers: List[StripeObject]
     tiers_mode: Optional[str]
-    transform_usage: Optional[Any]
+    transform_usage: Optional[StripeObject]
     trial_period_days: Optional[int]
     usage_type: str

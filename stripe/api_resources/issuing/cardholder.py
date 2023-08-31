@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import Dict
 from typing import List
 from typing import Optional
@@ -24,19 +24,19 @@ class Cardholder(
     """
 
     OBJECT_NAME = "issuing.cardholder"
-    billing: Any
-    company: Optional[Any]
+    billing: StripeObject
+    company: Optional[StripeObject]
     created: str
     email: Optional[str]
     id: str
-    individual: Optional[Any]
+    individual: Optional[StripeObject]
     livemode: bool
     metadata: Dict[str, str]
     name: str
     object: Literal["issuing.cardholder"]
     phone_number: Optional[str]
     preferred_locales: Optional[List[str]]
-    requirements: Any
-    spending_controls: Optional[Any]
+    requirements: StripeObject
+    spending_controls: Optional[StripeObject]
     status: str
     type: str

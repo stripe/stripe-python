@@ -8,6 +8,7 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -32,9 +33,9 @@ class Quote(
     application: Optional[Any]
     application_fee_amount: Optional[int]
     application_fee_percent: Optional[float]
-    automatic_tax: Any
+    automatic_tax: StripeObject
     collection_method: str
-    computed: Any
+    computed: StripeObject
     created: str
     currency: Optional[str]
     customer: Optional[Any]
@@ -43,11 +44,11 @@ class Quote(
     discounts: List[Any]
     expires_at: str
     footer: Optional[str]
-    from_quote: Optional[Any]
+    from_quote: Optional[StripeObject]
     header: Optional[str]
     id: str
     invoice: Optional[Any]
-    invoice_settings: Optional[Any]
+    invoice_settings: Optional[StripeObject]
     line_items: Any
     livemode: bool
     metadata: Dict[str, str]
@@ -55,13 +56,13 @@ class Quote(
     object: Literal["quote"]
     on_behalf_of: Optional[Any]
     status: str
-    status_transitions: Any
+    status_transitions: StripeObject
     subscription: Optional[Any]
-    subscription_data: Any
+    subscription_data: StripeObject
     subscription_schedule: Optional[Any]
     test_clock: Optional[Any]
-    total_details: Any
-    transfer_data: Optional[Any]
+    total_details: StripeObject
+    transfer_data: Optional[StripeObject]
 
     @classmethod
     def _cls_accept(

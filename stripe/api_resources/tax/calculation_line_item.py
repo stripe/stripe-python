@@ -3,7 +3,6 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import List
 from typing import Optional
 from typing_extensions import Literal
@@ -20,5 +19,5 @@ class CalculationLineItem(StripeObject):
     quantity: int
     reference: Optional[str]
     tax_behavior: str
-    tax_breakdown: Optional[List[Any]]
+    tax_breakdown: Optional[List[StripeObject]]
     tax_code: str

@@ -7,6 +7,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -37,11 +38,11 @@ class PaymentIntent(
     OBJECT_NAME = "payment_intent"
     amount: int
     amount_capturable: int
-    amount_details: Any
+    amount_details: StripeObject
     amount_received: int
     application: Optional[Any]
     application_fee_amount: Optional[int]
-    automatic_payment_methods: Optional[Any]
+    automatic_payment_methods: Optional[StripeObject]
     canceled_at: Optional[str]
     cancellation_reason: Optional[str]
     capture_method: str
@@ -53,26 +54,26 @@ class PaymentIntent(
     description: Optional[str]
     id: str
     invoice: Optional[Any]
-    last_payment_error: Optional[Any]
+    last_payment_error: Optional[StripeObject]
     latest_charge: Optional[Any]
     livemode: bool
     metadata: Dict[str, str]
-    next_action: Optional[Any]
+    next_action: Optional[StripeObject]
     object: Literal["payment_intent"]
     on_behalf_of: Optional[Any]
     payment_method: Optional[Any]
-    payment_method_options: Optional[Any]
+    payment_method_options: Optional[StripeObject]
     payment_method_types: List[str]
-    processing: Optional[Any]
+    processing: Optional[StripeObject]
     receipt_email: Optional[str]
     review: Optional[Any]
     setup_future_usage: Optional[str]
-    shipping: Optional[Any]
+    shipping: Optional[StripeObject]
     source: Optional[Any]
     statement_descriptor: Optional[str]
     statement_descriptor_suffix: Optional[str]
     status: str
-    transfer_data: Optional[Any]
+    transfer_data: Optional[StripeObject]
     transfer_group: Optional[str]
 
     @classmethod

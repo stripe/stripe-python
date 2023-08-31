@@ -3,7 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import Optional
 from typing_extensions import Literal
 
@@ -45,10 +45,10 @@ class Event(ListableAPIResource["Event"]):
     account: str
     api_version: Optional[str]
     created: str
-    data: Any
+    data: StripeObject
     id: str
     livemode: bool
     object: Literal["event"]
     pending_webhooks: int
-    request: Optional[Any]
+    request: Optional[StripeObject]
     type: str

@@ -6,6 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -27,20 +28,20 @@ class InboundTransfer(
     created: str
     currency: str
     description: Optional[str]
-    failure_details: Optional[Any]
+    failure_details: Optional[StripeObject]
     financial_account: str
     hosted_regulatory_receipt_url: Optional[str]
     id: str
-    linked_flows: Any
+    linked_flows: StripeObject
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["treasury.inbound_transfer"]
     origin_payment_method: str
-    origin_payment_method_details: Optional[Any]
+    origin_payment_method_details: Optional[StripeObject]
     returned: Optional[bool]
     statement_descriptor: str
     status: str
-    status_transitions: Any
+    status_transitions: StripeObject
     transaction: Optional[Any]
 
     @classmethod

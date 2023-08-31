@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -38,5 +39,5 @@ class PromotionCode(
     max_redemptions: Optional[int]
     metadata: Optional[Dict[str, str]]
     object: Literal["promotion_code"]
-    restrictions: Any
+    restrictions: StripeObject
     times_redeemed: int

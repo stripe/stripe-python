@@ -3,6 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Optional
 from typing_extensions import Literal
@@ -14,13 +15,13 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
     """
 
     OBJECT_NAME = "treasury.transaction_entry"
-    balance_impact: Any
+    balance_impact: StripeObject
     created: str
     currency: str
     effective_at: str
     financial_account: str
     flow: Optional[str]
-    flow_details: Optional[Any]
+    flow_details: Optional[StripeObject]
     flow_type: str
     id: str
     livemode: bool

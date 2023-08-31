@@ -7,7 +7,7 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import Dict
 from typing import List
 from typing import Optional
@@ -42,7 +42,7 @@ class SubscriptionItem(
     """
 
     OBJECT_NAME = "subscription_item"
-    billing_thresholds: Optional[Any]
+    billing_thresholds: Optional[StripeObject]
     created: int
     id: str
     metadata: Dict[str, str]

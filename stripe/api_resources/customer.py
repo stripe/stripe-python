@@ -10,6 +10,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -54,7 +55,7 @@ class Customer(
     """
 
     OBJECT_NAME = "customer"
-    address: Optional[Any]
+    address: Optional[StripeObject]
     balance: int
     cash_balance: Optional["CashBalance"]
     created: str
@@ -67,7 +68,7 @@ class Customer(
     id: str
     invoice_credit_balance: Dict[str, int]
     invoice_prefix: Optional[str]
-    invoice_settings: Any
+    invoice_settings: StripeObject
     livemode: bool
     metadata: Dict[str, str]
     name: Optional[str]
@@ -75,10 +76,10 @@ class Customer(
     object: Literal["customer"]
     phone: Optional[str]
     preferred_locales: Optional[List[str]]
-    shipping: Optional[Any]
+    shipping: Optional[StripeObject]
     sources: Any
     subscriptions: Any
-    tax: Any
+    tax: StripeObject
     tax_exempt: Optional[str]
     tax_ids: Any
     test_clock: Optional[Any]

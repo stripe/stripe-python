@@ -6,7 +6,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import Optional
 from typing_extensions import Literal
 
@@ -22,10 +22,10 @@ class Configuration(
     """
 
     OBJECT_NAME = "terminal.configuration"
-    bbpos_wisepos_e: Any
+    bbpos_wisepos_e: StripeObject
     id: str
     is_account_default: Optional[bool]
     livemode: bool
     object: Literal["terminal.configuration"]
-    tipping: Any
-    verifone_p400: Any
+    tipping: StripeObject
+    verifone_p400: StripeObject

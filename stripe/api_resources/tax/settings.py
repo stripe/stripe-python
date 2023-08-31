@@ -4,7 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import SingletonAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import Optional
 from typing_extensions import Literal
 
@@ -20,12 +20,12 @@ class Settings(
     """
 
     OBJECT_NAME = "tax.settings"
-    defaults: Any
-    head_office: Optional[Any]
+    defaults: StripeObject
+    head_office: Optional[StripeObject]
     livemode: bool
     object: Literal["tax.settings"]
     status: str
-    status_details: Any
+    status_details: StripeObject
 
     @classmethod
     def class_url(cls):

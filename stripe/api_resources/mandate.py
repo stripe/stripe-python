@@ -3,6 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import APIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing_extensions import Literal
 
@@ -13,14 +14,14 @@ class Mandate(APIResource["Mandate"]):
     """
 
     OBJECT_NAME = "mandate"
-    customer_acceptance: Any
+    customer_acceptance: StripeObject
     id: str
     livemode: bool
-    multi_use: Any
+    multi_use: StripeObject
     object: Literal["mandate"]
     on_behalf_of: str
     payment_method: Any
-    payment_method_details: Any
-    single_use: Any
+    payment_method_details: StripeObject
+    single_use: StripeObject
     status: str
     type: str

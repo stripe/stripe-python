@@ -3,7 +3,6 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing_extensions import Literal
 
 
@@ -17,7 +16,7 @@ class FundingInstructions(StripeObject):
     """
 
     OBJECT_NAME = "funding_instructions"
-    bank_transfer: Any
+    bank_transfer: StripeObject
     currency: str
     funding_type: Literal["bank_transfer"]
     livemode: bool

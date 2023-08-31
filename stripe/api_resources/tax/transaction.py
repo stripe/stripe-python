@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import util
 from stripe.api_resources.abstract import APIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -21,15 +22,15 @@ class Transaction(APIResource["Transaction"]):
     created: str
     currency: str
     customer: Optional[str]
-    customer_details: Any
+    customer_details: StripeObject
     id: str
     line_items: Optional[Any]
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["tax.transaction"]
     reference: str
-    reversal: Optional[Any]
-    shipping_cost: Optional[Any]
+    reversal: Optional[StripeObject]
+    shipping_cost: Optional[StripeObject]
     tax_date: str
     type: str
 

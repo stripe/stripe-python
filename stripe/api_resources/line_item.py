@@ -3,7 +3,6 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import List
 from typing import Optional
 from typing_extensions import Literal
@@ -26,9 +25,9 @@ class LineItem(StripeObject):
     amount_total: int
     currency: str
     description: str
-    discounts: List[Any]
+    discounts: List[StripeObject]
     id: str
     object: Literal["item"]
     price: Optional["Price"]
     quantity: Optional[int]
-    taxes: List[Any]
+    taxes: List[StripeObject]

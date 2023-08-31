@@ -7,6 +7,7 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -39,7 +40,7 @@ class Refund(
     id: str
     instructions_email: str
     metadata: Optional[Dict[str, str]]
-    next_action: Any
+    next_action: StripeObject
     object: Literal["refund"]
     payment_intent: Optional[Any]
     reason: Optional[str]

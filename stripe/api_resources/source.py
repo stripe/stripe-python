@@ -7,7 +7,7 @@ from stripe import util
 from stripe.api_resources import Customer
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import Dict
 from typing import Optional
 from typing_extensions import Literal
@@ -29,44 +29,44 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     """
 
     OBJECT_NAME = "source"
-    ach_credit_transfer: Any
-    ach_debit: Any
-    acss_debit: Any
-    alipay: Any
+    ach_credit_transfer: StripeObject
+    ach_debit: StripeObject
+    acss_debit: StripeObject
+    alipay: StripeObject
     amount: Optional[int]
-    au_becs_debit: Any
-    bancontact: Any
-    card: Any
-    card_present: Any
+    au_becs_debit: StripeObject
+    bancontact: StripeObject
+    card: StripeObject
+    card_present: StripeObject
     client_secret: str
-    code_verification: Any
+    code_verification: StripeObject
     created: str
     currency: Optional[str]
     customer: str
-    eps: Any
+    eps: StripeObject
     flow: str
-    giropay: Any
+    giropay: StripeObject
     id: str
-    ideal: Any
-    klarna: Any
+    ideal: StripeObject
+    klarna: StripeObject
     livemode: bool
     metadata: Optional[Dict[str, str]]
-    multibanco: Any
+    multibanco: StripeObject
     object: Literal["source"]
-    owner: Optional[Any]
-    p24: Any
-    receiver: Any
-    redirect: Any
-    sepa_credit_transfer: Any
-    sepa_debit: Any
-    sofort: Any
-    source_order: Any
+    owner: Optional[StripeObject]
+    p24: StripeObject
+    receiver: StripeObject
+    redirect: StripeObject
+    sepa_credit_transfer: StripeObject
+    sepa_debit: StripeObject
+    sofort: StripeObject
+    source_order: StripeObject
     statement_descriptor: Optional[str]
     status: str
-    three_d_secure: Any
+    three_d_secure: StripeObject
     type: str
     usage: Optional[str]
-    wechat: Any
+    wechat: StripeObject
 
     @classmethod
     def _cls_list_source_transactions(

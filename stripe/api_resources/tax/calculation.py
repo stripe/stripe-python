@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import List
 from typing import Optional
@@ -21,16 +22,16 @@ class Calculation(CreateableAPIResource["Calculation"]):
     amount_total: int
     currency: str
     customer: Optional[str]
-    customer_details: Any
+    customer_details: StripeObject
     expires_at: Optional[str]
     id: Optional[str]
     line_items: Optional[Any]
     livemode: bool
     object: Literal["tax.calculation"]
-    shipping_cost: Optional[Any]
+    shipping_cost: Optional[StripeObject]
     tax_amount_exclusive: int
     tax_amount_inclusive: int
-    tax_breakdown: List[Any]
+    tax_breakdown: List[StripeObject]
     tax_date: str
 
     @classmethod

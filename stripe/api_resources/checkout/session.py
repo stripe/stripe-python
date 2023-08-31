@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
@@ -33,29 +34,29 @@ class Session(
     """
 
     OBJECT_NAME = "checkout.session"
-    after_expiration: Optional[Any]
+    after_expiration: Optional[StripeObject]
     allow_promotion_codes: Optional[bool]
     amount_subtotal: Optional[int]
     amount_total: Optional[int]
-    automatic_tax: Any
+    automatic_tax: StripeObject
     billing_address_collection: Optional[str]
     cancel_url: Optional[str]
     client_reference_id: Optional[str]
-    consent: Optional[Any]
-    consent_collection: Optional[Any]
+    consent: Optional[StripeObject]
+    consent_collection: Optional[StripeObject]
     created: str
     currency: Optional[str]
-    currency_conversion: Optional[Any]
-    custom_fields: List[Any]
-    custom_text: Any
+    currency_conversion: Optional[StripeObject]
+    custom_fields: List[StripeObject]
+    custom_text: StripeObject
     customer: Optional[Any]
     customer_creation: Optional[str]
-    customer_details: Optional[Any]
+    customer_details: Optional[StripeObject]
     customer_email: Optional[str]
     expires_at: str
     id: str
     invoice: Optional[Any]
-    invoice_creation: Optional[Any]
+    invoice_creation: Optional[StripeObject]
     line_items: Any
     livemode: bool
     locale: Optional[str]
@@ -65,22 +66,22 @@ class Session(
     payment_intent: Optional[Any]
     payment_link: Optional[Any]
     payment_method_collection: Optional[str]
-    payment_method_options: Optional[Any]
+    payment_method_options: Optional[StripeObject]
     payment_method_types: List[str]
     payment_status: str
-    phone_number_collection: Any
+    phone_number_collection: StripeObject
     recovered_from: Optional[str]
     setup_intent: Optional[Any]
-    shipping_address_collection: Optional[Any]
-    shipping_cost: Optional[Any]
-    shipping_details: Optional[Any]
-    shipping_options: List[Any]
+    shipping_address_collection: Optional[StripeObject]
+    shipping_cost: Optional[StripeObject]
+    shipping_details: Optional[StripeObject]
+    shipping_options: List[StripeObject]
     status: Optional[str]
     submit_type: Optional[str]
     subscription: Optional[Any]
     success_url: Optional[str]
-    tax_id_collection: Any
-    total_details: Optional[Any]
+    tax_id_collection: StripeObject
+    total_details: Optional[StripeObject]
     url: Optional[str]
 
     @classmethod

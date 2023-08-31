@@ -6,6 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import Optional
@@ -26,48 +27,48 @@ class PaymentMethod(
     """
 
     OBJECT_NAME = "payment_method"
-    acss_debit: Any
-    affirm: Any
-    afterpay_clearpay: Any
-    alipay: Any
-    au_becs_debit: Any
-    bacs_debit: Any
-    bancontact: Any
-    billing_details: Any
-    blik: Any
-    boleto: Any
-    card: Any
-    card_present: Any
-    cashapp: Any
+    acss_debit: StripeObject
+    affirm: StripeObject
+    afterpay_clearpay: StripeObject
+    alipay: StripeObject
+    au_becs_debit: StripeObject
+    bacs_debit: StripeObject
+    bancontact: StripeObject
+    billing_details: StripeObject
+    blik: StripeObject
+    boleto: StripeObject
+    card: StripeObject
+    card_present: StripeObject
+    cashapp: StripeObject
     created: str
     customer: Optional[Any]
-    customer_balance: Any
-    eps: Any
-    fpx: Any
-    giropay: Any
-    grabpay: Any
+    customer_balance: StripeObject
+    eps: StripeObject
+    fpx: StripeObject
+    giropay: StripeObject
+    grabpay: StripeObject
     id: str
-    ideal: Any
-    interac_present: Any
-    klarna: Any
-    konbini: Any
-    link: Any
+    ideal: StripeObject
+    interac_present: StripeObject
+    klarna: StripeObject
+    konbini: StripeObject
+    link: StripeObject
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["payment_method"]
-    oxxo: Any
-    p24: Any
-    paynow: Any
-    paypal: Any
-    pix: Any
-    promptpay: Any
-    radar_options: Any
-    sepa_debit: Any
-    sofort: Any
+    oxxo: StripeObject
+    p24: StripeObject
+    paynow: StripeObject
+    paypal: StripeObject
+    pix: StripeObject
+    promptpay: StripeObject
+    radar_options: StripeObject
+    sepa_debit: StripeObject
+    sofort: StripeObject
     type: str
-    us_bank_account: Any
-    wechat_pay: Any
-    zip: Any
+    us_bank_account: StripeObject
+    wechat_pay: StripeObject
+    zip: StripeObject
 
     @classmethod
     def _cls_attach(

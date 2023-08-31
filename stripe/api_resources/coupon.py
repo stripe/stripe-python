@@ -6,7 +6,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from typing import Any
+from stripe.stripe_object import StripeObject
 from typing import Dict
 from typing import Optional
 from typing_extensions import Literal
@@ -26,10 +26,10 @@ class Coupon(
 
     OBJECT_NAME = "coupon"
     amount_off: Optional[int]
-    applies_to: Any
+    applies_to: StripeObject
     created: str
     currency: Optional[str]
-    currency_options: Dict[str, Any]
+    currency_options: Dict[str, StripeObject]
     duration: str
     duration_in_months: Optional[int]
     id: str
