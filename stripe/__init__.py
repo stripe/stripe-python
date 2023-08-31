@@ -1,4 +1,6 @@
 from __future__ import absolute_import, division, print_function
+from typing_extensions import Literal
+from typing import Union, Optional
 
 import os
 
@@ -29,7 +31,7 @@ ca_bundle_path = os.path.join(
 )
 
 # Set to either 'debug' or 'info', controls console logging
-log = None
+log: Optional[Union[Literal["debug"], Literal["info"]]] = None
 
 # API resources
 from stripe.api_resources import *  # pyright: ignore # noqa
