@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.2.0 - 2023-08-31
+* [#1024](https://github.com/stripe/stripe-python/pull/1024) Update generated code
+  * Add support for new resource `AccountSession`
+  * Add support for `create` method on resource `AccountSession`
+* [#1032](https://github.com/stripe/stripe-python/pull/1032) Types for CRUDL methods on parents
+
 ## 6.1.0 - 2023-08-24
 * [#1016](https://github.com/stripe/stripe-python/pull/1016) Update generated code
 * [#1020](https://github.com/stripe/stripe-python/pull/1020) Adds type annotations, and dependency on `typing_extensions`.

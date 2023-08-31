@@ -1,9 +1,13 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract.api_resource import APIResource
+from typing import TypeVar, cast
+from stripe.stripe_object import StripeObject
+
+T = TypeVar("T", bound=StripeObject)
 
 
-class CreateableAPIResource(APIResource):
+class CreateableAPIResource(APIResource[T]):
     @classmethod
     def create(
         cls,
@@ -12,13 +16,16 @@ class CreateableAPIResource(APIResource):
         stripe_version=None,
         stripe_account=None,
         **params
-    ):
-        return cls._static_request(
-            "post",
-            cls.class_url(),
-            api_key,
-            idempotency_key,
-            stripe_version,
-            stripe_account,
-            params,
+    ) -> T:
+        return cast(
+            T,
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
         )
