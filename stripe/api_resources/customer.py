@@ -30,11 +30,11 @@ from typing_extensions import Type
     operations=["create", "retrieve", "delete", "list"],
 )
 class Customer(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    SearchableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Customer"],
+    DeletableAPIResource["Customer"],
+    ListableAPIResource["Customer"],
+    SearchableAPIResource["Customer"],
+    UpdateableAPIResource["Customer"],
 ):
     """
     This object represents a customer of your business. It lets you create recurring charges and track payments that belong to the same customer.

@@ -6,7 +6,10 @@ from stripe.api_resources.abstract import SingletonAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 
 
-class Settings(SingletonAPIResource, UpdateableAPIResource):
+class Settings(
+    SingletonAPIResource["Settings"],
+    UpdateableAPIResource["Settings"],
+):
     """
     You can use Tax `Settings` to manage configurations used by Stripe Tax calculations.
 

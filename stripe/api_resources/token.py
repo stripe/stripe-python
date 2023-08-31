@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 
 
-class Token(CreateableAPIResource):
+class Token(CreateableAPIResource["Token"]):
     """
     Tokenization is the process Stripe uses to collect sensitive card or bank
     account details, or personally identifiable information (PII), directly from

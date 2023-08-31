@@ -7,7 +7,11 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 
 
-class Card(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+class Card(
+    CreateableAPIResource["Card"],
+    ListableAPIResource["Card"],
+    UpdateableAPIResource["Card"],
+):
     """
     A gift card represents a single gift card owned by a customer, including the
     remaining balance, gift card code, and whether or not it is active.

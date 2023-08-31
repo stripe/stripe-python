@@ -10,10 +10,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class PaymentIntent(
-    CreateableAPIResource,
-    ListableAPIResource,
-    SearchableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["PaymentIntent"],
+    ListableAPIResource["PaymentIntent"],
+    SearchableAPIResource["PaymentIntent"],
+    UpdateableAPIResource["PaymentIntent"],
 ):
     """
     A PaymentIntent guides you through the process of collecting a payment from your customer.

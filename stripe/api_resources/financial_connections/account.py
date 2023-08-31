@@ -11,7 +11,7 @@ from stripe.api_resources.abstract import nested_resource_class_methods
     "inferred_balance",
     operations=["list"],
 )
-class Account(ListableAPIResource):
+class Account(ListableAPIResource["Account"]):
     """
     A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
     """

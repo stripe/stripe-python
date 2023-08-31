@@ -7,7 +7,9 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 
 
-class Dispute(ListableAPIResource, UpdateableAPIResource):
+class Dispute(
+    ListableAPIResource["Dispute"], UpdateableAPIResource["Dispute"]
+):
     """
     A dispute occurs when a customer questions your charge with their card issuer.
     When this happens, you're given the opportunity to respond to the dispute with

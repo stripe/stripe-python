@@ -8,9 +8,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class PromotionCode(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["PromotionCode"],
+    ListableAPIResource["PromotionCode"],
+    UpdateableAPIResource["PromotionCode"],
 ):
     """
     A Promotion Code represents a customer-redeemable code for a [coupon](https://stripe.com/docs/api#coupons). It can be used to

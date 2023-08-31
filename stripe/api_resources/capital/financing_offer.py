@@ -6,7 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class FinancingOffer(ListableAPIResource):
+class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     """
     This is an object representing an offer of financing from
     Stripe Capital to a Connect subaccount.

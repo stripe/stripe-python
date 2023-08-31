@@ -9,7 +9,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from typing_extensions import Type
 
 
-class CardDesign(ListableAPIResource, UpdateableAPIResource):
+class CardDesign(
+    ListableAPIResource["CardDesign"],
+    UpdateableAPIResource["CardDesign"],
+):
     """
     A Card Design is a logical grouping of a Card Bundle, card logo, and carrier text that represents a product line.
     """

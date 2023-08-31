@@ -9,10 +9,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Coupon(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Coupon"],
+    DeletableAPIResource["Coupon"],
+    ListableAPIResource["Coupon"],
+    UpdateableAPIResource["Coupon"],
 ):
     """
     A coupon contains information about a percent-off or amount-off discount you

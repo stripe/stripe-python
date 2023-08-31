@@ -9,9 +9,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class PaymentLink(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["PaymentLink"],
+    ListableAPIResource["PaymentLink"],
+    UpdateableAPIResource["PaymentLink"],
 ):
     """
     A payment link is a shareable URL that will take your customers to a hosted payment page. A payment link can be shared and used multiple times.

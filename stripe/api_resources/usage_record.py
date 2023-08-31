@@ -6,7 +6,7 @@ from stripe import api_requestor, util
 from stripe.api_resources.abstract import APIResource
 
 
-class UsageRecord(APIResource):
+class UsageRecord(APIResource["UsageRecord"]):
     """
     Usage records allow you to report customer usage and metrics to Stripe for
     metered billing of subscription prices.

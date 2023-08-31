@@ -9,10 +9,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class ValueList(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["ValueList"],
+    DeletableAPIResource["ValueList"],
+    ListableAPIResource["ValueList"],
+    UpdateableAPIResource["ValueList"],
 ):
     """
     Value lists allow you to group values together which can then be referenced in rules.

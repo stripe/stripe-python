@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class QuotePreviewInvoice(ListableAPIResource):
+class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     """
     Invoices are statements of amounts owed by a customer, and are either
     generated one-off, or generated periodically from a subscription.

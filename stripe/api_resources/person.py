@@ -7,7 +7,7 @@ from stripe.api_resources.account import Account
 from urllib.parse import quote_plus
 
 
-class Person(UpdateableAPIResource):
+class Person(UpdateableAPIResource["Person"]):
     """
     This is an object representing a person associated with a Stripe account.
 

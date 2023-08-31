@@ -11,11 +11,11 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Invoice(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    SearchableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Invoice"],
+    DeletableAPIResource["Invoice"],
+    ListableAPIResource["Invoice"],
+    SearchableAPIResource["Invoice"],
+    UpdateableAPIResource["Invoice"],
 ):
     """
     Invoices are statements of amounts owed by a customer, and are either

@@ -8,7 +8,11 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 
 
-class Order(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+class Order(
+    CreateableAPIResource["Order"],
+    ListableAPIResource["Order"],
+    UpdateableAPIResource["Order"],
+):
     """
     An Order describes a purchase being made by a customer, including the
     products & quantities being purchased, the order status, the payment information,

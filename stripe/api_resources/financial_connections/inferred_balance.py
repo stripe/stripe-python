@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class InferredBalance(ListableAPIResource):
+class InferredBalance(ListableAPIResource["InferredBalance"]):
     """
     A historical balance for the account on a particular day. It may be sourced from a balance snapshot provided by a financial institution, or inferred using transactions data.
     """
