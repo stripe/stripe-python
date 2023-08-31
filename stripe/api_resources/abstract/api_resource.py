@@ -3,17 +3,19 @@ from __future__ import absolute_import, division, print_function
 from stripe import api_requestor, error, util
 from stripe.stripe_object import StripeObject
 from urllib.parse import quote_plus
-from typing import ClassVar
+from typing import ClassVar, Generic, TypeVar, cast
+
+T = TypeVar("T", bound=StripeObject)
 
 
-class APIResource(StripeObject):
+class APIResource(StripeObject, Generic[T]):
     OBJECT_NAME: ClassVar[str]
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params):
+    def retrieve(cls, id, api_key=None, **params) -> T:
         instance = cls(id, api_key, **params)
         instance.refresh()
-        return instance
+        return cast(T, instance)
 
     def refresh(self):
         return self._request_and_refresh("get", self.instance_url())

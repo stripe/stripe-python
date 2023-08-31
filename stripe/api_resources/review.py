@@ -6,7 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class Review(ListableAPIResource):
+class Review(ListableAPIResource["Review"]):
     """
     Reviews can be used to supplement automated fraud detection with human expertise.
 

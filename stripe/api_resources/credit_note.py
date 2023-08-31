@@ -14,9 +14,9 @@ from stripe.api_resources.abstract import nested_resource_class_methods
     operations=["list"],
 )
 class CreditNote(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["CreditNote"],
+    ListableAPIResource["CreditNote"],
+    UpdateableAPIResource["CreditNote"],
 ):
     """
     Issue a credit note to adjust an invoice's amount after the invoice is finalized.

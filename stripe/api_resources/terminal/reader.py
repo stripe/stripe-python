@@ -12,10 +12,10 @@ from typing_extensions import Type
 
 
 class Reader(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Reader"],
+    DeletableAPIResource["Reader"],
+    ListableAPIResource["Reader"],
+    UpdateableAPIResource["Reader"],
 ):
     """
     A Reader represents a physical device for accepting payment details.

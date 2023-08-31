@@ -11,11 +11,11 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Subscription(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    SearchableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Subscription"],
+    DeletableAPIResource["Subscription"],
+    ListableAPIResource["Subscription"],
+    SearchableAPIResource["Subscription"],
+    UpdateableAPIResource["Subscription"],
 ):
     """
     Subscriptions allow you to charge a customer on a recurring basis.

@@ -8,9 +8,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class FileLink(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["FileLink"],
+    ListableAPIResource["FileLink"],
+    UpdateableAPIResource["FileLink"],
 ):
     """
     To share the contents of a `File` object with non-Stripe users, you can

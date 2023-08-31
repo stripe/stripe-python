@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class ExchangeRate(ListableAPIResource):
+class ExchangeRate(ListableAPIResource["ExchangeRate"]):
     """
     `Exchange Rate` objects allow you to determine the rates that Stripe is
     currently using to convert from one currency to another. Since this number is

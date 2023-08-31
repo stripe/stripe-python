@@ -9,7 +9,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Payout(
-    CreateableAPIResource, ListableAPIResource, UpdateableAPIResource
+    CreateableAPIResource["Payout"],
+    ListableAPIResource["Payout"],
+    UpdateableAPIResource["Payout"],
 ):
     """
     A `Payout` object is created when you receive funds from Stripe, or when you

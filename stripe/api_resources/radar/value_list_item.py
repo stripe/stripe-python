@@ -8,9 +8,9 @@ from stripe.api_resources.abstract import ListableAPIResource
 
 
 class ValueListItem(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
+    CreateableAPIResource["ValueListItem"],
+    DeletableAPIResource["ValueListItem"],
+    ListableAPIResource["ValueListItem"],
 ):
     """
     Value list items allow you to add specific values to a given Radar value list, which can then be used in rules.

@@ -9,9 +9,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class FinancialAccount(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["FinancialAccount"],
+    ListableAPIResource["FinancialAccount"],
+    UpdateableAPIResource["FinancialAccount"],
 ):
     """
     Stripe Treasury provides users with a container for money called a FinancialAccount that is separate from their Payments balance.

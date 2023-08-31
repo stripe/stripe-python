@@ -9,10 +9,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class WebhookEndpoint(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["WebhookEndpoint"],
+    DeletableAPIResource["WebhookEndpoint"],
+    ListableAPIResource["WebhookEndpoint"],
+    UpdateableAPIResource["WebhookEndpoint"],
 ):
     """
     You can configure [webhook endpoints](https://stripe.com/docs/webhooks/) via the API to be

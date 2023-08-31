@@ -7,7 +7,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from typing_extensions import Type
 
 
-class ReceivedCredit(ListableAPIResource):
+class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     """
     ReceivedCredits represent funds sent to a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
     """

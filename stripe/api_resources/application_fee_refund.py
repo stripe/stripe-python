@@ -7,7 +7,7 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from urllib.parse import quote_plus
 
 
-class ApplicationFeeRefund(UpdateableAPIResource):
+class ApplicationFeeRefund(UpdateableAPIResource["ApplicationFeeRefund"]):
     """
     `Application Fee Refund` objects allow you to refund an application fee that
     has previously been created but not yet refunded. Funds will be refunded to

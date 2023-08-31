@@ -11,7 +11,11 @@ from stripe.api_resources.customer import Customer
 from urllib.parse import quote_plus
 
 
-class BankAccount(DeletableAPIResource, UpdateableAPIResource, VerifyMixin):
+class BankAccount(
+    DeletableAPIResource["BankAccount"],
+    UpdateableAPIResource["BankAccount"],
+    VerifyMixin,
+):
     """
     These bank accounts are payment methods on `Customer` objects.
 

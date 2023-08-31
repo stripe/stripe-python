@@ -7,7 +7,7 @@ from stripe.api_resources.customer import Customer
 from urllib.parse import quote_plus
 
 
-class CustomerBalanceTransaction(APIResource):
+class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     """
     Each customer has a [Balance](https://stripe.com/docs/api/customers/object#customer_object-balance) value,
     which denotes a debit or credit that's automatically applied to their next invoice upon finalization.

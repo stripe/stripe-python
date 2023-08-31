@@ -9,9 +9,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class SubscriptionSchedule(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["SubscriptionSchedule"],
+    ListableAPIResource["SubscriptionSchedule"],
+    UpdateableAPIResource["SubscriptionSchedule"],
 ):
     """
     A subscription schedule allows you to create and manage the lifecycle of a subscription by predefining expected changes.

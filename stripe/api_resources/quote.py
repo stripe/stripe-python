@@ -11,7 +11,11 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from urllib.parse import quote_plus
 
 
-class Quote(CreateableAPIResource, ListableAPIResource, UpdateableAPIResource):
+class Quote(
+    CreateableAPIResource["Quote"],
+    ListableAPIResource["Quote"],
+    UpdateableAPIResource["Quote"],
+):
     """
     A Quote is a way to model prices that you'd like to provide to a customer.
     Once accepted, it will automatically create an invoice, subscription or subscription schedule.

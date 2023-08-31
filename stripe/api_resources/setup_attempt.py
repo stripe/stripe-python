@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class SetupAttempt(ListableAPIResource):
+class SetupAttempt(ListableAPIResource["SetupAttempt"]):
     """
     A SetupAttempt describes one attempted confirmation of a SetupIntent,
     whether that confirmation was successful or unsuccessful. You can use

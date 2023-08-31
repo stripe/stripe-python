@@ -9,7 +9,10 @@ from stripe.api_resources.abstract import ListableAPIResource
 from typing_extensions import Type
 
 
-class OutboundPayment(CreateableAPIResource, ListableAPIResource):
+class OutboundPayment(
+    CreateableAPIResource["OutboundPayment"],
+    ListableAPIResource["OutboundPayment"],
+):
     """
     Use OutboundPayments to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).
 

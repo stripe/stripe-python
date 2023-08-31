@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 
 
-class ConnectionToken(CreateableAPIResource):
+class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
     """
     A Connection Token is used by the Stripe Terminal SDK to connect to a reader.
 

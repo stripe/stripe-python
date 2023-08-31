@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class VerificationReport(ListableAPIResource):
+class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
     A VerificationReport is the result of an attempt to collect and verify data from a user.
     The collection of verification checks performed is determined from the `type` and `options`
