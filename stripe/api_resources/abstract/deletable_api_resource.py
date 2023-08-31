@@ -6,7 +6,7 @@ from urllib.parse import quote_plus
 from typing import TypeVar, cast
 from stripe.stripe_object import StripeObject
 
-T = TypeVar("T", bound="StripeObject")
+T = TypeVar("T", bound=StripeObject)
 
 
 class DeletableAPIResource(APIResource[T]):
