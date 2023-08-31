@@ -25,6 +25,7 @@ from stripe.api_resources import treasury
 
 from stripe.api_resources.account import Account
 from stripe.api_resources.account_link import AccountLink
+from stripe.api_resources.account_session import AccountSession
 from stripe.api_resources.apple_pay_domain import ApplePayDomain
 from stripe.api_resources.application_fee import ApplicationFee
 from stripe.api_resources.application_fee_refund import ApplicationFeeRefund
