@@ -1,15 +1,17 @@
 from __future__ import absolute_import, division, print_function
 from typing_extensions import Self
-from typing import List
 
+from typing import List, Generic, TypeVar
 from stripe.stripe_object import StripeObject
 
 from urllib.parse import quote_plus
 
+T = TypeVar("T", bound=StripeObject)
 
-class ListObject(StripeObject):
+
+class ListObject(StripeObject, Generic[T]):
     OBJECT_NAME = "list"
-    data: List[StripeObject]
+    data: List[T]
     has_more: bool
     url: str
 

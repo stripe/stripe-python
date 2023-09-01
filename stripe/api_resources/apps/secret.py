@@ -6,7 +6,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class Secret(CreateableAPIResource, ListableAPIResource):
+class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     """
     Secret Store is an API that allows Stripe Apps developers to securely persist secrets for use by UI Extensions and app backends.
 

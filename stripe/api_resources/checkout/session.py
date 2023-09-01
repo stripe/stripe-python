@@ -7,7 +7,9 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class Session(CreateableAPIResource, ListableAPIResource):
+class Session(
+    CreateableAPIResource["Session"], ListableAPIResource["Session"]
+):
     """
     A Checkout Session represents your customer's session as they pay for
     one-time purchases or subscriptions through [Checkout](https://stripe.com/docs/payments/checkout)

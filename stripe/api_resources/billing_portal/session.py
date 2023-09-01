@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 
 
-class Session(CreateableAPIResource):
+class Session(CreateableAPIResource["Session"]):
     """
     The Billing customer portal is a Stripe-hosted UI for subscription and
     billing management.

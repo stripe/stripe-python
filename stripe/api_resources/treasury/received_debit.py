@@ -7,14 +7,14 @@ from stripe.api_resources.abstract import ListableAPIResource
 from typing_extensions import Type
 
 
-class ReceivedDebit(ListableAPIResource):
+class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     """
     ReceivedDebits represent funds pulled from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts). These are not initiated from the FinancialAccount.
     """
 
     OBJECT_NAME = "treasury.received_debit"
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["ReceivedDebit"]):
         _resource_cls: Type["ReceivedDebit"]
 
         @classmethod

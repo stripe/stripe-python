@@ -9,9 +9,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class VerificationSession(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["VerificationSession"],
+    ListableAPIResource["VerificationSession"],
+    UpdateableAPIResource["VerificationSession"],
 ):
     """
     A VerificationSession guides you through the process of collecting and verifying the identities

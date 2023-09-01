@@ -9,7 +9,10 @@ from stripe.api_resources.abstract import ListableAPIResource
 from typing_extensions import Type
 
 
-class InboundTransfer(CreateableAPIResource, ListableAPIResource):
+class InboundTransfer(
+    CreateableAPIResource["InboundTransfer"],
+    ListableAPIResource["InboundTransfer"],
+):
     """
     Use [InboundTransfers](https://stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://stripe.com/docs/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
     """
@@ -47,7 +50,7 @@ class InboundTransfer(CreateableAPIResource, ListableAPIResource):
             params=params,
         )
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["InboundTransfer"]):
         _resource_cls: Type["InboundTransfer"]
 
         @classmethod

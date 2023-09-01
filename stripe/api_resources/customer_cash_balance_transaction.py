@@ -5,7 +5,9 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class CustomerCashBalanceTransaction(ListableAPIResource):
+class CustomerCashBalanceTransaction(
+    ListableAPIResource["CustomerCashBalanceTransaction"],
+):
     """
     Customers with certain payments enabled have a cash balance, representing funds that were paid
     by the customer to a merchant, but have not yet been allocated to a payment. Cash Balance Transactions

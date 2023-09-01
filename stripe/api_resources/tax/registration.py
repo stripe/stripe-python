@@ -8,9 +8,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Registration(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Registration"],
+    ListableAPIResource["Registration"],
+    UpdateableAPIResource["Registration"],
 ):
     """
     A Tax `Registration` lets us know that your business is registered to collect tax on payments within a region, enabling you to [automatically collect tax](https://stripe.com/docs/tax).

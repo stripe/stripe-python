@@ -5,9 +5,5 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
-    """
-    The credit note line item object
-    """
-
-    OBJECT_NAME = "credit_note_line_item"
+class QuotePreviewSchedule(ListableAPIResource["QuotePreviewSchedule"]):
+    OBJECT_NAME = "quote_preview_schedule"

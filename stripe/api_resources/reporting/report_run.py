@@ -6,7 +6,10 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class ReportRun(CreateableAPIResource, ListableAPIResource):
+class ReportRun(
+    CreateableAPIResource["ReportRun"],
+    ListableAPIResource["ReportRun"],
+):
     """
     The Report Run object represents an instance of a report type generated with
     specific run parameters. Once the object is created, Stripe begins processing the report.

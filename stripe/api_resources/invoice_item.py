@@ -9,10 +9,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class InvoiceItem(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["InvoiceItem"],
+    DeletableAPIResource["InvoiceItem"],
+    ListableAPIResource["InvoiceItem"],
+    UpdateableAPIResource["InvoiceItem"],
 ):
     """
     Invoice Items represent the component lines of an [invoice](https://stripe.com/docs/api/invoices). An invoice item is added to an

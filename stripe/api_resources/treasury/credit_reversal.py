@@ -6,7 +6,10 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class CreditReversal(CreateableAPIResource, ListableAPIResource):
+class CreditReversal(
+    CreateableAPIResource["CreditReversal"],
+    ListableAPIResource["CreditReversal"],
+):
     """
     You can reverse some [ReceivedCredits](https://stripe.com/docs/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
     """

@@ -7,7 +7,7 @@ from stripe.api_resources.account import Account
 from urllib.parse import quote_plus
 
 
-class Capability(UpdateableAPIResource):
+class Capability(UpdateableAPIResource["Capability"]):
     """
     This is an object representing a capability for a Stripe account.
 

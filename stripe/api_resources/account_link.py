@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 
 
-class AccountLink(CreateableAPIResource):
+class AccountLink(CreateableAPIResource["AccountLink"]):
     """
     Account Links are the means by which a Connect platform grants a connected account permission to access
     Stripe-hosted applications, such as Connect Onboarding.

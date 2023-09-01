@@ -6,7 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import APIResource
 
 
-class Transaction(APIResource):
+class Transaction(APIResource["Transaction"]):
     """
     A Tax Transaction records the tax collected from or refunded to your customer.
 

@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class BalanceTransaction(ListableAPIResource):
+class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     """
     Balance transactions represent funds moving through your Stripe account.
     They're created for every type of transaction that comes into or flows out of your Stripe account balance.

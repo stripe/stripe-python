@@ -8,9 +8,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class PaymentMethodConfiguration(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["PaymentMethodConfiguration"],
+    ListableAPIResource["PaymentMethodConfiguration"],
+    UpdateableAPIResource["PaymentMethodConfiguration"],
 ):
     """
     An object detailing payment method configurations.

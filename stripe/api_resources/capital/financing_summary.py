@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import SingletonAPIResource
 
 
-class FinancingSummary(SingletonAPIResource):
+class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     """
     A financing object describes an account's current financing state. Used by Connect
     platforms to read the state of Capital offered to their connected accounts.

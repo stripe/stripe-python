@@ -9,10 +9,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Configuration(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Configuration"],
+    DeletableAPIResource["Configuration"],
+    ListableAPIResource["Configuration"],
+    UpdateableAPIResource["Configuration"],
 ):
     """
     A Configurations object represents how features should be configured for terminal readers.

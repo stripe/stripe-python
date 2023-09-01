@@ -8,7 +8,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from urllib.parse import quote_plus
 
 
-class Form(ListableAPIResource):
+class Form(ListableAPIResource["Form"]):
     """
     Tax forms are legal documents which are delivered to one or more tax authorities for information reporting purposes.
 

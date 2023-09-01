@@ -9,10 +9,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Location(
-    CreateableAPIResource,
-    DeletableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Location"],
+    DeletableAPIResource["Location"],
+    ListableAPIResource["Location"],
+    UpdateableAPIResource["Location"],
 ):
     """
     A Location represents a grouping of readers.

@@ -9,9 +9,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Transaction(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Transaction"],
+    ListableAPIResource["Transaction"],
+    UpdateableAPIResource["Transaction"],
 ):
     """
     A gift card transaction represents a single transaction on a referenced gift card.

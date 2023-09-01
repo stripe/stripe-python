@@ -7,7 +7,10 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 
 
-class Authorization(ListableAPIResource, UpdateableAPIResource):
+class Authorization(
+    ListableAPIResource["Authorization"],
+    UpdateableAPIResource["Authorization"],
+):
     """
     When an [issued card](https://stripe.com/docs/issuing) is used to make a purchase, an Issuing `Authorization`
     object is created. [Authorizations](https://stripe.com/docs/issuing/purchases/authorizations) must be approved for the

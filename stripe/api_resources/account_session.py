@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 
 
-class AccountSession(CreateableAPIResource):
+class AccountSession(CreateableAPIResource["AccountSession"]):
     """
     An AccountSession allows a Connect platform to grant access to a connected account in Connect embedded components.
 

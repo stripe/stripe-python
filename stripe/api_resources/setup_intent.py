@@ -9,9 +9,9 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class SetupIntent(
-    CreateableAPIResource,
-    ListableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["SetupIntent"],
+    ListableAPIResource["SetupIntent"],
+    UpdateableAPIResource["SetupIntent"],
 ):
     """
     A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.

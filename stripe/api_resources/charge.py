@@ -10,10 +10,10 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 
 
 class Charge(
-    CreateableAPIResource,
-    ListableAPIResource,
-    SearchableAPIResource,
-    UpdateableAPIResource,
+    CreateableAPIResource["Charge"],
+    ListableAPIResource["Charge"],
+    SearchableAPIResource["Charge"],
+    UpdateableAPIResource["Charge"],
 ):
     """
     The `Charge` object represents a single attempt to move money into your Stripe account.

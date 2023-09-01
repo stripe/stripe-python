@@ -9,7 +9,10 @@ from stripe.api_resources.abstract import ListableAPIResource
 from typing_extensions import Type
 
 
-class OutboundTransfer(CreateableAPIResource, ListableAPIResource):
+class OutboundTransfer(
+    CreateableAPIResource["OutboundTransfer"],
+    ListableAPIResource["OutboundTransfer"],
+):
     """
     Use OutboundTransfers to transfer funds from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://stripe.com/docs/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
 
@@ -49,7 +52,7 @@ class OutboundTransfer(CreateableAPIResource, ListableAPIResource):
             params=params,
         )
 
-    class TestHelpers(APIResourceTestHelpers):
+    class TestHelpers(APIResourceTestHelpers["OutboundTransfer"]):
         _resource_cls: Type["OutboundTransfer"]
 
         @classmethod

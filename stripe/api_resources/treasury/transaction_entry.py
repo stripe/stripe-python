@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class TransactionEntry(ListableAPIResource):
+class TransactionEntry(ListableAPIResource["TransactionEntry"]):
     """
     TransactionEntries represent individual units of money movements within a single [Transaction](https://stripe.com/docs/api#transactions).
     """

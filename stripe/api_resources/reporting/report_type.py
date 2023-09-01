@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 
 
-class ReportType(ListableAPIResource):
+class ReportType(ListableAPIResource["ReportType"]):
     """
     The Report Type resource corresponds to a particular type of report, such as
     the "Activity summary" or "Itemized payouts" reports. These objects are
