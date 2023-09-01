@@ -31,6 +31,7 @@ class PaymentLink(
     active: bool
     after_completion: StripeObject
     allow_promotion_codes: bool
+    application: Optional[Any]
     application_fee_amount: Optional[int]
     application_fee_percent: Optional[float]
     automatic_tax: StripeObject

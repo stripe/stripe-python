@@ -3,6 +3,8 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
+from stripe.stripe_object import StripeObject
+from typing_extensions import Literal
 
 
 class AccountSession(CreateableAPIResource["AccountSession"]):
@@ -17,3 +19,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     """
 
     OBJECT_NAME = "account_session"
+    account: str
+    client_secret: str
+    components: StripeObject
+    expires_at: str
+    livemode: bool
+    object: Literal["account_session"]
