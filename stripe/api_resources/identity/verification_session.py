@@ -6,6 +6,11 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 
 
 class VerificationSession(
@@ -28,6 +33,20 @@ class VerificationSession(
     """
 
     OBJECT_NAME = "identity.verification_session"
+    client_secret: Optional[str]
+    created: str
+    id: str
+    last_error: Optional[StripeObject]
+    last_verification_report: Optional[Any]
+    livemode: bool
+    metadata: Dict[str, str]
+    object: Literal["identity.verification_session"]
+    options: Optional[StripeObject]
+    redaction: Optional[StripeObject]
+    status: str
+    type: Optional[str]
+    url: Optional[str]
+    verified_outputs: Optional[StripeObject]
 
     @classmethod
     def _cls_cancel(

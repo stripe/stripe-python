@@ -6,6 +6,15 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.source import Source
 
 
 class Topup(
@@ -22,6 +31,22 @@ class Topup(
     """
 
     OBJECT_NAME = "topup"
+    amount: int
+    balance_transaction: Optional[Any]
+    created: str
+    currency: str
+    description: Optional[str]
+    expected_availability_date: Optional[int]
+    failure_code: Optional[str]
+    failure_message: Optional[str]
+    id: str
+    livemode: bool
+    metadata: Dict[str, str]
+    object: Literal["topup"]
+    source: Optional["Source"]
+    statement_descriptor: Optional[str]
+    status: str
+    transfer_group: Optional[str]
 
     @classmethod
     def _cls_cancel(

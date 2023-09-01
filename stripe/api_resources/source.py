@@ -7,6 +7,10 @@ from stripe import util
 from stripe.api_resources import Customer
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 
@@ -25,6 +29,44 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     """
 
     OBJECT_NAME = "source"
+    ach_credit_transfer: StripeObject
+    ach_debit: StripeObject
+    acss_debit: StripeObject
+    alipay: StripeObject
+    amount: Optional[int]
+    au_becs_debit: StripeObject
+    bancontact: StripeObject
+    card: StripeObject
+    card_present: StripeObject
+    client_secret: str
+    code_verification: StripeObject
+    created: str
+    currency: Optional[str]
+    customer: str
+    eps: StripeObject
+    flow: str
+    giropay: StripeObject
+    id: str
+    ideal: StripeObject
+    klarna: StripeObject
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    multibanco: StripeObject
+    object: Literal["source"]
+    owner: Optional[StripeObject]
+    p24: StripeObject
+    receiver: StripeObject
+    redirect: StripeObject
+    sepa_credit_transfer: StripeObject
+    sepa_debit: StripeObject
+    sofort: StripeObject
+    source_order: StripeObject
+    statement_descriptor: Optional[str]
+    status: str
+    three_d_secure: StripeObject
+    type: str
+    usage: Optional[str]
+    wechat: StripeObject
 
     @classmethod
     def _cls_list_source_transactions(
@@ -89,11 +131,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     def detach(self, idempotency_key=None, **params):
-        token = self.id  # type: ignore
+        token = self.id
 
-        if hasattr(self, "customer") and self.customer:  # type: ignore
+        if hasattr(self, "customer") and self.customer:
             extn = quote_plus(token)
-            customer = self.customer  # type: ignore
+            customer = self.customer
             base = Customer.class_url()
             owner_extn = quote_plus(customer)
             url = "%s/%s/sources/%s" % (base, owner_extn, extn)

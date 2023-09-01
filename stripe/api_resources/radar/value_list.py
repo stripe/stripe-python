@@ -6,6 +6,9 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing_extensions import Literal
 
 
 class ValueList(
@@ -21,3 +24,13 @@ class ValueList(
     """
 
     OBJECT_NAME = "radar.value_list"
+    alias: str
+    created: str
+    created_by: str
+    id: str
+    item_type: str
+    list_items: Any
+    livemode: bool
+    metadata: Dict[str, str]
+    name: str
+    object: Literal["radar.value_list"]

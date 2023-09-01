@@ -6,6 +6,10 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 
 
 @nested_resource_class_methods(
@@ -31,3 +35,20 @@ class Transfer(
     """
 
     OBJECT_NAME = "transfer"
+    amount: int
+    amount_reversed: int
+    balance_transaction: Optional[Any]
+    created: str
+    currency: str
+    description: Optional[str]
+    destination: Optional[Any]
+    destination_payment: Any
+    id: str
+    livemode: bool
+    metadata: Dict[str, str]
+    object: Literal["transfer"]
+    reversals: Any
+    reversed: bool
+    source_transaction: Optional[Any]
+    source_type: str
+    transfer_group: Optional[str]

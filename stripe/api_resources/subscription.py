@@ -8,6 +8,18 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.tax_rate import TaxRate
+    from stripe.api_resources.discount import Discount
 
 
 class Subscription(
@@ -24,6 +36,49 @@ class Subscription(
     """
 
     OBJECT_NAME = "subscription"
+    application: Optional[Any]
+    application_fee_percent: Optional[float]
+    automatic_tax: StripeObject
+    billing_cycle_anchor: str
+    billing_thresholds: Optional[StripeObject]
+    cancel_at: Optional[str]
+    cancel_at_period_end: bool
+    canceled_at: Optional[str]
+    cancellation_details: Optional[StripeObject]
+    collection_method: str
+    created: str
+    currency: str
+    current_period_end: str
+    current_period_start: str
+    customer: Any
+    days_until_due: Optional[int]
+    default_payment_method: Optional[Any]
+    default_source: Optional[Any]
+    default_tax_rates: Optional[List["TaxRate"]]
+    description: Optional[str]
+    discount: Optional["Discount"]
+    ended_at: Optional[str]
+    id: str
+    items: Any
+    latest_invoice: Optional[Any]
+    livemode: bool
+    metadata: Dict[str, str]
+    next_pending_invoice_item_invoice: Optional[str]
+    object: Literal["subscription"]
+    on_behalf_of: Optional[Any]
+    pause_collection: Optional[StripeObject]
+    payment_settings: Optional[StripeObject]
+    pending_invoice_item_interval: Optional[StripeObject]
+    pending_setup_intent: Optional[Any]
+    pending_update: Optional[StripeObject]
+    schedule: Optional[Any]
+    start_date: str
+    status: str
+    test_clock: Optional[Any]
+    transfer_data: Optional[StripeObject]
+    trial_end: Optional[str]
+    trial_settings: Optional[StripeObject]
+    trial_start: Optional[str]
 
     @classmethod
     def _cls_cancel(

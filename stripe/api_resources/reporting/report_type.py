@@ -3,6 +3,9 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 
 
 class ReportType(ListableAPIResource["ReportType"]):
@@ -18,3 +21,12 @@ class ReportType(ListableAPIResource["ReportType"]):
     """
 
     OBJECT_NAME = "reporting.report_type"
+    data_available_end: str
+    data_available_start: str
+    default_columns: Optional[List[str]]
+    id: str
+    livemode: bool
+    name: str
+    object: Literal["reporting.report_type"]
+    updated: str
+    version: int

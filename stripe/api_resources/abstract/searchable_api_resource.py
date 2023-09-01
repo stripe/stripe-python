@@ -6,7 +6,7 @@ from typing import TypeVar
 from stripe.stripe_object import StripeObject
 
 
-T = TypeVar("T", bound=StripeObject)
+T = TypeVar("T", bound="StripeObject")
 
 
 class SearchableAPIResource(APIResource[T]):

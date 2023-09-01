@@ -4,6 +4,11 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Transaction(
@@ -19,3 +24,23 @@ class Transaction(
     """
 
     OBJECT_NAME = "issuing.transaction"
+    amount: int
+    amount_details: Optional[StripeObject]
+    authorization: Optional[Any]
+    balance_transaction: Optional[Any]
+    card: Any
+    cardholder: Optional[Any]
+    created: str
+    currency: str
+    dispute: Optional[Any]
+    id: str
+    livemode: bool
+    merchant_amount: int
+    merchant_currency: str
+    merchant_data: StripeObject
+    metadata: Dict[str, str]
+    object: Literal["issuing.transaction"]
+    purchase_details: Optional[StripeObject]
+    treasury: Optional[StripeObject]
+    type: str
+    wallet: Optional[str]

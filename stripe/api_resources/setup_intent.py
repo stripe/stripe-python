@@ -6,6 +6,12 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 
 
 class SetupIntent(
@@ -39,6 +45,30 @@ class SetupIntent(
     """
 
     OBJECT_NAME = "setup_intent"
+    application: Optional[Any]
+    attach_to_self: bool
+    automatic_payment_methods: Optional[StripeObject]
+    cancellation_reason: Optional[str]
+    client_secret: Optional[str]
+    created: str
+    customer: Optional[Any]
+    description: Optional[str]
+    flow_directions: Optional[List[str]]
+    id: str
+    last_setup_error: Optional[StripeObject]
+    latest_attempt: Optional[Any]
+    livemode: bool
+    mandate: Optional[Any]
+    metadata: Optional[Dict[str, str]]
+    next_action: Optional[StripeObject]
+    object: Literal["setup_intent"]
+    on_behalf_of: Optional[Any]
+    payment_method: Optional[Any]
+    payment_method_options: Optional[StripeObject]
+    payment_method_types: List[str]
+    single_use_mandate: Optional[Any]
+    status: str
+    usage: str
 
     @classmethod
     def _cls_cancel(

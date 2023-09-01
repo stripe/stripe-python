@@ -7,6 +7,11 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 from typing_extensions import Type
 
 
@@ -24,6 +29,25 @@ class Refund(
     """
 
     OBJECT_NAME = "refund"
+    amount: int
+    balance_transaction: Optional[Any]
+    charge: Optional[Any]
+    created: str
+    currency: str
+    description: str
+    failure_balance_transaction: Any
+    failure_reason: str
+    id: str
+    instructions_email: str
+    metadata: Optional[Dict[str, str]]
+    next_action: StripeObject
+    object: Literal["refund"]
+    payment_intent: Optional[Any]
+    reason: Optional[str]
+    receipt_number: Optional[str]
+    source_transfer_reversal: Optional[Any]
+    status: Optional[str]
+    transfer_reversal: Optional[Any]
 
     @classmethod
     def _cls_cancel(

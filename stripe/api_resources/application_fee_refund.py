@@ -4,6 +4,10 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources import ApplicationFee
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 
@@ -17,6 +21,14 @@ class ApplicationFeeRefund(UpdateableAPIResource["ApplicationFeeRefund"]):
     """
 
     OBJECT_NAME = "fee_refund"
+    amount: int
+    balance_transaction: Optional[Any]
+    created: str
+    currency: str
+    fee: Any
+    id: str
+    metadata: Optional[Dict[str, str]]
+    object: Literal["fee_refund"]
 
     @classmethod
     def _build_instance_url(cls, fee, sid):
@@ -31,7 +43,7 @@ class ApplicationFeeRefund(UpdateableAPIResource["ApplicationFeeRefund"]):
         return cls._static_request("post", url, params=params)
 
     def instance_url(self):
-        return self._build_instance_url(self.fee, self.id)  # type: ignore
+        return self._build_instance_url(self.fee, self.id)
 
     @classmethod
     def retrieve(cls, id, api_key=None, **params):

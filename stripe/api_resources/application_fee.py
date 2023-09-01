@@ -5,6 +5,9 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from typing import Any
+from typing import Optional
+from typing_extensions import Literal
 
 
 @nested_resource_class_methods(
@@ -13,6 +16,20 @@ from stripe.api_resources.abstract import nested_resource_class_methods
 )
 class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     OBJECT_NAME = "application_fee"
+    account: Any
+    amount: int
+    amount_refunded: int
+    application: Any
+    balance_transaction: Optional[Any]
+    charge: Any
+    created: str
+    currency: str
+    id: str
+    livemode: bool
+    object: Literal["application_fee"]
+    originating_transaction: Optional[Any]
+    refunded: bool
+    refunds: Any
 
     @classmethod
     def _cls_refund(

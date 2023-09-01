@@ -7,6 +7,12 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 
 
 @nested_resource_class_methods(
@@ -25,6 +31,36 @@ class CreditNote(
     """
 
     OBJECT_NAME = "credit_note"
+    amount: int
+    amount_shipping: int
+    created: str
+    currency: str
+    customer: Any
+    customer_balance_transaction: Optional[Any]
+    discount_amount: int
+    discount_amounts: List[StripeObject]
+    effective_at: Optional[str]
+    id: str
+    invoice: Any
+    lines: Any
+    livemode: bool
+    memo: Optional[str]
+    metadata: Optional[Dict[str, str]]
+    number: str
+    object: Literal["credit_note"]
+    out_of_band_amount: Optional[int]
+    pdf: str
+    reason: Optional[str]
+    refund: Optional[Any]
+    shipping_cost: Optional[StripeObject]
+    status: str
+    subtotal: int
+    subtotal_excluding_tax: Optional[int]
+    tax_amounts: List[StripeObject]
+    total: int
+    total_excluding_tax: Optional[int]
+    type: str
+    voided_at: Optional[str]
 
     @classmethod
     def preview(
