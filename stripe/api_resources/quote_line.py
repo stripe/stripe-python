@@ -10,7 +10,7 @@ from typing_extensions import Literal
 
 class QuoteLine(StripeObject):
     """
-    A quote line defines a set of changes that will be applied upon quote acceptance.
+    A quote line defines a set of changes, in the order provided, that will be applied upon quote acceptance.
     """
 
     OBJECT_NAME = "quote_line"
