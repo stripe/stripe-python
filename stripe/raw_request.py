@@ -3,7 +3,7 @@ from stripe.api_version import _ApiVersion
 
 
 def _raw_request(method_, url_, **params):
-    params = None if params is None else params.copy()
+    params = None if params is None else params.copy()  # type: ignore
     api_key = util.read_special_variable(params, "api_key", None)
     idempotency_key = util.read_special_variable(
         params, "idempotency_key", None
