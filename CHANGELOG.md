@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.3.0b1 - 2023-08-31
+* [#1029](https://github.com/stripe/stripe-python/pull/1029) Update generated code for beta
+  * Rename `Quote.preview_invoices` and `Quote.preview_subscription_schedules` to `Quote.list_preview_invoices` and `Quote.list_preview_schedules`.
+
 ## 6.2.0 - 2023-08-31
 * [#1024](https://github.com/stripe/stripe-python/pull/1024) Update generated code
   * Add support for new resource `AccountSession`
