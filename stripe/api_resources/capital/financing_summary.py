@@ -3,6 +3,9 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import SingletonAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Optional
+from typing_extensions import Literal
 
 
 class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
@@ -12,6 +15,10 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     """
 
     OBJECT_NAME = "capital.financing_summary"
+    details: Optional[StripeObject]
+    financing_offer: Optional[str]
+    object: Literal["capital.financing_summary"]
+    status: Optional[str]
 
     @classmethod
     def class_url(cls):

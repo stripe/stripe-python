@@ -5,6 +5,11 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Card(
@@ -18,6 +23,17 @@ class Card(
     """
 
     OBJECT_NAME = "gift_cards.card"
+    active: bool
+    amount_available: int
+    amount_held: int
+    code: Optional[str]
+    created: str
+    created_by: Optional[StripeObject]
+    currency: str
+    id: str
+    metadata: Optional[Dict[str, str]]
+    object: Literal["gift_cards.card"]
+    transactions: Any
 
     @classmethod
     def validate(

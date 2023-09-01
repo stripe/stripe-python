@@ -4,6 +4,10 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.customer import Customer
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 
@@ -18,10 +22,23 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     """
 
     OBJECT_NAME = "customer_balance_transaction"
+    amount: int
+    created: str
+    credit_note: Optional[Any]
+    currency: str
+    customer: Any
+    description: Optional[str]
+    ending_balance: int
+    id: str
+    invoice: Optional[Any]
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    object: Literal["customer_balance_transaction"]
+    type: str
 
     def instance_url(self):
-        token = self.id  # type: ignore
-        customer = self.customer  # type: ignore
+        token = self.id
+        customer = self.customer
         base = Customer.class_url()
         cust_extn = quote_plus(customer)
         extn = quote_plus(token)

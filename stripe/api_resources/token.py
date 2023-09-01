@@ -3,6 +3,14 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.bank_account import BankAccount
+    from stripe.api_resources.card import Card
 
 
 class Token(CreateableAPIResource["Token"]):
@@ -30,3 +38,12 @@ class Token(CreateableAPIResource["Token"]):
     """
 
     OBJECT_NAME = "token"
+    bank_account: "BankAccount"
+    card: "Card"
+    client_ip: Optional[str]
+    created: str
+    id: str
+    livemode: bool
+    object: Literal["token"]
+    type: str
+    used: bool

@@ -6,6 +6,10 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Payout(
@@ -25,6 +29,29 @@ class Payout(
     """
 
     OBJECT_NAME = "payout"
+    amount: int
+    arrival_date: str
+    automatic: bool
+    balance_transaction: Optional[Any]
+    created: str
+    currency: str
+    description: Optional[str]
+    destination: Optional[Any]
+    failure_balance_transaction: Optional[Any]
+    failure_code: Optional[str]
+    failure_message: Optional[str]
+    id: str
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    method: str
+    object: Literal["payout"]
+    original_payout: Optional[Any]
+    reconciliation_status: str
+    reversed_by: Optional[Any]
+    source_type: str
+    statement_descriptor: Optional[str]
+    status: str
+    type: str
 
     @classmethod
     def _cls_cancel(

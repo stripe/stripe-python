@@ -3,6 +3,8 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.stripe_object import StripeObject
+from typing import Any
+from typing_extensions import Literal
 
 
 class AccountOwnership(StripeObject):
@@ -11,3 +13,7 @@ class AccountOwnership(StripeObject):
     """
 
     OBJECT_NAME = "financial_connections.account_ownership"
+    created: str
+    id: str
+    object: Literal["financial_connections.account_ownership"]
+    owners: Any

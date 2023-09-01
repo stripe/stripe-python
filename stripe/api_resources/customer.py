@@ -10,7 +10,19 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 from typing_extensions import Type
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.cash_balance import CashBalance
+    from stripe.api_resources.discount import Discount
 
 
 @nested_resource_class_methods(
@@ -43,6 +55,34 @@ class Customer(
     """
 
     OBJECT_NAME = "customer"
+    address: Optional[StripeObject]
+    balance: int
+    cash_balance: Optional["CashBalance"]
+    created: str
+    currency: Optional[str]
+    default_source: Optional[Any]
+    delinquent: Optional[bool]
+    description: Optional[str]
+    discount: Optional["Discount"]
+    email: Optional[str]
+    id: str
+    invoice_credit_balance: Dict[str, int]
+    invoice_prefix: Optional[str]
+    invoice_settings: StripeObject
+    livemode: bool
+    metadata: Dict[str, str]
+    name: Optional[str]
+    next_invoice_sequence: int
+    object: Literal["customer"]
+    phone: Optional[str]
+    preferred_locales: Optional[List[str]]
+    shipping: Optional[StripeObject]
+    sources: Any
+    subscriptions: Any
+    tax: StripeObject
+    tax_exempt: Optional[str]
+    tax_ids: Any
+    test_clock: Optional[Any]
 
     @classmethod
     def _cls_create_funding_instructions(

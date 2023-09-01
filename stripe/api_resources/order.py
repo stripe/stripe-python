@@ -6,6 +6,12 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Order(
@@ -22,6 +28,31 @@ class Order(
     """
 
     OBJECT_NAME = "order"
+    amount_remaining: int
+    amount_subtotal: int
+    amount_total: int
+    application: Optional[Any]
+    automatic_tax: StripeObject
+    billing_details: Optional[StripeObject]
+    client_secret: Optional[str]
+    created: str
+    credits: List[StripeObject]
+    currency: str
+    customer: Optional[Any]
+    description: Optional[str]
+    discounts: Optional[List[Any]]
+    id: str
+    ip_address: Optional[str]
+    line_items: Any
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    object: Literal["order"]
+    payment: StripeObject
+    shipping_cost: Optional[StripeObject]
+    shipping_details: Optional[StripeObject]
+    status: str
+    tax_details: StripeObject
+    total_details: StripeObject
 
     @classmethod
     def _cls_cancel(

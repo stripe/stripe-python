@@ -6,6 +6,11 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 from typing_extensions import Type
 
 
@@ -20,6 +25,27 @@ class OutboundPayment(
     """
 
     OBJECT_NAME = "treasury.outbound_payment"
+    amount: int
+    cancelable: bool
+    created: str
+    currency: str
+    customer: Optional[str]
+    description: Optional[str]
+    destination_payment_method: Optional[str]
+    destination_payment_method_details: Optional[StripeObject]
+    end_user_details: Optional[StripeObject]
+    expected_arrival_date: str
+    financial_account: str
+    hosted_regulatory_receipt_url: Optional[str]
+    id: str
+    livemode: bool
+    metadata: Dict[str, str]
+    object: Literal["treasury.outbound_payment"]
+    returned_details: Optional[StripeObject]
+    statement_descriptor: str
+    status: str
+    status_transitions: StripeObject
+    transaction: Any
 
     @classmethod
     def _cls_cancel(

@@ -5,6 +5,11 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 
 
 @nested_resource_class_methods(
@@ -17,6 +22,26 @@ class Account(ListableAPIResource["Account"]):
     """
 
     OBJECT_NAME = "financial_connections.account"
+    account_holder: Optional[StripeObject]
+    balance: Optional[StripeObject]
+    balance_refresh: Optional[StripeObject]
+    category: str
+    created: str
+    display_name: Optional[str]
+    id: str
+    inferred_balances_refresh: Optional[StripeObject]
+    institution_name: str
+    last4: Optional[str]
+    livemode: bool
+    object: Literal["financial_connections.account"]
+    ownership: Optional[Any]
+    ownership_refresh: Optional[StripeObject]
+    permissions: Optional[List[str]]
+    status: str
+    subcategory: str
+    subscriptions: Optional[List[str]]
+    supported_payment_method_types: List[str]
+    transaction_refresh: Optional[StripeObject]
 
     @classmethod
     def _cls_disconnect(

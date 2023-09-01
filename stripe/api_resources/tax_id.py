@@ -4,6 +4,10 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.customer import Customer
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 
@@ -16,11 +20,21 @@ class TaxId(APIResource["TaxId"]):
     """
 
     OBJECT_NAME = "tax_id"
+    country: Optional[str]
+    created: str
+    customer: Optional[Any]
+    id: str
+    livemode: bool
+    object: Literal["tax_id"]
+    type: str
+    value: str
+    verification: Optional[StripeObject]
 
     def instance_url(self):
-        token = self.id  # type: ignore
-        customer = self.customer  # type: ignore
+        token = self.id
+        customer = self.customer
         base = Customer.class_url()
+        assert customer is not None
         cust_extn = quote_plus(customer)
         extn = quote_plus(token)
         return "%s/%s/tax_ids/%s" % (base, cust_extn, extn)

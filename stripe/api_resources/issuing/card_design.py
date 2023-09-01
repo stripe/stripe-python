@@ -6,6 +6,10 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 from typing_extensions import Type
 
 
@@ -18,6 +22,14 @@ class CardDesign(
     """
 
     OBJECT_NAME = "issuing.card_design"
+    card_bundle: Any
+    id: str
+    lookup_key: Optional[str]
+    metadata: Dict[str, str]
+    name: Optional[str]
+    object: Literal["issuing.card_design"]
+    preference: str
+    status: str
 
     class TestHelpers(APIResourceTestHelpers["CardDesign"]):
         _resource_cls: Type["CardDesign"]
