@@ -6,7 +6,7 @@ from stripe.stripe_object import StripeObject
 
 from urllib.parse import quote_plus
 
-T = TypeVar("T", bound="StripeObject")
+T = TypeVar("T", bound=StripeObject)
 
 
 class ListObject(StripeObject, Generic[T]):

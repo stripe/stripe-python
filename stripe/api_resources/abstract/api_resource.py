@@ -5,7 +5,7 @@ from stripe.stripe_object import StripeObject
 from urllib.parse import quote_plus
 from typing import ClassVar, Generic, TypeVar, cast
 
-T = TypeVar("T", bound="StripeObject")
+T = TypeVar("T", bound=StripeObject)
 
 
 class APIResource(StripeObject, Generic[T]):

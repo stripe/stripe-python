@@ -5,7 +5,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import TypeVar
 
-T = TypeVar("T", bound="StripeObject")
+T = TypeVar("T", bound=StripeObject)
 
 
 class ListableAPIResource(APIResource[T]):

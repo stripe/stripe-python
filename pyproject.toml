@@ -24,3 +24,8 @@ exclude = '''
 '''
 [tool.pyright]
 include=["stripe"]
+reportMissingTypeArgument=true
+reportUnnecessaryCast=true
+reportUnnecessaryComparison=true
+reportUnnecessaryContains=true
+reportUnnecessaryIsInstance=true
