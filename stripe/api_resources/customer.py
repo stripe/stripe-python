@@ -10,6 +10,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
@@ -26,6 +27,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.subscription import Subscription
     from stripe.api_resources.tax_id import TaxId
+    from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
 @nested_resource_class_methods(
@@ -63,7 +65,7 @@ class Customer(
     cash_balance: Optional["CashBalance"]
     created: str
     currency: Optional[str]
-    default_source: Optional[Any]
+    default_source: Optional[ExpandableField[Any]]
     delinquent: Optional[bool]
     description: Optional[str]
     discount: Optional["Discount"]
@@ -85,7 +87,7 @@ class Customer(
     tax: StripeObject
     tax_exempt: Optional[str]
     tax_ids: ListObject["TaxId"]
-    test_clock: Optional[Any]
+    test_clock: Optional[ExpandableField["TestClock"]]
 
     @classmethod
     def _cls_create_funding_instructions(

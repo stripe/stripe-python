@@ -1,4 +1,4 @@
 from typing import Union, TypeVar
 
-T = TypeVar('T')
+T = TypeVar("T")
 ExpandableField = Union[str, T]

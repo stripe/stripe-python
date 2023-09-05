@@ -8,6 +8,7 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
@@ -19,9 +20,17 @@ from typing_extensions import Literal
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.charge import Charge
+    from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.discount import Discount
+    from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
+    from stripe.api_resources.account import Account
+    from stripe.api_resources.payment_intent import PaymentIntent
+    from stripe.api_resources.quote import Quote
+    from stripe.api_resources.subscription import Subscription
+    from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
 class Invoice(
@@ -69,24 +78,24 @@ class Invoice(
     OBJECT_NAME = "invoice"
     account_country: Optional[str]
     account_name: Optional[str]
-    account_tax_ids: Optional[List[Any]]
+    account_tax_ids: Optional[List[ExpandableField[Any]]]
     amount_due: int
     amount_paid: int
     amount_remaining: int
     amount_shipping: int
-    application: Optional[Any]
+    application: Optional[ExpandableField[Any]]
     application_fee_amount: Optional[int]
     attempt_count: int
     attempted: bool
     auto_advance: bool
     automatic_tax: StripeObject
     billing_reason: Optional[str]
-    charge: Optional[Any]
+    charge: Optional[ExpandableField["Charge"]]
     collection_method: str
     created: str
     currency: str
     custom_fields: Optional[List[StripeObject]]
-    customer: Optional[Any]
+    customer: Optional[ExpandableField[Any]]
     customer_address: Optional[StripeObject]
     customer_email: Optional[str]
     customer_name: Optional[str]
@@ -94,12 +103,12 @@ class Invoice(
     customer_shipping: Optional[StripeObject]
     customer_tax_exempt: Optional[str]
     customer_tax_ids: Optional[List[StripeObject]]
-    default_payment_method: Optional[Any]
-    default_source: Optional[Any]
+    default_payment_method: Optional[ExpandableField["PaymentMethod"]]
+    default_source: Optional[ExpandableField[Any]]
     default_tax_rates: List["TaxRate"]
     description: Optional[str]
     discount: Optional["Discount"]
-    discounts: Optional[List[Any]]
+    discounts: Optional[List[ExpandableField[Any]]]
     due_date: Optional[str]
     effective_at: Optional[str]
     ending_balance: Optional[int]
@@ -109,23 +118,23 @@ class Invoice(
     id: str
     invoice_pdf: Optional[str]
     last_finalization_error: Optional[StripeObject]
-    latest_revision: Optional[Any]
+    latest_revision: Optional[ExpandableField["Invoice"]]
     lines: ListObject["InvoiceLineItem"]
     livemode: bool
     metadata: Optional[Dict[str, str]]
     next_payment_attempt: Optional[str]
     number: Optional[str]
     object: Literal["invoice"]
-    on_behalf_of: Optional[Any]
+    on_behalf_of: Optional[ExpandableField["Account"]]
     paid: bool
     paid_out_of_band: bool
-    payment_intent: Optional[Any]
+    payment_intent: Optional[ExpandableField["PaymentIntent"]]
     payment_settings: StripeObject
     period_end: str
     period_start: str
     post_payment_credit_notes_amount: int
     pre_payment_credit_notes_amount: int
-    quote: Optional[Any]
+    quote: Optional[ExpandableField["Quote"]]
     receipt_number: Optional[str]
     rendering_options: Optional[StripeObject]
     shipping_cost: Optional[StripeObject]
@@ -134,13 +143,13 @@ class Invoice(
     statement_descriptor: Optional[str]
     status: Optional[str]
     status_transitions: StripeObject
-    subscription: Optional[Any]
+    subscription: Optional[ExpandableField["Subscription"]]
     subscription_details: Optional[StripeObject]
     subscription_proration_date: int
     subtotal: int
     subtotal_excluding_tax: Optional[int]
     tax: Optional[int]
-    test_clock: Optional[Any]
+    test_clock: Optional[ExpandableField["TestClock"]]
     threshold_reason: StripeObject
     total: int
     total_discount_amounts: Optional[List[StripeObject]]

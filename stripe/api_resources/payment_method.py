@@ -6,11 +6,16 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Dict
 from typing import Optional
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.customer import Customer
 
 
 class PaymentMethod(
@@ -41,7 +46,7 @@ class PaymentMethod(
     card_present: StripeObject
     cashapp: StripeObject
     created: str
-    customer: Optional[Any]
+    customer: Optional[ExpandableField["Customer"]]
     customer_balance: StripeObject
     eps: StripeObject
     fpx: StripeObject

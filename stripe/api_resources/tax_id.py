@@ -4,11 +4,16 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.customer import Customer
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.customer import Customer
 
 
 class TaxId(APIResource["TaxId"]):
@@ -22,7 +27,7 @@ class TaxId(APIResource["TaxId"]):
     OBJECT_NAME = "tax_id"
     country: Optional[str]
     created: str
-    customer: Optional[Any]
+    customer: Optional[ExpandableField["Customer"]]
     id: str
     livemode: bool
     object: Literal["tax_id"]
@@ -35,6 +40,8 @@ class TaxId(APIResource["TaxId"]):
         customer = self.customer
         base = Customer.class_url()
         assert customer is not None
+        if isinstance(customer, Customer):
+            customer = customer.id
         cust_extn = quote_plus(customer)
         extn = quote_plus(token)
         return "%s/%s/tax_ids/%s" % (base, cust_extn, extn)

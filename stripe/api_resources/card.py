@@ -7,12 +7,18 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
+from stripe.api_resources.expandable_field import ExpandableField
 from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.account import Account
 
 
 class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
@@ -25,7 +31,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
 
     OBJECT_NAME = "card"
-    account: Optional[Any]
+    account: Optional[ExpandableField["Account"]]
     address_city: Optional[str]
     address_country: Optional[str]
     address_line1: Optional[str]
@@ -38,7 +44,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     brand: str
     country: Optional[str]
     currency: Optional[str]
-    customer: Optional[Any]
+    customer: Optional[ExpandableField[Any]]
     cvc_check: Optional[str]
     default_for_currency: Optional[bool]
     description: str
@@ -73,6 +79,8 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
 
             base = Account.class_url()
             assert account is not None
+            if isinstance(account, Account):
+                account = account.id
             owner_extn = quote_plus(account)
             class_base = "external_accounts"
 

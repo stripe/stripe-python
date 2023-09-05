@@ -8,6 +8,7 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import VerifyMixin
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
@@ -15,6 +16,11 @@ from typing import List
 from typing import Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.account import Account
 
 
 class BankAccount(
@@ -33,7 +39,7 @@ class BankAccount(
     """
 
     OBJECT_NAME = "bank_account"
-    account: Optional[Any]
+    account: Optional[ExpandableField["Account"]]
     account_holder_name: Optional[str]
     account_holder_type: Optional[str]
     account_type: Optional[str]
@@ -41,7 +47,7 @@ class BankAccount(
     bank_name: Optional[str]
     country: str
     currency: str
-    customer: Optional[Any]
+    customer: Optional[ExpandableField[Any]]
     default_for_currency: Optional[bool]
     fingerprint: Optional[str]
     future_requirements: Optional[StripeObject]
@@ -69,6 +75,8 @@ class BankAccount(
 
             base = Account.class_url()
             assert account is not None
+            if isinstance(account, Account):
+                account = account.id
             owner_extn = quote_plus(account)
             class_base = "external_accounts"
 
