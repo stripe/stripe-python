@@ -1,4 +1,8 @@
 # Changelog
+## 6.3.0 - 2023-09-05
+* [#1042](https://github.com/stripe/stripe-python/pull/1042) Require typing_extensions >= 4.0.0
+* [#1026](https://github.com/stripe/stripe-python/pull/1026) Types: annotate resource properties
+
 ## 6.2.0 - 2023-08-31
 * [#1024](https://github.com/stripe/stripe-python/pull/1024) Update generated code
   * Add support for new resource `AccountSession`
