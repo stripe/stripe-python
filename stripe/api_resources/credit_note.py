@@ -7,12 +7,18 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.credit_note_line_item import CreditNoteLineItem
 
 
 @nested_resource_class_methods(
@@ -42,7 +48,7 @@ class CreditNote(
     effective_at: Optional[str]
     id: str
     invoice: Any
-    lines: Any
+    lines: ListObject["CreditNoteLineItem"]
     livemode: bool
     memo: Optional[str]
     metadata: Optional[Dict[str, str]]

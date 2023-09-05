@@ -6,10 +6,16 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.list_object import ListObject
 from typing import Any
 from typing import Dict
 from typing import Optional
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.reversal import Reversal
 
 
 @nested_resource_class_methods(
@@ -47,7 +53,7 @@ class Transfer(
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["transfer"]
-    reversals: Any
+    reversals: ListObject["Reversal"]
     reversed: bool
     source_transaction: Optional[Any]
     source_type: str

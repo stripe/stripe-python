@@ -5,9 +5,17 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.list_object import ListObject
 from typing import Any
 from typing import Optional
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.application_fee_refund import (
+        ApplicationFeeRefund,
+    )
 
 
 @nested_resource_class_methods(
@@ -29,7 +37,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     object: Literal["application_fee"]
     originating_transaction: Optional[Any]
     refunded: bool
-    refunds: Any
+    refunds: ListObject["ApplicationFeeRefund"]
 
     @classmethod
     def _cls_refund(
