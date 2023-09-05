@@ -10,6 +10,7 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
@@ -69,7 +70,7 @@ class Account(
     default_currency: str
     details_submitted: bool
     email: Optional[str]
-    external_accounts: Any
+    external_accounts: ListObject[Any]
     future_requirements: StripeObject
     id: str
     individual: "Person"

@@ -8,6 +8,7 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
@@ -15,6 +16,11 @@ from typing import List
 from typing import Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.line_item import LineItem
 
 
 class Quote(
@@ -49,7 +55,7 @@ class Quote(
     id: str
     invoice: Optional[Any]
     invoice_settings: Optional[StripeObject]
-    line_items: Any
+    line_items: ListObject["LineItem"]
     livemode: bool
     metadata: Dict[str, str]
     number: Optional[str]

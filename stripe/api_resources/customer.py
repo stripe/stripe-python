@@ -10,6 +10,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
@@ -23,6 +24,8 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.api_resources.cash_balance import CashBalance
     from stripe.api_resources.discount import Discount
+    from stripe.api_resources.subscription import Subscription
+    from stripe.api_resources.tax_id import TaxId
 
 
 @nested_resource_class_methods(
@@ -77,11 +80,11 @@ class Customer(
     phone: Optional[str]
     preferred_locales: Optional[List[str]]
     shipping: Optional[StripeObject]
-    sources: Any
-    subscriptions: Any
+    sources: ListObject[Any]
+    subscriptions: ListObject["Subscription"]
     tax: StripeObject
     tax_exempt: Optional[str]
-    tax_ids: Any
+    tax_ids: ListObject["TaxId"]
     test_clock: Optional[Any]
 
     @classmethod

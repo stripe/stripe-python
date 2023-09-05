@@ -6,9 +6,14 @@ import stripe
 from stripe import api_requestor
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
-from typing import Any
+from stripe.api_resources.list_object import ListObject
 from typing import Optional
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.file_link import FileLink
 
 
 class File(ListableAPIResource["File"]):
@@ -27,7 +32,7 @@ class File(ListableAPIResource["File"]):
     expires_at: Optional[str]
     filename: Optional[str]
     id: str
-    links: Optional[Any]
+    links: Optional[ListObject["FileLink"]]
     object: Literal["file"]
     purpose: str
     size: int

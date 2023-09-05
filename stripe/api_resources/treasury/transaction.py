@@ -3,10 +3,17 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Optional
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.treasury.transaction_entry import (
+        TransactionEntry,
+    )
 
 
 class Transaction(ListableAPIResource["Transaction"]):
@@ -20,7 +27,7 @@ class Transaction(ListableAPIResource["Transaction"]):
     created: str
     currency: str
     description: str
-    entries: Optional[Any]
+    entries: Optional[ListObject["TransactionEntry"]]
     financial_account: str
     flow: Optional[str]
     flow_details: Optional[StripeObject]
