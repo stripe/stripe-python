@@ -6,12 +6,22 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.application import Application
+    from stripe.api_resources.setup_attempt import SetupAttempt
+    from stripe.api_resources.mandate import Mandate
+    from stripe.api_resources.account import Account
+    from stripe.api_resources.payment_method import PaymentMethod
 
 
 class SetupIntent(
@@ -45,28 +55,28 @@ class SetupIntent(
     """
 
     OBJECT_NAME = "setup_intent"
-    application: Optional[Any]
+    application: Optional[ExpandableField["Application"]]
     attach_to_self: bool
     automatic_payment_methods: Optional[StripeObject]
     cancellation_reason: Optional[str]
     client_secret: Optional[str]
     created: str
-    customer: Optional[Any]
+    customer: Optional[ExpandableField[Any]]
     description: Optional[str]
     flow_directions: Optional[List[str]]
     id: str
     last_setup_error: Optional[StripeObject]
-    latest_attempt: Optional[Any]
+    latest_attempt: Optional[ExpandableField["SetupAttempt"]]
     livemode: bool
-    mandate: Optional[Any]
+    mandate: Optional[ExpandableField["Mandate"]]
     metadata: Optional[Dict[str, str]]
     next_action: Optional[StripeObject]
     object: Literal["setup_intent"]
-    on_behalf_of: Optional[Any]
-    payment_method: Optional[Any]
+    on_behalf_of: Optional[ExpandableField["Account"]]
+    payment_method: Optional[ExpandableField["PaymentMethod"]]
     payment_method_options: Optional[StripeObject]
     payment_method_types: List[str]
-    single_use_mandate: Optional[Any]
+    single_use_mandate: Optional[ExpandableField["Mandate"]]
     status: str
     usage: str
 

@@ -7,12 +7,23 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.application import Application
+    from stripe.api_resources.invoice import Invoice
+    from stripe.api_resources.charge import Charge
+    from stripe.api_resources.account import Account
+    from stripe.api_resources.payment_method import PaymentMethod
+    from stripe.api_resources.review import Review
 
 
 class PaymentIntent(
@@ -40,7 +51,7 @@ class PaymentIntent(
     amount_capturable: int
     amount_details: StripeObject
     amount_received: int
-    application: Optional[Any]
+    application: Optional[ExpandableField["Application"]]
     application_fee_amount: Optional[int]
     automatic_payment_methods: Optional[StripeObject]
     canceled_at: Optional[str]
@@ -50,26 +61,26 @@ class PaymentIntent(
     confirmation_method: str
     created: str
     currency: str
-    customer: Optional[Any]
+    customer: Optional[ExpandableField[Any]]
     description: Optional[str]
     id: str
-    invoice: Optional[Any]
+    invoice: Optional[ExpandableField["Invoice"]]
     last_payment_error: Optional[StripeObject]
-    latest_charge: Optional[Any]
+    latest_charge: Optional[ExpandableField["Charge"]]
     livemode: bool
     metadata: Dict[str, str]
     next_action: Optional[StripeObject]
     object: Literal["payment_intent"]
-    on_behalf_of: Optional[Any]
-    payment_method: Optional[Any]
+    on_behalf_of: Optional[ExpandableField["Account"]]
+    payment_method: Optional[ExpandableField["PaymentMethod"]]
     payment_method_options: Optional[StripeObject]
     payment_method_types: List[str]
     processing: Optional[StripeObject]
     receipt_email: Optional[str]
-    review: Optional[Any]
+    review: Optional[ExpandableField["Review"]]
     setup_future_usage: Optional[str]
     shipping: Optional[StripeObject]
-    source: Optional[Any]
+    source: Optional[ExpandableField[Any]]
     statement_descriptor: Optional[str]
     statement_descriptor_suffix: Optional[str]
     status: str

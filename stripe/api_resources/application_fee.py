@@ -5,14 +5,18 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
-from typing import Any
 from typing import Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.account import Account
+    from stripe.api_resources.application import Application
+    from stripe.api_resources.balance_transaction import BalanceTransaction
+    from stripe.api_resources.charge import Charge
     from stripe.api_resources.application_fee_refund import (
         ApplicationFeeRefund,
     )
@@ -24,18 +28,18 @@ if TYPE_CHECKING:
 )
 class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     OBJECT_NAME = "application_fee"
-    account: Any
+    account: ExpandableField["Account"]
     amount: int
     amount_refunded: int
-    application: Any
-    balance_transaction: Optional[Any]
-    charge: Any
+    application: ExpandableField["Application"]
+    balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
+    charge: ExpandableField["Charge"]
     created: str
     currency: str
     id: str
     livemode: bool
     object: Literal["application_fee"]
-    originating_transaction: Optional[Any]
+    originating_transaction: Optional[ExpandableField["Charge"]]
     refunded: bool
     refunds: ListObject["ApplicationFeeRefund"]
 

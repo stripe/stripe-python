@@ -6,6 +6,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
@@ -42,7 +43,7 @@ class Price(
     metadata: Dict[str, str]
     nickname: Optional[str]
     object: Literal["price"]
-    product: Any
+    product: ExpandableField[Any]
     recurring: Optional[StripeObject]
     tax_behavior: Optional[str]
     tiers: List[StripeObject]

@@ -4,11 +4,17 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.customer import Customer
-from typing import Any
+from stripe.api_resources.expandable_field import ExpandableField
 from typing import Dict
 from typing import Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.credit_note import CreditNote
+    from stripe.api_resources.invoice import Invoice
 
 
 class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
@@ -24,13 +30,13 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     OBJECT_NAME = "customer_balance_transaction"
     amount: int
     created: str
-    credit_note: Optional[Any]
+    credit_note: Optional[ExpandableField["CreditNote"]]
     currency: str
-    customer: Any
+    customer: ExpandableField["Customer"]
     description: Optional[str]
     ending_balance: int
     id: str
-    invoice: Optional[Any]
+    invoice: Optional[ExpandableField["Invoice"]]
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["customer_balance_transaction"]
@@ -39,6 +45,8 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     def instance_url(self):
         token = self.id
         customer = self.customer
+        if isinstance(customer, Customer):
+            customer = customer.id
         base = Customer.class_url()
         cust_extn = quote_plus(customer)
         extn = quote_plus(token)
