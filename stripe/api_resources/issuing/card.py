@@ -7,8 +7,8 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Dict
 from typing import Optional
 from typing_extensions import Literal
@@ -45,8 +45,8 @@ class Card(
     metadata: Dict[str, str]
     number: str
     object: Literal["issuing.card"]
-    replaced_by: Optional[Any]
-    replacement_for: Optional[Any]
+    replaced_by: Optional[ExpandableField["Card"]]
+    replacement_for: Optional[ExpandableField["Card"]]
     replacement_reason: Optional[str]
     shipping: Optional[StripeObject]
     spending_controls: StripeObject

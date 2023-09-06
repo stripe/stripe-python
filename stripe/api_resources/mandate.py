@@ -3,9 +3,14 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import APIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.payment_method import PaymentMethod
 
 
 class Mandate(APIResource["Mandate"]):
@@ -20,7 +25,7 @@ class Mandate(APIResource["Mandate"]):
     multi_use: StripeObject
     object: Literal["mandate"]
     on_behalf_of: str
-    payment_method: Any
+    payment_method: ExpandableField["PaymentMethod"]
     payment_method_details: StripeObject
     single_use: StripeObject
     status: str

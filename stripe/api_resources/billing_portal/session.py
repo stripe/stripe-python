@@ -3,10 +3,15 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Optional
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.billing_portal.configuration import Configuration
 
 
 class Session(CreateableAPIResource["Session"]):
@@ -28,7 +33,7 @@ class Session(CreateableAPIResource["Session"]):
     """
 
     OBJECT_NAME = "billing_portal.session"
-    configuration: Any
+    configuration: ExpandableField["Configuration"]
     created: str
     customer: str
     flow: Optional[StripeObject]

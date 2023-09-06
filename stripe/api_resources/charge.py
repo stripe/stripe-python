@@ -7,6 +7,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
@@ -17,7 +18,15 @@ from typing_extensions import Literal
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.application import Application
+    from stripe.api_resources.application_fee import ApplicationFee
+    from stripe.api_resources.balance_transaction import BalanceTransaction
+    from stripe.api_resources.invoice import Invoice
+    from stripe.api_resources.account import Account
+    from stripe.api_resources.payment_intent import PaymentIntent
     from stripe.api_resources.refund import Refund
+    from stripe.api_resources.review import Review
+    from stripe.api_resources.transfer import Transfer
 
 
 class Charge(
@@ -37,33 +46,35 @@ class Charge(
     amount: int
     amount_captured: int
     amount_refunded: int
-    application: Optional[Any]
-    application_fee: Optional[Any]
+    application: Optional[ExpandableField["Application"]]
+    application_fee: Optional[ExpandableField["ApplicationFee"]]
     application_fee_amount: Optional[int]
     authorization_code: str
-    balance_transaction: Optional[Any]
+    balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     billing_details: StripeObject
     calculated_statement_descriptor: Optional[str]
     captured: bool
     created: str
     currency: str
-    customer: Optional[Any]
+    customer: Optional[ExpandableField[Any]]
     description: Optional[str]
     disputed: bool
-    failure_balance_transaction: Optional[Any]
+    failure_balance_transaction: Optional[
+        ExpandableField["BalanceTransaction"]
+    ]
     failure_code: Optional[str]
     failure_message: Optional[str]
     fraud_details: Optional[StripeObject]
     id: str
-    invoice: Optional[Any]
+    invoice: Optional[ExpandableField["Invoice"]]
     level3: StripeObject
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["charge"]
-    on_behalf_of: Optional[Any]
+    on_behalf_of: Optional[ExpandableField["Account"]]
     outcome: Optional[StripeObject]
     paid: bool
-    payment_intent: Optional[Any]
+    payment_intent: Optional[ExpandableField["PaymentIntent"]]
     payment_method: Optional[str]
     payment_method_details: Optional[StripeObject]
     radar_options: StripeObject
@@ -72,14 +83,14 @@ class Charge(
     receipt_url: Optional[str]
     refunded: bool
     refunds: Optional[ListObject["Refund"]]
-    review: Optional[Any]
+    review: Optional[ExpandableField["Review"]]
     shipping: Optional[StripeObject]
     source: Optional[Any]
-    source_transfer: Optional[Any]
+    source_transfer: Optional[ExpandableField["Transfer"]]
     statement_descriptor: Optional[str]
     statement_descriptor_suffix: Optional[str]
     status: str
-    transfer: Any
+    transfer: ExpandableField["Transfer"]
     transfer_data: Optional[StripeObject]
     transfer_group: Optional[str]
 

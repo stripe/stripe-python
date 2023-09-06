@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
@@ -23,7 +24,7 @@ class Configuration(
 
     OBJECT_NAME = "billing_portal.configuration"
     active: bool
-    application: Optional[Any]
+    application: Optional[ExpandableField[Any]]
     business_profile: StripeObject
     created: str
     default_return_url: Optional[str]

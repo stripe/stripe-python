@@ -4,8 +4,8 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.account import Account
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
@@ -19,7 +19,7 @@ class Capability(UpdateableAPIResource["Capability"]):
     """
 
     OBJECT_NAME = "capability"
-    account: Any
+    account: ExpandableField["Account"]
     future_requirements: StripeObject
     id: str
     object: Literal["capability"]
@@ -32,6 +32,8 @@ class Capability(UpdateableAPIResource["Capability"]):
         token = self.id
         account = self.account
         base = Account.class_url()
+        if isinstance(account, Account):
+            account = account.id
         acct_extn = quote_plus(account)
         extn = quote_plus(token)
         return "%s/%s/capabilities/%s" % (base, acct_extn, extn)
