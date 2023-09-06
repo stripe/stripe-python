@@ -6,11 +6,16 @@ from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
-from typing import Any
+from stripe.api_resources.expandable_field import ExpandableField
 from typing import Dict
 from typing import Optional
 from typing_extensions import Literal
 from typing_extensions import Type
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.issuing.card_bundle import CardBundle
 
 
 class CardDesign(
@@ -22,7 +27,7 @@ class CardDesign(
     """
 
     OBJECT_NAME = "issuing.card_design"
-    card_bundle: Any
+    card_bundle: ExpandableField["CardBundle"]
     id: str
     lookup_key: Optional[str]
     metadata: Dict[str, str]

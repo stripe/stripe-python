@@ -4,9 +4,9 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import List
 from typing import Optional
 from typing_extensions import Literal
@@ -14,6 +14,8 @@ from typing_extensions import Literal
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.tax_rate import TaxRate
+    from stripe.api_resources.discount import Discount
     from stripe.api_resources.line_item import LineItem
 
 
@@ -27,8 +29,8 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     amount_total: int
     billing_cycle_anchor: Optional[Literal["reset"]]
     collection_method: Optional[str]
-    default_tax_rates: List[Any]
-    discounts: List[Any]
+    default_tax_rates: List[ExpandableField["TaxRate"]]
+    discounts: List[ExpandableField["Discount"]]
     end_date: Optional[str]
     id: str
     invoice_settings: Optional[StripeObject]

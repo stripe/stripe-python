@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
@@ -32,7 +33,7 @@ class PromotionCode(
     code: str
     coupon: "Coupon"
     created: str
-    customer: Optional[Any]
+    customer: Optional[ExpandableField[Any]]
     expires_at: Optional[str]
     id: str
     livemode: bool

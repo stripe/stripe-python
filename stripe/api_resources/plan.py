@@ -6,6 +6,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
@@ -46,7 +47,7 @@ class Plan(
     metadata: Optional[Dict[str, str]]
     nickname: Optional[str]
     object: Literal["plan"]
-    product: Optional[Any]
+    product: Optional[ExpandableField[Any]]
     tiers: List[StripeObject]
     tiers_mode: Optional[str]
     transform_usage: Optional[StripeObject]

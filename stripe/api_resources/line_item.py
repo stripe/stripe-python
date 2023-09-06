@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import List
@@ -30,6 +31,6 @@ class LineItem(StripeObject):
     id: str
     object: Literal["item"]
     price: Optional["Price"]
-    product: Any
+    product: ExpandableField[Any]
     quantity: Optional[int]
     taxes: List[StripeObject]

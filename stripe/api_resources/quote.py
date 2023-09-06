@@ -9,6 +9,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
@@ -21,7 +22,13 @@ from urllib.parse import quote_plus
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.tax_rate import TaxRate
+    from stripe.api_resources.discount import Discount
     from stripe.api_resources.line_item import LineItem
+    from stripe.api_resources.account import Account
+    from stripe.api_resources.subscription import Subscription
+    from stripe.api_resources.subscription_schedule import SubscriptionSchedule
+    from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
 @nested_resource_class_methods(
@@ -45,7 +52,7 @@ class Quote(
     OBJECT_NAME = "quote"
     amount_subtotal: int
     amount_total: int
-    application: Optional[Any]
+    application: Optional[ExpandableField[Any]]
     application_fee_amount: Optional[int]
     application_fee_percent: Optional[float]
     automatic_tax: StripeObject
@@ -53,16 +60,16 @@ class Quote(
     computed: StripeObject
     created: str
     currency: Optional[str]
-    customer: Optional[Any]
-    default_tax_rates: List[Any]
+    customer: Optional[ExpandableField[Any]]
+    default_tax_rates: List[ExpandableField["TaxRate"]]
     description: Optional[str]
-    discounts: List[Any]
+    discounts: List[ExpandableField["Discount"]]
     expires_at: str
     footer: Optional[str]
     from_quote: Optional[StripeObject]
     header: Optional[str]
     id: str
-    invoice: Optional[Any]
+    invoice: Optional[ExpandableField[Any]]
     invoice_settings: Optional[StripeObject]
     line_items: ListObject["LineItem"]
     lines: Optional[List[str]]
@@ -70,16 +77,16 @@ class Quote(
     metadata: Dict[str, str]
     number: Optional[str]
     object: Literal["quote"]
-    on_behalf_of: Optional[Any]
+    on_behalf_of: Optional[ExpandableField["Account"]]
     status: str
     status_details: Optional[StripeObject]
     status_transitions: StripeObject
-    subscription: Optional[Any]
+    subscription: Optional[ExpandableField["Subscription"]]
     subscription_data: StripeObject
     subscription_data_overrides: Optional[List[StripeObject]]
-    subscription_schedule: Optional[Any]
+    subscription_schedule: Optional[ExpandableField["SubscriptionSchedule"]]
     subscription_schedules: Optional[List[StripeObject]]
-    test_clock: Optional[Any]
+    test_clock: Optional[ExpandableField["TestClock"]]
     total_details: StripeObject
     transfer_data: Optional[StripeObject]
 

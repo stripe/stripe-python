@@ -7,8 +7,8 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Dict
 from typing import Optional
 from typing_extensions import Literal
@@ -17,6 +17,7 @@ from typing_extensions import Type
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.issuing.card_design import CardDesign
     from stripe.api_resources.issuing.cardholder import Cardholder
 
 
@@ -32,7 +33,7 @@ class Card(
     OBJECT_NAME = "issuing.card"
     brand: str
     cancellation_reason: Optional[str]
-    card_design: Optional[Any]
+    card_design: Optional[ExpandableField["CardDesign"]]
     cardholder: "Cardholder"
     created: str
     currency: str
@@ -46,8 +47,8 @@ class Card(
     metadata: Dict[str, str]
     number: str
     object: Literal["issuing.card"]
-    replaced_by: Optional[Any]
-    replacement_for: Optional[Any]
+    replaced_by: Optional[ExpandableField["Card"]]
+    replacement_for: Optional[ExpandableField["Card"]]
     replacement_reason: Optional[str]
     shipping: Optional[StripeObject]
     spending_controls: StripeObject

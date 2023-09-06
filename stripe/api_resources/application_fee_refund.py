@@ -2,13 +2,18 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe.api_resources import ApplicationFee
 from stripe.api_resources.abstract import UpdateableAPIResource
-from typing import Any
+from stripe.api_resources.application_fee import ApplicationFee
+from stripe.api_resources.expandable_field import ExpandableField
 from typing import Dict
 from typing import Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.balance_transaction import BalanceTransaction
 
 
 class ApplicationFeeRefund(UpdateableAPIResource["ApplicationFeeRefund"]):
@@ -22,10 +27,10 @@ class ApplicationFeeRefund(UpdateableAPIResource["ApplicationFeeRefund"]):
 
     OBJECT_NAME = "fee_refund"
     amount: int
-    balance_transaction: Optional[Any]
+    balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     created: str
     currency: str
-    fee: Any
+    fee: ExpandableField["ApplicationFee"]
     id: str
     metadata: Optional[Dict[str, str]]
     object: Literal["fee_refund"]

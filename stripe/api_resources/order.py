@@ -6,6 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
@@ -17,6 +18,8 @@ from typing_extensions import Literal
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.application import Application
+    from stripe.api_resources.discount import Discount
     from stripe.api_resources.line_item import LineItem
 
 
@@ -37,16 +40,16 @@ class Order(
     amount_remaining: int
     amount_subtotal: int
     amount_total: int
-    application: Optional[Any]
+    application: Optional[ExpandableField["Application"]]
     automatic_tax: StripeObject
     billing_details: Optional[StripeObject]
     client_secret: Optional[str]
     created: str
     credits: List[StripeObject]
     currency: str
-    customer: Optional[Any]
+    customer: Optional[ExpandableField[Any]]
     description: Optional[str]
-    discounts: Optional[List[Any]]
+    discounts: Optional[List[ExpandableField["Discount"]]]
     id: str
     ip_address: Optional[str]
     line_items: ListObject["LineItem"]

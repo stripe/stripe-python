@@ -4,10 +4,16 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Optional
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.charge import Charge
+    from stripe.api_resources.payment_intent import PaymentIntent
 
 
 class Review(ListableAPIResource["Review"]):
@@ -20,7 +26,7 @@ class Review(ListableAPIResource["Review"]):
 
     OBJECT_NAME = "review"
     billing_zip: Optional[str]
-    charge: Optional[Any]
+    charge: Optional[ExpandableField["Charge"]]
     closed_reason: Optional[str]
     created: str
     id: str
@@ -30,7 +36,7 @@ class Review(ListableAPIResource["Review"]):
     object: Literal["review"]
     open: bool
     opened_reason: str
-    payment_intent: Any
+    payment_intent: ExpandableField["PaymentIntent"]
     reason: str
     session: Optional[StripeObject]
 

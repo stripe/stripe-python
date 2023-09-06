@@ -3,9 +3,14 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.customer import Customer
 
 
 class CustomerCashBalanceTransaction(
@@ -23,7 +28,7 @@ class CustomerCashBalanceTransaction(
     applied_to_payment: StripeObject
     created: str
     currency: str
-    customer: Any
+    customer: ExpandableField["Customer"]
     ending_balance: int
     funded: StripeObject
     id: str

@@ -7,12 +7,20 @@ from stripe.api_resources.abstract import APIResourceTestHelpers
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Dict
 from typing import Optional
 from typing_extensions import Literal
 from typing_extensions import Type
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.balance_transaction import BalanceTransaction
+    from stripe.api_resources.charge import Charge
+    from stripe.api_resources.payment_intent import PaymentIntent
+    from stripe.api_resources.reversal import Reversal
 
 
 class Refund(
@@ -30,24 +38,24 @@ class Refund(
 
     OBJECT_NAME = "refund"
     amount: int
-    balance_transaction: Optional[Any]
-    charge: Optional[Any]
+    balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
+    charge: Optional[ExpandableField["Charge"]]
     created: str
     currency: str
     description: str
-    failure_balance_transaction: Any
+    failure_balance_transaction: ExpandableField["BalanceTransaction"]
     failure_reason: str
     id: str
     instructions_email: str
     metadata: Optional[Dict[str, str]]
     next_action: StripeObject
     object: Literal["refund"]
-    payment_intent: Optional[Any]
+    payment_intent: Optional[ExpandableField["PaymentIntent"]]
     reason: Optional[str]
     receipt_number: Optional[str]
-    source_transfer_reversal: Optional[Any]
+    source_transfer_reversal: Optional[ExpandableField["Reversal"]]
     status: Optional[str]
-    transfer_reversal: Optional[Any]
+    transfer_reversal: Optional[ExpandableField["Reversal"]]
 
     @classmethod
     def _cls_cancel(

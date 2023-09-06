@@ -6,6 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
@@ -18,6 +19,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.line_item import LineItem
+    from stripe.api_resources.account import Account
 
 
 class PaymentLink(
@@ -37,7 +39,7 @@ class PaymentLink(
     active: bool
     after_completion: StripeObject
     allow_promotion_codes: bool
-    application: Optional[Any]
+    application: Optional[ExpandableField[Any]]
     application_fee_amount: Optional[int]
     application_fee_percent: Optional[float]
     automatic_tax: StripeObject
@@ -53,7 +55,7 @@ class PaymentLink(
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["payment_link"]
-    on_behalf_of: Optional[Any]
+    on_behalf_of: Optional[ExpandableField["Account"]]
     payment_intent_data: Optional[StripeObject]
     payment_method_collection: str
     payment_method_types: Optional[List[str]]

@@ -7,8 +7,8 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
 from typing import Dict
 from typing import List
 from typing import Optional
@@ -17,6 +17,7 @@ from typing_extensions import Literal
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.discount import Discount
     from stripe.api_resources.plan import Plan
     from stripe.api_resources.price import Price
     from stripe.api_resources.tax_rate import TaxRate
@@ -45,7 +46,7 @@ class SubscriptionItem(
     OBJECT_NAME = "subscription_item"
     billing_thresholds: Optional[StripeObject]
     created: int
-    discounts: Optional[List[Any]]
+    discounts: Optional[List[ExpandableField["Discount"]]]
     id: str
     metadata: Dict[str, str]
     object: Literal["subscription_item"]
