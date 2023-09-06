@@ -16,7 +16,6 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.balance_transaction import BalanceTransaction
-    from stripe.api_resources.payout import Payout
 
 
 class Payout(

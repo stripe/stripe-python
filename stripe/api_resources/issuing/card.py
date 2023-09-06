@@ -18,7 +18,6 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.issuing.cardholder import Cardholder
-    from stripe.api_resources.issuing.card import Card
 
 
 class Card(

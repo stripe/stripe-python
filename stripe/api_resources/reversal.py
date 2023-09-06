@@ -15,7 +15,6 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.api_resources.balance_transaction import BalanceTransaction
     from stripe.api_resources.refund import Refund
-    from stripe.api_resources.transfer import Transfer
 
 
 class Reversal(UpdateableAPIResource["Reversal"]):

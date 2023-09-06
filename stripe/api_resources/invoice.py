@@ -24,7 +24,6 @@ if TYPE_CHECKING:
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.discount import Discount
-    from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
     from stripe.api_resources.account import Account
     from stripe.api_resources.payment_intent import PaymentIntent
