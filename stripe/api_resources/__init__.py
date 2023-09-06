@@ -76,6 +76,7 @@ from stripe.api_resources.payment_method import PaymentMethod
 from stripe.api_resources.payment_method_configuration import (
     PaymentMethodConfiguration,
 )
+from stripe.api_resources.payment_method_domain import PaymentMethodDomain
 from stripe.api_resources.payout import Payout
 from stripe.api_resources.person import Person
 from stripe.api_resources.plan import Plan

@@ -3,6 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
@@ -15,6 +16,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.discount import Discount
+    from stripe.api_resources.invoice_line_item import InvoiceLineItem
 
 
 class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
@@ -93,7 +95,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     id: str
     last_finalization_error: Optional[StripeObject]
     latest_revision: Optional[Any]
-    lines: Any
+    lines: ListObject["InvoiceLineItem"]
     livemode: bool
     metadata: Optional[Dict[str, str]]
     next_payment_attempt: Optional[str]

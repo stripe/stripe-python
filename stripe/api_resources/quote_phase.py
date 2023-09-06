@@ -4,11 +4,17 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import List
 from typing import Optional
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.line_item import LineItem
 
 
 class QuotePhase(ListableAPIResource["QuotePhase"]):
@@ -27,7 +33,7 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     id: str
     invoice_settings: Optional[StripeObject]
     iterations: Optional[int]
-    line_items: Any
+    line_items: ListObject["LineItem"]
     object: Literal["quote_phase"]
     proration_behavior: str
     total_details: StripeObject

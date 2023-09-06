@@ -7,11 +7,17 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
 from typing import Optional
 from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.refund import Refund
 
 
 class Charge(
@@ -65,7 +71,7 @@ class Charge(
     receipt_number: Optional[str]
     receipt_url: Optional[str]
     refunded: bool
-    refunds: Optional[Any]
+    refunds: Optional[ListObject["Refund"]]
     review: Optional[Any]
     shipping: Optional[StripeObject]
     source: Optional[Any]

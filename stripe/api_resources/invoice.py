@@ -8,6 +8,7 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any
 from typing import Dict
@@ -20,6 +21,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.discount import Discount
+    from stripe.api_resources.invoice_line_item import InvoiceLineItem
 
 
 class Invoice(
@@ -108,7 +110,7 @@ class Invoice(
     invoice_pdf: Optional[str]
     last_finalization_error: Optional[StripeObject]
     latest_revision: Optional[Any]
-    lines: Any
+    lines: ListObject["InvoiceLineItem"]
     livemode: bool
     metadata: Optional[Dict[str, str]]
     next_payment_attempt: Optional[str]
