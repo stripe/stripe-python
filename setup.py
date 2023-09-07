@@ -32,7 +32,7 @@ setup(
     zip_safe=False,
     install_requires=[
         'typing_extensions <= 4.2.0, > 3.7.2; python_version < "3.7"',
-        'typing_extensions > 3.7.2; python_version >= "3.7"',
+        'typing_extensions >= 4.0.0; python_version >= "3.7"',
         'requests >= 2.20; python_version >= "3.0"',
     ],
     python_requires=">=3.6",

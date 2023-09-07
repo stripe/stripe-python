@@ -29,6 +29,7 @@ from stripe.api_resources.account import Account
 from stripe.api_resources.account_link import AccountLink
 from stripe.api_resources.account_session import AccountSession
 from stripe.api_resources.apple_pay_domain import ApplePayDomain
+from stripe.api_resources.application import Application
 from stripe.api_resources.application_fee import ApplicationFee
 from stripe.api_resources.application_fee_refund import ApplicationFeeRefund
 from stripe.api_resources.balance import Balance
@@ -38,6 +39,9 @@ from stripe.api_resources.capability import Capability
 from stripe.api_resources.card import Card
 from stripe.api_resources.cash_balance import CashBalance
 from stripe.api_resources.charge import Charge
+from stripe.api_resources.connect_collection_transfer import (
+    ConnectCollectionTransfer,
+)
 from stripe.api_resources.country_spec import CountrySpec
 from stripe.api_resources.coupon import Coupon
 from stripe.api_resources.credit_note import CreditNote
@@ -50,6 +54,7 @@ from stripe.api_resources.customer_cash_balance_transaction import (
     CustomerCashBalanceTransaction,
 )
 from stripe.api_resources.customer_session import CustomerSession
+from stripe.api_resources.discount import Discount
 from stripe.api_resources.dispute import Dispute
 from stripe.api_resources.ephemeral_key import EphemeralKey
 from stripe.api_resources.event import Event
@@ -71,28 +76,36 @@ from stripe.api_resources.payment_method import PaymentMethod
 from stripe.api_resources.payment_method_configuration import (
     PaymentMethodConfiguration,
 )
+from stripe.api_resources.payment_method_domain import PaymentMethodDomain
 from stripe.api_resources.payout import Payout
 from stripe.api_resources.person import Person
 from stripe.api_resources.plan import Plan
+from stripe.api_resources.platform_tax_fee import PlatformTaxFee
 from stripe.api_resources.price import Price
 from stripe.api_resources.product import Product
 from stripe.api_resources.promotion_code import PromotionCode
 from stripe.api_resources.quote import Quote
+from stripe.api_resources.quote_line import QuoteLine
 from stripe.api_resources.quote_phase import QuotePhase
 from stripe.api_resources.quote_preview_invoice import QuotePreviewInvoice
 from stripe.api_resources.quote_preview_schedule import QuotePreviewSchedule
 from stripe.api_resources.refund import Refund
+from stripe.api_resources.reserve_transaction import ReserveTransaction
 from stripe.api_resources.reversal import Reversal
 from stripe.api_resources.review import Review
 from stripe.api_resources.setup_attempt import SetupAttempt
 from stripe.api_resources.setup_intent import SetupIntent
 from stripe.api_resources.shipping_rate import ShippingRate
 from stripe.api_resources.source import Source
+from stripe.api_resources.source_mandate_notification import (
+    SourceMandateNotification,
+)
 from stripe.api_resources.source_transaction import SourceTransaction
 from stripe.api_resources.subscription import Subscription
 from stripe.api_resources.subscription_item import SubscriptionItem
 from stripe.api_resources.subscription_schedule import SubscriptionSchedule
 from stripe.api_resources.tax_code import TaxCode
+from stripe.api_resources.tax_deducted_at_source import TaxDeductedAtSource
 from stripe.api_resources.tax_id import TaxId
 from stripe.api_resources.tax_rate import TaxRate
 from stripe.api_resources.token import Token

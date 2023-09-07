@@ -6,6 +6,24 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.discount import Discount
+    from stripe.api_resources.invoice import Invoice
+    from stripe.api_resources.plan import Plan
+    from stripe.api_resources.price import Price
+    from stripe.api_resources.subscription import Subscription
+    from stripe.api_resources.tax_rate import TaxRate
+    from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
 class InvoiceItem(
@@ -29,3 +47,26 @@ class InvoiceItem(
     """
 
     OBJECT_NAME = "invoiceitem"
+    amount: int
+    currency: str
+    customer: ExpandableField[Any]
+    date: str
+    description: Optional[str]
+    discountable: bool
+    discounts: Optional[List[ExpandableField["Discount"]]]
+    id: str
+    invoice: Optional[ExpandableField["Invoice"]]
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    object: Literal["invoiceitem"]
+    period: StripeObject
+    plan: Optional["Plan"]
+    price: Optional["Price"]
+    proration: bool
+    quantity: int
+    subscription: Optional[ExpandableField["Subscription"]]
+    subscription_item: str
+    tax_rates: Optional[List["TaxRate"]]
+    test_clock: Optional[ExpandableField["TestClock"]]
+    unit_amount: Optional[int]
+    unit_amount_decimal: Optional[float]

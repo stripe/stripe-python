@@ -5,6 +5,9 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Registration(
@@ -21,3 +24,12 @@ class Registration(
     """
 
     OBJECT_NAME = "tax.registration"
+    active_from: int
+    country: str
+    country_options: StripeObject
+    created: int
+    expires_at: Optional[int]
+    id: str
+    livemode: bool
+    object: Literal["tax.registration"]
+    status: str

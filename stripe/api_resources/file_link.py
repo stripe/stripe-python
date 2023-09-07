@@ -5,6 +5,15 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.file import File
 
 
 class FileLink(
@@ -19,3 +28,12 @@ class FileLink(
     """
 
     OBJECT_NAME = "file_link"
+    created: str
+    expired: bool
+    expires_at: Optional[str]
+    file: ExpandableField["File"]
+    id: str
+    livemode: bool
+    metadata: Dict[str, str]
+    object: Literal["file_link"]
+    url: Optional[str]

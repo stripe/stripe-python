@@ -5,6 +5,11 @@ from __future__ import absolute_import, division, print_function
 import stripe
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
+from stripe.stripe_object import StripeObject
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 
@@ -16,6 +21,17 @@ class Form(ListableAPIResource["Form"]):
     """
 
     OBJECT_NAME = "tax.form"
+    corrected_by: Optional[ExpandableField["Form"]]
+    created: str
+    filing_statuses: List[StripeObject]
+    id: str
+    livemode: bool
+    object: Literal["tax.form"]
+    payee: StripeObject
+    type: str
+    us_1099_k: StripeObject
+    us_1099_misc: StripeObject
+    us_1099_nec: StripeObject
 
     @classmethod
     def _cls_pdf(

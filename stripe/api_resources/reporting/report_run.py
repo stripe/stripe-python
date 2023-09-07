@@ -4,6 +4,14 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.file import File
 
 
 class ReportRun(
@@ -22,3 +30,13 @@ class ReportRun(
     """
 
     OBJECT_NAME = "reporting.report_run"
+    created: str
+    error: Optional[str]
+    id: str
+    livemode: bool
+    object: Literal["reporting.report_run"]
+    parameters: StripeObject
+    report_type: str
+    result: Optional["File"]
+    status: str
+    succeeded_at: Optional[str]

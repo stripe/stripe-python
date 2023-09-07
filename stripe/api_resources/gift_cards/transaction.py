@@ -6,6 +6,10 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 
 
 class Transaction(
@@ -23,6 +27,18 @@ class Transaction(
     """
 
     OBJECT_NAME = "gift_cards.transaction"
+    amount: Optional[int]
+    confirmed_at: Optional[str]
+    created: Optional[str]
+    created_by: Optional[StripeObject]
+    currency: Optional[str]
+    description: Optional[str]
+    gift_card: Optional[str]
+    id: str
+    metadata: Optional[Dict[str, str]]
+    object: Literal["gift_cards.transaction"]
+    status: Optional[str]
+    transfer_group: Optional[str]
 
     @classmethod
     def _cls_cancel(

@@ -8,6 +8,13 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import VerifyMixin
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
+from stripe.api_resources.expandable_field import ExpandableField
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 
@@ -27,21 +34,44 @@ class BankAccount(
     """
 
     OBJECT_NAME = "bank_account"
+    account: Optional[ExpandableField["Account"]]
+    account_holder_name: Optional[str]
+    account_holder_type: Optional[str]
+    account_type: Optional[str]
+    available_payout_methods: Optional[List[str]]
+    bank_name: Optional[str]
+    country: str
+    currency: str
+    customer: Optional[ExpandableField[Any]]
+    default_for_currency: Optional[bool]
+    fingerprint: Optional[str]
+    future_requirements: Optional[StripeObject]
+    id: str
+    last4: str
+    metadata: Optional[Dict[str, str]]
+    object: Literal["bank_account"]
+    requirements: Optional[StripeObject]
+    routing_number: Optional[str]
+    status: str
 
     def instance_url(self):
-        token = self.id  # type: ignore
+        token = self.id
         extn = quote_plus(token)
         if hasattr(self, "customer"):
-            customer = self.customer  # type: ignore
+            customer = self.customer
 
             base = Customer.class_url()
+            assert customer is not None
             owner_extn = quote_plus(customer)
             class_base = "sources"
 
         elif hasattr(self, "account"):
-            account = self.account  # type: ignore
+            account = self.account
 
             base = Account.class_url()
+            assert account is not None
+            if isinstance(account, Account):
+                account = account.id
             owner_extn = quote_plus(account)
             class_base = "external_accounts"
 

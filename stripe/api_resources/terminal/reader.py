@@ -8,7 +8,17 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
+from stripe.stripe_object import StripeObject
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 from typing_extensions import Type
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.terminal.location import Location
 
 
 class Reader(
@@ -24,6 +34,18 @@ class Reader(
     """
 
     OBJECT_NAME = "terminal.reader"
+    action: Optional[StripeObject]
+    device_sw_version: Optional[str]
+    device_type: str
+    id: str
+    ip_address: Optional[str]
+    label: str
+    livemode: bool
+    location: Optional[ExpandableField["Location"]]
+    metadata: Dict[str, str]
+    object: Literal["terminal.reader"]
+    serial_number: str
+    status: Optional[str]
 
     @classmethod
     def _cls_cancel_action(

@@ -6,6 +6,16 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
+from typing import Any
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.balance_transaction import BalanceTransaction
 
 
 class Payout(
@@ -25,6 +35,31 @@ class Payout(
     """
 
     OBJECT_NAME = "payout"
+    amount: int
+    arrival_date: str
+    automatic: bool
+    balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
+    created: str
+    currency: str
+    description: Optional[str]
+    destination: Optional[ExpandableField[Any]]
+    failure_balance_transaction: Optional[
+        ExpandableField["BalanceTransaction"]
+    ]
+    failure_code: Optional[str]
+    failure_message: Optional[str]
+    id: str
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    method: str
+    object: Literal["payout"]
+    original_payout: Optional[ExpandableField["Payout"]]
+    reconciliation_status: str
+    reversed_by: Optional[ExpandableField["Payout"]]
+    source_type: str
+    statement_descriptor: Optional[str]
+    status: str
+    type: str
 
     @classmethod
     def _cls_cancel(

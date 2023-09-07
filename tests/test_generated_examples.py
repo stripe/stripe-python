@@ -770,7 +770,7 @@ class TestGeneratedExamples(object):
             "/v1/application_fees/fee_xxxxxxxxxxxxx",
         )
 
-    def test_applicationfee_feerefund_list(self, request_mock):
+    def test_applicationfee_applicationfeerefund_list(self, request_mock):
         stripe.ApplicationFee.list_refunds(
             "fee_xxxxxxxxxxxxx",
             limit=3,
@@ -780,14 +780,14 @@ class TestGeneratedExamples(object):
             "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
         )
 
-    def test_applicationfee_feerefund_create(self, request_mock):
+    def test_applicationfee_applicationfeerefund_create(self, request_mock):
         stripe.ApplicationFee.create_refund("fee_xxxxxxxxxxxxx")
         request_mock.assert_requested(
             "post",
             "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds",
         )
 
-    def test_applicationfee_feerefund_retrieve(self, request_mock):
+    def test_applicationfee_applicationfeerefund_retrieve(self, request_mock):
         stripe.ApplicationFee.retrieve_refund(
             "fee_xxxxxxxxxxxxx",
             "fr_xxxxxxxxxxxxx",
@@ -797,7 +797,7 @@ class TestGeneratedExamples(object):
             "/v1/application_fees/fee_xxxxxxxxxxxxx/refunds/fr_xxxxxxxxxxxxx",
         )
 
-    def test_applicationfee_feerefund_update(self, request_mock):
+    def test_applicationfee_applicationfeerefund_update(self, request_mock):
         stripe.ApplicationFee.modify_refund(
             "fee_xxxxxxxxxxxxx",
             "fr_xxxxxxxxxxxxx",
@@ -3228,7 +3228,7 @@ class TestGeneratedExamples(object):
             "/v1/transfers/tr_xxxxxxxxxxxxx",
         )
 
-    def test_transfer_transferreversal_list(self, request_mock):
+    def test_transfer_reversal_list(self, request_mock):
         stripe.Transfer.list_reversals(
             "tr_xxxxxxxxxxxxx",
             limit=3,
@@ -3238,7 +3238,7 @@ class TestGeneratedExamples(object):
             "/v1/transfers/tr_xxxxxxxxxxxxx/reversals",
         )
 
-    def test_transfer_transferreversal_create(self, request_mock):
+    def test_transfer_reversal_create(self, request_mock):
         stripe.Transfer.create_reversal(
             "tr_xxxxxxxxxxxxx",
             amount=100,
@@ -3248,7 +3248,7 @@ class TestGeneratedExamples(object):
             "/v1/transfers/tr_xxxxxxxxxxxxx/reversals",
         )
 
-    def test_transfer_transferreversal_retrieve(self, request_mock):
+    def test_transfer_reversal_retrieve(self, request_mock):
         stripe.Transfer.retrieve_reversal(
             "tr_xxxxxxxxxxxxx",
             "trr_xxxxxxxxxxxxx",
@@ -3258,7 +3258,7 @@ class TestGeneratedExamples(object):
             "/v1/transfers/tr_xxxxxxxxxxxxx/reversals/trr_xxxxxxxxxxxxx",
         )
 
-    def test_transfer_transferreversal_update(self, request_mock):
+    def test_transfer_reversal_update(self, request_mock):
         stripe.Transfer.modify_reversal(
             "tr_xxxxxxxxxxxxx",
             "trr_xxxxxxxxxxxxx",

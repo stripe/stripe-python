@@ -4,6 +4,18 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import util
 from stripe.api_resources.abstract import APIResource
+from stripe.api_resources.list_object import ListObject
+from stripe.stripe_object import StripeObject
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.tax.transaction_line_item import (
+        TransactionLineItem,
+    )
 
 
 class Transaction(APIResource["Transaction"]):
@@ -14,6 +26,20 @@ class Transaction(APIResource["Transaction"]):
     """
 
     OBJECT_NAME = "tax.transaction"
+    created: str
+    currency: str
+    customer: Optional[str]
+    customer_details: StripeObject
+    id: str
+    line_items: Optional[ListObject["TransactionLineItem"]]
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    object: Literal["tax.transaction"]
+    reference: str
+    reversal: Optional[StripeObject]
+    shipping_cost: Optional[StripeObject]
+    tax_date: str
+    type: str
 
     @classmethod
     def create_from_calculation(

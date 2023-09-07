@@ -5,6 +5,16 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
+from stripe.stripe_object import StripeObject
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.tax_code import TaxCode
 
 
 class ShippingRate(
@@ -18,3 +28,15 @@ class ShippingRate(
     """
 
     OBJECT_NAME = "shipping_rate"
+    active: bool
+    created: str
+    delivery_estimate: Optional[StripeObject]
+    display_name: Optional[str]
+    fixed_amount: StripeObject
+    id: str
+    livemode: bool
+    metadata: Dict[str, str]
+    object: Literal["shipping_rate"]
+    tax_behavior: Optional[str]
+    tax_code: Optional[ExpandableField["TaxCode"]]
+    type: Literal["fixed_amount"]

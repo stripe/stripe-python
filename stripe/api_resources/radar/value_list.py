@@ -6,6 +6,14 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.list_object import ListObject
+from typing import Dict
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.radar.value_list_item import ValueListItem
 
 
 class ValueList(
@@ -21,3 +29,13 @@ class ValueList(
     """
 
     OBJECT_NAME = "radar.value_list"
+    alias: str
+    created: str
+    created_by: str
+    id: str
+    item_type: str
+    list_items: ListObject["ValueListItem"]
+    livemode: bool
+    metadata: Dict[str, str]
+    name: str
+    object: Literal["radar.value_list"]

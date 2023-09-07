@@ -7,6 +7,18 @@ from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import SearchableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
+from stripe.stripe_object import StripeObject
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.price import Price
+    from stripe.api_resources.tax_code import TaxCode
 
 
 class Product(
@@ -28,6 +40,26 @@ class Product(
     """
 
     OBJECT_NAME = "product"
+    active: bool
+    created: str
+    default_price: Optional[ExpandableField["Price"]]
+    description: Optional[str]
+    features: List[StripeObject]
+    id: str
+    images: List[str]
+    livemode: bool
+    metadata: Dict[str, str]
+    name: str
+    object: Literal["product"]
+    package_dimensions: Optional[StripeObject]
+    provisioning: Optional[StripeObject]
+    shippable: Optional[bool]
+    statement_descriptor: Optional[str]
+    tax_code: Optional[ExpandableField["TaxCode"]]
+    type: str
+    unit_label: Optional[str]
+    updated: str
+    url: Optional[str]
 
     @classmethod
     def search(cls, *args, **kwargs):

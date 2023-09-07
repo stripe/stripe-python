@@ -5,6 +5,20 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
+from stripe.stripe_object import StripeObject
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.balance_transaction import BalanceTransaction
+    from stripe.api_resources.issuing.card import Card
+    from stripe.api_resources.issuing.cardholder import Cardholder
+    from stripe.api_resources.issuing.transaction import Transaction
 
 
 class Authorization(
@@ -20,6 +34,30 @@ class Authorization(
     """
 
     OBJECT_NAME = "issuing.authorization"
+    amount: int
+    amount_details: Optional[StripeObject]
+    approved: bool
+    authorization_method: str
+    balance_transactions: List["BalanceTransaction"]
+    card: "Card"
+    cardholder: Optional[ExpandableField["Cardholder"]]
+    created: str
+    currency: str
+    id: str
+    livemode: bool
+    merchant_amount: int
+    merchant_currency: str
+    merchant_data: StripeObject
+    metadata: Dict[str, str]
+    network_data: Optional[StripeObject]
+    object: Literal["issuing.authorization"]
+    pending_request: Optional[StripeObject]
+    request_history: List[StripeObject]
+    status: str
+    transactions: List["Transaction"]
+    treasury: Optional[StripeObject]
+    verification_data: StripeObject
+    wallet: Optional[str]
 
     @classmethod
     def _cls_approve(

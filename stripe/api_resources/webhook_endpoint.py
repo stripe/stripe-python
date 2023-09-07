@@ -6,6 +6,10 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
 
 
 class WebhookEndpoint(
@@ -25,3 +29,15 @@ class WebhookEndpoint(
     """
 
     OBJECT_NAME = "webhook_endpoint"
+    api_version: Optional[str]
+    application: Optional[str]
+    created: str
+    description: Optional[str]
+    enabled_events: List[str]
+    id: str
+    livemode: bool
+    metadata: Dict[str, str]
+    object: Literal["webhook_endpoint"]
+    secret: str
+    status: str
+    url: str

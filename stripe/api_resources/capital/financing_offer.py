@@ -4,6 +4,9 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.stripe_object import StripeObject
+from typing import Dict
+from typing_extensions import Literal
 
 
 class FinancingOffer(ListableAPIResource["FinancingOffer"]):
@@ -13,6 +16,21 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     """
 
     OBJECT_NAME = "capital.financing_offer"
+    accepted_terms: StripeObject
+    account: str
+    created: int
+    expires_after: float
+    financing_type: str
+    id: str
+    livemode: bool
+    metadata: Dict[str, str]
+    object: Literal["capital.financing_offer"]
+    offered_terms: StripeObject
+    product_type: str
+    replacement: str
+    replacement_for: str
+    status: str
+    type: str
 
     @classmethod
     def _cls_mark_delivered(

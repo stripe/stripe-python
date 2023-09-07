@@ -3,8 +3,18 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.transfer import Transfer
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.balance_transaction import BalanceTransaction
+    from stripe.api_resources.refund import Refund
 
 
 class Reversal(UpdateableAPIResource["Reversal"]):
@@ -25,10 +35,22 @@ class Reversal(UpdateableAPIResource["Reversal"]):
     """
 
     OBJECT_NAME = "transfer_reversal"
+    amount: int
+    balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
+    created: str
+    currency: str
+    destination_payment_refund: Optional[ExpandableField["Refund"]]
+    id: str
+    metadata: Optional[Dict[str, str]]
+    object: Literal["transfer_reversal"]
+    source_refund: Optional[ExpandableField["Refund"]]
+    transfer: ExpandableField["Transfer"]
 
     def instance_url(self):
-        token = self.id  # type: ignore
-        transfer = self.transfer  # type: ignore
+        token = self.id
+        transfer = self.transfer
+        if isinstance(transfer, Transfer):
+            transfer = transfer.id
         base = Transfer.class_url()
         cust_extn = quote_plus(transfer)
         extn = quote_plus(token)

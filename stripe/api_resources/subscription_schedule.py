@@ -6,6 +6,19 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.subscription import Subscription
+    from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
 class SubscriptionSchedule(
@@ -20,6 +33,26 @@ class SubscriptionSchedule(
     """
 
     OBJECT_NAME = "subscription_schedule"
+    application: Optional[ExpandableField[Any]]
+    billing_behavior: str
+    canceled_at: Optional[str]
+    completed_at: Optional[str]
+    created: str
+    current_phase: Optional[StripeObject]
+    customer: ExpandableField[Any]
+    default_settings: StripeObject
+    end_behavior: str
+    id: str
+    livemode: bool
+    metadata: Optional[Dict[str, str]]
+    object: Literal["subscription_schedule"]
+    phases: List[StripeObject]
+    prebilling: Optional[StripeObject]
+    released_at: Optional[str]
+    released_subscription: Optional[str]
+    status: str
+    subscription: Optional[ExpandableField["Subscription"]]
+    test_clock: Optional[ExpandableField["TestClock"]]
 
     @classmethod
     def _cls_amend(

@@ -7,6 +7,24 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.expandable_field import ExpandableField
+from stripe.api_resources.list_object import ListObject
+from stripe.stripe_object import StripeObject
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
+from typing_extensions import Literal
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.customer_balance_transaction import (
+        CustomerBalanceTransaction,
+    )
+    from stripe.api_resources.invoice import Invoice
+    from stripe.api_resources.credit_note_line_item import CreditNoteLineItem
+    from stripe.api_resources.refund import Refund
 
 
 @nested_resource_class_methods(
@@ -25,6 +43,38 @@ class CreditNote(
     """
 
     OBJECT_NAME = "credit_note"
+    amount: int
+    amount_shipping: int
+    created: str
+    currency: str
+    customer: ExpandableField[Any]
+    customer_balance_transaction: Optional[
+        ExpandableField["CustomerBalanceTransaction"]
+    ]
+    discount_amount: int
+    discount_amounts: List[StripeObject]
+    effective_at: Optional[str]
+    id: str
+    invoice: ExpandableField["Invoice"]
+    lines: ListObject["CreditNoteLineItem"]
+    livemode: bool
+    memo: Optional[str]
+    metadata: Optional[Dict[str, str]]
+    number: str
+    object: Literal["credit_note"]
+    out_of_band_amount: Optional[int]
+    pdf: str
+    reason: Optional[str]
+    refund: Optional[ExpandableField["Refund"]]
+    shipping_cost: Optional[StripeObject]
+    status: str
+    subtotal: int
+    subtotal_excluding_tax: Optional[int]
+    tax_amounts: List[StripeObject]
+    total: int
+    total_excluding_tax: Optional[int]
+    type: str
+    voided_at: Optional[str]
 
     @classmethod
     def preview(

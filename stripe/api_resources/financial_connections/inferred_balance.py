@@ -3,6 +3,8 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
+from typing import Dict
+from typing_extensions import Literal
 
 
 class InferredBalance(ListableAPIResource["InferredBalance"]):
@@ -11,3 +13,7 @@ class InferredBalance(ListableAPIResource["InferredBalance"]):
     """
 
     OBJECT_NAME = "financial_connections.account_inferred_balance"
+    as_of: str
+    current: Dict[str, int]
+    id: str
+    object: Literal["financial_connections.account_inferred_balance"]
