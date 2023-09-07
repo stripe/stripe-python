@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.5.0b1 - 2023-09-07
+* [#1045](https://github.com/stripe/stripe-python/pull/1045) Update generated code for beta
+  * Release specs are identical.
+* [#1034](https://github.com/stripe/stripe-python/pull/1034) Update generated code for beta
+  * Remove support for `submit_card` test helper method on resource `Issuing.Card`
+
 ## 6.4.0 - 2023-09-07
 * [#1033](https://github.com/stripe/stripe-python/pull/1033) Update generated code
   * Add support for new resource `PaymentMethodDomain`
