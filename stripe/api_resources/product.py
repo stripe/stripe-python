@@ -44,6 +44,7 @@ class Product(
     created: str
     default_price: Optional[ExpandableField["Price"]]
     description: Optional[str]
+    features: List[StripeObject]
     id: str
     images: List[str]
     livemode: bool
