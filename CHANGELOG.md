@@ -1,4 +1,11 @@
 # Changelog
+## 6.4.0 - 2023-09-07
+* [#1033](https://github.com/stripe/stripe-python/pull/1033) Update generated code
+  * Add support for new resource `PaymentMethodDomain`
+  * Add support for `create`, `list`, `modify`, `retrieve`, and `validate` methods on resource `PaymentMethodDomain`
+* [#1044](https://github.com/stripe/stripe-python/pull/1044) Types: ExpandableField
+* [#1043](https://github.com/stripe/stripe-python/pull/1043) Types: ListObject
+
 ## 6.3.0 - 2023-09-05
 * [#1042](https://github.com/stripe/stripe-python/pull/1042) Require typing_extensions >= 4.0.0
 * [#1026](https://github.com/stripe/stripe-python/pull/1026) Types: annotate resource properties
