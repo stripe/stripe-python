@@ -5,16 +5,14 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import List
-from typing import Optional
+from typing import Any, List, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.application import Application
     from stripe.api_resources.account import Account
+    from stripe.api_resources.application import Application
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.setup_intent import SetupIntent
 

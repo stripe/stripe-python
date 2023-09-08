@@ -3,22 +3,20 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import APIResourceTestHelpers
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import SearchableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.abstract import (
+    APIResourceTestHelpers,
+    CreateableAPIResource,
+    DeletableAPIResource,
+    ListableAPIResource,
+    SearchableAPIResource,
+    UpdateableAPIResource,
+    nested_resource_class_methods,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing_extensions import Literal
-from typing_extensions import Type
+from typing import Any, Dict, List, Optional
+from typing_extensions import Literal, Type
 
 from typing_extensions import TYPE_CHECKING
 
@@ -227,26 +225,6 @@ class Customer(
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
-    def retrieve_cash_balance(
-        cls,
-        customer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/customers/{customer}/cash_balance".format(
-                customer=util.sanitize_id(customer)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @classmethod
     def modify_cash_balance(
         cls,
         customer,
@@ -257,6 +235,26 @@ class Customer(
     ):
         return cls._static_request(
             "post",
+            "/v1/customers/{customer}/cash_balance".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve_cash_balance(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
             "/v1/customers/{customer}/cash_balance".format(
                 customer=util.sanitize_id(customer)
             ),

@@ -6,8 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING

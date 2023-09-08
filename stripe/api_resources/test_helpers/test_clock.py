@@ -3,9 +3,11 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    DeletableAPIResource,
+    ListableAPIResource,
+)
 from typing import Optional
 from typing_extensions import Literal
 
