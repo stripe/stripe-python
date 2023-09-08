@@ -6,7 +6,8 @@ from stripe import util
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional
+from typing import Dict
+from typing import Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -96,9 +97,3 @@ class Transaction(APIResource["Transaction"]):
             idempotency_key=idempotency_key,
             params=params,
         )
-
-    @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Transaction":
-        instance = cls(id, api_key, **params)
-        instance.refresh()
-        return instance

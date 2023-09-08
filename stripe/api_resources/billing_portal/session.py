@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Optional, cast
+from typing import Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -44,25 +44,3 @@ class Session(CreateableAPIResource["Session"]):
     on_behalf_of: Optional[str]
     return_url: Optional[str]
     url: str
-
-    @classmethod
-    def create(
-        cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ) -> "Session":
-        return cast(
-            "Session",
-            cls._static_request(
-                "post",
-                cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
-                params,
-            ),
-        )

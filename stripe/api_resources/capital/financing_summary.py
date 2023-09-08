@@ -21,11 +21,5 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     status: Optional[str]
 
     @classmethod
-    def retrieve(cls, **params) -> "FinancingSummary":
-        instance = cls(None, **params)
-        instance.refresh()
-        return instance
-
-    @classmethod
     def class_url(cls):
         return "/v1/capital/financing_summary"

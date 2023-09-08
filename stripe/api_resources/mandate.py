@@ -30,9 +30,3 @@ class Mandate(APIResource["Mandate"]):
     single_use: StripeObject
     status: str
     type: str
-
-    @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Mandate":
-        instance = cls(id, api_key, **params)
-        instance.refresh()
-        return instance

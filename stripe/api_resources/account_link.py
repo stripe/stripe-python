@@ -3,7 +3,6 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
-from typing import cast
 from typing_extensions import Literal
 
 
@@ -20,25 +19,3 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
     expires_at: str
     object: Literal["account_link"]
     url: str
-
-    @classmethod
-    def create(
-        cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ) -> "AccountLink":
-        return cast(
-            "AccountLink",
-            cls._static_request(
-                "post",
-                cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
-                params,
-            ),
-        )

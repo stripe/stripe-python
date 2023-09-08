@@ -37,30 +37,3 @@ class Transaction(ListableAPIResource["Transaction"]):
     object: Literal["treasury.transaction"]
     status: str
     status_transitions: StripeObject
-
-    @classmethod
-    def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
-    ) -> ListObject["Transaction"]:
-        result = cls._static_request(
-            "get",
-            cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Transaction":
-        instance = cls(id, api_key, **params)
-        instance.refresh()
-        return instance
