@@ -42,6 +42,27 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     trial_end: Optional[str]
 
     @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["QuotePhase"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def _cls_list_line_items(
         cls,
         quote_phase,
@@ -71,3 +92,9 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "QuotePhase":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance

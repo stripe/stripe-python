@@ -7,9 +7,11 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
     UpdateableAPIResource,
 )
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Optional
+from typing import Optional, cast
 from typing_extensions import Literal
+from urllib.parse import quote_plus
 
 
 class Registration(
@@ -35,3 +37,54 @@ class Registration(
     livemode: bool
     object: Literal["tax.registration"]
     status: str
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Registration":
+        return cast(
+            "Registration",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Registration"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def modify(cls, id, **params) -> "Registration":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "Registration",
+            cls._static_request("post", url, params=params),
+        )

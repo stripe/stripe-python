@@ -7,8 +7,9 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.stripe_object import StripeObject
-from typing import Optional
+from typing import Optional, cast
 from typing_extensions import Literal
+from urllib.parse import quote_plus
 
 
 class Settings(
@@ -28,6 +29,20 @@ class Settings(
     object: Literal["tax.settings"]
     status: str
     status_details: StripeObject
+
+    @classmethod
+    def modify(cls, id, **params) -> "Settings":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "Settings",
+            cls._static_request("post", url, params=params),
+        )
+
+    @classmethod
+    def retrieve(cls, **params) -> "Settings":
+        instance = cls(None, **params)
+        instance.refresh()
+        return instance
 
     @classmethod
     def class_url(cls):

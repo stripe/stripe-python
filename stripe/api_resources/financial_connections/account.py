@@ -8,6 +8,7 @@ from stripe.api_resources.abstract import (
     nested_resource_class_methods,
 )
 from stripe.api_resources.expandable_field import ExpandableField
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
 from typing_extensions import Literal
@@ -83,6 +84,27 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Account"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def _cls_list_owners(
         cls,
         account,
@@ -143,6 +165,12 @@ class Account(ListableAPIResource["Account"]):
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Account":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
 
     @classmethod
     def _cls_subscribe(

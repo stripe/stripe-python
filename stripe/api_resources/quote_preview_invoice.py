@@ -138,3 +138,24 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     total_tax_amounts: List[StripeObject]
     transfer_data: Optional[StripeObject]
     webhooks_delivered_at: Optional[str]
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["QuotePreviewInvoice"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result

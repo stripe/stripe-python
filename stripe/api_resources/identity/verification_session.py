@@ -9,9 +9,11 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.api_resources.expandable_field import ExpandableField
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional
+from typing import Dict, Optional, cast
 from typing_extensions import Literal
+from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
 
@@ -88,6 +90,57 @@ class VerificationSession(
         )
 
     @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "VerificationSession":
+        return cast(
+            "VerificationSession",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["VerificationSession"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def modify(cls, id, **params) -> "VerificationSession":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "VerificationSession",
+            cls._static_request("post", url, params=params),
+        )
+
+    @classmethod
     def _cls_redact(
         cls,
         session,
@@ -117,3 +170,9 @@ class VerificationSession(
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "VerificationSession":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance

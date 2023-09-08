@@ -6,6 +6,7 @@ import stripe
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
 from typing_extensions import Literal
@@ -31,6 +32,33 @@ class Form(ListableAPIResource["Form"]):
     us_1099_k: StripeObject
     us_1099_misc: StripeObject
     us_1099_nec: StripeObject
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Form"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Form":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
 
     @classmethod
     def _cls_pdf(
