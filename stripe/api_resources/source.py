@@ -2,14 +2,14 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import error
-from stripe import util
+from stripe import error, util
 from stripe.api_resources import Customer
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    UpdateableAPIResource,
+)
 from stripe.stripe_object import StripeObject
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 

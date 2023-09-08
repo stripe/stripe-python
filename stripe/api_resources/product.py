@@ -2,16 +2,16 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import SearchableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    DeletableAPIResource,
+    ListableAPIResource,
+    SearchableAPIResource,
+    UpdateableAPIResource,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Dict, List, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING

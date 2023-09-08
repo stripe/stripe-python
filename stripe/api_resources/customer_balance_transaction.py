@@ -2,11 +2,10 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe.api_resources.abstract import APIResource
+from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -17,7 +16,9 @@ if TYPE_CHECKING:
     from stripe.api_resources.invoice import Invoice
 
 
-class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
+class CustomerBalanceTransaction(
+    CreateableAPIResource["CustomerBalanceTransaction"],
+):
     """
     Each customer has a [Balance](https://stripe.com/docs/api/customers/object#customer_object-balance) value,
     which denotes a debit or credit that's automatically applied to their next invoice upon finalization.

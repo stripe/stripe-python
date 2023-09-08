@@ -3,8 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.stripe_object import StripeObject
-from typing import List
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING

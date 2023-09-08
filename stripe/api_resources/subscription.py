@@ -3,31 +3,30 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import SearchableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    DeletableAPIResource,
+    ListableAPIResource,
+    SearchableAPIResource,
+    UpdateableAPIResource,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.payment_method import PaymentMethod
-    from stripe.api_resources.tax_rate import TaxRate
-    from stripe.api_resources.discount import Discount
-    from stripe.api_resources.subscription_item import SubscriptionItem
-    from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.account import Account
+    from stripe.api_resources.discount import Discount
+    from stripe.api_resources.invoice import Invoice
+    from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.setup_intent import SetupIntent
+    from stripe.api_resources.subscription_item import SubscriptionItem
     from stripe.api_resources.subscription_schedule import SubscriptionSchedule
+    from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 

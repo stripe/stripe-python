@@ -3,25 +3,24 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import SearchableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    ListableAPIResource,
+    SearchableAPIResource,
+    UpdateableAPIResource,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.application import Application
-    from stripe.api_resources.invoice import Invoice
-    from stripe.api_resources.charge import Charge
     from stripe.api_resources.account import Account
+    from stripe.api_resources.application import Application
+    from stripe.api_resources.charge import Charge
+    from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.review import Review
 

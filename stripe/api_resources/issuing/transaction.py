@@ -2,19 +2,20 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    ListableAPIResource,
+    UpdateableAPIResource,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.issuing.authorization import Authorization
     from stripe.api_resources.balance_transaction import BalanceTransaction
+    from stripe.api_resources.issuing.authorization import Authorization
     from stripe.api_resources.issuing.card import Card
     from stripe.api_resources.issuing.cardholder import Cardholder
     from stripe.api_resources.issuing.dispute import Dispute

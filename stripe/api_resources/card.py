@@ -3,15 +3,14 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import error
-from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    DeletableAPIResource,
+    UpdateableAPIResource,
+)
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
