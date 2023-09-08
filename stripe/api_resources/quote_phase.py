@@ -7,16 +7,15 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import List
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.line_item import LineItem
+    from stripe.api_resources.tax_rate import TaxRate
 
 
 class QuotePhase(ListableAPIResource["QuotePhase"]):

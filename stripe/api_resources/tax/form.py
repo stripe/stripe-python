@@ -7,8 +7,7 @@ from stripe import api_requestor, util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import List
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 

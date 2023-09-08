@@ -3,15 +3,15 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import APIResourceTestHelpers
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import (
+    APIResourceTestHelpers,
+    CreateableAPIResource,
+    ListableAPIResource,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Dict
-from typing import Optional
-from typing_extensions import Literal
-from typing_extensions import Type
+from typing import Dict, Optional
+from typing_extensions import Literal, Type
 
 from typing_extensions import TYPE_CHECKING
 

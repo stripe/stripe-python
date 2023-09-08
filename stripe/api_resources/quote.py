@@ -3,31 +3,29 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from stripe import api_requestor
-from stripe import util
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe import api_requestor, util
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    ListableAPIResource,
+    UpdateableAPIResource,
+    nested_resource_class_methods,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.tax_rate import TaxRate
+    from stripe.api_resources.account import Account
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.line_item import LineItem
-    from stripe.api_resources.account import Account
     from stripe.api_resources.subscription import Subscription
     from stripe.api_resources.subscription_schedule import SubscriptionSchedule
+    from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 

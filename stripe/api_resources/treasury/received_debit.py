@@ -2,13 +2,14 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe.api_resources.abstract import APIResourceTestHelpers
-from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import (
+    APIResourceTestHelpers,
+    ListableAPIResource,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
 from typing import Optional
-from typing_extensions import Literal
-from typing_extensions import Type
+from typing_extensions import Literal, Type
 
 from typing_extensions import TYPE_CHECKING
 

@@ -5,9 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.account import Account
 from stripe.stripe_object import StripeObject
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Dict, List, Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
