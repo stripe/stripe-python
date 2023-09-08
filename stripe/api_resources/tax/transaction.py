@@ -96,3 +96,9 @@ class Transaction(APIResource["Transaction"]):
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Transaction":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance

@@ -13,8 +13,9 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
+from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
 
@@ -122,6 +123,28 @@ class Subscription(
         )
 
     @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Subscription":
+        return cast(
+            "Subscription",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
     def _cls_delete_discount(
         cls,
         subscription_exposed_id,
@@ -152,6 +175,35 @@ class Subscription(
             ),
             idempotency_key=idempotency_key,
             params=params,
+        )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Subscription"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def modify(cls, id, **params) -> "Subscription":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "Subscription",
+            cls._static_request("post", url, params=params),
         )
 
     @classmethod
@@ -186,11 +238,17 @@ class Subscription(
         )
 
     @classmethod
-    def search(cls, *args, **kwargs):
+    def retrieve(cls, id, api_key=None, **params) -> "Subscription":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
+
+    @classmethod
+    def search(cls, *args, **kwargs) -> Any:
         return cls._search(
             search_url="/v1/subscriptions/search", *args, **kwargs
         )
 
     @classmethod
-    def search_auto_paging_iter(cls, *args, **kwargs):
+    def search_auto_paging_iter(cls, *args, **kwargs) -> Any:
         return cls.search(*args, **kwargs).auto_paging_iter()

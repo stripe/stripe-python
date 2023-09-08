@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
+from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     DeletableAPIResource,
@@ -9,8 +10,9 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
-from typing import Dict
+from typing import Dict, cast
 from typing_extensions import Literal
+from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
 
@@ -41,3 +43,76 @@ class ValueList(
     metadata: Dict[str, str]
     name: str
     object: Literal["radar.value_list"]
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "ValueList":
+        return cast(
+            "ValueList",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
+    def _cls_delete(cls, sid, **params) -> "ValueList":
+        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        return cast(
+            "ValueList",
+            cls._static_request("delete", url, params=params),
+        )
+
+    @util.class_method_variant("_cls_delete")
+    def delete(self, **params) -> "ValueList":
+        return self._request_and_refresh(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["ValueList"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def modify(cls, id, **params) -> "ValueList":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "ValueList",
+            cls._static_request("post", url, params=params),
+        )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "ValueList":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
