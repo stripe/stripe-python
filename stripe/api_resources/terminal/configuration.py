@@ -95,34 +95,11 @@ class Configuration(
         return result
 
     @classmethod
-    def _cls_modify(
-        cls,
-        configuration,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/terminal/configurations/{configuration}".format(
-                configuration=util.sanitize_id(configuration)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_modify")
-    def modify(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/terminal/configurations/{configuration}".format(
-                configuration=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
+    def modify(cls, id, **params) -> Any:
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            Any,
+            cls._static_request("post", url, params=params),
         )
 
     @classmethod

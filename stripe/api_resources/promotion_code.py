@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -13,6 +12,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
+from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
 
@@ -89,34 +89,11 @@ class PromotionCode(
         return result
 
     @classmethod
-    def _cls_modify(
-        cls,
-        promotion_code,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/promotion_codes/{promotion_code}".format(
-                promotion_code=util.sanitize_id(promotion_code)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_modify")
-    def modify(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/promotion_codes/{promotion_code}".format(
-                promotion_code=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
+    def modify(cls, id, **params) -> "PromotionCode":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "PromotionCode",
+            cls._static_request("post", url, params=params),
         )
 
     @classmethod

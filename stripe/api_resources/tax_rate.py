@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -11,6 +10,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from typing import Dict, Optional, cast
 from typing_extensions import Literal
+from urllib.parse import quote_plus
 
 
 class TaxRate(
@@ -85,34 +85,11 @@ class TaxRate(
         return result
 
     @classmethod
-    def _cls_modify(
-        cls,
-        tax_rate,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/tax_rates/{tax_rate}".format(
-                tax_rate=util.sanitize_id(tax_rate)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_modify")
-    def modify(self, idempotency_key=None, **params):
-        return self._request(
-            "post",
-            "/v1/tax_rates/{tax_rate}".format(
-                tax_rate=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
+    def modify(cls, id, **params) -> "TaxRate":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "TaxRate",
+            cls._static_request("post", url, params=params),
         )
 
     @classmethod
