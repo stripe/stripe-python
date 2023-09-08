@@ -6,24 +6,21 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.payment_method import PaymentMethod
-    from stripe.api_resources.tax_rate import TaxRate
+    from stripe.api_resources.account import Account
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
-    from stripe.api_resources.account import Account
     from stripe.api_resources.payment_intent import PaymentIntent
+    from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.quote import Quote
     from stripe.api_resources.subscription import Subscription
+    from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
@@ -141,3 +138,24 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     total_tax_amounts: List[StripeObject]
     transfer_data: Optional[StripeObject]
     webhooks_delivered_at: Optional[str]
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["QuotePreviewInvoice"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result

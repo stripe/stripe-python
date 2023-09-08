@@ -2,14 +2,14 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import error
-from stripe import util
+from stripe import error, util
 from stripe.api_resources import Customer
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    UpdateableAPIResource,
+)
 from stripe.stripe_object import StripeObject
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -70,6 +70,28 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     wechat: StripeObject
 
     @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Source":
+        return cast(
+            "Source",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
     def _cls_list_source_transactions(
         cls,
         source,
@@ -99,6 +121,20 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def modify(cls, id, **params) -> "Source":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "Source",
+            cls._static_request("post", url, params=params),
+        )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Source":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
 
     @classmethod
     def _cls_verify(

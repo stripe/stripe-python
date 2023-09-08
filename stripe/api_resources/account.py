@@ -2,19 +2,17 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import api_resources
-from stripe import oauth
-from stripe import util
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe import api_resources, oauth, util
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    DeletableAPIResource,
+    ListableAPIResource,
+    UpdateableAPIResource,
+    nested_resource_class_methods,
+)
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Dict
-from typing import Optional
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -81,6 +79,65 @@ class Account(
     settings: Optional[StripeObject]
     tos_acceptance: StripeObject
     type: str
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Account":
+        return cast(
+            "Account",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
+    def _cls_delete(cls, sid, **params) -> "Account":
+        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        return cast(
+            "Account",
+            cls._static_request("delete", url, params=params),
+        )
+
+    @util.class_method_variant("_cls_delete")
+    def delete(self, **params) -> "Account":
+        return self._request_and_refresh(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Account"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
 
     @classmethod
     def _cls_persons(

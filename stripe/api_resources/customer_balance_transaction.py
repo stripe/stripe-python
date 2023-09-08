@@ -5,8 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
