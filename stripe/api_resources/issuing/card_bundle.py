@@ -3,6 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.stripe_object import StripeObject
 from typing_extensions import Literal
 
 
@@ -12,6 +13,7 @@ class CardBundle(ListableAPIResource["CardBundle"]):
     """
 
     OBJECT_NAME = "issuing.card_bundle"
+    features: StripeObject
     id: str
     livemode: bool
     name: str
