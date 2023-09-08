@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional
+from typing import Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -69,6 +69,28 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     wechat: StripeObject
 
     @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Source":
+        return cast(
+            "Source",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
     def _cls_list_source_transactions(
         cls,
         source,
@@ -98,6 +120,41 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def _cls_modify(
+        cls,
+        source,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/sources/{source}".format(source=util.sanitize_id(source)),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_modify")
+    def modify(self, idempotency_key=None, **params):
+        return self._request(
+            "post",
+            "/v1/sources/{source}".format(
+                source=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Source":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
 
     @classmethod
     def _cls_verify(

@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import error
+from stripe import error, util
 from stripe.api_resources.abstract import (
     DeletableAPIResource,
     UpdateableAPIResource,
@@ -10,7 +10,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -56,6 +56,22 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     object: Literal["card"]
     status: Optional[str]
     tokenization_method: Optional[str]
+
+    @classmethod
+    def _cls_delete(cls, sid, **params) -> Any:
+        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        return cast(
+            Any,
+            cls._static_request("delete", url, params=params),
+        )
+
+    @util.class_method_variant("_cls_delete")
+    def delete(self, **params) -> Any:
+        return self._request_and_refresh(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
 
     def instance_url(self):
         token = self.id

@@ -30,5 +30,24 @@ class Settings(
     status_details: StripeObject
 
     @classmethod
+    def modify(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/tax/settings",
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve(cls, **params) -> "Settings":
+        instance = cls(None, **params)
+        instance.refresh()
+        return instance
+
+    @classmethod
     def class_url(cls):
         return "/v1/tax/settings"

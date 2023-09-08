@@ -2,15 +2,18 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
+from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     DeletableAPIResource,
     ListableAPIResource,
     UpdateableAPIResource,
 )
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional
+from typing import Dict, Optional, cast
 from typing_extensions import Literal
+from urllib.parse import quote_plus
 
 
 class Coupon(
@@ -43,3 +46,97 @@ class Coupon(
     redeem_by: Optional[str]
     times_redeemed: int
     valid: bool
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Coupon":
+        return cast(
+            "Coupon",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
+    def _cls_delete(cls, sid, **params) -> "Coupon":
+        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        return cast(
+            "Coupon",
+            cls._static_request("delete", url, params=params),
+        )
+
+    @util.class_method_variant("_cls_delete")
+    def delete(self, **params) -> "Coupon":
+        return self._request_and_refresh(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Coupon"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def _cls_modify(
+        cls,
+        coupon,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/coupons/{coupon}".format(coupon=util.sanitize_id(coupon)),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_modify")
+    def modify(self, idempotency_key=None, **params):
+        return self._request(
+            "post",
+            "/v1/coupons/{coupon}".format(
+                coupon=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Coupon":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance

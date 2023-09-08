@@ -8,6 +8,7 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.api_resources.expandable_field import ExpandableField
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional
 from typing_extensions import Literal
@@ -120,3 +121,61 @@ class Authorization(
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Authorization"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def _cls_modify(
+        cls,
+        authorization,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/issuing/authorizations/{authorization}".format(
+                authorization=util.sanitize_id(authorization)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_modify")
+    def modify(self, idempotency_key=None, **params):
+        return self._request(
+            "post",
+            "/v1/issuing/authorizations/{authorization}".format(
+                authorization=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Authorization":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
