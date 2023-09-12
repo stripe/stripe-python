@@ -25,20 +25,24 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
     OBJECT_NAME = "treasury.received_debit"
     amount: int
-    created: str
+    created: int
     currency: str
     description: str
-    failure_code: Optional[str]
+    failure_code: Optional[
+        Literal[
+            "account_closed", "account_frozen", "insufficient_funds", "other"
+        ]
+    ]
     financial_account: Optional[str]
     hosted_regulatory_receipt_url: Optional[str]
     id: str
     initiating_payment_method_details: StripeObject
     linked_flows: StripeObject
     livemode: bool
-    network: str
+    network: Literal["ach", "card", "stripe"]
     object: Literal["treasury.received_debit"]
     reversal_details: Optional[StripeObject]
-    status: str
+    status: Literal["failed", "succeeded"]
     transaction: Optional[ExpandableField["Transaction"]]
 
     @classmethod

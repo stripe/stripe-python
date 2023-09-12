@@ -36,14 +36,16 @@ class Plan(
 
     OBJECT_NAME = "plan"
     active: bool
-    aggregate_usage: Optional[str]
+    aggregate_usage: Optional[
+        Literal["last_during_period", "last_ever", "max", "sum"]
+    ]
     amount: Optional[int]
     amount_decimal: Optional[float]
-    billing_scheme: str
-    created: str
+    billing_scheme: Literal["per_unit", "tiered"]
+    created: int
     currency: str
     id: str
-    interval: str
+    interval: Literal["day", "month", "week", "year"]
     interval_count: int
     livemode: bool
     metadata: Optional[Dict[str, str]]
@@ -51,10 +53,10 @@ class Plan(
     object: Literal["plan"]
     product: Optional[ExpandableField[Any]]
     tiers: List[StripeObject]
-    tiers_mode: Optional[str]
+    tiers_mode: Optional[Literal["graduated", "volume"]]
     transform_usage: Optional[StripeObject]
     trial_period_days: Optional[int]
-    usage_type: str
+    usage_type: Literal["licensed", "metered"]
 
     @classmethod
     def create(

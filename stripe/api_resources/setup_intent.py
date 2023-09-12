@@ -59,12 +59,14 @@ class SetupIntent(
     application: Optional[ExpandableField["Application"]]
     attach_to_self: bool
     automatic_payment_methods: Optional[StripeObject]
-    cancellation_reason: Optional[str]
+    cancellation_reason: Optional[
+        Literal["abandoned", "duplicate", "requested_by_customer"]
+    ]
     client_secret: Optional[str]
-    created: str
+    created: int
     customer: Optional[ExpandableField[Any]]
     description: Optional[str]
-    flow_directions: Optional[List[str]]
+    flow_directions: Optional[List[Literal["inbound", "outbound"]]]
     id: str
     last_setup_error: Optional[StripeObject]
     latest_attempt: Optional[ExpandableField["SetupAttempt"]]
@@ -78,7 +80,14 @@ class SetupIntent(
     payment_method_options: Optional[StripeObject]
     payment_method_types: List[str]
     single_use_mandate: Optional[ExpandableField["Mandate"]]
-    status: str
+    status: Literal[
+        "canceled",
+        "processing",
+        "requires_action",
+        "requires_confirmation",
+        "requires_payment_method",
+        "succeeded",
+    ]
     usage: str
 
     @classmethod

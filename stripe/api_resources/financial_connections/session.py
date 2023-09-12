@@ -27,8 +27,10 @@ class Session(CreateableAPIResource["Session"]):
     id: str
     livemode: bool
     object: Literal["financial_connections.session"]
-    permissions: List[str]
-    prefetch: Optional[List[str]]
+    permissions: List[
+        Literal["balances", "ownership", "payment_method", "transactions"]
+    ]
+    prefetch: Optional[List[Literal["balances", "ownership"]]]
     return_url: str
 
     @classmethod

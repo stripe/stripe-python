@@ -29,7 +29,7 @@ class PaymentMethodDomain(
 
     OBJECT_NAME = "payment_method_domain"
     apple_pay: StripeObject
-    created: str
+    created: int
     domain_name: str
     enabled: bool
     google_pay: StripeObject

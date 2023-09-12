@@ -42,7 +42,7 @@ class Transaction(
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     card: ExpandableField["Card"]
     cardholder: Optional[ExpandableField["Cardholder"]]
-    created: str
+    created: int
     currency: str
     dispute: Optional[ExpandableField["Dispute"]]
     id: str
@@ -54,8 +54,8 @@ class Transaction(
     object: Literal["issuing.transaction"]
     purchase_details: Optional[StripeObject]
     treasury: Optional[StripeObject]
-    type: str
-    wallet: Optional[str]
+    type: Literal["capture", "refund"]
+    wallet: Optional[Literal["apple_pay", "google_pay", "samsung_pay"]]
 
     @classmethod
     def list(

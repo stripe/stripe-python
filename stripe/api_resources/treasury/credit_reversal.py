@@ -28,17 +28,17 @@ class CreditReversal(
 
     OBJECT_NAME = "treasury.credit_reversal"
     amount: int
-    created: str
+    created: int
     currency: str
     financial_account: str
     hosted_regulatory_receipt_url: Optional[str]
     id: str
     livemode: bool
     metadata: Dict[str, str]
-    network: str
+    network: Literal["ach", "stripe"]
     object: Literal["treasury.credit_reversal"]
     received_credit: str
-    status: str
+    status: Literal["canceled", "posted", "processing"]
     status_transitions: StripeObject
     transaction: Optional[ExpandableField["Transaction"]]
 

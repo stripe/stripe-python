@@ -32,7 +32,7 @@ class ShippingRate(
 
     OBJECT_NAME = "shipping_rate"
     active: bool
-    created: str
+    created: int
     delivery_estimate: Optional[StripeObject]
     display_name: Optional[str]
     fixed_amount: StripeObject
@@ -40,7 +40,7 @@ class ShippingRate(
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["shipping_rate"]
-    tax_behavior: Optional[str]
+    tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified"]]
     tax_code: Optional[ExpandableField["TaxCode"]]
     type: Literal["fixed_amount"]
 

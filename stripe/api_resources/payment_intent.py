@@ -55,12 +55,22 @@ class PaymentIntent(
     application: Optional[ExpandableField["Application"]]
     application_fee_amount: Optional[int]
     automatic_payment_methods: Optional[StripeObject]
-    canceled_at: Optional[str]
-    cancellation_reason: Optional[str]
-    capture_method: str
+    canceled_at: Optional[int]
+    cancellation_reason: Optional[
+        Literal[
+            "abandoned",
+            "automatic",
+            "duplicate",
+            "failed_invoice",
+            "fraudulent",
+            "requested_by_customer",
+            "void_invoice",
+        ]
+    ]
+    capture_method: Literal["automatic", "automatic_async", "manual"]
     client_secret: Optional[str]
-    confirmation_method: str
-    created: str
+    confirmation_method: Literal["automatic", "manual"]
+    created: int
     currency: str
     customer: Optional[ExpandableField[Any]]
     description: Optional[str]
@@ -79,12 +89,20 @@ class PaymentIntent(
     processing: Optional[StripeObject]
     receipt_email: Optional[str]
     review: Optional[ExpandableField["Review"]]
-    setup_future_usage: Optional[str]
+    setup_future_usage: Optional[Literal["off_session", "on_session"]]
     shipping: Optional[StripeObject]
     source: Optional[ExpandableField[Any]]
     statement_descriptor: Optional[str]
     statement_descriptor_suffix: Optional[str]
-    status: str
+    status: Literal[
+        "canceled",
+        "processing",
+        "requires_action",
+        "requires_capture",
+        "requires_confirmation",
+        "requires_payment_method",
+        "succeeded",
+    ]
     transfer_data: Optional[StripeObject]
     transfer_group: Optional[str]
 

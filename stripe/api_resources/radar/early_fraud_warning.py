@@ -25,7 +25,7 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
     OBJECT_NAME = "radar.early_fraud_warning"
     actionable: bool
     charge: ExpandableField["Charge"]
-    created: str
+    created: int
     fraud_type: str
     id: str
     livemode: bool

@@ -23,7 +23,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     account: str
     client_secret: str
     components: StripeObject
-    expires_at: str
+    expires_at: int
     livemode: bool
     object: Literal["account_session"]
 

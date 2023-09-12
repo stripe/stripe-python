@@ -55,7 +55,7 @@ class Charge(
     billing_details: StripeObject
     calculated_statement_descriptor: Optional[str]
     captured: bool
-    created: str
+    created: int
     currency: str
     customer: Optional[ExpandableField[Any]]
     description: Optional[str]
@@ -90,7 +90,7 @@ class Charge(
     source_transfer: Optional[ExpandableField["Transfer"]]
     statement_descriptor: Optional[str]
     statement_descriptor_suffix: Optional[str]
-    status: str
+    status: Literal["failed", "pending", "succeeded"]
     transfer: ExpandableField["Transfer"]
     transfer_data: Optional[StripeObject]
     transfer_group: Optional[str]

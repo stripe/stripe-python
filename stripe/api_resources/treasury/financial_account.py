@@ -33,20 +33,59 @@ class FinancialAccount(
     """
 
     OBJECT_NAME = "treasury.financial_account"
-    active_features: List[str]
+    active_features: List[
+        Literal[
+            "card_issuing",
+            "deposit_insurance",
+            "financial_addresses.aba",
+            "inbound_transfers.ach",
+            "intra_stripe_flows",
+            "outbound_payments.ach",
+            "outbound_payments.us_domestic_wire",
+            "outbound_transfers.ach",
+            "outbound_transfers.us_domestic_wire",
+            "remote_deposit_capture",
+        ]
+    ]
     balance: StripeObject
     country: str
-    created: str
+    created: int
     features: "FinancialAccountFeatures"
     financial_addresses: List[StripeObject]
     id: str
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["treasury.financial_account"]
-    pending_features: List[str]
+    pending_features: List[
+        Literal[
+            "card_issuing",
+            "deposit_insurance",
+            "financial_addresses.aba",
+            "inbound_transfers.ach",
+            "intra_stripe_flows",
+            "outbound_payments.ach",
+            "outbound_payments.us_domestic_wire",
+            "outbound_transfers.ach",
+            "outbound_transfers.us_domestic_wire",
+            "remote_deposit_capture",
+        ]
+    ]
     platform_restrictions: Optional[StripeObject]
-    restricted_features: List[str]
-    status: str
+    restricted_features: List[
+        Literal[
+            "card_issuing",
+            "deposit_insurance",
+            "financial_addresses.aba",
+            "inbound_transfers.ach",
+            "intra_stripe_flows",
+            "outbound_payments.ach",
+            "outbound_payments.us_domestic_wire",
+            "outbound_transfers.ach",
+            "outbound_transfers.us_domestic_wire",
+            "remote_deposit_capture",
+        ]
+    ]
+    status: Literal["closed", "open"]
     status_details: StripeObject
     supported_currencies: List[str]
 

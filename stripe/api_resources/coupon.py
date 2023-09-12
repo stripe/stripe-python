@@ -31,10 +31,10 @@ class Coupon(
     OBJECT_NAME = "coupon"
     amount_off: Optional[int]
     applies_to: StripeObject
-    created: str
+    created: int
     currency: Optional[str]
     currency_options: Dict[str, StripeObject]
-    duration: str
+    duration: Literal["forever", "once", "repeating"]
     duration_in_months: Optional[int]
     id: str
     livemode: bool
@@ -43,7 +43,7 @@ class Coupon(
     name: Optional[str]
     object: Literal["coupon"]
     percent_off: Optional[float]
-    redeem_by: Optional[str]
+    redeem_by: Optional[int]
     times_redeemed: int
     valid: bool
 

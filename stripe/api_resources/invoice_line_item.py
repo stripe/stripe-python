@@ -43,5 +43,5 @@ class InvoiceLineItem(StripeObject):
     subscription_item: ExpandableField["SubscriptionItem"]
     tax_amounts: List[StripeObject]
     tax_rates: List["TaxRate"]
-    type: str
+    type: Literal["invoiceitem", "subscription"]
     unit_amount_excluding_tax: Optional[float]

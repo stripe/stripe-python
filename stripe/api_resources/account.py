@@ -58,13 +58,15 @@ class Account(
 
     OBJECT_NAME = "account"
     business_profile: Optional[StripeObject]
-    business_type: Optional[str]
+    business_type: Optional[
+        Literal["company", "government_entity", "individual", "non_profit"]
+    ]
     capabilities: StripeObject
     charges_enabled: bool
     company: StripeObject
     controller: StripeObject
     country: str
-    created: str
+    created: int
     default_currency: str
     details_submitted: bool
     email: Optional[str]
@@ -78,7 +80,7 @@ class Account(
     requirements: StripeObject
     settings: Optional[StripeObject]
     tos_acceptance: StripeObject
-    type: str
+    type: Literal["custom", "express", "standard"]
 
     @classmethod
     def create(

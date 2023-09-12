@@ -48,17 +48,17 @@ class Subscription(
     application: Optional[ExpandableField[Any]]
     application_fee_percent: Optional[float]
     automatic_tax: StripeObject
-    billing_cycle_anchor: str
+    billing_cycle_anchor: int
     billing_thresholds: Optional[StripeObject]
-    cancel_at: Optional[str]
+    cancel_at: Optional[int]
     cancel_at_period_end: bool
-    canceled_at: Optional[str]
+    canceled_at: Optional[int]
     cancellation_details: Optional[StripeObject]
-    collection_method: str
-    created: str
+    collection_method: Literal["charge_automatically", "send_invoice"]
+    created: int
     currency: str
-    current_period_end: str
-    current_period_start: str
+    current_period_end: int
+    current_period_start: int
     customer: ExpandableField[Any]
     days_until_due: Optional[int]
     default_payment_method: Optional[ExpandableField["PaymentMethod"]]
@@ -66,13 +66,13 @@ class Subscription(
     default_tax_rates: Optional[List["TaxRate"]]
     description: Optional[str]
     discount: Optional["Discount"]
-    ended_at: Optional[str]
+    ended_at: Optional[int]
     id: str
     items: ListObject["SubscriptionItem"]
     latest_invoice: Optional[ExpandableField["Invoice"]]
     livemode: bool
     metadata: Dict[str, str]
-    next_pending_invoice_item_invoice: Optional[str]
+    next_pending_invoice_item_invoice: Optional[int]
     object: Literal["subscription"]
     on_behalf_of: Optional[ExpandableField["Account"]]
     pause_collection: Optional[StripeObject]
@@ -81,13 +81,22 @@ class Subscription(
     pending_setup_intent: Optional[ExpandableField["SetupIntent"]]
     pending_update: Optional[StripeObject]
     schedule: Optional[ExpandableField["SubscriptionSchedule"]]
-    start_date: str
-    status: str
+    start_date: int
+    status: Literal[
+        "active",
+        "canceled",
+        "incomplete",
+        "incomplete_expired",
+        "past_due",
+        "paused",
+        "trialing",
+        "unpaid",
+    ]
     test_clock: Optional[ExpandableField["TestClock"]]
     transfer_data: Optional[StripeObject]
-    trial_end: Optional[str]
+    trial_end: Optional[int]
     trial_settings: Optional[StripeObject]
-    trial_start: Optional[str]
+    trial_start: Optional[int]
 
     @classmethod
     def _cls_cancel(

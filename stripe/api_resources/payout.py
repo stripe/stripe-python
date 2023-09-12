@@ -38,10 +38,10 @@ class Payout(
 
     OBJECT_NAME = "payout"
     amount: int
-    arrival_date: str
+    arrival_date: int
     automatic: bool
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
-    created: str
+    created: int
     currency: str
     description: Optional[str]
     destination: Optional[ExpandableField[Any]]
@@ -56,12 +56,14 @@ class Payout(
     method: str
     object: Literal["payout"]
     original_payout: Optional[ExpandableField["Payout"]]
-    reconciliation_status: str
+    reconciliation_status: Literal[
+        "completed", "in_progress", "not_applicable"
+    ]
     reversed_by: Optional[ExpandableField["Payout"]]
     source_type: str
     statement_descriptor: Optional[str]
     status: str
-    type: str
+    type: Literal["bank_account", "card"]
 
     @classmethod
     def _cls_cancel(

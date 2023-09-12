@@ -33,8 +33,8 @@ class Price(
 
     OBJECT_NAME = "price"
     active: bool
-    billing_scheme: str
-    created: str
+    billing_scheme: Literal["per_unit", "tiered"]
+    created: int
     currency: str
     currency_options: Dict[str, StripeObject]
     custom_unit_amount: Optional[StripeObject]
@@ -46,11 +46,11 @@ class Price(
     object: Literal["price"]
     product: ExpandableField[Any]
     recurring: Optional[StripeObject]
-    tax_behavior: Optional[str]
+    tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified"]]
     tiers: List[StripeObject]
-    tiers_mode: Optional[str]
+    tiers_mode: Optional[Literal["graduated", "volume"]]
     transform_quantity: Optional[StripeObject]
-    type: str
+    type: Literal["one_time", "recurring"]
     unit_amount: Optional[int]
     unit_amount_decimal: Optional[float]
 

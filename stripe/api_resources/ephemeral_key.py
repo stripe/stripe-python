@@ -11,8 +11,8 @@ from urllib.parse import quote_plus
 
 class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
     OBJECT_NAME = "ephemeral_key"
-    created: str
-    expires: str
+    created: int
+    expires: int
     id: str
     livemode: bool
     object: Literal["ephemeral_key"]

@@ -31,7 +31,7 @@ class InboundTransfer(
     OBJECT_NAME = "treasury.inbound_transfer"
     amount: int
     cancelable: bool
-    created: str
+    created: int
     currency: str
     description: Optional[str]
     failure_details: Optional[StripeObject]
@@ -46,7 +46,7 @@ class InboundTransfer(
     origin_payment_method_details: Optional[StripeObject]
     returned: Optional[bool]
     statement_descriptor: str
-    status: str
+    status: Literal["canceled", "failed", "processing", "succeeded"]
     status_transitions: StripeObject
     transaction: Optional[ExpandableField["Transaction"]]
 

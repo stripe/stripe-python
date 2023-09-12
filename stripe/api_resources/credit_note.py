@@ -45,7 +45,7 @@ class CreditNote(
     OBJECT_NAME = "credit_note"
     amount: int
     amount_shipping: int
-    created: str
+    created: int
     currency: str
     customer: ExpandableField[Any]
     customer_balance_transaction: Optional[
@@ -53,7 +53,7 @@ class CreditNote(
     ]
     discount_amount: int
     discount_amounts: List[StripeObject]
-    effective_at: Optional[str]
+    effective_at: Optional[int]
     id: str
     invoice: ExpandableField["Invoice"]
     lines: ListObject["CreditNoteLineItem"]
@@ -64,17 +64,21 @@ class CreditNote(
     object: Literal["credit_note"]
     out_of_band_amount: Optional[int]
     pdf: str
-    reason: Optional[str]
+    reason: Optional[
+        Literal[
+            "duplicate", "fraudulent", "order_change", "product_unsatisfactory"
+        ]
+    ]
     refund: Optional[ExpandableField["Refund"]]
     shipping_cost: Optional[StripeObject]
-    status: str
+    status: Literal["issued", "void"]
     subtotal: int
     subtotal_excluding_tax: Optional[int]
     tax_amounts: List[StripeObject]
     total: int
     total_excluding_tax: Optional[int]
-    type: str
-    voided_at: Optional[str]
+    type: Literal["post_payment", "pre_payment"]
+    voided_at: Optional[int]
 
     @classmethod
     def create(
