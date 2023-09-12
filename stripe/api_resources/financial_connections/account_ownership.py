@@ -20,7 +20,7 @@ class AccountOwnership(StripeObject):
     """
 
     OBJECT_NAME = "financial_connections.account_ownership"
-    created: str
+    created: int
     id: str
     object: Literal["financial_connections.account_ownership"]
     owners: ListObject["AccountOwner"]

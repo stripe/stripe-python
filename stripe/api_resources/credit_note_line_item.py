@@ -32,7 +32,7 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
     quantity: Optional[int]
     tax_amounts: List[StripeObject]
     tax_rates: List["TaxRate"]
-    type: str
+    type: Literal["custom_line_item", "invoice_line_item"]
     unit_amount: Optional[int]
     unit_amount_decimal: Optional[float]
     unit_amount_excluding_tax: Optional[float]

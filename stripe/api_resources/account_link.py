@@ -16,8 +16,8 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
     """
 
     OBJECT_NAME = "account_link"
-    created: str
-    expires_at: str
+    created: int
+    expires_at: int
     object: Literal["account_link"]
     url: str
 

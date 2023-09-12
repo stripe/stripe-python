@@ -38,7 +38,14 @@ class Reader(
     OBJECT_NAME = "terminal.reader"
     action: Optional[StripeObject]
     device_sw_version: Optional[str]
-    device_type: str
+    device_type: Literal[
+        "bbpos_chipper2x",
+        "bbpos_wisepad3",
+        "bbpos_wisepos_e",
+        "simulated_wisepos_e",
+        "stripe_m2",
+        "verifone_P400",
+    ]
     id: str
     ip_address: Optional[str]
     label: str

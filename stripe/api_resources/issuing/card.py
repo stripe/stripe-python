@@ -33,9 +33,9 @@ class Card(
 
     OBJECT_NAME = "issuing.card"
     brand: str
-    cancellation_reason: Optional[str]
+    cancellation_reason: Optional[Literal["design_rejected", "lost", "stolen"]]
     cardholder: "Cardholder"
-    created: str
+    created: int
     currency: str
     cvc: str
     exp_month: int
@@ -49,11 +49,13 @@ class Card(
     object: Literal["issuing.card"]
     replaced_by: Optional[ExpandableField["Card"]]
     replacement_for: Optional[ExpandableField["Card"]]
-    replacement_reason: Optional[str]
+    replacement_reason: Optional[
+        Literal["damaged", "expired", "lost", "stolen"]
+    ]
     shipping: Optional[StripeObject]
     spending_controls: StripeObject
-    status: str
-    type: str
+    status: Literal["active", "canceled", "inactive"]
+    type: Literal["physical", "virtual"]
     wallets: Optional[StripeObject]
 
     @classmethod

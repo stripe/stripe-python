@@ -36,14 +36,14 @@ class Dispute(
     OBJECT_NAME = "issuing.dispute"
     amount: int
     balance_transactions: Optional[List["BalanceTransaction"]]
-    created: str
+    created: int
     currency: str
     evidence: StripeObject
     id: str
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["issuing.dispute"]
-    status: str
+    status: Literal["expired", "lost", "submitted", "unsubmitted", "won"]
     transaction: ExpandableField["Transaction"]
     treasury: Optional[StripeObject]
 

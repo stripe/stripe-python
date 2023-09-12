@@ -19,6 +19,6 @@ class TransactionLineItem(StripeObject):
     quantity: int
     reference: str
     reversal: Optional[StripeObject]
-    tax_behavior: str
+    tax_behavior: Literal["exclusive", "inclusive"]
     tax_code: str
-    type: str
+    type: Literal["reversal", "transaction"]

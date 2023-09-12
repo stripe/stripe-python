@@ -34,7 +34,7 @@ class WebhookEndpoint(
     OBJECT_NAME = "webhook_endpoint"
     api_version: Optional[str]
     application: Optional[str]
-    created: str
+    created: int
     description: Optional[str]
     enabled_events: List[str]
     id: str

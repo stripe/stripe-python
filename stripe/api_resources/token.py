@@ -41,7 +41,7 @@ class Token(CreateableAPIResource["Token"]):
     bank_account: "BankAccount"
     card: "Card"
     client_ip: Optional[str]
-    created: str
+    created: int
     id: str
     livemode: bool
     object: Literal["token"]

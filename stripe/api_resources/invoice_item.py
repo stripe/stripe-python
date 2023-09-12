@@ -52,7 +52,7 @@ class InvoiceItem(
     amount: int
     currency: str
     customer: ExpandableField[Any]
-    date: str
+    date: int
     description: Optional[str]
     discountable: bool
     discounts: Optional[List[ExpandableField["Discount"]]]

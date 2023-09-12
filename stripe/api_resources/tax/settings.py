@@ -27,7 +27,7 @@ class Settings(
     head_office: Optional[StripeObject]
     livemode: bool
     object: Literal["tax.settings"]
-    status: str
+    status: Literal["active", "pending"]
     status_details: StripeObject
 
     @classmethod

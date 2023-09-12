@@ -34,9 +34,9 @@ class PromotionCode(
     active: bool
     code: str
     coupon: "Coupon"
-    created: str
+    created: int
     customer: Optional[ExpandableField[Any]]
-    expires_at: Optional[str]
+    expires_at: Optional[int]
     id: str
     livemode: bool
     max_redemptions: Optional[int]

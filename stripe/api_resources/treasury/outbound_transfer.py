@@ -33,12 +33,12 @@ class OutboundTransfer(
     OBJECT_NAME = "treasury.outbound_transfer"
     amount: int
     cancelable: bool
-    created: str
+    created: int
     currency: str
     description: Optional[str]
     destination_payment_method: Optional[str]
     destination_payment_method_details: StripeObject
-    expected_arrival_date: str
+    expected_arrival_date: int
     financial_account: str
     hosted_regulatory_receipt_url: Optional[str]
     id: str
@@ -47,7 +47,7 @@ class OutboundTransfer(
     object: Literal["treasury.outbound_transfer"]
     returned_details: Optional[StripeObject]
     statement_descriptor: str
-    status: str
+    status: Literal["canceled", "failed", "posted", "processing", "returned"]
     status_transitions: StripeObject
     transaction: ExpandableField["Transaction"]
 

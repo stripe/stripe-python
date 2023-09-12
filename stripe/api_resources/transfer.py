@@ -49,7 +49,7 @@ class Transfer(
     amount: int
     amount_reversed: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
-    created: str
+    created: int
     currency: str
     description: Optional[str]
     destination: Optional[ExpandableField["Account"]]

@@ -39,7 +39,7 @@ class Dispute(
     amount: int
     balance_transactions: List["BalanceTransaction"]
     charge: ExpandableField["Charge"]
-    created: str
+    created: int
     currency: str
     evidence: StripeObject
     evidence_details: StripeObject
@@ -52,7 +52,15 @@ class Dispute(
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     payment_method_details: StripeObject
     reason: str
-    status: str
+    status: Literal[
+        "lost",
+        "needs_response",
+        "under_review",
+        "warning_closed",
+        "warning_needs_response",
+        "warning_under_review",
+        "won",
+    ]
 
     @classmethod
     def _cls_close(

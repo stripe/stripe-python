@@ -35,21 +35,23 @@ class SubscriptionSchedule(
 
     OBJECT_NAME = "subscription_schedule"
     application: Optional[ExpandableField[Any]]
-    canceled_at: Optional[str]
-    completed_at: Optional[str]
-    created: str
+    canceled_at: Optional[int]
+    completed_at: Optional[int]
+    created: int
     current_phase: Optional[StripeObject]
     customer: ExpandableField[Any]
     default_settings: StripeObject
-    end_behavior: str
+    end_behavior: Literal["cancel", "none", "release", "renew"]
     id: str
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["subscription_schedule"]
     phases: List[StripeObject]
-    released_at: Optional[str]
+    released_at: Optional[int]
     released_subscription: Optional[str]
-    status: str
+    status: Literal[
+        "active", "canceled", "completed", "not_started", "released"
+    ]
     subscription: Optional[ExpandableField["Subscription"]]
     test_clock: Optional[ExpandableField["TestClock"]]
 

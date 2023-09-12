@@ -26,7 +26,7 @@ class ValueListItem(
     """
 
     OBJECT_NAME = "radar.value_list_item"
-    created: str
+    created: int
     created_by: str
     id: str
     livemode: bool

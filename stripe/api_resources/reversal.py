@@ -36,7 +36,7 @@ class Reversal(UpdateableAPIResource["Reversal"]):
     OBJECT_NAME = "transfer_reversal"
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
-    created: str
+    created: int
     currency: str
     destination_payment_refund: Optional[ExpandableField["Refund"]]
     id: str

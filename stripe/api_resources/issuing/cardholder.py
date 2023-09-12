@@ -28,7 +28,7 @@ class Cardholder(
     OBJECT_NAME = "issuing.cardholder"
     billing: StripeObject
     company: Optional[StripeObject]
-    created: str
+    created: int
     email: Optional[str]
     id: str
     individual: Optional[StripeObject]
@@ -37,11 +37,11 @@ class Cardholder(
     name: str
     object: Literal["issuing.cardholder"]
     phone_number: Optional[str]
-    preferred_locales: Optional[List[str]]
+    preferred_locales: Optional[List[Literal["de", "en", "es", "fr", "it"]]]
     requirements: StripeObject
     spending_controls: Optional[StripeObject]
-    status: str
-    type: str
+    status: Literal["active", "blocked", "inactive"]
+    type: Literal["company", "individual"]
 
     @classmethod
     def create(

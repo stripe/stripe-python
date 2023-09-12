@@ -26,14 +26,14 @@ class TestClock(
     """
 
     OBJECT_NAME = "test_helpers.test_clock"
-    created: str
-    deletes_after: str
-    frozen_time: str
+    created: int
+    deletes_after: int
+    frozen_time: int
     id: str
     livemode: bool
     name: Optional[str]
     object: Literal["test_helpers.test_clock"]
-    status: str
+    status: Literal["advancing", "internal_failure", "ready"]
 
     @classmethod
     def _cls_advance(

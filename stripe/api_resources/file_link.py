@@ -31,9 +31,9 @@ class FileLink(
     """
 
     OBJECT_NAME = "file_link"
-    created: str
+    created: int
     expired: bool
-    expires_at: Optional[str]
+    expires_at: Optional[int]
     file: ExpandableField["File"]
     id: str
     livemode: bool

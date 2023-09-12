@@ -20,8 +20,8 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
 
     OBJECT_NAME = "balance_transaction"
     amount: int
-    available_on: str
-    created: str
+    available_on: int
+    created: int
     currency: str
     description: Optional[str]
     exchange_rate: Optional[float]
@@ -33,7 +33,47 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     reporting_category: str
     source: Optional[ExpandableField[Any]]
     status: str
-    type: str
+    type: Literal[
+        "adjustment",
+        "advance",
+        "advance_funding",
+        "anticipation_repayment",
+        "application_fee",
+        "application_fee_refund",
+        "charge",
+        "connect_collection_transfer",
+        "contribution",
+        "issuing_authorization_hold",
+        "issuing_authorization_release",
+        "issuing_dispute",
+        "issuing_transaction",
+        "obligation_inbound",
+        "obligation_outbound",
+        "obligation_payout",
+        "obligation_payout_failure",
+        "obligation_reversal_inbound",
+        "obligation_reversal_outbound",
+        "payment",
+        "payment_failure_refund",
+        "payment_refund",
+        "payment_reversal",
+        "payout",
+        "payout_cancel",
+        "payout_failure",
+        "refund",
+        "refund_failure",
+        "reserve_transaction",
+        "reserved_funds",
+        "stripe_fee",
+        "stripe_fx_fee",
+        "tax_fee",
+        "topup",
+        "topup_reversal",
+        "transfer",
+        "transfer_cancel",
+        "transfer_failure",
+        "transfer_refund",
+    ]
 
     @classmethod
     def list(

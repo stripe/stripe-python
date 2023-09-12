@@ -62,7 +62,7 @@ class Customer(
     address: Optional[StripeObject]
     balance: int
     cash_balance: Optional["CashBalance"]
-    created: str
+    created: int
     currency: Optional[str]
     default_source: Optional[ExpandableField[Any]]
     delinquent: Optional[bool]
@@ -84,7 +84,7 @@ class Customer(
     sources: ListObject[Any]
     subscriptions: ListObject["Subscription"]
     tax: StripeObject
-    tax_exempt: Optional[str]
+    tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
     tax_ids: ListObject["TaxId"]
     test_clock: Optional[ExpandableField["TestClock"]]
 

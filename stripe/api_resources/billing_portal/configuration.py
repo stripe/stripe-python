@@ -28,7 +28,7 @@ class Configuration(
     active: bool
     application: Optional[ExpandableField[Any]]
     business_profile: StripeObject
-    created: str
+    created: int
     default_return_url: Optional[str]
     features: StripeObject
     id: str
@@ -37,7 +37,7 @@ class Configuration(
     login_page: StripeObject
     metadata: Optional[Dict[str, str]]
     object: Literal["billing_portal.configuration"]
-    updated: str
+    updated: int
 
     @classmethod
     def create(
