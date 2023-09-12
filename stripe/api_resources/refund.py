@@ -53,7 +53,14 @@ class Refund(
     next_action: StripeObject
     object: Literal["refund"]
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
-    reason: Optional[str]
+    reason: Optional[
+        Literal[
+            "duplicate",
+            "expired_uncaptured_charge",
+            "fraudulent",
+            "requested_by_customer",
+        ]
+    ]
     receipt_number: Optional[str]
     source_transfer_reversal: Optional[ExpandableField["Reversal"]]
     status: Optional[str]

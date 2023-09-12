@@ -27,7 +27,9 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     amount_subtotal: int
     amount_total: int
     billing_cycle_anchor: Optional[Literal["reset"]]
-    collection_method: Optional[str]
+    collection_method: Optional[
+        Literal["charge_automatically", "send_invoice"]
+    ]
     default_tax_rates: List[ExpandableField["TaxRate"]]
     discounts: List[ExpandableField["Discount"]]
     end_date: Optional[str]
@@ -36,7 +38,7 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     iterations: Optional[int]
     line_items: ListObject["LineItem"]
     object: Literal["quote_phase"]
-    proration_behavior: str
+    proration_behavior: Literal["always_invoice", "create_prorations", "none"]
     total_details: StripeObject
     trial: Optional[bool]
     trial_end: Optional[str]

@@ -49,7 +49,7 @@ class Topup(
     object: Literal["topup"]
     source: Optional["Source"]
     statement_descriptor: Optional[str]
-    status: str
+    status: Literal["canceled", "failed", "pending", "reversed", "succeeded"]
     transfer_group: Optional[str]
 
     @classmethod

@@ -21,7 +21,7 @@ class Transaction(ListableAPIResource["Transaction"]):
     id: str
     livemode: bool
     object: Literal["financial_connections.transaction"]
-    status: str
+    status: Literal["pending", "posted", "void"]
     status_transitions: StripeObject
     transacted_at: str
     transaction_refresh: str

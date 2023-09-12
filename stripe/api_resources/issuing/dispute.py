@@ -43,7 +43,7 @@ class Dispute(
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["issuing.dispute"]
-    status: str
+    status: Literal["expired", "lost", "submitted", "unsubmitted", "won"]
     transaction: ExpandableField["Transaction"]
     treasury: Optional[StripeObject]
 

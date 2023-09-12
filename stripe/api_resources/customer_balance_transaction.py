@@ -39,7 +39,18 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["customer_balance_transaction"]
-    type: str
+    type: Literal[
+        "adjustment",
+        "applied_to_invoice",
+        "credit_note",
+        "initial",
+        "invoice_overpaid",
+        "invoice_too_large",
+        "invoice_too_small",
+        "migration",
+        "unapplied_from_invoice",
+        "unspent_receiver_credit",
+    ]
 
     def instance_url(self):
         token = self.id

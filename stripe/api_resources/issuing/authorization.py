@@ -40,7 +40,9 @@ class Authorization(
     amount: int
     amount_details: Optional[StripeObject]
     approved: bool
-    authorization_method: str
+    authorization_method: Literal[
+        "chip", "contactless", "keyed_in", "online", "swipe"
+    ]
     balance_transactions: List["BalanceTransaction"]
     card: "Card"
     cardholder: Optional[ExpandableField["Cardholder"]]
@@ -56,7 +58,7 @@ class Authorization(
     object: Literal["issuing.authorization"]
     pending_request: Optional[StripeObject]
     request_history: List[StripeObject]
-    status: str
+    status: Literal["closed", "pending", "reversed"]
     transactions: List["Transaction"]
     treasury: Optional[StripeObject]
     verification_data: StripeObject

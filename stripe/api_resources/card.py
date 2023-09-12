@@ -34,7 +34,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     address_state: Optional[str]
     address_zip: Optional[str]
     address_zip_check: Optional[str]
-    available_payout_methods: Optional[List[str]]
+    available_payout_methods: Optional[List[Literal["instant", "standard"]]]
     brand: str
     country: Optional[str]
     currency: Optional[str]

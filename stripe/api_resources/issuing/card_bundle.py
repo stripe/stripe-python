@@ -19,8 +19,8 @@ class CardBundle(ListableAPIResource["CardBundle"]):
     livemode: bool
     name: str
     object: Literal["issuing.card_bundle"]
-    status: str
-    type: str
+    status: Literal["active", "inactive", "review"]
+    type: Literal["custom", "standard"]
 
     @classmethod
     def list(

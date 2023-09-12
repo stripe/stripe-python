@@ -29,10 +29,18 @@ class Session(CreateableAPIResource["Session"]):
     livemode: bool
     manual_entry: StripeObject
     object: Literal["financial_connections.session"]
-    permissions: List[str]
-    prefetch: Optional[List[str]]
+    permissions: List[
+        Literal["balances", "ownership", "payment_method", "transactions"]
+    ]
+    prefetch: Optional[
+        List[
+            Literal[
+                "balances", "inferred_balances", "ownership", "transactions"
+            ]
+        ]
+    ]
     return_url: str
-    status: str
+    status: Literal["cancelled", "failed", "pending", "succeeded"]
     status_details: StripeObject
 
     @classmethod

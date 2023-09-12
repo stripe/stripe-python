@@ -21,17 +21,28 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     account: str
     created: int
     expires_after: float
-    financing_type: str
+    financing_type: Literal["cash_advance", "flex_loan"]
     id: str
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["capital.financing_offer"]
     offered_terms: StripeObject
-    product_type: str
+    product_type: Literal["refill", "standard"]
     replacement: str
     replacement_for: str
-    status: str
-    type: str
+    status: Literal[
+        "accepted",
+        "canceled",
+        "completed",
+        "delivered",
+        "expired",
+        "fully_repaid",
+        "paid_out",
+        "rejected",
+        "replaced",
+        "undelivered",
+    ]
+    type: Literal["cash_advance", "flex_loan"]
 
     @classmethod
     def list(

@@ -45,7 +45,7 @@ class Person(UpdateableAPIResource["Person"]):
     nationality: Optional[str]
     object: Literal["person"]
     phone: Optional[str]
-    political_exposure: str
+    political_exposure: Literal["existing", "none"]
     registered_address: StripeObject
     relationship: StripeObject
     requirements: Optional[StripeObject]

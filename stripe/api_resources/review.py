@@ -28,7 +28,11 @@ class Review(ListableAPIResource["Review"]):
     OBJECT_NAME = "review"
     billing_zip: Optional[str]
     charge: Optional[ExpandableField["Charge"]]
-    closed_reason: Optional[str]
+    closed_reason: Optional[
+        Literal[
+            "approved", "disputed", "redacted", "refunded", "refunded_as_fraud"
+        ]
+    ]
     created: str
     id: str
     ip_address: Optional[str]
@@ -36,7 +40,7 @@ class Review(ListableAPIResource["Review"]):
     livemode: bool
     object: Literal["review"]
     open: bool
-    opened_reason: str
+    opened_reason: Literal["manual", "rule"]
     payment_intent: ExpandableField["PaymentIntent"]
     reason: str
     session: Optional[StripeObject]

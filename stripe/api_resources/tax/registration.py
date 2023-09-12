@@ -36,7 +36,7 @@ class Registration(
     id: str
     livemode: bool
     object: Literal["tax.registration"]
-    status: str
+    status: Literal["active", "expired", "scheduled"]
 
     @classmethod
     def create(

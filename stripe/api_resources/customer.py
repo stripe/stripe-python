@@ -84,7 +84,7 @@ class Customer(
     sources: ListObject[Any]
     subscriptions: ListObject["Subscription"]
     tax: StripeObject
-    tax_exempt: Optional[str]
+    tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
     tax_ids: ListObject["TaxId"]
     test_clock: Optional[ExpandableField["TestClock"]]
 

@@ -33,7 +33,7 @@ class TestClock(
     livemode: bool
     name: Optional[str]
     object: Literal["test_helpers.test_clock"]
-    status: str
+    status: Literal["advancing", "internal_failure", "ready"]
 
     @classmethod
     def _cls_advance(

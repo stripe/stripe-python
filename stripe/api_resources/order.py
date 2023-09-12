@@ -59,7 +59,7 @@ class Order(
     payment: StripeObject
     shipping_cost: Optional[StripeObject]
     shipping_details: Optional[StripeObject]
-    status: str
+    status: Literal["canceled", "complete", "open", "processing", "submitted"]
     tax_details: StripeObject
     total_details: StripeObject
 

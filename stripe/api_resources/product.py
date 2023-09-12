@@ -59,7 +59,7 @@ class Product(
     shippable: Optional[bool]
     statement_descriptor: Optional[str]
     tax_code: Optional[ExpandableField["TaxCode"]]
-    type: str
+    type: Literal["good", "service"]
     unit_label: Optional[str]
     updated: str
     url: Optional[str]

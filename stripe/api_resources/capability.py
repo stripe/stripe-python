@@ -26,7 +26,7 @@ class Capability(UpdateableAPIResource["Capability"]):
     requested: bool
     requested_at: Optional[str]
     requirements: StripeObject
-    status: str
+    status: Literal["active", "disabled", "inactive", "pending", "unrequested"]
 
     def instance_url(self):
         token = self.id

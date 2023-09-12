@@ -23,7 +23,7 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
     legacy_balance_transaction_source: str
     livemode: bool
     object: Literal["capital.financing_transaction"]
-    type: str
+    type: Literal["payment", "payout", "reversal"]
     user_facing_description: Optional[str]
 
     @classmethod

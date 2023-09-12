@@ -74,8 +74,20 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     attempt_count: int
     attempted: bool
     automatic_tax: StripeObject
-    billing_reason: Optional[str]
-    collection_method: str
+    billing_reason: Optional[
+        Literal[
+            "automatic_pending_invoice_item_invoice",
+            "manual",
+            "quote_accept",
+            "subscription",
+            "subscription_create",
+            "subscription_cycle",
+            "subscription_threshold",
+            "subscription_update",
+            "upcoming",
+        ]
+    ]
+    collection_method: Literal["charge_automatically", "send_invoice"]
     created: str
     currency: str
     custom_fields: Optional[List[StripeObject]]
@@ -84,7 +96,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     customer_name: Optional[str]
     customer_phone: Optional[str]
     customer_shipping: Optional[StripeObject]
-    customer_tax_exempt: Optional[str]
+    customer_tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
     customer_tax_ids: Optional[List[StripeObject]]
     default_payment_method: Optional[ExpandableField["PaymentMethod"]]
     default_source: Optional[ExpandableField[Any]]
@@ -122,7 +134,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     shipping_details: Optional[StripeObject]
     starting_balance: int
     statement_descriptor: Optional[str]
-    status: Optional[str]
+    status: Optional[Literal["draft", "open", "paid", "uncollectible", "void"]]
     status_transitions: StripeObject
     subscription: Optional[ExpandableField["Subscription"]]
     subscription_details: Optional[StripeObject]

@@ -53,8 +53,8 @@ class VerificationSession(
     object: Literal["identity.verification_session"]
     options: Optional[StripeObject]
     redaction: Optional[StripeObject]
-    status: str
-    type: Optional[str]
+    status: Literal["canceled", "processing", "requires_input", "verified"]
+    type: Optional[Literal["document", "id_number"]]
     url: Optional[str]
     verified_outputs: Optional[StripeObject]
 

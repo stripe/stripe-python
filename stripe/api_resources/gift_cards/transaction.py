@@ -40,7 +40,7 @@ class Transaction(
     id: str
     metadata: Optional[Dict[str, str]]
     object: Literal["gift_cards.transaction"]
-    status: Optional[str]
+    status: Optional[Literal["canceled", "confirmed", "held", "invalid"]]
     transfer_group: Optional[str]
 
     @classmethod

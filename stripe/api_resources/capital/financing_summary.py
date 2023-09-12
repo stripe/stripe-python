@@ -18,7 +18,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     details: Optional[StripeObject]
     financing_offer: Optional[str]
     object: Literal["capital.financing_summary"]
-    status: Optional[str]
+    status: Optional[Literal["accepted", "delivered", "none"]]
 
     @classmethod
     def retrieve(cls, **params) -> "FinancingSummary":

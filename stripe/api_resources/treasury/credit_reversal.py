@@ -35,10 +35,10 @@ class CreditReversal(
     id: str
     livemode: bool
     metadata: Dict[str, str]
-    network: str
+    network: Literal["ach", "stripe"]
     object: Literal["treasury.credit_reversal"]
     received_credit: str
-    status: str
+    status: Literal["canceled", "posted", "processing"]
     status_transitions: StripeObject
     transaction: Optional[ExpandableField["Transaction"]]
 

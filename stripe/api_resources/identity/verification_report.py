@@ -33,7 +33,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     object: Literal["identity.verification_report"]
     options: StripeObject
     selfie: StripeObject
-    type: str
+    type: Literal["document", "id_number"]
     verification_session: Optional[str]
 
     @classmethod

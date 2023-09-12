@@ -31,7 +31,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
     attach_to_self: bool
     created: str
     customer: Optional[ExpandableField[Any]]
-    flow_directions: Optional[List[str]]
+    flow_directions: Optional[List[Literal["inbound", "outbound"]]]
     id: str
     livemode: bool
     object: Literal["setup_attempt"]

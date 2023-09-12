@@ -46,7 +46,7 @@ class InboundTransfer(
     origin_payment_method_details: Optional[StripeObject]
     returned: Optional[bool]
     statement_descriptor: str
-    status: str
+    status: Literal["canceled", "failed", "processing", "succeeded"]
     status_transitions: StripeObject
     transaction: Optional[ExpandableField["Transaction"]]
 

@@ -64,16 +64,20 @@ class CreditNote(
     object: Literal["credit_note"]
     out_of_band_amount: Optional[int]
     pdf: str
-    reason: Optional[str]
+    reason: Optional[
+        Literal[
+            "duplicate", "fraudulent", "order_change", "product_unsatisfactory"
+        ]
+    ]
     refund: Optional[ExpandableField["Refund"]]
     shipping_cost: Optional[StripeObject]
-    status: str
+    status: Literal["issued", "void"]
     subtotal: int
     subtotal_excluding_tax: Optional[int]
     tax_amounts: List[StripeObject]
     total: int
     total_excluding_tax: Optional[int]
-    type: str
+    type: Literal["post_payment", "pre_payment"]
     voided_at: Optional[str]
 
     @classmethod

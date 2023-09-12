@@ -34,7 +34,7 @@ class Account(ListableAPIResource["Account"]):
     account_holder: Optional[StripeObject]
     balance: Optional[StripeObject]
     balance_refresh: Optional[StripeObject]
-    category: str
+    category: Literal["cash", "credit", "investment", "other"]
     created: str
     display_name: Optional[str]
     id: str
@@ -45,11 +45,22 @@ class Account(ListableAPIResource["Account"]):
     object: Literal["financial_connections.account"]
     ownership: Optional[ExpandableField["AccountOwnership"]]
     ownership_refresh: Optional[StripeObject]
-    permissions: Optional[List[str]]
-    status: str
-    subcategory: str
-    subscriptions: Optional[List[str]]
-    supported_payment_method_types: List[str]
+    permissions: Optional[
+        List[
+            Literal["balances", "ownership", "payment_method", "transactions"]
+        ]
+    ]
+    status: Literal["active", "disconnected", "inactive"]
+    subcategory: Literal[
+        "checking",
+        "credit_card",
+        "line_of_credit",
+        "mortgage",
+        "other",
+        "savings",
+    ]
+    subscriptions: Optional[List[Literal["inferred_balances", "transactions"]]]
+    supported_payment_method_types: List[Literal["link", "us_bank_account"]]
     transaction_refresh: Optional[StripeObject]
 
     @classmethod

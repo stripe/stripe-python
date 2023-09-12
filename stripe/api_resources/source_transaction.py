@@ -28,4 +28,21 @@ class SourceTransaction(StripeObject):
     sepa_credit_transfer: StripeObject
     source: str
     status: str
-    type: str
+    type: Literal[
+        "ach_credit_transfer",
+        "ach_debit",
+        "alipay",
+        "bancontact",
+        "card",
+        "card_present",
+        "eps",
+        "giropay",
+        "ideal",
+        "klarna",
+        "multibanco",
+        "p24",
+        "sepa_debit",
+        "sofort",
+        "three_d_secure",
+        "wechat",
+    ]

@@ -38,7 +38,7 @@ class Transaction(APIResource["Transaction"]):
     reversal: Optional[StripeObject]
     shipping_cost: Optional[StripeObject]
     tax_date: str
-    type: str
+    type: Literal["reversal", "transaction"]
 
     @classmethod
     def create_from_calculation(

@@ -17,6 +17,6 @@ class CalculationLineItem(StripeObject):
     product: Optional[str]
     quantity: int
     reference: Optional[str]
-    tax_behavior: str
+    tax_behavior: Literal["exclusive", "inclusive"]
     tax_breakdown: Optional[List[StripeObject]]
     tax_code: str

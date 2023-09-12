@@ -40,7 +40,7 @@ class ShippingRate(
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["shipping_rate"]
-    tax_behavior: Optional[str]
+    tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified"]]
     tax_code: Optional[ExpandableField["TaxCode"]]
     type: Literal["fixed_amount"]
 

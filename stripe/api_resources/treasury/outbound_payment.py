@@ -49,7 +49,7 @@ class OutboundPayment(
     object: Literal["treasury.outbound_payment"]
     returned_details: Optional[StripeObject]
     statement_descriptor: str
-    status: str
+    status: Literal["canceled", "failed", "posted", "processing", "returned"]
     status_transitions: StripeObject
     transaction: ExpandableField["Transaction"]
 

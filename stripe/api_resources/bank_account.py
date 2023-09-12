@@ -37,7 +37,7 @@ class BankAccount(
     account_holder_name: Optional[str]
     account_holder_type: Optional[str]
     account_type: Optional[str]
-    available_payout_methods: Optional[List[str]]
+    available_payout_methods: Optional[List[Literal["instant", "standard"]]]
     bank_name: Optional[str]
     country: str
     currency: str

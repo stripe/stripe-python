@@ -36,10 +36,10 @@ class DebitReversal(
     linked_flows: Optional[StripeObject]
     livemode: bool
     metadata: Dict[str, str]
-    network: str
+    network: Literal["ach", "card"]
     object: Literal["treasury.debit_reversal"]
     received_debit: str
-    status: str
+    status: Literal["failed", "processing", "succeeded"]
     status_transitions: StripeObject
     transaction: Optional[ExpandableField["Transaction"]]
 

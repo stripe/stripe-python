@@ -48,7 +48,7 @@ class OutboundTransfer(
     object: Literal["treasury.outbound_transfer"]
     returned_details: Optional[StripeObject]
     statement_descriptor: str
-    status: str
+    status: Literal["canceled", "failed", "posted", "processing", "returned"]
     status_transitions: StripeObject
     transaction: ExpandableField["Transaction"]
 

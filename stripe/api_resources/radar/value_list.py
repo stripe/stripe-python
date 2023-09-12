@@ -37,7 +37,18 @@ class ValueList(
     created: str
     created_by: str
     id: str
-    item_type: str
+    item_type: Literal[
+        "card_bin",
+        "card_fingerprint",
+        "case_sensitive_string",
+        "country",
+        "customer_id",
+        "email",
+        "ip_address",
+        "sepa_debit_fingerprint",
+        "string",
+        "us_bank_account_fingerprint",
+    ]
     list_items: ListObject["ValueListItem"]
     livemode: bool
     metadata: Dict[str, str]

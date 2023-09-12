@@ -33,7 +33,23 @@ class File(ListableAPIResource["File"]):
     id: str
     links: Optional[ListObject["FileLink"]]
     object: Literal["file"]
-    purpose: str
+    purpose: Literal[
+        "account_requirement",
+        "additional_verification",
+        "business_icon",
+        "business_logo",
+        "customer_signature",
+        "dispute_evidence",
+        "document_provider_identity_document",
+        "finance_report_run",
+        "identity_document",
+        "identity_document_downloadable",
+        "pci_document",
+        "selfie",
+        "sigma_scheduled_query",
+        "tax_document_user_upload",
+        "terminal_reader_splashscreen",
+    ]
     size: int
     title: Optional[str]
     type: Optional[str]

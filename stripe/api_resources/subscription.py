@@ -54,7 +54,7 @@ class Subscription(
     cancel_at_period_end: bool
     canceled_at: Optional[str]
     cancellation_details: Optional[StripeObject]
-    collection_method: str
+    collection_method: Literal["charge_automatically", "send_invoice"]
     created: str
     currency: str
     current_period_end: str
@@ -84,7 +84,16 @@ class Subscription(
     prebilling: Optional[StripeObject]
     schedule: Optional[ExpandableField["SubscriptionSchedule"]]
     start_date: str
-    status: str
+    status: Literal[
+        "active",
+        "canceled",
+        "incomplete",
+        "incomplete_expired",
+        "past_due",
+        "paused",
+        "trialing",
+        "unpaid",
+    ]
     test_clock: Optional[ExpandableField["TestClock"]]
     transfer_data: Optional[StripeObject]
     trial_end: Optional[str]

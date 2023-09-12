@@ -90,7 +90,7 @@ class Charge(
     source_transfer: Optional[ExpandableField["Transfer"]]
     statement_descriptor: Optional[str]
     statement_descriptor_suffix: Optional[str]
-    status: str
+    status: Literal["failed", "pending", "succeeded"]
     transfer: ExpandableField["Transfer"]
     transfer_data: Optional[StripeObject]
     transfer_group: Optional[str]

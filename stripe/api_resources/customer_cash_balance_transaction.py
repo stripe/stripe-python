@@ -37,7 +37,16 @@ class CustomerCashBalanceTransaction(
     net_amount: int
     object: Literal["customer_cash_balance_transaction"]
     refunded_from_payment: StripeObject
-    type: str
+    type: Literal[
+        "adjusted_for_overdraft",
+        "applied_to_payment",
+        "funded",
+        "funding_reversed",
+        "refunded_from_payment",
+        "return_canceled",
+        "return_initiated",
+        "unapplied_from_payment",
+    ]
     unapplied_from_payment: StripeObject
 
     @classmethod

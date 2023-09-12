@@ -34,7 +34,7 @@ class Coupon(
     created: str
     currency: Optional[str]
     currency_options: Dict[str, StripeObject]
-    duration: str
+    duration: Literal["forever", "once", "repeating", "variable"]
     duration_in_months: Optional[int]
     id: str
     livemode: bool

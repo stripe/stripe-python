@@ -43,12 +43,12 @@ class PaymentLink(
     application_fee_amount: Optional[int]
     application_fee_percent: Optional[float]
     automatic_tax: StripeObject
-    billing_address_collection: str
+    billing_address_collection: Literal["auto", "required"]
     consent_collection: Optional[StripeObject]
     currency: str
     custom_fields: List[StripeObject]
     custom_text: StripeObject
-    customer_creation: str
+    customer_creation: Literal["always", "if_required"]
     id: str
     invoice_creation: Optional[StripeObject]
     line_items: ListObject["LineItem"]
@@ -57,12 +57,45 @@ class PaymentLink(
     object: Literal["payment_link"]
     on_behalf_of: Optional[ExpandableField["Account"]]
     payment_intent_data: Optional[StripeObject]
-    payment_method_collection: str
-    payment_method_types: Optional[List[str]]
+    payment_method_collection: Literal["always", "if_required"]
+    payment_method_types: Optional[
+        List[
+            Literal[
+                "affirm",
+                "afterpay_clearpay",
+                "alipay",
+                "au_becs_debit",
+                "bacs_debit",
+                "bancontact",
+                "blik",
+                "boleto",
+                "card",
+                "cashapp",
+                "eps",
+                "fpx",
+                "giropay",
+                "grabpay",
+                "ideal",
+                "klarna",
+                "konbini",
+                "link",
+                "oxxo",
+                "p24",
+                "paynow",
+                "paypal",
+                "pix",
+                "promptpay",
+                "sepa_debit",
+                "sofort",
+                "us_bank_account",
+                "wechat_pay",
+            ]
+        ]
+    ]
     phone_number_collection: StripeObject
     shipping_address_collection: Optional[StripeObject]
     shipping_options: List[StripeObject]
-    submit_type: str
+    submit_type: Literal["auto", "book", "donate", "pay"]
     subscription_data: Optional[StripeObject]
     tax_id_collection: StripeObject
     transfer_data: Optional[StripeObject]

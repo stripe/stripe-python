@@ -28,7 +28,7 @@ class Form(ListableAPIResource["Form"]):
     livemode: bool
     object: Literal["tax.form"]
     payee: StripeObject
-    type: str
+    type: Literal["us_1099_k", "us_1099_misc", "us_1099_nec"]
     us_1099_k: StripeObject
     us_1099_misc: StripeObject
     us_1099_nec: StripeObject

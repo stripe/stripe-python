@@ -54,7 +54,7 @@ class Quote(
     application_fee_amount: Optional[int]
     application_fee_percent: Optional[float]
     automatic_tax: StripeObject
-    collection_method: str
+    collection_method: Literal["charge_automatically", "send_invoice"]
     computed: StripeObject
     created: str
     currency: Optional[str]
@@ -76,7 +76,9 @@ class Quote(
     number: Optional[str]
     object: Literal["quote"]
     on_behalf_of: Optional[ExpandableField["Account"]]
-    status: str
+    status: Literal[
+        "accepted", "accepting", "canceled", "draft", "open", "stale"
+    ]
     status_details: Optional[StripeObject]
     status_transitions: StripeObject
     subscription: Optional[ExpandableField["Subscription"]]

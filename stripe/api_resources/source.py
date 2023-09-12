@@ -65,7 +65,28 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     statement_descriptor: Optional[str]
     status: str
     three_d_secure: StripeObject
-    type: str
+    type: Literal[
+        "ach_credit_transfer",
+        "ach_debit",
+        "acss_debit",
+        "alipay",
+        "au_becs_debit",
+        "bancontact",
+        "card",
+        "card_present",
+        "eps",
+        "giropay",
+        "ideal",
+        "klarna",
+        "multibanco",
+        "p24",
+        "paypal",
+        "sepa_credit_transfer",
+        "sepa_debit",
+        "sofort",
+        "three_d_secure",
+        "wechat",
+    ]
     usage: Optional[str]
     wechat: StripeObject
 

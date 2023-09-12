@@ -39,7 +39,23 @@ class TaxRate(
     object: Literal["tax_rate"]
     percentage: float
     state: Optional[str]
-    tax_type: Optional[str]
+    tax_type: Optional[
+        Literal[
+            "amusement_tax",
+            "communications_tax",
+            "gst",
+            "hst",
+            "igst",
+            "jct",
+            "lease_tax",
+            "pst",
+            "qst",
+            "rst",
+            "sales_tax",
+            "service_tax",
+            "vat",
+        ]
+    ]
 
     @classmethod
     def create(
