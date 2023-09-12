@@ -42,7 +42,7 @@ class Plan(
     amount: Optional[int]
     amount_decimal: Optional[float]
     billing_scheme: Literal["per_unit", "tiered"]
-    created: str
+    created: int
     currency: str
     id: str
     interval: Literal["day", "month", "week", "year"]

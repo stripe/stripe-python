@@ -23,14 +23,14 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
     """
 
     OBJECT_NAME = "scheduled_query_run"
-    created: str
-    data_load_time: str
+    created: int
+    data_load_time: int
     error: StripeObject
     file: Optional["File"]
     id: str
     livemode: bool
     object: Literal["scheduled_query_run"]
-    result_available_until: str
+    result_available_until: int
     sql: str
     status: str
     title: str

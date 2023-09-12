@@ -32,7 +32,7 @@ class ShippingRate(
 
     OBJECT_NAME = "shipping_rate"
     active: bool
-    created: str
+    created: int
     delivery_estimate: Optional[StripeObject]
     display_name: Optional[str]
     fixed_amount: StripeObject

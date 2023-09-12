@@ -28,7 +28,7 @@ class CreditReversal(
 
     OBJECT_NAME = "treasury.credit_reversal"
     amount: int
-    created: str
+    created: int
     currency: str
     financial_account: str
     hosted_regulatory_receipt_url: Optional[str]

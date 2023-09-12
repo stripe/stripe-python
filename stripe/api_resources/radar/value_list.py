@@ -34,7 +34,7 @@ class ValueList(
 
     OBJECT_NAME = "radar.value_list"
     alias: str
-    created: str
+    created: int
     created_by: str
     id: str
     item_type: Literal[

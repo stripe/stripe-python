@@ -29,7 +29,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     currency: str
     customer: Optional[str]
     customer_details: StripeObject
-    expires_at: Optional[str]
+    expires_at: Optional[int]
     id: Optional[str]
     line_items: Optional[ListObject["CalculationLineItem"]]
     livemode: bool
@@ -38,7 +38,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     tax_amount_exclusive: int
     tax_amount_inclusive: int
     tax_breakdown: List[StripeObject]
-    tax_date: str
+    tax_date: int
 
     @classmethod
     def create(

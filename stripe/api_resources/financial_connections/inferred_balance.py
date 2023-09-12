@@ -14,7 +14,7 @@ class InferredBalance(ListableAPIResource["InferredBalance"]):
     """
 
     OBJECT_NAME = "financial_connections.account_inferred_balance"
-    as_of: str
+    as_of: int
     current: Dict[str, int]
     id: str
     object: Literal["financial_connections.account_inferred_balance"]

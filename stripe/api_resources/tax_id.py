@@ -21,7 +21,7 @@ class TaxId(APIResource["TaxId"]):
 
     OBJECT_NAME = "tax_id"
     country: Optional[str]
-    created: str
+    created: int
     customer: Optional[ExpandableField["Customer"]]
     id: str
     livemode: bool

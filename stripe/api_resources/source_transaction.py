@@ -18,7 +18,7 @@ class SourceTransaction(StripeObject):
     ach_credit_transfer: StripeObject
     amount: int
     chf_credit_transfer: StripeObject
-    created: str
+    created: int
     currency: str
     gbp_credit_transfer: StripeObject
     id: str

@@ -55,7 +55,7 @@ class Session(
     client_reference_id: Optional[str]
     consent: Optional[StripeObject]
     consent_collection: Optional[StripeObject]
-    created: str
+    created: int
     currency: Optional[str]
     currency_conversion: Optional[StripeObject]
     custom_fields: List[StripeObject]
@@ -64,7 +64,7 @@ class Session(
     customer_creation: Optional[Literal["always", "if_required"]]
     customer_details: Optional[StripeObject]
     customer_email: Optional[str]
-    expires_at: str
+    expires_at: int
     id: str
     invoice: Optional[ExpandableField["Invoice"]]
     invoice_creation: Optional[StripeObject]

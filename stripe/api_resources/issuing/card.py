@@ -37,7 +37,7 @@ class Card(
     cancellation_reason: Optional[Literal["design_rejected", "lost", "stolen"]]
     card_design: Optional[ExpandableField["CardDesign"]]
     cardholder: "Cardholder"
-    created: str
+    created: int
     currency: str
     cvc: str
     exp_month: int

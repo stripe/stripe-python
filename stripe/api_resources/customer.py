@@ -62,7 +62,7 @@ class Customer(
     address: Optional[StripeObject]
     balance: int
     cash_balance: Optional["CashBalance"]
-    created: str
+    created: int
     currency: Optional[str]
     default_source: Optional[ExpandableField[Any]]
     delinquent: Optional[bool]

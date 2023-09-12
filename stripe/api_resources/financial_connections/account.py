@@ -35,7 +35,7 @@ class Account(ListableAPIResource["Account"]):
     balance: Optional[StripeObject]
     balance_refresh: Optional[StripeObject]
     category: Literal["cash", "credit", "investment", "other"]
-    created: str
+    created: int
     display_name: Optional[str]
     id: str
     inferred_balances_refresh: Optional[StripeObject]

@@ -20,4 +20,4 @@ class AccountOwner(StripeObject):
     ownership: str
     phone: Optional[str]
     raw_address: Optional[str]
-    refreshed_at: Optional[str]
+    refreshed_at: Optional[int]

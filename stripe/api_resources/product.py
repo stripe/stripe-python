@@ -44,7 +44,7 @@ class Product(
 
     OBJECT_NAME = "product"
     active: bool
-    created: str
+    created: int
     default_price: Optional[ExpandableField["Price"]]
     description: Optional[str]
     features: List[StripeObject]
@@ -61,7 +61,7 @@ class Product(
     tax_code: Optional[ExpandableField["TaxCode"]]
     type: Literal["good", "service"]
     unit_label: Optional[str]
-    updated: str
+    updated: int
     url: Optional[str]
 
     @classmethod

@@ -24,7 +24,7 @@ class Transaction(ListableAPIResource["Transaction"]):
     OBJECT_NAME = "treasury.transaction"
     amount: int
     balance_impact: StripeObject
-    created: str
+    created: int
     currency: str
     description: str
     entries: Optional[ListObject["TransactionEntry"]]

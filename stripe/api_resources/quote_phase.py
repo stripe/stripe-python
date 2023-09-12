@@ -32,7 +32,7 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     ]
     default_tax_rates: List[ExpandableField["TaxRate"]]
     discounts: List[ExpandableField["Discount"]]
-    end_date: Optional[str]
+    end_date: Optional[int]
     id: str
     invoice_settings: Optional[StripeObject]
     iterations: Optional[int]
@@ -41,7 +41,7 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     proration_behavior: Literal["always_invoice", "create_prorations", "none"]
     total_details: StripeObject
     trial: Optional[bool]
-    trial_end: Optional[str]
+    trial_end: Optional[int]
 
     @classmethod
     def list(

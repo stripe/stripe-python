@@ -37,7 +37,7 @@ class Topup(
     OBJECT_NAME = "topup"
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
-    created: str
+    created: int
     currency: str
     description: Optional[str]
     expected_availability_date: Optional[int]

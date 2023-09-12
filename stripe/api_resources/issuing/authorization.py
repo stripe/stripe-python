@@ -46,7 +46,7 @@ class Authorization(
     balance_transactions: List["BalanceTransaction"]
     card: "Card"
     cardholder: Optional[ExpandableField["Cardholder"]]
-    created: str
+    created: int
     currency: str
     id: str
     livemode: bool

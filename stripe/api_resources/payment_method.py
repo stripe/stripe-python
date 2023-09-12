@@ -48,7 +48,7 @@ class PaymentMethod(
     card: StripeObject
     card_present: StripeObject
     cashapp: StripeObject
-    created: str
+    created: int
     customer: Optional[ExpandableField["Customer"]]
     customer_balance: StripeObject
     eps: StripeObject

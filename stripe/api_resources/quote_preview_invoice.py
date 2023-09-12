@@ -88,7 +88,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
         ]
     ]
     collection_method: Literal["charge_automatically", "send_invoice"]
-    created: str
+    created: int
     currency: str
     custom_fields: Optional[List[StripeObject]]
     customer_address: Optional[StripeObject]
@@ -104,8 +104,8 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     description: Optional[str]
     discount: Optional["Discount"]
     discounts: Optional[List[ExpandableField[Any]]]
-    due_date: Optional[str]
-    effective_at: Optional[str]
+    due_date: Optional[int]
+    effective_at: Optional[int]
     ending_balance: Optional[int]
     footer: Optional[str]
     from_invoice: Optional[StripeObject]
@@ -115,7 +115,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     lines: ListObject["InvoiceLineItem"]
     livemode: bool
     metadata: Optional[Dict[str, str]]
-    next_payment_attempt: Optional[str]
+    next_payment_attempt: Optional[int]
     number: Optional[str]
     object: Literal["quote_preview_invoice"]
     on_behalf_of: Optional[ExpandableField["Account"]]
@@ -123,8 +123,8 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     paid_out_of_band: bool
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     payment_settings: StripeObject
-    period_end: str
-    period_start: str
+    period_end: int
+    period_start: int
     post_payment_credit_notes_amount: int
     pre_payment_credit_notes_amount: int
     quote: Optional[ExpandableField["Quote"]]
@@ -149,7 +149,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     total_excluding_tax: Optional[int]
     total_tax_amounts: List[StripeObject]
     transfer_data: Optional[StripeObject]
-    webhooks_delivered_at: Optional[str]
+    webhooks_delivered_at: Optional[int]
 
     @classmethod
     def list(

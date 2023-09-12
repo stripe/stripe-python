@@ -22,7 +22,7 @@ class Form(ListableAPIResource["Form"]):
 
     OBJECT_NAME = "tax.form"
     corrected_by: Optional[ExpandableField["Form"]]
-    created: str
+    created: int
     filing_statuses: List[StripeObject]
     id: str
     livemode: bool

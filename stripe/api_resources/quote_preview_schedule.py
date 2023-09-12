@@ -21,9 +21,9 @@ class QuotePreviewSchedule(ListableAPIResource["QuotePreviewSchedule"]):
     application: Optional[ExpandableField[Any]]
     applies_to: StripeObject
     billing_behavior: Literal["prorate_on_next_phase", "prorate_up_front"]
-    canceled_at: Optional[str]
-    completed_at: Optional[str]
-    created: str
+    canceled_at: Optional[int]
+    completed_at: Optional[int]
+    created: int
     current_phase: Optional[StripeObject]
     customer: ExpandableField[Any]
     default_settings: StripeObject
@@ -34,7 +34,7 @@ class QuotePreviewSchedule(ListableAPIResource["QuotePreviewSchedule"]):
     object: Literal["quote_preview_schedule"]
     phases: List[StripeObject]
     prebilling: Optional[StripeObject]
-    released_at: Optional[str]
+    released_at: Optional[int]
     released_subscription: Optional[str]
     status: Literal[
         "active", "canceled", "completed", "not_started", "released"

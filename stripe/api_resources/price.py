@@ -34,7 +34,7 @@ class Price(
     OBJECT_NAME = "price"
     active: bool
     billing_scheme: Literal["per_unit", "tiered"]
-    created: str
+    created: int
     currency: str
     currency_options: Dict[str, StripeObject]
     custom_unit_amount: Optional[StripeObject]

@@ -20,8 +20,8 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
 
     OBJECT_NAME = "balance_transaction"
     amount: int
-    available_on: str
-    created: str
+    available_on: int
+    created: int
     currency: str
     description: Optional[str]
     exchange_rate: Optional[float]

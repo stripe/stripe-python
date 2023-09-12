@@ -25,7 +25,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
     OBJECT_NAME = "treasury.received_credit"
     amount: int
-    created: str
+    created: int
     currency: str
     description: str
     failure_code: Optional[

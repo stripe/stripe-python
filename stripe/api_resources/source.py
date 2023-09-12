@@ -40,7 +40,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     card_present: StripeObject
     client_secret: str
     code_verification: StripeObject
-    created: str
+    created: int
     currency: Optional[str]
     customer: str
     eps: StripeObject

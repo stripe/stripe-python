@@ -34,7 +34,7 @@ class Card(
     amount_available: int
     amount_held: int
     code: Optional[str]
-    created: str
+    created: int
     created_by: Optional[StripeObject]
     currency: str
     id: str

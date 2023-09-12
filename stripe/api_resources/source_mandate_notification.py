@@ -23,7 +23,7 @@ class SourceMandateNotification(StripeObject):
     acss_debit: StripeObject
     amount: Optional[int]
     bacs_debit: StripeObject
-    created: str
+    created: int
     id: str
     livemode: bool
     object: Literal["source_mandate_notification"]

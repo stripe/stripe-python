@@ -55,7 +55,7 @@ class PaymentIntent(
     application: Optional[ExpandableField["Application"]]
     application_fee_amount: Optional[int]
     automatic_payment_methods: Optional[StripeObject]
-    canceled_at: Optional[str]
+    canceled_at: Optional[int]
     cancellation_reason: Optional[
         Literal[
             "abandoned",
@@ -70,7 +70,7 @@ class PaymentIntent(
     capture_method: Literal["automatic", "automatic_async", "manual"]
     client_secret: Optional[str]
     confirmation_method: Literal["automatic", "manual"]
-    created: str
+    created: int
     currency: str
     customer: Optional[ExpandableField[Any]]
     description: Optional[str]

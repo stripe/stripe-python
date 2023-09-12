@@ -63,7 +63,7 @@ class SetupIntent(
         Literal["abandoned", "duplicate", "requested_by_customer"]
     ]
     client_secret: Optional[str]
-    created: str
+    created: int
     customer: Optional[ExpandableField[Any]]
     description: Optional[str]
     flow_directions: Optional[List[Literal["inbound", "outbound"]]]

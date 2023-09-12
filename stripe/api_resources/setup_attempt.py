@@ -29,7 +29,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
     OBJECT_NAME = "setup_attempt"
     application: Optional[ExpandableField["Application"]]
     attach_to_self: bool
-    created: str
+    created: int
     customer: Optional[ExpandableField[Any]]
     flow_directions: Optional[List[Literal["inbound", "outbound"]]]
     id: str

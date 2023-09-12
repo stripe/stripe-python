@@ -27,8 +27,8 @@ class File(ListableAPIResource["File"]):
     """
 
     OBJECT_NAME = "file"
-    created: str
-    expires_at: Optional[str]
+    created: int
+    expires_at: Optional[int]
     filename: Optional[str]
     id: str
     links: Optional[ListObject["FileLink"]]

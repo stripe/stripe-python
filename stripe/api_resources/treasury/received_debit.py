@@ -25,7 +25,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
     OBJECT_NAME = "treasury.received_debit"
     amount: int
-    created: str
+    created: int
     currency: str
     description: str
     failure_code: Optional[

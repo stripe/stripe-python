@@ -21,14 +21,14 @@ class ReportType(ListableAPIResource["ReportType"]):
     """
 
     OBJECT_NAME = "reporting.report_type"
-    data_available_end: str
-    data_available_start: str
+    data_available_end: int
+    data_available_start: int
     default_columns: Optional[List[str]]
     id: str
     livemode: bool
     name: str
     object: Literal["reporting.report_type"]
-    updated: str
+    updated: int
     version: int
 
     @classmethod

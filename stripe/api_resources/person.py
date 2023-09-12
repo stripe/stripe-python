@@ -25,7 +25,7 @@ class Person(UpdateableAPIResource["Person"]):
     address: StripeObject
     address_kana: Optional[StripeObject]
     address_kanji: Optional[StripeObject]
-    created: str
+    created: int
     dob: StripeObject
     email: Optional[str]
     first_name: Optional[str]

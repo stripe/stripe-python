@@ -56,13 +56,13 @@ class Quote(
     automatic_tax: StripeObject
     collection_method: Literal["charge_automatically", "send_invoice"]
     computed: StripeObject
-    created: str
+    created: int
     currency: Optional[str]
     customer: Optional[ExpandableField[Any]]
     default_tax_rates: List[ExpandableField["TaxRate"]]
     description: Optional[str]
     discounts: List[ExpandableField["Discount"]]
-    expires_at: str
+    expires_at: int
     footer: Optional[str]
     from_quote: Optional[StripeObject]
     header: Optional[str]

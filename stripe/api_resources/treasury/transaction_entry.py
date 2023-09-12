@@ -22,9 +22,9 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
 
     OBJECT_NAME = "treasury.transaction_entry"
     balance_impact: StripeObject
-    created: str
+    created: int
     currency: str
-    effective_at: str
+    effective_at: int
     financial_account: str
     flow: Optional[str]
     flow_details: Optional[StripeObject]

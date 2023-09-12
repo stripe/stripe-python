@@ -31,7 +31,7 @@ class InboundTransfer(
     OBJECT_NAME = "treasury.inbound_transfer"
     amount: int
     cancelable: bool
-    created: str
+    created: int
     currency: str
     description: Optional[str]
     failure_details: Optional[StripeObject]

@@ -44,7 +44,7 @@ class VerificationSession(
 
     OBJECT_NAME = "identity.verification_session"
     client_secret: Optional[str]
-    created: str
+    created: int
     id: str
     last_error: Optional[StripeObject]
     last_verification_report: Optional[ExpandableField["VerificationReport"]]

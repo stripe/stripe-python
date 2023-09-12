@@ -25,7 +25,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
 
     OBJECT_NAME = "identity.verification_report"
-    created: str
+    created: int
     document: StripeObject
     id: str
     id_number: StripeObject

@@ -28,7 +28,7 @@ class DebitReversal(
 
     OBJECT_NAME = "treasury.debit_reversal"
     amount: int
-    created: str
+    created: int
     currency: str
     financial_account: Optional[str]
     hosted_regulatory_receipt_url: Optional[str]

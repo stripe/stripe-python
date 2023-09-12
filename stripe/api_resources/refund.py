@@ -42,7 +42,7 @@ class Refund(
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     charge: Optional[ExpandableField["Charge"]]
-    created: str
+    created: int
     currency: str
     description: str
     failure_balance_transaction: ExpandableField["BalanceTransaction"]

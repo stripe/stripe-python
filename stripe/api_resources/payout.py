@@ -38,10 +38,10 @@ class Payout(
 
     OBJECT_NAME = "payout"
     amount: int
-    arrival_date: str
+    arrival_date: int
     automatic: bool
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
-    created: str
+    created: int
     currency: str
     description: Optional[str]
     destination: Optional[ExpandableField[Any]]

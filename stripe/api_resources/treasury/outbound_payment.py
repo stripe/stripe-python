@@ -33,14 +33,14 @@ class OutboundPayment(
     OBJECT_NAME = "treasury.outbound_payment"
     amount: int
     cancelable: bool
-    created: str
+    created: int
     currency: str
     customer: Optional[str]
     description: Optional[str]
     destination_payment_method: Optional[str]
     destination_payment_method_details: Optional[StripeObject]
     end_user_details: Optional[StripeObject]
-    expected_arrival_date: str
+    expected_arrival_date: int
     financial_account: str
     hosted_regulatory_receipt_url: Optional[str]
     id: str

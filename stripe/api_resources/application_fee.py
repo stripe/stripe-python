@@ -36,7 +36,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     application: ExpandableField["Application"]
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     charge: ExpandableField["Charge"]
-    created: str
+    created: int
     currency: str
     id: str
     livemode: bool

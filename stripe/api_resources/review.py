@@ -33,7 +33,7 @@ class Review(ListableAPIResource["Review"]):
             "approved", "disputed", "redacted", "refunded", "refunded_as_fraud"
         ]
     ]
-    created: str
+    created: int
     id: str
     ip_address: Optional[str]
     ip_address_location: Optional[StripeObject]

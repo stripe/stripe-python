@@ -26,12 +26,12 @@ class Discount(StripeObject):
     checkout_session: Optional[str]
     coupon: "Coupon"
     customer: Optional[ExpandableField[Any]]
-    end: Optional[str]
+    end: Optional[int]
     id: str
     invoice: Optional[str]
     invoice_item: Optional[str]
     object: Literal["discount"]
     promotion_code: Optional[ExpandableField["PromotionCode"]]
-    start: str
+    start: int
     subscription: Optional[str]
     subscription_item: Optional[str]

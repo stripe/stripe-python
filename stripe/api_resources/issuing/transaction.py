@@ -44,7 +44,7 @@ class Transaction(
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     card: ExpandableField["Card"]
     cardholder: Optional[ExpandableField["Cardholder"]]
-    created: str
+    created: int
     currency: str
     dispute: Optional[ExpandableField["Dispute"]]
     id: str

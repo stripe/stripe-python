@@ -28,7 +28,7 @@ class Cardholder(
     OBJECT_NAME = "issuing.cardholder"
     billing: StripeObject
     company: Optional[StripeObject]
-    created: str
+    created: int
     email: Optional[str]
     id: str
     individual: Optional[StripeObject]

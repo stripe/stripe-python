@@ -27,7 +27,7 @@ class TaxRate(
     OBJECT_NAME = "tax_rate"
     active: bool
     country: Optional[str]
-    created: str
+    created: int
     description: Optional[str]
     display_name: str
     effective_percentage: Optional[float]

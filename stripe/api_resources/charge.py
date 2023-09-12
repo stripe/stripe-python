@@ -55,7 +55,7 @@ class Charge(
     billing_details: StripeObject
     calculated_statement_descriptor: Optional[str]
     captured: bool
-    created: str
+    created: int
     currency: str
     customer: Optional[ExpandableField[Any]]
     description: Optional[str]

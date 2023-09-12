@@ -44,7 +44,7 @@ class Order(
     automatic_tax: StripeObject
     billing_details: Optional[StripeObject]
     client_secret: Optional[str]
-    created: str
+    created: int
     credits: List[StripeObject]
     currency: str
     customer: Optional[ExpandableField[Any]]

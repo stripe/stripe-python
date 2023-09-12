@@ -23,9 +23,9 @@ class Transaction(ListableAPIResource["Transaction"]):
     object: Literal["financial_connections.transaction"]
     status: Literal["pending", "posted", "void"]
     status_transitions: StripeObject
-    transacted_at: str
+    transacted_at: int
     transaction_refresh: str
-    updated: str
+    updated: int
 
     @classmethod
     def list(

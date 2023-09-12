@@ -25,7 +25,7 @@ class Transaction(APIResource["Transaction"]):
     """
 
     OBJECT_NAME = "tax.transaction"
-    created: str
+    created: int
     currency: str
     customer: Optional[str]
     customer_details: StripeObject
@@ -37,7 +37,7 @@ class Transaction(APIResource["Transaction"]):
     reference: str
     reversal: Optional[StripeObject]
     shipping_cost: Optional[StripeObject]
-    tax_date: str
+    tax_date: int
     type: Literal["reversal", "transaction"]
 
     @classmethod

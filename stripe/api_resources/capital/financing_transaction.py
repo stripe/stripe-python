@@ -16,7 +16,7 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
 
     OBJECT_NAME = "capital.financing_transaction"
     account: str
-    created_at: str
+    created_at: int
     details: StripeObject
     financing_offer: Optional[str]
     id: str

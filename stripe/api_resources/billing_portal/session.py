@@ -34,7 +34,7 @@ class Session(CreateableAPIResource["Session"]):
 
     OBJECT_NAME = "billing_portal.session"
     configuration: ExpandableField["Configuration"]
-    created: str
+    created: int
     customer: str
     flow: Optional[StripeObject]
     id: str

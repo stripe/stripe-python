@@ -66,7 +66,7 @@ class Account(
     company: StripeObject
     controller: StripeObject
     country: str
-    created: str
+    created: int
     default_currency: str
     details_submitted: bool
     email: Optional[str]

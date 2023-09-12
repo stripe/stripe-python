@@ -39,7 +39,7 @@ class Dispute(
     amount: int
     balance_transactions: List["BalanceTransaction"]
     charge: ExpandableField["Charge"]
-    created: str
+    created: int
     currency: str
     evidence: StripeObject
     evidence_details: StripeObject

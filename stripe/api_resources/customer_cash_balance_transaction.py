@@ -27,7 +27,7 @@ class CustomerCashBalanceTransaction(
     OBJECT_NAME = "customer_cash_balance_transaction"
     adjusted_for_overdraft: StripeObject
     applied_to_payment: StripeObject
-    created: str
+    created: int
     currency: str
     customer: ExpandableField["Customer"]
     ending_balance: int

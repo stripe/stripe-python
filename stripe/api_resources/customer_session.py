@@ -22,7 +22,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     OBJECT_NAME = "customer_session"
     client_secret: str
     customer: ExpandableField["Customer"]
-    expires_at: str
+    expires_at: int
     livemode: bool
     object: Literal["customer_session"]
 

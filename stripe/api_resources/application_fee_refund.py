@@ -27,7 +27,7 @@ class ApplicationFeeRefund(UpdateableAPIResource["ApplicationFeeRefund"]):
     OBJECT_NAME = "fee_refund"
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
-    created: str
+    created: int
     currency: str
     fee: ExpandableField["ApplicationFee"]
     id: str

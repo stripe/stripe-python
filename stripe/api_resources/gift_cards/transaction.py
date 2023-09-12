@@ -31,8 +31,8 @@ class Transaction(
 
     OBJECT_NAME = "gift_cards.transaction"
     amount: Optional[int]
-    confirmed_at: Optional[str]
-    created: Optional[str]
+    confirmed_at: Optional[int]
+    created: Optional[int]
     created_by: Optional[StripeObject]
     currency: Optional[str]
     description: Optional[str]

@@ -28,7 +28,7 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
 
     OBJECT_NAME = "customer_balance_transaction"
     amount: int
-    created: str
+    created: int
     credit_note: Optional[ExpandableField["CreditNote"]]
     currency: str
     customer: ExpandableField["Customer"]

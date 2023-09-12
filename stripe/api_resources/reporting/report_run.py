@@ -33,7 +33,7 @@ class ReportRun(
     """
 
     OBJECT_NAME = "reporting.report_run"
-    created: str
+    created: int
     error: Optional[str]
     id: str
     livemode: bool
@@ -42,7 +42,7 @@ class ReportRun(
     report_type: str
     result: Optional["File"]
     status: str
-    succeeded_at: Optional[str]
+    succeeded_at: Optional[int]
 
     @classmethod
     def create(

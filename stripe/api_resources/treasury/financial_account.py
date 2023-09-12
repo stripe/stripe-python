@@ -49,7 +49,7 @@ class FinancialAccount(
     ]
     balance: StripeObject
     country: str
-    created: str
+    created: int
     features: "FinancialAccountFeatures"
     financial_addresses: List[StripeObject]
     id: str
