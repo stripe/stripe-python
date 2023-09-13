@@ -3,7 +3,6 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.list_object import ListObject
 from typing import Dict
 from typing_extensions import Literal
 
@@ -14,28 +13,7 @@ class InferredBalance(ListableAPIResource["InferredBalance"]):
     """
 
     OBJECT_NAME = "financial_connections.account_inferred_balance"
-    as_of: int
+    as_of: str
     current: Dict[str, int]
     id: str
     object: Literal["financial_connections.account_inferred_balance"]
-
-    @classmethod
-    def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
-    ) -> ListObject["InferredBalance"]:
-        result = cls._static_request(
-            "get",
-            cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result

@@ -6,21 +6,24 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.account import Account
+    from stripe.api_resources.payment_method import PaymentMethod
+    from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
+    from stripe.api_resources.account import Account
     from stripe.api_resources.payment_intent import PaymentIntent
-    from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.quote import Quote
     from stripe.api_resources.subscription import Subscription
-    from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
@@ -74,21 +77,9 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     attempt_count: int
     attempted: bool
     automatic_tax: StripeObject
-    billing_reason: Optional[
-        Literal[
-            "automatic_pending_invoice_item_invoice",
-            "manual",
-            "quote_accept",
-            "subscription",
-            "subscription_create",
-            "subscription_cycle",
-            "subscription_threshold",
-            "subscription_update",
-            "upcoming",
-        ]
-    ]
-    collection_method: Literal["charge_automatically", "send_invoice"]
-    created: int
+    billing_reason: Optional[str]
+    collection_method: str
+    created: str
     currency: str
     custom_fields: Optional[List[StripeObject]]
     customer_address: Optional[StripeObject]
@@ -96,7 +87,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     customer_name: Optional[str]
     customer_phone: Optional[str]
     customer_shipping: Optional[StripeObject]
-    customer_tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
+    customer_tax_exempt: Optional[str]
     customer_tax_ids: Optional[List[StripeObject]]
     default_payment_method: Optional[ExpandableField["PaymentMethod"]]
     default_source: Optional[ExpandableField[Any]]
@@ -104,8 +95,8 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     description: Optional[str]
     discount: Optional["Discount"]
     discounts: Optional[List[ExpandableField[Any]]]
-    due_date: Optional[int]
-    effective_at: Optional[int]
+    due_date: Optional[str]
+    effective_at: Optional[str]
     ending_balance: Optional[int]
     footer: Optional[str]
     from_invoice: Optional[StripeObject]
@@ -115,7 +106,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     lines: ListObject["InvoiceLineItem"]
     livemode: bool
     metadata: Optional[Dict[str, str]]
-    next_payment_attempt: Optional[int]
+    next_payment_attempt: Optional[str]
     number: Optional[str]
     object: Literal["quote_preview_invoice"]
     on_behalf_of: Optional[ExpandableField["Account"]]
@@ -123,8 +114,8 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     paid_out_of_band: bool
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     payment_settings: StripeObject
-    period_end: int
-    period_start: int
+    period_end: str
+    period_start: str
     post_payment_credit_notes_amount: int
     pre_payment_credit_notes_amount: int
     quote: Optional[ExpandableField["Quote"]]
@@ -134,7 +125,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     shipping_details: Optional[StripeObject]
     starting_balance: int
     statement_descriptor: Optional[str]
-    status: Optional[Literal["draft", "open", "paid", "uncollectible", "void"]]
+    status: Optional[str]
     status_transitions: StripeObject
     subscription: Optional[ExpandableField["Subscription"]]
     subscription_details: Optional[StripeObject]
@@ -149,25 +140,4 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     total_excluding_tax: Optional[int]
     total_tax_amounts: List[StripeObject]
     transfer_data: Optional[StripeObject]
-    webhooks_delivered_at: Optional[int]
-
-    @classmethod
-    def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
-    ) -> ListObject["QuotePreviewInvoice"]:
-        result = cls._static_request(
-            "get",
-            cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
+    webhooks_delivered_at: Optional[str]

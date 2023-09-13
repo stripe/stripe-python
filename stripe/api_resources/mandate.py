@@ -28,11 +28,5 @@ class Mandate(APIResource["Mandate"]):
     payment_method: ExpandableField["PaymentMethod"]
     payment_method_details: StripeObject
     single_use: StripeObject
-    status: Literal["active", "inactive", "pending"]
-    type: Literal["multi_use", "single_use"]
-
-    @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Mandate":
-        instance = cls(id, api_key, **params)
-        instance.refresh()
-        return instance
+    status: str
+    type: str

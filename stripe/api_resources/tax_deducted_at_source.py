@@ -10,6 +10,6 @@ class TaxDeductedAtSource(StripeObject):
     OBJECT_NAME = "tax_deducted_at_source"
     id: str
     object: Literal["tax_deducted_at_source"]
-    period_end: int
-    period_start: int
+    period_end: str
+    period_start: str
     tax_deduction_account_number: str

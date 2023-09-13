@@ -3,23 +3,21 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import (
-    APIResourceTestHelpers,
-    ListableAPIResource,
-    UpdateableAPIResource,
-)
+from stripe.api_resources.abstract import APIResourceTestHelpers
+from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
-from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
-from typing_extensions import Literal, Type
-from urllib.parse import quote_plus
+from typing import Dict
+from typing import Optional
+from typing_extensions import Literal
+from typing_extensions import Type
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.balance_transaction import BalanceTransaction
     from stripe.api_resources.issuing.authorization import Authorization
+    from stripe.api_resources.balance_transaction import BalanceTransaction
     from stripe.api_resources.issuing.card import Card
     from stripe.api_resources.issuing.cardholder import Cardholder
     from stripe.api_resources.issuing.dispute import Dispute
@@ -44,7 +42,7 @@ class Transaction(
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     card: ExpandableField["Card"]
     cardholder: Optional[ExpandableField["Cardholder"]]
-    created: int
+    created: str
     currency: str
     dispute: Optional[ExpandableField["Dispute"]]
     id: str
@@ -57,43 +55,8 @@ class Transaction(
     object: Literal["issuing.transaction"]
     purchase_details: Optional[StripeObject]
     treasury: Optional[StripeObject]
-    type: Literal["capture", "refund"]
-    wallet: Optional[Literal["apple_pay", "google_pay", "samsung_pay"]]
-
-    @classmethod
-    def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
-    ) -> ListObject["Transaction"]:
-        result = cls._static_request(
-            "get",
-            cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-        if not isinstance(result, ListObject):
-
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
-            )
-
-        return result
-
-    @classmethod
-    def modify(cls, id, **params) -> "Transaction":
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
-        return cast(
-            "Transaction",
-            cls._static_request("post", url, params=params),
-        )
-
-    @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Transaction":
-        instance = cls(id, api_key, **params)
-        instance.refresh()
-        return instance
+    type: str
+    wallet: Optional[str]
 
     class TestHelpers(APIResourceTestHelpers["Transaction"]):
         _resource_cls: Type["Transaction"]
