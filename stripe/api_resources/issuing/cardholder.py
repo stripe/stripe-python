@@ -2,14 +2,16 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    ListableAPIResource,
+    UpdateableAPIResource,
+)
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal
+from urllib.parse import quote_plus
 
 
 class Cardholder(
@@ -26,7 +28,7 @@ class Cardholder(
     OBJECT_NAME = "issuing.cardholder"
     billing: StripeObject
     company: Optional[StripeObject]
-    created: str
+    created: int
     email: Optional[str]
     id: str
     individual: Optional[StripeObject]
@@ -35,8 +37,65 @@ class Cardholder(
     name: str
     object: Literal["issuing.cardholder"]
     phone_number: Optional[str]
-    preferred_locales: Optional[List[str]]
+    preferred_locales: Optional[List[Literal["de", "en", "es", "fr", "it"]]]
     requirements: StripeObject
     spending_controls: Optional[StripeObject]
-    status: str
-    type: str
+    status: Literal["active", "blocked", "inactive"]
+    type: Literal["company", "individual"]
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Cardholder":
+        return cast(
+            "Cardholder",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Cardholder"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def modify(cls, id, **params) -> "Cardholder":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "Cardholder",
+            cls._static_request("post", url, params=params),
+        )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Cardholder":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance

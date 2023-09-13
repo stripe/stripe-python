@@ -5,8 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import List
-from typing import Optional
+from typing import List, Optional, cast
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -28,6 +27,36 @@ class Session(CreateableAPIResource["Session"]):
     id: str
     livemode: bool
     object: Literal["financial_connections.session"]
-    permissions: List[str]
-    prefetch: Optional[List[str]]
+    permissions: List[
+        Literal["balances", "ownership", "payment_method", "transactions"]
+    ]
+    prefetch: Optional[List[Literal["balances", "ownership"]]]
     return_url: str
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Session":
+        return cast(
+            "Session",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Session":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance

@@ -3,31 +3,31 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import SearchableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    DeletableAPIResource,
+    ListableAPIResource,
+    SearchableAPIResource,
+    UpdateableAPIResource,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
+from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.payment_method import PaymentMethod
-    from stripe.api_resources.tax_rate import TaxRate
-    from stripe.api_resources.discount import Discount
-    from stripe.api_resources.subscription_item import SubscriptionItem
-    from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.account import Account
+    from stripe.api_resources.discount import Discount
+    from stripe.api_resources.invoice import Invoice
+    from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.setup_intent import SetupIntent
+    from stripe.api_resources.subscription_item import SubscriptionItem
     from stripe.api_resources.subscription_schedule import SubscriptionSchedule
+    from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
@@ -48,17 +48,17 @@ class Subscription(
     application: Optional[ExpandableField[Any]]
     application_fee_percent: Optional[float]
     automatic_tax: StripeObject
-    billing_cycle_anchor: str
+    billing_cycle_anchor: int
     billing_thresholds: Optional[StripeObject]
-    cancel_at: Optional[str]
+    cancel_at: Optional[int]
     cancel_at_period_end: bool
-    canceled_at: Optional[str]
+    canceled_at: Optional[int]
     cancellation_details: Optional[StripeObject]
-    collection_method: str
-    created: str
+    collection_method: Literal["charge_automatically", "send_invoice"]
+    created: int
     currency: str
-    current_period_end: str
-    current_period_start: str
+    current_period_end: int
+    current_period_start: int
     customer: ExpandableField[Any]
     days_until_due: Optional[int]
     default_payment_method: Optional[ExpandableField["PaymentMethod"]]
@@ -66,13 +66,13 @@ class Subscription(
     default_tax_rates: Optional[List["TaxRate"]]
     description: Optional[str]
     discount: Optional["Discount"]
-    ended_at: Optional[str]
+    ended_at: Optional[int]
     id: str
     items: ListObject["SubscriptionItem"]
     latest_invoice: Optional[ExpandableField["Invoice"]]
     livemode: bool
     metadata: Dict[str, str]
-    next_pending_invoice_item_invoice: Optional[str]
+    next_pending_invoice_item_invoice: Optional[int]
     object: Literal["subscription"]
     on_behalf_of: Optional[ExpandableField["Account"]]
     pause_collection: Optional[StripeObject]
@@ -81,13 +81,22 @@ class Subscription(
     pending_setup_intent: Optional[ExpandableField["SetupIntent"]]
     pending_update: Optional[StripeObject]
     schedule: Optional[ExpandableField["SubscriptionSchedule"]]
-    start_date: str
-    status: str
+    start_date: int
+    status: Literal[
+        "active",
+        "canceled",
+        "incomplete",
+        "incomplete_expired",
+        "past_due",
+        "paused",
+        "trialing",
+        "unpaid",
+    ]
     test_clock: Optional[ExpandableField["TestClock"]]
     transfer_data: Optional[StripeObject]
-    trial_end: Optional[str]
+    trial_end: Optional[int]
     trial_settings: Optional[StripeObject]
-    trial_start: Optional[str]
+    trial_start: Optional[int]
 
     @classmethod
     def _cls_cancel(
@@ -120,6 +129,28 @@ class Subscription(
             ),
             idempotency_key=idempotency_key,
             params=params,
+        )
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Subscription":
+        return cast(
+            "Subscription",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
         )
 
     @classmethod
@@ -156,6 +187,35 @@ class Subscription(
         )
 
     @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Subscription"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def modify(cls, id, **params) -> "Subscription":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "Subscription",
+            cls._static_request("post", url, params=params),
+        )
+
+    @classmethod
     def _cls_resume(
         cls,
         subscription,
@@ -187,11 +247,17 @@ class Subscription(
         )
 
     @classmethod
-    def search(cls, *args, **kwargs):
+    def retrieve(cls, id, api_key=None, **params) -> "Subscription":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
+
+    @classmethod
+    def search(cls, *args, **kwargs) -> Any:
         return cls._search(
             search_url="/v1/subscriptions/search", *args, **kwargs
         )
 
     @classmethod
-    def search_auto_paging_iter(cls, *args, **kwargs):
+    def search_auto_paging_iter(cls, *args, **kwargs) -> Any:
         return cls.search(*args, **kwargs).auto_paging_iter()

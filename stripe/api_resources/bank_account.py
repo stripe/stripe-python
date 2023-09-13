@@ -2,18 +2,17 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import error
-from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import VerifyMixin
+from stripe import error, util
+from stripe.api_resources.abstract import (
+    DeletableAPIResource,
+    UpdateableAPIResource,
+    VerifyMixin,
+)
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -38,7 +37,7 @@ class BankAccount(
     account_holder_name: Optional[str]
     account_holder_type: Optional[str]
     account_type: Optional[str]
-    available_payout_methods: Optional[List[str]]
+    available_payout_methods: Optional[List[Literal["instant", "standard"]]]
     bank_name: Optional[str]
     country: str
     currency: str
@@ -53,6 +52,22 @@ class BankAccount(
     requirements: Optional[StripeObject]
     routing_number: Optional[str]
     status: str
+
+    @classmethod
+    def _cls_delete(cls, sid, **params) -> Any:
+        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        return cast(
+            Any,
+            cls._static_request("delete", url, params=params),
+        )
+
+    @util.class_method_variant("_cls_delete")
+    def delete(self, **params) -> Any:
+        return self._request_and_refresh(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
 
     def instance_url(self):
         token = self.id

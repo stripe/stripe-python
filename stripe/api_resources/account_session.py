@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.stripe_object import StripeObject
+from typing import cast
 from typing_extensions import Literal
 
 
@@ -22,6 +23,28 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     account: str
     client_secret: str
     components: StripeObject
-    expires_at: str
+    expires_at: int
     livemode: bool
     object: Literal["account_session"]
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "AccountSession":
+        return cast(
+            "AccountSession",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )

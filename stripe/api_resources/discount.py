@@ -4,8 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Optional
+from typing import Any, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -27,11 +26,11 @@ class Discount(StripeObject):
     checkout_session: Optional[str]
     coupon: "Coupon"
     customer: Optional[ExpandableField[Any]]
-    end: Optional[str]
+    end: Optional[int]
     id: str
     invoice: Optional[str]
     invoice_item: Optional[str]
     object: Literal["discount"]
     promotion_code: Optional[ExpandableField["PromotionCode"]]
-    start: str
+    start: int
     subscription: Optional[str]

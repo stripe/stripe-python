@@ -3,16 +3,17 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    ListableAPIResource,
+    UpdateableAPIResource,
+)
 from stripe.api_resources.expandable_field import ExpandableField
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
+from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
 
@@ -34,21 +35,23 @@ class SubscriptionSchedule(
 
     OBJECT_NAME = "subscription_schedule"
     application: Optional[ExpandableField[Any]]
-    canceled_at: Optional[str]
-    completed_at: Optional[str]
-    created: str
+    canceled_at: Optional[int]
+    completed_at: Optional[int]
+    created: int
     current_phase: Optional[StripeObject]
     customer: ExpandableField[Any]
     default_settings: StripeObject
-    end_behavior: str
+    end_behavior: Literal["cancel", "none", "release", "renew"]
     id: str
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["subscription_schedule"]
     phases: List[StripeObject]
-    released_at: Optional[str]
+    released_at: Optional[int]
     released_subscription: Optional[str]
-    status: str
+    status: Literal[
+        "active", "canceled", "completed", "not_started", "released"
+    ]
     subscription: Optional[ExpandableField["Subscription"]]
     test_clock: Optional[ExpandableField["TestClock"]]
 
@@ -84,6 +87,57 @@ class SubscriptionSchedule(
         )
 
     @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "SubscriptionSchedule":
+        return cast(
+            "SubscriptionSchedule",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["SubscriptionSchedule"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def modify(cls, id, **params) -> "SubscriptionSchedule":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "SubscriptionSchedule",
+            cls._static_request("post", url, params=params),
+        )
+
+    @classmethod
     def _cls_release(
         cls,
         schedule,
@@ -113,3 +167,9 @@ class SubscriptionSchedule(
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "SubscriptionSchedule":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance

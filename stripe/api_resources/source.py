@@ -2,14 +2,14 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import error
-from stripe import util
+from stripe import error, util
 from stripe.api_resources import Customer
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    UpdateableAPIResource,
+)
 from stripe.stripe_object import StripeObject
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -40,7 +40,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     card_present: StripeObject
     client_secret: str
     code_verification: StripeObject
-    created: str
+    created: int
     currency: Optional[str]
     customer: str
     eps: StripeObject
@@ -64,9 +64,51 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     statement_descriptor: Optional[str]
     status: str
     three_d_secure: StripeObject
-    type: str
+    type: Literal[
+        "ach_credit_transfer",
+        "ach_debit",
+        "acss_debit",
+        "alipay",
+        "au_becs_debit",
+        "bancontact",
+        "card",
+        "card_present",
+        "eps",
+        "giropay",
+        "ideal",
+        "klarna",
+        "multibanco",
+        "p24",
+        "sepa_credit_transfer",
+        "sepa_debit",
+        "sofort",
+        "three_d_secure",
+        "wechat",
+    ]
     usage: Optional[str]
     wechat: StripeObject
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Source":
+        return cast(
+            "Source",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
 
     @classmethod
     def _cls_list_source_transactions(
@@ -98,6 +140,20 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def modify(cls, id, **params) -> "Source":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "Source",
+            cls._static_request("post", url, params=params),
+        )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Source":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
 
     @classmethod
     def _cls_verify(

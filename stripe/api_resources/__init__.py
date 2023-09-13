@@ -5,24 +5,21 @@ from __future__ import absolute_import, division, print_function
 # flake8: noqa
 
 from . import abstract
-from stripe.api_resources.error_object import ErrorObject, OAuthErrorObject
-from stripe.api_resources.list_object import ListObject
-from stripe.api_resources.search_result_object import SearchResultObject
-
-from stripe.api_resources import apps
-from stripe.api_resources import billing_portal
-from stripe.api_resources import checkout
-from stripe.api_resources import financial_connections
-from stripe.api_resources import identity
-from stripe.api_resources import issuing
-from stripe.api_resources import radar
-from stripe.api_resources import reporting
-from stripe.api_resources import sigma
-from stripe.api_resources import tax
-from stripe.api_resources import terminal
-from stripe.api_resources import test_helpers
-from stripe.api_resources import treasury
-
+from stripe.api_resources import (
+    apps,
+    billing_portal,
+    checkout,
+    financial_connections,
+    identity,
+    issuing,
+    radar,
+    reporting,
+    sigma,
+    tax,
+    terminal,
+    test_helpers,
+    treasury,
+)
 from stripe.api_resources.account import Account
 from stripe.api_resources.account_link import AccountLink
 from stripe.api_resources.account_session import AccountSession
@@ -54,16 +51,17 @@ from stripe.api_resources.customer_cash_balance_transaction import (
 from stripe.api_resources.discount import Discount
 from stripe.api_resources.dispute import Dispute
 from stripe.api_resources.ephemeral_key import EphemeralKey
+from stripe.api_resources.error_object import ErrorObject, OAuthErrorObject
 from stripe.api_resources.event import Event
 from stripe.api_resources.exchange_rate import ExchangeRate
-from stripe.api_resources.file import File
-from stripe.api_resources.file import FileUpload
+from stripe.api_resources.file import File, FileUpload
 from stripe.api_resources.file_link import FileLink
 from stripe.api_resources.funding_instructions import FundingInstructions
 from stripe.api_resources.invoice import Invoice
 from stripe.api_resources.invoice_item import InvoiceItem
 from stripe.api_resources.invoice_line_item import InvoiceLineItem
 from stripe.api_resources.line_item import LineItem
+from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.login_link import LoginLink
 from stripe.api_resources.mandate import Mandate
 from stripe.api_resources.payment_intent import PaymentIntent
@@ -82,6 +80,7 @@ from stripe.api_resources.refund import Refund
 from stripe.api_resources.reserve_transaction import ReserveTransaction
 from stripe.api_resources.reversal import Reversal
 from stripe.api_resources.review import Review
+from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.api_resources.setup_attempt import SetupAttempt
 from stripe.api_resources.setup_intent import SetupIntent
 from stripe.api_resources.shipping_rate import ShippingRate

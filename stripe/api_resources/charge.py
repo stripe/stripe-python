@@ -3,26 +3,27 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import SearchableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    ListableAPIResource,
+    SearchableAPIResource,
+    UpdateableAPIResource,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Dict
-from typing import Optional
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
+from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
     from stripe.api_resources.application_fee import ApplicationFee
     from stripe.api_resources.balance_transaction import BalanceTransaction
     from stripe.api_resources.invoice import Invoice
-    from stripe.api_resources.account import Account
     from stripe.api_resources.payment_intent import PaymentIntent
     from stripe.api_resources.refund import Refund
     from stripe.api_resources.review import Review
@@ -54,7 +55,7 @@ class Charge(
     billing_details: StripeObject
     calculated_statement_descriptor: Optional[str]
     captured: bool
-    created: str
+    created: int
     currency: str
     customer: Optional[ExpandableField[Any]]
     description: Optional[str]
@@ -89,7 +90,7 @@ class Charge(
     source_transfer: Optional[ExpandableField["Transfer"]]
     statement_descriptor: Optional[str]
     statement_descriptor_suffix: Optional[str]
-    status: str
+    status: Literal["failed", "pending", "succeeded"]
     transfer: ExpandableField["Transfer"]
     transfer_data: Optional[StripeObject]
     transfer_group: Optional[str]
@@ -126,11 +127,68 @@ class Charge(
         )
 
     @classmethod
-    def search(cls, *args, **kwargs):
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Charge":
+        return cast(
+            "Charge",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Charge"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def modify(cls, id, **params) -> "Charge":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "Charge",
+            cls._static_request("post", url, params=params),
+        )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Charge":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
+
+    @classmethod
+    def search(cls, *args, **kwargs) -> Any:
         return cls._search(search_url="/v1/charges/search", *args, **kwargs)
 
     @classmethod
-    def search_auto_paging_iter(cls, *args, **kwargs):
+    def search_auto_paging_iter(cls, *args, **kwargs) -> Any:
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     def mark_as_fraudulent(self, idempotency_key=None):

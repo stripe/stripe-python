@@ -5,8 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.transfer import Transfer
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -37,7 +36,7 @@ class Reversal(UpdateableAPIResource["Reversal"]):
     OBJECT_NAME = "transfer_reversal"
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
-    created: str
+    created: int
     currency: str
     destination_payment_refund: Optional[ExpandableField["Refund"]]
     id: str
