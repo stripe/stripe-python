@@ -33,5 +33,11 @@ class Balance(SingletonAPIResource["Balance"]):
     pending: List[StripeObject]
 
     @classmethod
+    def retrieve(cls, **params) -> "Balance":
+        instance = cls(None, **params)
+        instance.refresh()
+        return instance
+
+    @classmethod
     def class_url(cls):
         return "/v1/balance"

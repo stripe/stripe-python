@@ -3,15 +3,14 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    ListableAPIResource,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -51,37 +50,81 @@ class Session(
     amount_subtotal: Optional[int]
     amount_total: Optional[int]
     automatic_tax: StripeObject
-    billing_address_collection: Optional[str]
+    billing_address_collection: Optional[Literal["auto", "required"]]
     cancel_url: Optional[str]
     client_reference_id: Optional[str]
     consent: Optional[StripeObject]
     consent_collection: Optional[StripeObject]
-    created: str
+    created: int
     currency: Optional[str]
     currency_conversion: Optional[StripeObject]
     custom_fields: List[StripeObject]
     custom_text: StripeObject
     customer: Optional[ExpandableField[Any]]
-    customer_creation: Optional[str]
+    customer_creation: Optional[Literal["always", "if_required"]]
     customer_details: Optional[StripeObject]
     customer_email: Optional[str]
-    expires_at: str
+    expires_at: int
     id: str
     invoice: Optional[ExpandableField["Invoice"]]
     invoice_creation: Optional[StripeObject]
     line_items: ListObject["LineItem"]
     livemode: bool
-    locale: Optional[str]
+    locale: Optional[
+        Literal[
+            "auto",
+            "bg",
+            "cs",
+            "da",
+            "de",
+            "el",
+            "en",
+            "en-GB",
+            "es",
+            "es-419",
+            "et",
+            "fi",
+            "fil",
+            "fr",
+            "fr-CA",
+            "hr",
+            "hu",
+            "id",
+            "it",
+            "ja",
+            "ko",
+            "lt",
+            "lv",
+            "ms",
+            "mt",
+            "nb",
+            "nl",
+            "pl",
+            "pt",
+            "pt-BR",
+            "ro",
+            "ru",
+            "sk",
+            "sl",
+            "sv",
+            "th",
+            "tr",
+            "vi",
+            "zh",
+            "zh-HK",
+            "zh-TW",
+        ]
+    ]
     metadata: Optional[Dict[str, str]]
-    mode: str
+    mode: Literal["payment", "setup", "subscription"]
     object: Literal["checkout.session"]
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     payment_link: Optional[ExpandableField["PaymentLink"]]
-    payment_method_collection: Optional[str]
+    payment_method_collection: Optional[Literal["always", "if_required"]]
     payment_method_configuration_details: Optional[StripeObject]
     payment_method_options: Optional[StripeObject]
     payment_method_types: List[str]
-    payment_status: str
+    payment_status: Literal["no_payment_required", "paid", "unpaid"]
     phone_number_collection: StripeObject
     recovered_from: Optional[str]
     setup_intent: Optional[ExpandableField["SetupIntent"]]
@@ -89,13 +132,35 @@ class Session(
     shipping_cost: Optional[StripeObject]
     shipping_details: Optional[StripeObject]
     shipping_options: List[StripeObject]
-    status: Optional[str]
-    submit_type: Optional[str]
+    status: Optional[Literal["complete", "expired", "open"]]
+    submit_type: Optional[Literal["auto", "book", "donate", "pay"]]
     subscription: Optional[ExpandableField["Subscription"]]
     success_url: Optional[str]
     tax_id_collection: StripeObject
     total_details: Optional[StripeObject]
     url: Optional[str]
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Session":
+        return cast(
+            "Session",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
 
     @classmethod
     def _cls_expire(
@@ -129,6 +194,27 @@ class Session(
         )
 
     @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Session"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def _cls_list_line_items(
         cls,
         session,
@@ -158,3 +244,9 @@ class Session(
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Session":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance

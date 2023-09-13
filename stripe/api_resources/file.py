@@ -3,8 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 import stripe
-from stripe import api_requestor
-from stripe import util
+from stripe import api_requestor, util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from typing import Optional
@@ -28,17 +27,60 @@ class File(ListableAPIResource["File"]):
     """
 
     OBJECT_NAME = "file"
-    created: str
-    expires_at: Optional[str]
+    created: int
+    expires_at: Optional[int]
     filename: Optional[str]
     id: str
     links: Optional[ListObject["FileLink"]]
     object: Literal["file"]
-    purpose: str
+    purpose: Literal[
+        "account_requirement",
+        "additional_verification",
+        "business_icon",
+        "business_logo",
+        "customer_signature",
+        "dispute_evidence",
+        "document_provider_identity_document",
+        "finance_report_run",
+        "identity_document",
+        "identity_document_downloadable",
+        "pci_document",
+        "selfie",
+        "sigma_scheduled_query",
+        "tax_document_user_upload",
+        "terminal_reader_splashscreen",
+    ]
     size: int
     title: Optional[str]
     type: Optional[str]
     url: Optional[str]
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["File"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "File":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
 
     # This resource can have two different object names. In latter API
     # versions, only `file` is used, but since stripe-python may be used with

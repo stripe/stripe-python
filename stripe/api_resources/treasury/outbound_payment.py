@@ -3,15 +3,16 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import APIResourceTestHelpers
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import (
+    APIResourceTestHelpers,
+    CreateableAPIResource,
+    ListableAPIResource,
+)
 from stripe.api_resources.expandable_field import ExpandableField
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict
-from typing import Optional
-from typing_extensions import Literal
-from typing_extensions import Type
+from typing import Dict, Optional, cast
+from typing_extensions import Literal, Type
 
 from typing_extensions import TYPE_CHECKING
 
@@ -32,14 +33,14 @@ class OutboundPayment(
     OBJECT_NAME = "treasury.outbound_payment"
     amount: int
     cancelable: bool
-    created: str
+    created: int
     currency: str
     customer: Optional[str]
     description: Optional[str]
     destination_payment_method: Optional[str]
     destination_payment_method_details: Optional[StripeObject]
     end_user_details: Optional[StripeObject]
-    expected_arrival_date: str
+    expected_arrival_date: int
     financial_account: str
     hosted_regulatory_receipt_url: Optional[str]
     id: str
@@ -48,7 +49,7 @@ class OutboundPayment(
     object: Literal["treasury.outbound_payment"]
     returned_details: Optional[StripeObject]
     statement_descriptor: str
-    status: str
+    status: Literal["canceled", "failed", "posted", "processing", "returned"]
     status_transitions: StripeObject
     transaction: ExpandableField["Transaction"]
 
@@ -82,6 +83,55 @@ class OutboundPayment(
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "OutboundPayment":
+        return cast(
+            "OutboundPayment",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["OutboundPayment"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "OutboundPayment":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
 
     class TestHelpers(APIResourceTestHelpers["OutboundPayment"]):
         _resource_cls: Type["OutboundPayment"]

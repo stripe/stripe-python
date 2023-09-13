@@ -4,6 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Optional
 from typing_extensions import Literal
@@ -21,18 +22,76 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
 
     OBJECT_NAME = "treasury.transaction_entry"
     balance_impact: StripeObject
-    created: str
+    created: int
     currency: str
-    effective_at: str
+    effective_at: int
     financial_account: str
     flow: Optional[str]
     flow_details: Optional[StripeObject]
-    flow_type: str
+    flow_type: Literal[
+        "credit_reversal",
+        "debit_reversal",
+        "inbound_transfer",
+        "issuing_authorization",
+        "other",
+        "outbound_payment",
+        "outbound_transfer",
+        "received_credit",
+        "received_debit",
+    ]
     id: str
     livemode: bool
     object: Literal["treasury.transaction_entry"]
     transaction: ExpandableField["Transaction"]
-    type: str
+    type: Literal[
+        "credit_reversal",
+        "credit_reversal_posting",
+        "debit_reversal",
+        "inbound_transfer",
+        "inbound_transfer_return",
+        "issuing_authorization_hold",
+        "issuing_authorization_release",
+        "other",
+        "outbound_payment",
+        "outbound_payment_cancellation",
+        "outbound_payment_failure",
+        "outbound_payment_posting",
+        "outbound_payment_return",
+        "outbound_transfer",
+        "outbound_transfer_cancellation",
+        "outbound_transfer_failure",
+        "outbound_transfer_posting",
+        "outbound_transfer_return",
+        "received_credit",
+        "received_debit",
+    ]
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["TransactionEntry"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "TransactionEntry":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
 
     @classmethod
     def class_url(cls):
