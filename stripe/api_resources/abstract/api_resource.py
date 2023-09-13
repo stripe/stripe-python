@@ -132,18 +132,36 @@ class APIResource(StripeObject, Generic[T]):
         )
         headers = util.read_special_variable(params, "headers", None)
 
-        requestor = api_requestor.APIRequestor(
-            api_key, api_version=stripe_version, account=stripe_account
+        # requestor = api_requestor.APIRequestor(
+        #     api_key, api_version=stripe_version, account=stripe_account
+        # )
+        print(
+            "api_requestor.APIRequestor constructed with api_key: ",
+            api_key,
+            " api_version: ",
+            stripe_version,
+            " account: ",
+            stripe_account,
         )
 
         if idempotency_key is not None:
             headers = {} if headers is None else headers.copy()
             headers.update(util.populate_headers(idempotency_key))  # type: ignore
 
-        response, api_key = requestor.request(method_, url_, params, headers)
-        return util.convert_to_stripe_object(
-            response, api_key, stripe_version, stripe_account, params
+        # response, api_key = requestor.request(method_, url_, params, headers)
+        print(
+            "request called with method: ",
+            method_,
+            " url: ",
+            url_,
+            " params: ",
+            params,
+            " headers: ",
+            headers,
         )
+        # return util.convert_to_stripe_object(
+        #     response, api_key, stripe_version, stripe_account, params
+        # )
 
     # The `method_` and `url_` arguments are suffixed with an underscore to
     # avoid conflicting with actual request parameters in `params`.
