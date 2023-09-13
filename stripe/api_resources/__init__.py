@@ -36,6 +36,7 @@ from stripe.api_resources.capability import Capability
 from stripe.api_resources.card import Card
 from stripe.api_resources.cash_balance import CashBalance
 from stripe.api_resources.charge import Charge
+from stripe.api_resources.confirmation_token import ConfirmationToken
 from stripe.api_resources.connect_collection_transfer import (
     ConnectCollectionTransfer,
 )
