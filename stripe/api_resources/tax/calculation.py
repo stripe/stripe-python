@@ -6,7 +6,8 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, cast
+from typing import List
+from typing import Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -29,7 +30,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     currency: str
     customer: Optional[str]
     customer_details: StripeObject
-    expires_at: Optional[int]
+    expires_at: Optional[str]
     id: Optional[str]
     line_items: Optional[ListObject["CalculationLineItem"]]
     livemode: bool
@@ -38,29 +39,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     tax_amount_exclusive: int
     tax_amount_inclusive: int
     tax_breakdown: List[StripeObject]
-    tax_date: int
-
-    @classmethod
-    def create(
-        cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ) -> "Calculation":
-        return cast(
-            "Calculation",
-            cls._static_request(
-                "post",
-                cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
-                params,
-            ),
-        )
+    tax_date: str
 
     @classmethod
     def _cls_list_line_items(

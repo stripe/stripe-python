@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 import stripe
@@ -1342,7 +1341,7 @@ class TestGeneratedExamples(object):
 
     def test_customer_search(self, request_mock):
         stripe.Customer.search(
-            query="name:'fakename' AND metadata['foo']:'bar'",
+            query="name:'fakename' AND metadata['foo']:'bar'"
         )
         request_mock.assert_requested(
             "get",
@@ -1351,7 +1350,7 @@ class TestGeneratedExamples(object):
 
     def test_customer_search2(self, request_mock):
         stripe.Customer.search(
-            query="name:'fakename' AND metadata['foo']:'bar'",
+            query="name:'fakename' AND metadata['foo']:'bar'"
         )
         request_mock.assert_requested(
             "get",
@@ -2206,7 +2205,7 @@ class TestGeneratedExamples(object):
 
     def test_price_search(self, request_mock):
         stripe.Price.search(
-            query="active:'true' AND metadata['order_id']:'6735'",
+            query="active:'true' AND metadata['order_id']:'6735'"
         )
         request_mock.assert_requested(
             "get",
@@ -2253,7 +2252,7 @@ class TestGeneratedExamples(object):
 
     def test_product_search(self, request_mock):
         stripe.Product.search(
-            query="active:'true' AND metadata['order_id']:'6735'",
+            query="active:'true' AND metadata['order_id']:'6735'"
         )
         request_mock.assert_requested(
             "get",
@@ -3282,7 +3281,7 @@ class TestGeneratedExamples(object):
 
     def test_treasury_creditreversal_create(self, request_mock):
         stripe.treasury.CreditReversal.create(
-            received_credit="rc_xxxxxxxxxxxxx",
+            received_credit="rc_xxxxxxxxxxxxx"
         )
         request_mock.assert_requested(
             "post",

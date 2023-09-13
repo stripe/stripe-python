@@ -21,7 +21,7 @@ class UsageRecord(APIResource["UsageRecord"]):
     object: Literal["usage_record"]
     quantity: int
     subscription_item: str
-    timestamp: int
+    timestamp: str
 
     @classmethod
     def create(

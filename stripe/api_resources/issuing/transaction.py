@@ -2,22 +2,22 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe.api_resources.abstract import (
-    ListableAPIResource,
-    UpdateableAPIResource,
-)
+from stripe import util
+from stripe.api_resources.abstract import APIResourceTestHelpers
+from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
-from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Dict
+from typing import Optional
 from typing_extensions import Literal
-from urllib.parse import quote_plus
+from typing_extensions import Type
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.balance_transaction import BalanceTransaction
     from stripe.api_resources.issuing.authorization import Authorization
+    from stripe.api_resources.balance_transaction import BalanceTransaction
     from stripe.api_resources.issuing.card import Card
     from stripe.api_resources.issuing.cardholder import Cardholder
     from stripe.api_resources.issuing.dispute import Dispute
@@ -42,7 +42,7 @@ class Transaction(
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     card: ExpandableField["Card"]
     cardholder: Optional[ExpandableField["Cardholder"]]
-    created: int
+    created: str
     currency: str
     dispute: Optional[ExpandableField["Dispute"]]
     id: str
@@ -54,40 +54,80 @@ class Transaction(
     object: Literal["issuing.transaction"]
     purchase_details: Optional[StripeObject]
     treasury: Optional[StripeObject]
-    type: Literal["capture", "refund"]
-    wallet: Optional[Literal["apple_pay", "google_pay", "samsung_pay"]]
+    type: str
+    wallet: Optional[str]
 
-    @classmethod
-    def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
-    ) -> ListObject["Transaction"]:
-        result = cls._static_request(
-            "get",
-            cls.class_url(),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-        if not isinstance(result, ListObject):
+    class TestHelpers(APIResourceTestHelpers["Transaction"]):
+        _resource_cls: Type["Transaction"]
 
-            raise TypeError(
-                "Expected list object from API, got %s"
-                % (type(result).__name__)
+        @classmethod
+        def create_force_capture(
+            cls,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/transactions/create_force_capture",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             )
 
-        return result
+        @classmethod
+        def create_unlinked_refund(
+            cls,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
 
-    @classmethod
-    def modify(cls, id, **params) -> "Transaction":
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
-        return cast(
-            "Transaction",
-            cls._static_request("post", url, params=params),
-        )
+        @classmethod
+        def _cls_refund(
+            cls,
+            transaction,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
+                    transaction=util.sanitize_id(transaction)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
 
-    @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Transaction":
-        instance = cls(id, api_key, **params)
-        instance.refresh()
-        return instance
+        @util.class_method_variant("_cls_refund")
+        def refund(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
+                    transaction=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
+
+Transaction.TestHelpers._resource_cls = Transaction

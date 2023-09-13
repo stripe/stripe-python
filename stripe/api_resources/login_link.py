@@ -12,6 +12,6 @@ class LoginLink(StripeObject):
     """
 
     OBJECT_NAME = "login_link"
-    created: int
+    created: str
     object: Literal["login_link"]
     url: str

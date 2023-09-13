@@ -5,7 +5,9 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.account import Account
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional
+from typing import Dict
+from typing import List
+from typing import Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -25,7 +27,7 @@ class Person(UpdateableAPIResource["Person"]):
     address: StripeObject
     address_kana: Optional[StripeObject]
     address_kanji: Optional[StripeObject]
-    created: int
+    created: str
     dob: StripeObject
     email: Optional[str]
     first_name: Optional[str]
@@ -45,7 +47,7 @@ class Person(UpdateableAPIResource["Person"]):
     nationality: Optional[str]
     object: Literal["person"]
     phone: Optional[str]
-    political_exposure: Literal["existing", "none"]
+    political_exposure: str
     registered_address: StripeObject
     relationship: StripeObject
     requirements: Optional[StripeObject]

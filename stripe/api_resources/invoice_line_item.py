@@ -4,7 +4,9 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional
+from typing import Dict
+from typing import List
+from typing import Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -43,5 +45,5 @@ class InvoiceLineItem(StripeObject):
     subscription_item: ExpandableField["SubscriptionItem"]
     tax_amounts: List[StripeObject]
     tax_rates: List["TaxRate"]
-    type: Literal["invoiceitem", "subscription"]
+    type: str
     unit_amount_excluding_tax: Optional[float]
