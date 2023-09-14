@@ -84,6 +84,7 @@ class PaymentIntent(
     object: Literal["payment_intent"]
     on_behalf_of: Optional[ExpandableField["Account"]]
     payment_method: Optional[ExpandableField["PaymentMethod"]]
+    payment_method_configuration_details: Optional[StripeObject]
     payment_method_options: Optional[StripeObject]
     payment_method_types: List[str]
     processing: Optional[StripeObject]
