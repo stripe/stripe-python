@@ -27,10 +27,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.refund import Refund
 
 
-@nested_resource_class_methods(
-    "line",
-    operations=["list"],
-)
+@nested_resource_class_methods("line")
 class CreditNote(
     CreateableAPIResource["CreditNote"],
     ListableAPIResource["CreditNote"],
@@ -189,5 +186,25 @@ class CreditNote(
                 id=util.sanitize_id(self.get("id"))
             ),
             idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def list_lines(
+        cls,
+        credit_note,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/credit_notes/{credit_note}/lines".format(
+                credit_note=util.sanitize_id(credit_note)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
             params=params,
         )
