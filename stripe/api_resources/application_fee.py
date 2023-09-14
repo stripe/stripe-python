@@ -3,7 +3,10 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import (
+    ListableAPIResource,
+    nested_resource_class_methods,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from typing import Optional
@@ -21,6 +24,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.charge import Charge
 
 
+@nested_resource_class_methods("refund")
 class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     OBJECT_NAME = "application_fee"
     account: ExpandableField["Account"]

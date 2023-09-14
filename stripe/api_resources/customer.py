@@ -10,6 +10,7 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
     SearchableAPIResource,
     UpdateableAPIResource,
+    nested_resource_class_methods,
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
@@ -28,6 +29,10 @@ if TYPE_CHECKING:
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
+@nested_resource_class_methods("balance_transaction")
+@nested_resource_class_methods("cash_balance_transaction")
+@nested_resource_class_methods("source")
+@nested_resource_class_methods("tax_id")
 class Customer(
     CreateableAPIResource["Customer"],
     DeletableAPIResource["Customer"],

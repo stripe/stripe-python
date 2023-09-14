@@ -8,6 +8,7 @@ from stripe.api_resources.abstract import (
     DeletableAPIResource,
     ListableAPIResource,
     UpdateableAPIResource,
+    nested_resource_class_methods,
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
@@ -21,6 +22,10 @@ if TYPE_CHECKING:
     from stripe.api_resources.person import Person
 
 
+@nested_resource_class_methods("capability")
+@nested_resource_class_methods("external_account")
+@nested_resource_class_methods("login_link")
+@nested_resource_class_methods("person")
 class Account(
     CreateableAPIResource["Account"],
     DeletableAPIResource["Account"],

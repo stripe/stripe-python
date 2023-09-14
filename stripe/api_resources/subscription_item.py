@@ -8,6 +8,7 @@ from stripe.api_resources.abstract import (
     DeletableAPIResource,
     ListableAPIResource,
     UpdateableAPIResource,
+    nested_resource_class_methods,
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
@@ -23,6 +24,8 @@ if TYPE_CHECKING:
     from stripe.api_resources.tax_rate import TaxRate
 
 
+@nested_resource_class_methods("usage_record")
+@nested_resource_class_methods("usage_record_summary")
 class SubscriptionItem(
     CreateableAPIResource["SubscriptionItem"],
     DeletableAPIResource["SubscriptionItem"],
