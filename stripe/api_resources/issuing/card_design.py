@@ -41,7 +41,7 @@ class CardDesign(
     metadata: Dict[str, str]
     name: Optional[str]
     object: Literal["issuing.card_design"]
-    preference: Literal["default", "none", "platform_default"]
+    preferences: StripeObject
     rejection_reasons: StripeObject
     status: Literal["active", "inactive", "rejected", "review"]
 
