@@ -24,10 +24,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.charge import Charge
 
 
-@nested_resource_class_methods(
-    "refund",
-    operations=["create", "retrieve", "update", "list"],
-)
+@nested_resource_class_methods("refund")
 class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     OBJECT_NAME = "application_fee"
     account: ExpandableField["Account"]
@@ -102,3 +99,85 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    @classmethod
+    def create_refund(
+        cls,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/application_fees/{id}/refunds".format(
+                id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve_refund(
+        cls,
+        fee,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/application_fees/{fee}/refunds/{id}".format(
+                fee=util.sanitize_id(fee), id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def modify_refund(
+        cls,
+        fee,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/application_fees/{fee}/refunds/{id}".format(
+                fee=util.sanitize_id(fee), id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def list_refunds(
+        cls,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/application_fees/{id}/refunds".format(
+                id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
