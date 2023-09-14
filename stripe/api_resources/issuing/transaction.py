@@ -2,7 +2,9 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
+from stripe import util
 from stripe.api_resources.abstract import (
+    APIResourceTestHelpers,
     ListableAPIResource,
     UpdateableAPIResource,
 )
@@ -10,7 +12,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Dict, Optional, cast
-from typing_extensions import Literal
+from typing_extensions import Literal, Type
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -91,3 +93,78 @@ class Transaction(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    class TestHelpers(APIResourceTestHelpers["Transaction"]):
+        _resource_cls: Type["Transaction"]
+
+        @classmethod
+        def create_force_capture(
+            cls,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/transactions/create_force_capture",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @classmethod
+        def create_unlinked_refund(
+            cls,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @classmethod
+        def _cls_refund(
+            cls,
+            transaction,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
+                    transaction=util.sanitize_id(transaction)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @util.class_method_variant("_cls_refund")
+        def refund(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
+                    transaction=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
+
+Transaction.TestHelpers._resource_cls = Transaction
