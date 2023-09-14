@@ -26,15 +26,8 @@ if TYPE_CHECKING:
     from stripe.api_resources.tax_rate import TaxRate
 
 
-@nested_resource_class_methods(
-    "usage_record",
-    operations=["create"],
-)
-@nested_resource_class_methods(
-    "usage_record_summary",
-    operations=["list"],
-    resource_plural="usage_record_summaries",
-)
+@nested_resource_class_methods("usage_record")
+@nested_resource_class_methods("usage_record_summary")
 class SubscriptionItem(
     CreateableAPIResource["SubscriptionItem"],
     DeletableAPIResource["SubscriptionItem"],
@@ -132,3 +125,43 @@ class SubscriptionItem(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    @classmethod
+    def create_usage_record(
+        cls,
+        subscription_item,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/subscription_items/{subscription_item}/usage_records".format(
+                subscription_item=util.sanitize_id(subscription_item)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def list_usage_record_summaries(
+        cls,
+        subscription_item,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
+                subscription_item=util.sanitize_id(subscription_item)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )

@@ -29,14 +29,8 @@ if TYPE_CHECKING:
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
-@nested_resource_class_methods(
-    "preview_invoice",
-    operations=["list"],
-)
-@nested_resource_class_methods(
-    "preview_subscription_schedule",
-    operations=["list"],
-)
+@nested_resource_class_methods("preview_invoice")
+@nested_resource_class_methods("preview_subscription_schedule")
 class Quote(
     CreateableAPIResource["Quote"],
     ListableAPIResource["Quote"],
@@ -499,3 +493,43 @@ class Quote(
         )
         url = self.instance_url() + "/pdf"
         return requestor.request_stream("get", url, params=params)
+
+    @classmethod
+    def list_preview_invoices(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/quotes/{quote}/preview_invoices".format(
+                quote=util.sanitize_id(quote)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def list_preview_subscription_schedules(
+        cls,
+        quote,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/quotes/{quote}/preview_subscription_schedules".format(
+                quote=util.sanitize_id(quote)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )

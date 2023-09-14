@@ -21,10 +21,7 @@ if TYPE_CHECKING:
     )
 
 
-@nested_resource_class_methods(
-    "inferred_balance",
-    operations=["list"],
-)
+@nested_resource_class_methods("inferred_balance")
 class Account(ListableAPIResource["Account"]):
     """
     A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
@@ -242,5 +239,25 @@ class Account(ListableAPIResource["Account"]):
                 account=util.sanitize_id(self.get("id"))
             ),
             idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def list_inferred_balances(
+        cls,
+        account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/financial_connections/accounts/{account}/inferred_balances".format(
+                account=util.sanitize_id(account)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
             params=params,
         )

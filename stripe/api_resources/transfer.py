@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
+from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -23,10 +24,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.reversal import Reversal
 
 
-@nested_resource_class_methods(
-    "reversal",
-    operations=["create", "retrieve", "update", "list"],
-)
+@nested_resource_class_methods("reversal")
 class Transfer(
     CreateableAPIResource["Transfer"],
     ListableAPIResource["Transfer"],
@@ -120,3 +118,81 @@ class Transfer(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    @classmethod
+    def create_reversal(
+        cls,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/transfers/{id}/reversals".format(id=util.sanitize_id(id)),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve_reversal(
+        cls,
+        transfer,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/transfers/{transfer}/reversals/{id}".format(
+                transfer=util.sanitize_id(transfer), id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def modify_reversal(
+        cls,
+        transfer,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/transfers/{transfer}/reversals/{id}".format(
+                transfer=util.sanitize_id(transfer), id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def list_reversals(
+        cls,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/transfers/{id}/reversals".format(id=util.sanitize_id(id)),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )

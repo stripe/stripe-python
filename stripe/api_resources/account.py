@@ -22,23 +22,10 @@ if TYPE_CHECKING:
     from stripe.api_resources.person import Person
 
 
-@nested_resource_class_methods(
-    "capability",
-    operations=["retrieve", "update", "list"],
-    resource_plural="capabilities",
-)
-@nested_resource_class_methods(
-    "external_account",
-    operations=["create", "retrieve", "update", "delete", "list"],
-)
-@nested_resource_class_methods(
-    "login_link",
-    operations=["create"],
-)
-@nested_resource_class_methods(
-    "person",
-    operations=["create", "retrieve", "update", "delete", "list"],
-)
+@nested_resource_class_methods("capability")
+@nested_resource_class_methods("external_account")
+@nested_resource_class_methods("login_link")
+@nested_resource_class_methods("person")
 class Account(
     CreateableAPIResource["Account"],
     DeletableAPIResource["Account"],
@@ -245,3 +232,296 @@ class Account(
                 params[k] = v.serialize(previous.get(k, None))
 
         return params
+
+    @classmethod
+    def retrieve_capability(
+        cls,
+        account,
+        capability,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/accounts/{account}/capabilities/{capability}".format(
+                account=util.sanitize_id(account),
+                capability=util.sanitize_id(capability),
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def modify_capability(
+        cls,
+        account,
+        capability,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/accounts/{account}/capabilities/{capability}".format(
+                account=util.sanitize_id(account),
+                capability=util.sanitize_id(capability),
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def list_capabilities(
+        cls,
+        account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/accounts/{account}/capabilities".format(
+                account=util.sanitize_id(account)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def create_external_account(
+        cls,
+        account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/accounts/{account}/external_accounts".format(
+                account=util.sanitize_id(account)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve_external_account(
+        cls,
+        account,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/accounts/{account}/external_accounts/{id}".format(
+                account=util.sanitize_id(account), id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def modify_external_account(
+        cls,
+        account,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/accounts/{account}/external_accounts/{id}".format(
+                account=util.sanitize_id(account), id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def delete_external_account(
+        cls,
+        account,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "delete",
+            "/v1/accounts/{account}/external_accounts/{id}".format(
+                account=util.sanitize_id(account), id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def list_external_accounts(
+        cls,
+        account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/accounts/{account}/external_accounts".format(
+                account=util.sanitize_id(account)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def create_login_link(
+        cls,
+        account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/accounts/{account}/login_links".format(
+                account=util.sanitize_id(account)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def create_person(
+        cls,
+        account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/accounts/{account}/persons".format(
+                account=util.sanitize_id(account)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve_person(
+        cls,
+        account,
+        person,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/accounts/{account}/persons/{person}".format(
+                account=util.sanitize_id(account),
+                person=util.sanitize_id(person),
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def modify_person(
+        cls,
+        account,
+        person,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/accounts/{account}/persons/{person}".format(
+                account=util.sanitize_id(account),
+                person=util.sanitize_id(person),
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def delete_person(
+        cls,
+        account,
+        person,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "delete",
+            "/v1/accounts/{account}/persons/{person}".format(
+                account=util.sanitize_id(account),
+                person=util.sanitize_id(person),
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def list_persons(
+        cls,
+        account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/accounts/{account}/persons".format(
+                account=util.sanitize_id(account)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
