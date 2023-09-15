@@ -3711,7 +3711,7 @@ class TestGeneratedExamples(object):
             amount_details={"atm_fee": 10, "cashback_amount": 5},
             authorization_method="chip",
             card="foo",
-            currency="bar",
+            currency="usd",
             is_amount_controllable=True,
             merchant_data={
                 "category": "ac_refrigeration_repair",
@@ -3816,7 +3816,7 @@ class TestGeneratedExamples(object):
         stripe.issuing.Transaction.TestHelpers.create_force_capture(
             amount=100,
             card="foo",
-            currency="bar",
+            currency="usd",
             merchant_data={
                 "category": "ac_refrigeration_repair",
                 "city": "foo",
@@ -3871,7 +3871,7 @@ class TestGeneratedExamples(object):
         stripe.issuing.Transaction.TestHelpers.create_unlinked_refund(
             amount=100,
             card="foo",
-            currency="bar",
+            currency="usd",
             merchant_data={
                 "category": "ac_refrigeration_repair",
                 "city": "foo",
