@@ -13,7 +13,7 @@ from typing_extensions import Literal
 class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     """
     Balance transactions represent funds moving through your Stripe account.
-    They're created for every type of transaction that comes into or flows out of your Stripe account balance.
+    Stripe creates them for every type of transaction that enters or leaves your Stripe account balance.
 
     Related guide: [Balance transaction types](https://stripe.com/docs/reports/balance-transaction-types)
     """
