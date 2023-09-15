@@ -1,4 +1,15 @@
 # Changelog
+## 6.5.0 - 2023-09-14
+* [#1052](https://github.com/stripe/stripe-python/pull/1052) Update generated code
+  * Add support for new resource `PaymentMethodConfiguration`
+  * Add support for `create`, `list`, `modify`, and `retrieve` methods on resource `PaymentMethodConfiguration`
+* [#1047](https://github.com/stripe/stripe-python/pull/1047) Update generated code
+  * Add support for `capture`, `create`, `expire`, `increment`, and `reverse` test helper methods on resource `Issuing.Authorization`
+  * Add support for `create_force_capture`, `create_unlinked_refund`, and `refund` test helper methods on resource `Issuing.Transaction`
+* [#1049](https://github.com/stripe/stripe-python/pull/1049) Types: datetimes to ints, add enum support
+* [#1030](https://github.com/stripe/stripe-python/pull/1030) Explicitly define CRUDL methods in each resource
+* [#1050](https://github.com/stripe/stripe-python/pull/1050) Generate explicit nested resource class methods
+
 ## 6.4.0 - 2023-09-07
 * [#1033](https://github.com/stripe/stripe-python/pull/1033) Update generated code
   * Add support for new resource `PaymentMethodDomain`
