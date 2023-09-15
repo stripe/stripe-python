@@ -6,12 +6,12 @@ from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
     CreateableAPIResource,
+    ExpandableField,
     ListableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, Type
 
 from typing_extensions import TYPE_CHECKING
@@ -56,11 +56,11 @@ class OutboundPayment(
     @classmethod
     def _cls_cancel(
         cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -74,7 +74,7 @@ class OutboundPayment(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key=None, **params):
+    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/treasury/outbound_payments/{id}/cancel".format(
@@ -87,11 +87,11 @@ class OutboundPayment(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "OutboundPayment":
         return cast(
             "OutboundPayment",
@@ -108,7 +108,11 @@ class OutboundPayment(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["OutboundPayment"]:
         result = cls._static_request(
             "get",
@@ -128,7 +132,9 @@ class OutboundPayment(
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "OutboundPayment":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "OutboundPayment":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -139,11 +145,11 @@ class OutboundPayment(
         @classmethod
         def _cls_fail(
             cls,
-            id,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -157,7 +163,7 @@ class OutboundPayment(
             )
 
         @util.class_method_variant("_cls_fail")
-        def fail(self, idempotency_key=None, **params):
+        def fail(self, idempotency_key: Optional[str] = None, **params: Any):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
@@ -170,11 +176,11 @@ class OutboundPayment(
         @classmethod
         def _cls_post(
             cls,
-            id,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -188,7 +194,7 @@ class OutboundPayment(
             )
 
         @util.class_method_variant("_cls_post")
-        def post(self, idempotency_key=None, **params):
+        def post(self, idempotency_key: Optional[str] = None, **params: Any):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
@@ -201,11 +207,11 @@ class OutboundPayment(
         @classmethod
         def _cls_return_outbound_payment(
             cls,
-            id,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -219,7 +225,9 @@ class OutboundPayment(
             )
 
         @util.class_method_variant("_cls_return_outbound_payment")
-        def return_outbound_payment(self, idempotency_key=None, **params):
+        def return_outbound_payment(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(

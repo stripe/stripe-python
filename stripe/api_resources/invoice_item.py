@@ -6,10 +6,10 @@ from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     DeletableAPIResource,
+    ExpandableField,
     ListableAPIResource,
     UpdateableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional, cast
@@ -77,11 +77,11 @@ class InvoiceItem(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "InvoiceItem":
         return cast(
             "InvoiceItem",
@@ -97,7 +97,7 @@ class InvoiceItem(
         )
 
     @classmethod
-    def _cls_delete(cls, sid, **params) -> "InvoiceItem":
+    def _cls_delete(cls, sid: str, **params: Any) -> "InvoiceItem":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "InvoiceItem",
@@ -105,7 +105,7 @@ class InvoiceItem(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> "InvoiceItem":
+    def delete(self, **params: Any) -> "InvoiceItem":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -114,7 +114,11 @@ class InvoiceItem(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["InvoiceItem"]:
         result = cls._static_request(
             "get",
@@ -134,7 +138,7 @@ class InvoiceItem(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "InvoiceItem":
+    def modify(cls, id, **params: Any) -> "InvoiceItem":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "InvoiceItem",
@@ -142,7 +146,9 @@ class InvoiceItem(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "InvoiceItem":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "InvoiceItem":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

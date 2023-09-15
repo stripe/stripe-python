@@ -73,11 +73,11 @@ class Account(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Account":
         return cast(
             "Account",
@@ -93,7 +93,7 @@ class Account(
         )
 
     @classmethod
-    def _cls_delete(cls, sid, **params) -> "Account":
+    def _cls_delete(cls, sid: str, **params: Any) -> "Account":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Account",
@@ -101,7 +101,7 @@ class Account(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> "Account":
+    def delete(self, **params: Any) -> "Account":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -110,7 +110,11 @@ class Account(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Account"]:
         result = cls._static_request(
             "get",
@@ -132,11 +136,11 @@ class Account(
     @classmethod
     def _cls_persons(
         cls,
-        account,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -150,7 +154,7 @@ class Account(
         )
 
     @util.class_method_variant("_cls_persons")
-    def persons(self, idempotency_key=None, **params):
+    def persons(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "get",
             "/v1/accounts/{account}/persons".format(
@@ -163,11 +167,11 @@ class Account(
     @classmethod
     def _cls_reject(
         cls,
-        account,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -181,7 +185,7 @@ class Account(
         )
 
     @util.class_method_variant("_cls_reject")
-    def reject(self, idempotency_key=None, **params):
+    def reject(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/accounts/{account}/reject".format(
@@ -237,12 +241,12 @@ class Account(
     @classmethod
     def retrieve_capability(
         cls,
-        account,
-        capability,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        capability: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -259,12 +263,12 @@ class Account(
     @classmethod
     def modify_capability(
         cls,
-        account,
-        capability,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        capability: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -281,11 +285,11 @@ class Account(
     @classmethod
     def list_capabilities(
         cls,
-        account,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -301,11 +305,11 @@ class Account(
     @classmethod
     def create_external_account(
         cls,
-        account,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -321,12 +325,12 @@ class Account(
     @classmethod
     def retrieve_external_account(
         cls,
-        account,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -342,12 +346,12 @@ class Account(
     @classmethod
     def modify_external_account(
         cls,
-        account,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -363,12 +367,12 @@ class Account(
     @classmethod
     def delete_external_account(
         cls,
-        account,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "delete",
@@ -384,11 +388,11 @@ class Account(
     @classmethod
     def list_external_accounts(
         cls,
-        account,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -404,11 +408,11 @@ class Account(
     @classmethod
     def create_login_link(
         cls,
-        account,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -424,11 +428,11 @@ class Account(
     @classmethod
     def create_person(
         cls,
-        account,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -444,12 +448,12 @@ class Account(
     @classmethod
     def retrieve_person(
         cls,
-        account,
-        person,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        person: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -466,12 +470,12 @@ class Account(
     @classmethod
     def modify_person(
         cls,
-        account,
-        person,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        person: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -488,12 +492,12 @@ class Account(
     @classmethod
     def delete_person(
         cls,
-        account,
-        person,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        person: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "delete",
@@ -510,11 +514,11 @@ class Account(
     @classmethod
     def list_persons(
         cls,
-        account,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",

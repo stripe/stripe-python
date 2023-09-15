@@ -3,7 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
-from typing import Optional, cast
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -51,11 +51,11 @@ class Token(CreateableAPIResource["Token"]):
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Token":
         return cast(
             "Token",
@@ -71,7 +71,9 @@ class Token(CreateableAPIResource["Token"]):
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Token":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Token":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

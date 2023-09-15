@@ -3,11 +3,10 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.expandable_field import ExpandableField
+from stripe.api_resources.abstract import ExpandableField, ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import Any, List, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -56,11 +55,11 @@ class Account(ListableAPIResource["Account"]):
     @classmethod
     def _cls_disconnect(
         cls,
-        account,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -74,7 +73,7 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @util.class_method_variant("_cls_disconnect")
-    def disconnect(self, idempotency_key=None, **params):
+    def disconnect(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/financial_connections/accounts/{account}/disconnect".format(
@@ -86,7 +85,11 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Account"]:
         result = cls._static_request(
             "get",
@@ -108,11 +111,11 @@ class Account(ListableAPIResource["Account"]):
     @classmethod
     def _cls_list_owners(
         cls,
-        account,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -126,7 +129,9 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @util.class_method_variant("_cls_list_owners")
-    def list_owners(self, idempotency_key=None, **params):
+    def list_owners(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "get",
             "/v1/financial_connections/accounts/{account}/owners".format(
@@ -139,11 +144,11 @@ class Account(ListableAPIResource["Account"]):
     @classmethod
     def _cls_refresh_account(
         cls,
-        account,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -157,7 +162,9 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @util.class_method_variant("_cls_refresh_account")
-    def refresh_account(self, idempotency_key=None, **params):
+    def refresh_account(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/financial_connections/accounts/{account}/refresh".format(
@@ -168,7 +175,9 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Account":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Account":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

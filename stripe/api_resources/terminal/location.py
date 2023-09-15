@@ -41,11 +41,11 @@ class Location(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Location":
         return cast(
             "Location",
@@ -61,7 +61,7 @@ class Location(
         )
 
     @classmethod
-    def _cls_delete(cls, sid, **params) -> "Location":
+    def _cls_delete(cls, sid: str, **params: Any) -> "Location":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Location",
@@ -69,7 +69,7 @@ class Location(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> "Location":
+    def delete(self, **params: Any) -> "Location":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -78,7 +78,11 @@ class Location(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Location"]:
         result = cls._static_request(
             "get",
@@ -98,7 +102,7 @@ class Location(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> Any:
+    def modify(cls, id, **params: Any) -> Any:
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             Any,
@@ -106,7 +110,9 @@ class Location(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> Any:
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> Any:
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

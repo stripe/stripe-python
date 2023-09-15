@@ -5,12 +5,12 @@ from __future__ import absolute_import, division, print_function
 from stripe import error, util
 from stripe.api_resources.abstract import (
     DeletableAPIResource,
+    ExpandableField,
     UpdateableAPIResource,
     VerifyMixin,
 )
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
@@ -55,7 +55,7 @@ class BankAccount(
     deleted: Optional[Literal[True]]
 
     @classmethod
-    def _cls_delete(cls, sid, **params) -> Any:
+    def _cls_delete(cls, sid: str, **params: Any) -> Any:
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             Any,
@@ -63,7 +63,7 @@ class BankAccount(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> Any:
+    def delete(self, **params: Any) -> Any:
         return self._request_and_refresh(
             "delete",
             self.instance_url(),

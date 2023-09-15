@@ -5,13 +5,13 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
+    ExpandableField,
     ListableAPIResource,
     UpdateableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, Type
 from urllib.parse import quote_plus
 
@@ -67,11 +67,11 @@ class Authorization(
     @classmethod
     def _cls_approve(
         cls,
-        authorization,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        authorization: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -85,7 +85,7 @@ class Authorization(
         )
 
     @util.class_method_variant("_cls_approve")
-    def approve(self, idempotency_key=None, **params):
+    def approve(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/issuing/authorizations/{authorization}/approve".format(
@@ -98,11 +98,11 @@ class Authorization(
     @classmethod
     def _cls_decline(
         cls,
-        authorization,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        authorization: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -116,7 +116,7 @@ class Authorization(
         )
 
     @util.class_method_variant("_cls_decline")
-    def decline(self, idempotency_key=None, **params):
+    def decline(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/issuing/authorizations/{authorization}/decline".format(
@@ -128,7 +128,11 @@ class Authorization(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Authorization"]:
         result = cls._static_request(
             "get",
@@ -148,7 +152,7 @@ class Authorization(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Authorization":
+    def modify(cls, id, **params: Any) -> "Authorization":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Authorization",
@@ -156,7 +160,9 @@ class Authorization(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Authorization":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Authorization":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -167,11 +173,11 @@ class Authorization(
         @classmethod
         def _cls_capture(
             cls,
-            authorization,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            authorization: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -185,7 +191,9 @@ class Authorization(
             )
 
         @util.class_method_variant("_cls_capture")
-        def capture(self, idempotency_key=None, **params):
+        def capture(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
@@ -198,10 +206,10 @@ class Authorization(
         @classmethod
         def create(
             cls,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -215,11 +223,11 @@ class Authorization(
         @classmethod
         def _cls_expire(
             cls,
-            authorization,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            authorization: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -233,7 +241,7 @@ class Authorization(
             )
 
         @util.class_method_variant("_cls_expire")
-        def expire(self, idempotency_key=None, **params):
+        def expire(self, idempotency_key: Optional[str] = None, **params: Any):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
@@ -246,11 +254,11 @@ class Authorization(
         @classmethod
         def _cls_increment(
             cls,
-            authorization,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            authorization: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -264,7 +272,9 @@ class Authorization(
             )
 
         @util.class_method_variant("_cls_increment")
-        def increment(self, idempotency_key=None, **params):
+        def increment(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
@@ -277,11 +287,11 @@ class Authorization(
         @classmethod
         def _cls_reverse(
             cls,
-            authorization,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            authorization: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -295,7 +305,9 @@ class Authorization(
             )
 
         @util.class_method_variant("_cls_reverse")
-        def reverse(self, idempotency_key=None, **params):
+        def reverse(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(

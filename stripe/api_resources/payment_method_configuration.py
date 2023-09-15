@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Optional, cast
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -73,11 +73,11 @@ class PaymentMethodConfiguration(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "PaymentMethodConfiguration":
         return cast(
             "PaymentMethodConfiguration",
@@ -94,7 +94,11 @@ class PaymentMethodConfiguration(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["PaymentMethodConfiguration"]:
         result = cls._static_request(
             "get",
@@ -114,7 +118,7 @@ class PaymentMethodConfiguration(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "PaymentMethodConfiguration":
+    def modify(cls, id, **params: Any) -> "PaymentMethodConfiguration":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PaymentMethodConfiguration",
@@ -123,7 +127,7 @@ class PaymentMethodConfiguration(
 
     @classmethod
     def retrieve(
-        cls, id, api_key=None, **params
+        cls, id: str, api_key: Optional[str] = None, **params: Any
     ) -> "PaymentMethodConfiguration":
         instance = cls(id, api_key, **params)
         instance.refresh()

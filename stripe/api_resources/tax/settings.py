@@ -7,7 +7,7 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.stripe_object import StripeObject
-from typing import Optional, cast
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -31,7 +31,7 @@ class Settings(
     status_details: StripeObject
 
     @classmethod
-    def modify(cls, id, **params) -> "Settings":
+    def modify(cls, id, **params: Any) -> "Settings":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Settings",
@@ -39,7 +39,7 @@ class Settings(
         )
 
     @classmethod
-    def retrieve(cls, **params) -> "Settings":
+    def retrieve(cls, **params: Any) -> "Settings":
         instance = cls(None, **params)
         instance.refresh()
         return instance
