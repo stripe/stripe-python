@@ -75,6 +75,7 @@ class Invoice(
     """
 
     OBJECT_NAME = "invoice"
+    deleted: bool
     account_country: Optional[str]
     account_name: Optional[str]
     account_tax_ids: Optional[List[ExpandableField[Any]]]

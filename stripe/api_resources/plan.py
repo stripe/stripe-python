@@ -35,6 +35,7 @@ class Plan(
     """
 
     OBJECT_NAME = "plan"
+    deleted: bool
     active: bool
     aggregate_usage: Optional[
         Literal["last_during_period", "last_ever", "max", "sum"]

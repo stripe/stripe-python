@@ -23,6 +23,7 @@ class Discount(StripeObject):
     """
 
     OBJECT_NAME = "discount"
+    deleted: bool
     checkout_session: Optional[str]
     coupon: "Coupon"
     customer: Optional[ExpandableField[Any]]

@@ -33,6 +33,7 @@ class BankAccount(
     """
 
     OBJECT_NAME = "bank_account"
+    deleted: bool
     account: Optional[ExpandableField["Account"]]
     account_holder_name: Optional[str]
     account_holder_type: Optional[str]

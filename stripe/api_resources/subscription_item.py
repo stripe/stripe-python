@@ -38,6 +38,7 @@ class SubscriptionItem(
     """
 
     OBJECT_NAME = "subscription_item"
+    deleted: bool
     billing_thresholds: Optional[StripeObject]
     created: int
     id: str

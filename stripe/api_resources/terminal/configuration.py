@@ -27,6 +27,7 @@ class Configuration(
     """
 
     OBJECT_NAME = "terminal.configuration"
+    deleted: bool
     bbpos_wisepos_e: StripeObject
     id: str
     is_account_default: Optional[bool]

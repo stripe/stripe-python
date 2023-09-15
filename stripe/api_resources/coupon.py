@@ -29,6 +29,7 @@ class Coupon(
     """
 
     OBJECT_NAME = "coupon"
+    deleted: bool
     amount_off: Optional[int]
     applies_to: StripeObject
     created: int

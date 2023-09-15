@@ -32,6 +32,7 @@ class Price(
     """
 
     OBJECT_NAME = "price"
+    deleted: bool
     active: bool
     billing_scheme: Literal["per_unit", "tiered"]
     created: int

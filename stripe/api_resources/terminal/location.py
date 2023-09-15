@@ -29,6 +29,7 @@ class Location(
     """
 
     OBJECT_NAME = "terminal.location"
+    deleted: bool
     address: StripeObject
     configuration_overrides: str
     display_name: str

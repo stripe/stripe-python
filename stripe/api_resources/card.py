@@ -25,6 +25,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
 
     OBJECT_NAME = "card"
+    deleted: bool
     account: Optional[ExpandableField["Account"]]
     address_city: Optional[str]
     address_country: Optional[str]

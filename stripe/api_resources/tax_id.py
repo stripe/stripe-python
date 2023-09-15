@@ -20,6 +20,7 @@ class TaxId(APIResource["TaxId"]):
     """
 
     OBJECT_NAME = "tax_id"
+    deleted: bool
     country: Optional[str]
     created: int
     customer: Optional[ExpandableField["Customer"]]
