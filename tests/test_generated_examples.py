@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 import stripe
@@ -1341,7 +1342,7 @@ class TestGeneratedExamples(object):
 
     def test_customer_search(self, request_mock):
         stripe.Customer.search(
-            query="name:'fakename' AND metadata['foo']:'bar'"
+            query="name:'fakename' AND metadata['foo']:'bar'",
         )
         request_mock.assert_requested(
             "get",
@@ -1350,7 +1351,7 @@ class TestGeneratedExamples(object):
 
     def test_customer_search2(self, request_mock):
         stripe.Customer.search(
-            query="name:'fakename' AND metadata['foo']:'bar'"
+            query="name:'fakename' AND metadata['foo']:'bar'",
         )
         request_mock.assert_requested(
             "get",
@@ -2205,7 +2206,7 @@ class TestGeneratedExamples(object):
 
     def test_price_search(self, request_mock):
         stripe.Price.search(
-            query="active:'true' AND metadata['order_id']:'6735'"
+            query="active:'true' AND metadata['order_id']:'6735'",
         )
         request_mock.assert_requested(
             "get",
@@ -2252,7 +2253,7 @@ class TestGeneratedExamples(object):
 
     def test_product_search(self, request_mock):
         stripe.Product.search(
-            query="active:'true' AND metadata['order_id']:'6735'"
+            query="active:'true' AND metadata['order_id']:'6735'",
         )
         request_mock.assert_requested(
             "get",
@@ -3281,7 +3282,7 @@ class TestGeneratedExamples(object):
 
     def test_treasury_creditreversal_create(self, request_mock):
         stripe.treasury.CreditReversal.create(
-            received_credit="rc_xxxxxxxxxxxxx"
+            received_credit="rc_xxxxxxxxxxxxx",
         )
         request_mock.assert_requested(
             "post",
@@ -3668,4 +3669,265 @@ class TestGeneratedExamples(object):
         request_mock.assert_requested_stream(
             "get",
             "/v1/tax/forms/form_xxxxxxxxxxxxx/pdf",
+        )
+
+    def test_paymentmethodconfiguration_list(self, request_mock):
+        stripe.PaymentMethodConfiguration.list(application="foo")
+        request_mock.assert_requested(
+            "get",
+            "/v1/payment_method_configurations",
+        )
+
+    def test_paymentmethodconfiguration_create(self, request_mock):
+        stripe.PaymentMethodConfiguration.create(
+            acss_debit={"display_preference": {"preference": "none"}},
+            affirm={"display_preference": {"preference": "none"}},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/payment_method_configurations",
+        )
+
+    def test_paymentmethodconfiguration_retrieve(self, request_mock):
+        stripe.PaymentMethodConfiguration.retrieve("foo")
+        request_mock.assert_requested(
+            "get",
+            "/v1/payment_method_configurations/foo",
+        )
+
+    def test_paymentmethodconfiguration_update(self, request_mock):
+        stripe.PaymentMethodConfiguration.modify(
+            "foo",
+            acss_debit={"display_preference": {"preference": "on"}},
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/payment_method_configurations/foo",
+        )
+
+    def test_issuing_authorization_create(self, request_mock):
+        stripe.issuing.Authorization.TestHelpers.create(
+            amount=100,
+            amount_details={"atm_fee": 10, "cashback_amount": 5},
+            authorization_method="chip",
+            card="foo",
+            currency="usd",
+            is_amount_controllable=True,
+            merchant_data={
+                "category": "ac_refrigeration_repair",
+                "city": "foo",
+                "country": "bar",
+                "name": "foo",
+                "network_id": "bar",
+                "postal_code": "foo",
+                "state": "bar",
+                "terminal_id": "foo",
+            },
+            network_data={"acquiring_institution_id": "foo"},
+            verification_data={
+                "address_line1_check": "mismatch",
+                "address_postal_code_check": "match",
+                "cvc_check": "match",
+                "expiry_check": "mismatch",
+            },
+            wallet="apple_pay",
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/issuing/authorizations",
+        )
+
+    def test_issuing_authorization_capture(self, request_mock):
+        stripe.issuing.Authorization.TestHelpers.capture(
+            "example_authorization",
+            capture_amount=100,
+            close_authorization=True,
+            purchase_details={
+                "flight": {
+                    "departure_at": 1633651200,
+                    "passenger_name": "John Doe",
+                    "refundable": True,
+                    "segments": [
+                        {
+                            "arrival_airport_code": "SFO",
+                            "carrier": "Delta",
+                            "departure_airport_code": "LAX",
+                            "flight_number": "DL100",
+                            "service_class": "Economy",
+                            "stopover_allowed": True,
+                        },
+                    ],
+                    "travel_agency": "Orbitz",
+                },
+                "fuel": {
+                    "type": "diesel",
+                    "unit": "liter",
+                    "unit_cost_decimal": "3.5",
+                    "volume_decimal": "10",
+                },
+                "lodging": {"check_in_at": 1633651200, "nights": 2},
+                "receipt": [
+                    {
+                        "description": "Room charge",
+                        "quantity": "1",
+                        "total": 200,
+                        "unit_cost": 200,
+                    },
+                ],
+                "reference": "foo",
+            },
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/issuing/authorizations/example_authorization/capture",
+        )
+
+    def test_issuing_authorization_expire(self, request_mock):
+        stripe.issuing.Authorization.TestHelpers.expire(
+            "example_authorization"
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/issuing/authorizations/example_authorization/expire",
+        )
+
+    def test_issuing_authorization_increment(self, request_mock):
+        stripe.issuing.Authorization.TestHelpers.increment(
+            "example_authorization",
+            increment_amount=50,
+            is_amount_controllable=True,
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/issuing/authorizations/example_authorization/increment",
+        )
+
+    def test_issuing_authorization_reverse(self, request_mock):
+        stripe.issuing.Authorization.TestHelpers.reverse(
+            "example_authorization",
+            reverse_amount=20,
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/issuing/authorizations/example_authorization/reverse",
+        )
+
+    def test_issuing_transaction_create_force_capture(self, request_mock):
+        stripe.issuing.Transaction.TestHelpers.create_force_capture(
+            amount=100,
+            card="foo",
+            currency="usd",
+            merchant_data={
+                "category": "ac_refrigeration_repair",
+                "city": "foo",
+                "country": "US",
+                "name": "foo",
+                "network_id": "bar",
+                "postal_code": "10001",
+                "state": "NY",
+                "terminal_id": "foo",
+            },
+            purchase_details={
+                "flight": {
+                    "departure_at": 1633651200,
+                    "passenger_name": "John Doe",
+                    "refundable": True,
+                    "segments": [
+                        {
+                            "arrival_airport_code": "SFO",
+                            "carrier": "Delta",
+                            "departure_airport_code": "LAX",
+                            "flight_number": "DL100",
+                            "service_class": "Economy",
+                            "stopover_allowed": True,
+                        },
+                    ],
+                    "travel_agency": "Orbitz",
+                },
+                "fuel": {
+                    "type": "diesel",
+                    "unit": "liter",
+                    "unit_cost_decimal": "3.5",
+                    "volume_decimal": "10",
+                },
+                "lodging": {"check_in_at": 1533651200, "nights": 2},
+                "receipt": [
+                    {
+                        "description": "Room charge",
+                        "quantity": "1",
+                        "total": 200,
+                        "unit_cost": 200,
+                    },
+                ],
+                "reference": "foo",
+            },
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/issuing/transactions/create_force_capture",
+        )
+
+    def test_issuing_transaction_create_unlinked_refund(self, request_mock):
+        stripe.issuing.Transaction.TestHelpers.create_unlinked_refund(
+            amount=100,
+            card="foo",
+            currency="usd",
+            merchant_data={
+                "category": "ac_refrigeration_repair",
+                "city": "foo",
+                "country": "bar",
+                "name": "foo",
+                "network_id": "bar",
+                "postal_code": "foo",
+                "state": "bar",
+                "terminal_id": "foo",
+            },
+            purchase_details={
+                "flight": {
+                    "departure_at": 1533651200,
+                    "passenger_name": "John Doe",
+                    "refundable": True,
+                    "segments": [
+                        {
+                            "arrival_airport_code": "SFO",
+                            "carrier": "Delta",
+                            "departure_airport_code": "LAX",
+                            "flight_number": "DL100",
+                            "service_class": "Economy",
+                            "stopover_allowed": True,
+                        },
+                    ],
+                    "travel_agency": "Orbitz",
+                },
+                "fuel": {
+                    "type": "diesel",
+                    "unit": "liter",
+                    "unit_cost_decimal": "3.5",
+                    "volume_decimal": "10",
+                },
+                "lodging": {"check_in_at": 1533651200, "nights": 2},
+                "receipt": [
+                    {
+                        "description": "Room charge",
+                        "quantity": "1",
+                        "total": 200,
+                        "unit_cost": 200,
+                    },
+                ],
+                "reference": "foo",
+            },
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
+        )
+
+    def test_issuing_transaction_refund(self, request_mock):
+        stripe.issuing.Transaction.TestHelpers.refund(
+            "example_transaction",
+            refund_amount=50,
+        )
+        request_mock.assert_requested(
+            "post",
+            "/v1/test_helpers/issuing/transactions/example_transaction/refund",
         )

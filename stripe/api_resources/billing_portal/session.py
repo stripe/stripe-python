@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Optional
+from typing import Optional, cast
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -34,13 +34,85 @@ class Session(CreateableAPIResource["Session"]):
 
     OBJECT_NAME = "billing_portal.session"
     configuration: ExpandableField["Configuration"]
-    created: str
+    created: int
     customer: str
     flow: Optional[StripeObject]
     id: str
     livemode: bool
-    locale: Optional[str]
+    locale: Optional[
+        Literal[
+            "auto",
+            "bg",
+            "cs",
+            "da",
+            "de",
+            "el",
+            "en",
+            "en-AU",
+            "en-CA",
+            "en-GB",
+            "en-IE",
+            "en-IN",
+            "en-NZ",
+            "en-SG",
+            "es",
+            "es-419",
+            "et",
+            "fi",
+            "fil",
+            "fr",
+            "fr-CA",
+            "hr",
+            "hu",
+            "id",
+            "it",
+            "ja",
+            "ko",
+            "lt",
+            "lv",
+            "ms",
+            "mt",
+            "nb",
+            "nl",
+            "pl",
+            "pt",
+            "pt-BR",
+            "ro",
+            "ru",
+            "sk",
+            "sl",
+            "sv",
+            "th",
+            "tr",
+            "vi",
+            "zh",
+            "zh-HK",
+            "zh-TW",
+        ]
+    ]
     object: Literal["billing_portal.session"]
     on_behalf_of: Optional[str]
     return_url: Optional[str]
     url: str
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Session":
+        return cast(
+            "Session",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )

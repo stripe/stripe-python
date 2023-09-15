@@ -3,22 +3,21 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import APIResourceTestHelpers
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import SearchableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
-from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.abstract import (
+    APIResourceTestHelpers,
+    CreateableAPIResource,
+    DeletableAPIResource,
+    ListableAPIResource,
+    SearchableAPIResource,
+    UpdateableAPIResource,
+    nested_resource_class_methods,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing_extensions import Literal
-from typing_extensions import Type
+from typing import Any, Dict, List, Optional, cast
+from typing_extensions import Literal, Type
+from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
 
@@ -30,22 +29,10 @@ if TYPE_CHECKING:
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
-@nested_resource_class_methods(
-    "balance_transaction",
-    operations=["create", "retrieve", "update", "list"],
-)
-@nested_resource_class_methods(
-    "cash_balance_transaction",
-    operations=["retrieve", "list"],
-)
-@nested_resource_class_methods(
-    "source",
-    operations=["create", "retrieve", "update", "delete", "list"],
-)
-@nested_resource_class_methods(
-    "tax_id",
-    operations=["create", "retrieve", "delete", "list"],
-)
+@nested_resource_class_methods("balance_transaction")
+@nested_resource_class_methods("cash_balance_transaction")
+@nested_resource_class_methods("source")
+@nested_resource_class_methods("tax_id")
 class Customer(
     CreateableAPIResource["Customer"],
     DeletableAPIResource["Customer"],
@@ -54,7 +41,7 @@ class Customer(
     UpdateableAPIResource["Customer"],
 ):
     """
-    This object represents a customer of your business. It lets you create recurring charges and track payments that belong to the same customer.
+    This object represents a customer of your business. Use it to create recurring charges and track payments that belong to the same customer.
 
     Related guide: [Save a card during payment](https://stripe.com/docs/payments/save-during-payment)
     """
@@ -63,7 +50,7 @@ class Customer(
     address: Optional[StripeObject]
     balance: int
     cash_balance: Optional["CashBalance"]
-    created: str
+    created: int
     currency: Optional[str]
     default_source: Optional[ExpandableField[Any]]
     delinquent: Optional[bool]
@@ -85,9 +72,31 @@ class Customer(
     sources: ListObject[Any]
     subscriptions: ListObject["Subscription"]
     tax: StripeObject
-    tax_exempt: Optional[str]
+    tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
     tax_ids: ListObject["TaxId"]
     test_clock: Optional[ExpandableField["TestClock"]]
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Customer":
+        return cast(
+            "Customer",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
 
     @classmethod
     def _cls_create_funding_instructions(
@@ -117,6 +126,22 @@ class Customer(
                 customer=util.sanitize_id(self.get("id"))
             ),
             idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def _cls_delete(cls, sid, **params) -> "Customer":
+        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        return cast(
+            "Customer",
+            cls._static_request("delete", url, params=params),
+        )
+
+    @util.class_method_variant("_cls_delete")
+    def delete(self, **params) -> "Customer":
+        return self._request_and_refresh(
+            "delete",
+            self.instance_url(),
             params=params,
         )
 
@@ -152,6 +177,27 @@ class Customer(
         )
 
     @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Customer"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def _cls_list_payment_methods(
         cls,
         customer,
@@ -181,6 +227,20 @@ class Customer(
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def modify(cls, id, **params) -> "Customer":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "Customer",
+            cls._static_request("post", url, params=params),
+        )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> Any:
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
 
     @classmethod
     def _cls_retrieve_payment_method(
@@ -219,15 +279,79 @@ class Customer(
         )
 
     @classmethod
-    def search(cls, *args, **kwargs):
+    def search(cls, *args, **kwargs) -> Any:
         return cls._search(search_url="/v1/customers/search", *args, **kwargs)
 
     @classmethod
-    def search_auto_paging_iter(cls, *args, **kwargs):
+    def search_auto_paging_iter(cls, *args, **kwargs) -> Any:
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
-    def retrieve_cash_balance(
+    def create_balance_transaction(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/customers/{customer}/balance_transactions".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve_balance_transaction(
+        cls,
+        customer,
+        transaction,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/customers/{customer}/balance_transactions/{transaction}".format(
+                customer=util.sanitize_id(customer),
+                transaction=util.sanitize_id(transaction),
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def modify_balance_transaction(
+        cls,
+        customer,
+        transaction,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/customers/{customer}/balance_transactions/{transaction}".format(
+                customer=util.sanitize_id(customer),
+                transaction=util.sanitize_id(transaction),
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def list_balance_transactions(
         cls,
         customer,
         api_key=None,
@@ -237,7 +361,234 @@ class Customer(
     ):
         return cls._static_request(
             "get",
-            "/v1/customers/{customer}/cash_balance".format(
+            "/v1/customers/{customer}/balance_transactions".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve_cash_balance_transaction(
+        cls,
+        customer,
+        transaction,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/customers/{customer}/cash_balance_transactions/{transaction}".format(
+                customer=util.sanitize_id(customer),
+                transaction=util.sanitize_id(transaction),
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def list_cash_balance_transactions(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/customers/{customer}/cash_balance_transactions".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def create_source(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/customers/{customer}/sources".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve_source(
+        cls,
+        customer,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/customers/{customer}/sources/{id}".format(
+                customer=util.sanitize_id(customer), id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def modify_source(
+        cls,
+        customer,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/customers/{customer}/sources/{id}".format(
+                customer=util.sanitize_id(customer), id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def delete_source(
+        cls,
+        customer,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "delete",
+            "/v1/customers/{customer}/sources/{id}".format(
+                customer=util.sanitize_id(customer), id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def list_sources(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/customers/{customer}/sources".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def create_tax_id(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/customers/{customer}/tax_ids".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve_tax_id(
+        cls,
+        customer,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/customers/{customer}/tax_ids/{id}".format(
+                customer=util.sanitize_id(customer), id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def delete_tax_id(
+        cls,
+        customer,
+        id,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "delete",
+            "/v1/customers/{customer}/tax_ids/{id}".format(
+                customer=util.sanitize_id(customer), id=util.sanitize_id(id)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def list_tax_ids(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/customers/{customer}/tax_ids".format(
                 customer=util.sanitize_id(customer)
             ),
             api_key=api_key,
@@ -257,6 +608,26 @@ class Customer(
     ):
         return cls._static_request(
             "post",
+            "/v1/customers/{customer}/cash_balance".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve_cash_balance(
+        cls,
+        customer,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
             "/v1/customers/{customer}/cash_balance".format(
                 customer=util.sanitize_id(customer)
             ),

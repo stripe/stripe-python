@@ -3,12 +3,14 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import nested_resource_class_methods
+from stripe.api_resources.abstract import (
+    ListableAPIResource,
+    nested_resource_class_methods,
+)
 from stripe.api_resources.expandable_field import ExpandableField
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import List
-from typing import Optional
+from typing import List, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -19,10 +21,7 @@ if TYPE_CHECKING:
     )
 
 
-@nested_resource_class_methods(
-    "inferred_balance",
-    operations=["list"],
-)
+@nested_resource_class_methods("inferred_balance")
 class Account(ListableAPIResource["Account"]):
     """
     A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
@@ -32,8 +31,8 @@ class Account(ListableAPIResource["Account"]):
     account_holder: Optional[StripeObject]
     balance: Optional[StripeObject]
     balance_refresh: Optional[StripeObject]
-    category: str
-    created: str
+    category: Literal["cash", "credit", "investment", "other"]
+    created: int
     display_name: Optional[str]
     id: str
     inferred_balances_refresh: Optional[StripeObject]
@@ -43,11 +42,22 @@ class Account(ListableAPIResource["Account"]):
     object: Literal["financial_connections.account"]
     ownership: Optional[ExpandableField["AccountOwnership"]]
     ownership_refresh: Optional[StripeObject]
-    permissions: Optional[List[str]]
-    status: str
-    subcategory: str
-    subscriptions: Optional[List[str]]
-    supported_payment_method_types: List[str]
+    permissions: Optional[
+        List[
+            Literal["balances", "ownership", "payment_method", "transactions"]
+        ]
+    ]
+    status: Literal["active", "disconnected", "inactive"]
+    subcategory: Literal[
+        "checking",
+        "credit_card",
+        "line_of_credit",
+        "mortgage",
+        "other",
+        "savings",
+    ]
+    subscriptions: Optional[List[Literal["inferred_balances", "transactions"]]]
+    supported_payment_method_types: List[Literal["link", "us_bank_account"]]
     transaction_refresh: Optional[StripeObject]
 
     @classmethod
@@ -80,6 +90,27 @@ class Account(ListableAPIResource["Account"]):
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Account"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
 
     @classmethod
     def _cls_list_owners(
@@ -144,6 +175,12 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Account":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
+
+    @classmethod
     def _cls_subscribe(
         cls,
         account,
@@ -202,5 +239,25 @@ class Account(ListableAPIResource["Account"]):
                 account=util.sanitize_id(self.get("id"))
             ),
             idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def list_inferred_balances(
+        cls,
+        account,
+        api_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/financial_connections/accounts/{account}/inferred_balances".format(
+                account=util.sanitize_id(account)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
             params=params,
         )

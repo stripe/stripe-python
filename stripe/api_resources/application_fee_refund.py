@@ -5,8 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.application_fee import ApplicationFee
 from stripe.api_resources.expandable_field import ExpandableField
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -28,7 +27,7 @@ class ApplicationFeeRefund(UpdateableAPIResource["ApplicationFeeRefund"]):
     OBJECT_NAME = "fee_refund"
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
-    created: str
+    created: int
     currency: str
     fee: ExpandableField["ApplicationFee"]
     id: str

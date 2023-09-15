@@ -31,6 +31,7 @@ OBJECT_CLASSES = {
     api_resources.CashBalance.OBJECT_NAME: api_resources.CashBalance,
     api_resources.Charge.OBJECT_NAME: api_resources.Charge,
     api_resources.checkout.Session.OBJECT_NAME: api_resources.checkout.Session,
+    api_resources.ConfirmationToken.OBJECT_NAME: api_resources.ConfirmationToken,
     api_resources.ConnectCollectionTransfer.OBJECT_NAME: api_resources.ConnectCollectionTransfer,
     api_resources.CountrySpec.OBJECT_NAME: api_resources.CountrySpec,
     api_resources.Coupon.OBJECT_NAME: api_resources.Coupon,

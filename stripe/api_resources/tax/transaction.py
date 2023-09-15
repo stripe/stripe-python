@@ -6,8 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict
-from typing import Optional
+from typing import Dict, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -26,7 +25,7 @@ class Transaction(APIResource["Transaction"]):
     """
 
     OBJECT_NAME = "tax.transaction"
-    created: str
+    created: int
     currency: str
     customer: Optional[str]
     customer_details: StripeObject
@@ -38,8 +37,8 @@ class Transaction(APIResource["Transaction"]):
     reference: str
     reversal: Optional[StripeObject]
     shipping_cost: Optional[StripeObject]
-    tax_date: str
-    type: str
+    tax_date: int
+    type: Literal["reversal", "transaction"]
 
     @classmethod
     def create_from_calculation(
@@ -97,3 +96,9 @@ class Transaction(APIResource["Transaction"]):
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Transaction":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance

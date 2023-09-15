@@ -2,10 +2,13 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    ListableAPIResource,
+)
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Optional
+from typing import Optional, cast
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -30,7 +33,7 @@ class ReportRun(
     """
 
     OBJECT_NAME = "reporting.report_run"
-    created: str
+    created: int
     error: Optional[str]
     id: str
     livemode: bool
@@ -39,4 +42,53 @@ class ReportRun(
     report_type: str
     result: Optional["File"]
     status: str
-    succeeded_at: Optional[str]
+    succeeded_at: Optional[int]
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "ReportRun":
+        return cast(
+            "ReportRun",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["ReportRun"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "ReportRun":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance

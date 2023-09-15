@@ -3,14 +3,17 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    APIResourceTestHelpers,
+    ListableAPIResource,
+    UpdateableAPIResource,
+)
 from stripe.api_resources.expandable_field import ExpandableField
+from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict
-from typing import List
-from typing import Optional
-from typing_extensions import Literal
+from typing import Dict, List, Optional, cast
+from typing_extensions import Literal, Type
+from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
 
@@ -37,11 +40,13 @@ class Authorization(
     amount: int
     amount_details: Optional[StripeObject]
     approved: bool
-    authorization_method: str
+    authorization_method: Literal[
+        "chip", "contactless", "keyed_in", "online", "swipe"
+    ]
     balance_transactions: List["BalanceTransaction"]
     card: "Card"
     cardholder: Optional[ExpandableField["Cardholder"]]
-    created: str
+    created: int
     currency: str
     id: str
     livemode: bool
@@ -53,7 +58,7 @@ class Authorization(
     object: Literal["issuing.authorization"]
     pending_request: Optional[StripeObject]
     request_history: List[StripeObject]
-    status: str
+    status: Literal["closed", "pending", "reversed"]
     transactions: List["Transaction"]
     treasury: Optional[StripeObject]
     verification_data: StripeObject
@@ -120,3 +125,189 @@ class Authorization(
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Authorization"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
+    def modify(cls, id, **params) -> "Authorization":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "Authorization",
+            cls._static_request("post", url, params=params),
+        )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Authorization":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
+
+    class TestHelpers(APIResourceTestHelpers["Authorization"]):
+        _resource_cls: Type["Authorization"]
+
+        @classmethod
+        def _cls_capture(
+            cls,
+            authorization,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
+                    authorization=util.sanitize_id(authorization)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @util.class_method_variant("_cls_capture")
+        def capture(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
+                    authorization=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )
+
+        @classmethod
+        def create(
+            cls,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/authorizations",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @classmethod
+        def _cls_expire(
+            cls,
+            authorization,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
+                    authorization=util.sanitize_id(authorization)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @util.class_method_variant("_cls_expire")
+        def expire(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
+                    authorization=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )
+
+        @classmethod
+        def _cls_increment(
+            cls,
+            authorization,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
+                    authorization=util.sanitize_id(authorization)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @util.class_method_variant("_cls_increment")
+        def increment(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
+                    authorization=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )
+
+        @classmethod
+        def _cls_reverse(
+            cls,
+            authorization,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
+            return cls._static_request(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
+                    authorization=util.sanitize_id(authorization)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            )
+
+        @util.class_method_variant("_cls_reverse")
+        def reverse(self, idempotency_key=None, **params):
+            return self.resource._request(
+                "post",
+                "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
+                    authorization=util.sanitize_id(self.resource.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            )
+
+    @property
+    def test_helpers(self):
+        return self.TestHelpers(self)
+
+
+Authorization.TestHelpers._resource_cls = Authorization

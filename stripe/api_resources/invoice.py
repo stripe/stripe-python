@@ -3,32 +3,32 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe import util
-from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.abstract import DeletableAPIResource
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.abstract import SearchableAPIResource
-from stripe.api_resources.abstract import UpdateableAPIResource
+from stripe.api_resources.abstract import (
+    CreateableAPIResource,
+    DeletableAPIResource,
+    ListableAPIResource,
+    SearchableAPIResource,
+    UpdateableAPIResource,
+)
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any
-from typing import Dict
-from typing import List
-from typing import Optional
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
+from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.account import Account
     from stripe.api_resources.charge import Charge
-    from stripe.api_resources.payment_method import PaymentMethod
-    from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
-    from stripe.api_resources.account import Account
     from stripe.api_resources.payment_intent import PaymentIntent
+    from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.quote import Quote
     from stripe.api_resources.subscription import Subscription
+    from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
@@ -88,10 +88,22 @@ class Invoice(
     attempted: bool
     auto_advance: bool
     automatic_tax: StripeObject
-    billing_reason: Optional[str]
+    billing_reason: Optional[
+        Literal[
+            "automatic_pending_invoice_item_invoice",
+            "manual",
+            "quote_accept",
+            "subscription",
+            "subscription_create",
+            "subscription_cycle",
+            "subscription_threshold",
+            "subscription_update",
+            "upcoming",
+        ]
+    ]
     charge: Optional[ExpandableField["Charge"]]
-    collection_method: str
-    created: str
+    collection_method: Literal["charge_automatically", "send_invoice"]
+    created: int
     currency: str
     custom_fields: Optional[List[StripeObject]]
     customer: Optional[ExpandableField[Any]]
@@ -100,7 +112,7 @@ class Invoice(
     customer_name: Optional[str]
     customer_phone: Optional[str]
     customer_shipping: Optional[StripeObject]
-    customer_tax_exempt: Optional[str]
+    customer_tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
     customer_tax_ids: Optional[List[StripeObject]]
     default_payment_method: Optional[ExpandableField["PaymentMethod"]]
     default_source: Optional[ExpandableField[Any]]
@@ -108,8 +120,8 @@ class Invoice(
     description: Optional[str]
     discount: Optional["Discount"]
     discounts: Optional[List[ExpandableField[Any]]]
-    due_date: Optional[str]
-    effective_at: Optional[str]
+    due_date: Optional[int]
+    effective_at: Optional[int]
     ending_balance: Optional[int]
     footer: Optional[str]
     from_invoice: Optional[StripeObject]
@@ -121,7 +133,7 @@ class Invoice(
     lines: ListObject["InvoiceLineItem"]
     livemode: bool
     metadata: Optional[Dict[str, str]]
-    next_payment_attempt: Optional[str]
+    next_payment_attempt: Optional[int]
     number: Optional[str]
     object: Literal["invoice"]
     on_behalf_of: Optional[ExpandableField["Account"]]
@@ -129,8 +141,8 @@ class Invoice(
     paid_out_of_band: bool
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     payment_settings: StripeObject
-    period_end: str
-    period_start: str
+    period_end: int
+    period_start: int
     post_payment_credit_notes_amount: int
     pre_payment_credit_notes_amount: int
     quote: Optional[ExpandableField["Quote"]]
@@ -140,7 +152,7 @@ class Invoice(
     shipping_details: Optional[StripeObject]
     starting_balance: int
     statement_descriptor: Optional[str]
-    status: Optional[str]
+    status: Optional[Literal["draft", "open", "paid", "uncollectible", "void"]]
     status_transitions: StripeObject
     subscription: Optional[ExpandableField["Subscription"]]
     subscription_details: Optional[StripeObject]
@@ -155,7 +167,45 @@ class Invoice(
     total_excluding_tax: Optional[int]
     total_tax_amounts: List[StripeObject]
     transfer_data: Optional[StripeObject]
-    webhooks_delivered_at: Optional[str]
+    webhooks_delivered_at: Optional[int]
+
+    @classmethod
+    def create(
+        cls,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ) -> "Invoice":
+        return cast(
+            "Invoice",
+            cls._static_request(
+                "post",
+                cls.class_url(),
+                api_key,
+                idempotency_key,
+                stripe_version,
+                stripe_account,
+                params,
+            ),
+        )
+
+    @classmethod
+    def _cls_delete(cls, sid, **params) -> "Invoice":
+        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
+        return cast(
+            "Invoice",
+            cls._static_request("delete", url, params=params),
+        )
+
+    @util.class_method_variant("_cls_delete")
+    def delete(self, **params) -> "Invoice":
+        return self._request_and_refresh(
+            "delete",
+            self.instance_url(),
+            params=params,
+        )
 
     @classmethod
     def _cls_finalize_invoice(
@@ -189,6 +239,27 @@ class Invoice(
         )
 
     @classmethod
+    def list(
+        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+    ) -> ListObject["Invoice"]:
+        result = cls._static_request(
+            "get",
+            cls.class_url(),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+        if not isinstance(result, ListObject):
+
+            raise TypeError(
+                "Expected list object from API, got %s"
+                % (type(result).__name__)
+            )
+
+        return result
+
+    @classmethod
     def _cls_mark_uncollectible(
         cls,
         invoice,
@@ -217,6 +288,14 @@ class Invoice(
             ),
             idempotency_key=idempotency_key,
             params=params,
+        )
+
+    @classmethod
+    def modify(cls, id, **params) -> "Invoice":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "Invoice",
+            cls._static_request("post", url, params=params),
         )
 
     @classmethod
@@ -249,6 +328,12 @@ class Invoice(
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    @classmethod
+    def retrieve(cls, id, api_key=None, **params) -> "Invoice":
+        instance = cls(id, api_key, **params)
+        instance.refresh()
+        return instance
 
     @classmethod
     def _cls_send_invoice(
@@ -339,9 +424,9 @@ class Invoice(
         )
 
     @classmethod
-    def search(cls, *args, **kwargs):
+    def search(cls, *args, **kwargs) -> Any:
         return cls._search(search_url="/v1/invoices/search", *args, **kwargs)
 
     @classmethod
-    def search_auto_paging_iter(cls, *args, **kwargs):
+    def search_auto_paging_iter(cls, *args, **kwargs) -> Any:
         return cls.search(*args, **kwargs).auto_paging_iter()

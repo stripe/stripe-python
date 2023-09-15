@@ -18,7 +18,13 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     details: Optional[StripeObject]
     financing_offer: Optional[str]
     object: Literal["capital.financing_summary"]
-    status: Optional[str]
+    status: Optional[Literal["accepted", "delivered", "none"]]
+
+    @classmethod
+    def retrieve(cls, **params) -> "FinancingSummary":
+        instance = cls(None, **params)
+        instance.refresh()
+        return instance
 
     @classmethod
     def class_url(cls):
