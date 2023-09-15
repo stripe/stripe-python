@@ -121,6 +121,7 @@ class Session(
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     payment_link: Optional[ExpandableField["PaymentLink"]]
     payment_method_collection: Optional[Literal["always", "if_required"]]
+    payment_method_configuration_details: Optional[StripeObject]
     payment_method_options: Optional[StripeObject]
     payment_method_types: List[str]
     payment_status: Literal["no_payment_required", "paid", "unpaid"]
