@@ -110,6 +110,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     footer: Optional[str]
     from_invoice: Optional[StripeObject]
     id: str
+    issuer: Optional[StripeObject]
     last_finalization_error: Optional[StripeObject]
     latest_revision: Optional[ExpandableField["Invoice"]]
     lines: ListObject["InvoiceLineItem"]

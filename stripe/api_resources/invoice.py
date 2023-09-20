@@ -128,6 +128,7 @@ class Invoice(
     hosted_invoice_url: Optional[str]
     id: str
     invoice_pdf: Optional[str]
+    issuer: Optional[StripeObject]
     last_finalization_error: Optional[StripeObject]
     latest_revision: Optional[ExpandableField["Invoice"]]
     lines: ListObject["InvoiceLineItem"]
