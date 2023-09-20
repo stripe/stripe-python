@@ -23,7 +23,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     OBJECT_NAME = "confirmation_token"
     created: int
-    customer: Optional[str]
     expires_at: Optional[int]
     id: str
     livemode: bool
