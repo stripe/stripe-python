@@ -42,6 +42,7 @@ class TypingImportsChecker:
         "Dict",
         "List",
         "Generic",
+        "Tuple",
     ]
 
     def __init__(self, tree: ast.AST):

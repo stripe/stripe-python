@@ -11,8 +11,21 @@ import re
 import stripe
 from urllib.parse import parse_qsl, quote_plus
 
-from typing_extensions import Type
-from typing import Union, overload, Dict, cast, Any, Optional
+from typing_extensions import Type, TYPE_CHECKING
+from typing import (
+    Union,
+    overload,
+    Dict,
+    List,
+    cast,
+    Any,
+    Optional,
+)
+
+from stripe.stripe_response import StripeResponse
+
+if TYPE_CHECKING:
+    from stripe.stripe_object import StripeObject
 
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
@@ -128,9 +141,38 @@ def get_object_classes():
     return OBJECT_CLASSES
 
 
+Resp = Union[StripeResponse, Dict[str, Any], List["Resp"]]
+
+
+@overload
 def convert_to_stripe_object(
-    resp, api_key=None, stripe_version=None, stripe_account=None, params=None
-):
+    resp: Union[StripeResponse, Dict[str, Any]],
+    api_key: Optional[str] = None,
+    stripe_version: Optional[str] = None,
+    stripe_account: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> "StripeObject":
+    ...
+
+
+@overload
+def convert_to_stripe_object(
+    resp: List[Resp],
+    api_key: Optional[str] = None,
+    stripe_version: Optional[str] = None,
+    stripe_account: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> List["StripeObject"]:
+    ...
+
+
+def convert_to_stripe_object(
+    resp: Resp,
+    api_key: Optional[str] = None,
+    stripe_version: Optional[str] = None,
+    stripe_account: Optional[str] = None,
+    params: Optional[Dict[str, Any]] = None,
+) -> Union["StripeObject", List["StripeObject"]]:
     # If we get a StripeResponse, we'll want to return a
     # StripeObject with the last_response field filled out with
     # the raw API response information
@@ -143,7 +185,10 @@ def convert_to_stripe_object(
     if isinstance(resp, list):
         return [
             convert_to_stripe_object(
-                i, api_key, stripe_version, stripe_account
+                cast("StripeObject", i),
+                api_key,
+                stripe_version,
+                stripe_account,
             )
             for i in resp
         ]
@@ -182,7 +227,7 @@ def convert_to_stripe_object(
 
         return obj
     else:
-        return resp
+        return cast("StripeObject", resp)
 
 
 def convert_to_dict(obj):
