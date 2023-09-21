@@ -11,7 +11,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -65,11 +65,11 @@ class Transfer(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Transfer":
         return cast(
             "Transfer",
@@ -86,7 +86,11 @@ class Transfer(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Transfer"]:
         result = cls._static_request(
             "get",
@@ -106,7 +110,7 @@ class Transfer(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Transfer":
+    def modify(cls, id, **params: Any) -> "Transfer":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Transfer",
@@ -114,7 +118,9 @@ class Transfer(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Transfer":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Transfer":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -122,11 +128,11 @@ class Transfer(
     @classmethod
     def create_reversal(
         cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -140,12 +146,12 @@ class Transfer(
     @classmethod
     def retrieve_reversal(
         cls,
-        transfer,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        transfer: str,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -161,12 +167,12 @@ class Transfer(
     @classmethod
     def modify_reversal(
         cls,
-        transfer,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        transfer: str,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -182,11 +188,11 @@ class Transfer(
     @classmethod
     def list_reversals(
         cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",

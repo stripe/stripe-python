@@ -8,7 +8,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Optional, cast
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -47,11 +47,11 @@ class ReportRun(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "ReportRun":
         return cast(
             "ReportRun",
@@ -68,7 +68,11 @@ class ReportRun(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["ReportRun"]:
         result = cls._static_request(
             "get",
@@ -88,7 +92,9 @@ class ReportRun(
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "ReportRun":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "ReportRun":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

@@ -98,11 +98,11 @@ class Charge(
     @classmethod
     def _cls_capture(
         cls,
-        charge,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        charge: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -116,7 +116,7 @@ class Charge(
         )
 
     @util.class_method_variant("_cls_capture")
-    def capture(self, idempotency_key=None, **params):
+    def capture(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/charges/{charge}/capture".format(
@@ -129,11 +129,11 @@ class Charge(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Charge":
         return cast(
             "Charge",
@@ -150,7 +150,11 @@ class Charge(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Charge"]:
         result = cls._static_request(
             "get",
@@ -170,7 +174,7 @@ class Charge(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Charge":
+    def modify(cls, id, **params: Any) -> "Charge":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Charge",
@@ -178,7 +182,9 @@ class Charge(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Charge":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Charge":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

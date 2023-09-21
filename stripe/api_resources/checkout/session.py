@@ -143,11 +143,11 @@ class Session(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Session":
         return cast(
             "Session",
@@ -165,11 +165,11 @@ class Session(
     @classmethod
     def _cls_expire(
         cls,
-        session,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        session: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -183,7 +183,7 @@ class Session(
         )
 
     @util.class_method_variant("_cls_expire")
-    def expire(self, idempotency_key=None, **params):
+    def expire(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/checkout/sessions/{session}/expire".format(
@@ -195,7 +195,11 @@ class Session(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Session"]:
         result = cls._static_request(
             "get",
@@ -217,11 +221,11 @@ class Session(
     @classmethod
     def _cls_list_line_items(
         cls,
-        session,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        session: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -235,7 +239,9 @@ class Session(
         )
 
     @util.class_method_variant("_cls_list_line_items")
-    def list_line_items(self, idempotency_key=None, **params):
+    def list_line_items(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "get",
             "/v1/checkout/sessions/{session}/line_items".format(
@@ -246,7 +252,9 @@ class Session(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Session":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Session":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

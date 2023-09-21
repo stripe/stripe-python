@@ -11,7 +11,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -50,11 +50,11 @@ class Dispute(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Dispute":
         return cast(
             "Dispute",
@@ -71,7 +71,11 @@ class Dispute(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Dispute"]:
         result = cls._static_request(
             "get",
@@ -91,7 +95,7 @@ class Dispute(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Dispute":
+    def modify(cls, id, **params: Any) -> "Dispute":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Dispute",
@@ -99,7 +103,9 @@ class Dispute(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Dispute":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Dispute":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -107,11 +113,11 @@ class Dispute(
     @classmethod
     def _cls_submit(
         cls,
-        dispute,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        dispute: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -125,7 +131,7 @@ class Dispute(
         )
 
     @util.class_method_variant("_cls_submit")
-    def submit(self, idempotency_key=None, **params):
+    def submit(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/issuing/disputes/{dispute}/submit".format(

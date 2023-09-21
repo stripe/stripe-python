@@ -12,7 +12,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, Type
 from urllib.parse import quote_plus
 
@@ -71,11 +71,11 @@ class Refund(
     @classmethod
     def _cls_cancel(
         cls,
-        refund,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        refund: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -89,7 +89,7 @@ class Refund(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key=None, **params):
+    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/refunds/{refund}/cancel".format(
@@ -102,11 +102,11 @@ class Refund(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Refund":
         return cast(
             "Refund",
@@ -123,7 +123,11 @@ class Refund(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Refund"]:
         result = cls._static_request(
             "get",
@@ -143,7 +147,7 @@ class Refund(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Refund":
+    def modify(cls, id, **params: Any) -> "Refund":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Refund",
@@ -151,7 +155,9 @@ class Refund(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Refund":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Refund":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -162,11 +168,11 @@ class Refund(
         @classmethod
         def _cls_expire(
             cls,
-            refund,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            refund: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -180,7 +186,7 @@ class Refund(
             )
 
         @util.class_method_variant("_cls_expire")
-        def expire(self, idempotency_key=None, **params):
+        def expire(self, idempotency_key: Optional[str] = None, **params: Any):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/refunds/{refund}/expire".format(

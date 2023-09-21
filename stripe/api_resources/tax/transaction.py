@@ -6,7 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -42,7 +42,11 @@ class Transaction(APIResource["Transaction"]):
 
     @classmethod
     def create_from_calculation(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -55,7 +59,11 @@ class Transaction(APIResource["Transaction"]):
 
     @classmethod
     def create_reversal(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -69,11 +77,11 @@ class Transaction(APIResource["Transaction"]):
     @classmethod
     def _cls_list_line_items(
         cls,
-        transaction,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        transaction: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -87,7 +95,9 @@ class Transaction(APIResource["Transaction"]):
         )
 
     @util.class_method_variant("_cls_list_line_items")
-    def list_line_items(self, idempotency_key=None, **params):
+    def list_line_items(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "get",
             "/v1/tax/transactions/{transaction}/line_items".format(
@@ -98,7 +108,9 @@ class Transaction(APIResource["Transaction"]):
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Transaction":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Transaction":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

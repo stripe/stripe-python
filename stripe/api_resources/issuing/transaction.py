@@ -11,7 +11,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, Type
 from urllib.parse import quote_plus
 
@@ -61,7 +61,11 @@ class Transaction(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Transaction"]:
         result = cls._static_request(
             "get",
@@ -81,7 +85,7 @@ class Transaction(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Transaction":
+    def modify(cls, id, **params: Any) -> "Transaction":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Transaction",
@@ -89,7 +93,9 @@ class Transaction(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Transaction":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Transaction":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -100,10 +106,10 @@ class Transaction(
         @classmethod
         def create_force_capture(
             cls,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -117,10 +123,10 @@ class Transaction(
         @classmethod
         def create_unlinked_refund(
             cls,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -134,11 +140,11 @@ class Transaction(
         @classmethod
         def _cls_refund(
             cls,
-            transaction,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            transaction: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -152,7 +158,7 @@ class Transaction(
             )
 
         @util.class_method_variant("_cls_refund")
-        def refund(self, idempotency_key=None, **params):
+        def refund(self, idempotency_key: Optional[str] = None, **params: Any):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(

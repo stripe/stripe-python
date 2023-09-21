@@ -45,7 +45,11 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["SetupAttempt"]:
         result = cls._static_request(
             "get",

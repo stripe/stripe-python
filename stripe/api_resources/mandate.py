@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Optional
+from typing import Any, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -33,7 +33,9 @@ class Mandate(APIResource["Mandate"]):
     type: Literal["multi_use", "single_use"]
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Mandate":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Mandate":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

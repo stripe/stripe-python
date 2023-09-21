@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
-from typing import Optional
+from typing import Any, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -44,7 +44,11 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["ApplicationFee"]:
         result = cls._static_request(
             "get",
@@ -66,11 +70,11 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     @classmethod
     def _cls_refund(
         cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -84,7 +88,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         )
 
     @util.class_method_variant("_cls_refund")
-    def refund(self, idempotency_key=None, **params):
+    def refund(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/application_fees/{id}/refunds".format(
@@ -95,7 +99,9 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "ApplicationFee":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "ApplicationFee":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -103,11 +109,11 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     @classmethod
     def create_refund(
         cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -123,12 +129,12 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     @classmethod
     def retrieve_refund(
         cls,
-        fee,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        fee: str,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -144,12 +150,12 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     @classmethod
     def modify_refund(
         cls,
-        fee,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        fee: str,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -165,11 +171,11 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     @classmethod
     def list_refunds(
         cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
