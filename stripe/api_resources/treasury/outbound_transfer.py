@@ -6,9 +6,9 @@ from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
     CreateableAPIResource,
-    ExpandableField,
     ListableAPIResource,
 )
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, Optional, cast
