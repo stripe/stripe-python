@@ -4,10 +4,10 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import util
 from stripe.api_resources.abstract import (
-    ExpandableField,
     ListableAPIResource,
     nested_resource_class_methods,
 )
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from typing import Any, Optional
 from typing_extensions import Literal
