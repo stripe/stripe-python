@@ -43,6 +43,7 @@ class Product(
     """
 
     OBJECT_NAME = "product"
+    deleted: bool
     active: bool
     created: int
     default_price: Optional[ExpandableField["Price"]]

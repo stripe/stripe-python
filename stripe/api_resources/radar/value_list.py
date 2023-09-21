@@ -33,6 +33,7 @@ class ValueList(
     """
 
     OBJECT_NAME = "radar.value_list"
+    deleted: bool
     alias: str
     created: int
     created_by: str

@@ -44,6 +44,7 @@ class Account(
     """
 
     OBJECT_NAME = "account"
+    deleted: bool
     business_profile: Optional[StripeObject]
     business_type: Optional[
         Literal["company", "government_entity", "individual", "non_profit"]

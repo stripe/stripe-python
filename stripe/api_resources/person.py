@@ -21,6 +21,7 @@ class Person(UpdateableAPIResource["Person"]):
     """
 
     OBJECT_NAME = "person"
+    deleted: bool
     account: str
     address: StripeObject
     address_kana: Optional[StripeObject]

@@ -36,6 +36,7 @@ class Reader(
     """
 
     OBJECT_NAME = "terminal.reader"
+    deleted: bool
     action: Optional[StripeObject]
     device_sw_version: Optional[str]
     device_type: Literal[

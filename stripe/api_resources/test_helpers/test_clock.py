@@ -26,6 +26,7 @@ class TestClock(
     """
 
     OBJECT_NAME = "test_helpers.test_clock"
+    deleted: bool
     created: int
     deletes_after: int
     frozen_time: int

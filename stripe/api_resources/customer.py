@@ -47,6 +47,7 @@ class Customer(
     """
 
     OBJECT_NAME = "customer"
+    deleted: bool
     address: Optional[StripeObject]
     balance: int
     cash_balance: Optional["CashBalance"]

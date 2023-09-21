@@ -32,6 +32,7 @@ class WebhookEndpoint(
     """
 
     OBJECT_NAME = "webhook_endpoint"
+    deleted: bool
     api_version: Optional[str]
     application: Optional[str]
     created: int

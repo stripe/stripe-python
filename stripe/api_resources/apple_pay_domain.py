@@ -20,6 +20,7 @@ class ApplePayDomain(
     ListableAPIResource["ApplePayDomain"],
 ):
     OBJECT_NAME = "apple_pay_domain"
+    deleted: bool
     created: int
     domain_name: str
     id: str

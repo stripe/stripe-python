@@ -49,6 +49,7 @@ class InvoiceItem(
     """
 
     OBJECT_NAME = "invoiceitem"
+    deleted: bool
     amount: int
     currency: str
     customer: ExpandableField[Any]
