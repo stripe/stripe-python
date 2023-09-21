@@ -4,12 +4,12 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
+    ExpandableField,
     ListableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Optional
+from typing import Any, Optional
 from typing_extensions import Literal, Type
 
 from typing_extensions import TYPE_CHECKING
@@ -47,7 +47,11 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["ReceivedDebit"]:
         result = cls._static_request(
             "get",
@@ -67,7 +71,9 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "ReceivedDebit":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "ReceivedDebit":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -78,10 +84,10 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         @classmethod
         def create(
             cls,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",

@@ -2,8 +2,7 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe.api_resources.abstract import ListableAPIResource
-from stripe.api_resources.expandable_field import ExpandableField
+from stripe.api_resources.abstract import ExpandableField, ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any, List, Optional
@@ -77,7 +76,11 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["BalanceTransaction"]:
         result = cls._static_request(
             "get",
@@ -97,7 +100,9 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "BalanceTransaction":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "BalanceTransaction":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

@@ -6,12 +6,12 @@ from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
     CreateableAPIResource,
+    ExpandableField,
     ListableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, Type
 
 from typing_extensions import TYPE_CHECKING
@@ -53,11 +53,11 @@ class InboundTransfer(
     @classmethod
     def _cls_cancel(
         cls,
-        inbound_transfer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        inbound_transfer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -71,7 +71,7 @@ class InboundTransfer(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key=None, **params):
+    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
@@ -84,11 +84,11 @@ class InboundTransfer(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "InboundTransfer":
         return cast(
             "InboundTransfer",
@@ -105,7 +105,11 @@ class InboundTransfer(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["InboundTransfer"]:
         result = cls._static_request(
             "get",
@@ -125,7 +129,9 @@ class InboundTransfer(
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "InboundTransfer":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "InboundTransfer":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -136,11 +142,11 @@ class InboundTransfer(
         @classmethod
         def _cls_fail(
             cls,
-            id,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -154,7 +160,7 @@ class InboundTransfer(
             )
 
         @util.class_method_variant("_cls_fail")
-        def fail(self, idempotency_key=None, **params):
+        def fail(self, idempotency_key: Optional[str] = None, **params: Any):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
@@ -167,11 +173,11 @@ class InboundTransfer(
         @classmethod
         def _cls_return_inbound_transfer(
             cls,
-            id,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -185,7 +191,9 @@ class InboundTransfer(
             )
 
         @util.class_method_variant("_cls_return_inbound_transfer")
-        def return_inbound_transfer(self, idempotency_key=None, **params):
+        def return_inbound_transfer(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
@@ -198,11 +206,11 @@ class InboundTransfer(
         @classmethod
         def _cls_succeed(
             cls,
-            id,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -216,7 +224,9 @@ class InboundTransfer(
             )
 
         @util.class_method_variant("_cls_succeed")
-        def succeed(self, idempotency_key=None, **params):
+        def succeed(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(

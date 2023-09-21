@@ -6,11 +6,11 @@ from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     DeletableAPIResource,
+    ExpandableField,
     ListableAPIResource,
     SearchableAPIResource,
     UpdateableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional, cast
@@ -173,11 +173,11 @@ class Invoice(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Invoice":
         return cast(
             "Invoice",
@@ -193,7 +193,7 @@ class Invoice(
         )
 
     @classmethod
-    def _cls_delete(cls, sid, **params) -> "Invoice":
+    def _cls_delete(cls, sid: str, **params: Any) -> "Invoice":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Invoice",
@@ -201,7 +201,7 @@ class Invoice(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> "Invoice":
+    def delete(self, **params: Any) -> "Invoice":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -211,11 +211,11 @@ class Invoice(
     @classmethod
     def _cls_finalize_invoice(
         cls,
-        invoice,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -229,7 +229,9 @@ class Invoice(
         )
 
     @util.class_method_variant("_cls_finalize_invoice")
-    def finalize_invoice(self, idempotency_key=None, **params):
+    def finalize_invoice(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/invoices/{invoice}/finalize".format(
@@ -241,7 +243,11 @@ class Invoice(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Invoice"]:
         result = cls._static_request(
             "get",
@@ -263,11 +269,11 @@ class Invoice(
     @classmethod
     def _cls_mark_uncollectible(
         cls,
-        invoice,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -281,7 +287,9 @@ class Invoice(
         )
 
     @util.class_method_variant("_cls_mark_uncollectible")
-    def mark_uncollectible(self, idempotency_key=None, **params):
+    def mark_uncollectible(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/invoices/{invoice}/mark_uncollectible".format(
@@ -292,7 +300,7 @@ class Invoice(
         )
 
     @classmethod
-    def modify(cls, id, **params) -> "Invoice":
+    def modify(cls, id, **params: Any) -> "Invoice":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Invoice",
@@ -302,11 +310,11 @@ class Invoice(
     @classmethod
     def _cls_pay(
         cls,
-        invoice,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -320,7 +328,7 @@ class Invoice(
         )
 
     @util.class_method_variant("_cls_pay")
-    def pay(self, idempotency_key=None, **params):
+    def pay(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/invoices/{invoice}/pay".format(
@@ -331,7 +339,9 @@ class Invoice(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Invoice":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Invoice":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -339,11 +349,11 @@ class Invoice(
     @classmethod
     def _cls_send_invoice(
         cls,
-        invoice,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -357,7 +367,9 @@ class Invoice(
         )
 
     @util.class_method_variant("_cls_send_invoice")
-    def send_invoice(self, idempotency_key=None, **params):
+    def send_invoice(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/invoices/{invoice}/send".format(
@@ -369,7 +381,11 @@ class Invoice(
 
     @classmethod
     def upcoming(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -382,7 +398,11 @@ class Invoice(
 
     @classmethod
     def upcoming_lines(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -396,11 +416,11 @@ class Invoice(
     @classmethod
     def _cls_void_invoice(
         cls,
-        invoice,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -414,7 +434,9 @@ class Invoice(
         )
 
     @util.class_method_variant("_cls_void_invoice")
-    def void_invoice(self, idempotency_key=None, **params):
+    def void_invoice(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/invoices/{invoice}/void".format(

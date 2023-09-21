@@ -6,11 +6,11 @@ from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     DeletableAPIResource,
+    ExpandableField,
     ListableAPIResource,
     SearchableAPIResource,
     UpdateableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional, cast
@@ -101,11 +101,11 @@ class Subscription(
     @classmethod
     def _cls_cancel(
         cls,
-        subscription_exposed_id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        subscription_exposed_id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "delete",
@@ -121,7 +121,7 @@ class Subscription(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key=None, **params):
+    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "delete",
             "/v1/subscriptions/{subscription_exposed_id}".format(
@@ -134,11 +134,11 @@ class Subscription(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Subscription":
         return cast(
             "Subscription",
@@ -156,11 +156,11 @@ class Subscription(
     @classmethod
     def _cls_delete_discount(
         cls,
-        subscription_exposed_id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        subscription_exposed_id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "delete",
@@ -176,7 +176,9 @@ class Subscription(
         )
 
     @util.class_method_variant("_cls_delete_discount")
-    def delete_discount(self, idempotency_key=None, **params):
+    def delete_discount(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "delete",
             "/v1/subscriptions/{subscription_exposed_id}/discount".format(
@@ -188,7 +190,11 @@ class Subscription(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Subscription"]:
         result = cls._static_request(
             "get",
@@ -208,7 +214,7 @@ class Subscription(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Subscription":
+    def modify(cls, id, **params: Any) -> "Subscription":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Subscription",
@@ -218,11 +224,11 @@ class Subscription(
     @classmethod
     def _cls_resume(
         cls,
-        subscription,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        subscription: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -236,7 +242,7 @@ class Subscription(
         )
 
     @util.class_method_variant("_cls_resume")
-    def resume(self, idempotency_key=None, **params):
+    def resume(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/subscriptions/{subscription}/resume".format(
@@ -247,7 +253,9 @@ class Subscription(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Subscription":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Subscription":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
