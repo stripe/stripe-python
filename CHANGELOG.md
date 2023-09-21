@@ -1,5 +1,8 @@
 # Changelog
 
+## 6.7.0b1 - 2023-09-21
+* [#1053](https://github.com/stripe/stripe-python/pull/1053) Update generated code for beta
+
 ## 6.6.0b1 - 2023-09-14
 * [#1048](https://github.com/stripe/stripe-python/pull/1048) Update generated code for beta
   * Add support for new resource `ConfirmationToken`
