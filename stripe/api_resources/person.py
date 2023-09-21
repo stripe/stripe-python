@@ -57,6 +57,7 @@ class Person(UpdateableAPIResource["Person"]):
         token = self.id
         account = self.account
         base = Account.class_url()
+        assert account is not None
         acct_extn = quote_plus(account)
         extn = quote_plus(token)
         return "%s/%s/persons/%s" % (base, acct_extn, extn)
