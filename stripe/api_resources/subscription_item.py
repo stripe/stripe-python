@@ -38,7 +38,6 @@ class SubscriptionItem(
     """
 
     OBJECT_NAME = "subscription_item"
-    deleted: bool
     billing_thresholds: Optional[StripeObject]
     created: int
     id: str
@@ -46,9 +45,10 @@ class SubscriptionItem(
     object: Literal["subscription_item"]
     plan: "Plan"
     price: "Price"
-    quantity: int
+    quantity: Optional[int]
     subscription: str
     tax_rates: Optional[List["TaxRate"]]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

@@ -50,7 +50,7 @@ class PaymentIntent(
     OBJECT_NAME = "payment_intent"
     amount: int
     amount_capturable: int
-    amount_details: StripeObject
+    amount_details: Optional[StripeObject]
     amount_received: int
     application: Optional[ExpandableField["Application"]]
     application_fee_amount: Optional[int]

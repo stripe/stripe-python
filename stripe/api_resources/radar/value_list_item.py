@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -26,7 +26,6 @@ class ValueListItem(
     """
 
     OBJECT_NAME = "radar.value_list_item"
-    deleted: bool
     created: int
     created_by: str
     id: str
@@ -34,6 +33,7 @@ class ValueListItem(
     object: Literal["radar.value_list_item"]
     value: str
     value_list: str
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

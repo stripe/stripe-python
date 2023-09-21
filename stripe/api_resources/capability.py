@@ -20,12 +20,12 @@ class Capability(UpdateableAPIResource["Capability"]):
 
     OBJECT_NAME = "capability"
     account: ExpandableField["Account"]
-    future_requirements: StripeObject
+    future_requirements: Optional[StripeObject]
     id: str
     object: Literal["capability"]
     requested: bool
     requested_at: Optional[int]
-    requirements: StripeObject
+    requirements: Optional[StripeObject]
     status: Literal["active", "disabled", "inactive", "pending", "unrequested"]
 
     def instance_url(self):

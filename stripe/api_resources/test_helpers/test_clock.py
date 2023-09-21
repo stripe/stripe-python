@@ -26,7 +26,6 @@ class TestClock(
     """
 
     OBJECT_NAME = "test_helpers.test_clock"
-    deleted: bool
     created: int
     deletes_after: int
     frozen_time: int
@@ -35,6 +34,7 @@ class TestClock(
     name: Optional[str]
     object: Literal["test_helpers.test_clock"]
     status: Literal["advancing", "internal_failure", "ready"]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def _cls_advance(

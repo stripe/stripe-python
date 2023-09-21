@@ -3,7 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import Literal
 
 
@@ -15,7 +15,7 @@ class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
     """
 
     OBJECT_NAME = "terminal.connection_token"
-    location: str
+    location: Optional[str]
     object: Literal["terminal.connection_token"]
     secret: str
 

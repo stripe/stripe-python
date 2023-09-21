@@ -33,7 +33,6 @@ class BankAccount(
     """
 
     OBJECT_NAME = "bank_account"
-    deleted: bool
     account: Optional[ExpandableField["Account"]]
     account_holder_name: Optional[str]
     account_holder_type: Optional[str]
@@ -53,6 +52,7 @@ class BankAccount(
     requirements: Optional[StripeObject]
     routing_number: Optional[str]
     status: str
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def _cls_delete(cls, sid, **params) -> Any:

@@ -20,7 +20,6 @@ class TaxId(APIResource["TaxId"]):
     """
 
     OBJECT_NAME = "tax_id"
-    deleted: bool
     country: Optional[str]
     created: int
     customer: Optional[ExpandableField["Customer"]]
@@ -98,6 +97,7 @@ class TaxId(APIResource["TaxId"]):
     ]
     value: str
     verification: Optional[StripeObject]
+    deleted: Optional[Literal[True]]
 
     def instance_url(self):
         token = self.id

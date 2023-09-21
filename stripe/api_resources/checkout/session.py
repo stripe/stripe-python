@@ -68,7 +68,7 @@ class Session(
     id: str
     invoice: Optional[ExpandableField["Invoice"]]
     invoice_creation: Optional[StripeObject]
-    line_items: ListObject["LineItem"]
+    line_items: Optional[ListObject["LineItem"]]
     livemode: bool
     locale: Optional[
         Literal[
@@ -125,7 +125,7 @@ class Session(
     payment_method_options: Optional[StripeObject]
     payment_method_types: List[str]
     payment_status: Literal["no_payment_required", "paid", "unpaid"]
-    phone_number_collection: StripeObject
+    phone_number_collection: Optional[StripeObject]
     recovered_from: Optional[str]
     setup_intent: Optional[ExpandableField["SetupIntent"]]
     shipping_address_collection: Optional[StripeObject]
@@ -136,7 +136,7 @@ class Session(
     submit_type: Optional[Literal["auto", "book", "donate", "pay"]]
     subscription: Optional[ExpandableField["Subscription"]]
     success_url: Optional[str]
-    tax_id_collection: StripeObject
+    tax_id_collection: Optional[StripeObject]
     total_details: Optional[StripeObject]
     url: Optional[str]
 

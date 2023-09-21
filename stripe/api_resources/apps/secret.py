@@ -27,7 +27,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
 
     OBJECT_NAME = "apps.secret"
     created: int
-    deleted: bool
+    deleted: Optional[bool]
     expires_at: Optional[int]
     id: str
     livemode: bool

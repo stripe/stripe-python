@@ -20,15 +20,15 @@ class SourceMandateNotification(StripeObject):
     """
 
     OBJECT_NAME = "source_mandate_notification"
-    acss_debit: StripeObject
+    acss_debit: Optional[StripeObject]
     amount: Optional[int]
-    bacs_debit: StripeObject
+    bacs_debit: Optional[StripeObject]
     created: int
     id: str
     livemode: bool
     object: Literal["source_mandate_notification"]
     reason: str
-    sepa_debit: StripeObject
+    sepa_debit: Optional[StripeObject]
     source: "Source"
     status: str
     type: str

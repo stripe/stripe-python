@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -20,12 +20,12 @@ class ApplePayDomain(
     ListableAPIResource["ApplePayDomain"],
 ):
     OBJECT_NAME = "apple_pay_domain"
-    deleted: bool
     created: int
     domain_name: str
     id: str
     livemode: bool
     object: Literal["apple_pay_domain"]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

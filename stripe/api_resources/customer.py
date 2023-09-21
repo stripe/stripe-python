@@ -47,9 +47,8 @@ class Customer(
     """
 
     OBJECT_NAME = "customer"
-    deleted: bool
     address: Optional[StripeObject]
-    balance: int
+    balance: Optional[int]
     cash_balance: Optional["CashBalance"]
     created: int
     currency: Optional[str]
@@ -59,23 +58,24 @@ class Customer(
     discount: Optional["Discount"]
     email: Optional[str]
     id: str
-    invoice_credit_balance: Dict[str, int]
+    invoice_credit_balance: Optional[Dict[str, int]]
     invoice_prefix: Optional[str]
-    invoice_settings: StripeObject
+    invoice_settings: Optional[StripeObject]
     livemode: bool
-    metadata: Dict[str, str]
+    metadata: Optional[Dict[str, str]]
     name: Optional[str]
-    next_invoice_sequence: int
+    next_invoice_sequence: Optional[int]
     object: Literal["customer"]
     phone: Optional[str]
     preferred_locales: Optional[List[str]]
     shipping: Optional[StripeObject]
-    sources: ListObject[Any]
-    subscriptions: ListObject["Subscription"]
-    tax: StripeObject
+    sources: Optional[ListObject[Any]]
+    subscriptions: Optional[ListObject["Subscription"]]
+    tax: Optional[StripeObject]
     tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
-    tax_ids: ListObject["TaxId"]
+    tax_ids: Optional[ListObject["TaxId"]]
     test_clock: Optional[ExpandableField["TestClock"]]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

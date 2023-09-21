@@ -35,7 +35,6 @@ class Plan(
     """
 
     OBJECT_NAME = "plan"
-    deleted: bool
     active: bool
     aggregate_usage: Optional[
         Literal["last_during_period", "last_ever", "max", "sum"]
@@ -53,11 +52,12 @@ class Plan(
     nickname: Optional[str]
     object: Literal["plan"]
     product: Optional[ExpandableField[Any]]
-    tiers: List[StripeObject]
+    tiers: Optional[List[StripeObject]]
     tiers_mode: Optional[Literal["graduated", "volume"]]
     transform_usage: Optional[StripeObject]
     trial_period_days: Optional[int]
     usage_type: Literal["licensed", "metered"]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

@@ -49,7 +49,6 @@ class InvoiceItem(
     """
 
     OBJECT_NAME = "invoiceitem"
-    deleted: bool
     amount: int
     currency: str
     customer: ExpandableField[Any]
@@ -68,11 +67,12 @@ class InvoiceItem(
     proration: bool
     quantity: int
     subscription: Optional[ExpandableField["Subscription"]]
-    subscription_item: str
+    subscription_item: Optional[str]
     tax_rates: Optional[List["TaxRate"]]
     test_clock: Optional[ExpandableField["TestClock"]]
     unit_amount: Optional[int]
     unit_amount_decimal: Optional[float]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(
