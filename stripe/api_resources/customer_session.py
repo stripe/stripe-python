@@ -2,10 +2,8 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe.api_resources.abstract import (
-    CreateableAPIResource,
-    ExpandableField,
-)
+from stripe.api_resources.abstract import CreateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from typing import Any, Optional, cast
 from typing_extensions import Literal
 
