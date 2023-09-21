@@ -1,4 +1,11 @@
 # Changelog
+## 6.6.0 - 2023-09-21
+* [#1056](https://github.com/stripe/stripe-python/pull/1056) Update generated code
+
+* [#1055](https://github.com/stripe/stripe-python/pull/1055) Partially type resource methods (no **params)
+* [#1057](https://github.com/stripe/stripe-python/pull/1057) Add optional types to non-required fields
+* [#1054](https://github.com/stripe/stripe-python/pull/1054) Types: add deleted field
+
 ## 6.5.0 - 2023-09-14
 * [#1052](https://github.com/stripe/stripe-python/pull/1052) Update generated code
   * Add support for new resource `PaymentMethodConfiguration`
