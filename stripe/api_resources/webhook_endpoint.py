@@ -32,7 +32,6 @@ class WebhookEndpoint(
     """
 
     OBJECT_NAME = "webhook_endpoint"
-    deleted: bool
     api_version: Optional[str]
     application: Optional[str]
     created: int
@@ -42,9 +41,10 @@ class WebhookEndpoint(
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["webhook_endpoint"]
-    secret: str
+    secret: Optional[str]
     status: str
     url: str
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

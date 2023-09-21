@@ -25,7 +25,7 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
     OBJECT_NAME = "scheduled_query_run"
     created: int
     data_load_time: int
-    error: StripeObject
+    error: Optional[StripeObject]
     file: Optional["File"]
     id: str
     livemode: bool

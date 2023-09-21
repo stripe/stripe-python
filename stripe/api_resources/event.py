@@ -44,7 +44,7 @@ class Event(ListableAPIResource["Event"]):
     """
 
     OBJECT_NAME = "event"
-    account: str
+    account: Optional[str]
     api_version: Optional[str]
     created: int
     data: StripeObject

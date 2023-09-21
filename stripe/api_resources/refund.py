@@ -44,13 +44,15 @@ class Refund(
     charge: Optional[ExpandableField["Charge"]]
     created: int
     currency: str
-    description: str
-    failure_balance_transaction: ExpandableField["BalanceTransaction"]
-    failure_reason: str
+    description: Optional[str]
+    failure_balance_transaction: Optional[
+        ExpandableField["BalanceTransaction"]
+    ]
+    failure_reason: Optional[str]
     id: str
-    instructions_email: str
+    instructions_email: Optional[str]
     metadata: Optional[Dict[str, str]]
-    next_action: StripeObject
+    next_action: Optional[StripeObject]
     object: Literal["refund"]
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     reason: Optional[

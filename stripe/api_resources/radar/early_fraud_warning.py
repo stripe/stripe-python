@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from typing import Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -30,7 +31,7 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
     id: str
     livemode: bool
     object: Literal["radar.early_fraud_warning"]
-    payment_intent: ExpandableField["PaymentIntent"]
+    payment_intent: Optional[ExpandableField["PaymentIntent"]]
 
     @classmethod
     def list(

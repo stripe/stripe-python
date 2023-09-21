@@ -75,7 +75,6 @@ class Invoice(
     """
 
     OBJECT_NAME = "invoice"
-    deleted: bool
     account_country: Optional[str]
     account_name: Optional[str]
     account_tax_ids: Optional[List[ExpandableField[Any]]]
@@ -87,7 +86,7 @@ class Invoice(
     application_fee_amount: Optional[int]
     attempt_count: int
     attempted: bool
-    auto_advance: bool
+    auto_advance: Optional[bool]
     automatic_tax: StripeObject
     billing_reason: Optional[
         Literal[
@@ -127,7 +126,7 @@ class Invoice(
     footer: Optional[str]
     from_invoice: Optional[StripeObject]
     hosted_invoice_url: Optional[str]
-    id: str
+    id: Optional[str]
     invoice_pdf: Optional[str]
     last_finalization_error: Optional[StripeObject]
     latest_revision: Optional[ExpandableField["Invoice"]]
@@ -157,18 +156,19 @@ class Invoice(
     status_transitions: StripeObject
     subscription: Optional[ExpandableField["Subscription"]]
     subscription_details: Optional[StripeObject]
-    subscription_proration_date: int
+    subscription_proration_date: Optional[int]
     subtotal: int
     subtotal_excluding_tax: Optional[int]
     tax: Optional[int]
     test_clock: Optional[ExpandableField["TestClock"]]
-    threshold_reason: StripeObject
+    threshold_reason: Optional[StripeObject]
     total: int
     total_discount_amounts: Optional[List[StripeObject]]
     total_excluding_tax: Optional[int]
     total_tax_amounts: List[StripeObject]
     transfer_data: Optional[StripeObject]
     webhooks_delivered_at: Optional[int]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

@@ -21,42 +21,43 @@ class Person(UpdateableAPIResource["Person"]):
     """
 
     OBJECT_NAME = "person"
-    deleted: bool
-    account: str
-    address: StripeObject
+    account: Optional[str]
+    address: Optional[StripeObject]
     address_kana: Optional[StripeObject]
     address_kanji: Optional[StripeObject]
     created: int
-    dob: StripeObject
+    dob: Optional[StripeObject]
     email: Optional[str]
     first_name: Optional[str]
     first_name_kana: Optional[str]
     first_name_kanji: Optional[str]
-    full_name_aliases: List[str]
+    full_name_aliases: Optional[List[str]]
     future_requirements: Optional[StripeObject]
     gender: Optional[str]
     id: str
-    id_number_provided: bool
-    id_number_secondary_provided: bool
+    id_number_provided: Optional[bool]
+    id_number_secondary_provided: Optional[bool]
     last_name: Optional[str]
     last_name_kana: Optional[str]
     last_name_kanji: Optional[str]
     maiden_name: Optional[str]
-    metadata: Dict[str, str]
+    metadata: Optional[Dict[str, str]]
     nationality: Optional[str]
     object: Literal["person"]
     phone: Optional[str]
-    political_exposure: Literal["existing", "none"]
-    registered_address: StripeObject
-    relationship: StripeObject
+    political_exposure: Optional[Literal["existing", "none"]]
+    registered_address: Optional[StripeObject]
+    relationship: Optional[StripeObject]
     requirements: Optional[StripeObject]
-    ssn_last_4_provided: bool
-    verification: StripeObject
+    ssn_last_4_provided: Optional[bool]
+    verification: Optional[StripeObject]
+    deleted: Optional[Literal[True]]
 
     def instance_url(self):
         token = self.id
         account = self.account
         base = Account.class_url()
+        assert account is not None
         acct_extn = quote_plus(account)
         extn = quote_plus(token)
         return "%s/%s/persons/%s" % (base, acct_extn, extn)

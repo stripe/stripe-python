@@ -23,7 +23,7 @@ class Session(CreateableAPIResource["Session"]):
     account_holder: Optional[StripeObject]
     accounts: ListObject["Account"]
     client_secret: str
-    filters: StripeObject
+    filters: Optional[StripeObject]
     id: str
     livemode: bool
     object: Literal["financial_connections.session"]
@@ -31,7 +31,7 @@ class Session(CreateableAPIResource["Session"]):
         Literal["balances", "ownership", "payment_method", "transactions"]
     ]
     prefetch: Optional[List[Literal["balances", "ownership"]]]
-    return_url: str
+    return_url: Optional[str]
 
     @classmethod
     def create(

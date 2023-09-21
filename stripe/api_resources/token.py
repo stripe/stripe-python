@@ -38,8 +38,8 @@ class Token(CreateableAPIResource["Token"]):
     """
 
     OBJECT_NAME = "token"
-    bank_account: "BankAccount"
-    card: "Card"
+    bank_account: Optional["BankAccount"]
+    card: Optional["Card"]
     client_ip: Optional[str]
     created: int
     id: str

@@ -36,7 +36,6 @@ class Reader(
     """
 
     OBJECT_NAME = "terminal.reader"
-    deleted: bool
     action: Optional[StripeObject]
     device_sw_version: Optional[str]
     device_type: Literal[
@@ -56,6 +55,7 @@ class Reader(
     object: Literal["terminal.reader"]
     serial_number: str
     status: Optional[str]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def _cls_cancel_action(

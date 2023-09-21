@@ -29,7 +29,7 @@ class InvoiceLineItem(StripeObject):
     discountable: bool
     discounts: Optional[List[ExpandableField["Discount"]]]
     id: str
-    invoice_item: ExpandableField["InvoiceItem"]
+    invoice_item: Optional[ExpandableField["InvoiceItem"]]
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["line_item"]
@@ -40,8 +40,8 @@ class InvoiceLineItem(StripeObject):
     proration_details: Optional[StripeObject]
     quantity: Optional[int]
     subscription: Optional[ExpandableField["Subscription"]]
-    subscription_item: ExpandableField["SubscriptionItem"]
-    tax_amounts: List[StripeObject]
-    tax_rates: List["TaxRate"]
+    subscription_item: Optional[ExpandableField["SubscriptionItem"]]
+    tax_amounts: Optional[List[StripeObject]]
+    tax_rates: Optional[List["TaxRate"]]
     type: Literal["invoiceitem", "subscription"]
     unit_amount_excluding_tax: Optional[float]

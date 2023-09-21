@@ -51,7 +51,7 @@ class PaymentLink(
     customer_creation: Literal["always", "if_required"]
     id: str
     invoice_creation: Optional[StripeObject]
-    line_items: ListObject["LineItem"]
+    line_items: Optional[ListObject["LineItem"]]
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["payment_link"]

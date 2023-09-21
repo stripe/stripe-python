@@ -11,7 +11,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -29,14 +29,14 @@ class Location(
     """
 
     OBJECT_NAME = "terminal.location"
-    deleted: bool
     address: StripeObject
-    configuration_overrides: str
+    configuration_overrides: Optional[str]
     display_name: str
     id: str
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["terminal.location"]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

@@ -3,6 +3,7 @@
 from __future__ import absolute_import, division, print_function
 
 from stripe.stripe_object import StripeObject
+from typing import Optional
 from typing_extensions import Literal
 
 
@@ -15,17 +16,17 @@ class SourceTransaction(StripeObject):
     """
 
     OBJECT_NAME = "source_transaction"
-    ach_credit_transfer: StripeObject
+    ach_credit_transfer: Optional[StripeObject]
     amount: int
-    chf_credit_transfer: StripeObject
+    chf_credit_transfer: Optional[StripeObject]
     created: int
     currency: str
-    gbp_credit_transfer: StripeObject
+    gbp_credit_transfer: Optional[StripeObject]
     id: str
     livemode: bool
     object: Literal["source_transaction"]
-    paper_check: StripeObject
-    sepa_credit_transfer: StripeObject
+    paper_check: Optional[StripeObject]
+    sepa_credit_transfer: Optional[StripeObject]
     source: str
     status: str
     type: Literal[

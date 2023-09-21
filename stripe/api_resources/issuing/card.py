@@ -37,7 +37,7 @@ class Card(
     cardholder: "Cardholder"
     created: int
     currency: str
-    cvc: str
+    cvc: Optional[str]
     exp_month: int
     exp_year: int
     financial_account: Optional[str]
@@ -45,7 +45,7 @@ class Card(
     last4: str
     livemode: bool
     metadata: Dict[str, str]
-    number: str
+    number: Optional[str]
     object: Literal["issuing.card"]
     replaced_by: Optional[ExpandableField["Card"]]
     replacement_for: Optional[ExpandableField["Card"]]

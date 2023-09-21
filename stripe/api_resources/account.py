@@ -44,31 +44,31 @@ class Account(
     """
 
     OBJECT_NAME = "account"
-    deleted: bool
     business_profile: Optional[StripeObject]
     business_type: Optional[
         Literal["company", "government_entity", "individual", "non_profit"]
     ]
-    capabilities: StripeObject
-    charges_enabled: bool
-    company: StripeObject
-    controller: StripeObject
-    country: str
-    created: int
-    default_currency: str
-    details_submitted: bool
+    capabilities: Optional[StripeObject]
+    charges_enabled: Optional[bool]
+    company: Optional[StripeObject]
+    controller: Optional[StripeObject]
+    country: Optional[str]
+    created: Optional[int]
+    default_currency: Optional[str]
+    details_submitted: Optional[bool]
     email: Optional[str]
-    external_accounts: ListObject[Any]
-    future_requirements: StripeObject
+    external_accounts: Optional[ListObject[Any]]
+    future_requirements: Optional[StripeObject]
     id: str
-    individual: "Person"
-    metadata: Dict[str, str]
+    individual: Optional["Person"]
+    metadata: Optional[Dict[str, str]]
     object: Literal["account"]
-    payouts_enabled: bool
-    requirements: StripeObject
+    payouts_enabled: Optional[bool]
+    requirements: Optional[StripeObject]
     settings: Optional[StripeObject]
-    tos_acceptance: StripeObject
-    type: Literal["custom", "express", "standard"]
+    tos_acceptance: Optional[StripeObject]
+    type: Optional[Literal["custom", "express", "standard"]]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

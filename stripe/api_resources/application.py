@@ -9,7 +9,7 @@ from typing_extensions import Literal
 
 class Application(StripeObject):
     OBJECT_NAME = "application"
-    deleted: bool
     id: str
     name: Optional[str]
     object: Literal["application"]
+    deleted: Optional[Literal[True]]

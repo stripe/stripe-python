@@ -35,7 +35,7 @@ class ShippingRate(
     created: int
     delivery_estimate: Optional[StripeObject]
     display_name: Optional[str]
-    fixed_amount: StripeObject
+    fixed_amount: Optional[StripeObject]
     id: str
     livemode: bool
     metadata: Dict[str, str]

@@ -41,7 +41,7 @@ class Review(ListableAPIResource["Review"]):
     object: Literal["review"]
     open: bool
     opened_reason: Literal["manual", "rule"]
-    payment_intent: ExpandableField["PaymentIntent"]
+    payment_intent: Optional[ExpandableField["PaymentIntent"]]
     reason: str
     session: Optional[StripeObject]
 

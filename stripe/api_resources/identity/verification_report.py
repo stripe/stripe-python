@@ -26,14 +26,14 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
 
     OBJECT_NAME = "identity.verification_report"
     created: int
-    document: StripeObject
+    document: Optional[StripeObject]
     id: str
-    id_number: StripeObject
+    id_number: Optional[StripeObject]
     livemode: bool
     object: Literal["identity.verification_report"]
-    options: StripeObject
-    selfie: StripeObject
-    type: Literal["document", "id_number"]
+    options: Optional[StripeObject]
+    selfie: Optional[StripeObject]
+    type: Optional[Literal["document", "id_number"]]
     verification_session: Optional[str]
 
     @classmethod

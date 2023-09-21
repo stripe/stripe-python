@@ -43,7 +43,6 @@ class Product(
     """
 
     OBJECT_NAME = "product"
-    deleted: bool
     active: bool
     created: int
     default_price: Optional[ExpandableField["Price"]]
@@ -63,6 +62,7 @@ class Product(
     unit_label: Optional[str]
     updated: int
     url: Optional[str]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(
