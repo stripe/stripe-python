@@ -77,7 +77,11 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["BalanceTransaction"]:
         result = cls._static_request(
             "get",
@@ -97,7 +101,9 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "BalanceTransaction":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "BalanceTransaction":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

@@ -48,7 +48,7 @@ class Customer(
 
     OBJECT_NAME = "customer"
     address: Optional[StripeObject]
-    balance: int
+    balance: Optional[int]
     cash_balance: Optional["CashBalance"]
     created: int
     currency: Optional[str]
@@ -58,32 +58,33 @@ class Customer(
     discount: Optional["Discount"]
     email: Optional[str]
     id: str
-    invoice_credit_balance: Dict[str, int]
+    invoice_credit_balance: Optional[Dict[str, int]]
     invoice_prefix: Optional[str]
-    invoice_settings: StripeObject
+    invoice_settings: Optional[StripeObject]
     livemode: bool
-    metadata: Dict[str, str]
+    metadata: Optional[Dict[str, str]]
     name: Optional[str]
-    next_invoice_sequence: int
+    next_invoice_sequence: Optional[int]
     object: Literal["customer"]
     phone: Optional[str]
     preferred_locales: Optional[List[str]]
     shipping: Optional[StripeObject]
-    sources: ListObject[Any]
-    subscriptions: ListObject["Subscription"]
-    tax: StripeObject
+    sources: Optional[ListObject[Any]]
+    subscriptions: Optional[ListObject["Subscription"]]
+    tax: Optional[StripeObject]
     tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
-    tax_ids: ListObject["TaxId"]
+    tax_ids: Optional[ListObject["TaxId"]]
     test_clock: Optional[ExpandableField["TestClock"]]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Customer":
         return cast(
             "Customer",
@@ -101,11 +102,11 @@ class Customer(
     @classmethod
     def _cls_create_funding_instructions(
         cls,
-        customer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -119,7 +120,9 @@ class Customer(
         )
 
     @util.class_method_variant("_cls_create_funding_instructions")
-    def create_funding_instructions(self, idempotency_key=None, **params):
+    def create_funding_instructions(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/customers/{customer}/funding_instructions".format(
@@ -130,7 +133,7 @@ class Customer(
         )
 
     @classmethod
-    def _cls_delete(cls, sid, **params) -> "Customer":
+    def _cls_delete(cls, sid: str, **params: Any) -> "Customer":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Customer",
@@ -138,7 +141,7 @@ class Customer(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> "Customer":
+    def delete(self, **params: Any) -> "Customer":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -148,11 +151,11 @@ class Customer(
     @classmethod
     def _cls_delete_discount(
         cls,
-        customer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "delete",
@@ -166,7 +169,9 @@ class Customer(
         )
 
     @util.class_method_variant("_cls_delete_discount")
-    def delete_discount(self, idempotency_key=None, **params):
+    def delete_discount(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "delete",
             "/v1/customers/{customer}/discount".format(
@@ -178,7 +183,11 @@ class Customer(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Customer"]:
         result = cls._static_request(
             "get",
@@ -200,11 +209,11 @@ class Customer(
     @classmethod
     def _cls_list_payment_methods(
         cls,
-        customer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -218,7 +227,9 @@ class Customer(
         )
 
     @util.class_method_variant("_cls_list_payment_methods")
-    def list_payment_methods(self, idempotency_key=None, **params):
+    def list_payment_methods(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "get",
             "/v1/customers/{customer}/payment_methods".format(
@@ -229,7 +240,7 @@ class Customer(
         )
 
     @classmethod
-    def modify(cls, id, **params) -> "Customer":
+    def modify(cls, id, **params: Any) -> "Customer":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Customer",
@@ -237,7 +248,9 @@ class Customer(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> Any:
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> Any:
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -245,12 +258,12 @@ class Customer(
     @classmethod
     def _cls_retrieve_payment_method(
         cls,
-        customer,
-        payment_method,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        payment_method: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -266,7 +279,10 @@ class Customer(
 
     @util.class_method_variant("_cls_retrieve_payment_method")
     def retrieve_payment_method(
-        self, payment_method, idempotency_key=None, **params
+        self,
+        payment_method: str,
+        idempotency_key: Optional[str] = None,
+        **params: Any
     ):
         return self._request(
             "get",
@@ -289,11 +305,11 @@ class Customer(
     @classmethod
     def create_balance_transaction(
         cls,
-        customer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -309,12 +325,12 @@ class Customer(
     @classmethod
     def retrieve_balance_transaction(
         cls,
-        customer,
-        transaction,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        transaction: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -331,12 +347,12 @@ class Customer(
     @classmethod
     def modify_balance_transaction(
         cls,
-        customer,
-        transaction,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        transaction: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -353,11 +369,11 @@ class Customer(
     @classmethod
     def list_balance_transactions(
         cls,
-        customer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -373,12 +389,12 @@ class Customer(
     @classmethod
     def retrieve_cash_balance_transaction(
         cls,
-        customer,
-        transaction,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        transaction: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -395,11 +411,11 @@ class Customer(
     @classmethod
     def list_cash_balance_transactions(
         cls,
-        customer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -415,11 +431,11 @@ class Customer(
     @classmethod
     def create_source(
         cls,
-        customer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -435,12 +451,12 @@ class Customer(
     @classmethod
     def retrieve_source(
         cls,
-        customer,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -456,12 +472,12 @@ class Customer(
     @classmethod
     def modify_source(
         cls,
-        customer,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -477,12 +493,12 @@ class Customer(
     @classmethod
     def delete_source(
         cls,
-        customer,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "delete",
@@ -498,11 +514,11 @@ class Customer(
     @classmethod
     def list_sources(
         cls,
-        customer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -518,11 +534,11 @@ class Customer(
     @classmethod
     def create_tax_id(
         cls,
-        customer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -538,12 +554,12 @@ class Customer(
     @classmethod
     def retrieve_tax_id(
         cls,
-        customer,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -559,12 +575,12 @@ class Customer(
     @classmethod
     def delete_tax_id(
         cls,
-        customer,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "delete",
@@ -580,11 +596,11 @@ class Customer(
     @classmethod
     def list_tax_ids(
         cls,
-        customer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -600,11 +616,11 @@ class Customer(
     @classmethod
     def modify_cash_balance(
         cls,
-        customer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -620,11 +636,11 @@ class Customer(
     @classmethod
     def retrieve_cash_balance(
         cls,
-        customer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -643,11 +659,11 @@ class Customer(
         @classmethod
         def _cls_fund_cash_balance(
             cls,
-            customer,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            customer: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -661,7 +677,9 @@ class Customer(
             )
 
         @util.class_method_variant("_cls_fund_cash_balance")
-        def fund_cash_balance(self, idempotency_key=None, **params):
+        def fund_cash_balance(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(

@@ -4,7 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import DeletableAPIResource
-from typing import cast
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -16,10 +16,10 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
     id: str
     livemode: bool
     object: Literal["ephemeral_key"]
-    secret: str
+    secret: Optional[str]
 
     @classmethod
-    def _cls_delete(cls, sid, **params) -> "EphemeralKey":
+    def _cls_delete(cls, sid: str, **params: Any) -> "EphemeralKey":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "EphemeralKey",
@@ -27,7 +27,7 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> "EphemeralKey":
+    def delete(self, **params: Any) -> "EphemeralKey":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),

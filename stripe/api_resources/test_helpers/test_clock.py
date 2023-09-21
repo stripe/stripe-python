@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
-from typing import Optional, cast
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -34,15 +34,16 @@ class TestClock(
     name: Optional[str]
     object: Literal["test_helpers.test_clock"]
     status: Literal["advancing", "internal_failure", "ready"]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def _cls_advance(
         cls,
-        test_clock,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        test_clock: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -56,7 +57,7 @@ class TestClock(
         )
 
     @util.class_method_variant("_cls_advance")
-    def advance(self, idempotency_key=None, **params):
+    def advance(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
@@ -69,11 +70,11 @@ class TestClock(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "TestClock":
         return cast(
             "TestClock",
@@ -89,7 +90,7 @@ class TestClock(
         )
 
     @classmethod
-    def _cls_delete(cls, sid, **params) -> "TestClock":
+    def _cls_delete(cls, sid: str, **params: Any) -> "TestClock":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "TestClock",
@@ -97,7 +98,7 @@ class TestClock(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> "TestClock":
+    def delete(self, **params: Any) -> "TestClock":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -106,7 +107,11 @@ class TestClock(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["TestClock"]:
         result = cls._static_request(
             "get",
@@ -126,7 +131,9 @@ class TestClock(
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "TestClock":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "TestClock":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

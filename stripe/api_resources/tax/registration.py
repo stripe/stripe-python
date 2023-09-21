@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Optional, cast
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -41,11 +41,11 @@ class Registration(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Registration":
         return cast(
             "Registration",
@@ -62,7 +62,11 @@ class Registration(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Registration"]:
         result = cls._static_request(
             "get",
@@ -82,7 +86,7 @@ class Registration(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Registration":
+    def modify(cls, id, **params: Any) -> "Registration":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Registration",

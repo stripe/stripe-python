@@ -13,7 +13,7 @@ class QuoteLine(StripeObject):
     """
 
     OBJECT_NAME = "quote_line"
-    actions: List[StripeObject]
+    actions: Optional[List[StripeObject]]
     applies_to: Optional[StripeObject]
     billing_cycle_anchor: Optional[Literal["automatic", "line_starts_at"]]
     ends_at: Optional[StripeObject]

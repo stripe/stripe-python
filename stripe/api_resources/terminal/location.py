@@ -11,7 +11,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -30,21 +30,22 @@ class Location(
 
     OBJECT_NAME = "terminal.location"
     address: StripeObject
-    configuration_overrides: str
+    configuration_overrides: Optional[str]
     display_name: str
     id: str
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["terminal.location"]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Location":
         return cast(
             "Location",
@@ -60,7 +61,7 @@ class Location(
         )
 
     @classmethod
-    def _cls_delete(cls, sid, **params) -> "Location":
+    def _cls_delete(cls, sid: str, **params: Any) -> "Location":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Location",
@@ -68,7 +69,7 @@ class Location(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> "Location":
+    def delete(self, **params: Any) -> "Location":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -77,7 +78,11 @@ class Location(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Location"]:
         result = cls._static_request(
             "get",
@@ -97,7 +102,7 @@ class Location(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> Any:
+    def modify(cls, id, **params: Any) -> Any:
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             Any,
@@ -105,7 +110,9 @@ class Location(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> Any:
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> Any:
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

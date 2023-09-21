@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Optional, cast
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -24,60 +24,60 @@ class PaymentMethodConfiguration(
     """
 
     OBJECT_NAME = "payment_method_configuration"
-    acss_debit: StripeObject
+    acss_debit: Optional[StripeObject]
     active: bool
-    affirm: StripeObject
-    afterpay_clearpay: StripeObject
-    alipay: StripeObject
-    apple_pay: StripeObject
+    affirm: Optional[StripeObject]
+    afterpay_clearpay: Optional[StripeObject]
+    alipay: Optional[StripeObject]
+    apple_pay: Optional[StripeObject]
     application: Optional[str]
-    au_becs_debit: StripeObject
-    bacs_debit: StripeObject
-    bancontact: StripeObject
-    blik: StripeObject
-    boleto: StripeObject
-    card: StripeObject
-    cartes_bancaires: StripeObject
-    cashapp: StripeObject
-    eps: StripeObject
-    fpx: StripeObject
-    giropay: StripeObject
-    google_pay: StripeObject
-    grabpay: StripeObject
+    au_becs_debit: Optional[StripeObject]
+    bacs_debit: Optional[StripeObject]
+    bancontact: Optional[StripeObject]
+    blik: Optional[StripeObject]
+    boleto: Optional[StripeObject]
+    card: Optional[StripeObject]
+    cartes_bancaires: Optional[StripeObject]
+    cashapp: Optional[StripeObject]
+    eps: Optional[StripeObject]
+    fpx: Optional[StripeObject]
+    giropay: Optional[StripeObject]
+    google_pay: Optional[StripeObject]
+    grabpay: Optional[StripeObject]
     id: str
-    id_bank_transfer: StripeObject
-    ideal: StripeObject
+    id_bank_transfer: Optional[StripeObject]
+    ideal: Optional[StripeObject]
     is_default: bool
-    jcb: StripeObject
-    klarna: StripeObject
-    konbini: StripeObject
-    link: StripeObject
+    jcb: Optional[StripeObject]
+    klarna: Optional[StripeObject]
+    konbini: Optional[StripeObject]
+    link: Optional[StripeObject]
     livemode: bool
-    multibanco: StripeObject
+    multibanco: Optional[StripeObject]
     name: str
-    netbanking: StripeObject
+    netbanking: Optional[StripeObject]
     object: Literal["payment_method_configuration"]
-    oxxo: StripeObject
-    p24: StripeObject
+    oxxo: Optional[StripeObject]
+    p24: Optional[StripeObject]
     parent: Optional[str]
-    pay_by_bank: StripeObject
-    paynow: StripeObject
-    paypal: StripeObject
-    promptpay: StripeObject
-    sepa_debit: StripeObject
-    sofort: StripeObject
-    upi: StripeObject
-    us_bank_account: StripeObject
-    wechat_pay: StripeObject
+    pay_by_bank: Optional[StripeObject]
+    paynow: Optional[StripeObject]
+    paypal: Optional[StripeObject]
+    promptpay: Optional[StripeObject]
+    sepa_debit: Optional[StripeObject]
+    sofort: Optional[StripeObject]
+    upi: Optional[StripeObject]
+    us_bank_account: Optional[StripeObject]
+    wechat_pay: Optional[StripeObject]
 
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "PaymentMethodConfiguration":
         return cast(
             "PaymentMethodConfiguration",
@@ -94,7 +94,11 @@ class PaymentMethodConfiguration(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["PaymentMethodConfiguration"]:
         result = cls._static_request(
             "get",
@@ -114,7 +118,7 @@ class PaymentMethodConfiguration(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "PaymentMethodConfiguration":
+    def modify(cls, id, **params: Any) -> "PaymentMethodConfiguration":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PaymentMethodConfiguration",
@@ -123,7 +127,7 @@ class PaymentMethodConfiguration(
 
     @classmethod
     def retrieve(
-        cls, id, api_key=None, **params
+        cls, id: str, api_key: Optional[str] = None, **params: Any
     ) -> "PaymentMethodConfiguration":
         instance = cls(id, api_key, **params)
         instance.refresh()

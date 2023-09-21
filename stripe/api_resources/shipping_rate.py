@@ -10,7 +10,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -35,7 +35,7 @@ class ShippingRate(
     created: int
     delivery_estimate: Optional[StripeObject]
     display_name: Optional[str]
-    fixed_amount: StripeObject
+    fixed_amount: Optional[StripeObject]
     id: str
     livemode: bool
     metadata: Dict[str, str]
@@ -47,11 +47,11 @@ class ShippingRate(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "ShippingRate":
         return cast(
             "ShippingRate",
@@ -68,7 +68,11 @@ class ShippingRate(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["ShippingRate"]:
         result = cls._static_request(
             "get",
@@ -88,7 +92,7 @@ class ShippingRate(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "ShippingRate":
+    def modify(cls, id, **params: Any) -> "ShippingRate":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "ShippingRate",
@@ -96,7 +100,9 @@ class ShippingRate(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "ShippingRate":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "ShippingRate":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

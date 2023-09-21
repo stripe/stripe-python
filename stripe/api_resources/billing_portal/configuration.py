@@ -42,11 +42,11 @@ class Configuration(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Configuration":
         return cast(
             "Configuration",
@@ -63,7 +63,11 @@ class Configuration(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Configuration"]:
         result = cls._static_request(
             "get",
@@ -83,7 +87,7 @@ class Configuration(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Configuration":
+    def modify(cls, id, **params: Any) -> "Configuration":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Configuration",
@@ -91,7 +95,9 @@ class Configuration(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Configuration":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Configuration":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

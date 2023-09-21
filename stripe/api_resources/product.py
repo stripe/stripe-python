@@ -63,15 +63,16 @@ class Product(
     unit_label: Optional[str]
     updated: int
     url: Optional[str]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Product":
         return cast(
             "Product",
@@ -87,7 +88,7 @@ class Product(
         )
 
     @classmethod
-    def _cls_delete(cls, sid, **params) -> "Product":
+    def _cls_delete(cls, sid: str, **params: Any) -> "Product":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Product",
@@ -95,7 +96,7 @@ class Product(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> "Product":
+    def delete(self, **params: Any) -> "Product":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -104,7 +105,11 @@ class Product(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Product"]:
         result = cls._static_request(
             "get",
@@ -124,7 +129,7 @@ class Product(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Product":
+    def modify(cls, id, **params: Any) -> "Product":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Product",
@@ -132,7 +137,9 @@ class Product(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Product":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Product":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

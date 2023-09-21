@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
+from typing import Any, Optional
 from typing_extensions import Literal
 
 
@@ -14,7 +15,7 @@ class CardBundle(ListableAPIResource["CardBundle"]):
     """
 
     OBJECT_NAME = "issuing.card_bundle"
-    features: StripeObject
+    features: Optional[StripeObject]
     id: str
     livemode: bool
     name: str
@@ -24,7 +25,11 @@ class CardBundle(ListableAPIResource["CardBundle"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["CardBundle"]:
         result = cls._static_request(
             "get",
@@ -44,7 +49,9 @@ class CardBundle(ListableAPIResource["CardBundle"]):
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "CardBundle":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "CardBundle":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

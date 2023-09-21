@@ -35,7 +35,9 @@ class SubscriptionSchedule(
 
     OBJECT_NAME = "subscription_schedule"
     application: Optional[ExpandableField[Any]]
-    billing_behavior: Literal["prorate_on_next_phase", "prorate_up_front"]
+    billing_behavior: Optional[
+        Literal["prorate_on_next_phase", "prorate_up_front"]
+    ]
     canceled_at: Optional[int]
     completed_at: Optional[int]
     created: int
@@ -60,11 +62,11 @@ class SubscriptionSchedule(
     @classmethod
     def _cls_amend(
         cls,
-        schedule,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        schedule: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -78,7 +80,7 @@ class SubscriptionSchedule(
         )
 
     @util.class_method_variant("_cls_amend")
-    def amend(self, idempotency_key=None, **params):
+    def amend(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/subscription_schedules/{schedule}/amend".format(
@@ -91,11 +93,11 @@ class SubscriptionSchedule(
     @classmethod
     def _cls_cancel(
         cls,
-        schedule,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        schedule: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -109,7 +111,7 @@ class SubscriptionSchedule(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key=None, **params):
+    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/subscription_schedules/{schedule}/cancel".format(
@@ -122,11 +124,11 @@ class SubscriptionSchedule(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "SubscriptionSchedule":
         return cast(
             "SubscriptionSchedule",
@@ -143,7 +145,11 @@ class SubscriptionSchedule(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["SubscriptionSchedule"]:
         result = cls._static_request(
             "get",
@@ -163,7 +169,7 @@ class SubscriptionSchedule(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "SubscriptionSchedule":
+    def modify(cls, id, **params: Any) -> "SubscriptionSchedule":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "SubscriptionSchedule",
@@ -173,11 +179,11 @@ class SubscriptionSchedule(
     @classmethod
     def _cls_release(
         cls,
-        schedule,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        schedule: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -191,7 +197,7 @@ class SubscriptionSchedule(
         )
 
     @util.class_method_variant("_cls_release")
-    def release(self, idempotency_key=None, **params):
+    def release(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/subscription_schedules/{schedule}/release".format(
@@ -202,7 +208,9 @@ class SubscriptionSchedule(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "SubscriptionSchedule":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "SubscriptionSchedule":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

@@ -10,7 +10,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -33,56 +33,62 @@ class FinancialAccount(
     """
 
     OBJECT_NAME = "treasury.financial_account"
-    active_features: List[
-        Literal[
-            "card_issuing",
-            "deposit_insurance",
-            "financial_addresses.aba",
-            "inbound_transfers.ach",
-            "intra_stripe_flows",
-            "outbound_payments.ach",
-            "outbound_payments.us_domestic_wire",
-            "outbound_transfers.ach",
-            "outbound_transfers.us_domestic_wire",
-            "remote_deposit_capture",
+    active_features: Optional[
+        List[
+            Literal[
+                "card_issuing",
+                "deposit_insurance",
+                "financial_addresses.aba",
+                "inbound_transfers.ach",
+                "intra_stripe_flows",
+                "outbound_payments.ach",
+                "outbound_payments.us_domestic_wire",
+                "outbound_transfers.ach",
+                "outbound_transfers.us_domestic_wire",
+                "remote_deposit_capture",
+            ]
         ]
     ]
     balance: StripeObject
     country: str
     created: int
-    features: "FinancialAccountFeatures"
+    features: Optional["FinancialAccountFeatures"]
     financial_addresses: List[StripeObject]
     id: str
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["treasury.financial_account"]
-    pending_features: List[
-        Literal[
-            "card_issuing",
-            "deposit_insurance",
-            "financial_addresses.aba",
-            "inbound_transfers.ach",
-            "intra_stripe_flows",
-            "outbound_payments.ach",
-            "outbound_payments.us_domestic_wire",
-            "outbound_transfers.ach",
-            "outbound_transfers.us_domestic_wire",
-            "remote_deposit_capture",
+    pending_features: Optional[
+        List[
+            Literal[
+                "card_issuing",
+                "deposit_insurance",
+                "financial_addresses.aba",
+                "inbound_transfers.ach",
+                "intra_stripe_flows",
+                "outbound_payments.ach",
+                "outbound_payments.us_domestic_wire",
+                "outbound_transfers.ach",
+                "outbound_transfers.us_domestic_wire",
+                "remote_deposit_capture",
+            ]
         ]
     ]
     platform_restrictions: Optional[StripeObject]
-    restricted_features: List[
-        Literal[
-            "card_issuing",
-            "deposit_insurance",
-            "financial_addresses.aba",
-            "inbound_transfers.ach",
-            "intra_stripe_flows",
-            "outbound_payments.ach",
-            "outbound_payments.us_domestic_wire",
-            "outbound_transfers.ach",
-            "outbound_transfers.us_domestic_wire",
-            "remote_deposit_capture",
+    restricted_features: Optional[
+        List[
+            Literal[
+                "card_issuing",
+                "deposit_insurance",
+                "financial_addresses.aba",
+                "inbound_transfers.ach",
+                "intra_stripe_flows",
+                "outbound_payments.ach",
+                "outbound_payments.us_domestic_wire",
+                "outbound_transfers.ach",
+                "outbound_transfers.us_domestic_wire",
+                "remote_deposit_capture",
+            ]
         ]
     ]
     status: Literal["closed", "open"]
@@ -92,11 +98,11 @@ class FinancialAccount(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "FinancialAccount":
         return cast(
             "FinancialAccount",
@@ -113,7 +119,11 @@ class FinancialAccount(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["FinancialAccount"]:
         result = cls._static_request(
             "get",
@@ -133,7 +143,7 @@ class FinancialAccount(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "FinancialAccount":
+    def modify(cls, id, **params: Any) -> "FinancialAccount":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "FinancialAccount",
@@ -141,7 +151,9 @@ class FinancialAccount(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "FinancialAccount":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "FinancialAccount":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -149,11 +161,11 @@ class FinancialAccount(
     @classmethod
     def _cls_retrieve_features(
         cls,
-        financial_account,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        financial_account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -167,7 +179,9 @@ class FinancialAccount(
         )
 
     @util.class_method_variant("_cls_retrieve_features")
-    def retrieve_features(self, idempotency_key=None, **params):
+    def retrieve_features(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "get",
             "/v1/treasury/financial_accounts/{financial_account}/features".format(
@@ -180,11 +194,11 @@ class FinancialAccount(
     @classmethod
     def _cls_update_features(
         cls,
-        financial_account,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        financial_account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -198,7 +212,9 @@ class FinancialAccount(
         )
 
     @util.class_method_variant("_cls_update_features")
-    def update_features(self, idempotency_key=None, **params):
+    def update_features(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/treasury/financial_accounts/{financial_account}/features".format(

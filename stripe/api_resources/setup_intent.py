@@ -57,7 +57,7 @@ class SetupIntent(
 
     OBJECT_NAME = "setup_intent"
     application: Optional[ExpandableField["Application"]]
-    attach_to_self: bool
+    attach_to_self: Optional[bool]
     automatic_payment_methods: Optional[StripeObject]
     cancellation_reason: Optional[
         Literal["abandoned", "duplicate", "requested_by_customer"]
@@ -94,11 +94,11 @@ class SetupIntent(
     @classmethod
     def _cls_cancel(
         cls,
-        intent,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -112,7 +112,7 @@ class SetupIntent(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key=None, **params):
+    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/setup_intents/{intent}/cancel".format(
@@ -125,11 +125,11 @@ class SetupIntent(
     @classmethod
     def _cls_confirm(
         cls,
-        intent,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -143,7 +143,7 @@ class SetupIntent(
         )
 
     @util.class_method_variant("_cls_confirm")
-    def confirm(self, idempotency_key=None, **params):
+    def confirm(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/setup_intents/{intent}/confirm".format(
@@ -156,11 +156,11 @@ class SetupIntent(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "SetupIntent":
         return cast(
             "SetupIntent",
@@ -177,7 +177,11 @@ class SetupIntent(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["SetupIntent"]:
         result = cls._static_request(
             "get",
@@ -197,7 +201,7 @@ class SetupIntent(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "SetupIntent":
+    def modify(cls, id, **params: Any) -> "SetupIntent":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "SetupIntent",
@@ -205,7 +209,9 @@ class SetupIntent(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "SetupIntent":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "SetupIntent":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -213,11 +219,11 @@ class SetupIntent(
     @classmethod
     def _cls_verify_microdeposits(
         cls,
-        intent,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -231,7 +237,9 @@ class SetupIntent(
         )
 
     @util.class_method_variant("_cls_verify_microdeposits")
-    def verify_microdeposits(self, idempotency_key=None, **params):
+    def verify_microdeposits(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/setup_intents/{intent}/verify_microdeposits".format(

@@ -12,3 +12,4 @@ class Application(StripeObject):
     id: str
     name: Optional[str]
     object: Literal["application"]
+    deleted: Optional[Literal[True]]

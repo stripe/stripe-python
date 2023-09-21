@@ -52,20 +52,21 @@ class Plan(
     nickname: Optional[str]
     object: Literal["plan"]
     product: Optional[ExpandableField[Any]]
-    tiers: List[StripeObject]
+    tiers: Optional[List[StripeObject]]
     tiers_mode: Optional[Literal["graduated", "volume"]]
     transform_usage: Optional[StripeObject]
     trial_period_days: Optional[int]
     usage_type: Literal["licensed", "metered"]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Plan":
         return cast(
             "Plan",
@@ -81,7 +82,7 @@ class Plan(
         )
 
     @classmethod
-    def _cls_delete(cls, sid, **params) -> "Plan":
+    def _cls_delete(cls, sid: str, **params: Any) -> "Plan":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Plan",
@@ -89,7 +90,7 @@ class Plan(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> "Plan":
+    def delete(self, **params: Any) -> "Plan":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -98,7 +99,11 @@ class Plan(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Plan"]:
         result = cls._static_request(
             "get",
@@ -118,7 +123,7 @@ class Plan(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Plan":
+    def modify(cls, id, **params: Any) -> "Plan":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Plan",
@@ -126,7 +131,9 @@ class Plan(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Plan":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Plan":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

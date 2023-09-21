@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import Any, List, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -26,7 +26,7 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
     discount_amount: int
     discount_amounts: List[StripeObject]
     id: str
-    invoice_line_item: str
+    invoice_line_item: Optional[str]
     livemode: bool
     object: Literal["credit_note_line_item"]
     quantity: Optional[int]
@@ -39,7 +39,11 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["CreditNoteLineItem"]:
         result = cls._static_request(
             "get",

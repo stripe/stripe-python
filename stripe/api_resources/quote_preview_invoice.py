@@ -110,6 +110,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     footer: Optional[str]
     from_invoice: Optional[StripeObject]
     id: str
+    issuer: Optional[StripeObject]
     last_finalization_error: Optional[StripeObject]
     latest_revision: Optional[ExpandableField["Invoice"]]
     lines: ListObject["InvoiceLineItem"]
@@ -138,12 +139,12 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     status_transitions: StripeObject
     subscription: Optional[ExpandableField["Subscription"]]
     subscription_details: Optional[StripeObject]
-    subscription_proration_date: int
+    subscription_proration_date: Optional[int]
     subtotal: int
     subtotal_excluding_tax: Optional[int]
     tax: Optional[int]
     test_clock: Optional[ExpandableField["TestClock"]]
-    threshold_reason: StripeObject
+    threshold_reason: Optional[StripeObject]
     total: int
     total_discount_amounts: Optional[List[StripeObject]]
     total_excluding_tax: Optional[int]
@@ -153,7 +154,11 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["QuotePreviewInvoice"]:
         result = cls._static_request(
             "get",

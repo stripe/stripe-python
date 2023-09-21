@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Optional
+from typing import Any, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -23,7 +23,6 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
 
     OBJECT_NAME = "confirmation_token"
     created: int
-    customer: Optional[str]
     expires_at: Optional[int]
     id: str
     livemode: bool
@@ -38,7 +37,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     shipping: Optional[StripeObject]
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "ConfirmationToken":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "ConfirmationToken":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

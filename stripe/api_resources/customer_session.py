@@ -4,7 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
-from typing import cast
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -29,11 +29,11 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "CustomerSession":
         return cast(
             "CustomerSession",

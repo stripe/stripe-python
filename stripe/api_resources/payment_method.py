@@ -11,7 +11,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -35,44 +35,44 @@ class PaymentMethod(
     """
 
     OBJECT_NAME = "payment_method"
-    acss_debit: StripeObject
-    affirm: StripeObject
-    afterpay_clearpay: StripeObject
-    alipay: StripeObject
-    au_becs_debit: StripeObject
-    bacs_debit: StripeObject
-    bancontact: StripeObject
+    acss_debit: Optional[StripeObject]
+    affirm: Optional[StripeObject]
+    afterpay_clearpay: Optional[StripeObject]
+    alipay: Optional[StripeObject]
+    au_becs_debit: Optional[StripeObject]
+    bacs_debit: Optional[StripeObject]
+    bancontact: Optional[StripeObject]
     billing_details: StripeObject
-    blik: StripeObject
-    boleto: StripeObject
-    card: StripeObject
-    card_present: StripeObject
-    cashapp: StripeObject
+    blik: Optional[StripeObject]
+    boleto: Optional[StripeObject]
+    card: Optional[StripeObject]
+    card_present: Optional[StripeObject]
+    cashapp: Optional[StripeObject]
     created: int
     customer: Optional[ExpandableField["Customer"]]
-    customer_balance: StripeObject
-    eps: StripeObject
-    fpx: StripeObject
-    giropay: StripeObject
-    grabpay: StripeObject
+    customer_balance: Optional[StripeObject]
+    eps: Optional[StripeObject]
+    fpx: Optional[StripeObject]
+    giropay: Optional[StripeObject]
+    grabpay: Optional[StripeObject]
     id: str
-    ideal: StripeObject
-    interac_present: StripeObject
-    klarna: StripeObject
-    konbini: StripeObject
-    link: StripeObject
+    ideal: Optional[StripeObject]
+    interac_present: Optional[StripeObject]
+    klarna: Optional[StripeObject]
+    konbini: Optional[StripeObject]
+    link: Optional[StripeObject]
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["payment_method"]
-    oxxo: StripeObject
-    p24: StripeObject
-    paynow: StripeObject
-    paypal: StripeObject
-    pix: StripeObject
-    promptpay: StripeObject
-    radar_options: StripeObject
-    sepa_debit: StripeObject
-    sofort: StripeObject
+    oxxo: Optional[StripeObject]
+    p24: Optional[StripeObject]
+    paynow: Optional[StripeObject]
+    paypal: Optional[StripeObject]
+    pix: Optional[StripeObject]
+    promptpay: Optional[StripeObject]
+    radar_options: Optional[StripeObject]
+    sepa_debit: Optional[StripeObject]
+    sofort: Optional[StripeObject]
     type: Literal[
         "acss_debit",
         "affirm",
@@ -108,18 +108,18 @@ class PaymentMethod(
         "wechat_pay",
         "zip",
     ]
-    us_bank_account: StripeObject
-    wechat_pay: StripeObject
-    zip: StripeObject
+    us_bank_account: Optional[StripeObject]
+    wechat_pay: Optional[StripeObject]
+    zip: Optional[StripeObject]
 
     @classmethod
     def _cls_attach(
         cls,
-        payment_method,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        payment_method: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -133,7 +133,7 @@ class PaymentMethod(
         )
 
     @util.class_method_variant("_cls_attach")
-    def attach(self, idempotency_key=None, **params):
+    def attach(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/payment_methods/{payment_method}/attach".format(
@@ -146,11 +146,11 @@ class PaymentMethod(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "PaymentMethod":
         return cast(
             "PaymentMethod",
@@ -168,11 +168,11 @@ class PaymentMethod(
     @classmethod
     def _cls_detach(
         cls,
-        payment_method,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        payment_method: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -186,7 +186,7 @@ class PaymentMethod(
         )
 
     @util.class_method_variant("_cls_detach")
-    def detach(self, idempotency_key=None, **params):
+    def detach(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/payment_methods/{payment_method}/detach".format(
@@ -198,7 +198,11 @@ class PaymentMethod(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["PaymentMethod"]:
         result = cls._static_request(
             "get",
@@ -218,7 +222,7 @@ class PaymentMethod(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "PaymentMethod":
+    def modify(cls, id, **params: Any) -> "PaymentMethod":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PaymentMethod",
@@ -226,7 +230,9 @@ class PaymentMethod(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "PaymentMethod":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "PaymentMethod":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

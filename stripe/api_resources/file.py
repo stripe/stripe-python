@@ -6,7 +6,7 @@ import stripe
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
-from typing import Optional
+from typing import Any, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -17,10 +17,10 @@ if TYPE_CHECKING:
 
 class File(ListableAPIResource["File"]):
     """
-    This is an object representing a file hosted on Stripe's servers. The
-    file may have been uploaded by yourself using the [create file](https://stripe.com/docs/api#create_file)
-    request (for example, when uploading dispute evidence) or it may have
-    been created by Stripe (for example, the results of a [Sigma scheduled
+    This object represents files hosted on Stripe's servers. You can upload
+    files with the [create file](https://stripe.com/docs/api#create_file) request
+    (for example, when uploading dispute evidence). Stripe also
+    creates files independetly (for example, the results of a [Sigma scheduled
     query](https://stripe.com/docs/api#scheduled_queries)).
 
     Related guide: [File upload guide](https://stripe.com/docs/file-upload)
@@ -57,7 +57,11 @@ class File(ListableAPIResource["File"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["File"]:
         result = cls._static_request(
             "get",
@@ -77,7 +81,9 @@ class File(ListableAPIResource["File"]):
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "File":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "File":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

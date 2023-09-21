@@ -20,7 +20,9 @@ class QuotePreviewSchedule(ListableAPIResource["QuotePreviewSchedule"]):
     OBJECT_NAME = "quote_preview_schedule"
     application: Optional[ExpandableField[Any]]
     applies_to: StripeObject
-    billing_behavior: Literal["prorate_on_next_phase", "prorate_up_front"]
+    billing_behavior: Optional[
+        Literal["prorate_on_next_phase", "prorate_up_front"]
+    ]
     canceled_at: Optional[int]
     completed_at: Optional[int]
     created: int
@@ -44,7 +46,11 @@ class QuotePreviewSchedule(ListableAPIResource["QuotePreviewSchedule"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["QuotePreviewSchedule"]:
         result = cls._static_request(
             "get",

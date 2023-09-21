@@ -5,6 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from typing import Any, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -30,11 +31,15 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
     id: str
     livemode: bool
     object: Literal["radar.early_fraud_warning"]
-    payment_intent: ExpandableField["PaymentIntent"]
+    payment_intent: Optional[ExpandableField["PaymentIntent"]]
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["EarlyFraudWarning"]:
         result = cls._static_request(
             "get",
@@ -54,7 +59,9 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "EarlyFraudWarning":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "EarlyFraudWarning":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

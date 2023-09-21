@@ -36,7 +36,7 @@ class Price(
     billing_scheme: Literal["per_unit", "tiered"]
     created: int
     currency: str
-    currency_options: Dict[str, StripeObject]
+    currency_options: Optional[Dict[str, StripeObject]]
     custom_unit_amount: Optional[StripeObject]
     id: str
     livemode: bool
@@ -48,21 +48,22 @@ class Price(
     product: ExpandableField[Any]
     recurring: Optional[StripeObject]
     tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified"]]
-    tiers: List[StripeObject]
+    tiers: Optional[List[StripeObject]]
     tiers_mode: Optional[Literal["graduated", "volume"]]
     transform_quantity: Optional[StripeObject]
     type: Literal["one_time", "recurring"]
     unit_amount: Optional[int]
     unit_amount_decimal: Optional[float]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Price":
         return cast(
             "Price",
@@ -79,7 +80,11 @@ class Price(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Price"]:
         result = cls._static_request(
             "get",
@@ -99,7 +104,7 @@ class Price(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Price":
+    def modify(cls, id, **params: Any) -> "Price":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Price",
@@ -107,7 +112,9 @@ class Price(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Price":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Price":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

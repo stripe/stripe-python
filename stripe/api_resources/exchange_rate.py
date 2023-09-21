@@ -4,7 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
-from typing import Dict
+from typing import Any, Dict, Optional
 from typing_extensions import Literal
 
 
@@ -30,7 +30,11 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["ExchangeRate"]:
         result = cls._static_request(
             "get",
@@ -50,7 +54,9 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "ExchangeRate":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "ExchangeRate":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

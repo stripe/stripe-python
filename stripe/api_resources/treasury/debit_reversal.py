@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -46,11 +46,11 @@ class DebitReversal(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "DebitReversal":
         return cast(
             "DebitReversal",
@@ -67,7 +67,11 @@ class DebitReversal(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["DebitReversal"]:
         result = cls._static_request(
             "get",
@@ -87,7 +91,9 @@ class DebitReversal(
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "DebitReversal":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "DebitReversal":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

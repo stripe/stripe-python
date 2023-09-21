@@ -35,3 +35,4 @@ class Discount(StripeObject):
     start: int
     subscription: Optional[str]
     subscription_item: Optional[str]
+    deleted: Optional[Literal[True]]

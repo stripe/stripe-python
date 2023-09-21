@@ -8,7 +8,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Optional, cast
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 
 
@@ -27,7 +27,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
 
     OBJECT_NAME = "apps.secret"
     created: int
-    deleted: bool
+    deleted: Optional[bool]
     expires_at: Optional[int]
     id: str
     livemode: bool
@@ -39,11 +39,11 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Secret":
         return cast(
             "Secret",
@@ -60,7 +60,11 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
 
     @classmethod
     def delete_where(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -73,7 +77,11 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
 
     @classmethod
     def find(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -86,7 +94,11 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Secret"]:
         result = cls._static_request(
             "get",

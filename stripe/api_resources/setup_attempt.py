@@ -28,7 +28,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
     OBJECT_NAME = "setup_attempt"
     application: Optional[ExpandableField["Application"]]
-    attach_to_self: bool
+    attach_to_self: Optional[bool]
     created: int
     customer: Optional[ExpandableField[Any]]
     flow_directions: Optional[List[Literal["inbound", "outbound"]]]
@@ -45,7 +45,11 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["SetupAttempt"]:
         result = cls._static_request(
             "get",

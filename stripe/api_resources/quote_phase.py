@@ -7,7 +7,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import Any, List, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -30,13 +30,13 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     collection_method: Optional[
         Literal["charge_automatically", "send_invoice"]
     ]
-    default_tax_rates: List[ExpandableField["TaxRate"]]
+    default_tax_rates: Optional[List[ExpandableField["TaxRate"]]]
     discounts: List[ExpandableField["Discount"]]
     end_date: Optional[int]
     id: str
     invoice_settings: Optional[StripeObject]
     iterations: Optional[int]
-    line_items: ListObject["LineItem"]
+    line_items: Optional[ListObject["LineItem"]]
     object: Literal["quote_phase"]
     proration_behavior: Literal["always_invoice", "create_prorations", "none"]
     total_details: StripeObject
@@ -45,7 +45,11 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["QuotePhase"]:
         result = cls._static_request(
             "get",
@@ -67,11 +71,11 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     @classmethod
     def _cls_list_line_items(
         cls,
-        quote_phase,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        quote_phase: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -85,7 +89,9 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         )
 
     @util.class_method_variant("_cls_list_line_items")
-    def list_line_items(self, idempotency_key=None, **params):
+    def list_line_items(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "get",
             "/v1/quote_phases/{quote_phase}/line_items".format(
@@ -96,7 +102,9 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "QuotePhase":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "QuotePhase":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

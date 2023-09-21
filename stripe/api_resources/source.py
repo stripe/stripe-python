@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -29,42 +29,42 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     """
 
     OBJECT_NAME = "source"
-    ach_credit_transfer: StripeObject
-    ach_debit: StripeObject
-    acss_debit: StripeObject
-    alipay: StripeObject
+    ach_credit_transfer: Optional[StripeObject]
+    ach_debit: Optional[StripeObject]
+    acss_debit: Optional[StripeObject]
+    alipay: Optional[StripeObject]
     amount: Optional[int]
-    au_becs_debit: StripeObject
-    bancontact: StripeObject
-    card: StripeObject
-    card_present: StripeObject
+    au_becs_debit: Optional[StripeObject]
+    bancontact: Optional[StripeObject]
+    card: Optional[StripeObject]
+    card_present: Optional[StripeObject]
     client_secret: str
-    code_verification: StripeObject
+    code_verification: Optional[StripeObject]
     created: int
     currency: Optional[str]
-    customer: str
-    eps: StripeObject
+    customer: Optional[str]
+    eps: Optional[StripeObject]
     flow: str
-    giropay: StripeObject
+    giropay: Optional[StripeObject]
     id: str
-    ideal: StripeObject
-    klarna: StripeObject
+    ideal: Optional[StripeObject]
+    klarna: Optional[StripeObject]
     livemode: bool
     metadata: Optional[Dict[str, str]]
-    multibanco: StripeObject
+    multibanco: Optional[StripeObject]
     object: Literal["source"]
     owner: Optional[StripeObject]
-    p24: StripeObject
-    paypal: StripeObject
-    receiver: StripeObject
-    redirect: StripeObject
-    sepa_credit_transfer: StripeObject
-    sepa_debit: StripeObject
-    sofort: StripeObject
-    source_order: StripeObject
+    p24: Optional[StripeObject]
+    paypal: Optional[StripeObject]
+    receiver: Optional[StripeObject]
+    redirect: Optional[StripeObject]
+    sepa_credit_transfer: Optional[StripeObject]
+    sepa_debit: Optional[StripeObject]
+    sofort: Optional[StripeObject]
+    source_order: Optional[StripeObject]
     statement_descriptor: Optional[str]
     status: str
-    three_d_secure: StripeObject
+    three_d_secure: Optional[StripeObject]
     type: Literal[
         "ach_credit_transfer",
         "ach_debit",
@@ -88,16 +88,16 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         "wechat",
     ]
     usage: Optional[str]
-    wechat: StripeObject
+    wechat: Optional[StripeObject]
 
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Source":
         return cast(
             "Source",
@@ -115,11 +115,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @classmethod
     def _cls_list_source_transactions(
         cls,
-        source,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        source: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -133,7 +133,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     @util.class_method_variant("_cls_list_source_transactions")
-    def list_source_transactions(self, idempotency_key=None, **params):
+    def list_source_transactions(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "get",
             "/v1/sources/{source}/source_transactions".format(
@@ -144,7 +146,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     @classmethod
-    def modify(cls, id, **params) -> "Source":
+    def modify(cls, id, **params: Any) -> "Source":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Source",
@@ -152,7 +154,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Source":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Source":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -160,11 +164,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @classmethod
     def _cls_verify(
         cls,
-        source,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        source: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -178,7 +182,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     @util.class_method_variant("_cls_verify")
-    def verify(self, idempotency_key=None, **params):
+    def verify(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/sources/{source}/verify".format(
