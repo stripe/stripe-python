@@ -6,14 +6,14 @@ from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     DeletableAPIResource,
+    ExpandableField,
     ListableAPIResource,
     UpdateableAPIResource,
     nested_resource_class_methods,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -57,11 +57,11 @@ class SubscriptionItem(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "SubscriptionItem":
         return cast(
             "SubscriptionItem",
@@ -77,7 +77,7 @@ class SubscriptionItem(
         )
 
     @classmethod
-    def _cls_delete(cls, sid, **params) -> "SubscriptionItem":
+    def _cls_delete(cls, sid: str, **params: Any) -> "SubscriptionItem":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "SubscriptionItem",
@@ -85,7 +85,7 @@ class SubscriptionItem(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> "SubscriptionItem":
+    def delete(self, **params: Any) -> "SubscriptionItem":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -94,7 +94,11 @@ class SubscriptionItem(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["SubscriptionItem"]:
         result = cls._static_request(
             "get",
@@ -114,7 +118,7 @@ class SubscriptionItem(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "SubscriptionItem":
+    def modify(cls, id, **params: Any) -> "SubscriptionItem":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "SubscriptionItem",
@@ -122,7 +126,9 @@ class SubscriptionItem(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "SubscriptionItem":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "SubscriptionItem":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -130,11 +136,11 @@ class SubscriptionItem(
     @classmethod
     def create_usage_record(
         cls,
-        subscription_item,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        subscription_item: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -150,11 +156,11 @@ class SubscriptionItem(
     @classmethod
     def list_usage_record_summaries(
         cls,
-        subscription_item,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        subscription_item: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",

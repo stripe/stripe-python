@@ -6,11 +6,11 @@ import stripe
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
+    ExpandableField,
     ListableAPIResource,
     UpdateableAPIResource,
     nested_resource_class_methods,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional, cast
@@ -87,11 +87,11 @@ class Quote(
     @classmethod
     def _cls_accept(
         cls,
-        quote,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -103,7 +103,7 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_accept")
-    def accept(self, idempotency_key=None, **params):
+    def accept(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/quotes/{quote}/accept".format(
@@ -116,11 +116,11 @@ class Quote(
     @classmethod
     def _cls_cancel(
         cls,
-        quote,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -132,7 +132,7 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key=None, **params):
+    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/quotes/{quote}/cancel".format(
@@ -145,11 +145,11 @@ class Quote(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Quote":
         return cast(
             "Quote",
@@ -167,11 +167,11 @@ class Quote(
     @classmethod
     def _cls_draft_quote(
         cls,
-        quote,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -185,7 +185,9 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_draft_quote")
-    def draft_quote(self, idempotency_key=None, **params):
+    def draft_quote(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/quotes/{quote}/mark_draft".format(
@@ -198,11 +200,11 @@ class Quote(
     @classmethod
     def _cls_finalize_quote(
         cls,
-        quote,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -216,7 +218,9 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_finalize_quote")
-    def finalize_quote(self, idempotency_key=None, **params):
+    def finalize_quote(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/quotes/{quote}/finalize".format(
@@ -228,7 +232,11 @@ class Quote(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Quote"]:
         result = cls._static_request(
             "get",
@@ -250,11 +258,11 @@ class Quote(
     @classmethod
     def _cls_list_computed_upfront_line_items(
         cls,
-        quote,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -268,7 +276,9 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_list_computed_upfront_line_items")
-    def list_computed_upfront_line_items(self, idempotency_key=None, **params):
+    def list_computed_upfront_line_items(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "get",
             "/v1/quotes/{quote}/computed_upfront_line_items".format(
@@ -281,11 +291,11 @@ class Quote(
     @classmethod
     def _cls_list_line_items(
         cls,
-        quote,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -299,7 +309,9 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_list_line_items")
-    def list_line_items(self, idempotency_key=None, **params):
+    def list_line_items(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "get",
             "/v1/quotes/{quote}/line_items".format(
@@ -312,11 +324,11 @@ class Quote(
     @classmethod
     def _cls_list_lines(
         cls,
-        quote,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -328,7 +340,7 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_list_lines")
-    def list_lines(self, idempotency_key=None, **params):
+    def list_lines(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "get",
             "/v1/quotes/{quote}/lines".format(
@@ -341,11 +353,11 @@ class Quote(
     @classmethod
     def _cls_mark_stale_quote(
         cls,
-        quote,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -359,7 +371,9 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_mark_stale_quote")
-    def mark_stale_quote(self, idempotency_key=None, **params):
+    def mark_stale_quote(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/quotes/{quote}/mark_stale".format(
@@ -370,7 +384,7 @@ class Quote(
         )
 
     @classmethod
-    def modify(cls, id, **params) -> "Quote":
+    def modify(cls, id, **params: Any) -> "Quote":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Quote",
@@ -380,12 +394,12 @@ class Quote(
     @classmethod
     def _cls_preview_invoice_lines(
         cls,
-        quote,
-        preview_invoice,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        quote: str,
+        preview_invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -401,7 +415,10 @@ class Quote(
 
     @util.class_method_variant("_cls_preview_invoice_lines")
     def preview_invoice_lines(
-        self, preview_invoice, idempotency_key=None, **params
+        self,
+        preview_invoice: str,
+        idempotency_key: Optional[str] = None,
+        **params: Any
     ):
         return self._request(
             "get",
@@ -416,11 +433,11 @@ class Quote(
     @classmethod
     def _cls_reestimate(
         cls,
-        quote,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -434,7 +451,7 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_reestimate")
-    def reestimate(self, idempotency_key=None, **params):
+    def reestimate(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/quotes/{quote}/reestimate".format(
@@ -445,7 +462,9 @@ class Quote(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Quote":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Quote":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -497,11 +516,11 @@ class Quote(
     @classmethod
     def list_preview_invoices(
         cls,
-        quote,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -517,11 +536,11 @@ class Quote(
     @classmethod
     def list_preview_subscription_schedules(
         cls,
-        quote,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",

@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, List
+from typing import Any, Dict, List, Optional
 from typing_extensions import Literal
 
 
@@ -31,7 +31,11 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["CountrySpec"]:
         result = cls._static_request(
             "get",
@@ -51,7 +55,9 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "CountrySpec":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "CountrySpec":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

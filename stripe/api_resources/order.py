@@ -5,10 +5,10 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
+    ExpandableField,
     ListableAPIResource,
     UpdateableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional, cast
@@ -66,11 +66,11 @@ class Order(
     @classmethod
     def _cls_cancel(
         cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -82,7 +82,7 @@ class Order(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key=None, **params):
+    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/orders/{id}/cancel".format(
@@ -95,11 +95,11 @@ class Order(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Order":
         return cast(
             "Order",
@@ -116,7 +116,11 @@ class Order(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Order"]:
         result = cls._static_request(
             "get",
@@ -138,11 +142,11 @@ class Order(
     @classmethod
     def _cls_list_line_items(
         cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -154,7 +158,9 @@ class Order(
         )
 
     @util.class_method_variant("_cls_list_line_items")
-    def list_line_items(self, idempotency_key=None, **params):
+    def list_line_items(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "get",
             "/v1/orders/{id}/line_items".format(
@@ -165,7 +171,7 @@ class Order(
         )
 
     @classmethod
-    def modify(cls, id, **params) -> "Order":
+    def modify(cls, id, **params: Any) -> "Order":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Order",
@@ -175,11 +181,11 @@ class Order(
     @classmethod
     def _cls_reopen(
         cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -191,7 +197,7 @@ class Order(
         )
 
     @util.class_method_variant("_cls_reopen")
-    def reopen(self, idempotency_key=None, **params):
+    def reopen(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/orders/{id}/reopen".format(
@@ -202,7 +208,9 @@ class Order(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Order":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Order":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -210,11 +218,11 @@ class Order(
     @classmethod
     def _cls_submit(
         cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -226,7 +234,7 @@ class Order(
         )
 
     @util.class_method_variant("_cls_submit")
-    def submit(self, idempotency_key=None, **params):
+    def submit(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/orders/{id}/submit".format(

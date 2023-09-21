@@ -10,7 +10,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -46,11 +46,11 @@ class Transaction(
     @classmethod
     def _cls_cancel(
         cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -64,7 +64,7 @@ class Transaction(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key=None, **params):
+    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/gift_cards/transactions/{id}/cancel".format(
@@ -77,11 +77,11 @@ class Transaction(
     @classmethod
     def _cls_confirm(
         cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -95,7 +95,7 @@ class Transaction(
         )
 
     @util.class_method_variant("_cls_confirm")
-    def confirm(self, idempotency_key=None, **params):
+    def confirm(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/gift_cards/transactions/{id}/confirm".format(
@@ -108,11 +108,11 @@ class Transaction(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Transaction":
         return cast(
             "Transaction",
@@ -129,7 +129,11 @@ class Transaction(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Transaction"]:
         result = cls._static_request(
             "get",
@@ -149,7 +153,7 @@ class Transaction(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Transaction":
+    def modify(cls, id, **params: Any) -> "Transaction":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Transaction",
@@ -157,7 +161,9 @@ class Transaction(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Transaction":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Transaction":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

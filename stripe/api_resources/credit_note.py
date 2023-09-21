@@ -5,11 +5,11 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
+    ExpandableField,
     ListableAPIResource,
     UpdateableAPIResource,
     nested_resource_class_methods,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional, cast
@@ -80,11 +80,11 @@ class CreditNote(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "CreditNote":
         return cast(
             "CreditNote",
@@ -101,7 +101,11 @@ class CreditNote(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["CreditNote"]:
         result = cls._static_request(
             "get",
@@ -121,7 +125,7 @@ class CreditNote(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "CreditNote":
+    def modify(cls, id, **params: Any) -> "CreditNote":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "CreditNote",
@@ -130,7 +134,11 @@ class CreditNote(
 
     @classmethod
     def preview(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -143,7 +151,11 @@ class CreditNote(
 
     @classmethod
     def preview_lines(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -155,7 +167,9 @@ class CreditNote(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "CreditNote":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "CreditNote":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -163,11 +177,11 @@ class CreditNote(
     @classmethod
     def _cls_void_credit_note(
         cls,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -179,7 +193,9 @@ class CreditNote(
         )
 
     @util.class_method_variant("_cls_void_credit_note")
-    def void_credit_note(self, idempotency_key=None, **params):
+    def void_credit_note(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/credit_notes/{id}/void".format(
@@ -192,11 +208,11 @@ class CreditNote(
     @classmethod
     def list_lines(
         cls,
-        credit_note,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        credit_note: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",

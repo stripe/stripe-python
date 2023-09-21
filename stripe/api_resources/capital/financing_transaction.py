@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Optional
+from typing import Any, Optional
 from typing_extensions import Literal
 
 
@@ -28,7 +28,11 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["FinancingTransaction"]:
         result = cls._static_request(
             "get",
@@ -48,7 +52,9 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "FinancingTransaction":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "FinancingTransaction":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

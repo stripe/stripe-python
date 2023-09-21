@@ -4,10 +4,10 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
+    ExpandableField,
     ListableAPIResource,
     UpdateableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, Optional, cast
@@ -48,11 +48,11 @@ class PromotionCode(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "PromotionCode":
         return cast(
             "PromotionCode",
@@ -69,7 +69,11 @@ class PromotionCode(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["PromotionCode"]:
         result = cls._static_request(
             "get",
@@ -89,7 +93,7 @@ class PromotionCode(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "PromotionCode":
+    def modify(cls, id, **params: Any) -> "PromotionCode":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PromotionCode",
@@ -97,7 +101,9 @@ class PromotionCode(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "PromotionCode":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "PromotionCode":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

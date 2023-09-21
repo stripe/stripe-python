@@ -6,7 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional
+from typing import Any, Dict, Optional
 from typing_extensions import Literal
 
 
@@ -46,7 +46,11 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["FinancingOffer"]:
         result = cls._static_request(
             "get",
@@ -68,11 +72,11 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     @classmethod
     def _cls_mark_delivered(
         cls,
-        financing_offer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        financing_offer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -86,7 +90,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         )
 
     @util.class_method_variant("_cls_mark_delivered")
-    def mark_delivered(self, idempotency_key=None, **params):
+    def mark_delivered(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
@@ -97,7 +103,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "FinancingOffer":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "FinancingOffer":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

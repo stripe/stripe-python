@@ -5,10 +5,10 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
+    ExpandableField,
     ListableAPIResource,
     UpdateableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
@@ -68,11 +68,11 @@ class Payout(
     @classmethod
     def _cls_cancel(
         cls,
-        payout,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        payout: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -86,7 +86,7 @@ class Payout(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key=None, **params):
+    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/payouts/{payout}/cancel".format(
@@ -99,11 +99,11 @@ class Payout(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Payout":
         return cast(
             "Payout",
@@ -120,7 +120,11 @@ class Payout(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Payout"]:
         result = cls._static_request(
             "get",
@@ -140,7 +144,7 @@ class Payout(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Payout":
+    def modify(cls, id, **params: Any) -> "Payout":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Payout",
@@ -148,7 +152,9 @@ class Payout(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Payout":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Payout":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -156,11 +162,11 @@ class Payout(
     @classmethod
     def _cls_reverse(
         cls,
-        payout,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        payout: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -174,7 +180,7 @@ class Payout(
         )
 
     @util.class_method_variant("_cls_reverse")
-    def reverse(self, idempotency_key=None, **params):
+    def reverse(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/payouts/{payout}/reverse".format(

@@ -6,7 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, cast
+from typing import Any, List, Optional, cast
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -43,11 +43,11 @@ class Calculation(CreateableAPIResource["Calculation"]):
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Calculation":
         return cast(
             "Calculation",
@@ -65,11 +65,11 @@ class Calculation(CreateableAPIResource["Calculation"]):
     @classmethod
     def _cls_list_line_items(
         cls,
-        calculation,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        calculation: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -83,7 +83,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
         )
 
     @util.class_method_variant("_cls_list_line_items")
-    def list_line_items(self, idempotency_key=None, **params):
+    def list_line_items(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "get",
             "/v1/tax/calculations/{calculation}/line_items".format(

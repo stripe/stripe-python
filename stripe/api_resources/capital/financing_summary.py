@@ -4,7 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import SingletonAPIResource
 from stripe.stripe_object import StripeObject
-from typing import Optional
+from typing import Any, Optional
 from typing_extensions import Literal
 
 
@@ -21,7 +21,7 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     status: Optional[Literal["accepted", "delivered", "none"]]
 
     @classmethod
-    def retrieve(cls, **params) -> "FinancingSummary":
+    def retrieve(cls, **params: Any) -> "FinancingSummary":
         instance = cls(None, **params)
         instance.refresh()
         return instance

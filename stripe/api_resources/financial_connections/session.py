@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, cast
+from typing import Any, List, Optional, cast
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -46,11 +46,11 @@ class Session(CreateableAPIResource["Session"]):
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Session":
         return cast(
             "Session",
@@ -66,7 +66,9 @@ class Session(CreateableAPIResource["Session"]):
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Session":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Session":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

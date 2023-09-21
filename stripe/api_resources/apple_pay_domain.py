@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
-from typing import Optional, cast
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -30,11 +30,11 @@ class ApplePayDomain(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "ApplePayDomain":
         return cast(
             "ApplePayDomain",
@@ -50,7 +50,7 @@ class ApplePayDomain(
         )
 
     @classmethod
-    def _cls_delete(cls, sid, **params) -> "ApplePayDomain":
+    def _cls_delete(cls, sid: str, **params: Any) -> "ApplePayDomain":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "ApplePayDomain",
@@ -58,7 +58,7 @@ class ApplePayDomain(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> "ApplePayDomain":
+    def delete(self, **params: Any) -> "ApplePayDomain":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -67,7 +67,11 @@ class ApplePayDomain(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["ApplePayDomain"]:
         result = cls._static_request(
             "get",
@@ -87,7 +91,9 @@ class ApplePayDomain(
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "ApplePayDomain":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "ApplePayDomain":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

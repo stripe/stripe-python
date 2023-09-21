@@ -4,7 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.abstract import SingletonAPIResource
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import Any, List, Optional
 from typing_extensions import Literal
 
 
@@ -33,7 +33,7 @@ class Balance(SingletonAPIResource["Balance"]):
     pending: List[StripeObject]
 
     @classmethod
-    def retrieve(cls, **params) -> "Balance":
+    def retrieve(cls, **params: Any) -> "Balance":
         instance = cls(None, **params)
         instance.refresh()
         return instance

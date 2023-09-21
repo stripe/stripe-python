@@ -6,12 +6,12 @@ from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
     CreateableAPIResource,
+    ExpandableField,
     ListableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, Type
 
 from typing_extensions import TYPE_CHECKING
@@ -55,11 +55,11 @@ class OutboundTransfer(
     @classmethod
     def _cls_cancel(
         cls,
-        outbound_transfer,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        outbound_transfer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -73,7 +73,7 @@ class OutboundTransfer(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key=None, **params):
+    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
@@ -86,11 +86,11 @@ class OutboundTransfer(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "OutboundTransfer":
         return cast(
             "OutboundTransfer",
@@ -107,7 +107,11 @@ class OutboundTransfer(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["OutboundTransfer"]:
         result = cls._static_request(
             "get",
@@ -127,7 +131,9 @@ class OutboundTransfer(
         return result
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "OutboundTransfer":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "OutboundTransfer":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -138,11 +144,11 @@ class OutboundTransfer(
         @classmethod
         def _cls_fail(
             cls,
-            outbound_transfer,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            outbound_transfer: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -156,7 +162,7 @@ class OutboundTransfer(
             )
 
         @util.class_method_variant("_cls_fail")
-        def fail(self, idempotency_key=None, **params):
+        def fail(self, idempotency_key: Optional[str] = None, **params: Any):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
@@ -169,11 +175,11 @@ class OutboundTransfer(
         @classmethod
         def _cls_post(
             cls,
-            outbound_transfer,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            outbound_transfer: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -187,7 +193,7 @@ class OutboundTransfer(
             )
 
         @util.class_method_variant("_cls_post")
-        def post(self, idempotency_key=None, **params):
+        def post(self, idempotency_key: Optional[str] = None, **params: Any):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
@@ -200,11 +206,11 @@ class OutboundTransfer(
         @classmethod
         def _cls_return_outbound_transfer(
             cls,
-            outbound_transfer,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            outbound_transfer: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -218,7 +224,9 @@ class OutboundTransfer(
             )
 
         @util.class_method_variant("_cls_return_outbound_transfer")
-        def return_outbound_transfer(self, idempotency_key=None, **params):
+        def return_outbound_transfer(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(

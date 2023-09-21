@@ -6,13 +6,13 @@ from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
     CreateableAPIResource,
+    ExpandableField,
     ListableAPIResource,
     UpdateableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, Type
 from urllib.parse import quote_plus
 
@@ -63,11 +63,11 @@ class Card(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Card":
         return cast(
             "Card",
@@ -84,7 +84,11 @@ class Card(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["Card"]:
         result = cls._static_request(
             "get",
@@ -104,7 +108,7 @@ class Card(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "Card":
+    def modify(cls, id, **params: Any) -> "Card":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Card",
@@ -112,7 +116,9 @@ class Card(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Card":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Card":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -123,11 +129,11 @@ class Card(
         @classmethod
         def _cls_deliver_card(
             cls,
-            card,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            card: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -141,7 +147,9 @@ class Card(
             )
 
         @util.class_method_variant("_cls_deliver_card")
-        def deliver_card(self, idempotency_key=None, **params):
+        def deliver_card(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
@@ -154,11 +162,11 @@ class Card(
         @classmethod
         def _cls_fail_card(
             cls,
-            card,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            card: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -172,7 +180,9 @@ class Card(
             )
 
         @util.class_method_variant("_cls_fail_card")
-        def fail_card(self, idempotency_key=None, **params):
+        def fail_card(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
@@ -185,11 +195,11 @@ class Card(
         @classmethod
         def _cls_return_card(
             cls,
-            card,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            card: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -203,7 +213,9 @@ class Card(
             )
 
         @util.class_method_variant("_cls_return_card")
-        def return_card(self, idempotency_key=None, **params):
+        def return_card(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
@@ -216,11 +228,11 @@ class Card(
         @classmethod
         def _cls_ship_card(
             cls,
-            card,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            card: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -234,7 +246,9 @@ class Card(
             )
 
         @util.class_method_variant("_cls_ship_card")
-        def ship_card(self, idempotency_key=None, **params):
+        def ship_card(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(

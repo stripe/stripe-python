@@ -5,11 +5,11 @@ from __future__ import absolute_import, division, print_function
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
+    ExpandableField,
     ListableAPIResource,
     SearchableAPIResource,
     UpdateableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional, cast
@@ -112,11 +112,11 @@ class PaymentIntent(
     @classmethod
     def _cls_apply_customer_balance(
         cls,
-        intent,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -130,7 +130,9 @@ class PaymentIntent(
         )
 
     @util.class_method_variant("_cls_apply_customer_balance")
-    def apply_customer_balance(self, idempotency_key=None, **params):
+    def apply_customer_balance(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/payment_intents/{intent}/apply_customer_balance".format(
@@ -143,11 +145,11 @@ class PaymentIntent(
     @classmethod
     def _cls_cancel(
         cls,
-        intent,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -161,7 +163,7 @@ class PaymentIntent(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key=None, **params):
+    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/payment_intents/{intent}/cancel".format(
@@ -174,11 +176,11 @@ class PaymentIntent(
     @classmethod
     def _cls_capture(
         cls,
-        intent,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -192,7 +194,7 @@ class PaymentIntent(
         )
 
     @util.class_method_variant("_cls_capture")
-    def capture(self, idempotency_key=None, **params):
+    def capture(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/payment_intents/{intent}/capture".format(
@@ -205,11 +207,11 @@ class PaymentIntent(
     @classmethod
     def _cls_confirm(
         cls,
-        intent,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -223,7 +225,7 @@ class PaymentIntent(
         )
 
     @util.class_method_variant("_cls_confirm")
-    def confirm(self, idempotency_key=None, **params):
+    def confirm(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/payment_intents/{intent}/confirm".format(
@@ -236,11 +238,11 @@ class PaymentIntent(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "PaymentIntent":
         return cast(
             "PaymentIntent",
@@ -258,11 +260,11 @@ class PaymentIntent(
     @classmethod
     def _cls_increment_authorization(
         cls,
-        intent,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -276,7 +278,9 @@ class PaymentIntent(
         )
 
     @util.class_method_variant("_cls_increment_authorization")
-    def increment_authorization(self, idempotency_key=None, **params):
+    def increment_authorization(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/payment_intents/{intent}/increment_authorization".format(
@@ -288,7 +292,11 @@ class PaymentIntent(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["PaymentIntent"]:
         result = cls._static_request(
             "get",
@@ -308,7 +316,7 @@ class PaymentIntent(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "PaymentIntent":
+    def modify(cls, id, **params: Any) -> "PaymentIntent":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PaymentIntent",
@@ -316,7 +324,9 @@ class PaymentIntent(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "PaymentIntent":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "PaymentIntent":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -324,11 +334,11 @@ class PaymentIntent(
     @classmethod
     def _cls_verify_microdeposits(
         cls,
-        intent,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -342,7 +352,9 @@ class PaymentIntent(
         )
 
     @util.class_method_variant("_cls_verify_microdeposits")
-    def verify_microdeposits(self, idempotency_key=None, **params):
+    def verify_microdeposits(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "post",
             "/v1/payment_intents/{intent}/verify_microdeposits".format(

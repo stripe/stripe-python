@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -93,11 +93,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "Source":
         return cast(
             "Source",
@@ -115,11 +115,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @classmethod
     def _cls_list_source_transactions(
         cls,
-        source,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        source: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "get",
@@ -133,7 +133,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     @util.class_method_variant("_cls_list_source_transactions")
-    def list_source_transactions(self, idempotency_key=None, **params):
+    def list_source_transactions(
+        self, idempotency_key: Optional[str] = None, **params: Any
+    ):
         return self._request(
             "get",
             "/v1/sources/{source}/source_transactions".format(
@@ -144,7 +146,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     @classmethod
-    def modify(cls, id, **params) -> "Source":
+    def modify(cls, id, **params: Any) -> "Source":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Source",
@@ -152,7 +154,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "Source":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "Source":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -160,11 +164,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @classmethod
     def _cls_verify(
         cls,
-        source,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        source: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ):
         return cls._static_request(
             "post",
@@ -178,7 +182,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     @util.class_method_variant("_cls_verify")
-    def verify(self, idempotency_key=None, **params):
+    def verify(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/sources/{source}/verify".format(

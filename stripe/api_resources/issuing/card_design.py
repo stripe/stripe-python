@@ -6,13 +6,13 @@ from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
     CreateableAPIResource,
+    ExpandableField,
     ListableAPIResource,
     UpdateableAPIResource,
 )
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal, Type
 from urllib.parse import quote_plus
 
@@ -48,11 +48,11 @@ class CardDesign(
     @classmethod
     def create(
         cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> "CardDesign":
         return cast(
             "CardDesign",
@@ -69,7 +69,11 @@ class CardDesign(
 
     @classmethod
     def list(
-        cls, api_key=None, stripe_version=None, stripe_account=None, **params
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
     ) -> ListObject["CardDesign"]:
         result = cls._static_request(
             "get",
@@ -89,7 +93,7 @@ class CardDesign(
         return result
 
     @classmethod
-    def modify(cls, id, **params) -> "CardDesign":
+    def modify(cls, id, **params: Any) -> "CardDesign":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "CardDesign",
@@ -97,7 +101,9 @@ class CardDesign(
         )
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> "CardDesign":
+    def retrieve(
+        cls, id: str, api_key: Optional[str] = None, **params: Any
+    ) -> "CardDesign":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
@@ -108,11 +114,11 @@ class CardDesign(
         @classmethod
         def _cls_activate_testmode(
             cls,
-            card_design,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            card_design: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -126,7 +132,9 @@ class CardDesign(
             )
 
         @util.class_method_variant("_cls_activate_testmode")
-        def activate_testmode(self, idempotency_key=None, **params):
+        def activate_testmode(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/card_designs/{card_design}/status/activate".format(
@@ -139,11 +147,11 @@ class CardDesign(
         @classmethod
         def _cls_deactivate_testmode(
             cls,
-            card_design,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            card_design: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -157,7 +165,9 @@ class CardDesign(
             )
 
         @util.class_method_variant("_cls_deactivate_testmode")
-        def deactivate_testmode(self, idempotency_key=None, **params):
+        def deactivate_testmode(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/card_designs/{card_design}/status/deactivate".format(
@@ -170,11 +180,11 @@ class CardDesign(
         @classmethod
         def _cls_reject_testmode(
             cls,
-            card_design,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
+            card_design: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Any
         ):
             return cls._static_request(
                 "post",
@@ -188,7 +198,9 @@ class CardDesign(
             )
 
         @util.class_method_variant("_cls_reject_testmode")
-        def reject_testmode(self, idempotency_key=None, **params):
+        def reject_testmode(
+            self, idempotency_key: Optional[str] = None, **params: Any
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/card_designs/{card_design}/status/reject".format(
