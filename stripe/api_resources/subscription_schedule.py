@@ -35,7 +35,9 @@ class SubscriptionSchedule(
 
     OBJECT_NAME = "subscription_schedule"
     application: Optional[ExpandableField[Any]]
-    billing_behavior: Literal["prorate_on_next_phase", "prorate_up_front"]
+    billing_behavior: Optional[
+        Literal["prorate_on_next_phase", "prorate_up_front"]
+    ]
     canceled_at: Optional[int]
     completed_at: Optional[int]
     created: int

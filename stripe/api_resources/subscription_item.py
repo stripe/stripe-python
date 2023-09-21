@@ -48,10 +48,11 @@ class SubscriptionItem(
     object: Literal["subscription_item"]
     plan: "Plan"
     price: "Price"
-    quantity: int
+    quantity: Optional[int]
     subscription: str
     tax_rates: Optional[List["TaxRate"]]
     trial: Optional[StripeObject]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

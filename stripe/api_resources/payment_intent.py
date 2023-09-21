@@ -50,7 +50,7 @@ class PaymentIntent(
     OBJECT_NAME = "payment_intent"
     amount: int
     amount_capturable: int
-    amount_details: StripeObject
+    amount_details: Optional[StripeObject]
     amount_received: int
     application: Optional[ExpandableField["Application"]]
     application_fee_amount: Optional[int]
@@ -83,7 +83,7 @@ class PaymentIntent(
     next_action: Optional[StripeObject]
     object: Literal["payment_intent"]
     on_behalf_of: Optional[ExpandableField["Account"]]
-    payment_details: StripeObject
+    payment_details: Optional[StripeObject]
     payment_method: Optional[ExpandableField["PaymentMethod"]]
     payment_method_configuration_details: Optional[StripeObject]
     payment_method_options: Optional[StripeObject]
@@ -91,7 +91,7 @@ class PaymentIntent(
     processing: Optional[StripeObject]
     receipt_email: Optional[str]
     review: Optional[ExpandableField["Review"]]
-    secret_key_confirmation: Literal["optional", "required"]
+    secret_key_confirmation: Optional[Literal["optional", "required"]]
     setup_future_usage: Optional[Literal["off_session", "on_session"]]
     shipping: Optional[StripeObject]
     source: Optional[ExpandableField[Any]]

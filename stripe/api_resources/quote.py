@@ -53,7 +53,7 @@ class Quote(
     created: int
     currency: Optional[str]
     customer: Optional[ExpandableField[Any]]
-    default_tax_rates: List[ExpandableField["TaxRate"]]
+    default_tax_rates: Optional[List[ExpandableField["TaxRate"]]]
     description: Optional[str]
     discounts: List[ExpandableField["Discount"]]
     expires_at: int
@@ -63,7 +63,7 @@ class Quote(
     id: str
     invoice: Optional[ExpandableField[Any]]
     invoice_settings: Optional[StripeObject]
-    line_items: ListObject["LineItem"]
+    line_items: Optional[ListObject["LineItem"]]
     lines: Optional[List[str]]
     livemode: bool
     metadata: Dict[str, str]

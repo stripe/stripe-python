@@ -51,7 +51,7 @@ class Transfer(
     currency: str
     description: Optional[str]
     destination: Optional[ExpandableField["Account"]]
-    destination_payment: ExpandableField["Charge"]
+    destination_payment: Optional[ExpandableField["Charge"]]
     id: str
     livemode: bool
     metadata: Dict[str, str]
@@ -59,7 +59,7 @@ class Transfer(
     reversals: ListObject["Reversal"]
     reversed: bool
     source_transaction: Optional[ExpandableField["Charge"]]
-    source_type: str
+    source_type: Optional[str]
     transfer_group: Optional[str]
 
     @classmethod

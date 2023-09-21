@@ -26,7 +26,7 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
     discount_amount: int
     discount_amounts: List[StripeObject]
     id: str
-    invoice_line_item: str
+    invoice_line_item: Optional[str]
     livemode: bool
     object: Literal["credit_note_line_item"]
     quantity: Optional[int]

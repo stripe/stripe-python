@@ -6,7 +6,7 @@ from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Dict
+from typing import Dict, Optional
 from typing_extensions import Literal
 
 
@@ -17,19 +17,19 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     """
 
     OBJECT_NAME = "capital.financing_offer"
-    accepted_terms: StripeObject
+    accepted_terms: Optional[StripeObject]
     account: str
     created: int
     expires_after: float
-    financing_type: Literal["cash_advance", "flex_loan"]
+    financing_type: Optional[Literal["cash_advance", "flex_loan"]]
     id: str
     livemode: bool
-    metadata: Dict[str, str]
+    metadata: Optional[Dict[str, str]]
     object: Literal["capital.financing_offer"]
-    offered_terms: StripeObject
-    product_type: Literal["refill", "standard"]
-    replacement: str
-    replacement_for: str
+    offered_terms: Optional[StripeObject]
+    product_type: Optional[Literal["refill", "standard"]]
+    replacement: Optional[str]
+    replacement_for: Optional[str]
     status: Literal[
         "accepted",
         "canceled",
@@ -42,7 +42,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         "replaced",
         "undelivered",
     ]
-    type: Literal["cash_advance", "flex_loan"]
+    type: Optional[Literal["cash_advance", "flex_loan"]]
 
     @classmethod
     def list(

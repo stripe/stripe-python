@@ -29,9 +29,9 @@ class Form(ListableAPIResource["Form"]):
     object: Literal["tax.form"]
     payee: StripeObject
     type: Literal["us_1099_k", "us_1099_misc", "us_1099_nec"]
-    us_1099_k: StripeObject
-    us_1099_misc: StripeObject
-    us_1099_nec: StripeObject
+    us_1099_k: Optional[StripeObject]
+    us_1099_misc: Optional[StripeObject]
+    us_1099_nec: Optional[StripeObject]
 
     @classmethod
     def list(

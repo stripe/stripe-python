@@ -23,11 +23,11 @@ class Session(CreateableAPIResource["Session"]):
     account_holder: Optional[StripeObject]
     accounts: ListObject["Account"]
     client_secret: str
-    filters: StripeObject
+    filters: Optional[StripeObject]
     id: str
-    limits: StripeObject
+    limits: Optional[StripeObject]
     livemode: bool
-    manual_entry: StripeObject
+    manual_entry: Optional[StripeObject]
     object: Literal["financial_connections.session"]
     permissions: List[
         Literal["balances", "ownership", "payment_method", "transactions"]
@@ -39,9 +39,9 @@ class Session(CreateableAPIResource["Session"]):
             ]
         ]
     ]
-    return_url: str
-    status: Literal["cancelled", "failed", "pending", "succeeded"]
-    status_details: StripeObject
+    return_url: Optional[str]
+    status: Optional[Literal["cancelled", "failed", "pending", "succeeded"]]
+    status_details: Optional[StripeObject]
 
     @classmethod
     def create(

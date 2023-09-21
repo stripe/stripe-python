@@ -36,7 +36,7 @@ class Price(
     billing_scheme: Literal["per_unit", "tiered"]
     created: int
     currency: str
-    currency_options: Dict[str, StripeObject]
+    currency_options: Optional[Dict[str, StripeObject]]
     custom_unit_amount: Optional[StripeObject]
     id: str
     livemode: bool
@@ -48,12 +48,13 @@ class Price(
     product: ExpandableField[Any]
     recurring: Optional[StripeObject]
     tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified"]]
-    tiers: List[StripeObject]
+    tiers: Optional[List[StripeObject]]
     tiers_mode: Optional[Literal["graduated", "volume"]]
     transform_quantity: Optional[StripeObject]
     type: Literal["one_time", "recurring"]
     unit_amount: Optional[int]
     unit_amount_decimal: Optional[float]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

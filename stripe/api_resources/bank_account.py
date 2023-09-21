@@ -52,6 +52,7 @@ class BankAccount(
     requirements: Optional[StripeObject]
     routing_number: Optional[str]
     status: str
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def _cls_delete(cls, sid, **params) -> Any:

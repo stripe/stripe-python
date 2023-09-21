@@ -27,13 +27,14 @@ class Configuration(
     """
 
     OBJECT_NAME = "terminal.configuration"
-    bbpos_wisepos_e: StripeObject
+    bbpos_wisepos_e: Optional[StripeObject]
     id: str
     is_account_default: Optional[bool]
     livemode: bool
     object: Literal["terminal.configuration"]
-    tipping: StripeObject
-    verifone_p400: StripeObject
+    tipping: Optional[StripeObject]
+    verifone_p400: Optional[StripeObject]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

@@ -34,6 +34,7 @@ class TestClock(
     name: Optional[str]
     object: Literal["test_helpers.test_clock"]
     status: Literal["advancing", "internal_failure", "ready"]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def _cls_advance(

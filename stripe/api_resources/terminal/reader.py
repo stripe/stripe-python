@@ -55,6 +55,7 @@ class Reader(
     object: Literal["terminal.reader"]
     serial_number: str
     status: Optional[str]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def _cls_cancel_action(

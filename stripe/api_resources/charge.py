@@ -50,7 +50,7 @@ class Charge(
     application: Optional[ExpandableField["Application"]]
     application_fee: Optional[ExpandableField["ApplicationFee"]]
     application_fee_amount: Optional[int]
-    authorization_code: str
+    authorization_code: Optional[str]
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     billing_details: StripeObject
     calculated_statement_descriptor: Optional[str]
@@ -68,7 +68,7 @@ class Charge(
     fraud_details: Optional[StripeObject]
     id: str
     invoice: Optional[ExpandableField["Invoice"]]
-    level3: StripeObject
+    level3: Optional[StripeObject]
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["charge"]
@@ -78,7 +78,7 @@ class Charge(
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     payment_method: Optional[str]
     payment_method_details: Optional[StripeObject]
-    radar_options: StripeObject
+    radar_options: Optional[StripeObject]
     receipt_email: Optional[str]
     receipt_number: Optional[str]
     receipt_url: Optional[str]
@@ -91,7 +91,7 @@ class Charge(
     statement_descriptor: Optional[str]
     statement_descriptor_suffix: Optional[str]
     status: Literal["failed", "pending", "succeeded"]
-    transfer: ExpandableField["Transfer"]
+    transfer: Optional[ExpandableField["Transfer"]]
     transfer_data: Optional[StripeObject]
     transfer_group: Optional[str]
 

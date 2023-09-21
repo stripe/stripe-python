@@ -36,7 +36,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     financial_account: Optional[str]
     hosted_regulatory_receipt_url: Optional[str]
     id: str
-    initiating_payment_method_details: StripeObject
+    initiating_payment_method_details: Optional[StripeObject]
     linked_flows: StripeObject
     livemode: bool
     network: Literal["ach", "card", "stripe"]

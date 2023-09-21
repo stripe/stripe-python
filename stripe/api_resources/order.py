@@ -37,22 +37,22 @@ class Order(
     """
 
     OBJECT_NAME = "order"
-    amount_remaining: int
+    amount_remaining: Optional[int]
     amount_subtotal: int
     amount_total: int
     application: Optional[ExpandableField["Application"]]
-    automatic_tax: StripeObject
+    automatic_tax: Optional[StripeObject]
     billing_details: Optional[StripeObject]
     client_secret: Optional[str]
     created: int
-    credits: List[StripeObject]
+    credits: Optional[List[StripeObject]]
     currency: str
     customer: Optional[ExpandableField[Any]]
     description: Optional[str]
     discounts: Optional[List[ExpandableField["Discount"]]]
     id: str
     ip_address: Optional[str]
-    line_items: ListObject["LineItem"]
+    line_items: Optional[ListObject["LineItem"]]
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["order"]
@@ -60,7 +60,7 @@ class Order(
     shipping_cost: Optional[StripeObject]
     shipping_details: Optional[StripeObject]
     status: Literal["canceled", "complete", "open", "processing", "submitted"]
-    tax_details: StripeObject
+    tax_details: Optional[StripeObject]
     total_details: StripeObject
 
     @classmethod

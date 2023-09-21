@@ -20,7 +20,7 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
     details: StripeObject
     financing_offer: Optional[str]
     id: str
-    legacy_balance_transaction_source: str
+    legacy_balance_transaction_source: Optional[str]
     livemode: bool
     object: Literal["capital.financing_transaction"]
     type: Literal["payment", "payout", "reversal"]

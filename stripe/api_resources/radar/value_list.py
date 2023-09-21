@@ -10,7 +10,7 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
-from typing import Dict, cast
+from typing import Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -54,6 +54,7 @@ class ValueList(
     metadata: Dict[str, str]
     name: str
     object: Literal["radar.value_list"]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

@@ -20,7 +20,9 @@ class QuotePreviewSchedule(ListableAPIResource["QuotePreviewSchedule"]):
     OBJECT_NAME = "quote_preview_schedule"
     application: Optional[ExpandableField[Any]]
     applies_to: StripeObject
-    billing_behavior: Literal["prorate_on_next_phase", "prorate_up_front"]
+    billing_behavior: Optional[
+        Literal["prorate_on_next_phase", "prorate_up_front"]
+    ]
     canceled_at: Optional[int]
     completed_at: Optional[int]
     created: int

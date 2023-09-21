@@ -41,9 +41,10 @@ class WebhookEndpoint(
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["webhook_endpoint"]
-    secret: str
+    secret: Optional[str]
     status: str
     url: str
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

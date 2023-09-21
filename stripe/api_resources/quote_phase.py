@@ -30,13 +30,13 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     collection_method: Optional[
         Literal["charge_automatically", "send_invoice"]
     ]
-    default_tax_rates: List[ExpandableField["TaxRate"]]
+    default_tax_rates: Optional[List[ExpandableField["TaxRate"]]]
     discounts: List[ExpandableField["Discount"]]
     end_date: Optional[int]
     id: str
     invoice_settings: Optional[StripeObject]
     iterations: Optional[int]
-    line_items: ListObject["LineItem"]
+    line_items: Optional[ListObject["LineItem"]]
     object: Literal["quote_phase"]
     proration_behavior: Literal["always_invoice", "create_prorations", "none"]
     total_details: StripeObject

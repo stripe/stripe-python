@@ -6,6 +6,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
+from typing import Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -25,18 +26,18 @@ class CustomerCashBalanceTransaction(
     """
 
     OBJECT_NAME = "customer_cash_balance_transaction"
-    adjusted_for_overdraft: StripeObject
-    applied_to_payment: StripeObject
+    adjusted_for_overdraft: Optional[StripeObject]
+    applied_to_payment: Optional[StripeObject]
     created: int
     currency: str
     customer: ExpandableField["Customer"]
     ending_balance: int
-    funded: StripeObject
+    funded: Optional[StripeObject]
     id: str
     livemode: bool
     net_amount: int
     object: Literal["customer_cash_balance_transaction"]
-    refunded_from_payment: StripeObject
+    refunded_from_payment: Optional[StripeObject]
     type: Literal[
         "adjusted_for_overdraft",
         "applied_to_payment",
@@ -47,7 +48,7 @@ class CustomerCashBalanceTransaction(
         "return_initiated",
         "unapplied_from_payment",
     ]
-    unapplied_from_payment: StripeObject
+    unapplied_from_payment: Optional[StripeObject]
 
     @classmethod
     def list(

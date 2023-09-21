@@ -25,10 +25,10 @@ class LineItem(StripeObject):
     amount_total: int
     currency: str
     description: str
-    discounts: List[StripeObject]
+    discounts: Optional[List[StripeObject]]
     id: str
     object: Literal["item"]
     price: Optional["Price"]
-    product: ExpandableField[Any]
+    product: Optional[ExpandableField[Any]]
     quantity: Optional[int]
-    taxes: List[StripeObject]
+    taxes: Optional[List[StripeObject]]

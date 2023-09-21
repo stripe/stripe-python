@@ -139,12 +139,12 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     status_transitions: StripeObject
     subscription: Optional[ExpandableField["Subscription"]]
     subscription_details: Optional[StripeObject]
-    subscription_proration_date: int
+    subscription_proration_date: Optional[int]
     subtotal: int
     subtotal_excluding_tax: Optional[int]
     tax: Optional[int]
     test_clock: Optional[ExpandableField["TestClock"]]
-    threshold_reason: StripeObject
+    threshold_reason: Optional[StripeObject]
     total: int
     total_discount_amounts: Optional[List[StripeObject]]
     total_excluding_tax: Optional[int]

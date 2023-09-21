@@ -63,6 +63,7 @@ class Product(
     unit_label: Optional[str]
     updated: int
     url: Optional[str]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

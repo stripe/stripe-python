@@ -48,7 +48,7 @@ class Dispute(
     network_reason_code: Optional[str]
     object: Literal["dispute"]
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
-    payment_method_details: StripeObject
+    payment_method_details: Optional[StripeObject]
     reason: str
     status: Literal[
         "lost",

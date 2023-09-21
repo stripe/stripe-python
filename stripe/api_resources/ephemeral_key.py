@@ -4,7 +4,7 @@ from __future__ import absolute_import, division, print_function
 
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import DeletableAPIResource
-from typing import cast
+from typing import Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -16,7 +16,7 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
     id: str
     livemode: bool
     object: Literal["ephemeral_key"]
-    secret: str
+    secret: Optional[str]
 
     @classmethod
     def _cls_delete(cls, sid, **params) -> "EphemeralKey":

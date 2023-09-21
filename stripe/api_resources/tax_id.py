@@ -97,6 +97,7 @@ class TaxId(APIResource["TaxId"]):
     ]
     value: str
     verification: Optional[StripeObject]
+    deleted: Optional[Literal[True]]
 
     def instance_url(self):
         token = self.id

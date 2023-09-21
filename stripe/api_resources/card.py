@@ -41,21 +41,22 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     customer: Optional[ExpandableField[Any]]
     cvc_check: Optional[str]
     default_for_currency: Optional[bool]
-    description: str
+    description: Optional[str]
     dynamic_last4: Optional[str]
     exp_month: int
     exp_year: int
     fingerprint: Optional[str]
     funding: str
     id: str
-    iin: str
-    issuer: str
+    iin: Optional[str]
+    issuer: Optional[str]
     last4: str
     metadata: Optional[Dict[str, str]]
     name: Optional[str]
     object: Literal["card"]
     status: Optional[str]
     tokenization_method: Optional[str]
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def _cls_delete(cls, sid, **params) -> Any:

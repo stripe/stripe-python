@@ -30,10 +30,10 @@ class Coupon(
 
     OBJECT_NAME = "coupon"
     amount_off: Optional[int]
-    applies_to: StripeObject
+    applies_to: Optional[StripeObject]
     created: int
     currency: Optional[str]
-    currency_options: Dict[str, StripeObject]
+    currency_options: Optional[Dict[str, StripeObject]]
     duration: Literal["forever", "once", "repeating", "variable"]
     duration_in_months: Optional[int]
     id: str
@@ -46,6 +46,7 @@ class Coupon(
     redeem_by: Optional[int]
     times_redeemed: int
     valid: bool
+    deleted: Optional[Literal[True]]
 
     @classmethod
     def create(

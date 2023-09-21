@@ -57,7 +57,7 @@ class SetupIntent(
 
     OBJECT_NAME = "setup_intent"
     application: Optional[ExpandableField["Application"]]
-    attach_to_self: bool
+    attach_to_self: Optional[bool]
     automatic_payment_methods: Optional[StripeObject]
     cancellation_reason: Optional[
         Literal["abandoned", "duplicate", "requested_by_customer"]
