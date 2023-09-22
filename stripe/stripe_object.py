@@ -1,8 +1,8 @@
 import datetime
 import json
 from copy import deepcopy
-from typing_extensions import TYPE_CHECKING, Literal
-from typing import Any, Dict, Optional
+from typing_extensions import TYPE_CHECKING, Literal, Type
+from typing import Any, Dict, Optional, ClassVar
 
 import stripe
 from stripe import api_requestor, util
@@ -223,12 +223,11 @@ class StripeObject(Dict[str, Any]):
         self._transient_values = self._transient_values - set(values)
 
         for k, v in values.items():
-            super(StripeObject, self).__setitem__(
-                k,
-                util.convert_to_stripe_object(
-                    v, api_key, stripe_version, stripe_account
-                ),
+            inner_class = self._get_inner_class_type(k)
+            obj = util.convert_to_stripe_object(
+                v, api_key, stripe_version, stripe_account, None, inner_class
             )
+            super(StripeObject, self).__setitem__(k, obj)
 
         self._previous = values
 
@@ -415,3 +414,8 @@ class StripeObject(Dict[str, Any]):
             super(StripeObject, copied).__setitem__(k, deepcopy(v, memo))
 
         return copied
+
+    _inner_class_types: ClassVar[Dict[str, Type["StripeObject"]]] = {}
+
+    def _get_inner_class_type(self, field_name: str):
+        return self._inner_class_types.get(field_name)

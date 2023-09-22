@@ -9,82 +9,50 @@ import stripe
 
 
 SAMPLE_INVOICE = json.loads(
-    """
-{
-  "amount_due": 1305,
-  "attempt_count": 0,
-  "attempted": true,
-  "charge": "ch_wajkQ5aDTzFs5v",
-  "closed": true,
-  "customer": "cus_osllUe2f1BzrRT",
-  "date": 1338238728,
-  "discount": null,
-  "ending_balance": 0,
-  "id": "in_t9mHb2hpK7mml1",
-  "livemode": false,
-  "next_payment_attempt": null,
+    """{
+  "id": "in_xyz",
   "object": "invoice",
-  "paid": true,
-  "period_end": 1338238728,
-  "period_start": 1338238716,
-  "starting_balance": -8695,
-  "subtotal": 10000,
-  "total": 10000,
+  "automatic_tax": {
+    "enabled": false,
+    "status": null
+  },
+  "created": 1694725031,
   "lines": {
     "object": "list",
     "data": [
       {
-        "id": "il_1LSiex2eZvKYlo2CZ5IspTNx",
+        "id": "sli_xyz",
         "object": "line_item",
-        "amount": 2499,
-        "amount_excluding_tax": 2499,
-        "currency": "usd",
-        "description": "My First Invoice Item (created for API docs)",
-        "discount_amounts": [],
-        "discountable": true,
-        "discounts": [],
-        "invoice_item": "ii_1LSiex2eZvKYlo2C0X4adTLR",
-        "livemode": false,
-        "metadata": {},
         "period": {
-          "end": 1659537295,
-          "start": 1659537295
+          "end": 1697316491,
+          "start": 1694724491
+        },
+        "plan": {
+          "id": "price_xyz",
+          "object": "plan"
         },
         "price": {
-          "id": "price_1LSicu2eZvKYlo2C4WSIaXEp",
+          "id": "price_xyz",
           "object": "price",
-          "active": true,
           "billing_scheme": "per_unit",
-          "created": 1659537168,
-          "currency": "usd",
-          "custom_unit_amount": null,
-          "livemode": false,
-          "lookup_key": null,
-          "metadata": {},
-          "nickname": null,
-          "product": "prod_MB4mvosUV5tObf",
-          "recurring": null,
-          "tax_behavior": "unspecified",
-          "tiers_mode": null,
-          "transform_quantity": null,
-          "type": "one_time",
-          "unit_amount": 2499,
-          "unit_amount_decimal": "2499"
-        },
-        "proration": false,
-        "proration_details": {
-          "credited_items": null
-        },
-        "quantity": 1,
-        "subscription": null,
-        "tax_amounts": [],
-        "tax_rates": [],
-        "type": "invoiceitem",
-        "unit_amount_excluding_tax": "2499"
+          "recurring": {
+            "aggregate_usage": null,
+            "interval": "month",
+            "interval_count": 1,
+            "trial_period_days": null,
+            "usage_type": "licensed"
+          }
+        }
       }
     ],
     "has_more": false,
-    "url": "/v1/invoices/in_t9mHb2hpK7mml1/lines"
+    "total_count": 1,
+    "url": "/v1/invoices/in_1NqMb5IFdHa3DenshEllwgEX/lines"
+  },
+  "livemode": false,
+  "next_payment_attempt": null,
+  "shipping_cost": {
+    "taxes": [{"amount": 10, "rate": {"id": "rate_xyz", "object": "tax_rate", "active": false}}]
   }
 }
 """
@@ -182,29 +150,40 @@ class TestStripeObject(object):
         assert nested.stripe_account == "acct_foo"
 
     def test_refresh_from_nested_object(self):
-        obj = stripe.stripe_object.StripeObject.construct_from(
-            SAMPLE_INVOICE, "key"
-        )
+        obj = stripe.Invoice.construct_from(SAMPLE_INVOICE, "key")
 
         assert len(obj.lines) == 1
+        # Does a list get deserialized to the correct class?
         assert isinstance(obj.lines, stripe.ListObject)
+        # Do items within a list get deserialized to the correct class?
         assert isinstance(obj.lines.data[0], stripe.InvoiceLineItem)
-        assert isinstance(
-            obj.lines.data[0].price, stripe.stripe_object.StripeObject
-        )
+        # Do references to other top-level resources get deserialized to the correct class?
         assert isinstance(obj.lines.data[0].price, stripe.Price)
         assert obj.lines.data[0].price.billing_scheme == "per_unit"
+        # Do inner classes on referenced top-level resources get deserialized to the correct inner class.
+        assert isinstance(
+            obj.lines.data[0].price.recurring, stripe.Price.Recurring
+        )
+        assert isinstance(
+            obj.lines.data[0].price.recurring, stripe.Price.Recurring
+        )
+
+        # Test: do nested objects get deserialized to the correct inner class?
+        assert isinstance(obj.automatic_tax, stripe.Invoice.AutomaticTax)
+        assert isinstance(obj.shipping_cost, stripe.Invoice.ShippingCost)
+        # Test: do nested objects inside lists get deserialized to the correct inner class?
+        assert isinstance(
+            obj.shipping_cost.taxes[0], stripe.Invoice.ShippingCost.Tax
+        )
 
     def test_refresh_from_nested_object_can_be_paged(self):
-        obj = stripe.stripe_object.StripeObject.construct_from(
-            SAMPLE_INVOICE, "key"
-        )
+        obj = stripe.Invoice.construct_from(SAMPLE_INVOICE, "key")
 
         assert len(obj.lines) == 1
         assert isinstance(obj.lines, stripe.ListObject)
         seen = [item["id"] for item in obj.lines.auto_paging_iter()]
 
-        assert seen == ["il_1LSiex2eZvKYlo2CZ5IspTNx"]
+        assert seen == ["sli_xyz"]
 
         assert isinstance(obj.lines.data[0], stripe.InvoiceLineItem)
         assert isinstance(
@@ -222,12 +201,12 @@ class TestStripeObject(object):
 
     def check_invoice_data(self, data):
         # Check rough structure
-        assert len(list(data.keys())) == 20
-        assert len(list(data["lines"]["data"][0].keys())) == 22
+        assert len(list(data.keys())) == 8
+        assert len(list(data["lines"]["data"][0].keys())) == 5
         assert len(data["lines"]["data"]) == 1
 
         # Check various data types
-        assert data["date"] == 1338238728
+        assert data["created"] == 1694725031
         assert data["next_payment_attempt"] is None
         assert data["livemode"] is False
         assert (
