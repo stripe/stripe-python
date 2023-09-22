@@ -130,6 +130,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     pre_payment_credit_notes_amount: int
     quote: Optional[ExpandableField["Quote"]]
     receipt_number: Optional[str]
+    rendering: Optional[StripeObject]
     rendering_options: Optional[StripeObject]
     shipping_cost: Optional[StripeObject]
     shipping_details: Optional[StripeObject]
