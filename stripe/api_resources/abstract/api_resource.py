@@ -1,9 +1,10 @@
 from __future__ import absolute_import, division, print_function
+from typing_extensions import Literal
 
 from stripe import api_requestor, error, util
 from stripe.stripe_object import StripeObject
 from urllib.parse import quote_plus
-from typing import ClassVar, Generic, TypeVar, cast
+from typing import Any, ClassVar, Dict, Generic, Optional, TypeVar, cast
 
 T = TypeVar("T", bound=StripeObject)
 
@@ -82,14 +83,14 @@ class APIResource(StripeObject, Generic[T]):
     # avoid conflicting with actual request parameters in `params`.
     def _request_and_refresh(
         self,
-        method_,
-        url_,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        headers=None,
-        params=None,
+        method_: Literal["get", "post", "delete"],
+        url_: str,
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        headers: Optional[Dict[str, str]] = None,
+        params: Optional[Dict[str, Any]] = None,
     ):
         obj = StripeObject._request(
             self,
