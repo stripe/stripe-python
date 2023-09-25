@@ -185,7 +185,7 @@ def convert_to_stripe_object(
     if isinstance(resp, list):
         return [
             convert_to_stripe_object(
-                cast("Union[StripeObject, Dict[str, Any]]", i),
+                cast("Union[StripeResponse, Dict[str, Any]]", i),
                 api_key,
                 stripe_version,
                 stripe_account,
