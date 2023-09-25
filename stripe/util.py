@@ -185,7 +185,7 @@ def convert_to_stripe_object(
     if isinstance(resp, list):
         return [
             convert_to_stripe_object(
-                cast("StripeObject", i),
+                cast("StripeResponse", i),
                 api_key,
                 stripe_version,
                 stripe_account,
