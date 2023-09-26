@@ -14,6 +14,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.setup_intent import SetupIntent
 
@@ -30,7 +31,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
     application: Optional[ExpandableField["Application"]]
     attach_to_self: Optional[bool]
     created: int
-    customer: Optional[ExpandableField[Any]]
+    customer: Optional[ExpandableField["Customer"]]
     flow_directions: Optional[List[Literal["inbound", "outbound"]]]
     id: str
     livemode: bool

@@ -41,7 +41,7 @@ class BankAccount(
     bank_name: Optional[str]
     country: str
     currency: str
-    customer: Optional[ExpandableField[Any]]
+    customer: Optional[ExpandableField["Customer"]]
     default_for_currency: Optional[bool]
     fingerprint: Optional[str]
     future_requirements: Optional[StripeObject]

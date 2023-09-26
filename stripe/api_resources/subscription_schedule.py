@@ -18,6 +18,8 @@ from urllib.parse import quote_plus
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.application import Application
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.subscription import Subscription
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
@@ -34,12 +36,12 @@ class SubscriptionSchedule(
     """
 
     OBJECT_NAME = "subscription_schedule"
-    application: Optional[ExpandableField[Any]]
+    application: Optional[ExpandableField["Application"]]
     canceled_at: Optional[int]
     completed_at: Optional[int]
     created: int
     current_phase: Optional[StripeObject]
-    customer: ExpandableField[Any]
+    customer: ExpandableField["Customer"]
     default_settings: StripeObject
     end_behavior: Literal["cancel", "none", "release", "renew"]
     id: str

@@ -16,6 +16,7 @@ from typing_extensions import Literal
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.line_item import LineItem
     from stripe.api_resources.payment_intent import PaymentIntent
@@ -60,7 +61,7 @@ class Session(
     currency_conversion: Optional[StripeObject]
     custom_fields: List[StripeObject]
     custom_text: StripeObject
-    customer: Optional[ExpandableField[Any]]
+    customer: Optional[ExpandableField["Customer"]]
     customer_creation: Optional[Literal["always", "if_required"]]
     customer_details: Optional[StripeObject]
     customer_email: Optional[str]

@@ -21,13 +21,16 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
+    from stripe.api_resources.application import Application
     from stripe.api_resources.charge import Charge
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
     from stripe.api_resources.payment_intent import PaymentIntent
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.quote import Quote
     from stripe.api_resources.subscription import Subscription
+    from stripe.api_resources.tax_id import TaxId
     from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
@@ -77,12 +80,12 @@ class Invoice(
     OBJECT_NAME = "invoice"
     account_country: Optional[str]
     account_name: Optional[str]
-    account_tax_ids: Optional[List[ExpandableField[Any]]]
+    account_tax_ids: Optional[List[ExpandableField["TaxId"]]]
     amount_due: int
     amount_paid: int
     amount_remaining: int
     amount_shipping: int
-    application: Optional[ExpandableField[Any]]
+    application: Optional[ExpandableField["Application"]]
     application_fee_amount: Optional[int]
     attempt_count: int
     attempted: bool
@@ -106,7 +109,7 @@ class Invoice(
     created: int
     currency: str
     custom_fields: Optional[List[StripeObject]]
-    customer: Optional[ExpandableField[Any]]
+    customer: Optional[ExpandableField["Customer"]]
     customer_address: Optional[StripeObject]
     customer_email: Optional[str]
     customer_name: Optional[str]
@@ -119,7 +122,7 @@ class Invoice(
     default_tax_rates: List["TaxRate"]
     description: Optional[str]
     discount: Optional["Discount"]
-    discounts: Optional[List[ExpandableField[Any]]]
+    discounts: Optional[List[ExpandableField["Discount"]]]
     due_date: Optional[int]
     effective_at: Optional[int]
     ending_balance: Optional[int]

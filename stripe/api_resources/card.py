@@ -38,7 +38,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     brand: str
     country: Optional[str]
     currency: Optional[str]
-    customer: Optional[ExpandableField[Any]]
+    customer: Optional[ExpandableField["Customer"]]
     cvc_check: Optional[str]
     default_for_currency: Optional[bool]
     description: Optional[str]

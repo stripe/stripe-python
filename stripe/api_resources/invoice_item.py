@@ -19,6 +19,7 @@ from urllib.parse import quote_plus
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.plan import Plan
@@ -51,7 +52,7 @@ class InvoiceItem(
     OBJECT_NAME = "invoiceitem"
     amount: int
     currency: str
-    customer: ExpandableField[Any]
+    customer: ExpandableField["Customer"]
     date: int
     description: Optional[str]
     discountable: bool

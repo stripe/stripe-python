@@ -20,7 +20,10 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
+    from stripe.api_resources.application import Application
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.discount import Discount
+    from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.line_item import LineItem
     from stripe.api_resources.subscription import Subscription
     from stripe.api_resources.subscription_schedule import SubscriptionSchedule
@@ -41,7 +44,7 @@ class Quote(
     OBJECT_NAME = "quote"
     amount_subtotal: int
     amount_total: int
-    application: Optional[ExpandableField[Any]]
+    application: Optional[ExpandableField["Application"]]
     application_fee_amount: Optional[int]
     application_fee_percent: Optional[float]
     automatic_tax: StripeObject
@@ -49,7 +52,7 @@ class Quote(
     computed: StripeObject
     created: int
     currency: Optional[str]
-    customer: Optional[ExpandableField[Any]]
+    customer: Optional[ExpandableField["Customer"]]
     default_tax_rates: Optional[List[ExpandableField["TaxRate"]]]
     description: Optional[str]
     discounts: List[ExpandableField["Discount"]]
@@ -58,7 +61,7 @@ class Quote(
     from_quote: Optional[StripeObject]
     header: Optional[str]
     id: str
-    invoice: Optional[ExpandableField[Any]]
+    invoice: Optional[ExpandableField["Invoice"]]
     invoice_settings: Optional[StripeObject]
     line_items: Optional[ListObject["LineItem"]]
     livemode: bool
