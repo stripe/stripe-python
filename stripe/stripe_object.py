@@ -3,11 +3,13 @@ from __future__ import absolute_import, division, print_function
 import datetime
 import json
 from copy import deepcopy
-from typing_extensions import TYPE_CHECKING
-from typing import Any, Dict
+from typing_extensions import TYPE_CHECKING, Literal
+from typing import Any, Dict, Optional
 
 import stripe
 from stripe import api_requestor, util
+
+from stripe.stripe_response import StripeResponse
 
 
 def _compute_diff(current, previous):
@@ -68,10 +70,10 @@ class StripeObject(Dict[str, Any]):
             self["id"] = id
 
     @property
-    def last_response(self):
+    def last_response(self) -> Optional[StripeResponse]:
         return self._last_response
 
-    def update(self, update_dict):
+    def update(self, update_dict: Dict[str, Any]):
         for k in update_dict:
             self._unsaved_values.add(k)
 
@@ -167,11 +169,11 @@ class StripeObject(Dict[str, Any]):
     @classmethod
     def construct_from(
         cls,
-        values,
-        key,
-        stripe_version=None,
-        stripe_account=None,
-        last_response=None,
+        values: Dict[str, Any],
+        key: Optional[str],
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        last_response: Optional[StripeResponse] = None,
     ):
         instance = cls(
             values.get("id"),
@@ -191,12 +193,12 @@ class StripeObject(Dict[str, Any]):
 
     def refresh_from(
         self,
-        values,
-        api_key=None,
-        partial=False,
-        stripe_version=None,
-        stripe_account=None,
-        last_response=None,
+        values: Dict[str, Any],
+        api_key: Optional[str] = None,
+        partial: Optional[bool] = False,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        last_response: Optional[StripeResponse] = None,
     ):
         self.api_key = api_key or getattr(values, "api_key", None)
         self.stripe_version = stripe_version or getattr(
@@ -236,7 +238,13 @@ class StripeObject(Dict[str, Any]):
     def api_base(cls):
         return None
 
-    def request(self, method, url, params=None, headers=None):
+    def request(
+        self,
+        method: Literal["get", "post", "delete"],
+        url: str,
+        params: Optional[Dict[str, Any]] = None,
+        headers=None,
+    ):
         return StripeObject._request(
             self, method, url, headers=headers, params=params
         )
@@ -245,14 +253,14 @@ class StripeObject(Dict[str, Any]):
     # avoid conflicting with actual request parameters in `params`.
     def _request(
         self,
-        method_,
-        url_,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        headers=None,
-        params=None,
+        method_: Literal["get", "post", "delete"],
+        url_: str,
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        headers: Optional[Dict[str, str]] = None,
+        params: Optional[Dict[str, Any]] = None,
     ):
         params = None if params is None else params.copy()
         api_key = util.read_special_variable(params, "api_key", api_key)
