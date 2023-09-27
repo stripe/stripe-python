@@ -18,9 +18,14 @@ class ListObject(StripeObject, Generic[T]):
     def list(
         self, api_key=None, stripe_version=None, stripe_account=None, **params
     ):
+        url = self.get("url")
+        if not isinstance(url, str):
+            raise ValueError(
+                'Cannot call .list on a list object without a string "url" property'
+            )
         return self._request(
             "get",
-            self.get("url"),
+            url,
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
@@ -35,9 +40,14 @@ class ListObject(StripeObject, Generic[T]):
         stripe_account=None,
         **params
     ):
+        url = self.get("url")
+        if not isinstance(url, str):
+            raise ValueError(
+                'Cannot call .create on a list object for the collection of an object without a string "url" property'
+            )
         return self._request(
             "post",
-            self.get("url"),
+            url,
             api_key=api_key,
             idempotency_key=idempotency_key,
             stripe_version=stripe_version,
@@ -53,6 +63,12 @@ class ListObject(StripeObject, Generic[T]):
         stripe_account=None,
         **params
     ):
+        url = self.get("url")
+        if not isinstance(url, str):
+            raise ValueError(
+                'Cannot call .retrieve on a list object for the collection of an object without a string "url" property'
+            )
+
         url = "%s/%s" % (self.get("url"), quote_plus(id))
         return self._request(
             "get",
