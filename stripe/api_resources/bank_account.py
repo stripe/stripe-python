@@ -78,6 +78,8 @@ class BankAccount(
 
             base = Customer.class_url()
             assert customer is not None
+            if isinstance(customer, Customer):
+                customer = customer.id
             owner_extn = quote_plus(customer)
             class_base = "sources"
 
