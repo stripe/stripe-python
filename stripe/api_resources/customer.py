@@ -250,7 +250,7 @@ class Customer(
     @classmethod
     def retrieve(
         cls, id: str, api_key: Optional[str] = None, **params: Any
-    ) -> Any:
+    ) -> "Customer":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

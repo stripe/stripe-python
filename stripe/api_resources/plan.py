@@ -16,6 +16,11 @@ from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.product import Product
+
 
 class Plan(
     CreateableAPIResource["Plan"],
@@ -51,7 +56,7 @@ class Plan(
     metadata: Optional[Dict[str, str]]
     nickname: Optional[str]
     object: Literal["plan"]
-    product: Optional[ExpandableField[Any]]
+    product: Optional[ExpandableField["Product"]]
     tiers: Optional[List[StripeObject]]
     tiers_mode: Optional[Literal["graduated", "volume"]]
     transform_usage: Optional[StripeObject]

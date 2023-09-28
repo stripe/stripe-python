@@ -100,17 +100,17 @@ class Configuration(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> Any:
+    def modify(cls, id, **params: Any) -> "Configuration":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
-            Any,
+            "Configuration",
             cls._static_request("post", url, params=params),
         )
 
     @classmethod
     def retrieve(
         cls, id: str, api_key: Optional[str] = None, **params: Any
-    ) -> Any:
+    ) -> "Configuration":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

@@ -12,13 +12,15 @@ from typing_extensions import Literal
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.application import Application
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.subscription import Subscription
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
 class QuotePreviewSchedule(ListableAPIResource["QuotePreviewSchedule"]):
     OBJECT_NAME = "quote_preview_schedule"
-    application: Optional[ExpandableField[Any]]
+    application: Optional[ExpandableField["Application"]]
     applies_to: StripeObject
     billing_behavior: Optional[
         Literal["prorate_on_next_phase", "prorate_up_front"]
@@ -27,7 +29,7 @@ class QuotePreviewSchedule(ListableAPIResource["QuotePreviewSchedule"]):
     completed_at: Optional[int]
     created: int
     current_phase: Optional[StripeObject]
-    customer: ExpandableField[Any]
+    customer: ExpandableField["Customer"]
     default_settings: StripeObject
     end_behavior: Literal["cancel", "none", "release", "renew"]
     id: str

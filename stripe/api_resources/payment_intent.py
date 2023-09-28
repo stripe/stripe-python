@@ -22,6 +22,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
     from stripe.api_resources.charge import Charge
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.review import Review
@@ -72,7 +73,7 @@ class PaymentIntent(
     confirmation_method: Literal["automatic", "manual"]
     created: int
     currency: str
-    customer: Optional[ExpandableField[Any]]
+    customer: Optional[ExpandableField["Customer"]]
     description: Optional[str]
     id: str
     invoice: Optional[ExpandableField["Invoice"]]

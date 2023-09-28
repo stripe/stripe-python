@@ -21,6 +21,8 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
+    from stripe.api_resources.application import Application
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.payment_method import PaymentMethod
@@ -45,7 +47,7 @@ class Subscription(
     """
 
     OBJECT_NAME = "subscription"
-    application: Optional[ExpandableField[Any]]
+    application: Optional[ExpandableField["Application"]]
     application_fee_percent: Optional[float]
     automatic_tax: StripeObject
     billing_cycle_anchor: int
@@ -59,7 +61,7 @@ class Subscription(
     currency: str
     current_period_end: int
     current_period_start: int
-    customer: ExpandableField[Any]
+    customer: ExpandableField["Customer"]
     days_until_due: Optional[int]
     default_payment_method: Optional[ExpandableField["PaymentMethod"]]
     default_source: Optional[ExpandableField[Any]]
