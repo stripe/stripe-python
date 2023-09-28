@@ -14,9 +14,14 @@ class SearchResultObject(StripeObject):
     def search(
         self, api_key=None, stripe_version=None, stripe_account=None, **params
     ):
+        url = self.get("url")
+        if not isinstance(url, str):
+            raise ValueError(
+                'Cannot call .list on a list object without a string "url" property'
+            )
         return self._request(
             "get",
-            self.get("url"),
+            url,
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,

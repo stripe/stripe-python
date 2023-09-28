@@ -5,6 +5,7 @@ import datetime
 import json
 import platform
 import time
+from typing import Tuple
 import uuid
 import warnings
 from collections import OrderedDict
@@ -114,7 +115,9 @@ class APIRequestor(object):
             str += " (%s)" % (info["url"],)
         return str
 
-    def request(self, method, url, params=None, headers=None):
+    def request(
+        self, method, url, params=None, headers=None
+    ) -> Tuple[StripeResponse, str]:
         rbody, rcode, rheaders, my_api_key = self.request_raw(
             method.lower(), url, params, headers, is_streaming=False
         )
@@ -381,7 +384,7 @@ class APIRequestor(object):
     def _should_handle_code_as_error(self, rcode):
         return not 200 <= rcode < 300
 
-    def interpret_response(self, rbody, rcode, rheaders):
+    def interpret_response(self, rbody, rcode, rheaders) -> StripeResponse:
         try:
             if hasattr(rbody, "decode"):
                 rbody = rbody.decode("utf-8")
