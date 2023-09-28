@@ -20,6 +20,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.credit_note_line_item import CreditNoteLineItem
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.customer_balance_transaction import (
         CustomerBalanceTransaction,
     )
@@ -44,7 +45,7 @@ class CreditNote(
     amount_shipping: int
     created: int
     currency: str
-    customer: ExpandableField[Any]
+    customer: ExpandableField["Customer"]
     customer_balance_transaction: Optional[
         ExpandableField["CustomerBalanceTransaction"]
     ]

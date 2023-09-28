@@ -3914,3 +3914,10 @@ class TestGeneratedExamples(object):
             "post",
             "/v1/test_helpers/issuing/transactions/example_transaction/refund",
         )
+
+    def test_subscription_delete_discount(self, request_mock):
+        stripe.Subscription.delete_discount("sub_xyz")
+        request_mock.assert_requested(
+            "delete",
+            "/v1/subscriptions/sub_xyz/discount",
+        )

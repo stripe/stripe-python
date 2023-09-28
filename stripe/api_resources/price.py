@@ -15,6 +15,11 @@ from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.product import Product
+
 
 class Price(
     CreateableAPIResource["Price"],
@@ -44,7 +49,7 @@ class Price(
     metadata: Dict[str, str]
     nickname: Optional[str]
     object: Literal["price"]
-    product: ExpandableField[Any]
+    product: ExpandableField["Product"]
     recurring: Optional[StripeObject]
     tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified"]]
     tiers: Optional[List[StripeObject]]

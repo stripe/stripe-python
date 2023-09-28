@@ -14,6 +14,11 @@ from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.application import Application
+
 
 class Configuration(
     CreateableAPIResource["Configuration"],
@@ -26,7 +31,7 @@ class Configuration(
 
     OBJECT_NAME = "billing_portal.configuration"
     active: bool
-    application: Optional[ExpandableField[Any]]
+    application: Optional[ExpandableField["Application"]]
     business_profile: StripeObject
     created: int
     default_return_url: Optional[str]
