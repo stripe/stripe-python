@@ -52,6 +52,7 @@ class Event(ListableAPIResource["Event"]):
     livemode: bool
     object: Literal["event"]
     pending_webhooks: int
+    reason: Optional[StripeObject]
     request: Optional[StripeObject]
     type: Literal[
         "account.application.authorized",
@@ -113,6 +114,7 @@ class Event(ListableAPIResource["Event"]):
         "customer.subscription.collection_paused",
         "customer.subscription.collection_resumed",
         "customer.subscription.created",
+        "customer.subscription.custom_event",
         "customer.subscription.deleted",
         "customer.subscription.paused",
         "customer.subscription.pending_update_applied",
@@ -161,10 +163,6 @@ class Event(ListableAPIResource["Event"]):
         "issuing_authorization.updated",
         "issuing_card.created",
         "issuing_card.updated",
-        "issuing_card_design.activated",
-        "issuing_card_design.deactivated",
-        "issuing_card_design.rejected",
-        "issuing_card_design.updated",
         "issuing_cardholder.created",
         "issuing_cardholder.updated",
         "issuing_dispute.closed",
@@ -172,6 +170,10 @@ class Event(ListableAPIResource["Event"]):
         "issuing_dispute.funds_reinstated",
         "issuing_dispute.submitted",
         "issuing_dispute.updated",
+        "issuing_personalization_design.activated",
+        "issuing_personalization_design.deactivated",
+        "issuing_personalization_design.rejected",
+        "issuing_personalization_design.updated",
         "issuing_transaction.created",
         "issuing_transaction.updated",
         "mandate.updated",

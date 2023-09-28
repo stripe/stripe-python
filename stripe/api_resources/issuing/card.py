@@ -19,8 +19,10 @@ from urllib.parse import quote_plus
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.issuing.card_design import CardDesign
     from stripe.api_resources.issuing.cardholder import Cardholder
+    from stripe.api_resources.issuing.personalization_design import (
+        PersonalizationDesign,
+    )
 
 
 class Card(
@@ -35,7 +37,6 @@ class Card(
     OBJECT_NAME = "issuing.card"
     brand: str
     cancellation_reason: Optional[Literal["design_rejected", "lost", "stolen"]]
-    card_design: Optional[ExpandableField["CardDesign"]]
     cardholder: "Cardholder"
     created: int
     currency: str
@@ -49,6 +50,7 @@ class Card(
     metadata: Dict[str, str]
     number: Optional[str]
     object: Literal["issuing.card"]
+    personalization_design: Optional[ExpandableField["PersonalizationDesign"]]
     replaced_by: Optional[ExpandableField["Card"]]
     replacement_for: Optional[ExpandableField["Card"]]
     replacement_reason: Optional[

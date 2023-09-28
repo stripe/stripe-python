@@ -6,8 +6,10 @@ from __future__ import absolute_import, division, print_function
 
 from stripe.api_resources.issuing.authorization import Authorization
 from stripe.api_resources.issuing.card import Card
-from stripe.api_resources.issuing.card_bundle import CardBundle
-from stripe.api_resources.issuing.card_design import CardDesign
 from stripe.api_resources.issuing.cardholder import Cardholder
 from stripe.api_resources.issuing.dispute import Dispute
+from stripe.api_resources.issuing.personalization_design import (
+    PersonalizationDesign,
+)
+from stripe.api_resources.issuing.physical_bundle import PhysicalBundle
 from stripe.api_resources.issuing.transaction import Transaction
