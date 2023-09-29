@@ -19,6 +19,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.application import Application
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.line_item import LineItem
 
@@ -47,7 +48,7 @@ class Order(
     created: int
     credits: Optional[List[StripeObject]]
     currency: str
-    customer: Optional[ExpandableField[Any]]
+    customer: Optional[ExpandableField["Customer"]]
     description: Optional[str]
     discounts: Optional[List[ExpandableField["Discount"]]]
     id: str

@@ -9,17 +9,17 @@ from typing import Any, Optional
 from typing_extensions import Literal
 
 
-class CardBundle(ListableAPIResource["CardBundle"]):
+class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
     """
-    A Card Bundle represents the bundle of physical items - card stock, carrier letter, and envelope - that is shipped to a cardholder when you create a physical card.
+    A Physical Bundle represents the bundle of physical items - card stock, carrier letter, and envelope - that is shipped to a cardholder when you create a physical card.
     """
 
-    OBJECT_NAME = "issuing.card_bundle"
+    OBJECT_NAME = "issuing.physical_bundle"
     features: Optional[StripeObject]
     id: str
     livemode: bool
     name: str
-    object: Literal["issuing.card_bundle"]
+    object: Literal["issuing.physical_bundle"]
     status: Literal["active", "inactive", "review"]
     type: Literal["custom", "standard"]
 
@@ -30,7 +30,7 @@ class CardBundle(ListableAPIResource["CardBundle"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Any
-    ) -> ListObject["CardBundle"]:
+    ) -> ListObject["PhysicalBundle"]:
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -51,7 +51,7 @@ class CardBundle(ListableAPIResource["CardBundle"]):
     @classmethod
     def retrieve(
         cls, id: str, api_key: Optional[str] = None, **params: Any
-    ) -> "CardBundle":
+    ) -> "PhysicalBundle":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

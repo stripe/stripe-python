@@ -253,10 +253,10 @@ class Reader(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> Any:
+    def modify(cls, id, **params: Any) -> "Reader":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
-            Any,
+            "Reader",
             cls._static_request("post", url, params=params),
         )
 
@@ -362,7 +362,7 @@ class Reader(
     @classmethod
     def retrieve(
         cls, id: str, api_key: Optional[str] = None, **params: Any
-    ) -> Any:
+    ) -> "Reader":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance

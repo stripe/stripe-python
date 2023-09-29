@@ -52,6 +52,7 @@ class Event(ListableAPIResource["Event"]):
     livemode: bool
     object: Literal["event"]
     pending_webhooks: int
+    reason: Optional[StripeObject]
     request: Optional[StripeObject]
     type: Literal[
         "account.application.authorized",
@@ -113,6 +114,7 @@ class Event(ListableAPIResource["Event"]):
         "customer.subscription.collection_paused",
         "customer.subscription.collection_resumed",
         "customer.subscription.created",
+        "customer.subscription.custom_event",
         "customer.subscription.deleted",
         "customer.subscription.paused",
         "customer.subscription.pending_update_applied",
@@ -161,10 +163,6 @@ class Event(ListableAPIResource["Event"]):
         "issuing_authorization.updated",
         "issuing_card.created",
         "issuing_card.updated",
-        "issuing_card_design.activated",
-        "issuing_card_design.deactivated",
-        "issuing_card_design.rejected",
-        "issuing_card_design.updated",
         "issuing_cardholder.created",
         "issuing_cardholder.updated",
         "issuing_dispute.closed",
@@ -172,10 +170,13 @@ class Event(ListableAPIResource["Event"]):
         "issuing_dispute.funds_reinstated",
         "issuing_dispute.submitted",
         "issuing_dispute.updated",
+        "issuing_personalization_design.activated",
+        "issuing_personalization_design.deactivated",
+        "issuing_personalization_design.rejected",
+        "issuing_personalization_design.updated",
         "issuing_transaction.created",
         "issuing_transaction.updated",
         "mandate.updated",
-        "order.created",
         "payment_intent.amount_capturable_updated",
         "payment_intent.canceled",
         "payment_intent.created",
@@ -221,9 +222,6 @@ class Event(ListableAPIResource["Event"]):
         "quote.stale",
         "radar.early_fraud_warning.created",
         "radar.early_fraud_warning.updated",
-        "recipient.created",
-        "recipient.deleted",
-        "recipient.updated",
         "refund.created",
         "refund.updated",
         "reporting.report_run.failed",
@@ -237,9 +235,6 @@ class Event(ListableAPIResource["Event"]):
         "setup_intent.setup_failed",
         "setup_intent.succeeded",
         "sigma.scheduled_query_run.created",
-        "sku.created",
-        "sku.deleted",
-        "sku.updated",
         "source.canceled",
         "source.chargeable",
         "source.failed",
@@ -303,6 +298,13 @@ class Event(ListableAPIResource["Event"]):
         "treasury.received_credit.succeeded",
         "treasury.received_debit.created",
         "invoiceitem.updated",
+        "order.created",
+        "recipient.created",
+        "recipient.deleted",
+        "recipient.updated",
+        "sku.created",
+        "sku.deleted",
+        "sku.updated",
     ]
 
     @classmethod

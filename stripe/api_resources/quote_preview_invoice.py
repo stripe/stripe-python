@@ -13,6 +13,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
+    from stripe.api_resources.application import Application
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
@@ -20,6 +21,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.quote import Quote
     from stripe.api_resources.subscription import Subscription
+    from stripe.api_resources.tax_id import TaxId
     from stripe.api_resources.tax_rate import TaxRate
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
@@ -63,12 +65,12 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     OBJECT_NAME = "quote_preview_invoice"
     account_country: Optional[str]
     account_name: Optional[str]
-    account_tax_ids: Optional[List[ExpandableField[Any]]]
+    account_tax_ids: Optional[List[ExpandableField["TaxId"]]]
     amount_due: int
     amount_paid: int
     amount_remaining: int
     amount_shipping: int
-    application: Optional[ExpandableField[Any]]
+    application: Optional[ExpandableField["Application"]]
     application_fee_amount: Optional[int]
     applies_to: StripeObject
     attempt_count: int
@@ -103,7 +105,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     default_tax_rates: List["TaxRate"]
     description: Optional[str]
     discount: Optional["Discount"]
-    discounts: Optional[List[ExpandableField[Any]]]
+    discounts: Optional[List[ExpandableField["Discount"]]]
     due_date: Optional[int]
     effective_at: Optional[int]
     ending_balance: Optional[int]
@@ -130,6 +132,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     pre_payment_credit_notes_amount: int
     quote: Optional[ExpandableField["Quote"]]
     receipt_number: Optional[str]
+    rendering: Optional[StripeObject]
     rendering_options: Optional[StripeObject]
     shipping_cost: Optional[StripeObject]
     shipping_details: Optional[StripeObject]

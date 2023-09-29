@@ -19,6 +19,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
+    from stripe.api_resources.application import Application
     from stripe.api_resources.line_item import LineItem
 
 
@@ -39,7 +40,7 @@ class PaymentLink(
     active: bool
     after_completion: StripeObject
     allow_promotion_codes: bool
-    application: Optional[ExpandableField[Any]]
+    application: Optional[ExpandableField["Application"]]
     application_fee_amount: Optional[int]
     application_fee_percent: Optional[float]
     automatic_tax: StripeObject

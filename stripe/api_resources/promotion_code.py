@@ -18,6 +18,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.coupon import Coupon
+    from stripe.api_resources.customer import Customer
 
 
 class PromotionCode(
@@ -35,7 +36,7 @@ class PromotionCode(
     code: str
     coupon: "Coupon"
     created: int
-    customer: Optional[ExpandableField[Any]]
+    customer: Optional[ExpandableField["Customer"]]
     expires_at: Optional[int]
     id: str
     livemode: bool

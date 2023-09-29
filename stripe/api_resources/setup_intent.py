@@ -20,6 +20,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.mandate import Mandate
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.setup_attempt import SetupAttempt
@@ -64,7 +65,7 @@ class SetupIntent(
     ]
     client_secret: Optional[str]
     created: int
-    customer: Optional[ExpandableField[Any]]
+    customer: Optional[ExpandableField["Customer"]]
     description: Optional[str]
     flow_directions: Optional[List[Literal["inbound", "outbound"]]]
     id: str

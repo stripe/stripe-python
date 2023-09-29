@@ -23,6 +23,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.application import Application
     from stripe.api_resources.application_fee import ApplicationFee
     from stripe.api_resources.balance_transaction import BalanceTransaction
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.payment_intent import PaymentIntent
     from stripe.api_resources.refund import Refund
@@ -57,7 +58,7 @@ class Charge(
     captured: bool
     created: int
     currency: str
-    customer: Optional[ExpandableField[Any]]
+    customer: Optional[ExpandableField["Customer"]]
     description: Optional[str]
     disputed: bool
     failure_balance_transaction: Optional[
