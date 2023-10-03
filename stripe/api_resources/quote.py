@@ -168,39 +168,6 @@ class Quote(
         )
 
     @classmethod
-    def _cls_draft_quote(
-        cls,
-        quote: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Any
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/mark_draft".format(
-                quote=util.sanitize_id(quote)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_draft_quote")
-    def draft_quote(
-        self, idempotency_key: Optional[str] = None, **params: Any
-    ):
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/mark_draft".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
-
-    @classmethod
     def _cls_finalize_quote(
         cls,
         quote: str,
@@ -354,7 +321,38 @@ class Quote(
         )
 
     @classmethod
-    def _cls_mark_stale_quote(
+    def _cls_mark_draft(
+        cls,
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/quotes/{quote}/mark_draft".format(
+                quote=util.sanitize_id(quote)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_mark_draft")
+    def mark_draft(self, idempotency_key: Optional[str] = None, **params: Any):
+        return self._request(
+            "post",
+            "/v1/quotes/{quote}/mark_draft".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def _cls_mark_stale(
         cls,
         quote: str,
         api_key: Optional[str] = None,
@@ -373,10 +371,8 @@ class Quote(
             params=params,
         )
 
-    @util.class_method_variant("_cls_mark_stale_quote")
-    def mark_stale_quote(
-        self, idempotency_key: Optional[str] = None, **params: Any
-    ):
+    @util.class_method_variant("_cls_mark_stale")
+    def mark_stale(self, idempotency_key: Optional[str] = None, **params: Any):
         return self._request(
             "post",
             "/v1/quotes/{quote}/mark_stale".format(
@@ -392,45 +388,6 @@ class Quote(
         return cast(
             "Quote",
             cls._static_request("post", url, params=params),
-        )
-
-    @classmethod
-    def _cls_preview_invoice_lines(
-        cls,
-        quote: str,
-        preview_invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Any
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                quote=util.sanitize_id(quote),
-                preview_invoice=util.sanitize_id(preview_invoice),
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_preview_invoice_lines")
-    def preview_invoice_lines(
-        self,
-        preview_invoice: str,
-        idempotency_key: Optional[str] = None,
-        **params: Any
-    ):
-        return self._request(
-            "get",
-            "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                quote=util.sanitize_id(self.get("id")),
-                preview_invoice=util.sanitize_id(preview_invoice),
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

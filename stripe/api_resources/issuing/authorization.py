@@ -21,6 +21,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.balance_transaction import BalanceTransaction
     from stripe.api_resources.issuing.card import Card
     from stripe.api_resources.issuing.cardholder import Cardholder
+    from stripe.api_resources.issuing.token import Token
     from stripe.api_resources.issuing.transaction import Transaction
 
 
@@ -59,6 +60,7 @@ class Authorization(
     pending_request: Optional[StripeObject]
     request_history: List[StripeObject]
     status: Literal["closed", "pending", "reversed"]
+    token: Optional[ExpandableField["Token"]]
     transactions: List["Transaction"]
     treasury: Optional[StripeObject]
     verification_data: StripeObject

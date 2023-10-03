@@ -23,6 +23,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.issuing.card import Card
     from stripe.api_resources.issuing.cardholder import Cardholder
     from stripe.api_resources.issuing.dispute import Dispute
+    from stripe.api_resources.issuing.token import Token
 
 
 class Transaction(
@@ -56,6 +57,7 @@ class Transaction(
     network_data: Optional[StripeObject]
     object: Literal["issuing.transaction"]
     purchase_details: Optional[StripeObject]
+    token: Optional[ExpandableField["Token"]]
     treasury: Optional[StripeObject]
     type: Literal["capture", "refund"]
     wallet: Optional[Literal["apple_pay", "google_pay", "samsung_pay"]]

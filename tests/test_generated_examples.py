@@ -3599,8 +3599,8 @@ class TestGeneratedExamples(object):
             "/v1/tax/calculations/xxx/line_items",
         )
 
-    def test_quote_preview_invoice_lines(self, request_mock):
-        stripe.Quote.preview_invoice_lines(
+    def test_quote_quotepreviewinvoice_list_lines(self, request_mock):
+        stripe.Quote.list_lines_preview_invoice(
             "qt_xyz",
             "in_xyz",
         )

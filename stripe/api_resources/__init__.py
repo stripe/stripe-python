@@ -68,6 +68,7 @@ from stripe.api_resources.line_item import LineItem
 from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.login_link import LoginLink
 from stripe.api_resources.mandate import Mandate
+from stripe.api_resources.margin import Margin
 from stripe.api_resources.order import Order
 from stripe.api_resources.payment_intent import PaymentIntent
 from stripe.api_resources.payment_link import PaymentLink
@@ -87,7 +88,9 @@ from stripe.api_resources.quote import Quote
 from stripe.api_resources.quote_line import QuoteLine
 from stripe.api_resources.quote_phase import QuotePhase
 from stripe.api_resources.quote_preview_invoice import QuotePreviewInvoice
-from stripe.api_resources.quote_preview_schedule import QuotePreviewSchedule
+from stripe.api_resources.quote_preview_subscription_schedule import (
+    QuotePreviewSubscriptionSchedule,
+)
 from stripe.api_resources.refund import Refund
 from stripe.api_resources.reserve_transaction import ReserveTransaction
 from stripe.api_resources.reversal import Reversal
