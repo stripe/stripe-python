@@ -45,6 +45,7 @@ class Quote(
     """
 
     OBJECT_NAME = "quote"
+    allow_backdated_lines: Optional[bool]
     amount_subtotal: int
     amount_total: int
     application: Optional[ExpandableField["Application"]]
