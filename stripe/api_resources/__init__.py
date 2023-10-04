@@ -68,7 +68,6 @@ from stripe.api_resources.line_item import LineItem
 from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.login_link import LoginLink
 from stripe.api_resources.mandate import Mandate
-from stripe.api_resources.margin import Margin
 from stripe.api_resources.order import Order
 from stripe.api_resources.payment_intent import PaymentIntent
 from stripe.api_resources.payment_link import PaymentLink
