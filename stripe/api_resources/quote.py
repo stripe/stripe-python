@@ -45,6 +45,7 @@ class Quote(
     """
 
     OBJECT_NAME = "quote"
+    allow_backdated_lines: Optional[bool]
     amount_subtotal: int
     amount_total: int
     application: Optional[ExpandableField["Application"]]
@@ -165,39 +166,6 @@ class Quote(
                 stripe_account,
                 params,
             ),
-        )
-
-    @classmethod
-    def _cls_draft_quote(
-        cls,
-        quote: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Any
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/mark_draft".format(
-                quote=util.sanitize_id(quote)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_draft_quote")
-    def draft_quote(
-        self, idempotency_key: Optional[str] = None, **params: Any
-    ):
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/mark_draft".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -354,48 +322,7 @@ class Quote(
         )
 
     @classmethod
-    def _cls_mark_stale_quote(
-        cls,
-        quote: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Any
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/mark_stale".format(
-                quote=util.sanitize_id(quote)
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_mark_stale_quote")
-    def mark_stale_quote(
-        self, idempotency_key: Optional[str] = None, **params: Any
-    ):
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/mark_stale".format(
-                quote=util.sanitize_id(self.get("id"))
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
-
-    @classmethod
-    def modify(cls, id, **params: Any) -> "Quote":
-        url = "%s/%s" % (cls.class_url(), quote_plus(id))
-        return cast(
-            "Quote",
-            cls._static_request("post", url, params=params),
-        )
-
-    @classmethod
-    def _cls_preview_invoice_lines(
+    def _cls_list_preview_invoice_lines(
         cls,
         quote: str,
         preview_invoice: str,
@@ -416,8 +343,8 @@ class Quote(
             params=params,
         )
 
-    @util.class_method_variant("_cls_preview_invoice_lines")
-    def preview_invoice_lines(
+    @util.class_method_variant("_cls_list_preview_invoice_lines")
+    def list_preview_invoice_lines(
         self,
         preview_invoice: str,
         idempotency_key: Optional[str] = None,
@@ -431,6 +358,76 @@ class Quote(
             ),
             idempotency_key=idempotency_key,
             params=params,
+        )
+
+    @classmethod
+    def _cls_mark_draft(
+        cls,
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/quotes/{quote}/mark_draft".format(
+                quote=util.sanitize_id(quote)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_mark_draft")
+    def mark_draft(self, idempotency_key: Optional[str] = None, **params: Any):
+        return self._request(
+            "post",
+            "/v1/quotes/{quote}/mark_draft".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def _cls_mark_stale(
+        cls,
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Any
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/quotes/{quote}/mark_stale".format(
+                quote=util.sanitize_id(quote)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @util.class_method_variant("_cls_mark_stale")
+    def mark_stale(self, idempotency_key: Optional[str] = None, **params: Any):
+        return self._request(
+            "post",
+            "/v1/quotes/{quote}/mark_stale".format(
+                quote=util.sanitize_id(self.get("id"))
+            ),
+            idempotency_key=idempotency_key,
+            params=params,
+        )
+
+    @classmethod
+    def modify(cls, id, **params: Any) -> "Quote":
+        url = "%s/%s" % (cls.class_url(), quote_plus(id))
+        return cast(
+            "Quote",
+            cls._static_request("post", url, params=params),
         )
 
     @classmethod

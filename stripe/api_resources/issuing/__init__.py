@@ -12,4 +12,5 @@ from stripe.api_resources.issuing.personalization_design import (
     PersonalizationDesign,
 )
 from stripe.api_resources.issuing.physical_bundle import PhysicalBundle
+from stripe.api_resources.issuing.token import Token
 from stripe.api_resources.issuing.transaction import Transaction

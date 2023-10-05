@@ -18,8 +18,10 @@ if TYPE_CHECKING:
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
-class QuotePreviewSchedule(ListableAPIResource["QuotePreviewSchedule"]):
-    OBJECT_NAME = "quote_preview_schedule"
+class QuotePreviewSubscriptionSchedule(
+    ListableAPIResource["QuotePreviewSubscriptionSchedule"],
+):
+    OBJECT_NAME = "quote_preview_subscription_schedule"
     application: Optional[ExpandableField["Application"]]
     applies_to: StripeObject
     billing_behavior: Optional[
@@ -35,7 +37,7 @@ class QuotePreviewSchedule(ListableAPIResource["QuotePreviewSchedule"]):
     id: str
     livemode: bool
     metadata: Optional[Dict[str, str]]
-    object: Literal["quote_preview_schedule"]
+    object: Literal["quote_preview_subscription_schedule"]
     phases: List[StripeObject]
     prebilling: Optional[StripeObject]
     released_at: Optional[int]
@@ -53,7 +55,7 @@ class QuotePreviewSchedule(ListableAPIResource["QuotePreviewSchedule"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Any
-    ) -> ListObject["QuotePreviewSchedule"]:
+    ) -> ListObject["QuotePreviewSubscriptionSchedule"]:
         result = cls._static_request(
             "get",
             cls.class_url(),

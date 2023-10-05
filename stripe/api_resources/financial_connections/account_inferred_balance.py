@@ -8,7 +8,7 @@ from typing import Any, Dict, Optional
 from typing_extensions import Literal
 
 
-class InferredBalance(ListableAPIResource["InferredBalance"]):
+class AccountInferredBalance(ListableAPIResource["AccountInferredBalance"]):
     """
     A historical balance for the account on a particular day. It may be sourced from a balance snapshot provided by a financial institution, or inferred using transactions data.
     """
@@ -26,7 +26,7 @@ class InferredBalance(ListableAPIResource["InferredBalance"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Any
-    ) -> ListObject["InferredBalance"]:
+    ) -> ListObject["AccountInferredBalance"]:
         result = cls._static_request(
             "get",
             cls.class_url(),
