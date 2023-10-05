@@ -2,7 +2,6 @@
 # File generated from our OpenAPI spec
 from __future__ import absolute_import, division, print_function
 
-from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
@@ -180,42 +179,3 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
             )
 
         return result
-
-    @classmethod
-    def _cls_list_lines(
-        cls,
-        quote: str,
-        preview_invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Any
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                quote=util.sanitize_id(quote),
-                preview_invoice=util.sanitize_id(preview_invoice),
-            ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
-        )
-
-    @util.class_method_variant("_cls_list_lines")
-    def list_lines(
-        self,
-        preview_invoice: str,
-        idempotency_key: Optional[str] = None,
-        **params: Any
-    ):
-        return self._request(
-            "get",
-            "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                quote=util.sanitize_id(self.get("id")),
-                preview_invoice=util.sanitize_id(preview_invoice),
-            ),
-            idempotency_key=idempotency_key,
-            params=params,
-        )
