@@ -1,4 +1,9 @@
 # Changelog
+## 6.7.0 - 2023-10-05
+* [#1065](https://github.com/stripe/stripe-python/pull/1065) Update generated code
+  * Add support for new resource `Issuing.Token`
+  * Add support for `list`, `modify`, and `retrieve` methods on resource `Token`
+
 ## 6.6.0 - 2023-09-21
 * [#1056](https://github.com/stripe/stripe-python/pull/1056) Update generated code
 
