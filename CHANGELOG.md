@@ -1,5 +1,14 @@
 # Changelog
 
+## 6.8.0b1 - 2023-10-05
+* [#1066](https://github.com/stripe/stripe-python/pull/1066) Update generated code for beta
+  * Add support for `mark_draft` and `mark_stale` methods on resource `Quote`
+  * Remove support for `draft_quote` and `mark_stale_quote` methods on resource `Quote`
+  * Rename `preview_invoice_lines` to `list_preview_invoice_lines` on resource `Quote`
+* [#1059](https://github.com/stripe/stripe-python/pull/1059) Update generated code for beta
+  * Rename resources `Issuing.CardDesign` and `Issuing.CardBundle` to `Issuing.PersonalizationDesign` and `Issuing.PhysicalBundle`
+
+
 ## 6.7.0b2 - 2023-09-28
 * [#1059](https://github.com/stripe/stripe-python/pull/1059) Update generated code for beta
   * Rename resources `Issuing.CardDesign` and `Issuing.CardBundle` to `Issuing.PersonalizationDesign` and `Issuing.PhysicalBundle`
