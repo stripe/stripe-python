@@ -54,6 +54,7 @@ class Session(
     billing_address_collection: Optional[Literal["auto", "required"]]
     cancel_url: Optional[str]
     client_reference_id: Optional[str]
+    client_secret: Optional[str]
     consent: Optional[StripeObject]
     consent_collection: Optional[StripeObject]
     created: int
@@ -128,6 +129,8 @@ class Session(
     payment_status: Literal["no_payment_required", "paid", "unpaid"]
     phone_number_collection: Optional[StripeObject]
     recovered_from: Optional[str]
+    redirect_on_completion: Optional[Literal["always", "if_required", "never"]]
+    return_url: Optional[str]
     setup_intent: Optional[ExpandableField["SetupIntent"]]
     shipping_address_collection: Optional[StripeObject]
     shipping_cost: Optional[StripeObject]
@@ -139,6 +142,7 @@ class Session(
     success_url: Optional[str]
     tax_id_collection: Optional[StripeObject]
     total_details: Optional[StripeObject]
+    ui_mode: Optional[Literal["embedded", "hosted"]]
     url: Optional[str]
 
     @classmethod
