@@ -24,6 +24,67 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     """
 
     OBJECT_NAME = "treasury.received_debit"
+
+    class InitiatingPaymentMethodDetails(StripeObject):
+        class BillingDetails(StripeObject):
+            class Address(StripeObject):
+                city: Optional[str]
+                country: Optional[str]
+                line1: Optional[str]
+                line2: Optional[str]
+                postal_code: Optional[str]
+                state: Optional[str]
+
+            address: Address
+            email: Optional[str]
+            name: Optional[str]
+            _inner_class_types = {"address": Address}
+
+        class FinancialAccount(StripeObject):
+            id: str
+            network: Literal["stripe"]
+
+        class UsBankAccount(StripeObject):
+            bank_name: Optional[str]
+            last4: Optional[str]
+            routing_number: Optional[str]
+
+        balance: Optional[Literal["payments"]]
+        billing_details: BillingDetails
+        financial_account: Optional[FinancialAccount]
+        issuing_card: Optional[str]
+        type: Literal[
+            "balance",
+            "financial_account",
+            "issuing_card",
+            "stripe",
+            "us_bank_account",
+        ]
+        us_bank_account: Optional[UsBankAccount]
+        _inner_class_types = {
+            "billing_details": BillingDetails,
+            "financial_account": FinancialAccount,
+            "us_bank_account": UsBankAccount,
+        }
+
+    class LinkedFlows(StripeObject):
+        debit_reversal: Optional[str]
+        inbound_transfer: Optional[str]
+        issuing_authorization: Optional[str]
+        issuing_transaction: Optional[str]
+
+    class ReversalDetails(StripeObject):
+        deadline: Optional[int]
+        restricted_reason: Optional[
+            Literal[
+                "already_reversed",
+                "deadline_passed",
+                "network_restricted",
+                "other",
+                "source_flow_restricted",
+            ]
+        ]
+
     amount: int
     created: int
     currency: str
@@ -36,12 +97,12 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     financial_account: Optional[str]
     hosted_regulatory_receipt_url: Optional[str]
     id: str
-    initiating_payment_method_details: Optional[StripeObject]
-    linked_flows: StripeObject
+    initiating_payment_method_details: Optional[InitiatingPaymentMethodDetails]
+    linked_flows: LinkedFlows
     livemode: bool
     network: Literal["ach", "card", "stripe"]
     object: Literal["treasury.received_debit"]
-    reversal_details: Optional[StripeObject]
+    reversal_details: Optional[ReversalDetails]
     status: Literal["failed", "succeeded"]
     transaction: Optional[ExpandableField["Transaction"]]
 
@@ -101,6 +162,12 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "initiating_payment_method_details": InitiatingPaymentMethodDetails,
+        "linked_flows": LinkedFlows,
+        "reversal_details": ReversalDetails,
+    }
 
 
 ReceivedDebit.TestHelpers._resource_cls = ReceivedDebit

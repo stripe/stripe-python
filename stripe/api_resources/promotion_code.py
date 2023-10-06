@@ -32,6 +32,17 @@ class PromotionCode(
     """
 
     OBJECT_NAME = "promotion_code"
+
+    class Restrictions(StripeObject):
+        class CurrencyOptions(StripeObject):
+            minimum_amount: int
+
+        currency_options: Optional[Dict[str, CurrencyOptions]]
+        first_time_transaction: bool
+        minimum_amount: Optional[int]
+        minimum_amount_currency: Optional[str]
+        _inner_class_types = {"currency_options": CurrencyOptions}
+
     active: bool
     code: str
     coupon: "Coupon"
@@ -43,7 +54,7 @@ class PromotionCode(
     max_redemptions: Optional[int]
     metadata: Optional[Dict[str, str]]
     object: Literal["promotion_code"]
-    restrictions: StripeObject
+    restrictions: Restrictions
     times_redeemed: int
 
     @classmethod
@@ -108,3 +119,5 @@ class PromotionCode(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"restrictions": Restrictions}

@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional, cast
+from typing import Any, List, Optional, cast
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -33,10 +33,75 @@ class Session(CreateableAPIResource["Session"]):
     """
 
     OBJECT_NAME = "billing_portal.session"
+
+    class Flow(StripeObject):
+        class AfterCompletion(StripeObject):
+            class HostedConfirmation(StripeObject):
+                custom_message: Optional[str]
+
+            class Redirect(StripeObject):
+                return_url: str
+
+            hosted_confirmation: Optional[HostedConfirmation]
+            redirect: Optional[Redirect]
+            type: Literal["hosted_confirmation", "portal_homepage", "redirect"]
+            _inner_class_types = {
+                "hosted_confirmation": HostedConfirmation,
+                "redirect": Redirect,
+            }
+
+        class SubscriptionCancel(StripeObject):
+            class Retention(StripeObject):
+                class CouponOffer(StripeObject):
+                    coupon: str
+
+                coupon_offer: Optional[CouponOffer]
+                type: Literal["coupon_offer"]
+                _inner_class_types = {"coupon_offer": CouponOffer}
+
+            retention: Optional[Retention]
+            subscription: str
+            _inner_class_types = {"retention": Retention}
+
+        class SubscriptionUpdate(StripeObject):
+            subscription: str
+
+        class SubscriptionUpdateConfirm(StripeObject):
+            class Discount(StripeObject):
+                coupon: Optional[str]
+                promotion_code: Optional[str]
+
+            class Item(StripeObject):
+                id: Optional[str]
+                price: Optional[str]
+                quantity: Optional[int]
+
+            discounts: Optional[List[Discount]]
+            items: List[Item]
+            subscription: str
+            _inner_class_types = {"discounts": Discount, "items": Item}
+
+        after_completion: AfterCompletion
+        subscription_cancel: Optional[SubscriptionCancel]
+        subscription_update: Optional[SubscriptionUpdate]
+        subscription_update_confirm: Optional[SubscriptionUpdateConfirm]
+        type: Literal[
+            "payment_method_update",
+            "subscription_cancel",
+            "subscription_update",
+            "subscription_update_confirm",
+        ]
+        _inner_class_types = {
+            "after_completion": AfterCompletion,
+            "subscription_cancel": SubscriptionCancel,
+            "subscription_update": SubscriptionUpdate,
+            "subscription_update_confirm": SubscriptionUpdateConfirm,
+        }
+
     configuration: ExpandableField["Configuration"]
     created: int
     customer: str
-    flow: Optional[StripeObject]
+    flow: Optional[Flow]
     id: str
     livemode: bool
     locale: Optional[
@@ -116,3 +181,5 @@ class Session(CreateableAPIResource["Session"]):
                 params,
             ),
         )
+
+    _inner_class_types = {"flow": Flow}

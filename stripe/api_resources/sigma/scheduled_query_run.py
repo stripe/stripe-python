@@ -23,9 +23,13 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
     """
 
     OBJECT_NAME = "scheduled_query_run"
+
+    class Error(StripeObject):
+        message: str
+
     created: int
     data_load_time: int
-    error: Optional[StripeObject]
+    error: Optional[Error]
     file: Optional["File"]
     id: str
     livemode: bool
@@ -71,3 +75,5 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
     @classmethod
     def class_url(cls):
         return "/v1/sigma/scheduled_query_runs"
+
+    _inner_class_types = {"error": Error}

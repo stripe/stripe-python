@@ -10,7 +10,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -30,16 +30,98 @@ class Configuration(
     """
 
     OBJECT_NAME = "billing_portal.configuration"
+
+    class BusinessProfile(StripeObject):
+        headline: Optional[str]
+        privacy_policy_url: Optional[str]
+        terms_of_service_url: Optional[str]
+
+    class Features(StripeObject):
+        class CustomerUpdate(StripeObject):
+            allowed_updates: List[
+                Literal[
+                    "address", "email", "name", "phone", "shipping", "tax_id"
+                ]
+            ]
+            enabled: bool
+
+        class InvoiceHistory(StripeObject):
+            enabled: bool
+
+        class PaymentMethodUpdate(StripeObject):
+            enabled: bool
+
+        class SubscriptionCancel(StripeObject):
+            class CancellationReason(StripeObject):
+                enabled: bool
+                options: List[
+                    Literal[
+                        "customer_service",
+                        "low_quality",
+                        "missing_features",
+                        "other",
+                        "switched_service",
+                        "too_complex",
+                        "too_expensive",
+                        "unused",
+                    ]
+                ]
+
+            cancellation_reason: CancellationReason
+            enabled: bool
+            mode: Literal["at_period_end", "immediately"]
+            proration_behavior: Literal[
+                "always_invoice", "create_prorations", "none"
+            ]
+            _inner_class_types = {"cancellation_reason": CancellationReason}
+
+        class SubscriptionPause(StripeObject):
+            enabled: bool
+
+        class SubscriptionUpdate(StripeObject):
+            class Product(StripeObject):
+                prices: List[str]
+                product: str
+
+            default_allowed_updates: List[
+                Literal["price", "promotion_code", "quantity"]
+            ]
+            enabled: bool
+            products: Optional[List[Product]]
+            proration_behavior: Literal[
+                "always_invoice", "create_prorations", "none"
+            ]
+            _inner_class_types = {"products": Product}
+
+        customer_update: CustomerUpdate
+        invoice_history: InvoiceHistory
+        payment_method_update: PaymentMethodUpdate
+        subscription_cancel: SubscriptionCancel
+        subscription_pause: SubscriptionPause
+        subscription_update: SubscriptionUpdate
+        _inner_class_types = {
+            "customer_update": CustomerUpdate,
+            "invoice_history": InvoiceHistory,
+            "payment_method_update": PaymentMethodUpdate,
+            "subscription_cancel": SubscriptionCancel,
+            "subscription_pause": SubscriptionPause,
+            "subscription_update": SubscriptionUpdate,
+        }
+
+    class LoginPage(StripeObject):
+        enabled: bool
+        url: Optional[str]
+
     active: bool
     application: Optional[ExpandableField["Application"]]
-    business_profile: StripeObject
+    business_profile: BusinessProfile
     created: int
     default_return_url: Optional[str]
-    features: StripeObject
+    features: Features
     id: str
     is_default: bool
     livemode: bool
-    login_page: StripeObject
+    login_page: LoginPage
     metadata: Optional[Dict[str, str]]
     object: Literal["billing_portal.configuration"]
     updated: int
@@ -106,3 +188,9 @@ class Configuration(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "business_profile": BusinessProfile,
+        "features": Features,
+        "login_page": LoginPage,
+    }

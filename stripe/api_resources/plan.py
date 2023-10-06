@@ -40,6 +40,18 @@ class Plan(
     """
 
     OBJECT_NAME = "plan"
+
+    class Tier(StripeObject):
+        flat_amount: Optional[int]
+        flat_amount_decimal: Optional[float]
+        unit_amount: Optional[int]
+        unit_amount_decimal: Optional[float]
+        up_to: Optional[int]
+
+    class TransformUsage(StripeObject):
+        divide_by: int
+        round: Literal["down", "up"]
+
     active: bool
     aggregate_usage: Optional[
         Literal["last_during_period", "last_ever", "max", "sum"]
@@ -57,9 +69,9 @@ class Plan(
     nickname: Optional[str]
     object: Literal["plan"]
     product: Optional[ExpandableField["Product"]]
-    tiers: Optional[List[StripeObject]]
+    tiers: Optional[List[Tier]]
     tiers_mode: Optional[Literal["graduated", "volume"]]
-    transform_usage: Optional[StripeObject]
+    transform_usage: Optional[TransformUsage]
     trial_period_days: Optional[int]
     usage_type: Literal["licensed", "metered"]
     deleted: Optional[Literal[True]]
@@ -142,3 +154,5 @@ class Plan(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"tiers": Tier, "transform_usage": TransformUsage}

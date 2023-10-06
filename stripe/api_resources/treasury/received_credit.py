@@ -15,6 +15,9 @@ from typing_extensions import Literal, Type
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.payout import Payout
+    from stripe.api_resources.treasury.credit_reversal import CreditReversal
+    from stripe.api_resources.treasury.outbound_payment import OutboundPayment
     from stripe.api_resources.treasury.transaction import Transaction
 
 
@@ -24,6 +27,78 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     """
 
     OBJECT_NAME = "treasury.received_credit"
+
+    class InitiatingPaymentMethodDetails(StripeObject):
+        class BillingDetails(StripeObject):
+            class Address(StripeObject):
+                city: Optional[str]
+                country: Optional[str]
+                line1: Optional[str]
+                line2: Optional[str]
+                postal_code: Optional[str]
+                state: Optional[str]
+
+            address: Address
+            email: Optional[str]
+            name: Optional[str]
+            _inner_class_types = {"address": Address}
+
+        class FinancialAccount(StripeObject):
+            id: str
+            network: Literal["stripe"]
+
+        class UsBankAccount(StripeObject):
+            bank_name: Optional[str]
+            last4: Optional[str]
+            routing_number: Optional[str]
+
+        balance: Optional[Literal["payments"]]
+        billing_details: BillingDetails
+        financial_account: Optional[FinancialAccount]
+        issuing_card: Optional[str]
+        type: Literal[
+            "balance",
+            "financial_account",
+            "issuing_card",
+            "stripe",
+            "us_bank_account",
+        ]
+        us_bank_account: Optional[UsBankAccount]
+        _inner_class_types = {
+            "billing_details": BillingDetails,
+            "financial_account": FinancialAccount,
+            "us_bank_account": UsBankAccount,
+        }
+
+    class LinkedFlows(StripeObject):
+        class SourceFlowDetails(StripeObject):
+            credit_reversal: Optional["CreditReversal"]
+            outbound_payment: Optional["OutboundPayment"]
+            payout: Optional["Payout"]
+            type: Literal[
+                "credit_reversal", "other", "outbound_payment", "payout"
+            ]
+
+        credit_reversal: Optional[str]
+        issuing_authorization: Optional[str]
+        issuing_transaction: Optional[str]
+        source_flow: Optional[str]
+        source_flow_details: Optional[SourceFlowDetails]
+        source_flow_type: Optional[str]
+        _inner_class_types = {"source_flow_details": SourceFlowDetails}
+
+    class ReversalDetails(StripeObject):
+        deadline: Optional[int]
+        restricted_reason: Optional[
+            Literal[
+                "already_reversed",
+                "deadline_passed",
+                "network_restricted",
+                "other",
+                "source_flow_restricted",
+            ]
+        ]
+
     amount: int
     created: int
     currency: str
@@ -34,12 +109,12 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     financial_account: Optional[str]
     hosted_regulatory_receipt_url: Optional[str]
     id: str
-    initiating_payment_method_details: StripeObject
-    linked_flows: StripeObject
+    initiating_payment_method_details: InitiatingPaymentMethodDetails
+    linked_flows: LinkedFlows
     livemode: bool
     network: Literal["ach", "card", "stripe", "us_domestic_wire"]
     object: Literal["treasury.received_credit"]
-    reversal_details: Optional[StripeObject]
+    reversal_details: Optional[ReversalDetails]
     status: Literal["failed", "succeeded"]
     transaction: Optional[ExpandableField["Transaction"]]
 
@@ -99,6 +174,12 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "initiating_payment_method_details": InitiatingPaymentMethodDetails,
+        "linked_flows": LinkedFlows,
+        "reversal_details": ReversalDetails,
+    }
 
 
 ReceivedCredit.TestHelpers._resource_cls = ReceivedCredit

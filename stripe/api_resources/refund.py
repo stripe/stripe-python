@@ -39,6 +39,21 @@ class Refund(
     """
 
     OBJECT_NAME = "refund"
+
+    class NextAction(StripeObject):
+        class DisplayDetails(StripeObject):
+            class EmailSent(StripeObject):
+                email_sent_at: int
+                email_sent_to: str
+
+            email_sent: EmailSent
+            expires_at: int
+            _inner_class_types = {"email_sent": EmailSent}
+
+        display_details: Optional[DisplayDetails]
+        type: str
+        _inner_class_types = {"display_details": DisplayDetails}
+
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     charge: Optional[ExpandableField["Charge"]]
@@ -52,7 +67,7 @@ class Refund(
     id: str
     instructions_email: Optional[str]
     metadata: Optional[Dict[str, str]]
-    next_action: Optional[StripeObject]
+    next_action: Optional[NextAction]
     object: Literal["refund"]
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     reason: Optional[
@@ -199,6 +214,8 @@ class Refund(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {"next_action": NextAction}
 
 
 Refund.TestHelpers._resource_cls = Refund

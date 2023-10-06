@@ -27,6 +27,10 @@ class CreditReversal(
     """
 
     OBJECT_NAME = "treasury.credit_reversal"
+
+    class StatusTransitions(StripeObject):
+        posted_at: Optional[int]
+
     amount: int
     created: int
     currency: str
@@ -39,7 +43,7 @@ class CreditReversal(
     object: Literal["treasury.credit_reversal"]
     received_credit: str
     status: Literal["canceled", "posted", "processing"]
-    status_transitions: StripeObject
+    status_transitions: StatusTransitions
     transaction: Optional[ExpandableField["Transaction"]]
 
     @classmethod
@@ -96,3 +100,5 @@ class CreditReversal(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"status_transitions": StatusTransitions}

@@ -19,6 +19,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.api_resources.balance_transaction import BalanceTransaction
     from stripe.api_resources.charge import Charge
+    from stripe.api_resources.file import File
     from stripe.api_resources.payment_intent import PaymentIntent
 
 
@@ -34,13 +35,58 @@ class Dispute(
     """
 
     OBJECT_NAME = "dispute"
+
+    class Evidence(StripeObject):
+        access_activity_log: Optional[str]
+        billing_address: Optional[str]
+        cancellation_policy: Optional[ExpandableField["File"]]
+        cancellation_policy_disclosure: Optional[str]
+        cancellation_rebuttal: Optional[str]
+        customer_communication: Optional[ExpandableField["File"]]
+        customer_email_address: Optional[str]
+        customer_name: Optional[str]
+        customer_purchase_ip: Optional[str]
+        customer_signature: Optional[ExpandableField["File"]]
+        duplicate_charge_documentation: Optional[ExpandableField["File"]]
+        duplicate_charge_explanation: Optional[str]
+        duplicate_charge_id: Optional[str]
+        product_description: Optional[str]
+        receipt: Optional[ExpandableField["File"]]
+        refund_policy: Optional[ExpandableField["File"]]
+        refund_policy_disclosure: Optional[str]
+        refund_refusal_explanation: Optional[str]
+        service_date: Optional[str]
+        service_documentation: Optional[ExpandableField["File"]]
+        shipping_address: Optional[str]
+        shipping_carrier: Optional[str]
+        shipping_date: Optional[str]
+        shipping_documentation: Optional[ExpandableField["File"]]
+        shipping_tracking_number: Optional[str]
+        uncategorized_file: Optional[ExpandableField["File"]]
+        uncategorized_text: Optional[str]
+
+    class EvidenceDetails(StripeObject):
+        due_by: Optional[int]
+        has_evidence: bool
+        past_due: bool
+        submission_count: int
+
+    class PaymentMethodDetails(StripeObject):
+        class Card(StripeObject):
+            brand: str
+            network_reason_code: Optional[str]
+
+        card: Optional[Card]
+        type: Literal["card"]
+        _inner_class_types = {"card": Card}
+
     amount: int
     balance_transactions: List["BalanceTransaction"]
     charge: ExpandableField["Charge"]
     created: int
     currency: str
-    evidence: StripeObject
-    evidence_details: StripeObject
+    evidence: Evidence
+    evidence_details: EvidenceDetails
     id: str
     is_charge_refundable: bool
     livemode: bool
@@ -48,7 +94,7 @@ class Dispute(
     network_reason_code: Optional[str]
     object: Literal["dispute"]
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
-    payment_method_details: Optional[StripeObject]
+    payment_method_details: Optional[PaymentMethodDetails]
     reason: str
     status: Literal[
         "lost",
@@ -131,3 +177,9 @@ class Dispute(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "evidence": Evidence,
+        "evidence_details": EvidenceDetails,
+        "payment_method_details": PaymentMethodDetails,
+    }
