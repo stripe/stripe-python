@@ -12,6 +12,11 @@ from typing import Any, List, Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.account import Account
+
 
 class Form(ListableAPIResource["Form"]):
     """
@@ -21,17 +26,42 @@ class Form(ListableAPIResource["Form"]):
     """
 
     OBJECT_NAME = "tax.form"
+
+    class FilingStatus(StripeObject):
+        class Jurisdiction(StripeObject):
+            country: str
+            level: Literal["country", "state"]
+            state: Optional[str]
+
+        effective_at: int
+        jurisdiction: Jurisdiction
+        value: Literal["accepted", "filed", "rejected"]
+        _inner_class_types = {"jurisdiction": Jurisdiction}
+
+    class Payee(StripeObject):
+        account: Optional[ExpandableField["Account"]]
+        type: Literal["account"]
+
+    class Us1099K(StripeObject):
+        reporting_year: int
+
+    class Us1099Misc(StripeObject):
+        reporting_year: int
+
+    class Us1099Nec(StripeObject):
+        reporting_year: int
+
     corrected_by: Optional[ExpandableField["Form"]]
     created: int
-    filing_statuses: List[StripeObject]
+    filing_statuses: List[FilingStatus]
     id: str
     livemode: bool
     object: Literal["tax.form"]
-    payee: StripeObject
+    payee: Payee
     type: Literal["us_1099_k", "us_1099_misc", "us_1099_nec"]
-    us_1099_k: Optional[StripeObject]
-    us_1099_misc: Optional[StripeObject]
-    us_1099_nec: Optional[StripeObject]
+    us_1099_k: Optional[Us1099K]
+    us_1099_misc: Optional[Us1099Misc]
+    us_1099_nec: Optional[Us1099Nec]
 
     @classmethod
     def list(
@@ -109,3 +139,11 @@ class Form(ListableAPIResource["Form"]):
         )
         url = self.instance_url() + "/pdf"
         return requestor.request_stream("get", url, params=params)
+
+    _inner_class_types = {
+        "filing_statuses": FilingStatus,
+        "payee": Payee,
+        "us_1099_k": Us1099K,
+        "us_1099_misc": Us1099Misc,
+        "us_1099_nec": Us1099Nec,
+    }

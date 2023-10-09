@@ -12,7 +12,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, Type
 from urllib.parse import quote_plus
 
@@ -33,16 +33,56 @@ class PersonalizationDesign(
     """
 
     OBJECT_NAME = "issuing.personalization_design"
+
+    class CarrierText(StripeObject):
+        footer_body: Optional[str]
+        footer_title: Optional[str]
+        header_body: Optional[str]
+        header_title: Optional[str]
+
+    class Preferences(StripeObject):
+        account_default: bool
+        platform_default: Optional[bool]
+
+    class RejectionReasons(StripeObject):
+        card_logo: Optional[
+            List[
+                Literal[
+                    "geographic_location",
+                    "inappropriate",
+                    "network_name",
+                    "non_binary_image",
+                    "non_fiat_currency",
+                    "other",
+                    "other_entity",
+                    "promotional_material",
+                ]
+            ]
+        ]
+        carrier_text: Optional[
+            List[
+                Literal[
+                    "geographic_location",
+                    "inappropriate",
+                    "network_name",
+                    "non_fiat_currency",
+                    "other",
+                    "other_entity",
+                    "promotional_material",
+                ]
+            ]
+        ]
+
     card_logo: Optional[ExpandableField["File"]]
-    carrier_text: Optional[StripeObject]
+    carrier_text: Optional[CarrierText]
     id: str
     lookup_key: Optional[str]
     metadata: Dict[str, str]
     name: Optional[str]
     object: Literal["issuing.personalization_design"]
     physical_bundle: ExpandableField["PhysicalBundle"]
-    preferences: StripeObject
-    rejection_reasons: StripeObject
+    preferences: Preferences
+    rejection_reasons: RejectionReasons
     status: Literal["active", "inactive", "rejected", "review"]
 
     @classmethod
@@ -223,6 +263,12 @@ class PersonalizationDesign(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "carrier_text": CarrierText,
+        "preferences": Preferences,
+        "rejection_reasons": RejectionReasons,
+    }
 
 
 PersonalizationDesign.TestHelpers._resource_cls = PersonalizationDesign

@@ -40,7 +40,15 @@ class SubscriptionItem(
     """
 
     OBJECT_NAME = "subscription_item"
-    billing_thresholds: Optional[StripeObject]
+
+    class BillingThresholds(StripeObject):
+        usage_gte: Optional[int]
+
+    class Trial(StripeObject):
+        converts_to: Optional[List[str]]
+        type: Literal["free", "paid"]
+
+    billing_thresholds: Optional[BillingThresholds]
     created: int
     discounts: Optional[List[ExpandableField["Discount"]]]
     id: str
@@ -51,7 +59,7 @@ class SubscriptionItem(
     quantity: Optional[int]
     subscription: str
     tax_rates: Optional[List["TaxRate"]]
-    trial: Optional[StripeObject]
+    trial: Optional[Trial]
     deleted: Optional[Literal[True]]
 
     @classmethod
@@ -172,3 +180,8 @@ class SubscriptionItem(
             stripe_account=stripe_account,
             params=params,
         )
+
+    _inner_class_types = {
+        "billing_thresholds": BillingThresholds,
+        "trial": Trial,
+    }

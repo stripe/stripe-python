@@ -20,15 +20,33 @@ class SourceMandateNotification(StripeObject):
     """
 
     OBJECT_NAME = "source_mandate_notification"
-    acss_debit: Optional[StripeObject]
+
+    class AcssDebit(StripeObject):
+        statement_descriptor: Optional[str]
+
+    class BacsDebit(StripeObject):
+        last4: Optional[str]
+
+    class SepaDebit(StripeObject):
+        creditor_identifier: Optional[str]
+        last4: Optional[str]
+        mandate_reference: Optional[str]
+
+    acss_debit: Optional[AcssDebit]
     amount: Optional[int]
-    bacs_debit: Optional[StripeObject]
+    bacs_debit: Optional[BacsDebit]
     created: int
     id: str
     livemode: bool
     object: Literal["source_mandate_notification"]
     reason: str
-    sepa_debit: Optional[StripeObject]
+    sepa_debit: Optional[SepaDebit]
     source: "Source"
     status: str
     type: str
+
+    _inner_class_types = {
+        "acss_debit": AcssDebit,
+        "bacs_debit": BacsDebit,
+        "sepa_debit": SepaDebit,
+    }

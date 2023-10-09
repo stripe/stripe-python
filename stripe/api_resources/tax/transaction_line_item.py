@@ -9,6 +9,10 @@ from typing_extensions import Literal
 
 class TransactionLineItem(StripeObject):
     OBJECT_NAME = "tax.transaction_line_item"
+
+    class Reversal(StripeObject):
+        original_line_item: str
+
     amount: int
     amount_tax: int
     id: str
@@ -18,7 +22,9 @@ class TransactionLineItem(StripeObject):
     product: Optional[str]
     quantity: int
     reference: str
-    reversal: Optional[StripeObject]
+    reversal: Optional[Reversal]
     tax_behavior: Literal["exclusive", "inclusive"]
     tax_code: str
     type: Literal["reversal", "transaction"]
+
+    _inner_class_types = {"reversal": Reversal}

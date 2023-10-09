@@ -15,6 +15,11 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
 
     OBJECT_NAME = "financial_connections.transaction"
+
+    class StatusTransitions(StripeObject):
+        posted_at: Optional[int]
+        void_at: Optional[int]
+
     account: str
     amount: int
     currency: str
@@ -23,7 +28,7 @@ class Transaction(ListableAPIResource["Transaction"]):
     livemode: bool
     object: Literal["financial_connections.transaction"]
     status: Literal["pending", "posted", "void"]
-    status_transitions: StripeObject
+    status_transitions: StatusTransitions
     transacted_at: int
     transaction_refresh: str
     updated: int
@@ -52,3 +57,5 @@ class Transaction(ListableAPIResource["Transaction"]):
             )
 
         return result
+
+    _inner_class_types = {"status_transitions": StatusTransitions}

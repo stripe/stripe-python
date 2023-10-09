@@ -19,6 +19,7 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.balance_transaction import BalanceTransaction
+    from stripe.api_resources.file import File
     from stripe.api_resources.issuing.transaction import Transaction
 
 
@@ -34,18 +35,102 @@ class Dispute(
     """
 
     OBJECT_NAME = "issuing.dispute"
+
+    class Evidence(StripeObject):
+        class Canceled(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            canceled_at: Optional[int]
+            cancellation_policy_provided: Optional[bool]
+            cancellation_reason: Optional[str]
+            expected_at: Optional[int]
+            explanation: Optional[str]
+            product_description: Optional[str]
+            product_type: Optional[Literal["merchandise", "service"]]
+            return_status: Optional[Literal["merchant_rejected", "successful"]]
+            returned_at: Optional[int]
+
+        class Duplicate(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            card_statement: Optional[ExpandableField["File"]]
+            cash_receipt: Optional[ExpandableField["File"]]
+            check_image: Optional[ExpandableField["File"]]
+            explanation: Optional[str]
+            original_transaction: Optional[str]
+
+        class Fraudulent(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            explanation: Optional[str]
+
+        class MerchandiseNotAsDescribed(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            explanation: Optional[str]
+            received_at: Optional[int]
+            return_description: Optional[str]
+            return_status: Optional[Literal["merchant_rejected", "successful"]]
+            returned_at: Optional[int]
+
+        class NotReceived(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            expected_at: Optional[int]
+            explanation: Optional[str]
+            product_description: Optional[str]
+            product_type: Optional[Literal["merchandise", "service"]]
+
+        class Other(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            explanation: Optional[str]
+            product_description: Optional[str]
+            product_type: Optional[Literal["merchandise", "service"]]
+
+        class ServiceNotAsDescribed(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            canceled_at: Optional[int]
+            cancellation_reason: Optional[str]
+            explanation: Optional[str]
+            received_at: Optional[int]
+
+        canceled: Optional[Canceled]
+        duplicate: Optional[Duplicate]
+        fraudulent: Optional[Fraudulent]
+        merchandise_not_as_described: Optional[MerchandiseNotAsDescribed]
+        not_received: Optional[NotReceived]
+        other: Optional[Other]
+        reason: Literal[
+            "canceled",
+            "duplicate",
+            "fraudulent",
+            "merchandise_not_as_described",
+            "not_received",
+            "other",
+            "service_not_as_described",
+        ]
+        service_not_as_described: Optional[ServiceNotAsDescribed]
+        _inner_class_types = {
+            "canceled": Canceled,
+            "duplicate": Duplicate,
+            "fraudulent": Fraudulent,
+            "merchandise_not_as_described": MerchandiseNotAsDescribed,
+            "not_received": NotReceived,
+            "other": Other,
+            "service_not_as_described": ServiceNotAsDescribed,
+        }
+
+    class Treasury(StripeObject):
+        debit_reversal: Optional[str]
+        received_debit: str
+
     amount: int
     balance_transactions: Optional[List["BalanceTransaction"]]
     created: int
     currency: str
-    evidence: StripeObject
+    evidence: Evidence
     id: str
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["issuing.dispute"]
     status: Literal["expired", "lost", "submitted", "unsubmitted", "won"]
     transaction: ExpandableField["Transaction"]
-    treasury: Optional[StripeObject]
+    treasury: Optional[Treasury]
 
     @classmethod
     def create(
@@ -140,3 +225,5 @@ class Dispute(
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    _inner_class_types = {"evidence": Evidence, "treasury": Treasury}

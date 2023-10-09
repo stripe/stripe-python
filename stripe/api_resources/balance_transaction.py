@@ -19,6 +19,14 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     """
 
     OBJECT_NAME = "balance_transaction"
+
+    class FeeDetail(StripeObject):
+        amount: int
+        application: Optional[str]
+        currency: str
+        description: Optional[str]
+        type: str
+
     amount: int
     available_on: int
     created: int
@@ -26,7 +34,7 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     description: Optional[str]
     exchange_rate: Optional[float]
     fee: int
-    fee_details: List[StripeObject]
+    fee_details: List[FeeDetail]
     id: str
     net: int
     object: Literal["balance_transaction"]
@@ -107,3 +115,5 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"fee_details": FeeDetail}

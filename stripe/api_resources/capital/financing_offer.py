@@ -17,7 +17,25 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     """
 
     OBJECT_NAME = "capital.financing_offer"
-    accepted_terms: Optional[StripeObject]
+
+    class AcceptedTerms(StripeObject):
+        advance_amount: int
+        currency: str
+        fee_amount: int
+        previous_financing_fee_discount_amount: Optional[int]
+        withhold_rate: float
+
+    class OfferedTerms(StripeObject):
+        advance_amount: int
+        campaign_type: Literal[
+            "newly_eligible_user", "previously_eligible_user", "repeat_user"
+        ]
+        currency: str
+        fee_amount: int
+        previous_financing_fee_discount_rate: Optional[float]
+        withhold_rate: float
+
+    accepted_terms: Optional[AcceptedTerms]
     account: str
     created: int
     expires_after: float
@@ -26,7 +44,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["capital.financing_offer"]
-    offered_terms: Optional[StripeObject]
+    offered_terms: Optional[OfferedTerms]
     product_type: Optional[Literal["refill", "standard"]]
     replacement: Optional[str]
     replacement_for: Optional[str]
@@ -109,3 +127,8 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "accepted_terms": AcceptedTerms,
+        "offered_terms": OfferedTerms,
+    }

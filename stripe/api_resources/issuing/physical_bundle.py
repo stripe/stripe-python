@@ -15,7 +15,12 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
     """
 
     OBJECT_NAME = "issuing.physical_bundle"
-    features: Optional[StripeObject]
+
+    class Features(StripeObject):
+        card_logo: Literal["optional", "required", "unsupported"]
+        carrier_text: Literal["optional", "required", "unsupported"]
+
+    features: Optional[Features]
     id: str
     livemode: bool
     name: str
@@ -55,3 +60,5 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"features": Features}

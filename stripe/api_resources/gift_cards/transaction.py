@@ -30,10 +30,33 @@ class Transaction(
     """
 
     OBJECT_NAME = "gift_cards.transaction"
+
+    class CreatedBy(StripeObject):
+        class Checkout(StripeObject):
+            checkout_session: str
+            line_item: Optional[str]
+
+        class Order(StripeObject):
+            line_item: Optional[str]
+            order: str
+
+        class Payment(StripeObject):
+            payment_intent: str
+
+        checkout: Optional[Checkout]
+        order: Optional[Order]
+        payment: Optional[Payment]
+        type: Literal["checkout", "order", "payment"]
+        _inner_class_types = {
+            "checkout": Checkout,
+            "order": Order,
+            "payment": Payment,
+        }
+
     amount: Optional[int]
     confirmed_at: Optional[int]
     created: Optional[int]
-    created_by: Optional[StripeObject]
+    created_by: Optional[CreatedBy]
     currency: Optional[str]
     description: Optional[str]
     gift_card: Optional[str]
@@ -167,3 +190,5 @@ class Transaction(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"created_by": CreatedBy}

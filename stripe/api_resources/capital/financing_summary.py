@@ -15,7 +15,27 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     """
 
     OBJECT_NAME = "capital.financing_summary"
-    details: Optional[StripeObject]
+
+    class Details(StripeObject):
+        class CurrentRepaymentInterval(StripeObject):
+            due_at: int
+            paid_amount: Optional[int]
+            remaining_amount: int
+
+        advance_amount: int
+        advance_paid_out_at: Optional[int]
+        currency: str
+        current_repayment_interval: Optional[CurrentRepaymentInterval]
+        fee_amount: int
+        paid_amount: int
+        remaining_amount: int
+        repayments_begin_at: Optional[int]
+        withhold_rate: float
+        _inner_class_types = {
+            "current_repayment_interval": CurrentRepaymentInterval,
+        }
+
+    details: Optional[Details]
     financing_offer: Optional[str]
     object: Literal["capital.financing_summary"]
     status: Optional[Literal["accepted", "delivered", "none"]]
@@ -29,3 +49,5 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     @classmethod
     def class_url(cls):
         return "/v1/capital/financing_summary"
+
+    _inner_class_types = {"details": Details}

@@ -13,13 +13,18 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, Type
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.charge import Charge
+    from stripe.api_resources.payment_intent import PaymentIntent
+    from stripe.api_resources.payment_method import PaymentMethod
+    from stripe.api_resources.refund import Refund
+    from stripe.api_resources.setup_intent import SetupIntent
     from stripe.api_resources.terminal.location import Location
 
 
@@ -36,7 +41,153 @@ class Reader(
     """
 
     OBJECT_NAME = "terminal.reader"
-    action: Optional[StripeObject]
+
+    class Action(StripeObject):
+        class CollectInputs(StripeObject):
+            class Input(StripeObject):
+                class CustomText(StripeObject):
+                    description: Optional[str]
+                    skip_button: Optional[str]
+                    submit_button: Optional[str]
+                    title: Optional[str]
+
+                class Selection(StripeObject):
+                    class Choice(StripeObject):
+                        style: Optional[Literal["primary", "secondary"]]
+                        value: str
+
+                    choices: List[Choice]
+                    value: Optional[str]
+                    _inner_class_types = {"choices": Choice}
+
+                class Signature(StripeObject):
+                    value: Optional[str]
+
+                custom_text: Optional[CustomText]
+                required: Optional[bool]
+                selection: Optional[Selection]
+                signature: Optional[Signature]
+                skipped: Optional[bool]
+                type: Literal[
+                    "email",
+                    "numeric",
+                    "phone",
+                    "selection",
+                    "signature",
+                    "text",
+                ]
+                _inner_class_types = {
+                    "custom_text": CustomText,
+                    "selection": Selection,
+                    "signature": Signature,
+                }
+
+            inputs: List[Input]
+            metadata: Optional[Dict[str, str]]
+            _inner_class_types = {"inputs": Input}
+
+        class CollectPaymentMethod(StripeObject):
+            class CollectConfig(StripeObject):
+                class Tipping(StripeObject):
+                    amount_eligible: Optional[int]
+
+                skip_tipping: Optional[bool]
+                tipping: Optional[Tipping]
+                _inner_class_types = {"tipping": Tipping}
+
+            collect_config: Optional[CollectConfig]
+            payment_intent: ExpandableField["PaymentIntent"]
+            payment_method: Optional["PaymentMethod"]
+            stripe_account: Optional[str]
+            _inner_class_types = {"collect_config": CollectConfig}
+
+        class ConfirmPaymentIntent(StripeObject):
+            payment_intent: ExpandableField["PaymentIntent"]
+            stripe_account: Optional[str]
+
+        class ProcessPaymentIntent(StripeObject):
+            class ProcessConfig(StripeObject):
+                class Tipping(StripeObject):
+                    amount_eligible: Optional[int]
+
+                skip_tipping: Optional[bool]
+                tipping: Optional[Tipping]
+                _inner_class_types = {"tipping": Tipping}
+
+            payment_intent: ExpandableField["PaymentIntent"]
+            process_config: Optional[ProcessConfig]
+            stripe_account: Optional[str]
+            _inner_class_types = {"process_config": ProcessConfig}
+
+        class ProcessSetupIntent(StripeObject):
+            class ProcessConfig(StripeObject):
+                pass
+
+            generated_card: Optional[str]
+            process_config: Optional[ProcessConfig]
+            setup_intent: ExpandableField["SetupIntent"]
+            _inner_class_types = {"process_config": ProcessConfig}
+
+        class RefundPayment(StripeObject):
+            amount: Optional[int]
+            charge: Optional[ExpandableField["Charge"]]
+            metadata: Optional[Dict[str, str]]
+            payment_intent: Optional[ExpandableField["PaymentIntent"]]
+            reason: Optional[
+                Literal["duplicate", "fraudulent", "requested_by_customer"]
+            ]
+            refund: Optional[ExpandableField["Refund"]]
+            refund_application_fee: Optional[bool]
+            reverse_transfer: Optional[bool]
+            stripe_account: Optional[str]
+
+        class SetReaderDisplay(StripeObject):
+            class Cart(StripeObject):
+                class LineItem(StripeObject):
+                    amount: int
+                    description: str
+                    quantity: int
+
+                currency: str
+                line_items: List[LineItem]
+                tax: Optional[int]
+                total: int
+                _inner_class_types = {"line_items": LineItem}
+
+            cart: Optional[Cart]
+            type: Literal["cart"]
+            _inner_class_types = {"cart": Cart}
+
+        collect_inputs: Optional[CollectInputs]
+        collect_payment_method: Optional[CollectPaymentMethod]
+        confirm_payment_intent: Optional[ConfirmPaymentIntent]
+        failure_code: Optional[str]
+        failure_message: Optional[str]
+        process_payment_intent: Optional[ProcessPaymentIntent]
+        process_setup_intent: Optional[ProcessSetupIntent]
+        refund_payment: Optional[RefundPayment]
+        set_reader_display: Optional[SetReaderDisplay]
+        status: Literal["failed", "in_progress", "succeeded"]
+        type: Literal[
+            "collect_inputs",
+            "collect_payment_method",
+            "confirm_payment_intent",
+            "process_payment_intent",
+            "process_setup_intent",
+            "refund_payment",
+            "set_reader_display",
+        ]
+        _inner_class_types = {
+            "collect_inputs": CollectInputs,
+            "collect_payment_method": CollectPaymentMethod,
+            "confirm_payment_intent": ConfirmPaymentIntent,
+            "process_payment_intent": ProcessPaymentIntent,
+            "process_setup_intent": ProcessSetupIntent,
+            "refund_payment": RefundPayment,
+            "set_reader_display": SetReaderDisplay,
+        }
+
+    action: Optional[Action]
     device_sw_version: Optional[str]
     device_type: Literal[
         "bbpos_chipper2x",
@@ -439,6 +590,8 @@ class Reader(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {"action": Action}
 
 
 Reader.TestHelpers._resource_cls = Reader
