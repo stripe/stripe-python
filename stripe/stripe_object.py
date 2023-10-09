@@ -2,7 +2,7 @@ import datetime
 import json
 from copy import deepcopy
 from typing_extensions import TYPE_CHECKING, Literal, Type
-from typing import Any, Dict, Optional, ClassVar
+from typing import Any, Dict, List, Optional, ClassVar
 
 import stripe
 from stripe import api_requestor, util
@@ -224,9 +224,29 @@ class StripeObject(Dict[str, Any]):
 
         for k, v in values.items():
             inner_class = self._get_inner_class_type(k)
-            obj = util.convert_to_stripe_object(
-                v, api_key, stripe_version, stripe_account, None, inner_class
-            )
+            is_dict = self._get_inner_class_is_beneath_dict(k)
+            if is_dict:
+                obj = {
+                    k: util.convert_to_stripe_object(
+                        v,
+                        api_key,
+                        stripe_version,
+                        stripe_account,
+                        None,
+                        inner_class,
+                    )
+                    for k, v in v.items()
+                    if v is not None
+                }
+            else:
+                obj = util.convert_to_stripe_object(
+                    v,
+                    api_key,
+                    stripe_version,
+                    stripe_account,
+                    None,
+                    inner_class,
+                )
             super(StripeObject, self).__setitem__(k, obj)
 
         self._previous = values
@@ -416,6 +436,10 @@ class StripeObject(Dict[str, Any]):
         return copied
 
     _inner_class_types: ClassVar[Dict[str, Type["StripeObject"]]] = {}
+    _inner_class_dicts: ClassVar[List[str]] = []
 
     def _get_inner_class_type(self, field_name: str):
         return self._inner_class_types.get(field_name)
+
+    def _get_inner_class_is_beneath_dict(self, field_name: str):
+        return field_name in self._inner_class_dicts

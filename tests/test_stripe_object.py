@@ -7,6 +7,24 @@ import pytest
 
 import stripe
 
+# We use this because it has a map, "restriction.currency_options" from string -> CurrencyOptions nested class.
+SAMPLE_PROMOTION_CODE = json.loads(
+    """{
+  "id": "promo_1NzO4FIFdHa3DensTcbAA0mz",
+  "object": "promotion_code",
+  "restrictions": {
+    "currency_options": {
+      "gbp": {
+        "minimum_amount": 10
+      },
+      "usd": {
+        "minimum_amount": 5
+      }
+    }
+  }
+}
+"""
+)
 
 SAMPLE_INVOICE = json.loads(
     """{
@@ -191,6 +209,22 @@ class TestStripeObject(object):
         )
         assert isinstance(obj.lines.data[0].price, stripe.Price)
         assert obj.lines.data[0].price.billing_scheme == "per_unit"
+
+    def test_refresh_on_map_to_nested_object(self):
+        obj = stripe.PromotionCode.construct_from(SAMPLE_PROMOTION_CODE, "key")
+
+        assert isinstance(
+            obj.restrictions.currency_options,
+            dict,
+        )
+        assert not isinstance(
+            obj.restrictions.currency_options,
+            stripe.stripe_object.StripeObject,
+        )
+        assert isinstance(
+            obj.restrictions.currency_options["gbp"],
+            stripe.PromotionCode.Restrictions.CurrencyOptions,
+        )
 
     def test_to_json(self):
         obj = stripe.stripe_object.StripeObject.construct_from(
