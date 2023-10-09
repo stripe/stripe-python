@@ -54,6 +54,7 @@ class ShippingRate(
         currency: str
         currency_options: Optional[Dict[str, CurrencyOptions]]
         _inner_class_types = {"currency_options": CurrencyOptions}
+        _inner_class_dicts = ["currency_options"]
 
     active: bool
     created: int

@@ -42,6 +42,7 @@ class PromotionCode(
         minimum_amount: Optional[int]
         minimum_amount_currency: Optional[str]
         _inner_class_types = {"currency_options": CurrencyOptions}
+        _inner_class_dicts = ["currency_options"]
 
     active: bool
     code: str
