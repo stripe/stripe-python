@@ -37,6 +37,9 @@ class Configuration(
     class BbposWiseposE(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]
 
+    class Offline(StripeObject):
+        enabled: Optional[bool]
+
     class Tipping(StripeObject):
         class Aud(StripeObject):
             fixed_amounts: Optional[List[int]]
@@ -147,6 +150,7 @@ class Configuration(
     is_account_default: Optional[bool]
     livemode: bool
     object: Literal["terminal.configuration"]
+    offline: Optional[Offline]
     tipping: Optional[Tipping]
     verifone_p400: Optional[VerifoneP400]
     deleted: Optional[Literal[True]]
@@ -232,6 +236,7 @@ class Configuration(
 
     _inner_class_types = {
         "bbpos_wisepos_e": BbposWiseposE,
+        "offline": Offline,
         "tipping": Tipping,
         "verifone_p400": VerifoneP400,
     }
