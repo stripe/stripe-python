@@ -227,7 +227,9 @@ class StripeObject(Dict[str, Any]):
             is_dict = self._get_inner_class_is_beneath_dict(k)
             if is_dict:
                 obj = {
-                    k: util.convert_to_stripe_object(
+                    k: None
+                    if v is None
+                    else util.convert_to_stripe_object(
                         v,
                         api_key,
                         stripe_version,
@@ -236,7 +238,6 @@ class StripeObject(Dict[str, Any]):
                         inner_class,
                     )
                     for k, v in v.items()
-                    if v is not None
                 }
             else:
                 obj = util.convert_to_stripe_object(
