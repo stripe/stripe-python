@@ -26,11 +26,6 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     """
 
     OBJECT_NAME = "apps.secret"
-
-    class Scope(StripeObject):
-        type: Literal["account", "user"]
-        user: Optional[str]
-
     created: int
     deleted: Optional[bool]
     expires_at: Optional[int]
@@ -39,7 +34,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     name: str
     object: Literal["apps.secret"]
     payload: Optional[str]
-    scope: Scope
+    scope: StripeObject
 
     @classmethod
     def create(
@@ -121,5 +116,3 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
             )
 
         return result
-
-    _inner_class_types = {"scope": Scope}

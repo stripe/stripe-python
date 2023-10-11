@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, List, Optional
+from typing import Any, Optional
 from typing_extensions import Literal
 
 
@@ -25,128 +25,14 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
 
     OBJECT_NAME = "identity.verification_report"
-
-    class Document(StripeObject):
-        class Address(StripeObject):
-            city: Optional[str]
-            country: Optional[str]
-            line1: Optional[str]
-            line2: Optional[str]
-            postal_code: Optional[str]
-            state: Optional[str]
-
-        class Dob(StripeObject):
-            day: Optional[int]
-            month: Optional[int]
-            year: Optional[int]
-
-        class Error(StripeObject):
-            code: Optional[
-                Literal[
-                    "document_expired",
-                    "document_type_not_supported",
-                    "document_unverified_other",
-                ]
-            ]
-            reason: Optional[str]
-
-        class ExpirationDate(StripeObject):
-            day: Optional[int]
-            month: Optional[int]
-            year: Optional[int]
-
-        class IssuedDate(StripeObject):
-            day: Optional[int]
-            month: Optional[int]
-            year: Optional[int]
-
-        address: Optional[Address]
-        dob: Optional[Dob]
-        error: Optional[Error]
-        expiration_date: Optional[ExpirationDate]
-        files: Optional[List[str]]
-        first_name: Optional[str]
-        issued_date: Optional[IssuedDate]
-        issuing_country: Optional[str]
-        last_name: Optional[str]
-        number: Optional[str]
-        status: Literal["unverified", "verified"]
-        type: Optional[Literal["driving_license", "id_card", "passport"]]
-        _inner_class_types = {
-            "address": Address,
-            "dob": Dob,
-            "error": Error,
-            "expiration_date": ExpirationDate,
-            "issued_date": IssuedDate,
-        }
-
-    class IdNumber(StripeObject):
-        class Dob(StripeObject):
-            day: Optional[int]
-            month: Optional[int]
-            year: Optional[int]
-
-        class Error(StripeObject):
-            code: Optional[
-                Literal[
-                    "id_number_insufficient_document_data",
-                    "id_number_mismatch",
-                    "id_number_unverified_other",
-                ]
-            ]
-            reason: Optional[str]
-
-        dob: Optional[Dob]
-        error: Optional[Error]
-        first_name: Optional[str]
-        id_number: Optional[str]
-        id_number_type: Optional[Literal["br_cpf", "sg_nric", "us_ssn"]]
-        last_name: Optional[str]
-        status: Literal["unverified", "verified"]
-        _inner_class_types = {"dob": Dob, "error": Error}
-
-    class Options(StripeObject):
-        class Document(StripeObject):
-            allowed_types: Optional[
-                List[Literal["driving_license", "id_card", "passport"]]
-            ]
-            require_id_number: Optional[bool]
-            require_live_capture: Optional[bool]
-            require_matching_selfie: Optional[bool]
-
-        class IdNumber(StripeObject):
-            pass
-
-        document: Optional[Document]
-        id_number: Optional[IdNumber]
-        _inner_class_types = {"document": Document, "id_number": IdNumber}
-
-    class Selfie(StripeObject):
-        class Error(StripeObject):
-            code: Optional[
-                Literal[
-                    "selfie_document_missing_photo",
-                    "selfie_face_mismatch",
-                    "selfie_manipulated",
-                    "selfie_unverified_other",
-                ]
-            ]
-            reason: Optional[str]
-
-        document: Optional[str]
-        error: Optional[Error]
-        selfie: Optional[str]
-        status: Literal["unverified", "verified"]
-        _inner_class_types = {"error": Error}
-
     created: int
-    document: Optional[Document]
+    document: Optional[StripeObject]
     id: str
-    id_number: Optional[IdNumber]
+    id_number: Optional[StripeObject]
     livemode: bool
     object: Literal["identity.verification_report"]
-    options: Optional[Options]
-    selfie: Optional[Selfie]
+    options: Optional[StripeObject]
+    selfie: Optional[StripeObject]
     type: Optional[Literal["document", "id_number"]]
     verification_session: Optional[str]
 
@@ -182,10 +68,3 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
-
-    _inner_class_types = {
-        "document": Document,
-        "id_number": IdNumber,
-        "options": Options,
-        "selfie": Selfie,
-    }

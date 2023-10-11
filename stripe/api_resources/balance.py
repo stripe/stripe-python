@@ -24,73 +24,13 @@ class Balance(SingletonAPIResource["Balance"]):
     """
 
     OBJECT_NAME = "balance"
-
-    class Available(StripeObject):
-        class SourceTypes(StripeObject):
-            bank_account: Optional[int]
-            card: Optional[int]
-            fpx: Optional[int]
-
-        amount: int
-        currency: str
-        source_types: Optional[SourceTypes]
-        _inner_class_types = {"source_types": SourceTypes}
-
-    class ConnectReserved(StripeObject):
-        class SourceTypes(StripeObject):
-            bank_account: Optional[int]
-            card: Optional[int]
-            fpx: Optional[int]
-
-        amount: int
-        currency: str
-        source_types: Optional[SourceTypes]
-        _inner_class_types = {"source_types": SourceTypes}
-
-    class InstantAvailable(StripeObject):
-        class SourceTypes(StripeObject):
-            bank_account: Optional[int]
-            card: Optional[int]
-            fpx: Optional[int]
-
-        amount: int
-        currency: str
-        source_types: Optional[SourceTypes]
-        _inner_class_types = {"source_types": SourceTypes}
-
-    class Issuing(StripeObject):
-        class Available(StripeObject):
-            class SourceTypes(StripeObject):
-                bank_account: Optional[int]
-                card: Optional[int]
-                fpx: Optional[int]
-
-            amount: int
-            currency: str
-            source_types: Optional[SourceTypes]
-            _inner_class_types = {"source_types": SourceTypes}
-
-        available: List[Available]
-        _inner_class_types = {"available": Available}
-
-    class Pending(StripeObject):
-        class SourceTypes(StripeObject):
-            bank_account: Optional[int]
-            card: Optional[int]
-            fpx: Optional[int]
-
-        amount: int
-        currency: str
-        source_types: Optional[SourceTypes]
-        _inner_class_types = {"source_types": SourceTypes}
-
-    available: List[Available]
-    connect_reserved: Optional[List[ConnectReserved]]
-    instant_available: Optional[List[InstantAvailable]]
-    issuing: Optional[Issuing]
+    available: List[StripeObject]
+    connect_reserved: Optional[List[StripeObject]]
+    instant_available: Optional[List[StripeObject]]
+    issuing: Optional[StripeObject]
     livemode: bool
     object: Literal["balance"]
-    pending: List[Pending]
+    pending: List[StripeObject]
 
     @classmethod
     def retrieve(cls, **params: Any) -> "Balance":
@@ -101,11 +41,3 @@ class Balance(SingletonAPIResource["Balance"]):
     @classmethod
     def class_url(cls):
         return "/v1/balance"
-
-    _inner_class_types = {
-        "available": Available,
-        "connect_reserved": ConnectReserved,
-        "instant_available": InstantAvailable,
-        "issuing": Issuing,
-        "pending": Pending,
-    }

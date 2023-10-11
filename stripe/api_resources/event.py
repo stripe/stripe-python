@@ -5,7 +5,7 @@ from __future__ import absolute_import, division, print_function
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional
+from typing import Any, Optional
 from typing_extensions import Literal
 
 
@@ -44,24 +44,15 @@ class Event(ListableAPIResource["Event"]):
     """
 
     OBJECT_NAME = "event"
-
-    class Data(StripeObject):
-        object: Dict[str, Any]
-        previous_attributes: Optional[Dict[str, Any]]
-
-    class Request(StripeObject):
-        id: Optional[str]
-        idempotency_key: Optional[str]
-
     account: Optional[str]
     api_version: Optional[str]
     created: int
-    data: Data
+    data: StripeObject
     id: str
     livemode: bool
     object: Literal["event"]
     pending_webhooks: int
-    request: Optional[Request]
+    request: Optional[StripeObject]
     type: Literal[
         "account.application.authorized",
         "account.application.deauthorized",
@@ -320,5 +311,3 @@ class Event(ListableAPIResource["Event"]):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
-
-    _inner_class_types = {"data": Data, "request": Request}

@@ -50,11 +50,6 @@ class InvoiceItem(
     """
 
     OBJECT_NAME = "invoiceitem"
-
-    class Period(StripeObject):
-        end: int
-        start: int
-
     amount: int
     currency: str
     customer: ExpandableField["Customer"]
@@ -67,7 +62,7 @@ class InvoiceItem(
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["invoiceitem"]
-    period: Period
+    period: StripeObject
     plan: Optional["Plan"]
     price: Optional["Price"]
     proration: bool
@@ -158,5 +153,3 @@ class InvoiceItem(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
-
-    _inner_class_types = {"period": Period}

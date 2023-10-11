@@ -22,7 +22,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
     from stripe.api_resources.customer import Customer
-    from stripe.api_resources.discount import Discount as DiscountResource
+    from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.line_item import LineItem
     from stripe.api_resources.subscription import Subscription
@@ -42,196 +42,27 @@ class Quote(
     """
 
     OBJECT_NAME = "quote"
-
-    class AutomaticTax(StripeObject):
-        enabled: bool
-        status: Optional[
-            Literal["complete", "failed", "requires_location_inputs"]
-        ]
-
-    class Computed(StripeObject):
-        class Recurring(StripeObject):
-            class TotalDetails(StripeObject):
-                class Breakdown(StripeObject):
-                    class Discount(StripeObject):
-                        amount: int
-                        discount: "DiscountResource"
-
-                    class Tax(StripeObject):
-                        amount: int
-                        rate: "TaxRate"
-                        taxability_reason: Optional[
-                            Literal[
-                                "customer_exempt",
-                                "not_collecting",
-                                "not_subject_to_tax",
-                                "not_supported",
-                                "portion_product_exempt",
-                                "portion_reduced_rated",
-                                "portion_standard_rated",
-                                "product_exempt",
-                                "product_exempt_holiday",
-                                "proportionally_rated",
-                                "reduced_rated",
-                                "reverse_charge",
-                                "standard_rated",
-                                "taxable_basis_reduced",
-                                "zero_rated",
-                            ]
-                        ]
-                        taxable_amount: Optional[int]
-
-                    discounts: List[Discount]
-                    taxes: List[Tax]
-                    _inner_class_types = {"discounts": Discount, "taxes": Tax}
-
-                amount_discount: int
-                amount_shipping: Optional[int]
-                amount_tax: int
-                breakdown: Optional[Breakdown]
-                _inner_class_types = {"breakdown": Breakdown}
-
-            amount_subtotal: int
-            amount_total: int
-            interval: Literal["day", "month", "week", "year"]
-            interval_count: int
-            total_details: TotalDetails
-            _inner_class_types = {"total_details": TotalDetails}
-
-        class Upfront(StripeObject):
-            class TotalDetails(StripeObject):
-                class Breakdown(StripeObject):
-                    class Discount(StripeObject):
-                        amount: int
-                        discount: "DiscountResource"
-
-                    class Tax(StripeObject):
-                        amount: int
-                        rate: "TaxRate"
-                        taxability_reason: Optional[
-                            Literal[
-                                "customer_exempt",
-                                "not_collecting",
-                                "not_subject_to_tax",
-                                "not_supported",
-                                "portion_product_exempt",
-                                "portion_reduced_rated",
-                                "portion_standard_rated",
-                                "product_exempt",
-                                "product_exempt_holiday",
-                                "proportionally_rated",
-                                "reduced_rated",
-                                "reverse_charge",
-                                "standard_rated",
-                                "taxable_basis_reduced",
-                                "zero_rated",
-                            ]
-                        ]
-                        taxable_amount: Optional[int]
-
-                    discounts: List[Discount]
-                    taxes: List[Tax]
-                    _inner_class_types = {"discounts": Discount, "taxes": Tax}
-
-                amount_discount: int
-                amount_shipping: Optional[int]
-                amount_tax: int
-                breakdown: Optional[Breakdown]
-                _inner_class_types = {"breakdown": Breakdown}
-
-            amount_subtotal: int
-            amount_total: int
-            line_items: Optional[ListObject["LineItem"]]
-            total_details: TotalDetails
-            _inner_class_types = {"total_details": TotalDetails}
-
-        recurring: Optional[Recurring]
-        upfront: Upfront
-        _inner_class_types = {"recurring": Recurring, "upfront": Upfront}
-
-    class FromQuote(StripeObject):
-        is_revision: bool
-        quote: ExpandableField["Quote"]
-
-    class InvoiceSettings(StripeObject):
-        days_until_due: Optional[int]
-
-    class StatusTransitions(StripeObject):
-        accepted_at: Optional[int]
-        canceled_at: Optional[int]
-        finalized_at: Optional[int]
-
-    class SubscriptionData(StripeObject):
-        description: Optional[str]
-        effective_date: Optional[int]
-        trial_period_days: Optional[int]
-
-    class TotalDetails(StripeObject):
-        class Breakdown(StripeObject):
-            class Discount(StripeObject):
-                amount: int
-                discount: "DiscountResource"
-
-            class Tax(StripeObject):
-                amount: int
-                rate: "TaxRate"
-                taxability_reason: Optional[
-                    Literal[
-                        "customer_exempt",
-                        "not_collecting",
-                        "not_subject_to_tax",
-                        "not_supported",
-                        "portion_product_exempt",
-                        "portion_reduced_rated",
-                        "portion_standard_rated",
-                        "product_exempt",
-                        "product_exempt_holiday",
-                        "proportionally_rated",
-                        "reduced_rated",
-                        "reverse_charge",
-                        "standard_rated",
-                        "taxable_basis_reduced",
-                        "zero_rated",
-                    ]
-                ]
-                taxable_amount: Optional[int]
-
-            discounts: List[Discount]
-            taxes: List[Tax]
-            _inner_class_types = {"discounts": Discount, "taxes": Tax}
-
-        amount_discount: int
-        amount_shipping: Optional[int]
-        amount_tax: int
-        breakdown: Optional[Breakdown]
-        _inner_class_types = {"breakdown": Breakdown}
-
-    class TransferData(StripeObject):
-        amount: Optional[int]
-        amount_percent: Optional[float]
-        destination: ExpandableField["Account"]
-
     amount_subtotal: int
     amount_total: int
     application: Optional[ExpandableField["Application"]]
     application_fee_amount: Optional[int]
     application_fee_percent: Optional[float]
-    automatic_tax: AutomaticTax
+    automatic_tax: StripeObject
     collection_method: Literal["charge_automatically", "send_invoice"]
-    computed: Computed
+    computed: StripeObject
     created: int
     currency: Optional[str]
     customer: Optional[ExpandableField["Customer"]]
     default_tax_rates: Optional[List[ExpandableField["TaxRate"]]]
     description: Optional[str]
-    discounts: List[ExpandableField["DiscountResource"]]
+    discounts: List[ExpandableField["Discount"]]
     expires_at: int
     footer: Optional[str]
-    from_quote: Optional[FromQuote]
+    from_quote: Optional[StripeObject]
     header: Optional[str]
     id: str
     invoice: Optional[ExpandableField["Invoice"]]
-    invoice_settings: Optional[InvoiceSettings]
+    invoice_settings: Optional[StripeObject]
     line_items: Optional[ListObject["LineItem"]]
     livemode: bool
     metadata: Dict[str, str]
@@ -239,13 +70,13 @@ class Quote(
     object: Literal["quote"]
     on_behalf_of: Optional[ExpandableField["Account"]]
     status: Literal["accepted", "canceled", "draft", "open"]
-    status_transitions: StatusTransitions
+    status_transitions: StripeObject
     subscription: Optional[ExpandableField["Subscription"]]
-    subscription_data: SubscriptionData
+    subscription_data: StripeObject
     subscription_schedule: Optional[ExpandableField["SubscriptionSchedule"]]
     test_clock: Optional[ExpandableField["TestClock"]]
-    total_details: TotalDetails
-    transfer_data: Optional[TransferData]
+    total_details: StripeObject
+    transfer_data: Optional[StripeObject]
 
     @classmethod
     def _cls_accept(
@@ -510,14 +341,3 @@ class Quote(
         )
         url = self.instance_url() + "/pdf"
         return requestor.request_stream("get", url, params=params)
-
-    _inner_class_types = {
-        "automatic_tax": AutomaticTax,
-        "computed": Computed,
-        "from_quote": FromQuote,
-        "invoice_settings": InvoiceSettings,
-        "status_transitions": StatusTransitions,
-        "subscription_data": SubscriptionData,
-        "total_details": TotalDetails,
-        "transfer_data": TransferData,
-    }

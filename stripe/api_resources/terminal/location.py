@@ -29,16 +29,7 @@ class Location(
     """
 
     OBJECT_NAME = "terminal.location"
-
-    class Address(StripeObject):
-        city: Optional[str]
-        country: Optional[str]
-        line1: Optional[str]
-        line2: Optional[str]
-        postal_code: Optional[str]
-        state: Optional[str]
-
-    address: Address
+    address: StripeObject
     configuration_overrides: Optional[str]
     display_name: str
     id: str
@@ -125,5 +116,3 @@ class Location(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
-
-    _inner_class_types = {"address": Address}

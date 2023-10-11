@@ -38,63 +38,12 @@ class Price(
     """
 
     OBJECT_NAME = "price"
-
-    class CurrencyOptions(StripeObject):
-        class CustomUnitAmount(StripeObject):
-            maximum: Optional[int]
-            minimum: Optional[int]
-            preset: Optional[int]
-
-        class Tier(StripeObject):
-            flat_amount: Optional[int]
-            flat_amount_decimal: Optional[float]
-            unit_amount: Optional[int]
-            unit_amount_decimal: Optional[float]
-            up_to: Optional[int]
-
-        custom_unit_amount: Optional[CustomUnitAmount]
-        tax_behavior: Optional[
-            Literal["exclusive", "inclusive", "unspecified"]
-        ]
-        tiers: Optional[List[Tier]]
-        unit_amount: Optional[int]
-        unit_amount_decimal: Optional[float]
-        _inner_class_types = {
-            "custom_unit_amount": CustomUnitAmount,
-            "tiers": Tier,
-        }
-
-    class CustomUnitAmount(StripeObject):
-        maximum: Optional[int]
-        minimum: Optional[int]
-        preset: Optional[int]
-
-    class Recurring(StripeObject):
-        aggregate_usage: Optional[
-            Literal["last_during_period", "last_ever", "max", "sum"]
-        ]
-        interval: Literal["day", "month", "week", "year"]
-        interval_count: int
-        trial_period_days: Optional[int]
-        usage_type: Literal["licensed", "metered"]
-
-    class Tier(StripeObject):
-        flat_amount: Optional[int]
-        flat_amount_decimal: Optional[float]
-        unit_amount: Optional[int]
-        unit_amount_decimal: Optional[float]
-        up_to: Optional[int]
-
-    class TransformQuantity(StripeObject):
-        divide_by: int
-        round: Literal["down", "up"]
-
     active: bool
     billing_scheme: Literal["per_unit", "tiered"]
     created: int
     currency: str
-    currency_options: Optional[Dict[str, CurrencyOptions]]
-    custom_unit_amount: Optional[CustomUnitAmount]
+    currency_options: Optional[Dict[str, StripeObject]]
+    custom_unit_amount: Optional[StripeObject]
     id: str
     livemode: bool
     lookup_key: Optional[str]
@@ -102,11 +51,11 @@ class Price(
     nickname: Optional[str]
     object: Literal["price"]
     product: ExpandableField["Product"]
-    recurring: Optional[Recurring]
+    recurring: Optional[StripeObject]
     tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified"]]
-    tiers: Optional[List[Tier]]
+    tiers: Optional[List[StripeObject]]
     tiers_mode: Optional[Literal["graduated", "volume"]]
-    transform_quantity: Optional[TransformQuantity]
+    transform_quantity: Optional[StripeObject]
     type: Literal["one_time", "recurring"]
     unit_amount: Optional[int]
     unit_amount_decimal: Optional[float]
@@ -182,11 +131,3 @@ class Price(
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
-
-    _inner_class_types = {
-        "currency_options": CurrencyOptions,
-        "custom_unit_amount": CustomUnitAmount,
-        "recurring": Recurring,
-        "tiers": Tier,
-        "transform_quantity": TransformQuantity,
-    }

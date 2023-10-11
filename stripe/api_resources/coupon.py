@@ -11,7 +11,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -29,18 +29,11 @@ class Coupon(
     """
 
     OBJECT_NAME = "coupon"
-
-    class AppliesTo(StripeObject):
-        products: List[str]
-
-    class CurrencyOptions(StripeObject):
-        amount_off: int
-
     amount_off: Optional[int]
-    applies_to: Optional[AppliesTo]
+    applies_to: Optional[StripeObject]
     created: int
     currency: Optional[str]
-    currency_options: Optional[Dict[str, CurrencyOptions]]
+    currency_options: Optional[Dict[str, StripeObject]]
     duration: Literal["forever", "once", "repeating"]
     duration_in_months: Optional[int]
     id: str
@@ -133,8 +126,3 @@ class Coupon(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
-
-    _inner_class_types = {
-        "applies_to": AppliesTo,
-        "currency_options": CurrencyOptions,
-    }

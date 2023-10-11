@@ -44,28 +44,18 @@ class Product(
     """
 
     OBJECT_NAME = "product"
-
-    class Feature(StripeObject):
-        name: str
-
-    class PackageDimensions(StripeObject):
-        height: float
-        length: float
-        weight: float
-        width: float
-
     active: bool
     created: int
     default_price: Optional[ExpandableField["Price"]]
     description: Optional[str]
-    features: List[Feature]
+    features: List[StripeObject]
     id: str
     images: List[str]
     livemode: bool
     metadata: Dict[str, str]
     name: str
     object: Literal["product"]
-    package_dimensions: Optional[PackageDimensions]
+    package_dimensions: Optional[StripeObject]
     shippable: Optional[bool]
     statement_descriptor: Optional[str]
     tax_code: Optional[ExpandableField["TaxCode"]]
@@ -161,8 +151,3 @@ class Product(
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
-
-    _inner_class_types = {
-        "features": Feature,
-        "package_dimensions": PackageDimensions,
-    }

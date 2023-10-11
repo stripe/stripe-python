@@ -27,27 +27,20 @@ class DebitReversal(
     """
 
     OBJECT_NAME = "treasury.debit_reversal"
-
-    class LinkedFlows(StripeObject):
-        issuing_dispute: Optional[str]
-
-    class StatusTransitions(StripeObject):
-        completed_at: Optional[int]
-
     amount: int
     created: int
     currency: str
     financial_account: Optional[str]
     hosted_regulatory_receipt_url: Optional[str]
     id: str
-    linked_flows: Optional[LinkedFlows]
+    linked_flows: Optional[StripeObject]
     livemode: bool
     metadata: Dict[str, str]
     network: Literal["ach", "card"]
     object: Literal["treasury.debit_reversal"]
     received_debit: str
     status: Literal["failed", "processing", "succeeded"]
-    status_transitions: StatusTransitions
+    status_transitions: StripeObject
     transaction: Optional[ExpandableField["Transaction"]]
 
     @classmethod
@@ -104,8 +97,3 @@ class DebitReversal(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
-
-    _inner_class_types = {
-        "linked_flows": LinkedFlows,
-        "status_transitions": StatusTransitions,
-    }
