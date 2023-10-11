@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function
-
 import functools
 import hmac
 import io
@@ -151,6 +149,7 @@ def convert_to_stripe_object(
     stripe_version: Optional[str] = None,
     stripe_account: Optional[str] = None,
     params: Optional[Dict[str, Any]] = None,
+    klass_: Optional[Type["StripeObject"]] = None,
 ) -> "StripeObject":
     ...
 
@@ -162,6 +161,7 @@ def convert_to_stripe_object(
     stripe_version: Optional[str] = None,
     stripe_account: Optional[str] = None,
     params: Optional[Dict[str, Any]] = None,
+    klass_: Optional[Type["StripeObject"]] = None,
 ) -> List["StripeObject"]:
     ...
 
@@ -172,6 +172,7 @@ def convert_to_stripe_object(
     stripe_version: Optional[str] = None,
     stripe_account: Optional[str] = None,
     params: Optional[Dict[str, Any]] = None,
+    klass_: Optional[Type["StripeObject"]] = None,
 ) -> Union["StripeObject", List["StripeObject"]]:
     # If we get a StripeResponse, we'll want to return a
     # StripeObject with the last_response field filled out with
@@ -189,6 +190,7 @@ def convert_to_stripe_object(
                 api_key,
                 stripe_version,
                 stripe_account,
+                klass_=klass_,
             )
             for i in resp
         ]
@@ -201,6 +203,8 @@ def convert_to_stripe_object(
             klass = get_object_classes().get(
                 klass_name, stripe.stripe_object.StripeObject
             )
+        elif klass_ is not None:
+            klass = klass_
         else:
             klass = stripe.stripe_object.StripeObject
 

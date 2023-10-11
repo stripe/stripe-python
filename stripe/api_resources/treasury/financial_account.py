@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -33,6 +31,38 @@ class FinancialAccount(
     """
 
     OBJECT_NAME = "treasury.financial_account"
+
+    class Balance(StripeObject):
+        cash: Dict[str, int]
+        inbound_pending: Dict[str, int]
+        outbound_pending: Dict[str, int]
+
+    class FinancialAddress(StripeObject):
+        class Aba(StripeObject):
+            account_holder_name: str
+            account_number: Optional[str]
+            account_number_last4: str
+            bank_name: str
+            routing_number: str
+
+        aba: Optional[Aba]
+        supported_networks: Optional[List[Literal["ach", "us_domestic_wire"]]]
+        type: Literal["aba"]
+        _inner_class_types = {"aba": Aba}
+
+    class PlatformRestrictions(StripeObject):
+        inbound_flows: Optional[Literal["restricted", "unrestricted"]]
+        outbound_flows: Optional[Literal["restricted", "unrestricted"]]
+
+    class StatusDetails(StripeObject):
+        class Closed(StripeObject):
+            reasons: List[
+                Literal["account_rejected", "closed_by_platform", "other"]
+            ]
+
+        closed: Optional[Closed]
+        _inner_class_types = {"closed": Closed}
+
     active_features: Optional[
         List[
             Literal[
@@ -49,11 +79,11 @@ class FinancialAccount(
             ]
         ]
     ]
-    balance: StripeObject
+    balance: Balance
     country: str
     created: int
     features: Optional["FinancialAccountFeatures"]
-    financial_addresses: List[StripeObject]
+    financial_addresses: List[FinancialAddress]
     id: str
     livemode: bool
     metadata: Optional[Dict[str, str]]
@@ -74,7 +104,7 @@ class FinancialAccount(
             ]
         ]
     ]
-    platform_restrictions: Optional[StripeObject]
+    platform_restrictions: Optional[PlatformRestrictions]
     restricted_features: Optional[
         List[
             Literal[
@@ -92,7 +122,7 @@ class FinancialAccount(
         ]
     ]
     status: Literal["closed", "open"]
-    status_details: StripeObject
+    status_details: StatusDetails
     supported_currencies: List[str]
 
     @classmethod
@@ -223,3 +253,10 @@ class FinancialAccount(
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    _inner_class_types = {
+        "balance": Balance,
+        "financial_addresses": FinancialAddress,
+        "platform_restrictions": PlatformRestrictions,
+        "status_details": StatusDetails,
+    }

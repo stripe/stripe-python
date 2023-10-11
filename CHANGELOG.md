@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.8.0b2 - 2023-10-11
+* [#1073](https://github.com/stripe/stripe-python/pull/1073) Update generated code for beta
+  Release specs are identical.
+* [#1061](https://github.com/stripe/stripe-python/pull/1061) Types: inner resource classes
+
 ## 6.8.0b1 - 2023-10-05
 * [#1066](https://github.com/stripe/stripe-python/pull/1066) Update generated code for beta
   * Add support for `mark_draft` and `mark_stale` methods on resource `Quote`
@@ -8,12 +13,15 @@
 * [#1059](https://github.com/stripe/stripe-python/pull/1059) Update generated code for beta
   * Rename resources `Issuing.CardDesign` and `Issuing.CardBundle` to `Issuing.PersonalizationDesign` and `Issuing.PhysicalBundle`
 
+## 6.7.0 - 2023-10-05
+* [#1065](https://github.com/stripe/stripe-python/pull/1065) Update generated code
+  * Add support for new resource `Issuing.Token`
+  * Add support for `list`, `modify`, and `retrieve` methods on resource `Token`
 
 ## 6.7.0b2 - 2023-09-28
 * [#1059](https://github.com/stripe/stripe-python/pull/1059) Update generated code for beta
   * Rename resources `Issuing.CardDesign` and `Issuing.CardBundle` to `Issuing.PersonalizationDesign` and `Issuing.PhysicalBundle`
 * [#997](https://github.com/stripe/stripe-python/pull/997) Remove developer_message support
-
 
 ## 6.7.0b1 - 2023-09-21
 * [#1053](https://github.com/stripe/stripe-python/pull/1053) Update generated code for beta

@@ -1,4 +1,3 @@
-from __future__ import absolute_import, division, print_function
 from typing_extensions import Literal
 from typing import Union, Optional
 
@@ -52,6 +51,7 @@ from stripe.preview import preview  # noqa
 
 from . import stripe_response  # noqa
 from . import stripe_object  # noqa
+from . import api_resources  # noqa
 
 
 # Sets some basic information about the running application that's sent along

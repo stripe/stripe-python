@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function
-
 import platform
 import sys
 from threading import Thread, Lock

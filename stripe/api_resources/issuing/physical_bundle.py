@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
@@ -15,7 +13,12 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
     """
 
     OBJECT_NAME = "issuing.physical_bundle"
-    features: Optional[StripeObject]
+
+    class Features(StripeObject):
+        card_logo: Literal["optional", "required", "unsupported"]
+        carrier_text: Literal["optional", "required", "unsupported"]
+
+    features: Optional[Features]
     id: str
     livemode: bool
     name: str
@@ -55,3 +58,5 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"features": Features}
