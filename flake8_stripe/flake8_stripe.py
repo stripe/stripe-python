@@ -28,7 +28,9 @@ class TypingImportsChecker:
         "TYPE_CHECKING",
         "Type",
         "TypedDict",
+        "NotRequired",
         "Self",
+        "Unpack",
     ]
 
     allowed_typing_imports = [
@@ -40,9 +42,10 @@ class TypingImportsChecker:
         "cast",
         "overload",
         "Dict",
+        "Tuple",
         "List",
         "Generic",
-        "Tuple",
+        "Mapping",
     ]
 
     def __init__(self, tree: ast.AST):
