@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.8.0b2 - 2023-10-11
+* [#1073](https://github.com/stripe/stripe-python/pull/1073) Update generated code for beta
+  Release specs are identical.
+* [#1061](https://github.com/stripe/stripe-python/pull/1061) Types: inner resource classes
+
 ## 6.8.0b1 - 2023-10-05
 * [#1066](https://github.com/stripe/stripe-python/pull/1066) Update generated code for beta
   * Add support for `mark_draft` and `mark_stale` methods on resource `Quote`
