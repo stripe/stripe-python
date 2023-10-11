@@ -5,7 +5,7 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional, cast
+from typing import Any, List, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -21,12 +21,42 @@ class Settings(
     """
 
     OBJECT_NAME = "tax.settings"
-    defaults: StripeObject
-    head_office: Optional[StripeObject]
+
+    class Defaults(StripeObject):
+        tax_behavior: Optional[
+            Literal["exclusive", "inclusive", "inferred_by_currency"]
+        ]
+        tax_code: Optional[str]
+
+    class HeadOffice(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            country: Optional[str]
+            line1: Optional[str]
+            line2: Optional[str]
+            postal_code: Optional[str]
+            state: Optional[str]
+
+        address: Address
+        _inner_class_types = {"address": Address}
+
+    class StatusDetails(StripeObject):
+        class Active(StripeObject):
+            pass
+
+        class Pending(StripeObject):
+            missing_fields: Optional[List[str]]
+
+        active: Optional[Active]
+        pending: Optional[Pending]
+        _inner_class_types = {"active": Active, "pending": Pending}
+
+    defaults: Defaults
+    head_office: Optional[HeadOffice]
     livemode: bool
     object: Literal["tax.settings"]
     status: Literal["active", "pending"]
-    status_details: StripeObject
+    status_details: StatusDetails
 
     @classmethod
     def modify(cls, id, **params: Any) -> "Settings":
@@ -45,3 +75,9 @@ class Settings(
     @classmethod
     def class_url(cls):
         return "/v1/tax/settings"
+
+    _inner_class_types = {
+        "defaults": Defaults,
+        "head_office": HeadOffice,
+        "status_details": StatusDetails,
+    }

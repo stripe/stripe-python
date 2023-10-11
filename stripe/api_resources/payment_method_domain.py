@@ -26,16 +26,49 @@ class PaymentMethodDomain(
     """
 
     OBJECT_NAME = "payment_method_domain"
-    apple_pay: StripeObject
+
+    class ApplePay(StripeObject):
+        class StatusDetails(StripeObject):
+            error_message: str
+
+        status: Literal["active", "inactive"]
+        status_details: Optional[StatusDetails]
+        _inner_class_types = {"status_details": StatusDetails}
+
+    class GooglePay(StripeObject):
+        class StatusDetails(StripeObject):
+            error_message: str
+
+        status: Literal["active", "inactive"]
+        status_details: Optional[StatusDetails]
+        _inner_class_types = {"status_details": StatusDetails}
+
+    class Link(StripeObject):
+        class StatusDetails(StripeObject):
+            error_message: str
+
+        status: Literal["active", "inactive"]
+        status_details: Optional[StatusDetails]
+        _inner_class_types = {"status_details": StatusDetails}
+
+    class Paypal(StripeObject):
+        class StatusDetails(StripeObject):
+            error_message: str
+
+        status: Literal["active", "inactive"]
+        status_details: Optional[StatusDetails]
+        _inner_class_types = {"status_details": StatusDetails}
+
+    apple_pay: ApplePay
     created: int
     domain_name: str
     enabled: bool
-    google_pay: StripeObject
+    google_pay: GooglePay
     id: str
-    link: StripeObject
+    link: Link
     livemode: bool
     object: Literal["payment_method_domain"]
-    paypal: StripeObject
+    paypal: Paypal
 
     @classmethod
     def create(
@@ -130,3 +163,10 @@ class PaymentMethodDomain(
             idempotency_key=idempotency_key,
             params=params,
         )
+
+    _inner_class_types = {
+        "apple_pay": ApplePay,
+        "google_pay": GooglePay,
+        "link": Link,
+        "paypal": Paypal,
+    }

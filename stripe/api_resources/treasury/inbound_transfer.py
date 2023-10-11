@@ -27,25 +27,83 @@ class InboundTransfer(
     """
 
     OBJECT_NAME = "treasury.inbound_transfer"
+
+    class FailureDetails(StripeObject):
+        code: Literal[
+            "account_closed",
+            "account_frozen",
+            "bank_account_restricted",
+            "bank_ownership_changed",
+            "debit_not_authorized",
+            "incorrect_account_holder_address",
+            "incorrect_account_holder_name",
+            "incorrect_account_holder_tax_id",
+            "insufficient_funds",
+            "invalid_account_number",
+            "invalid_currency",
+            "no_account",
+            "other",
+        ]
+
+    class LinkedFlows(StripeObject):
+        received_debit: Optional[str]
+
+    class OriginPaymentMethodDetails(StripeObject):
+        class BillingDetails(StripeObject):
+            class Address(StripeObject):
+                city: Optional[str]
+                country: Optional[str]
+                line1: Optional[str]
+                line2: Optional[str]
+                postal_code: Optional[str]
+                state: Optional[str]
+
+            address: Address
+            email: Optional[str]
+            name: Optional[str]
+            _inner_class_types = {"address": Address}
+
+        class UsBankAccount(StripeObject):
+            account_holder_type: Optional[Literal["company", "individual"]]
+            account_type: Optional[Literal["checking", "savings"]]
+            bank_name: Optional[str]
+            fingerprint: Optional[str]
+            last4: Optional[str]
+            network: Literal["ach"]
+            routing_number: Optional[str]
+
+        billing_details: BillingDetails
+        type: Literal["us_bank_account"]
+        us_bank_account: Optional[UsBankAccount]
+        _inner_class_types = {
+            "billing_details": BillingDetails,
+            "us_bank_account": UsBankAccount,
+        }
+
+    class StatusTransitions(StripeObject):
+        canceled_at: Optional[int]
+        failed_at: Optional[int]
+        succeeded_at: Optional[int]
+
     amount: int
     cancelable: bool
     created: int
     currency: str
     description: Optional[str]
-    failure_details: Optional[StripeObject]
+    failure_details: Optional[FailureDetails]
     financial_account: str
     hosted_regulatory_receipt_url: Optional[str]
     id: str
-    linked_flows: StripeObject
+    linked_flows: LinkedFlows
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["treasury.inbound_transfer"]
     origin_payment_method: str
-    origin_payment_method_details: Optional[StripeObject]
+    origin_payment_method_details: Optional[OriginPaymentMethodDetails]
     returned: Optional[bool]
     statement_descriptor: str
     status: Literal["canceled", "failed", "processing", "succeeded"]
-    status_transitions: StripeObject
+    status_transitions: StatusTransitions
     transaction: Optional[ExpandableField["Transaction"]]
 
     @classmethod
@@ -237,6 +295,13 @@ class InboundTransfer(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "failure_details": FailureDetails,
+        "linked_flows": LinkedFlows,
+        "origin_payment_method_details": OriginPaymentMethodDetails,
+        "status_transitions": StatusTransitions,
+    }
 
 
 InboundTransfer.TestHelpers._resource_cls = InboundTransfer

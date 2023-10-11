@@ -29,6 +29,70 @@ class OutboundPayment(
     """
 
     OBJECT_NAME = "treasury.outbound_payment"
+
+    class DestinationPaymentMethodDetails(StripeObject):
+        class BillingDetails(StripeObject):
+            class Address(StripeObject):
+                city: Optional[str]
+                country: Optional[str]
+                line1: Optional[str]
+                line2: Optional[str]
+                postal_code: Optional[str]
+                state: Optional[str]
+
+            address: Address
+            email: Optional[str]
+            name: Optional[str]
+            _inner_class_types = {"address": Address}
+
+        class FinancialAccount(StripeObject):
+            id: str
+            network: Literal["stripe"]
+
+        class UsBankAccount(StripeObject):
+            account_holder_type: Optional[Literal["company", "individual"]]
+            account_type: Optional[Literal["checking", "savings"]]
+            bank_name: Optional[str]
+            fingerprint: Optional[str]
+            last4: Optional[str]
+            network: Literal["ach", "us_domestic_wire"]
+            routing_number: Optional[str]
+
+        billing_details: BillingDetails
+        financial_account: Optional[FinancialAccount]
+        type: Literal["financial_account", "us_bank_account"]
+        us_bank_account: Optional[UsBankAccount]
+        _inner_class_types = {
+            "billing_details": BillingDetails,
+            "financial_account": FinancialAccount,
+            "us_bank_account": UsBankAccount,
+        }
+
+    class EndUserDetails(StripeObject):
+        ip_address: Optional[str]
+        present: bool
+
+    class ReturnedDetails(StripeObject):
+        code: Literal[
+            "account_closed",
+            "account_frozen",
+            "bank_account_restricted",
+            "bank_ownership_changed",
+            "declined",
+            "incorrect_account_holder_name",
+            "invalid_account_number",
+            "invalid_currency",
+            "no_account",
+            "other",
+        ]
+        transaction: ExpandableField["Transaction"]
+
+    class StatusTransitions(StripeObject):
+        canceled_at: Optional[int]
+        failed_at: Optional[int]
+        posted_at: Optional[int]
+        returned_at: Optional[int]
+
     amount: int
     cancelable: bool
     created: int
@@ -36,8 +100,10 @@ class OutboundPayment(
     customer: Optional[str]
     description: Optional[str]
     destination_payment_method: Optional[str]
-    destination_payment_method_details: Optional[StripeObject]
-    end_user_details: Optional[StripeObject]
+    destination_payment_method_details: Optional[
+        DestinationPaymentMethodDetails
+    ]
+    end_user_details: Optional[EndUserDetails]
     expected_arrival_date: int
     financial_account: str
     hosted_regulatory_receipt_url: Optional[str]
@@ -45,10 +111,10 @@ class OutboundPayment(
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["treasury.outbound_payment"]
-    returned_details: Optional[StripeObject]
+    returned_details: Optional[ReturnedDetails]
     statement_descriptor: str
     status: Literal["canceled", "failed", "posted", "processing", "returned"]
-    status_transitions: StripeObject
+    status_transitions: StatusTransitions
     transaction: ExpandableField["Transaction"]
 
     @classmethod
@@ -238,6 +304,13 @@ class OutboundPayment(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "destination_payment_method_details": DestinationPaymentMethodDetails,
+        "end_user_details": EndUserDetails,
+        "returned_details": ReturnedDetails,
+        "status_transitions": StatusTransitions,
+    }
 
 
 OutboundPayment.TestHelpers._resource_cls = OutboundPayment

@@ -22,8 +22,11 @@ if TYPE_CHECKING:
     from stripe.api_resources.customer_balance_transaction import (
         CustomerBalanceTransaction,
     )
+    from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.refund import Refund
+    from stripe.api_resources.shipping_rate import ShippingRate
+    from stripe.api_resources.tax_rate import TaxRate
 
 
 @nested_resource_class_methods("line")
@@ -39,6 +42,68 @@ class CreditNote(
     """
 
     OBJECT_NAME = "credit_note"
+
+    class DiscountAmount(StripeObject):
+        amount: int
+        discount: ExpandableField["Discount"]
+
+    class ShippingCost(StripeObject):
+        class Tax(StripeObject):
+            amount: int
+            rate: "TaxRate"
+            taxability_reason: Optional[
+                Literal[
+                    "customer_exempt",
+                    "not_collecting",
+                    "not_subject_to_tax",
+                    "not_supported",
+                    "portion_product_exempt",
+                    "portion_reduced_rated",
+                    "portion_standard_rated",
+                    "product_exempt",
+                    "product_exempt_holiday",
+                    "proportionally_rated",
+                    "reduced_rated",
+                    "reverse_charge",
+                    "standard_rated",
+                    "taxable_basis_reduced",
+                    "zero_rated",
+                ]
+            ]
+            taxable_amount: Optional[int]
+
+        amount_subtotal: int
+        amount_tax: int
+        amount_total: int
+        shipping_rate: Optional[ExpandableField["ShippingRate"]]
+        taxes: Optional[List[Tax]]
+        _inner_class_types = {"taxes": Tax}
+
+    class TaxAmount(StripeObject):
+        amount: int
+        inclusive: bool
+        tax_rate: ExpandableField["TaxRate"]
+        taxability_reason: Optional[
+            Literal[
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ]
+        ]
+        taxable_amount: Optional[int]
+
     amount: int
     amount_shipping: int
     created: int
@@ -48,7 +113,7 @@ class CreditNote(
         ExpandableField["CustomerBalanceTransaction"]
     ]
     discount_amount: int
-    discount_amounts: List[StripeObject]
+    discount_amounts: List[DiscountAmount]
     effective_at: Optional[int]
     id: str
     invoice: ExpandableField["Invoice"]
@@ -66,11 +131,11 @@ class CreditNote(
         ]
     ]
     refund: Optional[ExpandableField["Refund"]]
-    shipping_cost: Optional[StripeObject]
+    shipping_cost: Optional[ShippingCost]
     status: Literal["issued", "void"]
     subtotal: int
     subtotal_excluding_tax: Optional[int]
-    tax_amounts: List[StripeObject]
+    tax_amounts: List[TaxAmount]
     total: int
     total_excluding_tax: Optional[int]
     type: Literal["post_payment", "pre_payment"]
@@ -223,3 +288,9 @@ class CreditNote(
             stripe_account=stripe_account,
             params=params,
         )
+
+    _inner_class_types = {
+        "discount_amounts": DiscountAmount,
+        "shipping_cost": ShippingCost,
+        "tax_amounts": TaxAmount,
+    }

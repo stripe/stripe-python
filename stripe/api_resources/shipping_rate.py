@@ -29,11 +29,36 @@ class ShippingRate(
     """
 
     OBJECT_NAME = "shipping_rate"
+
+    class DeliveryEstimate(StripeObject):
+        class Maximum(StripeObject):
+            unit: Literal["business_day", "day", "hour", "month", "week"]
+            value: int
+
+        class Minimum(StripeObject):
+            unit: Literal["business_day", "day", "hour", "month", "week"]
+            value: int
+
+        maximum: Optional[Maximum]
+        minimum: Optional[Minimum]
+        _inner_class_types = {"maximum": Maximum, "minimum": Minimum}
+
+    class FixedAmount(StripeObject):
+        class CurrencyOptions(StripeObject):
+            amount: int
+            tax_behavior: Literal["exclusive", "inclusive", "unspecified"]
+
+        amount: int
+        currency: str
+        currency_options: Optional[Dict[str, CurrencyOptions]]
+        _inner_class_types = {"currency_options": CurrencyOptions}
+        _inner_class_dicts = ["currency_options"]
+
     active: bool
     created: int
-    delivery_estimate: Optional[StripeObject]
+    delivery_estimate: Optional[DeliveryEstimate]
     display_name: Optional[str]
-    fixed_amount: Optional[StripeObject]
+    fixed_amount: Optional[FixedAmount]
     id: str
     livemode: bool
     metadata: Dict[str, str]
@@ -104,3 +129,8 @@ class ShippingRate(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "delivery_estimate": DeliveryEstimate,
+        "fixed_amount": FixedAmount,
+    }

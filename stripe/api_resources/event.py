@@ -3,7 +3,7 @@
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional
+from typing import Any, Dict, Optional
 from typing_extensions import Literal
 
 
@@ -42,16 +42,51 @@ class Event(ListableAPIResource["Event"]):
     """
 
     OBJECT_NAME = "event"
+
+    class Data(StripeObject):
+        object: Dict[str, Any]
+        previous_attributes: Optional[Dict[str, Any]]
+
+    class Reason(StripeObject):
+        class AutomationAction(StripeObject):
+            class StripeSendWebhookCustomEvent(StripeObject):
+                custom_data: Optional[Dict[str, str]]
+
+            stripe_send_webhook_custom_event: Optional[
+                StripeSendWebhookCustomEvent
+            ]
+            trigger: str
+            type: Literal["stripe_send_webhook_custom_event"]
+            _inner_class_types = {
+                "stripe_send_webhook_custom_event": StripeSendWebhookCustomEvent,
+            }
+
+        class Request(StripeObject):
+            id: Optional[str]
+            idempotency_key: Optional[str]
+
+        automation_action: Optional[AutomationAction]
+        request: Optional[Request]
+        type: Literal["automation_action", "request"]
+        _inner_class_types = {
+            "automation_action": AutomationAction,
+            "request": Request,
+        }
+
+    class Request(StripeObject):
+        id: Optional[str]
+        idempotency_key: Optional[str]
+
     account: Optional[str]
     api_version: Optional[str]
     created: int
-    data: StripeObject
+    data: Data
     id: str
     livemode: bool
     object: Literal["event"]
     pending_webhooks: int
-    reason: Optional[StripeObject]
-    request: Optional[StripeObject]
+    reason: Optional[Reason]
+    request: Optional[Request]
     type: Literal[
         "account.application.authorized",
         "account.application.deauthorized",
@@ -337,3 +372,5 @@ class Event(ListableAPIResource["Event"]):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"data": Data, "reason": Reason, "request": Request}

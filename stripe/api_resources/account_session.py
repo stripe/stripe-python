@@ -18,9 +18,53 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     """
 
     OBJECT_NAME = "account_session"
+
+    class Components(StripeObject):
+        class AccountOnboarding(StripeObject):
+            enabled: bool
+
+        class PaymentDetails(StripeObject):
+            class Features(StripeObject):
+                capture_payments: bool
+                dispute_management: bool
+                refund_management: bool
+
+            enabled: bool
+            features: Optional[Features]
+            _inner_class_types = {"features": Features}
+
+        class Payments(StripeObject):
+            class Features(StripeObject):
+                capture_payments: bool
+                dispute_management: bool
+                refund_management: bool
+
+            enabled: bool
+            features: Optional[Features]
+            _inner_class_types = {"features": Features}
+
+        class Payouts(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            features: Optional[Features]
+            _inner_class_types = {"features": Features}
+
+        account_onboarding: AccountOnboarding
+        payment_details: Optional[PaymentDetails]
+        payments: Optional[Payments]
+        payouts: Optional[Payouts]
+        _inner_class_types = {
+            "account_onboarding": AccountOnboarding,
+            "payment_details": PaymentDetails,
+            "payments": Payments,
+            "payouts": Payouts,
+        }
+
     account: str
     client_secret: str
-    components: StripeObject
+    components: Components
     expires_at: int
     livemode: bool
     object: Literal["account_session"]
@@ -46,3 +90,5 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 params,
             ),
         )
+
+    _inner_class_types = {"components": Components}

@@ -14,17 +14,49 @@ class SourceTransaction(StripeObject):
     """
 
     OBJECT_NAME = "source_transaction"
-    ach_credit_transfer: Optional[StripeObject]
+
+    class AchCreditTransfer(StripeObject):
+        customer_data: Optional[str]
+        fingerprint: Optional[str]
+        last4: Optional[str]
+        routing_number: Optional[str]
+
+    class ChfCreditTransfer(StripeObject):
+        reference: Optional[str]
+        sender_address_country: Optional[str]
+        sender_address_line1: Optional[str]
+        sender_iban: Optional[str]
+        sender_name: Optional[str]
+
+    class GbpCreditTransfer(StripeObject):
+        fingerprint: Optional[str]
+        funding_method: Optional[str]
+        last4: Optional[str]
+        reference: Optional[str]
+        sender_account_number: Optional[str]
+        sender_name: Optional[str]
+        sender_sort_code: Optional[str]
+
+    class PaperCheck(StripeObject):
+        available_at: Optional[str]
+        invoices: Optional[str]
+
+    class SepaCreditTransfer(StripeObject):
+        reference: Optional[str]
+        sender_iban: Optional[str]
+        sender_name: Optional[str]
+
+    ach_credit_transfer: Optional[AchCreditTransfer]
     amount: int
-    chf_credit_transfer: Optional[StripeObject]
+    chf_credit_transfer: Optional[ChfCreditTransfer]
     created: int
     currency: str
-    gbp_credit_transfer: Optional[StripeObject]
+    gbp_credit_transfer: Optional[GbpCreditTransfer]
     id: str
     livemode: bool
     object: Literal["source_transaction"]
-    paper_check: Optional[StripeObject]
-    sepa_credit_transfer: Optional[StripeObject]
+    paper_check: Optional[PaperCheck]
+    sepa_credit_transfer: Optional[SepaCreditTransfer]
     source: str
     status: str
     type: Literal[
@@ -45,3 +77,11 @@ class SourceTransaction(StripeObject):
         "three_d_secure",
         "wechat",
     ]
+
+    _inner_class_types = {
+        "ach_credit_transfer": AchCreditTransfer,
+        "chf_credit_transfer": ChfCreditTransfer,
+        "gbp_credit_transfer": GbpCreditTransfer,
+        "paper_check": PaperCheck,
+        "sepa_credit_transfer": SepaCreditTransfer,
+    }

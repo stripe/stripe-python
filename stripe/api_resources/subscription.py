@@ -46,15 +46,222 @@ class Subscription(
     """
 
     OBJECT_NAME = "subscription"
+
+    class AutomaticTax(StripeObject):
+        class Liability(StripeObject):
+            account: Optional[ExpandableField["Account"]]
+            type: Literal["account", "self"]
+
+        enabled: bool
+        liability: Optional[Liability]
+        _inner_class_types = {"liability": Liability}
+
+    class BillingThresholds(StripeObject):
+        amount_gte: Optional[int]
+        reset_billing_cycle_anchor: Optional[bool]
+
+    class CancellationDetails(StripeObject):
+        comment: Optional[str]
+        feedback: Optional[
+            Literal[
+                "customer_service",
+                "low_quality",
+                "missing_features",
+                "other",
+                "switched_service",
+                "too_complex",
+                "too_expensive",
+                "unused",
+            ]
+        ]
+        reason: Optional[
+            Literal[
+                "cancellation_requested", "payment_disputed", "payment_failed"
+            ]
+        ]
+
+    class PauseCollection(StripeObject):
+        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+        resumes_at: Optional[int]
+
+    class PaymentSettings(StripeObject):
+        class PaymentMethodOptions(StripeObject):
+            class AcssDebit(StripeObject):
+                class MandateOptions(StripeObject):
+                    transaction_type: Optional[Literal["business", "personal"]]
+
+                mandate_options: Optional[MandateOptions]
+                verification_method: Optional[
+                    Literal["automatic", "instant", "microdeposits"]
+                ]
+                _inner_class_types = {"mandate_options": MandateOptions}
+
+            class Bancontact(StripeObject):
+                preferred_language: Literal["de", "en", "fr", "nl"]
+
+            class Card(StripeObject):
+                class MandateOptions(StripeObject):
+                    amount: Optional[int]
+                    amount_type: Optional[Literal["fixed", "maximum"]]
+                    description: Optional[str]
+
+                mandate_options: Optional[MandateOptions]
+                network: Optional[
+                    Literal[
+                        "amex",
+                        "cartes_bancaires",
+                        "diners",
+                        "discover",
+                        "eftpos_au",
+                        "interac",
+                        "jcb",
+                        "mastercard",
+                        "unionpay",
+                        "unknown",
+                        "visa",
+                    ]
+                ]
+                request_three_d_secure: Optional[Literal["any", "automatic"]]
+                _inner_class_types = {"mandate_options": MandateOptions}
+
+            class CustomerBalance(StripeObject):
+                class BankTransfer(StripeObject):
+                    class EuBankTransfer(StripeObject):
+                        country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
+
+                    eu_bank_transfer: Optional[EuBankTransfer]
+                    type: Optional[str]
+                    _inner_class_types = {"eu_bank_transfer": EuBankTransfer}
+
+                bank_transfer: Optional[BankTransfer]
+                funding_type: Optional[Literal["bank_transfer"]]
+                _inner_class_types = {"bank_transfer": BankTransfer}
+
+            class Konbini(StripeObject):
+                pass
+
+            class UsBankAccount(StripeObject):
+                class FinancialConnections(StripeObject):
+                    permissions: Optional[
+                        List[
+                            Literal[
+                                "balances",
+                                "ownership",
+                                "payment_method",
+                                "transactions",
+                            ]
+                        ]
+                    ]
+                    prefetch: Optional[
+                        List[
+                            Literal[
+                                "balances",
+                                "inferred_balances",
+                                "ownership",
+                                "transactions",
+                            ]
+                        ]
+                    ]
+
+                financial_connections: Optional[FinancialConnections]
+                verification_method: Optional[
+                    Literal["automatic", "instant", "microdeposits"]
+                ]
+                _inner_class_types = {
+                    "financial_connections": FinancialConnections,
+                }
+
+            acss_debit: Optional[AcssDebit]
+            bancontact: Optional[Bancontact]
+            card: Optional[Card]
+            customer_balance: Optional[CustomerBalance]
+            konbini: Optional[Konbini]
+            us_bank_account: Optional[UsBankAccount]
+            _inner_class_types = {
+                "acss_debit": AcssDebit,
+                "bancontact": Bancontact,
+                "card": Card,
+                "customer_balance": CustomerBalance,
+                "konbini": Konbini,
+                "us_bank_account": UsBankAccount,
+            }
+
+        payment_method_options: Optional[PaymentMethodOptions]
+        payment_method_types: Optional[
+            List[
+                Literal[
+                    "ach_credit_transfer",
+                    "ach_debit",
+                    "acss_debit",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "customer_balance",
+                    "fpx",
+                    "giropay",
+                    "grabpay",
+                    "ideal",
+                    "konbini",
+                    "link",
+                    "paynow",
+                    "paypal",
+                    "promptpay",
+                    "sepa_credit_transfer",
+                    "sepa_debit",
+                    "sofort",
+                    "us_bank_account",
+                    "wechat_pay",
+                ]
+            ]
+        ]
+        save_default_payment_method: Optional[
+            Literal["off", "on_subscription"]
+        ]
+        _inner_class_types = {"payment_method_options": PaymentMethodOptions}
+
+    class PendingInvoiceItemInterval(StripeObject):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class PendingUpdate(StripeObject):
+        billing_cycle_anchor: Optional[int]
+        expires_at: int
+        prebilling_iterations: Optional[int]
+        subscription_items: Optional[List["SubscriptionItem"]]
+        trial_end: Optional[int]
+        trial_from_plan: Optional[bool]
+
+    class Prebilling(StripeObject):
+        invoice: ExpandableField["Invoice"]
+        period_end: int
+        period_start: int
+        update_behavior: Optional[Literal["prebill", "reset"]]
+
+    class TransferData(StripeObject):
+        amount_percent: Optional[float]
+        destination: ExpandableField["Account"]
+
+    class TrialSettings(StripeObject):
+        class EndBehavior(StripeObject):
+            missing_payment_method: Literal[
+                "cancel", "create_invoice", "pause"
+            ]
+
+        end_behavior: EndBehavior
+        _inner_class_types = {"end_behavior": EndBehavior}
+
     application: Optional[ExpandableField["Application"]]
     application_fee_percent: Optional[float]
-    automatic_tax: StripeObject
+    automatic_tax: AutomaticTax
     billing_cycle_anchor: int
-    billing_thresholds: Optional[StripeObject]
+    billing_thresholds: Optional[BillingThresholds]
     cancel_at: Optional[int]
     cancel_at_period_end: bool
     canceled_at: Optional[int]
-    cancellation_details: Optional[StripeObject]
+    cancellation_details: Optional[CancellationDetails]
     collection_method: Literal["charge_automatically", "send_invoice"]
     created: int
     currency: str
@@ -77,12 +284,12 @@ class Subscription(
     next_pending_invoice_item_invoice: Optional[int]
     object: Literal["subscription"]
     on_behalf_of: Optional[ExpandableField["Account"]]
-    pause_collection: Optional[StripeObject]
-    payment_settings: Optional[StripeObject]
-    pending_invoice_item_interval: Optional[StripeObject]
+    pause_collection: Optional[PauseCollection]
+    payment_settings: Optional[PaymentSettings]
+    pending_invoice_item_interval: Optional[PendingInvoiceItemInterval]
     pending_setup_intent: Optional[ExpandableField["SetupIntent"]]
-    pending_update: Optional[StripeObject]
-    prebilling: Optional[StripeObject]
+    pending_update: Optional[PendingUpdate]
+    prebilling: Optional[Prebilling]
     schedule: Optional[ExpandableField["SubscriptionSchedule"]]
     start_date: int
     status: Literal[
@@ -96,9 +303,9 @@ class Subscription(
         "unpaid",
     ]
     test_clock: Optional[ExpandableField["TestClock"]]
-    transfer_data: Optional[StripeObject]
+    transfer_data: Optional[TransferData]
     trial_end: Optional[int]
-    trial_settings: Optional[StripeObject]
+    trial_settings: Optional[TrialSettings]
     trial_start: Optional[int]
 
     @classmethod
@@ -272,3 +479,16 @@ class Subscription(
     @classmethod
     def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
+
+    _inner_class_types = {
+        "automatic_tax": AutomaticTax,
+        "billing_thresholds": BillingThresholds,
+        "cancellation_details": CancellationDetails,
+        "pause_collection": PauseCollection,
+        "payment_settings": PaymentSettings,
+        "pending_invoice_item_interval": PendingInvoiceItemInterval,
+        "pending_update": PendingUpdate,
+        "prebilling": Prebilling,
+        "transfer_data": TransferData,
+        "trial_settings": TrialSettings,
+    }
