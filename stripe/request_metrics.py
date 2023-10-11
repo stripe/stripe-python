@@ -1,6 +1,3 @@
-from __future__ import absolute_import, division, print_function
-
-
 class RequestMetrics(object):
     def __init__(self, request_id, request_duration_ms):
         self.request_id = request_id
