@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -10,6 +8,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
@@ -37,12 +36,63 @@ class Price(
     """
 
     OBJECT_NAME = "price"
+
+    class CurrencyOptions(StripeObject):
+        class CustomUnitAmount(StripeObject):
+            maximum: Optional[int]
+            minimum: Optional[int]
+            preset: Optional[int]
+
+        class Tier(StripeObject):
+            flat_amount: Optional[int]
+            flat_amount_decimal: Optional[float]
+            unit_amount: Optional[int]
+            unit_amount_decimal: Optional[float]
+            up_to: Optional[int]
+
+        custom_unit_amount: Optional[CustomUnitAmount]
+        tax_behavior: Optional[
+            Literal["exclusive", "inclusive", "unspecified"]
+        ]
+        tiers: Optional[List[Tier]]
+        unit_amount: Optional[int]
+        unit_amount_decimal: Optional[float]
+        _inner_class_types = {
+            "custom_unit_amount": CustomUnitAmount,
+            "tiers": Tier,
+        }
+
+    class CustomUnitAmount(StripeObject):
+        maximum: Optional[int]
+        minimum: Optional[int]
+        preset: Optional[int]
+
+    class Recurring(StripeObject):
+        aggregate_usage: Optional[
+            Literal["last_during_period", "last_ever", "max", "sum"]
+        ]
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+        trial_period_days: Optional[int]
+        usage_type: Literal["licensed", "metered"]
+
+    class Tier(StripeObject):
+        flat_amount: Optional[int]
+        flat_amount_decimal: Optional[float]
+        unit_amount: Optional[int]
+        unit_amount_decimal: Optional[float]
+        up_to: Optional[int]
+
+    class TransformQuantity(StripeObject):
+        divide_by: int
+        round: Literal["down", "up"]
+
     active: bool
     billing_scheme: Literal["per_unit", "tiered"]
     created: int
     currency: str
-    currency_options: Optional[Dict[str, StripeObject]]
-    custom_unit_amount: Optional[StripeObject]
+    currency_options: Optional[Dict[str, CurrencyOptions]]
+    custom_unit_amount: Optional[CustomUnitAmount]
     id: str
     livemode: bool
     lookup_key: Optional[str]
@@ -50,11 +100,11 @@ class Price(
     nickname: Optional[str]
     object: Literal["price"]
     product: ExpandableField["Product"]
-    recurring: Optional[StripeObject]
+    recurring: Optional[Recurring]
     tax_behavior: Optional[Literal["exclusive", "inclusive", "unspecified"]]
-    tiers: Optional[List[StripeObject]]
+    tiers: Optional[List[Tier]]
     tiers_mode: Optional[Literal["graduated", "volume"]]
-    transform_quantity: Optional[StripeObject]
+    transform_quantity: Optional[TransformQuantity]
     type: Literal["one_time", "recurring"]
     unit_amount: Optional[int]
     unit_amount_decimal: Optional[float]
@@ -124,9 +174,17 @@ class Price(
         return instance
 
     @classmethod
-    def search(cls, *args, **kwargs) -> Any:
+    def search(cls, *args, **kwargs) -> SearchResultObject["Price"]:
         return cls._search(search_url="/v1/prices/search", *args, **kwargs)
 
     @classmethod
-    def search_auto_paging_iter(cls, *args, **kwargs) -> Any:
+    def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
+
+    _inner_class_types = {
+        "currency_options": CurrencyOptions,
+        "custom_unit_amount": CustomUnitAmount,
+        "recurring": Recurring,
+        "tiers": Tier,
+        "transform_quantity": TransformQuantity,
+    }

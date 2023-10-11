@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
@@ -11,7 +9,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, Type
 from urllib.parse import quote_plus
 
@@ -39,8 +37,73 @@ class Transaction(
     """
 
     OBJECT_NAME = "issuing.transaction"
+
+    class AmountDetails(StripeObject):
+        atm_fee: Optional[int]
+        cashback_amount: Optional[int]
+
+    class MerchantData(StripeObject):
+        category: str
+        category_code: str
+        city: Optional[str]
+        country: Optional[str]
+        name: Optional[str]
+        network_id: str
+        postal_code: Optional[str]
+        state: Optional[str]
+        terminal_id: Optional[str]
+
+    class PurchaseDetails(StripeObject):
+        class Flight(StripeObject):
+            class Segment(StripeObject):
+                arrival_airport_code: Optional[str]
+                carrier: Optional[str]
+                departure_airport_code: Optional[str]
+                flight_number: Optional[str]
+                service_class: Optional[str]
+                stopover_allowed: Optional[bool]
+
+            departure_at: Optional[int]
+            passenger_name: Optional[str]
+            refundable: Optional[bool]
+            segments: Optional[List[Segment]]
+            travel_agency: Optional[str]
+            _inner_class_types = {"segments": Segment}
+
+        class Fuel(StripeObject):
+            type: str
+            unit: str
+            unit_cost_decimal: float
+            volume_decimal: Optional[float]
+
+        class Lodging(StripeObject):
+            check_in_at: Optional[int]
+            nights: Optional[int]
+
+        class Receipt(StripeObject):
+            description: Optional[str]
+            quantity: Optional[float]
+            total: Optional[int]
+            unit_cost: Optional[int]
+
+        flight: Optional[Flight]
+        fuel: Optional[Fuel]
+        lodging: Optional[Lodging]
+        receipt: Optional[List[Receipt]]
+        reference: Optional[str]
+        _inner_class_types = {
+            "flight": Flight,
+            "fuel": Fuel,
+            "lodging": Lodging,
+            "receipt": Receipt,
+        }
+
+    class Treasury(StripeObject):
+        received_credit: Optional[str]
+        received_debit: Optional[str]
+
     amount: int
-    amount_details: Optional[StripeObject]
+    amount_details: Optional[AmountDetails]
     authorization: Optional[ExpandableField["Authorization"]]
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     card: ExpandableField["Card"]
@@ -52,12 +115,12 @@ class Transaction(
     livemode: bool
     merchant_amount: int
     merchant_currency: str
-    merchant_data: StripeObject
+    merchant_data: MerchantData
     metadata: Dict[str, str]
     object: Literal["issuing.transaction"]
-    purchase_details: Optional[StripeObject]
+    purchase_details: Optional[PurchaseDetails]
     token: Optional[ExpandableField["Token"]]
-    treasury: Optional[StripeObject]
+    treasury: Optional[Treasury]
     type: Literal["capture", "refund"]
     wallet: Optional[Literal["apple_pay", "google_pay", "samsung_pay"]]
 
@@ -173,6 +236,13 @@ class Transaction(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "amount_details": AmountDetails,
+        "merchant_data": MerchantData,
+        "purchase_details": PurchaseDetails,
+        "treasury": Treasury,
+    }
 
 
 Transaction.TestHelpers._resource_cls = Transaction

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
@@ -14,6 +12,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, Type
@@ -24,6 +23,7 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.api_resources.cash_balance import CashBalance
     from stripe.api_resources.discount import Discount
+    from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.subscription import Subscription
     from stripe.api_resources.tax_id import TaxId
     from stripe.api_resources.test_helpers.test_clock import TestClock
@@ -47,7 +47,67 @@ class Customer(
     """
 
     OBJECT_NAME = "customer"
-    address: Optional[StripeObject]
+
+    class Address(StripeObject):
+        city: Optional[str]
+        country: Optional[str]
+        line1: Optional[str]
+        line2: Optional[str]
+        postal_code: Optional[str]
+        state: Optional[str]
+
+    class InvoiceSettings(StripeObject):
+        class CustomField(StripeObject):
+            name: str
+            value: str
+
+        class RenderingOptions(StripeObject):
+            amount_tax_display: Optional[str]
+
+        custom_fields: Optional[List[CustomField]]
+        default_payment_method: Optional[ExpandableField["PaymentMethod"]]
+        footer: Optional[str]
+        rendering_options: Optional[RenderingOptions]
+        _inner_class_types = {
+            "custom_fields": CustomField,
+            "rendering_options": RenderingOptions,
+        }
+
+    class Shipping(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            country: Optional[str]
+            line1: Optional[str]
+            line2: Optional[str]
+            postal_code: Optional[str]
+            state: Optional[str]
+
+        address: Optional[Address]
+        carrier: Optional[str]
+        name: Optional[str]
+        phone: Optional[str]
+        tracking_number: Optional[str]
+        _inner_class_types = {"address": Address}
+
+    class Tax(StripeObject):
+        class Location(StripeObject):
+            country: str
+            source: Literal[
+                "billing_address",
+                "ip_address",
+                "payment_method",
+                "shipping_destination",
+            ]
+            state: Optional[str]
+
+        automatic_tax: Literal[
+            "failed", "not_collecting", "supported", "unrecognized_location"
+        ]
+        ip_address: Optional[str]
+        location: Optional[Location]
+        _inner_class_types = {"location": Location}
+
+    address: Optional[Address]
     balance: Optional[int]
     cash_balance: Optional["CashBalance"]
     created: int
@@ -60,7 +120,7 @@ class Customer(
     id: str
     invoice_credit_balance: Optional[Dict[str, int]]
     invoice_prefix: Optional[str]
-    invoice_settings: Optional[StripeObject]
+    invoice_settings: Optional[InvoiceSettings]
     livemode: bool
     metadata: Optional[Dict[str, str]]
     name: Optional[str]
@@ -68,10 +128,10 @@ class Customer(
     object: Literal["customer"]
     phone: Optional[str]
     preferred_locales: Optional[List[str]]
-    shipping: Optional[StripeObject]
+    shipping: Optional[Shipping]
     sources: Optional[ListObject[Any]]
     subscriptions: Optional[ListObject["Subscription"]]
-    tax: Optional[StripeObject]
+    tax: Optional[Tax]
     tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
     tax_ids: Optional[ListObject["TaxId"]]
     test_clock: Optional[ExpandableField["TestClock"]]
@@ -295,11 +355,11 @@ class Customer(
         )
 
     @classmethod
-    def search(cls, *args, **kwargs) -> Any:
+    def search(cls, *args, **kwargs) -> SearchResultObject["Customer"]:
         return cls._search(search_url="/v1/customers/search", *args, **kwargs)
 
     @classmethod
-    def search_auto_paging_iter(cls, *args, **kwargs) -> Any:
+    def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
@@ -692,6 +752,13 @@ class Customer(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "address": Address,
+        "invoice_settings": InvoiceSettings,
+        "shipping": Shipping,
+        "tax": Tax,
+    }
 
 
 Customer.TestHelpers._resource_cls = Customer

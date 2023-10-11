@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.stripe_object import StripeObject
 from typing import Any, Optional, cast
@@ -20,9 +18,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     """
 
     OBJECT_NAME = "account_session"
+
+    class Components(StripeObject):
+        class AccountOnboarding(StripeObject):
+            enabled: bool
+
+        account_onboarding: AccountOnboarding
+        _inner_class_types = {"account_onboarding": AccountOnboarding}
+
     account: str
     client_secret: str
-    components: StripeObject
+    components: Components
     expires_at: int
     livemode: bool
     object: Literal["account_session"]
@@ -48,3 +54,5 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 params,
             ),
         )
+
+    _inner_class_types = {"components": Components}

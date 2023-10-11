@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -38,7 +36,11 @@ class SubscriptionItem(
     """
 
     OBJECT_NAME = "subscription_item"
-    billing_thresholds: Optional[StripeObject]
+
+    class BillingThresholds(StripeObject):
+        usage_gte: Optional[int]
+
+    billing_thresholds: Optional[BillingThresholds]
     created: int
     id: str
     metadata: Dict[str, str]
@@ -168,3 +170,5 @@ class SubscriptionItem(
             stripe_account=stripe_account,
             params=params,
         )
+
+    _inner_class_types = {"billing_thresholds": BillingThresholds}
