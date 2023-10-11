@@ -6,7 +6,7 @@ OBJECT_CLASSES = {
     # data structures
     api_resources.ListObject.OBJECT_NAME: api_resources.ListObject,
     api_resources.SearchResultObject.OBJECT_NAME: api_resources.SearchResultObject,
-    # Business objects: The beginning of the section generated from our OpenAPI spec
+    # Object classes: The beginning of the section generated from our OpenAPI spec
     api_resources.Account.OBJECT_NAME: api_resources.Account,
     api_resources.AccountLink.OBJECT_NAME: api_resources.AccountLink,
     api_resources.AccountSession.OBJECT_NAME: api_resources.AccountSession,
@@ -123,5 +123,5 @@ OBJECT_CLASSES = {
     api_resources.UsageRecord.OBJECT_NAME: api_resources.UsageRecord,
     api_resources.UsageRecordSummary.OBJECT_NAME: api_resources.UsageRecordSummary,
     api_resources.WebhookEndpoint.OBJECT_NAME: api_resources.WebhookEndpoint,
-    # Business objects: The end of the section generated from our OpenAPI spec
+    # Object classes: The end of the section generated from our OpenAPI spec
 }
