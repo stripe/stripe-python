@@ -30,6 +30,7 @@ class Configuration(
     is_account_default: Optional[bool]
     livemode: bool
     object: Literal["terminal.configuration"]
+    offline: Optional[StripeObject]
     tipping: Optional[StripeObject]
     verifone_p400: Optional[StripeObject]
     deleted: Optional[Literal[True]]
