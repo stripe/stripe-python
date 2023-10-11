@@ -316,7 +316,12 @@ class Registration(
             local_amusement_tax: Optional[LocalAmusementTax]
             local_lease_tax: Optional[LocalLeaseTax]
             state: str
-            type: Literal["local_lease_tax", "state_sales_tax"]
+            type: Literal[
+                "local_amusement_tax",
+                "local_lease_tax",
+                "state_communications_tax",
+                "state_sales_tax",
+            ]
             _inner_class_types = {
                 "local_amusement_tax": LocalAmusementTax,
                 "local_lease_tax": LocalLeaseTax,

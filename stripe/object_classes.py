@@ -9,6 +9,7 @@ OBJECT_CLASSES = {
     # Object classes: The beginning of the section generated from our OpenAPI spec
     api_resources.Account.OBJECT_NAME: api_resources.Account,
     api_resources.AccountLink.OBJECT_NAME: api_resources.AccountLink,
+    api_resources.AccountNotice.OBJECT_NAME: api_resources.AccountNotice,
     api_resources.AccountSession.OBJECT_NAME: api_resources.AccountSession,
     api_resources.ApplePayDomain.OBJECT_NAME: api_resources.ApplePayDomain,
     api_resources.Application.OBJECT_NAME: api_resources.Application,
@@ -63,6 +64,7 @@ OBJECT_CLASSES = {
     api_resources.issuing.Authorization.OBJECT_NAME: api_resources.issuing.Authorization,
     api_resources.issuing.Card.OBJECT_NAME: api_resources.issuing.Card,
     api_resources.issuing.Cardholder.OBJECT_NAME: api_resources.issuing.Cardholder,
+    api_resources.issuing.CreditUnderwritingRecord.OBJECT_NAME: api_resources.issuing.CreditUnderwritingRecord,
     api_resources.issuing.Dispute.OBJECT_NAME: api_resources.issuing.Dispute,
     api_resources.issuing.PersonalizationDesign.OBJECT_NAME: api_resources.issuing.PersonalizationDesign,
     api_resources.issuing.PhysicalBundle.OBJECT_NAME: api_resources.issuing.PhysicalBundle,
