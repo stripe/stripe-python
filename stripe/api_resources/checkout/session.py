@@ -853,6 +853,7 @@ class Session(
     billing_address_collection: Optional[Literal["auto", "required"]]
     cancel_url: Optional[str]
     client_reference_id: Optional[str]
+    client_secret: Optional[str]
     consent: Optional[Consent]
     consent_collection: Optional[ConsentCollection]
     created: int
@@ -929,6 +930,8 @@ class Session(
     payment_status: Literal["no_payment_required", "paid", "unpaid"]
     phone_number_collection: Optional[PhoneNumberCollection]
     recovered_from: Optional[str]
+    redirect_on_completion: Optional[Literal["always", "if_required", "never"]]
+    return_url: Optional[str]
     setup_intent: Optional[ExpandableField["SetupIntent"]]
     shipping_address_collection: Optional[ShippingAddressCollection]
     shipping_cost: Optional[ShippingCost]
@@ -940,6 +943,7 @@ class Session(
     success_url: Optional[str]
     tax_id_collection: Optional[TaxIdCollection]
     total_details: Optional[TotalDetails]
+    ui_mode: Optional[Literal["embedded", "hosted"]]
     url: Optional[str]
 
     @classmethod

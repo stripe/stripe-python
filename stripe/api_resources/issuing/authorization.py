@@ -116,6 +116,7 @@ class Authorization(
         address_postal_code_check: Literal["match", "mismatch", "not_provided"]
         cvc_check: Literal["match", "mismatch", "not_provided"]
         expiry_check: Literal["match", "mismatch", "not_provided"]
+        postal_code: Optional[str]
         three_d_secure: Optional[ThreeDSecure]
         _inner_class_types = {"three_d_secure": ThreeDSecure}
 
