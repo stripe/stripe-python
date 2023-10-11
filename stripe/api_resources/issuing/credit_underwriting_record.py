@@ -258,7 +258,8 @@ class CreditUnderwritingRecord(
             "credit_line_closed": CreditLineClosed,
         }
 
-    class Exception(StripeObject):
+    class UnderwritingException(StripeObject):
+        explanation: str
         original_decision_type: Literal[
             "additional_information_requested",
             "application_rejected",
@@ -268,7 +269,6 @@ class CreditUnderwritingRecord(
             "no_changes",
             "withdrawn_by_applicant",
         ]
-        reason: str
 
     application: Optional[Application]
     created: int
@@ -277,11 +277,11 @@ class CreditUnderwritingRecord(
     decided_at: Optional[int]
     decision: Optional[Decision]
     decision_deadline: Optional[int]
-    exception: Optional[Exception]
     id: str
     livemode: bool
     metadata: Optional[Dict[str, str]]
     object: Literal["issuing.credit_underwriting_record"]
+    underwriting_exception: Optional[UnderwritingException]
 
     @classmethod
     def _cls_correct(
@@ -422,5 +422,5 @@ class CreditUnderwritingRecord(
         "application": Application,
         "credit_user": CreditUser,
         "decision": Decision,
-        "exception": Exception,
+        "underwriting_exception": UnderwritingException,
     }
