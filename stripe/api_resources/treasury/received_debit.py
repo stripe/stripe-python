@@ -45,20 +45,20 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         financial_account: str
         initiating_payment_method_details: NotRequired[
             Optional[
-                "ReceivedDebit.CreateInitiatingPaymentMethodDetailsParams"
+                "ReceivedDebit.CreateParamsInitiatingPaymentMethodDetails"
             ]
         ]
         network: Literal["ach"]
 
-    class CreateInitiatingPaymentMethodDetailsParams(TypedDict):
+    class CreateParamsInitiatingPaymentMethodDetails(TypedDict):
         type: Literal["us_bank_account"]
         us_bank_account: NotRequired[
             Optional[
-                "ReceivedDebit.CreateInitiatingPaymentMethodDetailsUsBankAccountParams"
+                "ReceivedDebit.CreateParamsInitiatingPaymentMethodDetailsUsBankAccount"
             ]
         ]
 
-    class CreateInitiatingPaymentMethodDetailsUsBankAccountParams(TypedDict):
+    class CreateParamsInitiatingPaymentMethodDetailsUsBankAccount(TypedDict):
         account_holder_name: NotRequired[Optional[str]]
         account_number: NotRequired[Optional[str]]
         routing_number: NotRequired[Optional[str]]

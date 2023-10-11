@@ -31,22 +31,22 @@ class Calculation(CreateableAPIResource["Calculation"]):
         currency: str
         customer: NotRequired[Optional[str]]
         customer_details: NotRequired[
-            Optional["Calculation.CreateCustomerDetailsParams"]
+            Optional["Calculation.CreateParamsCustomerDetails"]
         ]
         expand: NotRequired[Optional[List[str]]]
-        line_items: List["Calculation.CreateLineItemParams"]
+        line_items: List["Calculation.CreateParamsLineItem"]
         shipping_cost: NotRequired[
-            Optional["Calculation.CreateShippingCostParams"]
+            Optional["Calculation.CreateParamsShippingCost"]
         ]
         tax_date: NotRequired[Optional[int]]
 
-    class CreateShippingCostParams(TypedDict):
+    class CreateParamsShippingCost(TypedDict):
         amount: NotRequired[Optional[int]]
         shipping_rate: NotRequired[Optional[str]]
         tax_behavior: NotRequired[Optional[Literal["exclusive", "inclusive"]]]
         tax_code: NotRequired[Optional[str]]
 
-    class CreateLineItemParams(TypedDict):
+    class CreateParamsLineItem(TypedDict):
         amount: int
         product: NotRequired[Optional[str]]
         quantity: NotRequired[Optional[int]]
@@ -54,20 +54,20 @@ class Calculation(CreateableAPIResource["Calculation"]):
         tax_behavior: NotRequired[Optional[Literal["exclusive", "inclusive"]]]
         tax_code: NotRequired[Optional[str]]
 
-    class CreateCustomerDetailsParams(TypedDict):
+    class CreateParamsCustomerDetails(TypedDict):
         address: NotRequired[
-            Optional["Calculation.CreateCustomerDetailsAddressParams"]
+            Optional["Calculation.CreateParamsCustomerDetailsAddress"]
         ]
         address_source: NotRequired[Optional[Literal["billing", "shipping"]]]
         ip_address: NotRequired[Optional[str]]
         tax_ids: NotRequired[
-            Optional[List["Calculation.CreateCustomerDetailsTaxIdParams"]]
+            Optional[List["Calculation.CreateParamsCustomerDetailsTaxId"]]
         ]
         taxability_override: NotRequired[
             Optional[Literal["customer_exempt", "none", "reverse_charge"]]
         ]
 
-    class CreateCustomerDetailsTaxIdParams(TypedDict):
+    class CreateParamsCustomerDetailsTaxId(TypedDict):
         type: Literal[
             "ad_nrt",
             "ae_trn",
@@ -138,7 +138,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         ]
         value: str
 
-    class CreateCustomerDetailsAddressParams(TypedDict):
+    class CreateParamsCustomerDetailsAddress(TypedDict):
         city: NotRequired[Optional[Union[Literal[""], str]]]
         country: str
         line1: NotRequired[Optional[Union[Literal[""], str]]]

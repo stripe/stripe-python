@@ -43,7 +43,7 @@ class OutboundTransfer(
         destination_payment_method: NotRequired[Optional[str]]
         destination_payment_method_options: NotRequired[
             Optional[
-                "OutboundTransfer.CreateDestinationPaymentMethodOptionsParams"
+                "OutboundTransfer.CreateParamsDestinationPaymentMethodOptions"
             ]
         ]
         expand: NotRequired[Optional[List[str]]]
@@ -51,17 +51,17 @@ class OutboundTransfer(
         metadata: NotRequired[Optional[Dict[str, str]]]
         statement_descriptor: NotRequired[Optional[str]]
 
-    class CreateDestinationPaymentMethodOptionsParams(TypedDict):
+    class CreateParamsDestinationPaymentMethodOptions(TypedDict):
         us_bank_account: NotRequired[
             Optional[
                 Union[
                     Literal[""],
-                    "OutboundTransfer.CreateDestinationPaymentMethodOptionsUsBankAccountParams",
+                    "OutboundTransfer.CreateParamsDestinationPaymentMethodOptionsUsBankAccount",
                 ]
             ]
         ]
 
-    class CreateDestinationPaymentMethodOptionsUsBankAccountParams(TypedDict):
+    class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(TypedDict):
         network: NotRequired[Optional[Literal["ach", "us_domestic_wire"]]]
 
     class ListParams(RequestOptions):
@@ -91,11 +91,11 @@ class OutboundTransfer(
         expand: NotRequired[Optional[List[str]]]
         returned_details: NotRequired[
             Optional[
-                "OutboundTransfer.ReturnOutboundTransferReturnedDetailsParams"
+                "OutboundTransfer.ReturnOutboundTransferParamsReturnedDetails"
             ]
         ]
 
-    class ReturnOutboundTransferReturnedDetailsParams(TypedDict):
+    class ReturnOutboundTransferParamsReturnedDetails(TypedDict):
         code: NotRequired[
             Optional[
                 Literal[

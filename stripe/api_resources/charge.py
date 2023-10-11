@@ -57,11 +57,11 @@ class Charge(
         statement_descriptor: NotRequired[Optional[str]]
         statement_descriptor_suffix: NotRequired[Optional[str]]
         transfer_data: NotRequired[
-            Optional["Charge.CaptureTransferDataParams"]
+            Optional["Charge.CaptureParamsTransferData"]
         ]
         transfer_group: NotRequired[Optional[str]]
 
-    class CaptureTransferDataParams(TypedDict):
+    class CaptureParamsTransferData(TypedDict):
         amount: NotRequired[Optional[int]]
 
     class CreateParams(RequestOptions):
@@ -72,31 +72,31 @@ class Charge(
         currency: NotRequired[Optional[str]]
         customer: NotRequired[Optional[str]]
         description: NotRequired[Optional[str]]
-        destination: NotRequired[Optional["Charge.CreateDestinationParams"]]
+        destination: NotRequired[Optional["Charge.CreateParamsDestination"]]
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         on_behalf_of: NotRequired[Optional[str]]
-        radar_options: NotRequired[Optional["Charge.CreateRadarOptionsParams"]]
+        radar_options: NotRequired[Optional["Charge.CreateParamsRadarOptions"]]
         receipt_email: NotRequired[Optional[str]]
-        shipping: NotRequired[Optional["Charge.CreateShippingParams"]]
+        shipping: NotRequired[Optional["Charge.CreateParamsShipping"]]
         source: NotRequired[Optional[str]]
         statement_descriptor: NotRequired[Optional[str]]
         statement_descriptor_suffix: NotRequired[Optional[str]]
-        transfer_data: NotRequired[Optional["Charge.CreateTransferDataParams"]]
+        transfer_data: NotRequired[Optional["Charge.CreateParamsTransferData"]]
         transfer_group: NotRequired[Optional[str]]
 
-    class CreateTransferDataParams(TypedDict):
+    class CreateParamsTransferData(TypedDict):
         amount: NotRequired[Optional[int]]
         destination: str
 
-    class CreateShippingParams(TypedDict):
-        address: "Charge.CreateShippingAddressParams"
+    class CreateParamsShipping(TypedDict):
+        address: "Charge.CreateParamsShippingAddress"
         carrier: NotRequired[Optional[str]]
         name: str
         phone: NotRequired[Optional[str]]
         tracking_number: NotRequired[Optional[str]]
 
-    class CreateShippingAddressParams(TypedDict):
+    class CreateParamsShippingAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -104,15 +104,15 @@ class Charge(
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreateRadarOptionsParams(TypedDict):
+    class CreateParamsRadarOptions(TypedDict):
         session: NotRequired[Optional[str]]
 
-    class CreateDestinationParams(TypedDict):
+    class CreateParamsDestination(TypedDict):
         account: str
         amount: NotRequired[Optional[int]]
 
     class ListParams(RequestOptions):
-        created: NotRequired[Optional[Union["Charge.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["Charge.ListParamsCreated", int]]]
         customer: NotRequired[Optional[str]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
@@ -121,7 +121,7 @@ class Charge(
         starting_after: NotRequired[Optional[str]]
         transfer_group: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -131,20 +131,20 @@ class Charge(
         customer: NotRequired[Optional[str]]
         description: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
-        fraud_details: NotRequired[Optional["Charge.ModifyFraudDetailsParams"]]
+        fraud_details: NotRequired[Optional["Charge.ModifyParamsFraudDetails"]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         receipt_email: NotRequired[Optional[str]]
-        shipping: NotRequired[Optional["Charge.ModifyShippingParams"]]
+        shipping: NotRequired[Optional["Charge.ModifyParamsShipping"]]
         transfer_group: NotRequired[Optional[str]]
 
-    class ModifyShippingParams(TypedDict):
-        address: "Charge.ModifyShippingAddressParams"
+    class ModifyParamsShipping(TypedDict):
+        address: "Charge.ModifyParamsShippingAddress"
         carrier: NotRequired[Optional[str]]
         name: str
         phone: NotRequired[Optional[str]]
         tracking_number: NotRequired[Optional[str]]
 
-    class ModifyShippingAddressParams(TypedDict):
+    class ModifyParamsShippingAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -152,7 +152,7 @@ class Charge(
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class ModifyFraudDetailsParams(TypedDict):
+    class ModifyParamsFraudDetails(TypedDict):
         user_report: Union[Literal[""], Literal["fraudulent", "safe"]]
 
     class RetrieveParams(RequestOptions):

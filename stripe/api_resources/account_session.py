@@ -24,15 +24,15 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
     class CreateParams(RequestOptions):
         account: str
-        components: "AccountSession.CreateComponentsParams"
+        components: "AccountSession.CreateParamsComponents"
         expand: NotRequired[Optional[List[str]]]
 
-    class CreateComponentsParams(TypedDict):
+    class CreateParamsComponents(TypedDict):
         account_onboarding: NotRequired[
-            Optional["AccountSession.CreateComponentsAccountOnboardingParams"]
+            Optional["AccountSession.CreateParamsComponentsAccountOnboarding"]
         ]
 
-    class CreateComponentsAccountOnboardingParams(TypedDict):
+    class CreateParamsComponentsAccountOnboarding(TypedDict):
         enabled: bool
 
     account: str

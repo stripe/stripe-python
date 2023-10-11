@@ -61,7 +61,7 @@ class Transfer(
 
     class ListParams(RequestOptions):
         created: NotRequired[
-            Optional[Union["Transfer.ListCreatedParams", int]]
+            Optional[Union["Transfer.ListParamsCreated", int]]
         ]
         destination: NotRequired[Optional[str]]
         ending_before: NotRequired[Optional[str]]
@@ -70,7 +70,7 @@ class Transfer(
         starting_after: NotRequired[Optional[str]]
         transfer_group: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

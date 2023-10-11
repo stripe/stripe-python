@@ -32,13 +32,13 @@ class Review(ListableAPIResource["Review"]):
         expand: NotRequired[Optional[List[str]]]
 
     class ListParams(RequestOptions):
-        created: NotRequired[Optional[Union["Review.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["Review.ListParamsCreated", int]]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
         starting_after: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

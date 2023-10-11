@@ -51,8 +51,8 @@ class Topup(
         transfer_group: NotRequired[Optional[str]]
 
     class ListParams(RequestOptions):
-        amount: NotRequired[Optional[Union["Topup.ListAmountParams", int]]]
-        created: NotRequired[Optional[Union["Topup.ListCreatedParams", int]]]
+        amount: NotRequired[Optional[Union["Topup.ListParamsAmount", int]]]
+        created: NotRequired[Optional[Union["Topup.ListParamsCreated", int]]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
@@ -61,13 +61,13 @@ class Topup(
             Optional[Literal["canceled", "failed", "pending", "succeeded"]]
         ]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
         lte: NotRequired[Optional[int]]
 
-    class ListAmountParams(TypedDict):
+    class ListParamsAmount(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

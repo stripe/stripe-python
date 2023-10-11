@@ -23,19 +23,19 @@ class Session(CreateableAPIResource["Session"]):
     OBJECT_NAME = "financial_connections.session"
 
     class CreateParams(RequestOptions):
-        account_holder: "Session.CreateAccountHolderParams"
+        account_holder: "Session.CreateParamsAccountHolder"
         expand: NotRequired[Optional[List[str]]]
-        filters: NotRequired[Optional["Session.CreateFiltersParams"]]
+        filters: NotRequired[Optional["Session.CreateParamsFilters"]]
         permissions: List[
             Literal["balances", "ownership", "payment_method", "transactions"]
         ]
         prefetch: NotRequired[Optional[List[Literal["balances", "ownership"]]]]
         return_url: NotRequired[Optional[str]]
 
-    class CreateFiltersParams(TypedDict):
+    class CreateParamsFilters(TypedDict):
         countries: List[str]
 
-    class CreateAccountHolderParams(TypedDict):
+    class CreateParamsAccountHolder(TypedDict):
         account: NotRequired[Optional[str]]
         customer: NotRequired[Optional[str]]
         type: Literal["account", "customer"]

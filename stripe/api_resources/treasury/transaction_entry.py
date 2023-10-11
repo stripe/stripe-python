@@ -25,10 +25,10 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
 
     class ListParams(RequestOptions):
         created: NotRequired[
-            Optional[Union["TransactionEntry.ListCreatedParams", int]]
+            Optional[Union["TransactionEntry.ListParamsCreated", int]]
         ]
         effective_at: NotRequired[
-            Optional[Union["TransactionEntry.ListEffectiveAtParams", int]]
+            Optional[Union["TransactionEntry.ListParamsEffectiveAt", int]]
         ]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
@@ -38,13 +38,13 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
         starting_after: NotRequired[Optional[str]]
         transaction: NotRequired[Optional[str]]
 
-    class ListEffectiveAtParams(TypedDict):
+    class ListParamsEffectiveAt(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
         lte: NotRequired[Optional[int]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

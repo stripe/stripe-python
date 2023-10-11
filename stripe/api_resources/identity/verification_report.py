@@ -29,7 +29,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
 
     class ListParams(RequestOptions):
         created: NotRequired[
-            Optional[Union["VerificationReport.ListCreatedParams", int]]
+            Optional[Union["VerificationReport.ListParamsCreated", int]]
         ]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
@@ -38,7 +38,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         type: NotRequired[Optional[Literal["document", "id_number"]]]
         verification_session: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

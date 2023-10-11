@@ -41,26 +41,26 @@ class Dispute(
 
     class ListParams(RequestOptions):
         charge: NotRequired[Optional[str]]
-        created: NotRequired[Optional[Union["Dispute.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["Dispute.ListParamsCreated", int]]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
         payment_intent: NotRequired[Optional[str]]
         starting_after: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
         lte: NotRequired[Optional[int]]
 
     class ModifyParams(RequestOptions):
-        evidence: NotRequired[Optional["Dispute.ModifyEvidenceParams"]]
+        evidence: NotRequired[Optional["Dispute.ModifyParamsEvidence"]]
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         submit: NotRequired[Optional[bool]]
 
-    class ModifyEvidenceParams(TypedDict):
+    class ModifyParamsEvidence(TypedDict):
         access_activity_log: NotRequired[Optional[str]]
         billing_address: NotRequired[Optional[str]]
         cancellation_policy: NotRequired[Optional[str]]

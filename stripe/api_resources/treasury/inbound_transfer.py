@@ -60,10 +60,10 @@ class InboundTransfer(
     class FailParams(RequestOptions):
         expand: NotRequired[Optional[List[str]]]
         failure_details: NotRequired[
-            Optional["InboundTransfer.FailFailureDetailsParams"]
+            Optional["InboundTransfer.FailParamsFailureDetails"]
         ]
 
-    class FailFailureDetailsParams(TypedDict):
+    class FailParamsFailureDetails(TypedDict):
         code: NotRequired[
             Optional[
                 Literal[

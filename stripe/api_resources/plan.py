@@ -57,27 +57,27 @@ class Plan(
         interval_count: NotRequired[Optional[int]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         nickname: NotRequired[Optional[str]]
-        product: NotRequired[Optional[Union["Plan.CreateProductParams", str]]]
-        tiers: NotRequired[Optional[List["Plan.CreateTierParams"]]]
+        product: NotRequired[Optional[Union["Plan.CreateParamsProduct", str]]]
+        tiers: NotRequired[Optional[List["Plan.CreateParamsTier"]]]
         tiers_mode: NotRequired[Optional[Literal["graduated", "volume"]]]
         transform_usage: NotRequired[
-            Optional["Plan.CreateTransformUsageParams"]
+            Optional["Plan.CreateParamsTransformUsage"]
         ]
         trial_period_days: NotRequired[Optional[int]]
         usage_type: NotRequired[Optional[Literal["licensed", "metered"]]]
 
-    class CreateTransformUsageParams(TypedDict):
+    class CreateParamsTransformUsage(TypedDict):
         divide_by: int
         round: Literal["down", "up"]
 
-    class CreateTierParams(TypedDict):
+    class CreateParamsTier(TypedDict):
         flat_amount: NotRequired[Optional[int]]
         flat_amount_decimal: NotRequired[Optional[float]]
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
         up_to: Union[Literal["inf"], int]
 
-    class CreateProductParams(TypedDict):
+    class CreateParamsProduct(TypedDict):
         active: NotRequired[Optional[bool]]
         id: NotRequired[Optional[str]]
         metadata: NotRequired[Optional[Dict[str, str]]]
@@ -91,14 +91,14 @@ class Plan(
 
     class ListParams(RequestOptions):
         active: NotRequired[Optional[bool]]
-        created: NotRequired[Optional[Union["Plan.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["Plan.ListParamsCreated", int]]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
         product: NotRequired[Optional[str]]
         starting_after: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

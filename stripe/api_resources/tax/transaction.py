@@ -37,21 +37,21 @@ class Transaction(APIResource["Transaction"]):
         expand: NotRequired[Optional[List[str]]]
         flat_amount: NotRequired[Optional[int]]
         line_items: NotRequired[
-            Optional[List["Transaction.CreateReversalLineItemParams"]]
+            Optional[List["Transaction.CreateReversalParamsLineItem"]]
         ]
         metadata: NotRequired[Optional[Dict[str, str]]]
         mode: Literal["full", "partial"]
         original_transaction: str
         reference: str
         shipping_cost: NotRequired[
-            Optional["Transaction.CreateReversalShippingCostParams"]
+            Optional["Transaction.CreateReversalParamsShippingCost"]
         ]
 
-    class CreateReversalShippingCostParams(TypedDict):
+    class CreateReversalParamsShippingCost(TypedDict):
         amount: int
         amount_tax: int
 
-    class CreateReversalLineItemParams(TypedDict):
+    class CreateReversalParamsLineItem(TypedDict):
         amount: int
         amount_tax: int
         metadata: NotRequired[Optional[Dict[str, str]]]

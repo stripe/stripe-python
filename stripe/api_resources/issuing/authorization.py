@@ -53,7 +53,7 @@ class Authorization(
         card: NotRequired[Optional[str]]
         cardholder: NotRequired[Optional[str]]
         created: NotRequired[
-            Optional[Union["Authorization.ListCreatedParams", int]]
+            Optional[Union["Authorization.ListParamsCreated", int]]
         ]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
@@ -61,7 +61,7 @@ class Authorization(
         starting_after: NotRequired[Optional[str]]
         status: NotRequired[Optional[Literal["closed", "pending", "reversed"]]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -79,35 +79,35 @@ class Authorization(
         close_authorization: NotRequired[Optional[bool]]
         expand: NotRequired[Optional[List[str]]]
         purchase_details: NotRequired[
-            Optional["Authorization.CapturePurchaseDetailsParams"]
+            Optional["Authorization.CaptureParamsPurchaseDetails"]
         ]
 
-    class CapturePurchaseDetailsParams(TypedDict):
+    class CaptureParamsPurchaseDetails(TypedDict):
         flight: NotRequired[
-            Optional["Authorization.CapturePurchaseDetailsFlightParams"]
+            Optional["Authorization.CaptureParamsPurchaseDetailsFlight"]
         ]
         fuel: NotRequired[
-            Optional["Authorization.CapturePurchaseDetailsFuelParams"]
+            Optional["Authorization.CaptureParamsPurchaseDetailsFuel"]
         ]
         lodging: NotRequired[
-            Optional["Authorization.CapturePurchaseDetailsLodgingParams"]
+            Optional["Authorization.CaptureParamsPurchaseDetailsLodging"]
         ]
         receipt: NotRequired[
-            Optional[List["Authorization.CapturePurchaseDetailsReceiptParams"]]
+            Optional[List["Authorization.CaptureParamsPurchaseDetailsReceipt"]]
         ]
         reference: NotRequired[Optional[str]]
 
-    class CapturePurchaseDetailsReceiptParams(TypedDict):
+    class CaptureParamsPurchaseDetailsReceipt(TypedDict):
         description: NotRequired[Optional[str]]
         quantity: NotRequired[Optional[float]]
         total: NotRequired[Optional[int]]
         unit_cost: NotRequired[Optional[int]]
 
-    class CapturePurchaseDetailsLodgingParams(TypedDict):
+    class CaptureParamsPurchaseDetailsLodging(TypedDict):
         check_in_at: NotRequired[Optional[int]]
         nights: NotRequired[Optional[int]]
 
-    class CapturePurchaseDetailsFuelParams(TypedDict):
+    class CaptureParamsPurchaseDetailsFuel(TypedDict):
         type: NotRequired[
             Optional[
                 Literal[
@@ -123,18 +123,18 @@ class Authorization(
         unit_cost_decimal: NotRequired[Optional[float]]
         volume_decimal: NotRequired[Optional[float]]
 
-    class CapturePurchaseDetailsFlightParams(TypedDict):
+    class CaptureParamsPurchaseDetailsFlight(TypedDict):
         departure_at: NotRequired[Optional[int]]
         passenger_name: NotRequired[Optional[str]]
         refundable: NotRequired[Optional[bool]]
         segments: NotRequired[
             Optional[
-                List["Authorization.CapturePurchaseDetailsFlightSegmentParams"]
+                List["Authorization.CaptureParamsPurchaseDetailsFlightSegment"]
             ]
         ]
         travel_agency: NotRequired[Optional[str]]
 
-    class CapturePurchaseDetailsFlightSegmentParams(TypedDict):
+    class CaptureParamsPurchaseDetailsFlightSegment(TypedDict):
         arrival_airport_code: NotRequired[Optional[str]]
         carrier: NotRequired[Optional[str]]
         departure_airport_code: NotRequired[Optional[str]]
@@ -145,7 +145,7 @@ class Authorization(
     class CreateParams(RequestOptions):
         amount: int
         amount_details: NotRequired[
-            Optional["Authorization.CreateAmountDetailsParams"]
+            Optional["Authorization.CreateParamsAmountDetails"]
         ]
         authorization_method: NotRequired[
             Optional[
@@ -157,19 +157,19 @@ class Authorization(
         expand: NotRequired[Optional[List[str]]]
         is_amount_controllable: NotRequired[Optional[bool]]
         merchant_data: NotRequired[
-            Optional["Authorization.CreateMerchantDataParams"]
+            Optional["Authorization.CreateParamsMerchantData"]
         ]
         network_data: NotRequired[
-            Optional["Authorization.CreateNetworkDataParams"]
+            Optional["Authorization.CreateParamsNetworkData"]
         ]
         verification_data: NotRequired[
-            Optional["Authorization.CreateVerificationDataParams"]
+            Optional["Authorization.CreateParamsVerificationData"]
         ]
         wallet: NotRequired[
             Optional[Literal["apple_pay", "google_pay", "samsung_pay"]]
         ]
 
-    class CreateVerificationDataParams(TypedDict):
+    class CreateParamsVerificationData(TypedDict):
         address_line1_check: NotRequired[
             Optional[Literal["match", "mismatch", "not_provided"]]
         ]
@@ -183,10 +183,10 @@ class Authorization(
             Optional[Literal["match", "mismatch", "not_provided"]]
         ]
 
-    class CreateNetworkDataParams(TypedDict):
+    class CreateParamsNetworkData(TypedDict):
         acquiring_institution_id: NotRequired[Optional[str]]
 
-    class CreateMerchantDataParams(TypedDict):
+    class CreateParamsMerchantData(TypedDict):
         category: NotRequired[
             Optional[
                 Literal[
@@ -495,7 +495,7 @@ class Authorization(
         state: NotRequired[Optional[str]]
         terminal_id: NotRequired[Optional[str]]
 
-    class CreateAmountDetailsParams(TypedDict):
+    class CreateParamsAmountDetails(TypedDict):
         atm_fee: NotRequired[Optional[int]]
         cashback_amount: NotRequired[Optional[int]]
 

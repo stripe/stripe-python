@@ -44,15 +44,15 @@ class PromotionCode(
         max_redemptions: NotRequired[Optional[int]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         restrictions: NotRequired[
-            Optional["PromotionCode.CreateRestrictionsParams"]
+            Optional["PromotionCode.CreateParamsRestrictions"]
         ]
 
-    class CreateRestrictionsParams(TypedDict):
+    class CreateParamsRestrictions(TypedDict):
         currency_options: NotRequired[
             Optional[
                 Dict[
                     str,
-                    "PromotionCode.CreateRestrictionsCurrencyOptionsParams",
+                    "PromotionCode.CreateParamsRestrictionsCurrencyOptions",
                 ]
             ]
         ]
@@ -60,7 +60,7 @@ class PromotionCode(
         minimum_amount: NotRequired[Optional[int]]
         minimum_amount_currency: NotRequired[Optional[str]]
 
-    class CreateRestrictionsCurrencyOptionsParams(TypedDict):
+    class CreateParamsRestrictionsCurrencyOptions(TypedDict):
         minimum_amount: NotRequired[Optional[int]]
 
     class ListParams(RequestOptions):
@@ -68,7 +68,7 @@ class PromotionCode(
         code: NotRequired[Optional[str]]
         coupon: NotRequired[Optional[str]]
         created: NotRequired[
-            Optional[Union["PromotionCode.ListCreatedParams", int]]
+            Optional[Union["PromotionCode.ListParamsCreated", int]]
         ]
         customer: NotRequired[Optional[str]]
         ending_before: NotRequired[Optional[str]]
@@ -76,7 +76,7 @@ class PromotionCode(
         limit: NotRequired[Optional[int]]
         starting_after: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -87,20 +87,20 @@ class PromotionCode(
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         restrictions: NotRequired[
-            Optional["PromotionCode.ModifyRestrictionsParams"]
+            Optional["PromotionCode.ModifyParamsRestrictions"]
         ]
 
-    class ModifyRestrictionsParams(TypedDict):
+    class ModifyParamsRestrictions(TypedDict):
         currency_options: NotRequired[
             Optional[
                 Dict[
                     str,
-                    "PromotionCode.ModifyRestrictionsCurrencyOptionsParams",
+                    "PromotionCode.ModifyParamsRestrictionsCurrencyOptions",
                 ]
             ]
         ]
 
-    class ModifyRestrictionsCurrencyOptionsParams(TypedDict):
+    class ModifyParamsRestrictionsCurrencyOptions(TypedDict):
         minimum_amount: NotRequired[Optional[int]]
 
     class RetrieveParams(RequestOptions):

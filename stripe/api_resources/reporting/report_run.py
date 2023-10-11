@@ -37,10 +37,10 @@ class ReportRun(
 
     class CreateParams(RequestOptions):
         expand: NotRequired[Optional[List[str]]]
-        parameters: NotRequired[Optional["ReportRun.CreateParametersParams"]]
+        parameters: NotRequired[Optional["ReportRun.CreateParamsParameters"]]
         report_type: str
 
-    class CreateParametersParams(TypedDict):
+    class CreateParamsParameters(TypedDict):
         columns: NotRequired[Optional[List[str]]]
         connected_account: NotRequired[Optional[str]]
         currency: NotRequired[Optional[str]]
@@ -695,14 +695,14 @@ class ReportRun(
 
     class ListParams(RequestOptions):
         created: NotRequired[
-            Optional[Union["ReportRun.ListCreatedParams", int]]
+            Optional[Union["ReportRun.ListParamsCreated", int]]
         ]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
         starting_after: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

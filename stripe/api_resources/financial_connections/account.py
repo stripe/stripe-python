@@ -31,7 +31,7 @@ class Account(ListableAPIResource["Account"]):
 
     class ListParams(RequestOptions):
         account_holder: NotRequired[
-            Optional["Account.ListAccountHolderParams"]
+            Optional["Account.ListParamsAccountHolder"]
         ]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
@@ -39,7 +39,7 @@ class Account(ListableAPIResource["Account"]):
         session: NotRequired[Optional[str]]
         starting_after: NotRequired[Optional[str]]
 
-    class ListAccountHolderParams(TypedDict):
+    class ListParamsAccountHolder(TypedDict):
         account: NotRequired[Optional[str]]
         customer: NotRequired[Optional[str]]
 

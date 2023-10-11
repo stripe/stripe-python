@@ -23,7 +23,7 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
 
     class ListParams(RequestOptions):
         created: NotRequired[
-            Optional[Union["BalanceTransaction.ListCreatedParams", int]]
+            Optional[Union["BalanceTransaction.ListParamsCreated", int]]
         ]
         currency: NotRequired[Optional[str]]
         ending_before: NotRequired[Optional[str]]
@@ -34,7 +34,7 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         starting_after: NotRequired[Optional[str]]
         type: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

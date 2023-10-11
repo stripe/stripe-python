@@ -49,7 +49,7 @@ class Account(
     class CreateParams(RequestOptions):
         account_token: NotRequired[Optional[str]]
         business_profile: NotRequired[
-            Optional["Account.CreateBusinessProfileParams"]
+            Optional["Account.CreateParamsBusinessProfile"]
         ]
         business_type: NotRequired[
             Optional[
@@ -58,58 +58,58 @@ class Account(
                 ]
             ]
         ]
-        capabilities: NotRequired[Optional["Account.CreateCapabilitiesParams"]]
-        company: NotRequired[Optional["Account.CreateCompanyParams"]]
+        capabilities: NotRequired[Optional["Account.CreateParamsCapabilities"]]
+        company: NotRequired[Optional["Account.CreateParamsCompany"]]
         country: NotRequired[Optional[str]]
         default_currency: NotRequired[Optional[str]]
-        documents: NotRequired[Optional["Account.CreateDocumentsParams"]]
+        documents: NotRequired[Optional["Account.CreateParamsDocuments"]]
         email: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         external_account: NotRequired[Optional[str]]
-        individual: NotRequired[Optional["Account.CreateIndividualParams"]]
+        individual: NotRequired[Optional["Account.CreateParamsIndividual"]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        settings: NotRequired[Optional["Account.CreateSettingsParams"]]
+        settings: NotRequired[Optional["Account.CreateParamsSettings"]]
         tos_acceptance: NotRequired[
-            Optional["Account.CreateTosAcceptanceParams"]
+            Optional["Account.CreateParamsTosAcceptance"]
         ]
         type: NotRequired[Optional[Literal["custom", "express", "standard"]]]
 
-    class CreateTosAcceptanceParams(TypedDict):
+    class CreateParamsTosAcceptance(TypedDict):
         date: NotRequired[Optional[int]]
         ip: NotRequired[Optional[str]]
         service_agreement: NotRequired[Optional[str]]
         user_agent: NotRequired[Optional[str]]
 
-    class CreateSettingsParams(TypedDict):
-        branding: NotRequired[Optional["Account.CreateSettingsBrandingParams"]]
+    class CreateParamsSettings(TypedDict):
+        branding: NotRequired[Optional["Account.CreateParamsSettingsBranding"]]
         card_issuing: NotRequired[
-            Optional["Account.CreateSettingsCardIssuingParams"]
+            Optional["Account.CreateParamsSettingsCardIssuing"]
         ]
         card_payments: NotRequired[
-            Optional["Account.CreateSettingsCardPaymentsParams"]
+            Optional["Account.CreateParamsSettingsCardPayments"]
         ]
-        payments: NotRequired[Optional["Account.CreateSettingsPaymentsParams"]]
-        payouts: NotRequired[Optional["Account.CreateSettingsPayoutsParams"]]
-        treasury: NotRequired[Optional["Account.CreateSettingsTreasuryParams"]]
+        payments: NotRequired[Optional["Account.CreateParamsSettingsPayments"]]
+        payouts: NotRequired[Optional["Account.CreateParamsSettingsPayouts"]]
+        treasury: NotRequired[Optional["Account.CreateParamsSettingsTreasury"]]
 
-    class CreateSettingsTreasuryParams(TypedDict):
+    class CreateParamsSettingsTreasury(TypedDict):
         tos_acceptance: NotRequired[
-            Optional["Account.CreateSettingsTreasuryTosAcceptanceParams"]
+            Optional["Account.CreateParamsSettingsTreasuryTosAcceptance"]
         ]
 
-    class CreateSettingsTreasuryTosAcceptanceParams(TypedDict):
+    class CreateParamsSettingsTreasuryTosAcceptance(TypedDict):
         date: NotRequired[Optional[int]]
         ip: NotRequired[Optional[str]]
         user_agent: NotRequired[Optional[Union[Literal[""], str]]]
 
-    class CreateSettingsPayoutsParams(TypedDict):
+    class CreateParamsSettingsPayouts(TypedDict):
         debit_negative_balances: NotRequired[Optional[bool]]
         schedule: NotRequired[
-            Optional["Account.CreateSettingsPayoutsScheduleParams"]
+            Optional["Account.CreateParamsSettingsPayoutsSchedule"]
         ]
         statement_descriptor: NotRequired[Optional[str]]
 
-    class CreateSettingsPayoutsScheduleParams(TypedDict):
+    class CreateParamsSettingsPayoutsSchedule(TypedDict):
         delay_days: NotRequired[Optional[Union[Literal["minimum"], int]]]
         interval: NotRequired[
             Optional[Literal["daily", "manual", "monthly", "weekly"]]
@@ -129,14 +129,14 @@ class Account(
             ]
         ]
 
-    class CreateSettingsPaymentsParams(TypedDict):
+    class CreateParamsSettingsPayments(TypedDict):
         statement_descriptor: NotRequired[Optional[str]]
         statement_descriptor_kana: NotRequired[Optional[str]]
         statement_descriptor_kanji: NotRequired[Optional[str]]
 
-    class CreateSettingsCardPaymentsParams(TypedDict):
+    class CreateParamsSettingsCardPayments(TypedDict):
         decline_on: NotRequired[
-            Optional["Account.CreateSettingsCardPaymentsDeclineOnParams"]
+            Optional["Account.CreateParamsSettingsCardPaymentsDeclineOn"]
         ]
         statement_descriptor_prefix: NotRequired[Optional[str]]
         statement_descriptor_prefix_kana: NotRequired[
@@ -146,36 +146,36 @@ class Account(
             Optional[Union[Literal[""], str]]
         ]
 
-    class CreateSettingsCardPaymentsDeclineOnParams(TypedDict):
+    class CreateParamsSettingsCardPaymentsDeclineOn(TypedDict):
         avs_failure: NotRequired[Optional[bool]]
         cvc_failure: NotRequired[Optional[bool]]
 
-    class CreateSettingsCardIssuingParams(TypedDict):
+    class CreateParamsSettingsCardIssuing(TypedDict):
         tos_acceptance: NotRequired[
-            Optional["Account.CreateSettingsCardIssuingTosAcceptanceParams"]
+            Optional["Account.CreateParamsSettingsCardIssuingTosAcceptance"]
         ]
 
-    class CreateSettingsCardIssuingTosAcceptanceParams(TypedDict):
+    class CreateParamsSettingsCardIssuingTosAcceptance(TypedDict):
         date: NotRequired[Optional[int]]
         ip: NotRequired[Optional[str]]
         user_agent: NotRequired[Optional[Union[Literal[""], str]]]
 
-    class CreateSettingsBrandingParams(TypedDict):
+    class CreateParamsSettingsBranding(TypedDict):
         icon: NotRequired[Optional[str]]
         logo: NotRequired[Optional[str]]
         primary_color: NotRequired[Optional[str]]
         secondary_color: NotRequired[Optional[str]]
 
-    class CreateIndividualParams(TypedDict):
-        address: NotRequired[Optional["Account.CreateIndividualAddressParams"]]
+    class CreateParamsIndividual(TypedDict):
+        address: NotRequired[Optional["Account.CreateParamsIndividualAddress"]]
         address_kana: NotRequired[
-            Optional["Account.CreateIndividualAddressKanaParams"]
+            Optional["Account.CreateParamsIndividualAddressKana"]
         ]
         address_kanji: NotRequired[
-            Optional["Account.CreateIndividualAddressKanjiParams"]
+            Optional["Account.CreateParamsIndividualAddressKanji"]
         ]
         dob: NotRequired[
-            Optional[Union[Literal[""], "Account.CreateIndividualDobParams"]]
+            Optional[Union[Literal[""], "Account.CreateParamsIndividualDob"]]
         ]
         email: NotRequired[Optional[str]]
         first_name: NotRequired[Optional[str]]
@@ -193,32 +193,32 @@ class Account(
         phone: NotRequired[Optional[str]]
         political_exposure: NotRequired[Optional[Literal["existing", "none"]]]
         registered_address: NotRequired[
-            Optional["Account.CreateIndividualRegisteredAddressParams"]
+            Optional["Account.CreateParamsIndividualRegisteredAddress"]
         ]
         ssn_last_4: NotRequired[Optional[str]]
         verification: NotRequired[
-            Optional["Account.CreateIndividualVerificationParams"]
+            Optional["Account.CreateParamsIndividualVerification"]
         ]
 
-    class CreateIndividualVerificationParams(TypedDict):
+    class CreateParamsIndividualVerification(TypedDict):
         additional_document: NotRequired[
             Optional[
-                "Account.CreateIndividualVerificationAdditionalDocumentParams"
+                "Account.CreateParamsIndividualVerificationAdditionalDocument"
             ]
         ]
         document: NotRequired[
-            Optional["Account.CreateIndividualVerificationDocumentParams"]
+            Optional["Account.CreateParamsIndividualVerificationDocument"]
         ]
 
-    class CreateIndividualVerificationDocumentParams(TypedDict):
+    class CreateParamsIndividualVerificationDocument(TypedDict):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class CreateIndividualVerificationAdditionalDocumentParams(TypedDict):
+    class CreateParamsIndividualVerificationAdditionalDocument(TypedDict):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class CreateIndividualRegisteredAddressParams(TypedDict):
+    class CreateParamsIndividualRegisteredAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -226,12 +226,12 @@ class Account(
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreateIndividualDobParams(TypedDict):
+    class CreateParamsIndividualDob(TypedDict):
         day: int
         month: int
         year: int
 
-    class CreateIndividualAddressKanjiParams(TypedDict):
+    class CreateParamsIndividualAddressKanji(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -240,7 +240,7 @@ class Account(
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class CreateIndividualAddressKanaParams(TypedDict):
+    class CreateParamsIndividualAddressKana(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -249,7 +249,7 @@ class Account(
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class CreateIndividualAddressParams(TypedDict):
+    class CreateParamsIndividualAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -257,63 +257,63 @@ class Account(
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreateDocumentsParams(TypedDict):
+    class CreateParamsDocuments(TypedDict):
         bank_account_ownership_verification: NotRequired[
             Optional[
-                "Account.CreateDocumentsBankAccountOwnershipVerificationParams"
+                "Account.CreateParamsDocumentsBankAccountOwnershipVerification"
             ]
         ]
         company_license: NotRequired[
-            Optional["Account.CreateDocumentsCompanyLicenseParams"]
+            Optional["Account.CreateParamsDocumentsCompanyLicense"]
         ]
         company_memorandum_of_association: NotRequired[
             Optional[
-                "Account.CreateDocumentsCompanyMemorandumOfAssociationParams"
+                "Account.CreateParamsDocumentsCompanyMemorandumOfAssociation"
             ]
         ]
         company_ministerial_decree: NotRequired[
-            Optional["Account.CreateDocumentsCompanyMinisterialDecreeParams"]
+            Optional["Account.CreateParamsDocumentsCompanyMinisterialDecree"]
         ]
         company_registration_verification: NotRequired[
             Optional[
-                "Account.CreateDocumentsCompanyRegistrationVerificationParams"
+                "Account.CreateParamsDocumentsCompanyRegistrationVerification"
             ]
         ]
         company_tax_id_verification: NotRequired[
-            Optional["Account.CreateDocumentsCompanyTaxIdVerificationParams"]
+            Optional["Account.CreateParamsDocumentsCompanyTaxIdVerification"]
         ]
         proof_of_registration: NotRequired[
-            Optional["Account.CreateDocumentsProofOfRegistrationParams"]
+            Optional["Account.CreateParamsDocumentsProofOfRegistration"]
         ]
 
-    class CreateDocumentsProofOfRegistrationParams(TypedDict):
+    class CreateParamsDocumentsProofOfRegistration(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class CreateDocumentsCompanyTaxIdVerificationParams(TypedDict):
+    class CreateParamsDocumentsCompanyTaxIdVerification(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class CreateDocumentsCompanyRegistrationVerificationParams(TypedDict):
+    class CreateParamsDocumentsCompanyRegistrationVerification(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class CreateDocumentsCompanyMinisterialDecreeParams(TypedDict):
+    class CreateParamsDocumentsCompanyMinisterialDecree(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class CreateDocumentsCompanyMemorandumOfAssociationParams(TypedDict):
+    class CreateParamsDocumentsCompanyMemorandumOfAssociation(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class CreateDocumentsCompanyLicenseParams(TypedDict):
+    class CreateParamsDocumentsCompanyLicense(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class CreateDocumentsBankAccountOwnershipVerificationParams(TypedDict):
+    class CreateParamsDocumentsBankAccountOwnershipVerification(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class CreateCompanyParams(TypedDict):
-        address: NotRequired[Optional["Account.CreateCompanyAddressParams"]]
+    class CreateParamsCompany(TypedDict):
+        address: NotRequired[Optional["Account.CreateParamsCompanyAddress"]]
         address_kana: NotRequired[
-            Optional["Account.CreateCompanyAddressKanaParams"]
+            Optional["Account.CreateParamsCompanyAddressKana"]
         ]
         address_kanji: NotRequired[
-            Optional["Account.CreateCompanyAddressKanjiParams"]
+            Optional["Account.CreateParamsCompanyAddressKanji"]
         ]
         directors_provided: NotRequired[Optional[bool]]
         executives_provided: NotRequired[Optional[bool]]
@@ -324,7 +324,7 @@ class Account(
         name_kanji: NotRequired[Optional[str]]
         owners_provided: NotRequired[Optional[bool]]
         ownership_declaration: NotRequired[
-            Optional["Account.CreateCompanyOwnershipDeclarationParams"]
+            Optional["Account.CreateParamsCompanyOwnershipDeclaration"]
         ]
         phone: NotRequired[Optional[str]]
         registration_number: NotRequired[Optional[str]]
@@ -363,24 +363,24 @@ class Account(
         tax_id_registrar: NotRequired[Optional[str]]
         vat_id: NotRequired[Optional[str]]
         verification: NotRequired[
-            Optional["Account.CreateCompanyVerificationParams"]
+            Optional["Account.CreateParamsCompanyVerification"]
         ]
 
-    class CreateCompanyVerificationParams(TypedDict):
+    class CreateParamsCompanyVerification(TypedDict):
         document: NotRequired[
-            Optional["Account.CreateCompanyVerificationDocumentParams"]
+            Optional["Account.CreateParamsCompanyVerificationDocument"]
         ]
 
-    class CreateCompanyVerificationDocumentParams(TypedDict):
+    class CreateParamsCompanyVerificationDocument(TypedDict):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class CreateCompanyOwnershipDeclarationParams(TypedDict):
+    class CreateParamsCompanyOwnershipDeclaration(TypedDict):
         date: NotRequired[Optional[int]]
         ip: NotRequired[Optional[str]]
         user_agent: NotRequired[Optional[str]]
 
-    class CreateCompanyAddressKanjiParams(TypedDict):
+    class CreateParamsCompanyAddressKanji(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -389,7 +389,7 @@ class Account(
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class CreateCompanyAddressKanaParams(TypedDict):
+    class CreateParamsCompanyAddressKana(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -398,7 +398,7 @@ class Account(
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class CreateCompanyAddressParams(TypedDict):
+    class CreateParamsCompanyAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -406,248 +406,248 @@ class Account(
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreateCapabilitiesParams(TypedDict):
+    class CreateParamsCapabilities(TypedDict):
         acss_debit_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesAcssDebitPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesAcssDebitPayments"]
         ]
         affirm_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesAffirmPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesAffirmPayments"]
         ]
         afterpay_clearpay_payments: NotRequired[
             Optional[
-                "Account.CreateCapabilitiesAfterpayClearpayPaymentsParams"
+                "Account.CreateParamsCapabilitiesAfterpayClearpayPayments"
             ]
         ]
         au_becs_debit_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesAuBecsDebitPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesAuBecsDebitPayments"]
         ]
         bacs_debit_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesBacsDebitPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesBacsDebitPayments"]
         ]
         bancontact_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesBancontactPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesBancontactPayments"]
         ]
         bank_transfer_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesBankTransferPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesBankTransferPayments"]
         ]
         blik_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesBlikPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesBlikPayments"]
         ]
         boleto_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesBoletoPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesBoletoPayments"]
         ]
         card_issuing: NotRequired[
-            Optional["Account.CreateCapabilitiesCardIssuingParams"]
+            Optional["Account.CreateParamsCapabilitiesCardIssuing"]
         ]
         card_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesCardPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesCardPayments"]
         ]
         cartes_bancaires_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesCartesBancairesPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesCartesBancairesPayments"]
         ]
         cashapp_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesCashappPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesCashappPayments"]
         ]
         eps_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesEpsPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesEpsPayments"]
         ]
         fpx_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesFpxPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesFpxPayments"]
         ]
         giropay_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesGiropayPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesGiropayPayments"]
         ]
         grabpay_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesGrabpayPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesGrabpayPayments"]
         ]
         ideal_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesIdealPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesIdealPayments"]
         ]
         india_international_payments: NotRequired[
             Optional[
-                "Account.CreateCapabilitiesIndiaInternationalPaymentsParams"
+                "Account.CreateParamsCapabilitiesIndiaInternationalPayments"
             ]
         ]
         jcb_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesJcbPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesJcbPayments"]
         ]
         klarna_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesKlarnaPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesKlarnaPayments"]
         ]
         konbini_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesKonbiniPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesKonbiniPayments"]
         ]
         legacy_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesLegacyPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesLegacyPayments"]
         ]
         link_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesLinkPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesLinkPayments"]
         ]
         oxxo_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesOxxoPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesOxxoPayments"]
         ]
         p24_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesP24PaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesP24Payments"]
         ]
         paynow_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesPaynowPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesPaynowPayments"]
         ]
         promptpay_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesPromptpayPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesPromptpayPayments"]
         ]
         sepa_debit_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesSepaDebitPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesSepaDebitPayments"]
         ]
         sofort_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesSofortPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesSofortPayments"]
         ]
         tax_reporting_us_1099_k: NotRequired[
-            Optional["Account.CreateCapabilitiesTaxReportingUs1099KParams"]
+            Optional["Account.CreateParamsCapabilitiesTaxReportingUs1099K"]
         ]
         tax_reporting_us_1099_misc: NotRequired[
-            Optional["Account.CreateCapabilitiesTaxReportingUs1099MiscParams"]
+            Optional["Account.CreateParamsCapabilitiesTaxReportingUs1099Misc"]
         ]
         transfers: NotRequired[
-            Optional["Account.CreateCapabilitiesTransfersParams"]
+            Optional["Account.CreateParamsCapabilitiesTransfers"]
         ]
         treasury: NotRequired[
-            Optional["Account.CreateCapabilitiesTreasuryParams"]
+            Optional["Account.CreateParamsCapabilitiesTreasury"]
         ]
         us_bank_account_ach_payments: NotRequired[
             Optional[
-                "Account.CreateCapabilitiesUsBankAccountAchPaymentsParams"
+                "Account.CreateParamsCapabilitiesUsBankAccountAchPayments"
             ]
         ]
         zip_payments: NotRequired[
-            Optional["Account.CreateCapabilitiesZipPaymentsParams"]
+            Optional["Account.CreateParamsCapabilitiesZipPayments"]
         ]
 
-    class CreateCapabilitiesZipPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesZipPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesUsBankAccountAchPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesUsBankAccountAchPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesTreasuryParams(TypedDict):
+    class CreateParamsCapabilitiesTreasury(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesTransfersParams(TypedDict):
+    class CreateParamsCapabilitiesTransfers(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesTaxReportingUs1099MiscParams(TypedDict):
+    class CreateParamsCapabilitiesTaxReportingUs1099Misc(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesTaxReportingUs1099KParams(TypedDict):
+    class CreateParamsCapabilitiesTaxReportingUs1099K(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesSofortPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesSofortPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesSepaDebitPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesSepaDebitPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesPromptpayPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesPromptpayPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesPaynowPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesPaynowPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesP24PaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesP24Payments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesOxxoPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesOxxoPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesLinkPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesLinkPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesLegacyPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesLegacyPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesKonbiniPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesKonbiniPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesKlarnaPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesKlarnaPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesJcbPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesJcbPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesIndiaInternationalPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesIndiaInternationalPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesIdealPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesIdealPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesGrabpayPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesGrabpayPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesGiropayPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesGiropayPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesFpxPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesFpxPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesEpsPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesEpsPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesCashappPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesCashappPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesCartesBancairesPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesCartesBancairesPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesCardPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesCardPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesCardIssuingParams(TypedDict):
+    class CreateParamsCapabilitiesCardIssuing(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesBoletoPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesBoletoPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesBlikPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesBlikPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesBankTransferPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesBankTransferPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesBancontactPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesBancontactPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesBacsDebitPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesBacsDebitPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesAuBecsDebitPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesAuBecsDebitPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesAfterpayClearpayPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesAfterpayClearpayPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesAffirmPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesAffirmPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateCapabilitiesAcssDebitPaymentsParams(TypedDict):
+    class CreateParamsCapabilitiesAcssDebitPayments(TypedDict):
         requested: NotRequired[Optional[bool]]
 
-    class CreateBusinessProfileParams(TypedDict):
+    class CreateParamsBusinessProfile(TypedDict):
         mcc: NotRequired[Optional[str]]
         monthly_estimated_revenue: NotRequired[
             Optional[
-                "Account.CreateBusinessProfileMonthlyEstimatedRevenueParams"
+                "Account.CreateParamsBusinessProfileMonthlyEstimatedRevenue"
             ]
         ]
         name: NotRequired[Optional[str]]
         product_description: NotRequired[Optional[str]]
         support_address: NotRequired[
-            Optional["Account.CreateBusinessProfileSupportAddressParams"]
+            Optional["Account.CreateParamsBusinessProfileSupportAddress"]
         ]
         support_email: NotRequired[Optional[str]]
         support_phone: NotRequired[Optional[str]]
         support_url: NotRequired[Optional[Union[Literal[""], str]]]
         url: NotRequired[Optional[str]]
 
-    class CreateBusinessProfileSupportAddressParams(TypedDict):
+    class CreateParamsBusinessProfileSupportAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -655,7 +655,7 @@ class Account(
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreateBusinessProfileMonthlyEstimatedRevenueParams(TypedDict):
+    class CreateParamsBusinessProfileMonthlyEstimatedRevenue(TypedDict):
         amount: int
         currency: str
 
@@ -663,13 +663,13 @@ class Account(
         pass
 
     class ListParams(RequestOptions):
-        created: NotRequired[Optional[Union["Account.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["Account.ListParamsCreated", int]]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
         starting_after: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -680,11 +680,11 @@ class Account(
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
         relationship: NotRequired[
-            Optional["Account.PersonsRelationshipParams"]
+            Optional["Account.PersonsParamsRelationship"]
         ]
         starting_after: NotRequired[Optional[str]]
 
-    class PersonsRelationshipParams(TypedDict):
+    class PersonsParamsRelationship(TypedDict):
         director: NotRequired[Optional[bool]]
         executive: NotRequired[Optional[bool]]
         owner: NotRequired[Optional[bool]]
@@ -729,7 +729,7 @@ class Account(
         address_zip: NotRequired[Optional[str]]
         default_for_currency: NotRequired[Optional[bool]]
         documents: NotRequired[
-            Optional["Account.ModifyExternalAccountDocumentsParams"]
+            Optional["Account.ModifyExternalAccountParamsDocuments"]
         ]
         exp_month: NotRequired[Optional[str]]
         exp_year: NotRequired[Optional[str]]
@@ -737,14 +737,14 @@ class Account(
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         name: NotRequired[Optional[str]]
 
-    class ModifyExternalAccountDocumentsParams(TypedDict):
+    class ModifyExternalAccountParamsDocuments(TypedDict):
         bank_account_ownership_verification: NotRequired[
             Optional[
-                "Account.ModifyExternalAccountDocumentsBankAccountOwnershipVerificationParams"
+                "Account.ModifyExternalAccountParamsDocumentsBankAccountOwnershipVerification"
             ]
         ]
 
-    class ModifyExternalAccountDocumentsBankAccountOwnershipVerificationParams(
+    class ModifyExternalAccountParamsDocumentsBankAccountOwnershipVerification(
         TypedDict,
     ):
         files: NotRequired[Optional[List[str]]]
@@ -763,17 +763,17 @@ class Account(
         expand: NotRequired[Optional[List[str]]]
 
     class CreatePersonParams(RequestOptions):
-        address: NotRequired[Optional["Account.CreatePersonAddressParams"]]
+        address: NotRequired[Optional["Account.CreatePersonParamsAddress"]]
         address_kana: NotRequired[
-            Optional["Account.CreatePersonAddressKanaParams"]
+            Optional["Account.CreatePersonParamsAddressKana"]
         ]
         address_kanji: NotRequired[
-            Optional["Account.CreatePersonAddressKanjiParams"]
+            Optional["Account.CreatePersonParamsAddressKanji"]
         ]
         dob: NotRequired[
-            Optional[Union[Literal[""], "Account.CreatePersonDobParams"]]
+            Optional[Union[Literal[""], "Account.CreatePersonParamsDob"]]
         ]
-        documents: NotRequired[Optional["Account.CreatePersonDocumentsParams"]]
+        documents: NotRequired[Optional["Account.CreatePersonParamsDocuments"]]
         email: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         first_name: NotRequired[Optional[str]]
@@ -793,35 +793,35 @@ class Account(
         phone: NotRequired[Optional[str]]
         political_exposure: NotRequired[Optional[str]]
         registered_address: NotRequired[
-            Optional["Account.CreatePersonRegisteredAddressParams"]
+            Optional["Account.CreatePersonParamsRegisteredAddress"]
         ]
         relationship: NotRequired[
-            Optional["Account.CreatePersonRelationshipParams"]
+            Optional["Account.CreatePersonParamsRelationship"]
         ]
         ssn_last_4: NotRequired[Optional[str]]
         verification: NotRequired[
-            Optional["Account.CreatePersonVerificationParams"]
+            Optional["Account.CreatePersonParamsVerification"]
         ]
 
-    class CreatePersonVerificationParams(TypedDict):
+    class CreatePersonParamsVerification(TypedDict):
         additional_document: NotRequired[
             Optional[
-                "Account.CreatePersonVerificationAdditionalDocumentParams"
+                "Account.CreatePersonParamsVerificationAdditionalDocument"
             ]
         ]
         document: NotRequired[
-            Optional["Account.CreatePersonVerificationDocumentParams"]
+            Optional["Account.CreatePersonParamsVerificationDocument"]
         ]
 
-    class CreatePersonVerificationDocumentParams(TypedDict):
+    class CreatePersonParamsVerificationDocument(TypedDict):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class CreatePersonVerificationAdditionalDocumentParams(TypedDict):
+    class CreatePersonParamsVerificationAdditionalDocument(TypedDict):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class CreatePersonRelationshipParams(TypedDict):
+    class CreatePersonParamsRelationship(TypedDict):
         director: NotRequired[Optional[bool]]
         executive: NotRequired[Optional[bool]]
         owner: NotRequired[Optional[bool]]
@@ -829,7 +829,7 @@ class Account(
         representative: NotRequired[Optional[bool]]
         title: NotRequired[Optional[str]]
 
-    class CreatePersonRegisteredAddressParams(TypedDict):
+    class CreatePersonParamsRegisteredAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -837,30 +837,30 @@ class Account(
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreatePersonDocumentsParams(TypedDict):
+    class CreatePersonParamsDocuments(TypedDict):
         company_authorization: NotRequired[
-            Optional["Account.CreatePersonDocumentsCompanyAuthorizationParams"]
+            Optional["Account.CreatePersonParamsDocumentsCompanyAuthorization"]
         ]
         passport: NotRequired[
-            Optional["Account.CreatePersonDocumentsPassportParams"]
+            Optional["Account.CreatePersonParamsDocumentsPassport"]
         ]
-        visa: NotRequired[Optional["Account.CreatePersonDocumentsVisaParams"]]
+        visa: NotRequired[Optional["Account.CreatePersonParamsDocumentsVisa"]]
 
-    class CreatePersonDocumentsVisaParams(TypedDict):
+    class CreatePersonParamsDocumentsVisa(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class CreatePersonDocumentsPassportParams(TypedDict):
+    class CreatePersonParamsDocumentsPassport(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class CreatePersonDocumentsCompanyAuthorizationParams(TypedDict):
+    class CreatePersonParamsDocumentsCompanyAuthorization(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class CreatePersonDobParams(TypedDict):
+    class CreatePersonParamsDob(TypedDict):
         day: int
         month: int
         year: int
 
-    class CreatePersonAddressKanjiParams(TypedDict):
+    class CreatePersonParamsAddressKanji(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -869,7 +869,7 @@ class Account(
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class CreatePersonAddressKanaParams(TypedDict):
+    class CreatePersonParamsAddressKana(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -878,7 +878,7 @@ class Account(
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class CreatePersonAddressParams(TypedDict):
+    class CreatePersonParamsAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -890,17 +890,17 @@ class Account(
         expand: NotRequired[Optional[List[str]]]
 
     class ModifyPersonParams(RequestOptions):
-        address: NotRequired[Optional["Account.ModifyPersonAddressParams"]]
+        address: NotRequired[Optional["Account.ModifyPersonParamsAddress"]]
         address_kana: NotRequired[
-            Optional["Account.ModifyPersonAddressKanaParams"]
+            Optional["Account.ModifyPersonParamsAddressKana"]
         ]
         address_kanji: NotRequired[
-            Optional["Account.ModifyPersonAddressKanjiParams"]
+            Optional["Account.ModifyPersonParamsAddressKanji"]
         ]
         dob: NotRequired[
-            Optional[Union[Literal[""], "Account.ModifyPersonDobParams"]]
+            Optional[Union[Literal[""], "Account.ModifyPersonParamsDob"]]
         ]
-        documents: NotRequired[Optional["Account.ModifyPersonDocumentsParams"]]
+        documents: NotRequired[Optional["Account.ModifyPersonParamsDocuments"]]
         email: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         first_name: NotRequired[Optional[str]]
@@ -920,35 +920,35 @@ class Account(
         phone: NotRequired[Optional[str]]
         political_exposure: NotRequired[Optional[str]]
         registered_address: NotRequired[
-            Optional["Account.ModifyPersonRegisteredAddressParams"]
+            Optional["Account.ModifyPersonParamsRegisteredAddress"]
         ]
         relationship: NotRequired[
-            Optional["Account.ModifyPersonRelationshipParams"]
+            Optional["Account.ModifyPersonParamsRelationship"]
         ]
         ssn_last_4: NotRequired[Optional[str]]
         verification: NotRequired[
-            Optional["Account.ModifyPersonVerificationParams"]
+            Optional["Account.ModifyPersonParamsVerification"]
         ]
 
-    class ModifyPersonVerificationParams(TypedDict):
+    class ModifyPersonParamsVerification(TypedDict):
         additional_document: NotRequired[
             Optional[
-                "Account.ModifyPersonVerificationAdditionalDocumentParams"
+                "Account.ModifyPersonParamsVerificationAdditionalDocument"
             ]
         ]
         document: NotRequired[
-            Optional["Account.ModifyPersonVerificationDocumentParams"]
+            Optional["Account.ModifyPersonParamsVerificationDocument"]
         ]
 
-    class ModifyPersonVerificationDocumentParams(TypedDict):
+    class ModifyPersonParamsVerificationDocument(TypedDict):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class ModifyPersonVerificationAdditionalDocumentParams(TypedDict):
+    class ModifyPersonParamsVerificationAdditionalDocument(TypedDict):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class ModifyPersonRelationshipParams(TypedDict):
+    class ModifyPersonParamsRelationship(TypedDict):
         director: NotRequired[Optional[bool]]
         executive: NotRequired[Optional[bool]]
         owner: NotRequired[Optional[bool]]
@@ -956,7 +956,7 @@ class Account(
         representative: NotRequired[Optional[bool]]
         title: NotRequired[Optional[str]]
 
-    class ModifyPersonRegisteredAddressParams(TypedDict):
+    class ModifyPersonParamsRegisteredAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -964,30 +964,30 @@ class Account(
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class ModifyPersonDocumentsParams(TypedDict):
+    class ModifyPersonParamsDocuments(TypedDict):
         company_authorization: NotRequired[
-            Optional["Account.ModifyPersonDocumentsCompanyAuthorizationParams"]
+            Optional["Account.ModifyPersonParamsDocumentsCompanyAuthorization"]
         ]
         passport: NotRequired[
-            Optional["Account.ModifyPersonDocumentsPassportParams"]
+            Optional["Account.ModifyPersonParamsDocumentsPassport"]
         ]
-        visa: NotRequired[Optional["Account.ModifyPersonDocumentsVisaParams"]]
+        visa: NotRequired[Optional["Account.ModifyPersonParamsDocumentsVisa"]]
 
-    class ModifyPersonDocumentsVisaParams(TypedDict):
+    class ModifyPersonParamsDocumentsVisa(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class ModifyPersonDocumentsPassportParams(TypedDict):
+    class ModifyPersonParamsDocumentsPassport(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class ModifyPersonDocumentsCompanyAuthorizationParams(TypedDict):
+    class ModifyPersonParamsDocumentsCompanyAuthorization(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class ModifyPersonDobParams(TypedDict):
+    class ModifyPersonParamsDob(TypedDict):
         day: int
         month: int
         year: int
 
-    class ModifyPersonAddressKanjiParams(TypedDict):
+    class ModifyPersonParamsAddressKanji(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -996,7 +996,7 @@ class Account(
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class ModifyPersonAddressKanaParams(TypedDict):
+    class ModifyPersonParamsAddressKana(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -1005,7 +1005,7 @@ class Account(
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class ModifyPersonAddressParams(TypedDict):
+    class ModifyPersonParamsAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -1021,11 +1021,11 @@ class Account(
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
         relationship: NotRequired[
-            Optional["Account.ListPersonsRelationshipParams"]
+            Optional["Account.ListPersonsParamsRelationship"]
         ]
         starting_after: NotRequired[Optional[str]]
 
-    class ListPersonsRelationshipParams(TypedDict):
+    class ListPersonsParamsRelationship(TypedDict):
         director: NotRequired[Optional[bool]]
         executive: NotRequired[Optional[bool]]
         owner: NotRequired[Optional[bool]]

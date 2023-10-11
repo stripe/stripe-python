@@ -60,14 +60,14 @@ class TaxRate(
 
     class ListParams(RequestOptions):
         active: NotRequired[Optional[bool]]
-        created: NotRequired[Optional[Union["TaxRate.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["TaxRate.ListParamsCreated", int]]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         inclusive: NotRequired[Optional[bool]]
         limit: NotRequired[Optional[int]]
         starting_after: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

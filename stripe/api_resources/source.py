@@ -41,34 +41,34 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
                 Literal["code_verification", "none", "receiver", "redirect"]
             ]
         ]
-        mandate: NotRequired[Optional["Source.CreateMandateParams"]]
+        mandate: NotRequired[Optional["Source.CreateParamsMandate"]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         original_source: NotRequired[Optional[str]]
-        owner: NotRequired[Optional["Source.CreateOwnerParams"]]
-        receiver: NotRequired[Optional["Source.CreateReceiverParams"]]
-        redirect: NotRequired[Optional["Source.CreateRedirectParams"]]
-        source_order: NotRequired[Optional["Source.CreateSourceOrderParams"]]
+        owner: NotRequired[Optional["Source.CreateParamsOwner"]]
+        receiver: NotRequired[Optional["Source.CreateParamsReceiver"]]
+        redirect: NotRequired[Optional["Source.CreateParamsRedirect"]]
+        source_order: NotRequired[Optional["Source.CreateParamsSourceOrder"]]
         statement_descriptor: NotRequired[Optional[str]]
         token: NotRequired[Optional[str]]
         type: NotRequired[Optional[str]]
         usage: NotRequired[Optional[Literal["reusable", "single_use"]]]
 
-    class CreateSourceOrderParams(TypedDict):
+    class CreateParamsSourceOrder(TypedDict):
         items: NotRequired[
-            Optional[List["Source.CreateSourceOrderItemParams"]]
+            Optional[List["Source.CreateParamsSourceOrderItem"]]
         ]
         shipping: NotRequired[
-            Optional["Source.CreateSourceOrderShippingParams"]
+            Optional["Source.CreateParamsSourceOrderShipping"]
         ]
 
-    class CreateSourceOrderShippingParams(TypedDict):
-        address: "Source.CreateSourceOrderShippingAddressParams"
+    class CreateParamsSourceOrderShipping(TypedDict):
+        address: "Source.CreateParamsSourceOrderShippingAddress"
         carrier: NotRequired[Optional[str]]
         name: NotRequired[Optional[str]]
         phone: NotRequired[Optional[str]]
         tracking_number: NotRequired[Optional[str]]
 
-    class CreateSourceOrderShippingAddressParams(TypedDict):
+    class CreateParamsSourceOrderShippingAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: str
@@ -76,7 +76,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreateSourceOrderItemParams(TypedDict):
+    class CreateParamsSourceOrderItem(TypedDict):
         amount: NotRequired[Optional[int]]
         currency: NotRequired[Optional[str]]
         description: NotRequired[Optional[str]]
@@ -86,21 +86,21 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             Optional[Literal["discount", "shipping", "sku", "tax"]]
         ]
 
-    class CreateRedirectParams(TypedDict):
+    class CreateParamsRedirect(TypedDict):
         return_url: str
 
-    class CreateReceiverParams(TypedDict):
+    class CreateParamsReceiver(TypedDict):
         refund_attributes_method: NotRequired[
             Optional[Literal["email", "manual", "none"]]
         ]
 
-    class CreateOwnerParams(TypedDict):
-        address: NotRequired[Optional["Source.CreateOwnerAddressParams"]]
+    class CreateParamsOwner(TypedDict):
+        address: NotRequired[Optional["Source.CreateParamsOwnerAddress"]]
         email: NotRequired[Optional[str]]
         name: NotRequired[Optional[str]]
         phone: NotRequired[Optional[str]]
 
-    class CreateOwnerAddressParams(TypedDict):
+    class CreateParamsOwnerAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -108,9 +108,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreateMandateParams(TypedDict):
+    class CreateParamsMandate(TypedDict):
         acceptance: NotRequired[
-            Optional["Source.CreateMandateAcceptanceParams"]
+            Optional["Source.CreateParamsMandateAcceptance"]
         ]
         amount: NotRequired[Optional[Union[Literal[""], int]]]
         currency: NotRequired[Optional[str]]
@@ -129,25 +129,25 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             ]
         ]
 
-    class CreateMandateAcceptanceParams(TypedDict):
+    class CreateParamsMandateAcceptance(TypedDict):
         date: NotRequired[Optional[int]]
         ip: NotRequired[Optional[str]]
         offline: NotRequired[
-            Optional["Source.CreateMandateAcceptanceOfflineParams"]
+            Optional["Source.CreateParamsMandateAcceptanceOffline"]
         ]
         online: NotRequired[
-            Optional["Source.CreateMandateAcceptanceOnlineParams"]
+            Optional["Source.CreateParamsMandateAcceptanceOnline"]
         ]
         status: Literal["accepted", "pending", "refused", "revoked"]
         type: NotRequired[Optional[Literal["offline", "online"]]]
         user_agent: NotRequired[Optional[str]]
 
-    class CreateMandateAcceptanceOnlineParams(TypedDict):
+    class CreateParamsMandateAcceptanceOnline(TypedDict):
         date: NotRequired[Optional[int]]
         ip: NotRequired[Optional[str]]
         user_agent: NotRequired[Optional[str]]
 
-    class CreateMandateAcceptanceOfflineParams(TypedDict):
+    class CreateParamsMandateAcceptanceOffline(TypedDict):
         contact_email: str
 
     class ListSourceTransactionsParams(RequestOptions):
@@ -159,27 +159,27 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     class ModifyParams(RequestOptions):
         amount: NotRequired[Optional[int]]
         expand: NotRequired[Optional[List[str]]]
-        mandate: NotRequired[Optional["Source.ModifyMandateParams"]]
+        mandate: NotRequired[Optional["Source.ModifyParamsMandate"]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        owner: NotRequired[Optional["Source.ModifyOwnerParams"]]
-        source_order: NotRequired[Optional["Source.ModifySourceOrderParams"]]
+        owner: NotRequired[Optional["Source.ModifyParamsOwner"]]
+        source_order: NotRequired[Optional["Source.ModifyParamsSourceOrder"]]
 
-    class ModifySourceOrderParams(TypedDict):
+    class ModifyParamsSourceOrder(TypedDict):
         items: NotRequired[
-            Optional[List["Source.ModifySourceOrderItemParams"]]
+            Optional[List["Source.ModifyParamsSourceOrderItem"]]
         ]
         shipping: NotRequired[
-            Optional["Source.ModifySourceOrderShippingParams"]
+            Optional["Source.ModifyParamsSourceOrderShipping"]
         ]
 
-    class ModifySourceOrderShippingParams(TypedDict):
-        address: "Source.ModifySourceOrderShippingAddressParams"
+    class ModifyParamsSourceOrderShipping(TypedDict):
+        address: "Source.ModifyParamsSourceOrderShippingAddress"
         carrier: NotRequired[Optional[str]]
         name: NotRequired[Optional[str]]
         phone: NotRequired[Optional[str]]
         tracking_number: NotRequired[Optional[str]]
 
-    class ModifySourceOrderShippingAddressParams(TypedDict):
+    class ModifyParamsSourceOrderShippingAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: str
@@ -187,7 +187,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class ModifySourceOrderItemParams(TypedDict):
+    class ModifyParamsSourceOrderItem(TypedDict):
         amount: NotRequired[Optional[int]]
         currency: NotRequired[Optional[str]]
         description: NotRequired[Optional[str]]
@@ -197,13 +197,13 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             Optional[Literal["discount", "shipping", "sku", "tax"]]
         ]
 
-    class ModifyOwnerParams(TypedDict):
-        address: NotRequired[Optional["Source.ModifyOwnerAddressParams"]]
+    class ModifyParamsOwner(TypedDict):
+        address: NotRequired[Optional["Source.ModifyParamsOwnerAddress"]]
         email: NotRequired[Optional[str]]
         name: NotRequired[Optional[str]]
         phone: NotRequired[Optional[str]]
 
-    class ModifyOwnerAddressParams(TypedDict):
+    class ModifyParamsOwnerAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -211,9 +211,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class ModifyMandateParams(TypedDict):
+    class ModifyParamsMandate(TypedDict):
         acceptance: NotRequired[
-            Optional["Source.ModifyMandateAcceptanceParams"]
+            Optional["Source.ModifyParamsMandateAcceptance"]
         ]
         amount: NotRequired[Optional[Union[Literal[""], int]]]
         currency: NotRequired[Optional[str]]
@@ -232,25 +232,25 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             ]
         ]
 
-    class ModifyMandateAcceptanceParams(TypedDict):
+    class ModifyParamsMandateAcceptance(TypedDict):
         date: NotRequired[Optional[int]]
         ip: NotRequired[Optional[str]]
         offline: NotRequired[
-            Optional["Source.ModifyMandateAcceptanceOfflineParams"]
+            Optional["Source.ModifyParamsMandateAcceptanceOffline"]
         ]
         online: NotRequired[
-            Optional["Source.ModifyMandateAcceptanceOnlineParams"]
+            Optional["Source.ModifyParamsMandateAcceptanceOnline"]
         ]
         status: Literal["accepted", "pending", "refused", "revoked"]
         type: NotRequired[Optional[Literal["offline", "online"]]]
         user_agent: NotRequired[Optional[str]]
 
-    class ModifyMandateAcceptanceOnlineParams(TypedDict):
+    class ModifyParamsMandateAcceptanceOnline(TypedDict):
         date: NotRequired[Optional[int]]
         ip: NotRequired[Optional[str]]
         user_agent: NotRequired[Optional[str]]
 
-    class ModifyMandateAcceptanceOfflineParams(TypedDict):
+    class ModifyParamsMandateAcceptanceOffline(TypedDict):
         contact_email: str
 
     class RetrieveParams(RequestOptions):

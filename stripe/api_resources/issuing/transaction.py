@@ -45,7 +45,7 @@ class Transaction(
         card: NotRequired[Optional[str]]
         cardholder: NotRequired[Optional[str]]
         created: NotRequired[
-            Optional[Union["Transaction.ListCreatedParams", int]]
+            Optional[Union["Transaction.ListParamsCreated", int]]
         ]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
@@ -53,7 +53,7 @@ class Transaction(
         starting_after: NotRequired[Optional[str]]
         type: NotRequired[Optional[Literal["capture", "refund"]]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -72,46 +72,46 @@ class Transaction(
         currency: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         merchant_data: NotRequired[
-            Optional["Transaction.CreateForceCaptureMerchantDataParams"]
+            Optional["Transaction.CreateForceCaptureParamsMerchantData"]
         ]
         purchase_details: NotRequired[
-            Optional["Transaction.CreateForceCapturePurchaseDetailsParams"]
+            Optional["Transaction.CreateForceCaptureParamsPurchaseDetails"]
         ]
 
-    class CreateForceCapturePurchaseDetailsParams(TypedDict):
+    class CreateForceCaptureParamsPurchaseDetails(TypedDict):
         flight: NotRequired[
             Optional[
-                "Transaction.CreateForceCapturePurchaseDetailsFlightParams"
+                "Transaction.CreateForceCaptureParamsPurchaseDetailsFlight"
             ]
         ]
         fuel: NotRequired[
-            Optional["Transaction.CreateForceCapturePurchaseDetailsFuelParams"]
+            Optional["Transaction.CreateForceCaptureParamsPurchaseDetailsFuel"]
         ]
         lodging: NotRequired[
             Optional[
-                "Transaction.CreateForceCapturePurchaseDetailsLodgingParams"
+                "Transaction.CreateForceCaptureParamsPurchaseDetailsLodging"
             ]
         ]
         receipt: NotRequired[
             Optional[
                 List[
-                    "Transaction.CreateForceCapturePurchaseDetailsReceiptParams"
+                    "Transaction.CreateForceCaptureParamsPurchaseDetailsReceipt"
                 ]
             ]
         ]
         reference: NotRequired[Optional[str]]
 
-    class CreateForceCapturePurchaseDetailsReceiptParams(TypedDict):
+    class CreateForceCaptureParamsPurchaseDetailsReceipt(TypedDict):
         description: NotRequired[Optional[str]]
         quantity: NotRequired[Optional[float]]
         total: NotRequired[Optional[int]]
         unit_cost: NotRequired[Optional[int]]
 
-    class CreateForceCapturePurchaseDetailsLodgingParams(TypedDict):
+    class CreateForceCaptureParamsPurchaseDetailsLodging(TypedDict):
         check_in_at: NotRequired[Optional[int]]
         nights: NotRequired[Optional[int]]
 
-    class CreateForceCapturePurchaseDetailsFuelParams(TypedDict):
+    class CreateForceCaptureParamsPurchaseDetailsFuel(TypedDict):
         type: NotRequired[
             Optional[
                 Literal[
@@ -127,20 +127,20 @@ class Transaction(
         unit_cost_decimal: NotRequired[Optional[float]]
         volume_decimal: NotRequired[Optional[float]]
 
-    class CreateForceCapturePurchaseDetailsFlightParams(TypedDict):
+    class CreateForceCaptureParamsPurchaseDetailsFlight(TypedDict):
         departure_at: NotRequired[Optional[int]]
         passenger_name: NotRequired[Optional[str]]
         refundable: NotRequired[Optional[bool]]
         segments: NotRequired[
             Optional[
                 List[
-                    "Transaction.CreateForceCapturePurchaseDetailsFlightSegmentParams"
+                    "Transaction.CreateForceCaptureParamsPurchaseDetailsFlightSegment"
                 ]
             ]
         ]
         travel_agency: NotRequired[Optional[str]]
 
-    class CreateForceCapturePurchaseDetailsFlightSegmentParams(TypedDict):
+    class CreateForceCaptureParamsPurchaseDetailsFlightSegment(TypedDict):
         arrival_airport_code: NotRequired[Optional[str]]
         carrier: NotRequired[Optional[str]]
         departure_airport_code: NotRequired[Optional[str]]
@@ -148,7 +148,7 @@ class Transaction(
         service_class: NotRequired[Optional[str]]
         stopover_allowed: NotRequired[Optional[bool]]
 
-    class CreateForceCaptureMerchantDataParams(TypedDict):
+    class CreateForceCaptureParamsMerchantData(TypedDict):
         category: NotRequired[
             Optional[
                 Literal[
@@ -463,48 +463,48 @@ class Transaction(
         currency: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         merchant_data: NotRequired[
-            Optional["Transaction.CreateUnlinkedRefundMerchantDataParams"]
+            Optional["Transaction.CreateUnlinkedRefundParamsMerchantData"]
         ]
         purchase_details: NotRequired[
-            Optional["Transaction.CreateUnlinkedRefundPurchaseDetailsParams"]
+            Optional["Transaction.CreateUnlinkedRefundParamsPurchaseDetails"]
         ]
 
-    class CreateUnlinkedRefundPurchaseDetailsParams(TypedDict):
+    class CreateUnlinkedRefundParamsPurchaseDetails(TypedDict):
         flight: NotRequired[
             Optional[
-                "Transaction.CreateUnlinkedRefundPurchaseDetailsFlightParams"
+                "Transaction.CreateUnlinkedRefundParamsPurchaseDetailsFlight"
             ]
         ]
         fuel: NotRequired[
             Optional[
-                "Transaction.CreateUnlinkedRefundPurchaseDetailsFuelParams"
+                "Transaction.CreateUnlinkedRefundParamsPurchaseDetailsFuel"
             ]
         ]
         lodging: NotRequired[
             Optional[
-                "Transaction.CreateUnlinkedRefundPurchaseDetailsLodgingParams"
+                "Transaction.CreateUnlinkedRefundParamsPurchaseDetailsLodging"
             ]
         ]
         receipt: NotRequired[
             Optional[
                 List[
-                    "Transaction.CreateUnlinkedRefundPurchaseDetailsReceiptParams"
+                    "Transaction.CreateUnlinkedRefundParamsPurchaseDetailsReceipt"
                 ]
             ]
         ]
         reference: NotRequired[Optional[str]]
 
-    class CreateUnlinkedRefundPurchaseDetailsReceiptParams(TypedDict):
+    class CreateUnlinkedRefundParamsPurchaseDetailsReceipt(TypedDict):
         description: NotRequired[Optional[str]]
         quantity: NotRequired[Optional[float]]
         total: NotRequired[Optional[int]]
         unit_cost: NotRequired[Optional[int]]
 
-    class CreateUnlinkedRefundPurchaseDetailsLodgingParams(TypedDict):
+    class CreateUnlinkedRefundParamsPurchaseDetailsLodging(TypedDict):
         check_in_at: NotRequired[Optional[int]]
         nights: NotRequired[Optional[int]]
 
-    class CreateUnlinkedRefundPurchaseDetailsFuelParams(TypedDict):
+    class CreateUnlinkedRefundParamsPurchaseDetailsFuel(TypedDict):
         type: NotRequired[
             Optional[
                 Literal[
@@ -520,20 +520,20 @@ class Transaction(
         unit_cost_decimal: NotRequired[Optional[float]]
         volume_decimal: NotRequired[Optional[float]]
 
-    class CreateUnlinkedRefundPurchaseDetailsFlightParams(TypedDict):
+    class CreateUnlinkedRefundParamsPurchaseDetailsFlight(TypedDict):
         departure_at: NotRequired[Optional[int]]
         passenger_name: NotRequired[Optional[str]]
         refundable: NotRequired[Optional[bool]]
         segments: NotRequired[
             Optional[
                 List[
-                    "Transaction.CreateUnlinkedRefundPurchaseDetailsFlightSegmentParams"
+                    "Transaction.CreateUnlinkedRefundParamsPurchaseDetailsFlightSegment"
                 ]
             ]
         ]
         travel_agency: NotRequired[Optional[str]]
 
-    class CreateUnlinkedRefundPurchaseDetailsFlightSegmentParams(TypedDict):
+    class CreateUnlinkedRefundParamsPurchaseDetailsFlightSegment(TypedDict):
         arrival_airport_code: NotRequired[Optional[str]]
         carrier: NotRequired[Optional[str]]
         departure_airport_code: NotRequired[Optional[str]]
@@ -541,7 +541,7 @@ class Transaction(
         service_class: NotRequired[Optional[str]]
         stopover_allowed: NotRequired[Optional[bool]]
 
-    class CreateUnlinkedRefundMerchantDataParams(TypedDict):
+    class CreateUnlinkedRefundParamsMerchantData(TypedDict):
         category: NotRequired[
             Optional[
                 Literal[

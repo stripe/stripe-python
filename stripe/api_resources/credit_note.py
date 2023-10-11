@@ -49,7 +49,7 @@ class CreditNote(
         effective_at: NotRequired[Optional[int]]
         expand: NotRequired[Optional[List[str]]]
         invoice: str
-        lines: NotRequired[Optional[List["CreditNote.CreateLineParams"]]]
+        lines: NotRequired[Optional[List["CreditNote.CreateParamsLine"]]]
         memo: NotRequired[Optional[str]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         out_of_band_amount: NotRequired[Optional[int]]
@@ -66,13 +66,13 @@ class CreditNote(
         refund: NotRequired[Optional[str]]
         refund_amount: NotRequired[Optional[int]]
         shipping_cost: NotRequired[
-            Optional["CreditNote.CreateShippingCostParams"]
+            Optional["CreditNote.CreateParamsShippingCost"]
         ]
 
-    class CreateShippingCostParams(TypedDict):
+    class CreateParamsShippingCost(TypedDict):
         shipping_rate: NotRequired[Optional[str]]
 
-    class CreateLineParams(TypedDict):
+    class CreateParamsLine(TypedDict):
         amount: NotRequired[Optional[int]]
         description: NotRequired[Optional[str]]
         invoice_line_item: NotRequired[Optional[str]]
@@ -101,7 +101,7 @@ class CreditNote(
         effective_at: NotRequired[Optional[int]]
         expand: NotRequired[Optional[List[str]]]
         invoice: str
-        lines: NotRequired[Optional[List["CreditNote.PreviewLineParams"]]]
+        lines: NotRequired[Optional[List["CreditNote.PreviewParamsLine"]]]
         memo: NotRequired[Optional[str]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         out_of_band_amount: NotRequired[Optional[int]]
@@ -118,13 +118,13 @@ class CreditNote(
         refund: NotRequired[Optional[str]]
         refund_amount: NotRequired[Optional[int]]
         shipping_cost: NotRequired[
-            Optional["CreditNote.PreviewShippingCostParams"]
+            Optional["CreditNote.PreviewParamsShippingCost"]
         ]
 
-    class PreviewShippingCostParams(TypedDict):
+    class PreviewParamsShippingCost(TypedDict):
         shipping_rate: NotRequired[Optional[str]]
 
-    class PreviewLineParams(TypedDict):
+    class PreviewParamsLine(TypedDict):
         amount: NotRequired[Optional[int]]
         description: NotRequired[Optional[str]]
         invoice_line_item: NotRequired[Optional[str]]
@@ -142,7 +142,7 @@ class CreditNote(
         expand: NotRequired[Optional[List[str]]]
         invoice: str
         limit: NotRequired[Optional[int]]
-        lines: NotRequired[Optional[List["CreditNote.PreviewLinesLineParams"]]]
+        lines: NotRequired[Optional[List["CreditNote.PreviewLinesParamsLine"]]]
         memo: NotRequired[Optional[str]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         out_of_band_amount: NotRequired[Optional[int]]
@@ -159,14 +159,14 @@ class CreditNote(
         refund: NotRequired[Optional[str]]
         refund_amount: NotRequired[Optional[int]]
         shipping_cost: NotRequired[
-            Optional["CreditNote.PreviewLinesShippingCostParams"]
+            Optional["CreditNote.PreviewLinesParamsShippingCost"]
         ]
         starting_after: NotRequired[Optional[str]]
 
-    class PreviewLinesShippingCostParams(TypedDict):
+    class PreviewLinesParamsShippingCost(TypedDict):
         shipping_rate: NotRequired[Optional[str]]
 
-    class PreviewLinesLineParams(TypedDict):
+    class PreviewLinesParamsLine(TypedDict):
         amount: NotRequired[Optional[int]]
         description: NotRequired[Optional[str]]
         invoice_line_item: NotRequired[Optional[str]]

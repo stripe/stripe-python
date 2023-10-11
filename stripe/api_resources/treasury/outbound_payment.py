@@ -44,43 +44,43 @@ class OutboundPayment(
         destination_payment_method: NotRequired[Optional[str]]
         destination_payment_method_data: NotRequired[
             Optional[
-                "OutboundPayment.CreateDestinationPaymentMethodDataParams"
+                "OutboundPayment.CreateParamsDestinationPaymentMethodData"
             ]
         ]
         destination_payment_method_options: NotRequired[
             Optional[
-                "OutboundPayment.CreateDestinationPaymentMethodOptionsParams"
+                "OutboundPayment.CreateParamsDestinationPaymentMethodOptions"
             ]
         ]
         end_user_details: NotRequired[
-            Optional["OutboundPayment.CreateEndUserDetailsParams"]
+            Optional["OutboundPayment.CreateParamsEndUserDetails"]
         ]
         expand: NotRequired[Optional[List[str]]]
         financial_account: str
         metadata: NotRequired[Optional[Dict[str, str]]]
         statement_descriptor: NotRequired[Optional[str]]
 
-    class CreateEndUserDetailsParams(TypedDict):
+    class CreateParamsEndUserDetails(TypedDict):
         ip_address: NotRequired[Optional[str]]
         present: bool
 
-    class CreateDestinationPaymentMethodOptionsParams(TypedDict):
+    class CreateParamsDestinationPaymentMethodOptions(TypedDict):
         us_bank_account: NotRequired[
             Optional[
                 Union[
                     Literal[""],
-                    "OutboundPayment.CreateDestinationPaymentMethodOptionsUsBankAccountParams",
+                    "OutboundPayment.CreateParamsDestinationPaymentMethodOptionsUsBankAccount",
                 ]
             ]
         ]
 
-    class CreateDestinationPaymentMethodOptionsUsBankAccountParams(TypedDict):
+    class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(TypedDict):
         network: NotRequired[Optional[Literal["ach", "us_domestic_wire"]]]
 
-    class CreateDestinationPaymentMethodDataParams(TypedDict):
+    class CreateParamsDestinationPaymentMethodData(TypedDict):
         billing_details: NotRequired[
             Optional[
-                "OutboundPayment.CreateDestinationPaymentMethodDataBillingDetailsParams"
+                "OutboundPayment.CreateParamsDestinationPaymentMethodDataBillingDetails"
             ]
         ]
         financial_account: NotRequired[Optional[str]]
@@ -88,11 +88,11 @@ class OutboundPayment(
         type: Literal["financial_account", "us_bank_account"]
         us_bank_account: NotRequired[
             Optional[
-                "OutboundPayment.CreateDestinationPaymentMethodDataUsBankAccountParams"
+                "OutboundPayment.CreateParamsDestinationPaymentMethodDataUsBankAccount"
             ]
         ]
 
-    class CreateDestinationPaymentMethodDataUsBankAccountParams(TypedDict):
+    class CreateParamsDestinationPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired[
             Optional[Literal["company", "individual"]]
         ]
@@ -101,12 +101,12 @@ class OutboundPayment(
         financial_connections_account: NotRequired[Optional[str]]
         routing_number: NotRequired[Optional[str]]
 
-    class CreateDestinationPaymentMethodDataBillingDetailsParams(TypedDict):
+    class CreateParamsDestinationPaymentMethodDataBillingDetails(TypedDict):
         address: NotRequired[
             Optional[
                 Union[
                     Literal[""],
-                    "OutboundPayment.CreateDestinationPaymentMethodDataBillingDetailsAddressParams",
+                    "OutboundPayment.CreateParamsDestinationPaymentMethodDataBillingDetailsAddress",
                 ]
             ]
         ]
@@ -114,7 +114,7 @@ class OutboundPayment(
         name: NotRequired[Optional[Union[Literal[""], str]]]
         phone: NotRequired[Optional[Union[Literal[""], str]]]
 
-    class CreateDestinationPaymentMethodDataBillingDetailsAddressParams(
+    class CreateParamsDestinationPaymentMethodDataBillingDetailsAddress(
         TypedDict,
     ):
         city: NotRequired[Optional[str]]
@@ -152,11 +152,11 @@ class OutboundPayment(
         expand: NotRequired[Optional[List[str]]]
         returned_details: NotRequired[
             Optional[
-                "OutboundPayment.ReturnOutboundPaymentReturnedDetailsParams"
+                "OutboundPayment.ReturnOutboundPaymentParamsReturnedDetails"
             ]
         ]
 
-    class ReturnOutboundPaymentReturnedDetailsParams(TypedDict):
+    class ReturnOutboundPaymentParamsReturnedDetails(TypedDict):
         code: NotRequired[
             Optional[
                 Literal[

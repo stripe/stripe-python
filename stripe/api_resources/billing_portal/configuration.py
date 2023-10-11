@@ -33,39 +33,39 @@ class Configuration(
     OBJECT_NAME = "billing_portal.configuration"
 
     class CreateParams(RequestOptions):
-        business_profile: "Configuration.CreateBusinessProfileParams"
+        business_profile: "Configuration.CreateParamsBusinessProfile"
         default_return_url: NotRequired[Optional[Union[Literal[""], str]]]
         expand: NotRequired[Optional[List[str]]]
-        features: "Configuration.CreateFeaturesParams"
+        features: "Configuration.CreateParamsFeatures"
         login_page: NotRequired[
-            Optional["Configuration.CreateLoginPageParams"]
+            Optional["Configuration.CreateParamsLoginPage"]
         ]
         metadata: NotRequired[Optional[Dict[str, str]]]
 
-    class CreateLoginPageParams(TypedDict):
+    class CreateParamsLoginPage(TypedDict):
         enabled: bool
 
-    class CreateFeaturesParams(TypedDict):
+    class CreateParamsFeatures(TypedDict):
         customer_update: NotRequired[
-            Optional["Configuration.CreateFeaturesCustomerUpdateParams"]
+            Optional["Configuration.CreateParamsFeaturesCustomerUpdate"]
         ]
         invoice_history: NotRequired[
-            Optional["Configuration.CreateFeaturesInvoiceHistoryParams"]
+            Optional["Configuration.CreateParamsFeaturesInvoiceHistory"]
         ]
         payment_method_update: NotRequired[
-            Optional["Configuration.CreateFeaturesPaymentMethodUpdateParams"]
+            Optional["Configuration.CreateParamsFeaturesPaymentMethodUpdate"]
         ]
         subscription_cancel: NotRequired[
-            Optional["Configuration.CreateFeaturesSubscriptionCancelParams"]
+            Optional["Configuration.CreateParamsFeaturesSubscriptionCancel"]
         ]
         subscription_pause: NotRequired[
-            Optional["Configuration.CreateFeaturesSubscriptionPauseParams"]
+            Optional["Configuration.CreateParamsFeaturesSubscriptionPause"]
         ]
         subscription_update: NotRequired[
-            Optional["Configuration.CreateFeaturesSubscriptionUpdateParams"]
+            Optional["Configuration.CreateParamsFeaturesSubscriptionUpdate"]
         ]
 
-    class CreateFeaturesSubscriptionUpdateParams(TypedDict):
+    class CreateParamsFeaturesSubscriptionUpdate(TypedDict):
         default_allowed_updates: Union[
             Literal[""], List[Literal["price", "promotion_code", "quantity"]]
         ]
@@ -73,24 +73,24 @@ class Configuration(
         products: Union[
             Literal[""],
             List[
-                "Configuration.CreateFeaturesSubscriptionUpdateProductParams"
+                "Configuration.CreateParamsFeaturesSubscriptionUpdateProduct"
             ],
         ]
         proration_behavior: NotRequired[
             Optional[Literal["always_invoice", "create_prorations", "none"]]
         ]
 
-    class CreateFeaturesSubscriptionUpdateProductParams(TypedDict):
+    class CreateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
         prices: List[str]
         product: str
 
-    class CreateFeaturesSubscriptionPauseParams(TypedDict):
+    class CreateParamsFeaturesSubscriptionPause(TypedDict):
         enabled: NotRequired[Optional[bool]]
 
-    class CreateFeaturesSubscriptionCancelParams(TypedDict):
+    class CreateParamsFeaturesSubscriptionCancel(TypedDict):
         cancellation_reason: NotRequired[
             Optional[
-                "Configuration.CreateFeaturesSubscriptionCancelCancellationReasonParams"
+                "Configuration.CreateParamsFeaturesSubscriptionCancelCancellationReason"
             ]
         ]
         enabled: bool
@@ -99,7 +99,7 @@ class Configuration(
             Optional[Literal["always_invoice", "create_prorations", "none"]]
         ]
 
-    class CreateFeaturesSubscriptionCancelCancellationReasonParams(TypedDict):
+    class CreateParamsFeaturesSubscriptionCancelCancellationReason(TypedDict):
         enabled: bool
         options: Union[
             Literal[""],
@@ -117,13 +117,13 @@ class Configuration(
             ],
         ]
 
-    class CreateFeaturesPaymentMethodUpdateParams(TypedDict):
+    class CreateParamsFeaturesPaymentMethodUpdate(TypedDict):
         enabled: bool
 
-    class CreateFeaturesInvoiceHistoryParams(TypedDict):
+    class CreateParamsFeaturesInvoiceHistory(TypedDict):
         enabled: bool
 
-    class CreateFeaturesCustomerUpdateParams(TypedDict):
+    class CreateParamsFeaturesCustomerUpdate(TypedDict):
         allowed_updates: NotRequired[
             Optional[
                 Union[
@@ -143,7 +143,7 @@ class Configuration(
         ]
         enabled: bool
 
-    class CreateBusinessProfileParams(TypedDict):
+    class CreateParamsBusinessProfile(TypedDict):
         headline: NotRequired[Optional[Union[Literal[""], str]]]
         privacy_policy_url: NotRequired[Optional[str]]
         terms_of_service_url: NotRequired[Optional[str]]
@@ -159,40 +159,40 @@ class Configuration(
     class ModifyParams(RequestOptions):
         active: NotRequired[Optional[bool]]
         business_profile: NotRequired[
-            Optional["Configuration.ModifyBusinessProfileParams"]
+            Optional["Configuration.ModifyParamsBusinessProfile"]
         ]
         default_return_url: NotRequired[Optional[Union[Literal[""], str]]]
         expand: NotRequired[Optional[List[str]]]
-        features: NotRequired[Optional["Configuration.ModifyFeaturesParams"]]
+        features: NotRequired[Optional["Configuration.ModifyParamsFeatures"]]
         login_page: NotRequired[
-            Optional["Configuration.ModifyLoginPageParams"]
+            Optional["Configuration.ModifyParamsLoginPage"]
         ]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
 
-    class ModifyLoginPageParams(TypedDict):
+    class ModifyParamsLoginPage(TypedDict):
         enabled: bool
 
-    class ModifyFeaturesParams(TypedDict):
+    class ModifyParamsFeatures(TypedDict):
         customer_update: NotRequired[
-            Optional["Configuration.ModifyFeaturesCustomerUpdateParams"]
+            Optional["Configuration.ModifyParamsFeaturesCustomerUpdate"]
         ]
         invoice_history: NotRequired[
-            Optional["Configuration.ModifyFeaturesInvoiceHistoryParams"]
+            Optional["Configuration.ModifyParamsFeaturesInvoiceHistory"]
         ]
         payment_method_update: NotRequired[
-            Optional["Configuration.ModifyFeaturesPaymentMethodUpdateParams"]
+            Optional["Configuration.ModifyParamsFeaturesPaymentMethodUpdate"]
         ]
         subscription_cancel: NotRequired[
-            Optional["Configuration.ModifyFeaturesSubscriptionCancelParams"]
+            Optional["Configuration.ModifyParamsFeaturesSubscriptionCancel"]
         ]
         subscription_pause: NotRequired[
-            Optional["Configuration.ModifyFeaturesSubscriptionPauseParams"]
+            Optional["Configuration.ModifyParamsFeaturesSubscriptionPause"]
         ]
         subscription_update: NotRequired[
-            Optional["Configuration.ModifyFeaturesSubscriptionUpdateParams"]
+            Optional["Configuration.ModifyParamsFeaturesSubscriptionUpdate"]
         ]
 
-    class ModifyFeaturesSubscriptionUpdateParams(TypedDict):
+    class ModifyParamsFeaturesSubscriptionUpdate(TypedDict):
         default_allowed_updates: NotRequired[
             Optional[
                 Union[
@@ -207,7 +207,7 @@ class Configuration(
                 Union[
                     Literal[""],
                     List[
-                        "Configuration.ModifyFeaturesSubscriptionUpdateProductParams"
+                        "Configuration.ModifyParamsFeaturesSubscriptionUpdateProduct"
                     ],
                 ]
             ]
@@ -216,17 +216,17 @@ class Configuration(
             Optional[Literal["always_invoice", "create_prorations", "none"]]
         ]
 
-    class ModifyFeaturesSubscriptionUpdateProductParams(TypedDict):
+    class ModifyParamsFeaturesSubscriptionUpdateProduct(TypedDict):
         prices: List[str]
         product: str
 
-    class ModifyFeaturesSubscriptionPauseParams(TypedDict):
+    class ModifyParamsFeaturesSubscriptionPause(TypedDict):
         enabled: NotRequired[Optional[bool]]
 
-    class ModifyFeaturesSubscriptionCancelParams(TypedDict):
+    class ModifyParamsFeaturesSubscriptionCancel(TypedDict):
         cancellation_reason: NotRequired[
             Optional[
-                "Configuration.ModifyFeaturesSubscriptionCancelCancellationReasonParams"
+                "Configuration.ModifyParamsFeaturesSubscriptionCancelCancellationReason"
             ]
         ]
         enabled: NotRequired[Optional[bool]]
@@ -235,7 +235,7 @@ class Configuration(
             Optional[Literal["always_invoice", "create_prorations", "none"]]
         ]
 
-    class ModifyFeaturesSubscriptionCancelCancellationReasonParams(TypedDict):
+    class ModifyParamsFeaturesSubscriptionCancelCancellationReason(TypedDict):
         enabled: bool
         options: NotRequired[
             Optional[
@@ -257,13 +257,13 @@ class Configuration(
             ]
         ]
 
-    class ModifyFeaturesPaymentMethodUpdateParams(TypedDict):
+    class ModifyParamsFeaturesPaymentMethodUpdate(TypedDict):
         enabled: bool
 
-    class ModifyFeaturesInvoiceHistoryParams(TypedDict):
+    class ModifyParamsFeaturesInvoiceHistory(TypedDict):
         enabled: bool
 
-    class ModifyFeaturesCustomerUpdateParams(TypedDict):
+    class ModifyParamsFeaturesCustomerUpdate(TypedDict):
         allowed_updates: NotRequired[
             Optional[
                 Union[
@@ -283,7 +283,7 @@ class Configuration(
         ]
         enabled: NotRequired[Optional[bool]]
 
-    class ModifyBusinessProfileParams(TypedDict):
+    class ModifyParamsBusinessProfile(TypedDict):
         headline: NotRequired[Optional[Union[Literal[""], str]]]
         privacy_policy_url: NotRequired[Optional[Union[Literal[""], str]]]
         terms_of_service_url: NotRequired[Optional[Union[Literal[""], str]]]

@@ -60,15 +60,15 @@ class InvoiceItem(
         discountable: NotRequired[Optional[bool]]
         discounts: NotRequired[
             Optional[
-                Union[Literal[""], List["InvoiceItem.CreateDiscountParams"]]
+                Union[Literal[""], List["InvoiceItem.CreateParamsDiscount"]]
             ]
         ]
         expand: NotRequired[Optional[List[str]]]
         invoice: NotRequired[Optional[str]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        period: NotRequired[Optional["InvoiceItem.CreatePeriodParams"]]
+        period: NotRequired[Optional["InvoiceItem.CreateParamsPeriod"]]
         price: NotRequired[Optional[str]]
-        price_data: NotRequired[Optional["InvoiceItem.CreatePriceDataParams"]]
+        price_data: NotRequired[Optional["InvoiceItem.CreateParamsPriceData"]]
         quantity: NotRequired[Optional[int]]
         subscription: NotRequired[Optional[str]]
         tax_behavior: NotRequired[
@@ -79,7 +79,7 @@ class InvoiceItem(
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class CreatePriceDataParams(TypedDict):
+    class CreateParamsPriceData(TypedDict):
         currency: str
         product: str
         tax_behavior: NotRequired[
@@ -88,11 +88,11 @@ class InvoiceItem(
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class CreatePeriodParams(TypedDict):
+    class CreateParamsPeriod(TypedDict):
         end: int
         start: int
 
-    class CreateDiscountParams(TypedDict):
+    class CreateParamsDiscount(TypedDict):
         coupon: NotRequired[Optional[str]]
         discount: NotRequired[Optional[str]]
 
@@ -101,7 +101,7 @@ class InvoiceItem(
 
     class ListParams(RequestOptions):
         created: NotRequired[
-            Optional[Union["InvoiceItem.ListCreatedParams", int]]
+            Optional[Union["InvoiceItem.ListParamsCreated", int]]
         ]
         customer: NotRequired[Optional[str]]
         ending_before: NotRequired[Optional[str]]
@@ -111,7 +111,7 @@ class InvoiceItem(
         pending: NotRequired[Optional[bool]]
         starting_after: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -123,14 +123,14 @@ class InvoiceItem(
         discountable: NotRequired[Optional[bool]]
         discounts: NotRequired[
             Optional[
-                Union[Literal[""], List["InvoiceItem.ModifyDiscountParams"]]
+                Union[Literal[""], List["InvoiceItem.ModifyParamsDiscount"]]
             ]
         ]
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        period: NotRequired[Optional["InvoiceItem.ModifyPeriodParams"]]
+        period: NotRequired[Optional["InvoiceItem.ModifyParamsPeriod"]]
         price: NotRequired[Optional[str]]
-        price_data: NotRequired[Optional["InvoiceItem.ModifyPriceDataParams"]]
+        price_data: NotRequired[Optional["InvoiceItem.ModifyParamsPriceData"]]
         quantity: NotRequired[Optional[int]]
         tax_behavior: NotRequired[
             Optional[Literal["exclusive", "inclusive", "unspecified"]]
@@ -140,7 +140,7 @@ class InvoiceItem(
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class ModifyPriceDataParams(TypedDict):
+    class ModifyParamsPriceData(TypedDict):
         currency: str
         product: str
         tax_behavior: NotRequired[
@@ -149,11 +149,11 @@ class InvoiceItem(
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class ModifyPeriodParams(TypedDict):
+    class ModifyParamsPeriod(TypedDict):
         end: int
         start: int
 
-    class ModifyDiscountParams(TypedDict):
+    class ModifyParamsDiscount(TypedDict):
         coupon: NotRequired[Optional[str]]
         discount: NotRequired[Optional[str]]
 

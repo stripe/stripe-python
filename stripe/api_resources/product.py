@@ -49,17 +49,17 @@ class Product(
     class CreateParams(RequestOptions):
         active: NotRequired[Optional[bool]]
         default_price_data: NotRequired[
-            Optional["Product.CreateDefaultPriceDataParams"]
+            Optional["Product.CreateParamsDefaultPriceData"]
         ]
         description: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
-        features: NotRequired[Optional[List["Product.CreateFeatureParams"]]]
+        features: NotRequired[Optional[List["Product.CreateParamsFeature"]]]
         id: NotRequired[Optional[str]]
         images: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         name: str
         package_dimensions: NotRequired[
-            Optional["Product.CreatePackageDimensionsParams"]
+            Optional["Product.CreateParamsPackageDimensions"]
         ]
         shippable: NotRequired[Optional[bool]]
         statement_descriptor: NotRequired[Optional[str]]
@@ -68,26 +68,26 @@ class Product(
         unit_label: NotRequired[Optional[str]]
         url: NotRequired[Optional[str]]
 
-    class CreatePackageDimensionsParams(TypedDict):
+    class CreateParamsPackageDimensions(TypedDict):
         height: float
         length: float
         weight: float
         width: float
 
-    class CreateFeatureParams(TypedDict):
+    class CreateParamsFeature(TypedDict):
         name: str
 
-    class CreateDefaultPriceDataParams(TypedDict):
+    class CreateParamsDefaultPriceData(TypedDict):
         currency: str
         currency_options: NotRequired[
             Optional[
                 Dict[
-                    str, "Product.CreateDefaultPriceDataCurrencyOptionsParams"
+                    str, "Product.CreateParamsDefaultPriceDataCurrencyOptions"
                 ]
             ]
         ]
         recurring: NotRequired[
-            Optional["Product.CreateDefaultPriceDataRecurringParams"]
+            Optional["Product.CreateParamsDefaultPriceDataRecurring"]
         ]
         tax_behavior: NotRequired[
             Optional[Literal["exclusive", "inclusive", "unspecified"]]
@@ -95,14 +95,14 @@ class Product(
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class CreateDefaultPriceDataRecurringParams(TypedDict):
+    class CreateParamsDefaultPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
         interval_count: NotRequired[Optional[int]]
 
-    class CreateDefaultPriceDataCurrencyOptionsParams(TypedDict):
+    class CreateParamsDefaultPriceDataCurrencyOptions(TypedDict):
         custom_unit_amount: NotRequired[
             Optional[
-                "Product.CreateDefaultPriceDataCurrencyOptionsCustomUnitAmountParams"
+                "Product.CreateParamsDefaultPriceDataCurrencyOptionsCustomUnitAmount"
             ]
         ]
         tax_behavior: NotRequired[
@@ -110,20 +110,20 @@ class Product(
         ]
         tiers: NotRequired[
             Optional[
-                List["Product.CreateDefaultPriceDataCurrencyOptionsTierParams"]
+                List["Product.CreateParamsDefaultPriceDataCurrencyOptionsTier"]
             ]
         ]
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class CreateDefaultPriceDataCurrencyOptionsTierParams(TypedDict):
+    class CreateParamsDefaultPriceDataCurrencyOptionsTier(TypedDict):
         flat_amount: NotRequired[Optional[int]]
         flat_amount_decimal: NotRequired[Optional[float]]
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
         up_to: Union[Literal["inf"], int]
 
-    class CreateDefaultPriceDataCurrencyOptionsCustomUnitAmountParams(
+    class CreateParamsDefaultPriceDataCurrencyOptionsCustomUnitAmount(
         TypedDict,
     ):
         enabled: bool
@@ -136,7 +136,7 @@ class Product(
 
     class ListParams(RequestOptions):
         active: NotRequired[Optional[bool]]
-        created: NotRequired[Optional[Union["Product.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["Product.ListParamsCreated", int]]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         ids: NotRequired[Optional[List[str]]]
@@ -146,7 +146,7 @@ class Product(
         type: NotRequired[Optional[Literal["good", "service"]]]
         url: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -158,14 +158,14 @@ class Product(
         description: NotRequired[Optional[Union[Literal[""], str]]]
         expand: NotRequired[Optional[List[str]]]
         features: NotRequired[
-            Optional[Union[Literal[""], List["Product.ModifyFeatureParams"]]]
+            Optional[Union[Literal[""], List["Product.ModifyParamsFeature"]]]
         ]
         images: NotRequired[Optional[Union[Literal[""], List[str]]]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         name: NotRequired[Optional[str]]
         package_dimensions: NotRequired[
             Optional[
-                Union[Literal[""], "Product.ModifyPackageDimensionsParams"]
+                Union[Literal[""], "Product.ModifyParamsPackageDimensions"]
             ]
         ]
         shippable: NotRequired[Optional[bool]]
@@ -174,13 +174,13 @@ class Product(
         unit_label: NotRequired[Optional[Union[Literal[""], str]]]
         url: NotRequired[Optional[Union[Literal[""], str]]]
 
-    class ModifyPackageDimensionsParams(TypedDict):
+    class ModifyParamsPackageDimensions(TypedDict):
         height: float
         length: float
         weight: float
         width: float
 
-    class ModifyFeatureParams(TypedDict):
+    class ModifyParamsFeature(TypedDict):
         name: str
 
     class RetrieveParams(RequestOptions):

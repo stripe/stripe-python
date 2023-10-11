@@ -38,7 +38,7 @@ class ValueListItem(
 
     class ListParams(RequestOptions):
         created: NotRequired[
-            Optional[Union["ValueListItem.ListCreatedParams", int]]
+            Optional[Union["ValueListItem.ListParamsCreated", int]]
         ]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
@@ -47,7 +47,7 @@ class ValueListItem(
         value: NotRequired[Optional[str]]
         value_list: str
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

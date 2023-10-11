@@ -47,7 +47,7 @@ class Event(ListableAPIResource["Event"]):
     OBJECT_NAME = "event"
 
     class ListParams(RequestOptions):
-        created: NotRequired[Optional[Union["Event.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["Event.ListParamsCreated", int]]]
         delivery_success: NotRequired[Optional[bool]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
@@ -56,7 +56,7 @@ class Event(ListableAPIResource["Event"]):
         type: NotRequired[Optional[str]]
         types: NotRequired[Optional[List[str]]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

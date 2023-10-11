@@ -32,7 +32,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
 
     class ListParams(RequestOptions):
         created: NotRequired[
-            Optional[Union["SetupAttempt.ListCreatedParams", int]]
+            Optional[Union["SetupAttempt.ListParamsCreated", int]]
         ]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
@@ -40,7 +40,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         setup_intent: str
         starting_after: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

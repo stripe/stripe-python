@@ -26,7 +26,7 @@ class Transaction(ListableAPIResource["Transaction"]):
 
     class ListParams(RequestOptions):
         created: NotRequired[
-            Optional[Union["Transaction.ListCreatedParams", int]]
+            Optional[Union["Transaction.ListParamsCreated", int]]
         ]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
@@ -36,23 +36,23 @@ class Transaction(ListableAPIResource["Transaction"]):
         starting_after: NotRequired[Optional[str]]
         status: NotRequired[Optional[Literal["open", "posted", "void"]]]
         status_transitions: NotRequired[
-            Optional["Transaction.ListStatusTransitionsParams"]
+            Optional["Transaction.ListParamsStatusTransitions"]
         ]
 
-    class ListStatusTransitionsParams(TypedDict):
+    class ListParamsStatusTransitions(TypedDict):
         posted_at: NotRequired[
             Optional[
-                Union["Transaction.ListStatusTransitionsPostedAtParams", int]
+                Union["Transaction.ListParamsStatusTransitionsPostedAt", int]
             ]
         ]
 
-    class ListStatusTransitionsPostedAtParams(TypedDict):
+    class ListParamsStatusTransitionsPostedAt(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
         lte: NotRequired[Optional[int]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

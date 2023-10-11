@@ -53,18 +53,18 @@ class Customer(
     class CreateParams(RequestOptions):
         address: NotRequired[
             Optional[
-                Union[Literal[""], "Customer.CreateShippingAddressParams"]
+                Union[Literal[""], "Customer.CreateParamsShippingAddress"]
             ]
         ]
         balance: NotRequired[Optional[int]]
-        cash_balance: NotRequired[Optional["Customer.CreateCashBalanceParams"]]
+        cash_balance: NotRequired[Optional["Customer.CreateParamsCashBalance"]]
         coupon: NotRequired[Optional[str]]
         description: NotRequired[Optional[str]]
         email: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         invoice_prefix: NotRequired[Optional[str]]
         invoice_settings: NotRequired[
-            Optional["Customer.CreateInvoiceSettingsParams"]
+            Optional["Customer.CreateParamsInvoiceSettings"]
         ]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         name: NotRequired[Optional[str]]
@@ -74,20 +74,20 @@ class Customer(
         preferred_locales: NotRequired[Optional[List[str]]]
         promotion_code: NotRequired[Optional[str]]
         shipping: NotRequired[
-            Optional[Union[Literal[""], "Customer.CreateShippingParams"]]
+            Optional[Union[Literal[""], "Customer.CreateParamsShipping"]]
         ]
         source: NotRequired[Optional[str]]
-        tax: NotRequired[Optional["Customer.CreateTaxParams"]]
+        tax: NotRequired[Optional["Customer.CreateParamsTax"]]
         tax_exempt: NotRequired[
             Optional[Union[Literal[""], Literal["exempt", "none", "reverse"]]]
         ]
         tax_id_data: NotRequired[
-            Optional[List["Customer.CreateTaxIdDatumParams"]]
+            Optional[List["Customer.CreateParamsTaxIdDatum"]]
         ]
         test_clock: NotRequired[Optional[str]]
         validate: NotRequired[Optional[bool]]
 
-    class CreateTaxIdDatumParams(TypedDict):
+    class CreateParamsTaxIdDatum(TypedDict):
         type: Literal[
             "ad_nrt",
             "ae_trn",
@@ -158,15 +158,15 @@ class Customer(
         ]
         value: str
 
-    class CreateTaxParams(TypedDict):
+    class CreateParamsTax(TypedDict):
         ip_address: NotRequired[Optional[Union[Literal[""], str]]]
 
-    class CreateShippingParams(TypedDict):
-        address: "Customer.CreateShippingAddressParams"
+    class CreateParamsShipping(TypedDict):
+        address: "Customer.CreateParamsShippingAddress"
         name: str
         phone: NotRequired[Optional[str]]
 
-    class CreateShippingAddressParams(TypedDict):
+    class CreateParamsShippingAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -174,12 +174,12 @@ class Customer(
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreateInvoiceSettingsParams(TypedDict):
+    class CreateParamsInvoiceSettings(TypedDict):
         custom_fields: NotRequired[
             Optional[
                 Union[
                     Literal[""],
-                    List["Customer.CreateInvoiceSettingsCustomFieldParams"],
+                    List["Customer.CreateParamsInvoiceSettingsCustomField"],
                 ]
             ]
         ]
@@ -189,12 +189,12 @@ class Customer(
             Optional[
                 Union[
                     Literal[""],
-                    "Customer.CreateInvoiceSettingsRenderingOptionsParams",
+                    "Customer.CreateParamsInvoiceSettingsRenderingOptions",
                 ]
             ]
         ]
 
-    class CreateInvoiceSettingsRenderingOptionsParams(TypedDict):
+    class CreateParamsInvoiceSettingsRenderingOptions(TypedDict):
         amount_tax_display: NotRequired[
             Optional[
                 Union[
@@ -204,21 +204,21 @@ class Customer(
             ]
         ]
 
-    class CreateInvoiceSettingsCustomFieldParams(TypedDict):
+    class CreateParamsInvoiceSettingsCustomField(TypedDict):
         name: str
         value: str
 
-    class CreateCashBalanceParams(TypedDict):
+    class CreateParamsCashBalance(TypedDict):
         settings: NotRequired[
-            Optional["Customer.CreateCashBalanceSettingsParams"]
+            Optional["Customer.CreateParamsCashBalanceSettings"]
         ]
 
-    class CreateCashBalanceSettingsParams(TypedDict):
+    class CreateParamsCashBalanceSettings(TypedDict):
         reconciliation_mode: NotRequired[
             Optional[Literal["automatic", "manual", "merchant_default"]]
         ]
 
-    class CreateAddressParams(TypedDict):
+    class CreateParamsAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -227,15 +227,15 @@ class Customer(
         state: NotRequired[Optional[str]]
 
     class CreateFundingInstructionsParams(RequestOptions):
-        bank_transfer: "Customer.CreateFundingInstructionsBankTransferParams"
+        bank_transfer: "Customer.CreateFundingInstructionsParamsBankTransfer"
         currency: str
         expand: NotRequired[Optional[List[str]]]
         funding_type: Literal["bank_transfer"]
 
-    class CreateFundingInstructionsBankTransferParams(TypedDict):
+    class CreateFundingInstructionsParamsBankTransfer(TypedDict):
         eu_bank_transfer: NotRequired[
             Optional[
-                "Customer.CreateFundingInstructionsBankTransferEuBankTransferParams"
+                "Customer.CreateFundingInstructionsParamsBankTransferEuBankTransfer"
             ]
         ]
         requested_address_types: NotRequired[
@@ -249,7 +249,7 @@ class Customer(
             "us_bank_transfer",
         ]
 
-    class CreateFundingInstructionsBankTransferEuBankTransferParams(TypedDict):
+    class CreateFundingInstructionsParamsBankTransferEuBankTransfer(TypedDict):
         country: str
 
     class DeleteParams(RequestOptions):
@@ -260,7 +260,7 @@ class Customer(
 
     class ListParams(RequestOptions):
         created: NotRequired[
-            Optional[Union["Customer.ListCreatedParams", int]]
+            Optional[Union["Customer.ListParamsCreated", int]]
         ]
         email: NotRequired[Optional[str]]
         ending_before: NotRequired[Optional[str]]
@@ -269,7 +269,7 @@ class Customer(
         starting_after: NotRequired[Optional[str]]
         test_clock: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -321,11 +321,11 @@ class Customer(
     class ModifyParams(RequestOptions):
         address: NotRequired[
             Optional[
-                Union[Literal[""], "Customer.ModifyShippingAddressParams"]
+                Union[Literal[""], "Customer.ModifyParamsShippingAddress"]
             ]
         ]
         balance: NotRequired[Optional[int]]
-        cash_balance: NotRequired[Optional["Customer.ModifyCashBalanceParams"]]
+        cash_balance: NotRequired[Optional["Customer.ModifyParamsCashBalance"]]
         coupon: NotRequired[Optional[str]]
         default_source: NotRequired[Optional[str]]
         description: NotRequired[Optional[str]]
@@ -333,7 +333,7 @@ class Customer(
         expand: NotRequired[Optional[List[str]]]
         invoice_prefix: NotRequired[Optional[str]]
         invoice_settings: NotRequired[
-            Optional["Customer.ModifyInvoiceSettingsParams"]
+            Optional["Customer.ModifyParamsInvoiceSettings"]
         ]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         name: NotRequired[Optional[str]]
@@ -342,24 +342,24 @@ class Customer(
         preferred_locales: NotRequired[Optional[List[str]]]
         promotion_code: NotRequired[Optional[str]]
         shipping: NotRequired[
-            Optional[Union[Literal[""], "Customer.ModifyShippingParams"]]
+            Optional[Union[Literal[""], "Customer.ModifyParamsShipping"]]
         ]
         source: NotRequired[Optional[str]]
-        tax: NotRequired[Optional["Customer.ModifyTaxParams"]]
+        tax: NotRequired[Optional["Customer.ModifyParamsTax"]]
         tax_exempt: NotRequired[
             Optional[Union[Literal[""], Literal["exempt", "none", "reverse"]]]
         ]
         validate: NotRequired[Optional[bool]]
 
-    class ModifyTaxParams(TypedDict):
+    class ModifyParamsTax(TypedDict):
         ip_address: NotRequired[Optional[Union[Literal[""], str]]]
 
-    class ModifyShippingParams(TypedDict):
-        address: "Customer.ModifyShippingAddressParams"
+    class ModifyParamsShipping(TypedDict):
+        address: "Customer.ModifyParamsShippingAddress"
         name: str
         phone: NotRequired[Optional[str]]
 
-    class ModifyShippingAddressParams(TypedDict):
+    class ModifyParamsShippingAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -367,12 +367,12 @@ class Customer(
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class ModifyInvoiceSettingsParams(TypedDict):
+    class ModifyParamsInvoiceSettings(TypedDict):
         custom_fields: NotRequired[
             Optional[
                 Union[
                     Literal[""],
-                    List["Customer.ModifyInvoiceSettingsCustomFieldParams"],
+                    List["Customer.ModifyParamsInvoiceSettingsCustomField"],
                 ]
             ]
         ]
@@ -382,12 +382,12 @@ class Customer(
             Optional[
                 Union[
                     Literal[""],
-                    "Customer.ModifyInvoiceSettingsRenderingOptionsParams",
+                    "Customer.ModifyParamsInvoiceSettingsRenderingOptions",
                 ]
             ]
         ]
 
-    class ModifyInvoiceSettingsRenderingOptionsParams(TypedDict):
+    class ModifyParamsInvoiceSettingsRenderingOptions(TypedDict):
         amount_tax_display: NotRequired[
             Optional[
                 Union[
@@ -397,21 +397,21 @@ class Customer(
             ]
         ]
 
-    class ModifyInvoiceSettingsCustomFieldParams(TypedDict):
+    class ModifyParamsInvoiceSettingsCustomField(TypedDict):
         name: str
         value: str
 
-    class ModifyCashBalanceParams(TypedDict):
+    class ModifyParamsCashBalance(TypedDict):
         settings: NotRequired[
-            Optional["Customer.ModifyCashBalanceSettingsParams"]
+            Optional["Customer.ModifyParamsCashBalanceSettings"]
         ]
 
-    class ModifyCashBalanceSettingsParams(TypedDict):
+    class ModifyParamsCashBalanceSettings(TypedDict):
         reconciliation_mode: NotRequired[
             Optional[Literal["automatic", "manual", "merchant_default"]]
         ]
 
-    class ModifyAddressParams(TypedDict):
+    class ModifyParamsAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -434,10 +434,10 @@ class Customer(
     class ModifyCashBalanceParams(RequestOptions):
         expand: NotRequired[Optional[List[str]]]
         settings: NotRequired[
-            Optional["Customer.ModifyCashBalanceSettingsParams"]
+            Optional["Customer.ModifyCashBalanceParamsSettings"]
         ]
 
-    class ModifyCashBalanceSettingsParams(TypedDict):
+    class ModifyCashBalanceParamsSettings(TypedDict):
         reconciliation_mode: NotRequired[
             Optional[Literal["automatic", "manual", "merchant_default"]]
         ]
@@ -506,17 +506,17 @@ class Customer(
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         name: NotRequired[Optional[str]]
-        owner: NotRequired[Optional["Customer.ModifySourceOwnerParams"]]
+        owner: NotRequired[Optional["Customer.ModifySourceParamsOwner"]]
 
-    class ModifySourceOwnerParams(TypedDict):
+    class ModifySourceParamsOwner(TypedDict):
         address: NotRequired[
-            Optional["Customer.ModifySourceOwnerAddressParams"]
+            Optional["Customer.ModifySourceParamsOwnerAddress"]
         ]
         email: NotRequired[Optional[str]]
         name: NotRequired[Optional[str]]
         phone: NotRequired[Optional[str]]
 
-    class ModifySourceOwnerAddressParams(TypedDict):
+    class ModifySourceParamsOwnerAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]

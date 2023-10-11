@@ -45,42 +45,42 @@ class Price(
         billing_scheme: NotRequired[Optional[Literal["per_unit", "tiered"]]]
         currency: str
         currency_options: NotRequired[
-            Optional[Dict[str, "Price.CreateCurrencyOptionsParams"]]
+            Optional[Dict[str, "Price.CreateParamsCurrencyOptions"]]
         ]
         custom_unit_amount: NotRequired[
-            Optional["Price.CreateCustomUnitAmountParams"]
+            Optional["Price.CreateParamsCustomUnitAmount"]
         ]
         expand: NotRequired[Optional[List[str]]]
         lookup_key: NotRequired[Optional[str]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         nickname: NotRequired[Optional[str]]
         product: NotRequired[Optional[str]]
-        product_data: NotRequired[Optional["Price.CreateProductDataParams"]]
-        recurring: NotRequired[Optional["Price.CreateRecurringParams"]]
+        product_data: NotRequired[Optional["Price.CreateParamsProductData"]]
+        recurring: NotRequired[Optional["Price.CreateParamsRecurring"]]
         tax_behavior: NotRequired[
             Optional[Literal["exclusive", "inclusive", "unspecified"]]
         ]
-        tiers: NotRequired[Optional[List["Price.CreateTierParams"]]]
+        tiers: NotRequired[Optional[List["Price.CreateParamsTier"]]]
         tiers_mode: NotRequired[Optional[Literal["graduated", "volume"]]]
         transfer_lookup_key: NotRequired[Optional[bool]]
         transform_quantity: NotRequired[
-            Optional["Price.CreateTransformQuantityParams"]
+            Optional["Price.CreateParamsTransformQuantity"]
         ]
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class CreateTransformQuantityParams(TypedDict):
+    class CreateParamsTransformQuantity(TypedDict):
         divide_by: int
         round: Literal["down", "up"]
 
-    class CreateTierParams(TypedDict):
+    class CreateParamsTier(TypedDict):
         flat_amount: NotRequired[Optional[int]]
         flat_amount_decimal: NotRequired[Optional[float]]
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
         up_to: Union[Literal["inf"], int]
 
-    class CreateRecurringParams(TypedDict):
+    class CreateParamsRecurring(TypedDict):
         aggregate_usage: NotRequired[
             Optional[Literal["last_during_period", "last_ever", "max", "sum"]]
         ]
@@ -89,7 +89,7 @@ class Price(
         trial_period_days: NotRequired[Optional[int]]
         usage_type: NotRequired[Optional[Literal["licensed", "metered"]]]
 
-    class CreateProductDataParams(TypedDict):
+    class CreateParamsProductData(TypedDict):
         active: NotRequired[Optional[bool]]
         id: NotRequired[Optional[str]]
         metadata: NotRequired[Optional[Dict[str, str]]]
@@ -98,33 +98,33 @@ class Price(
         tax_code: NotRequired[Optional[str]]
         unit_label: NotRequired[Optional[str]]
 
-    class CreateCustomUnitAmountParams(TypedDict):
+    class CreateParamsCustomUnitAmount(TypedDict):
         enabled: bool
         maximum: NotRequired[Optional[int]]
         minimum: NotRequired[Optional[int]]
         preset: NotRequired[Optional[int]]
 
-    class CreateCurrencyOptionsParams(TypedDict):
+    class CreateParamsCurrencyOptions(TypedDict):
         custom_unit_amount: NotRequired[
-            Optional["Price.CreateCurrencyOptionsCustomUnitAmountParams"]
+            Optional["Price.CreateParamsCurrencyOptionsCustomUnitAmount"]
         ]
         tax_behavior: NotRequired[
             Optional[Literal["exclusive", "inclusive", "unspecified"]]
         ]
         tiers: NotRequired[
-            Optional[List["Price.CreateCurrencyOptionsTierParams"]]
+            Optional[List["Price.CreateParamsCurrencyOptionsTier"]]
         ]
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class CreateCurrencyOptionsTierParams(TypedDict):
+    class CreateParamsCurrencyOptionsTier(TypedDict):
         flat_amount: NotRequired[Optional[int]]
         flat_amount_decimal: NotRequired[Optional[float]]
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
         up_to: Union[Literal["inf"], int]
 
-    class CreateCurrencyOptionsCustomUnitAmountParams(TypedDict):
+    class CreateParamsCurrencyOptionsCustomUnitAmount(TypedDict):
         enabled: bool
         maximum: NotRequired[Optional[int]]
         minimum: NotRequired[Optional[int]]
@@ -132,24 +132,24 @@ class Price(
 
     class ListParams(RequestOptions):
         active: NotRequired[Optional[bool]]
-        created: NotRequired[Optional[Union["Price.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["Price.ListParamsCreated", int]]]
         currency: NotRequired[Optional[str]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
         lookup_keys: NotRequired[Optional[List[str]]]
         product: NotRequired[Optional[str]]
-        recurring: NotRequired[Optional["Price.ListRecurringParams"]]
+        recurring: NotRequired[Optional["Price.ListParamsRecurring"]]
         starting_after: NotRequired[Optional[str]]
         type: NotRequired[Optional[Literal["one_time", "recurring"]]]
 
-    class ListRecurringParams(TypedDict):
+    class ListParamsRecurring(TypedDict):
         interval: NotRequired[
             Optional[Literal["day", "month", "week", "year"]]
         ]
         usage_type: NotRequired[Optional[Literal["licensed", "metered"]]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -160,7 +160,7 @@ class Price(
         currency_options: NotRequired[
             Optional[
                 Union[
-                    Literal[""], Dict[str, "Price.ModifyCurrencyOptionsParams"]
+                    Literal[""], Dict[str, "Price.ModifyParamsCurrencyOptions"]
                 ]
             ]
         ]
@@ -173,27 +173,27 @@ class Price(
         ]
         transfer_lookup_key: NotRequired[Optional[bool]]
 
-    class ModifyCurrencyOptionsParams(TypedDict):
+    class ModifyParamsCurrencyOptions(TypedDict):
         custom_unit_amount: NotRequired[
-            Optional["Price.ModifyCurrencyOptionsCustomUnitAmountParams"]
+            Optional["Price.ModifyParamsCurrencyOptionsCustomUnitAmount"]
         ]
         tax_behavior: NotRequired[
             Optional[Literal["exclusive", "inclusive", "unspecified"]]
         ]
         tiers: NotRequired[
-            Optional[List["Price.ModifyCurrencyOptionsTierParams"]]
+            Optional[List["Price.ModifyParamsCurrencyOptionsTier"]]
         ]
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class ModifyCurrencyOptionsTierParams(TypedDict):
+    class ModifyParamsCurrencyOptionsTier(TypedDict):
         flat_amount: NotRequired[Optional[int]]
         flat_amount_decimal: NotRequired[Optional[float]]
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
         up_to: Union[Literal["inf"], int]
 
-    class ModifyCurrencyOptionsCustomUnitAmountParams(TypedDict):
+    class ModifyParamsCurrencyOptionsCustomUnitAmount(TypedDict):
         enabled: bool
         maximum: NotRequired[Optional[int]]
         minimum: NotRequired[Optional[int]]

@@ -45,7 +45,7 @@ class SubscriptionItem(
             Optional[
                 Union[
                     Literal[""],
-                    "SubscriptionItem.CreateBillingThresholdsParams",
+                    "SubscriptionItem.CreateParamsBillingThresholds",
                 ]
             ]
         ]
@@ -64,7 +64,7 @@ class SubscriptionItem(
         plan: NotRequired[Optional[str]]
         price: NotRequired[Optional[str]]
         price_data: NotRequired[
-            Optional["SubscriptionItem.CreatePriceDataParams"]
+            Optional["SubscriptionItem.CreateParamsPriceData"]
         ]
         proration_behavior: NotRequired[
             Optional[Literal["always_invoice", "create_prorations", "none"]]
@@ -74,21 +74,21 @@ class SubscriptionItem(
         subscription: str
         tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
 
-    class CreatePriceDataParams(TypedDict):
+    class CreateParamsPriceData(TypedDict):
         currency: str
         product: str
-        recurring: "SubscriptionItem.CreatePriceDataRecurringParams"
+        recurring: "SubscriptionItem.CreateParamsPriceDataRecurring"
         tax_behavior: NotRequired[
             Optional[Literal["exclusive", "inclusive", "unspecified"]]
         ]
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class CreatePriceDataRecurringParams(TypedDict):
+    class CreateParamsPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
         interval_count: NotRequired[Optional[int]]
 
-    class CreateBillingThresholdsParams(TypedDict):
+    class CreateParamsBillingThresholds(TypedDict):
         usage_gte: int
 
     class DeleteParams(RequestOptions):
@@ -110,7 +110,7 @@ class SubscriptionItem(
             Optional[
                 Union[
                     Literal[""],
-                    "SubscriptionItem.ModifyBillingThresholdsParams",
+                    "SubscriptionItem.ModifyParamsBillingThresholds",
                 ]
             ]
         ]
@@ -130,7 +130,7 @@ class SubscriptionItem(
         plan: NotRequired[Optional[str]]
         price: NotRequired[Optional[str]]
         price_data: NotRequired[
-            Optional["SubscriptionItem.ModifyPriceDataParams"]
+            Optional["SubscriptionItem.ModifyParamsPriceData"]
         ]
         proration_behavior: NotRequired[
             Optional[Literal["always_invoice", "create_prorations", "none"]]
@@ -139,21 +139,21 @@ class SubscriptionItem(
         quantity: NotRequired[Optional[int]]
         tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
 
-    class ModifyPriceDataParams(TypedDict):
+    class ModifyParamsPriceData(TypedDict):
         currency: str
         product: str
-        recurring: "SubscriptionItem.ModifyPriceDataRecurringParams"
+        recurring: "SubscriptionItem.ModifyParamsPriceDataRecurring"
         tax_behavior: NotRequired[
             Optional[Literal["exclusive", "inclusive", "unspecified"]]
         ]
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class ModifyPriceDataRecurringParams(TypedDict):
+    class ModifyParamsPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
         interval_count: NotRequired[Optional[int]]
 
-    class ModifyBillingThresholdsParams(TypedDict):
+    class ModifyParamsBillingThresholds(TypedDict):
         usage_gte: int
 
     class RetrieveParams(RequestOptions):

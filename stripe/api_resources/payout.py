@@ -57,9 +57,9 @@ class Payout(
 
     class ListParams(RequestOptions):
         arrival_date: NotRequired[
-            Optional[Union["Payout.ListArrivalDateParams", int]]
+            Optional[Union["Payout.ListParamsArrivalDate", int]]
         ]
-        created: NotRequired[Optional[Union["Payout.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["Payout.ListParamsCreated", int]]]
         destination: NotRequired[Optional[str]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
@@ -67,13 +67,13 @@ class Payout(
         starting_after: NotRequired[Optional[str]]
         status: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
         lte: NotRequired[Optional[int]]
 
-    class ListArrivalDateParams(TypedDict):
+    class ListParamsArrivalDate(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

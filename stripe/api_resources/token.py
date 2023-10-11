@@ -41,30 +41,30 @@ class Token(CreateableAPIResource["Token"]):
     OBJECT_NAME = "token"
 
     class CreateParams(RequestOptions):
-        account: NotRequired[Optional["Token.CreateAccountParams"]]
-        bank_account: NotRequired[Optional["Token.CreateBankAccountParams"]]
-        card: NotRequired[Optional[Union["Token.CreateCardParams", str]]]
+        account: NotRequired[Optional["Token.CreateParamsAccount"]]
+        bank_account: NotRequired[Optional["Token.CreateParamsBankAccount"]]
+        card: NotRequired[Optional[Union["Token.CreateParamsCard", str]]]
         customer: NotRequired[Optional[str]]
-        cvc_update: NotRequired[Optional["Token.CreateCvcUpdateParams"]]
+        cvc_update: NotRequired[Optional["Token.CreateParamsCvcUpdate"]]
         expand: NotRequired[Optional[List[str]]]
-        person: NotRequired[Optional["Token.CreatePersonParams"]]
-        pii: NotRequired[Optional["Token.CreatePiiParams"]]
+        person: NotRequired[Optional["Token.CreateParamsPerson"]]
+        pii: NotRequired[Optional["Token.CreateParamsPii"]]
 
-    class CreatePiiParams(TypedDict):
+    class CreateParamsPii(TypedDict):
         id_number: NotRequired[Optional[str]]
 
-    class CreatePersonParams(TypedDict):
-        address: NotRequired[Optional["Token.CreatePersonAddressParams"]]
+    class CreateParamsPerson(TypedDict):
+        address: NotRequired[Optional["Token.CreateParamsPersonAddress"]]
         address_kana: NotRequired[
-            Optional["Token.CreatePersonAddressKanaParams"]
+            Optional["Token.CreateParamsPersonAddressKana"]
         ]
         address_kanji: NotRequired[
-            Optional["Token.CreatePersonAddressKanjiParams"]
+            Optional["Token.CreateParamsPersonAddressKanji"]
         ]
         dob: NotRequired[
-            Optional[Union[Literal[""], "Token.CreatePersonDobParams"]]
+            Optional[Union[Literal[""], "Token.CreateParamsPersonDob"]]
         ]
-        documents: NotRequired[Optional["Token.CreatePersonDocumentsParams"]]
+        documents: NotRequired[Optional["Token.CreateParamsPersonDocuments"]]
         email: NotRequired[Optional[str]]
         first_name: NotRequired[Optional[str]]
         first_name_kana: NotRequired[Optional[str]]
@@ -82,33 +82,33 @@ class Token(CreateableAPIResource["Token"]):
         phone: NotRequired[Optional[str]]
         political_exposure: NotRequired[Optional[str]]
         registered_address: NotRequired[
-            Optional["Token.CreatePersonRegisteredAddressParams"]
+            Optional["Token.CreateParamsPersonRegisteredAddress"]
         ]
         relationship: NotRequired[
-            Optional["Token.CreatePersonRelationshipParams"]
+            Optional["Token.CreateParamsPersonRelationship"]
         ]
         ssn_last_4: NotRequired[Optional[str]]
         verification: NotRequired[
-            Optional["Token.CreatePersonVerificationParams"]
+            Optional["Token.CreateParamsPersonVerification"]
         ]
 
-    class CreatePersonVerificationParams(TypedDict):
+    class CreateParamsPersonVerification(TypedDict):
         additional_document: NotRequired[
-            Optional["Token.CreatePersonVerificationAdditionalDocumentParams"]
+            Optional["Token.CreateParamsPersonVerificationAdditionalDocument"]
         ]
         document: NotRequired[
-            Optional["Token.CreatePersonVerificationDocumentParams"]
+            Optional["Token.CreateParamsPersonVerificationDocument"]
         ]
 
-    class CreatePersonVerificationDocumentParams(TypedDict):
+    class CreateParamsPersonVerificationDocument(TypedDict):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class CreatePersonVerificationAdditionalDocumentParams(TypedDict):
+    class CreateParamsPersonVerificationAdditionalDocument(TypedDict):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class CreatePersonRelationshipParams(TypedDict):
+    class CreateParamsPersonRelationship(TypedDict):
         director: NotRequired[Optional[bool]]
         executive: NotRequired[Optional[bool]]
         owner: NotRequired[Optional[bool]]
@@ -116,7 +116,7 @@ class Token(CreateableAPIResource["Token"]):
         representative: NotRequired[Optional[bool]]
         title: NotRequired[Optional[str]]
 
-    class CreatePersonRegisteredAddressParams(TypedDict):
+    class CreateParamsPersonRegisteredAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -124,30 +124,30 @@ class Token(CreateableAPIResource["Token"]):
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreatePersonDocumentsParams(TypedDict):
+    class CreateParamsPersonDocuments(TypedDict):
         company_authorization: NotRequired[
-            Optional["Token.CreatePersonDocumentsCompanyAuthorizationParams"]
+            Optional["Token.CreateParamsPersonDocumentsCompanyAuthorization"]
         ]
         passport: NotRequired[
-            Optional["Token.CreatePersonDocumentsPassportParams"]
+            Optional["Token.CreateParamsPersonDocumentsPassport"]
         ]
-        visa: NotRequired[Optional["Token.CreatePersonDocumentsVisaParams"]]
+        visa: NotRequired[Optional["Token.CreateParamsPersonDocumentsVisa"]]
 
-    class CreatePersonDocumentsVisaParams(TypedDict):
+    class CreateParamsPersonDocumentsVisa(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class CreatePersonDocumentsPassportParams(TypedDict):
+    class CreateParamsPersonDocumentsPassport(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class CreatePersonDocumentsCompanyAuthorizationParams(TypedDict):
+    class CreateParamsPersonDocumentsCompanyAuthorization(TypedDict):
         files: NotRequired[Optional[List[str]]]
 
-    class CreatePersonDobParams(TypedDict):
+    class CreateParamsPersonDob(TypedDict):
         day: int
         month: int
         year: int
 
-    class CreatePersonAddressKanjiParams(TypedDict):
+    class CreateParamsPersonAddressKanji(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -156,7 +156,7 @@ class Token(CreateableAPIResource["Token"]):
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class CreatePersonAddressKanaParams(TypedDict):
+    class CreateParamsPersonAddressKana(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -165,7 +165,7 @@ class Token(CreateableAPIResource["Token"]):
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class CreatePersonAddressParams(TypedDict):
+    class CreateParamsPersonAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -173,10 +173,10 @@ class Token(CreateableAPIResource["Token"]):
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreateCvcUpdateParams(TypedDict):
+    class CreateParamsCvcUpdate(TypedDict):
         cvc: str
 
-    class CreateCardParams(TypedDict):
+    class CreateParamsCard(TypedDict):
         address_city: NotRequired[Optional[str]]
         address_country: NotRequired[Optional[str]]
         address_line1: NotRequired[Optional[str]]
@@ -190,7 +190,7 @@ class Token(CreateableAPIResource["Token"]):
         name: NotRequired[Optional[str]]
         number: str
 
-    class CreateBankAccountParams(TypedDict):
+    class CreateParamsBankAccount(TypedDict):
         account_holder_name: NotRequired[Optional[str]]
         account_holder_type: NotRequired[
             Optional[Literal["company", "individual"]]
@@ -203,7 +203,7 @@ class Token(CreateableAPIResource["Token"]):
         currency: NotRequired[Optional[str]]
         routing_number: NotRequired[Optional[str]]
 
-    class CreateAccountParams(TypedDict):
+    class CreateParamsAccount(TypedDict):
         business_type: NotRequired[
             Optional[
                 Literal[
@@ -211,25 +211,25 @@ class Token(CreateableAPIResource["Token"]):
                 ]
             ]
         ]
-        company: NotRequired[Optional["Token.CreateAccountCompanyParams"]]
+        company: NotRequired[Optional["Token.CreateParamsAccountCompany"]]
         individual: NotRequired[
-            Optional["Token.CreateAccountIndividualParams"]
+            Optional["Token.CreateParamsAccountIndividual"]
         ]
         tos_shown_and_accepted: NotRequired[Optional[bool]]
 
-    class CreateAccountIndividualParams(TypedDict):
+    class CreateParamsAccountIndividual(TypedDict):
         address: NotRequired[
-            Optional["Token.CreateAccountIndividualAddressParams"]
+            Optional["Token.CreateParamsAccountIndividualAddress"]
         ]
         address_kana: NotRequired[
-            Optional["Token.CreateAccountIndividualAddressKanaParams"]
+            Optional["Token.CreateParamsAccountIndividualAddressKana"]
         ]
         address_kanji: NotRequired[
-            Optional["Token.CreateAccountIndividualAddressKanjiParams"]
+            Optional["Token.CreateParamsAccountIndividualAddressKanji"]
         ]
         dob: NotRequired[
             Optional[
-                Union[Literal[""], "Token.CreateAccountIndividualDobParams"]
+                Union[Literal[""], "Token.CreateParamsAccountIndividualDob"]
             ]
         ]
         email: NotRequired[Optional[str]]
@@ -248,34 +248,34 @@ class Token(CreateableAPIResource["Token"]):
         phone: NotRequired[Optional[str]]
         political_exposure: NotRequired[Optional[Literal["existing", "none"]]]
         registered_address: NotRequired[
-            Optional["Token.CreateAccountIndividualRegisteredAddressParams"]
+            Optional["Token.CreateParamsAccountIndividualRegisteredAddress"]
         ]
         ssn_last_4: NotRequired[Optional[str]]
         verification: NotRequired[
-            Optional["Token.CreateAccountIndividualVerificationParams"]
+            Optional["Token.CreateParamsAccountIndividualVerification"]
         ]
 
-    class CreateAccountIndividualVerificationParams(TypedDict):
+    class CreateParamsAccountIndividualVerification(TypedDict):
         additional_document: NotRequired[
             Optional[
-                "Token.CreateAccountIndividualVerificationAdditionalDocumentParams"
+                "Token.CreateParamsAccountIndividualVerificationAdditionalDocument"
             ]
         ]
         document: NotRequired[
-            Optional["Token.CreateAccountIndividualVerificationDocumentParams"]
+            Optional["Token.CreateParamsAccountIndividualVerificationDocument"]
         ]
 
-    class CreateAccountIndividualVerificationDocumentParams(TypedDict):
+    class CreateParamsAccountIndividualVerificationDocument(TypedDict):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class CreateAccountIndividualVerificationAdditionalDocumentParams(
+    class CreateParamsAccountIndividualVerificationAdditionalDocument(
         TypedDict,
     ):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class CreateAccountIndividualRegisteredAddressParams(TypedDict):
+    class CreateParamsAccountIndividualRegisteredAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -283,12 +283,12 @@ class Token(CreateableAPIResource["Token"]):
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreateAccountIndividualDobParams(TypedDict):
+    class CreateParamsAccountIndividualDob(TypedDict):
         day: int
         month: int
         year: int
 
-    class CreateAccountIndividualAddressKanjiParams(TypedDict):
+    class CreateParamsAccountIndividualAddressKanji(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -297,7 +297,7 @@ class Token(CreateableAPIResource["Token"]):
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class CreateAccountIndividualAddressKanaParams(TypedDict):
+    class CreateParamsAccountIndividualAddressKana(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -306,7 +306,7 @@ class Token(CreateableAPIResource["Token"]):
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class CreateAccountIndividualAddressParams(TypedDict):
+    class CreateParamsAccountIndividualAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -314,15 +314,15 @@ class Token(CreateableAPIResource["Token"]):
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreateAccountCompanyParams(TypedDict):
+    class CreateParamsAccountCompany(TypedDict):
         address: NotRequired[
-            Optional["Token.CreateAccountCompanyAddressParams"]
+            Optional["Token.CreateParamsAccountCompanyAddress"]
         ]
         address_kana: NotRequired[
-            Optional["Token.CreateAccountCompanyAddressKanaParams"]
+            Optional["Token.CreateParamsAccountCompanyAddressKana"]
         ]
         address_kanji: NotRequired[
-            Optional["Token.CreateAccountCompanyAddressKanjiParams"]
+            Optional["Token.CreateParamsAccountCompanyAddressKanji"]
         ]
         directors_provided: NotRequired[Optional[bool]]
         executives_provided: NotRequired[Optional[bool]]
@@ -333,7 +333,7 @@ class Token(CreateableAPIResource["Token"]):
         name_kanji: NotRequired[Optional[str]]
         owners_provided: NotRequired[Optional[bool]]
         ownership_declaration: NotRequired[
-            Optional["Token.CreateAccountCompanyOwnershipDeclarationParams"]
+            Optional["Token.CreateParamsAccountCompanyOwnershipDeclaration"]
         ]
         ownership_declaration_shown_and_signed: NotRequired[Optional[bool]]
         phone: NotRequired[Optional[str]]
@@ -373,24 +373,24 @@ class Token(CreateableAPIResource["Token"]):
         tax_id_registrar: NotRequired[Optional[str]]
         vat_id: NotRequired[Optional[str]]
         verification: NotRequired[
-            Optional["Token.CreateAccountCompanyVerificationParams"]
+            Optional["Token.CreateParamsAccountCompanyVerification"]
         ]
 
-    class CreateAccountCompanyVerificationParams(TypedDict):
+    class CreateParamsAccountCompanyVerification(TypedDict):
         document: NotRequired[
-            Optional["Token.CreateAccountCompanyVerificationDocumentParams"]
+            Optional["Token.CreateParamsAccountCompanyVerificationDocument"]
         ]
 
-    class CreateAccountCompanyVerificationDocumentParams(TypedDict):
+    class CreateParamsAccountCompanyVerificationDocument(TypedDict):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class CreateAccountCompanyOwnershipDeclarationParams(TypedDict):
+    class CreateParamsAccountCompanyOwnershipDeclaration(TypedDict):
         date: NotRequired[Optional[int]]
         ip: NotRequired[Optional[str]]
         user_agent: NotRequired[Optional[str]]
 
-    class CreateAccountCompanyAddressKanjiParams(TypedDict):
+    class CreateParamsAccountCompanyAddressKanji(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -399,7 +399,7 @@ class Token(CreateableAPIResource["Token"]):
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class CreateAccountCompanyAddressKanaParams(TypedDict):
+    class CreateParamsAccountCompanyAddressKana(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -408,7 +408,7 @@ class Token(CreateableAPIResource["Token"]):
         state: NotRequired[Optional[str]]
         town: NotRequired[Optional[str]]
 
-    class CreateAccountCompanyAddressParams(TypedDict):
+    class CreateParamsAccountCompanyAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]

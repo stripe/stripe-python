@@ -33,27 +33,27 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         expires_at: NotRequired[Optional[int]]
         name: str
         payload: str
-        scope: "Secret.CreateScopeParams"
+        scope: "Secret.CreateParamsScope"
 
-    class CreateScopeParams(TypedDict):
+    class CreateParamsScope(TypedDict):
         type: Literal["account", "user"]
         user: NotRequired[Optional[str]]
 
     class DeleteWhereParams(RequestOptions):
         expand: NotRequired[Optional[List[str]]]
         name: str
-        scope: "Secret.DeleteWhereScopeParams"
+        scope: "Secret.DeleteWhereParamsScope"
 
-    class DeleteWhereScopeParams(TypedDict):
+    class DeleteWhereParamsScope(TypedDict):
         type: Literal["account", "user"]
         user: NotRequired[Optional[str]]
 
     class FindParams(RequestOptions):
         expand: NotRequired[Optional[List[str]]]
         name: str
-        scope: "Secret.FindScopeParams"
+        scope: "Secret.FindParamsScope"
 
-    class FindScopeParams(TypedDict):
+    class FindParamsScope(TypedDict):
         type: Literal["account", "user"]
         user: NotRequired[Optional[str]]
 
@@ -61,10 +61,10 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
-        scope: "Secret.ListScopeParams"
+        scope: "Secret.ListParamsScope"
         starting_after: NotRequired[Optional[str]]
 
-    class ListScopeParams(TypedDict):
+    class ListParamsScope(TypedDict):
         type: Literal["account", "user"]
         user: NotRequired[Optional[str]]
 

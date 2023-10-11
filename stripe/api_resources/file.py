@@ -30,7 +30,7 @@ class File(ListableAPIResource["File"]):
     OBJECT_NAME = "file"
 
     class ListParams(RequestOptions):
-        created: NotRequired[Optional[Union["File.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["File.ListParamsCreated", int]]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
@@ -57,7 +57,7 @@ class File(ListableAPIResource["File"]):
         ]
         starting_after: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

@@ -33,10 +33,10 @@ class Coupon(
 
     class CreateParams(RequestOptions):
         amount_off: NotRequired[Optional[int]]
-        applies_to: NotRequired[Optional["Coupon.CreateAppliesToParams"]]
+        applies_to: NotRequired[Optional["Coupon.CreateParamsAppliesTo"]]
         currency: NotRequired[Optional[str]]
         currency_options: NotRequired[
-            Optional[Dict[str, "Coupon.CreateCurrencyOptionsParams"]]
+            Optional[Dict[str, "Coupon.CreateParamsCurrencyOptions"]]
         ]
         duration: NotRequired[
             Optional[Literal["forever", "once", "repeating"]]
@@ -50,23 +50,23 @@ class Coupon(
         percent_off: NotRequired[Optional[float]]
         redeem_by: NotRequired[Optional[int]]
 
-    class CreateCurrencyOptionsParams(TypedDict):
+    class CreateParamsCurrencyOptions(TypedDict):
         amount_off: int
 
-    class CreateAppliesToParams(TypedDict):
+    class CreateParamsAppliesTo(TypedDict):
         products: NotRequired[Optional[List[str]]]
 
     class DeleteParams(RequestOptions):
         pass
 
     class ListParams(RequestOptions):
-        created: NotRequired[Optional[Union["Coupon.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["Coupon.ListParamsCreated", int]]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
         starting_after: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -74,13 +74,13 @@ class Coupon(
 
     class ModifyParams(RequestOptions):
         currency_options: NotRequired[
-            Optional[Dict[str, "Coupon.ModifyCurrencyOptionsParams"]]
+            Optional[Dict[str, "Coupon.ModifyParamsCurrencyOptions"]]
         ]
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         name: NotRequired[Optional[str]]
 
-    class ModifyCurrencyOptionsParams(TypedDict):
+    class ModifyParamsCurrencyOptions(TypedDict):
         amount_off: int
 
     class RetrieveParams(RequestOptions):

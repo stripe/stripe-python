@@ -32,13 +32,13 @@ class Location(
     OBJECT_NAME = "terminal.location"
 
     class CreateParams(RequestOptions):
-        address: "Location.CreateAddressParams"
+        address: "Location.CreateParamsAddress"
         configuration_overrides: NotRequired[Optional[str]]
         display_name: str
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
 
-    class CreateAddressParams(TypedDict):
+    class CreateParamsAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: str
         line1: NotRequired[Optional[str]]
@@ -56,13 +56,13 @@ class Location(
         starting_after: NotRequired[Optional[str]]
 
     class ModifyParams(RequestOptions):
-        address: NotRequired[Optional["Location.ModifyAddressParams"]]
+        address: NotRequired[Optional["Location.ModifyParamsAddress"]]
         configuration_overrides: NotRequired[Optional[Union[Literal[""], str]]]
         display_name: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
 
-    class ModifyAddressParams(TypedDict):
+    class ModifyParamsAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]

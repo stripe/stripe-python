@@ -43,67 +43,67 @@ class PaymentMethod(
 
     class CreateParams(RequestOptions):
         acss_debit: NotRequired[
-            Optional["PaymentMethod.CreateAcssDebitParams"]
+            Optional["PaymentMethod.CreateParamsAcssDebit"]
         ]
-        affirm: NotRequired[Optional["PaymentMethod.CreateAffirmParams"]]
+        affirm: NotRequired[Optional["PaymentMethod.CreateParamsAffirm"]]
         afterpay_clearpay: NotRequired[
-            Optional["PaymentMethod.CreateAfterpayClearpayParams"]
+            Optional["PaymentMethod.CreateParamsAfterpayClearpay"]
         ]
-        alipay: NotRequired[Optional["PaymentMethod.CreateAlipayParams"]]
+        alipay: NotRequired[Optional["PaymentMethod.CreateParamsAlipay"]]
         au_becs_debit: NotRequired[
-            Optional["PaymentMethod.CreateAuBecsDebitParams"]
+            Optional["PaymentMethod.CreateParamsAuBecsDebit"]
         ]
         bacs_debit: NotRequired[
-            Optional["PaymentMethod.CreateBacsDebitParams"]
+            Optional["PaymentMethod.CreateParamsBacsDebit"]
         ]
         bancontact: NotRequired[
-            Optional["PaymentMethod.CreateBancontactParams"]
+            Optional["PaymentMethod.CreateParamsBancontact"]
         ]
         billing_details: NotRequired[
-            Optional["PaymentMethod.CreateBillingDetailsParams"]
+            Optional["PaymentMethod.CreateParamsBillingDetails"]
         ]
-        blik: NotRequired[Optional["PaymentMethod.CreateBlikParams"]]
-        boleto: NotRequired[Optional["PaymentMethod.CreateBoletoParams"]]
+        blik: NotRequired[Optional["PaymentMethod.CreateParamsBlik"]]
+        boleto: NotRequired[Optional["PaymentMethod.CreateParamsBoleto"]]
         card: NotRequired[
             Optional[
                 Union[
-                    "PaymentMethod.CreateCardParams",
-                    "PaymentMethod.CreateCardParams",
+                    "PaymentMethod.CreateParamsCard",
+                    "PaymentMethod.CreateParamsCard",
                 ]
             ]
         ]
-        cashapp: NotRequired[Optional["PaymentMethod.CreateCashappParams"]]
+        cashapp: NotRequired[Optional["PaymentMethod.CreateParamsCashapp"]]
         customer: NotRequired[Optional[str]]
         customer_balance: NotRequired[
-            Optional["PaymentMethod.CreateCustomerBalanceParams"]
+            Optional["PaymentMethod.CreateParamsCustomerBalance"]
         ]
-        eps: NotRequired[Optional["PaymentMethod.CreateEpsParams"]]
+        eps: NotRequired[Optional["PaymentMethod.CreateParamsEps"]]
         expand: NotRequired[Optional[List[str]]]
-        fpx: NotRequired[Optional["PaymentMethod.CreateFpxParams"]]
-        giropay: NotRequired[Optional["PaymentMethod.CreateGiropayParams"]]
-        grabpay: NotRequired[Optional["PaymentMethod.CreateGrabpayParams"]]
-        ideal: NotRequired[Optional["PaymentMethod.CreateIdealParams"]]
+        fpx: NotRequired[Optional["PaymentMethod.CreateParamsFpx"]]
+        giropay: NotRequired[Optional["PaymentMethod.CreateParamsGiropay"]]
+        grabpay: NotRequired[Optional["PaymentMethod.CreateParamsGrabpay"]]
+        ideal: NotRequired[Optional["PaymentMethod.CreateParamsIdeal"]]
         interac_present: NotRequired[
-            Optional["PaymentMethod.CreateInteracPresentParams"]
+            Optional["PaymentMethod.CreateParamsInteracPresent"]
         ]
-        klarna: NotRequired[Optional["PaymentMethod.CreateKlarnaParams"]]
-        konbini: NotRequired[Optional["PaymentMethod.CreateKonbiniParams"]]
-        link: NotRequired[Optional["PaymentMethod.CreateLinkParams"]]
+        klarna: NotRequired[Optional["PaymentMethod.CreateParamsKlarna"]]
+        konbini: NotRequired[Optional["PaymentMethod.CreateParamsKonbini"]]
+        link: NotRequired[Optional["PaymentMethod.CreateParamsLink"]]
         metadata: NotRequired[Optional[Dict[str, str]]]
-        oxxo: NotRequired[Optional["PaymentMethod.CreateOxxoParams"]]
-        p24: NotRequired[Optional["PaymentMethod.CreateP24Params"]]
+        oxxo: NotRequired[Optional["PaymentMethod.CreateParamsOxxo"]]
+        p24: NotRequired[Optional["PaymentMethod.CreateParamsP24"]]
         payment_method: NotRequired[Optional[str]]
-        paynow: NotRequired[Optional["PaymentMethod.CreatePaynowParams"]]
-        paypal: NotRequired[Optional["PaymentMethod.CreatePaypalParams"]]
-        pix: NotRequired[Optional["PaymentMethod.CreatePixParams"]]
-        promptpay: NotRequired[Optional["PaymentMethod.CreatePromptpayParams"]]
+        paynow: NotRequired[Optional["PaymentMethod.CreateParamsPaynow"]]
+        paypal: NotRequired[Optional["PaymentMethod.CreateParamsPaypal"]]
+        pix: NotRequired[Optional["PaymentMethod.CreateParamsPix"]]
+        promptpay: NotRequired[Optional["PaymentMethod.CreateParamsPromptpay"]]
         radar_options: NotRequired[
-            Optional["PaymentMethod.CreateRadarOptionsParams"]
+            Optional["PaymentMethod.CreateParamsRadarOptions"]
         ]
         sepa_debit: NotRequired[
-            Optional["PaymentMethod.CreateSepaDebitParams"]
+            Optional["PaymentMethod.CreateParamsSepaDebit"]
         ]
-        sofort: NotRequired[Optional["PaymentMethod.CreateSofortParams"]]
+        sofort: NotRequired[Optional["PaymentMethod.CreateParamsSofort"]]
         type: NotRequired[
             Optional[
                 Literal[
@@ -142,20 +142,20 @@ class PaymentMethod(
             ]
         ]
         us_bank_account: NotRequired[
-            Optional["PaymentMethod.CreateUsBankAccountParams"]
+            Optional["PaymentMethod.CreateParamsUsBankAccount"]
         ]
         wechat_pay: NotRequired[
-            Optional["PaymentMethod.CreateWechatPayParams"]
+            Optional["PaymentMethod.CreateParamsWechatPay"]
         ]
-        zip: NotRequired[Optional["PaymentMethod.CreateZipParams"]]
+        zip: NotRequired[Optional["PaymentMethod.CreateParamsZip"]]
 
-    class CreateZipParams(TypedDict):
+    class CreateParamsZip(TypedDict):
         pass
 
-    class CreateWechatPayParams(TypedDict):
+    class CreateParamsWechatPay(TypedDict):
         pass
 
-    class CreateUsBankAccountParams(TypedDict):
+    class CreateParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired[
             Optional[Literal["company", "individual"]]
         ]
@@ -164,28 +164,28 @@ class PaymentMethod(
         financial_connections_account: NotRequired[Optional[str]]
         routing_number: NotRequired[Optional[str]]
 
-    class CreateSofortParams(TypedDict):
+    class CreateParamsSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
 
-    class CreateSepaDebitParams(TypedDict):
+    class CreateParamsSepaDebit(TypedDict):
         iban: str
 
-    class CreateRadarOptionsParams(TypedDict):
+    class CreateParamsRadarOptions(TypedDict):
         session: NotRequired[Optional[str]]
 
-    class CreatePromptpayParams(TypedDict):
+    class CreateParamsPromptpay(TypedDict):
         pass
 
-    class CreatePixParams(TypedDict):
+    class CreateParamsPix(TypedDict):
         pass
 
-    class CreatePaypalParams(TypedDict):
+    class CreateParamsPaypal(TypedDict):
         pass
 
-    class CreatePaynowParams(TypedDict):
+    class CreateParamsPaynow(TypedDict):
         pass
 
-    class CreateP24Params(TypedDict):
+    class CreateParamsP24(TypedDict):
         bank: NotRequired[
             Optional[
                 Literal[
@@ -218,27 +218,27 @@ class PaymentMethod(
             ]
         ]
 
-    class CreateOxxoParams(TypedDict):
+    class CreateParamsOxxo(TypedDict):
         pass
 
-    class CreateLinkParams(TypedDict):
+    class CreateParamsLink(TypedDict):
         pass
 
-    class CreateKonbiniParams(TypedDict):
+    class CreateParamsKonbini(TypedDict):
         pass
 
-    class CreateKlarnaParams(TypedDict):
-        dob: NotRequired[Optional["PaymentMethod.CreateKlarnaDobParams"]]
+    class CreateParamsKlarna(TypedDict):
+        dob: NotRequired[Optional["PaymentMethod.CreateParamsKlarnaDob"]]
 
-    class CreateKlarnaDobParams(TypedDict):
+    class CreateParamsKlarnaDob(TypedDict):
         day: int
         month: int
         year: int
 
-    class CreateInteracPresentParams(TypedDict):
+    class CreateParamsInteracPresent(TypedDict):
         pass
 
-    class CreateIdealParams(TypedDict):
+    class CreateParamsIdeal(TypedDict):
         bank: NotRequired[
             Optional[
                 Literal[
@@ -261,13 +261,13 @@ class PaymentMethod(
             ]
         ]
 
-    class CreateGrabpayParams(TypedDict):
+    class CreateParamsGrabpay(TypedDict):
         pass
 
-    class CreateGiropayParams(TypedDict):
+    class CreateParamsGiropay(TypedDict):
         pass
 
-    class CreateFpxParams(TypedDict):
+    class CreateParamsFpx(TypedDict):
         account_holder_type: NotRequired[
             Optional[Literal["company", "individual"]]
         ]
@@ -296,7 +296,7 @@ class PaymentMethod(
             "uob",
         ]
 
-    class CreateEpsParams(TypedDict):
+    class CreateParamsEps(TypedDict):
         bank: NotRequired[
             Optional[
                 Literal[
@@ -332,27 +332,27 @@ class PaymentMethod(
             ]
         ]
 
-    class CreateCustomerBalanceParams(TypedDict):
+    class CreateParamsCustomerBalance(TypedDict):
         pass
 
-    class CreateCashappParams(TypedDict):
+    class CreateParamsCashapp(TypedDict):
         pass
 
-    class CreateCardParams(TypedDict):
+    class CreateParamsCard(TypedDict):
         token: str
 
-    class CreateBoletoParams(TypedDict):
+    class CreateParamsBoleto(TypedDict):
         tax_id: str
 
-    class CreateBlikParams(TypedDict):
+    class CreateParamsBlik(TypedDict):
         pass
 
-    class CreateBillingDetailsParams(TypedDict):
+    class CreateParamsBillingDetails(TypedDict):
         address: NotRequired[
             Optional[
                 Union[
                     Literal[""],
-                    "PaymentMethod.CreateBillingDetailsAddressParams",
+                    "PaymentMethod.CreateParamsBillingDetailsAddress",
                 ]
             ]
         ]
@@ -360,7 +360,7 @@ class PaymentMethod(
         name: NotRequired[Optional[Union[Literal[""], str]]]
         phone: NotRequired[Optional[Union[Literal[""], str]]]
 
-    class CreateBillingDetailsAddressParams(TypedDict):
+    class CreateParamsBillingDetailsAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -368,27 +368,27 @@ class PaymentMethod(
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class CreateBancontactParams(TypedDict):
+    class CreateParamsBancontact(TypedDict):
         pass
 
-    class CreateBacsDebitParams(TypedDict):
+    class CreateParamsBacsDebit(TypedDict):
         account_number: NotRequired[Optional[str]]
         sort_code: NotRequired[Optional[str]]
 
-    class CreateAuBecsDebitParams(TypedDict):
+    class CreateParamsAuBecsDebit(TypedDict):
         account_number: str
         bsb_number: str
 
-    class CreateAlipayParams(TypedDict):
+    class CreateParamsAlipay(TypedDict):
         pass
 
-    class CreateAfterpayClearpayParams(TypedDict):
+    class CreateParamsAfterpayClearpay(TypedDict):
         pass
 
-    class CreateAffirmParams(TypedDict):
+    class CreateParamsAffirm(TypedDict):
         pass
 
-    class CreateAcssDebitParams(TypedDict):
+    class CreateParamsAcssDebit(TypedDict):
         account_number: str
         institution_number: str
         transit_number: str
@@ -442,34 +442,34 @@ class PaymentMethod(
 
     class ModifyParams(RequestOptions):
         billing_details: NotRequired[
-            Optional["PaymentMethod.ModifyBillingDetailsParams"]
+            Optional["PaymentMethod.ModifyParamsBillingDetails"]
         ]
-        card: NotRequired[Optional["PaymentMethod.ModifyCardParams"]]
+        card: NotRequired[Optional["PaymentMethod.ModifyParamsCard"]]
         expand: NotRequired[Optional[List[str]]]
-        link: NotRequired[Optional["PaymentMethod.ModifyLinkParams"]]
+        link: NotRequired[Optional["PaymentMethod.ModifyParamsLink"]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         us_bank_account: NotRequired[
-            Optional["PaymentMethod.ModifyUsBankAccountParams"]
+            Optional["PaymentMethod.ModifyParamsUsBankAccount"]
         ]
 
-    class ModifyUsBankAccountParams(TypedDict):
+    class ModifyParamsUsBankAccount(TypedDict):
         account_holder_type: NotRequired[
             Optional[Literal["company", "individual"]]
         ]
 
-    class ModifyLinkParams(TypedDict):
+    class ModifyParamsLink(TypedDict):
         pass
 
-    class ModifyCardParams(TypedDict):
+    class ModifyParamsCard(TypedDict):
         exp_month: NotRequired[Optional[int]]
         exp_year: NotRequired[Optional[int]]
 
-    class ModifyBillingDetailsParams(TypedDict):
+    class ModifyParamsBillingDetails(TypedDict):
         address: NotRequired[
             Optional[
                 Union[
                     Literal[""],
-                    "PaymentMethod.ModifyBillingDetailsAddressParams",
+                    "PaymentMethod.ModifyParamsBillingDetailsAddress",
                 ]
             ]
         ]
@@ -477,7 +477,7 @@ class PaymentMethod(
         name: NotRequired[Optional[Union[Literal[""], str]]]
         phone: NotRequired[Optional[Union[Literal[""], str]]]
 
-    class ModifyBillingDetailsAddressParams(TypedDict):
+    class ModifyParamsBillingDetailsAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]

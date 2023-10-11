@@ -38,46 +38,46 @@ class Dispute(
 
     class CreateParams(RequestOptions):
         amount: NotRequired[Optional[int]]
-        evidence: NotRequired[Optional["Dispute.CreateEvidenceParams"]]
+        evidence: NotRequired[Optional["Dispute.CreateParamsEvidence"]]
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         transaction: NotRequired[Optional[str]]
-        treasury: NotRequired[Optional["Dispute.CreateTreasuryParams"]]
+        treasury: NotRequired[Optional["Dispute.CreateParamsTreasury"]]
 
-    class CreateTreasuryParams(TypedDict):
+    class CreateParamsTreasury(TypedDict):
         received_debit: str
 
-    class CreateEvidenceParams(TypedDict):
+    class CreateParamsEvidence(TypedDict):
         canceled: NotRequired[
             Optional[
-                Union[Literal[""], "Dispute.CreateEvidenceCanceledParams"]
+                Union[Literal[""], "Dispute.CreateParamsEvidenceCanceled"]
             ]
         ]
         duplicate: NotRequired[
             Optional[
-                Union[Literal[""], "Dispute.CreateEvidenceDuplicateParams"]
+                Union[Literal[""], "Dispute.CreateParamsEvidenceDuplicate"]
             ]
         ]
         fraudulent: NotRequired[
             Optional[
-                Union[Literal[""], "Dispute.CreateEvidenceFraudulentParams"]
+                Union[Literal[""], "Dispute.CreateParamsEvidenceFraudulent"]
             ]
         ]
         merchandise_not_as_described: NotRequired[
             Optional[
                 Union[
                     Literal[""],
-                    "Dispute.CreateEvidenceMerchandiseNotAsDescribedParams",
+                    "Dispute.CreateParamsEvidenceMerchandiseNotAsDescribed",
                 ]
             ]
         ]
         not_received: NotRequired[
             Optional[
-                Union[Literal[""], "Dispute.CreateEvidenceNotReceivedParams"]
+                Union[Literal[""], "Dispute.CreateParamsEvidenceNotReceived"]
             ]
         ]
         other: NotRequired[
-            Optional[Union[Literal[""], "Dispute.CreateEvidenceOtherParams"]]
+            Optional[Union[Literal[""], "Dispute.CreateParamsEvidenceOther"]]
         ]
         reason: NotRequired[
             Optional[
@@ -96,12 +96,12 @@ class Dispute(
             Optional[
                 Union[
                     Literal[""],
-                    "Dispute.CreateEvidenceServiceNotAsDescribedParams",
+                    "Dispute.CreateParamsEvidenceServiceNotAsDescribed",
                 ]
             ]
         ]
 
-    class CreateEvidenceServiceNotAsDescribedParams(TypedDict):
+    class CreateParamsEvidenceServiceNotAsDescribed(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]
@@ -110,7 +110,7 @@ class Dispute(
         explanation: NotRequired[Optional[Union[Literal[""], str]]]
         received_at: NotRequired[Optional[Union[Literal[""], int]]]
 
-    class CreateEvidenceOtherParams(TypedDict):
+    class CreateParamsEvidenceOther(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]
@@ -120,7 +120,7 @@ class Dispute(
             Optional[Union[Literal[""], Literal["merchandise", "service"]]]
         ]
 
-    class CreateEvidenceNotReceivedParams(TypedDict):
+    class CreateParamsEvidenceNotReceived(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]
@@ -131,7 +131,7 @@ class Dispute(
             Optional[Union[Literal[""], Literal["merchandise", "service"]]]
         ]
 
-    class CreateEvidenceMerchandiseNotAsDescribedParams(TypedDict):
+    class CreateParamsEvidenceMerchandiseNotAsDescribed(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]
@@ -145,13 +145,13 @@ class Dispute(
         ]
         returned_at: NotRequired[Optional[Union[Literal[""], int]]]
 
-    class CreateEvidenceFraudulentParams(TypedDict):
+    class CreateParamsEvidenceFraudulent(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]
         explanation: NotRequired[Optional[Union[Literal[""], str]]]
 
-    class CreateEvidenceDuplicateParams(TypedDict):
+    class CreateParamsEvidenceDuplicate(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]
@@ -161,7 +161,7 @@ class Dispute(
         explanation: NotRequired[Optional[Union[Literal[""], str]]]
         original_transaction: NotRequired[Optional[str]]
 
-    class CreateEvidenceCanceledParams(TypedDict):
+    class CreateParamsEvidenceCanceled(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]
@@ -184,7 +184,7 @@ class Dispute(
         returned_at: NotRequired[Optional[Union[Literal[""], int]]]
 
     class ListParams(RequestOptions):
-        created: NotRequired[Optional[Union["Dispute.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["Dispute.ListParamsCreated", int]]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
@@ -196,7 +196,7 @@ class Dispute(
         ]
         transaction: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -204,41 +204,41 @@ class Dispute(
 
     class ModifyParams(RequestOptions):
         amount: NotRequired[Optional[int]]
-        evidence: NotRequired[Optional["Dispute.ModifyEvidenceParams"]]
+        evidence: NotRequired[Optional["Dispute.ModifyParamsEvidence"]]
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
 
-    class ModifyEvidenceParams(TypedDict):
+    class ModifyParamsEvidence(TypedDict):
         canceled: NotRequired[
             Optional[
-                Union[Literal[""], "Dispute.ModifyEvidenceCanceledParams"]
+                Union[Literal[""], "Dispute.ModifyParamsEvidenceCanceled"]
             ]
         ]
         duplicate: NotRequired[
             Optional[
-                Union[Literal[""], "Dispute.ModifyEvidenceDuplicateParams"]
+                Union[Literal[""], "Dispute.ModifyParamsEvidenceDuplicate"]
             ]
         ]
         fraudulent: NotRequired[
             Optional[
-                Union[Literal[""], "Dispute.ModifyEvidenceFraudulentParams"]
+                Union[Literal[""], "Dispute.ModifyParamsEvidenceFraudulent"]
             ]
         ]
         merchandise_not_as_described: NotRequired[
             Optional[
                 Union[
                     Literal[""],
-                    "Dispute.ModifyEvidenceMerchandiseNotAsDescribedParams",
+                    "Dispute.ModifyParamsEvidenceMerchandiseNotAsDescribed",
                 ]
             ]
         ]
         not_received: NotRequired[
             Optional[
-                Union[Literal[""], "Dispute.ModifyEvidenceNotReceivedParams"]
+                Union[Literal[""], "Dispute.ModifyParamsEvidenceNotReceived"]
             ]
         ]
         other: NotRequired[
-            Optional[Union[Literal[""], "Dispute.ModifyEvidenceOtherParams"]]
+            Optional[Union[Literal[""], "Dispute.ModifyParamsEvidenceOther"]]
         ]
         reason: NotRequired[
             Optional[
@@ -257,12 +257,12 @@ class Dispute(
             Optional[
                 Union[
                     Literal[""],
-                    "Dispute.ModifyEvidenceServiceNotAsDescribedParams",
+                    "Dispute.ModifyParamsEvidenceServiceNotAsDescribed",
                 ]
             ]
         ]
 
-    class ModifyEvidenceServiceNotAsDescribedParams(TypedDict):
+    class ModifyParamsEvidenceServiceNotAsDescribed(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]
@@ -271,7 +271,7 @@ class Dispute(
         explanation: NotRequired[Optional[Union[Literal[""], str]]]
         received_at: NotRequired[Optional[Union[Literal[""], int]]]
 
-    class ModifyEvidenceOtherParams(TypedDict):
+    class ModifyParamsEvidenceOther(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]
@@ -281,7 +281,7 @@ class Dispute(
             Optional[Union[Literal[""], Literal["merchandise", "service"]]]
         ]
 
-    class ModifyEvidenceNotReceivedParams(TypedDict):
+    class ModifyParamsEvidenceNotReceived(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]
@@ -292,7 +292,7 @@ class Dispute(
             Optional[Union[Literal[""], Literal["merchandise", "service"]]]
         ]
 
-    class ModifyEvidenceMerchandiseNotAsDescribedParams(TypedDict):
+    class ModifyParamsEvidenceMerchandiseNotAsDescribed(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]
@@ -306,13 +306,13 @@ class Dispute(
         ]
         returned_at: NotRequired[Optional[Union[Literal[""], int]]]
 
-    class ModifyEvidenceFraudulentParams(TypedDict):
+    class ModifyParamsEvidenceFraudulent(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]
         explanation: NotRequired[Optional[Union[Literal[""], str]]]
 
-    class ModifyEvidenceDuplicateParams(TypedDict):
+    class ModifyParamsEvidenceDuplicate(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]
@@ -322,7 +322,7 @@ class Dispute(
         explanation: NotRequired[Optional[Union[Literal[""], str]]]
         original_transaction: NotRequired[Optional[str]]
 
-    class ModifyEvidenceCanceledParams(TypedDict):
+    class ModifyParamsEvidenceCanceled(TypedDict):
         additional_documentation: NotRequired[
             Optional[Union[Literal[""], str]]
         ]

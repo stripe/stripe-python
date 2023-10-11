@@ -35,12 +35,12 @@ class ShippingRate(
 
     class CreateParams(RequestOptions):
         delivery_estimate: NotRequired[
-            Optional["ShippingRate.CreateDeliveryEstimateParams"]
+            Optional["ShippingRate.CreateParamsDeliveryEstimate"]
         ]
         display_name: str
         expand: NotRequired[Optional[List[str]]]
         fixed_amount: NotRequired[
-            Optional["ShippingRate.CreateFixedAmountParams"]
+            Optional["ShippingRate.CreateParamsFixedAmount"]
         ]
         metadata: NotRequired[Optional[Dict[str, str]]]
         tax_behavior: NotRequired[
@@ -49,43 +49,43 @@ class ShippingRate(
         tax_code: NotRequired[Optional[str]]
         type: NotRequired[Optional[Literal["fixed_amount"]]]
 
-    class CreateFixedAmountParams(TypedDict):
+    class CreateParamsFixedAmount(TypedDict):
         amount: int
         currency: str
         currency_options: NotRequired[
             Optional[
                 Dict[
-                    str, "ShippingRate.CreateFixedAmountCurrencyOptionsParams"
+                    str, "ShippingRate.CreateParamsFixedAmountCurrencyOptions"
                 ]
             ]
         ]
 
-    class CreateFixedAmountCurrencyOptionsParams(TypedDict):
+    class CreateParamsFixedAmountCurrencyOptions(TypedDict):
         amount: int
         tax_behavior: NotRequired[
             Optional[Literal["exclusive", "inclusive", "unspecified"]]
         ]
 
-    class CreateDeliveryEstimateParams(TypedDict):
+    class CreateParamsDeliveryEstimate(TypedDict):
         maximum: NotRequired[
-            Optional["ShippingRate.CreateDeliveryEstimateMaximumParams"]
+            Optional["ShippingRate.CreateParamsDeliveryEstimateMaximum"]
         ]
         minimum: NotRequired[
-            Optional["ShippingRate.CreateDeliveryEstimateMinimumParams"]
+            Optional["ShippingRate.CreateParamsDeliveryEstimateMinimum"]
         ]
 
-    class CreateDeliveryEstimateMinimumParams(TypedDict):
+    class CreateParamsDeliveryEstimateMinimum(TypedDict):
         unit: Literal["business_day", "day", "hour", "month", "week"]
         value: int
 
-    class CreateDeliveryEstimateMaximumParams(TypedDict):
+    class CreateParamsDeliveryEstimateMaximum(TypedDict):
         unit: Literal["business_day", "day", "hour", "month", "week"]
         value: int
 
     class ListParams(RequestOptions):
         active: NotRequired[Optional[bool]]
         created: NotRequired[
-            Optional[Union["ShippingRate.ListCreatedParams", int]]
+            Optional[Union["ShippingRate.ListParamsCreated", int]]
         ]
         currency: NotRequired[Optional[str]]
         ending_before: NotRequired[Optional[str]]
@@ -93,7 +93,7 @@ class ShippingRate(
         limit: NotRequired[Optional[int]]
         starting_after: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -103,23 +103,23 @@ class ShippingRate(
         active: NotRequired[Optional[bool]]
         expand: NotRequired[Optional[List[str]]]
         fixed_amount: NotRequired[
-            Optional["ShippingRate.ModifyFixedAmountParams"]
+            Optional["ShippingRate.ModifyParamsFixedAmount"]
         ]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         tax_behavior: NotRequired[
             Optional[Literal["exclusive", "inclusive", "unspecified"]]
         ]
 
-    class ModifyFixedAmountParams(TypedDict):
+    class ModifyParamsFixedAmount(TypedDict):
         currency_options: NotRequired[
             Optional[
                 Dict[
-                    str, "ShippingRate.ModifyFixedAmountCurrencyOptionsParams"
+                    str, "ShippingRate.ModifyParamsFixedAmountCurrencyOptions"
                 ]
             ]
         ]
 
-    class ModifyFixedAmountCurrencyOptionsParams(TypedDict):
+    class ModifyParamsFixedAmountCurrencyOptions(TypedDict):
         amount: NotRequired[Optional[int]]
         tax_behavior: NotRequired[
             Optional[Literal["exclusive", "inclusive", "unspecified"]]

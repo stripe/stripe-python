@@ -81,27 +81,27 @@ class Reader(
         expand: NotRequired[Optional[List[str]]]
         payment_intent: str
         process_config: NotRequired[
-            Optional["Reader.ProcessPaymentIntentProcessConfigParams"]
+            Optional["Reader.ProcessPaymentIntentParamsProcessConfig"]
         ]
 
-    class ProcessPaymentIntentProcessConfigParams(TypedDict):
+    class ProcessPaymentIntentParamsProcessConfig(TypedDict):
         skip_tipping: NotRequired[Optional[bool]]
         tipping: NotRequired[
-            Optional["Reader.ProcessPaymentIntentProcessConfigTippingParams"]
+            Optional["Reader.ProcessPaymentIntentParamsProcessConfigTipping"]
         ]
 
-    class ProcessPaymentIntentProcessConfigTippingParams(TypedDict):
+    class ProcessPaymentIntentParamsProcessConfigTipping(TypedDict):
         amount_eligible: NotRequired[Optional[int]]
 
     class ProcessSetupIntentParams(RequestOptions):
         customer_consent_collected: bool
         expand: NotRequired[Optional[List[str]]]
         process_config: NotRequired[
-            Optional["Reader.ProcessSetupIntentProcessConfigParams"]
+            Optional["Reader.ProcessSetupIntentParamsProcessConfig"]
         ]
         setup_intent: str
 
-    class ProcessSetupIntentProcessConfigParams(TypedDict):
+    class ProcessSetupIntentParamsProcessConfig(TypedDict):
         pass
 
     class RefundPaymentParams(RequestOptions):
@@ -117,17 +117,17 @@ class Reader(
         expand: NotRequired[Optional[List[str]]]
 
     class SetReaderDisplayParams(RequestOptions):
-        cart: NotRequired[Optional["Reader.SetReaderDisplayCartParams"]]
+        cart: NotRequired[Optional["Reader.SetReaderDisplayParamsCart"]]
         expand: NotRequired[Optional[List[str]]]
         type: Literal["cart"]
 
-    class SetReaderDisplayCartParams(TypedDict):
+    class SetReaderDisplayParamsCart(TypedDict):
         currency: str
-        line_items: List["Reader.SetReaderDisplayCartLineItemParams"]
+        line_items: List["Reader.SetReaderDisplayParamsCartLineItem"]
         tax: NotRequired[Optional[int]]
         total: int
 
-    class SetReaderDisplayCartLineItemParams(TypedDict):
+    class SetReaderDisplayParamsCartLineItem(TypedDict):
         amount: int
         description: str
         quantity: int
@@ -135,18 +135,18 @@ class Reader(
     class PresentPaymentMethodParams(RequestOptions):
         amount_tip: NotRequired[Optional[int]]
         card_present: NotRequired[
-            Optional["Reader.PresentPaymentMethodCardPresentParams"]
+            Optional["Reader.PresentPaymentMethodParamsCardPresent"]
         ]
         expand: NotRequired[Optional[List[str]]]
         interac_present: NotRequired[
-            Optional["Reader.PresentPaymentMethodInteracPresentParams"]
+            Optional["Reader.PresentPaymentMethodParamsInteracPresent"]
         ]
         type: NotRequired[Optional[Literal["card_present", "interac_present"]]]
 
-    class PresentPaymentMethodInteracPresentParams(TypedDict):
+    class PresentPaymentMethodParamsInteracPresent(TypedDict):
         number: NotRequired[Optional[str]]
 
-    class PresentPaymentMethodCardPresentParams(TypedDict):
+    class PresentPaymentMethodParamsCardPresent(TypedDict):
         number: NotRequired[Optional[str]]
 
     action: Optional[StripeObject]

@@ -44,14 +44,14 @@ class Card(
         replacement_reason: NotRequired[
             Optional[Literal["damaged", "expired", "lost", "stolen"]]
         ]
-        shipping: NotRequired[Optional["Card.CreateShippingParams"]]
+        shipping: NotRequired[Optional["Card.CreateParamsShipping"]]
         spending_controls: NotRequired[
-            Optional["Card.CreateSpendingControlsParams"]
+            Optional["Card.CreateParamsSpendingControls"]
         ]
         status: NotRequired[Optional[Literal["active", "inactive"]]]
         type: Literal["physical", "virtual"]
 
-    class CreateSpendingControlsParams(TypedDict):
+    class CreateParamsSpendingControls(TypedDict):
         allowed_categories: NotRequired[
             Optional[
                 List[
@@ -659,10 +659,10 @@ class Card(
             ]
         ]
         spending_limits: NotRequired[
-            Optional[List["Card.CreateSpendingControlsSpendingLimitParams"]]
+            Optional[List["Card.CreateParamsSpendingControlsSpendingLimit"]]
         ]
 
-    class CreateSpendingControlsSpendingLimitParams(TypedDict):
+    class CreateParamsSpendingControlsSpendingLimit(TypedDict):
         amount: int
         categories: NotRequired[
             Optional[
@@ -976,9 +976,9 @@ class Card(
             "yearly",
         ]
 
-    class CreateShippingParams(TypedDict):
-        address: "Card.CreateShippingAddressParams"
-        customs: NotRequired[Optional["Card.CreateShippingCustomsParams"]]
+    class CreateParamsShipping(TypedDict):
+        address: "Card.CreateParamsShippingAddress"
+        customs: NotRequired[Optional["Card.CreateParamsShippingCustoms"]]
         name: str
         phone_number: NotRequired[Optional[str]]
         require_signature: NotRequired[Optional[bool]]
@@ -987,10 +987,10 @@ class Card(
         ]
         type: NotRequired[Optional[Literal["bulk", "individual"]]]
 
-    class CreateShippingCustomsParams(TypedDict):
+    class CreateParamsShippingCustoms(TypedDict):
         eori_number: NotRequired[Optional[str]]
 
-    class CreateShippingAddressParams(TypedDict):
+    class CreateParamsShippingAddress(TypedDict):
         city: str
         country: str
         line1: str
@@ -1000,7 +1000,7 @@ class Card(
 
     class ListParams(RequestOptions):
         cardholder: NotRequired[Optional[str]]
-        created: NotRequired[Optional[Union["Card.ListCreatedParams", int]]]
+        created: NotRequired[Optional[Union["Card.ListParamsCreated", int]]]
         ending_before: NotRequired[Optional[str]]
         exp_month: NotRequired[Optional[int]]
         exp_year: NotRequired[Optional[int]]
@@ -1013,7 +1013,7 @@ class Card(
         ]
         type: NotRequired[Optional[Literal["physical", "virtual"]]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -1023,15 +1023,15 @@ class Card(
         cancellation_reason: NotRequired[Optional[Literal["lost", "stolen"]]]
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        pin: NotRequired[Optional["Card.ModifyPinParams"]]
+        pin: NotRequired[Optional["Card.ModifyParamsPin"]]
         spending_controls: NotRequired[
-            Optional["Card.ModifySpendingControlsParams"]
+            Optional["Card.ModifyParamsSpendingControls"]
         ]
         status: NotRequired[
             Optional[Literal["active", "canceled", "inactive"]]
         ]
 
-    class ModifySpendingControlsParams(TypedDict):
+    class ModifyParamsSpendingControls(TypedDict):
         allowed_categories: NotRequired[
             Optional[
                 List[
@@ -1639,10 +1639,10 @@ class Card(
             ]
         ]
         spending_limits: NotRequired[
-            Optional[List["Card.ModifySpendingControlsSpendingLimitParams"]]
+            Optional[List["Card.ModifyParamsSpendingControlsSpendingLimit"]]
         ]
 
-    class ModifySpendingControlsSpendingLimitParams(TypedDict):
+    class ModifyParamsSpendingControlsSpendingLimit(TypedDict):
         amount: int
         categories: NotRequired[
             Optional[
@@ -1956,7 +1956,7 @@ class Card(
             "yearly",
         ]
 
-    class ModifyPinParams(TypedDict):
+    class ModifyParamsPin(TypedDict):
         encrypted_number: NotRequired[Optional[str]]
 
     class RetrieveParams(RequestOptions):

@@ -29,11 +29,11 @@ class Cardholder(
     OBJECT_NAME = "issuing.cardholder"
 
     class CreateParams(RequestOptions):
-        billing: "Cardholder.CreateBillingParams"
-        company: NotRequired[Optional["Cardholder.CreateCompanyParams"]]
+        billing: "Cardholder.CreateParamsBilling"
+        company: NotRequired[Optional["Cardholder.CreateParamsCompany"]]
         email: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
-        individual: NotRequired[Optional["Cardholder.CreateIndividualParams"]]
+        individual: NotRequired[Optional["Cardholder.CreateParamsIndividual"]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         name: str
         phone_number: NotRequired[Optional[str]]
@@ -41,12 +41,12 @@ class Cardholder(
             Optional[List[Literal["de", "en", "es", "fr", "it"]]]
         ]
         spending_controls: NotRequired[
-            Optional["Cardholder.CreateSpendingControlsParams"]
+            Optional["Cardholder.CreateParamsSpendingControls"]
         ]
         status: NotRequired[Optional[Literal["active", "inactive"]]]
         type: NotRequired[Optional[Literal["company", "individual"]]]
 
-    class CreateSpendingControlsParams(TypedDict):
+    class CreateParamsSpendingControls(TypedDict):
         allowed_categories: NotRequired[
             Optional[
                 List[
@@ -655,12 +655,12 @@ class Cardholder(
         ]
         spending_limits: NotRequired[
             Optional[
-                List["Cardholder.CreateSpendingControlsSpendingLimitParams"]
+                List["Cardholder.CreateParamsSpendingControlsSpendingLimit"]
             ]
         ]
         spending_limits_currency: NotRequired[Optional[str]]
 
-    class CreateSpendingControlsSpendingLimitParams(TypedDict):
+    class CreateParamsSpendingControlsSpendingLimit(TypedDict):
         amount: int
         categories: NotRequired[
             Optional[
@@ -974,50 +974,50 @@ class Cardholder(
             "yearly",
         ]
 
-    class CreateIndividualParams(TypedDict):
+    class CreateParamsIndividual(TypedDict):
         card_issuing: NotRequired[
-            Optional["Cardholder.CreateIndividualCardIssuingParams"]
+            Optional["Cardholder.CreateParamsIndividualCardIssuing"]
         ]
-        dob: NotRequired[Optional["Cardholder.CreateIndividualDobParams"]]
+        dob: NotRequired[Optional["Cardholder.CreateParamsIndividualDob"]]
         first_name: NotRequired[Optional[str]]
         last_name: NotRequired[Optional[str]]
         verification: NotRequired[
-            Optional["Cardholder.CreateIndividualVerificationParams"]
+            Optional["Cardholder.CreateParamsIndividualVerification"]
         ]
 
-    class CreateIndividualVerificationParams(TypedDict):
+    class CreateParamsIndividualVerification(TypedDict):
         document: NotRequired[
-            Optional["Cardholder.CreateIndividualVerificationDocumentParams"]
+            Optional["Cardholder.CreateParamsIndividualVerificationDocument"]
         ]
 
-    class CreateIndividualVerificationDocumentParams(TypedDict):
+    class CreateParamsIndividualVerificationDocument(TypedDict):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class CreateIndividualDobParams(TypedDict):
+    class CreateParamsIndividualDob(TypedDict):
         day: int
         month: int
         year: int
 
-    class CreateIndividualCardIssuingParams(TypedDict):
+    class CreateParamsIndividualCardIssuing(TypedDict):
         user_terms_acceptance: NotRequired[
             Optional[
-                "Cardholder.CreateIndividualCardIssuingUserTermsAcceptanceParams"
+                "Cardholder.CreateParamsIndividualCardIssuingUserTermsAcceptance"
             ]
         ]
 
-    class CreateIndividualCardIssuingUserTermsAcceptanceParams(TypedDict):
+    class CreateParamsIndividualCardIssuingUserTermsAcceptance(TypedDict):
         date: NotRequired[Optional[int]]
         ip: NotRequired[Optional[str]]
         user_agent: NotRequired[Optional[Union[Literal[""], str]]]
 
-    class CreateCompanyParams(TypedDict):
+    class CreateParamsCompany(TypedDict):
         tax_id: NotRequired[Optional[str]]
 
-    class CreateBillingParams(TypedDict):
-        address: "Cardholder.CreateBillingAddressParams"
+    class CreateParamsBilling(TypedDict):
+        address: "Cardholder.CreateParamsBillingAddress"
 
-    class CreateBillingAddressParams(TypedDict):
+    class CreateParamsBillingAddress(TypedDict):
         city: str
         country: str
         line1: str
@@ -1027,7 +1027,7 @@ class Cardholder(
 
     class ListParams(RequestOptions):
         created: NotRequired[
-            Optional[Union["Cardholder.ListCreatedParams", int]]
+            Optional[Union["Cardholder.ListParamsCreated", int]]
         ]
         email: NotRequired[Optional[str]]
         ending_before: NotRequired[Optional[str]]
@@ -1038,29 +1038,29 @@ class Cardholder(
         status: NotRequired[Optional[Literal["active", "blocked", "inactive"]]]
         type: NotRequired[Optional[Literal["company", "individual"]]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
         lte: NotRequired[Optional[int]]
 
     class ModifyParams(RequestOptions):
-        billing: NotRequired[Optional["Cardholder.ModifyBillingParams"]]
-        company: NotRequired[Optional["Cardholder.ModifyCompanyParams"]]
+        billing: NotRequired[Optional["Cardholder.ModifyParamsBilling"]]
+        company: NotRequired[Optional["Cardholder.ModifyParamsCompany"]]
         email: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
-        individual: NotRequired[Optional["Cardholder.ModifyIndividualParams"]]
+        individual: NotRequired[Optional["Cardholder.ModifyParamsIndividual"]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         phone_number: NotRequired[Optional[str]]
         preferred_locales: NotRequired[
             Optional[List[Literal["de", "en", "es", "fr", "it"]]]
         ]
         spending_controls: NotRequired[
-            Optional["Cardholder.ModifySpendingControlsParams"]
+            Optional["Cardholder.ModifyParamsSpendingControls"]
         ]
         status: NotRequired[Optional[Literal["active", "inactive"]]]
 
-    class ModifySpendingControlsParams(TypedDict):
+    class ModifyParamsSpendingControls(TypedDict):
         allowed_categories: NotRequired[
             Optional[
                 List[
@@ -1669,12 +1669,12 @@ class Cardholder(
         ]
         spending_limits: NotRequired[
             Optional[
-                List["Cardholder.ModifySpendingControlsSpendingLimitParams"]
+                List["Cardholder.ModifyParamsSpendingControlsSpendingLimit"]
             ]
         ]
         spending_limits_currency: NotRequired[Optional[str]]
 
-    class ModifySpendingControlsSpendingLimitParams(TypedDict):
+    class ModifyParamsSpendingControlsSpendingLimit(TypedDict):
         amount: int
         categories: NotRequired[
             Optional[
@@ -1988,50 +1988,50 @@ class Cardholder(
             "yearly",
         ]
 
-    class ModifyIndividualParams(TypedDict):
+    class ModifyParamsIndividual(TypedDict):
         card_issuing: NotRequired[
-            Optional["Cardholder.ModifyIndividualCardIssuingParams"]
+            Optional["Cardholder.ModifyParamsIndividualCardIssuing"]
         ]
-        dob: NotRequired[Optional["Cardholder.ModifyIndividualDobParams"]]
+        dob: NotRequired[Optional["Cardholder.ModifyParamsIndividualDob"]]
         first_name: NotRequired[Optional[str]]
         last_name: NotRequired[Optional[str]]
         verification: NotRequired[
-            Optional["Cardholder.ModifyIndividualVerificationParams"]
+            Optional["Cardholder.ModifyParamsIndividualVerification"]
         ]
 
-    class ModifyIndividualVerificationParams(TypedDict):
+    class ModifyParamsIndividualVerification(TypedDict):
         document: NotRequired[
-            Optional["Cardholder.ModifyIndividualVerificationDocumentParams"]
+            Optional["Cardholder.ModifyParamsIndividualVerificationDocument"]
         ]
 
-    class ModifyIndividualVerificationDocumentParams(TypedDict):
+    class ModifyParamsIndividualVerificationDocument(TypedDict):
         back: NotRequired[Optional[str]]
         front: NotRequired[Optional[str]]
 
-    class ModifyIndividualDobParams(TypedDict):
+    class ModifyParamsIndividualDob(TypedDict):
         day: int
         month: int
         year: int
 
-    class ModifyIndividualCardIssuingParams(TypedDict):
+    class ModifyParamsIndividualCardIssuing(TypedDict):
         user_terms_acceptance: NotRequired[
             Optional[
-                "Cardholder.ModifyIndividualCardIssuingUserTermsAcceptanceParams"
+                "Cardholder.ModifyParamsIndividualCardIssuingUserTermsAcceptance"
             ]
         ]
 
-    class ModifyIndividualCardIssuingUserTermsAcceptanceParams(TypedDict):
+    class ModifyParamsIndividualCardIssuingUserTermsAcceptance(TypedDict):
         date: NotRequired[Optional[int]]
         ip: NotRequired[Optional[str]]
         user_agent: NotRequired[Optional[Union[Literal[""], str]]]
 
-    class ModifyCompanyParams(TypedDict):
+    class ModifyParamsCompany(TypedDict):
         tax_id: NotRequired[Optional[str]]
 
-    class ModifyBillingParams(TypedDict):
-        address: "Cardholder.ModifyBillingAddressParams"
+    class ModifyParamsBilling(TypedDict):
+        address: "Cardholder.ModifyParamsBillingAddress"
 
-    class ModifyBillingAddressParams(TypedDict):
+    class ModifyParamsBillingAddress(TypedDict):
         city: str
         country: str
         line1: str

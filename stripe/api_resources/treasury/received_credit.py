@@ -32,12 +32,12 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         financial_account: str
         limit: NotRequired[Optional[int]]
         linked_flows: NotRequired[
-            Optional["ReceivedCredit.ListLinkedFlowsParams"]
+            Optional["ReceivedCredit.ListParamsLinkedFlows"]
         ]
         starting_after: NotRequired[Optional[str]]
         status: NotRequired[Optional[Literal["failed", "succeeded"]]]
 
-    class ListLinkedFlowsParams(TypedDict):
+    class ListParamsLinkedFlows(TypedDict):
         source_flow_type: Literal[
             "credit_reversal", "other", "outbound_payment", "payout"
         ]
@@ -53,20 +53,20 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         financial_account: str
         initiating_payment_method_details: NotRequired[
             Optional[
-                "ReceivedCredit.CreateInitiatingPaymentMethodDetailsParams"
+                "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetails"
             ]
         ]
         network: Literal["ach", "us_domestic_wire"]
 
-    class CreateInitiatingPaymentMethodDetailsParams(TypedDict):
+    class CreateParamsInitiatingPaymentMethodDetails(TypedDict):
         type: Literal["us_bank_account"]
         us_bank_account: NotRequired[
             Optional[
-                "ReceivedCredit.CreateInitiatingPaymentMethodDetailsUsBankAccountParams"
+                "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetailsUsBankAccount"
             ]
         ]
 
-    class CreateInitiatingPaymentMethodDetailsUsBankAccountParams(TypedDict):
+    class CreateParamsInitiatingPaymentMethodDetailsUsBankAccount(TypedDict):
         account_holder_name: NotRequired[Optional[str]]
         account_number: NotRequired[Optional[str]]
         routing_number: NotRequired[Optional[str]]

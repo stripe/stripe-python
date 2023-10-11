@@ -46,7 +46,7 @@ class SubscriptionSchedule(
     class CreateParams(RequestOptions):
         customer: NotRequired[Optional[str]]
         default_settings: NotRequired[
-            Optional["SubscriptionSchedule.CreateDefaultSettingsParams"]
+            Optional["SubscriptionSchedule.CreateParamsDefaultSettings"]
         ]
         end_behavior: NotRequired[
             Optional[Literal["cancel", "none", "release", "renew"]]
@@ -55,19 +55,19 @@ class SubscriptionSchedule(
         from_subscription: NotRequired[Optional[str]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         phases: NotRequired[
-            Optional[List["SubscriptionSchedule.CreatePhaseParams"]]
+            Optional[List["SubscriptionSchedule.CreateParamsPhase"]]
         ]
         start_date: NotRequired[Optional[Union[int, Literal["now"]]]]
 
-    class CreatePhaseParams(TypedDict):
+    class CreateParamsPhase(TypedDict):
         add_invoice_items: NotRequired[
             Optional[
-                List["SubscriptionSchedule.CreatePhaseAddInvoiceItemParams"]
+                List["SubscriptionSchedule.CreateParamsPhaseAddInvoiceItem"]
             ]
         ]
         application_fee_percent: NotRequired[Optional[float]]
         automatic_tax: NotRequired[
-            Optional["SubscriptionSchedule.CreatePhaseAutomaticTaxParams"]
+            Optional["SubscriptionSchedule.CreateParamsPhaseAutomaticTax"]
         ]
         billing_cycle_anchor: NotRequired[
             Optional[Literal["automatic", "phase_start"]]
@@ -76,7 +76,7 @@ class SubscriptionSchedule(
             Optional[
                 Union[
                     Literal[""],
-                    "SubscriptionSchedule.CreatePhaseItemBillingThresholdsParams",
+                    "SubscriptionSchedule.CreateParamsPhaseItemBillingThresholds",
                 ]
             ]
         ]
@@ -90,9 +90,9 @@ class SubscriptionSchedule(
         description: NotRequired[Optional[Union[Literal[""], str]]]
         end_date: NotRequired[Optional[int]]
         invoice_settings: NotRequired[
-            Optional["SubscriptionSchedule.CreatePhaseInvoiceSettingsParams"]
+            Optional["SubscriptionSchedule.CreateParamsPhaseInvoiceSettings"]
         ]
-        items: List["SubscriptionSchedule.CreatePhaseItemParams"]
+        items: List["SubscriptionSchedule.CreateParamsPhaseItem"]
         iterations: NotRequired[Optional[int]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         on_behalf_of: NotRequired[Optional[str]]
@@ -100,21 +100,21 @@ class SubscriptionSchedule(
             Optional[Literal["always_invoice", "create_prorations", "none"]]
         ]
         transfer_data: NotRequired[
-            Optional["SubscriptionSchedule.CreatePhaseTransferDataParams"]
+            Optional["SubscriptionSchedule.CreateParamsPhaseTransferData"]
         ]
         trial: NotRequired[Optional[bool]]
         trial_end: NotRequired[Optional[int]]
 
-    class CreatePhaseTransferDataParams(TypedDict):
+    class CreateParamsPhaseTransferData(TypedDict):
         amount_percent: NotRequired[Optional[float]]
         destination: str
 
-    class CreatePhaseItemParams(TypedDict):
+    class CreateParamsPhaseItem(TypedDict):
         billing_thresholds: NotRequired[
             Optional[
                 Union[
                     Literal[""],
-                    "SubscriptionSchedule.CreatePhaseItemBillingThresholdsParams",
+                    "SubscriptionSchedule.CreateParamsPhaseItemBillingThresholds",
                 ]
             ]
         ]
@@ -122,49 +122,49 @@ class SubscriptionSchedule(
         plan: NotRequired[Optional[str]]
         price: NotRequired[Optional[str]]
         price_data: NotRequired[
-            Optional["SubscriptionSchedule.CreatePhaseItemPriceDataParams"]
+            Optional["SubscriptionSchedule.CreateParamsPhaseItemPriceData"]
         ]
         quantity: NotRequired[Optional[int]]
         tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
 
-    class CreatePhaseItemPriceDataParams(TypedDict):
+    class CreateParamsPhaseItemPriceData(TypedDict):
         currency: str
         product: str
-        recurring: "SubscriptionSchedule.CreatePhaseItemPriceDataRecurringParams"
+        recurring: "SubscriptionSchedule.CreateParamsPhaseItemPriceDataRecurring"
         tax_behavior: NotRequired[
             Optional[Literal["exclusive", "inclusive", "unspecified"]]
         ]
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class CreatePhaseItemPriceDataRecurringParams(TypedDict):
+    class CreateParamsPhaseItemPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
         interval_count: NotRequired[Optional[int]]
 
-    class CreatePhaseItemBillingThresholdsParams(TypedDict):
+    class CreateParamsPhaseItemBillingThresholds(TypedDict):
         usage_gte: int
 
-    class CreatePhaseInvoiceSettingsParams(TypedDict):
+    class CreateParamsPhaseInvoiceSettings(TypedDict):
         days_until_due: NotRequired[Optional[int]]
 
-    class CreatePhaseBillingThresholdsParams(TypedDict):
+    class CreateParamsPhaseBillingThresholds(TypedDict):
         amount_gte: NotRequired[Optional[int]]
         reset_billing_cycle_anchor: NotRequired[Optional[bool]]
 
-    class CreatePhaseAutomaticTaxParams(TypedDict):
+    class CreateParamsPhaseAutomaticTax(TypedDict):
         enabled: bool
 
-    class CreatePhaseAddInvoiceItemParams(TypedDict):
+    class CreateParamsPhaseAddInvoiceItem(TypedDict):
         price: NotRequired[Optional[str]]
         price_data: NotRequired[
             Optional[
-                "SubscriptionSchedule.CreatePhaseAddInvoiceItemPriceDataParams"
+                "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemPriceData"
             ]
         ]
         quantity: NotRequired[Optional[int]]
         tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
 
-    class CreatePhaseAddInvoiceItemPriceDataParams(TypedDict):
+    class CreateParamsPhaseAddInvoiceItemPriceData(TypedDict):
         currency: str
         product: str
         tax_behavior: NotRequired[
@@ -173,11 +173,11 @@ class SubscriptionSchedule(
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class CreateDefaultSettingsParams(TypedDict):
+    class CreateParamsDefaultSettings(TypedDict):
         application_fee_percent: NotRequired[Optional[float]]
         automatic_tax: NotRequired[
             Optional[
-                "SubscriptionSchedule.CreateDefaultSettingsAutomaticTaxParams"
+                "SubscriptionSchedule.CreateParamsDefaultSettingsAutomaticTax"
             ]
         ]
         billing_cycle_anchor: NotRequired[
@@ -187,7 +187,7 @@ class SubscriptionSchedule(
             Optional[
                 Union[
                     Literal[""],
-                    "SubscriptionSchedule.CreateDefaultSettingsBillingThresholdsParams",
+                    "SubscriptionSchedule.CreateParamsDefaultSettingsBillingThresholds",
                 ]
             ]
         ]
@@ -198,7 +198,7 @@ class SubscriptionSchedule(
         description: NotRequired[Optional[Union[Literal[""], str]]]
         invoice_settings: NotRequired[
             Optional[
-                "SubscriptionSchedule.CreateDefaultSettingsInvoiceSettingsParams"
+                "SubscriptionSchedule.CreateParamsDefaultSettingsInvoiceSettings"
             ]
         ]
         on_behalf_of: NotRequired[Optional[Union[Literal[""], str]]]
@@ -206,64 +206,64 @@ class SubscriptionSchedule(
             Optional[
                 Union[
                     Literal[""],
-                    "SubscriptionSchedule.CreateDefaultSettingsTransferDataParams",
+                    "SubscriptionSchedule.CreateParamsDefaultSettingsTransferData",
                 ]
             ]
         ]
 
-    class CreateDefaultSettingsTransferDataParams(TypedDict):
+    class CreateParamsDefaultSettingsTransferData(TypedDict):
         amount_percent: NotRequired[Optional[float]]
         destination: str
 
-    class CreateDefaultSettingsInvoiceSettingsParams(TypedDict):
+    class CreateParamsDefaultSettingsInvoiceSettings(TypedDict):
         days_until_due: NotRequired[Optional[int]]
 
-    class CreateDefaultSettingsBillingThresholdsParams(TypedDict):
+    class CreateParamsDefaultSettingsBillingThresholds(TypedDict):
         amount_gte: NotRequired[Optional[int]]
         reset_billing_cycle_anchor: NotRequired[Optional[bool]]
 
-    class CreateDefaultSettingsAutomaticTaxParams(TypedDict):
+    class CreateParamsDefaultSettingsAutomaticTax(TypedDict):
         enabled: bool
 
     class ListParams(RequestOptions):
         canceled_at: NotRequired[
-            Optional[Union["SubscriptionSchedule.ListCanceledAtParams", int]]
+            Optional[Union["SubscriptionSchedule.ListParamsCanceledAt", int]]
         ]
         completed_at: NotRequired[
-            Optional[Union["SubscriptionSchedule.ListCompletedAtParams", int]]
+            Optional[Union["SubscriptionSchedule.ListParamsCompletedAt", int]]
         ]
         created: NotRequired[
-            Optional[Union["SubscriptionSchedule.ListCreatedParams", int]]
+            Optional[Union["SubscriptionSchedule.ListParamsCreated", int]]
         ]
         customer: NotRequired[Optional[str]]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
         released_at: NotRequired[
-            Optional[Union["SubscriptionSchedule.ListReleasedAtParams", int]]
+            Optional[Union["SubscriptionSchedule.ListParamsReleasedAt", int]]
         ]
         scheduled: NotRequired[Optional[bool]]
         starting_after: NotRequired[Optional[str]]
 
-    class ListReleasedAtParams(TypedDict):
+    class ListParamsReleasedAt(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
         lte: NotRequired[Optional[int]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
         lte: NotRequired[Optional[int]]
 
-    class ListCompletedAtParams(TypedDict):
+    class ListParamsCompletedAt(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
         lte: NotRequired[Optional[int]]
 
-    class ListCanceledAtParams(TypedDict):
+    class ListParamsCanceledAt(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -271,7 +271,7 @@ class SubscriptionSchedule(
 
     class ModifyParams(RequestOptions):
         default_settings: NotRequired[
-            Optional["SubscriptionSchedule.ModifyDefaultSettingsParams"]
+            Optional["SubscriptionSchedule.ModifyParamsDefaultSettings"]
         ]
         end_behavior: NotRequired[
             Optional[Literal["cancel", "none", "release", "renew"]]
@@ -279,21 +279,21 @@ class SubscriptionSchedule(
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
         phases: NotRequired[
-            Optional[List["SubscriptionSchedule.ModifyPhaseParams"]]
+            Optional[List["SubscriptionSchedule.ModifyParamsPhase"]]
         ]
         proration_behavior: NotRequired[
             Optional[Literal["always_invoice", "create_prorations", "none"]]
         ]
 
-    class ModifyPhaseParams(TypedDict):
+    class ModifyParamsPhase(TypedDict):
         add_invoice_items: NotRequired[
             Optional[
-                List["SubscriptionSchedule.ModifyPhaseAddInvoiceItemParams"]
+                List["SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItem"]
             ]
         ]
         application_fee_percent: NotRequired[Optional[float]]
         automatic_tax: NotRequired[
-            Optional["SubscriptionSchedule.ModifyPhaseAutomaticTaxParams"]
+            Optional["SubscriptionSchedule.ModifyParamsPhaseAutomaticTax"]
         ]
         billing_cycle_anchor: NotRequired[
             Optional[Literal["automatic", "phase_start"]]
@@ -302,7 +302,7 @@ class SubscriptionSchedule(
             Optional[
                 Union[
                     Literal[""],
-                    "SubscriptionSchedule.ModifyPhaseItemBillingThresholdsParams",
+                    "SubscriptionSchedule.ModifyParamsPhaseItemBillingThresholds",
                 ]
             ]
         ]
@@ -316,9 +316,9 @@ class SubscriptionSchedule(
         description: NotRequired[Optional[Union[Literal[""], str]]]
         end_date: NotRequired[Optional[Union[int, Literal["now"]]]]
         invoice_settings: NotRequired[
-            Optional["SubscriptionSchedule.ModifyPhaseInvoiceSettingsParams"]
+            Optional["SubscriptionSchedule.ModifyParamsPhaseInvoiceSettings"]
         ]
-        items: List["SubscriptionSchedule.ModifyPhaseItemParams"]
+        items: List["SubscriptionSchedule.ModifyParamsPhaseItem"]
         iterations: NotRequired[Optional[int]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         on_behalf_of: NotRequired[Optional[str]]
@@ -327,21 +327,21 @@ class SubscriptionSchedule(
         ]
         start_date: NotRequired[Optional[Union[int, Literal["now"]]]]
         transfer_data: NotRequired[
-            Optional["SubscriptionSchedule.ModifyPhaseTransferDataParams"]
+            Optional["SubscriptionSchedule.ModifyParamsPhaseTransferData"]
         ]
         trial: NotRequired[Optional[bool]]
         trial_end: NotRequired[Optional[Union[int, Literal["now"]]]]
 
-    class ModifyPhaseTransferDataParams(TypedDict):
+    class ModifyParamsPhaseTransferData(TypedDict):
         amount_percent: NotRequired[Optional[float]]
         destination: str
 
-    class ModifyPhaseItemParams(TypedDict):
+    class ModifyParamsPhaseItem(TypedDict):
         billing_thresholds: NotRequired[
             Optional[
                 Union[
                     Literal[""],
-                    "SubscriptionSchedule.ModifyPhaseItemBillingThresholdsParams",
+                    "SubscriptionSchedule.ModifyParamsPhaseItemBillingThresholds",
                 ]
             ]
         ]
@@ -349,49 +349,49 @@ class SubscriptionSchedule(
         plan: NotRequired[Optional[str]]
         price: NotRequired[Optional[str]]
         price_data: NotRequired[
-            Optional["SubscriptionSchedule.ModifyPhaseItemPriceDataParams"]
+            Optional["SubscriptionSchedule.ModifyParamsPhaseItemPriceData"]
         ]
         quantity: NotRequired[Optional[int]]
         tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
 
-    class ModifyPhaseItemPriceDataParams(TypedDict):
+    class ModifyParamsPhaseItemPriceData(TypedDict):
         currency: str
         product: str
-        recurring: "SubscriptionSchedule.ModifyPhaseItemPriceDataRecurringParams"
+        recurring: "SubscriptionSchedule.ModifyParamsPhaseItemPriceDataRecurring"
         tax_behavior: NotRequired[
             Optional[Literal["exclusive", "inclusive", "unspecified"]]
         ]
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class ModifyPhaseItemPriceDataRecurringParams(TypedDict):
+    class ModifyParamsPhaseItemPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
         interval_count: NotRequired[Optional[int]]
 
-    class ModifyPhaseItemBillingThresholdsParams(TypedDict):
+    class ModifyParamsPhaseItemBillingThresholds(TypedDict):
         usage_gte: int
 
-    class ModifyPhaseInvoiceSettingsParams(TypedDict):
+    class ModifyParamsPhaseInvoiceSettings(TypedDict):
         days_until_due: NotRequired[Optional[int]]
 
-    class ModifyPhaseBillingThresholdsParams(TypedDict):
+    class ModifyParamsPhaseBillingThresholds(TypedDict):
         amount_gte: NotRequired[Optional[int]]
         reset_billing_cycle_anchor: NotRequired[Optional[bool]]
 
-    class ModifyPhaseAutomaticTaxParams(TypedDict):
+    class ModifyParamsPhaseAutomaticTax(TypedDict):
         enabled: bool
 
-    class ModifyPhaseAddInvoiceItemParams(TypedDict):
+    class ModifyParamsPhaseAddInvoiceItem(TypedDict):
         price: NotRequired[Optional[str]]
         price_data: NotRequired[
             Optional[
-                "SubscriptionSchedule.ModifyPhaseAddInvoiceItemPriceDataParams"
+                "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemPriceData"
             ]
         ]
         quantity: NotRequired[Optional[int]]
         tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
 
-    class ModifyPhaseAddInvoiceItemPriceDataParams(TypedDict):
+    class ModifyParamsPhaseAddInvoiceItemPriceData(TypedDict):
         currency: str
         product: str
         tax_behavior: NotRequired[
@@ -400,11 +400,11 @@ class SubscriptionSchedule(
         unit_amount: NotRequired[Optional[int]]
         unit_amount_decimal: NotRequired[Optional[float]]
 
-    class ModifyDefaultSettingsParams(TypedDict):
+    class ModifyParamsDefaultSettings(TypedDict):
         application_fee_percent: NotRequired[Optional[float]]
         automatic_tax: NotRequired[
             Optional[
-                "SubscriptionSchedule.ModifyDefaultSettingsAutomaticTaxParams"
+                "SubscriptionSchedule.ModifyParamsDefaultSettingsAutomaticTax"
             ]
         ]
         billing_cycle_anchor: NotRequired[
@@ -414,7 +414,7 @@ class SubscriptionSchedule(
             Optional[
                 Union[
                     Literal[""],
-                    "SubscriptionSchedule.ModifyDefaultSettingsBillingThresholdsParams",
+                    "SubscriptionSchedule.ModifyParamsDefaultSettingsBillingThresholds",
                 ]
             ]
         ]
@@ -425,7 +425,7 @@ class SubscriptionSchedule(
         description: NotRequired[Optional[Union[Literal[""], str]]]
         invoice_settings: NotRequired[
             Optional[
-                "SubscriptionSchedule.ModifyDefaultSettingsInvoiceSettingsParams"
+                "SubscriptionSchedule.ModifyParamsDefaultSettingsInvoiceSettings"
             ]
         ]
         on_behalf_of: NotRequired[Optional[Union[Literal[""], str]]]
@@ -433,23 +433,23 @@ class SubscriptionSchedule(
             Optional[
                 Union[
                     Literal[""],
-                    "SubscriptionSchedule.ModifyDefaultSettingsTransferDataParams",
+                    "SubscriptionSchedule.ModifyParamsDefaultSettingsTransferData",
                 ]
             ]
         ]
 
-    class ModifyDefaultSettingsTransferDataParams(TypedDict):
+    class ModifyParamsDefaultSettingsTransferData(TypedDict):
         amount_percent: NotRequired[Optional[float]]
         destination: str
 
-    class ModifyDefaultSettingsInvoiceSettingsParams(TypedDict):
+    class ModifyParamsDefaultSettingsInvoiceSettings(TypedDict):
         days_until_due: NotRequired[Optional[int]]
 
-    class ModifyDefaultSettingsBillingThresholdsParams(TypedDict):
+    class ModifyParamsDefaultSettingsBillingThresholds(TypedDict):
         amount_gte: NotRequired[Optional[int]]
         reset_billing_cycle_anchor: NotRequired[Optional[bool]]
 
-    class ModifyDefaultSettingsAutomaticTaxParams(TypedDict):
+    class ModifyParamsDefaultSettingsAutomaticTax(TypedDict):
         enabled: bool
 
     class ReleaseParams(RequestOptions):

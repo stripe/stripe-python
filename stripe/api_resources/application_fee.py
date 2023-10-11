@@ -32,14 +32,14 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     class ListParams(RequestOptions):
         charge: NotRequired[Optional[str]]
         created: NotRequired[
-            Optional[Union["ApplicationFee.ListCreatedParams", int]]
+            Optional[Union["ApplicationFee.ListParamsCreated", int]]
         ]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
         limit: NotRequired[Optional[int]]
         starting_after: NotRequired[Optional[str]]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]

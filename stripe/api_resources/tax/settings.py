@@ -26,14 +26,14 @@ class Settings(
     OBJECT_NAME = "tax.settings"
 
     class ModifyParams(RequestOptions):
-        defaults: NotRequired[Optional["Settings.ModifyDefaultsParams"]]
+        defaults: NotRequired[Optional["Settings.ModifyParamsDefaults"]]
         expand: NotRequired[Optional[List[str]]]
-        head_office: NotRequired[Optional["Settings.ModifyHeadOfficeParams"]]
+        head_office: NotRequired[Optional["Settings.ModifyParamsHeadOffice"]]
 
-    class ModifyHeadOfficeParams(TypedDict):
-        address: "Settings.ModifyHeadOfficeAddressParams"
+    class ModifyParamsHeadOffice(TypedDict):
+        address: "Settings.ModifyParamsHeadOfficeAddress"
 
-    class ModifyHeadOfficeAddressParams(TypedDict):
+    class ModifyParamsHeadOfficeAddress(TypedDict):
         city: NotRequired[Optional[str]]
         country: NotRequired[Optional[str]]
         line1: NotRequired[Optional[str]]
@@ -41,7 +41,7 @@ class Settings(
         postal_code: NotRequired[Optional[str]]
         state: NotRequired[Optional[str]]
 
-    class ModifyDefaultsParams(TypedDict):
+    class ModifyParamsDefaults(TypedDict):
         tax_behavior: NotRequired[
             Optional[Literal["exclusive", "inclusive", "inferred_by_currency"]]
         ]

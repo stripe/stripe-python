@@ -52,22 +52,22 @@ class VerificationSession(
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         options: NotRequired[
-            Optional["VerificationSession.CreateOptionsParams"]
+            Optional["VerificationSession.CreateParamsOptions"]
         ]
         return_url: NotRequired[Optional[str]]
         type: Literal["document", "id_number"]
 
-    class CreateOptionsParams(TypedDict):
+    class CreateParamsOptions(TypedDict):
         document: NotRequired[
             Optional[
                 Union[
                     Literal[""],
-                    "VerificationSession.CreateOptionsDocumentParams",
+                    "VerificationSession.CreateParamsOptionsDocument",
                 ]
             ]
         ]
 
-    class CreateOptionsDocumentParams(TypedDict):
+    class CreateParamsOptionsDocument(TypedDict):
         allowed_types: NotRequired[
             Optional[List[Literal["driving_license", "id_card", "passport"]]]
         ]
@@ -77,7 +77,7 @@ class VerificationSession(
 
     class ListParams(RequestOptions):
         created: NotRequired[
-            Optional[Union["VerificationSession.ListCreatedParams", int]]
+            Optional[Union["VerificationSession.ListParamsCreated", int]]
         ]
         ending_before: NotRequired[Optional[str]]
         expand: NotRequired[Optional[List[str]]]
@@ -89,7 +89,7 @@ class VerificationSession(
             ]
         ]
 
-    class ListCreatedParams(TypedDict):
+    class ListParamsCreated(TypedDict):
         gt: NotRequired[Optional[int]]
         gte: NotRequired[Optional[int]]
         lt: NotRequired[Optional[int]]
@@ -99,21 +99,21 @@ class VerificationSession(
         expand: NotRequired[Optional[List[str]]]
         metadata: NotRequired[Optional[Dict[str, str]]]
         options: NotRequired[
-            Optional["VerificationSession.ModifyOptionsParams"]
+            Optional["VerificationSession.ModifyParamsOptions"]
         ]
         type: NotRequired[Optional[Literal["document", "id_number"]]]
 
-    class ModifyOptionsParams(TypedDict):
+    class ModifyParamsOptions(TypedDict):
         document: NotRequired[
             Optional[
                 Union[
                     Literal[""],
-                    "VerificationSession.ModifyOptionsDocumentParams",
+                    "VerificationSession.ModifyParamsOptionsDocument",
                 ]
             ]
         ]
 
-    class ModifyOptionsDocumentParams(TypedDict):
+    class ModifyParamsOptionsDocument(TypedDict):
         allowed_types: NotRequired[
             Optional[List[Literal["driving_license", "id_card", "passport"]]]
         ]
