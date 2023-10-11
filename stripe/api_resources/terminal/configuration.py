@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -32,6 +30,7 @@ class Configuration(
     is_account_default: Optional[bool]
     livemode: bool
     object: Literal["terminal.configuration"]
+    offline: Optional[StripeObject]
     tipping: Optional[StripeObject]
     verifone_p400: Optional[StripeObject]
     deleted: Optional[Literal[True]]

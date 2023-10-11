@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -12,6 +10,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
@@ -452,9 +451,9 @@ class Invoice(
         )
 
     @classmethod
-    def search(cls, *args, **kwargs) -> Any:
+    def search(cls, *args, **kwargs) -> SearchResultObject["Invoice"]:
         return cls._search(search_url="/v1/invoices/search", *args, **kwargs)
 
     @classmethod
-    def search_auto_paging_iter(cls, *args, **kwargs) -> Any:
+    def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()

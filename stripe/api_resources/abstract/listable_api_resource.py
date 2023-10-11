@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract.api_resource import APIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
