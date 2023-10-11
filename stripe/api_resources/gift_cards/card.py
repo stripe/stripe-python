@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -30,12 +28,35 @@ class Card(
     """
 
     OBJECT_NAME = "gift_cards.card"
+
+    class CreatedBy(StripeObject):
+        class Checkout(StripeObject):
+            checkout_session: str
+            line_item: Optional[str]
+
+        class Order(StripeObject):
+            line_item: Optional[str]
+            order: str
+
+        class Payment(StripeObject):
+            payment_intent: str
+
+        checkout: Optional[Checkout]
+        order: Optional[Order]
+        payment: Optional[Payment]
+        type: Literal["checkout", "order", "payment"]
+        _inner_class_types = {
+            "checkout": Checkout,
+            "order": Order,
+            "payment": Payment,
+        }
+
     active: bool
     amount_available: int
     amount_held: int
     code: Optional[str]
     created: int
-    created_by: Optional[StripeObject]
+    created_by: Optional[CreatedBy]
     currency: str
     id: str
     metadata: Optional[Dict[str, str]]
@@ -121,3 +142,5 @@ class Card(
             stripe_account=stripe_account,
             params=params,
         )
+
+    _inner_class_types = {"created_by": CreatedBy}

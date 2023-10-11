@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
@@ -12,6 +10,16 @@ from typing_extensions import Literal
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.issuing.authorization import Authorization
+    from stripe.api_resources.treasury.credit_reversal import CreditReversal
+    from stripe.api_resources.treasury.debit_reversal import DebitReversal
+    from stripe.api_resources.treasury.inbound_transfer import InboundTransfer
+    from stripe.api_resources.treasury.outbound_payment import OutboundPayment
+    from stripe.api_resources.treasury.outbound_transfer import (
+        OutboundTransfer,
+    )
+    from stripe.api_resources.treasury.received_credit import ReceivedCredit
+    from stripe.api_resources.treasury.received_debit import ReceivedDebit
     from stripe.api_resources.treasury.transaction import Transaction
 
 
@@ -21,13 +29,40 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
     """
 
     OBJECT_NAME = "treasury.transaction_entry"
-    balance_impact: StripeObject
+
+    class BalanceImpact(StripeObject):
+        cash: int
+        inbound_pending: int
+        outbound_pending: int
+
+    class FlowDetails(StripeObject):
+        credit_reversal: Optional["CreditReversal"]
+        debit_reversal: Optional["DebitReversal"]
+        inbound_transfer: Optional["InboundTransfer"]
+        issuing_authorization: Optional["Authorization"]
+        outbound_payment: Optional["OutboundPayment"]
+        outbound_transfer: Optional["OutboundTransfer"]
+        received_credit: Optional["ReceivedCredit"]
+        received_debit: Optional["ReceivedDebit"]
+        type: Literal[
+            "credit_reversal",
+            "debit_reversal",
+            "inbound_transfer",
+            "issuing_authorization",
+            "other",
+            "outbound_payment",
+            "outbound_transfer",
+            "received_credit",
+            "received_debit",
+        ]
+
+    balance_impact: BalanceImpact
     created: int
     currency: str
     effective_at: int
     financial_account: str
     flow: Optional[str]
-    flow_details: Optional[StripeObject]
+    flow_details: Optional[FlowDetails]
     flow_type: Literal[
         "credit_reversal",
         "debit_reversal",
@@ -102,3 +137,8 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
     @classmethod
     def class_url(cls):
         return "/v1/treasury/transaction_entries"
+
+    _inner_class_types = {
+        "balance_impact": BalanceImpact,
+        "flow_details": FlowDetails,
+    }

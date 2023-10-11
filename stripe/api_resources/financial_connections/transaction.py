@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
@@ -15,6 +13,11 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
 
     OBJECT_NAME = "financial_connections.transaction"
+
+    class StatusTransitions(StripeObject):
+        posted_at: Optional[int]
+        void_at: Optional[int]
+
     account: str
     amount: int
     currency: str
@@ -23,7 +26,7 @@ class Transaction(ListableAPIResource["Transaction"]):
     livemode: bool
     object: Literal["financial_connections.transaction"]
     status: Literal["pending", "posted", "void"]
-    status_transitions: StripeObject
+    status_transitions: StatusTransitions
     transacted_at: int
     transaction_refresh: str
     updated: int
@@ -52,3 +55,5 @@ class Transaction(ListableAPIResource["Transaction"]):
             )
 
         return result
+
+    _inner_class_types = {"status_transitions": StatusTransitions}

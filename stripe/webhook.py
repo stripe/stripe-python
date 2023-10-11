@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function
-
 import hmac
 import json
 import time

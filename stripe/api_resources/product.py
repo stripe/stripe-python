@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -12,6 +10,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal
@@ -43,19 +42,43 @@ class Product(
     """
 
     OBJECT_NAME = "product"
+
+    class Feature(StripeObject):
+        name: str
+
+    class PackageDimensions(StripeObject):
+        height: float
+        length: float
+        weight: float
+        width: float
+
+    class Provisioning(StripeObject):
+        class GiftCard(StripeObject):
+            class FixedAmount(StripeObject):
+                amount: int
+                currency: str
+
+            fixed_amount: Optional[FixedAmount]
+            type: Literal["fixed_amount"]
+            _inner_class_types = {"fixed_amount": FixedAmount}
+
+        gift_card: Optional[GiftCard]
+        type: Literal["gift_card"]
+        _inner_class_types = {"gift_card": GiftCard}
+
     active: bool
     created: int
     default_price: Optional[ExpandableField["Price"]]
     description: Optional[str]
-    features: List[StripeObject]
+    features: List[Feature]
     id: str
     images: List[str]
     livemode: bool
     metadata: Dict[str, str]
     name: str
     object: Literal["product"]
-    package_dimensions: Optional[StripeObject]
-    provisioning: Optional[StripeObject]
+    package_dimensions: Optional[PackageDimensions]
+    provisioning: Optional[Provisioning]
     shippable: Optional[bool]
     statement_descriptor: Optional[str]
     tax_code: Optional[ExpandableField["TaxCode"]]
@@ -145,9 +168,15 @@ class Product(
         return instance
 
     @classmethod
-    def search(cls, *args, **kwargs) -> Any:
+    def search(cls, *args, **kwargs) -> SearchResultObject["Product"]:
         return cls._search(search_url="/v1/products/search", *args, **kwargs)
 
     @classmethod
-    def search_auto_paging_iter(cls, *args, **kwargs) -> Any:
+    def search_auto_paging_iter(cls, *args, **kwargs):
         return cls.search(*args, **kwargs).auto_paging_iter()
+
+    _inner_class_types = {
+        "features": Feature,
+        "package_dimensions": PackageDimensions,
+        "provisioning": Provisioning,
+    }

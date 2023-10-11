@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -9,11 +7,17 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
     UpdateableAPIResource,
 )
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional, cast
+from typing import Any, List, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.file import File
 
 
 class Configuration(
@@ -27,13 +31,122 @@ class Configuration(
     """
 
     OBJECT_NAME = "terminal.configuration"
-    bbpos_wisepos_e: Optional[StripeObject]
+
+    class BbposWiseposE(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+
+    class Tipping(StripeObject):
+        class Aud(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        class Cad(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        class Chf(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        class Czk(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        class Dkk(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        class Eur(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        class Gbp(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        class Hkd(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        class Myr(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        class Nok(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        class Nzd(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        class Sek(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        class Sgd(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        class Usd(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            percentages: Optional[List[int]]
+            smart_tip_threshold: Optional[int]
+
+        aud: Optional[Aud]
+        cad: Optional[Cad]
+        chf: Optional[Chf]
+        czk: Optional[Czk]
+        dkk: Optional[Dkk]
+        eur: Optional[Eur]
+        gbp: Optional[Gbp]
+        hkd: Optional[Hkd]
+        myr: Optional[Myr]
+        nok: Optional[Nok]
+        nzd: Optional[Nzd]
+        sek: Optional[Sek]
+        sgd: Optional[Sgd]
+        usd: Optional[Usd]
+        _inner_class_types = {
+            "aud": Aud,
+            "cad": Cad,
+            "chf": Chf,
+            "czk": Czk,
+            "dkk": Dkk,
+            "eur": Eur,
+            "gbp": Gbp,
+            "hkd": Hkd,
+            "myr": Myr,
+            "nok": Nok,
+            "nzd": Nzd,
+            "sek": Sek,
+            "sgd": Sgd,
+            "usd": Usd,
+        }
+
+    class VerifoneP400(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+
+    bbpos_wisepos_e: Optional[BbposWiseposE]
     id: str
     is_account_default: Optional[bool]
     livemode: bool
     object: Literal["terminal.configuration"]
-    tipping: Optional[StripeObject]
-    verifone_p400: Optional[StripeObject]
+    tipping: Optional[Tipping]
+    verifone_p400: Optional[VerifoneP400]
     deleted: Optional[Literal[True]]
 
     @classmethod
@@ -114,3 +227,9 @@ class Configuration(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "bbpos_wisepos_e": BbposWiseposE,
+        "tipping": Tipping,
+        "verifone_p400": VerifoneP400,
+    }

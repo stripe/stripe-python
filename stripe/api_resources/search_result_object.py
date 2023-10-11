@@ -1,11 +1,12 @@
-from __future__ import absolute_import, division, print_function
 from typing_extensions import Self
-from typing import List
+from typing import Generic, List, TypeVar
 
 from stripe.stripe_object import StripeObject
 
+T = TypeVar("T", bound=StripeObject)
 
-class SearchResultObject(StripeObject):
+
+class SearchResultObject(StripeObject, Generic[T]):
     OBJECT_NAME = "search_result"
     data: List[StripeObject]
     has_more: bool

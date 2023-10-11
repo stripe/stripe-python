@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
@@ -23,9 +21,13 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
     """
 
     OBJECT_NAME = "scheduled_query_run"
+
+    class Error(StripeObject):
+        message: str
+
     created: int
     data_load_time: int
-    error: Optional[StripeObject]
+    error: Optional[Error]
     file: Optional["File"]
     id: str
     livemode: bool
@@ -71,3 +73,5 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
     @classmethod
     def class_url(cls):
         return "/v1/sigma/scheduled_query_runs"
+
+    _inner_class_types = {"error": Error}
