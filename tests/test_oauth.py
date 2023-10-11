@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function
-
 from urllib.parse import parse_qs, urlparse
 
 import stripe

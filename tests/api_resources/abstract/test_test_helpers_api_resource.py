@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function
-
 import stripe
 from stripe import util
 from stripe.api_resources.abstract import APIResourceTestHelpers
