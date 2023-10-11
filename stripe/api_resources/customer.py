@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
@@ -13,9 +15,10 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal, Type
+from typing import Any, Dict, List, Optional, Union, cast
+from typing_extensions import Literal, NotRequired, Type, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -46,6 +49,575 @@ class Customer(
     """
 
     OBJECT_NAME = "customer"
+
+    class CreateParams(RequestOptions):
+        address: NotRequired[
+            Optional[
+                Union[Literal[""], "Customer.CreateShippingAddressParams"]
+            ]
+        ]
+        balance: NotRequired[Optional[int]]
+        cash_balance: NotRequired[Optional["Customer.CreateCashBalanceParams"]]
+        coupon: NotRequired[Optional[str]]
+        description: NotRequired[Optional[str]]
+        email: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        invoice_prefix: NotRequired[Optional[str]]
+        invoice_settings: NotRequired[
+            Optional["Customer.CreateInvoiceSettingsParams"]
+        ]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        name: NotRequired[Optional[str]]
+        next_invoice_sequence: NotRequired[Optional[int]]
+        payment_method: NotRequired[Optional[str]]
+        phone: NotRequired[Optional[str]]
+        preferred_locales: NotRequired[Optional[List[str]]]
+        promotion_code: NotRequired[Optional[str]]
+        shipping: NotRequired[
+            Optional[Union[Literal[""], "Customer.CreateShippingParams"]]
+        ]
+        source: NotRequired[Optional[str]]
+        tax: NotRequired[Optional["Customer.CreateTaxParams"]]
+        tax_exempt: NotRequired[
+            Optional[Union[Literal[""], Literal["exempt", "none", "reverse"]]]
+        ]
+        tax_id_data: NotRequired[
+            Optional[List["Customer.CreateTaxIdDatumParams"]]
+        ]
+        test_clock: NotRequired[Optional[str]]
+        validate: NotRequired[Optional[bool]]
+
+    class CreateTaxIdDatumParams(TypedDict):
+        type: Literal[
+            "ad_nrt",
+            "ae_trn",
+            "ar_cuit",
+            "au_abn",
+            "au_arn",
+            "bg_uic",
+            "bo_tin",
+            "br_cnpj",
+            "br_cpf",
+            "ca_bn",
+            "ca_gst_hst",
+            "ca_pst_bc",
+            "ca_pst_mb",
+            "ca_pst_sk",
+            "ca_qst",
+            "ch_vat",
+            "cl_tin",
+            "cn_tin",
+            "co_nit",
+            "cr_tin",
+            "do_rcn",
+            "ec_ruc",
+            "eg_tin",
+            "es_cif",
+            "eu_oss_vat",
+            "eu_vat",
+            "gb_vat",
+            "ge_vat",
+            "hk_br",
+            "hu_tin",
+            "id_npwp",
+            "il_vat",
+            "in_gst",
+            "is_vat",
+            "jp_cn",
+            "jp_rn",
+            "jp_trn",
+            "ke_pin",
+            "kr_brn",
+            "li_uid",
+            "mx_rfc",
+            "my_frp",
+            "my_itn",
+            "my_sst",
+            "no_vat",
+            "nz_gst",
+            "pe_ruc",
+            "ph_tin",
+            "ro_tin",
+            "rs_pib",
+            "ru_inn",
+            "ru_kpp",
+            "sa_vat",
+            "sg_gst",
+            "sg_uen",
+            "si_tin",
+            "sv_nit",
+            "th_vat",
+            "tr_tin",
+            "tw_vat",
+            "ua_vat",
+            "us_ein",
+            "uy_ruc",
+            "ve_rif",
+            "vn_tin",
+            "za_vat",
+        ]
+        value: str
+
+    class CreateTaxParams(TypedDict):
+        ip_address: NotRequired[Optional[Union[Literal[""], str]]]
+
+    class CreateShippingParams(TypedDict):
+        address: "Customer.CreateShippingAddressParams"
+        name: str
+        phone: NotRequired[Optional[str]]
+
+    class CreateShippingAddressParams(TypedDict):
+        city: NotRequired[Optional[str]]
+        country: NotRequired[Optional[str]]
+        line1: NotRequired[Optional[str]]
+        line2: NotRequired[Optional[str]]
+        postal_code: NotRequired[Optional[str]]
+        state: NotRequired[Optional[str]]
+
+    class CreateInvoiceSettingsParams(TypedDict):
+        custom_fields: NotRequired[
+            Optional[
+                Union[
+                    Literal[""],
+                    List["Customer.CreateInvoiceSettingsCustomFieldParams"],
+                ]
+            ]
+        ]
+        default_payment_method: NotRequired[Optional[str]]
+        footer: NotRequired[Optional[str]]
+        rendering_options: NotRequired[
+            Optional[
+                Union[
+                    Literal[""],
+                    "Customer.CreateInvoiceSettingsRenderingOptionsParams",
+                ]
+            ]
+        ]
+
+    class CreateInvoiceSettingsRenderingOptionsParams(TypedDict):
+        amount_tax_display: NotRequired[
+            Optional[
+                Union[
+                    Literal[""],
+                    Literal["exclude_tax", "include_inclusive_tax"],
+                ]
+            ]
+        ]
+
+    class CreateInvoiceSettingsCustomFieldParams(TypedDict):
+        name: str
+        value: str
+
+    class CreateCashBalanceParams(TypedDict):
+        settings: NotRequired[
+            Optional["Customer.CreateCashBalanceSettingsParams"]
+        ]
+
+    class CreateCashBalanceSettingsParams(TypedDict):
+        reconciliation_mode: NotRequired[
+            Optional[Literal["automatic", "manual", "merchant_default"]]
+        ]
+
+    class CreateAddressParams(TypedDict):
+        city: NotRequired[Optional[str]]
+        country: NotRequired[Optional[str]]
+        line1: NotRequired[Optional[str]]
+        line2: NotRequired[Optional[str]]
+        postal_code: NotRequired[Optional[str]]
+        state: NotRequired[Optional[str]]
+
+    class CreateFundingInstructionsParams(RequestOptions):
+        bank_transfer: "Customer.CreateFundingInstructionsBankTransferParams"
+        currency: str
+        expand: NotRequired[Optional[List[str]]]
+        funding_type: Literal["bank_transfer"]
+
+    class CreateFundingInstructionsBankTransferParams(TypedDict):
+        eu_bank_transfer: NotRequired[
+            Optional[
+                "Customer.CreateFundingInstructionsBankTransferEuBankTransferParams"
+            ]
+        ]
+        requested_address_types: NotRequired[
+            Optional[List[Literal["iban", "sort_code", "spei", "zengin"]]]
+        ]
+        type: Literal[
+            "eu_bank_transfer",
+            "gb_bank_transfer",
+            "jp_bank_transfer",
+            "mx_bank_transfer",
+            "us_bank_transfer",
+        ]
+
+    class CreateFundingInstructionsBankTransferEuBankTransferParams(TypedDict):
+        country: str
+
+    class DeleteParams(RequestOptions):
+        pass
+
+    class DeleteDiscountParams(RequestOptions):
+        pass
+
+    class ListParams(RequestOptions):
+        created: NotRequired[
+            Optional[Union["Customer.ListCreatedParams", int]]
+        ]
+        email: NotRequired[Optional[str]]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+        test_clock: NotRequired[Optional[str]]
+
+    class ListCreatedParams(TypedDict):
+        gt: NotRequired[Optional[int]]
+        gte: NotRequired[Optional[int]]
+        lt: NotRequired[Optional[int]]
+        lte: NotRequired[Optional[int]]
+
+    class ListPaymentMethodsParams(RequestOptions):
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+        type: NotRequired[
+            Optional[
+                Literal[
+                    "acss_debit",
+                    "affirm",
+                    "afterpay_clearpay",
+                    "alipay",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "blik",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "customer_balance",
+                    "eps",
+                    "fpx",
+                    "giropay",
+                    "grabpay",
+                    "ideal",
+                    "klarna",
+                    "konbini",
+                    "link",
+                    "oxxo",
+                    "p24",
+                    "paynow",
+                    "paypal",
+                    "pix",
+                    "promptpay",
+                    "sepa_debit",
+                    "sofort",
+                    "us_bank_account",
+                    "wechat_pay",
+                    "zip",
+                ]
+            ]
+        ]
+
+    class ModifyParams(RequestOptions):
+        address: NotRequired[
+            Optional[
+                Union[Literal[""], "Customer.ModifyShippingAddressParams"]
+            ]
+        ]
+        balance: NotRequired[Optional[int]]
+        cash_balance: NotRequired[Optional["Customer.ModifyCashBalanceParams"]]
+        coupon: NotRequired[Optional[str]]
+        default_source: NotRequired[Optional[str]]
+        description: NotRequired[Optional[str]]
+        email: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        invoice_prefix: NotRequired[Optional[str]]
+        invoice_settings: NotRequired[
+            Optional["Customer.ModifyInvoiceSettingsParams"]
+        ]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        name: NotRequired[Optional[str]]
+        next_invoice_sequence: NotRequired[Optional[int]]
+        phone: NotRequired[Optional[str]]
+        preferred_locales: NotRequired[Optional[List[str]]]
+        promotion_code: NotRequired[Optional[str]]
+        shipping: NotRequired[
+            Optional[Union[Literal[""], "Customer.ModifyShippingParams"]]
+        ]
+        source: NotRequired[Optional[str]]
+        tax: NotRequired[Optional["Customer.ModifyTaxParams"]]
+        tax_exempt: NotRequired[
+            Optional[Union[Literal[""], Literal["exempt", "none", "reverse"]]]
+        ]
+        validate: NotRequired[Optional[bool]]
+
+    class ModifyTaxParams(TypedDict):
+        ip_address: NotRequired[Optional[Union[Literal[""], str]]]
+
+    class ModifyShippingParams(TypedDict):
+        address: "Customer.ModifyShippingAddressParams"
+        name: str
+        phone: NotRequired[Optional[str]]
+
+    class ModifyShippingAddressParams(TypedDict):
+        city: NotRequired[Optional[str]]
+        country: NotRequired[Optional[str]]
+        line1: NotRequired[Optional[str]]
+        line2: NotRequired[Optional[str]]
+        postal_code: NotRequired[Optional[str]]
+        state: NotRequired[Optional[str]]
+
+    class ModifyInvoiceSettingsParams(TypedDict):
+        custom_fields: NotRequired[
+            Optional[
+                Union[
+                    Literal[""],
+                    List["Customer.ModifyInvoiceSettingsCustomFieldParams"],
+                ]
+            ]
+        ]
+        default_payment_method: NotRequired[Optional[str]]
+        footer: NotRequired[Optional[str]]
+        rendering_options: NotRequired[
+            Optional[
+                Union[
+                    Literal[""],
+                    "Customer.ModifyInvoiceSettingsRenderingOptionsParams",
+                ]
+            ]
+        ]
+
+    class ModifyInvoiceSettingsRenderingOptionsParams(TypedDict):
+        amount_tax_display: NotRequired[
+            Optional[
+                Union[
+                    Literal[""],
+                    Literal["exclude_tax", "include_inclusive_tax"],
+                ]
+            ]
+        ]
+
+    class ModifyInvoiceSettingsCustomFieldParams(TypedDict):
+        name: str
+        value: str
+
+    class ModifyCashBalanceParams(TypedDict):
+        settings: NotRequired[
+            Optional["Customer.ModifyCashBalanceSettingsParams"]
+        ]
+
+    class ModifyCashBalanceSettingsParams(TypedDict):
+        reconciliation_mode: NotRequired[
+            Optional[Literal["automatic", "manual", "merchant_default"]]
+        ]
+
+    class ModifyAddressParams(TypedDict):
+        city: NotRequired[Optional[str]]
+        country: NotRequired[Optional[str]]
+        line1: NotRequired[Optional[str]]
+        line2: NotRequired[Optional[str]]
+        postal_code: NotRequired[Optional[str]]
+        state: NotRequired[Optional[str]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class RetrievePaymentMethodParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class SearchParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        page: NotRequired[Optional[str]]
+        query: str
+
+    class ModifyCashBalanceParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+        settings: NotRequired[
+            Optional["Customer.ModifyCashBalanceSettingsParams"]
+        ]
+
+    class ModifyCashBalanceSettingsParams(TypedDict):
+        reconciliation_mode: NotRequired[
+            Optional[Literal["automatic", "manual", "merchant_default"]]
+        ]
+
+    class RetrieveCashBalanceParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class FundCashBalanceParams(RequestOptions):
+        amount: int
+        currency: str
+        expand: NotRequired[Optional[List[str]]]
+        reference: NotRequired[Optional[str]]
+
+    class CreateBalanceTransactionParams(RequestOptions):
+        amount: int
+        currency: str
+        description: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+
+    class RetrieveBalanceTransactionParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class ModifyBalanceTransactionParams(RequestOptions):
+        description: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+
+    class ListBalanceTransactionsParams(RequestOptions):
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+
+    class RetrieveCashBalanceTransactionParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class ListCashBalanceTransactionsParams(RequestOptions):
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+
+    class CreateSourceParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Dict[str, str]]]
+        source: str
+        validate: NotRequired[Optional[bool]]
+
+    class RetrieveSourceParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class ModifySourceParams(RequestOptions):
+        account_holder_name: NotRequired[Optional[str]]
+        account_holder_type: NotRequired[
+            Optional[Literal["company", "individual"]]
+        ]
+        address_city: NotRequired[Optional[str]]
+        address_country: NotRequired[Optional[str]]
+        address_line1: NotRequired[Optional[str]]
+        address_line2: NotRequired[Optional[str]]
+        address_state: NotRequired[Optional[str]]
+        address_zip: NotRequired[Optional[str]]
+        exp_month: NotRequired[Optional[str]]
+        exp_year: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        name: NotRequired[Optional[str]]
+        owner: NotRequired[Optional["Customer.ModifySourceOwnerParams"]]
+
+    class ModifySourceOwnerParams(TypedDict):
+        address: NotRequired[
+            Optional["Customer.ModifySourceOwnerAddressParams"]
+        ]
+        email: NotRequired[Optional[str]]
+        name: NotRequired[Optional[str]]
+        phone: NotRequired[Optional[str]]
+
+    class ModifySourceOwnerAddressParams(TypedDict):
+        city: NotRequired[Optional[str]]
+        country: NotRequired[Optional[str]]
+        line1: NotRequired[Optional[str]]
+        line2: NotRequired[Optional[str]]
+        postal_code: NotRequired[Optional[str]]
+        state: NotRequired[Optional[str]]
+
+    class DeleteSourceParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class ListSourcesParams(RequestOptions):
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        object: NotRequired[Optional[str]]
+        starting_after: NotRequired[Optional[str]]
+
+    class CreateTaxIdParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+        type: Literal[
+            "ad_nrt",
+            "ae_trn",
+            "ar_cuit",
+            "au_abn",
+            "au_arn",
+            "bg_uic",
+            "bo_tin",
+            "br_cnpj",
+            "br_cpf",
+            "ca_bn",
+            "ca_gst_hst",
+            "ca_pst_bc",
+            "ca_pst_mb",
+            "ca_pst_sk",
+            "ca_qst",
+            "ch_vat",
+            "cl_tin",
+            "cn_tin",
+            "co_nit",
+            "cr_tin",
+            "do_rcn",
+            "ec_ruc",
+            "eg_tin",
+            "es_cif",
+            "eu_oss_vat",
+            "eu_vat",
+            "gb_vat",
+            "ge_vat",
+            "hk_br",
+            "hu_tin",
+            "id_npwp",
+            "il_vat",
+            "in_gst",
+            "is_vat",
+            "jp_cn",
+            "jp_rn",
+            "jp_trn",
+            "ke_pin",
+            "kr_brn",
+            "li_uid",
+            "mx_rfc",
+            "my_frp",
+            "my_itn",
+            "my_sst",
+            "no_vat",
+            "nz_gst",
+            "pe_ruc",
+            "ph_tin",
+            "ro_tin",
+            "rs_pib",
+            "ru_inn",
+            "ru_kpp",
+            "sa_vat",
+            "sg_gst",
+            "sg_uen",
+            "si_tin",
+            "sv_nit",
+            "th_vat",
+            "tr_tin",
+            "tw_vat",
+            "ua_vat",
+            "us_ein",
+            "uy_ruc",
+            "ve_rif",
+            "vn_tin",
+            "za_vat",
+        ]
+        value: str
+
+    class RetrieveTaxIdParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class DeleteTaxIdParams(RequestOptions):
+        pass
+
+    class ListTaxIdsParams(RequestOptions):
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+
     address: Optional[StripeObject]
     balance: Optional[int]
     cash_balance: Optional["CashBalance"]
@@ -83,7 +655,7 @@ class Customer(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.CreateParams"]
     ) -> "Customer":
         return cast(
             "Customer",
@@ -105,7 +677,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ):
         return cls._static_request(
             "post",
@@ -120,7 +692,9 @@ class Customer(
 
     @util.class_method_variant("_cls_create_funding_instructions")
     def create_funding_instructions(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ):
         return self._request(
             "post",
@@ -132,7 +706,9 @@ class Customer(
         )
 
     @classmethod
-    def _cls_delete(cls, sid: str, **params: Any) -> "Customer":
+    def _cls_delete(
+        cls, sid: str, **params: Unpack["Customer.DeleteParams"]
+    ) -> "Customer":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Customer",
@@ -140,7 +716,7 @@ class Customer(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Any) -> "Customer":
+    def delete(self, **params: Unpack["Customer.DeleteParams"]) -> "Customer":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -154,7 +730,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.DeleteDiscountParams"]
     ):
         return cls._static_request(
             "delete",
@@ -169,7 +745,9 @@ class Customer(
 
     @util.class_method_variant("_cls_delete_discount")
     def delete_discount(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Customer.DeleteDiscountParams"]
     ):
         return self._request(
             "delete",
@@ -186,7 +764,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.ListParams"]
     ) -> ListObject["Customer"]:
         result = cls._static_request(
             "get",
@@ -212,7 +790,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.ListPaymentMethodsParams"]
     ):
         return cls._static_request(
             "get",
@@ -227,7 +805,9 @@ class Customer(
 
     @util.class_method_variant("_cls_list_payment_methods")
     def list_payment_methods(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Customer.ListPaymentMethodsParams"]
     ):
         return self._request(
             "get",
@@ -239,7 +819,9 @@ class Customer(
         )
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Customer":
+    def modify(
+        cls, id, **params: Unpack["Customer.ModifyParams"]
+    ) -> "Customer":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Customer",
@@ -248,9 +830,9 @@ class Customer(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Customer.RetrieveParams"]
     ) -> "Customer":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -262,7 +844,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ):
         return cls._static_request(
             "get",
@@ -281,7 +863,7 @@ class Customer(
         self,
         payment_method: str,
         idempotency_key: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ):
         return self._request(
             "get",
@@ -294,7 +876,9 @@ class Customer(
         )
 
     @classmethod
-    def search(cls, *args, **kwargs) -> SearchResultObject["Customer"]:
+    def search(
+        cls, *args, **kwargs: Unpack["Customer.SearchParams"]
+    ) -> SearchResultObject["Customer"]:
         return cls._search(search_url="/v1/customers/search", *args, **kwargs)
 
     @classmethod
@@ -308,7 +892,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.CreateBalanceTransactionParams"]
     ):
         return cls._static_request(
             "post",
@@ -329,7 +913,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.RetrieveBalanceTransactionParams"]
     ):
         return cls._static_request(
             "get",
@@ -351,7 +935,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.ModifyBalanceTransactionParams"]
     ):
         return cls._static_request(
             "post",
@@ -372,7 +956,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.ListBalanceTransactionsParams"]
     ):
         return cls._static_request(
             "get",
@@ -393,7 +977,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"]
     ):
         return cls._static_request(
             "get",
@@ -414,7 +998,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.ListCashBalanceTransactionsParams"]
     ):
         return cls._static_request(
             "get",
@@ -434,7 +1018,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.CreateSourceParams"]
     ):
         return cls._static_request(
             "post",
@@ -455,7 +1039,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.RetrieveSourceParams"]
     ):
         return cls._static_request(
             "get",
@@ -476,7 +1060,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.ModifySourceParams"]
     ):
         return cls._static_request(
             "post",
@@ -497,7 +1081,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.DeleteSourceParams"]
     ):
         return cls._static_request(
             "delete",
@@ -517,7 +1101,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.ListSourcesParams"]
     ):
         return cls._static_request(
             "get",
@@ -537,7 +1121,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.CreateTaxIdParams"]
     ):
         return cls._static_request(
             "post",
@@ -558,7 +1142,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.RetrieveTaxIdParams"]
     ):
         return cls._static_request(
             "get",
@@ -579,7 +1163,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.DeleteTaxIdParams"]
     ):
         return cls._static_request(
             "delete",
@@ -599,7 +1183,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.ListTaxIdsParams"]
     ):
         return cls._static_request(
             "get",
@@ -619,7 +1203,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.ModifyCashBalanceParams"]
     ):
         return cls._static_request(
             "post",
@@ -639,7 +1223,7 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Customer.RetrieveCashBalanceParams"]
     ):
         return cls._static_request(
             "get",
@@ -662,7 +1246,7 @@ class Customer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Any
+            **params: Unpack["Customer.FundCashBalanceParams"]
         ):
             return cls._static_request(
                 "post",
@@ -677,7 +1261,9 @@ class Customer(
 
         @util.class_method_variant("_cls_fund_cash_balance")
         def fund_cash_balance(
-            self, idempotency_key: Optional[str] = None, **params: Any
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["Customer.FundCashBalanceParams"]
         ):
             return self.resource._request(
                 "post",

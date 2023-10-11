@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe import util
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional
-from typing_extensions import Literal
+from typing import Dict, List, Optional
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -23,6 +26,48 @@ class Transaction(APIResource["Transaction"]):
     """
 
     OBJECT_NAME = "tax.transaction"
+
+    class CreateFromCalculationParams(RequestOptions):
+        calculation: str
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Dict[str, str]]]
+        reference: str
+
+    class CreateReversalParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+        flat_amount: NotRequired[Optional[int]]
+        line_items: NotRequired[
+            Optional[List["Transaction.CreateReversalLineItemParams"]]
+        ]
+        metadata: NotRequired[Optional[Dict[str, str]]]
+        mode: Literal["full", "partial"]
+        original_transaction: str
+        reference: str
+        shipping_cost: NotRequired[
+            Optional["Transaction.CreateReversalShippingCostParams"]
+        ]
+
+    class CreateReversalShippingCostParams(TypedDict):
+        amount: int
+        amount_tax: int
+
+    class CreateReversalLineItemParams(TypedDict):
+        amount: int
+        amount_tax: int
+        metadata: NotRequired[Optional[Dict[str, str]]]
+        original_line_item: str
+        quantity: NotRequired[Optional[int]]
+        reference: str
+
+    class ListLineItemsParams(RequestOptions):
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     created: int
     currency: str
     customer: Optional[str]
@@ -44,7 +89,7 @@ class Transaction(APIResource["Transaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transaction.CreateFromCalculationParams"]
     ):
         return cls._static_request(
             "post",
@@ -61,7 +106,7 @@ class Transaction(APIResource["Transaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transaction.CreateReversalParams"]
     ):
         return cls._static_request(
             "post",
@@ -79,7 +124,7 @@ class Transaction(APIResource["Transaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transaction.ListLineItemsParams"]
     ):
         return cls._static_request(
             "get",
@@ -94,7 +139,9 @@ class Transaction(APIResource["Transaction"]):
 
     @util.class_method_variant("_cls_list_line_items")
     def list_line_items(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Transaction.ListLineItemsParams"]
     ):
         return self._request(
             "get",
@@ -107,8 +154,8 @@ class Transaction(APIResource["Transaction"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
     ) -> "Transaction":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

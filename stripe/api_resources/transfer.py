@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -9,8 +11,9 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import Dict, List, Optional, Union, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -42,6 +45,65 @@ class Transfer(
     """
 
     OBJECT_NAME = "transfer"
+
+    class CreateParams(RequestOptions):
+        amount: NotRequired[Optional[int]]
+        currency: str
+        description: NotRequired[Optional[str]]
+        destination: str
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Dict[str, str]]]
+        source_transaction: NotRequired[Optional[str]]
+        source_type: NotRequired[
+            Optional[Literal["bank_account", "card", "fpx"]]
+        ]
+        transfer_group: NotRequired[Optional[str]]
+
+    class ListParams(RequestOptions):
+        created: NotRequired[
+            Optional[Union["Transfer.ListCreatedParams", int]]
+        ]
+        destination: NotRequired[Optional[str]]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+        transfer_group: NotRequired[Optional[str]]
+
+    class ListCreatedParams(TypedDict):
+        gt: NotRequired[Optional[int]]
+        gte: NotRequired[Optional[int]]
+        lt: NotRequired[Optional[int]]
+        lte: NotRequired[Optional[int]]
+
+    class ModifyParams(RequestOptions):
+        description: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class CreateReversalParams(RequestOptions):
+        amount: NotRequired[Optional[int]]
+        description: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        refund_application_fee: NotRequired[Optional[bool]]
+
+    class RetrieveReversalParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class ModifyReversalParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+
+    class ListReversalsParams(RequestOptions):
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+
     amount: int
     amount_reversed: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
@@ -67,7 +129,7 @@ class Transfer(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transfer.CreateParams"]
     ) -> "Transfer":
         return cast(
             "Transfer",
@@ -88,7 +150,7 @@ class Transfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transfer.ListParams"]
     ) -> ListObject["Transfer"]:
         result = cls._static_request(
             "get",
@@ -108,7 +170,9 @@ class Transfer(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Transfer":
+    def modify(
+        cls, id, **params: Unpack["Transfer.ModifyParams"]
+    ) -> "Transfer":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Transfer",
@@ -117,9 +181,9 @@ class Transfer(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Transfer.RetrieveParams"]
     ) -> "Transfer":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -130,7 +194,7 @@ class Transfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transfer.CreateReversalParams"]
     ):
         return cls._static_request(
             "post",
@@ -149,7 +213,7 @@ class Transfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transfer.RetrieveReversalParams"]
     ):
         return cls._static_request(
             "get",
@@ -170,7 +234,7 @@ class Transfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transfer.ModifyReversalParams"]
     ):
         return cls._static_request(
             "post",
@@ -190,7 +254,7 @@ class Transfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transfer.ListReversalsParams"]
     ):
         return cls._static_request(
             "get",

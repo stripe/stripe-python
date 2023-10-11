@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe.api_resources.abstract import CreateableAPIResource
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional, cast
-from typing_extensions import Literal
+from typing import List, Optional, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
 class AccountSession(CreateableAPIResource["AccountSession"]):
@@ -18,6 +21,20 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     """
 
     OBJECT_NAME = "account_session"
+
+    class CreateParams(RequestOptions):
+        account: str
+        components: "AccountSession.CreateComponentsParams"
+        expand: NotRequired[Optional[List[str]]]
+
+    class CreateComponentsParams(TypedDict):
+        account_onboarding: NotRequired[
+            Optional["AccountSession.CreateComponentsAccountOnboardingParams"]
+        ]
+
+    class CreateComponentsAccountOnboardingParams(TypedDict):
+        enabled: bool
+
     account: str
     client_secret: str
     components: StripeObject
@@ -32,7 +49,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["AccountSession.CreateParams"]
     ) -> "AccountSession":
         return cast(
             "AccountSession",

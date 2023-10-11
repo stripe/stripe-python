@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -7,8 +9,9 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
-from typing import Any, Optional, cast
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import List, Optional, cast
+from typing_extensions import Literal, NotRequired, Unpack
 from urllib.parse import quote_plus
 
 
@@ -18,6 +21,24 @@ class ApplePayDomain(
     ListableAPIResource["ApplePayDomain"],
 ):
     OBJECT_NAME = "apple_pay_domain"
+
+    class CreateParams(RequestOptions):
+        domain_name: str
+        expand: NotRequired[Optional[List[str]]]
+
+    class DeleteParams(RequestOptions):
+        pass
+
+    class ListParams(RequestOptions):
+        domain_name: NotRequired[Optional[str]]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     created: int
     domain_name: str
     id: str
@@ -32,7 +53,7 @@ class ApplePayDomain(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ApplePayDomain.CreateParams"]
     ) -> "ApplePayDomain":
         return cast(
             "ApplePayDomain",
@@ -48,7 +69,9 @@ class ApplePayDomain(
         )
 
     @classmethod
-    def _cls_delete(cls, sid: str, **params: Any) -> "ApplePayDomain":
+    def _cls_delete(
+        cls, sid: str, **params: Unpack["ApplePayDomain.DeleteParams"]
+    ) -> "ApplePayDomain":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "ApplePayDomain",
@@ -56,7 +79,9 @@ class ApplePayDomain(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Any) -> "ApplePayDomain":
+    def delete(
+        self, **params: Unpack["ApplePayDomain.DeleteParams"]
+    ) -> "ApplePayDomain":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -69,7 +94,7 @@ class ApplePayDomain(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ApplePayDomain.ListParams"]
     ) -> ListObject["ApplePayDomain"]:
         result = cls._static_request(
             "get",
@@ -90,9 +115,9 @@ class ApplePayDomain(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["ApplePayDomain.RetrieveParams"]
     ) -> "ApplePayDomain":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 

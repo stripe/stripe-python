@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional
-from typing_extensions import Literal
+from typing import List, Optional, Union
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
 class VerificationReport(ListableAPIResource["VerificationReport"]):
@@ -23,6 +26,27 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
 
     OBJECT_NAME = "identity.verification_report"
+
+    class ListParams(RequestOptions):
+        created: NotRequired[
+            Optional[Union["VerificationReport.ListCreatedParams", int]]
+        ]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+        type: NotRequired[Optional[Literal["document", "id_number"]]]
+        verification_session: NotRequired[Optional[str]]
+
+    class ListCreatedParams(TypedDict):
+        gt: NotRequired[Optional[int]]
+        gte: NotRequired[Optional[int]]
+        lt: NotRequired[Optional[int]]
+        lte: NotRequired[Optional[int]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     created: int
     document: Optional[StripeObject]
     id: str
@@ -40,7 +64,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["VerificationReport.ListParams"]
     ) -> ListObject["VerificationReport"]:
         result = cls._static_request(
             "get",
@@ -61,8 +85,8 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["VerificationReport.RetrieveParams"]
     ) -> "VerificationReport":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

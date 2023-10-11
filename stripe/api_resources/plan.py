@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -9,9 +11,10 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, Union, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -38,6 +41,80 @@ class Plan(
     """
 
     OBJECT_NAME = "plan"
+
+    class CreateParams(RequestOptions):
+        active: NotRequired[Optional[bool]]
+        aggregate_usage: NotRequired[
+            Optional[Literal["last_during_period", "last_ever", "max", "sum"]]
+        ]
+        amount: NotRequired[Optional[int]]
+        amount_decimal: NotRequired[Optional[float]]
+        billing_scheme: NotRequired[Optional[Literal["per_unit", "tiered"]]]
+        currency: str
+        expand: NotRequired[Optional[List[str]]]
+        id: NotRequired[Optional[str]]
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: NotRequired[Optional[int]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        nickname: NotRequired[Optional[str]]
+        product: NotRequired[Optional[Union["Plan.CreateProductParams", str]]]
+        tiers: NotRequired[Optional[List["Plan.CreateTierParams"]]]
+        tiers_mode: NotRequired[Optional[Literal["graduated", "volume"]]]
+        transform_usage: NotRequired[
+            Optional["Plan.CreateTransformUsageParams"]
+        ]
+        trial_period_days: NotRequired[Optional[int]]
+        usage_type: NotRequired[Optional[Literal["licensed", "metered"]]]
+
+    class CreateTransformUsageParams(TypedDict):
+        divide_by: int
+        round: Literal["down", "up"]
+
+    class CreateTierParams(TypedDict):
+        flat_amount: NotRequired[Optional[int]]
+        flat_amount_decimal: NotRequired[Optional[float]]
+        unit_amount: NotRequired[Optional[int]]
+        unit_amount_decimal: NotRequired[Optional[float]]
+        up_to: Union[Literal["inf"], int]
+
+    class CreateProductParams(TypedDict):
+        active: NotRequired[Optional[bool]]
+        id: NotRequired[Optional[str]]
+        metadata: NotRequired[Optional[Dict[str, str]]]
+        name: str
+        statement_descriptor: NotRequired[Optional[str]]
+        tax_code: NotRequired[Optional[str]]
+        unit_label: NotRequired[Optional[str]]
+
+    class DeleteParams(RequestOptions):
+        pass
+
+    class ListParams(RequestOptions):
+        active: NotRequired[Optional[bool]]
+        created: NotRequired[Optional[Union["Plan.ListCreatedParams", int]]]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        product: NotRequired[Optional[str]]
+        starting_after: NotRequired[Optional[str]]
+
+    class ListCreatedParams(TypedDict):
+        gt: NotRequired[Optional[int]]
+        gte: NotRequired[Optional[int]]
+        lt: NotRequired[Optional[int]]
+        lte: NotRequired[Optional[int]]
+
+    class ModifyParams(RequestOptions):
+        active: NotRequired[Optional[bool]]
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        nickname: NotRequired[Optional[str]]
+        product: NotRequired[Optional[str]]
+        trial_period_days: NotRequired[Optional[int]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     active: bool
     aggregate_usage: Optional[
         Literal["last_during_period", "last_ever", "max", "sum"]
@@ -69,7 +146,7 @@ class Plan(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Plan.CreateParams"]
     ) -> "Plan":
         return cast(
             "Plan",
@@ -85,7 +162,9 @@ class Plan(
         )
 
     @classmethod
-    def _cls_delete(cls, sid: str, **params: Any) -> "Plan":
+    def _cls_delete(
+        cls, sid: str, **params: Unpack["Plan.DeleteParams"]
+    ) -> "Plan":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Plan",
@@ -93,7 +172,7 @@ class Plan(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Any) -> "Plan":
+    def delete(self, **params: Unpack["Plan.DeleteParams"]) -> "Plan":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -106,7 +185,7 @@ class Plan(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Plan.ListParams"]
     ) -> ListObject["Plan"]:
         result = cls._static_request(
             "get",
@@ -126,7 +205,7 @@ class Plan(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Plan":
+    def modify(cls, id, **params: Unpack["Plan.ModifyParams"]) -> "Plan":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Plan",
@@ -135,8 +214,8 @@ class Plan(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Plan.RetrieveParams"]
     ) -> "Plan":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

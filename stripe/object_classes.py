@@ -1,4 +1,7 @@
 # -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe import api_resources
 
 
@@ -6,7 +9,7 @@ OBJECT_CLASSES = {
     # data structures
     api_resources.ListObject.OBJECT_NAME: api_resources.ListObject,
     api_resources.SearchResultObject.OBJECT_NAME: api_resources.SearchResultObject,
-    # Object classes: The beginning of the section generated from our OpenAPI spec
+    # business objects
     api_resources.Account.OBJECT_NAME: api_resources.Account,
     api_resources.AccountLink.OBJECT_NAME: api_resources.AccountLink,
     api_resources.AccountSession.OBJECT_NAME: api_resources.AccountSession,
@@ -123,5 +126,4 @@ OBJECT_CLASSES = {
     api_resources.UsageRecord.OBJECT_NAME: api_resources.UsageRecord,
     api_resources.UsageRecordSummary.OBJECT_NAME: api_resources.UsageRecordSummary,
     api_resources.WebhookEndpoint.OBJECT_NAME: api_resources.WebhookEndpoint,
-    # Object classes: The end of the section generated from our OpenAPI spec
 }

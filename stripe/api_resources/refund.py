@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
@@ -9,9 +11,10 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal, Type
+from typing import Dict, List, Optional, Union, cast
+from typing_extensions import Literal, NotRequired, Type, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -37,6 +40,44 @@ class Refund(
     """
 
     OBJECT_NAME = "refund"
+
+    class CancelParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class CreateParams(RequestOptions):
+        amount: NotRequired[Optional[int]]
+        charge: NotRequired[Optional[str]]
+        currency: NotRequired[Optional[str]]
+        customer: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        instructions_email: NotRequired[Optional[str]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        origin: NotRequired[Optional[Literal["customer_balance"]]]
+        payment_intent: NotRequired[Optional[str]]
+        reason: NotRequired[
+            Optional[
+                Literal["duplicate", "fraudulent", "requested_by_customer"]
+            ]
+        ]
+        refund_application_fee: NotRequired[Optional[bool]]
+        reverse_transfer: NotRequired[Optional[bool]]
+
+    class ListParams(RequestOptions):
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+
+    class ModifyParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class ExpireParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     charge: Optional[ExpandableField["Charge"]]
@@ -73,7 +114,7 @@ class Refund(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Refund.CancelParams"]
     ):
         return cls._static_request(
             "post",
@@ -87,7 +128,11 @@ class Refund(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Refund.CancelParams"]
+    ):
         return self._request(
             "post",
             "/v1/refunds/{refund}/cancel".format(
@@ -104,7 +149,7 @@ class Refund(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Refund.CreateParams"]
     ) -> "Refund":
         return cast(
             "Refund",
@@ -125,7 +170,7 @@ class Refund(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Refund.ListParams"]
     ) -> ListObject["Refund"]:
         result = cls._static_request(
             "get",
@@ -145,7 +190,7 @@ class Refund(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Refund":
+    def modify(cls, id, **params: Unpack["Refund.ModifyParams"]) -> "Refund":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Refund",
@@ -154,9 +199,9 @@ class Refund(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Refund.RetrieveParams"]
     ) -> "Refund":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -170,7 +215,7 @@ class Refund(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Any
+            **params: Unpack["Refund.ExpireParams"]
         ):
             return cls._static_request(
                 "post",
@@ -184,7 +229,11 @@ class Refund(
             )
 
         @util.class_method_variant("_cls_expire")
-        def expire(self, idempotency_key: Optional[str] = None, **params: Any):
+        def expire(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["Refund.ExpireParams"]
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/refunds/{refund}/expire".format(

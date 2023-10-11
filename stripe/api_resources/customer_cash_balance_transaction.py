@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional
-from typing_extensions import Literal
+from typing import List, Optional
+from typing_extensions import Literal, NotRequired, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -24,6 +27,16 @@ class CustomerCashBalanceTransaction(
     """
 
     OBJECT_NAME = "customer_cash_balance_transaction"
+
+    class ListParams(RequestOptions):
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     adjusted_for_overdraft: Optional[StripeObject]
     applied_to_payment: Optional[StripeObject]
     created: int
@@ -54,7 +67,7 @@ class CustomerCashBalanceTransaction(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["CustomerCashBalanceTransaction.ListParams"]
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         result = cls._static_request(
             "get",
@@ -75,8 +88,10 @@ class CustomerCashBalanceTransaction(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls,
+        id: str,
+        **params: Unpack["CustomerCashBalanceTransaction.RetrieveParams"]
     ) -> "CustomerCashBalanceTransaction":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

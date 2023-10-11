@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -11,9 +13,10 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, Union, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -42,6 +45,153 @@ class Product(
     """
 
     OBJECT_NAME = "product"
+
+    class CreateParams(RequestOptions):
+        active: NotRequired[Optional[bool]]
+        default_price_data: NotRequired[
+            Optional["Product.CreateDefaultPriceDataParams"]
+        ]
+        description: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        features: NotRequired[Optional[List["Product.CreateFeatureParams"]]]
+        id: NotRequired[Optional[str]]
+        images: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Dict[str, str]]]
+        name: str
+        package_dimensions: NotRequired[
+            Optional["Product.CreatePackageDimensionsParams"]
+        ]
+        shippable: NotRequired[Optional[bool]]
+        statement_descriptor: NotRequired[Optional[str]]
+        tax_code: NotRequired[Optional[str]]
+        type: NotRequired[Optional[Literal["good", "service"]]]
+        unit_label: NotRequired[Optional[str]]
+        url: NotRequired[Optional[str]]
+
+    class CreatePackageDimensionsParams(TypedDict):
+        height: float
+        length: float
+        weight: float
+        width: float
+
+    class CreateFeatureParams(TypedDict):
+        name: str
+
+    class CreateDefaultPriceDataParams(TypedDict):
+        currency: str
+        currency_options: NotRequired[
+            Optional[
+                Dict[
+                    str, "Product.CreateDefaultPriceDataCurrencyOptionsParams"
+                ]
+            ]
+        ]
+        recurring: NotRequired[
+            Optional["Product.CreateDefaultPriceDataRecurringParams"]
+        ]
+        tax_behavior: NotRequired[
+            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+        ]
+        unit_amount: NotRequired[Optional[int]]
+        unit_amount_decimal: NotRequired[Optional[float]]
+
+    class CreateDefaultPriceDataRecurringParams(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: NotRequired[Optional[int]]
+
+    class CreateDefaultPriceDataCurrencyOptionsParams(TypedDict):
+        custom_unit_amount: NotRequired[
+            Optional[
+                "Product.CreateDefaultPriceDataCurrencyOptionsCustomUnitAmountParams"
+            ]
+        ]
+        tax_behavior: NotRequired[
+            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+        ]
+        tiers: NotRequired[
+            Optional[
+                List["Product.CreateDefaultPriceDataCurrencyOptionsTierParams"]
+            ]
+        ]
+        unit_amount: NotRequired[Optional[int]]
+        unit_amount_decimal: NotRequired[Optional[float]]
+
+    class CreateDefaultPriceDataCurrencyOptionsTierParams(TypedDict):
+        flat_amount: NotRequired[Optional[int]]
+        flat_amount_decimal: NotRequired[Optional[float]]
+        unit_amount: NotRequired[Optional[int]]
+        unit_amount_decimal: NotRequired[Optional[float]]
+        up_to: Union[Literal["inf"], int]
+
+    class CreateDefaultPriceDataCurrencyOptionsCustomUnitAmountParams(
+        TypedDict,
+    ):
+        enabled: bool
+        maximum: NotRequired[Optional[int]]
+        minimum: NotRequired[Optional[int]]
+        preset: NotRequired[Optional[int]]
+
+    class DeleteParams(RequestOptions):
+        pass
+
+    class ListParams(RequestOptions):
+        active: NotRequired[Optional[bool]]
+        created: NotRequired[Optional[Union["Product.ListCreatedParams", int]]]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        ids: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        shippable: NotRequired[Optional[bool]]
+        starting_after: NotRequired[Optional[str]]
+        type: NotRequired[Optional[Literal["good", "service"]]]
+        url: NotRequired[Optional[str]]
+
+    class ListCreatedParams(TypedDict):
+        gt: NotRequired[Optional[int]]
+        gte: NotRequired[Optional[int]]
+        lt: NotRequired[Optional[int]]
+        lte: NotRequired[Optional[int]]
+
+    class ModifyParams(RequestOptions):
+        active: NotRequired[Optional[bool]]
+        default_price: NotRequired[Optional[str]]
+        description: NotRequired[Optional[Union[Literal[""], str]]]
+        expand: NotRequired[Optional[List[str]]]
+        features: NotRequired[
+            Optional[Union[Literal[""], List["Product.ModifyFeatureParams"]]]
+        ]
+        images: NotRequired[Optional[Union[Literal[""], List[str]]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        name: NotRequired[Optional[str]]
+        package_dimensions: NotRequired[
+            Optional[
+                Union[Literal[""], "Product.ModifyPackageDimensionsParams"]
+            ]
+        ]
+        shippable: NotRequired[Optional[bool]]
+        statement_descriptor: NotRequired[Optional[str]]
+        tax_code: NotRequired[Optional[Union[Literal[""], str]]]
+        unit_label: NotRequired[Optional[Union[Literal[""], str]]]
+        url: NotRequired[Optional[Union[Literal[""], str]]]
+
+    class ModifyPackageDimensionsParams(TypedDict):
+        height: float
+        length: float
+        weight: float
+        width: float
+
+    class ModifyFeatureParams(TypedDict):
+        name: str
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class SearchParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        page: NotRequired[Optional[str]]
+        query: str
+
     active: bool
     created: int
     default_price: Optional[ExpandableField["Price"]]
@@ -70,7 +220,7 @@ class Product(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Product.CreateParams"]
     ) -> "Product":
         return cast(
             "Product",
@@ -86,7 +236,9 @@ class Product(
         )
 
     @classmethod
-    def _cls_delete(cls, sid: str, **params: Any) -> "Product":
+    def _cls_delete(
+        cls, sid: str, **params: Unpack["Product.DeleteParams"]
+    ) -> "Product":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Product",
@@ -94,7 +246,7 @@ class Product(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Any) -> "Product":
+    def delete(self, **params: Unpack["Product.DeleteParams"]) -> "Product":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -107,7 +259,7 @@ class Product(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Product.ListParams"]
     ) -> ListObject["Product"]:
         result = cls._static_request(
             "get",
@@ -127,7 +279,7 @@ class Product(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Product":
+    def modify(cls, id, **params: Unpack["Product.ModifyParams"]) -> "Product":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Product",
@@ -136,14 +288,16 @@ class Product(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Product.RetrieveParams"]
     ) -> "Product":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
     @classmethod
-    def search(cls, *args, **kwargs) -> SearchResultObject["Product"]:
+    def search(
+        cls, *args, **kwargs: Unpack["Product.SearchParams"]
+    ) -> SearchResultObject["Product"]:
         return cls._search(search_url="/v1/products/search", *args, **kwargs)
 
     @classmethod

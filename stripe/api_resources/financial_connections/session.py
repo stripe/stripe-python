@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, List, Optional, cast
-from typing_extensions import Literal
+from typing import List, Optional, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -18,6 +21,28 @@ class Session(CreateableAPIResource["Session"]):
     """
 
     OBJECT_NAME = "financial_connections.session"
+
+    class CreateParams(RequestOptions):
+        account_holder: "Session.CreateAccountHolderParams"
+        expand: NotRequired[Optional[List[str]]]
+        filters: NotRequired[Optional["Session.CreateFiltersParams"]]
+        permissions: List[
+            Literal["balances", "ownership", "payment_method", "transactions"]
+        ]
+        prefetch: NotRequired[Optional[List[Literal["balances", "ownership"]]]]
+        return_url: NotRequired[Optional[str]]
+
+    class CreateFiltersParams(TypedDict):
+        countries: List[str]
+
+    class CreateAccountHolderParams(TypedDict):
+        account: NotRequired[Optional[str]]
+        customer: NotRequired[Optional[str]]
+        type: Literal["account", "customer"]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     account_holder: Optional[StripeObject]
     accounts: ListObject["Account"]
     client_secret: str
@@ -38,7 +63,7 @@ class Session(CreateableAPIResource["Session"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Session.CreateParams"]
     ) -> "Session":
         return cast(
             "Session",
@@ -55,8 +80,8 @@ class Session(CreateableAPIResource["Session"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Session.RetrieveParams"]
     ) -> "Session":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

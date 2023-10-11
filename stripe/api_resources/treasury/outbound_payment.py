@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
@@ -8,9 +10,10 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal, Type
+from typing import Dict, List, Optional, Union, cast
+from typing_extensions import Literal, NotRequired, Type, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -29,6 +32,148 @@ class OutboundPayment(
     """
 
     OBJECT_NAME = "treasury.outbound_payment"
+
+    class CancelParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class CreateParams(RequestOptions):
+        amount: int
+        currency: str
+        customer: NotRequired[Optional[str]]
+        description: NotRequired[Optional[str]]
+        destination_payment_method: NotRequired[Optional[str]]
+        destination_payment_method_data: NotRequired[
+            Optional[
+                "OutboundPayment.CreateDestinationPaymentMethodDataParams"
+            ]
+        ]
+        destination_payment_method_options: NotRequired[
+            Optional[
+                "OutboundPayment.CreateDestinationPaymentMethodOptionsParams"
+            ]
+        ]
+        end_user_details: NotRequired[
+            Optional["OutboundPayment.CreateEndUserDetailsParams"]
+        ]
+        expand: NotRequired[Optional[List[str]]]
+        financial_account: str
+        metadata: NotRequired[Optional[Dict[str, str]]]
+        statement_descriptor: NotRequired[Optional[str]]
+
+    class CreateEndUserDetailsParams(TypedDict):
+        ip_address: NotRequired[Optional[str]]
+        present: bool
+
+    class CreateDestinationPaymentMethodOptionsParams(TypedDict):
+        us_bank_account: NotRequired[
+            Optional[
+                Union[
+                    Literal[""],
+                    "OutboundPayment.CreateDestinationPaymentMethodOptionsUsBankAccountParams",
+                ]
+            ]
+        ]
+
+    class CreateDestinationPaymentMethodOptionsUsBankAccountParams(TypedDict):
+        network: NotRequired[Optional[Literal["ach", "us_domestic_wire"]]]
+
+    class CreateDestinationPaymentMethodDataParams(TypedDict):
+        billing_details: NotRequired[
+            Optional[
+                "OutboundPayment.CreateDestinationPaymentMethodDataBillingDetailsParams"
+            ]
+        ]
+        financial_account: NotRequired[Optional[str]]
+        metadata: NotRequired[Optional[Dict[str, str]]]
+        type: Literal["financial_account", "us_bank_account"]
+        us_bank_account: NotRequired[
+            Optional[
+                "OutboundPayment.CreateDestinationPaymentMethodDataUsBankAccountParams"
+            ]
+        ]
+
+    class CreateDestinationPaymentMethodDataUsBankAccountParams(TypedDict):
+        account_holder_type: NotRequired[
+            Optional[Literal["company", "individual"]]
+        ]
+        account_number: NotRequired[Optional[str]]
+        account_type: NotRequired[Optional[Literal["checking", "savings"]]]
+        financial_connections_account: NotRequired[Optional[str]]
+        routing_number: NotRequired[Optional[str]]
+
+    class CreateDestinationPaymentMethodDataBillingDetailsParams(TypedDict):
+        address: NotRequired[
+            Optional[
+                Union[
+                    Literal[""],
+                    "OutboundPayment.CreateDestinationPaymentMethodDataBillingDetailsAddressParams",
+                ]
+            ]
+        ]
+        email: NotRequired[Optional[Union[Literal[""], str]]]
+        name: NotRequired[Optional[Union[Literal[""], str]]]
+        phone: NotRequired[Optional[Union[Literal[""], str]]]
+
+    class CreateDestinationPaymentMethodDataBillingDetailsAddressParams(
+        TypedDict,
+    ):
+        city: NotRequired[Optional[str]]
+        country: NotRequired[Optional[str]]
+        line1: NotRequired[Optional[str]]
+        line2: NotRequired[Optional[str]]
+        postal_code: NotRequired[Optional[str]]
+        state: NotRequired[Optional[str]]
+
+    class ListParams(RequestOptions):
+        customer: NotRequired[Optional[str]]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        financial_account: str
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+        status: NotRequired[
+            Optional[
+                Literal[
+                    "canceled", "failed", "posted", "processing", "returned"
+                ]
+            ]
+        ]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class FailParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class PostParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class ReturnOutboundPaymentParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+        returned_details: NotRequired[
+            Optional[
+                "OutboundPayment.ReturnOutboundPaymentReturnedDetailsParams"
+            ]
+        ]
+
+    class ReturnOutboundPaymentReturnedDetailsParams(TypedDict):
+        code: NotRequired[
+            Optional[
+                Literal[
+                    "account_closed",
+                    "account_frozen",
+                    "bank_account_restricted",
+                    "bank_ownership_changed",
+                    "declined",
+                    "incorrect_account_holder_name",
+                    "invalid_account_number",
+                    "invalid_currency",
+                    "no_account",
+                    "other",
+                ]
+            ]
+        ]
+
     amount: int
     cancelable: bool
     created: int
@@ -58,7 +203,7 @@ class OutboundPayment(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["OutboundPayment.CancelParams"]
     ):
         return cls._static_request(
             "post",
@@ -72,7 +217,11 @@ class OutboundPayment(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["OutboundPayment.CancelParams"]
+    ):
         return self._request(
             "post",
             "/v1/treasury/outbound_payments/{id}/cancel".format(
@@ -89,7 +238,7 @@ class OutboundPayment(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["OutboundPayment.CreateParams"]
     ) -> "OutboundPayment":
         return cast(
             "OutboundPayment",
@@ -110,7 +259,7 @@ class OutboundPayment(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["OutboundPayment.ListParams"]
     ) -> ListObject["OutboundPayment"]:
         result = cls._static_request(
             "get",
@@ -131,9 +280,9 @@ class OutboundPayment(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["OutboundPayment.RetrieveParams"]
     ) -> "OutboundPayment":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -147,7 +296,7 @@ class OutboundPayment(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Any
+            **params: Unpack["OutboundPayment.FailParams"]
         ):
             return cls._static_request(
                 "post",
@@ -161,7 +310,11 @@ class OutboundPayment(
             )
 
         @util.class_method_variant("_cls_fail")
-        def fail(self, idempotency_key: Optional[str] = None, **params: Any):
+        def fail(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["OutboundPayment.FailParams"]
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
@@ -178,7 +331,7 @@ class OutboundPayment(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Any
+            **params: Unpack["OutboundPayment.PostParams"]
         ):
             return cls._static_request(
                 "post",
@@ -192,7 +345,11 @@ class OutboundPayment(
             )
 
         @util.class_method_variant("_cls_post")
-        def post(self, idempotency_key: Optional[str] = None, **params: Any):
+        def post(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["OutboundPayment.PostParams"]
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
@@ -209,7 +366,7 @@ class OutboundPayment(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Any
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
         ):
             return cls._static_request(
                 "post",
@@ -224,7 +381,9 @@ class OutboundPayment(
 
         @util.class_method_variant("_cls_return_outbound_payment")
         def return_outbound_payment(
-            self, idempotency_key: Optional[str] = None, **params: Any
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
         ):
             return self.resource._request(
                 "post",

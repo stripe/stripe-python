@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -8,8 +10,9 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import Dict, List, Optional, Union, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -33,6 +36,51 @@ class Topup(
     """
 
     OBJECT_NAME = "topup"
+
+    class CancelParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class CreateParams(RequestOptions):
+        amount: int
+        currency: str
+        description: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        source: NotRequired[Optional[str]]
+        statement_descriptor: NotRequired[Optional[str]]
+        transfer_group: NotRequired[Optional[str]]
+
+    class ListParams(RequestOptions):
+        amount: NotRequired[Optional[Union["Topup.ListAmountParams", int]]]
+        created: NotRequired[Optional[Union["Topup.ListCreatedParams", int]]]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+        status: NotRequired[
+            Optional[Literal["canceled", "failed", "pending", "succeeded"]]
+        ]
+
+    class ListCreatedParams(TypedDict):
+        gt: NotRequired[Optional[int]]
+        gte: NotRequired[Optional[int]]
+        lt: NotRequired[Optional[int]]
+        lte: NotRequired[Optional[int]]
+
+    class ListAmountParams(TypedDict):
+        gt: NotRequired[Optional[int]]
+        gte: NotRequired[Optional[int]]
+        lt: NotRequired[Optional[int]]
+        lte: NotRequired[Optional[int]]
+
+    class ModifyParams(RequestOptions):
+        description: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     created: int
@@ -57,7 +105,7 @@ class Topup(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Topup.CancelParams"]
     ):
         return cls._static_request(
             "post",
@@ -69,7 +117,11 @@ class Topup(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Topup.CancelParams"]
+    ):
         return self._request(
             "post",
             "/v1/topups/{topup}/cancel".format(
@@ -86,7 +138,7 @@ class Topup(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Topup.CreateParams"]
     ) -> "Topup":
         return cast(
             "Topup",
@@ -107,7 +159,7 @@ class Topup(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Topup.ListParams"]
     ) -> ListObject["Topup"]:
         result = cls._static_request(
             "get",
@@ -127,7 +179,7 @@ class Topup(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Topup":
+    def modify(cls, id, **params: Unpack["Topup.ModifyParams"]) -> "Topup":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Topup",
@@ -136,8 +188,8 @@ class Topup(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Topup.RetrieveParams"]
     ) -> "Topup":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

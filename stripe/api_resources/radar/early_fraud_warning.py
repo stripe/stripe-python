@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
-from typing import Any, Optional
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import List, Optional
+from typing_extensions import Literal, NotRequired, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -22,6 +25,18 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
     """
 
     OBJECT_NAME = "radar.early_fraud_warning"
+
+    class ListParams(RequestOptions):
+        charge: NotRequired[Optional[str]]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        payment_intent: NotRequired[Optional[str]]
+        starting_after: NotRequired[Optional[str]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     actionable: bool
     charge: ExpandableField["Charge"]
     created: int
@@ -37,7 +52,7 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["EarlyFraudWarning.ListParams"]
     ) -> ListObject["EarlyFraudWarning"]:
         result = cls._static_request(
             "get",
@@ -58,8 +73,8 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["EarlyFraudWarning.RetrieveParams"]
     ) -> "EarlyFraudWarning":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

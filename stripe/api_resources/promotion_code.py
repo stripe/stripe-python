@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -7,9 +9,10 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, Union, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -30,6 +33,79 @@ class PromotionCode(
     """
 
     OBJECT_NAME = "promotion_code"
+
+    class CreateParams(RequestOptions):
+        active: NotRequired[Optional[bool]]
+        code: NotRequired[Optional[str]]
+        coupon: str
+        customer: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        expires_at: NotRequired[Optional[int]]
+        max_redemptions: NotRequired[Optional[int]]
+        metadata: NotRequired[Optional[Dict[str, str]]]
+        restrictions: NotRequired[
+            Optional["PromotionCode.CreateRestrictionsParams"]
+        ]
+
+    class CreateRestrictionsParams(TypedDict):
+        currency_options: NotRequired[
+            Optional[
+                Dict[
+                    str,
+                    "PromotionCode.CreateRestrictionsCurrencyOptionsParams",
+                ]
+            ]
+        ]
+        first_time_transaction: NotRequired[Optional[bool]]
+        minimum_amount: NotRequired[Optional[int]]
+        minimum_amount_currency: NotRequired[Optional[str]]
+
+    class CreateRestrictionsCurrencyOptionsParams(TypedDict):
+        minimum_amount: NotRequired[Optional[int]]
+
+    class ListParams(RequestOptions):
+        active: NotRequired[Optional[bool]]
+        code: NotRequired[Optional[str]]
+        coupon: NotRequired[Optional[str]]
+        created: NotRequired[
+            Optional[Union["PromotionCode.ListCreatedParams", int]]
+        ]
+        customer: NotRequired[Optional[str]]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+
+    class ListCreatedParams(TypedDict):
+        gt: NotRequired[Optional[int]]
+        gte: NotRequired[Optional[int]]
+        lt: NotRequired[Optional[int]]
+        lte: NotRequired[Optional[int]]
+
+    class ModifyParams(RequestOptions):
+        active: NotRequired[Optional[bool]]
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        restrictions: NotRequired[
+            Optional["PromotionCode.ModifyRestrictionsParams"]
+        ]
+
+    class ModifyRestrictionsParams(TypedDict):
+        currency_options: NotRequired[
+            Optional[
+                Dict[
+                    str,
+                    "PromotionCode.ModifyRestrictionsCurrencyOptionsParams",
+                ]
+            ]
+        ]
+
+    class ModifyRestrictionsCurrencyOptionsParams(TypedDict):
+        minimum_amount: NotRequired[Optional[int]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     active: bool
     code: str
     coupon: "Coupon"
@@ -51,7 +127,7 @@ class PromotionCode(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["PromotionCode.CreateParams"]
     ) -> "PromotionCode":
         return cast(
             "PromotionCode",
@@ -72,7 +148,7 @@ class PromotionCode(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["PromotionCode.ListParams"]
     ) -> ListObject["PromotionCode"]:
         result = cls._static_request(
             "get",
@@ -92,7 +168,9 @@ class PromotionCode(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "PromotionCode":
+    def modify(
+        cls, id, **params: Unpack["PromotionCode.ModifyParams"]
+    ) -> "PromotionCode":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PromotionCode",
@@ -101,8 +179,8 @@ class PromotionCode(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["PromotionCode.RetrieveParams"]
     ) -> "PromotionCode":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

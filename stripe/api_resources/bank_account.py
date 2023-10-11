@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe import error, util
 from stripe.api_resources.abstract import (
     DeletableAPIResource,
@@ -9,9 +11,10 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal
+from typing_extensions import Literal, Unpack
 from urllib.parse import quote_plus
 
 
@@ -31,6 +34,10 @@ class BankAccount(
     """
 
     OBJECT_NAME = "bank_account"
+
+    class DeleteParams(RequestOptions):
+        pass
+
     account: Optional[ExpandableField["Account"]]
     account_holder_name: Optional[str]
     account_holder_type: Optional[str]
@@ -53,7 +60,9 @@ class BankAccount(
     deleted: Optional[Literal[True]]
 
     @classmethod
-    def _cls_delete(cls, sid: str, **params: Any) -> Any:
+    def _cls_delete(
+        cls, sid: str, **params: Unpack["BankAccount.DeleteParams"]
+    ) -> Any:
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             Any,
@@ -61,7 +70,7 @@ class BankAccount(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Any) -> Any:
+    def delete(self, **params: Unpack["BankAccount.DeleteParams"]) -> Any:
         return self._request_and_refresh(
             "delete",
             self.instance_url(),

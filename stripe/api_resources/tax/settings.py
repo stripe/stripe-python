@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe.api_resources.abstract import (
     SingletonAPIResource,
     UpdateableAPIResource,
 )
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional, cast
-from typing_extensions import Literal
+from typing import List, Optional, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 
@@ -21,6 +24,32 @@ class Settings(
     """
 
     OBJECT_NAME = "tax.settings"
+
+    class ModifyParams(RequestOptions):
+        defaults: NotRequired[Optional["Settings.ModifyDefaultsParams"]]
+        expand: NotRequired[Optional[List[str]]]
+        head_office: NotRequired[Optional["Settings.ModifyHeadOfficeParams"]]
+
+    class ModifyHeadOfficeParams(TypedDict):
+        address: "Settings.ModifyHeadOfficeAddressParams"
+
+    class ModifyHeadOfficeAddressParams(TypedDict):
+        city: NotRequired[Optional[str]]
+        country: NotRequired[Optional[str]]
+        line1: NotRequired[Optional[str]]
+        line2: NotRequired[Optional[str]]
+        postal_code: NotRequired[Optional[str]]
+        state: NotRequired[Optional[str]]
+
+    class ModifyDefaultsParams(TypedDict):
+        tax_behavior: NotRequired[
+            Optional[Literal["exclusive", "inclusive", "inferred_by_currency"]]
+        ]
+        tax_code: NotRequired[Optional[str]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     defaults: StripeObject
     head_office: Optional[StripeObject]
     livemode: bool
@@ -29,7 +58,9 @@ class Settings(
     status_details: StripeObject
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Settings":
+    def modify(
+        cls, id, **params: Unpack["Settings.ModifyParams"]
+    ) -> "Settings":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Settings",
@@ -37,7 +68,9 @@ class Settings(
         )
 
     @classmethod
-    def retrieve(cls, **params: Any) -> "Settings":
+    def retrieve(
+        cls, **params: Unpack["Settings.RetrieveParams"]
+    ) -> "Settings":
         instance = cls(None, **params)
         instance.refresh()
         return instance

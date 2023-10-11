@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
     UpdateableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import Dict, List, Optional, Union, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 
@@ -23,6 +26,85 @@ class TaxRate(
     """
 
     OBJECT_NAME = "tax_rate"
+
+    class CreateParams(RequestOptions):
+        active: NotRequired[Optional[bool]]
+        country: NotRequired[Optional[str]]
+        description: NotRequired[Optional[str]]
+        display_name: str
+        expand: NotRequired[Optional[List[str]]]
+        inclusive: bool
+        jurisdiction: NotRequired[Optional[str]]
+        metadata: NotRequired[Optional[Dict[str, str]]]
+        percentage: float
+        state: NotRequired[Optional[str]]
+        tax_type: NotRequired[
+            Optional[
+                Literal[
+                    "amusement_tax",
+                    "communications_tax",
+                    "gst",
+                    "hst",
+                    "igst",
+                    "jct",
+                    "lease_tax",
+                    "pst",
+                    "qst",
+                    "rst",
+                    "sales_tax",
+                    "service_tax",
+                    "vat",
+                ]
+            ]
+        ]
+
+    class ListParams(RequestOptions):
+        active: NotRequired[Optional[bool]]
+        created: NotRequired[Optional[Union["TaxRate.ListCreatedParams", int]]]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        inclusive: NotRequired[Optional[bool]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+
+    class ListCreatedParams(TypedDict):
+        gt: NotRequired[Optional[int]]
+        gte: NotRequired[Optional[int]]
+        lt: NotRequired[Optional[int]]
+        lte: NotRequired[Optional[int]]
+
+    class ModifyParams(RequestOptions):
+        active: NotRequired[Optional[bool]]
+        country: NotRequired[Optional[str]]
+        description: NotRequired[Optional[str]]
+        display_name: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        jurisdiction: NotRequired[Optional[str]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        state: NotRequired[Optional[str]]
+        tax_type: NotRequired[
+            Optional[
+                Literal[
+                    "amusement_tax",
+                    "communications_tax",
+                    "gst",
+                    "hst",
+                    "igst",
+                    "jct",
+                    "lease_tax",
+                    "pst",
+                    "qst",
+                    "rst",
+                    "sales_tax",
+                    "service_tax",
+                    "vat",
+                ]
+            ]
+        ]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     active: bool
     country: Optional[str]
     created: int
@@ -62,7 +144,7 @@ class TaxRate(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["TaxRate.CreateParams"]
     ) -> "TaxRate":
         return cast(
             "TaxRate",
@@ -83,7 +165,7 @@ class TaxRate(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["TaxRate.ListParams"]
     ) -> ListObject["TaxRate"]:
         result = cls._static_request(
             "get",
@@ -103,7 +185,7 @@ class TaxRate(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "TaxRate":
+    def modify(cls, id, **params: Unpack["TaxRate.ModifyParams"]) -> "TaxRate":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "TaxRate",
@@ -112,8 +194,8 @@ class TaxRate(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["TaxRate.RetrieveParams"]
     ) -> "TaxRate":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

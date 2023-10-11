@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -8,9 +10,10 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, Union, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 
@@ -27,6 +30,62 @@ class Coupon(
     """
 
     OBJECT_NAME = "coupon"
+
+    class CreateParams(RequestOptions):
+        amount_off: NotRequired[Optional[int]]
+        applies_to: NotRequired[Optional["Coupon.CreateAppliesToParams"]]
+        currency: NotRequired[Optional[str]]
+        currency_options: NotRequired[
+            Optional[Dict[str, "Coupon.CreateCurrencyOptionsParams"]]
+        ]
+        duration: NotRequired[
+            Optional[Literal["forever", "once", "repeating"]]
+        ]
+        duration_in_months: NotRequired[Optional[int]]
+        expand: NotRequired[Optional[List[str]]]
+        id: NotRequired[Optional[str]]
+        max_redemptions: NotRequired[Optional[int]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        name: NotRequired[Optional[str]]
+        percent_off: NotRequired[Optional[float]]
+        redeem_by: NotRequired[Optional[int]]
+
+    class CreateCurrencyOptionsParams(TypedDict):
+        amount_off: int
+
+    class CreateAppliesToParams(TypedDict):
+        products: NotRequired[Optional[List[str]]]
+
+    class DeleteParams(RequestOptions):
+        pass
+
+    class ListParams(RequestOptions):
+        created: NotRequired[Optional[Union["Coupon.ListCreatedParams", int]]]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        starting_after: NotRequired[Optional[str]]
+
+    class ListCreatedParams(TypedDict):
+        gt: NotRequired[Optional[int]]
+        gte: NotRequired[Optional[int]]
+        lt: NotRequired[Optional[int]]
+        lte: NotRequired[Optional[int]]
+
+    class ModifyParams(RequestOptions):
+        currency_options: NotRequired[
+            Optional[Dict[str, "Coupon.ModifyCurrencyOptionsParams"]]
+        ]
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        name: NotRequired[Optional[str]]
+
+    class ModifyCurrencyOptionsParams(TypedDict):
+        amount_off: int
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     amount_off: Optional[int]
     applies_to: Optional[StripeObject]
     created: int
@@ -53,7 +112,7 @@ class Coupon(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Coupon.CreateParams"]
     ) -> "Coupon":
         return cast(
             "Coupon",
@@ -69,7 +128,9 @@ class Coupon(
         )
 
     @classmethod
-    def _cls_delete(cls, sid: str, **params: Any) -> "Coupon":
+    def _cls_delete(
+        cls, sid: str, **params: Unpack["Coupon.DeleteParams"]
+    ) -> "Coupon":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Coupon",
@@ -77,7 +138,7 @@ class Coupon(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Any) -> "Coupon":
+    def delete(self, **params: Unpack["Coupon.DeleteParams"]) -> "Coupon":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -90,7 +151,7 @@ class Coupon(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Coupon.ListParams"]
     ) -> ListObject["Coupon"]:
         result = cls._static_request(
             "get",
@@ -110,7 +171,7 @@ class Coupon(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Coupon":
+    def modify(cls, id, **params: Unpack["Coupon.ModifyParams"]) -> "Coupon":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Coupon",
@@ -119,8 +180,8 @@ class Coupon(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Coupon.RetrieveParams"]
     ) -> "Coupon":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

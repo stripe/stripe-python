@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, cast
+from typing_extensions import Literal, NotRequired, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -25,6 +28,26 @@ class CreditReversal(
     """
 
     OBJECT_NAME = "treasury.credit_reversal"
+
+    class CreateParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Dict[str, str]]]
+        received_credit: str
+
+    class ListParams(RequestOptions):
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        financial_account: str
+        limit: NotRequired[Optional[int]]
+        received_credit: NotRequired[Optional[str]]
+        starting_after: NotRequired[Optional[str]]
+        status: NotRequired[
+            Optional[Literal["canceled", "posted", "processing"]]
+        ]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     amount: int
     created: int
     currency: str
@@ -47,7 +70,7 @@ class CreditReversal(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["CreditReversal.CreateParams"]
     ) -> "CreditReversal":
         return cast(
             "CreditReversal",
@@ -68,7 +91,7 @@ class CreditReversal(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["CreditReversal.ListParams"]
     ) -> ListObject["CreditReversal"]:
         result = cls._static_request(
             "get",
@@ -89,8 +112,8 @@ class CreditReversal(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["CreditReversal.RetrieveParams"]
     ) -> "CreditReversal":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

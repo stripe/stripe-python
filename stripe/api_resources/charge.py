@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -10,9 +12,10 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from typing import Any, Dict, List, Optional, Union, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -44,6 +47,123 @@ class Charge(
     """
 
     OBJECT_NAME = "charge"
+
+    class CaptureParams(RequestOptions):
+        amount: NotRequired[Optional[int]]
+        application_fee: NotRequired[Optional[int]]
+        application_fee_amount: NotRequired[Optional[int]]
+        expand: NotRequired[Optional[List[str]]]
+        receipt_email: NotRequired[Optional[str]]
+        statement_descriptor: NotRequired[Optional[str]]
+        statement_descriptor_suffix: NotRequired[Optional[str]]
+        transfer_data: NotRequired[
+            Optional["Charge.CaptureTransferDataParams"]
+        ]
+        transfer_group: NotRequired[Optional[str]]
+
+    class CaptureTransferDataParams(TypedDict):
+        amount: NotRequired[Optional[int]]
+
+    class CreateParams(RequestOptions):
+        amount: NotRequired[Optional[int]]
+        application_fee: NotRequired[Optional[int]]
+        application_fee_amount: NotRequired[Optional[int]]
+        capture: NotRequired[Optional[bool]]
+        currency: NotRequired[Optional[str]]
+        customer: NotRequired[Optional[str]]
+        description: NotRequired[Optional[str]]
+        destination: NotRequired[Optional["Charge.CreateDestinationParams"]]
+        expand: NotRequired[Optional[List[str]]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        on_behalf_of: NotRequired[Optional[str]]
+        radar_options: NotRequired[Optional["Charge.CreateRadarOptionsParams"]]
+        receipt_email: NotRequired[Optional[str]]
+        shipping: NotRequired[Optional["Charge.CreateShippingParams"]]
+        source: NotRequired[Optional[str]]
+        statement_descriptor: NotRequired[Optional[str]]
+        statement_descriptor_suffix: NotRequired[Optional[str]]
+        transfer_data: NotRequired[Optional["Charge.CreateTransferDataParams"]]
+        transfer_group: NotRequired[Optional[str]]
+
+    class CreateTransferDataParams(TypedDict):
+        amount: NotRequired[Optional[int]]
+        destination: str
+
+    class CreateShippingParams(TypedDict):
+        address: "Charge.CreateShippingAddressParams"
+        carrier: NotRequired[Optional[str]]
+        name: str
+        phone: NotRequired[Optional[str]]
+        tracking_number: NotRequired[Optional[str]]
+
+    class CreateShippingAddressParams(TypedDict):
+        city: NotRequired[Optional[str]]
+        country: NotRequired[Optional[str]]
+        line1: NotRequired[Optional[str]]
+        line2: NotRequired[Optional[str]]
+        postal_code: NotRequired[Optional[str]]
+        state: NotRequired[Optional[str]]
+
+    class CreateRadarOptionsParams(TypedDict):
+        session: NotRequired[Optional[str]]
+
+    class CreateDestinationParams(TypedDict):
+        account: str
+        amount: NotRequired[Optional[int]]
+
+    class ListParams(RequestOptions):
+        created: NotRequired[Optional[Union["Charge.ListCreatedParams", int]]]
+        customer: NotRequired[Optional[str]]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        payment_intent: NotRequired[Optional[str]]
+        starting_after: NotRequired[Optional[str]]
+        transfer_group: NotRequired[Optional[str]]
+
+    class ListCreatedParams(TypedDict):
+        gt: NotRequired[Optional[int]]
+        gte: NotRequired[Optional[int]]
+        lt: NotRequired[Optional[int]]
+        lte: NotRequired[Optional[int]]
+
+    class ModifyParams(RequestOptions):
+        customer: NotRequired[Optional[str]]
+        description: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        fraud_details: NotRequired[Optional["Charge.ModifyFraudDetailsParams"]]
+        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        receipt_email: NotRequired[Optional[str]]
+        shipping: NotRequired[Optional["Charge.ModifyShippingParams"]]
+        transfer_group: NotRequired[Optional[str]]
+
+    class ModifyShippingParams(TypedDict):
+        address: "Charge.ModifyShippingAddressParams"
+        carrier: NotRequired[Optional[str]]
+        name: str
+        phone: NotRequired[Optional[str]]
+        tracking_number: NotRequired[Optional[str]]
+
+    class ModifyShippingAddressParams(TypedDict):
+        city: NotRequired[Optional[str]]
+        country: NotRequired[Optional[str]]
+        line1: NotRequired[Optional[str]]
+        line2: NotRequired[Optional[str]]
+        postal_code: NotRequired[Optional[str]]
+        state: NotRequired[Optional[str]]
+
+    class ModifyFraudDetailsParams(TypedDict):
+        user_report: Union[Literal[""], Literal["fraudulent", "safe"]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
+    class SearchParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+        limit: NotRequired[Optional[int]]
+        page: NotRequired[Optional[str]]
+        query: str
+
     amount: int
     amount_captured: int
     amount_refunded: int
@@ -102,7 +222,7 @@ class Charge(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Charge.CaptureParams"]
     ):
         return cls._static_request(
             "post",
@@ -116,7 +236,11 @@ class Charge(
         )
 
     @util.class_method_variant("_cls_capture")
-    def capture(self, idempotency_key: Optional[str] = None, **params: Any):
+    def capture(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Charge.CaptureParams"]
+    ):
         return self._request(
             "post",
             "/v1/charges/{charge}/capture".format(
@@ -133,7 +257,7 @@ class Charge(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Charge.CreateParams"]
     ) -> "Charge":
         return cast(
             "Charge",
@@ -154,7 +278,7 @@ class Charge(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Charge.ListParams"]
     ) -> ListObject["Charge"]:
         result = cls._static_request(
             "get",
@@ -174,7 +298,7 @@ class Charge(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Charge":
+    def modify(cls, id, **params: Unpack["Charge.ModifyParams"]) -> "Charge":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Charge",
@@ -183,14 +307,16 @@ class Charge(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Charge.RetrieveParams"]
     ) -> "Charge":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
     @classmethod
-    def search(cls, *args, **kwargs) -> SearchResultObject["Charge"]:
+    def search(
+        cls, *args, **kwargs: Unpack["Charge.SearchParams"]
+    ) -> SearchResultObject["Charge"]:
         return cls._search(search_url="/v1/charges/search", *args, **kwargs)
 
     @classmethod

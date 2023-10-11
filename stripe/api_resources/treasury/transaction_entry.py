@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from __future__ import absolute_import, division, print_function
+
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional
-from typing_extensions import Literal
+from typing import List, Optional, Union
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -19,6 +22,37 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
     """
 
     OBJECT_NAME = "treasury.transaction_entry"
+
+    class ListParams(RequestOptions):
+        created: NotRequired[
+            Optional[Union["TransactionEntry.ListCreatedParams", int]]
+        ]
+        effective_at: NotRequired[
+            Optional[Union["TransactionEntry.ListEffectiveAtParams", int]]
+        ]
+        ending_before: NotRequired[Optional[str]]
+        expand: NotRequired[Optional[List[str]]]
+        financial_account: str
+        limit: NotRequired[Optional[int]]
+        order_by: NotRequired[Optional[Literal["created", "effective_at"]]]
+        starting_after: NotRequired[Optional[str]]
+        transaction: NotRequired[Optional[str]]
+
+    class ListEffectiveAtParams(TypedDict):
+        gt: NotRequired[Optional[int]]
+        gte: NotRequired[Optional[int]]
+        lt: NotRequired[Optional[int]]
+        lte: NotRequired[Optional[int]]
+
+    class ListCreatedParams(TypedDict):
+        gt: NotRequired[Optional[int]]
+        gte: NotRequired[Optional[int]]
+        lt: NotRequired[Optional[int]]
+        lte: NotRequired[Optional[int]]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired[Optional[List[str]]]
+
     balance_impact: StripeObject
     created: int
     currency: str
@@ -70,7 +104,7 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["TransactionEntry.ListParams"]
     ) -> ListObject["TransactionEntry"]:
         result = cls._static_request(
             "get",
@@ -91,9 +125,9 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["TransactionEntry.RetrieveParams"]
     ) -> "TransactionEntry":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
