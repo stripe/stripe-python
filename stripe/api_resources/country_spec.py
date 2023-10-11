@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
@@ -20,6 +18,20 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
     """
 
     OBJECT_NAME = "country_spec"
+
+    class VerificationFields(StripeObject):
+        class Company(StripeObject):
+            additional: List[str]
+            minimum: List[str]
+
+        class Individual(StripeObject):
+            additional: List[str]
+            minimum: List[str]
+
+        company: Company
+        individual: Individual
+        _inner_class_types = {"company": Company, "individual": Individual}
+
     default_currency: str
     id: str
     object: Literal["country_spec"]
@@ -27,7 +39,7 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
     supported_payment_currencies: List[str]
     supported_payment_methods: List[str]
     supported_transfer_countries: List[str]
-    verification_fields: StripeObject
+    verification_fields: VerificationFields
 
     @classmethod
     def list(
@@ -61,3 +73,5 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"verification_fields": VerificationFields}

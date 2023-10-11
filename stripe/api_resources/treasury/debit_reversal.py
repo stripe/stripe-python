@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -27,20 +25,27 @@ class DebitReversal(
     """
 
     OBJECT_NAME = "treasury.debit_reversal"
+
+    class LinkedFlows(StripeObject):
+        issuing_dispute: Optional[str]
+
+    class StatusTransitions(StripeObject):
+        completed_at: Optional[int]
+
     amount: int
     created: int
     currency: str
     financial_account: Optional[str]
     hosted_regulatory_receipt_url: Optional[str]
     id: str
-    linked_flows: Optional[StripeObject]
+    linked_flows: Optional[LinkedFlows]
     livemode: bool
     metadata: Dict[str, str]
     network: Literal["ach", "card"]
     object: Literal["treasury.debit_reversal"]
     received_debit: str
     status: Literal["failed", "processing", "succeeded"]
-    status_transitions: StripeObject
+    status_transitions: StatusTransitions
     transaction: Optional[ExpandableField["Transaction"]]
 
     @classmethod
@@ -97,3 +102,8 @@ class DebitReversal(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "linked_flows": LinkedFlows,
+        "status_transitions": StatusTransitions,
+    }

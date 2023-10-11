@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.customer import Customer
 from stripe.stripe_object import StripeObject
 from typing import Dict, Optional
@@ -15,11 +13,16 @@ class CashBalance(StripeObject):
     """
 
     OBJECT_NAME = "cash_balance"
+
+    class Settings(StripeObject):
+        reconciliation_mode: Literal["automatic", "manual"]
+        using_merchant_default: bool
+
     available: Optional[Dict[str, int]]
     customer: str
     livemode: bool
     object: Literal["cash_balance"]
-    settings: StripeObject
+    settings: Settings
 
     def instance_url(self):
         customer = self.customer
@@ -33,3 +36,5 @@ class CashBalance(StripeObject):
             "Can't retrieve a Customer Cash Balance without a Customer ID. "
             "Use Customer.retrieve_cash_balance('cus_123')"
         )
+
+    _inner_class_types = {"settings": Settings}

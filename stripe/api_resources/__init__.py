@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 # flake8: noqa
 
 from . import abstract
@@ -24,6 +22,7 @@ from stripe.api_resources import (
 )
 from stripe.api_resources.account import Account
 from stripe.api_resources.account_link import AccountLink
+from stripe.api_resources.account_notice import AccountNotice
 from stripe.api_resources.account_session import AccountSession
 from stripe.api_resources.apple_pay_domain import ApplePayDomain
 from stripe.api_resources.application import Application

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
@@ -15,9 +13,36 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
     """
 
     OBJECT_NAME = "capital.financing_transaction"
+
+    class Details(StripeObject):
+        class Transaction(StripeObject):
+            charge: Optional[str]
+            treasury_transaction: Optional[str]
+
+        advance_amount: int
+        currency: str
+        fee_amount: int
+        linked_payment: Optional[str]
+        reason: Optional[
+            Literal[
+                "automatic_withholding",
+                "automatic_withholding_refund",
+                "collection",
+                "collection_failure",
+                "financing_cancellation",
+                "refill",
+                "requested_by_user",
+                "user_initiated",
+            ]
+        ]
+        reversed_transaction: Optional[str]
+        total_amount: int
+        transaction: Optional[Transaction]
+        _inner_class_types = {"transaction": Transaction}
+
     account: str
     created_at: int
-    details: StripeObject
+    details: Details
     financing_offer: Optional[str]
     id: str
     legacy_balance_transaction_source: Optional[str]
@@ -58,3 +83,5 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"details": Details}

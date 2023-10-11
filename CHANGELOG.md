@@ -8,12 +8,15 @@
 * [#1059](https://github.com/stripe/stripe-python/pull/1059) Update generated code for beta
   * Rename resources `Issuing.CardDesign` and `Issuing.CardBundle` to `Issuing.PersonalizationDesign` and `Issuing.PhysicalBundle`
 
+## 6.7.0 - 2023-10-05
+* [#1065](https://github.com/stripe/stripe-python/pull/1065) Update generated code
+  * Add support for new resource `Issuing.Token`
+  * Add support for `list`, `modify`, and `retrieve` methods on resource `Token`
 
 ## 6.7.0b2 - 2023-09-28
 * [#1059](https://github.com/stripe/stripe-python/pull/1059) Update generated code for beta
   * Rename resources `Issuing.CardDesign` and `Issuing.CardBundle` to `Issuing.PersonalizationDesign` and `Issuing.PhysicalBundle`
 * [#997](https://github.com/stripe/stripe-python/pull/997) Remove developer_message support
-
 
 ## 6.7.0b1 - 2023-09-21
 * [#1053](https://github.com/stripe/stripe-python/pull/1053) Update generated code for beta

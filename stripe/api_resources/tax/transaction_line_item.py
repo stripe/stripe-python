@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.stripe_object import StripeObject
 from typing import Dict, Optional
 from typing_extensions import Literal
@@ -9,6 +7,10 @@ from typing_extensions import Literal
 
 class TransactionLineItem(StripeObject):
     OBJECT_NAME = "tax.transaction_line_item"
+
+    class Reversal(StripeObject):
+        original_line_item: str
+
     amount: int
     amount_tax: int
     id: str
@@ -18,7 +20,9 @@ class TransactionLineItem(StripeObject):
     product: Optional[str]
     quantity: int
     reference: str
-    reversal: Optional[StripeObject]
+    reversal: Optional[Reversal]
     tax_behavior: Literal["exclusive", "inclusive"]
     tax_code: str
     type: Literal["reversal", "transaction"]
+
+    _inner_class_types = {"reversal": Reversal}

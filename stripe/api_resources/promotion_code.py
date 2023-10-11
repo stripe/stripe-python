@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -32,6 +30,18 @@ class PromotionCode(
     """
 
     OBJECT_NAME = "promotion_code"
+
+    class Restrictions(StripeObject):
+        class CurrencyOptions(StripeObject):
+            minimum_amount: int
+
+        currency_options: Optional[Dict[str, CurrencyOptions]]
+        first_time_transaction: bool
+        minimum_amount: Optional[int]
+        minimum_amount_currency: Optional[str]
+        _inner_class_types = {"currency_options": CurrencyOptions}
+        _inner_class_dicts = ["currency_options"]
+
     active: bool
     code: str
     coupon: "Coupon"
@@ -43,7 +53,7 @@ class PromotionCode(
     max_redemptions: Optional[int]
     metadata: Optional[Dict[str, str]]
     object: Literal["promotion_code"]
-    restrictions: StripeObject
+    restrictions: Restrictions
     times_redeemed: int
 
     @classmethod
@@ -108,3 +118,5 @@ class PromotionCode(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"restrictions": Restrictions}

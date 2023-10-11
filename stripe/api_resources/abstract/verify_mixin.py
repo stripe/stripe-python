@@ -1,5 +1,3 @@
-from __future__ import absolute_import, division, print_function
-
 from typing import Optional, Any, Dict
 from typing_extensions import Protocol
 

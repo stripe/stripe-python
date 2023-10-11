@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 # flake8: noqa
 
 from stripe.api_resources.issuing.authorization import Authorization
 from stripe.api_resources.issuing.card import Card
 from stripe.api_resources.issuing.cardholder import Cardholder
+from stripe.api_resources.issuing.credit_underwriting_record import (
+    CreditUnderwritingRecord,
+)
 from stripe.api_resources.issuing.dispute import Dispute
 from stripe.api_resources.issuing.personalization_design import (
     PersonalizationDesign,
