@@ -1,4 +1,4 @@
-from typing_extensions import Literal
+from typing_extensions import Literal, Mapping
 
 from stripe import api_requestor, error, util
 from stripe.stripe_object import StripeObject
@@ -89,7 +89,7 @@ class APIResource(StripeObject, Generic[T]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
-        params: Optional[Dict[str, Any]] = None,
+        params: Optional[Mapping[str, Any]] = None,
     ):
         obj = StripeObject._request(
             self,
