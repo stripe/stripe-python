@@ -18,17 +18,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     """
 
     OBJECT_NAME = "account_session"
-
-    class Components(StripeObject):
-        class AccountOnboarding(StripeObject):
-            enabled: bool
-
-        account_onboarding: AccountOnboarding
-        _inner_class_types = {"account_onboarding": AccountOnboarding}
-
     account: str
     client_secret: str
-    components: Components
+    components: StripeObject
     expires_at: int
     livemode: bool
     object: Literal["account_session"]
@@ -54,5 +46,3 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 params,
             ),
         )
-
-    _inner_class_types = {"components": Components}

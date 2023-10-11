@@ -24,20 +24,6 @@ class Review(ListableAPIResource["Review"]):
     """
 
     OBJECT_NAME = "review"
-
-    class IpAddressLocation(StripeObject):
-        city: Optional[str]
-        country: Optional[str]
-        latitude: Optional[float]
-        longitude: Optional[float]
-        region: Optional[str]
-
-    class Session(StripeObject):
-        browser: Optional[str]
-        device: Optional[str]
-        platform: Optional[str]
-        version: Optional[str]
-
     billing_zip: Optional[str]
     charge: Optional[ExpandableField["Charge"]]
     closed_reason: Optional[
@@ -48,14 +34,14 @@ class Review(ListableAPIResource["Review"]):
     created: int
     id: str
     ip_address: Optional[str]
-    ip_address_location: Optional[IpAddressLocation]
+    ip_address_location: Optional[StripeObject]
     livemode: bool
     object: Literal["review"]
     open: bool
     opened_reason: Literal["manual", "rule"]
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
     reason: str
-    session: Optional[Session]
+    session: Optional[StripeObject]
 
     @classmethod
     def _cls_approve(
@@ -120,8 +106,3 @@ class Review(ListableAPIResource["Review"]):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
-
-    _inner_class_types = {
-        "ip_address_location": IpAddressLocation,
-        "session": Session,
-    }

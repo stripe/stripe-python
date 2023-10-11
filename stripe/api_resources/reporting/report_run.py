@@ -6,7 +6,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, List, Optional, cast
+from typing import Any, Optional, cast
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
@@ -31,23 +31,12 @@ class ReportRun(
     """
 
     OBJECT_NAME = "reporting.report_run"
-
-    class Parameters(StripeObject):
-        columns: Optional[List[str]]
-        connected_account: Optional[str]
-        currency: Optional[str]
-        interval_end: Optional[int]
-        interval_start: Optional[int]
-        payout: Optional[str]
-        reporting_category: Optional[str]
-        timezone: Optional[str]
-
     created: int
     error: Optional[str]
     id: str
     livemode: bool
     object: Literal["reporting.report_run"]
-    parameters: Parameters
+    parameters: StripeObject
     report_type: str
     result: Optional["File"]
     status: str
@@ -107,5 +96,3 @@ class ReportRun(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
-
-    _inner_class_types = {"parameters": Parameters}

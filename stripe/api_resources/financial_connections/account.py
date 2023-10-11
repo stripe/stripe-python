@@ -5,14 +5,12 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional
+from typing import Any, List, Optional
 from typing_extensions import Literal
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.account import Account as AccountResource
-    from stripe.api_resources.customer import Customer
     from stripe.api_resources.financial_connections.account_ownership import (
         AccountOwnership,
     )
@@ -24,37 +22,9 @@ class Account(ListableAPIResource["Account"]):
     """
 
     OBJECT_NAME = "financial_connections.account"
-
-    class AccountHolder(StripeObject):
-        account: Optional[ExpandableField["AccountResource"]]
-        customer: Optional[ExpandableField["Customer"]]
-        type: Literal["account", "customer"]
-
-    class Balance(StripeObject):
-        class Cash(StripeObject):
-            available: Optional[Dict[str, int]]
-
-        class Credit(StripeObject):
-            used: Optional[Dict[str, int]]
-
-        as_of: int
-        cash: Optional[Cash]
-        credit: Optional[Credit]
-        current: Dict[str, int]
-        type: Literal["cash", "credit"]
-        _inner_class_types = {"cash": Cash, "credit": Credit}
-
-    class BalanceRefresh(StripeObject):
-        last_attempted_at: int
-        status: Literal["failed", "pending", "succeeded"]
-
-    class OwnershipRefresh(StripeObject):
-        last_attempted_at: int
-        status: Literal["failed", "pending", "succeeded"]
-
-    account_holder: Optional[AccountHolder]
-    balance: Optional[Balance]
-    balance_refresh: Optional[BalanceRefresh]
+    account_holder: Optional[StripeObject]
+    balance: Optional[StripeObject]
+    balance_refresh: Optional[StripeObject]
     category: Literal["cash", "credit", "investment", "other"]
     created: int
     display_name: Optional[str]
@@ -64,7 +34,7 @@ class Account(ListableAPIResource["Account"]):
     livemode: bool
     object: Literal["financial_connections.account"]
     ownership: Optional[ExpandableField["AccountOwnership"]]
-    ownership_refresh: Optional[OwnershipRefresh]
+    ownership_refresh: Optional[StripeObject]
     permissions: Optional[
         List[
             Literal["balances", "ownership", "payment_method", "transactions"]
@@ -210,10 +180,3 @@ class Account(ListableAPIResource["Account"]):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
-
-    _inner_class_types = {
-        "account_holder": AccountHolder,
-        "balance": Balance,
-        "balance_refresh": BalanceRefresh,
-        "ownership_refresh": OwnershipRefresh,
-    }

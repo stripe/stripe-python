@@ -18,12 +18,6 @@ class TaxId(APIResource["TaxId"]):
     """
 
     OBJECT_NAME = "tax_id"
-
-    class Verification(StripeObject):
-        status: Literal["pending", "unavailable", "unverified", "verified"]
-        verified_address: Optional[str]
-        verified_name: Optional[str]
-
     country: Optional[str]
     created: int
     customer: Optional[ExpandableField["Customer"]]
@@ -100,7 +94,7 @@ class TaxId(APIResource["TaxId"]):
         "za_vat",
     ]
     value: str
-    verification: Optional[Verification]
+    verification: Optional[StripeObject]
     deleted: Optional[Literal[True]]
 
     def instance_url(self):
@@ -119,5 +113,3 @@ class TaxId(APIResource["TaxId"]):
         raise NotImplementedError(
             "Can't retrieve a tax id without a customer ID. Use customer.retrieve_tax_id('tax_id')"
         )
-
-    _inner_class_types = {"verification": Verification}

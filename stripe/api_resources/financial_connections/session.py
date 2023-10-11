@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import CreateableAPIResource
-from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
 from typing import Any, List, Optional, cast
@@ -10,11 +9,7 @@ from typing_extensions import Literal
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from stripe.api_resources.account import Account as AccountResource
-    from stripe.api_resources.customer import Customer
-    from stripe.api_resources.financial_connections.account import (
-        Account as FinancialConnectionsAccountResource,
-    )
+    from stripe.api_resources.financial_connections.account import Account
 
 
 class Session(CreateableAPIResource["Session"]):
@@ -23,19 +18,10 @@ class Session(CreateableAPIResource["Session"]):
     """
 
     OBJECT_NAME = "financial_connections.session"
-
-    class AccountHolder(StripeObject):
-        account: Optional[ExpandableField["AccountResource"]]
-        customer: Optional[ExpandableField["Customer"]]
-        type: Literal["account", "customer"]
-
-    class Filters(StripeObject):
-        countries: Optional[List[str]]
-
-    account_holder: Optional[AccountHolder]
-    accounts: ListObject["FinancialConnectionsAccountResource"]
+    account_holder: Optional[StripeObject]
+    accounts: ListObject["Account"]
     client_secret: str
-    filters: Optional[Filters]
+    filters: Optional[StripeObject]
     id: str
     livemode: bool
     object: Literal["financial_connections.session"]
@@ -74,5 +60,3 @@ class Session(CreateableAPIResource["Session"]):
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
-
-    _inner_class_types = {"account_holder": AccountHolder, "filters": Filters}

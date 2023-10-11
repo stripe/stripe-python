@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
+from typing import Any, Dict, Optional, cast
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -41,84 +41,20 @@ class VerificationSession(
     """
 
     OBJECT_NAME = "identity.verification_session"
-
-    class LastError(StripeObject):
-        code: Optional[
-            Literal[
-                "abandoned",
-                "consent_declined",
-                "country_not_supported",
-                "device_not_supported",
-                "document_expired",
-                "document_type_not_supported",
-                "document_unverified_other",
-                "id_number_insufficient_document_data",
-                "id_number_mismatch",
-                "id_number_unverified_other",
-                "selfie_document_missing_photo",
-                "selfie_face_mismatch",
-                "selfie_manipulated",
-                "selfie_unverified_other",
-                "under_supported_age",
-            ]
-        ]
-        reason: Optional[str]
-
-    class Options(StripeObject):
-        class Document(StripeObject):
-            allowed_types: Optional[
-                List[Literal["driving_license", "id_card", "passport"]]
-            ]
-            require_id_number: Optional[bool]
-            require_live_capture: Optional[bool]
-            require_matching_selfie: Optional[bool]
-
-        class IdNumber(StripeObject):
-            pass
-
-        document: Optional[Document]
-        id_number: Optional[IdNumber]
-        _inner_class_types = {"document": Document, "id_number": IdNumber}
-
-    class Redaction(StripeObject):
-        status: Literal["processing", "redacted"]
-
-    class VerifiedOutputs(StripeObject):
-        class Address(StripeObject):
-            city: Optional[str]
-            country: Optional[str]
-            line1: Optional[str]
-            line2: Optional[str]
-            postal_code: Optional[str]
-            state: Optional[str]
-
-        class Dob(StripeObject):
-            day: Optional[int]
-            month: Optional[int]
-            year: Optional[int]
-
-        address: Optional[Address]
-        dob: Optional[Dob]
-        first_name: Optional[str]
-        id_number: Optional[str]
-        id_number_type: Optional[Literal["br_cpf", "sg_nric", "us_ssn"]]
-        last_name: Optional[str]
-        _inner_class_types = {"address": Address, "dob": Dob}
-
     client_secret: Optional[str]
     created: int
     id: str
-    last_error: Optional[LastError]
+    last_error: Optional[StripeObject]
     last_verification_report: Optional[ExpandableField["VerificationReport"]]
     livemode: bool
     metadata: Dict[str, str]
     object: Literal["identity.verification_session"]
-    options: Optional[Options]
-    redaction: Optional[Redaction]
+    options: Optional[StripeObject]
+    redaction: Optional[StripeObject]
     status: Literal["canceled", "processing", "requires_input", "verified"]
     type: Optional[Literal["document", "id_number"]]
     url: Optional[str]
-    verified_outputs: Optional[VerifiedOutputs]
+    verified_outputs: Optional[StripeObject]
 
     @classmethod
     def _cls_cancel(
@@ -244,10 +180,3 @@ class VerificationSession(
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
-
-    _inner_class_types = {
-        "last_error": LastError,
-        "options": Options,
-        "redaction": Redaction,
-        "verified_outputs": VerifiedOutputs,
-    }

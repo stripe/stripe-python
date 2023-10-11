@@ -36,11 +36,7 @@ class SubscriptionItem(
     """
 
     OBJECT_NAME = "subscription_item"
-
-    class BillingThresholds(StripeObject):
-        usage_gte: Optional[int]
-
-    billing_thresholds: Optional[BillingThresholds]
+    billing_thresholds: Optional[StripeObject]
     created: int
     id: str
     metadata: Dict[str, str]
@@ -170,5 +166,3 @@ class SubscriptionItem(
             stripe_account=stripe_account,
             params=params,
         )
-
-    _inner_class_types = {"billing_thresholds": BillingThresholds}
