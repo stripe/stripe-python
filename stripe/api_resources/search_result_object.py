@@ -1,5 +1,6 @@
-from typing_extensions import Self
-from typing import Generic, List, TypeVar
+# pyright: strict
+from typing_extensions import Iterator, Self, Mapping
+from typing import Generic, List, TypeVar, cast, Optional, Any
 
 from stripe.stripe_object import StripeObject
 
@@ -13,24 +14,31 @@ class SearchResultObject(StripeObject, Generic[T]):
     next_page: str
 
     def search(
-        self, api_key=None, stripe_version=None, stripe_account=None, **params
-    ):
+        self,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Mapping[str, Any]
+    ) -> Self:
         url = self.get("url")
         if not isinstance(url, str):
             raise ValueError(
                 'Cannot call .list on a list object without a string "url" property'
             )
-        return self._request(
-            "get",
-            url,
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            Self,
+            self._request(
+                "get",
+                url,
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
-    def __getitem__(self, k):
-        if isinstance(k, str):
+    def __getitem__(self, k: str) -> T:
+        if isinstance(k, str):  # pyright: ignore
             return super(SearchResultObject, self).__getitem__(k)
         else:
             raise KeyError(
@@ -40,13 +48,16 @@ class SearchResultObject(StripeObject, Generic[T]):
                 "call .data[%s])" % (repr(k), repr(k))
             )
 
-    def __iter__(self):
+    #  Pyright doesn't like this because SearchResultObject inherits from StripeObject inherits from Dict[str, Any]
+    #  and so it wants the type of __iter__ to agree with __iter__ from Dict[str, Any]
+    #  But we are iterating through "data", which is a List[T].
+    def __iter__(self) -> Iterator[T]:  # pyright: ignore
         return getattr(self, "data", []).__iter__()
 
-    def __len__(self):
+    def __len__(self) -> int:
         return getattr(self, "data", []).__len__()
 
-    def auto_paging_iter(self):
+    def auto_paging_iter(self) -> Iterator[T]:
         page = self
 
         while True:
@@ -59,8 +70,11 @@ class SearchResultObject(StripeObject, Generic[T]):
 
     @classmethod
     def empty_search_result(
-        cls, api_key=None, stripe_version=None, stripe_account=None
-    ):
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+    ) -> Self:
         return cls.construct_from(
             {"data": [], "has_more": False, "next_page": None},
             key=api_key,
@@ -70,11 +84,15 @@ class SearchResultObject(StripeObject, Generic[T]):
         )
 
     @property
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return not self.data
 
     def next_search_result_page(
-        self, api_key=None, stripe_version=None, stripe_account=None, **params
+        self,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Mapping[str, Any]
     ) -> Self:
         if not self.has_more:
             return self.empty_search_result(

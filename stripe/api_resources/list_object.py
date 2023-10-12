@@ -1,6 +1,7 @@
-from typing_extensions import Self
+# pyright: strict
+from typing_extensions import Mapping, Self
 
-from typing import List, Generic, TypeVar
+from typing import Any, Iterator, List, Generic, Optional, TypeVar, cast
 from stripe.stripe_object import StripeObject
 
 from urllib.parse import quote_plus
@@ -15,52 +16,62 @@ class ListObject(StripeObject, Generic[T]):
     url: str
 
     def list(
-        self, api_key=None, stripe_version=None, stripe_account=None, **params
-    ):
+        self,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Mapping[str, Any]
+    ) -> Self:
         url = self.get("url")
         if not isinstance(url, str):
             raise ValueError(
                 'Cannot call .list on a list object without a string "url" property'
             )
-        return self._request(
-            "get",
-            url,
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            Self,
+            self._request(
+                "get",
+                url,
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     def create(
         self,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ):
+        api_key: Optional[str] = None,
+        idempotency_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Mapping[str, Any]
+    ) -> T:
         url = self.get("url")
         if not isinstance(url, str):
             raise ValueError(
                 'Cannot call .create on a list object for the collection of an object without a string "url" property'
             )
-        return self._request(
-            "post",
-            url,
-            api_key=api_key,
-            idempotency_key=idempotency_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            T,
+            self._request(
+                "post",
+                url,
+                api_key=api_key,
+                idempotency_key=idempotency_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     def retrieve(
         self,
-        id,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Mapping[str, Any]
     ):
         url = self.get("url")
         if not isinstance(url, str):
@@ -69,17 +80,20 @@ class ListObject(StripeObject, Generic[T]):
             )
 
         url = "%s/%s" % (self.get("url"), quote_plus(id))
-        return self._request(
-            "get",
-            url,
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            T,
+            self._request(
+                "get",
+                url,
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
-    def __getitem__(self, k):
-        if isinstance(k, str):
+    def __getitem__(self, k: str) -> T:
+        if isinstance(k, str):  # pyright: ignore
             return super(ListObject, self).__getitem__(k)
         else:
             raise KeyError(
@@ -89,16 +103,19 @@ class ListObject(StripeObject, Generic[T]):
                 ".data[%s])" % (repr(k), repr(k))
             )
 
-    def __iter__(self):
+    #  Pyright doesn't like this because ListObject inherits from StripeObject inherits from Dict[str, Any]
+    #  and so it wants the type of __iter__ to agree with __iter__ from Dict[str, Any]
+    #  But we are iterating through "data", which is a List[T].
+    def __iter__(self) -> Iterator[T]:  # pyright: ignore
         return getattr(self, "data", []).__iter__()
 
-    def __len__(self):
+    def __len__(self) -> int:
         return getattr(self, "data", []).__len__()
 
-    def __reversed__(self):
+    def __reversed__(self) -> Iterator[T]:  # pyright: ignore (see above)
         return getattr(self, "data", []).__reversed__()
 
-    def auto_paging_iter(self):
+    def auto_paging_iter(self) -> Iterator[T]:
         page = self
 
         while True:
@@ -119,8 +136,11 @@ class ListObject(StripeObject, Generic[T]):
 
     @classmethod
     def empty_list(
-        cls, api_key=None, stripe_version=None, stripe_account=None
-    ):
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+    ) -> Self:
         return cls.construct_from(
             {"data": []},
             key=api_key,
@@ -130,11 +150,15 @@ class ListObject(StripeObject, Generic[T]):
         )
 
     @property
-    def is_empty(self):
+    def is_empty(self) -> bool:
         return not self.data
 
     def next_page(
-        self, api_key=None, stripe_version=None, stripe_account=None, **params
+        self,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Mapping[str, Any]
     ) -> Self:
         if not self.has_more:
             return self.empty_list(
@@ -163,7 +187,11 @@ class ListObject(StripeObject, Generic[T]):
         return result
 
     def previous_page(
-        self, api_key=None, stripe_version=None, stripe_account=None, **params
+        self,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Mapping[str, Any]
     ) -> Self:
         if not self.has_more:
             return self.empty_list(
