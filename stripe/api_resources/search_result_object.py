@@ -1,6 +1,15 @@
 # pyright: strict
-from typing_extensions import Iterator, Self, Mapping
-from typing import Generic, List, TypeVar, cast, Optional, Any
+from typing_extensions import Self
+from typing import (
+    Generic,
+    List,
+    TypeVar,
+    cast,
+    Optional,
+    Any,
+    Mapping,
+    Iterator,
+)
 
 from stripe.stripe_object import StripeObject
 

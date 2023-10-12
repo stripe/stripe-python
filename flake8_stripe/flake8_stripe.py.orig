@@ -45,10 +45,15 @@ class TypingImportsChecker:
         "Tuple",
         "List",
         "Generic",
+<<<<<<< HEAD
         "Mapping",
+||||||| parent of f2e8187 (Lint)
+        "Tuple",
+=======
         "Tuple",
         "Iterator",
         "Mapping",
+>>>>>>> f2e8187 (Lint)
     ]
 
     def __init__(self, tree: ast.AST):

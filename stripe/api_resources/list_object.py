@@ -1,7 +1,16 @@
 # pyright: strict
-from typing_extensions import Mapping, Self
+from typing_extensions import Self
 
-from typing import Any, Iterator, List, Generic, Optional, TypeVar, cast
+from typing import (
+    Any,
+    Iterator,
+    List,
+    Generic,
+    Optional,
+    TypeVar,
+    cast,
+    Mapping,
+)
 from stripe.stripe_object import StripeObject
 
 from urllib.parse import quote_plus
