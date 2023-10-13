@@ -32,42 +32,43 @@ class ValueList(
     """
 
     OBJECT_NAME = "radar.value_list"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        alias: str
-        expand: NotRequired["List[str]|None"]
-        item_type: NotRequired[
-            "Literal['card_bin', 'card_fingerprint', 'case_sensitive_string', 'country', 'customer_id', 'email', 'ip_address', 'sepa_debit_fingerprint', 'string', 'us_bank_account_fingerprint']|None"
-        ]
-        metadata: NotRequired["Dict[str, str]|None"]
-        name: str
+        class CreateParams(RequestOptions):
+            alias: str
+            expand: NotRequired["List[str]|None"]
+            item_type: NotRequired[
+                "Literal['card_bin', 'card_fingerprint', 'case_sensitive_string', 'country', 'customer_id', 'email', 'ip_address', 'sepa_debit_fingerprint', 'string', 'us_bank_account_fingerprint']|None"
+            ]
+            metadata: NotRequired["Dict[str, str]|None"]
+            name: str
 
-    class DeleteParams(RequestOptions):
-        pass
+        class DeleteParams(RequestOptions):
+            pass
 
-    class ListParams(RequestOptions):
-        alias: NotRequired["str|None"]
-        contains: NotRequired["str|None"]
-        created: NotRequired["ValueList.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            alias: NotRequired["str|None"]
+            contains: NotRequired["str|None"]
+            created: NotRequired["ValueList.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ModifyParams(RequestOptions):
-        alias: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
-        name: NotRequired["str|None"]
+        class ModifyParams(RequestOptions):
+            alias: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            name: NotRequired["str|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     alias: str
     created: int

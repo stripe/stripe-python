@@ -49,108 +49,109 @@ class InvoiceItem(
     """
 
     OBJECT_NAME = "invoiceitem"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        amount: NotRequired["int|None"]
-        currency: NotRequired["str|None"]
-        customer: str
-        description: NotRequired["str|None"]
-        discountable: NotRequired["bool|None"]
-        discounts: NotRequired[
-            "Literal['']|List[InvoiceItem.CreateParamsDiscount]|None"
-        ]
-        expand: NotRequired["List[str]|None"]
-        invoice: NotRequired["str|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-        period: NotRequired["InvoiceItem.CreateParamsPeriod|None"]
-        price: NotRequired["str|None"]
-        price_data: NotRequired["InvoiceItem.CreateParamsPriceData|None"]
-        quantity: NotRequired["int|None"]
-        subscription: NotRequired["str|None"]
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']|None"
-        ]
-        tax_code: NotRequired["Literal['']|str|None"]
-        tax_rates: NotRequired["List[str]|None"]
-        unit_amount: NotRequired["int|None"]
-        unit_amount_decimal: NotRequired["float|None"]
+        class CreateParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            currency: NotRequired["str|None"]
+            customer: str
+            description: NotRequired["str|None"]
+            discountable: NotRequired["bool|None"]
+            discounts: NotRequired[
+                "Literal['']|List[InvoiceItem.CreateParamsDiscount]|None"
+            ]
+            expand: NotRequired["List[str]|None"]
+            invoice: NotRequired["str|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            period: NotRequired["InvoiceItem.CreateParamsPeriod|None"]
+            price: NotRequired["str|None"]
+            price_data: NotRequired["InvoiceItem.CreateParamsPriceData|None"]
+            quantity: NotRequired["int|None"]
+            subscription: NotRequired["str|None"]
+            tax_behavior: NotRequired[
+                "Literal['exclusive', 'inclusive', 'unspecified']|None"
+            ]
+            tax_code: NotRequired["Literal['']|str|None"]
+            tax_rates: NotRequired["List[str]|None"]
+            unit_amount: NotRequired["int|None"]
+            unit_amount_decimal: NotRequired["float|None"]
 
-    class CreateParamsPriceData(TypedDict):
-        currency: str
-        product: str
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']|None"
-        ]
-        unit_amount: NotRequired["int|None"]
-        unit_amount_decimal: NotRequired["float|None"]
+        class CreateParamsPriceData(TypedDict):
+            currency: str
+            product: str
+            tax_behavior: NotRequired[
+                "Literal['exclusive', 'inclusive', 'unspecified']|None"
+            ]
+            unit_amount: NotRequired["int|None"]
+            unit_amount_decimal: NotRequired["float|None"]
 
-    class CreateParamsPeriod(TypedDict):
-        end: int
-        start: int
+        class CreateParamsPeriod(TypedDict):
+            end: int
+            start: int
 
-    class CreateParamsDiscount(TypedDict):
-        coupon: NotRequired["str|None"]
-        discount: NotRequired["str|None"]
+        class CreateParamsDiscount(TypedDict):
+            coupon: NotRequired["str|None"]
+            discount: NotRequired["str|None"]
 
-    class DeleteParams(RequestOptions):
-        pass
+        class DeleteParams(RequestOptions):
+            pass
 
-    class ListParams(RequestOptions):
-        created: NotRequired["InvoiceItem.ListParamsCreated|int|None"]
-        customer: NotRequired["str|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        invoice: NotRequired["str|None"]
-        limit: NotRequired["int|None"]
-        pending: NotRequired["bool|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            created: NotRequired["InvoiceItem.ListParamsCreated|int|None"]
+            customer: NotRequired["str|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            invoice: NotRequired["str|None"]
+            limit: NotRequired["int|None"]
+            pending: NotRequired["bool|None"]
+            starting_after: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ModifyParams(RequestOptions):
-        amount: NotRequired["int|None"]
-        description: NotRequired["str|None"]
-        discountable: NotRequired["bool|None"]
-        discounts: NotRequired[
-            "Literal['']|List[InvoiceItem.ModifyParamsDiscount]|None"
-        ]
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-        period: NotRequired["InvoiceItem.ModifyParamsPeriod|None"]
-        price: NotRequired["str|None"]
-        price_data: NotRequired["InvoiceItem.ModifyParamsPriceData|None"]
-        quantity: NotRequired["int|None"]
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']|None"
-        ]
-        tax_code: NotRequired["Literal['']|str|None"]
-        tax_rates: NotRequired["Literal['']|List[str]|None"]
-        unit_amount: NotRequired["int|None"]
-        unit_amount_decimal: NotRequired["float|None"]
+        class ModifyParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            description: NotRequired["str|None"]
+            discountable: NotRequired["bool|None"]
+            discounts: NotRequired[
+                "Literal['']|List[InvoiceItem.ModifyParamsDiscount]|None"
+            ]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            period: NotRequired["InvoiceItem.ModifyParamsPeriod|None"]
+            price: NotRequired["str|None"]
+            price_data: NotRequired["InvoiceItem.ModifyParamsPriceData|None"]
+            quantity: NotRequired["int|None"]
+            tax_behavior: NotRequired[
+                "Literal['exclusive', 'inclusive', 'unspecified']|None"
+            ]
+            tax_code: NotRequired["Literal['']|str|None"]
+            tax_rates: NotRequired["Literal['']|List[str]|None"]
+            unit_amount: NotRequired["int|None"]
+            unit_amount_decimal: NotRequired["float|None"]
 
-    class ModifyParamsPriceData(TypedDict):
-        currency: str
-        product: str
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']|None"
-        ]
-        unit_amount: NotRequired["int|None"]
-        unit_amount_decimal: NotRequired["float|None"]
+        class ModifyParamsPriceData(TypedDict):
+            currency: str
+            product: str
+            tax_behavior: NotRequired[
+                "Literal['exclusive', 'inclusive', 'unspecified']|None"
+            ]
+            unit_amount: NotRequired["int|None"]
+            unit_amount_decimal: NotRequired["float|None"]
 
-    class ModifyParamsPeriod(TypedDict):
-        end: int
-        start: int
+        class ModifyParamsPeriod(TypedDict):
+            end: int
+            start: int
 
-    class ModifyParamsDiscount(TypedDict):
-        coupon: NotRequired["str|None"]
-        discount: NotRequired["str|None"]
+        class ModifyParamsDiscount(TypedDict):
+            coupon: NotRequired["str|None"]
+            discount: NotRequired["str|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     amount: int
     currency: str

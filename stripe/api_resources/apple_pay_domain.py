@@ -12,6 +12,8 @@ from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, Unpack
 from urllib.parse import quote_plus
 
+from typing_extensions import TYPE_CHECKING
+
 
 class ApplePayDomain(
     CreateableAPIResource["ApplePayDomain"],
@@ -19,23 +21,24 @@ class ApplePayDomain(
     ListableAPIResource["ApplePayDomain"],
 ):
     OBJECT_NAME = "apple_pay_domain"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        domain_name: str
-        expand: NotRequired["List[str]|None"]
+        class CreateParams(RequestOptions):
+            domain_name: str
+            expand: NotRequired["List[str]|None"]
 
-    class DeleteParams(RequestOptions):
-        pass
+        class DeleteParams(RequestOptions):
+            pass
 
-    class ListParams(RequestOptions):
-        domain_name: NotRequired["str|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            domain_name: NotRequired["str|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     created: int
     domain_name: str

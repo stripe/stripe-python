@@ -25,15 +25,16 @@ class CustomerCashBalanceTransaction(
     """
 
     OBJECT_NAME = "customer_cash_balance_transaction"
+    if TYPE_CHECKING:
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     adjusted_for_overdraft: Optional[StripeObject]
     applied_to_payment: Optional[StripeObject]

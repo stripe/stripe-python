@@ -13,6 +13,8 @@ from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, Unpack
 from urllib.parse import quote_plus
 
+from typing_extensions import TYPE_CHECKING
+
 
 class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
@@ -24,9 +26,10 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
 
     OBJECT_NAME = "card"
+    if TYPE_CHECKING:
 
-    class DeleteParams(RequestOptions):
-        pass
+        class DeleteParams(RequestOptions):
+            pass
 
     account: Optional[ExpandableField["Account"]]
     address_city: Optional[str]

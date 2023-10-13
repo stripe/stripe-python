@@ -19,27 +19,32 @@ class Session(CreateableAPIResource["Session"]):
     """
 
     OBJECT_NAME = "financial_connections.session"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        account_holder: "Session.CreateParamsAccountHolder"
-        expand: NotRequired["List[str]|None"]
-        filters: NotRequired["Session.CreateParamsFilters|None"]
-        permissions: List[
-            Literal["balances", "ownership", "payment_method", "transactions"]
-        ]
-        prefetch: NotRequired["List[Literal['balances', 'ownership']]|None"]
-        return_url: NotRequired["str|None"]
+        class CreateParams(RequestOptions):
+            account_holder: "Session.CreateParamsAccountHolder"
+            expand: NotRequired["List[str]|None"]
+            filters: NotRequired["Session.CreateParamsFilters|None"]
+            permissions: List[
+                Literal[
+                    "balances", "ownership", "payment_method", "transactions"
+                ]
+            ]
+            prefetch: NotRequired[
+                "List[Literal['balances', 'ownership']]|None"
+            ]
+            return_url: NotRequired["str|None"]
 
-    class CreateParamsFilters(TypedDict):
-        countries: List[str]
+        class CreateParamsFilters(TypedDict):
+            countries: List[str]
 
-    class CreateParamsAccountHolder(TypedDict):
-        account: NotRequired["str|None"]
-        customer: NotRequired["str|None"]
-        type: Literal["account", "customer"]
+        class CreateParamsAccountHolder(TypedDict):
+            account: NotRequired["str|None"]
+            customer: NotRequired["str|None"]
+            type: Literal["account", "customer"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     account_holder: Optional[StripeObject]
     accounts: ListObject["Account"]

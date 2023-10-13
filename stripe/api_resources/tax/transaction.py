@@ -24,47 +24,48 @@ class Transaction(APIResource["Transaction"]):
     """
 
     OBJECT_NAME = "tax.transaction"
+    if TYPE_CHECKING:
 
-    class CreateFromCalculationParams(RequestOptions):
-        calculation: str
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
-        reference: str
+        class CreateFromCalculationParams(RequestOptions):
+            calculation: str
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            reference: str
 
-    class CreateReversalParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        flat_amount: NotRequired["int|None"]
-        line_items: NotRequired[
-            "List[Transaction.CreateReversalParamsLineItem]|None"
-        ]
-        metadata: NotRequired["Dict[str, str]|None"]
-        mode: Literal["full", "partial"]
-        original_transaction: str
-        reference: str
-        shipping_cost: NotRequired[
-            "Transaction.CreateReversalParamsShippingCost|None"
-        ]
+        class CreateReversalParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            flat_amount: NotRequired["int|None"]
+            line_items: NotRequired[
+                "List[Transaction.CreateReversalParamsLineItem]|None"
+            ]
+            metadata: NotRequired["Dict[str, str]|None"]
+            mode: Literal["full", "partial"]
+            original_transaction: str
+            reference: str
+            shipping_cost: NotRequired[
+                "Transaction.CreateReversalParamsShippingCost|None"
+            ]
 
-    class CreateReversalParamsShippingCost(TypedDict):
-        amount: int
-        amount_tax: int
+        class CreateReversalParamsShippingCost(TypedDict):
+            amount: int
+            amount_tax: int
 
-    class CreateReversalParamsLineItem(TypedDict):
-        amount: int
-        amount_tax: int
-        metadata: NotRequired["Dict[str, str]|None"]
-        original_line_item: str
-        quantity: NotRequired["int|None"]
-        reference: str
+        class CreateReversalParamsLineItem(TypedDict):
+            amount: int
+            amount_tax: int
+            metadata: NotRequired["Dict[str, str]|None"]
+            original_line_item: str
+            quantity: NotRequired["int|None"]
+            reference: str
 
-    class ListLineItemsParams(RequestOptions):
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListLineItemsParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     created: int
     currency: str

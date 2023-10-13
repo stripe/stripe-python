@@ -34,50 +34,51 @@ class Topup(
     """
 
     OBJECT_NAME = "topup"
+    if TYPE_CHECKING:
 
-    class CancelParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class CancelParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class CreateParams(RequestOptions):
-        amount: int
-        currency: str
-        description: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-        source: NotRequired["str|None"]
-        statement_descriptor: NotRequired["str|None"]
-        transfer_group: NotRequired["str|None"]
+        class CreateParams(RequestOptions):
+            amount: int
+            currency: str
+            description: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            source: NotRequired["str|None"]
+            statement_descriptor: NotRequired["str|None"]
+            transfer_group: NotRequired["str|None"]
 
-    class ListParams(RequestOptions):
-        amount: NotRequired["Topup.ListParamsAmount|int|None"]
-        created: NotRequired["Topup.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
-        status: NotRequired[
-            "Literal['canceled', 'failed', 'pending', 'succeeded']|None"
-        ]
+        class ListParams(RequestOptions):
+            amount: NotRequired["Topup.ListParamsAmount|int|None"]
+            created: NotRequired["Topup.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired[
+                "Literal['canceled', 'failed', 'pending', 'succeeded']|None"
+            ]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ListParamsAmount(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsAmount(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ModifyParams(RequestOptions):
-        description: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        class ModifyParams(RequestOptions):
+            description: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]

@@ -19,9 +19,10 @@ class Mandate(APIResource["Mandate"]):
     """
 
     OBJECT_NAME = "mandate"
+    if TYPE_CHECKING:
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     customer_acceptance: StripeObject
     id: str

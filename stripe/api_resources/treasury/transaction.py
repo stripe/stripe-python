@@ -21,39 +21,40 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
 
     OBJECT_NAME = "treasury.transaction"
+    if TYPE_CHECKING:
 
-    class ListParams(RequestOptions):
-        created: NotRequired["Transaction.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        financial_account: str
-        limit: NotRequired["int|None"]
-        order_by: NotRequired["Literal['created', 'posted_at']|None"]
-        starting_after: NotRequired["str|None"]
-        status: NotRequired["Literal['open', 'posted', 'void']|None"]
-        status_transitions: NotRequired[
-            "Transaction.ListParamsStatusTransitions|None"
-        ]
+        class ListParams(RequestOptions):
+            created: NotRequired["Transaction.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            financial_account: str
+            limit: NotRequired["int|None"]
+            order_by: NotRequired["Literal['created', 'posted_at']|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired["Literal['open', 'posted', 'void']|None"]
+            status_transitions: NotRequired[
+                "Transaction.ListParamsStatusTransitions|None"
+            ]
 
-    class ListParamsStatusTransitions(TypedDict):
-        posted_at: NotRequired[
-            "Transaction.ListParamsStatusTransitionsPostedAt|int|None"
-        ]
+        class ListParamsStatusTransitions(TypedDict):
+            posted_at: NotRequired[
+                "Transaction.ListParamsStatusTransitionsPostedAt|int|None"
+            ]
 
-    class ListParamsStatusTransitionsPostedAt(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsStatusTransitionsPostedAt(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     amount: int
     balance_impact: StripeObject

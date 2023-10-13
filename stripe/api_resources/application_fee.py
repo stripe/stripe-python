@@ -26,46 +26,47 @@ if TYPE_CHECKING:
 @nested_resource_class_methods("refund")
 class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     OBJECT_NAME = "application_fee"
+    if TYPE_CHECKING:
 
-    class ListParams(RequestOptions):
-        charge: NotRequired["str|None"]
-        created: NotRequired["ApplicationFee.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            charge: NotRequired["str|None"]
+            created: NotRequired["ApplicationFee.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class RefundParams(RequestOptions):
-        amount: NotRequired["int|None"]
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
+        class RefundParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class CreateRefundParams(RequestOptions):
-        amount: NotRequired["int|None"]
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
+        class CreateRefundParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
 
-    class RetrieveRefundParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveRefundParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class ModifyRefundParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        class ModifyRefundParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
-    class ListRefundsParams(RequestOptions):
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListRefundsParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
     account: ExpandableField["Account"]
     amount: int

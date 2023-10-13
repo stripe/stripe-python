@@ -14,6 +14,8 @@ from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
+from typing_extensions import TYPE_CHECKING
+
 
 class Location(
     CreateableAPIResource["Location"],
@@ -28,48 +30,49 @@ class Location(
     """
 
     OBJECT_NAME = "terminal.location"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        address: "Location.CreateParamsAddress"
-        configuration_overrides: NotRequired["str|None"]
-        display_name: str
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        class CreateParams(RequestOptions):
+            address: "Location.CreateParamsAddress"
+            configuration_overrides: NotRequired["str|None"]
+            display_name: str
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
-    class CreateParamsAddress(TypedDict):
-        city: NotRequired["str|None"]
-        country: str
-        line1: NotRequired["str|None"]
-        line2: NotRequired["str|None"]
-        postal_code: NotRequired["str|None"]
-        state: NotRequired["str|None"]
+        class CreateParamsAddress(TypedDict):
+            city: NotRequired["str|None"]
+            country: str
+            line1: NotRequired["str|None"]
+            line2: NotRequired["str|None"]
+            postal_code: NotRequired["str|None"]
+            state: NotRequired["str|None"]
 
-    class DeleteParams(RequestOptions):
-        pass
+        class DeleteParams(RequestOptions):
+            pass
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class ModifyParams(RequestOptions):
-        address: NotRequired["Location.ModifyParamsAddress|None"]
-        configuration_overrides: NotRequired["Literal['']|str|None"]
-        display_name: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        class ModifyParams(RequestOptions):
+            address: NotRequired["Location.ModifyParamsAddress|None"]
+            configuration_overrides: NotRequired["Literal['']|str|None"]
+            display_name: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
-    class ModifyParamsAddress(TypedDict):
-        city: NotRequired["str|None"]
-        country: NotRequired["str|None"]
-        line1: NotRequired["str|None"]
-        line2: NotRequired["str|None"]
-        postal_code: NotRequired["str|None"]
-        state: NotRequired["str|None"]
+        class ModifyParamsAddress(TypedDict):
+            city: NotRequired["str|None"]
+            country: NotRequired["str|None"]
+            line1: NotRequired["str|None"]
+            line2: NotRequired["str|None"]
+            postal_code: NotRequired["str|None"]
+            state: NotRequired["str|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     address: StripeObject
     configuration_overrides: Optional[str]

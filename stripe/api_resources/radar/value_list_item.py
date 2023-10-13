@@ -12,6 +12,8 @@ from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
+from typing_extensions import TYPE_CHECKING
+
 
 class ValueListItem(
     CreateableAPIResource["ValueListItem"],
@@ -25,32 +27,33 @@ class ValueListItem(
     """
 
     OBJECT_NAME = "radar.value_list_item"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        value: str
-        value_list: str
+        class CreateParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            value: str
+            value_list: str
 
-    class DeleteParams(RequestOptions):
-        pass
+        class DeleteParams(RequestOptions):
+            pass
 
-    class ListParams(RequestOptions):
-        created: NotRequired["ValueListItem.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
-        value: NotRequired["str|None"]
-        value_list: str
+        class ListParams(RequestOptions):
+            created: NotRequired["ValueListItem.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            value: NotRequired["str|None"]
+            value_list: str
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     created: int
     created_by: str

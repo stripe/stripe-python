@@ -36,53 +36,56 @@ class Payout(
     """
 
     OBJECT_NAME = "payout"
+    if TYPE_CHECKING:
 
-    class CancelParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class CancelParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class CreateParams(RequestOptions):
-        amount: int
-        currency: str
-        description: NotRequired["str|None"]
-        destination: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
-        method: NotRequired["Literal['instant', 'standard']|None"]
-        source_type: NotRequired["Literal['bank_account', 'card', 'fpx']|None"]
-        statement_descriptor: NotRequired["str|None"]
+        class CreateParams(RequestOptions):
+            amount: int
+            currency: str
+            description: NotRequired["str|None"]
+            destination: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            method: NotRequired["Literal['instant', 'standard']|None"]
+            source_type: NotRequired[
+                "Literal['bank_account', 'card', 'fpx']|None"
+            ]
+            statement_descriptor: NotRequired["str|None"]
 
-    class ListParams(RequestOptions):
-        arrival_date: NotRequired["Payout.ListParamsArrivalDate|int|None"]
-        created: NotRequired["Payout.ListParamsCreated|int|None"]
-        destination: NotRequired["str|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
-        status: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            arrival_date: NotRequired["Payout.ListParamsArrivalDate|int|None"]
+            created: NotRequired["Payout.ListParamsCreated|int|None"]
+            destination: NotRequired["str|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ListParamsArrivalDate(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsArrivalDate(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ModifyParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        class ModifyParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class ReverseParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
+        class ReverseParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
 
     amount: int
     arrival_date: int

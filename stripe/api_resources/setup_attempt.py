@@ -27,20 +27,21 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
     """
 
     OBJECT_NAME = "setup_attempt"
+    if TYPE_CHECKING:
 
-    class ListParams(RequestOptions):
-        created: NotRequired["SetupAttempt.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        setup_intent: str
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            created: NotRequired["SetupAttempt.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            setup_intent: str
+            starting_after: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
     application: Optional[ExpandableField["Application"]]
     attach_to_self: Optional[bool]

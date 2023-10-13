@@ -6,6 +6,8 @@ from stripe.request_options import RequestOptions
 from typing import List, Optional
 from typing_extensions import Literal, NotRequired, Unpack
 
+from typing_extensions import TYPE_CHECKING
+
 
 class ReportType(ListableAPIResource["ReportType"]):
     """
@@ -20,12 +22,13 @@ class ReportType(ListableAPIResource["ReportType"]):
     """
 
     OBJECT_NAME = "reporting.report_type"
+    if TYPE_CHECKING:
 
-    class ListParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class ListParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     data_available_end: int
     data_available_start: int

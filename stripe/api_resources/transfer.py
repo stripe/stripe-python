@@ -43,60 +43,63 @@ class Transfer(
     """
 
     OBJECT_NAME = "transfer"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        amount: NotRequired["int|None"]
-        currency: str
-        description: NotRequired["str|None"]
-        destination: str
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
-        source_transaction: NotRequired["str|None"]
-        source_type: NotRequired["Literal['bank_account', 'card', 'fpx']|None"]
-        transfer_group: NotRequired["str|None"]
+        class CreateParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            currency: str
+            description: NotRequired["str|None"]
+            destination: str
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            source_transaction: NotRequired["str|None"]
+            source_type: NotRequired[
+                "Literal['bank_account', 'card', 'fpx']|None"
+            ]
+            transfer_group: NotRequired["str|None"]
 
-    class ListParams(RequestOptions):
-        created: NotRequired["Transfer.ListParamsCreated|int|None"]
-        destination: NotRequired["str|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
-        transfer_group: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            created: NotRequired["Transfer.ListParamsCreated|int|None"]
+            destination: NotRequired["str|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            transfer_group: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ModifyParams(RequestOptions):
-        description: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        class ModifyParams(RequestOptions):
+            description: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class CreateReversalParams(RequestOptions):
-        amount: NotRequired["int|None"]
-        description: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-        refund_application_fee: NotRequired["bool|None"]
+        class CreateReversalParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            description: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            refund_application_fee: NotRequired["bool|None"]
 
-    class RetrieveReversalParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveReversalParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class ModifyReversalParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        class ModifyReversalParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
-    class ListReversalsParams(RequestOptions):
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListReversalsParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
     amount: int
     amount_reversed: int

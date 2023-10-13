@@ -24,30 +24,31 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     """
 
     OBJECT_NAME = "issuing.token"
+    if TYPE_CHECKING:
 
-    class ListParams(RequestOptions):
-        card: str
-        created: NotRequired["Token.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
-        status: NotRequired[
-            "Literal['active', 'deleted', 'requested', 'suspended']|None"
-        ]
+        class ListParams(RequestOptions):
+            card: str
+            created: NotRequired["Token.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired[
+                "Literal['active', 'deleted', 'requested', 'suspended']|None"
+            ]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ModifyParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        status: Literal["active", "deleted", "suspended"]
+        class ModifyParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            status: Literal["active", "deleted", "suspended"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     card: ExpandableField["Card"]
     created: int

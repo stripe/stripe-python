@@ -31,66 +31,67 @@ class PromotionCode(
     """
 
     OBJECT_NAME = "promotion_code"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        active: NotRequired["bool|None"]
-        code: NotRequired["str|None"]
-        coupon: str
-        customer: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        expires_at: NotRequired["int|None"]
-        max_redemptions: NotRequired["int|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
-        restrictions: NotRequired[
-            "PromotionCode.CreateParamsRestrictions|None"
-        ]
+        class CreateParams(RequestOptions):
+            active: NotRequired["bool|None"]
+            code: NotRequired["str|None"]
+            coupon: str
+            customer: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            expires_at: NotRequired["int|None"]
+            max_redemptions: NotRequired["int|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            restrictions: NotRequired[
+                "PromotionCode.CreateParamsRestrictions|None"
+            ]
 
-    class CreateParamsRestrictions(TypedDict):
-        currency_options: NotRequired[
-            "Dict[str, PromotionCode.CreateParamsRestrictionsCurrencyOptions]|None"
-        ]
-        first_time_transaction: NotRequired["bool|None"]
-        minimum_amount: NotRequired["int|None"]
-        minimum_amount_currency: NotRequired["str|None"]
+        class CreateParamsRestrictions(TypedDict):
+            currency_options: NotRequired[
+                "Dict[str, PromotionCode.CreateParamsRestrictionsCurrencyOptions]|None"
+            ]
+            first_time_transaction: NotRequired["bool|None"]
+            minimum_amount: NotRequired["int|None"]
+            minimum_amount_currency: NotRequired["str|None"]
 
-    class CreateParamsRestrictionsCurrencyOptions(TypedDict):
-        minimum_amount: NotRequired["int|None"]
+        class CreateParamsRestrictionsCurrencyOptions(TypedDict):
+            minimum_amount: NotRequired["int|None"]
 
-    class ListParams(RequestOptions):
-        active: NotRequired["bool|None"]
-        code: NotRequired["str|None"]
-        coupon: NotRequired["str|None"]
-        created: NotRequired["PromotionCode.ListParamsCreated|int|None"]
-        customer: NotRequired["str|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            active: NotRequired["bool|None"]
+            code: NotRequired["str|None"]
+            coupon: NotRequired["str|None"]
+            created: NotRequired["PromotionCode.ListParamsCreated|int|None"]
+            customer: NotRequired["str|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ModifyParams(RequestOptions):
-        active: NotRequired["bool|None"]
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-        restrictions: NotRequired[
-            "PromotionCode.ModifyParamsRestrictions|None"
-        ]
+        class ModifyParams(RequestOptions):
+            active: NotRequired["bool|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            restrictions: NotRequired[
+                "PromotionCode.ModifyParamsRestrictions|None"
+            ]
 
-    class ModifyParamsRestrictions(TypedDict):
-        currency_options: NotRequired[
-            "Dict[str, PromotionCode.ModifyParamsRestrictionsCurrencyOptions]|None"
-        ]
+        class ModifyParamsRestrictions(TypedDict):
+            currency_options: NotRequired[
+                "Dict[str, PromotionCode.ModifyParamsRestrictionsCurrencyOptions]|None"
+            ]
 
-    class ModifyParamsRestrictionsCurrencyOptions(TypedDict):
-        minimum_amount: NotRequired["int|None"]
+        class ModifyParamsRestrictionsCurrencyOptions(TypedDict):
+            minimum_amount: NotRequired["int|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     active: bool
     code: str

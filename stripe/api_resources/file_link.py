@@ -30,35 +30,36 @@ class FileLink(
     """
 
     OBJECT_NAME = "file_link"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        expires_at: NotRequired["int|None"]
-        file: str
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        class CreateParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            expires_at: NotRequired["int|None"]
+            file: str
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
-    class ListParams(RequestOptions):
-        created: NotRequired["FileLink.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        expired: NotRequired["bool|None"]
-        file: NotRequired["str|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            created: NotRequired["FileLink.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            expired: NotRequired["bool|None"]
+            file: NotRequired["str|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ModifyParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        expires_at: NotRequired["Literal['']|Literal['now']|int|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        class ModifyParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            expires_at: NotRequired["Literal['']|Literal['now']|int|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     created: int
     expired: bool

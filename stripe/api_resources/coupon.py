@@ -14,6 +14,8 @@ from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
+from typing_extensions import TYPE_CHECKING
+
 
 class Coupon(
     CreateableAPIResource["Coupon"],
@@ -28,59 +30,62 @@ class Coupon(
     """
 
     OBJECT_NAME = "coupon"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        amount_off: NotRequired["int|None"]
-        applies_to: NotRequired["Coupon.CreateParamsAppliesTo|None"]
-        currency: NotRequired["str|None"]
-        currency_options: NotRequired[
-            "Dict[str, Coupon.CreateParamsCurrencyOptions]|None"
-        ]
-        duration: NotRequired["Literal['forever', 'once', 'repeating']|None"]
-        duration_in_months: NotRequired["int|None"]
-        expand: NotRequired["List[str]|None"]
-        id: NotRequired["str|None"]
-        max_redemptions: NotRequired["int|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-        name: NotRequired["str|None"]
-        percent_off: NotRequired["float|None"]
-        redeem_by: NotRequired["int|None"]
+        class CreateParams(RequestOptions):
+            amount_off: NotRequired["int|None"]
+            applies_to: NotRequired["Coupon.CreateParamsAppliesTo|None"]
+            currency: NotRequired["str|None"]
+            currency_options: NotRequired[
+                "Dict[str, Coupon.CreateParamsCurrencyOptions]|None"
+            ]
+            duration: NotRequired[
+                "Literal['forever', 'once', 'repeating']|None"
+            ]
+            duration_in_months: NotRequired["int|None"]
+            expand: NotRequired["List[str]|None"]
+            id: NotRequired["str|None"]
+            max_redemptions: NotRequired["int|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            name: NotRequired["str|None"]
+            percent_off: NotRequired["float|None"]
+            redeem_by: NotRequired["int|None"]
 
-    class CreateParamsCurrencyOptions(TypedDict):
-        amount_off: int
+        class CreateParamsCurrencyOptions(TypedDict):
+            amount_off: int
 
-    class CreateParamsAppliesTo(TypedDict):
-        products: NotRequired["List[str]|None"]
+        class CreateParamsAppliesTo(TypedDict):
+            products: NotRequired["List[str]|None"]
 
-    class DeleteParams(RequestOptions):
-        pass
+        class DeleteParams(RequestOptions):
+            pass
 
-    class ListParams(RequestOptions):
-        created: NotRequired["Coupon.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            created: NotRequired["Coupon.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ModifyParams(RequestOptions):
-        currency_options: NotRequired[
-            "Dict[str, Coupon.ModifyParamsCurrencyOptions]|None"
-        ]
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-        name: NotRequired["str|None"]
+        class ModifyParams(RequestOptions):
+            currency_options: NotRequired[
+                "Dict[str, Coupon.ModifyParamsCurrencyOptions]|None"
+            ]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            name: NotRequired["str|None"]
 
-    class ModifyParamsCurrencyOptions(TypedDict):
-        amount_off: int
+        class ModifyParamsCurrencyOptions(TypedDict):
+            amount_off: int
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     amount_off: Optional[int]
     applies_to: Optional[StripeObject]

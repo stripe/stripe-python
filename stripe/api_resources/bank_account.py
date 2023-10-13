@@ -15,6 +15,8 @@ from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, Unpack
 from urllib.parse import quote_plus
 
+from typing_extensions import TYPE_CHECKING
+
 
 class BankAccount(
     DeletableAPIResource["BankAccount"],
@@ -32,9 +34,10 @@ class BankAccount(
     """
 
     OBJECT_NAME = "bank_account"
+    if TYPE_CHECKING:
 
-    class DeleteParams(RequestOptions):
-        pass
+        class DeleteParams(RequestOptions):
+            pass
 
     account: Optional[ExpandableField["Account"]]
     account_holder_name: Optional[str]

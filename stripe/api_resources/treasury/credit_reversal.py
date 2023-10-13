@@ -26,23 +26,26 @@ class CreditReversal(
     """
 
     OBJECT_NAME = "treasury.credit_reversal"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
-        received_credit: str
+        class CreateParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            received_credit: str
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        financial_account: str
-        limit: NotRequired["int|None"]
-        received_credit: NotRequired["str|None"]
-        starting_after: NotRequired["str|None"]
-        status: NotRequired["Literal['canceled', 'posted', 'processing']|None"]
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            financial_account: str
+            limit: NotRequired["int|None"]
+            received_credit: NotRequired["str|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired[
+                "Literal['canceled', 'posted', 'processing']|None"
+            ]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     amount: int
     created: int

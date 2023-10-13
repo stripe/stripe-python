@@ -11,6 +11,8 @@ from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
+from typing_extensions import TYPE_CHECKING
+
 
 class TaxRate(
     CreateableAPIResource["TaxRate"],
@@ -24,52 +26,53 @@ class TaxRate(
     """
 
     OBJECT_NAME = "tax_rate"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        active: NotRequired["bool|None"]
-        country: NotRequired["str|None"]
-        description: NotRequired["str|None"]
-        display_name: str
-        expand: NotRequired["List[str]|None"]
-        inclusive: bool
-        jurisdiction: NotRequired["str|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
-        percentage: float
-        state: NotRequired["str|None"]
-        tax_type: NotRequired[
-            "Literal['amusement_tax', 'communications_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'pst', 'qst', 'rst', 'sales_tax', 'service_tax', 'vat']|None"
-        ]
+        class CreateParams(RequestOptions):
+            active: NotRequired["bool|None"]
+            country: NotRequired["str|None"]
+            description: NotRequired["str|None"]
+            display_name: str
+            expand: NotRequired["List[str]|None"]
+            inclusive: bool
+            jurisdiction: NotRequired["str|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            percentage: float
+            state: NotRequired["str|None"]
+            tax_type: NotRequired[
+                "Literal['amusement_tax', 'communications_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'pst', 'qst', 'rst', 'sales_tax', 'service_tax', 'vat']|None"
+            ]
 
-    class ListParams(RequestOptions):
-        active: NotRequired["bool|None"]
-        created: NotRequired["TaxRate.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        inclusive: NotRequired["bool|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            active: NotRequired["bool|None"]
+            created: NotRequired["TaxRate.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            inclusive: NotRequired["bool|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ModifyParams(RequestOptions):
-        active: NotRequired["bool|None"]
-        country: NotRequired["str|None"]
-        description: NotRequired["str|None"]
-        display_name: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        jurisdiction: NotRequired["str|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-        state: NotRequired["str|None"]
-        tax_type: NotRequired[
-            "Literal['amusement_tax', 'communications_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'pst', 'qst', 'rst', 'sales_tax', 'service_tax', 'vat']|None"
-        ]
+        class ModifyParams(RequestOptions):
+            active: NotRequired["bool|None"]
+            country: NotRequired["str|None"]
+            description: NotRequired["str|None"]
+            display_name: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            jurisdiction: NotRequired["str|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            state: NotRequired["str|None"]
+            tax_type: NotRequired[
+                "Literal['amusement_tax', 'communications_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'pst', 'qst', 'rst', 'sales_tax', 'service_tax', 'vat']|None"
+            ]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     active: bool
     country: Optional[str]

@@ -12,6 +12,8 @@ from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, Unpack
 from urllib.parse import quote_plus
 
+from typing_extensions import TYPE_CHECKING
+
 
 class TestClock(
     CreateableAPIResource["TestClock"],
@@ -25,27 +27,28 @@ class TestClock(
     """
 
     OBJECT_NAME = "test_helpers.test_clock"
+    if TYPE_CHECKING:
 
-    class AdvanceParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        frozen_time: int
+        class AdvanceParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            frozen_time: int
 
-    class CreateParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        frozen_time: int
-        name: NotRequired["str|None"]
+        class CreateParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            frozen_time: int
+            name: NotRequired["str|None"]
 
-    class DeleteParams(RequestOptions):
-        pass
+        class DeleteParams(RequestOptions):
+            pass
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     created: int
     deletes_after: int

@@ -38,41 +38,42 @@ class Refund(
     """
 
     OBJECT_NAME = "refund"
+    if TYPE_CHECKING:
 
-    class CancelParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class CancelParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class CreateParams(RequestOptions):
-        amount: NotRequired["int|None"]
-        charge: NotRequired["str|None"]
-        currency: NotRequired["str|None"]
-        customer: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        instructions_email: NotRequired["str|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-        origin: NotRequired["Literal['customer_balance']|None"]
-        payment_intent: NotRequired["str|None"]
-        reason: NotRequired[
-            "Literal['duplicate', 'fraudulent', 'requested_by_customer']|None"
-        ]
-        refund_application_fee: NotRequired["bool|None"]
-        reverse_transfer: NotRequired["bool|None"]
+        class CreateParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            charge: NotRequired["str|None"]
+            currency: NotRequired["str|None"]
+            customer: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            instructions_email: NotRequired["str|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            origin: NotRequired["Literal['customer_balance']|None"]
+            payment_intent: NotRequired["str|None"]
+            reason: NotRequired[
+                "Literal['duplicate', 'fraudulent', 'requested_by_customer']|None"
+            ]
+            refund_application_fee: NotRequired["bool|None"]
+            reverse_transfer: NotRequired["bool|None"]
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class ModifyParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        class ModifyParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class ExpireParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class ExpireParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]

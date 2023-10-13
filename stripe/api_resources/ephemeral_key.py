@@ -7,12 +7,15 @@ from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, Unpack
 from urllib.parse import quote_plus
 
+from typing_extensions import TYPE_CHECKING
+
 
 class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
     OBJECT_NAME = "ephemeral_key"
+    if TYPE_CHECKING:
 
-    class DeleteParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class DeleteParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     created: int
     expires: int

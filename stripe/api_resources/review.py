@@ -25,25 +25,26 @@ class Review(ListableAPIResource["Review"]):
     """
 
     OBJECT_NAME = "review"
+    if TYPE_CHECKING:
 
-    class ApproveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class ApproveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class ListParams(RequestOptions):
-        created: NotRequired["Review.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            created: NotRequired["Review.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     billing_zip: Optional[str]
     charge: Optional[ExpandableField["Charge"]]

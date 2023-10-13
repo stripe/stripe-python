@@ -42,70 +42,77 @@ class VerificationSession(
     """
 
     OBJECT_NAME = "identity.verification_session"
+    if TYPE_CHECKING:
 
-    class CancelParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class CancelParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class CreateParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
-        options: NotRequired["VerificationSession.CreateParamsOptions|None"]
-        return_url: NotRequired["str|None"]
-        type: Literal["document", "id_number"]
+        class CreateParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            options: NotRequired[
+                "VerificationSession.CreateParamsOptions|None"
+            ]
+            return_url: NotRequired["str|None"]
+            type: Literal["document", "id_number"]
 
-    class CreateParamsOptions(TypedDict):
-        document: NotRequired[
-            "Literal['']|VerificationSession.CreateParamsOptionsDocument|None"
-        ]
+        class CreateParamsOptions(TypedDict):
+            document: NotRequired[
+                "Literal['']|VerificationSession.CreateParamsOptionsDocument|None"
+            ]
 
-    class CreateParamsOptionsDocument(TypedDict):
-        allowed_types: NotRequired[
-            "List[Literal['driving_license', 'id_card', 'passport']]|None"
-        ]
-        require_id_number: NotRequired["bool|None"]
-        require_live_capture: NotRequired["bool|None"]
-        require_matching_selfie: NotRequired["bool|None"]
+        class CreateParamsOptionsDocument(TypedDict):
+            allowed_types: NotRequired[
+                "List[Literal['driving_license', 'id_card', 'passport']]|None"
+            ]
+            require_id_number: NotRequired["bool|None"]
+            require_live_capture: NotRequired["bool|None"]
+            require_matching_selfie: NotRequired["bool|None"]
 
-    class ListParams(RequestOptions):
-        created: NotRequired["VerificationSession.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
-        status: NotRequired[
-            "Literal['canceled', 'processing', 'requires_input', 'verified']|None"
-        ]
+        class ListParams(RequestOptions):
+            created: NotRequired[
+                "VerificationSession.ListParamsCreated|int|None"
+            ]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired[
+                "Literal['canceled', 'processing', 'requires_input', 'verified']|None"
+            ]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ModifyParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
-        options: NotRequired["VerificationSession.ModifyParamsOptions|None"]
-        type: NotRequired["Literal['document', 'id_number']|None"]
+        class ModifyParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            options: NotRequired[
+                "VerificationSession.ModifyParamsOptions|None"
+            ]
+            type: NotRequired["Literal['document', 'id_number']|None"]
 
-    class ModifyParamsOptions(TypedDict):
-        document: NotRequired[
-            "Literal['']|VerificationSession.ModifyParamsOptionsDocument|None"
-        ]
+        class ModifyParamsOptions(TypedDict):
+            document: NotRequired[
+                "Literal['']|VerificationSession.ModifyParamsOptionsDocument|None"
+            ]
 
-    class ModifyParamsOptionsDocument(TypedDict):
-        allowed_types: NotRequired[
-            "List[Literal['driving_license', 'id_card', 'passport']]|None"
-        ]
-        require_id_number: NotRequired["bool|None"]
-        require_live_capture: NotRequired["bool|None"]
-        require_matching_selfie: NotRequired["bool|None"]
+        class ModifyParamsOptionsDocument(TypedDict):
+            allowed_types: NotRequired[
+                "List[Literal['driving_license', 'id_card', 'passport']]|None"
+            ]
+            require_id_number: NotRequired["bool|None"]
+            require_live_capture: NotRequired["bool|None"]
+            require_matching_selfie: NotRequired["bool|None"]
 
-    class RedactParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RedactParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     client_secret: Optional[str]
     created: int

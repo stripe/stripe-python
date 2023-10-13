@@ -45,120 +45,121 @@ class Charge(
     """
 
     OBJECT_NAME = "charge"
+    if TYPE_CHECKING:
 
-    class CaptureParams(RequestOptions):
-        amount: NotRequired["int|None"]
-        application_fee: NotRequired["int|None"]
-        application_fee_amount: NotRequired["int|None"]
-        expand: NotRequired["List[str]|None"]
-        receipt_email: NotRequired["str|None"]
-        statement_descriptor: NotRequired["str|None"]
-        statement_descriptor_suffix: NotRequired["str|None"]
-        transfer_data: NotRequired["Charge.CaptureParamsTransferData|None"]
-        transfer_group: NotRequired["str|None"]
+        class CaptureParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            application_fee: NotRequired["int|None"]
+            application_fee_amount: NotRequired["int|None"]
+            expand: NotRequired["List[str]|None"]
+            receipt_email: NotRequired["str|None"]
+            statement_descriptor: NotRequired["str|None"]
+            statement_descriptor_suffix: NotRequired["str|None"]
+            transfer_data: NotRequired["Charge.CaptureParamsTransferData|None"]
+            transfer_group: NotRequired["str|None"]
 
-    class CaptureParamsTransferData(TypedDict):
-        amount: NotRequired["int|None"]
+        class CaptureParamsTransferData(TypedDict):
+            amount: NotRequired["int|None"]
 
-    class CreateParams(RequestOptions):
-        amount: NotRequired["int|None"]
-        application_fee: NotRequired["int|None"]
-        application_fee_amount: NotRequired["int|None"]
-        capture: NotRequired["bool|None"]
-        currency: NotRequired["str|None"]
-        customer: NotRequired["str|None"]
-        description: NotRequired["str|None"]
-        destination: NotRequired["Charge.CreateParamsDestination|None"]
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-        on_behalf_of: NotRequired["str|None"]
-        radar_options: NotRequired["Charge.CreateParamsRadarOptions|None"]
-        receipt_email: NotRequired["str|None"]
-        shipping: NotRequired["Charge.CreateParamsShipping|None"]
-        source: NotRequired["str|None"]
-        statement_descriptor: NotRequired["str|None"]
-        statement_descriptor_suffix: NotRequired["str|None"]
-        transfer_data: NotRequired["Charge.CreateParamsTransferData|None"]
-        transfer_group: NotRequired["str|None"]
+        class CreateParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            application_fee: NotRequired["int|None"]
+            application_fee_amount: NotRequired["int|None"]
+            capture: NotRequired["bool|None"]
+            currency: NotRequired["str|None"]
+            customer: NotRequired["str|None"]
+            description: NotRequired["str|None"]
+            destination: NotRequired["Charge.CreateParamsDestination|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            on_behalf_of: NotRequired["str|None"]
+            radar_options: NotRequired["Charge.CreateParamsRadarOptions|None"]
+            receipt_email: NotRequired["str|None"]
+            shipping: NotRequired["Charge.CreateParamsShipping|None"]
+            source: NotRequired["str|None"]
+            statement_descriptor: NotRequired["str|None"]
+            statement_descriptor_suffix: NotRequired["str|None"]
+            transfer_data: NotRequired["Charge.CreateParamsTransferData|None"]
+            transfer_group: NotRequired["str|None"]
 
-    class CreateParamsTransferData(TypedDict):
-        amount: NotRequired["int|None"]
-        destination: str
+        class CreateParamsTransferData(TypedDict):
+            amount: NotRequired["int|None"]
+            destination: str
 
-    class CreateParamsShipping(TypedDict):
-        address: "Charge.CreateParamsShippingAddress"
-        carrier: NotRequired["str|None"]
-        name: str
-        phone: NotRequired["str|None"]
-        tracking_number: NotRequired["str|None"]
+        class CreateParamsShipping(TypedDict):
+            address: "Charge.CreateParamsShippingAddress"
+            carrier: NotRequired["str|None"]
+            name: str
+            phone: NotRequired["str|None"]
+            tracking_number: NotRequired["str|None"]
 
-    class CreateParamsShippingAddress(TypedDict):
-        city: NotRequired["str|None"]
-        country: NotRequired["str|None"]
-        line1: NotRequired["str|None"]
-        line2: NotRequired["str|None"]
-        postal_code: NotRequired["str|None"]
-        state: NotRequired["str|None"]
+        class CreateParamsShippingAddress(TypedDict):
+            city: NotRequired["str|None"]
+            country: NotRequired["str|None"]
+            line1: NotRequired["str|None"]
+            line2: NotRequired["str|None"]
+            postal_code: NotRequired["str|None"]
+            state: NotRequired["str|None"]
 
-    class CreateParamsRadarOptions(TypedDict):
-        session: NotRequired["str|None"]
+        class CreateParamsRadarOptions(TypedDict):
+            session: NotRequired["str|None"]
 
-    class CreateParamsDestination(TypedDict):
-        account: str
-        amount: NotRequired["int|None"]
+        class CreateParamsDestination(TypedDict):
+            account: str
+            amount: NotRequired["int|None"]
 
-    class ListParams(RequestOptions):
-        created: NotRequired["Charge.ListParamsCreated|int|None"]
-        customer: NotRequired["str|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        payment_intent: NotRequired["str|None"]
-        starting_after: NotRequired["str|None"]
-        transfer_group: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            created: NotRequired["Charge.ListParamsCreated|int|None"]
+            customer: NotRequired["str|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            payment_intent: NotRequired["str|None"]
+            starting_after: NotRequired["str|None"]
+            transfer_group: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ModifyParams(RequestOptions):
-        customer: NotRequired["str|None"]
-        description: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        fraud_details: NotRequired["Charge.ModifyParamsFraudDetails|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-        receipt_email: NotRequired["str|None"]
-        shipping: NotRequired["Charge.ModifyParamsShipping|None"]
-        transfer_group: NotRequired["str|None"]
+        class ModifyParams(RequestOptions):
+            customer: NotRequired["str|None"]
+            description: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            fraud_details: NotRequired["Charge.ModifyParamsFraudDetails|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            receipt_email: NotRequired["str|None"]
+            shipping: NotRequired["Charge.ModifyParamsShipping|None"]
+            transfer_group: NotRequired["str|None"]
 
-    class ModifyParamsShipping(TypedDict):
-        address: "Charge.ModifyParamsShippingAddress"
-        carrier: NotRequired["str|None"]
-        name: str
-        phone: NotRequired["str|None"]
-        tracking_number: NotRequired["str|None"]
+        class ModifyParamsShipping(TypedDict):
+            address: "Charge.ModifyParamsShippingAddress"
+            carrier: NotRequired["str|None"]
+            name: str
+            phone: NotRequired["str|None"]
+            tracking_number: NotRequired["str|None"]
 
-    class ModifyParamsShippingAddress(TypedDict):
-        city: NotRequired["str|None"]
-        country: NotRequired["str|None"]
-        line1: NotRequired["str|None"]
-        line2: NotRequired["str|None"]
-        postal_code: NotRequired["str|None"]
-        state: NotRequired["str|None"]
+        class ModifyParamsShippingAddress(TypedDict):
+            city: NotRequired["str|None"]
+            country: NotRequired["str|None"]
+            line1: NotRequired["str|None"]
+            line2: NotRequired["str|None"]
+            postal_code: NotRequired["str|None"]
+            state: NotRequired["str|None"]
 
-    class ModifyParamsFraudDetails(TypedDict):
-        user_report: Union[Literal[""], Literal["fraudulent", "safe"]]
+        class ModifyParamsFraudDetails(TypedDict):
+            user_report: Union[Literal[""], Literal["fraudulent", "safe"]]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class SearchParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        page: NotRequired["str|None"]
-        query: str
+        class SearchParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            page: NotRequired["str|None"]
+            query: str
 
     amount: int
     amount_captured: int

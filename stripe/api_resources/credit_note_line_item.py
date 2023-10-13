@@ -19,12 +19,13 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
     """
 
     OBJECT_NAME = "credit_note_line_item"
+    if TYPE_CHECKING:
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
     amount: int
     amount_excluding_tax: Optional[int]

@@ -26,26 +26,27 @@ class DebitReversal(
     """
 
     OBJECT_NAME = "treasury.debit_reversal"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
-        received_debit: str
+        class CreateParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            received_debit: str
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        financial_account: str
-        limit: NotRequired["int|None"]
-        received_debit: NotRequired["str|None"]
-        resolution: NotRequired["Literal['lost', 'won']|None"]
-        starting_after: NotRequired["str|None"]
-        status: NotRequired[
-            "Literal['canceled', 'completed', 'processing']|None"
-        ]
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            financial_account: str
+            limit: NotRequired["int|None"]
+            received_debit: NotRequired["str|None"]
+            resolution: NotRequired["Literal['lost', 'won']|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired[
+                "Literal['canceled', 'completed', 'processing']|None"
+            ]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     amount: int
     created: int

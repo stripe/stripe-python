@@ -6,6 +6,8 @@ from stripe.stripe_object import StripeObject
 from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
+from typing_extensions import TYPE_CHECKING
+
 
 class AccountSession(CreateableAPIResource["AccountSession"]):
     """
@@ -19,19 +21,20 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     """
 
     OBJECT_NAME = "account_session"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        account: str
-        components: "AccountSession.CreateParamsComponents"
-        expand: NotRequired["List[str]|None"]
+        class CreateParams(RequestOptions):
+            account: str
+            components: "AccountSession.CreateParamsComponents"
+            expand: NotRequired["List[str]|None"]
 
-    class CreateParamsComponents(TypedDict):
-        account_onboarding: NotRequired[
-            "AccountSession.CreateParamsComponentsAccountOnboarding|None"
-        ]
+        class CreateParamsComponents(TypedDict):
+            account_onboarding: NotRequired[
+                "AccountSession.CreateParamsComponentsAccountOnboarding|None"
+            ]
 
-    class CreateParamsComponentsAccountOnboarding(TypedDict):
-        enabled: bool
+        class CreateParamsComponentsAccountOnboarding(TypedDict):
+            enabled: bool
 
     account: str
     client_secret: str

@@ -32,88 +32,89 @@ class Session(CreateableAPIResource["Session"]):
     """
 
     OBJECT_NAME = "billing_portal.session"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        configuration: NotRequired["str|None"]
-        customer: str
-        expand: NotRequired["List[str]|None"]
-        flow_data: NotRequired["Session.CreateParamsFlowData|None"]
-        locale: NotRequired[
-            "Literal['auto', 'bg', 'cs', 'da', 'de', 'el', 'en', 'en-AU', 'en-CA', 'en-GB', 'en-IE', 'en-IN', 'en-NZ', 'en-SG', 'es', 'es-419', 'et', 'fi', 'fil', 'fr', 'fr-CA', 'hr', 'hu', 'id', 'it', 'ja', 'ko', 'lt', 'lv', 'ms', 'mt', 'nb', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sv', 'th', 'tr', 'vi', 'zh', 'zh-HK', 'zh-TW']|None"
-        ]
-        on_behalf_of: NotRequired["str|None"]
-        return_url: NotRequired["str|None"]
+        class CreateParams(RequestOptions):
+            configuration: NotRequired["str|None"]
+            customer: str
+            expand: NotRequired["List[str]|None"]
+            flow_data: NotRequired["Session.CreateParamsFlowData|None"]
+            locale: NotRequired[
+                "Literal['auto', 'bg', 'cs', 'da', 'de', 'el', 'en', 'en-AU', 'en-CA', 'en-GB', 'en-IE', 'en-IN', 'en-NZ', 'en-SG', 'es', 'es-419', 'et', 'fi', 'fil', 'fr', 'fr-CA', 'hr', 'hu', 'id', 'it', 'ja', 'ko', 'lt', 'lv', 'ms', 'mt', 'nb', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sv', 'th', 'tr', 'vi', 'zh', 'zh-HK', 'zh-TW']|None"
+            ]
+            on_behalf_of: NotRequired["str|None"]
+            return_url: NotRequired["str|None"]
 
-    class CreateParamsFlowData(TypedDict):
-        after_completion: NotRequired[
-            "Session.CreateParamsFlowDataAfterCompletion|None"
-        ]
-        subscription_cancel: NotRequired[
-            "Session.CreateParamsFlowDataSubscriptionCancel|None"
-        ]
-        subscription_update: NotRequired[
-            "Session.CreateParamsFlowDataSubscriptionUpdate|None"
-        ]
-        subscription_update_confirm: NotRequired[
-            "Session.CreateParamsFlowDataSubscriptionUpdateConfirm|None"
-        ]
-        type: Literal[
-            "payment_method_update",
-            "subscription_cancel",
-            "subscription_update",
-            "subscription_update_confirm",
-        ]
+        class CreateParamsFlowData(TypedDict):
+            after_completion: NotRequired[
+                "Session.CreateParamsFlowDataAfterCompletion|None"
+            ]
+            subscription_cancel: NotRequired[
+                "Session.CreateParamsFlowDataSubscriptionCancel|None"
+            ]
+            subscription_update: NotRequired[
+                "Session.CreateParamsFlowDataSubscriptionUpdate|None"
+            ]
+            subscription_update_confirm: NotRequired[
+                "Session.CreateParamsFlowDataSubscriptionUpdateConfirm|None"
+            ]
+            type: Literal[
+                "payment_method_update",
+                "subscription_cancel",
+                "subscription_update",
+                "subscription_update_confirm",
+            ]
 
-    class CreateParamsFlowDataSubscriptionUpdateConfirm(TypedDict):
-        discounts: NotRequired[
-            "List[Session.CreateParamsFlowDataSubscriptionUpdateConfirmDiscount]|None"
-        ]
-        items: List[
-            "Session.CreateParamsFlowDataSubscriptionUpdateConfirmItem"
-        ]
-        subscription: str
+        class CreateParamsFlowDataSubscriptionUpdateConfirm(TypedDict):
+            discounts: NotRequired[
+                "List[Session.CreateParamsFlowDataSubscriptionUpdateConfirmDiscount]|None"
+            ]
+            items: List[
+                "Session.CreateParamsFlowDataSubscriptionUpdateConfirmItem"
+            ]
+            subscription: str
 
-    class CreateParamsFlowDataSubscriptionUpdateConfirmItem(TypedDict):
-        id: str
-        price: NotRequired["str|None"]
-        quantity: NotRequired["int|None"]
+        class CreateParamsFlowDataSubscriptionUpdateConfirmItem(TypedDict):
+            id: str
+            price: NotRequired["str|None"]
+            quantity: NotRequired["int|None"]
 
-    class CreateParamsFlowDataSubscriptionUpdateConfirmDiscount(TypedDict):
-        coupon: NotRequired["str|None"]
-        promotion_code: NotRequired["str|None"]
+        class CreateParamsFlowDataSubscriptionUpdateConfirmDiscount(TypedDict):
+            coupon: NotRequired["str|None"]
+            promotion_code: NotRequired["str|None"]
 
-    class CreateParamsFlowDataSubscriptionUpdate(TypedDict):
-        subscription: str
+        class CreateParamsFlowDataSubscriptionUpdate(TypedDict):
+            subscription: str
 
-    class CreateParamsFlowDataSubscriptionCancel(TypedDict):
-        retention: NotRequired[
-            "Session.CreateParamsFlowDataSubscriptionCancelRetention|None"
-        ]
-        subscription: str
+        class CreateParamsFlowDataSubscriptionCancel(TypedDict):
+            retention: NotRequired[
+                "Session.CreateParamsFlowDataSubscriptionCancelRetention|None"
+            ]
+            subscription: str
 
-    class CreateParamsFlowDataSubscriptionCancelRetention(TypedDict):
-        coupon_offer: "Session.CreateParamsFlowDataSubscriptionCancelRetentionCouponOffer"
-        type: Literal["coupon_offer"]
+        class CreateParamsFlowDataSubscriptionCancelRetention(TypedDict):
+            coupon_offer: "Session.CreateParamsFlowDataSubscriptionCancelRetentionCouponOffer"
+            type: Literal["coupon_offer"]
 
-    class CreateParamsFlowDataSubscriptionCancelRetentionCouponOffer(
-        TypedDict
-    ):
-        coupon: str
+        class CreateParamsFlowDataSubscriptionCancelRetentionCouponOffer(
+            TypedDict,
+        ):
+            coupon: str
 
-    class CreateParamsFlowDataAfterCompletion(TypedDict):
-        hosted_confirmation: NotRequired[
-            "Session.CreateParamsFlowDataAfterCompletionHostedConfirmation|None"
-        ]
-        redirect: NotRequired[
-            "Session.CreateParamsFlowDataAfterCompletionRedirect|None"
-        ]
-        type: Literal["hosted_confirmation", "portal_homepage", "redirect"]
+        class CreateParamsFlowDataAfterCompletion(TypedDict):
+            hosted_confirmation: NotRequired[
+                "Session.CreateParamsFlowDataAfterCompletionHostedConfirmation|None"
+            ]
+            redirect: NotRequired[
+                "Session.CreateParamsFlowDataAfterCompletionRedirect|None"
+            ]
+            type: Literal["hosted_confirmation", "portal_homepage", "redirect"]
 
-    class CreateParamsFlowDataAfterCompletionRedirect(TypedDict):
-        return_url: str
+        class CreateParamsFlowDataAfterCompletionRedirect(TypedDict):
+            return_url: str
 
-    class CreateParamsFlowDataAfterCompletionHostedConfirmation(TypedDict):
-        custom_message: NotRequired["str|None"]
+        class CreateParamsFlowDataAfterCompletionHostedConfirmation(TypedDict):
+            custom_message: NotRequired["str|None"]
 
     configuration: ExpandableField["Configuration"]
     created: int
