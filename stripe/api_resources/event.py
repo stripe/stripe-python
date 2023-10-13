@@ -209,6 +209,8 @@ class Event(ListableAPIResource["Event"]):
         "issuing_personalization_design.deactivated",
         "issuing_personalization_design.rejected",
         "issuing_personalization_design.updated",
+        "issuing_token.created",
+        "issuing_token.updated",
         "issuing_transaction.created",
         "issuing_transaction.updated",
         "mandate.updated",
