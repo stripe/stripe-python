@@ -1,2 +1,3 @@
 # cryptography 40.0.0 deprecates support for Python 3.6 and PyPy3 < 7.3.10
 cryptography<40
+pyright>=1.1.331
