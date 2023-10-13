@@ -42,6 +42,9 @@ class StripeObject(Dict[str, Any]):
                 return api_requestor._encode_datetime(obj)
             return super(StripeObject.ReprJSONEncoder, self).default(obj)
 
+    _retrieve_params: Dict[str, Any]
+    _previous: Optional[Dict[str, Any]]
+
     def __init__(
         self,
         id=None,
@@ -119,7 +122,7 @@ class StripeObject(Dict[str, Any]):
 
         super(StripeObject, self).__setitem__(k, v)
 
-    def __getitem__(self, k):
+    def __getitem__(self, k: str) -> Any:
         try:
             return super(StripeObject, self).__getitem__(k)
         except KeyError as err:
