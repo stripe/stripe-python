@@ -9,9 +9,12 @@ from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.request_options import RequestOptions
-from typing import Any, Dict, List, Optional, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
+
+if TYPE_CHECKING:
+    from stripe.api_resources.bank_account import BankAccount
 
 
 class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
@@ -65,15 +68,17 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     @classmethod
     def _cls_delete(
         cls, sid: str, **params: Unpack["Card.DeleteParams"]
-    ) -> Any:
+    ) -> Union["BankAccount", "Card"]:
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
-            Any,
+            Union["BankAccount", "Card"],
             cls._static_request("delete", url, params=params),
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Unpack["Card.DeleteParams"]) -> Any:
+    def delete(
+        self, **params: Unpack["Card.DeleteParams"]
+    ) -> Union["BankAccount", "Card"]:
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
