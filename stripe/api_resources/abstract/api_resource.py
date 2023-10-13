@@ -1,9 +1,18 @@
-from typing_extensions import Literal, Mapping
+from typing_extensions import Literal
 
 from stripe import api_requestor, error, util
 from stripe.stripe_object import StripeObject
 from urllib.parse import quote_plus
-from typing import Any, ClassVar, Dict, Generic, Optional, TypeVar, cast
+from typing import (
+    Any,
+    ClassVar,
+    Dict,
+    Generic,
+    Optional,
+    TypeVar,
+    cast,
+    Mapping,
+)
 
 T = TypeVar("T", bound=StripeObject)
 

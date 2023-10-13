@@ -1,8 +1,8 @@
 import datetime
 import json
 from copy import deepcopy
-from typing_extensions import TYPE_CHECKING, Mapping, Literal
-from typing import Any, Dict, Optional
+from typing_extensions import TYPE_CHECKING, Literal
+from typing import Any, Dict, Optional, Mapping
 
 import stripe
 from stripe import api_requestor, util
