@@ -3,11 +3,16 @@
 from stripe import util
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional
-from typing_extensions import Literal
-
-from typing_extensions import TYPE_CHECKING
+from typing import Dict, List, Optional
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 if TYPE_CHECKING:
     from stripe.api_resources.tax.transaction_line_item import (
@@ -180,6 +185,49 @@ class Transaction(APIResource["Transaction"]):
         tax_code: str
         _inner_class_types = {"tax_breakdown": TaxBreakdown}
 
+    if TYPE_CHECKING:
+
+        class CreateFromCalculationParams(RequestOptions):
+            calculation: str
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            reference: str
+
+        class CreateReversalParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            flat_amount: NotRequired["int|None"]
+            line_items: NotRequired[
+                "List[Transaction.CreateReversalParamsLineItem]|None"
+            ]
+            metadata: NotRequired["Dict[str, str]|None"]
+            mode: Literal["full", "partial"]
+            original_transaction: str
+            reference: str
+            shipping_cost: NotRequired[
+                "Transaction.CreateReversalParamsShippingCost|None"
+            ]
+
+        class CreateReversalParamsShippingCost(TypedDict):
+            amount: int
+            amount_tax: int
+
+        class CreateReversalParamsLineItem(TypedDict):
+            amount: int
+            amount_tax: int
+            metadata: NotRequired["Dict[str, str]|None"]
+            original_line_item: str
+            quantity: NotRequired["int|None"]
+            reference: str
+
+        class ListLineItemsParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     created: int
     currency: str
     customer: Optional[str]
@@ -201,7 +249,7 @@ class Transaction(APIResource["Transaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transaction.CreateFromCalculationParams"]
     ):
         return cls._static_request(
             "post",
@@ -218,7 +266,7 @@ class Transaction(APIResource["Transaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transaction.CreateReversalParams"]
     ):
         return cls._static_request(
             "post",
@@ -236,7 +284,7 @@ class Transaction(APIResource["Transaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transaction.ListLineItemsParams"]
     ):
         return cls._static_request(
             "get",
@@ -251,7 +299,9 @@ class Transaction(APIResource["Transaction"]):
 
     @util.class_method_variant("_cls_list_line_items")
     def list_line_items(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Transaction.ListLineItemsParams"]
     ):
         return self._request(
             "get",
@@ -264,9 +314,9 @@ class Transaction(APIResource["Transaction"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
     ) -> "Transaction":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 

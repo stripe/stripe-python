@@ -13,8 +13,10 @@ import os
 # Configuration variables
 from stripe.api_version import _ApiVersion
 
-api_key = None
-client_id = None
+from stripe.app_info import AppInfo
+
+api_key: Optional[str] = None
+client_id: Optional[str] = None
 api_base = "https://api.stripe.com"
 connect_api_base = "https://connect.stripe.com"
 upload_api_base = "https://files.stripe.com"
@@ -22,7 +24,7 @@ api_version = _ApiVersion.CURRENT
 verify_ssl_certs = True
 proxy = None
 default_http_client = None
-app_info = None
+app_info: Optional[AppInfo] = None
 enable_telemetry = True
 max_network_retries = 0
 ca_bundle_path = os.path.join(
@@ -59,7 +61,12 @@ from . import api_resources  # noqa
 # communicating with Stripe.
 #
 # Takes a name and optional version and plugin URL.
-def set_app_info(name, partner_id=None, url=None, version=None):
+def set_app_info(
+    name: str,
+    partner_id: Optional[str] = None,
+    url: Optional[str] = None,
+    version: Optional[str] = None,
+):
     global app_info
     app_info = {
         "name": name,

@@ -95,6 +95,13 @@ jobs:
 
       - name: Typecheck with pyright
         run: make pyright
+        # Pip won't install newer versions of pyright on python 3.6 (odd, because pyright is a node module)
+        # so we skip running pyright, and do double duty on python 3.7 using the --pythonversion flag.
+        if: matrix.python-version != '3.6'
+
+      - name: Typecheck with pyright
+        run: make pyright PYRIGHT_ARGS="--pythonversion 3.6"
+        if: matrix.python-version == '3.7'
 
       - name: Test with pytest
         run: make ci-test

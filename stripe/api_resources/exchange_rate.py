@@ -2,8 +2,9 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
-from typing import Any, Dict, Optional
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import Dict, List, Optional
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
 class ExchangeRate(ListableAPIResource["ExchangeRate"]):
@@ -22,6 +23,17 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
     """
 
     OBJECT_NAME = "exchange_rate"
+    if TYPE_CHECKING:
+
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     id: str
     object: Literal["exchange_rate"]
     rates: Dict[str, float]
@@ -32,7 +44,7 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ExchangeRate.ListParams"]
     ) -> ListObject["ExchangeRate"]:
         result = cls._static_request(
             "get",
@@ -53,8 +65,8 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["ExchangeRate.RetrieveParams"]
     ) -> "ExchangeRate":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

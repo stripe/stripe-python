@@ -7,9 +7,16 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
 
 
@@ -51,6 +58,48 @@ class Transaction(
             "payment": Payment,
         }
 
+    if TYPE_CHECKING:
+
+        class CancelParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class ConfirmParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class CreateParams(RequestOptions):
+            amount: int
+            confirm: NotRequired["bool|None"]
+            created_by: NotRequired["Transaction.CreateParamsCreatedBy|None"]
+            currency: str
+            description: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            gift_card: str
+            metadata: NotRequired["Dict[str, str]|None"]
+            transfer_group: NotRequired["str|None"]
+
+        class CreateParamsCreatedBy(TypedDict):
+            payment: "Transaction.CreateParamsCreatedByPayment"
+            type: Literal["payment"]
+
+        class CreateParamsCreatedByPayment(TypedDict):
+            payment_intent: str
+
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            gift_card: NotRequired["str|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            transfer_group: NotRequired["str|None"]
+
+        class ModifyParams(RequestOptions):
+            description: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     amount: Optional[int]
     confirmed_at: Optional[int]
     created: Optional[int]
@@ -71,7 +120,7 @@ class Transaction(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transaction.CancelParams"]
     ):
         return cls._static_request(
             "post",
@@ -85,7 +134,11 @@ class Transaction(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Transaction.CancelParams"]
+    ):
         return self._request(
             "post",
             "/v1/gift_cards/transactions/{id}/cancel".format(
@@ -102,7 +155,7 @@ class Transaction(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transaction.ConfirmParams"]
     ):
         return cls._static_request(
             "post",
@@ -116,7 +169,11 @@ class Transaction(
         )
 
     @util.class_method_variant("_cls_confirm")
-    def confirm(self, idempotency_key: Optional[str] = None, **params: Any):
+    def confirm(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Transaction.ConfirmParams"]
+    ):
         return self._request(
             "post",
             "/v1/gift_cards/transactions/{id}/confirm".format(
@@ -133,7 +190,7 @@ class Transaction(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transaction.CreateParams"]
     ) -> "Transaction":
         return cast(
             "Transaction",
@@ -154,7 +211,7 @@ class Transaction(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transaction.ListParams"]
     ) -> ListObject["Transaction"]:
         result = cls._static_request(
             "get",
@@ -174,7 +231,9 @@ class Transaction(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Transaction":
+    def modify(
+        cls, id, **params: Unpack["Transaction.ModifyParams"]
+    ) -> "Transaction":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Transaction",
@@ -183,9 +242,9 @@ class Transaction(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
     ) -> "Transaction":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 

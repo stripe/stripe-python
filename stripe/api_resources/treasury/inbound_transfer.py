@@ -8,11 +8,17 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal, Type
-
-from typing_extensions import TYPE_CHECKING
+from typing import Dict, List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    Type,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 if TYPE_CHECKING:
     from stripe.api_resources.treasury.transaction import Transaction
@@ -85,6 +91,51 @@ class InboundTransfer(
         failed_at: Optional[int]
         succeeded_at: Optional[int]
 
+    if TYPE_CHECKING:
+
+        class CancelParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class CreateParams(RequestOptions):
+            amount: int
+            currency: str
+            description: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            financial_account: str
+            metadata: NotRequired["Dict[str, str]|None"]
+            origin_payment_method: str
+            statement_descriptor: NotRequired["str|None"]
+
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            financial_account: str
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired[
+                "Literal['canceled', 'failed', 'processing', 'succeeded']|None"
+            ]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class FailParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            failure_details: NotRequired[
+                "InboundTransfer.FailParamsFailureDetails|None"
+            ]
+
+        class FailParamsFailureDetails(TypedDict):
+            code: NotRequired[
+                "Literal['account_closed', 'account_frozen', 'bank_account_restricted', 'bank_ownership_changed', 'debit_not_authorized', 'incorrect_account_holder_address', 'incorrect_account_holder_name', 'incorrect_account_holder_tax_id', 'insufficient_funds', 'invalid_account_number', 'invalid_currency', 'no_account', 'other']|None"
+            ]
+
+        class ReturnInboundTransferParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class SucceedParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     amount: int
     cancelable: bool
     created: int
@@ -113,7 +164,7 @@ class InboundTransfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["InboundTransfer.CancelParams"]
     ):
         return cls._static_request(
             "post",
@@ -127,7 +178,11 @@ class InboundTransfer(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["InboundTransfer.CancelParams"]
+    ):
         return self._request(
             "post",
             "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
@@ -144,7 +199,7 @@ class InboundTransfer(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["InboundTransfer.CreateParams"]
     ) -> "InboundTransfer":
         return cast(
             "InboundTransfer",
@@ -165,7 +220,7 @@ class InboundTransfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["InboundTransfer.ListParams"]
     ) -> ListObject["InboundTransfer"]:
         result = cls._static_request(
             "get",
@@ -186,9 +241,9 @@ class InboundTransfer(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["InboundTransfer.RetrieveParams"]
     ) -> "InboundTransfer":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -202,7 +257,7 @@ class InboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Any
+            **params: Unpack["InboundTransfer.FailParams"]
         ):
             return cls._static_request(
                 "post",
@@ -216,7 +271,11 @@ class InboundTransfer(
             )
 
         @util.class_method_variant("_cls_fail")
-        def fail(self, idempotency_key: Optional[str] = None, **params: Any):
+        def fail(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["InboundTransfer.FailParams"]
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
@@ -233,7 +292,7 @@ class InboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Any
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
         ):
             return cls._static_request(
                 "post",
@@ -248,7 +307,9 @@ class InboundTransfer(
 
         @util.class_method_variant("_cls_return_inbound_transfer")
         def return_inbound_transfer(
-            self, idempotency_key: Optional[str] = None, **params: Any
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
         ):
             return self.resource._request(
                 "post",
@@ -266,7 +327,7 @@ class InboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Any
+            **params: Unpack["InboundTransfer.SucceedParams"]
         ):
             return cls._static_request(
                 "post",
@@ -281,7 +342,9 @@ class InboundTransfer(
 
         @util.class_method_variant("_cls_succeed")
         def succeed(
-            self, idempotency_key: Optional[str] = None, **params: Any
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["InboundTransfer.SucceedParams"]
         ):
             return self.resource._request(
                 "post",

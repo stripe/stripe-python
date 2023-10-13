@@ -8,12 +8,17 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.identity.verification_report import (
@@ -105,6 +110,78 @@ class VerificationSession(
         last_name: Optional[str]
         _inner_class_types = {"address": Address, "dob": Dob}
 
+    if TYPE_CHECKING:
+
+        class CancelParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class CreateParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            options: NotRequired[
+                "VerificationSession.CreateParamsOptions|None"
+            ]
+            return_url: NotRequired["str|None"]
+            type: Literal["document", "id_number"]
+
+        class CreateParamsOptions(TypedDict):
+            document: NotRequired[
+                "Literal['']|VerificationSession.CreateParamsOptionsDocument|None"
+            ]
+
+        class CreateParamsOptionsDocument(TypedDict):
+            allowed_types: NotRequired[
+                "List[Literal['driving_license', 'id_card', 'passport']]|None"
+            ]
+            require_id_number: NotRequired["bool|None"]
+            require_live_capture: NotRequired["bool|None"]
+            require_matching_selfie: NotRequired["bool|None"]
+
+        class ListParams(RequestOptions):
+            created: NotRequired[
+                "VerificationSession.ListParamsCreated|int|None"
+            ]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired[
+                "Literal['canceled', 'processing', 'requires_input', 'verified']|None"
+            ]
+
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
+
+        class ModifyParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            options: NotRequired[
+                "VerificationSession.ModifyParamsOptions|None"
+            ]
+            type: NotRequired["Literal['document', 'id_number']|None"]
+
+        class ModifyParamsOptions(TypedDict):
+            document: NotRequired[
+                "Literal['']|VerificationSession.ModifyParamsOptionsDocument|None"
+            ]
+
+        class ModifyParamsOptionsDocument(TypedDict):
+            allowed_types: NotRequired[
+                "List[Literal['driving_license', 'id_card', 'passport']]|None"
+            ]
+            require_id_number: NotRequired["bool|None"]
+            require_live_capture: NotRequired["bool|None"]
+            require_matching_selfie: NotRequired["bool|None"]
+
+        class RedactParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     client_secret: Optional[str]
     created: int
     id: str
@@ -127,7 +204,7 @@ class VerificationSession(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["VerificationSession.CancelParams"]
     ):
         return cls._static_request(
             "post",
@@ -141,7 +218,11 @@ class VerificationSession(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["VerificationSession.CancelParams"]
+    ):
         return self._request(
             "post",
             "/v1/identity/verification_sessions/{session}/cancel".format(
@@ -158,7 +239,7 @@ class VerificationSession(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["VerificationSession.CreateParams"]
     ) -> "VerificationSession":
         return cast(
             "VerificationSession",
@@ -179,7 +260,7 @@ class VerificationSession(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["VerificationSession.ListParams"]
     ) -> ListObject["VerificationSession"]:
         result = cls._static_request(
             "get",
@@ -199,7 +280,9 @@ class VerificationSession(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "VerificationSession":
+    def modify(
+        cls, id, **params: Unpack["VerificationSession.ModifyParams"]
+    ) -> "VerificationSession":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "VerificationSession",
@@ -213,7 +296,7 @@ class VerificationSession(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["VerificationSession.RedactParams"]
     ):
         return cls._static_request(
             "post",
@@ -227,7 +310,11 @@ class VerificationSession(
         )
 
     @util.class_method_variant("_cls_redact")
-    def redact(self, idempotency_key: Optional[str] = None, **params: Any):
+    def redact(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["VerificationSession.RedactParams"]
+    ):
         return self._request(
             "post",
             "/v1/identity/verification_sessions/{session}/redact".format(
@@ -239,9 +326,9 @@ class VerificationSession(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["VerificationSession.RetrieveParams"]
     ) -> "VerificationSession":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
