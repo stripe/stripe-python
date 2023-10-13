@@ -8,9 +8,13 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
-
-from typing_extensions import TYPE_CHECKING
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 if TYPE_CHECKING:
     from stripe.api_resources.file import File

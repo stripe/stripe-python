@@ -4,9 +4,7 @@ from stripe.api_resources.abstract import SingletonAPIResource
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
-from typing_extensions import Literal, NotRequired, Unpack
-
-from typing_extensions import TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
 class Balance(SingletonAPIResource["Balance"]):

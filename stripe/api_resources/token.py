@@ -3,9 +3,13 @@
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.request_options import RequestOptions
 from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
-
-from typing_extensions import TYPE_CHECKING
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 if TYPE_CHECKING:
     from stripe.api_resources.bank_account import BankAccount

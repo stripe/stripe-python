@@ -9,9 +9,13 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from typing import Dict, List, Optional
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
-
-from typing_extensions import TYPE_CHECKING
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account

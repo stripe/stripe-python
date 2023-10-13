@@ -10,10 +10,8 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, Unpack
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 
 class WebhookEndpoint(

@@ -10,10 +10,8 @@ from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.request_options import RequestOptions
 from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal, Unpack
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 
 class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
