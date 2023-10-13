@@ -35,7 +35,7 @@ pyright: venv
 	# means to perform as these old versions of pip already do.
 	pip install -e . --config-settings editable_mode=compat || pip install -e .
 	@${VENV_NAME}/bin/pyright --version
-	@${VENV_NAME}/bin/pyright
+	@${VENV_NAME}/bin/pyright $(PYRIGHT_ARGS)
 
 fmt: venv
 	@${VENV_NAME}/bin/tox -e fmt

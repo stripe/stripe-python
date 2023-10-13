@@ -95,6 +95,11 @@ jobs:
 
       - name: Typecheck with pyright
         run: make pyright
+        if: matrix.python-version != '3.6'
+
+      - name: Typecheck with pyright
+        run: make pyright PYRIGHT_ARGS="--pythonversion 3.6"
+        if: matrix.python-version == '3.7'
 
       - name: Test with pytest
         run: make ci-test
