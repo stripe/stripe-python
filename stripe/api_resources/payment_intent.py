@@ -12,7 +12,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -25,11 +25,14 @@ from urllib.parse import quote_plus
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
+    from stripe.api_resources.bank_account import BankAccount
+    from stripe.api_resources.card import Card
     from stripe.api_resources.charge import Charge
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.review import Review
+    from stripe.api_resources.source import Source
 
 
 class PaymentIntent(
@@ -2485,7 +2488,9 @@ class PaymentIntent(
     review: Optional[ExpandableField["Review"]]
     setup_future_usage: Optional[Literal["off_session", "on_session"]]
     shipping: Optional[StripeObject]
-    source: Optional[ExpandableField[Any]]
+    source: Optional[
+        ExpandableField[Union["Account", "BankAccount", "Card", "Source"]]
+    ]
     statement_descriptor: Optional[str]
     statement_descriptor_suffix: Optional[str]
     status: Literal[
