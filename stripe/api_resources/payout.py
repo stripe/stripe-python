@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import Any, Dict, List, Optional, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -17,6 +17,8 @@ from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.balance_transaction import BalanceTransaction
+    from stripe.api_resources.bank_account import BankAccount
+    from stripe.api_resources.card import Card
 
 
 class Payout(
@@ -91,7 +93,7 @@ class Payout(
     created: int
     currency: str
     description: Optional[str]
-    destination: Optional[ExpandableField[Any]]
+    destination: Optional[ExpandableField[Union["BankAccount", "Card"]]]
     failure_balance_transaction: Optional[
         ExpandableField["BalanceTransaction"]
     ]

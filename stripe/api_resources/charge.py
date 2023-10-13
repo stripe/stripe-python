@@ -12,7 +12,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -23,6 +23,8 @@ if TYPE_CHECKING:
     from stripe.api_resources.application import Application
     from stripe.api_resources.application_fee import ApplicationFee
     from stripe.api_resources.balance_transaction import BalanceTransaction
+    from stripe.api_resources.bank_account import BankAccount
+    from stripe.api_resources.card import Card as CardResource
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.mandate import Mandate
@@ -30,6 +32,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.refund import Refund
     from stripe.api_resources.review import Review
+    from stripe.api_resources.source import Source
     from stripe.api_resources.transfer import Transfer
 
 
@@ -1166,7 +1169,7 @@ class Charge(
     refunds: Optional[ListObject["Refund"]]
     review: Optional[ExpandableField["Review"]]
     shipping: Optional[Shipping]
-    source: Optional[Any]
+    source: Optional[Union["Account", "BankAccount", "CardResource", "Source"]]
     source_transfer: Optional[ExpandableField["Transfer"]]
     statement_descriptor: Optional[str]
     statement_descriptor_suffix: Optional[str]

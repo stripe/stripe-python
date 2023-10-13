@@ -12,7 +12,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
+from typing import Any, Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -21,12 +21,15 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
+    from stripe.api_resources.bank_account import BankAccount
+    from stripe.api_resources.card import Card as CardResource
     from stripe.api_resources.charge import Charge
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.review import Review
     from stripe.api_resources.setup_intent import SetupIntent
+    from stripe.api_resources.source import Source
 
 
 class PaymentIntent(
@@ -238,7 +241,9 @@ class PaymentIntent(
         payment_method_type: Optional[str]
         request_log_url: Optional[str]
         setup_intent: Optional["SetupIntent"]
-        source: Optional[Any]
+        source: Optional[
+            Union["Account", "BankAccount", "CardResource", "Source"]
+        ]
         type: Literal[
             "api_error",
             "card_error",
@@ -3812,7 +3817,11 @@ class PaymentIntent(
     secret_key_confirmation: Optional[Literal["optional", "required"]]
     setup_future_usage: Optional[Literal["off_session", "on_session"]]
     shipping: Optional[Shipping]
-    source: Optional[ExpandableField[Any]]
+    source: Optional[
+        ExpandableField[
+            Union["Account", "BankAccount", "CardResource", "Source"]
+        ]
+    ]
     statement_descriptor: Optional[str]
     statement_descriptor_suffix: Optional[str]
     status: Literal[

@@ -5,7 +5,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, List, Optional
+from typing import List, Optional, Union
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
@@ -13,11 +13,14 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
+    from stripe.api_resources.bank_account import BankAccount
+    from stripe.api_resources.card import Card as CardResource
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.mandate import Mandate
     from stripe.api_resources.payment_intent import PaymentIntent
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.setup_intent import SetupIntent
+    from stripe.api_resources.source import Source
 
 
 class SetupAttempt(ListableAPIResource["SetupAttempt"]):
@@ -407,7 +410,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         payment_method_type: Optional[str]
         request_log_url: Optional[str]
         setup_intent: Optional["SetupIntent"]
-        source: Optional[Any]
+        source: Optional[
+            Union["Account", "BankAccount", "CardResource", "Source"]
+        ]
         type: Literal[
             "api_error",
             "card_error",

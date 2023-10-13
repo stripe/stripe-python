@@ -5,7 +5,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional
+from typing import Dict, List, Optional, Union
 from typing_extensions import Literal, NotRequired, Unpack
 
 from typing_extensions import TYPE_CHECKING
@@ -13,6 +13,8 @@ from typing_extensions import TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
+    from stripe.api_resources.bank_account import BankAccount
+    from stripe.api_resources.card import Card as CardResource
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
@@ -21,6 +23,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.quote import Quote
     from stripe.api_resources.setup_intent import SetupIntent
     from stripe.api_resources.shipping_rate import ShippingRate
+    from stripe.api_resources.source import Source
     from stripe.api_resources.subscription import Subscription
     from stripe.api_resources.tax_id import TaxId
     from stripe.api_resources.tax_rate import TaxRate
@@ -366,7 +369,9 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
         payment_method_type: Optional[str]
         request_log_url: Optional[str]
         setup_intent: Optional["SetupIntent"]
-        source: Optional[Any]
+        source: Optional[
+            Union["Account", "BankAccount", "CardResource", "Source"]
+        ]
         type: Literal[
             "api_error",
             "card_error",
@@ -653,7 +658,11 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     customer_tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
     customer_tax_ids: Optional[List[CustomerTaxId]]
     default_payment_method: Optional[ExpandableField["PaymentMethod"]]
-    default_source: Optional[ExpandableField[Any]]
+    default_source: Optional[
+        ExpandableField[
+            Union["Account", "BankAccount", "CardResource", "Source"]
+        ]
+    ]
     default_tax_rates: List["TaxRate"]
     description: Optional[str]
     discount: Optional["Discount"]

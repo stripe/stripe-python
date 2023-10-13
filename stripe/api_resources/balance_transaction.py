@@ -5,8 +5,37 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, List, Optional
+from typing import List, Optional, Union
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+
+from typing_extensions import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from stripe.api_resources.application_fee import ApplicationFee
+    from stripe.api_resources.application_fee_refund import (
+        ApplicationFeeRefund,
+    )
+    from stripe.api_resources.charge import Charge
+    from stripe.api_resources.connect_collection_transfer import (
+        ConnectCollectionTransfer,
+    )
+    from stripe.api_resources.customer_cash_balance_transaction import (
+        CustomerCashBalanceTransaction,
+    )
+    from stripe.api_resources.dispute import Dispute as DisputeResource
+    from stripe.api_resources.issuing.authorization import Authorization
+    from stripe.api_resources.issuing.dispute import (
+        Dispute as IssuingDisputeResource,
+    )
+    from stripe.api_resources.issuing.transaction import Transaction
+    from stripe.api_resources.payout import Payout
+    from stripe.api_resources.platform_tax_fee import PlatformTaxFee
+    from stripe.api_resources.refund import Refund
+    from stripe.api_resources.reserve_transaction import ReserveTransaction
+    from stripe.api_resources.reversal import Reversal
+    from stripe.api_resources.tax_deducted_at_source import TaxDeductedAtSource
+    from stripe.api_resources.topup import Topup
+    from stripe.api_resources.transfer import Transfer
 
 
 class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
@@ -58,7 +87,29 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     net: int
     object: Literal["balance_transaction"]
     reporting_category: str
-    source: Optional[ExpandableField[Any]]
+    source: Optional[
+        ExpandableField[
+            Union[
+                "ApplicationFee",
+                "Charge",
+                "ConnectCollectionTransfer",
+                "CustomerCashBalanceTransaction",
+                "DisputeResource",
+                "ApplicationFeeRefund",
+                "Authorization",
+                "IssuingDisputeResource",
+                "Transaction",
+                "Payout",
+                "PlatformTaxFee",
+                "Refund",
+                "ReserveTransaction",
+                "TaxDeductedAtSource",
+                "Topup",
+                "Transfer",
+                "Reversal",
+            ]
+        ]
+    ]
     status: str
     type: Literal[
         "adjustment",

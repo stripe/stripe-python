@@ -12,13 +12,15 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
+from typing import Dict, List, Optional, Union, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.bank_account import BankAccount
+    from stripe.api_resources.card import Card
     from stripe.api_resources.file import File
     from stripe.api_resources.person import Person
 
@@ -1421,7 +1423,7 @@ class Account(
     default_currency: Optional[str]
     details_submitted: Optional[bool]
     email: Optional[str]
-    external_accounts: Optional[ListObject[Any]]
+    external_accounts: Optional[ListObject[Union["BankAccount", "Card"]]]
     future_requirements: Optional[FutureRequirements]
     id: str
     individual: Optional["Person"]
