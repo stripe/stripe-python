@@ -2,9 +2,10 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional
-from typing_extensions import Literal
+from typing import Dict, List, Optional
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
 class CountrySpec(ListableAPIResource["CountrySpec"]):
@@ -18,6 +19,17 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
     """
 
     OBJECT_NAME = "country_spec"
+    if TYPE_CHECKING:
+
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     default_currency: str
     id: str
     object: Literal["country_spec"]
@@ -33,7 +45,7 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["CountrySpec.ListParams"]
     ) -> ListObject["CountrySpec"]:
         result = cls._static_request(
             "get",
@@ -54,8 +66,8 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["CountrySpec.RetrieveParams"]
     ) -> "CountrySpec":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

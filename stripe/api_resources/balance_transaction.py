@@ -3,9 +3,16 @@
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Any, List, Optional
-from typing_extensions import Literal
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 
 class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
@@ -17,6 +24,30 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     """
 
     OBJECT_NAME = "balance_transaction"
+    if TYPE_CHECKING:
+
+        class ListParams(RequestOptions):
+            created: NotRequired[
+                "BalanceTransaction.ListParamsCreated|int|None"
+            ]
+            currency: NotRequired["str|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            payout: NotRequired["str|None"]
+            source: NotRequired["str|None"]
+            starting_after: NotRequired["str|None"]
+            type: NotRequired["str|None"]
+
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     amount: int
     available_on: int
     created: int
@@ -79,7 +110,7 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["BalanceTransaction.ListParams"]
     ) -> ListObject["BalanceTransaction"]:
         result = cls._static_request(
             "get",
@@ -100,8 +131,8 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["BalanceTransaction.RetrieveParams"]
     ) -> "BalanceTransaction":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

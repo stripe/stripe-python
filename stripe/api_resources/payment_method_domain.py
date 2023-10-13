@@ -7,9 +7,10 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional, cast
-from typing_extensions import Literal
+from typing import List, Optional, cast
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
 
 
@@ -26,6 +27,31 @@ class PaymentMethodDomain(
     """
 
     OBJECT_NAME = "payment_method_domain"
+    if TYPE_CHECKING:
+
+        class CreateParams(RequestOptions):
+            domain_name: str
+            enabled: NotRequired["bool|None"]
+            expand: NotRequired["List[str]|None"]
+
+        class ListParams(RequestOptions):
+            domain_name: NotRequired["str|None"]
+            enabled: NotRequired["bool|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+
+        class ModifyParams(RequestOptions):
+            enabled: NotRequired["bool|None"]
+            expand: NotRequired["List[str]|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class ValidateParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     apple_pay: StripeObject
     created: int
     domain_name: str
@@ -44,7 +70,7 @@ class PaymentMethodDomain(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["PaymentMethodDomain.CreateParams"]
     ) -> "PaymentMethodDomain":
         return cast(
             "PaymentMethodDomain",
@@ -65,7 +91,7 @@ class PaymentMethodDomain(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["PaymentMethodDomain.ListParams"]
     ) -> ListObject["PaymentMethodDomain"]:
         result = cls._static_request(
             "get",
@@ -85,7 +111,9 @@ class PaymentMethodDomain(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "PaymentMethodDomain":
+    def modify(
+        cls, id, **params: Unpack["PaymentMethodDomain.ModifyParams"]
+    ) -> "PaymentMethodDomain":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PaymentMethodDomain",
@@ -94,9 +122,9 @@ class PaymentMethodDomain(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["PaymentMethodDomain.RetrieveParams"]
     ) -> "PaymentMethodDomain":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -107,7 +135,7 @@ class PaymentMethodDomain(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["PaymentMethodDomain.ValidateParams"]
     ):
         return cls._static_request(
             "post",
@@ -121,7 +149,11 @@ class PaymentMethodDomain(
         )
 
     @util.class_method_variant("_cls_validate")
-    def validate(self, idempotency_key: Optional[str] = None, **params: Any):
+    def validate(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["PaymentMethodDomain.ValidateParams"]
+    ):
         return self._request(
             "post",
             "/v1/payment_method_domains/{payment_method_domain}/validate".format(

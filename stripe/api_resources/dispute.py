@@ -7,12 +7,17 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.balance_transaction import BalanceTransaction
@@ -32,6 +37,64 @@ class Dispute(
     """
 
     OBJECT_NAME = "dispute"
+    if TYPE_CHECKING:
+
+        class CloseParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class ListParams(RequestOptions):
+            charge: NotRequired["str|None"]
+            created: NotRequired["Dispute.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            payment_intent: NotRequired["str|None"]
+            starting_after: NotRequired["str|None"]
+
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
+
+        class ModifyParams(RequestOptions):
+            evidence: NotRequired["Dispute.ModifyParamsEvidence|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            submit: NotRequired["bool|None"]
+
+        class ModifyParamsEvidence(TypedDict):
+            access_activity_log: NotRequired["str|None"]
+            billing_address: NotRequired["str|None"]
+            cancellation_policy: NotRequired["str|None"]
+            cancellation_policy_disclosure: NotRequired["str|None"]
+            cancellation_rebuttal: NotRequired["str|None"]
+            customer_communication: NotRequired["str|None"]
+            customer_email_address: NotRequired["str|None"]
+            customer_name: NotRequired["str|None"]
+            customer_purchase_ip: NotRequired["str|None"]
+            customer_signature: NotRequired["str|None"]
+            duplicate_charge_documentation: NotRequired["str|None"]
+            duplicate_charge_explanation: NotRequired["str|None"]
+            duplicate_charge_id: NotRequired["str|None"]
+            product_description: NotRequired["str|None"]
+            receipt: NotRequired["str|None"]
+            refund_policy: NotRequired["str|None"]
+            refund_policy_disclosure: NotRequired["str|None"]
+            refund_refusal_explanation: NotRequired["str|None"]
+            service_date: NotRequired["str|None"]
+            service_documentation: NotRequired["str|None"]
+            shipping_address: NotRequired["str|None"]
+            shipping_carrier: NotRequired["str|None"]
+            shipping_date: NotRequired["str|None"]
+            shipping_documentation: NotRequired["str|None"]
+            shipping_tracking_number: NotRequired["str|None"]
+            uncategorized_file: NotRequired["str|None"]
+            uncategorized_text: NotRequired["str|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     amount: int
     balance_transactions: List["BalanceTransaction"]
     charge: ExpandableField["Charge"]
@@ -65,7 +128,7 @@ class Dispute(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Dispute.CloseParams"]
     ):
         return cls._static_request(
             "post",
@@ -79,7 +142,11 @@ class Dispute(
         )
 
     @util.class_method_variant("_cls_close")
-    def close(self, idempotency_key: Optional[str] = None, **params: Any):
+    def close(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Dispute.CloseParams"]
+    ):
         return self._request(
             "post",
             "/v1/disputes/{dispute}/close".format(
@@ -95,7 +162,7 @@ class Dispute(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Dispute.ListParams"]
     ) -> ListObject["Dispute"]:
         result = cls._static_request(
             "get",
@@ -115,7 +182,7 @@ class Dispute(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Dispute":
+    def modify(cls, id, **params: Unpack["Dispute.ModifyParams"]) -> "Dispute":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Dispute",
@@ -124,8 +191,8 @@ class Dispute(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Dispute.RetrieveParams"]
     ) -> "Dispute":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

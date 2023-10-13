@@ -2,11 +2,16 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional
-from typing_extensions import Literal
-
-from typing_extensions import TYPE_CHECKING
+from typing import List, Optional
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 if TYPE_CHECKING:
     from stripe.api_resources.treasury.transaction_entry import (
@@ -20,6 +25,41 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
 
     OBJECT_NAME = "treasury.transaction"
+    if TYPE_CHECKING:
+
+        class ListParams(RequestOptions):
+            created: NotRequired["Transaction.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            financial_account: str
+            limit: NotRequired["int|None"]
+            order_by: NotRequired["Literal['created', 'posted_at']|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired["Literal['open', 'posted', 'void']|None"]
+            status_transitions: NotRequired[
+                "Transaction.ListParamsStatusTransitions|None"
+            ]
+
+        class ListParamsStatusTransitions(TypedDict):
+            posted_at: NotRequired[
+                "Transaction.ListParamsStatusTransitionsPostedAt|int|None"
+            ]
+
+        class ListParamsStatusTransitionsPostedAt(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
+
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     amount: int
     balance_impact: StripeObject
     created: int
@@ -52,7 +92,7 @@ class Transaction(ListableAPIResource["Transaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transaction.ListParams"]
     ) -> ListObject["Transaction"]:
         result = cls._static_request(
             "get",
@@ -73,8 +113,8 @@ class Transaction(ListableAPIResource["Transaction"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
     ) -> "Transaction":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

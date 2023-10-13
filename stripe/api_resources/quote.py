@@ -9,12 +9,17 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
@@ -40,6 +45,199 @@ class Quote(
     """
 
     OBJECT_NAME = "quote"
+    if TYPE_CHECKING:
+
+        class AcceptParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class CancelParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class CreateParams(RequestOptions):
+            application_fee_amount: NotRequired["Literal['']|int|None"]
+            application_fee_percent: NotRequired["Literal['']|float|None"]
+            automatic_tax: NotRequired["Quote.CreateParamsAutomaticTax|None"]
+            collection_method: NotRequired[
+                "Literal['charge_automatically', 'send_invoice']|None"
+            ]
+            customer: NotRequired["str|None"]
+            default_tax_rates: NotRequired["Literal['']|List[str]|None"]
+            description: NotRequired["Literal['']|str|None"]
+            discounts: NotRequired[
+                "Literal['']|List[Quote.CreateParamsDiscount]|None"
+            ]
+            expand: NotRequired["List[str]|None"]
+            expires_at: NotRequired["int|None"]
+            footer: NotRequired["Literal['']|str|None"]
+            from_quote: NotRequired["Quote.CreateParamsFromQuote|None"]
+            header: NotRequired["Literal['']|str|None"]
+            invoice_settings: NotRequired[
+                "Quote.CreateParamsInvoiceSettings|None"
+            ]
+            line_items: NotRequired["List[Quote.CreateParamsLineItem]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            on_behalf_of: NotRequired["Literal['']|str|None"]
+            subscription_data: NotRequired[
+                "Quote.CreateParamsSubscriptionData|None"
+            ]
+            test_clock: NotRequired["str|None"]
+            transfer_data: NotRequired[
+                "Literal['']|Quote.CreateParamsTransferData|None"
+            ]
+
+        class CreateParamsTransferData(TypedDict):
+            amount: NotRequired["int|None"]
+            amount_percent: NotRequired["float|None"]
+            destination: str
+
+        class CreateParamsSubscriptionData(TypedDict):
+            description: NotRequired["str|None"]
+            effective_date: NotRequired[
+                "Literal['']|Literal['current_period_end']|int|None"
+            ]
+            trial_period_days: NotRequired["Literal['']|int|None"]
+
+        class CreateParamsLineItem(TypedDict):
+            price: NotRequired["str|None"]
+            price_data: NotRequired["Quote.CreateParamsLineItemPriceData|None"]
+            quantity: NotRequired["int|None"]
+            tax_rates: NotRequired["Literal['']|List[str]|None"]
+
+        class CreateParamsLineItemPriceData(TypedDict):
+            currency: str
+            product: str
+            recurring: NotRequired[
+                "Quote.CreateParamsLineItemPriceDataRecurring|None"
+            ]
+            tax_behavior: NotRequired[
+                "Literal['exclusive', 'inclusive', 'unspecified']|None"
+            ]
+            unit_amount: NotRequired["int|None"]
+            unit_amount_decimal: NotRequired["float|None"]
+
+        class CreateParamsLineItemPriceDataRecurring(TypedDict):
+            interval: Literal["day", "month", "week", "year"]
+            interval_count: NotRequired["int|None"]
+
+        class CreateParamsInvoiceSettings(TypedDict):
+            days_until_due: NotRequired["int|None"]
+
+        class CreateParamsFromQuote(TypedDict):
+            is_revision: NotRequired["bool|None"]
+            quote: str
+
+        class CreateParamsDiscount(TypedDict):
+            coupon: NotRequired["str|None"]
+            discount: NotRequired["str|None"]
+
+        class CreateParamsAutomaticTax(TypedDict):
+            enabled: bool
+
+        class FinalizeQuoteParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            expires_at: NotRequired["int|None"]
+
+        class ListParams(RequestOptions):
+            customer: NotRequired["str|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired[
+                "Literal['accepted', 'canceled', 'draft', 'open']|None"
+            ]
+            test_clock: NotRequired["str|None"]
+
+        class ListComputedUpfrontLineItemsParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+
+        class ListLineItemsParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+
+        class ModifyParams(RequestOptions):
+            application_fee_amount: NotRequired["Literal['']|int|None"]
+            application_fee_percent: NotRequired["Literal['']|float|None"]
+            automatic_tax: NotRequired["Quote.ModifyParamsAutomaticTax|None"]
+            collection_method: NotRequired[
+                "Literal['charge_automatically', 'send_invoice']|None"
+            ]
+            customer: NotRequired["str|None"]
+            default_tax_rates: NotRequired["Literal['']|List[str]|None"]
+            description: NotRequired["Literal['']|str|None"]
+            discounts: NotRequired[
+                "Literal['']|List[Quote.ModifyParamsDiscount]|None"
+            ]
+            expand: NotRequired["List[str]|None"]
+            expires_at: NotRequired["int|None"]
+            footer: NotRequired["Literal['']|str|None"]
+            header: NotRequired["Literal['']|str|None"]
+            invoice_settings: NotRequired[
+                "Quote.ModifyParamsInvoiceSettings|None"
+            ]
+            line_items: NotRequired["List[Quote.ModifyParamsLineItem]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            on_behalf_of: NotRequired["Literal['']|str|None"]
+            subscription_data: NotRequired[
+                "Quote.ModifyParamsSubscriptionData|None"
+            ]
+            transfer_data: NotRequired[
+                "Literal['']|Quote.ModifyParamsTransferData|None"
+            ]
+
+        class ModifyParamsTransferData(TypedDict):
+            amount: NotRequired["int|None"]
+            amount_percent: NotRequired["float|None"]
+            destination: str
+
+        class ModifyParamsSubscriptionData(TypedDict):
+            description: NotRequired["Literal['']|str|None"]
+            effective_date: NotRequired[
+                "Literal['']|Literal['current_period_end']|int|None"
+            ]
+            trial_period_days: NotRequired["Literal['']|int|None"]
+
+        class ModifyParamsLineItem(TypedDict):
+            id: NotRequired["str|None"]
+            price: NotRequired["str|None"]
+            price_data: NotRequired["Quote.ModifyParamsLineItemPriceData|None"]
+            quantity: NotRequired["int|None"]
+            tax_rates: NotRequired["Literal['']|List[str]|None"]
+
+        class ModifyParamsLineItemPriceData(TypedDict):
+            currency: str
+            product: str
+            recurring: NotRequired[
+                "Quote.ModifyParamsLineItemPriceDataRecurring|None"
+            ]
+            tax_behavior: NotRequired[
+                "Literal['exclusive', 'inclusive', 'unspecified']|None"
+            ]
+            unit_amount: NotRequired["int|None"]
+            unit_amount_decimal: NotRequired["float|None"]
+
+        class ModifyParamsLineItemPriceDataRecurring(TypedDict):
+            interval: Literal["day", "month", "week", "year"]
+            interval_count: NotRequired["int|None"]
+
+        class ModifyParamsInvoiceSettings(TypedDict):
+            days_until_due: NotRequired["int|None"]
+
+        class ModifyParamsDiscount(TypedDict):
+            coupon: NotRequired["str|None"]
+            discount: NotRequired["str|None"]
+
+        class ModifyParamsAutomaticTax(TypedDict):
+            enabled: bool
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     amount_subtotal: int
     amount_total: int
     application: Optional[ExpandableField["Application"]]
@@ -83,7 +281,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.AcceptParams"]
     ):
         return cls._static_request(
             "post",
@@ -95,7 +293,11 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_accept")
-    def accept(self, idempotency_key: Optional[str] = None, **params: Any):
+    def accept(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.AcceptParams"]
+    ):
         return self._request(
             "post",
             "/v1/quotes/{quote}/accept".format(
@@ -112,7 +314,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.CancelParams"]
     ):
         return cls._static_request(
             "post",
@@ -124,7 +326,11 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.CancelParams"]
+    ):
         return self._request(
             "post",
             "/v1/quotes/{quote}/cancel".format(
@@ -141,7 +347,7 @@ class Quote(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.CreateParams"]
     ) -> "Quote":
         return cast(
             "Quote",
@@ -163,7 +369,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.FinalizeQuoteParams"]
     ):
         return cls._static_request(
             "post",
@@ -178,7 +384,9 @@ class Quote(
 
     @util.class_method_variant("_cls_finalize_quote")
     def finalize_quote(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.FinalizeQuoteParams"]
     ):
         return self._request(
             "post",
@@ -195,7 +403,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.ListParams"]
     ) -> ListObject["Quote"]:
         result = cls._static_request(
             "get",
@@ -221,7 +429,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ):
         return cls._static_request(
             "get",
@@ -236,7 +444,9 @@ class Quote(
 
     @util.class_method_variant("_cls_list_computed_upfront_line_items")
     def list_computed_upfront_line_items(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ):
         return self._request(
             "get",
@@ -254,7 +464,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.ListLineItemsParams"]
     ):
         return cls._static_request(
             "get",
@@ -269,7 +479,9 @@ class Quote(
 
     @util.class_method_variant("_cls_list_line_items")
     def list_line_items(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.ListLineItemsParams"]
     ):
         return self._request(
             "get",
@@ -281,7 +493,7 @@ class Quote(
         )
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Quote":
+    def modify(cls, id, **params: Unpack["Quote.ModifyParams"]) -> "Quote":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Quote",
@@ -290,9 +502,9 @@ class Quote(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Quote.RetrieveParams"]
     ) -> "Quote":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 

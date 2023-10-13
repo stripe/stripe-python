@@ -3,11 +3,16 @@
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, List, Optional
-from typing_extensions import Literal
-
-from typing_extensions import TYPE_CHECKING
+from typing import List, Optional
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
@@ -26,6 +31,22 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
     """
 
     OBJECT_NAME = "setup_attempt"
+    if TYPE_CHECKING:
+
+        class ListParams(RequestOptions):
+            created: NotRequired["SetupAttempt.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            setup_intent: str
+            starting_after: NotRequired["str|None"]
+
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
+
     application: Optional[ExpandableField["Application"]]
     attach_to_self: Optional[bool]
     created: int
@@ -48,7 +69,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["SetupAttempt.ListParams"]
     ) -> ListObject["SetupAttempt"]:
         result = cls._static_request(
             "get",

@@ -10,12 +10,18 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal, Type
+from typing import Dict, List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    Type,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.terminal.location import Location
@@ -34,6 +40,112 @@ class Reader(
     """
 
     OBJECT_NAME = "terminal.reader"
+    if TYPE_CHECKING:
+
+        class CancelActionParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class CreateParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            label: NotRequired["str|None"]
+            location: NotRequired["str|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            registration_code: str
+
+        class DeleteParams(RequestOptions):
+            pass
+
+        class ListParams(RequestOptions):
+            device_type: NotRequired[
+                "Literal['bbpos_chipper2x', 'bbpos_wisepad3', 'bbpos_wisepos_e', 'simulated_wisepos_e', 'stripe_m2', 'verifone_P400']|None"
+            ]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            location: NotRequired["str|None"]
+            serial_number: NotRequired["str|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired["Literal['offline', 'online']|None"]
+
+        class ModifyParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            label: NotRequired["Literal['']|str|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+
+        class ProcessPaymentIntentParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            payment_intent: str
+            process_config: NotRequired[
+                "Reader.ProcessPaymentIntentParamsProcessConfig|None"
+            ]
+
+        class ProcessPaymentIntentParamsProcessConfig(TypedDict):
+            skip_tipping: NotRequired["bool|None"]
+            tipping: NotRequired[
+                "Reader.ProcessPaymentIntentParamsProcessConfigTipping|None"
+            ]
+
+        class ProcessPaymentIntentParamsProcessConfigTipping(TypedDict):
+            amount_eligible: NotRequired["int|None"]
+
+        class ProcessSetupIntentParams(RequestOptions):
+            customer_consent_collected: bool
+            expand: NotRequired["List[str]|None"]
+            process_config: NotRequired[
+                "Reader.ProcessSetupIntentParamsProcessConfig|None"
+            ]
+            setup_intent: str
+
+        class ProcessSetupIntentParamsProcessConfig(TypedDict):
+            pass
+
+        class RefundPaymentParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            charge: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            payment_intent: NotRequired["str|None"]
+            refund_application_fee: NotRequired["bool|None"]
+            reverse_transfer: NotRequired["bool|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class SetReaderDisplayParams(RequestOptions):
+            cart: NotRequired["Reader.SetReaderDisplayParamsCart|None"]
+            expand: NotRequired["List[str]|None"]
+            type: Literal["cart"]
+
+        class SetReaderDisplayParamsCart(TypedDict):
+            currency: str
+            line_items: List["Reader.SetReaderDisplayParamsCartLineItem"]
+            tax: NotRequired["int|None"]
+            total: int
+
+        class SetReaderDisplayParamsCartLineItem(TypedDict):
+            amount: int
+            description: str
+            quantity: int
+
+        class PresentPaymentMethodParams(RequestOptions):
+            amount_tip: NotRequired["int|None"]
+            card_present: NotRequired[
+                "Reader.PresentPaymentMethodParamsCardPresent|None"
+            ]
+            expand: NotRequired["List[str]|None"]
+            interac_present: NotRequired[
+                "Reader.PresentPaymentMethodParamsInteracPresent|None"
+            ]
+            type: NotRequired[
+                "Literal['card_present', 'interac_present']|None"
+            ]
+
+        class PresentPaymentMethodParamsInteracPresent(TypedDict):
+            number: NotRequired["str|None"]
+
+        class PresentPaymentMethodParamsCardPresent(TypedDict):
+            number: NotRequired["str|None"]
+
     action: Optional[StripeObject]
     device_sw_version: Optional[str]
     device_type: Literal[
@@ -62,7 +174,7 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Reader.CancelActionParams"]
     ):
         return cls._static_request(
             "post",
@@ -77,7 +189,9 @@ class Reader(
 
     @util.class_method_variant("_cls_cancel_action")
     def cancel_action(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Reader.CancelActionParams"]
     ):
         return self._request(
             "post",
@@ -95,7 +209,7 @@ class Reader(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Reader.CreateParams"]
     ) -> "Reader":
         return cast(
             "Reader",
@@ -111,7 +225,9 @@ class Reader(
         )
 
     @classmethod
-    def _cls_delete(cls, sid: str, **params: Any) -> "Reader":
+    def _cls_delete(
+        cls, sid: str, **params: Unpack["Reader.DeleteParams"]
+    ) -> "Reader":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Reader",
@@ -119,7 +235,7 @@ class Reader(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Any) -> "Reader":
+    def delete(self, **params: Unpack["Reader.DeleteParams"]) -> "Reader":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -132,7 +248,7 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Reader.ListParams"]
     ) -> ListObject["Reader"]:
         result = cls._static_request(
             "get",
@@ -152,7 +268,7 @@ class Reader(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Reader":
+    def modify(cls, id, **params: Unpack["Reader.ModifyParams"]) -> "Reader":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Reader",
@@ -166,7 +282,7 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ):
         return cls._static_request(
             "post",
@@ -181,7 +297,9 @@ class Reader(
 
     @util.class_method_variant("_cls_process_payment_intent")
     def process_payment_intent(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ):
         return self._request(
             "post",
@@ -199,7 +317,7 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Reader.ProcessSetupIntentParams"]
     ):
         return cls._static_request(
             "post",
@@ -214,7 +332,9 @@ class Reader(
 
     @util.class_method_variant("_cls_process_setup_intent")
     def process_setup_intent(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Reader.ProcessSetupIntentParams"]
     ):
         return self._request(
             "post",
@@ -232,7 +352,7 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Reader.RefundPaymentParams"]
     ):
         return cls._static_request(
             "post",
@@ -247,7 +367,9 @@ class Reader(
 
     @util.class_method_variant("_cls_refund_payment")
     def refund_payment(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Reader.RefundPaymentParams"]
     ):
         return self._request(
             "post",
@@ -260,9 +382,9 @@ class Reader(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Reader.RetrieveParams"]
     ) -> "Reader":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -273,7 +395,7 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Reader.SetReaderDisplayParams"]
     ):
         return cls._static_request(
             "post",
@@ -288,7 +410,9 @@ class Reader(
 
     @util.class_method_variant("_cls_set_reader_display")
     def set_reader_display(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Reader.SetReaderDisplayParams"]
     ):
         return self._request(
             "post",
@@ -309,7 +433,7 @@ class Reader(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Any
+            **params: Unpack["Reader.PresentPaymentMethodParams"]
         ):
             return cls._static_request(
                 "post",
@@ -324,7 +448,9 @@ class Reader(
 
         @util.class_method_variant("_cls_present_payment_method")
         def present_payment_method(
-            self, idempotency_key: Optional[str] = None, **params: Any
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["Reader.PresentPaymentMethodParams"]
         ):
             return self.resource._request(
                 "post",

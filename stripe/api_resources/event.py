@@ -2,9 +2,16 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional
-from typing_extensions import Literal
+from typing import List, Optional
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 
 class Event(ListableAPIResource["Event"]):
@@ -42,6 +49,27 @@ class Event(ListableAPIResource["Event"]):
     """
 
     OBJECT_NAME = "event"
+    if TYPE_CHECKING:
+
+        class ListParams(RequestOptions):
+            created: NotRequired["Event.ListParamsCreated|int|None"]
+            delivery_success: NotRequired["bool|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            type: NotRequired["str|None"]
+            types: NotRequired["List[str]|None"]
+
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     account: Optional[str]
     api_version: Optional[str]
     created: int
@@ -283,7 +311,7 @@ class Event(ListableAPIResource["Event"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Event.ListParams"]
     ) -> ListObject["Event"]:
         result = cls._static_request(
             "get",
@@ -304,8 +332,8 @@ class Event(ListableAPIResource["Event"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Event.RetrieveParams"]
     ) -> "Event":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

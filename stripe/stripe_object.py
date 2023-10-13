@@ -2,7 +2,7 @@ import datetime
 import json
 from copy import deepcopy
 from typing_extensions import TYPE_CHECKING, Literal
-from typing import Any, Dict, Optional
+from typing import Any, Dict, Optional, Mapping
 
 import stripe
 from stripe import api_requestor, util
@@ -258,9 +258,9 @@ class StripeObject(Dict[str, Any]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
-        params: Optional[Dict[str, Any]] = None,
+        params: Optional[Mapping[str, Any]] = None,
     ):
-        params = None if params is None else params.copy()
+        params = None if params is None else dict(params)
         api_key = util.read_special_variable(params, "api_key", api_key)
         idempotency_key = util.read_special_variable(
             params, "idempotency_key", idempotency_key

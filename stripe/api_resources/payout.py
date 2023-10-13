@@ -8,11 +8,16 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import Any, Dict, List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.balance_transaction import BalanceTransaction
@@ -35,6 +40,57 @@ class Payout(
     """
 
     OBJECT_NAME = "payout"
+    if TYPE_CHECKING:
+
+        class CancelParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class CreateParams(RequestOptions):
+            amount: int
+            currency: str
+            description: NotRequired["str|None"]
+            destination: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            method: NotRequired["Literal['instant', 'standard']|None"]
+            source_type: NotRequired[
+                "Literal['bank_account', 'card', 'fpx']|None"
+            ]
+            statement_descriptor: NotRequired["str|None"]
+
+        class ListParams(RequestOptions):
+            arrival_date: NotRequired["Payout.ListParamsArrivalDate|int|None"]
+            created: NotRequired["Payout.ListParamsCreated|int|None"]
+            destination: NotRequired["str|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired["str|None"]
+
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
+
+        class ListParamsArrivalDate(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
+
+        class ModifyParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class ReverseParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+
     amount: int
     arrival_date: int
     automatic: bool
@@ -70,7 +126,7 @@ class Payout(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Payout.CancelParams"]
     ):
         return cls._static_request(
             "post",
@@ -84,7 +140,11 @@ class Payout(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Payout.CancelParams"]
+    ):
         return self._request(
             "post",
             "/v1/payouts/{payout}/cancel".format(
@@ -101,7 +161,7 @@ class Payout(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Payout.CreateParams"]
     ) -> "Payout":
         return cast(
             "Payout",
@@ -122,7 +182,7 @@ class Payout(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Payout.ListParams"]
     ) -> ListObject["Payout"]:
         result = cls._static_request(
             "get",
@@ -142,7 +202,7 @@ class Payout(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Payout":
+    def modify(cls, id, **params: Unpack["Payout.ModifyParams"]) -> "Payout":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Payout",
@@ -151,9 +211,9 @@ class Payout(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Payout.RetrieveParams"]
     ) -> "Payout":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -164,7 +224,7 @@ class Payout(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Payout.ReverseParams"]
     ):
         return cls._static_request(
             "post",
@@ -178,7 +238,11 @@ class Payout(
         )
 
     @util.class_method_variant("_cls_reverse")
-    def reverse(self, idempotency_key: Optional[str] = None, **params: Any):
+    def reverse(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Payout.ReverseParams"]
+    ):
         return self._request(
             "post",
             "/v1/payouts/{payout}/reverse".format(

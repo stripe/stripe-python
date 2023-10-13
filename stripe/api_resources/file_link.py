@@ -7,11 +7,16 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import Dict, List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.file import File
@@ -29,6 +34,37 @@ class FileLink(
     """
 
     OBJECT_NAME = "file_link"
+    if TYPE_CHECKING:
+
+        class CreateParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            expires_at: NotRequired["int|None"]
+            file: str
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+
+        class ListParams(RequestOptions):
+            created: NotRequired["FileLink.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            expired: NotRequired["bool|None"]
+            file: NotRequired["str|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
+
+        class ModifyParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            expires_at: NotRequired["Literal['']|Literal['now']|int|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     created: int
     expired: bool
     expires_at: Optional[int]
@@ -46,7 +82,7 @@ class FileLink(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["FileLink.CreateParams"]
     ) -> "FileLink":
         return cast(
             "FileLink",
@@ -67,7 +103,7 @@ class FileLink(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["FileLink.ListParams"]
     ) -> ListObject["FileLink"]:
         result = cls._static_request(
             "get",
@@ -87,7 +123,9 @@ class FileLink(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "FileLink":
+    def modify(
+        cls, id, **params: Unpack["FileLink.ModifyParams"]
+    ) -> "FileLink":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "FileLink",
@@ -96,8 +134,8 @@ class FileLink(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["FileLink.RetrieveParams"]
     ) -> "FileLink":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

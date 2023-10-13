@@ -6,12 +6,17 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional, cast
-from typing_extensions import Literal
+from typing import List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.issuing.card import Card
@@ -23,6 +28,32 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     """
 
     OBJECT_NAME = "issuing.token"
+    if TYPE_CHECKING:
+
+        class ListParams(RequestOptions):
+            card: str
+            created: NotRequired["Token.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired[
+                "Literal['active', 'deleted', 'requested', 'suspended']|None"
+            ]
+
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
+
+        class ModifyParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            status: Literal["active", "deleted", "suspended"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     card: ExpandableField["Card"]
     created: int
     device_fingerprint: Optional[str]
@@ -44,7 +75,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Token.ListParams"]
     ) -> ListObject["Token"]:
         result = cls._static_request(
             "get",
@@ -64,7 +95,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Token":
+    def modify(cls, id, **params: Unpack["Token.ModifyParams"]) -> "Token":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Token",
@@ -73,8 +104,8 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Token.RetrieveParams"]
     ) -> "Token":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

@@ -7,8 +7,9 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
-from typing import Any, Optional, cast
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import List, Optional, cast
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
 
 
@@ -24,6 +25,29 @@ class TestClock(
     """
 
     OBJECT_NAME = "test_helpers.test_clock"
+    if TYPE_CHECKING:
+
+        class AdvanceParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            frozen_time: int
+
+        class CreateParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            frozen_time: int
+            name: NotRequired["str|None"]
+
+        class DeleteParams(RequestOptions):
+            pass
+
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     created: int
     deletes_after: int
     frozen_time: int
@@ -41,7 +65,7 @@ class TestClock(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["TestClock.AdvanceParams"]
     ):
         return cls._static_request(
             "post",
@@ -55,7 +79,11 @@ class TestClock(
         )
 
     @util.class_method_variant("_cls_advance")
-    def advance(self, idempotency_key: Optional[str] = None, **params: Any):
+    def advance(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["TestClock.AdvanceParams"]
+    ):
         return self._request(
             "post",
             "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
@@ -72,7 +100,7 @@ class TestClock(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["TestClock.CreateParams"]
     ) -> "TestClock":
         return cast(
             "TestClock",
@@ -88,7 +116,9 @@ class TestClock(
         )
 
     @classmethod
-    def _cls_delete(cls, sid: str, **params: Any) -> "TestClock":
+    def _cls_delete(
+        cls, sid: str, **params: Unpack["TestClock.DeleteParams"]
+    ) -> "TestClock":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "TestClock",
@@ -96,7 +126,9 @@ class TestClock(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Any) -> "TestClock":
+    def delete(
+        self, **params: Unpack["TestClock.DeleteParams"]
+    ) -> "TestClock":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -109,7 +141,7 @@ class TestClock(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["TestClock.ListParams"]
     ) -> ListObject["TestClock"]:
         result = cls._static_request(
             "get",
@@ -130,8 +162,8 @@ class TestClock(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["TestClock.RetrieveParams"]
     ) -> "TestClock":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
