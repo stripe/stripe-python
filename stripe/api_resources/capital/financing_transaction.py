@@ -2,9 +2,10 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional
-from typing_extensions import Literal
+from typing import List, Optional
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
 class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
@@ -40,6 +41,21 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
         transaction: Optional[Transaction]
         _inner_class_types = {"transaction": Transaction}
 
+    if TYPE_CHECKING:
+
+        class ListParams(RequestOptions):
+            charge: NotRequired["str|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            financing_offer: NotRequired["str|None"]
+            limit: NotRequired["int|None"]
+            reversed_transaction: NotRequired["str|None"]
+            starting_after: NotRequired["str|None"]
+            treasury_transaction: NotRequired["str|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     account: str
     created_at: int
     details: Details
@@ -57,7 +73,7 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["FinancingTransaction.ListParams"]
     ) -> ListObject["FinancingTransaction"]:
         result = cls._static_request(
             "get",
@@ -78,9 +94,9 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["FinancingTransaction.RetrieveParams"]
     ) -> "FinancingTransaction":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 

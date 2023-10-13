@@ -616,6 +616,28 @@ class TestGeneratedExamples(object):
             "/v1/accounts/acct_xxxxxxxxxxxxx/capabilities/card_payments",
         )
 
+    def test_account_externalaccount_list2(self, request_mock):
+        stripe.Account.list_external_accounts(
+            "acct_xxxxxxxxxxxxx",
+            object="bank_account",
+            limit=3,
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
+        )
+
+    def test_account_externalaccount_list3(self, request_mock):
+        stripe.Account.list_external_accounts(
+            "acct_xxxxxxxxxxxxx",
+            object="card",
+            limit=3,
+        )
+        request_mock.assert_requested(
+            "get",
+            "/v1/accounts/acct_xxxxxxxxxxxxx/external_accounts",
+        )
+
     def test_account_externalaccount_create(self, request_mock):
         stripe.Account.create_external_account(
             "acct_xxxxxxxxxxxxx",

@@ -3,11 +3,10 @@
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, List, Optional
-from typing_extensions import Literal
-
-from typing_extensions import TYPE_CHECKING
+from typing import List, Optional
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.discount import Discount
@@ -50,6 +49,14 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
         ]
         taxable_amount: Optional[int]
 
+    if TYPE_CHECKING:
+
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+
     amount: int
     amount_excluding_tax: Optional[int]
     description: Optional[str]
@@ -73,7 +80,7 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["CreditNoteLineItem.ListParams"]
     ) -> ListObject["CreditNoteLineItem"]:
         result = cls._static_request(
             "get",

@@ -1,9 +1,16 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import CreateableAPIResource
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional, cast
-from typing_extensions import Literal
+from typing import List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 
 class AccountSession(CreateableAPIResource["AccountSession"]):
@@ -62,6 +69,67 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "payouts": Payouts,
         }
 
+    if TYPE_CHECKING:
+
+        class CreateParams(RequestOptions):
+            account: str
+            components: "AccountSession.CreateParamsComponents"
+            expand: NotRequired["List[str]|None"]
+
+        class CreateParamsComponents(TypedDict):
+            account_onboarding: NotRequired[
+                "AccountSession.CreateParamsComponentsAccountOnboarding|None"
+            ]
+            payment_details: NotRequired[
+                "AccountSession.CreateParamsComponentsPaymentDetails|None"
+            ]
+            payments: NotRequired[
+                "AccountSession.CreateParamsComponentsPayments|None"
+            ]
+            payouts: NotRequired[
+                "AccountSession.CreateParamsComponentsPayouts|None"
+            ]
+
+        class CreateParamsComponentsPayouts(TypedDict):
+            enabled: bool
+            features: NotRequired[
+                "AccountSession.CreateParamsComponentsPayoutsFeatures|None"
+            ]
+
+        class CreateParamsComponentsPayoutsFeatures(TypedDict):
+            pass
+
+        class CreateParamsComponentsPayments(TypedDict):
+            enabled: bool
+            features: NotRequired[
+                "AccountSession.CreateParamsComponentsPaymentsFeatures|None"
+            ]
+
+        class CreateParamsComponentsPaymentsFeatures(TypedDict):
+            capture_payments: NotRequired["bool|None"]
+            dispute_management: NotRequired["bool|None"]
+            refund_management: NotRequired["bool|None"]
+
+        class CreateParamsComponentsPaymentDetails(TypedDict):
+            enabled: bool
+            features: NotRequired[
+                "AccountSession.CreateParamsComponentsPaymentDetailsFeatures|None"
+            ]
+
+        class CreateParamsComponentsPaymentDetailsFeatures(TypedDict):
+            capture_payments: NotRequired["bool|None"]
+            dispute_management: NotRequired["bool|None"]
+            refund_management: NotRequired["bool|None"]
+
+        class CreateParamsComponentsAccountOnboarding(TypedDict):
+            enabled: bool
+            features: NotRequired[
+                "AccountSession.CreateParamsComponentsAccountOnboardingFeatures|None"
+            ]
+
+        class CreateParamsComponentsAccountOnboardingFeatures(TypedDict):
+            pass
+
     account: str
     client_secret: str
     components: Components
@@ -76,7 +144,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["AccountSession.CreateParams"]
     ) -> "AccountSession":
         return cast(
             "AccountSession",

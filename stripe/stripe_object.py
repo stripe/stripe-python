@@ -2,7 +2,7 @@ import datetime
 import json
 from copy import deepcopy
 from typing_extensions import TYPE_CHECKING, Literal, Type
-from typing import Any, Dict, List, Optional, ClassVar
+from typing import Any, Dict, List, Optional, Mapping, ClassVar
 
 import stripe
 from stripe import api_requestor, util
@@ -41,6 +41,9 @@ class StripeObject(Dict[str, Any]):
             if isinstance(obj, datetime.datetime):
                 return api_requestor._encode_datetime(obj)
             return super(StripeObject.ReprJSONEncoder, self).default(obj)
+
+    _retrieve_params: Dict[str, Any]
+    _previous: Optional[Dict[str, Any]]
 
     def __init__(
         self,
@@ -119,7 +122,7 @@ class StripeObject(Dict[str, Any]):
 
         super(StripeObject, self).__setitem__(k, v)
 
-    def __getitem__(self, k):
+    def __getitem__(self, k: str) -> Any:
         try:
             return super(StripeObject, self).__getitem__(k)
         except KeyError as err:
@@ -278,9 +281,9 @@ class StripeObject(Dict[str, Any]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
-        params: Optional[Dict[str, Any]] = None,
+        params: Optional[Mapping[str, Any]] = None,
     ):
-        params = None if params is None else params.copy()
+        params = None if params is None else dict(params)
         api_key = util.read_special_variable(params, "api_key", api_key)
         idempotency_key = util.read_special_variable(
             params, "idempotency_key", idempotency_key
