@@ -1,4 +1,2 @@
 # cryptography 40.0.0 deprecates support for Python 3.6 and PyPy3 < 7.3.10
 cryptography<40
-# TODO (remove later): pyright 1.1.323 introduces false positive errors
-pyright<1.1.323

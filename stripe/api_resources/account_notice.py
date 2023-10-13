@@ -5,9 +5,16 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
 
 
@@ -32,6 +39,29 @@ class AccountNotice(
         capability: Optional[str]
         issuing_credit_underwriting_record: Optional[str]
         issuing_dispute: Optional[str]
+
+    if TYPE_CHECKING:
+
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            sent: NotRequired["bool|None"]
+            starting_after: NotRequired["str|None"]
+
+        class ModifyParams(RequestOptions):
+            email: "AccountNotice.ModifyParamsEmail"
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            sent_at: int
+
+        class ModifyParamsEmail(TypedDict):
+            plain_text: str
+            recipient: str
+            subject: str
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     created: int
     deadline: Optional[int]
@@ -61,7 +91,7 @@ class AccountNotice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["AccountNotice.ListParams"]
     ) -> ListObject["AccountNotice"]:
         result = cls._static_request(
             "get",
@@ -81,7 +111,9 @@ class AccountNotice(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "AccountNotice":
+    def modify(
+        cls, id, **params: Unpack["AccountNotice.ModifyParams"]
+    ) -> "AccountNotice":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "AccountNotice",
@@ -90,9 +122,9 @@ class AccountNotice(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["AccountNotice.RetrieveParams"]
     ) -> "AccountNotice":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 

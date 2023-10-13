@@ -8,11 +8,16 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import Dict, List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.radar.value_list_item import ValueListItem
@@ -31,6 +36,44 @@ class ValueList(
     """
 
     OBJECT_NAME = "radar.value_list"
+    if TYPE_CHECKING:
+
+        class CreateParams(RequestOptions):
+            alias: str
+            expand: NotRequired["List[str]|None"]
+            item_type: NotRequired[
+                "Literal['card_bin', 'card_fingerprint', 'case_sensitive_string', 'country', 'customer_id', 'email', 'ip_address', 'sepa_debit_fingerprint', 'string', 'us_bank_account_fingerprint']|None"
+            ]
+            metadata: NotRequired["Dict[str, str]|None"]
+            name: str
+
+        class DeleteParams(RequestOptions):
+            pass
+
+        class ListParams(RequestOptions):
+            alias: NotRequired["str|None"]
+            contains: NotRequired["str|None"]
+            created: NotRequired["ValueList.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
+
+        class ModifyParams(RequestOptions):
+            alias: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            name: NotRequired["str|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     alias: str
     created: int
     created_by: str
@@ -61,7 +104,7 @@ class ValueList(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ValueList.CreateParams"]
     ) -> "ValueList":
         return cast(
             "ValueList",
@@ -77,7 +120,9 @@ class ValueList(
         )
 
     @classmethod
-    def _cls_delete(cls, sid: str, **params: Any) -> "ValueList":
+    def _cls_delete(
+        cls, sid: str, **params: Unpack["ValueList.DeleteParams"]
+    ) -> "ValueList":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "ValueList",
@@ -85,7 +130,9 @@ class ValueList(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Any) -> "ValueList":
+    def delete(
+        self, **params: Unpack["ValueList.DeleteParams"]
+    ) -> "ValueList":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -98,7 +145,7 @@ class ValueList(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ValueList.ListParams"]
     ) -> ListObject["ValueList"]:
         result = cls._static_request(
             "get",
@@ -118,7 +165,9 @@ class ValueList(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "ValueList":
+    def modify(
+        cls, id, **params: Unpack["ValueList.ModifyParams"]
+    ) -> "ValueList":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "ValueList",
@@ -127,8 +176,8 @@ class ValueList(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["ValueList.RetrieveParams"]
     ) -> "ValueList":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

@@ -9,12 +9,17 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.credit_note_line_item import CreditNoteLineItem
@@ -104,6 +109,132 @@ class CreditNote(
         ]
         taxable_amount: Optional[int]
 
+    if TYPE_CHECKING:
+
+        class CreateParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            credit_amount: NotRequired["int|None"]
+            effective_at: NotRequired["int|None"]
+            expand: NotRequired["List[str]|None"]
+            invoice: str
+            lines: NotRequired["List[CreditNote.CreateParamsLine]|None"]
+            memo: NotRequired["str|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            out_of_band_amount: NotRequired["int|None"]
+            reason: NotRequired[
+                "Literal['duplicate', 'fraudulent', 'order_change', 'product_unsatisfactory']|None"
+            ]
+            refund: NotRequired["str|None"]
+            refund_amount: NotRequired["int|None"]
+            shipping_cost: NotRequired[
+                "CreditNote.CreateParamsShippingCost|None"
+            ]
+
+        class CreateParamsShippingCost(TypedDict):
+            shipping_rate: NotRequired["str|None"]
+
+        class CreateParamsLine(TypedDict):
+            amount: NotRequired["int|None"]
+            description: NotRequired["str|None"]
+            invoice_line_item: NotRequired["str|None"]
+            quantity: NotRequired["int|None"]
+            tax_rates: NotRequired["Literal['']|List[str]|None"]
+            type: Literal["custom_line_item", "invoice_line_item"]
+            unit_amount: NotRequired["int|None"]
+            unit_amount_decimal: NotRequired["float|None"]
+
+        class ListParams(RequestOptions):
+            customer: NotRequired["str|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            invoice: NotRequired["str|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+
+        class ModifyParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            memo: NotRequired["str|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+
+        class PreviewParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            credit_amount: NotRequired["int|None"]
+            effective_at: NotRequired["int|None"]
+            expand: NotRequired["List[str]|None"]
+            invoice: str
+            lines: NotRequired["List[CreditNote.PreviewParamsLine]|None"]
+            memo: NotRequired["str|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            out_of_band_amount: NotRequired["int|None"]
+            reason: NotRequired[
+                "Literal['duplicate', 'fraudulent', 'order_change', 'product_unsatisfactory']|None"
+            ]
+            refund: NotRequired["str|None"]
+            refund_amount: NotRequired["int|None"]
+            shipping_cost: NotRequired[
+                "CreditNote.PreviewParamsShippingCost|None"
+            ]
+
+        class PreviewParamsShippingCost(TypedDict):
+            shipping_rate: NotRequired["str|None"]
+
+        class PreviewParamsLine(TypedDict):
+            amount: NotRequired["int|None"]
+            description: NotRequired["str|None"]
+            invoice_line_item: NotRequired["str|None"]
+            quantity: NotRequired["int|None"]
+            tax_rates: NotRequired["Literal['']|List[str]|None"]
+            type: Literal["custom_line_item", "invoice_line_item"]
+            unit_amount: NotRequired["int|None"]
+            unit_amount_decimal: NotRequired["float|None"]
+
+        class PreviewLinesParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            credit_amount: NotRequired["int|None"]
+            effective_at: NotRequired["int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            invoice: str
+            limit: NotRequired["int|None"]
+            lines: NotRequired["List[CreditNote.PreviewLinesParamsLine]|None"]
+            memo: NotRequired["str|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            out_of_band_amount: NotRequired["int|None"]
+            reason: NotRequired[
+                "Literal['duplicate', 'fraudulent', 'order_change', 'product_unsatisfactory']|None"
+            ]
+            refund: NotRequired["str|None"]
+            refund_amount: NotRequired["int|None"]
+            shipping_cost: NotRequired[
+                "CreditNote.PreviewLinesParamsShippingCost|None"
+            ]
+            starting_after: NotRequired["str|None"]
+
+        class PreviewLinesParamsShippingCost(TypedDict):
+            shipping_rate: NotRequired["str|None"]
+
+        class PreviewLinesParamsLine(TypedDict):
+            amount: NotRequired["int|None"]
+            description: NotRequired["str|None"]
+            invoice_line_item: NotRequired["str|None"]
+            quantity: NotRequired["int|None"]
+            tax_rates: NotRequired["Literal['']|List[str]|None"]
+            type: Literal["custom_line_item", "invoice_line_item"]
+            unit_amount: NotRequired["int|None"]
+            unit_amount_decimal: NotRequired["float|None"]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class VoidCreditNoteParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class ListLinesParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+
     amount: int
     amount_shipping: int
     created: int
@@ -148,7 +279,7 @@ class CreditNote(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["CreditNote.CreateParams"]
     ) -> "CreditNote":
         return cast(
             "CreditNote",
@@ -169,7 +300,7 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["CreditNote.ListParams"]
     ) -> ListObject["CreditNote"]:
         result = cls._static_request(
             "get",
@@ -189,7 +320,9 @@ class CreditNote(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "CreditNote":
+    def modify(
+        cls, id, **params: Unpack["CreditNote.ModifyParams"]
+    ) -> "CreditNote":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "CreditNote",
@@ -202,7 +335,7 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["CreditNote.PreviewParams"]
     ):
         return cls._static_request(
             "get",
@@ -219,7 +352,7 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["CreditNote.PreviewLinesParams"]
     ):
         return cls._static_request(
             "get",
@@ -232,9 +365,9 @@ class CreditNote(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["CreditNote.RetrieveParams"]
     ) -> "CreditNote":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -245,7 +378,7 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ):
         return cls._static_request(
             "post",
@@ -258,7 +391,9 @@ class CreditNote(
 
     @util.class_method_variant("_cls_void_credit_note")
     def void_credit_note(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ):
         return self._request(
             "post",
@@ -276,7 +411,7 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["CreditNote.ListLinesParams"]
     ):
         return cls._static_request(
             "get",

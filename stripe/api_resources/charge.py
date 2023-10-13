@@ -10,18 +10,25 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, Union, cast
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
     from stripe.api_resources.application_fee import ApplicationFee
     from stripe.api_resources.balance_transaction import BalanceTransaction
+    from stripe.api_resources.bank_account import BankAccount
+    from stripe.api_resources.card import Card as CardResource
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.mandate import Mandate
@@ -29,6 +36,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.refund import Refund
     from stripe.api_resources.review import Review
+    from stripe.api_resources.source import Source
     from stripe.api_resources.transfer import Transfer
 
 
@@ -815,6 +823,326 @@ class Charge(
         amount: Optional[int]
         destination: ExpandableField["Account"]
 
+    if TYPE_CHECKING:
+
+        class CaptureParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            application_fee: NotRequired["int|None"]
+            application_fee_amount: NotRequired["int|None"]
+            expand: NotRequired["List[str]|None"]
+            payment_details: NotRequired[
+                "Charge.CaptureParamsPaymentDetails|None"
+            ]
+            receipt_email: NotRequired["str|None"]
+            statement_descriptor: NotRequired["str|None"]
+            statement_descriptor_suffix: NotRequired["str|None"]
+            transfer_data: NotRequired["Charge.CaptureParamsTransferData|None"]
+            transfer_group: NotRequired["str|None"]
+
+        class CaptureParamsTransferData(TypedDict):
+            amount: NotRequired["int|None"]
+
+        class CaptureParamsPaymentDetails(TypedDict):
+            car_rental: NotRequired[
+                "Charge.CaptureParamsPaymentDetailsCarRental|None"
+            ]
+            flight: NotRequired[
+                "Charge.CaptureParamsPaymentDetailsFlight|None"
+            ]
+            lodging: NotRequired[
+                "Charge.CaptureParamsPaymentDetailsLodging|None"
+            ]
+
+        class CaptureParamsPaymentDetailsLodging(TypedDict):
+            address: NotRequired[
+                "Charge.CaptureParamsPaymentDetailsLodgingAddress|None"
+            ]
+            adults: NotRequired["int|None"]
+            booking_number: NotRequired["str|None"]
+            category: NotRequired["Literal['hotel', 'vacation_rental']|None"]
+            checkin_at: int
+            checkout_at: int
+            customer_service_phone_number: NotRequired["str|None"]
+            daily_room_rate_amount: NotRequired["int|None"]
+            extra_charges: NotRequired[
+                "List[Literal['gift_shop', 'laundry', 'mini_bar', 'other', 'restaurant', 'telephone']]|None"
+            ]
+            fire_safety_act_compliance: NotRequired["bool|None"]
+            name: NotRequired["str|None"]
+            no_show: NotRequired["bool|None"]
+            property_phone_number: NotRequired["str|None"]
+            room_nights: NotRequired["int|None"]
+            total_room_tax_amount: NotRequired["int|None"]
+            total_tax_amount: NotRequired["int|None"]
+
+        class CaptureParamsPaymentDetailsLodgingAddress(TypedDict):
+            city: NotRequired["str|None"]
+            country: NotRequired["str|None"]
+            line1: NotRequired["str|None"]
+            line2: NotRequired["str|None"]
+            postal_code: NotRequired["str|None"]
+            state: NotRequired["str|None"]
+
+        class CaptureParamsPaymentDetailsFlight(TypedDict):
+            agency_number: NotRequired["str|None"]
+            carrier: NotRequired["str|None"]
+            passenger_name: NotRequired["str|None"]
+            segments: List["Charge.CaptureParamsPaymentDetailsFlightSegment"]
+            ticket_number: NotRequired["str|None"]
+
+        class CaptureParamsPaymentDetailsFlightSegment(TypedDict):
+            arrival_airport: NotRequired["str|None"]
+            arrives_at: NotRequired["int|None"]
+            carrier: NotRequired["str|None"]
+            departs_at: int
+            departure_airport: NotRequired["str|None"]
+            flight_number: NotRequired["str|None"]
+            service_class: NotRequired[
+                "Literal['business', 'economy', 'first', 'premium_economy']|None"
+            ]
+
+        class CaptureParamsPaymentDetailsCarRental(TypedDict):
+            booking_number: str
+            car_class_code: NotRequired["str|None"]
+            car_make: NotRequired["str|None"]
+            car_model: NotRequired["str|None"]
+            company: NotRequired["str|None"]
+            customer_service_phone_number: NotRequired["str|None"]
+            days_rented: int
+            extra_charges: NotRequired[
+                "List[Literal['extra_mileage', 'gas', 'late_return', 'one_way_service', 'parking_violation']]|None"
+            ]
+            no_show: NotRequired["bool|None"]
+            pickup_address: NotRequired[
+                "Charge.CaptureParamsPaymentDetailsCarRentalPickupAddress|None"
+            ]
+            pickup_at: int
+            rate_amount: NotRequired["int|None"]
+            rate_interval: NotRequired["Literal['day', 'month', 'week']|None"]
+            renter_name: NotRequired["str|None"]
+            return_address: NotRequired[
+                "Charge.CaptureParamsPaymentDetailsCarRentalReturnAddress|None"
+            ]
+            return_at: int
+            tax_exempt: NotRequired["bool|None"]
+
+        class CaptureParamsPaymentDetailsCarRentalReturnAddress(TypedDict):
+            city: NotRequired["str|None"]
+            country: NotRequired["str|None"]
+            line1: NotRequired["str|None"]
+            line2: NotRequired["str|None"]
+            postal_code: NotRequired["str|None"]
+            state: NotRequired["str|None"]
+
+        class CaptureParamsPaymentDetailsCarRentalPickupAddress(TypedDict):
+            city: NotRequired["str|None"]
+            country: NotRequired["str|None"]
+            line1: NotRequired["str|None"]
+            line2: NotRequired["str|None"]
+            postal_code: NotRequired["str|None"]
+            state: NotRequired["str|None"]
+
+        class CreateParams(RequestOptions):
+            amount: NotRequired["int|None"]
+            application_fee: NotRequired["int|None"]
+            application_fee_amount: NotRequired["int|None"]
+            capture: NotRequired["bool|None"]
+            currency: NotRequired["str|None"]
+            customer: NotRequired["str|None"]
+            description: NotRequired["str|None"]
+            destination: NotRequired["Charge.CreateParamsDestination|None"]
+            expand: NotRequired["List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            on_behalf_of: NotRequired["str|None"]
+            radar_options: NotRequired["Charge.CreateParamsRadarOptions|None"]
+            receipt_email: NotRequired["str|None"]
+            shipping: NotRequired["Charge.CreateParamsShipping|None"]
+            source: NotRequired["str|None"]
+            statement_descriptor: NotRequired["str|None"]
+            statement_descriptor_suffix: NotRequired["str|None"]
+            transfer_data: NotRequired["Charge.CreateParamsTransferData|None"]
+            transfer_group: NotRequired["str|None"]
+
+        class CreateParamsTransferData(TypedDict):
+            amount: NotRequired["int|None"]
+            destination: str
+
+        class CreateParamsShipping(TypedDict):
+            address: "Charge.CreateParamsShippingAddress"
+            carrier: NotRequired["str|None"]
+            name: str
+            phone: NotRequired["str|None"]
+            tracking_number: NotRequired["str|None"]
+
+        class CreateParamsShippingAddress(TypedDict):
+            city: NotRequired["str|None"]
+            country: NotRequired["str|None"]
+            line1: NotRequired["str|None"]
+            line2: NotRequired["str|None"]
+            postal_code: NotRequired["str|None"]
+            state: NotRequired["str|None"]
+
+        class CreateParamsRadarOptions(TypedDict):
+            session: NotRequired["str|None"]
+
+        class CreateParamsDestination(TypedDict):
+            account: str
+            amount: NotRequired["int|None"]
+
+        class ListParams(RequestOptions):
+            created: NotRequired["Charge.ListParamsCreated|int|None"]
+            customer: NotRequired["str|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            payment_intent: NotRequired["str|None"]
+            starting_after: NotRequired["str|None"]
+            transfer_group: NotRequired["str|None"]
+
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
+
+        class ModifyParams(RequestOptions):
+            customer: NotRequired["str|None"]
+            description: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            fraud_details: NotRequired["Charge.ModifyParamsFraudDetails|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            payment_details: NotRequired[
+                "Charge.ModifyParamsPaymentDetails|None"
+            ]
+            receipt_email: NotRequired["str|None"]
+            shipping: NotRequired["Charge.ModifyParamsShipping|None"]
+            transfer_group: NotRequired["str|None"]
+
+        class ModifyParamsShipping(TypedDict):
+            address: "Charge.ModifyParamsShippingAddress"
+            carrier: NotRequired["str|None"]
+            name: str
+            phone: NotRequired["str|None"]
+            tracking_number: NotRequired["str|None"]
+
+        class ModifyParamsShippingAddress(TypedDict):
+            city: NotRequired["str|None"]
+            country: NotRequired["str|None"]
+            line1: NotRequired["str|None"]
+            line2: NotRequired["str|None"]
+            postal_code: NotRequired["str|None"]
+            state: NotRequired["str|None"]
+
+        class ModifyParamsPaymentDetails(TypedDict):
+            car_rental: NotRequired[
+                "Charge.ModifyParamsPaymentDetailsCarRental|None"
+            ]
+            flight: NotRequired["Charge.ModifyParamsPaymentDetailsFlight|None"]
+            lodging: NotRequired[
+                "Charge.ModifyParamsPaymentDetailsLodging|None"
+            ]
+
+        class ModifyParamsPaymentDetailsLodging(TypedDict):
+            address: NotRequired[
+                "Charge.ModifyParamsPaymentDetailsLodgingAddress|None"
+            ]
+            adults: NotRequired["int|None"]
+            booking_number: NotRequired["str|None"]
+            category: NotRequired["Literal['hotel', 'vacation_rental']|None"]
+            checkin_at: int
+            checkout_at: int
+            customer_service_phone_number: NotRequired["str|None"]
+            daily_room_rate_amount: NotRequired["int|None"]
+            extra_charges: NotRequired[
+                "List[Literal['gift_shop', 'laundry', 'mini_bar', 'other', 'restaurant', 'telephone']]|None"
+            ]
+            fire_safety_act_compliance: NotRequired["bool|None"]
+            name: NotRequired["str|None"]
+            no_show: NotRequired["bool|None"]
+            property_phone_number: NotRequired["str|None"]
+            room_nights: NotRequired["int|None"]
+            total_room_tax_amount: NotRequired["int|None"]
+            total_tax_amount: NotRequired["int|None"]
+
+        class ModifyParamsPaymentDetailsLodgingAddress(TypedDict):
+            city: NotRequired["str|None"]
+            country: NotRequired["str|None"]
+            line1: NotRequired["str|None"]
+            line2: NotRequired["str|None"]
+            postal_code: NotRequired["str|None"]
+            state: NotRequired["str|None"]
+
+        class ModifyParamsPaymentDetailsFlight(TypedDict):
+            agency_number: NotRequired["str|None"]
+            carrier: NotRequired["str|None"]
+            passenger_name: NotRequired["str|None"]
+            segments: List["Charge.ModifyParamsPaymentDetailsFlightSegment"]
+            ticket_number: NotRequired["str|None"]
+
+        class ModifyParamsPaymentDetailsFlightSegment(TypedDict):
+            arrival_airport: NotRequired["str|None"]
+            arrives_at: NotRequired["int|None"]
+            carrier: NotRequired["str|None"]
+            departs_at: int
+            departure_airport: NotRequired["str|None"]
+            flight_number: NotRequired["str|None"]
+            service_class: NotRequired[
+                "Literal['business', 'economy', 'first', 'premium_economy']|None"
+            ]
+
+        class ModifyParamsPaymentDetailsCarRental(TypedDict):
+            booking_number: str
+            car_class_code: NotRequired["str|None"]
+            car_make: NotRequired["str|None"]
+            car_model: NotRequired["str|None"]
+            company: NotRequired["str|None"]
+            customer_service_phone_number: NotRequired["str|None"]
+            days_rented: int
+            extra_charges: NotRequired[
+                "List[Literal['extra_mileage', 'gas', 'late_return', 'one_way_service', 'parking_violation']]|None"
+            ]
+            no_show: NotRequired["bool|None"]
+            pickup_address: NotRequired[
+                "Charge.ModifyParamsPaymentDetailsCarRentalPickupAddress|None"
+            ]
+            pickup_at: int
+            rate_amount: NotRequired["int|None"]
+            rate_interval: NotRequired["Literal['day', 'month', 'week']|None"]
+            renter_name: NotRequired["str|None"]
+            return_address: NotRequired[
+                "Charge.ModifyParamsPaymentDetailsCarRentalReturnAddress|None"
+            ]
+            return_at: int
+            tax_exempt: NotRequired["bool|None"]
+
+        class ModifyParamsPaymentDetailsCarRentalReturnAddress(TypedDict):
+            city: NotRequired["str|None"]
+            country: NotRequired["str|None"]
+            line1: NotRequired["str|None"]
+            line2: NotRequired["str|None"]
+            postal_code: NotRequired["str|None"]
+            state: NotRequired["str|None"]
+
+        class ModifyParamsPaymentDetailsCarRentalPickupAddress(TypedDict):
+            city: NotRequired["str|None"]
+            country: NotRequired["str|None"]
+            line1: NotRequired["str|None"]
+            line2: NotRequired["str|None"]
+            postal_code: NotRequired["str|None"]
+            state: NotRequired["str|None"]
+
+        class ModifyParamsFraudDetails(TypedDict):
+            user_report: Union[Literal[""], Literal["fraudulent", "safe"]]
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
+        class SearchParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            page: NotRequired["str|None"]
+            query: str
+
     amount: int
     amount_captured: int
     amount_refunded: int
@@ -857,7 +1185,7 @@ class Charge(
     refunds: Optional[ListObject["Refund"]]
     review: Optional[ExpandableField["Review"]]
     shipping: Optional[Shipping]
-    source: Optional[Any]
+    source: Optional[Union["Account", "BankAccount", "CardResource", "Source"]]
     source_transfer: Optional[ExpandableField["Transfer"]]
     statement_descriptor: Optional[str]
     statement_descriptor_suffix: Optional[str]
@@ -873,7 +1201,7 @@ class Charge(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Charge.CaptureParams"]
     ):
         return cls._static_request(
             "post",
@@ -887,7 +1215,11 @@ class Charge(
         )
 
     @util.class_method_variant("_cls_capture")
-    def capture(self, idempotency_key: Optional[str] = None, **params: Any):
+    def capture(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Charge.CaptureParams"]
+    ):
         return self._request(
             "post",
             "/v1/charges/{charge}/capture".format(
@@ -904,7 +1236,7 @@ class Charge(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Charge.CreateParams"]
     ) -> "Charge":
         return cast(
             "Charge",
@@ -925,7 +1257,7 @@ class Charge(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Charge.ListParams"]
     ) -> ListObject["Charge"]:
         result = cls._static_request(
             "get",
@@ -945,7 +1277,7 @@ class Charge(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Charge":
+    def modify(cls, id, **params: Unpack["Charge.ModifyParams"]) -> "Charge":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Charge",
@@ -954,18 +1286,22 @@ class Charge(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Charge.RetrieveParams"]
     ) -> "Charge":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
     @classmethod
-    def search(cls, *args, **kwargs) -> SearchResultObject["Charge"]:
+    def search(
+        cls, *args, **kwargs: Unpack["Charge.SearchParams"]
+    ) -> SearchResultObject["Charge"]:
         return cls._search(search_url="/v1/charges/search", *args, **kwargs)
 
     @classmethod
-    def search_auto_paging_iter(cls, *args, **kwargs):
+    def search_auto_paging_iter(
+        cls, *args, **kwargs: Unpack["Charge.SearchParams"]
+    ):
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     def mark_as_fraudulent(self, idempotency_key=None):

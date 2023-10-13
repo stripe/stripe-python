@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import SingletonAPIResource
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, List, Optional
-from typing_extensions import Literal
+from typing import List, Optional
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
 class Balance(SingletonAPIResource["Balance"]):
@@ -82,6 +83,11 @@ class Balance(SingletonAPIResource["Balance"]):
         source_types: Optional[SourceTypes]
         _inner_class_types = {"source_types": SourceTypes}
 
+    if TYPE_CHECKING:
+
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+
     available: List[Available]
     connect_reserved: Optional[List[ConnectReserved]]
     instant_available: Optional[List[InstantAvailable]]
@@ -91,7 +97,7 @@ class Balance(SingletonAPIResource["Balance"]):
     pending: List[Pending]
 
     @classmethod
-    def retrieve(cls, **params: Any) -> "Balance":
+    def retrieve(cls, **params: Unpack["Balance.RetrieveParams"]) -> "Balance":
         instance = cls(None, **params)
         instance.refresh()
         return instance
