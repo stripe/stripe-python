@@ -23,7 +23,11 @@ exclude = '''
 )
 '''
 [tool.pyright]
+executionEnvironments=[
+  {"root" = "stripe"}
+]
 include=["stripe"]
+exclude=["build", "**/__pycache__"]
 reportMissingTypeArgument=true
 reportUnnecessaryCast=true
 reportUnnecessaryComparison=true
