@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import SingletonAPIResource
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional
-from typing_extensions import Literal
+from typing import List, Optional
+from typing_extensions import Literal, NotRequired, Unpack
 
 
 class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
@@ -33,13 +34,18 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
             "current_repayment_interval": CurrentRepaymentInterval,
         }
 
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
     details: Optional[Details]
     financing_offer: Optional[str]
     object: Literal["capital.financing_summary"]
     status: Optional[Literal["accepted", "delivered", "none"]]
 
     @classmethod
-    def retrieve(cls, **params: Any) -> "FinancingSummary":
+    def retrieve(
+        cls, **params: Unpack["FinancingSummary.RetrieveParams"]
+    ) -> "FinancingSummary":
         instance = cls(None, **params)
         instance.refresh()
         return instance

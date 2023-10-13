@@ -7,8 +7,9 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
-from typing import Any, Optional, cast
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import List, Optional, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 
@@ -24,6 +25,33 @@ class ValueListItem(
     """
 
     OBJECT_NAME = "radar.value_list_item"
+
+    class CreateParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        value: str
+        value_list: str
+
+    class DeleteParams(RequestOptions):
+        pass
+
+    class ListParams(RequestOptions):
+        created: NotRequired["ValueListItem.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+        value: NotRequired["str|None"]
+        value_list: str
+
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
     created: int
     created_by: str
     id: str
@@ -40,7 +68,7 @@ class ValueListItem(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ValueListItem.CreateParams"]
     ) -> "ValueListItem":
         return cast(
             "ValueListItem",
@@ -56,7 +84,9 @@ class ValueListItem(
         )
 
     @classmethod
-    def _cls_delete(cls, sid: str, **params: Any) -> "ValueListItem":
+    def _cls_delete(
+        cls, sid: str, **params: Unpack["ValueListItem.DeleteParams"]
+    ) -> "ValueListItem":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "ValueListItem",
@@ -64,7 +94,9 @@ class ValueListItem(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Any) -> "ValueListItem":
+    def delete(
+        self, **params: Unpack["ValueListItem.DeleteParams"]
+    ) -> "ValueListItem":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -77,7 +109,7 @@ class ValueListItem(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ValueListItem.ListParams"]
     ) -> ListObject["ValueListItem"]:
         result = cls._static_request(
             "get",
@@ -98,8 +130,8 @@ class ValueListItem(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["ValueListItem.RetrieveParams"]
     ) -> "ValueListItem":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

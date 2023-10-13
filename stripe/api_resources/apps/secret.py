@@ -5,9 +5,10 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional, cast
-from typing_extensions import Literal
+from typing import List, Optional, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
 class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
@@ -29,6 +30,46 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         type: Literal["account", "user"]
         user: Optional[str]
 
+    class CreateParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        expires_at: NotRequired["int|None"]
+        name: str
+        payload: str
+        scope: "Secret.CreateParamsScope"
+
+    class CreateParamsScope(TypedDict):
+        type: Literal["account", "user"]
+        user: NotRequired["str|None"]
+
+    class DeleteWhereParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        name: str
+        scope: "Secret.DeleteWhereParamsScope"
+
+    class DeleteWhereParamsScope(TypedDict):
+        type: Literal["account", "user"]
+        user: NotRequired["str|None"]
+
+    class FindParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        name: str
+        scope: "Secret.FindParamsScope"
+
+    class FindParamsScope(TypedDict):
+        type: Literal["account", "user"]
+        user: NotRequired["str|None"]
+
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        scope: "Secret.ListParamsScope"
+        starting_after: NotRequired["str|None"]
+
+    class ListParamsScope(TypedDict):
+        type: Literal["account", "user"]
+        user: NotRequired["str|None"]
+
     created: int
     deleted: Optional[bool]
     expires_at: Optional[int]
@@ -46,7 +87,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Secret.CreateParams"]
     ) -> "Secret":
         return cast(
             "Secret",
@@ -67,7 +108,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Secret.DeleteWhereParams"]
     ):
         return cls._static_request(
             "post",
@@ -84,7 +125,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Secret.FindParams"]
     ):
         return cls._static_request(
             "get",
@@ -101,7 +142,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Secret.ListParams"]
     ) -> ListObject["Secret"]:
         result = cls._static_request(
             "get",

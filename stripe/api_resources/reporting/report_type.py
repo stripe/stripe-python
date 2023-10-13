@@ -2,8 +2,9 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
-from typing import Any, List, Optional
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import List, Optional
+from typing_extensions import Literal, NotRequired, Unpack
 
 
 class ReportType(ListableAPIResource["ReportType"]):
@@ -19,6 +20,13 @@ class ReportType(ListableAPIResource["ReportType"]):
     """
 
     OBJECT_NAME = "reporting.report_type"
+
+    class ListParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
     data_available_end: int
     data_available_start: int
     default_columns: Optional[List[str]]
@@ -35,7 +43,7 @@ class ReportType(ListableAPIResource["ReportType"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ReportType.ListParams"]
     ) -> ListObject["ReportType"]:
         result = cls._static_request(
             "get",
@@ -56,8 +64,8 @@ class ReportType(ListableAPIResource["ReportType"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["ReportType.RetrieveParams"]
     ) -> "ReportType":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

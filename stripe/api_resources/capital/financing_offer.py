@@ -3,9 +3,10 @@
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional
-from typing_extensions import Literal
+from typing import Dict, List, Optional
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
 class FinancingOffer(ListableAPIResource["FinancingOffer"]):
@@ -32,6 +33,29 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         fee_amount: int
         previous_financing_fee_discount_rate: Optional[float]
         withhold_rate: float
+
+    class ListParams(RequestOptions):
+        connected_account: NotRequired["str|None"]
+        created: NotRequired["FinancingOffer.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+        status: NotRequired[
+            "Literal['accepted', 'canceled', 'completed', 'delivered', 'expired', 'fully_repaid', 'paid_out', 'rejected', 'revoked', 'undelivered']|None"
+        ]
+
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
+
+    class MarkDeliveredParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
 
     accepted_terms: Optional[AcceptedTerms]
     account: str
@@ -66,7 +90,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["FinancingOffer.ListParams"]
     ) -> ListObject["FinancingOffer"]:
         result = cls._static_request(
             "get",
@@ -92,7 +116,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
     ):
         return cls._static_request(
             "post",
@@ -107,7 +131,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @util.class_method_variant("_cls_mark_delivered")
     def mark_delivered(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
     ):
         return self._request(
             "post",
@@ -120,9 +146,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["FinancingOffer.RetrieveParams"]
     ) -> "FinancingOffer":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 

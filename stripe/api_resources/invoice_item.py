@@ -9,9 +9,10 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -53,6 +54,136 @@ class InvoiceItem(
         end: int
         start: int
 
+    class CreateParams(RequestOptions):
+        amount: NotRequired["int|None"]
+        currency: NotRequired["str|None"]
+        customer: str
+        description: NotRequired["str|None"]
+        discountable: NotRequired["bool|None"]
+        discounts: NotRequired[
+            "Literal['']|List[InvoiceItem.CreateParamsDiscount]|None"
+        ]
+        expand: NotRequired["List[str]|None"]
+        invoice: NotRequired["str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        period: NotRequired["InvoiceItem.CreateParamsPeriod|None"]
+        price: NotRequired["str|None"]
+        price_data: NotRequired["InvoiceItem.CreateParamsPriceData|None"]
+        quantity: NotRequired["int|None"]
+        subscription: NotRequired["str|None"]
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
+        ]
+        tax_code: NotRequired["Literal['']|str|None"]
+        tax_rates: NotRequired["List[str]|None"]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
+
+    class CreateParamsPriceData(TypedDict):
+        currency: str
+        product: str
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
+        ]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
+
+    class CreateParamsPeriod(TypedDict):
+        end: int
+        start: int
+
+    class CreateParamsDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "InvoiceItem.CreateParamsDiscountDiscountEnd|None"
+        ]
+
+    class CreateParamsDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "InvoiceItem.CreateParamsDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class CreateParamsDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class DeleteParams(RequestOptions):
+        pass
+
+    class ListParams(RequestOptions):
+        created: NotRequired["InvoiceItem.ListParamsCreated|int|None"]
+        customer: NotRequired["str|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        invoice: NotRequired["str|None"]
+        limit: NotRequired["int|None"]
+        pending: NotRequired["bool|None"]
+        starting_after: NotRequired["str|None"]
+
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
+
+    class ModifyParams(RequestOptions):
+        amount: NotRequired["int|None"]
+        description: NotRequired["str|None"]
+        discountable: NotRequired["bool|None"]
+        discounts: NotRequired[
+            "Literal['']|List[InvoiceItem.ModifyParamsDiscount]|None"
+        ]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        period: NotRequired["InvoiceItem.ModifyParamsPeriod|None"]
+        price: NotRequired["str|None"]
+        price_data: NotRequired["InvoiceItem.ModifyParamsPriceData|None"]
+        quantity: NotRequired["int|None"]
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
+        ]
+        tax_code: NotRequired["Literal['']|str|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
+
+    class ModifyParamsPriceData(TypedDict):
+        currency: str
+        product: str
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
+        ]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
+
+    class ModifyParamsPeriod(TypedDict):
+        end: int
+        start: int
+
+    class ModifyParamsDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "InvoiceItem.ModifyParamsDiscountDiscountEnd|None"
+        ]
+
+    class ModifyParamsDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "InvoiceItem.ModifyParamsDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class ModifyParamsDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
     amount: int
     currency: str
     customer: ExpandableField["Customer"]
@@ -85,7 +216,7 @@ class InvoiceItem(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["InvoiceItem.CreateParams"]
     ) -> "InvoiceItem":
         return cast(
             "InvoiceItem",
@@ -101,7 +232,9 @@ class InvoiceItem(
         )
 
     @classmethod
-    def _cls_delete(cls, sid: str, **params: Any) -> "InvoiceItem":
+    def _cls_delete(
+        cls, sid: str, **params: Unpack["InvoiceItem.DeleteParams"]
+    ) -> "InvoiceItem":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "InvoiceItem",
@@ -109,7 +242,9 @@ class InvoiceItem(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Any) -> "InvoiceItem":
+    def delete(
+        self, **params: Unpack["InvoiceItem.DeleteParams"]
+    ) -> "InvoiceItem":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -122,7 +257,7 @@ class InvoiceItem(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["InvoiceItem.ListParams"]
     ) -> ListObject["InvoiceItem"]:
         result = cls._static_request(
             "get",
@@ -142,7 +277,9 @@ class InvoiceItem(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "InvoiceItem":
+    def modify(
+        cls, id, **params: Unpack["InvoiceItem.ModifyParams"]
+    ) -> "InvoiceItem":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "InvoiceItem",
@@ -151,9 +288,9 @@ class InvoiceItem(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["InvoiceItem.RetrieveParams"]
     ) -> "InvoiceItem":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 

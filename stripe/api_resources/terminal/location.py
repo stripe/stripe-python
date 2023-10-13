@@ -8,9 +8,10 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 
@@ -36,6 +37,48 @@ class Location(
         postal_code: Optional[str]
         state: Optional[str]
 
+    class CreateParams(RequestOptions):
+        address: "Location.CreateParamsAddress"
+        configuration_overrides: NotRequired["str|None"]
+        display_name: str
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+
+    class CreateParamsAddress(TypedDict):
+        city: NotRequired["str|None"]
+        country: str
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+
+    class DeleteParams(RequestOptions):
+        pass
+
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+
+    class ModifyParams(RequestOptions):
+        address: NotRequired["Location.ModifyParamsAddress|None"]
+        configuration_overrides: NotRequired["Literal['']|str|None"]
+        display_name: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+
+    class ModifyParamsAddress(TypedDict):
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
     address: Address
     configuration_overrides: Optional[str]
     display_name: str
@@ -52,7 +95,7 @@ class Location(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Location.CreateParams"]
     ) -> "Location":
         return cast(
             "Location",
@@ -68,7 +111,9 @@ class Location(
         )
 
     @classmethod
-    def _cls_delete(cls, sid: str, **params: Any) -> "Location":
+    def _cls_delete(
+        cls, sid: str, **params: Unpack["Location.DeleteParams"]
+    ) -> "Location":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Location",
@@ -76,7 +121,7 @@ class Location(
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Any) -> "Location":
+    def delete(self, **params: Unpack["Location.DeleteParams"]) -> "Location":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -89,7 +134,7 @@ class Location(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Location.ListParams"]
     ) -> ListObject["Location"]:
         result = cls._static_request(
             "get",
@@ -109,7 +154,9 @@ class Location(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Location":
+    def modify(
+        cls, id, **params: Unpack["Location.ModifyParams"]
+    ) -> "Location":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Location",
@@ -118,9 +165,9 @@ class Location(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Location.RetrieveParams"]
     ) -> "Location":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 

@@ -6,9 +6,10 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
 )
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -51,6 +52,40 @@ class Card(
             "payment": Payment,
         }
 
+    class CreateParams(RequestOptions):
+        active: NotRequired["bool|None"]
+        created_by: NotRequired["Card.CreateParamsCreatedBy|None"]
+        currency: str
+        expand: NotRequired["List[str]|None"]
+        initial_amount: NotRequired["int|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+
+    class CreateParamsCreatedBy(TypedDict):
+        payment: "Card.CreateParamsCreatedByPayment"
+        type: Literal["payment"]
+
+    class CreateParamsCreatedByPayment(TypedDict):
+        payment_intent: str
+
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+
+    class ModifyParams(RequestOptions):
+        active: NotRequired["bool|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class ValidateParams(RequestOptions):
+        code: str
+        expand: NotRequired["List[str]|None"]
+        giftcard_pin: NotRequired["str|None"]
+
     active: bool
     amount_available: int
     amount_held: int
@@ -70,7 +105,7 @@ class Card(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Card.CreateParams"]
     ) -> "Card":
         return cast(
             "Card",
@@ -91,7 +126,7 @@ class Card(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Card.ListParams"]
     ) -> ListObject["Card"]:
         result = cls._static_request(
             "get",
@@ -111,7 +146,7 @@ class Card(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Card":
+    def modify(cls, id, **params: Unpack["Card.ModifyParams"]) -> "Card":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Card",
@@ -120,9 +155,9 @@ class Card(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Card.RetrieveParams"]
     ) -> "Card":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -132,7 +167,7 @@ class Card(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Card.ValidateParams"]
     ):
         return cls._static_request(
             "post",

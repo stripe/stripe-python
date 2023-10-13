@@ -2,13 +2,18 @@
 # File generated from our OpenAPI spec
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import DeletableAPIResource
-from typing import Any, Optional, cast
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import List, Optional, cast
+from typing_extensions import Literal, NotRequired, Unpack
 from urllib.parse import quote_plus
 
 
 class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
     OBJECT_NAME = "ephemeral_key"
+
+    class DeleteParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
     created: int
     expires: int
     id: str
@@ -17,7 +22,9 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
     secret: Optional[str]
 
     @classmethod
-    def _cls_delete(cls, sid: str, **params: Any) -> "EphemeralKey":
+    def _cls_delete(
+        cls, sid: str, **params: Unpack["EphemeralKey.DeleteParams"]
+    ) -> "EphemeralKey":
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "EphemeralKey",
@@ -25,7 +32,9 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
         )
 
     @util.class_method_variant("_cls_delete")
-    def delete(self, **params: Any) -> "EphemeralKey":
+    def delete(
+        self, **params: Unpack["EphemeralKey.DeleteParams"]
+    ) -> "EphemeralKey":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),

@@ -7,9 +7,10 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional
-from typing_extensions import Literal
+from typing import Dict, List, Optional
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -69,6 +70,53 @@ class Account(ListableAPIResource["Account"]):
         next_refresh_available_at: Optional[int]
         status: Literal["failed", "pending", "succeeded"]
 
+    class DisconnectParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class ListParams(RequestOptions):
+        account_holder: NotRequired["Account.ListParamsAccountHolder|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        session: NotRequired["str|None"]
+        starting_after: NotRequired["str|None"]
+
+    class ListParamsAccountHolder(TypedDict):
+        account: NotRequired["str|None"]
+        customer: NotRequired["str|None"]
+
+    class ListOwnersParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        ownership: str
+        starting_after: NotRequired["str|None"]
+
+    class RefreshAccountParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        features: List[
+            Literal[
+                "balance", "inferred_balances", "ownership", "transactions"
+            ]
+        ]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class SubscribeParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        features: List[Literal["inferred_balances", "transactions"]]
+
+    class UnsubscribeParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        features: List[Literal["inferred_balances", "transactions"]]
+
+    class ListInferredBalancesParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+
     account_holder: Optional[AccountHolder]
     balance: Optional[Balance]
     balance_refresh: Optional[BalanceRefresh]
@@ -108,7 +156,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Account.DisconnectParams"]
     ):
         return cls._static_request(
             "post",
@@ -122,7 +170,11 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @util.class_method_variant("_cls_disconnect")
-    def disconnect(self, idempotency_key: Optional[str] = None, **params: Any):
+    def disconnect(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.DisconnectParams"]
+    ):
         return self._request(
             "post",
             "/v1/financial_connections/accounts/{account}/disconnect".format(
@@ -138,7 +190,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Account.ListParams"]
     ) -> ListObject["Account"]:
         result = cls._static_request(
             "get",
@@ -164,7 +216,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Account.ListOwnersParams"]
     ):
         return cls._static_request(
             "get",
@@ -179,7 +231,9 @@ class Account(ListableAPIResource["Account"]):
 
     @util.class_method_variant("_cls_list_owners")
     def list_owners(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.ListOwnersParams"]
     ):
         return self._request(
             "get",
@@ -197,7 +251,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Account.RefreshAccountParams"]
     ):
         return cls._static_request(
             "post",
@@ -212,7 +266,9 @@ class Account(ListableAPIResource["Account"]):
 
     @util.class_method_variant("_cls_refresh_account")
     def refresh_account(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.RefreshAccountParams"]
     ):
         return self._request(
             "post",
@@ -225,9 +281,9 @@ class Account(ListableAPIResource["Account"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Account.RetrieveParams"]
     ) -> "Account":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -238,7 +294,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Account.SubscribeParams"]
     ):
         return cls._static_request(
             "post",
@@ -252,7 +308,11 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @util.class_method_variant("_cls_subscribe")
-    def subscribe(self, idempotency_key: Optional[str] = None, **params: Any):
+    def subscribe(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.SubscribeParams"]
+    ):
         return self._request(
             "post",
             "/v1/financial_connections/accounts/{account}/subscribe".format(
@@ -269,7 +329,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Account.UnsubscribeParams"]
     ):
         return cls._static_request(
             "post",
@@ -284,7 +344,9 @@ class Account(ListableAPIResource["Account"]):
 
     @util.class_method_variant("_cls_unsubscribe")
     def unsubscribe(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.UnsubscribeParams"]
     ):
         return self._request(
             "post",
@@ -302,7 +364,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Account.ListInferredBalancesParams"]
     ):
         return cls._static_request(
             "get",

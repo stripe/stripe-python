@@ -2,9 +2,10 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional
-from typing_extensions import Literal
+from typing import List, Optional
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
 class Transaction(ListableAPIResource["Transaction"]):
@@ -17,6 +18,28 @@ class Transaction(ListableAPIResource["Transaction"]):
     class StatusTransitions(StripeObject):
         posted_at: Optional[int]
         void_at: Optional[int]
+
+    class ListParams(RequestOptions):
+        account: str
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+        transacted_at: NotRequired[
+            "Transaction.ListParamsTransactedAt|int|None"
+        ]
+        transaction_refresh: NotRequired[
+            "Transaction.ListParamsTransactionRefresh|None"
+        ]
+
+    class ListParamsTransactionRefresh(TypedDict):
+        after: str
+
+    class ListParamsTransactedAt(TypedDict):
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     account: str
     amount: int
@@ -37,7 +60,7 @@ class Transaction(ListableAPIResource["Transaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Transaction.ListParams"]
     ) -> ListObject["Transaction"]:
         result = cls._static_request(
             "get",

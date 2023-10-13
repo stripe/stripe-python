@@ -5,9 +5,10 @@ from stripe import api_requestor, util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, List, Optional
-from typing_extensions import Literal
+from typing import List, Optional
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -49,6 +50,23 @@ class Form(ListableAPIResource["Form"]):
     class Us1099Nec(StripeObject):
         reporting_year: int
 
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        payee: "Form.ListParamsPayee"
+        starting_after: NotRequired["str|None"]
+        type: NotRequired[
+            "Literal['us_1099_k', 'us_1099_misc', 'us_1099_nec']|None"
+        ]
+
+    class ListParamsPayee(TypedDict):
+        account: NotRequired["str|None"]
+        type: NotRequired["Literal['account']|None"]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
     corrected_by: Optional[ExpandableField["Form"]]
     created: int
     filing_statuses: List[FilingStatus]
@@ -67,7 +85,7 @@ class Form(ListableAPIResource["Form"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Form.ListParams"]
     ) -> ListObject["Form"]:
         result = cls._static_request(
             "get",
@@ -88,9 +106,9 @@ class Form(ListableAPIResource["Form"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Form.RetrieveParams"]
     ) -> "Form":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 

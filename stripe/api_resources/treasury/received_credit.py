@@ -6,9 +6,10 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Optional
-from typing_extensions import Literal, Type
+from typing import List, Optional
+from typing_extensions import Literal, NotRequired, Type, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -105,6 +106,55 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
             ]
         ]
 
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        financial_account: str
+        limit: NotRequired["int|None"]
+        linked_flows: NotRequired["ReceivedCredit.ListParamsLinkedFlows|None"]
+        starting_after: NotRequired["str|None"]
+        status: NotRequired["Literal['failed', 'succeeded']|None"]
+
+    class ListParamsLinkedFlows(TypedDict):
+        source_flow_type: Literal[
+            "credit_reversal", "other", "outbound_payment", "payout"
+        ]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class CreateParams(RequestOptions):
+        amount: int
+        currency: str
+        description: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        financial_account: str
+        initiating_payment_method_details: NotRequired[
+            "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetails|None"
+        ]
+        network: Literal["ach", "us_domestic_wire"]
+        network_details: NotRequired[
+            "ReceivedCredit.CreateParamsNetworkDetails|None"
+        ]
+
+    class CreateParamsNetworkDetails(TypedDict):
+        ach: NotRequired["ReceivedCredit.CreateParamsNetworkDetailsAch|None"]
+        type: Literal["ach"]
+
+    class CreateParamsNetworkDetailsAch(TypedDict):
+        addenda: NotRequired["str|None"]
+
+    class CreateParamsInitiatingPaymentMethodDetails(TypedDict):
+        type: Literal["us_bank_account"]
+        us_bank_account: NotRequired[
+            "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetailsUsBankAccount|None"
+        ]
+
+    class CreateParamsInitiatingPaymentMethodDetailsUsBankAccount(TypedDict):
+        account_holder_name: NotRequired["str|None"]
+        account_number: NotRequired["str|None"]
+        routing_number: NotRequired["str|None"]
+
     amount: int
     created: int
     currency: str
@@ -131,7 +181,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ReceivedCredit.ListParams"]
     ) -> ListObject["ReceivedCredit"]:
         result = cls._static_request(
             "get",
@@ -152,9 +202,9 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["ReceivedCredit.RetrieveParams"]
     ) -> "ReceivedCredit":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -167,7 +217,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Any
+            **params: Unpack["ReceivedCredit.CreateParams"]
         ):
             return cls._static_request(
                 "post",

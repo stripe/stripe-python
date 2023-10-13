@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import CreateableAPIResource
-from typing import Any, Optional, cast
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import Dict, List, Optional, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -36,6 +37,332 @@ class Token(CreateableAPIResource["Token"]):
     """
 
     OBJECT_NAME = "token"
+
+    class CreateParams(RequestOptions):
+        account: NotRequired["Token.CreateParamsAccount|None"]
+        bank_account: NotRequired["Token.CreateParamsBankAccount|None"]
+        card: NotRequired["Token.CreateParamsCard|str|None"]
+        customer: NotRequired["str|None"]
+        cvc_update: NotRequired["Token.CreateParamsCvcUpdate|None"]
+        expand: NotRequired["List[str]|None"]
+        person: NotRequired["Token.CreateParamsPerson|None"]
+        pii: NotRequired["Token.CreateParamsPii|None"]
+
+    class CreateParamsPii(TypedDict):
+        id_number: NotRequired["str|None"]
+
+    class CreateParamsPerson(TypedDict):
+        address: NotRequired["Token.CreateParamsPersonAddress|None"]
+        address_kana: NotRequired["Token.CreateParamsPersonAddressKana|None"]
+        address_kanji: NotRequired["Token.CreateParamsPersonAddressKanji|None"]
+        dob: NotRequired["Literal['']|Token.CreateParamsPersonDob|None"]
+        documents: NotRequired["Token.CreateParamsPersonDocuments|None"]
+        email: NotRequired["str|None"]
+        first_name: NotRequired["str|None"]
+        first_name_kana: NotRequired["str|None"]
+        first_name_kanji: NotRequired["str|None"]
+        full_name_aliases: NotRequired["Literal['']|List[str]|None"]
+        gender: NotRequired["str|None"]
+        id_number: NotRequired["str|None"]
+        id_number_secondary: NotRequired["str|None"]
+        last_name: NotRequired["str|None"]
+        last_name_kana: NotRequired["str|None"]
+        last_name_kanji: NotRequired["str|None"]
+        maiden_name: NotRequired["str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        nationality: NotRequired["str|None"]
+        phone: NotRequired["str|None"]
+        political_exposure: NotRequired["str|None"]
+        registered_address: NotRequired[
+            "Token.CreateParamsPersonRegisteredAddress|None"
+        ]
+        relationship: NotRequired["Token.CreateParamsPersonRelationship|None"]
+        ssn_last_4: NotRequired["str|None"]
+        verification: NotRequired["Token.CreateParamsPersonVerification|None"]
+
+    class CreateParamsPersonVerification(TypedDict):
+        additional_document: NotRequired[
+            "Token.CreateParamsPersonVerificationAdditionalDocument|None"
+        ]
+        document: NotRequired[
+            "Token.CreateParamsPersonVerificationDocument|None"
+        ]
+
+    class CreateParamsPersonVerificationDocument(TypedDict):
+        back: NotRequired["str|None"]
+        front: NotRequired["str|None"]
+
+    class CreateParamsPersonVerificationAdditionalDocument(TypedDict):
+        back: NotRequired["str|None"]
+        front: NotRequired["str|None"]
+
+    class CreateParamsPersonRelationship(TypedDict):
+        director: NotRequired["bool|None"]
+        executive: NotRequired["bool|None"]
+        owner: NotRequired["bool|None"]
+        percent_ownership: NotRequired["Literal['']|float|None"]
+        representative: NotRequired["bool|None"]
+        title: NotRequired["str|None"]
+
+    class CreateParamsPersonRegisteredAddress(TypedDict):
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+
+    class CreateParamsPersonDocuments(TypedDict):
+        company_authorization: NotRequired[
+            "Token.CreateParamsPersonDocumentsCompanyAuthorization|None"
+        ]
+        passport: NotRequired["Token.CreateParamsPersonDocumentsPassport|None"]
+        visa: NotRequired["Token.CreateParamsPersonDocumentsVisa|None"]
+
+    class CreateParamsPersonDocumentsVisa(TypedDict):
+        files: NotRequired["List[str]|None"]
+
+    class CreateParamsPersonDocumentsPassport(TypedDict):
+        files: NotRequired["List[str]|None"]
+
+    class CreateParamsPersonDocumentsCompanyAuthorization(TypedDict):
+        files: NotRequired["List[str]|None"]
+
+    class CreateParamsPersonDob(TypedDict):
+        day: int
+        month: int
+        year: int
+
+    class CreateParamsPersonAddressKanji(TypedDict):
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+        town: NotRequired["str|None"]
+
+    class CreateParamsPersonAddressKana(TypedDict):
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+        town: NotRequired["str|None"]
+
+    class CreateParamsPersonAddress(TypedDict):
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+
+    class CreateParamsCvcUpdate(TypedDict):
+        cvc: str
+
+    class CreateParamsCard(TypedDict):
+        address_city: NotRequired["str|None"]
+        address_country: NotRequired["str|None"]
+        address_line1: NotRequired["str|None"]
+        address_line2: NotRequired["str|None"]
+        address_state: NotRequired["str|None"]
+        address_zip: NotRequired["str|None"]
+        currency: NotRequired["str|None"]
+        cvc: NotRequired["str|None"]
+        exp_month: str
+        exp_year: str
+        name: NotRequired["str|None"]
+        number: str
+
+    class CreateParamsBankAccount(TypedDict):
+        account_holder_name: NotRequired["str|None"]
+        account_holder_type: NotRequired[
+            "Literal['company', 'individual']|None"
+        ]
+        account_number: str
+        account_type: NotRequired[
+            "Literal['checking', 'futsu', 'savings', 'toza']|None"
+        ]
+        country: str
+        currency: NotRequired["str|None"]
+        routing_number: NotRequired["str|None"]
+
+    class CreateParamsAccount(TypedDict):
+        business_type: NotRequired[
+            "Literal['company', 'government_entity', 'individual', 'non_profit']|None"
+        ]
+        company: NotRequired["Token.CreateParamsAccountCompany|None"]
+        individual: NotRequired["Token.CreateParamsAccountIndividual|None"]
+        tos_shown_and_accepted: NotRequired["bool|None"]
+
+    class CreateParamsAccountIndividual(TypedDict):
+        address: NotRequired["Token.CreateParamsAccountIndividualAddress|None"]
+        address_kana: NotRequired[
+            "Token.CreateParamsAccountIndividualAddressKana|None"
+        ]
+        address_kanji: NotRequired[
+            "Token.CreateParamsAccountIndividualAddressKanji|None"
+        ]
+        dob: NotRequired[
+            "Literal['']|Token.CreateParamsAccountIndividualDob|None"
+        ]
+        email: NotRequired["str|None"]
+        first_name: NotRequired["str|None"]
+        first_name_kana: NotRequired["str|None"]
+        first_name_kanji: NotRequired["str|None"]
+        full_name_aliases: NotRequired["Literal['']|List[str]|None"]
+        gender: NotRequired["str|None"]
+        id_number: NotRequired["str|None"]
+        id_number_secondary: NotRequired["str|None"]
+        last_name: NotRequired["str|None"]
+        last_name_kana: NotRequired["str|None"]
+        last_name_kanji: NotRequired["str|None"]
+        maiden_name: NotRequired["str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        phone: NotRequired["str|None"]
+        political_exposure: NotRequired["Literal['existing', 'none']|None"]
+        registered_address: NotRequired[
+            "Token.CreateParamsAccountIndividualRegisteredAddress|None"
+        ]
+        ssn_last_4: NotRequired["str|None"]
+        verification: NotRequired[
+            "Token.CreateParamsAccountIndividualVerification|None"
+        ]
+
+    class CreateParamsAccountIndividualVerification(TypedDict):
+        additional_document: NotRequired[
+            "Token.CreateParamsAccountIndividualVerificationAdditionalDocument|None"
+        ]
+        document: NotRequired[
+            "Token.CreateParamsAccountIndividualVerificationDocument|None"
+        ]
+
+    class CreateParamsAccountIndividualVerificationDocument(TypedDict):
+        back: NotRequired["str|None"]
+        front: NotRequired["str|None"]
+
+    class CreateParamsAccountIndividualVerificationAdditionalDocument(
+        TypedDict,
+    ):
+        back: NotRequired["str|None"]
+        front: NotRequired["str|None"]
+
+    class CreateParamsAccountIndividualRegisteredAddress(TypedDict):
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+
+    class CreateParamsAccountIndividualDob(TypedDict):
+        day: int
+        month: int
+        year: int
+
+    class CreateParamsAccountIndividualAddressKanji(TypedDict):
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+        town: NotRequired["str|None"]
+
+    class CreateParamsAccountIndividualAddressKana(TypedDict):
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+        town: NotRequired["str|None"]
+
+    class CreateParamsAccountIndividualAddress(TypedDict):
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+
+    class CreateParamsAccountCompany(TypedDict):
+        address: NotRequired["Token.CreateParamsAccountCompanyAddress|None"]
+        address_kana: NotRequired[
+            "Token.CreateParamsAccountCompanyAddressKana|None"
+        ]
+        address_kanji: NotRequired[
+            "Token.CreateParamsAccountCompanyAddressKanji|None"
+        ]
+        directors_provided: NotRequired["bool|None"]
+        executives_provided: NotRequired["bool|None"]
+        export_license_id: NotRequired["str|None"]
+        export_purpose_code: NotRequired["str|None"]
+        name: NotRequired["str|None"]
+        name_kana: NotRequired["str|None"]
+        name_kanji: NotRequired["str|None"]
+        owners_provided: NotRequired["bool|None"]
+        ownership_declaration: NotRequired[
+            "Token.CreateParamsAccountCompanyOwnershipDeclaration|None"
+        ]
+        ownership_declaration_shown_and_signed: NotRequired["bool|None"]
+        phone: NotRequired["str|None"]
+        registration_number: NotRequired["str|None"]
+        structure: NotRequired[
+            "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']|None"
+        ]
+        tax_id: NotRequired["str|None"]
+        tax_id_registrar: NotRequired["str|None"]
+        vat_id: NotRequired["str|None"]
+        verification: NotRequired[
+            "Token.CreateParamsAccountCompanyVerification|None"
+        ]
+
+    class CreateParamsAccountCompanyVerification(TypedDict):
+        document: NotRequired[
+            "Token.CreateParamsAccountCompanyVerificationDocument|None"
+        ]
+
+    class CreateParamsAccountCompanyVerificationDocument(TypedDict):
+        back: NotRequired["str|None"]
+        front: NotRequired["str|None"]
+
+    class CreateParamsAccountCompanyOwnershipDeclaration(TypedDict):
+        date: NotRequired["int|None"]
+        ip: NotRequired["str|None"]
+        user_agent: NotRequired["str|None"]
+
+    class CreateParamsAccountCompanyAddressKanji(TypedDict):
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+        town: NotRequired["str|None"]
+
+    class CreateParamsAccountCompanyAddressKana(TypedDict):
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+        town: NotRequired["str|None"]
+
+    class CreateParamsAccountCompanyAddress(TypedDict):
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
     bank_account: Optional["BankAccount"]
     card: Optional["Card"]
     client_ip: Optional[str]
@@ -53,7 +380,7 @@ class Token(CreateableAPIResource["Token"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Token.CreateParams"]
     ) -> "Token":
         return cast(
             "Token",
@@ -70,8 +397,8 @@ class Token(CreateableAPIResource["Token"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Token.RetrieveParams"]
     ) -> "Token":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance

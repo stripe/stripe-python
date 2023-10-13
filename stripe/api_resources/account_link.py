@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import CreateableAPIResource
-from typing import Any, Optional, cast
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import List, Optional, cast
+from typing_extensions import Literal, NotRequired, Unpack
 
 
 class AccountLink(CreateableAPIResource["AccountLink"]):
@@ -14,6 +15,20 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
     """
 
     OBJECT_NAME = "account_link"
+
+    class CreateParams(RequestOptions):
+        account: str
+        collect: NotRequired["Literal['currently_due', 'eventually_due']|None"]
+        expand: NotRequired["List[str]|None"]
+        refresh_url: NotRequired["str|None"]
+        return_url: NotRequired["str|None"]
+        type: Literal[
+            "account_onboarding",
+            "account_update",
+            "capital_financing_offer",
+            "capital_financing_reporting",
+        ]
+
     created: int
     expires_at: int
     object: Literal["account_link"]
@@ -26,7 +41,7 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["AccountLink.CreateParams"]
     ) -> "AccountLink":
         return cast(
             "AccountLink",

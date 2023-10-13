@@ -7,8 +7,9 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
-from typing import Any, Optional
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import Dict, List, Optional
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -25,6 +26,47 @@ if TYPE_CHECKING:
 @nested_resource_class_methods("refund")
 class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     OBJECT_NAME = "application_fee"
+
+    class ListParams(RequestOptions):
+        charge: NotRequired["str|None"]
+        created: NotRequired["ApplicationFee.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
+
+    class RefundParams(RequestOptions):
+        amount: NotRequired["int|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class CreateRefundParams(RequestOptions):
+        amount: NotRequired["int|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+
+    class RetrieveRefundParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class ModifyRefundParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+
+    class ListRefundsParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+
     account: ExpandableField["Account"]
     amount: int
     amount_refunded: int
@@ -46,7 +88,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ApplicationFee.ListParams"]
     ) -> ListObject["ApplicationFee"]:
         result = cls._static_request(
             "get",
@@ -72,7 +114,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ApplicationFee.RefundParams"]
     ):
         return cls._static_request(
             "post",
@@ -86,7 +128,11 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         )
 
     @util.class_method_variant("_cls_refund")
-    def refund(self, idempotency_key: Optional[str] = None, **params: Any):
+    def refund(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["ApplicationFee.RefundParams"]
+    ):
         return self._request(
             "post",
             "/v1/application_fees/{id}/refunds".format(
@@ -98,9 +144,9 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["ApplicationFee.RetrieveParams"]
     ) -> "ApplicationFee":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -111,7 +157,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ApplicationFee.CreateRefundParams"]
     ):
         return cls._static_request(
             "post",
@@ -132,7 +178,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ApplicationFee.RetrieveRefundParams"]
     ):
         return cls._static_request(
             "get",
@@ -153,7 +199,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ApplicationFee.ModifyRefundParams"]
     ):
         return cls._static_request(
             "post",
@@ -173,7 +219,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["ApplicationFee.ListRefundsParams"]
     ):
         return cls._static_request(
             "get",

@@ -10,9 +10,10 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal
+from typing import Dict, List, Optional, cast
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -437,6 +438,1212 @@ class Quote(
         amount_percent: Optional[float]
         destination: ExpandableField["Account"]
 
+    class AcceptParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class CancelParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class CreateParams(RequestOptions):
+        allow_backdated_lines: NotRequired["bool|None"]
+        application_fee_amount: NotRequired["Literal['']|int|None"]
+        application_fee_percent: NotRequired["Literal['']|float|None"]
+        automatic_tax: NotRequired["Quote.CreateParamsAutomaticTax|None"]
+        collection_method: NotRequired[
+            "Literal['charge_automatically', 'send_invoice']|None"
+        ]
+        customer: NotRequired["str|None"]
+        default_tax_rates: NotRequired["Literal['']|List[str]|None"]
+        description: NotRequired["Literal['']|str|None"]
+        discounts: NotRequired[
+            "Literal['']|List[Quote.CreateParamsDiscount]|None"
+        ]
+        expand: NotRequired["List[str]|None"]
+        expires_at: NotRequired["int|None"]
+        footer: NotRequired["Literal['']|str|None"]
+        from_quote: NotRequired["Quote.CreateParamsFromQuote|None"]
+        header: NotRequired["Literal['']|str|None"]
+        invoice_settings: NotRequired["Quote.CreateParamsInvoiceSettings|None"]
+        line_items: NotRequired["List[Quote.CreateParamsLineItem]|None"]
+        lines: NotRequired["List[Quote.CreateParamsLine]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        on_behalf_of: NotRequired["Literal['']|str|None"]
+        phases: NotRequired["List[Quote.CreateParamsPhase]|None"]
+        subscription_data: NotRequired[
+            "Quote.CreateParamsSubscriptionData|None"
+        ]
+        subscription_data_overrides: NotRequired[
+            "List[Quote.CreateParamsSubscriptionDataOverride]|None"
+        ]
+        test_clock: NotRequired["str|None"]
+        transfer_data: NotRequired[
+            "Literal['']|Quote.CreateParamsTransferData|None"
+        ]
+
+    class CreateParamsTransferData(TypedDict):
+        amount: NotRequired["int|None"]
+        amount_percent: NotRequired["float|None"]
+        destination: str
+
+    class CreateParamsSubscriptionDataOverride(TypedDict):
+        applies_to: "Quote.CreateParamsSubscriptionDataOverrideAppliesTo"
+        bill_on_acceptance: NotRequired[
+            "Quote.CreateParamsSubscriptionDataOverrideBillOnAcceptance|None"
+        ]
+        billing_behavior: NotRequired[
+            "Literal['prorate_on_next_phase', 'prorate_up_front']|None"
+        ]
+        customer: NotRequired["str|None"]
+        description: NotRequired["str|None"]
+        end_behavior: NotRequired["Literal['cancel', 'release']|None"]
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
+        ]
+
+    class CreateParamsSubscriptionDataOverrideBillOnAcceptance(TypedDict):
+        bill_from: NotRequired[
+            "Quote.CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillFrom|None"
+        ]
+        bill_until: NotRequired[
+            "Quote.CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil|None"
+        ]
+
+    class CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil(
+        TypedDict,
+    ):
+        duration: NotRequired[
+            "Quote.CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration|None"
+        ]
+        line_ends_at: NotRequired[
+            "Quote.CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal[
+            "duration",
+            "line_ends_at",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+
+    class CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt(
+        TypedDict,
+    ):
+        id: NotRequired["str|None"]
+        index: NotRequired["int|None"]
+
+    class CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillFrom(
+        TypedDict,
+    ):
+        line_starts_at: NotRequired[
+            "Quote.CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillFromLineStartsAt|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal[
+            "line_starts_at",
+            "now",
+            "pause_collection_start",
+            "quote_acceptance_date",
+            "timestamp",
+        ]
+
+    class CreateParamsSubscriptionDataOverrideBillOnAcceptanceBillFromLineStartsAt(
+        TypedDict,
+    ):
+        id: NotRequired["str|None"]
+        index: NotRequired["int|None"]
+
+    class CreateParamsSubscriptionDataOverrideAppliesTo(TypedDict):
+        new_reference: NotRequired["str|None"]
+        subscription_schedule: NotRequired["str|None"]
+        type: Literal["new_reference", "subscription_schedule"]
+
+    class CreateParamsSubscriptionData(TypedDict):
+        bill_on_acceptance: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillOnAcceptance|None"
+        ]
+        billing_behavior: NotRequired[
+            "Literal['prorate_on_next_phase', 'prorate_up_front']|None"
+        ]
+        billing_cycle_anchor: NotRequired["Literal['']|Literal['reset']|None"]
+        description: NotRequired["str|None"]
+        effective_date: NotRequired[
+            "Literal['']|Literal['current_period_end']|int|None"
+        ]
+        end_behavior: NotRequired["Literal['cancel', 'release']|None"]
+        from_schedule: NotRequired["str|None"]
+        from_subscription: NotRequired["str|None"]
+        prebilling: NotRequired[
+            "Literal['']|Quote.CreateParamsSubscriptionDataPrebilling|None"
+        ]
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
+        ]
+        trial_period_days: NotRequired["Literal['']|int|None"]
+
+    class CreateParamsSubscriptionDataPrebilling(TypedDict):
+        iterations: int
+
+    class CreateParamsSubscriptionDataBillOnAcceptance(TypedDict):
+        bill_from: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillOnAcceptanceBillFrom|None"
+        ]
+        bill_until: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillOnAcceptanceBillUntil|None"
+        ]
+
+    class CreateParamsSubscriptionDataBillOnAcceptanceBillUntil(TypedDict):
+        duration: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillOnAcceptanceBillUntilDuration|None"
+        ]
+        line_ends_at: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal[
+            "duration",
+            "line_ends_at",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+
+    class CreateParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt(
+        TypedDict,
+    ):
+        id: NotRequired["str|None"]
+        index: NotRequired["int|None"]
+
+    class CreateParamsSubscriptionDataBillOnAcceptanceBillUntilDuration(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class CreateParamsSubscriptionDataBillOnAcceptanceBillFrom(TypedDict):
+        line_starts_at: NotRequired[
+            "Quote.CreateParamsSubscriptionDataBillOnAcceptanceBillFromLineStartsAt|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal[
+            "line_starts_at",
+            "now",
+            "pause_collection_start",
+            "quote_acceptance_date",
+            "timestamp",
+        ]
+
+    class CreateParamsSubscriptionDataBillOnAcceptanceBillFromLineStartsAt(
+        TypedDict,
+    ):
+        id: NotRequired["str|None"]
+        index: NotRequired["int|None"]
+
+    class CreateParamsPhase(TypedDict):
+        billing_cycle_anchor: NotRequired["Literal['reset']|None"]
+        collection_method: NotRequired[
+            "Literal['charge_automatically', 'send_invoice']|None"
+        ]
+        default_tax_rates: NotRequired["Literal['']|List[str]|None"]
+        discounts: NotRequired[
+            "Literal['']|List[Quote.CreateParamsPhaseDiscount]|None"
+        ]
+        end_date: NotRequired["int|None"]
+        invoice_settings: NotRequired[
+            "Quote.CreateParamsPhaseInvoiceSettings|None"
+        ]
+        iterations: NotRequired["int|None"]
+        line_items: List["Quote.CreateParamsPhaseLineItem"]
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
+        ]
+        trial: NotRequired["bool|None"]
+        trial_end: NotRequired["int|None"]
+
+    class CreateParamsPhaseLineItem(TypedDict):
+        discounts: NotRequired[
+            "Literal['']|List[Quote.CreateParamsPhaseLineItemDiscount]|None"
+        ]
+        price: NotRequired["str|None"]
+        price_data: NotRequired[
+            "Quote.CreateParamsPhaseLineItemPriceData|None"
+        ]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
+
+    class CreateParamsPhaseLineItemPriceData(TypedDict):
+        currency: str
+        product: str
+        recurring: NotRequired[
+            "Quote.CreateParamsPhaseLineItemPriceDataRecurring|None"
+        ]
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
+        ]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
+
+    class CreateParamsPhaseLineItemPriceDataRecurring(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: NotRequired["int|None"]
+
+    class CreateParamsPhaseLineItemDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "Quote.CreateParamsPhaseLineItemDiscountDiscountEnd|None"
+        ]
+
+    class CreateParamsPhaseLineItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.CreateParamsPhaseLineItemDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class CreateParamsPhaseLineItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class CreateParamsPhaseInvoiceSettings(TypedDict):
+        days_until_due: NotRequired["int|None"]
+
+    class CreateParamsPhaseDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "Quote.CreateParamsPhaseDiscountDiscountEnd|None"
+        ]
+
+    class CreateParamsPhaseDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.CreateParamsPhaseDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class CreateParamsPhaseDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class CreateParamsLine(TypedDict):
+        actions: NotRequired["List[Quote.CreateParamsLineAction]|None"]
+        applies_to: NotRequired["Quote.CreateParamsLineAppliesTo|None"]
+        billing_cycle_anchor: NotRequired[
+            "Literal['automatic', 'line_starts_at']|None"
+        ]
+        ends_at: NotRequired["Quote.CreateParamsLineEndsAt|None"]
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
+        ]
+        set_pause_collection: NotRequired[
+            "Quote.CreateParamsLineSetPauseCollection|None"
+        ]
+        set_schedule_end: NotRequired[
+            "Literal['line_ends_at', 'line_starts_at']|None"
+        ]
+        starts_at: NotRequired["Quote.CreateParamsLineStartsAt|None"]
+        trial_settings: NotRequired["Quote.CreateParamsLineTrialSettings|None"]
+
+    class CreateParamsLineTrialSettings(TypedDict):
+        end_behavior: NotRequired[
+            "Quote.CreateParamsLineTrialSettingsEndBehavior|None"
+        ]
+
+    class CreateParamsLineTrialSettingsEndBehavior(TypedDict):
+        prorate_up_front: NotRequired["Literal['defer', 'include']|None"]
+
+    class CreateParamsLineStartsAt(TypedDict):
+        discount_end: NotRequired[
+            "Quote.CreateParamsLineStartsAtDiscountEnd|None"
+        ]
+        line_ends_at: NotRequired[
+            "Quote.CreateParamsLineStartsAtLineEndsAt|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal[
+            "discount_end",
+            "line_ends_at",
+            "now",
+            "quote_acceptance_date",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+
+    class CreateParamsLineStartsAtLineEndsAt(TypedDict):
+        index: NotRequired["int|None"]
+
+    class CreateParamsLineStartsAtDiscountEnd(TypedDict):
+        discount: str
+
+    class CreateParamsLineSetPauseCollection(TypedDict):
+        set: NotRequired["Quote.CreateParamsLineSetPauseCollectionSet|None"]
+        type: Literal["remove", "set"]
+
+    class CreateParamsLineSetPauseCollectionSet(TypedDict):
+        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+
+    class CreateParamsLineEndsAt(TypedDict):
+        discount_end: NotRequired[
+            "Quote.CreateParamsLineEndsAtDiscountEnd|None"
+        ]
+        duration: NotRequired["Quote.CreateParamsLineEndsAtDuration|None"]
+        timestamp: NotRequired["int|None"]
+        type: Literal[
+            "discount_end",
+            "duration",
+            "quote_acceptance_date",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+
+    class CreateParamsLineEndsAtDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class CreateParamsLineEndsAtDiscountEnd(TypedDict):
+        discount: str
+
+    class CreateParamsLineAppliesTo(TypedDict):
+        new_reference: NotRequired["str|None"]
+        subscription_schedule: NotRequired["str|None"]
+        type: Literal["new_reference", "subscription_schedule"]
+
+    class CreateParamsLineAction(TypedDict):
+        add_discount: NotRequired[
+            "Quote.CreateParamsLineActionAddDiscount|None"
+        ]
+        add_item: NotRequired["Quote.CreateParamsLineActionAddItem|None"]
+        add_metadata: NotRequired["Dict[str, str]|None"]
+        remove_discount: NotRequired[
+            "Quote.CreateParamsLineActionRemoveDiscount|None"
+        ]
+        remove_item: NotRequired["Quote.CreateParamsLineActionRemoveItem|None"]
+        remove_metadata: NotRequired["List[str]|None"]
+        set_discounts: NotRequired[
+            "List[Quote.CreateParamsLineActionSetDiscount]|None"
+        ]
+        set_items: NotRequired[
+            "List[Quote.CreateParamsLineActionSetItem]|None"
+        ]
+        set_metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        type: Literal[
+            "add_discount",
+            "add_item",
+            "add_metadata",
+            "clear_discounts",
+            "clear_metadata",
+            "remove_discount",
+            "remove_item",
+            "remove_metadata",
+            "set_discounts",
+            "set_items",
+            "set_metadata",
+        ]
+
+    class CreateParamsLineActionSetItem(TypedDict):
+        discounts: NotRequired[
+            "List[Quote.CreateParamsLineActionSetItemDiscount]|None"
+        ]
+        metadata: NotRequired["Dict[str, str]|None"]
+        price: str
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["List[str]|None"]
+        trial: NotRequired["Quote.CreateParamsLineActionSetItemTrial|None"]
+
+    class CreateParamsLineActionSetItemTrial(TypedDict):
+        converts_to: NotRequired["List[str]|None"]
+        type: Literal["free", "paid"]
+
+    class CreateParamsLineActionSetItemDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "Quote.CreateParamsLineActionSetItemDiscountDiscountEnd|None"
+        ]
+
+    class CreateParamsLineActionSetItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.CreateParamsLineActionSetItemDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class CreateParamsLineActionSetItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class CreateParamsLineActionSetDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+
+    class CreateParamsLineActionRemoveItem(TypedDict):
+        price: str
+
+    class CreateParamsLineActionRemoveDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+
+    class CreateParamsLineActionAddItem(TypedDict):
+        discounts: NotRequired[
+            "List[Quote.CreateParamsLineActionAddItemDiscount]|None"
+        ]
+        metadata: NotRequired["Dict[str, str]|None"]
+        price: str
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["List[str]|None"]
+        trial: NotRequired["Quote.CreateParamsLineActionAddItemTrial|None"]
+
+    class CreateParamsLineActionAddItemTrial(TypedDict):
+        converts_to: NotRequired["List[str]|None"]
+        type: Literal["free", "paid"]
+
+    class CreateParamsLineActionAddItemDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "Quote.CreateParamsLineActionAddItemDiscountDiscountEnd|None"
+        ]
+
+    class CreateParamsLineActionAddItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.CreateParamsLineActionAddItemDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class CreateParamsLineActionAddItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class CreateParamsLineActionAddDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "Quote.CreateParamsLineActionAddDiscountDiscountEnd|None"
+        ]
+        index: NotRequired["int|None"]
+
+    class CreateParamsLineActionAddDiscountDiscountEnd(TypedDict):
+        type: Literal["line_ends_at"]
+
+    class CreateParamsLineItem(TypedDict):
+        discounts: NotRequired[
+            "Literal['']|List[Quote.CreateParamsLineItemDiscount]|None"
+        ]
+        price: NotRequired["str|None"]
+        price_data: NotRequired["Quote.CreateParamsLineItemPriceData|None"]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
+
+    class CreateParamsLineItemPriceData(TypedDict):
+        currency: str
+        product: str
+        recurring: NotRequired[
+            "Quote.CreateParamsLineItemPriceDataRecurring|None"
+        ]
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
+        ]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
+
+    class CreateParamsLineItemPriceDataRecurring(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: NotRequired["int|None"]
+
+    class CreateParamsLineItemDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "Quote.CreateParamsLineItemDiscountDiscountEnd|None"
+        ]
+
+    class CreateParamsLineItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.CreateParamsLineItemDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class CreateParamsLineItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class CreateParamsInvoiceSettings(TypedDict):
+        days_until_due: NotRequired["int|None"]
+        issuer: NotRequired["Quote.CreateParamsInvoiceSettingsIssuer|None"]
+
+    class CreateParamsInvoiceSettingsIssuer(TypedDict):
+        account: NotRequired["str|None"]
+        type: Literal["account", "self"]
+
+    class CreateParamsFromQuote(TypedDict):
+        is_revision: NotRequired["bool|None"]
+        quote: str
+
+    class CreateParamsDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired["Quote.CreateParamsDiscountDiscountEnd|None"]
+
+    class CreateParamsDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.CreateParamsDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class CreateParamsDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class CreateParamsAutomaticTax(TypedDict):
+        enabled: bool
+        liability: NotRequired["Quote.CreateParamsAutomaticTaxLiability|None"]
+
+    class CreateParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired["str|None"]
+        type: Literal["account", "self"]
+
+    class FinalizeQuoteParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        expires_at: NotRequired["int|None"]
+
+    class ListParams(RequestOptions):
+        customer: NotRequired["str|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        from_subscription: NotRequired["str|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+        status: NotRequired[
+            "Literal['accepted', 'accepting', 'canceled', 'draft', 'open', 'stale']|None"
+        ]
+        test_clock: NotRequired["str|None"]
+
+    class ListComputedUpfrontLineItemsParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+
+    class ListLineItemsParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+
+    class ListLinesParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+
+    class ListPreviewInvoiceLinesParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+
+    class MarkDraftParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class MarkStaleParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        reason: NotRequired["str|None"]
+
+    class ModifyParams(RequestOptions):
+        allow_backdated_lines: NotRequired["bool|None"]
+        application_fee_amount: NotRequired["Literal['']|int|None"]
+        application_fee_percent: NotRequired["Literal['']|float|None"]
+        automatic_tax: NotRequired["Quote.ModifyParamsAutomaticTax|None"]
+        collection_method: NotRequired[
+            "Literal['charge_automatically', 'send_invoice']|None"
+        ]
+        customer: NotRequired["str|None"]
+        default_tax_rates: NotRequired["Literal['']|List[str]|None"]
+        description: NotRequired["Literal['']|str|None"]
+        discounts: NotRequired[
+            "Literal['']|List[Quote.ModifyParamsDiscount]|None"
+        ]
+        expand: NotRequired["List[str]|None"]
+        expires_at: NotRequired["int|None"]
+        footer: NotRequired["Literal['']|str|None"]
+        header: NotRequired["Literal['']|str|None"]
+        invoice_settings: NotRequired["Quote.ModifyParamsInvoiceSettings|None"]
+        line_items: NotRequired["List[Quote.ModifyParamsLineItem]|None"]
+        lines: NotRequired["List[Quote.ModifyParamsLine]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        on_behalf_of: NotRequired["Literal['']|str|None"]
+        phases: NotRequired["List[Quote.ModifyParamsPhase]|None"]
+        subscription_data: NotRequired[
+            "Quote.ModifyParamsSubscriptionData|None"
+        ]
+        subscription_data_overrides: NotRequired[
+            "Literal['']|List[Quote.ModifyParamsSubscriptionDataOverride]|None"
+        ]
+        transfer_data: NotRequired[
+            "Literal['']|Quote.ModifyParamsTransferData|None"
+        ]
+
+    class ModifyParamsTransferData(TypedDict):
+        amount: NotRequired["int|None"]
+        amount_percent: NotRequired["float|None"]
+        destination: str
+
+    class ModifyParamsSubscriptionDataOverride(TypedDict):
+        applies_to: "Quote.ModifyParamsSubscriptionDataOverrideAppliesTo"
+        bill_on_acceptance: NotRequired[
+            "Literal['']|Quote.ModifyParamsSubscriptionDataOverrideBillOnAcceptance|None"
+        ]
+        billing_behavior: NotRequired[
+            "Literal['prorate_on_next_phase', 'prorate_up_front']|None"
+        ]
+        customer: NotRequired["str|None"]
+        description: NotRequired["Literal['']|str|None"]
+        end_behavior: NotRequired["Literal['cancel', 'release']|None"]
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
+        ]
+
+    class ModifyParamsSubscriptionDataOverrideBillOnAcceptance(TypedDict):
+        bill_from: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillFrom|None"
+        ]
+        bill_until: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil|None"
+        ]
+
+    class ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntil(
+        TypedDict,
+    ):
+        duration: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration|None"
+        ]
+        line_ends_at: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal[
+            "duration",
+            "line_ends_at",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+
+    class ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilLineEndsAt(
+        TypedDict,
+    ):
+        id: NotRequired["str|None"]
+        index: NotRequired["int|None"]
+
+    class ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillUntilDuration(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillFrom(
+        TypedDict,
+    ):
+        line_starts_at: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillFromLineStartsAt|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal[
+            "line_starts_at",
+            "now",
+            "pause_collection_start",
+            "quote_acceptance_date",
+            "timestamp",
+        ]
+
+    class ModifyParamsSubscriptionDataOverrideBillOnAcceptanceBillFromLineStartsAt(
+        TypedDict,
+    ):
+        id: NotRequired["str|None"]
+        index: NotRequired["int|None"]
+
+    class ModifyParamsSubscriptionDataOverrideAppliesTo(TypedDict):
+        new_reference: NotRequired["str|None"]
+        subscription_schedule: NotRequired["str|None"]
+        type: Literal["new_reference", "subscription_schedule"]
+
+    class ModifyParamsSubscriptionData(TypedDict):
+        bill_on_acceptance: NotRequired[
+            "Literal['']|Quote.ModifyParamsSubscriptionDataBillOnAcceptance|None"
+        ]
+        billing_behavior: NotRequired[
+            "Literal['prorate_on_next_phase', 'prorate_up_front']|None"
+        ]
+        billing_cycle_anchor: NotRequired["Literal['']|Literal['reset']|None"]
+        description: NotRequired["Literal['']|str|None"]
+        effective_date: NotRequired[
+            "Literal['']|Literal['current_period_end']|int|None"
+        ]
+        end_behavior: NotRequired["Literal['cancel', 'release']|None"]
+        prebilling: NotRequired[
+            "Literal['']|Quote.ModifyParamsSubscriptionDataPrebilling|None"
+        ]
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
+        ]
+        trial_period_days: NotRequired["Literal['']|int|None"]
+
+    class ModifyParamsSubscriptionDataPrebilling(TypedDict):
+        iterations: int
+
+    class ModifyParamsSubscriptionDataBillOnAcceptance(TypedDict):
+        bill_from: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataBillOnAcceptanceBillFrom|None"
+        ]
+        bill_until: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataBillOnAcceptanceBillUntil|None"
+        ]
+
+    class ModifyParamsSubscriptionDataBillOnAcceptanceBillUntil(TypedDict):
+        duration: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataBillOnAcceptanceBillUntilDuration|None"
+        ]
+        line_ends_at: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal[
+            "duration",
+            "line_ends_at",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+
+    class ModifyParamsSubscriptionDataBillOnAcceptanceBillUntilLineEndsAt(
+        TypedDict,
+    ):
+        id: NotRequired["str|None"]
+        index: NotRequired["int|None"]
+
+    class ModifyParamsSubscriptionDataBillOnAcceptanceBillUntilDuration(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class ModifyParamsSubscriptionDataBillOnAcceptanceBillFrom(TypedDict):
+        line_starts_at: NotRequired[
+            "Quote.ModifyParamsSubscriptionDataBillOnAcceptanceBillFromLineStartsAt|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal[
+            "line_starts_at",
+            "now",
+            "pause_collection_start",
+            "quote_acceptance_date",
+            "timestamp",
+        ]
+
+    class ModifyParamsSubscriptionDataBillOnAcceptanceBillFromLineStartsAt(
+        TypedDict,
+    ):
+        id: NotRequired["str|None"]
+        index: NotRequired["int|None"]
+
+    class ModifyParamsPhase(TypedDict):
+        billing_cycle_anchor: NotRequired["Literal['reset']|None"]
+        collection_method: NotRequired[
+            "Literal['charge_automatically', 'send_invoice']|None"
+        ]
+        default_tax_rates: NotRequired["Literal['']|List[str]|None"]
+        discounts: NotRequired[
+            "Literal['']|List[Quote.ModifyParamsPhaseDiscount]|None"
+        ]
+        end_date: NotRequired["int|None"]
+        invoice_settings: NotRequired[
+            "Quote.ModifyParamsPhaseInvoiceSettings|None"
+        ]
+        iterations: NotRequired["int|None"]
+        line_items: List["Quote.ModifyParamsPhaseLineItem"]
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
+        ]
+        trial: NotRequired["bool|None"]
+        trial_end: NotRequired["int|None"]
+
+    class ModifyParamsPhaseLineItem(TypedDict):
+        discounts: NotRequired[
+            "Literal['']|List[Quote.ModifyParamsPhaseLineItemDiscount]|None"
+        ]
+        price: NotRequired["str|None"]
+        price_data: NotRequired[
+            "Quote.ModifyParamsPhaseLineItemPriceData|None"
+        ]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
+
+    class ModifyParamsPhaseLineItemPriceData(TypedDict):
+        currency: str
+        product: str
+        recurring: NotRequired[
+            "Quote.ModifyParamsPhaseLineItemPriceDataRecurring|None"
+        ]
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
+        ]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
+
+    class ModifyParamsPhaseLineItemPriceDataRecurring(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: NotRequired["int|None"]
+
+    class ModifyParamsPhaseLineItemDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "Quote.ModifyParamsPhaseLineItemDiscountDiscountEnd|None"
+        ]
+
+    class ModifyParamsPhaseLineItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.ModifyParamsPhaseLineItemDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class ModifyParamsPhaseLineItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class ModifyParamsPhaseInvoiceSettings(TypedDict):
+        days_until_due: NotRequired["int|None"]
+
+    class ModifyParamsPhaseDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "Quote.ModifyParamsPhaseDiscountDiscountEnd|None"
+        ]
+
+    class ModifyParamsPhaseDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.ModifyParamsPhaseDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class ModifyParamsPhaseDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class ModifyParamsLine(TypedDict):
+        actions: NotRequired["List[Quote.ModifyParamsLineAction]|None"]
+        applies_to: NotRequired["Quote.ModifyParamsLineAppliesTo|None"]
+        billing_cycle_anchor: NotRequired[
+            "Literal['automatic', 'line_starts_at']|None"
+        ]
+        ends_at: NotRequired["Quote.ModifyParamsLineEndsAt|None"]
+        id: NotRequired["str|None"]
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
+        ]
+        set_pause_collection: NotRequired[
+            "Quote.ModifyParamsLineSetPauseCollection|None"
+        ]
+        set_schedule_end: NotRequired[
+            "Literal['line_ends_at', 'line_starts_at']|None"
+        ]
+        starts_at: NotRequired["Quote.ModifyParamsLineStartsAt|None"]
+        trial_settings: NotRequired["Quote.ModifyParamsLineTrialSettings|None"]
+
+    class ModifyParamsLineTrialSettings(TypedDict):
+        end_behavior: NotRequired[
+            "Quote.ModifyParamsLineTrialSettingsEndBehavior|None"
+        ]
+
+    class ModifyParamsLineTrialSettingsEndBehavior(TypedDict):
+        prorate_up_front: NotRequired["Literal['defer', 'include']|None"]
+
+    class ModifyParamsLineStartsAt(TypedDict):
+        discount_end: NotRequired[
+            "Quote.ModifyParamsLineStartsAtDiscountEnd|None"
+        ]
+        line_ends_at: NotRequired[
+            "Quote.ModifyParamsLineStartsAtLineEndsAt|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal[
+            "discount_end",
+            "line_ends_at",
+            "now",
+            "quote_acceptance_date",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+
+    class ModifyParamsLineStartsAtLineEndsAt(TypedDict):
+        id: NotRequired["str|None"]
+        index: NotRequired["int|None"]
+
+    class ModifyParamsLineStartsAtDiscountEnd(TypedDict):
+        discount: str
+
+    class ModifyParamsLineSetPauseCollection(TypedDict):
+        set: NotRequired["Quote.ModifyParamsLineSetPauseCollectionSet|None"]
+        type: Literal["remove", "set"]
+
+    class ModifyParamsLineSetPauseCollectionSet(TypedDict):
+        behavior: Literal["keep_as_draft", "mark_uncollectible", "void"]
+
+    class ModifyParamsLineEndsAt(TypedDict):
+        discount_end: NotRequired[
+            "Quote.ModifyParamsLineEndsAtDiscountEnd|None"
+        ]
+        duration: NotRequired["Quote.ModifyParamsLineEndsAtDuration|None"]
+        timestamp: NotRequired["int|None"]
+        type: Literal[
+            "discount_end",
+            "duration",
+            "quote_acceptance_date",
+            "schedule_end",
+            "timestamp",
+            "upcoming_invoice",
+        ]
+
+    class ModifyParamsLineEndsAtDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class ModifyParamsLineEndsAtDiscountEnd(TypedDict):
+        discount: str
+
+    class ModifyParamsLineAppliesTo(TypedDict):
+        new_reference: NotRequired["str|None"]
+        subscription_schedule: NotRequired["str|None"]
+        type: Literal["new_reference", "subscription_schedule"]
+
+    class ModifyParamsLineAction(TypedDict):
+        add_discount: NotRequired[
+            "Quote.ModifyParamsLineActionAddDiscount|None"
+        ]
+        add_item: NotRequired["Quote.ModifyParamsLineActionAddItem|None"]
+        add_metadata: NotRequired["Dict[str, str]|None"]
+        remove_discount: NotRequired[
+            "Quote.ModifyParamsLineActionRemoveDiscount|None"
+        ]
+        remove_item: NotRequired["Quote.ModifyParamsLineActionRemoveItem|None"]
+        remove_metadata: NotRequired["List[str]|None"]
+        set_discounts: NotRequired[
+            "List[Quote.ModifyParamsLineActionSetDiscount]|None"
+        ]
+        set_items: NotRequired[
+            "List[Quote.ModifyParamsLineActionSetItem]|None"
+        ]
+        set_metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        type: Literal[
+            "add_discount",
+            "add_item",
+            "add_metadata",
+            "clear_discounts",
+            "clear_metadata",
+            "remove_discount",
+            "remove_item",
+            "remove_metadata",
+            "set_discounts",
+            "set_items",
+            "set_metadata",
+        ]
+
+    class ModifyParamsLineActionSetItem(TypedDict):
+        discounts: NotRequired[
+            "List[Quote.ModifyParamsLineActionSetItemDiscount]|None"
+        ]
+        metadata: NotRequired["Dict[str, str]|None"]
+        price: str
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["List[str]|None"]
+        trial: NotRequired["Quote.ModifyParamsLineActionSetItemTrial|None"]
+
+    class ModifyParamsLineActionSetItemTrial(TypedDict):
+        converts_to: NotRequired["List[str]|None"]
+        type: Literal["free", "paid"]
+
+    class ModifyParamsLineActionSetItemDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "Quote.ModifyParamsLineActionSetItemDiscountDiscountEnd|None"
+        ]
+
+    class ModifyParamsLineActionSetItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.ModifyParamsLineActionSetItemDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class ModifyParamsLineActionSetItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class ModifyParamsLineActionSetDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+
+    class ModifyParamsLineActionRemoveItem(TypedDict):
+        price: str
+
+    class ModifyParamsLineActionRemoveDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+
+    class ModifyParamsLineActionAddItem(TypedDict):
+        discounts: NotRequired[
+            "List[Quote.ModifyParamsLineActionAddItemDiscount]|None"
+        ]
+        metadata: NotRequired["Dict[str, str]|None"]
+        price: str
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["List[str]|None"]
+        trial: NotRequired["Quote.ModifyParamsLineActionAddItemTrial|None"]
+
+    class ModifyParamsLineActionAddItemTrial(TypedDict):
+        converts_to: NotRequired["List[str]|None"]
+        type: Literal["free", "paid"]
+
+    class ModifyParamsLineActionAddItemDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "Quote.ModifyParamsLineActionAddItemDiscountDiscountEnd|None"
+        ]
+
+    class ModifyParamsLineActionAddItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.ModifyParamsLineActionAddItemDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class ModifyParamsLineActionAddItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class ModifyParamsLineActionAddDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "Quote.ModifyParamsLineActionAddDiscountDiscountEnd|None"
+        ]
+        index: NotRequired["int|None"]
+
+    class ModifyParamsLineActionAddDiscountDiscountEnd(TypedDict):
+        type: Literal["line_ends_at"]
+
+    class ModifyParamsLineItem(TypedDict):
+        discounts: NotRequired[
+            "Literal['']|List[Quote.ModifyParamsLineItemDiscount]|None"
+        ]
+        id: NotRequired["str|None"]
+        price: NotRequired["str|None"]
+        price_data: NotRequired["Quote.ModifyParamsLineItemPriceData|None"]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
+
+    class ModifyParamsLineItemPriceData(TypedDict):
+        currency: str
+        product: str
+        recurring: NotRequired[
+            "Quote.ModifyParamsLineItemPriceDataRecurring|None"
+        ]
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
+        ]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
+
+    class ModifyParamsLineItemPriceDataRecurring(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: NotRequired["int|None"]
+
+    class ModifyParamsLineItemDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired[
+            "Quote.ModifyParamsLineItemDiscountDiscountEnd|None"
+        ]
+
+    class ModifyParamsLineItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.ModifyParamsLineItemDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class ModifyParamsLineItemDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class ModifyParamsInvoiceSettings(TypedDict):
+        days_until_due: NotRequired["int|None"]
+        issuer: NotRequired["Quote.ModifyParamsInvoiceSettingsIssuer|None"]
+
+    class ModifyParamsInvoiceSettingsIssuer(TypedDict):
+        account: NotRequired["str|None"]
+        type: Literal["account", "self"]
+
+    class ModifyParamsDiscount(TypedDict):
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
+        discount_end: NotRequired["Quote.ModifyParamsDiscountDiscountEnd|None"]
+
+    class ModifyParamsDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Quote.ModifyParamsDiscountDiscountEndDuration|None"
+        ]
+        timestamp: NotRequired["int|None"]
+        type: Literal["duration", "timestamp"]
+
+    class ModifyParamsDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: int
+
+    class ModifyParamsAutomaticTax(TypedDict):
+        enabled: bool
+        liability: NotRequired["Quote.ModifyParamsAutomaticTaxLiability|None"]
+
+    class ModifyParamsAutomaticTaxLiability(TypedDict):
+        account: NotRequired["str|None"]
+        type: Literal["account", "self"]
+
+    class ReestimateParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class ListPreviewInvoicesParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+
+    class ListPreviewSubscriptionSchedulesParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+
     allow_backdated_lines: Optional[bool]
     amount_subtotal: int
     amount_total: int
@@ -489,7 +1696,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.AcceptParams"]
     ):
         return cls._static_request(
             "post",
@@ -501,7 +1708,11 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_accept")
-    def accept(self, idempotency_key: Optional[str] = None, **params: Any):
+    def accept(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.AcceptParams"]
+    ):
         return self._request(
             "post",
             "/v1/quotes/{quote}/accept".format(
@@ -518,7 +1729,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.CancelParams"]
     ):
         return cls._static_request(
             "post",
@@ -530,7 +1741,11 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_cancel")
-    def cancel(self, idempotency_key: Optional[str] = None, **params: Any):
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.CancelParams"]
+    ):
         return self._request(
             "post",
             "/v1/quotes/{quote}/cancel".format(
@@ -547,7 +1762,7 @@ class Quote(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.CreateParams"]
     ) -> "Quote":
         return cast(
             "Quote",
@@ -569,7 +1784,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.FinalizeQuoteParams"]
     ):
         return cls._static_request(
             "post",
@@ -584,7 +1799,9 @@ class Quote(
 
     @util.class_method_variant("_cls_finalize_quote")
     def finalize_quote(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.FinalizeQuoteParams"]
     ):
         return self._request(
             "post",
@@ -601,7 +1818,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.ListParams"]
     ) -> ListObject["Quote"]:
         result = cls._static_request(
             "get",
@@ -627,7 +1844,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ):
         return cls._static_request(
             "get",
@@ -642,7 +1859,9 @@ class Quote(
 
     @util.class_method_variant("_cls_list_computed_upfront_line_items")
     def list_computed_upfront_line_items(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ):
         return self._request(
             "get",
@@ -660,7 +1879,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.ListLineItemsParams"]
     ):
         return cls._static_request(
             "get",
@@ -675,7 +1894,9 @@ class Quote(
 
     @util.class_method_variant("_cls_list_line_items")
     def list_line_items(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.ListLineItemsParams"]
     ):
         return self._request(
             "get",
@@ -693,7 +1914,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.ListLinesParams"]
     ):
         return cls._static_request(
             "get",
@@ -705,7 +1926,11 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_list_lines")
-    def list_lines(self, idempotency_key: Optional[str] = None, **params: Any):
+    def list_lines(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.ListLinesParams"]
+    ):
         return self._request(
             "get",
             "/v1/quotes/{quote}/lines".format(
@@ -723,7 +1948,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
     ):
         return cls._static_request(
             "get",
@@ -742,7 +1967,7 @@ class Quote(
         self,
         preview_invoice: str,
         idempotency_key: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
     ):
         return self._request(
             "get",
@@ -761,7 +1986,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.MarkDraftParams"]
     ):
         return cls._static_request(
             "post",
@@ -775,7 +2000,11 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_mark_draft")
-    def mark_draft(self, idempotency_key: Optional[str] = None, **params: Any):
+    def mark_draft(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.MarkDraftParams"]
+    ):
         return self._request(
             "post",
             "/v1/quotes/{quote}/mark_draft".format(
@@ -792,7 +2021,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.MarkStaleParams"]
     ):
         return cls._static_request(
             "post",
@@ -806,7 +2035,11 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_mark_stale")
-    def mark_stale(self, idempotency_key: Optional[str] = None, **params: Any):
+    def mark_stale(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.MarkStaleParams"]
+    ):
         return self._request(
             "post",
             "/v1/quotes/{quote}/mark_stale".format(
@@ -817,7 +2050,7 @@ class Quote(
         )
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "Quote":
+    def modify(cls, id, **params: Unpack["Quote.ModifyParams"]) -> "Quote":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Quote",
@@ -831,7 +2064,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.ReestimateParams"]
     ):
         return cls._static_request(
             "post",
@@ -845,7 +2078,11 @@ class Quote(
         )
 
     @util.class_method_variant("_cls_reestimate")
-    def reestimate(self, idempotency_key: Optional[str] = None, **params: Any):
+    def reestimate(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.ReestimateParams"]
+    ):
         return self._request(
             "post",
             "/v1/quotes/{quote}/reestimate".format(
@@ -857,9 +2094,9 @@ class Quote(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Quote.RetrieveParams"]
     ) -> "Quote":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -914,7 +2151,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.ListPreviewInvoicesParams"]
     ):
         return cls._static_request(
             "get",
@@ -934,7 +2171,7 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["Quote.ListPreviewSubscriptionSchedulesParams"]
     ):
         return cls._static_request(
             "get",

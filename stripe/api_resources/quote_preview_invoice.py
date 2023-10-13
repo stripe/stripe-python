@@ -3,9 +3,10 @@
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Any, Dict, List, Optional
-from typing_extensions import Literal
+from typing_extensions import Literal, NotRequired, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -608,6 +609,12 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
         amount: Optional[int]
         destination: ExpandableField["Account"]
 
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+
     account_country: Optional[str]
     account_name: Optional[str]
     account_tax_ids: Optional[List[ExpandableField["TaxId"]]]
@@ -706,7 +713,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["QuotePreviewInvoice.ListParams"]
     ) -> ListObject["QuotePreviewInvoice"]:
         result = cls._static_request(
             "get",

@@ -9,9 +9,10 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, cast
-from typing_extensions import Literal, Type
+from typing import Dict, List, Optional, cast
+from typing_extensions import Literal, NotRequired, Type, TypedDict, Unpack
 from urllib.parse import quote_plus
 
 from typing_extensions import TYPE_CHECKING
@@ -71,6 +72,92 @@ class PersonalizationDesign(
             ]
         ]
 
+    class CreateParams(RequestOptions):
+        card_logo: NotRequired["str|None"]
+        carrier_text: NotRequired[
+            "PersonalizationDesign.CreateParamsCarrierText|None"
+        ]
+        expand: NotRequired["List[str]|None"]
+        lookup_key: NotRequired["str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        name: NotRequired["str|None"]
+        physical_bundle: str
+        preferences: NotRequired[
+            "PersonalizationDesign.CreateParamsPreferences|None"
+        ]
+        transfer_lookup_key: NotRequired["bool|None"]
+
+    class CreateParamsPreferences(TypedDict):
+        account_default: bool
+
+    class CreateParamsCarrierText(TypedDict):
+        footer_body: NotRequired["Literal['']|str|None"]
+        footer_title: NotRequired["Literal['']|str|None"]
+        header_body: NotRequired["Literal['']|str|None"]
+        header_title: NotRequired["Literal['']|str|None"]
+
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        lookup_keys: NotRequired["List[str]|None"]
+        preferences: NotRequired[
+            "PersonalizationDesign.ListParamsPreferences|None"
+        ]
+        starting_after: NotRequired["str|None"]
+        status: NotRequired[
+            "Literal['active', 'inactive', 'rejected', 'review']|None"
+        ]
+
+    class ListParamsPreferences(TypedDict):
+        account_default: NotRequired["bool|None"]
+        platform_default: NotRequired["bool|None"]
+
+    class ModifyParams(RequestOptions):
+        card_logo: NotRequired["Literal['']|str|None"]
+        carrier_text: NotRequired[
+            "Literal['']|PersonalizationDesign.ModifyParamsCarrierText|None"
+        ]
+        expand: NotRequired["List[str]|None"]
+        lookup_key: NotRequired["Literal['']|str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        name: NotRequired["Literal['']|str|None"]
+        physical_bundle: NotRequired["str|None"]
+        preferences: NotRequired[
+            "PersonalizationDesign.ModifyParamsPreferences|None"
+        ]
+        transfer_lookup_key: NotRequired["bool|None"]
+
+    class ModifyParamsPreferences(TypedDict):
+        account_default: bool
+
+    class ModifyParamsCarrierText(TypedDict):
+        footer_body: NotRequired["Literal['']|str|None"]
+        footer_title: NotRequired["Literal['']|str|None"]
+        header_body: NotRequired["Literal['']|str|None"]
+        header_title: NotRequired["Literal['']|str|None"]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class ActivateParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class DeactivateParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
+    class RejectParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        rejection_reasons: "PersonalizationDesign.RejectParamsRejectionReasons"
+
+    class RejectParamsRejectionReasons(TypedDict):
+        card_logo: NotRequired[
+            "List[Literal['geographic_location', 'inappropriate', 'network_name', 'non_binary_image', 'non_fiat_currency', 'other', 'other_entity', 'promotional_material']]|None"
+        ]
+        carrier_text: NotRequired[
+            "List[Literal['geographic_location', 'inappropriate', 'network_name', 'non_fiat_currency', 'other', 'other_entity', 'promotional_material']]|None"
+        ]
+
     card_logo: Optional[ExpandableField["File"]]
     carrier_text: Optional[CarrierText]
     id: str
@@ -90,7 +177,7 @@ class PersonalizationDesign(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["PersonalizationDesign.CreateParams"]
     ) -> "PersonalizationDesign":
         return cast(
             "PersonalizationDesign",
@@ -111,7 +198,7 @@ class PersonalizationDesign(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["PersonalizationDesign.ListParams"]
     ) -> ListObject["PersonalizationDesign"]:
         result = cls._static_request(
             "get",
@@ -131,7 +218,9 @@ class PersonalizationDesign(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Any) -> "PersonalizationDesign":
+    def modify(
+        cls, id, **params: Unpack["PersonalizationDesign.ModifyParams"]
+    ) -> "PersonalizationDesign":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PersonalizationDesign",
@@ -140,9 +229,9 @@ class PersonalizationDesign(
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["PersonalizationDesign.RetrieveParams"]
     ) -> "PersonalizationDesign":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
@@ -156,7 +245,7 @@ class PersonalizationDesign(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Any
+            **params: Unpack["PersonalizationDesign.ActivateParams"]
         ):
             return cls._static_request(
                 "post",
@@ -173,7 +262,9 @@ class PersonalizationDesign(
 
         @util.class_method_variant("_cls_activate")
         def activate(
-            self, idempotency_key: Optional[str] = None, **params: Any
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["PersonalizationDesign.ActivateParams"]
         ):
             return self.resource._request(
                 "post",
@@ -193,7 +284,7 @@ class PersonalizationDesign(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Any
+            **params: Unpack["PersonalizationDesign.DeactivateParams"]
         ):
             return cls._static_request(
                 "post",
@@ -210,7 +301,9 @@ class PersonalizationDesign(
 
         @util.class_method_variant("_cls_deactivate")
         def deactivate(
-            self, idempotency_key: Optional[str] = None, **params: Any
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["PersonalizationDesign.DeactivateParams"]
         ):
             return self.resource._request(
                 "post",
@@ -230,7 +323,7 @@ class PersonalizationDesign(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Any
+            **params: Unpack["PersonalizationDesign.RejectParams"]
         ):
             return cls._static_request(
                 "post",
@@ -246,7 +339,11 @@ class PersonalizationDesign(
             )
 
         @util.class_method_variant("_cls_reject")
-        def reject(self, idempotency_key: Optional[str] = None, **params: Any):
+        def reject(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["PersonalizationDesign.RejectParams"]
+        ):
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(

@@ -4,8 +4,9 @@ import stripe
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
-from typing import Any, Optional
-from typing_extensions import Literal
+from stripe.request_options import RequestOptions
+from typing import List, Optional
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -25,6 +26,26 @@ class File(ListableAPIResource["File"]):
     """
 
     OBJECT_NAME = "file"
+
+    class ListParams(RequestOptions):
+        created: NotRequired["File.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        purpose: NotRequired[
+            "Literal['account_requirement', 'additional_verification', 'business_icon', 'business_logo', 'customer_signature', 'dispute_evidence', 'document_provider_identity_document', 'finance_report_run', 'identity_document', 'identity_document_downloadable', 'pci_document', 'selfie', 'sigma_scheduled_query', 'tax_document_user_upload', 'terminal_reader_splashscreen']|None"
+        ]
+        starting_after: NotRequired["str|None"]
+
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
     created: int
     expires_at: Optional[int]
     filename: Optional[str]
@@ -59,7 +80,7 @@ class File(ListableAPIResource["File"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["File.ListParams"]
     ) -> ListObject["File"]:
         result = cls._static_request(
             "get",
@@ -80,9 +101,9 @@ class File(ListableAPIResource["File"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["File.RetrieveParams"]
     ) -> "File":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 

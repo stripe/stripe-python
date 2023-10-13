@@ -4,9 +4,10 @@ from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, List, Optional
-from typing_extensions import Literal
+from typing import List, Optional
+from typing_extensions import Literal, NotRequired, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -66,6 +67,22 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         breakdown: Optional[Breakdown]
         _inner_class_types = {"breakdown": Breakdown}
 
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        quote: str
+        starting_after: NotRequired["str|None"]
+
+    class ListLineItemsParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
     amount_subtotal: int
     amount_total: int
     billing_cycle_anchor: Optional[Literal["reset"]]
@@ -91,7 +108,7 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["QuotePhase.ListParams"]
     ) -> ListObject["QuotePhase"]:
         result = cls._static_request(
             "get",
@@ -117,7 +134,7 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Any
+        **params: Unpack["QuotePhase.ListLineItemsParams"]
     ):
         return cls._static_request(
             "get",
@@ -132,7 +149,9 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
 
     @util.class_method_variant("_cls_list_line_items")
     def list_line_items(
-        self, idempotency_key: Optional[str] = None, **params: Any
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["QuotePhase.ListLineItemsParams"]
     ):
         return self._request(
             "get",
@@ -145,9 +164,9 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["QuotePhase.RetrieveParams"]
     ) -> "QuotePhase":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 

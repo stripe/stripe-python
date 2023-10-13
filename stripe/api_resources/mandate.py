@@ -2,9 +2,10 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.expandable_field import ExpandableField
+from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, List, Optional
-from typing_extensions import Literal
+from typing import List, Optional
+from typing_extensions import Literal, NotRequired, Unpack
 
 from typing_extensions import TYPE_CHECKING
 
@@ -101,6 +102,9 @@ class Mandate(APIResource["Mandate"]):
         amount: int
         currency: str
 
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+
     customer_acceptance: CustomerAcceptance
     id: str
     livemode: bool
@@ -115,9 +119,9 @@ class Mandate(APIResource["Mandate"]):
 
     @classmethod
     def retrieve(
-        cls, id: str, api_key: Optional[str] = None, **params: Any
+        cls, id: str, **params: Unpack["Mandate.RetrieveParams"]
     ) -> "Mandate":
-        instance = cls(id, api_key, **params)
+        instance = cls(id, **params)
         instance.refresh()
         return instance
 
