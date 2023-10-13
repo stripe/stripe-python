@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
@@ -29,13 +27,13 @@ class CustomerCashBalanceTransaction(
     OBJECT_NAME = "customer_cash_balance_transaction"
 
     class ListParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     adjusted_for_overdraft: Optional[StripeObject]
     applied_to_payment: Optional[StripeObject]

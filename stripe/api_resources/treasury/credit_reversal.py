@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -30,23 +28,21 @@ class CreditReversal(
     OBJECT_NAME = "treasury.credit_reversal"
 
     class CreateParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
         received_credit: str
 
     class ListParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
         financial_account: str
-        limit: NotRequired[Optional[int]]
-        received_credit: NotRequired[Optional[str]]
-        starting_after: NotRequired[Optional[str]]
-        status: NotRequired[
-            Optional[Literal["canceled", "posted", "processing"]]
-        ]
+        limit: NotRequired["int|None"]
+        received_credit: NotRequired["str|None"]
+        starting_after: NotRequired["str|None"]
+        status: NotRequired["Literal['canceled', 'posted', 'processing']|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     amount: int
     created: int

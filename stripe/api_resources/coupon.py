@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -12,7 +10,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -32,59 +30,57 @@ class Coupon(
     OBJECT_NAME = "coupon"
 
     class CreateParams(RequestOptions):
-        amount_off: NotRequired[Optional[int]]
-        applies_to: NotRequired[Optional["Coupon.CreateParamsAppliesTo"]]
-        currency: NotRequired[Optional[str]]
+        amount_off: NotRequired["int|None"]
+        applies_to: NotRequired["Coupon.CreateParamsAppliesTo|None"]
+        currency: NotRequired["str|None"]
         currency_options: NotRequired[
-            Optional[Dict[str, "Coupon.CreateParamsCurrencyOptions"]]
+            "Dict[str, Coupon.CreateParamsCurrencyOptions]|None"
         ]
-        duration: NotRequired[
-            Optional[Literal["forever", "once", "repeating"]]
-        ]
-        duration_in_months: NotRequired[Optional[int]]
-        expand: NotRequired[Optional[List[str]]]
-        id: NotRequired[Optional[str]]
-        max_redemptions: NotRequired[Optional[int]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        name: NotRequired[Optional[str]]
-        percent_off: NotRequired[Optional[float]]
-        redeem_by: NotRequired[Optional[int]]
+        duration: NotRequired["Literal['forever', 'once', 'repeating']|None"]
+        duration_in_months: NotRequired["int|None"]
+        expand: NotRequired["List[str]|None"]
+        id: NotRequired["str|None"]
+        max_redemptions: NotRequired["int|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        name: NotRequired["str|None"]
+        percent_off: NotRequired["float|None"]
+        redeem_by: NotRequired["int|None"]
 
     class CreateParamsCurrencyOptions(TypedDict):
         amount_off: int
 
     class CreateParamsAppliesTo(TypedDict):
-        products: NotRequired[Optional[List[str]]]
+        products: NotRequired["List[str]|None"]
 
     class DeleteParams(RequestOptions):
         pass
 
     class ListParams(RequestOptions):
-        created: NotRequired[Optional[Union["Coupon.ListParamsCreated", int]]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        created: NotRequired["Coupon.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ModifyParams(RequestOptions):
         currency_options: NotRequired[
-            Optional[Dict[str, "Coupon.ModifyParamsCurrencyOptions"]]
+            "Dict[str, Coupon.ModifyParamsCurrencyOptions]|None"
         ]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        name: NotRequired[Optional[str]]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        name: NotRequired["str|None"]
 
     class ModifyParamsCurrencyOptions(TypedDict):
         amount_off: int
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     amount_off: Optional[int]
     applies_to: Optional[StripeObject]

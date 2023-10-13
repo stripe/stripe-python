@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 import stripe
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import (
@@ -13,7 +11,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -45,207 +43,191 @@ class Quote(
     OBJECT_NAME = "quote"
 
     class AcceptParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class CancelParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class CreateParams(RequestOptions):
-        application_fee_amount: NotRequired[Optional[Union[Literal[""], int]]]
-        application_fee_percent: NotRequired[
-            Optional[Union[Literal[""], float]]
-        ]
-        automatic_tax: NotRequired[Optional["Quote.CreateParamsAutomaticTax"]]
+        application_fee_amount: NotRequired["Literal['']|int|None"]
+        application_fee_percent: NotRequired["Literal['']|float|None"]
+        automatic_tax: NotRequired["Quote.CreateParamsAutomaticTax|None"]
         collection_method: NotRequired[
-            Optional[Literal["charge_automatically", "send_invoice"]]
+            "Literal['charge_automatically', 'send_invoice']|None"
         ]
-        customer: NotRequired[Optional[str]]
-        default_tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
-        description: NotRequired[Optional[Union[Literal[""], str]]]
+        customer: NotRequired["str|None"]
+        default_tax_rates: NotRequired["Literal['']|List[str]|None"]
+        description: NotRequired["Literal['']|str|None"]
         discounts: NotRequired[
-            Optional[Union[Literal[""], List["Quote.CreateParamsDiscount"]]]
+            "Literal['']|List[Quote.CreateParamsDiscount]|None"
         ]
-        expand: NotRequired[Optional[List[str]]]
-        expires_at: NotRequired[Optional[int]]
-        footer: NotRequired[Optional[Union[Literal[""], str]]]
-        from_quote: NotRequired[Optional["Quote.CreateParamsFromQuote"]]
-        header: NotRequired[Optional[Union[Literal[""], str]]]
-        invoice_settings: NotRequired[
-            Optional["Quote.CreateParamsInvoiceSettings"]
-        ]
-        line_items: NotRequired[Optional[List["Quote.CreateParamsLineItem"]]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        on_behalf_of: NotRequired[Optional[Union[Literal[""], str]]]
+        expand: NotRequired["List[str]|None"]
+        expires_at: NotRequired["int|None"]
+        footer: NotRequired["Literal['']|str|None"]
+        from_quote: NotRequired["Quote.CreateParamsFromQuote|None"]
+        header: NotRequired["Literal['']|str|None"]
+        invoice_settings: NotRequired["Quote.CreateParamsInvoiceSettings|None"]
+        line_items: NotRequired["List[Quote.CreateParamsLineItem]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        on_behalf_of: NotRequired["Literal['']|str|None"]
         subscription_data: NotRequired[
-            Optional["Quote.CreateParamsSubscriptionData"]
+            "Quote.CreateParamsSubscriptionData|None"
         ]
-        test_clock: NotRequired[Optional[str]]
+        test_clock: NotRequired["str|None"]
         transfer_data: NotRequired[
-            Optional[Union[Literal[""], "Quote.CreateParamsTransferData"]]
+            "Literal['']|Quote.CreateParamsTransferData|None"
         ]
 
     class CreateParamsTransferData(TypedDict):
-        amount: NotRequired[Optional[int]]
-        amount_percent: NotRequired[Optional[float]]
+        amount: NotRequired["int|None"]
+        amount_percent: NotRequired["float|None"]
         destination: str
 
     class CreateParamsSubscriptionData(TypedDict):
-        description: NotRequired[Optional[str]]
+        description: NotRequired["str|None"]
         effective_date: NotRequired[
-            Optional[
-                Union[Literal[""], Union[Literal["current_period_end"], int]]
-            ]
+            "Literal['']|Literal['current_period_end']|int|None"
         ]
-        trial_period_days: NotRequired[Optional[Union[Literal[""], int]]]
+        trial_period_days: NotRequired["Literal['']|int|None"]
 
     class CreateParamsLineItem(TypedDict):
-        price: NotRequired[Optional[str]]
-        price_data: NotRequired[
-            Optional["Quote.CreateParamsLineItemPriceData"]
-        ]
-        quantity: NotRequired[Optional[int]]
-        tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
+        price: NotRequired["str|None"]
+        price_data: NotRequired["Quote.CreateParamsLineItemPriceData|None"]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
 
     class CreateParamsLineItemPriceData(TypedDict):
         currency: str
         product: str
         recurring: NotRequired[
-            Optional["Quote.CreateParamsLineItemPriceDataRecurring"]
+            "Quote.CreateParamsLineItemPriceDataRecurring|None"
         ]
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
     class CreateParamsLineItemPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
-        interval_count: NotRequired[Optional[int]]
+        interval_count: NotRequired["int|None"]
 
     class CreateParamsInvoiceSettings(TypedDict):
-        days_until_due: NotRequired[Optional[int]]
+        days_until_due: NotRequired["int|None"]
 
     class CreateParamsFromQuote(TypedDict):
-        is_revision: NotRequired[Optional[bool]]
+        is_revision: NotRequired["bool|None"]
         quote: str
 
     class CreateParamsDiscount(TypedDict):
-        coupon: NotRequired[Optional[str]]
-        discount: NotRequired[Optional[str]]
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
 
     class CreateParamsAutomaticTax(TypedDict):
         enabled: bool
 
     class FinalizeQuoteParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        expires_at: NotRequired[Optional[int]]
+        expand: NotRequired["List[str]|None"]
+        expires_at: NotRequired["int|None"]
 
     class ListParams(RequestOptions):
-        customer: NotRequired[Optional[str]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        customer: NotRequired["str|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
         status: NotRequired[
-            Optional[Literal["accepted", "canceled", "draft", "open"]]
+            "Literal['accepted', 'canceled', 'draft', 'open']|None"
         ]
-        test_clock: NotRequired[Optional[str]]
+        test_clock: NotRequired["str|None"]
 
     class ListComputedUpfrontLineItemsParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ListLineItemsParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ModifyParams(RequestOptions):
-        application_fee_amount: NotRequired[Optional[Union[Literal[""], int]]]
-        application_fee_percent: NotRequired[
-            Optional[Union[Literal[""], float]]
-        ]
-        automatic_tax: NotRequired[Optional["Quote.ModifyParamsAutomaticTax"]]
+        application_fee_amount: NotRequired["Literal['']|int|None"]
+        application_fee_percent: NotRequired["Literal['']|float|None"]
+        automatic_tax: NotRequired["Quote.ModifyParamsAutomaticTax|None"]
         collection_method: NotRequired[
-            Optional[Literal["charge_automatically", "send_invoice"]]
+            "Literal['charge_automatically', 'send_invoice']|None"
         ]
-        customer: NotRequired[Optional[str]]
-        default_tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
-        description: NotRequired[Optional[Union[Literal[""], str]]]
+        customer: NotRequired["str|None"]
+        default_tax_rates: NotRequired["Literal['']|List[str]|None"]
+        description: NotRequired["Literal['']|str|None"]
         discounts: NotRequired[
-            Optional[Union[Literal[""], List["Quote.ModifyParamsDiscount"]]]
+            "Literal['']|List[Quote.ModifyParamsDiscount]|None"
         ]
-        expand: NotRequired[Optional[List[str]]]
-        expires_at: NotRequired[Optional[int]]
-        footer: NotRequired[Optional[Union[Literal[""], str]]]
-        header: NotRequired[Optional[Union[Literal[""], str]]]
-        invoice_settings: NotRequired[
-            Optional["Quote.ModifyParamsInvoiceSettings"]
-        ]
-        line_items: NotRequired[Optional[List["Quote.ModifyParamsLineItem"]]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        on_behalf_of: NotRequired[Optional[Union[Literal[""], str]]]
+        expand: NotRequired["List[str]|None"]
+        expires_at: NotRequired["int|None"]
+        footer: NotRequired["Literal['']|str|None"]
+        header: NotRequired["Literal['']|str|None"]
+        invoice_settings: NotRequired["Quote.ModifyParamsInvoiceSettings|None"]
+        line_items: NotRequired["List[Quote.ModifyParamsLineItem]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        on_behalf_of: NotRequired["Literal['']|str|None"]
         subscription_data: NotRequired[
-            Optional["Quote.ModifyParamsSubscriptionData"]
+            "Quote.ModifyParamsSubscriptionData|None"
         ]
         transfer_data: NotRequired[
-            Optional[Union[Literal[""], "Quote.ModifyParamsTransferData"]]
+            "Literal['']|Quote.ModifyParamsTransferData|None"
         ]
 
     class ModifyParamsTransferData(TypedDict):
-        amount: NotRequired[Optional[int]]
-        amount_percent: NotRequired[Optional[float]]
+        amount: NotRequired["int|None"]
+        amount_percent: NotRequired["float|None"]
         destination: str
 
     class ModifyParamsSubscriptionData(TypedDict):
-        description: NotRequired[Optional[Union[Literal[""], str]]]
+        description: NotRequired["Literal['']|str|None"]
         effective_date: NotRequired[
-            Optional[
-                Union[Literal[""], Union[Literal["current_period_end"], int]]
-            ]
+            "Literal['']|Literal['current_period_end']|int|None"
         ]
-        trial_period_days: NotRequired[Optional[Union[Literal[""], int]]]
+        trial_period_days: NotRequired["Literal['']|int|None"]
 
     class ModifyParamsLineItem(TypedDict):
-        id: NotRequired[Optional[str]]
-        price: NotRequired[Optional[str]]
-        price_data: NotRequired[
-            Optional["Quote.ModifyParamsLineItemPriceData"]
-        ]
-        quantity: NotRequired[Optional[int]]
-        tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
+        id: NotRequired["str|None"]
+        price: NotRequired["str|None"]
+        price_data: NotRequired["Quote.ModifyParamsLineItemPriceData|None"]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
 
     class ModifyParamsLineItemPriceData(TypedDict):
         currency: str
         product: str
         recurring: NotRequired[
-            Optional["Quote.ModifyParamsLineItemPriceDataRecurring"]
+            "Quote.ModifyParamsLineItemPriceDataRecurring|None"
         ]
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
     class ModifyParamsLineItemPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
-        interval_count: NotRequired[Optional[int]]
+        interval_count: NotRequired["int|None"]
 
     class ModifyParamsInvoiceSettings(TypedDict):
-        days_until_due: NotRequired[Optional[int]]
+        days_until_due: NotRequired["int|None"]
 
     class ModifyParamsDiscount(TypedDict):
-        coupon: NotRequired[Optional[str]]
-        discount: NotRequired[Optional[str]]
+        coupon: NotRequired["str|None"]
+        discount: NotRequired["str|None"]
 
     class ModifyParamsAutomaticTax(TypedDict):
         enabled: bool
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     amount_subtotal: int
     amount_total: int

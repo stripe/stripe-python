@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
@@ -27,35 +25,33 @@ class Account(ListableAPIResource["Account"]):
     OBJECT_NAME = "financial_connections.account"
 
     class DisconnectParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class ListParams(RequestOptions):
-        account_holder: NotRequired[
-            Optional["Account.ListParamsAccountHolder"]
-        ]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        session: NotRequired[Optional[str]]
-        starting_after: NotRequired[Optional[str]]
+        account_holder: NotRequired["Account.ListParamsAccountHolder|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        session: NotRequired["str|None"]
+        starting_after: NotRequired["str|None"]
 
     class ListParamsAccountHolder(TypedDict):
-        account: NotRequired[Optional[str]]
-        customer: NotRequired[Optional[str]]
+        account: NotRequired["str|None"]
+        customer: NotRequired["str|None"]
 
     class ListOwnersParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
         ownership: str
-        starting_after: NotRequired[Optional[str]]
+        starting_after: NotRequired["str|None"]
 
     class RefreshAccountParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
         features: List[Literal["balance", "ownership"]]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     account_holder: Optional[StripeObject]
     balance: Optional[StripeObject]

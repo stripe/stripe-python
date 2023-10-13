@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
@@ -25,11 +23,11 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     class CreateParams(RequestOptions):
         account: str
         components: "AccountSession.CreateParamsComponents"
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class CreateParamsComponents(TypedDict):
         account_onboarding: NotRequired[
-            Optional["AccountSession.CreateParamsComponentsAccountOnboarding"]
+            "AccountSession.CreateParamsComponentsAccountOnboarding|None"
         ]
 
     class CreateParamsComponentsAccountOnboarding(TypedDict):

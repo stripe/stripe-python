@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -11,7 +9,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
@@ -50,187 +48,100 @@ class Session(
 
     class CreateParams(RequestOptions):
         after_expiration: NotRequired[
-            Optional["Session.CreateParamsAfterExpiration"]
+            "Session.CreateParamsAfterExpiration|None"
         ]
-        allow_promotion_codes: NotRequired[Optional[bool]]
-        automatic_tax: NotRequired[
-            Optional["Session.CreateParamsAutomaticTax"]
-        ]
+        allow_promotion_codes: NotRequired["bool|None"]
+        automatic_tax: NotRequired["Session.CreateParamsAutomaticTax|None"]
         billing_address_collection: NotRequired[
-            Optional[Literal["auto", "required"]]
+            "Literal['auto', 'required']|None"
         ]
-        cancel_url: NotRequired[Optional[str]]
-        client_reference_id: NotRequired[Optional[str]]
+        cancel_url: NotRequired["str|None"]
+        client_reference_id: NotRequired["str|None"]
         consent_collection: NotRequired[
-            Optional["Session.CreateParamsConsentCollection"]
+            "Session.CreateParamsConsentCollection|None"
         ]
-        currency: NotRequired[Optional[str]]
+        currency: NotRequired["str|None"]
         custom_fields: NotRequired[
-            Optional[
-                List[
-                    "Session.CreateParamsInvoiceCreationInvoiceDataCustomField"
-                ]
-            ]
+            "List[Session.CreateParamsCustomField]|None"
         ]
-        custom_text: NotRequired[Optional["Session.CreateParamsCustomText"]]
-        customer: NotRequired[Optional[str]]
-        customer_creation: NotRequired[
-            Optional[Literal["always", "if_required"]]
-        ]
-        customer_email: NotRequired[Optional[str]]
-        customer_update: NotRequired[
-            Optional["Session.CreateParamsCustomerUpdate"]
-        ]
-        discounts: NotRequired[Optional[List["Session.CreateParamsDiscount"]]]
-        expand: NotRequired[Optional[List[str]]]
-        expires_at: NotRequired[Optional[int]]
+        custom_text: NotRequired["Session.CreateParamsCustomText|None"]
+        customer: NotRequired["str|None"]
+        customer_creation: NotRequired["Literal['always', 'if_required']|None"]
+        customer_email: NotRequired["str|None"]
+        customer_update: NotRequired["Session.CreateParamsCustomerUpdate|None"]
+        discounts: NotRequired["List[Session.CreateParamsDiscount]|None"]
+        expand: NotRequired["List[str]|None"]
+        expires_at: NotRequired["int|None"]
         invoice_creation: NotRequired[
-            Optional["Session.CreateParamsInvoiceCreation"]
+            "Session.CreateParamsInvoiceCreation|None"
         ]
-        line_items: NotRequired[Optional[List["Session.CreateParamsLineItem"]]]
+        line_items: NotRequired["List[Session.CreateParamsLineItem]|None"]
         locale: NotRequired[
-            Optional[
-                Literal[
-                    "auto",
-                    "bg",
-                    "cs",
-                    "da",
-                    "de",
-                    "el",
-                    "en",
-                    "en-GB",
-                    "es",
-                    "es-419",
-                    "et",
-                    "fi",
-                    "fil",
-                    "fr",
-                    "fr-CA",
-                    "hr",
-                    "hu",
-                    "id",
-                    "it",
-                    "ja",
-                    "ko",
-                    "lt",
-                    "lv",
-                    "ms",
-                    "mt",
-                    "nb",
-                    "nl",
-                    "pl",
-                    "pt",
-                    "pt-BR",
-                    "ro",
-                    "ru",
-                    "sk",
-                    "sl",
-                    "sv",
-                    "th",
-                    "tr",
-                    "vi",
-                    "zh",
-                    "zh-HK",
-                    "zh-TW",
-                ]
-            ]
+            "Literal['auto', 'bg', 'cs', 'da', 'de', 'el', 'en', 'en-GB', 'es', 'es-419', 'et', 'fi', 'fil', 'fr', 'fr-CA', 'hr', 'hu', 'id', 'it', 'ja', 'ko', 'lt', 'lv', 'ms', 'mt', 'nb', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sv', 'th', 'tr', 'vi', 'zh', 'zh-HK', 'zh-TW']|None"
         ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        mode: NotRequired[
-            Optional[Literal["payment", "setup", "subscription"]]
-        ]
+        metadata: NotRequired["Dict[str, str]|None"]
+        mode: NotRequired["Literal['payment', 'setup', 'subscription']|None"]
         payment_intent_data: NotRequired[
-            Optional["Session.CreateParamsPaymentIntentData"]
+            "Session.CreateParamsPaymentIntentData|None"
         ]
         payment_method_collection: NotRequired[
-            Optional[Literal["always", "if_required"]]
+            "Literal['always', 'if_required']|None"
         ]
-        payment_method_configuration: NotRequired[Optional[str]]
+        payment_method_configuration: NotRequired["str|None"]
         payment_method_options: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptions"]
+            "Session.CreateParamsPaymentMethodOptions|None"
         ]
         payment_method_types: NotRequired[
-            Optional[
-                List[
-                    Literal[
-                        "acss_debit",
-                        "affirm",
-                        "afterpay_clearpay",
-                        "alipay",
-                        "au_becs_debit",
-                        "bacs_debit",
-                        "bancontact",
-                        "blik",
-                        "boleto",
-                        "card",
-                        "cashapp",
-                        "customer_balance",
-                        "eps",
-                        "fpx",
-                        "giropay",
-                        "grabpay",
-                        "ideal",
-                        "klarna",
-                        "konbini",
-                        "link",
-                        "oxxo",
-                        "p24",
-                        "paynow",
-                        "paypal",
-                        "pix",
-                        "promptpay",
-                        "sepa_debit",
-                        "sofort",
-                        "us_bank_account",
-                        "wechat_pay",
-                        "zip",
-                    ]
-                ]
-            ]
+            "List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']]|None"
         ]
         phone_number_collection: NotRequired[
-            Optional["Session.CreateParamsPhoneNumberCollection"]
+            "Session.CreateParamsPhoneNumberCollection|None"
         ]
+        redirect_on_completion: NotRequired[
+            "Literal['always', 'if_required', 'never']|None"
+        ]
+        return_url: NotRequired["str|None"]
         setup_intent_data: NotRequired[
-            Optional["Session.CreateParamsSetupIntentData"]
+            "Session.CreateParamsSetupIntentData|None"
         ]
         shipping_address_collection: NotRequired[
-            Optional["Session.CreateParamsShippingAddressCollection"]
+            "Session.CreateParamsShippingAddressCollection|None"
         ]
         shipping_options: NotRequired[
-            Optional[List["Session.CreateParamsShippingOption"]]
+            "List[Session.CreateParamsShippingOption]|None"
         ]
         submit_type: NotRequired[
-            Optional[Literal["auto", "book", "donate", "pay"]]
+            "Literal['auto', 'book', 'donate', 'pay']|None"
         ]
         subscription_data: NotRequired[
-            Optional["Session.CreateParamsSubscriptionData"]
+            "Session.CreateParamsSubscriptionData|None"
         ]
-        success_url: str
+        success_url: NotRequired["str|None"]
         tax_id_collection: NotRequired[
-            Optional["Session.CreateParamsTaxIdCollection"]
+            "Session.CreateParamsTaxIdCollection|None"
         ]
+        ui_mode: NotRequired["Literal['embedded', 'hosted']|None"]
 
     class CreateParamsTaxIdCollection(TypedDict):
         enabled: bool
 
     class CreateParamsSubscriptionData(TypedDict):
-        application_fee_percent: NotRequired[Optional[float]]
-        billing_cycle_anchor: NotRequired[Optional[int]]
-        default_tax_rates: NotRequired[Optional[List[str]]]
-        description: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        on_behalf_of: NotRequired[Optional[str]]
+        application_fee_percent: NotRequired["float|None"]
+        billing_cycle_anchor: NotRequired["int|None"]
+        default_tax_rates: NotRequired["List[str]|None"]
+        description: NotRequired["str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        on_behalf_of: NotRequired["str|None"]
         proration_behavior: NotRequired[
-            Optional[Literal["create_prorations", "none"]]
+            "Literal['create_prorations', 'none']|None"
         ]
         transfer_data: NotRequired[
-            Optional["Session.CreateParamsSubscriptionDataTransferData"]
+            "Session.CreateParamsSubscriptionDataTransferData|None"
         ]
-        trial_end: NotRequired[Optional[int]]
-        trial_period_days: NotRequired[Optional[int]]
+        trial_end: NotRequired["int|None"]
+        trial_period_days: NotRequired["int|None"]
         trial_settings: NotRequired[
-            Optional["Session.CreateParamsSubscriptionDataTrialSettings"]
+            "Session.CreateParamsSubscriptionDataTrialSettings|None"
         ]
 
     class CreateParamsSubscriptionDataTrialSettings(TypedDict):
@@ -240,44 +151,35 @@ class Session(
         missing_payment_method: Literal["cancel", "create_invoice", "pause"]
 
     class CreateParamsSubscriptionDataTransferData(TypedDict):
-        amount_percent: NotRequired[Optional[float]]
+        amount_percent: NotRequired["float|None"]
         destination: str
 
     class CreateParamsShippingOption(TypedDict):
-        shipping_rate: NotRequired[Optional[str]]
+        shipping_rate: NotRequired["str|None"]
         shipping_rate_data: NotRequired[
-            Optional["Session.CreateParamsShippingOptionShippingRateData"]
+            "Session.CreateParamsShippingOptionShippingRateData|None"
         ]
 
     class CreateParamsShippingOptionShippingRateData(TypedDict):
         delivery_estimate: NotRequired[
-            Optional[
-                "Session.CreateParamsShippingOptionShippingRateDataDeliveryEstimate"
-            ]
+            "Session.CreateParamsShippingOptionShippingRateDataDeliveryEstimate|None"
         ]
         display_name: str
         fixed_amount: NotRequired[
-            Optional[
-                "Session.CreateParamsShippingOptionShippingRateDataFixedAmount"
-            ]
+            "Session.CreateParamsShippingOptionShippingRateDataFixedAmount|None"
         ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        metadata: NotRequired["Dict[str, str]|None"]
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
-        tax_code: NotRequired[Optional[str]]
-        type: NotRequired[Optional[Literal["fixed_amount"]]]
+        tax_code: NotRequired["str|None"]
+        type: NotRequired["Literal['fixed_amount']|None"]
 
     class CreateParamsShippingOptionShippingRateDataFixedAmount(TypedDict):
         amount: int
         currency: str
         currency_options: NotRequired[
-            Optional[
-                Dict[
-                    str,
-                    "Session.CreateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions",
-                ]
-            ]
+            "Dict[str, Session.CreateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions]|None"
         ]
 
     class CreateParamsShippingOptionShippingRateDataFixedAmountCurrencyOptions(
@@ -285,21 +187,17 @@ class Session(
     ):
         amount: int
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
 
     class CreateParamsShippingOptionShippingRateDataDeliveryEstimate(
         TypedDict
     ):
         maximum: NotRequired[
-            Optional[
-                "Session.CreateParamsShippingOptionShippingRateDataDeliveryEstimateMaximum"
-            ]
+            "Session.CreateParamsShippingOptionShippingRateDataDeliveryEstimateMaximum|None"
         ]
         minimum: NotRequired[
-            Optional[
-                "Session.CreateParamsShippingOptionShippingRateDataDeliveryEstimateMinimum"
-            ]
+            "Session.CreateParamsShippingOptionShippingRateDataDeliveryEstimateMinimum|None"
         ]
 
     class CreateParamsShippingOptionShippingRateDataDeliveryEstimateMinimum(
@@ -558,253 +456,182 @@ class Session(
         ]
 
     class CreateParamsSetupIntentData(TypedDict):
-        description: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        on_behalf_of: NotRequired[Optional[str]]
+        description: NotRequired["str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        on_behalf_of: NotRequired["str|None"]
 
     class CreateParamsPhoneNumberCollection(TypedDict):
         enabled: bool
 
     class CreateParamsPaymentMethodOptions(TypedDict):
         acss_debit: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsAcssDebit"]
+            "Session.CreateParamsPaymentMethodOptionsAcssDebit|None"
         ]
         affirm: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsAffirm"]
+            "Session.CreateParamsPaymentMethodOptionsAffirm|None"
         ]
         afterpay_clearpay: NotRequired[
-            Optional[
-                "Session.CreateParamsPaymentMethodOptionsAfterpayClearpay"
-            ]
+            "Session.CreateParamsPaymentMethodOptionsAfterpayClearpay|None"
         ]
         alipay: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsAlipay"]
+            "Session.CreateParamsPaymentMethodOptionsAlipay|None"
         ]
         au_becs_debit: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsAuBecsDebit"]
+            "Session.CreateParamsPaymentMethodOptionsAuBecsDebit|None"
         ]
         bacs_debit: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsBacsDebit"]
+            "Session.CreateParamsPaymentMethodOptionsBacsDebit|None"
         ]
         bancontact: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsBancontact"]
+            "Session.CreateParamsPaymentMethodOptionsBancontact|None"
         ]
         boleto: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsBoleto"]
+            "Session.CreateParamsPaymentMethodOptionsBoleto|None"
         ]
-        card: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsCard"]
-        ]
+        card: NotRequired["Session.CreateParamsPaymentMethodOptionsCard|None"]
         cashapp: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsCashapp"]
+            "Session.CreateParamsPaymentMethodOptionsCashapp|None"
         ]
         customer_balance: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsCustomerBalance"]
+            "Session.CreateParamsPaymentMethodOptionsCustomerBalance|None"
         ]
-        eps: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsEps"]
-        ]
-        fpx: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsFpx"]
-        ]
+        eps: NotRequired["Session.CreateParamsPaymentMethodOptionsEps|None"]
+        fpx: NotRequired["Session.CreateParamsPaymentMethodOptionsFpx|None"]
         giropay: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsGiropay"]
+            "Session.CreateParamsPaymentMethodOptionsGiropay|None"
         ]
         grabpay: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsGrabpay"]
+            "Session.CreateParamsPaymentMethodOptionsGrabpay|None"
         ]
         ideal: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsIdeal"]
+            "Session.CreateParamsPaymentMethodOptionsIdeal|None"
         ]
         klarna: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsKlarna"]
+            "Session.CreateParamsPaymentMethodOptionsKlarna|None"
         ]
         konbini: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsKonbini"]
+            "Session.CreateParamsPaymentMethodOptionsKonbini|None"
         ]
-        link: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsLink"]
-        ]
-        oxxo: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsOxxo"]
-        ]
-        p24: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsP24"]
-        ]
+        link: NotRequired["Session.CreateParamsPaymentMethodOptionsLink|None"]
+        oxxo: NotRequired["Session.CreateParamsPaymentMethodOptionsOxxo|None"]
+        p24: NotRequired["Session.CreateParamsPaymentMethodOptionsP24|None"]
         paynow: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsPaynow"]
+            "Session.CreateParamsPaymentMethodOptionsPaynow|None"
         ]
         paypal: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsPaypal"]
+            "Session.CreateParamsPaymentMethodOptionsPaypal|None"
         ]
-        pix: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsPix"]
-        ]
+        pix: NotRequired["Session.CreateParamsPaymentMethodOptionsPix|None"]
         sepa_debit: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsSepaDebit"]
+            "Session.CreateParamsPaymentMethodOptionsSepaDebit|None"
         ]
         sofort: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsSofort"]
+            "Session.CreateParamsPaymentMethodOptionsSofort|None"
         ]
         us_bank_account: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsUsBankAccount"]
+            "Session.CreateParamsPaymentMethodOptionsUsBankAccount|None"
         ]
         wechat_pay: NotRequired[
-            Optional["Session.CreateParamsPaymentMethodOptionsWechatPay"]
+            "Session.CreateParamsPaymentMethodOptionsWechatPay|None"
         ]
 
     class CreateParamsPaymentMethodOptionsWechatPay(TypedDict):
-        app_id: NotRequired[Optional[str]]
+        app_id: NotRequired["str|None"]
         client: Literal["android", "ios", "web"]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: NotRequired[
-            Optional[
-                "Session.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
-            ]
+            "Session.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[Literal["none", "off_session", "on_session"]]
+            "Literal['none', 'off_session', 'on_session']|None"
         ]
         verification_method: NotRequired[
-            Optional[Literal["automatic", "instant"]]
+            "Literal['automatic', 'instant']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
         permissions: NotRequired[
-            Optional[
-                List[
-                    Literal[
-                        "balances",
-                        "ownership",
-                        "payment_method",
-                        "transactions",
-                    ]
-                ]
-            ]
+            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]|None"
         ]
-        prefetch: NotRequired[Optional[List[Literal["balances"]]]]
+        prefetch: NotRequired["List[Literal['balances']]|None"]
 
     class CreateParamsPaymentMethodOptionsSofort(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[Literal["none", "off_session", "on_session"]]
+            "Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
-        expires_after_seconds: NotRequired[Optional[int]]
+        expires_after_seconds: NotRequired["int|None"]
 
     class CreateParamsPaymentMethodOptionsPaypal(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
         preferred_locale: NotRequired[
-            Optional[
-                Literal[
-                    "cs-CZ",
-                    "da-DK",
-                    "de-AT",
-                    "de-DE",
-                    "de-LU",
-                    "el-GR",
-                    "en-GB",
-                    "en-US",
-                    "es-ES",
-                    "fi-FI",
-                    "fr-BE",
-                    "fr-FR",
-                    "fr-LU",
-                    "hu-HU",
-                    "it-IT",
-                    "nl-BE",
-                    "nl-NL",
-                    "pl-PL",
-                    "pt-PT",
-                    "sk-SK",
-                    "sv-SE",
-                ]
-            ]
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']|None"
         ]
-        reference: NotRequired[Optional[str]]
-        risk_correlation_id: NotRequired[Optional[str]]
+        reference: NotRequired["str|None"]
+        risk_correlation_id: NotRequired["str|None"]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsP24(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
-        tos_shown_and_accepted: NotRequired[Optional[bool]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
+        tos_shown_and_accepted: NotRequired["bool|None"]
 
     class CreateParamsPaymentMethodOptionsOxxo(TypedDict):
-        expires_after_days: NotRequired[Optional[int]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        expires_after_days: NotRequired["int|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsLink(TypedDict):
-        setup_future_usage: NotRequired[
-            Optional[Literal["none", "off_session"]]
-        ]
+        setup_future_usage: NotRequired["Literal['none', 'off_session']|None"]
 
     class CreateParamsPaymentMethodOptionsKonbini(TypedDict):
-        expires_after_days: NotRequired[Optional[int]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        expires_after_days: NotRequired["int|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsIdeal(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsGrabpay(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsGiropay(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsFpx(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsEps(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsCustomerBalance(TypedDict):
         bank_transfer: NotRequired[
-            Optional[
-                "Session.CreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer"
-            ]
+            "Session.CreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer|None"
         ]
-        funding_type: NotRequired[Optional[Literal["bank_transfer"]]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        funding_type: NotRequired["Literal['bank_transfer']|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer(
         TypedDict,
     ):
         eu_bank_transfer: NotRequired[
-            Optional[
-                "Session.CreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
-            ]
+            "Session.CreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer|None"
         ]
         requested_address_types: NotRequired[
-            Optional[
-                List[
-                    Literal[
-                        "aba",
-                        "iban",
-                        "sepa",
-                        "sort_code",
-                        "spei",
-                        "swift",
-                        "zengin",
-                    ]
-                ]
-            ]
+            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]|None"
         ]
         type: Literal[
             "eu_bank_transfer",
@@ -821,199 +648,174 @@ class Session(
 
     class CreateParamsPaymentMethodOptionsCashapp(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[Literal["none", "off_session", "on_session"]]
+            "Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
         installments: NotRequired[
-            Optional[
-                "Session.CreateParamsPaymentMethodOptionsCardInstallments"
-            ]
+            "Session.CreateParamsPaymentMethodOptionsCardInstallments|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[Literal["off_session", "on_session"]]
+            "Literal['off_session', 'on_session']|None"
         ]
-        statement_descriptor_suffix_kana: NotRequired[Optional[str]]
-        statement_descriptor_suffix_kanji: NotRequired[Optional[str]]
+        statement_descriptor_suffix_kana: NotRequired["str|None"]
+        statement_descriptor_suffix_kanji: NotRequired["str|None"]
 
     class CreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
-        enabled: NotRequired[Optional[bool]]
+        enabled: NotRequired["bool|None"]
 
     class CreateParamsPaymentMethodOptionsBoleto(TypedDict):
-        expires_after_days: NotRequired[Optional[int]]
+        expires_after_days: NotRequired["int|None"]
         setup_future_usage: NotRequired[
-            Optional[Literal["none", "off_session", "on_session"]]
+            "Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[Literal["none", "off_session", "on_session"]]
+            "Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsAlipay(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsAffirm(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsAcssDebit(TypedDict):
-        currency: NotRequired[Optional[Literal["cad", "usd"]]]
+        currency: NotRequired["Literal['cad', 'usd']|None"]
         mandate_options: NotRequired[
-            Optional[
-                "Session.CreateParamsPaymentMethodOptionsAcssDebitMandateOptions"
-            ]
+            "Session.CreateParamsPaymentMethodOptionsAcssDebitMandateOptions|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[Literal["none", "off_session", "on_session"]]
+            "Literal['none', 'off_session', 'on_session']|None"
         ]
         verification_method: NotRequired[
-            Optional[Literal["automatic", "instant", "microdeposits"]]
+            "Literal['automatic', 'instant', 'microdeposits']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
-        custom_mandate_url: NotRequired[Optional[Union[Literal[""], str]]]
+        custom_mandate_url: NotRequired["Literal['']|str|None"]
         default_for: NotRequired[
-            Optional[List[Literal["invoice", "subscription"]]]
+            "List[Literal['invoice', 'subscription']]|None"
         ]
-        interval_description: NotRequired[Optional[str]]
+        interval_description: NotRequired["str|None"]
         payment_schedule: NotRequired[
-            Optional[Literal["combined", "interval", "sporadic"]]
+            "Literal['combined', 'interval', 'sporadic']|None"
         ]
-        transaction_type: NotRequired[
-            Optional[Literal["business", "personal"]]
-        ]
+        transaction_type: NotRequired["Literal['business', 'personal']|None"]
 
     class CreateParamsPaymentIntentData(TypedDict):
-        application_fee_amount: NotRequired[Optional[int]]
+        application_fee_amount: NotRequired["int|None"]
         capture_method: NotRequired[
-            Optional[Literal["automatic", "automatic_async", "manual"]]
+            "Literal['automatic', 'automatic_async', 'manual']|None"
         ]
-        description: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        on_behalf_of: NotRequired[Optional[str]]
-        receipt_email: NotRequired[Optional[str]]
+        description: NotRequired["str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        on_behalf_of: NotRequired["str|None"]
+        receipt_email: NotRequired["str|None"]
         setup_future_usage: NotRequired[
-            Optional[Literal["off_session", "on_session"]]
+            "Literal['off_session', 'on_session']|None"
         ]
         shipping: NotRequired[
-            Optional["Session.CreateParamsPaymentIntentDataShipping"]
+            "Session.CreateParamsPaymentIntentDataShipping|None"
         ]
-        statement_descriptor: NotRequired[Optional[str]]
-        statement_descriptor_suffix: NotRequired[Optional[str]]
+        statement_descriptor: NotRequired["str|None"]
+        statement_descriptor_suffix: NotRequired["str|None"]
         transfer_data: NotRequired[
-            Optional["Session.CreateParamsPaymentIntentDataTransferData"]
+            "Session.CreateParamsPaymentIntentDataTransferData|None"
         ]
-        transfer_group: NotRequired[Optional[str]]
+        transfer_group: NotRequired["str|None"]
 
     class CreateParamsPaymentIntentDataTransferData(TypedDict):
-        amount: NotRequired[Optional[int]]
+        amount: NotRequired["int|None"]
         destination: str
 
     class CreateParamsPaymentIntentDataShipping(TypedDict):
         address: "Session.CreateParamsPaymentIntentDataShippingAddress"
-        carrier: NotRequired[Optional[str]]
+        carrier: NotRequired["str|None"]
         name: str
-        phone: NotRequired[Optional[str]]
-        tracking_number: NotRequired[Optional[str]]
+        phone: NotRequired["str|None"]
+        tracking_number: NotRequired["str|None"]
 
     class CreateParamsPaymentIntentDataShippingAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
         line1: str
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class CreateParamsLineItem(TypedDict):
         adjustable_quantity: NotRequired[
-            Optional["Session.CreateParamsLineItemAdjustableQuantity"]
+            "Session.CreateParamsLineItemAdjustableQuantity|None"
         ]
-        dynamic_tax_rates: NotRequired[Optional[List[str]]]
-        price: NotRequired[Optional[str]]
-        price_data: NotRequired[
-            Optional["Session.CreateParamsLineItemPriceData"]
-        ]
-        quantity: NotRequired[Optional[int]]
-        tax_rates: NotRequired[Optional[List[str]]]
+        dynamic_tax_rates: NotRequired["List[str]|None"]
+        price: NotRequired["str|None"]
+        price_data: NotRequired["Session.CreateParamsLineItemPriceData|None"]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["List[str]|None"]
 
     class CreateParamsLineItemPriceData(TypedDict):
         currency: str
-        product: NotRequired[Optional[str]]
+        product: NotRequired["str|None"]
         product_data: NotRequired[
-            Optional["Session.CreateParamsLineItemPriceDataProductData"]
+            "Session.CreateParamsLineItemPriceDataProductData|None"
         ]
         recurring: NotRequired[
-            Optional["Session.CreateParamsLineItemPriceDataRecurring"]
+            "Session.CreateParamsLineItemPriceDataRecurring|None"
         ]
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
     class CreateParamsLineItemPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
-        interval_count: NotRequired[Optional[int]]
+        interval_count: NotRequired["int|None"]
 
     class CreateParamsLineItemPriceDataProductData(TypedDict):
-        description: NotRequired[Optional[str]]
-        images: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        description: NotRequired["str|None"]
+        images: NotRequired["List[str]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
         name: str
-        tax_code: NotRequired[Optional[str]]
+        tax_code: NotRequired["str|None"]
 
     class CreateParamsLineItemAdjustableQuantity(TypedDict):
         enabled: bool
-        maximum: NotRequired[Optional[int]]
-        minimum: NotRequired[Optional[int]]
+        maximum: NotRequired["int|None"]
+        minimum: NotRequired["int|None"]
 
     class CreateParamsInvoiceCreation(TypedDict):
         enabled: bool
         invoice_data: NotRequired[
-            Optional["Session.CreateParamsInvoiceCreationInvoiceData"]
+            "Session.CreateParamsInvoiceCreationInvoiceData|None"
         ]
 
     class CreateParamsInvoiceCreationInvoiceData(TypedDict):
-        account_tax_ids: NotRequired[Optional[Union[Literal[""], List[str]]]]
+        account_tax_ids: NotRequired["Literal['']|List[str]|None"]
         custom_fields: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    List[
-                        "Session.CreateParamsInvoiceCreationInvoiceDataCustomField"
-                    ],
-                ]
-            ]
+            "Literal['']|List[Session.CreateParamsInvoiceCreationInvoiceDataCustomField]|None"
         ]
-        description: NotRequired[Optional[str]]
-        footer: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        description: NotRequired["str|None"]
+        footer: NotRequired["str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
         rendering_options: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "Session.CreateParamsInvoiceCreationInvoiceDataRenderingOptions",
-                ]
-            ]
+            "Literal['']|Session.CreateParamsInvoiceCreationInvoiceDataRenderingOptions|None"
         ]
 
     class CreateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
         amount_tax_display: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    Literal["exclude_tax", "include_inclusive_tax"],
-                ]
-            ]
+            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|None"
         ]
 
     class CreateParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
@@ -1021,35 +823,23 @@ class Session(
         value: str
 
     class CreateParamsDiscount(TypedDict):
-        coupon: NotRequired[Optional[str]]
-        promotion_code: NotRequired[Optional[str]]
+        coupon: NotRequired["str|None"]
+        promotion_code: NotRequired["str|None"]
 
     class CreateParamsCustomerUpdate(TypedDict):
-        address: NotRequired[Optional[Literal["auto", "never"]]]
-        name: NotRequired[Optional[Literal["auto", "never"]]]
-        shipping: NotRequired[Optional[Literal["auto", "never"]]]
+        address: NotRequired["Literal['auto', 'never']|None"]
+        name: NotRequired["Literal['auto', 'never']|None"]
+        shipping: NotRequired["Literal['auto', 'never']|None"]
 
     class CreateParamsCustomText(TypedDict):
         shipping_address: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "Session.CreateParamsCustomTextShippingAddress",
-                ]
-            ]
+            "Literal['']|Session.CreateParamsCustomTextShippingAddress|None"
         ]
         submit: NotRequired[
-            Optional[
-                Union[Literal[""], "Session.CreateParamsCustomTextSubmit"]
-            ]
+            "Literal['']|Session.CreateParamsCustomTextSubmit|None"
         ]
         terms_of_service_acceptance: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "Session.CreateParamsCustomTextTermsOfServiceAcceptance",
-                ]
-            ]
+            "Literal['']|Session.CreateParamsCustomTextTermsOfServiceAcceptance|None"
         ]
 
     class CreateParamsCustomTextTermsOfServiceAcceptance(TypedDict):
@@ -1062,25 +852,21 @@ class Session(
         message: str
 
     class CreateParamsCustomField(TypedDict):
-        dropdown: NotRequired[
-            Optional["Session.CreateParamsCustomFieldDropdown"]
-        ]
+        dropdown: NotRequired["Session.CreateParamsCustomFieldDropdown|None"]
         key: str
         label: "Session.CreateParamsCustomFieldLabel"
-        numeric: NotRequired[
-            Optional["Session.CreateParamsCustomFieldNumeric"]
-        ]
-        optional: NotRequired[Optional[bool]]
-        text: NotRequired[Optional["Session.CreateParamsCustomFieldText"]]
+        numeric: NotRequired["Session.CreateParamsCustomFieldNumeric|None"]
+        optional: NotRequired["bool|None"]
+        text: NotRequired["Session.CreateParamsCustomFieldText|None"]
         type: Literal["dropdown", "numeric", "text"]
 
     class CreateParamsCustomFieldText(TypedDict):
-        maximum_length: NotRequired[Optional[int]]
-        minimum_length: NotRequired[Optional[int]]
+        maximum_length: NotRequired["int|None"]
+        minimum_length: NotRequired["int|None"]
 
     class CreateParamsCustomFieldNumeric(TypedDict):
-        maximum_length: NotRequired[Optional[int]]
-        minimum_length: NotRequired[Optional[int]]
+        maximum_length: NotRequired["int|None"]
+        minimum_length: NotRequired["int|None"]
 
     class CreateParamsCustomFieldLabel(TypedDict):
         custom: str
@@ -1094,48 +880,46 @@ class Session(
         value: str
 
     class CreateParamsConsentCollection(TypedDict):
-        promotions: NotRequired[Optional[Literal["auto", "none"]]]
-        terms_of_service: NotRequired[Optional[Literal["none", "required"]]]
+        promotions: NotRequired["Literal['auto', 'none']|None"]
+        terms_of_service: NotRequired["Literal['none', 'required']|None"]
 
     class CreateParamsAutomaticTax(TypedDict):
         enabled: bool
 
     class CreateParamsAfterExpiration(TypedDict):
         recovery: NotRequired[
-            Optional["Session.CreateParamsAfterExpirationRecovery"]
+            "Session.CreateParamsAfterExpirationRecovery|None"
         ]
 
     class CreateParamsAfterExpirationRecovery(TypedDict):
-        allow_promotion_codes: NotRequired[Optional[bool]]
+        allow_promotion_codes: NotRequired["bool|None"]
         enabled: bool
 
     class ExpireParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class ListParams(RequestOptions):
-        customer: NotRequired[Optional[str]]
-        customer_details: NotRequired[
-            Optional["Session.ListParamsCustomerDetails"]
-        ]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        payment_intent: NotRequired[Optional[str]]
-        payment_link: NotRequired[Optional[str]]
-        starting_after: NotRequired[Optional[str]]
-        subscription: NotRequired[Optional[str]]
+        customer: NotRequired["str|None"]
+        customer_details: NotRequired["Session.ListParamsCustomerDetails|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        payment_intent: NotRequired["str|None"]
+        payment_link: NotRequired["str|None"]
+        starting_after: NotRequired["str|None"]
+        subscription: NotRequired["str|None"]
 
     class ListParamsCustomerDetails(TypedDict):
         email: str
 
     class ListLineItemsParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     after_expiration: Optional[StripeObject]
     allow_promotion_codes: Optional[bool]

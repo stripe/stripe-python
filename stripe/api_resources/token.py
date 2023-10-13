@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.request_options import RequestOptions
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
@@ -41,106 +39,94 @@ class Token(CreateableAPIResource["Token"]):
     OBJECT_NAME = "token"
 
     class CreateParams(RequestOptions):
-        account: NotRequired[Optional["Token.CreateParamsAccount"]]
-        bank_account: NotRequired[Optional["Token.CreateParamsBankAccount"]]
-        card: NotRequired[Optional[Union["Token.CreateParamsCard", str]]]
-        customer: NotRequired[Optional[str]]
-        cvc_update: NotRequired[Optional["Token.CreateParamsCvcUpdate"]]
-        expand: NotRequired[Optional[List[str]]]
-        person: NotRequired[Optional["Token.CreateParamsPerson"]]
-        pii: NotRequired[Optional["Token.CreateParamsPii"]]
+        account: NotRequired["Token.CreateParamsAccount|None"]
+        bank_account: NotRequired["Token.CreateParamsBankAccount|None"]
+        card: NotRequired["Token.CreateParamsCard|str|None"]
+        customer: NotRequired["str|None"]
+        cvc_update: NotRequired["Token.CreateParamsCvcUpdate|None"]
+        expand: NotRequired["List[str]|None"]
+        person: NotRequired["Token.CreateParamsPerson|None"]
+        pii: NotRequired["Token.CreateParamsPii|None"]
 
     class CreateParamsPii(TypedDict):
-        id_number: NotRequired[Optional[str]]
+        id_number: NotRequired["str|None"]
 
     class CreateParamsPerson(TypedDict):
-        address: NotRequired[Optional["Token.CreateParamsPersonAddress"]]
-        address_kana: NotRequired[
-            Optional["Token.CreateParamsPersonAddressKana"]
-        ]
-        address_kanji: NotRequired[
-            Optional["Token.CreateParamsPersonAddressKanji"]
-        ]
-        dob: NotRequired[
-            Optional[Union[Literal[""], "Token.CreateParamsPersonDob"]]
-        ]
-        documents: NotRequired[Optional["Token.CreateParamsPersonDocuments"]]
-        email: NotRequired[Optional[str]]
-        first_name: NotRequired[Optional[str]]
-        first_name_kana: NotRequired[Optional[str]]
-        first_name_kanji: NotRequired[Optional[str]]
-        full_name_aliases: NotRequired[Optional[Union[Literal[""], List[str]]]]
-        gender: NotRequired[Optional[str]]
-        id_number: NotRequired[Optional[str]]
-        id_number_secondary: NotRequired[Optional[str]]
-        last_name: NotRequired[Optional[str]]
-        last_name_kana: NotRequired[Optional[str]]
-        last_name_kanji: NotRequired[Optional[str]]
-        maiden_name: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        nationality: NotRequired[Optional[str]]
-        phone: NotRequired[Optional[str]]
-        political_exposure: NotRequired[Optional[str]]
+        address: NotRequired["Token.CreateParamsPersonAddress|None"]
+        address_kana: NotRequired["Token.CreateParamsPersonAddressKana|None"]
+        address_kanji: NotRequired["Token.CreateParamsPersonAddressKanji|None"]
+        dob: NotRequired["Literal['']|Token.CreateParamsPersonDob|None"]
+        documents: NotRequired["Token.CreateParamsPersonDocuments|None"]
+        email: NotRequired["str|None"]
+        first_name: NotRequired["str|None"]
+        first_name_kana: NotRequired["str|None"]
+        first_name_kanji: NotRequired["str|None"]
+        full_name_aliases: NotRequired["Literal['']|List[str]|None"]
+        gender: NotRequired["str|None"]
+        id_number: NotRequired["str|None"]
+        id_number_secondary: NotRequired["str|None"]
+        last_name: NotRequired["str|None"]
+        last_name_kana: NotRequired["str|None"]
+        last_name_kanji: NotRequired["str|None"]
+        maiden_name: NotRequired["str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        nationality: NotRequired["str|None"]
+        phone: NotRequired["str|None"]
+        political_exposure: NotRequired["str|None"]
         registered_address: NotRequired[
-            Optional["Token.CreateParamsPersonRegisteredAddress"]
+            "Token.CreateParamsPersonRegisteredAddress|None"
         ]
-        relationship: NotRequired[
-            Optional["Token.CreateParamsPersonRelationship"]
-        ]
-        ssn_last_4: NotRequired[Optional[str]]
-        verification: NotRequired[
-            Optional["Token.CreateParamsPersonVerification"]
-        ]
+        relationship: NotRequired["Token.CreateParamsPersonRelationship|None"]
+        ssn_last_4: NotRequired["str|None"]
+        verification: NotRequired["Token.CreateParamsPersonVerification|None"]
 
     class CreateParamsPersonVerification(TypedDict):
         additional_document: NotRequired[
-            Optional["Token.CreateParamsPersonVerificationAdditionalDocument"]
+            "Token.CreateParamsPersonVerificationAdditionalDocument|None"
         ]
         document: NotRequired[
-            Optional["Token.CreateParamsPersonVerificationDocument"]
+            "Token.CreateParamsPersonVerificationDocument|None"
         ]
 
     class CreateParamsPersonVerificationDocument(TypedDict):
-        back: NotRequired[Optional[str]]
-        front: NotRequired[Optional[str]]
+        back: NotRequired["str|None"]
+        front: NotRequired["str|None"]
 
     class CreateParamsPersonVerificationAdditionalDocument(TypedDict):
-        back: NotRequired[Optional[str]]
-        front: NotRequired[Optional[str]]
+        back: NotRequired["str|None"]
+        front: NotRequired["str|None"]
 
     class CreateParamsPersonRelationship(TypedDict):
-        director: NotRequired[Optional[bool]]
-        executive: NotRequired[Optional[bool]]
-        owner: NotRequired[Optional[bool]]
-        percent_ownership: NotRequired[Optional[Union[Literal[""], float]]]
-        representative: NotRequired[Optional[bool]]
-        title: NotRequired[Optional[str]]
+        director: NotRequired["bool|None"]
+        executive: NotRequired["bool|None"]
+        owner: NotRequired["bool|None"]
+        percent_ownership: NotRequired["Literal['']|float|None"]
+        representative: NotRequired["bool|None"]
+        title: NotRequired["str|None"]
 
     class CreateParamsPersonRegisteredAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class CreateParamsPersonDocuments(TypedDict):
         company_authorization: NotRequired[
-            Optional["Token.CreateParamsPersonDocumentsCompanyAuthorization"]
+            "Token.CreateParamsPersonDocumentsCompanyAuthorization|None"
         ]
-        passport: NotRequired[
-            Optional["Token.CreateParamsPersonDocumentsPassport"]
-        ]
-        visa: NotRequired[Optional["Token.CreateParamsPersonDocumentsVisa"]]
+        passport: NotRequired["Token.CreateParamsPersonDocumentsPassport|None"]
+        visa: NotRequired["Token.CreateParamsPersonDocumentsVisa|None"]
 
     class CreateParamsPersonDocumentsVisa(TypedDict):
-        files: NotRequired[Optional[List[str]]]
+        files: NotRequired["List[str]|None"]
 
     class CreateParamsPersonDocumentsPassport(TypedDict):
-        files: NotRequired[Optional[List[str]]]
+        files: NotRequired["List[str]|None"]
 
     class CreateParamsPersonDocumentsCompanyAuthorization(TypedDict):
-        files: NotRequired[Optional[List[str]]]
+        files: NotRequired["List[str]|None"]
 
     class CreateParamsPersonDob(TypedDict):
         day: int
@@ -148,140 +134,128 @@ class Token(CreateableAPIResource["Token"]):
         year: int
 
     class CreateParamsPersonAddressKanji(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
-        town: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+        town: NotRequired["str|None"]
 
     class CreateParamsPersonAddressKana(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
-        town: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+        town: NotRequired["str|None"]
 
     class CreateParamsPersonAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class CreateParamsCvcUpdate(TypedDict):
         cvc: str
 
     class CreateParamsCard(TypedDict):
-        address_city: NotRequired[Optional[str]]
-        address_country: NotRequired[Optional[str]]
-        address_line1: NotRequired[Optional[str]]
-        address_line2: NotRequired[Optional[str]]
-        address_state: NotRequired[Optional[str]]
-        address_zip: NotRequired[Optional[str]]
-        currency: NotRequired[Optional[str]]
-        cvc: NotRequired[Optional[str]]
+        address_city: NotRequired["str|None"]
+        address_country: NotRequired["str|None"]
+        address_line1: NotRequired["str|None"]
+        address_line2: NotRequired["str|None"]
+        address_state: NotRequired["str|None"]
+        address_zip: NotRequired["str|None"]
+        currency: NotRequired["str|None"]
+        cvc: NotRequired["str|None"]
         exp_month: str
         exp_year: str
-        name: NotRequired[Optional[str]]
+        name: NotRequired["str|None"]
         number: str
 
     class CreateParamsBankAccount(TypedDict):
-        account_holder_name: NotRequired[Optional[str]]
+        account_holder_name: NotRequired["str|None"]
         account_holder_type: NotRequired[
-            Optional[Literal["company", "individual"]]
+            "Literal['company', 'individual']|None"
         ]
         account_number: str
         account_type: NotRequired[
-            Optional[Literal["checking", "futsu", "savings", "toza"]]
+            "Literal['checking', 'futsu', 'savings', 'toza']|None"
         ]
         country: str
-        currency: NotRequired[Optional[str]]
-        routing_number: NotRequired[Optional[str]]
+        currency: NotRequired["str|None"]
+        routing_number: NotRequired["str|None"]
 
     class CreateParamsAccount(TypedDict):
         business_type: NotRequired[
-            Optional[
-                Literal[
-                    "company", "government_entity", "individual", "non_profit"
-                ]
-            ]
+            "Literal['company', 'government_entity', 'individual', 'non_profit']|None"
         ]
-        company: NotRequired[Optional["Token.CreateParamsAccountCompany"]]
-        individual: NotRequired[
-            Optional["Token.CreateParamsAccountIndividual"]
-        ]
-        tos_shown_and_accepted: NotRequired[Optional[bool]]
+        company: NotRequired["Token.CreateParamsAccountCompany|None"]
+        individual: NotRequired["Token.CreateParamsAccountIndividual|None"]
+        tos_shown_and_accepted: NotRequired["bool|None"]
 
     class CreateParamsAccountIndividual(TypedDict):
-        address: NotRequired[
-            Optional["Token.CreateParamsAccountIndividualAddress"]
-        ]
+        address: NotRequired["Token.CreateParamsAccountIndividualAddress|None"]
         address_kana: NotRequired[
-            Optional["Token.CreateParamsAccountIndividualAddressKana"]
+            "Token.CreateParamsAccountIndividualAddressKana|None"
         ]
         address_kanji: NotRequired[
-            Optional["Token.CreateParamsAccountIndividualAddressKanji"]
+            "Token.CreateParamsAccountIndividualAddressKanji|None"
         ]
         dob: NotRequired[
-            Optional[
-                Union[Literal[""], "Token.CreateParamsAccountIndividualDob"]
-            ]
+            "Literal['']|Token.CreateParamsAccountIndividualDob|None"
         ]
-        email: NotRequired[Optional[str]]
-        first_name: NotRequired[Optional[str]]
-        first_name_kana: NotRequired[Optional[str]]
-        first_name_kanji: NotRequired[Optional[str]]
-        full_name_aliases: NotRequired[Optional[Union[Literal[""], List[str]]]]
-        gender: NotRequired[Optional[str]]
-        id_number: NotRequired[Optional[str]]
-        id_number_secondary: NotRequired[Optional[str]]
-        last_name: NotRequired[Optional[str]]
-        last_name_kana: NotRequired[Optional[str]]
-        last_name_kanji: NotRequired[Optional[str]]
-        maiden_name: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        phone: NotRequired[Optional[str]]
-        political_exposure: NotRequired[Optional[Literal["existing", "none"]]]
+        email: NotRequired["str|None"]
+        first_name: NotRequired["str|None"]
+        first_name_kana: NotRequired["str|None"]
+        first_name_kanji: NotRequired["str|None"]
+        full_name_aliases: NotRequired["Literal['']|List[str]|None"]
+        gender: NotRequired["str|None"]
+        id_number: NotRequired["str|None"]
+        id_number_secondary: NotRequired["str|None"]
+        last_name: NotRequired["str|None"]
+        last_name_kana: NotRequired["str|None"]
+        last_name_kanji: NotRequired["str|None"]
+        maiden_name: NotRequired["str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        phone: NotRequired["str|None"]
+        political_exposure: NotRequired["Literal['existing', 'none']|None"]
         registered_address: NotRequired[
-            Optional["Token.CreateParamsAccountIndividualRegisteredAddress"]
+            "Token.CreateParamsAccountIndividualRegisteredAddress|None"
         ]
-        ssn_last_4: NotRequired[Optional[str]]
+        ssn_last_4: NotRequired["str|None"]
         verification: NotRequired[
-            Optional["Token.CreateParamsAccountIndividualVerification"]
+            "Token.CreateParamsAccountIndividualVerification|None"
         ]
 
     class CreateParamsAccountIndividualVerification(TypedDict):
         additional_document: NotRequired[
-            Optional[
-                "Token.CreateParamsAccountIndividualVerificationAdditionalDocument"
-            ]
+            "Token.CreateParamsAccountIndividualVerificationAdditionalDocument|None"
         ]
         document: NotRequired[
-            Optional["Token.CreateParamsAccountIndividualVerificationDocument"]
+            "Token.CreateParamsAccountIndividualVerificationDocument|None"
         ]
 
     class CreateParamsAccountIndividualVerificationDocument(TypedDict):
-        back: NotRequired[Optional[str]]
-        front: NotRequired[Optional[str]]
+        back: NotRequired["str|None"]
+        front: NotRequired["str|None"]
 
     class CreateParamsAccountIndividualVerificationAdditionalDocument(
         TypedDict,
     ):
-        back: NotRequired[Optional[str]]
-        front: NotRequired[Optional[str]]
+        back: NotRequired["str|None"]
+        front: NotRequired["str|None"]
 
     class CreateParamsAccountIndividualRegisteredAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class CreateParamsAccountIndividualDob(TypedDict):
         day: int
@@ -289,135 +263,105 @@ class Token(CreateableAPIResource["Token"]):
         year: int
 
     class CreateParamsAccountIndividualAddressKanji(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
-        town: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+        town: NotRequired["str|None"]
 
     class CreateParamsAccountIndividualAddressKana(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
-        town: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+        town: NotRequired["str|None"]
 
     class CreateParamsAccountIndividualAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class CreateParamsAccountCompany(TypedDict):
-        address: NotRequired[
-            Optional["Token.CreateParamsAccountCompanyAddress"]
-        ]
+        address: NotRequired["Token.CreateParamsAccountCompanyAddress|None"]
         address_kana: NotRequired[
-            Optional["Token.CreateParamsAccountCompanyAddressKana"]
+            "Token.CreateParamsAccountCompanyAddressKana|None"
         ]
         address_kanji: NotRequired[
-            Optional["Token.CreateParamsAccountCompanyAddressKanji"]
+            "Token.CreateParamsAccountCompanyAddressKanji|None"
         ]
-        directors_provided: NotRequired[Optional[bool]]
-        executives_provided: NotRequired[Optional[bool]]
-        export_license_id: NotRequired[Optional[str]]
-        export_purpose_code: NotRequired[Optional[str]]
-        name: NotRequired[Optional[str]]
-        name_kana: NotRequired[Optional[str]]
-        name_kanji: NotRequired[Optional[str]]
-        owners_provided: NotRequired[Optional[bool]]
+        directors_provided: NotRequired["bool|None"]
+        executives_provided: NotRequired["bool|None"]
+        export_license_id: NotRequired["str|None"]
+        export_purpose_code: NotRequired["str|None"]
+        name: NotRequired["str|None"]
+        name_kana: NotRequired["str|None"]
+        name_kanji: NotRequired["str|None"]
+        owners_provided: NotRequired["bool|None"]
         ownership_declaration: NotRequired[
-            Optional["Token.CreateParamsAccountCompanyOwnershipDeclaration"]
+            "Token.CreateParamsAccountCompanyOwnershipDeclaration|None"
         ]
-        ownership_declaration_shown_and_signed: NotRequired[Optional[bool]]
-        phone: NotRequired[Optional[str]]
-        registration_number: NotRequired[Optional[str]]
+        ownership_declaration_shown_and_signed: NotRequired["bool|None"]
+        phone: NotRequired["str|None"]
+        registration_number: NotRequired["str|None"]
         structure: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    Literal[
-                        "free_zone_establishment",
-                        "free_zone_llc",
-                        "government_instrumentality",
-                        "governmental_unit",
-                        "incorporated_non_profit",
-                        "incorporated_partnership",
-                        "limited_liability_partnership",
-                        "llc",
-                        "multi_member_llc",
-                        "private_company",
-                        "private_corporation",
-                        "private_partnership",
-                        "public_company",
-                        "public_corporation",
-                        "public_partnership",
-                        "single_member_llc",
-                        "sole_establishment",
-                        "sole_proprietorship",
-                        "tax_exempt_government_instrumentality",
-                        "unincorporated_association",
-                        "unincorporated_non_profit",
-                        "unincorporated_partnership",
-                    ],
-                ]
-            ]
+            "Literal['']|Literal['free_zone_establishment', 'free_zone_llc', 'government_instrumentality', 'governmental_unit', 'incorporated_non_profit', 'incorporated_partnership', 'limited_liability_partnership', 'llc', 'multi_member_llc', 'private_company', 'private_corporation', 'private_partnership', 'public_company', 'public_corporation', 'public_partnership', 'single_member_llc', 'sole_establishment', 'sole_proprietorship', 'tax_exempt_government_instrumentality', 'unincorporated_association', 'unincorporated_non_profit', 'unincorporated_partnership']|None"
         ]
-        tax_id: NotRequired[Optional[str]]
-        tax_id_registrar: NotRequired[Optional[str]]
-        vat_id: NotRequired[Optional[str]]
+        tax_id: NotRequired["str|None"]
+        tax_id_registrar: NotRequired["str|None"]
+        vat_id: NotRequired["str|None"]
         verification: NotRequired[
-            Optional["Token.CreateParamsAccountCompanyVerification"]
+            "Token.CreateParamsAccountCompanyVerification|None"
         ]
 
     class CreateParamsAccountCompanyVerification(TypedDict):
         document: NotRequired[
-            Optional["Token.CreateParamsAccountCompanyVerificationDocument"]
+            "Token.CreateParamsAccountCompanyVerificationDocument|None"
         ]
 
     class CreateParamsAccountCompanyVerificationDocument(TypedDict):
-        back: NotRequired[Optional[str]]
-        front: NotRequired[Optional[str]]
+        back: NotRequired["str|None"]
+        front: NotRequired["str|None"]
 
     class CreateParamsAccountCompanyOwnershipDeclaration(TypedDict):
-        date: NotRequired[Optional[int]]
-        ip: NotRequired[Optional[str]]
-        user_agent: NotRequired[Optional[str]]
+        date: NotRequired["int|None"]
+        ip: NotRequired["str|None"]
+        user_agent: NotRequired["str|None"]
 
     class CreateParamsAccountCompanyAddressKanji(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
-        town: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+        town: NotRequired["str|None"]
 
     class CreateParamsAccountCompanyAddressKana(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
-        town: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
+        town: NotRequired["str|None"]
 
     class CreateParamsAccountCompanyAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     bank_account: Optional["BankAccount"]
     card: Optional["Card"]

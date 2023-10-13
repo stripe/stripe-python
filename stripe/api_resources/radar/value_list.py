@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -11,7 +9,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -37,54 +35,39 @@ class ValueList(
 
     class CreateParams(RequestOptions):
         alias: str
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
         item_type: NotRequired[
-            Optional[
-                Literal[
-                    "card_bin",
-                    "card_fingerprint",
-                    "case_sensitive_string",
-                    "country",
-                    "customer_id",
-                    "email",
-                    "ip_address",
-                    "sepa_debit_fingerprint",
-                    "string",
-                    "us_bank_account_fingerprint",
-                ]
-            ]
+            "Literal['card_bin', 'card_fingerprint', 'case_sensitive_string', 'country', 'customer_id', 'email', 'ip_address', 'sepa_debit_fingerprint', 'string', 'us_bank_account_fingerprint']|None"
         ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        metadata: NotRequired["Dict[str, str]|None"]
         name: str
 
     class DeleteParams(RequestOptions):
         pass
 
     class ListParams(RequestOptions):
-        alias: NotRequired[Optional[str]]
-        contains: NotRequired[Optional[str]]
-        created: NotRequired[
-            Optional[Union["ValueList.ListParamsCreated", int]]
-        ]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        alias: NotRequired["str|None"]
+        contains: NotRequired["str|None"]
+        created: NotRequired["ValueList.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ModifyParams(RequestOptions):
-        alias: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        name: NotRequired[Optional[str]]
+        alias: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        name: NotRequired["str|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     alias: str
     created: int

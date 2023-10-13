@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     ListableAPIResource,
@@ -11,7 +9,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -37,60 +35,60 @@ class Dispute(
     OBJECT_NAME = "dispute"
 
     class CloseParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class ListParams(RequestOptions):
-        charge: NotRequired[Optional[str]]
-        created: NotRequired[Optional[Union["Dispute.ListParamsCreated", int]]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        payment_intent: NotRequired[Optional[str]]
-        starting_after: NotRequired[Optional[str]]
+        charge: NotRequired["str|None"]
+        created: NotRequired["Dispute.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        payment_intent: NotRequired["str|None"]
+        starting_after: NotRequired["str|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ModifyParams(RequestOptions):
-        evidence: NotRequired[Optional["Dispute.ModifyParamsEvidence"]]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        submit: NotRequired[Optional[bool]]
+        evidence: NotRequired["Dispute.ModifyParamsEvidence|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        submit: NotRequired["bool|None"]
 
     class ModifyParamsEvidence(TypedDict):
-        access_activity_log: NotRequired[Optional[str]]
-        billing_address: NotRequired[Optional[str]]
-        cancellation_policy: NotRequired[Optional[str]]
-        cancellation_policy_disclosure: NotRequired[Optional[str]]
-        cancellation_rebuttal: NotRequired[Optional[str]]
-        customer_communication: NotRequired[Optional[str]]
-        customer_email_address: NotRequired[Optional[str]]
-        customer_name: NotRequired[Optional[str]]
-        customer_purchase_ip: NotRequired[Optional[str]]
-        customer_signature: NotRequired[Optional[str]]
-        duplicate_charge_documentation: NotRequired[Optional[str]]
-        duplicate_charge_explanation: NotRequired[Optional[str]]
-        duplicate_charge_id: NotRequired[Optional[str]]
-        product_description: NotRequired[Optional[str]]
-        receipt: NotRequired[Optional[str]]
-        refund_policy: NotRequired[Optional[str]]
-        refund_policy_disclosure: NotRequired[Optional[str]]
-        refund_refusal_explanation: NotRequired[Optional[str]]
-        service_date: NotRequired[Optional[str]]
-        service_documentation: NotRequired[Optional[str]]
-        shipping_address: NotRequired[Optional[str]]
-        shipping_carrier: NotRequired[Optional[str]]
-        shipping_date: NotRequired[Optional[str]]
-        shipping_documentation: NotRequired[Optional[str]]
-        shipping_tracking_number: NotRequired[Optional[str]]
-        uncategorized_file: NotRequired[Optional[str]]
-        uncategorized_text: NotRequired[Optional[str]]
+        access_activity_log: NotRequired["str|None"]
+        billing_address: NotRequired["str|None"]
+        cancellation_policy: NotRequired["str|None"]
+        cancellation_policy_disclosure: NotRequired["str|None"]
+        cancellation_rebuttal: NotRequired["str|None"]
+        customer_communication: NotRequired["str|None"]
+        customer_email_address: NotRequired["str|None"]
+        customer_name: NotRequired["str|None"]
+        customer_purchase_ip: NotRequired["str|None"]
+        customer_signature: NotRequired["str|None"]
+        duplicate_charge_documentation: NotRequired["str|None"]
+        duplicate_charge_explanation: NotRequired["str|None"]
+        duplicate_charge_id: NotRequired["str|None"]
+        product_description: NotRequired["str|None"]
+        receipt: NotRequired["str|None"]
+        refund_policy: NotRequired["str|None"]
+        refund_policy_disclosure: NotRequired["str|None"]
+        refund_refusal_explanation: NotRequired["str|None"]
+        service_date: NotRequired["str|None"]
+        service_documentation: NotRequired["str|None"]
+        shipping_address: NotRequired["str|None"]
+        shipping_carrier: NotRequired["str|None"]
+        shipping_date: NotRequired["str|None"]
+        shipping_documentation: NotRequired["str|None"]
+        shipping_tracking_number: NotRequired["str|None"]
+        uncategorized_file: NotRequired["str|None"]
+        uncategorized_text: NotRequired["str|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     amount: int
     balance_transactions: List["BalanceTransaction"]

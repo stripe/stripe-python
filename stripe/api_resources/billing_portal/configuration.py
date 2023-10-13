@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -34,35 +32,33 @@ class Configuration(
 
     class CreateParams(RequestOptions):
         business_profile: "Configuration.CreateParamsBusinessProfile"
-        default_return_url: NotRequired[Optional[Union[Literal[""], str]]]
-        expand: NotRequired[Optional[List[str]]]
+        default_return_url: NotRequired["Literal['']|str|None"]
+        expand: NotRequired["List[str]|None"]
         features: "Configuration.CreateParamsFeatures"
-        login_page: NotRequired[
-            Optional["Configuration.CreateParamsLoginPage"]
-        ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        login_page: NotRequired["Configuration.CreateParamsLoginPage|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
 
     class CreateParamsLoginPage(TypedDict):
         enabled: bool
 
     class CreateParamsFeatures(TypedDict):
         customer_update: NotRequired[
-            Optional["Configuration.CreateParamsFeaturesCustomerUpdate"]
+            "Configuration.CreateParamsFeaturesCustomerUpdate|None"
         ]
         invoice_history: NotRequired[
-            Optional["Configuration.CreateParamsFeaturesInvoiceHistory"]
+            "Configuration.CreateParamsFeaturesInvoiceHistory|None"
         ]
         payment_method_update: NotRequired[
-            Optional["Configuration.CreateParamsFeaturesPaymentMethodUpdate"]
+            "Configuration.CreateParamsFeaturesPaymentMethodUpdate|None"
         ]
         subscription_cancel: NotRequired[
-            Optional["Configuration.CreateParamsFeaturesSubscriptionCancel"]
+            "Configuration.CreateParamsFeaturesSubscriptionCancel|None"
         ]
         subscription_pause: NotRequired[
-            Optional["Configuration.CreateParamsFeaturesSubscriptionPause"]
+            "Configuration.CreateParamsFeaturesSubscriptionPause|None"
         ]
         subscription_update: NotRequired[
-            Optional["Configuration.CreateParamsFeaturesSubscriptionUpdate"]
+            "Configuration.CreateParamsFeaturesSubscriptionUpdate|None"
         ]
 
     class CreateParamsFeaturesSubscriptionUpdate(TypedDict):
@@ -77,7 +73,7 @@ class Configuration(
             ],
         ]
         proration_behavior: NotRequired[
-            Optional[Literal["always_invoice", "create_prorations", "none"]]
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
         ]
 
     class CreateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
@@ -85,18 +81,16 @@ class Configuration(
         product: str
 
     class CreateParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: NotRequired[Optional[bool]]
+        enabled: NotRequired["bool|None"]
 
     class CreateParamsFeaturesSubscriptionCancel(TypedDict):
         cancellation_reason: NotRequired[
-            Optional[
-                "Configuration.CreateParamsFeaturesSubscriptionCancelCancellationReason"
-            ]
+            "Configuration.CreateParamsFeaturesSubscriptionCancelCancellationReason|None"
         ]
         enabled: bool
-        mode: NotRequired[Optional[Literal["at_period_end", "immediately"]]]
+        mode: NotRequired["Literal['at_period_end', 'immediately']|None"]
         proration_behavior: NotRequired[
-            Optional[Literal["always_invoice", "create_prorations", "none"]]
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
         ]
 
     class CreateParamsFeaturesSubscriptionCancelCancellationReason(TypedDict):
@@ -125,95 +119,67 @@ class Configuration(
 
     class CreateParamsFeaturesCustomerUpdate(TypedDict):
         allowed_updates: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    List[
-                        Literal[
-                            "address",
-                            "email",
-                            "name",
-                            "phone",
-                            "shipping",
-                            "tax_id",
-                        ]
-                    ],
-                ]
-            ]
+            "Literal['']|List[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id']]|None"
         ]
         enabled: bool
 
     class CreateParamsBusinessProfile(TypedDict):
-        headline: NotRequired[Optional[Union[Literal[""], str]]]
-        privacy_policy_url: NotRequired[Optional[str]]
-        terms_of_service_url: NotRequired[Optional[str]]
+        headline: NotRequired["Literal['']|str|None"]
+        privacy_policy_url: NotRequired["str|None"]
+        terms_of_service_url: NotRequired["str|None"]
 
     class ListParams(RequestOptions):
-        active: NotRequired[Optional[bool]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        is_default: NotRequired[Optional[bool]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        active: NotRequired["bool|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        is_default: NotRequired["bool|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ModifyParams(RequestOptions):
-        active: NotRequired[Optional[bool]]
+        active: NotRequired["bool|None"]
         business_profile: NotRequired[
-            Optional["Configuration.ModifyParamsBusinessProfile"]
+            "Configuration.ModifyParamsBusinessProfile|None"
         ]
-        default_return_url: NotRequired[Optional[Union[Literal[""], str]]]
-        expand: NotRequired[Optional[List[str]]]
-        features: NotRequired[Optional["Configuration.ModifyParamsFeatures"]]
-        login_page: NotRequired[
-            Optional["Configuration.ModifyParamsLoginPage"]
-        ]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        default_return_url: NotRequired["Literal['']|str|None"]
+        expand: NotRequired["List[str]|None"]
+        features: NotRequired["Configuration.ModifyParamsFeatures|None"]
+        login_page: NotRequired["Configuration.ModifyParamsLoginPage|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
     class ModifyParamsLoginPage(TypedDict):
         enabled: bool
 
     class ModifyParamsFeatures(TypedDict):
         customer_update: NotRequired[
-            Optional["Configuration.ModifyParamsFeaturesCustomerUpdate"]
+            "Configuration.ModifyParamsFeaturesCustomerUpdate|None"
         ]
         invoice_history: NotRequired[
-            Optional["Configuration.ModifyParamsFeaturesInvoiceHistory"]
+            "Configuration.ModifyParamsFeaturesInvoiceHistory|None"
         ]
         payment_method_update: NotRequired[
-            Optional["Configuration.ModifyParamsFeaturesPaymentMethodUpdate"]
+            "Configuration.ModifyParamsFeaturesPaymentMethodUpdate|None"
         ]
         subscription_cancel: NotRequired[
-            Optional["Configuration.ModifyParamsFeaturesSubscriptionCancel"]
+            "Configuration.ModifyParamsFeaturesSubscriptionCancel|None"
         ]
         subscription_pause: NotRequired[
-            Optional["Configuration.ModifyParamsFeaturesSubscriptionPause"]
+            "Configuration.ModifyParamsFeaturesSubscriptionPause|None"
         ]
         subscription_update: NotRequired[
-            Optional["Configuration.ModifyParamsFeaturesSubscriptionUpdate"]
+            "Configuration.ModifyParamsFeaturesSubscriptionUpdate|None"
         ]
 
     class ModifyParamsFeaturesSubscriptionUpdate(TypedDict):
         default_allowed_updates: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    List[Literal["price", "promotion_code", "quantity"]],
-                ]
-            ]
+            "Literal['']|List[Literal['price', 'promotion_code', 'quantity']]|None"
         ]
-        enabled: NotRequired[Optional[bool]]
+        enabled: NotRequired["bool|None"]
         products: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    List[
-                        "Configuration.ModifyParamsFeaturesSubscriptionUpdateProduct"
-                    ],
-                ]
-            ]
+            "Literal['']|List[Configuration.ModifyParamsFeaturesSubscriptionUpdateProduct]|None"
         ]
         proration_behavior: NotRequired[
-            Optional[Literal["always_invoice", "create_prorations", "none"]]
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
         ]
 
     class ModifyParamsFeaturesSubscriptionUpdateProduct(TypedDict):
@@ -221,40 +187,22 @@ class Configuration(
         product: str
 
     class ModifyParamsFeaturesSubscriptionPause(TypedDict):
-        enabled: NotRequired[Optional[bool]]
+        enabled: NotRequired["bool|None"]
 
     class ModifyParamsFeaturesSubscriptionCancel(TypedDict):
         cancellation_reason: NotRequired[
-            Optional[
-                "Configuration.ModifyParamsFeaturesSubscriptionCancelCancellationReason"
-            ]
+            "Configuration.ModifyParamsFeaturesSubscriptionCancelCancellationReason|None"
         ]
-        enabled: NotRequired[Optional[bool]]
-        mode: NotRequired[Optional[Literal["at_period_end", "immediately"]]]
+        enabled: NotRequired["bool|None"]
+        mode: NotRequired["Literal['at_period_end', 'immediately']|None"]
         proration_behavior: NotRequired[
-            Optional[Literal["always_invoice", "create_prorations", "none"]]
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
         ]
 
     class ModifyParamsFeaturesSubscriptionCancelCancellationReason(TypedDict):
         enabled: bool
         options: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    List[
-                        Literal[
-                            "customer_service",
-                            "low_quality",
-                            "missing_features",
-                            "other",
-                            "switched_service",
-                            "too_complex",
-                            "too_expensive",
-                            "unused",
-                        ]
-                    ],
-                ]
-            ]
+            "Literal['']|List[Literal['customer_service', 'low_quality', 'missing_features', 'other', 'switched_service', 'too_complex', 'too_expensive', 'unused']]|None"
         ]
 
     class ModifyParamsFeaturesPaymentMethodUpdate(TypedDict):
@@ -265,31 +213,17 @@ class Configuration(
 
     class ModifyParamsFeaturesCustomerUpdate(TypedDict):
         allowed_updates: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    List[
-                        Literal[
-                            "address",
-                            "email",
-                            "name",
-                            "phone",
-                            "shipping",
-                            "tax_id",
-                        ]
-                    ],
-                ]
-            ]
+            "Literal['']|List[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id']]|None"
         ]
-        enabled: NotRequired[Optional[bool]]
+        enabled: NotRequired["bool|None"]
 
     class ModifyParamsBusinessProfile(TypedDict):
-        headline: NotRequired[Optional[Union[Literal[""], str]]]
-        privacy_policy_url: NotRequired[Optional[Union[Literal[""], str]]]
-        terms_of_service_url: NotRequired[Optional[Union[Literal[""], str]]]
+        headline: NotRequired["Literal['']|str|None"]
+        privacy_policy_url: NotRequired["Literal['']|str|None"]
+        terms_of_service_url: NotRequired["Literal['']|str|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     active: bool
     application: Optional[ExpandableField["Application"]]

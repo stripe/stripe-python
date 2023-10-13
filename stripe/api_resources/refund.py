@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
@@ -13,7 +11,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, Type, Unpack
 from urllib.parse import quote_plus
 
@@ -42,41 +40,39 @@ class Refund(
     OBJECT_NAME = "refund"
 
     class CancelParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class CreateParams(RequestOptions):
-        amount: NotRequired[Optional[int]]
-        charge: NotRequired[Optional[str]]
-        currency: NotRequired[Optional[str]]
-        customer: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        instructions_email: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        origin: NotRequired[Optional[Literal["customer_balance"]]]
-        payment_intent: NotRequired[Optional[str]]
+        amount: NotRequired["int|None"]
+        charge: NotRequired["str|None"]
+        currency: NotRequired["str|None"]
+        customer: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        instructions_email: NotRequired["str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        origin: NotRequired["Literal['customer_balance']|None"]
+        payment_intent: NotRequired["str|None"]
         reason: NotRequired[
-            Optional[
-                Literal["duplicate", "fraudulent", "requested_by_customer"]
-            ]
+            "Literal['duplicate', 'fraudulent', 'requested_by_customer']|None"
         ]
-        refund_application_fee: NotRequired[Optional[bool]]
-        reverse_transfer: NotRequired[Optional[bool]]
+        refund_application_fee: NotRequired["bool|None"]
+        reverse_transfer: NotRequired["bool|None"]
 
     class ListParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ModifyParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class ExpireParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]

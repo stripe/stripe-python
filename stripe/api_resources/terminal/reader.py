@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
@@ -14,7 +12,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, Type, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -39,13 +37,13 @@ class Reader(
     OBJECT_NAME = "terminal.reader"
 
     class CancelActionParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class CreateParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        label: NotRequired[Optional[str]]
-        location: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        expand: NotRequired["List[str]|None"]
+        label: NotRequired["str|None"]
+        location: NotRequired["str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
         registration_code: str
 
     class DeleteParams(RequestOptions):
@@ -53,51 +51,42 @@ class Reader(
 
     class ListParams(RequestOptions):
         device_type: NotRequired[
-            Optional[
-                Literal[
-                    "bbpos_chipper2x",
-                    "bbpos_wisepad3",
-                    "bbpos_wisepos_e",
-                    "simulated_wisepos_e",
-                    "stripe_m2",
-                    "verifone_P400",
-                ]
-            ]
+            "Literal['bbpos_chipper2x', 'bbpos_wisepad3', 'bbpos_wisepos_e', 'simulated_wisepos_e', 'stripe_m2', 'verifone_P400']|None"
         ]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        location: NotRequired[Optional[str]]
-        serial_number: NotRequired[Optional[str]]
-        starting_after: NotRequired[Optional[str]]
-        status: NotRequired[Optional[Literal["offline", "online"]]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        location: NotRequired["str|None"]
+        serial_number: NotRequired["str|None"]
+        starting_after: NotRequired["str|None"]
+        status: NotRequired["Literal['offline', 'online']|None"]
 
     class ModifyParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        label: NotRequired[Optional[Union[Literal[""], str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        expand: NotRequired["List[str]|None"]
+        label: NotRequired["Literal['']|str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
     class ProcessPaymentIntentParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
         payment_intent: str
         process_config: NotRequired[
-            Optional["Reader.ProcessPaymentIntentParamsProcessConfig"]
+            "Reader.ProcessPaymentIntentParamsProcessConfig|None"
         ]
 
     class ProcessPaymentIntentParamsProcessConfig(TypedDict):
-        skip_tipping: NotRequired[Optional[bool]]
+        skip_tipping: NotRequired["bool|None"]
         tipping: NotRequired[
-            Optional["Reader.ProcessPaymentIntentParamsProcessConfigTipping"]
+            "Reader.ProcessPaymentIntentParamsProcessConfigTipping|None"
         ]
 
     class ProcessPaymentIntentParamsProcessConfigTipping(TypedDict):
-        amount_eligible: NotRequired[Optional[int]]
+        amount_eligible: NotRequired["int|None"]
 
     class ProcessSetupIntentParams(RequestOptions):
         customer_consent_collected: bool
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
         process_config: NotRequired[
-            Optional["Reader.ProcessSetupIntentParamsProcessConfig"]
+            "Reader.ProcessSetupIntentParamsProcessConfig|None"
         ]
         setup_intent: str
 
@@ -105,26 +94,26 @@ class Reader(
         pass
 
     class RefundPaymentParams(RequestOptions):
-        amount: NotRequired[Optional[int]]
-        charge: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        payment_intent: NotRequired[Optional[str]]
-        refund_application_fee: NotRequired[Optional[bool]]
-        reverse_transfer: NotRequired[Optional[bool]]
+        amount: NotRequired["int|None"]
+        charge: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        payment_intent: NotRequired["str|None"]
+        refund_application_fee: NotRequired["bool|None"]
+        reverse_transfer: NotRequired["bool|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class SetReaderDisplayParams(RequestOptions):
-        cart: NotRequired[Optional["Reader.SetReaderDisplayParamsCart"]]
-        expand: NotRequired[Optional[List[str]]]
+        cart: NotRequired["Reader.SetReaderDisplayParamsCart|None"]
+        expand: NotRequired["List[str]|None"]
         type: Literal["cart"]
 
     class SetReaderDisplayParamsCart(TypedDict):
         currency: str
         line_items: List["Reader.SetReaderDisplayParamsCartLineItem"]
-        tax: NotRequired[Optional[int]]
+        tax: NotRequired["int|None"]
         total: int
 
     class SetReaderDisplayParamsCartLineItem(TypedDict):
@@ -133,21 +122,21 @@ class Reader(
         quantity: int
 
     class PresentPaymentMethodParams(RequestOptions):
-        amount_tip: NotRequired[Optional[int]]
+        amount_tip: NotRequired["int|None"]
         card_present: NotRequired[
-            Optional["Reader.PresentPaymentMethodParamsCardPresent"]
+            "Reader.PresentPaymentMethodParamsCardPresent|None"
         ]
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
         interac_present: NotRequired[
-            Optional["Reader.PresentPaymentMethodParamsInteracPresent"]
+            "Reader.PresentPaymentMethodParamsInteracPresent|None"
         ]
-        type: NotRequired[Optional[Literal["card_present", "interac_present"]]]
+        type: NotRequired["Literal['card_present', 'interac_present']|None"]
 
     class PresentPaymentMethodParamsInteracPresent(TypedDict):
-        number: NotRequired[Optional[str]]
+        number: NotRequired["str|None"]
 
     class PresentPaymentMethodParamsCardPresent(TypedDict):
-        number: NotRequired[Optional[str]]
+        number: NotRequired["str|None"]
 
     action: Optional[StripeObject]
     device_sw_version: Optional[str]

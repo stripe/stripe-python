@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.list_object import ListObject
@@ -29,22 +27,22 @@ class Transaction(APIResource["Transaction"]):
 
     class CreateFromCalculationParams(RequestOptions):
         calculation: str
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
         reference: str
 
     class CreateReversalParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        flat_amount: NotRequired[Optional[int]]
+        expand: NotRequired["List[str]|None"]
+        flat_amount: NotRequired["int|None"]
         line_items: NotRequired[
-            Optional[List["Transaction.CreateReversalParamsLineItem"]]
+            "List[Transaction.CreateReversalParamsLineItem]|None"
         ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        metadata: NotRequired["Dict[str, str]|None"]
         mode: Literal["full", "partial"]
         original_transaction: str
         reference: str
         shipping_cost: NotRequired[
-            Optional["Transaction.CreateReversalParamsShippingCost"]
+            "Transaction.CreateReversalParamsShippingCost|None"
         ]
 
     class CreateReversalParamsShippingCost(TypedDict):
@@ -54,19 +52,19 @@ class Transaction(APIResource["Transaction"]):
     class CreateReversalParamsLineItem(TypedDict):
         amount: int
         amount_tax: int
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        metadata: NotRequired["Dict[str, str]|None"]
         original_line_item: str
-        quantity: NotRequired[Optional[int]]
+        quantity: NotRequired["int|None"]
         reference: str
 
     class ListLineItemsParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     created: int
     currency: str

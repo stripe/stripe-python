@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -12,7 +10,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -47,62 +45,58 @@ class Transfer(
     OBJECT_NAME = "transfer"
 
     class CreateParams(RequestOptions):
-        amount: NotRequired[Optional[int]]
+        amount: NotRequired["int|None"]
         currency: str
-        description: NotRequired[Optional[str]]
+        description: NotRequired["str|None"]
         destination: str
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        source_transaction: NotRequired[Optional[str]]
-        source_type: NotRequired[
-            Optional[Literal["bank_account", "card", "fpx"]]
-        ]
-        transfer_group: NotRequired[Optional[str]]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        source_transaction: NotRequired["str|None"]
+        source_type: NotRequired["Literal['bank_account', 'card', 'fpx']|None"]
+        transfer_group: NotRequired["str|None"]
 
     class ListParams(RequestOptions):
-        created: NotRequired[
-            Optional[Union["Transfer.ListParamsCreated", int]]
-        ]
-        destination: NotRequired[Optional[str]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
-        transfer_group: NotRequired[Optional[str]]
+        created: NotRequired["Transfer.ListParamsCreated|int|None"]
+        destination: NotRequired["str|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+        transfer_group: NotRequired["str|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ModifyParams(RequestOptions):
-        description: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        description: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class CreateReversalParams(RequestOptions):
-        amount: NotRequired[Optional[int]]
-        description: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        refund_application_fee: NotRequired[Optional[bool]]
+        amount: NotRequired["int|None"]
+        description: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        refund_application_fee: NotRequired["bool|None"]
 
     class RetrieveReversalParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class ModifyReversalParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
     class ListReversalsParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     amount: int
     amount_reversed: int

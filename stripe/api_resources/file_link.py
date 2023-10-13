@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -10,7 +8,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -34,37 +32,33 @@ class FileLink(
     OBJECT_NAME = "file_link"
 
     class CreateParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        expires_at: NotRequired[Optional[int]]
+        expand: NotRequired["List[str]|None"]
+        expires_at: NotRequired["int|None"]
         file: str
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
     class ListParams(RequestOptions):
-        created: NotRequired[
-            Optional[Union["FileLink.ListParamsCreated", int]]
-        ]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        expired: NotRequired[Optional[bool]]
-        file: NotRequired[Optional[str]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        created: NotRequired["FileLink.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        expired: NotRequired["bool|None"]
+        file: NotRequired["str|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ModifyParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        expires_at: NotRequired[
-            Optional[Union[Literal[""], Union[Literal["now"], int]]]
-        ]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        expand: NotRequired["List[str]|None"]
+        expires_at: NotRequired["Literal['']|Literal['now']|int|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     created: int
     expired: bool

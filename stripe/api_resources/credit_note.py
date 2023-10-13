@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -13,7 +11,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -44,149 +42,124 @@ class CreditNote(
     OBJECT_NAME = "credit_note"
 
     class CreateParams(RequestOptions):
-        amount: NotRequired[Optional[int]]
-        credit_amount: NotRequired[Optional[int]]
-        effective_at: NotRequired[Optional[int]]
-        expand: NotRequired[Optional[List[str]]]
+        amount: NotRequired["int|None"]
+        credit_amount: NotRequired["int|None"]
+        effective_at: NotRequired["int|None"]
+        expand: NotRequired["List[str]|None"]
         invoice: str
-        lines: NotRequired[Optional[List["CreditNote.CreateParamsLine"]]]
-        memo: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        out_of_band_amount: NotRequired[Optional[int]]
+        lines: NotRequired["List[CreditNote.CreateParamsLine]|None"]
+        memo: NotRequired["str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        out_of_band_amount: NotRequired["int|None"]
         reason: NotRequired[
-            Optional[
-                Literal[
-                    "duplicate",
-                    "fraudulent",
-                    "order_change",
-                    "product_unsatisfactory",
-                ]
-            ]
+            "Literal['duplicate', 'fraudulent', 'order_change', 'product_unsatisfactory']|None"
         ]
-        refund: NotRequired[Optional[str]]
-        refund_amount: NotRequired[Optional[int]]
-        shipping_cost: NotRequired[
-            Optional["CreditNote.CreateParamsShippingCost"]
-        ]
+        refund: NotRequired["str|None"]
+        refund_amount: NotRequired["int|None"]
+        shipping_cost: NotRequired["CreditNote.CreateParamsShippingCost|None"]
 
     class CreateParamsShippingCost(TypedDict):
-        shipping_rate: NotRequired[Optional[str]]
+        shipping_rate: NotRequired["str|None"]
 
     class CreateParamsLine(TypedDict):
-        amount: NotRequired[Optional[int]]
-        description: NotRequired[Optional[str]]
-        invoice_line_item: NotRequired[Optional[str]]
-        quantity: NotRequired[Optional[int]]
-        tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
+        amount: NotRequired["int|None"]
+        description: NotRequired["str|None"]
+        invoice_line_item: NotRequired["str|None"]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
         type: Literal["custom_line_item", "invoice_line_item"]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
     class ListParams(RequestOptions):
-        customer: NotRequired[Optional[str]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        invoice: NotRequired[Optional[str]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        customer: NotRequired["str|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        invoice: NotRequired["str|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ModifyParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        memo: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        expand: NotRequired["List[str]|None"]
+        memo: NotRequired["str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
 
     class PreviewParams(RequestOptions):
-        amount: NotRequired[Optional[int]]
-        credit_amount: NotRequired[Optional[int]]
-        effective_at: NotRequired[Optional[int]]
-        expand: NotRequired[Optional[List[str]]]
+        amount: NotRequired["int|None"]
+        credit_amount: NotRequired["int|None"]
+        effective_at: NotRequired["int|None"]
+        expand: NotRequired["List[str]|None"]
         invoice: str
-        lines: NotRequired[Optional[List["CreditNote.PreviewParamsLine"]]]
-        memo: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        out_of_band_amount: NotRequired[Optional[int]]
+        lines: NotRequired["List[CreditNote.PreviewParamsLine]|None"]
+        memo: NotRequired["str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        out_of_band_amount: NotRequired["int|None"]
         reason: NotRequired[
-            Optional[
-                Literal[
-                    "duplicate",
-                    "fraudulent",
-                    "order_change",
-                    "product_unsatisfactory",
-                ]
-            ]
+            "Literal['duplicate', 'fraudulent', 'order_change', 'product_unsatisfactory']|None"
         ]
-        refund: NotRequired[Optional[str]]
-        refund_amount: NotRequired[Optional[int]]
-        shipping_cost: NotRequired[
-            Optional["CreditNote.PreviewParamsShippingCost"]
-        ]
+        refund: NotRequired["str|None"]
+        refund_amount: NotRequired["int|None"]
+        shipping_cost: NotRequired["CreditNote.PreviewParamsShippingCost|None"]
 
     class PreviewParamsShippingCost(TypedDict):
-        shipping_rate: NotRequired[Optional[str]]
+        shipping_rate: NotRequired["str|None"]
 
     class PreviewParamsLine(TypedDict):
-        amount: NotRequired[Optional[int]]
-        description: NotRequired[Optional[str]]
-        invoice_line_item: NotRequired[Optional[str]]
-        quantity: NotRequired[Optional[int]]
-        tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
+        amount: NotRequired["int|None"]
+        description: NotRequired["str|None"]
+        invoice_line_item: NotRequired["str|None"]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
         type: Literal["custom_line_item", "invoice_line_item"]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
     class PreviewLinesParams(RequestOptions):
-        amount: NotRequired[Optional[int]]
-        credit_amount: NotRequired[Optional[int]]
-        effective_at: NotRequired[Optional[int]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
+        amount: NotRequired["int|None"]
+        credit_amount: NotRequired["int|None"]
+        effective_at: NotRequired["int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
         invoice: str
-        limit: NotRequired[Optional[int]]
-        lines: NotRequired[Optional[List["CreditNote.PreviewLinesParamsLine"]]]
-        memo: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        out_of_band_amount: NotRequired[Optional[int]]
+        limit: NotRequired["int|None"]
+        lines: NotRequired["List[CreditNote.PreviewLinesParamsLine]|None"]
+        memo: NotRequired["str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        out_of_band_amount: NotRequired["int|None"]
         reason: NotRequired[
-            Optional[
-                Literal[
-                    "duplicate",
-                    "fraudulent",
-                    "order_change",
-                    "product_unsatisfactory",
-                ]
-            ]
+            "Literal['duplicate', 'fraudulent', 'order_change', 'product_unsatisfactory']|None"
         ]
-        refund: NotRequired[Optional[str]]
-        refund_amount: NotRequired[Optional[int]]
+        refund: NotRequired["str|None"]
+        refund_amount: NotRequired["int|None"]
         shipping_cost: NotRequired[
-            Optional["CreditNote.PreviewLinesParamsShippingCost"]
+            "CreditNote.PreviewLinesParamsShippingCost|None"
         ]
-        starting_after: NotRequired[Optional[str]]
+        starting_after: NotRequired["str|None"]
 
     class PreviewLinesParamsShippingCost(TypedDict):
-        shipping_rate: NotRequired[Optional[str]]
+        shipping_rate: NotRequired["str|None"]
 
     class PreviewLinesParamsLine(TypedDict):
-        amount: NotRequired[Optional[int]]
-        description: NotRequired[Optional[str]]
-        invoice_line_item: NotRequired[Optional[str]]
-        quantity: NotRequired[Optional[int]]
-        tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
+        amount: NotRequired["int|None"]
+        description: NotRequired["str|None"]
+        invoice_line_item: NotRequired["str|None"]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
         type: Literal["custom_line_item", "invoice_line_item"]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class VoidCreditNoteParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class ListLinesParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     amount: int
     amount_shipping: int

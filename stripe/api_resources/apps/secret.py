@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -29,44 +27,44 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     OBJECT_NAME = "apps.secret"
 
     class CreateParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        expires_at: NotRequired[Optional[int]]
+        expand: NotRequired["List[str]|None"]
+        expires_at: NotRequired["int|None"]
         name: str
         payload: str
         scope: "Secret.CreateParamsScope"
 
     class CreateParamsScope(TypedDict):
         type: Literal["account", "user"]
-        user: NotRequired[Optional[str]]
+        user: NotRequired["str|None"]
 
     class DeleteWhereParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
         name: str
         scope: "Secret.DeleteWhereParamsScope"
 
     class DeleteWhereParamsScope(TypedDict):
         type: Literal["account", "user"]
-        user: NotRequired[Optional[str]]
+        user: NotRequired["str|None"]
 
     class FindParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
         name: str
         scope: "Secret.FindParamsScope"
 
     class FindParamsScope(TypedDict):
         type: Literal["account", "user"]
-        user: NotRequired[Optional[str]]
+        user: NotRequired["str|None"]
 
     class ListParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
         scope: "Secret.ListParamsScope"
-        starting_after: NotRequired[Optional[str]]
+        starting_after: NotRequired["str|None"]
 
     class ListParamsScope(TypedDict):
         type: Literal["account", "user"]
-        user: NotRequired[Optional[str]]
+        user: NotRequired["str|None"]
 
     created: int
     deleted: Optional[bool]

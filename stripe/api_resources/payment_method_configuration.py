@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -10,7 +8,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, Union, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -41,878 +39,710 @@ class PaymentMethodConfiguration(
 
     class CreateParams(RequestOptions):
         acss_debit: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsAcssDebit"]
+            "PaymentMethodConfiguration.CreateParamsAcssDebit|None"
         ]
         affirm: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsAffirm"]
+            "PaymentMethodConfiguration.CreateParamsAffirm|None"
         ]
         afterpay_clearpay: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsAfterpayClearpay"]
+            "PaymentMethodConfiguration.CreateParamsAfterpayClearpay|None"
         ]
         alipay: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsAlipay"]
+            "PaymentMethodConfiguration.CreateParamsAlipay|None"
         ]
         apple_pay: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsApplePay"]
+            "PaymentMethodConfiguration.CreateParamsApplePay|None"
         ]
         apple_pay_later: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsApplePayLater"]
+            "PaymentMethodConfiguration.CreateParamsApplePayLater|None"
         ]
         au_becs_debit: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsAuBecsDebit"]
+            "PaymentMethodConfiguration.CreateParamsAuBecsDebit|None"
         ]
         bacs_debit: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsBacsDebit"]
+            "PaymentMethodConfiguration.CreateParamsBacsDebit|None"
         ]
         bancontact: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsBancontact"]
+            "PaymentMethodConfiguration.CreateParamsBancontact|None"
         ]
-        blik: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsBlik"]
-        ]
+        blik: NotRequired["PaymentMethodConfiguration.CreateParamsBlik|None"]
         boleto: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsBoleto"]
+            "PaymentMethodConfiguration.CreateParamsBoleto|None"
         ]
-        card: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsCard"]
-        ]
+        card: NotRequired["PaymentMethodConfiguration.CreateParamsCard|None"]
         cartes_bancaires: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsCartesBancaires"]
+            "PaymentMethodConfiguration.CreateParamsCartesBancaires|None"
         ]
         cashapp: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsCashapp"]
+            "PaymentMethodConfiguration.CreateParamsCashapp|None"
         ]
-        eps: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsEps"]
-        ]
-        expand: NotRequired[Optional[List[str]]]
-        fpx: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsFpx"]
-        ]
+        eps: NotRequired["PaymentMethodConfiguration.CreateParamsEps|None"]
+        expand: NotRequired["List[str]|None"]
+        fpx: NotRequired["PaymentMethodConfiguration.CreateParamsFpx|None"]
         giropay: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsGiropay"]
+            "PaymentMethodConfiguration.CreateParamsGiropay|None"
         ]
         google_pay: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsGooglePay"]
+            "PaymentMethodConfiguration.CreateParamsGooglePay|None"
         ]
         grabpay: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsGrabpay"]
+            "PaymentMethodConfiguration.CreateParamsGrabpay|None"
         ]
-        ideal: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsIdeal"]
-        ]
-        jcb: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsJcb"]
-        ]
+        ideal: NotRequired["PaymentMethodConfiguration.CreateParamsIdeal|None"]
+        jcb: NotRequired["PaymentMethodConfiguration.CreateParamsJcb|None"]
         klarna: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsKlarna"]
+            "PaymentMethodConfiguration.CreateParamsKlarna|None"
         ]
         konbini: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsKonbini"]
+            "PaymentMethodConfiguration.CreateParamsKonbini|None"
         ]
-        link: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsLink"]
-        ]
-        name: NotRequired[Optional[str]]
-        oxxo: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsOxxo"]
-        ]
-        p24: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsP24"]
-        ]
-        parent: NotRequired[Optional[str]]
+        link: NotRequired["PaymentMethodConfiguration.CreateParamsLink|None"]
+        name: NotRequired["str|None"]
+        oxxo: NotRequired["PaymentMethodConfiguration.CreateParamsOxxo|None"]
+        p24: NotRequired["PaymentMethodConfiguration.CreateParamsP24|None"]
+        parent: NotRequired["str|None"]
         paynow: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsPaynow"]
+            "PaymentMethodConfiguration.CreateParamsPaynow|None"
         ]
         paypal: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsPaypal"]
+            "PaymentMethodConfiguration.CreateParamsPaypal|None"
         ]
         promptpay: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsPromptpay"]
+            "PaymentMethodConfiguration.CreateParamsPromptpay|None"
         ]
         sepa_debit: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsSepaDebit"]
+            "PaymentMethodConfiguration.CreateParamsSepaDebit|None"
         ]
         sofort: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsSofort"]
+            "PaymentMethodConfiguration.CreateParamsSofort|None"
         ]
         us_bank_account: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsUsBankAccount"]
+            "PaymentMethodConfiguration.CreateParamsUsBankAccount|None"
         ]
         wechat_pay: NotRequired[
-            Optional["PaymentMethodConfiguration.CreateParamsWechatPay"]
+            "PaymentMethodConfiguration.CreateParamsWechatPay|None"
         ]
 
     class CreateParamsWechatPay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsWechatPayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsWechatPayDisplayPreference|None"
         ]
 
     class CreateParamsWechatPayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsUsBankAccount(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsUsBankAccountDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsUsBankAccountDisplayPreference|None"
         ]
 
     class CreateParamsUsBankAccountDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsSofort(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsSofortDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsSofortDisplayPreference|None"
         ]
 
     class CreateParamsSofortDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsSepaDebit(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsSepaDebitDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsSepaDebitDisplayPreference|None"
         ]
 
     class CreateParamsSepaDebitDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsPromptpay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsPromptpayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsPromptpayDisplayPreference|None"
         ]
 
     class CreateParamsPromptpayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsPaypal(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsPaypalDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsPaypalDisplayPreference|None"
         ]
 
     class CreateParamsPaypalDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsPaynow(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsPaynowDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsPaynowDisplayPreference|None"
         ]
 
     class CreateParamsPaynowDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsP24(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsP24DisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsP24DisplayPreference|None"
         ]
 
     class CreateParamsP24DisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsOxxo(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsOxxoDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsOxxoDisplayPreference|None"
         ]
 
     class CreateParamsOxxoDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsLink(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsLinkDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsLinkDisplayPreference|None"
         ]
 
     class CreateParamsLinkDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsKonbini(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsKonbiniDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsKonbiniDisplayPreference|None"
         ]
 
     class CreateParamsKonbiniDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsKlarna(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsKlarnaDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsKlarnaDisplayPreference|None"
         ]
 
     class CreateParamsKlarnaDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsJcb(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsJcbDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsJcbDisplayPreference|None"
         ]
 
     class CreateParamsJcbDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsIdeal(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsIdealDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsIdealDisplayPreference|None"
         ]
 
     class CreateParamsIdealDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsGrabpay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsGrabpayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsGrabpayDisplayPreference|None"
         ]
 
     class CreateParamsGrabpayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsGooglePay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsGooglePayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsGooglePayDisplayPreference|None"
         ]
 
     class CreateParamsGooglePayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsGiropay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsGiropayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsGiropayDisplayPreference|None"
         ]
 
     class CreateParamsGiropayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsFpx(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsFpxDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsFpxDisplayPreference|None"
         ]
 
     class CreateParamsFpxDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsEps(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsEpsDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsEpsDisplayPreference|None"
         ]
 
     class CreateParamsEpsDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsCashapp(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsCashappDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsCashappDisplayPreference|None"
         ]
 
     class CreateParamsCashappDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsCartesBancaires(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsCartesBancairesDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsCartesBancairesDisplayPreference|None"
         ]
 
     class CreateParamsCartesBancairesDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsCard(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsCardDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsCardDisplayPreference|None"
         ]
 
     class CreateParamsCardDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsBoleto(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsBoletoDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsBoletoDisplayPreference|None"
         ]
 
     class CreateParamsBoletoDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsBlik(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsBlikDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsBlikDisplayPreference|None"
         ]
 
     class CreateParamsBlikDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsBancontact(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsBancontactDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsBancontactDisplayPreference|None"
         ]
 
     class CreateParamsBancontactDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsBacsDebit(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsBacsDebitDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsBacsDebitDisplayPreference|None"
         ]
 
     class CreateParamsBacsDebitDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsAuBecsDebit(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsAuBecsDebitDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsAuBecsDebitDisplayPreference|None"
         ]
 
     class CreateParamsAuBecsDebitDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsApplePayLater(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsApplePayLaterDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsApplePayLaterDisplayPreference|None"
         ]
 
     class CreateParamsApplePayLaterDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsApplePay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsApplePayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsApplePayDisplayPreference|None"
         ]
 
     class CreateParamsApplePayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsAlipay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsAlipayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsAlipayDisplayPreference|None"
         ]
 
     class CreateParamsAlipayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsAfterpayClearpay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsAfterpayClearpayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsAfterpayClearpayDisplayPreference|None"
         ]
 
     class CreateParamsAfterpayClearpayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsAffirm(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsAffirmDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsAffirmDisplayPreference|None"
         ]
 
     class CreateParamsAffirmDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class CreateParamsAcssDebit(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.CreateParamsAcssDebitDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.CreateParamsAcssDebitDisplayPreference|None"
         ]
 
     class CreateParamsAcssDebitDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ListParams(RequestOptions):
-        application: NotRequired[Optional[Union[Literal[""], str]]]
-        expand: NotRequired[Optional[List[str]]]
+        application: NotRequired["Literal['']|str|None"]
+        expand: NotRequired["List[str]|None"]
 
     class ModifyParams(RequestOptions):
         acss_debit: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsAcssDebit"]
+            "PaymentMethodConfiguration.ModifyParamsAcssDebit|None"
         ]
-        active: NotRequired[Optional[bool]]
+        active: NotRequired["bool|None"]
         affirm: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsAffirm"]
+            "PaymentMethodConfiguration.ModifyParamsAffirm|None"
         ]
         afterpay_clearpay: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsAfterpayClearpay"]
+            "PaymentMethodConfiguration.ModifyParamsAfterpayClearpay|None"
         ]
         alipay: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsAlipay"]
+            "PaymentMethodConfiguration.ModifyParamsAlipay|None"
         ]
         apple_pay: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsApplePay"]
+            "PaymentMethodConfiguration.ModifyParamsApplePay|None"
         ]
         apple_pay_later: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsApplePayLater"]
+            "PaymentMethodConfiguration.ModifyParamsApplePayLater|None"
         ]
         au_becs_debit: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsAuBecsDebit"]
+            "PaymentMethodConfiguration.ModifyParamsAuBecsDebit|None"
         ]
         bacs_debit: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsBacsDebit"]
+            "PaymentMethodConfiguration.ModifyParamsBacsDebit|None"
         ]
         bancontact: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsBancontact"]
+            "PaymentMethodConfiguration.ModifyParamsBancontact|None"
         ]
-        blik: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsBlik"]
-        ]
+        blik: NotRequired["PaymentMethodConfiguration.ModifyParamsBlik|None"]
         boleto: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsBoleto"]
+            "PaymentMethodConfiguration.ModifyParamsBoleto|None"
         ]
-        card: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsCard"]
-        ]
+        card: NotRequired["PaymentMethodConfiguration.ModifyParamsCard|None"]
         cartes_bancaires: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsCartesBancaires"]
+            "PaymentMethodConfiguration.ModifyParamsCartesBancaires|None"
         ]
         cashapp: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsCashapp"]
+            "PaymentMethodConfiguration.ModifyParamsCashapp|None"
         ]
-        eps: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsEps"]
-        ]
-        expand: NotRequired[Optional[List[str]]]
-        fpx: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsFpx"]
-        ]
+        eps: NotRequired["PaymentMethodConfiguration.ModifyParamsEps|None"]
+        expand: NotRequired["List[str]|None"]
+        fpx: NotRequired["PaymentMethodConfiguration.ModifyParamsFpx|None"]
         giropay: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsGiropay"]
+            "PaymentMethodConfiguration.ModifyParamsGiropay|None"
         ]
         google_pay: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsGooglePay"]
+            "PaymentMethodConfiguration.ModifyParamsGooglePay|None"
         ]
         grabpay: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsGrabpay"]
+            "PaymentMethodConfiguration.ModifyParamsGrabpay|None"
         ]
-        ideal: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsIdeal"]
-        ]
-        jcb: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsJcb"]
-        ]
+        ideal: NotRequired["PaymentMethodConfiguration.ModifyParamsIdeal|None"]
+        jcb: NotRequired["PaymentMethodConfiguration.ModifyParamsJcb|None"]
         klarna: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsKlarna"]
+            "PaymentMethodConfiguration.ModifyParamsKlarna|None"
         ]
         konbini: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsKonbini"]
+            "PaymentMethodConfiguration.ModifyParamsKonbini|None"
         ]
-        link: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsLink"]
-        ]
-        name: NotRequired[Optional[str]]
-        oxxo: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsOxxo"]
-        ]
-        p24: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsP24"]
-        ]
+        link: NotRequired["PaymentMethodConfiguration.ModifyParamsLink|None"]
+        name: NotRequired["str|None"]
+        oxxo: NotRequired["PaymentMethodConfiguration.ModifyParamsOxxo|None"]
+        p24: NotRequired["PaymentMethodConfiguration.ModifyParamsP24|None"]
         paynow: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsPaynow"]
+            "PaymentMethodConfiguration.ModifyParamsPaynow|None"
         ]
         paypal: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsPaypal"]
+            "PaymentMethodConfiguration.ModifyParamsPaypal|None"
         ]
         promptpay: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsPromptpay"]
+            "PaymentMethodConfiguration.ModifyParamsPromptpay|None"
         ]
         sepa_debit: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsSepaDebit"]
+            "PaymentMethodConfiguration.ModifyParamsSepaDebit|None"
         ]
         sofort: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsSofort"]
+            "PaymentMethodConfiguration.ModifyParamsSofort|None"
         ]
         us_bank_account: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsUsBankAccount"]
+            "PaymentMethodConfiguration.ModifyParamsUsBankAccount|None"
         ]
         wechat_pay: NotRequired[
-            Optional["PaymentMethodConfiguration.ModifyParamsWechatPay"]
+            "PaymentMethodConfiguration.ModifyParamsWechatPay|None"
         ]
 
     class ModifyParamsWechatPay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsWechatPayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsWechatPayDisplayPreference|None"
         ]
 
     class ModifyParamsWechatPayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsUsBankAccount(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsUsBankAccountDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsUsBankAccountDisplayPreference|None"
         ]
 
     class ModifyParamsUsBankAccountDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsSofort(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsSofortDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsSofortDisplayPreference|None"
         ]
 
     class ModifyParamsSofortDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsSepaDebit(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsSepaDebitDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsSepaDebitDisplayPreference|None"
         ]
 
     class ModifyParamsSepaDebitDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsPromptpay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsPromptpayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsPromptpayDisplayPreference|None"
         ]
 
     class ModifyParamsPromptpayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsPaypal(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsPaypalDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsPaypalDisplayPreference|None"
         ]
 
     class ModifyParamsPaypalDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsPaynow(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsPaynowDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsPaynowDisplayPreference|None"
         ]
 
     class ModifyParamsPaynowDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsP24(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsP24DisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsP24DisplayPreference|None"
         ]
 
     class ModifyParamsP24DisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsOxxo(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsOxxoDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsOxxoDisplayPreference|None"
         ]
 
     class ModifyParamsOxxoDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsLink(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsLinkDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsLinkDisplayPreference|None"
         ]
 
     class ModifyParamsLinkDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsKonbini(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsKonbiniDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsKonbiniDisplayPreference|None"
         ]
 
     class ModifyParamsKonbiniDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsKlarna(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsKlarnaDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsKlarnaDisplayPreference|None"
         ]
 
     class ModifyParamsKlarnaDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsJcb(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsJcbDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsJcbDisplayPreference|None"
         ]
 
     class ModifyParamsJcbDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsIdeal(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsIdealDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsIdealDisplayPreference|None"
         ]
 
     class ModifyParamsIdealDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsGrabpay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsGrabpayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsGrabpayDisplayPreference|None"
         ]
 
     class ModifyParamsGrabpayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsGooglePay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsGooglePayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsGooglePayDisplayPreference|None"
         ]
 
     class ModifyParamsGooglePayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsGiropay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsGiropayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsGiropayDisplayPreference|None"
         ]
 
     class ModifyParamsGiropayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsFpx(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsFpxDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsFpxDisplayPreference|None"
         ]
 
     class ModifyParamsFpxDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsEps(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsEpsDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsEpsDisplayPreference|None"
         ]
 
     class ModifyParamsEpsDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsCashapp(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsCashappDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsCashappDisplayPreference|None"
         ]
 
     class ModifyParamsCashappDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsCartesBancaires(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsCartesBancairesDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsCartesBancairesDisplayPreference|None"
         ]
 
     class ModifyParamsCartesBancairesDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsCard(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsCardDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsCardDisplayPreference|None"
         ]
 
     class ModifyParamsCardDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsBoleto(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsBoletoDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsBoletoDisplayPreference|None"
         ]
 
     class ModifyParamsBoletoDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsBlik(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsBlikDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsBlikDisplayPreference|None"
         ]
 
     class ModifyParamsBlikDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsBancontact(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsBancontactDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsBancontactDisplayPreference|None"
         ]
 
     class ModifyParamsBancontactDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsBacsDebit(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsBacsDebitDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsBacsDebitDisplayPreference|None"
         ]
 
     class ModifyParamsBacsDebitDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsAuBecsDebit(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsAuBecsDebitDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsAuBecsDebitDisplayPreference|None"
         ]
 
     class ModifyParamsAuBecsDebitDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsApplePayLater(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsApplePayLaterDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsApplePayLaterDisplayPreference|None"
         ]
 
     class ModifyParamsApplePayLaterDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsApplePay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsApplePayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsApplePayDisplayPreference|None"
         ]
 
     class ModifyParamsApplePayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsAlipay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsAlipayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsAlipayDisplayPreference|None"
         ]
 
     class ModifyParamsAlipayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsAfterpayClearpay(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsAfterpayClearpayDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsAfterpayClearpayDisplayPreference|None"
         ]
 
     class ModifyParamsAfterpayClearpayDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsAffirm(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsAffirmDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsAffirmDisplayPreference|None"
         ]
 
     class ModifyParamsAffirmDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class ModifyParamsAcssDebit(TypedDict):
         display_preference: NotRequired[
-            Optional[
-                "PaymentMethodConfiguration.ModifyParamsAcssDebitDisplayPreference"
-            ]
+            "PaymentMethodConfiguration.ModifyParamsAcssDebitDisplayPreference|None"
         ]
 
     class ModifyParamsAcssDebitDisplayPreference(TypedDict):
-        preference: NotRequired[Optional[Literal["none", "off", "on"]]]
+        preference: NotRequired["Literal['none', 'off', 'on']|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     acss_debit: Optional[StripeObject]
     active: bool

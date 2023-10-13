@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -12,7 +10,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -37,319 +35,221 @@ class Dispute(
     OBJECT_NAME = "issuing.dispute"
 
     class CreateParams(RequestOptions):
-        amount: NotRequired[Optional[int]]
-        evidence: NotRequired[Optional["Dispute.CreateParamsEvidence"]]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        transaction: NotRequired[Optional[str]]
-        treasury: NotRequired[Optional["Dispute.CreateParamsTreasury"]]
+        amount: NotRequired["int|None"]
+        evidence: NotRequired["Dispute.CreateParamsEvidence|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        transaction: NotRequired["str|None"]
+        treasury: NotRequired["Dispute.CreateParamsTreasury|None"]
 
     class CreateParamsTreasury(TypedDict):
         received_debit: str
 
     class CreateParamsEvidence(TypedDict):
         canceled: NotRequired[
-            Optional[
-                Union[Literal[""], "Dispute.CreateParamsEvidenceCanceled"]
-            ]
+            "Literal['']|Dispute.CreateParamsEvidenceCanceled|None"
         ]
         duplicate: NotRequired[
-            Optional[
-                Union[Literal[""], "Dispute.CreateParamsEvidenceDuplicate"]
-            ]
+            "Literal['']|Dispute.CreateParamsEvidenceDuplicate|None"
         ]
         fraudulent: NotRequired[
-            Optional[
-                Union[Literal[""], "Dispute.CreateParamsEvidenceFraudulent"]
-            ]
+            "Literal['']|Dispute.CreateParamsEvidenceFraudulent|None"
         ]
         merchandise_not_as_described: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "Dispute.CreateParamsEvidenceMerchandiseNotAsDescribed",
-                ]
-            ]
+            "Literal['']|Dispute.CreateParamsEvidenceMerchandiseNotAsDescribed|None"
         ]
         not_received: NotRequired[
-            Optional[
-                Union[Literal[""], "Dispute.CreateParamsEvidenceNotReceived"]
-            ]
+            "Literal['']|Dispute.CreateParamsEvidenceNotReceived|None"
         ]
         other: NotRequired[
-            Optional[Union[Literal[""], "Dispute.CreateParamsEvidenceOther"]]
+            "Literal['']|Dispute.CreateParamsEvidenceOther|None"
         ]
         reason: NotRequired[
-            Optional[
-                Literal[
-                    "canceled",
-                    "duplicate",
-                    "fraudulent",
-                    "merchandise_not_as_described",
-                    "not_received",
-                    "other",
-                    "service_not_as_described",
-                ]
-            ]
+            "Literal['canceled', 'duplicate', 'fraudulent', 'merchandise_not_as_described', 'not_received', 'other', 'service_not_as_described']|None"
         ]
         service_not_as_described: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "Dispute.CreateParamsEvidenceServiceNotAsDescribed",
-                ]
-            ]
+            "Literal['']|Dispute.CreateParamsEvidenceServiceNotAsDescribed|None"
         ]
 
     class CreateParamsEvidenceServiceNotAsDescribed(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        canceled_at: NotRequired[Optional[Union[Literal[""], int]]]
-        cancellation_reason: NotRequired[Optional[Union[Literal[""], str]]]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
-        received_at: NotRequired[Optional[Union[Literal[""], int]]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        canceled_at: NotRequired["Literal['']|int|None"]
+        cancellation_reason: NotRequired["Literal['']|str|None"]
+        explanation: NotRequired["Literal['']|str|None"]
+        received_at: NotRequired["Literal['']|int|None"]
 
     class CreateParamsEvidenceOther(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
-        product_description: NotRequired[Optional[Union[Literal[""], str]]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        explanation: NotRequired["Literal['']|str|None"]
+        product_description: NotRequired["Literal['']|str|None"]
         product_type: NotRequired[
-            Optional[Union[Literal[""], Literal["merchandise", "service"]]]
+            "Literal['']|Literal['merchandise', 'service']|None"
         ]
 
     class CreateParamsEvidenceNotReceived(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        expected_at: NotRequired[Optional[Union[Literal[""], int]]]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
-        product_description: NotRequired[Optional[Union[Literal[""], str]]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        expected_at: NotRequired["Literal['']|int|None"]
+        explanation: NotRequired["Literal['']|str|None"]
+        product_description: NotRequired["Literal['']|str|None"]
         product_type: NotRequired[
-            Optional[Union[Literal[""], Literal["merchandise", "service"]]]
+            "Literal['']|Literal['merchandise', 'service']|None"
         ]
 
     class CreateParamsEvidenceMerchandiseNotAsDescribed(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
-        received_at: NotRequired[Optional[Union[Literal[""], int]]]
-        return_description: NotRequired[Optional[Union[Literal[""], str]]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        explanation: NotRequired["Literal['']|str|None"]
+        received_at: NotRequired["Literal['']|int|None"]
+        return_description: NotRequired["Literal['']|str|None"]
         return_status: NotRequired[
-            Optional[
-                Union[Literal[""], Literal["merchant_rejected", "successful"]]
-            ]
+            "Literal['']|Literal['merchant_rejected', 'successful']|None"
         ]
-        returned_at: NotRequired[Optional[Union[Literal[""], int]]]
+        returned_at: NotRequired["Literal['']|int|None"]
 
     class CreateParamsEvidenceFraudulent(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        explanation: NotRequired["Literal['']|str|None"]
 
     class CreateParamsEvidenceDuplicate(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        card_statement: NotRequired[Optional[Union[Literal[""], str]]]
-        cash_receipt: NotRequired[Optional[Union[Literal[""], str]]]
-        check_image: NotRequired[Optional[Union[Literal[""], str]]]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
-        original_transaction: NotRequired[Optional[str]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        card_statement: NotRequired["Literal['']|str|None"]
+        cash_receipt: NotRequired["Literal['']|str|None"]
+        check_image: NotRequired["Literal['']|str|None"]
+        explanation: NotRequired["Literal['']|str|None"]
+        original_transaction: NotRequired["str|None"]
 
     class CreateParamsEvidenceCanceled(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        canceled_at: NotRequired[Optional[Union[Literal[""], int]]]
-        cancellation_policy_provided: NotRequired[
-            Optional[Union[Literal[""], bool]]
-        ]
-        cancellation_reason: NotRequired[Optional[Union[Literal[""], str]]]
-        expected_at: NotRequired[Optional[Union[Literal[""], int]]]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
-        product_description: NotRequired[Optional[Union[Literal[""], str]]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        canceled_at: NotRequired["Literal['']|int|None"]
+        cancellation_policy_provided: NotRequired["Literal['']|bool|None"]
+        cancellation_reason: NotRequired["Literal['']|str|None"]
+        expected_at: NotRequired["Literal['']|int|None"]
+        explanation: NotRequired["Literal['']|str|None"]
+        product_description: NotRequired["Literal['']|str|None"]
         product_type: NotRequired[
-            Optional[Union[Literal[""], Literal["merchandise", "service"]]]
+            "Literal['']|Literal['merchandise', 'service']|None"
         ]
         return_status: NotRequired[
-            Optional[
-                Union[Literal[""], Literal["merchant_rejected", "successful"]]
-            ]
+            "Literal['']|Literal['merchant_rejected', 'successful']|None"
         ]
-        returned_at: NotRequired[Optional[Union[Literal[""], int]]]
+        returned_at: NotRequired["Literal['']|int|None"]
 
     class ListParams(RequestOptions):
-        created: NotRequired[Optional[Union["Dispute.ListParamsCreated", int]]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        created: NotRequired["Dispute.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
         status: NotRequired[
-            Optional[
-                Literal["expired", "lost", "submitted", "unsubmitted", "won"]
-            ]
+            "Literal['expired', 'lost', 'submitted', 'unsubmitted', 'won']|None"
         ]
-        transaction: NotRequired[Optional[str]]
+        transaction: NotRequired["str|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ModifyParams(RequestOptions):
-        amount: NotRequired[Optional[int]]
-        evidence: NotRequired[Optional["Dispute.ModifyParamsEvidence"]]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        amount: NotRequired["int|None"]
+        evidence: NotRequired["Dispute.ModifyParamsEvidence|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
     class ModifyParamsEvidence(TypedDict):
         canceled: NotRequired[
-            Optional[
-                Union[Literal[""], "Dispute.ModifyParamsEvidenceCanceled"]
-            ]
+            "Literal['']|Dispute.ModifyParamsEvidenceCanceled|None"
         ]
         duplicate: NotRequired[
-            Optional[
-                Union[Literal[""], "Dispute.ModifyParamsEvidenceDuplicate"]
-            ]
+            "Literal['']|Dispute.ModifyParamsEvidenceDuplicate|None"
         ]
         fraudulent: NotRequired[
-            Optional[
-                Union[Literal[""], "Dispute.ModifyParamsEvidenceFraudulent"]
-            ]
+            "Literal['']|Dispute.ModifyParamsEvidenceFraudulent|None"
         ]
         merchandise_not_as_described: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "Dispute.ModifyParamsEvidenceMerchandiseNotAsDescribed",
-                ]
-            ]
+            "Literal['']|Dispute.ModifyParamsEvidenceMerchandiseNotAsDescribed|None"
         ]
         not_received: NotRequired[
-            Optional[
-                Union[Literal[""], "Dispute.ModifyParamsEvidenceNotReceived"]
-            ]
+            "Literal['']|Dispute.ModifyParamsEvidenceNotReceived|None"
         ]
         other: NotRequired[
-            Optional[Union[Literal[""], "Dispute.ModifyParamsEvidenceOther"]]
+            "Literal['']|Dispute.ModifyParamsEvidenceOther|None"
         ]
         reason: NotRequired[
-            Optional[
-                Literal[
-                    "canceled",
-                    "duplicate",
-                    "fraudulent",
-                    "merchandise_not_as_described",
-                    "not_received",
-                    "other",
-                    "service_not_as_described",
-                ]
-            ]
+            "Literal['canceled', 'duplicate', 'fraudulent', 'merchandise_not_as_described', 'not_received', 'other', 'service_not_as_described']|None"
         ]
         service_not_as_described: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "Dispute.ModifyParamsEvidenceServiceNotAsDescribed",
-                ]
-            ]
+            "Literal['']|Dispute.ModifyParamsEvidenceServiceNotAsDescribed|None"
         ]
 
     class ModifyParamsEvidenceServiceNotAsDescribed(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        canceled_at: NotRequired[Optional[Union[Literal[""], int]]]
-        cancellation_reason: NotRequired[Optional[Union[Literal[""], str]]]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
-        received_at: NotRequired[Optional[Union[Literal[""], int]]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        canceled_at: NotRequired["Literal['']|int|None"]
+        cancellation_reason: NotRequired["Literal['']|str|None"]
+        explanation: NotRequired["Literal['']|str|None"]
+        received_at: NotRequired["Literal['']|int|None"]
 
     class ModifyParamsEvidenceOther(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
-        product_description: NotRequired[Optional[Union[Literal[""], str]]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        explanation: NotRequired["Literal['']|str|None"]
+        product_description: NotRequired["Literal['']|str|None"]
         product_type: NotRequired[
-            Optional[Union[Literal[""], Literal["merchandise", "service"]]]
+            "Literal['']|Literal['merchandise', 'service']|None"
         ]
 
     class ModifyParamsEvidenceNotReceived(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        expected_at: NotRequired[Optional[Union[Literal[""], int]]]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
-        product_description: NotRequired[Optional[Union[Literal[""], str]]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        expected_at: NotRequired["Literal['']|int|None"]
+        explanation: NotRequired["Literal['']|str|None"]
+        product_description: NotRequired["Literal['']|str|None"]
         product_type: NotRequired[
-            Optional[Union[Literal[""], Literal["merchandise", "service"]]]
+            "Literal['']|Literal['merchandise', 'service']|None"
         ]
 
     class ModifyParamsEvidenceMerchandiseNotAsDescribed(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
-        received_at: NotRequired[Optional[Union[Literal[""], int]]]
-        return_description: NotRequired[Optional[Union[Literal[""], str]]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        explanation: NotRequired["Literal['']|str|None"]
+        received_at: NotRequired["Literal['']|int|None"]
+        return_description: NotRequired["Literal['']|str|None"]
         return_status: NotRequired[
-            Optional[
-                Union[Literal[""], Literal["merchant_rejected", "successful"]]
-            ]
+            "Literal['']|Literal['merchant_rejected', 'successful']|None"
         ]
-        returned_at: NotRequired[Optional[Union[Literal[""], int]]]
+        returned_at: NotRequired["Literal['']|int|None"]
 
     class ModifyParamsEvidenceFraudulent(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        explanation: NotRequired["Literal['']|str|None"]
 
     class ModifyParamsEvidenceDuplicate(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        card_statement: NotRequired[Optional[Union[Literal[""], str]]]
-        cash_receipt: NotRequired[Optional[Union[Literal[""], str]]]
-        check_image: NotRequired[Optional[Union[Literal[""], str]]]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
-        original_transaction: NotRequired[Optional[str]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        card_statement: NotRequired["Literal['']|str|None"]
+        cash_receipt: NotRequired["Literal['']|str|None"]
+        check_image: NotRequired["Literal['']|str|None"]
+        explanation: NotRequired["Literal['']|str|None"]
+        original_transaction: NotRequired["str|None"]
 
     class ModifyParamsEvidenceCanceled(TypedDict):
-        additional_documentation: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        canceled_at: NotRequired[Optional[Union[Literal[""], int]]]
-        cancellation_policy_provided: NotRequired[
-            Optional[Union[Literal[""], bool]]
-        ]
-        cancellation_reason: NotRequired[Optional[Union[Literal[""], str]]]
-        expected_at: NotRequired[Optional[Union[Literal[""], int]]]
-        explanation: NotRequired[Optional[Union[Literal[""], str]]]
-        product_description: NotRequired[Optional[Union[Literal[""], str]]]
+        additional_documentation: NotRequired["Literal['']|str|None"]
+        canceled_at: NotRequired["Literal['']|int|None"]
+        cancellation_policy_provided: NotRequired["Literal['']|bool|None"]
+        cancellation_reason: NotRequired["Literal['']|str|None"]
+        expected_at: NotRequired["Literal['']|int|None"]
+        explanation: NotRequired["Literal['']|str|None"]
+        product_description: NotRequired["Literal['']|str|None"]
         product_type: NotRequired[
-            Optional[Union[Literal[""], Literal["merchandise", "service"]]]
+            "Literal['']|Literal['merchandise', 'service']|None"
         ]
         return_status: NotRequired[
-            Optional[
-                Union[Literal[""], Literal["merchant_rejected", "successful"]]
-            ]
+            "Literal['']|Literal['merchant_rejected', 'successful']|None"
         ]
-        returned_at: NotRequired[Optional[Union[Literal[""], int]]]
+        returned_at: NotRequired["Literal['']|int|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class SubmitParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
     amount: int
     balance_transactions: Optional[List["BalanceTransaction"]]

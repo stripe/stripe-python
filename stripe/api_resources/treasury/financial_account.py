@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -11,7 +9,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -36,57 +34,51 @@ class FinancialAccount(
     OBJECT_NAME = "treasury.financial_account"
 
     class CreateParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        features: NotRequired[
-            Optional["FinancialAccount.CreateParamsFeatures"]
-        ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        expand: NotRequired["List[str]|None"]
+        features: NotRequired["FinancialAccount.CreateParamsFeatures|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
         platform_restrictions: NotRequired[
-            Optional["FinancialAccount.CreateParamsPlatformRestrictions"]
+            "FinancialAccount.CreateParamsPlatformRestrictions|None"
         ]
         supported_currencies: List[str]
 
     class CreateParamsPlatformRestrictions(TypedDict):
         inbound_flows: NotRequired[
-            Optional[Literal["restricted", "unrestricted"]]
+            "Literal['restricted', 'unrestricted']|None"
         ]
         outbound_flows: NotRequired[
-            Optional[Literal["restricted", "unrestricted"]]
+            "Literal['restricted', 'unrestricted']|None"
         ]
 
     class CreateParamsFeatures(TypedDict):
         card_issuing: NotRequired[
-            Optional["FinancialAccount.CreateParamsFeaturesCardIssuing"]
+            "FinancialAccount.CreateParamsFeaturesCardIssuing|None"
         ]
         deposit_insurance: NotRequired[
-            Optional["FinancialAccount.CreateParamsFeaturesDepositInsurance"]
+            "FinancialAccount.CreateParamsFeaturesDepositInsurance|None"
         ]
         financial_addresses: NotRequired[
-            Optional["FinancialAccount.CreateParamsFeaturesFinancialAddresses"]
+            "FinancialAccount.CreateParamsFeaturesFinancialAddresses|None"
         ]
         inbound_transfers: NotRequired[
-            Optional["FinancialAccount.CreateParamsFeaturesInboundTransfers"]
+            "FinancialAccount.CreateParamsFeaturesInboundTransfers|None"
         ]
         intra_stripe_flows: NotRequired[
-            Optional["FinancialAccount.CreateParamsFeaturesIntraStripeFlows"]
+            "FinancialAccount.CreateParamsFeaturesIntraStripeFlows|None"
         ]
         outbound_payments: NotRequired[
-            Optional["FinancialAccount.CreateParamsFeaturesOutboundPayments"]
+            "FinancialAccount.CreateParamsFeaturesOutboundPayments|None"
         ]
         outbound_transfers: NotRequired[
-            Optional["FinancialAccount.CreateParamsFeaturesOutboundTransfers"]
+            "FinancialAccount.CreateParamsFeaturesOutboundTransfers|None"
         ]
 
     class CreateParamsFeaturesOutboundTransfers(TypedDict):
         ach: NotRequired[
-            Optional[
-                "FinancialAccount.CreateParamsFeaturesOutboundTransfersAch"
-            ]
+            "FinancialAccount.CreateParamsFeaturesOutboundTransfersAch|None"
         ]
         us_domestic_wire: NotRequired[
-            Optional[
-                "FinancialAccount.CreateParamsFeaturesOutboundTransfersUsDomesticWire"
-            ]
+            "FinancialAccount.CreateParamsFeaturesOutboundTransfersUsDomesticWire|None"
         ]
 
     class CreateParamsFeaturesOutboundTransfersUsDomesticWire(TypedDict):
@@ -97,14 +89,10 @@ class FinancialAccount(
 
     class CreateParamsFeaturesOutboundPayments(TypedDict):
         ach: NotRequired[
-            Optional[
-                "FinancialAccount.CreateParamsFeaturesOutboundPaymentsAch"
-            ]
+            "FinancialAccount.CreateParamsFeaturesOutboundPaymentsAch|None"
         ]
         us_domestic_wire: NotRequired[
-            Optional[
-                "FinancialAccount.CreateParamsFeaturesOutboundPaymentsUsDomesticWire"
-            ]
+            "FinancialAccount.CreateParamsFeaturesOutboundPaymentsUsDomesticWire|None"
         ]
 
     class CreateParamsFeaturesOutboundPaymentsUsDomesticWire(TypedDict):
@@ -118,9 +106,7 @@ class FinancialAccount(
 
     class CreateParamsFeaturesInboundTransfers(TypedDict):
         ach: NotRequired[
-            Optional[
-                "FinancialAccount.CreateParamsFeaturesInboundTransfersAch"
-            ]
+            "FinancialAccount.CreateParamsFeaturesInboundTransfersAch|None"
         ]
 
     class CreateParamsFeaturesInboundTransfersAch(TypedDict):
@@ -128,9 +114,7 @@ class FinancialAccount(
 
     class CreateParamsFeaturesFinancialAddresses(TypedDict):
         aba: NotRequired[
-            Optional[
-                "FinancialAccount.CreateParamsFeaturesFinancialAddressesAba"
-            ]
+            "FinancialAccount.CreateParamsFeaturesFinancialAddressesAba|None"
         ]
 
     class CreateParamsFeaturesFinancialAddressesAba(TypedDict):
@@ -143,71 +127,63 @@ class FinancialAccount(
         requested: bool
 
     class ListParams(RequestOptions):
-        created: NotRequired[
-            Optional[Union["FinancialAccount.ListParamsCreated", int]]
-        ]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        created: NotRequired["FinancialAccount.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ModifyParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        features: NotRequired[
-            Optional["FinancialAccount.ModifyParamsFeatures"]
-        ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        expand: NotRequired["List[str]|None"]
+        features: NotRequired["FinancialAccount.ModifyParamsFeatures|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
         platform_restrictions: NotRequired[
-            Optional["FinancialAccount.ModifyParamsPlatformRestrictions"]
+            "FinancialAccount.ModifyParamsPlatformRestrictions|None"
         ]
 
     class ModifyParamsPlatformRestrictions(TypedDict):
         inbound_flows: NotRequired[
-            Optional[Literal["restricted", "unrestricted"]]
+            "Literal['restricted', 'unrestricted']|None"
         ]
         outbound_flows: NotRequired[
-            Optional[Literal["restricted", "unrestricted"]]
+            "Literal['restricted', 'unrestricted']|None"
         ]
 
     class ModifyParamsFeatures(TypedDict):
         card_issuing: NotRequired[
-            Optional["FinancialAccount.ModifyParamsFeaturesCardIssuing"]
+            "FinancialAccount.ModifyParamsFeaturesCardIssuing|None"
         ]
         deposit_insurance: NotRequired[
-            Optional["FinancialAccount.ModifyParamsFeaturesDepositInsurance"]
+            "FinancialAccount.ModifyParamsFeaturesDepositInsurance|None"
         ]
         financial_addresses: NotRequired[
-            Optional["FinancialAccount.ModifyParamsFeaturesFinancialAddresses"]
+            "FinancialAccount.ModifyParamsFeaturesFinancialAddresses|None"
         ]
         inbound_transfers: NotRequired[
-            Optional["FinancialAccount.ModifyParamsFeaturesInboundTransfers"]
+            "FinancialAccount.ModifyParamsFeaturesInboundTransfers|None"
         ]
         intra_stripe_flows: NotRequired[
-            Optional["FinancialAccount.ModifyParamsFeaturesIntraStripeFlows"]
+            "FinancialAccount.ModifyParamsFeaturesIntraStripeFlows|None"
         ]
         outbound_payments: NotRequired[
-            Optional["FinancialAccount.ModifyParamsFeaturesOutboundPayments"]
+            "FinancialAccount.ModifyParamsFeaturesOutboundPayments|None"
         ]
         outbound_transfers: NotRequired[
-            Optional["FinancialAccount.ModifyParamsFeaturesOutboundTransfers"]
+            "FinancialAccount.ModifyParamsFeaturesOutboundTransfers|None"
         ]
 
     class ModifyParamsFeaturesOutboundTransfers(TypedDict):
         ach: NotRequired[
-            Optional[
-                "FinancialAccount.ModifyParamsFeaturesOutboundTransfersAch"
-            ]
+            "FinancialAccount.ModifyParamsFeaturesOutboundTransfersAch|None"
         ]
         us_domestic_wire: NotRequired[
-            Optional[
-                "FinancialAccount.ModifyParamsFeaturesOutboundTransfersUsDomesticWire"
-            ]
+            "FinancialAccount.ModifyParamsFeaturesOutboundTransfersUsDomesticWire|None"
         ]
 
     class ModifyParamsFeaturesOutboundTransfersUsDomesticWire(TypedDict):
@@ -218,14 +194,10 @@ class FinancialAccount(
 
     class ModifyParamsFeaturesOutboundPayments(TypedDict):
         ach: NotRequired[
-            Optional[
-                "FinancialAccount.ModifyParamsFeaturesOutboundPaymentsAch"
-            ]
+            "FinancialAccount.ModifyParamsFeaturesOutboundPaymentsAch|None"
         ]
         us_domestic_wire: NotRequired[
-            Optional[
-                "FinancialAccount.ModifyParamsFeaturesOutboundPaymentsUsDomesticWire"
-            ]
+            "FinancialAccount.ModifyParamsFeaturesOutboundPaymentsUsDomesticWire|None"
         ]
 
     class ModifyParamsFeaturesOutboundPaymentsUsDomesticWire(TypedDict):
@@ -239,9 +211,7 @@ class FinancialAccount(
 
     class ModifyParamsFeaturesInboundTransfers(TypedDict):
         ach: NotRequired[
-            Optional[
-                "FinancialAccount.ModifyParamsFeaturesInboundTransfersAch"
-            ]
+            "FinancialAccount.ModifyParamsFeaturesInboundTransfersAch|None"
         ]
 
     class ModifyParamsFeaturesInboundTransfersAch(TypedDict):
@@ -249,9 +219,7 @@ class FinancialAccount(
 
     class ModifyParamsFeaturesFinancialAddresses(TypedDict):
         aba: NotRequired[
-            Optional[
-                "FinancialAccount.ModifyParamsFeaturesFinancialAddressesAba"
-            ]
+            "FinancialAccount.ModifyParamsFeaturesFinancialAddressesAba|None"
         ]
 
     class ModifyParamsFeaturesFinancialAddressesAba(TypedDict):
@@ -264,45 +232,41 @@ class FinancialAccount(
         requested: bool
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class RetrieveFeaturesParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class UpdateFeaturesParams(RequestOptions):
         card_issuing: NotRequired[
-            Optional["FinancialAccount.UpdateFeaturesParamsCardIssuing"]
+            "FinancialAccount.UpdateFeaturesParamsCardIssuing|None"
         ]
         deposit_insurance: NotRequired[
-            Optional["FinancialAccount.UpdateFeaturesParamsDepositInsurance"]
+            "FinancialAccount.UpdateFeaturesParamsDepositInsurance|None"
         ]
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
         financial_addresses: NotRequired[
-            Optional["FinancialAccount.UpdateFeaturesParamsFinancialAddresses"]
+            "FinancialAccount.UpdateFeaturesParamsFinancialAddresses|None"
         ]
         inbound_transfers: NotRequired[
-            Optional["FinancialAccount.UpdateFeaturesParamsInboundTransfers"]
+            "FinancialAccount.UpdateFeaturesParamsInboundTransfers|None"
         ]
         intra_stripe_flows: NotRequired[
-            Optional["FinancialAccount.UpdateFeaturesParamsIntraStripeFlows"]
+            "FinancialAccount.UpdateFeaturesParamsIntraStripeFlows|None"
         ]
         outbound_payments: NotRequired[
-            Optional["FinancialAccount.UpdateFeaturesParamsOutboundPayments"]
+            "FinancialAccount.UpdateFeaturesParamsOutboundPayments|None"
         ]
         outbound_transfers: NotRequired[
-            Optional["FinancialAccount.UpdateFeaturesParamsOutboundTransfers"]
+            "FinancialAccount.UpdateFeaturesParamsOutboundTransfers|None"
         ]
 
     class UpdateFeaturesParamsOutboundTransfers(TypedDict):
         ach: NotRequired[
-            Optional[
-                "FinancialAccount.UpdateFeaturesParamsOutboundTransfersAch"
-            ]
+            "FinancialAccount.UpdateFeaturesParamsOutboundTransfersAch|None"
         ]
         us_domestic_wire: NotRequired[
-            Optional[
-                "FinancialAccount.UpdateFeaturesParamsOutboundTransfersUsDomesticWire"
-            ]
+            "FinancialAccount.UpdateFeaturesParamsOutboundTransfersUsDomesticWire|None"
         ]
 
     class UpdateFeaturesParamsOutboundTransfersUsDomesticWire(TypedDict):
@@ -313,14 +277,10 @@ class FinancialAccount(
 
     class UpdateFeaturesParamsOutboundPayments(TypedDict):
         ach: NotRequired[
-            Optional[
-                "FinancialAccount.UpdateFeaturesParamsOutboundPaymentsAch"
-            ]
+            "FinancialAccount.UpdateFeaturesParamsOutboundPaymentsAch|None"
         ]
         us_domestic_wire: NotRequired[
-            Optional[
-                "FinancialAccount.UpdateFeaturesParamsOutboundPaymentsUsDomesticWire"
-            ]
+            "FinancialAccount.UpdateFeaturesParamsOutboundPaymentsUsDomesticWire|None"
         ]
 
     class UpdateFeaturesParamsOutboundPaymentsUsDomesticWire(TypedDict):
@@ -334,9 +294,7 @@ class FinancialAccount(
 
     class UpdateFeaturesParamsInboundTransfers(TypedDict):
         ach: NotRequired[
-            Optional[
-                "FinancialAccount.UpdateFeaturesParamsInboundTransfersAch"
-            ]
+            "FinancialAccount.UpdateFeaturesParamsInboundTransfersAch|None"
         ]
 
     class UpdateFeaturesParamsInboundTransfersAch(TypedDict):
@@ -344,9 +302,7 @@ class FinancialAccount(
 
     class UpdateFeaturesParamsFinancialAddresses(TypedDict):
         aba: NotRequired[
-            Optional[
-                "FinancialAccount.UpdateFeaturesParamsFinancialAddressesAba"
-            ]
+            "FinancialAccount.UpdateFeaturesParamsFinancialAddressesAba|None"
         ]
 
     class UpdateFeaturesParamsFinancialAddressesAba(TypedDict):

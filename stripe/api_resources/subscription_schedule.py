@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -12,7 +10,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -39,425 +37,367 @@ class SubscriptionSchedule(
     OBJECT_NAME = "subscription_schedule"
 
     class CancelParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        invoice_now: NotRequired[Optional[bool]]
-        prorate: NotRequired[Optional[bool]]
+        expand: NotRequired["List[str]|None"]
+        invoice_now: NotRequired["bool|None"]
+        prorate: NotRequired["bool|None"]
 
     class CreateParams(RequestOptions):
-        customer: NotRequired[Optional[str]]
+        customer: NotRequired["str|None"]
         default_settings: NotRequired[
-            Optional["SubscriptionSchedule.CreateParamsDefaultSettings"]
+            "SubscriptionSchedule.CreateParamsDefaultSettings|None"
         ]
         end_behavior: NotRequired[
-            Optional[Literal["cancel", "none", "release", "renew"]]
+            "Literal['cancel', 'none', 'release', 'renew']|None"
         ]
-        expand: NotRequired[Optional[List[str]]]
-        from_subscription: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        expand: NotRequired["List[str]|None"]
+        from_subscription: NotRequired["str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
         phases: NotRequired[
-            Optional[List["SubscriptionSchedule.CreateParamsPhase"]]
+            "List[SubscriptionSchedule.CreateParamsPhase]|None"
         ]
-        start_date: NotRequired[Optional[Union[int, Literal["now"]]]]
+        start_date: NotRequired["int|Literal['now']|None"]
 
     class CreateParamsPhase(TypedDict):
         add_invoice_items: NotRequired[
-            Optional[
-                List["SubscriptionSchedule.CreateParamsPhaseAddInvoiceItem"]
-            ]
+            "List[SubscriptionSchedule.CreateParamsPhaseAddInvoiceItem]|None"
         ]
-        application_fee_percent: NotRequired[Optional[float]]
+        application_fee_percent: NotRequired["float|None"]
         automatic_tax: NotRequired[
-            Optional["SubscriptionSchedule.CreateParamsPhaseAutomaticTax"]
+            "SubscriptionSchedule.CreateParamsPhaseAutomaticTax|None"
         ]
         billing_cycle_anchor: NotRequired[
-            Optional[Literal["automatic", "phase_start"]]
+            "Literal['automatic', 'phase_start']|None"
         ]
         billing_thresholds: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "SubscriptionSchedule.CreateParamsPhaseItemBillingThresholds",
-                ]
-            ]
+            "Literal['']|SubscriptionSchedule.CreateParamsPhaseBillingThresholds|None"
         ]
         collection_method: NotRequired[
-            Optional[Literal["charge_automatically", "send_invoice"]]
+            "Literal['charge_automatically', 'send_invoice']|None"
         ]
-        coupon: NotRequired[Optional[str]]
-        currency: NotRequired[Optional[str]]
-        default_payment_method: NotRequired[Optional[str]]
-        default_tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
-        description: NotRequired[Optional[Union[Literal[""], str]]]
-        end_date: NotRequired[Optional[int]]
+        coupon: NotRequired["str|None"]
+        currency: NotRequired["str|None"]
+        default_payment_method: NotRequired["str|None"]
+        default_tax_rates: NotRequired["Literal['']|List[str]|None"]
+        description: NotRequired["Literal['']|str|None"]
+        end_date: NotRequired["int|None"]
         invoice_settings: NotRequired[
-            Optional["SubscriptionSchedule.CreateParamsPhaseInvoiceSettings"]
+            "SubscriptionSchedule.CreateParamsPhaseInvoiceSettings|None"
         ]
         items: List["SubscriptionSchedule.CreateParamsPhaseItem"]
-        iterations: NotRequired[Optional[int]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        on_behalf_of: NotRequired[Optional[str]]
+        iterations: NotRequired["int|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        on_behalf_of: NotRequired["str|None"]
         proration_behavior: NotRequired[
-            Optional[Literal["always_invoice", "create_prorations", "none"]]
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
         ]
         transfer_data: NotRequired[
-            Optional["SubscriptionSchedule.CreateParamsPhaseTransferData"]
+            "SubscriptionSchedule.CreateParamsPhaseTransferData|None"
         ]
-        trial: NotRequired[Optional[bool]]
-        trial_end: NotRequired[Optional[int]]
+        trial: NotRequired["bool|None"]
+        trial_end: NotRequired["int|None"]
 
     class CreateParamsPhaseTransferData(TypedDict):
-        amount_percent: NotRequired[Optional[float]]
+        amount_percent: NotRequired["float|None"]
         destination: str
 
     class CreateParamsPhaseItem(TypedDict):
         billing_thresholds: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "SubscriptionSchedule.CreateParamsPhaseItemBillingThresholds",
-                ]
-            ]
+            "Literal['']|SubscriptionSchedule.CreateParamsPhaseItemBillingThresholds|None"
         ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        plan: NotRequired[Optional[str]]
-        price: NotRequired[Optional[str]]
+        metadata: NotRequired["Dict[str, str]|None"]
+        plan: NotRequired["str|None"]
+        price: NotRequired["str|None"]
         price_data: NotRequired[
-            Optional["SubscriptionSchedule.CreateParamsPhaseItemPriceData"]
+            "SubscriptionSchedule.CreateParamsPhaseItemPriceData|None"
         ]
-        quantity: NotRequired[Optional[int]]
-        tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
 
     class CreateParamsPhaseItemPriceData(TypedDict):
         currency: str
         product: str
         recurring: "SubscriptionSchedule.CreateParamsPhaseItemPriceDataRecurring"
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
     class CreateParamsPhaseItemPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
-        interval_count: NotRequired[Optional[int]]
+        interval_count: NotRequired["int|None"]
 
     class CreateParamsPhaseItemBillingThresholds(TypedDict):
         usage_gte: int
 
     class CreateParamsPhaseInvoiceSettings(TypedDict):
-        days_until_due: NotRequired[Optional[int]]
+        days_until_due: NotRequired["int|None"]
 
     class CreateParamsPhaseBillingThresholds(TypedDict):
-        amount_gte: NotRequired[Optional[int]]
-        reset_billing_cycle_anchor: NotRequired[Optional[bool]]
+        amount_gte: NotRequired["int|None"]
+        reset_billing_cycle_anchor: NotRequired["bool|None"]
 
     class CreateParamsPhaseAutomaticTax(TypedDict):
         enabled: bool
 
     class CreateParamsPhaseAddInvoiceItem(TypedDict):
-        price: NotRequired[Optional[str]]
+        price: NotRequired["str|None"]
         price_data: NotRequired[
-            Optional[
-                "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemPriceData"
-            ]
+            "SubscriptionSchedule.CreateParamsPhaseAddInvoiceItemPriceData|None"
         ]
-        quantity: NotRequired[Optional[int]]
-        tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
 
     class CreateParamsPhaseAddInvoiceItemPriceData(TypedDict):
         currency: str
         product: str
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
     class CreateParamsDefaultSettings(TypedDict):
-        application_fee_percent: NotRequired[Optional[float]]
+        application_fee_percent: NotRequired["float|None"]
         automatic_tax: NotRequired[
-            Optional[
-                "SubscriptionSchedule.CreateParamsDefaultSettingsAutomaticTax"
-            ]
+            "SubscriptionSchedule.CreateParamsDefaultSettingsAutomaticTax|None"
         ]
         billing_cycle_anchor: NotRequired[
-            Optional[Literal["automatic", "phase_start"]]
+            "Literal['automatic', 'phase_start']|None"
         ]
         billing_thresholds: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "SubscriptionSchedule.CreateParamsDefaultSettingsBillingThresholds",
-                ]
-            ]
+            "Literal['']|SubscriptionSchedule.CreateParamsDefaultSettingsBillingThresholds|None"
         ]
         collection_method: NotRequired[
-            Optional[Literal["charge_automatically", "send_invoice"]]
+            "Literal['charge_automatically', 'send_invoice']|None"
         ]
-        default_payment_method: NotRequired[Optional[str]]
-        description: NotRequired[Optional[Union[Literal[""], str]]]
+        default_payment_method: NotRequired["str|None"]
+        description: NotRequired["Literal['']|str|None"]
         invoice_settings: NotRequired[
-            Optional[
-                "SubscriptionSchedule.CreateParamsDefaultSettingsInvoiceSettings"
-            ]
+            "SubscriptionSchedule.CreateParamsDefaultSettingsInvoiceSettings|None"
         ]
-        on_behalf_of: NotRequired[Optional[Union[Literal[""], str]]]
+        on_behalf_of: NotRequired["Literal['']|str|None"]
         transfer_data: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "SubscriptionSchedule.CreateParamsDefaultSettingsTransferData",
-                ]
-            ]
+            "Literal['']|SubscriptionSchedule.CreateParamsDefaultSettingsTransferData|None"
         ]
 
     class CreateParamsDefaultSettingsTransferData(TypedDict):
-        amount_percent: NotRequired[Optional[float]]
+        amount_percent: NotRequired["float|None"]
         destination: str
 
     class CreateParamsDefaultSettingsInvoiceSettings(TypedDict):
-        days_until_due: NotRequired[Optional[int]]
+        days_until_due: NotRequired["int|None"]
 
     class CreateParamsDefaultSettingsBillingThresholds(TypedDict):
-        amount_gte: NotRequired[Optional[int]]
-        reset_billing_cycle_anchor: NotRequired[Optional[bool]]
+        amount_gte: NotRequired["int|None"]
+        reset_billing_cycle_anchor: NotRequired["bool|None"]
 
     class CreateParamsDefaultSettingsAutomaticTax(TypedDict):
         enabled: bool
 
     class ListParams(RequestOptions):
         canceled_at: NotRequired[
-            Optional[Union["SubscriptionSchedule.ListParamsCanceledAt", int]]
+            "SubscriptionSchedule.ListParamsCanceledAt|int|None"
         ]
         completed_at: NotRequired[
-            Optional[Union["SubscriptionSchedule.ListParamsCompletedAt", int]]
+            "SubscriptionSchedule.ListParamsCompletedAt|int|None"
         ]
-        created: NotRequired[
-            Optional[Union["SubscriptionSchedule.ListParamsCreated", int]]
-        ]
-        customer: NotRequired[Optional[str]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
+        created: NotRequired["SubscriptionSchedule.ListParamsCreated|int|None"]
+        customer: NotRequired["str|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
         released_at: NotRequired[
-            Optional[Union["SubscriptionSchedule.ListParamsReleasedAt", int]]
+            "SubscriptionSchedule.ListParamsReleasedAt|int|None"
         ]
-        scheduled: NotRequired[Optional[bool]]
-        starting_after: NotRequired[Optional[str]]
+        scheduled: NotRequired["bool|None"]
+        starting_after: NotRequired["str|None"]
 
     class ListParamsReleasedAt(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ListParamsCompletedAt(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ListParamsCanceledAt(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ModifyParams(RequestOptions):
         default_settings: NotRequired[
-            Optional["SubscriptionSchedule.ModifyParamsDefaultSettings"]
+            "SubscriptionSchedule.ModifyParamsDefaultSettings|None"
         ]
         end_behavior: NotRequired[
-            Optional[Literal["cancel", "none", "release", "renew"]]
+            "Literal['cancel', 'none', 'release', 'renew']|None"
         ]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
         phases: NotRequired[
-            Optional[List["SubscriptionSchedule.ModifyParamsPhase"]]
+            "List[SubscriptionSchedule.ModifyParamsPhase]|None"
         ]
         proration_behavior: NotRequired[
-            Optional[Literal["always_invoice", "create_prorations", "none"]]
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
         ]
 
     class ModifyParamsPhase(TypedDict):
         add_invoice_items: NotRequired[
-            Optional[
-                List["SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItem"]
-            ]
+            "List[SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItem]|None"
         ]
-        application_fee_percent: NotRequired[Optional[float]]
+        application_fee_percent: NotRequired["float|None"]
         automatic_tax: NotRequired[
-            Optional["SubscriptionSchedule.ModifyParamsPhaseAutomaticTax"]
+            "SubscriptionSchedule.ModifyParamsPhaseAutomaticTax|None"
         ]
         billing_cycle_anchor: NotRequired[
-            Optional[Literal["automatic", "phase_start"]]
+            "Literal['automatic', 'phase_start']|None"
         ]
         billing_thresholds: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "SubscriptionSchedule.ModifyParamsPhaseItemBillingThresholds",
-                ]
-            ]
+            "Literal['']|SubscriptionSchedule.ModifyParamsPhaseBillingThresholds|None"
         ]
         collection_method: NotRequired[
-            Optional[Literal["charge_automatically", "send_invoice"]]
+            "Literal['charge_automatically', 'send_invoice']|None"
         ]
-        coupon: NotRequired[Optional[str]]
-        currency: NotRequired[Optional[str]]
-        default_payment_method: NotRequired[Optional[str]]
-        default_tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
-        description: NotRequired[Optional[Union[Literal[""], str]]]
-        end_date: NotRequired[Optional[Union[int, Literal["now"]]]]
+        coupon: NotRequired["str|None"]
+        currency: NotRequired["str|None"]
+        default_payment_method: NotRequired["str|None"]
+        default_tax_rates: NotRequired["Literal['']|List[str]|None"]
+        description: NotRequired["Literal['']|str|None"]
+        end_date: NotRequired["int|Literal['now']|None"]
         invoice_settings: NotRequired[
-            Optional["SubscriptionSchedule.ModifyParamsPhaseInvoiceSettings"]
+            "SubscriptionSchedule.ModifyParamsPhaseInvoiceSettings|None"
         ]
         items: List["SubscriptionSchedule.ModifyParamsPhaseItem"]
-        iterations: NotRequired[Optional[int]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        on_behalf_of: NotRequired[Optional[str]]
+        iterations: NotRequired["int|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        on_behalf_of: NotRequired["str|None"]
         proration_behavior: NotRequired[
-            Optional[Literal["always_invoice", "create_prorations", "none"]]
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
         ]
-        start_date: NotRequired[Optional[Union[int, Literal["now"]]]]
+        start_date: NotRequired["int|Literal['now']|None"]
         transfer_data: NotRequired[
-            Optional["SubscriptionSchedule.ModifyParamsPhaseTransferData"]
+            "SubscriptionSchedule.ModifyParamsPhaseTransferData|None"
         ]
-        trial: NotRequired[Optional[bool]]
-        trial_end: NotRequired[Optional[Union[int, Literal["now"]]]]
+        trial: NotRequired["bool|None"]
+        trial_end: NotRequired["int|Literal['now']|None"]
 
     class ModifyParamsPhaseTransferData(TypedDict):
-        amount_percent: NotRequired[Optional[float]]
+        amount_percent: NotRequired["float|None"]
         destination: str
 
     class ModifyParamsPhaseItem(TypedDict):
         billing_thresholds: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "SubscriptionSchedule.ModifyParamsPhaseItemBillingThresholds",
-                ]
-            ]
+            "Literal['']|SubscriptionSchedule.ModifyParamsPhaseItemBillingThresholds|None"
         ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        plan: NotRequired[Optional[str]]
-        price: NotRequired[Optional[str]]
+        metadata: NotRequired["Dict[str, str]|None"]
+        plan: NotRequired["str|None"]
+        price: NotRequired["str|None"]
         price_data: NotRequired[
-            Optional["SubscriptionSchedule.ModifyParamsPhaseItemPriceData"]
+            "SubscriptionSchedule.ModifyParamsPhaseItemPriceData|None"
         ]
-        quantity: NotRequired[Optional[int]]
-        tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
 
     class ModifyParamsPhaseItemPriceData(TypedDict):
         currency: str
         product: str
         recurring: "SubscriptionSchedule.ModifyParamsPhaseItemPriceDataRecurring"
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
     class ModifyParamsPhaseItemPriceDataRecurring(TypedDict):
         interval: Literal["day", "month", "week", "year"]
-        interval_count: NotRequired[Optional[int]]
+        interval_count: NotRequired["int|None"]
 
     class ModifyParamsPhaseItemBillingThresholds(TypedDict):
         usage_gte: int
 
     class ModifyParamsPhaseInvoiceSettings(TypedDict):
-        days_until_due: NotRequired[Optional[int]]
+        days_until_due: NotRequired["int|None"]
 
     class ModifyParamsPhaseBillingThresholds(TypedDict):
-        amount_gte: NotRequired[Optional[int]]
-        reset_billing_cycle_anchor: NotRequired[Optional[bool]]
+        amount_gte: NotRequired["int|None"]
+        reset_billing_cycle_anchor: NotRequired["bool|None"]
 
     class ModifyParamsPhaseAutomaticTax(TypedDict):
         enabled: bool
 
     class ModifyParamsPhaseAddInvoiceItem(TypedDict):
-        price: NotRequired[Optional[str]]
+        price: NotRequired["str|None"]
         price_data: NotRequired[
-            Optional[
-                "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemPriceData"
-            ]
+            "SubscriptionSchedule.ModifyParamsPhaseAddInvoiceItemPriceData|None"
         ]
-        quantity: NotRequired[Optional[int]]
-        tax_rates: NotRequired[Optional[Union[Literal[""], List[str]]]]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
 
     class ModifyParamsPhaseAddInvoiceItemPriceData(TypedDict):
         currency: str
         product: str
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
     class ModifyParamsDefaultSettings(TypedDict):
-        application_fee_percent: NotRequired[Optional[float]]
+        application_fee_percent: NotRequired["float|None"]
         automatic_tax: NotRequired[
-            Optional[
-                "SubscriptionSchedule.ModifyParamsDefaultSettingsAutomaticTax"
-            ]
+            "SubscriptionSchedule.ModifyParamsDefaultSettingsAutomaticTax|None"
         ]
         billing_cycle_anchor: NotRequired[
-            Optional[Literal["automatic", "phase_start"]]
+            "Literal['automatic', 'phase_start']|None"
         ]
         billing_thresholds: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "SubscriptionSchedule.ModifyParamsDefaultSettingsBillingThresholds",
-                ]
-            ]
+            "Literal['']|SubscriptionSchedule.ModifyParamsDefaultSettingsBillingThresholds|None"
         ]
         collection_method: NotRequired[
-            Optional[Literal["charge_automatically", "send_invoice"]]
+            "Literal['charge_automatically', 'send_invoice']|None"
         ]
-        default_payment_method: NotRequired[Optional[str]]
-        description: NotRequired[Optional[Union[Literal[""], str]]]
+        default_payment_method: NotRequired["str|None"]
+        description: NotRequired["Literal['']|str|None"]
         invoice_settings: NotRequired[
-            Optional[
-                "SubscriptionSchedule.ModifyParamsDefaultSettingsInvoiceSettings"
-            ]
+            "SubscriptionSchedule.ModifyParamsDefaultSettingsInvoiceSettings|None"
         ]
-        on_behalf_of: NotRequired[Optional[Union[Literal[""], str]]]
+        on_behalf_of: NotRequired["Literal['']|str|None"]
         transfer_data: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "SubscriptionSchedule.ModifyParamsDefaultSettingsTransferData",
-                ]
-            ]
+            "Literal['']|SubscriptionSchedule.ModifyParamsDefaultSettingsTransferData|None"
         ]
 
     class ModifyParamsDefaultSettingsTransferData(TypedDict):
-        amount_percent: NotRequired[Optional[float]]
+        amount_percent: NotRequired["float|None"]
         destination: str
 
     class ModifyParamsDefaultSettingsInvoiceSettings(TypedDict):
-        days_until_due: NotRequired[Optional[int]]
+        days_until_due: NotRequired["int|None"]
 
     class ModifyParamsDefaultSettingsBillingThresholds(TypedDict):
-        amount_gte: NotRequired[Optional[int]]
-        reset_billing_cycle_anchor: NotRequired[Optional[bool]]
+        amount_gte: NotRequired["int|None"]
+        reset_billing_cycle_anchor: NotRequired["bool|None"]
 
     class ModifyParamsDefaultSettingsAutomaticTax(TypedDict):
         enabled: bool
 
     class ReleaseParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        preserve_cancel_date: NotRequired[Optional[bool]]
+        expand: NotRequired["List[str]|None"]
+        preserve_cancel_date: NotRequired["bool|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     application: Optional[ExpandableField["Application"]]
     canceled_at: Optional[int]

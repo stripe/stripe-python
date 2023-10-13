@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, Union
+from typing import List, Optional
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
@@ -28,24 +26,22 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     OBJECT_NAME = "identity.verification_report"
 
     class ListParams(RequestOptions):
-        created: NotRequired[
-            Optional[Union["VerificationReport.ListParamsCreated", int]]
-        ]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
-        type: NotRequired[Optional[Literal["document", "id_number"]]]
-        verification_session: NotRequired[Optional[str]]
+        created: NotRequired["VerificationReport.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+        type: NotRequired["Literal['document', 'id_number']|None"]
+        verification_session: NotRequired["str|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     created: int
     document: Optional[StripeObject]

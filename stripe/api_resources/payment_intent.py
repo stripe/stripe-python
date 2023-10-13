@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -14,7 +12,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -53,628 +51,323 @@ class PaymentIntent(
     OBJECT_NAME = "payment_intent"
 
     class ApplyCustomerBalanceParams(RequestOptions):
-        amount: NotRequired[Optional[int]]
-        currency: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
+        amount: NotRequired["int|None"]
+        currency: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
 
     class CancelParams(RequestOptions):
         cancellation_reason: NotRequired[
-            Optional[
-                Literal[
-                    "abandoned",
-                    "duplicate",
-                    "fraudulent",
-                    "requested_by_customer",
-                ]
-            ]
+            "Literal['abandoned', 'duplicate', 'fraudulent', 'requested_by_customer']|None"
         ]
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class CaptureParams(RequestOptions):
-        amount_to_capture: NotRequired[Optional[int]]
-        application_fee_amount: NotRequired[Optional[int]]
-        expand: NotRequired[Optional[List[str]]]
-        final_capture: NotRequired[Optional[bool]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        statement_descriptor: NotRequired[Optional[str]]
-        statement_descriptor_suffix: NotRequired[Optional[str]]
+        amount_to_capture: NotRequired["int|None"]
+        application_fee_amount: NotRequired["int|None"]
+        expand: NotRequired["List[str]|None"]
+        final_capture: NotRequired["bool|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        statement_descriptor: NotRequired["str|None"]
+        statement_descriptor_suffix: NotRequired["str|None"]
         transfer_data: NotRequired[
-            Optional["PaymentIntent.CaptureParamsTransferData"]
+            "PaymentIntent.CaptureParamsTransferData|None"
         ]
 
     class CaptureParamsTransferData(TypedDict):
-        amount: NotRequired[Optional[int]]
+        amount: NotRequired["int|None"]
 
     class ConfirmParams(RequestOptions):
         capture_method: NotRequired[
-            Optional[Literal["automatic", "automatic_async", "manual"]]
+            "Literal['automatic', 'automatic_async', 'manual']|None"
         ]
-        error_on_requires_action: NotRequired[Optional[bool]]
-        expand: NotRequired[Optional[List[str]]]
-        mandate: NotRequired[Optional[str]]
+        error_on_requires_action: NotRequired["bool|None"]
+        expand: NotRequired["List[str]|None"]
+        mandate: NotRequired["str|None"]
         mandate_data: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    Union[
-                        "PaymentIntent.ConfirmParamsMandateData",
-                        "PaymentIntent.ConfirmParamsMandateData",
-                    ],
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsMandateData|PaymentIntent.ConfirmParamsMandateData2|None"
         ]
-        off_session: NotRequired[
-            Optional[Union[bool, Literal["one_off", "recurring"]]]
-        ]
-        payment_method: NotRequired[Optional[str]]
+        off_session: NotRequired["bool|Literal['one_off', 'recurring']|None"]
+        payment_method: NotRequired["str|None"]
         payment_method_data: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodData"]
+            "PaymentIntent.ConfirmParamsPaymentMethodData|None"
         ]
         payment_method_options: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodOptions"]
+            "PaymentIntent.ConfirmParamsPaymentMethodOptions|None"
         ]
         radar_options: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsRadarOptions"]
+            "PaymentIntent.ConfirmParamsRadarOptions|None"
         ]
-        receipt_email: NotRequired[Optional[Union[Literal[""], str]]]
-        return_url: NotRequired[Optional[str]]
+        receipt_email: NotRequired["Literal['']|str|None"]
+        return_url: NotRequired["str|None"]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["off_session", "on_session"]]]
+            "Literal['']|Literal['off_session', 'on_session']|None"
         ]
         shipping: NotRequired[
-            Optional[Union[Literal[""], "PaymentIntent.ConfirmParamsShipping"]]
+            "Literal['']|PaymentIntent.ConfirmParamsShipping|None"
         ]
-        use_stripe_sdk: NotRequired[Optional[bool]]
+        use_stripe_sdk: NotRequired["bool|None"]
 
     class ConfirmParamsShipping(TypedDict):
         address: "PaymentIntent.ConfirmParamsShippingAddress"
-        carrier: NotRequired[Optional[str]]
+        carrier: NotRequired["str|None"]
         name: str
-        phone: NotRequired[Optional[str]]
-        tracking_number: NotRequired[Optional[str]]
+        phone: NotRequired["str|None"]
+        tracking_number: NotRequired["str|None"]
 
     class ConfirmParamsShippingAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class ConfirmParamsRadarOptions(TypedDict):
-        session: NotRequired[Optional[str]]
+        session: NotRequired["str|None"]
 
     class ConfirmParamsPaymentMethodOptions(TypedDict):
         acss_debit: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsAcssDebit",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAcssDebit|None"
         ]
         affirm: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsAffirm",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAffirm|None"
         ]
         afterpay_clearpay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsAfterpayClearpay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAfterpayClearpay|None"
         ]
         alipay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsAlipay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAlipay|None"
         ]
         au_becs_debit: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsAuBecsDebit",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsAuBecsDebit|None"
         ]
         bacs_debit: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsBacsDebit",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBacsDebit|None"
         ]
         bancontact: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsBancontact",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBancontact|None"
         ]
         blik: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsBlik",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBlik|None"
         ]
         boleto: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsBoleto",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsBoleto|None"
         ]
         card: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsCard",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCard|None"
         ]
         card_present: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardPresent",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCardPresent|None"
         ]
         cashapp: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsCashapp",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCashapp|None"
         ]
         customer_balance: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsCustomerBalance",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCustomerBalance|None"
         ]
         eps: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsEps",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsEps|None"
         ]
         fpx: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsFpx",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsFpx|None"
         ]
         giropay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsGiropay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsGiropay|None"
         ]
         grabpay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsGrabpay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsGrabpay|None"
         ]
         ideal: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsIdeal",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsIdeal|None"
         ]
         interac_present: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsInteracPresent",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsInteracPresent|None"
         ]
         klarna: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsKlarna",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsKlarna|None"
         ]
         konbini: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsKonbini",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsKonbini|None"
         ]
         link: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsLink",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsLink|None"
         ]
         oxxo: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsOxxo",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsOxxo|None"
         ]
         p24: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsP24",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsP24|None"
         ]
         paynow: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsPaynow",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPaynow|None"
         ]
         paypal: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsPaypal",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPaypal|None"
         ]
         pix: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsPix",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPix|None"
         ]
         promptpay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsPromptpay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsPromptpay|None"
         ]
         sepa_debit: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsSepaDebit",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsSepaDebit|None"
         ]
         sofort: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsSofort",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsSofort|None"
         ]
         us_bank_account: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccount",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccount|None"
         ]
         wechat_pay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsWechatPay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsWechatPay|None"
         ]
         zip: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsZip",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsZip|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsZip(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsWechatPay(TypedDict):
-        app_id: NotRequired[Optional[str]]
+        app_id: NotRequired["str|None"]
         client: Literal["android", "ios", "web"]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections|None"
         ]
         networks: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks|None"
         ]
         preferred_settlement_speed: NotRequired[
-            Optional[Union[Literal[""], Literal["fastest", "standard"]]]
+            "Literal['']|Literal['fastest', 'standard']|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
         verification_method: NotRequired[
-            Optional[Literal["automatic", "instant", "microdeposits"]]
+            "Literal['automatic', 'instant', 'microdeposits']|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-        requested: NotRequired[
-            Optional[List[Literal["ach", "us_domestic_wire"]]]
-        ]
+        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]|None"]
 
     class ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
         permissions: NotRequired[
-            Optional[
-                List[
-                    Literal[
-                        "balances",
-                        "ownership",
-                        "payment_method",
-                        "transactions",
-                    ]
-                ]
-            ]
+            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]|None"
         ]
-        prefetch: NotRequired[Optional[List[Literal["balances"]]]]
-        return_url: NotRequired[Optional[str]]
+        prefetch: NotRequired["List[Literal['balances']]|None"]
+        return_url: NotRequired["str|None"]
 
     class ConfirmParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    Literal["de", "en", "es", "fr", "it", "nl", "pl"],
-                ]
-            ]
+            "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
         mandate_options: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodOptionsPromptpay(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsPix(TypedDict):
-        expires_after_seconds: NotRequired[Optional[int]]
-        expires_at: NotRequired[Optional[int]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        expires_after_seconds: NotRequired["int|None"]
+        expires_at: NotRequired["int|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsPaypal(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
         preferred_locale: NotRequired[
-            Optional[
-                Literal[
-                    "cs-CZ",
-                    "da-DK",
-                    "de-AT",
-                    "de-DE",
-                    "de-LU",
-                    "el-GR",
-                    "en-GB",
-                    "en-US",
-                    "es-ES",
-                    "fi-FI",
-                    "fr-BE",
-                    "fr-FR",
-                    "fr-LU",
-                    "hu-HU",
-                    "it-IT",
-                    "nl-BE",
-                    "nl-NL",
-                    "pl-PL",
-                    "pt-PT",
-                    "sk-SK",
-                    "sv-SE",
-                ]
-            ]
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']|None"
         ]
-        reference: NotRequired[Optional[str]]
-        risk_correlation_id: NotRequired[Optional[str]]
+        reference: NotRequired["str|None"]
+        risk_correlation_id: NotRequired["str|None"]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsPaynow(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsP24(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
-        tos_shown_and_accepted: NotRequired[Optional[bool]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
+        tos_shown_and_accepted: NotRequired["bool|None"]
 
     class ConfirmParamsPaymentMethodOptionsOxxo(TypedDict):
-        expires_after_days: NotRequired[Optional[int]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        expires_after_days: NotRequired["int|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsLink(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
-        persistent_token: NotRequired[Optional[str]]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
+        persistent_token: NotRequired["str|None"]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsKonbini(TypedDict):
-        confirmation_number: NotRequired[Optional[Union[Literal[""], str]]]
-        expires_after_days: NotRequired[Optional[Union[Literal[""], int]]]
-        expires_at: NotRequired[Optional[Union[Literal[""], int]]]
-        product_description: NotRequired[Optional[Union[Literal[""], str]]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        confirmation_number: NotRequired["Literal['']|str|None"]
+        expires_after_days: NotRequired["Literal['']|int|None"]
+        expires_at: NotRequired["Literal['']|int|None"]
+        product_description: NotRequired["Literal['']|str|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsKlarna(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
         preferred_locale: NotRequired[
-            Optional[
-                Literal[
-                    "cs-CZ",
-                    "da-DK",
-                    "de-AT",
-                    "de-CH",
-                    "de-DE",
-                    "el-GR",
-                    "en-AT",
-                    "en-AU",
-                    "en-BE",
-                    "en-CA",
-                    "en-CH",
-                    "en-CZ",
-                    "en-DE",
-                    "en-DK",
-                    "en-ES",
-                    "en-FI",
-                    "en-FR",
-                    "en-GB",
-                    "en-GR",
-                    "en-IE",
-                    "en-IT",
-                    "en-NL",
-                    "en-NO",
-                    "en-NZ",
-                    "en-PL",
-                    "en-PT",
-                    "en-SE",
-                    "en-US",
-                    "es-ES",
-                    "es-US",
-                    "fi-FI",
-                    "fr-BE",
-                    "fr-CA",
-                    "fr-CH",
-                    "fr-FR",
-                    "it-CH",
-                    "it-IT",
-                    "nb-NO",
-                    "nl-BE",
-                    "nl-NL",
-                    "pl-PL",
-                    "pt-PT",
-                    "sv-FI",
-                    "sv-SE",
-                ]
-            ]
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']|None"
         ]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsInteracPresent(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodOptionsIdeal(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsGrabpay(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsGiropay(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsFpx(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsEps(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsCustomerBalance(TypedDict):
         bank_transfer: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransfer"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransfer|None"
         ]
-        funding_type: NotRequired[Optional[Literal["bank_transfer"]]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        funding_type: NotRequired["Literal['bank_transfer']|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransfer(
         TypedDict,
     ):
         eu_bank_transfer: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer|None"
         ]
         requested_address_types: NotRequired[
-            Optional[
-                List[
-                    Literal[
-                        "aba",
-                        "iban",
-                        "sepa",
-                        "sort_code",
-                        "spei",
-                        "swift",
-                        "zengin",
-                    ]
-                ]
-            ]
+            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]|None"
         ]
         type: Literal[
             "eu_bank_transfer",
@@ -690,106 +383,65 @@ class PaymentIntent(
         country: str
 
     class ConfirmParamsPaymentMethodOptionsCashapp(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsCardPresent(TypedDict):
-        request_extended_authorization: NotRequired[Optional[bool]]
+        request_extended_authorization: NotRequired["bool|None"]
         request_incremental_authorization: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
-        request_incremental_authorization_support: NotRequired[Optional[bool]]
+        request_incremental_authorization_support: NotRequired["bool|None"]
 
     class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
-        cvc_token: NotRequired[Optional[str]]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
+        cvc_token: NotRequired["str|None"]
         installments: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardInstallments"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardInstallments|None"
         ]
         mandate_options: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardMandateOptions"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardMandateOptions|None"
         ]
-        moto: NotRequired[Optional[bool]]
+        moto: NotRequired["bool|None"]
         network: NotRequired[
-            Optional[
-                Literal[
-                    "amex",
-                    "cartes_bancaires",
-                    "diners",
-                    "discover",
-                    "eftpos_au",
-                    "interac",
-                    "jcb",
-                    "mastercard",
-                    "unionpay",
-                    "unknown",
-                    "visa",
-                ]
-            ]
+            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']|None"
         ]
         request_extended_authorization: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
         request_incremental_authorization: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
         request_multicapture: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
         request_overcapture: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
-        request_three_d_secure: NotRequired[
-            Optional[Literal["any", "automatic"]]
-        ]
+        request_three_d_secure: NotRequired["Literal['any', 'automatic']|None"]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
-        statement_descriptor_suffix_kana: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        statement_descriptor_suffix_kanji: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
+        statement_descriptor_suffix_kana: NotRequired["Literal['']|str|None"]
+        statement_descriptor_suffix_kanji: NotRequired["Literal['']|str|None"]
 
     class ConfirmParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
         amount: int
         amount_type: Literal["fixed", "maximum"]
-        description: NotRequired[Optional[str]]
-        end_date: NotRequired[Optional[int]]
+        description: NotRequired["str|None"]
+        end_date: NotRequired["int|None"]
         interval: Literal["day", "month", "sporadic", "week", "year"]
-        interval_count: NotRequired[Optional[int]]
+        interval_count: NotRequired["int|None"]
         reference: str
         start_date: int
-        supported_types: NotRequired[Optional[List[Literal["india"]]]]
+        supported_types: NotRequired["List[Literal['india']]|None"]
 
     class ConfirmParamsPaymentMethodOptionsCardInstallments(TypedDict):
-        enabled: NotRequired[Optional[bool]]
+        enabled: NotRequired["bool|None"]
         plan: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardInstallmentsPlan",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsCardInstallmentsPlan|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsCardInstallmentsPlan(TypedDict):
@@ -798,191 +450,155 @@ class PaymentIntent(
         type: Literal["fixed_count"]
 
     class ConfirmParamsPaymentMethodOptionsBoleto(TypedDict):
-        expires_after_days: NotRequired[Optional[int]]
+        expires_after_days: NotRequired["int|None"]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsBlik(TypedDict):
-        code: NotRequired[Optional[str]]
+        code: NotRequired["str|None"]
 
     class ConfirmParamsPaymentMethodOptionsBancontact(TypedDict):
-        preferred_language: NotRequired[
-            Optional[Literal["de", "en", "fr", "nl"]]
-        ]
+        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']|None"]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsBacsDebit(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsAlipay(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
-        reference: NotRequired[Optional[str]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
+        reference: NotRequired["str|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsAffirm(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
-        preferred_locale: NotRequired[Optional[str]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
+        preferred_locale: NotRequired["str|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ConfirmParamsPaymentMethodOptionsAcssDebit(TypedDict):
         mandate_options: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
         verification_method: NotRequired[
-            Optional[Literal["automatic", "instant", "microdeposits"]]
+            "Literal['automatic', 'instant', 'microdeposits']|None"
         ]
 
     class ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
-        custom_mandate_url: NotRequired[Optional[Union[Literal[""], str]]]
-        interval_description: NotRequired[Optional[str]]
+        custom_mandate_url: NotRequired["Literal['']|str|None"]
+        interval_description: NotRequired["str|None"]
         payment_schedule: NotRequired[
-            Optional[Literal["combined", "interval", "sporadic"]]
+            "Literal['combined', 'interval', 'sporadic']|None"
         ]
-        transaction_type: NotRequired[
-            Optional[Literal["business", "personal"]]
-        ]
+        transaction_type: NotRequired["Literal['business', 'personal']|None"]
 
     class ConfirmParamsPaymentMethodData(TypedDict):
         acss_debit: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataAcssDebit"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataAcssDebit|None"
         ]
         affirm: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataAffirm"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataAffirm|None"
         ]
         afterpay_clearpay: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodDataAfterpayClearpay"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataAfterpayClearpay|None"
         ]
         alipay: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataAlipay"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataAlipay|None"
         ]
         au_becs_debit: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataAuBecsDebit"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataAuBecsDebit|None"
         ]
         bacs_debit: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataBacsDebit"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataBacsDebit|None"
         ]
         bancontact: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataBancontact"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataBancontact|None"
         ]
         billing_details: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodDataBillingDetails"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataBillingDetails|None"
         ]
         blik: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataBlik"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataBlik|None"
         ]
         boleto: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataBoleto"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataBoleto|None"
         ]
         cashapp: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataCashapp"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataCashapp|None"
         ]
         customer_balance: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodDataCustomerBalance"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataCustomerBalance|None"
         ]
         eps: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataEps"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataEps|None"
         ]
         fpx: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataFpx"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataFpx|None"
         ]
         giropay: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataGiropay"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataGiropay|None"
         ]
         grabpay: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataGrabpay"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataGrabpay|None"
         ]
         ideal: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataIdeal"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataIdeal|None"
         ]
         interac_present: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodDataInteracPresent"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataInteracPresent|None"
         ]
         klarna: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataKlarna"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataKlarna|None"
         ]
         konbini: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataKonbini"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataKonbini|None"
         ]
         link: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataLink"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataLink|None"
         ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        metadata: NotRequired["Dict[str, str]|None"]
         oxxo: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataOxxo"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataOxxo|None"
         ]
         p24: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataP24"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataP24|None"
         ]
         paynow: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataPaynow"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataPaynow|None"
         ]
         paypal: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataPaypal"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataPaypal|None"
         ]
         pix: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataPix"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataPix|None"
         ]
         promptpay: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataPromptpay"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataPromptpay|None"
         ]
         radar_options: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodDataRadarOptions"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataRadarOptions|None"
         ]
         sepa_debit: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataSepaDebit"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataSepaDebit|None"
         ]
         sofort: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataSofort"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataSofort|None"
         ]
         type: Literal[
             "acss_debit",
@@ -1017,15 +633,13 @@ class PaymentIntent(
             "zip",
         ]
         us_bank_account: NotRequired[
-            Optional[
-                "PaymentIntent.ConfirmParamsPaymentMethodDataUsBankAccount"
-            ]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataUsBankAccount|None"
         ]
         wechat_pay: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataWechatPay"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataWechatPay|None"
         ]
         zip: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataZip"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataZip|None"
         ]
 
     class ConfirmParamsPaymentMethodDataZip(TypedDict):
@@ -1036,12 +650,12 @@ class PaymentIntent(
 
     class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired[
-            Optional[Literal["company", "individual"]]
+            "Literal['company', 'individual']|None"
         ]
-        account_number: NotRequired[Optional[str]]
-        account_type: NotRequired[Optional[Literal["checking", "savings"]]]
-        financial_connections_account: NotRequired[Optional[str]]
-        routing_number: NotRequired[Optional[str]]
+        account_number: NotRequired["str|None"]
+        account_type: NotRequired["Literal['checking', 'savings']|None"]
+        financial_connections_account: NotRequired["str|None"]
+        routing_number: NotRequired["str|None"]
 
     class ConfirmParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -1050,7 +664,7 @@ class PaymentIntent(
         iban: str
 
     class ConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
-        session: NotRequired[Optional[str]]
+        session: NotRequired["str|None"]
 
     class ConfirmParamsPaymentMethodDataPromptpay(TypedDict):
         pass
@@ -1066,35 +680,7 @@ class PaymentIntent(
 
     class ConfirmParamsPaymentMethodDataP24(TypedDict):
         bank: NotRequired[
-            Optional[
-                Literal[
-                    "alior_bank",
-                    "bank_millennium",
-                    "bank_nowy_bfg_sa",
-                    "bank_pekao_sa",
-                    "banki_spbdzielcze",
-                    "blik",
-                    "bnp_paribas",
-                    "boz",
-                    "citi_handlowy",
-                    "credit_agricole",
-                    "envelobank",
-                    "etransfer_pocztowy24",
-                    "getin_bank",
-                    "ideabank",
-                    "ing",
-                    "inteligo",
-                    "mbank_mtransfer",
-                    "nest_przelew",
-                    "noble_pay",
-                    "pbac_z_ipko",
-                    "plus_bank",
-                    "santander_przelew24",
-                    "tmobile_usbugi_bankowe",
-                    "toyota_bank",
-                    "volkswagen_bank",
-                ]
-            ]
+            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']|None"
         ]
 
     class ConfirmParamsPaymentMethodDataOxxo(TypedDict):
@@ -1108,7 +694,7 @@ class PaymentIntent(
 
     class ConfirmParamsPaymentMethodDataKlarna(TypedDict):
         dob: NotRequired[
-            Optional["PaymentIntent.ConfirmParamsPaymentMethodDataKlarnaDob"]
+            "PaymentIntent.ConfirmParamsPaymentMethodDataKlarnaDob|None"
         ]
 
     class ConfirmParamsPaymentMethodDataKlarnaDob(TypedDict):
@@ -1121,25 +707,7 @@ class PaymentIntent(
 
     class ConfirmParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
-            Optional[
-                Literal[
-                    "abn_amro",
-                    "asn_bank",
-                    "bunq",
-                    "handelsbanken",
-                    "ing",
-                    "knab",
-                    "moneyou",
-                    "n26",
-                    "rabobank",
-                    "regiobank",
-                    "revolut",
-                    "sns_bank",
-                    "triodos_bank",
-                    "van_lanschot",
-                    "yoursafe",
-                ]
-            ]
+            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']|None"
         ]
 
     class ConfirmParamsPaymentMethodDataGrabpay(TypedDict):
@@ -1150,7 +718,7 @@ class PaymentIntent(
 
     class ConfirmParamsPaymentMethodDataFpx(TypedDict):
         account_holder_type: NotRequired[
-            Optional[Literal["company", "individual"]]
+            "Literal['company', 'individual']|None"
         ]
         bank: Literal[
             "affin_bank",
@@ -1179,38 +747,7 @@ class PaymentIntent(
 
     class ConfirmParamsPaymentMethodDataEps(TypedDict):
         bank: NotRequired[
-            Optional[
-                Literal[
-                    "arzte_und_apotheker_bank",
-                    "austrian_anadi_bank_ag",
-                    "bank_austria",
-                    "bankhaus_carl_spangler",
-                    "bankhaus_schelhammer_und_schattera_ag",
-                    "bawag_psk_ag",
-                    "bks_bank_ag",
-                    "brull_kallmus_bank_ag",
-                    "btv_vier_lander_bank",
-                    "capital_bank_grawe_gruppe_ag",
-                    "deutsche_bank_ag",
-                    "dolomitenbank",
-                    "easybank_ag",
-                    "erste_bank_und_sparkassen",
-                    "hypo_alpeadriabank_international_ag",
-                    "hypo_bank_burgenland_aktiengesellschaft",
-                    "hypo_noe_lb_fur_niederosterreich_u_wien",
-                    "hypo_oberosterreich_salzburg_steiermark",
-                    "hypo_tirol_bank_ag",
-                    "hypo_vorarlberg_bank_ag",
-                    "marchfelder_bank",
-                    "oberbank_ag",
-                    "raiffeisen_bankengruppe_osterreich",
-                    "schoellerbank_ag",
-                    "sparda_bank_wien",
-                    "volksbank_gruppe",
-                    "volkskreditbank_ag",
-                    "vr_bank_braunau",
-                ]
-            ]
+            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']|None"
         ]
 
     class ConfirmParamsPaymentMethodDataCustomerBalance(TypedDict):
@@ -1227,31 +764,26 @@ class PaymentIntent(
 
     class ConfirmParamsPaymentMethodDataBillingDetails(TypedDict):
         address: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ConfirmParamsPaymentMethodDataBillingDetailsAddress",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodDataBillingDetailsAddress|None"
         ]
-        email: NotRequired[Optional[Union[Literal[""], str]]]
-        name: NotRequired[Optional[Union[Literal[""], str]]]
-        phone: NotRequired[Optional[Union[Literal[""], str]]]
+        email: NotRequired["Literal['']|str|None"]
+        name: NotRequired["Literal['']|str|None"]
+        phone: NotRequired["Literal['']|str|None"]
 
     class ConfirmParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class ConfirmParamsPaymentMethodDataBancontact(TypedDict):
         pass
 
     class ConfirmParamsPaymentMethodDataBacsDebit(TypedDict):
-        account_number: NotRequired[Optional[str]]
-        sort_code: NotRequired[Optional[str]]
+        account_number: NotRequired["str|None"]
+        sort_code: NotRequired["str|None"]
 
     class ConfirmParamsPaymentMethodDataAuBecsDebit(TypedDict):
         account_number: str
@@ -1271,625 +803,351 @@ class PaymentIntent(
         institution_number: str
         transit_number: str
 
+    class ConfirmParamsMandateData2(TypedDict):
+        customer_acceptance: "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptance2"
+
+    class ConfirmParamsMandateDataCustomerAcceptance2(TypedDict):
+        online: "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptanceOnline2"
+        type: Literal["online"]
+
+    class ConfirmParamsMandateDataCustomerAcceptanceOnline2(TypedDict):
+        ip_address: NotRequired["str|None"]
+        user_agent: NotRequired["str|None"]
+
     class ConfirmParamsMandateData(TypedDict):
         customer_acceptance: "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptance"
 
     class ConfirmParamsMandateDataCustomerAcceptance(TypedDict):
-        online: "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptanceOnline"
-        type: Literal["online"]
+        accepted_at: NotRequired["int|None"]
+        offline: NotRequired[
+            "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptanceOffline|None"
+        ]
+        online: NotRequired[
+            "PaymentIntent.ConfirmParamsMandateDataCustomerAcceptanceOnline|None"
+        ]
+        type: Literal["offline", "online"]
 
     class ConfirmParamsMandateDataCustomerAcceptanceOnline(TypedDict):
-        ip_address: NotRequired[Optional[str]]
-        user_agent: NotRequired[Optional[str]]
+        ip_address: str
+        user_agent: str
+
+    class ConfirmParamsMandateDataCustomerAcceptanceOffline(TypedDict):
+        pass
 
     class CreateParams(RequestOptions):
         amount: int
-        application_fee_amount: NotRequired[Optional[int]]
+        application_fee_amount: NotRequired["int|None"]
         automatic_payment_methods: NotRequired[
-            Optional["PaymentIntent.CreateParamsAutomaticPaymentMethods"]
+            "PaymentIntent.CreateParamsAutomaticPaymentMethods|None"
         ]
         capture_method: NotRequired[
-            Optional[Literal["automatic", "automatic_async", "manual"]]
+            "Literal['automatic', 'automatic_async', 'manual']|None"
         ]
-        confirm: NotRequired[Optional[bool]]
-        confirmation_method: NotRequired[
-            Optional[Literal["automatic", "manual"]]
-        ]
+        confirm: NotRequired["bool|None"]
+        confirmation_method: NotRequired["Literal['automatic', 'manual']|None"]
         currency: str
-        customer: NotRequired[Optional[str]]
-        description: NotRequired[Optional[str]]
-        error_on_requires_action: NotRequired[Optional[bool]]
-        expand: NotRequired[Optional[List[str]]]
-        mandate: NotRequired[Optional[str]]
+        customer: NotRequired["str|None"]
+        description: NotRequired["str|None"]
+        error_on_requires_action: NotRequired["bool|None"]
+        expand: NotRequired["List[str]|None"]
+        mandate: NotRequired["str|None"]
         mandate_data: NotRequired[
-            Optional[
-                Union[Literal[""], "PaymentIntent.CreateParamsMandateData"]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsMandateData|None"
         ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        off_session: NotRequired[
-            Optional[Union[bool, Literal["one_off", "recurring"]]]
-        ]
-        on_behalf_of: NotRequired[Optional[str]]
-        payment_method: NotRequired[Optional[str]]
-        payment_method_configuration: NotRequired[Optional[str]]
+        metadata: NotRequired["Dict[str, str]|None"]
+        off_session: NotRequired["bool|Literal['one_off', 'recurring']|None"]
+        on_behalf_of: NotRequired["str|None"]
+        payment_method: NotRequired["str|None"]
+        payment_method_configuration: NotRequired["str|None"]
         payment_method_data: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodData"]
+            "PaymentIntent.CreateParamsPaymentMethodData|None"
         ]
         payment_method_options: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodOptions"]
+            "PaymentIntent.CreateParamsPaymentMethodOptions|None"
         ]
-        payment_method_types: NotRequired[Optional[List[str]]]
+        payment_method_types: NotRequired["List[str]|None"]
         radar_options: NotRequired[
-            Optional["PaymentIntent.CreateParamsRadarOptions"]
+            "PaymentIntent.CreateParamsRadarOptions|None"
         ]
-        receipt_email: NotRequired[Optional[str]]
-        return_url: NotRequired[Optional[str]]
+        receipt_email: NotRequired["str|None"]
+        return_url: NotRequired["str|None"]
         setup_future_usage: NotRequired[
-            Optional[Literal["off_session", "on_session"]]
+            "Literal['off_session', 'on_session']|None"
         ]
-        shipping: NotRequired[Optional["PaymentIntent.CreateParamsShipping"]]
-        statement_descriptor: NotRequired[Optional[str]]
-        statement_descriptor_suffix: NotRequired[Optional[str]]
+        shipping: NotRequired["PaymentIntent.CreateParamsShipping|None"]
+        statement_descriptor: NotRequired["str|None"]
+        statement_descriptor_suffix: NotRequired["str|None"]
         transfer_data: NotRequired[
-            Optional["PaymentIntent.CreateParamsTransferData"]
+            "PaymentIntent.CreateParamsTransferData|None"
         ]
-        transfer_group: NotRequired[Optional[str]]
-        use_stripe_sdk: NotRequired[Optional[bool]]
+        transfer_group: NotRequired["str|None"]
+        use_stripe_sdk: NotRequired["bool|None"]
 
     class CreateParamsTransferData(TypedDict):
-        amount: NotRequired[Optional[int]]
+        amount: NotRequired["int|None"]
         destination: str
 
     class CreateParamsShipping(TypedDict):
         address: "PaymentIntent.CreateParamsShippingAddress"
-        carrier: NotRequired[Optional[str]]
+        carrier: NotRequired["str|None"]
         name: str
-        phone: NotRequired[Optional[str]]
-        tracking_number: NotRequired[Optional[str]]
+        phone: NotRequired["str|None"]
+        tracking_number: NotRequired["str|None"]
 
     class CreateParamsShippingAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class CreateParamsRadarOptions(TypedDict):
-        session: NotRequired[Optional[str]]
+        session: NotRequired["str|None"]
 
     class CreateParamsPaymentMethodOptions(TypedDict):
         acss_debit: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsAcssDebit",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAcssDebit|None"
         ]
         affirm: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsAffirm",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAffirm|None"
         ]
         afterpay_clearpay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsAfterpayClearpay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAfterpayClearpay|None"
         ]
         alipay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsAlipay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAlipay|None"
         ]
         au_becs_debit: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsAuBecsDebit",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsAuBecsDebit|None"
         ]
         bacs_debit: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsBacsDebit",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBacsDebit|None"
         ]
         bancontact: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsBancontact",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBancontact|None"
         ]
         blik: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsBlik",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBlik|None"
         ]
         boleto: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsBoleto",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsBoleto|None"
         ]
         card: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsCard",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCard|None"
         ]
         card_present: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsCardPresent",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCardPresent|None"
         ]
         cashapp: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsCashapp",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCashapp|None"
         ]
         customer_balance: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsCustomerBalance",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCustomerBalance|None"
         ]
         eps: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsEps",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsEps|None"
         ]
         fpx: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsFpx",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsFpx|None"
         ]
         giropay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsGiropay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsGiropay|None"
         ]
         grabpay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsGrabpay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsGrabpay|None"
         ]
         ideal: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsIdeal",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsIdeal|None"
         ]
         interac_present: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsInteracPresent",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsInteracPresent|None"
         ]
         klarna: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsKlarna",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsKlarna|None"
         ]
         konbini: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsKonbini",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsKonbini|None"
         ]
         link: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsLink",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsLink|None"
         ]
         oxxo: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsOxxo",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsOxxo|None"
         ]
         p24: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsP24",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsP24|None"
         ]
         paynow: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsPaynow",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPaynow|None"
         ]
         paypal: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsPaypal",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPaypal|None"
         ]
         pix: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsPix",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPix|None"
         ]
         promptpay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsPromptpay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsPromptpay|None"
         ]
         sepa_debit: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsSepaDebit",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsSepaDebit|None"
         ]
         sofort: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsSofort",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsSofort|None"
         ]
         us_bank_account: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccount",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccount|None"
         ]
         wechat_pay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsWechatPay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsWechatPay|None"
         ]
         zip: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsZip",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsZip|None"
         ]
 
     class CreateParamsPaymentMethodOptionsZip(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsWechatPay(TypedDict):
-        app_id: NotRequired[Optional[str]]
+        app_id: NotRequired["str|None"]
         client: Literal["android", "ios", "web"]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
-            ]
+            "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections|None"
         ]
         networks: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountNetworks"
-            ]
+            "PaymentIntent.CreateParamsPaymentMethodOptionsUsBankAccountNetworks|None"
         ]
         preferred_settlement_speed: NotRequired[
-            Optional[Union[Literal[""], Literal["fastest", "standard"]]]
+            "Literal['']|Literal['fastest', 'standard']|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
         verification_method: NotRequired[
-            Optional[Literal["automatic", "instant", "microdeposits"]]
+            "Literal['automatic', 'instant', 'microdeposits']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-        requested: NotRequired[
-            Optional[List[Literal["ach", "us_domestic_wire"]]]
-        ]
+        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]|None"]
 
     class CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
         permissions: NotRequired[
-            Optional[
-                List[
-                    Literal[
-                        "balances",
-                        "ownership",
-                        "payment_method",
-                        "transactions",
-                    ]
-                ]
-            ]
+            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]|None"
         ]
-        prefetch: NotRequired[Optional[List[Literal["balances"]]]]
-        return_url: NotRequired[Optional[str]]
+        prefetch: NotRequired["List[Literal['balances']]|None"]
+        return_url: NotRequired["str|None"]
 
     class CreateParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    Literal["de", "en", "es", "fr", "it", "nl", "pl"],
-                ]
-            ]
+            "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
         mandate_options: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsPaymentMethodOptionsSepaDebitMandateOptions"
-            ]
+            "PaymentIntent.CreateParamsPaymentMethodOptionsSepaDebitMandateOptions|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         pass
 
     class CreateParamsPaymentMethodOptionsPromptpay(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsPix(TypedDict):
-        expires_after_seconds: NotRequired[Optional[int]]
-        expires_at: NotRequired[Optional[int]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        expires_after_seconds: NotRequired["int|None"]
+        expires_at: NotRequired["int|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsPaypal(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
         preferred_locale: NotRequired[
-            Optional[
-                Literal[
-                    "cs-CZ",
-                    "da-DK",
-                    "de-AT",
-                    "de-DE",
-                    "de-LU",
-                    "el-GR",
-                    "en-GB",
-                    "en-US",
-                    "es-ES",
-                    "fi-FI",
-                    "fr-BE",
-                    "fr-FR",
-                    "fr-LU",
-                    "hu-HU",
-                    "it-IT",
-                    "nl-BE",
-                    "nl-NL",
-                    "pl-PL",
-                    "pt-PT",
-                    "sk-SK",
-                    "sv-SE",
-                ]
-            ]
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']|None"
         ]
-        reference: NotRequired[Optional[str]]
-        risk_correlation_id: NotRequired[Optional[str]]
+        reference: NotRequired["str|None"]
+        risk_correlation_id: NotRequired["str|None"]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsP24(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
-        tos_shown_and_accepted: NotRequired[Optional[bool]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
+        tos_shown_and_accepted: NotRequired["bool|None"]
 
     class CreateParamsPaymentMethodOptionsOxxo(TypedDict):
-        expires_after_days: NotRequired[Optional[int]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        expires_after_days: NotRequired["int|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsLink(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
-        persistent_token: NotRequired[Optional[str]]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
+        persistent_token: NotRequired["str|None"]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsKonbini(TypedDict):
-        confirmation_number: NotRequired[Optional[Union[Literal[""], str]]]
-        expires_after_days: NotRequired[Optional[Union[Literal[""], int]]]
-        expires_at: NotRequired[Optional[Union[Literal[""], int]]]
-        product_description: NotRequired[Optional[Union[Literal[""], str]]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        confirmation_number: NotRequired["Literal['']|str|None"]
+        expires_after_days: NotRequired["Literal['']|int|None"]
+        expires_at: NotRequired["Literal['']|int|None"]
+        product_description: NotRequired["Literal['']|str|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsKlarna(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
         preferred_locale: NotRequired[
-            Optional[
-                Literal[
-                    "cs-CZ",
-                    "da-DK",
-                    "de-AT",
-                    "de-CH",
-                    "de-DE",
-                    "el-GR",
-                    "en-AT",
-                    "en-AU",
-                    "en-BE",
-                    "en-CA",
-                    "en-CH",
-                    "en-CZ",
-                    "en-DE",
-                    "en-DK",
-                    "en-ES",
-                    "en-FI",
-                    "en-FR",
-                    "en-GB",
-                    "en-GR",
-                    "en-IE",
-                    "en-IT",
-                    "en-NL",
-                    "en-NO",
-                    "en-NZ",
-                    "en-PL",
-                    "en-PT",
-                    "en-SE",
-                    "en-US",
-                    "es-ES",
-                    "es-US",
-                    "fi-FI",
-                    "fr-BE",
-                    "fr-CA",
-                    "fr-CH",
-                    "fr-FR",
-                    "it-CH",
-                    "it-IT",
-                    "nb-NO",
-                    "nl-BE",
-                    "nl-NL",
-                    "pl-PL",
-                    "pt-PT",
-                    "sv-FI",
-                    "sv-SE",
-                ]
-            ]
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']|None"
         ]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsInteracPresent(TypedDict):
         pass
 
     class CreateParamsPaymentMethodOptionsIdeal(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsGrabpay(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsGiropay(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsFpx(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsEps(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsCustomerBalance(TypedDict):
         bank_transfer: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer"
-            ]
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer|None"
         ]
-        funding_type: NotRequired[Optional[Literal["bank_transfer"]]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        funding_type: NotRequired["Literal['bank_transfer']|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsCustomerBalanceBankTransfer(
         TypedDict,
     ):
         eu_bank_transfer: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
-            ]
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer|None"
         ]
         requested_address_types: NotRequired[
-            Optional[
-                List[
-                    Literal[
-                        "aba",
-                        "iban",
-                        "sepa",
-                        "sort_code",
-                        "spei",
-                        "swift",
-                        "zengin",
-                    ]
-                ]
-            ]
+            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]|None"
         ]
         type: Literal[
             "eu_bank_transfer",
@@ -1905,106 +1163,65 @@ class PaymentIntent(
         country: str
 
     class CreateParamsPaymentMethodOptionsCashapp(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsCardPresent(TypedDict):
-        request_extended_authorization: NotRequired[Optional[bool]]
+        request_extended_authorization: NotRequired["bool|None"]
         request_incremental_authorization: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
-        request_incremental_authorization_support: NotRequired[Optional[bool]]
+        request_incremental_authorization_support: NotRequired["bool|None"]
 
     class CreateParamsPaymentMethodOptionsCard(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
-        cvc_token: NotRequired[Optional[str]]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
+        cvc_token: NotRequired["str|None"]
         installments: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsPaymentMethodOptionsCardInstallments"
-            ]
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardInstallments|None"
         ]
         mandate_options: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsPaymentMethodOptionsCardMandateOptions"
-            ]
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardMandateOptions|None"
         ]
-        moto: NotRequired[Optional[bool]]
+        moto: NotRequired["bool|None"]
         network: NotRequired[
-            Optional[
-                Literal[
-                    "amex",
-                    "cartes_bancaires",
-                    "diners",
-                    "discover",
-                    "eftpos_au",
-                    "interac",
-                    "jcb",
-                    "mastercard",
-                    "unionpay",
-                    "unknown",
-                    "visa",
-                ]
-            ]
+            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']|None"
         ]
         request_extended_authorization: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
         request_incremental_authorization: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
         request_multicapture: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
         request_overcapture: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
-        request_three_d_secure: NotRequired[
-            Optional[Literal["any", "automatic"]]
-        ]
+        request_three_d_secure: NotRequired["Literal['any', 'automatic']|None"]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
-        statement_descriptor_suffix_kana: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        statement_descriptor_suffix_kanji: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
+        statement_descriptor_suffix_kana: NotRequired["Literal['']|str|None"]
+        statement_descriptor_suffix_kanji: NotRequired["Literal['']|str|None"]
 
     class CreateParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
         amount: int
         amount_type: Literal["fixed", "maximum"]
-        description: NotRequired[Optional[str]]
-        end_date: NotRequired[Optional[int]]
+        description: NotRequired["str|None"]
+        end_date: NotRequired["int|None"]
         interval: Literal["day", "month", "sporadic", "week", "year"]
-        interval_count: NotRequired[Optional[int]]
+        interval_count: NotRequired["int|None"]
         reference: str
         start_date: int
-        supported_types: NotRequired[Optional[List[Literal["india"]]]]
+        supported_types: NotRequired["List[Literal['india']]|None"]
 
     class CreateParamsPaymentMethodOptionsCardInstallments(TypedDict):
-        enabled: NotRequired[Optional[bool]]
+        enabled: NotRequired["bool|None"]
         plan: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodOptionsCardInstallmentsPlan",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsCardInstallmentsPlan|None"
         ]
 
     class CreateParamsPaymentMethodOptionsCardInstallmentsPlan(TypedDict):
@@ -2013,189 +1230,147 @@ class PaymentIntent(
         type: Literal["fixed_count"]
 
     class CreateParamsPaymentMethodOptionsBoleto(TypedDict):
-        expires_after_days: NotRequired[Optional[int]]
+        expires_after_days: NotRequired["int|None"]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsBlik(TypedDict):
-        code: NotRequired[Optional[str]]
+        code: NotRequired["str|None"]
 
     class CreateParamsPaymentMethodOptionsBancontact(TypedDict):
-        preferred_language: NotRequired[
-            Optional[Literal["de", "en", "fr", "nl"]]
-        ]
+        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']|None"]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsBacsDebit(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsAlipay(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
-        reference: NotRequired[Optional[str]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
+        reference: NotRequired["str|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsAffirm(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
-        preferred_locale: NotRequired[Optional[str]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
+        preferred_locale: NotRequired["str|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class CreateParamsPaymentMethodOptionsAcssDebit(TypedDict):
         mandate_options: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsPaymentMethodOptionsAcssDebitMandateOptions"
-            ]
+            "PaymentIntent.CreateParamsPaymentMethodOptionsAcssDebitMandateOptions|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
         verification_method: NotRequired[
-            Optional[Literal["automatic", "instant", "microdeposits"]]
+            "Literal['automatic', 'instant', 'microdeposits']|None"
         ]
 
     class CreateParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
-        custom_mandate_url: NotRequired[Optional[Union[Literal[""], str]]]
-        interval_description: NotRequired[Optional[str]]
+        custom_mandate_url: NotRequired["Literal['']|str|None"]
+        interval_description: NotRequired["str|None"]
         payment_schedule: NotRequired[
-            Optional[Literal["combined", "interval", "sporadic"]]
+            "Literal['combined', 'interval', 'sporadic']|None"
         ]
-        transaction_type: NotRequired[
-            Optional[Literal["business", "personal"]]
-        ]
+        transaction_type: NotRequired["Literal['business', 'personal']|None"]
 
     class CreateParamsPaymentMethodData(TypedDict):
         acss_debit: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataAcssDebit"]
+            "PaymentIntent.CreateParamsPaymentMethodDataAcssDebit|None"
         ]
         affirm: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataAffirm"]
+            "PaymentIntent.CreateParamsPaymentMethodDataAffirm|None"
         ]
         afterpay_clearpay: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsPaymentMethodDataAfterpayClearpay"
-            ]
+            "PaymentIntent.CreateParamsPaymentMethodDataAfterpayClearpay|None"
         ]
         alipay: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataAlipay"]
+            "PaymentIntent.CreateParamsPaymentMethodDataAlipay|None"
         ]
         au_becs_debit: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataAuBecsDebit"]
+            "PaymentIntent.CreateParamsPaymentMethodDataAuBecsDebit|None"
         ]
         bacs_debit: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataBacsDebit"]
+            "PaymentIntent.CreateParamsPaymentMethodDataBacsDebit|None"
         ]
         bancontact: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataBancontact"]
+            "PaymentIntent.CreateParamsPaymentMethodDataBancontact|None"
         ]
         billing_details: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsPaymentMethodDataBillingDetails"
-            ]
+            "PaymentIntent.CreateParamsPaymentMethodDataBillingDetails|None"
         ]
         blik: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataBlik"]
+            "PaymentIntent.CreateParamsPaymentMethodDataBlik|None"
         ]
         boleto: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataBoleto"]
+            "PaymentIntent.CreateParamsPaymentMethodDataBoleto|None"
         ]
         cashapp: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataCashapp"]
+            "PaymentIntent.CreateParamsPaymentMethodDataCashapp|None"
         ]
         customer_balance: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsPaymentMethodDataCustomerBalance"
-            ]
+            "PaymentIntent.CreateParamsPaymentMethodDataCustomerBalance|None"
         ]
-        eps: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataEps"]
-        ]
-        fpx: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataFpx"]
-        ]
+        eps: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataEps|None"]
+        fpx: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataFpx|None"]
         giropay: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataGiropay"]
+            "PaymentIntent.CreateParamsPaymentMethodDataGiropay|None"
         ]
         grabpay: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataGrabpay"]
+            "PaymentIntent.CreateParamsPaymentMethodDataGrabpay|None"
         ]
         ideal: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataIdeal"]
+            "PaymentIntent.CreateParamsPaymentMethodDataIdeal|None"
         ]
         interac_present: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsPaymentMethodDataInteracPresent"
-            ]
+            "PaymentIntent.CreateParamsPaymentMethodDataInteracPresent|None"
         ]
         klarna: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataKlarna"]
+            "PaymentIntent.CreateParamsPaymentMethodDataKlarna|None"
         ]
         konbini: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataKonbini"]
+            "PaymentIntent.CreateParamsPaymentMethodDataKonbini|None"
         ]
         link: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataLink"]
+            "PaymentIntent.CreateParamsPaymentMethodDataLink|None"
         ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        metadata: NotRequired["Dict[str, str]|None"]
         oxxo: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataOxxo"]
+            "PaymentIntent.CreateParamsPaymentMethodDataOxxo|None"
         ]
-        p24: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataP24"]
-        ]
+        p24: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataP24|None"]
         paynow: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataPaynow"]
+            "PaymentIntent.CreateParamsPaymentMethodDataPaynow|None"
         ]
         paypal: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataPaypal"]
+            "PaymentIntent.CreateParamsPaymentMethodDataPaypal|None"
         ]
-        pix: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataPix"]
-        ]
+        pix: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataPix|None"]
         promptpay: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataPromptpay"]
+            "PaymentIntent.CreateParamsPaymentMethodDataPromptpay|None"
         ]
         radar_options: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataRadarOptions"]
+            "PaymentIntent.CreateParamsPaymentMethodDataRadarOptions|None"
         ]
         sepa_debit: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataSepaDebit"]
+            "PaymentIntent.CreateParamsPaymentMethodDataSepaDebit|None"
         ]
         sofort: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataSofort"]
+            "PaymentIntent.CreateParamsPaymentMethodDataSofort|None"
         ]
         type: Literal[
             "acss_debit",
@@ -2230,16 +1405,12 @@ class PaymentIntent(
             "zip",
         ]
         us_bank_account: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsPaymentMethodDataUsBankAccount"
-            ]
+            "PaymentIntent.CreateParamsPaymentMethodDataUsBankAccount|None"
         ]
         wechat_pay: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataWechatPay"]
+            "PaymentIntent.CreateParamsPaymentMethodDataWechatPay|None"
         ]
-        zip: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataZip"]
-        ]
+        zip: NotRequired["PaymentIntent.CreateParamsPaymentMethodDataZip|None"]
 
     class CreateParamsPaymentMethodDataZip(TypedDict):
         pass
@@ -2249,12 +1420,12 @@ class PaymentIntent(
 
     class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired[
-            Optional[Literal["company", "individual"]]
+            "Literal['company', 'individual']|None"
         ]
-        account_number: NotRequired[Optional[str]]
-        account_type: NotRequired[Optional[Literal["checking", "savings"]]]
-        financial_connections_account: NotRequired[Optional[str]]
-        routing_number: NotRequired[Optional[str]]
+        account_number: NotRequired["str|None"]
+        account_type: NotRequired["Literal['checking', 'savings']|None"]
+        financial_connections_account: NotRequired["str|None"]
+        routing_number: NotRequired["str|None"]
 
     class CreateParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -2263,7 +1434,7 @@ class PaymentIntent(
         iban: str
 
     class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
-        session: NotRequired[Optional[str]]
+        session: NotRequired["str|None"]
 
     class CreateParamsPaymentMethodDataPromptpay(TypedDict):
         pass
@@ -2279,35 +1450,7 @@ class PaymentIntent(
 
     class CreateParamsPaymentMethodDataP24(TypedDict):
         bank: NotRequired[
-            Optional[
-                Literal[
-                    "alior_bank",
-                    "bank_millennium",
-                    "bank_nowy_bfg_sa",
-                    "bank_pekao_sa",
-                    "banki_spbdzielcze",
-                    "blik",
-                    "bnp_paribas",
-                    "boz",
-                    "citi_handlowy",
-                    "credit_agricole",
-                    "envelobank",
-                    "etransfer_pocztowy24",
-                    "getin_bank",
-                    "ideabank",
-                    "ing",
-                    "inteligo",
-                    "mbank_mtransfer",
-                    "nest_przelew",
-                    "noble_pay",
-                    "pbac_z_ipko",
-                    "plus_bank",
-                    "santander_przelew24",
-                    "tmobile_usbugi_bankowe",
-                    "toyota_bank",
-                    "volkswagen_bank",
-                ]
-            ]
+            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']|None"
         ]
 
     class CreateParamsPaymentMethodDataOxxo(TypedDict):
@@ -2321,7 +1464,7 @@ class PaymentIntent(
 
     class CreateParamsPaymentMethodDataKlarna(TypedDict):
         dob: NotRequired[
-            Optional["PaymentIntent.CreateParamsPaymentMethodDataKlarnaDob"]
+            "PaymentIntent.CreateParamsPaymentMethodDataKlarnaDob|None"
         ]
 
     class CreateParamsPaymentMethodDataKlarnaDob(TypedDict):
@@ -2334,25 +1477,7 @@ class PaymentIntent(
 
     class CreateParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
-            Optional[
-                Literal[
-                    "abn_amro",
-                    "asn_bank",
-                    "bunq",
-                    "handelsbanken",
-                    "ing",
-                    "knab",
-                    "moneyou",
-                    "n26",
-                    "rabobank",
-                    "regiobank",
-                    "revolut",
-                    "sns_bank",
-                    "triodos_bank",
-                    "van_lanschot",
-                    "yoursafe",
-                ]
-            ]
+            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']|None"
         ]
 
     class CreateParamsPaymentMethodDataGrabpay(TypedDict):
@@ -2363,7 +1488,7 @@ class PaymentIntent(
 
     class CreateParamsPaymentMethodDataFpx(TypedDict):
         account_holder_type: NotRequired[
-            Optional[Literal["company", "individual"]]
+            "Literal['company', 'individual']|None"
         ]
         bank: Literal[
             "affin_bank",
@@ -2392,38 +1517,7 @@ class PaymentIntent(
 
     class CreateParamsPaymentMethodDataEps(TypedDict):
         bank: NotRequired[
-            Optional[
-                Literal[
-                    "arzte_und_apotheker_bank",
-                    "austrian_anadi_bank_ag",
-                    "bank_austria",
-                    "bankhaus_carl_spangler",
-                    "bankhaus_schelhammer_und_schattera_ag",
-                    "bawag_psk_ag",
-                    "bks_bank_ag",
-                    "brull_kallmus_bank_ag",
-                    "btv_vier_lander_bank",
-                    "capital_bank_grawe_gruppe_ag",
-                    "deutsche_bank_ag",
-                    "dolomitenbank",
-                    "easybank_ag",
-                    "erste_bank_und_sparkassen",
-                    "hypo_alpeadriabank_international_ag",
-                    "hypo_bank_burgenland_aktiengesellschaft",
-                    "hypo_noe_lb_fur_niederosterreich_u_wien",
-                    "hypo_oberosterreich_salzburg_steiermark",
-                    "hypo_tirol_bank_ag",
-                    "hypo_vorarlberg_bank_ag",
-                    "marchfelder_bank",
-                    "oberbank_ag",
-                    "raiffeisen_bankengruppe_osterreich",
-                    "schoellerbank_ag",
-                    "sparda_bank_wien",
-                    "volksbank_gruppe",
-                    "volkskreditbank_ag",
-                    "vr_bank_braunau",
-                ]
-            ]
+            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']|None"
         ]
 
     class CreateParamsPaymentMethodDataCustomerBalance(TypedDict):
@@ -2440,31 +1534,26 @@ class PaymentIntent(
 
     class CreateParamsPaymentMethodDataBillingDetails(TypedDict):
         address: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.CreateParamsPaymentMethodDataBillingDetailsAddress",
-                ]
-            ]
+            "Literal['']|PaymentIntent.CreateParamsPaymentMethodDataBillingDetailsAddress|None"
         ]
-        email: NotRequired[Optional[Union[Literal[""], str]]]
-        name: NotRequired[Optional[Union[Literal[""], str]]]
-        phone: NotRequired[Optional[Union[Literal[""], str]]]
+        email: NotRequired["Literal['']|str|None"]
+        name: NotRequired["Literal['']|str|None"]
+        phone: NotRequired["Literal['']|str|None"]
 
     class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class CreateParamsPaymentMethodDataBancontact(TypedDict):
         pass
 
     class CreateParamsPaymentMethodDataBacsDebit(TypedDict):
-        account_number: NotRequired[Optional[str]]
-        sort_code: NotRequired[Optional[str]]
+        account_number: NotRequired["str|None"]
+        sort_code: NotRequired["str|None"]
 
     class CreateParamsPaymentMethodDataAuBecsDebit(TypedDict):
         account_number: str
@@ -2488,16 +1577,12 @@ class PaymentIntent(
         customer_acceptance: "PaymentIntent.CreateParamsMandateDataCustomerAcceptance"
 
     class CreateParamsMandateDataCustomerAcceptance(TypedDict):
-        accepted_at: NotRequired[Optional[int]]
+        accepted_at: NotRequired["int|None"]
         offline: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsMandateDataCustomerAcceptanceOffline"
-            ]
+            "PaymentIntent.CreateParamsMandateDataCustomerAcceptanceOffline|None"
         ]
         online: NotRequired[
-            Optional[
-                "PaymentIntent.CreateParamsMandateDataCustomerAcceptanceOnline"
-            ]
+            "PaymentIntent.CreateParamsMandateDataCustomerAcceptanceOnline|None"
         ]
         type: Literal["offline", "online"]
 
@@ -2509,622 +1594,332 @@ class PaymentIntent(
         pass
 
     class CreateParamsAutomaticPaymentMethods(TypedDict):
-        allow_redirects: NotRequired[Optional[Literal["always", "never"]]]
+        allow_redirects: NotRequired["Literal['always', 'never']|None"]
         enabled: bool
 
     class IncrementAuthorizationParams(RequestOptions):
         amount: int
-        application_fee_amount: NotRequired[Optional[int]]
-        description: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        statement_descriptor: NotRequired[Optional[str]]
+        application_fee_amount: NotRequired["int|None"]
+        description: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        statement_descriptor: NotRequired["str|None"]
         transfer_data: NotRequired[
-            Optional["PaymentIntent.IncrementAuthorizationParamsTransferData"]
+            "PaymentIntent.IncrementAuthorizationParamsTransferData|None"
         ]
 
     class IncrementAuthorizationParamsTransferData(TypedDict):
-        amount: NotRequired[Optional[int]]
+        amount: NotRequired["int|None"]
 
     class ListParams(RequestOptions):
-        created: NotRequired[
-            Optional[Union["PaymentIntent.ListParamsCreated", int]]
-        ]
-        customer: NotRequired[Optional[str]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        created: NotRequired["PaymentIntent.ListParamsCreated|int|None"]
+        customer: NotRequired["str|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ModifyParams(RequestOptions):
-        amount: NotRequired[Optional[int]]
-        application_fee_amount: NotRequired[Optional[Union[Literal[""], int]]]
+        amount: NotRequired["int|None"]
+        application_fee_amount: NotRequired["Literal['']|int|None"]
         capture_method: NotRequired[
-            Optional[Literal["automatic", "automatic_async", "manual"]]
+            "Literal['automatic', 'automatic_async', 'manual']|None"
         ]
-        currency: NotRequired[Optional[str]]
-        customer: NotRequired[Optional[str]]
-        description: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        payment_method: NotRequired[Optional[str]]
-        payment_method_configuration: NotRequired[Optional[str]]
+        currency: NotRequired["str|None"]
+        customer: NotRequired["str|None"]
+        description: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        payment_method: NotRequired["str|None"]
+        payment_method_configuration: NotRequired["str|None"]
         payment_method_data: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodData"]
+            "PaymentIntent.ModifyParamsPaymentMethodData|None"
         ]
         payment_method_options: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodOptions"]
+            "PaymentIntent.ModifyParamsPaymentMethodOptions|None"
         ]
-        payment_method_types: NotRequired[Optional[List[str]]]
-        receipt_email: NotRequired[Optional[Union[Literal[""], str]]]
+        payment_method_types: NotRequired["List[str]|None"]
+        receipt_email: NotRequired["Literal['']|str|None"]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["off_session", "on_session"]]]
+            "Literal['']|Literal['off_session', 'on_session']|None"
         ]
         shipping: NotRequired[
-            Optional[Union[Literal[""], "PaymentIntent.ModifyParamsShipping"]]
+            "Literal['']|PaymentIntent.ModifyParamsShipping|None"
         ]
-        statement_descriptor: NotRequired[Optional[str]]
-        statement_descriptor_suffix: NotRequired[Optional[str]]
+        statement_descriptor: NotRequired["str|None"]
+        statement_descriptor_suffix: NotRequired["str|None"]
         transfer_data: NotRequired[
-            Optional["PaymentIntent.ModifyParamsTransferData"]
+            "PaymentIntent.ModifyParamsTransferData|None"
         ]
-        transfer_group: NotRequired[Optional[str]]
+        transfer_group: NotRequired["str|None"]
 
     class ModifyParamsTransferData(TypedDict):
-        amount: NotRequired[Optional[int]]
+        amount: NotRequired["int|None"]
 
     class ModifyParamsShipping(TypedDict):
         address: "PaymentIntent.ModifyParamsShippingAddress"
-        carrier: NotRequired[Optional[str]]
+        carrier: NotRequired["str|None"]
         name: str
-        phone: NotRequired[Optional[str]]
-        tracking_number: NotRequired[Optional[str]]
+        phone: NotRequired["str|None"]
+        tracking_number: NotRequired["str|None"]
 
     class ModifyParamsShippingAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class ModifyParamsPaymentMethodOptions(TypedDict):
         acss_debit: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsAcssDebit",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAcssDebit|None"
         ]
         affirm: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsAffirm",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAffirm|None"
         ]
         afterpay_clearpay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsAfterpayClearpay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAfterpayClearpay|None"
         ]
         alipay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsAlipay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAlipay|None"
         ]
         au_becs_debit: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsAuBecsDebit",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsAuBecsDebit|None"
         ]
         bacs_debit: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsBacsDebit",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBacsDebit|None"
         ]
         bancontact: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsBancontact",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBancontact|None"
         ]
         blik: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsBlik",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBlik|None"
         ]
         boleto: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsBoleto",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsBoleto|None"
         ]
         card: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsCard",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCard|None"
         ]
         card_present: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsCardPresent",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCardPresent|None"
         ]
         cashapp: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsCashapp",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCashapp|None"
         ]
         customer_balance: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsCustomerBalance",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCustomerBalance|None"
         ]
         eps: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsEps",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsEps|None"
         ]
         fpx: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsFpx",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsFpx|None"
         ]
         giropay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsGiropay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsGiropay|None"
         ]
         grabpay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsGrabpay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsGrabpay|None"
         ]
         ideal: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsIdeal",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsIdeal|None"
         ]
         interac_present: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsInteracPresent",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsInteracPresent|None"
         ]
         klarna: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsKlarna",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsKlarna|None"
         ]
         konbini: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsKonbini",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsKonbini|None"
         ]
         link: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsLink",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsLink|None"
         ]
         oxxo: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsOxxo",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsOxxo|None"
         ]
         p24: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsP24",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsP24|None"
         ]
         paynow: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsPaynow",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPaynow|None"
         ]
         paypal: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsPaypal",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPaypal|None"
         ]
         pix: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsPix",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPix|None"
         ]
         promptpay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsPromptpay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsPromptpay|None"
         ]
         sepa_debit: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsSepaDebit",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsSepaDebit|None"
         ]
         sofort: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsSofort",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsSofort|None"
         ]
         us_bank_account: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccount",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccount|None"
         ]
         wechat_pay: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsWechatPay",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsWechatPay|None"
         ]
         zip: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsZip",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsZip|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsZip(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsWechatPay(TypedDict):
-        app_id: NotRequired[Optional[str]]
+        app_id: NotRequired["str|None"]
         client: Literal["android", "ios", "web"]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsUsBankAccount(TypedDict):
         financial_connections: NotRequired[
-            Optional[
-                "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
-            ]
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections|None"
         ]
         networks: NotRequired[
-            Optional[
-                "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountNetworks"
-            ]
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsUsBankAccountNetworks|None"
         ]
         preferred_settlement_speed: NotRequired[
-            Optional[Union[Literal[""], Literal["fastest", "standard"]]]
+            "Literal['']|Literal['fastest', 'standard']|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
         verification_method: NotRequired[
-            Optional[Literal["automatic", "instant", "microdeposits"]]
+            "Literal['automatic', 'instant', 'microdeposits']|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-        requested: NotRequired[
-            Optional[List[Literal["ach", "us_domestic_wire"]]]
-        ]
+        requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]|None"]
 
     class ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections(
         TypedDict,
     ):
         permissions: NotRequired[
-            Optional[
-                List[
-                    Literal[
-                        "balances",
-                        "ownership",
-                        "payment_method",
-                        "transactions",
-                    ]
-                ]
-            ]
+            "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]|None"
         ]
-        prefetch: NotRequired[Optional[List[Literal["balances"]]]]
-        return_url: NotRequired[Optional[str]]
+        prefetch: NotRequired["List[Literal['balances']]|None"]
+        return_url: NotRequired["str|None"]
 
     class ModifyParamsPaymentMethodOptionsSofort(TypedDict):
         preferred_language: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    Literal["de", "en", "es", "fr", "it", "nl", "pl"],
-                ]
-            ]
+            "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsSepaDebit(TypedDict):
         mandate_options: NotRequired[
-            Optional[
-                "PaymentIntent.ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions"
-            ]
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodOptionsPromptpay(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsPix(TypedDict):
-        expires_after_seconds: NotRequired[Optional[int]]
-        expires_at: NotRequired[Optional[int]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        expires_after_seconds: NotRequired["int|None"]
+        expires_at: NotRequired["int|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsPaypal(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
         preferred_locale: NotRequired[
-            Optional[
-                Literal[
-                    "cs-CZ",
-                    "da-DK",
-                    "de-AT",
-                    "de-DE",
-                    "de-LU",
-                    "el-GR",
-                    "en-GB",
-                    "en-US",
-                    "es-ES",
-                    "fi-FI",
-                    "fr-BE",
-                    "fr-FR",
-                    "fr-LU",
-                    "hu-HU",
-                    "it-IT",
-                    "nl-BE",
-                    "nl-NL",
-                    "pl-PL",
-                    "pt-PT",
-                    "sk-SK",
-                    "sv-SE",
-                ]
-            ]
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']|None"
         ]
-        reference: NotRequired[Optional[str]]
-        risk_correlation_id: NotRequired[Optional[str]]
+        reference: NotRequired["str|None"]
+        risk_correlation_id: NotRequired["str|None"]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsPaynow(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsP24(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
-        tos_shown_and_accepted: NotRequired[Optional[bool]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
+        tos_shown_and_accepted: NotRequired["bool|None"]
 
     class ModifyParamsPaymentMethodOptionsOxxo(TypedDict):
-        expires_after_days: NotRequired[Optional[int]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        expires_after_days: NotRequired["int|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsLink(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
-        persistent_token: NotRequired[Optional[str]]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
+        persistent_token: NotRequired["str|None"]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsKonbini(TypedDict):
-        confirmation_number: NotRequired[Optional[Union[Literal[""], str]]]
-        expires_after_days: NotRequired[Optional[Union[Literal[""], int]]]
-        expires_at: NotRequired[Optional[Union[Literal[""], int]]]
-        product_description: NotRequired[Optional[Union[Literal[""], str]]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        confirmation_number: NotRequired["Literal['']|str|None"]
+        expires_after_days: NotRequired["Literal['']|int|None"]
+        expires_at: NotRequired["Literal['']|int|None"]
+        product_description: NotRequired["Literal['']|str|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsKlarna(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
         preferred_locale: NotRequired[
-            Optional[
-                Literal[
-                    "cs-CZ",
-                    "da-DK",
-                    "de-AT",
-                    "de-CH",
-                    "de-DE",
-                    "el-GR",
-                    "en-AT",
-                    "en-AU",
-                    "en-BE",
-                    "en-CA",
-                    "en-CH",
-                    "en-CZ",
-                    "en-DE",
-                    "en-DK",
-                    "en-ES",
-                    "en-FI",
-                    "en-FR",
-                    "en-GB",
-                    "en-GR",
-                    "en-IE",
-                    "en-IT",
-                    "en-NL",
-                    "en-NO",
-                    "en-NZ",
-                    "en-PL",
-                    "en-PT",
-                    "en-SE",
-                    "en-US",
-                    "es-ES",
-                    "es-US",
-                    "fi-FI",
-                    "fr-BE",
-                    "fr-CA",
-                    "fr-CH",
-                    "fr-FR",
-                    "it-CH",
-                    "it-IT",
-                    "nb-NO",
-                    "nl-BE",
-                    "nl-NL",
-                    "pl-PL",
-                    "pt-PT",
-                    "sv-FI",
-                    "sv-SE",
-                ]
-            ]
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']|None"
         ]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsInteracPresent(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodOptionsIdeal(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsGrabpay(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsGiropay(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsFpx(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsEps(TypedDict):
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsCustomerBalance(TypedDict):
         bank_transfer: NotRequired[
-            Optional[
-                "PaymentIntent.ModifyParamsPaymentMethodOptionsCustomerBalanceBankTransfer"
-            ]
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCustomerBalanceBankTransfer|None"
         ]
-        funding_type: NotRequired[Optional[Literal["bank_transfer"]]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        funding_type: NotRequired["Literal['bank_transfer']|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsCustomerBalanceBankTransfer(
         TypedDict,
     ):
         eu_bank_transfer: NotRequired[
-            Optional[
-                "PaymentIntent.ModifyParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
-            ]
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer|None"
         ]
         requested_address_types: NotRequired[
-            Optional[
-                List[
-                    Literal[
-                        "aba",
-                        "iban",
-                        "sepa",
-                        "sort_code",
-                        "spei",
-                        "swift",
-                        "zengin",
-                    ]
-                ]
-            ]
+            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]|None"
         ]
         type: Literal[
             "eu_bank_transfer",
@@ -3140,106 +1935,65 @@ class PaymentIntent(
         country: str
 
     class ModifyParamsPaymentMethodOptionsCashapp(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
-        request_extended_authorization: NotRequired[Optional[bool]]
+        request_extended_authorization: NotRequired["bool|None"]
         request_incremental_authorization: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
-        request_incremental_authorization_support: NotRequired[Optional[bool]]
+        request_incremental_authorization_support: NotRequired["bool|None"]
 
     class ModifyParamsPaymentMethodOptionsCard(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
-        cvc_token: NotRequired[Optional[str]]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
+        cvc_token: NotRequired["str|None"]
         installments: NotRequired[
-            Optional[
-                "PaymentIntent.ModifyParamsPaymentMethodOptionsCardInstallments"
-            ]
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardInstallments|None"
         ]
         mandate_options: NotRequired[
-            Optional[
-                "PaymentIntent.ModifyParamsPaymentMethodOptionsCardMandateOptions"
-            ]
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardMandateOptions|None"
         ]
-        moto: NotRequired[Optional[bool]]
+        moto: NotRequired["bool|None"]
         network: NotRequired[
-            Optional[
-                Literal[
-                    "amex",
-                    "cartes_bancaires",
-                    "diners",
-                    "discover",
-                    "eftpos_au",
-                    "interac",
-                    "jcb",
-                    "mastercard",
-                    "unionpay",
-                    "unknown",
-                    "visa",
-                ]
-            ]
+            "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']|None"
         ]
         request_extended_authorization: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
         request_incremental_authorization: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
         request_multicapture: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
         request_overcapture: NotRequired[
-            Optional[Literal["if_available", "never"]]
+            "Literal['if_available', 'never']|None"
         ]
-        request_three_d_secure: NotRequired[
-            Optional[Literal["any", "automatic"]]
-        ]
+        request_three_d_secure: NotRequired["Literal['any', 'automatic']|None"]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
-        statement_descriptor_suffix_kana: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
-        statement_descriptor_suffix_kanji: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
+        statement_descriptor_suffix_kana: NotRequired["Literal['']|str|None"]
+        statement_descriptor_suffix_kanji: NotRequired["Literal['']|str|None"]
 
     class ModifyParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
         amount: int
         amount_type: Literal["fixed", "maximum"]
-        description: NotRequired[Optional[str]]
-        end_date: NotRequired[Optional[int]]
+        description: NotRequired["str|None"]
+        end_date: NotRequired["int|None"]
         interval: Literal["day", "month", "sporadic", "week", "year"]
-        interval_count: NotRequired[Optional[int]]
+        interval_count: NotRequired["int|None"]
         reference: str
         start_date: int
-        supported_types: NotRequired[Optional[List[Literal["india"]]]]
+        supported_types: NotRequired["List[Literal['india']]|None"]
 
     class ModifyParamsPaymentMethodOptionsCardInstallments(TypedDict):
-        enabled: NotRequired[Optional[bool]]
+        enabled: NotRequired["bool|None"]
         plan: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodOptionsCardInstallmentsPlan",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsCardInstallmentsPlan|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsCardInstallmentsPlan(TypedDict):
@@ -3248,189 +2002,147 @@ class PaymentIntent(
         type: Literal["fixed_count"]
 
     class ModifyParamsPaymentMethodOptionsBoleto(TypedDict):
-        expires_after_days: NotRequired[Optional[int]]
+        expires_after_days: NotRequired["int|None"]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsBlik(TypedDict):
-        code: NotRequired[Optional[str]]
+        code: NotRequired["str|None"]
 
     class ModifyParamsPaymentMethodOptionsBancontact(TypedDict):
-        preferred_language: NotRequired[
-            Optional[Literal["de", "en", "fr", "nl"]]
-        ]
+        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']|None"]
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsBacsDebit(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsAuBecsDebit(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsAlipay(TypedDict):
         setup_future_usage: NotRequired[
-            Optional[Union[Literal[""], Literal["none", "off_session"]]]
+            "Literal['']|Literal['none', 'off_session']|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsAfterpayClearpay(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
-        reference: NotRequired[Optional[str]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
+        reference: NotRequired["str|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsAffirm(TypedDict):
-        capture_method: NotRequired[
-            Optional[Union[Literal[""], Literal["manual"]]]
-        ]
-        preferred_locale: NotRequired[Optional[str]]
-        setup_future_usage: NotRequired[Optional[Literal["none"]]]
+        capture_method: NotRequired["Literal['']|Literal['manual']|None"]
+        preferred_locale: NotRequired["str|None"]
+        setup_future_usage: NotRequired["Literal['none']|None"]
 
     class ModifyParamsPaymentMethodOptionsAcssDebit(TypedDict):
         mandate_options: NotRequired[
-            Optional[
-                "PaymentIntent.ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions"
-            ]
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions|None"
         ]
         setup_future_usage: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Literal["none", "off_session", "on_session"]
-                ]
-            ]
+            "Literal['']|Literal['none', 'off_session', 'on_session']|None"
         ]
         verification_method: NotRequired[
-            Optional[Literal["automatic", "instant", "microdeposits"]]
+            "Literal['automatic', 'instant', 'microdeposits']|None"
         ]
 
     class ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions(TypedDict):
-        custom_mandate_url: NotRequired[Optional[Union[Literal[""], str]]]
-        interval_description: NotRequired[Optional[str]]
+        custom_mandate_url: NotRequired["Literal['']|str|None"]
+        interval_description: NotRequired["str|None"]
         payment_schedule: NotRequired[
-            Optional[Literal["combined", "interval", "sporadic"]]
+            "Literal['combined', 'interval', 'sporadic']|None"
         ]
-        transaction_type: NotRequired[
-            Optional[Literal["business", "personal"]]
-        ]
+        transaction_type: NotRequired["Literal['business', 'personal']|None"]
 
     class ModifyParamsPaymentMethodData(TypedDict):
         acss_debit: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataAcssDebit"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataAcssDebit|None"
         ]
         affirm: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataAffirm"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataAffirm|None"
         ]
         afterpay_clearpay: NotRequired[
-            Optional[
-                "PaymentIntent.ModifyParamsPaymentMethodDataAfterpayClearpay"
-            ]
+            "PaymentIntent.ModifyParamsPaymentMethodDataAfterpayClearpay|None"
         ]
         alipay: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataAlipay"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataAlipay|None"
         ]
         au_becs_debit: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataAuBecsDebit"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataAuBecsDebit|None"
         ]
         bacs_debit: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataBacsDebit"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataBacsDebit|None"
         ]
         bancontact: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataBancontact"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataBancontact|None"
         ]
         billing_details: NotRequired[
-            Optional[
-                "PaymentIntent.ModifyParamsPaymentMethodDataBillingDetails"
-            ]
+            "PaymentIntent.ModifyParamsPaymentMethodDataBillingDetails|None"
         ]
         blik: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataBlik"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataBlik|None"
         ]
         boleto: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataBoleto"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataBoleto|None"
         ]
         cashapp: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataCashapp"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataCashapp|None"
         ]
         customer_balance: NotRequired[
-            Optional[
-                "PaymentIntent.ModifyParamsPaymentMethodDataCustomerBalance"
-            ]
+            "PaymentIntent.ModifyParamsPaymentMethodDataCustomerBalance|None"
         ]
-        eps: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataEps"]
-        ]
-        fpx: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataFpx"]
-        ]
+        eps: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataEps|None"]
+        fpx: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataFpx|None"]
         giropay: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataGiropay"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataGiropay|None"
         ]
         grabpay: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataGrabpay"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataGrabpay|None"
         ]
         ideal: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataIdeal"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataIdeal|None"
         ]
         interac_present: NotRequired[
-            Optional[
-                "PaymentIntent.ModifyParamsPaymentMethodDataInteracPresent"
-            ]
+            "PaymentIntent.ModifyParamsPaymentMethodDataInteracPresent|None"
         ]
         klarna: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataKlarna"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataKlarna|None"
         ]
         konbini: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataKonbini"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataKonbini|None"
         ]
         link: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataLink"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataLink|None"
         ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        metadata: NotRequired["Dict[str, str]|None"]
         oxxo: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataOxxo"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataOxxo|None"
         ]
-        p24: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataP24"]
-        ]
+        p24: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataP24|None"]
         paynow: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataPaynow"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataPaynow|None"
         ]
         paypal: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataPaypal"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataPaypal|None"
         ]
-        pix: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataPix"]
-        ]
+        pix: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataPix|None"]
         promptpay: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataPromptpay"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataPromptpay|None"
         ]
         radar_options: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataRadarOptions"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataRadarOptions|None"
         ]
         sepa_debit: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataSepaDebit"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataSepaDebit|None"
         ]
         sofort: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataSofort"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataSofort|None"
         ]
         type: Literal[
             "acss_debit",
@@ -3465,16 +2177,12 @@ class PaymentIntent(
             "zip",
         ]
         us_bank_account: NotRequired[
-            Optional[
-                "PaymentIntent.ModifyParamsPaymentMethodDataUsBankAccount"
-            ]
+            "PaymentIntent.ModifyParamsPaymentMethodDataUsBankAccount|None"
         ]
         wechat_pay: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataWechatPay"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataWechatPay|None"
         ]
-        zip: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataZip"]
-        ]
+        zip: NotRequired["PaymentIntent.ModifyParamsPaymentMethodDataZip|None"]
 
     class ModifyParamsPaymentMethodDataZip(TypedDict):
         pass
@@ -3484,12 +2192,12 @@ class PaymentIntent(
 
     class ModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
         account_holder_type: NotRequired[
-            Optional[Literal["company", "individual"]]
+            "Literal['company', 'individual']|None"
         ]
-        account_number: NotRequired[Optional[str]]
-        account_type: NotRequired[Optional[Literal["checking", "savings"]]]
-        financial_connections_account: NotRequired[Optional[str]]
-        routing_number: NotRequired[Optional[str]]
+        account_number: NotRequired["str|None"]
+        account_type: NotRequired["Literal['checking', 'savings']|None"]
+        financial_connections_account: NotRequired["str|None"]
+        routing_number: NotRequired["str|None"]
 
     class ModifyParamsPaymentMethodDataSofort(TypedDict):
         country: Literal["AT", "BE", "DE", "ES", "IT", "NL"]
@@ -3498,7 +2206,7 @@ class PaymentIntent(
         iban: str
 
     class ModifyParamsPaymentMethodDataRadarOptions(TypedDict):
-        session: NotRequired[Optional[str]]
+        session: NotRequired["str|None"]
 
     class ModifyParamsPaymentMethodDataPromptpay(TypedDict):
         pass
@@ -3514,35 +2222,7 @@ class PaymentIntent(
 
     class ModifyParamsPaymentMethodDataP24(TypedDict):
         bank: NotRequired[
-            Optional[
-                Literal[
-                    "alior_bank",
-                    "bank_millennium",
-                    "bank_nowy_bfg_sa",
-                    "bank_pekao_sa",
-                    "banki_spbdzielcze",
-                    "blik",
-                    "bnp_paribas",
-                    "boz",
-                    "citi_handlowy",
-                    "credit_agricole",
-                    "envelobank",
-                    "etransfer_pocztowy24",
-                    "getin_bank",
-                    "ideabank",
-                    "ing",
-                    "inteligo",
-                    "mbank_mtransfer",
-                    "nest_przelew",
-                    "noble_pay",
-                    "pbac_z_ipko",
-                    "plus_bank",
-                    "santander_przelew24",
-                    "tmobile_usbugi_bankowe",
-                    "toyota_bank",
-                    "volkswagen_bank",
-                ]
-            ]
+            "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']|None"
         ]
 
     class ModifyParamsPaymentMethodDataOxxo(TypedDict):
@@ -3556,7 +2236,7 @@ class PaymentIntent(
 
     class ModifyParamsPaymentMethodDataKlarna(TypedDict):
         dob: NotRequired[
-            Optional["PaymentIntent.ModifyParamsPaymentMethodDataKlarnaDob"]
+            "PaymentIntent.ModifyParamsPaymentMethodDataKlarnaDob|None"
         ]
 
     class ModifyParamsPaymentMethodDataKlarnaDob(TypedDict):
@@ -3569,25 +2249,7 @@ class PaymentIntent(
 
     class ModifyParamsPaymentMethodDataIdeal(TypedDict):
         bank: NotRequired[
-            Optional[
-                Literal[
-                    "abn_amro",
-                    "asn_bank",
-                    "bunq",
-                    "handelsbanken",
-                    "ing",
-                    "knab",
-                    "moneyou",
-                    "n26",
-                    "rabobank",
-                    "regiobank",
-                    "revolut",
-                    "sns_bank",
-                    "triodos_bank",
-                    "van_lanschot",
-                    "yoursafe",
-                ]
-            ]
+            "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']|None"
         ]
 
     class ModifyParamsPaymentMethodDataGrabpay(TypedDict):
@@ -3598,7 +2260,7 @@ class PaymentIntent(
 
     class ModifyParamsPaymentMethodDataFpx(TypedDict):
         account_holder_type: NotRequired[
-            Optional[Literal["company", "individual"]]
+            "Literal['company', 'individual']|None"
         ]
         bank: Literal[
             "affin_bank",
@@ -3627,38 +2289,7 @@ class PaymentIntent(
 
     class ModifyParamsPaymentMethodDataEps(TypedDict):
         bank: NotRequired[
-            Optional[
-                Literal[
-                    "arzte_und_apotheker_bank",
-                    "austrian_anadi_bank_ag",
-                    "bank_austria",
-                    "bankhaus_carl_spangler",
-                    "bankhaus_schelhammer_und_schattera_ag",
-                    "bawag_psk_ag",
-                    "bks_bank_ag",
-                    "brull_kallmus_bank_ag",
-                    "btv_vier_lander_bank",
-                    "capital_bank_grawe_gruppe_ag",
-                    "deutsche_bank_ag",
-                    "dolomitenbank",
-                    "easybank_ag",
-                    "erste_bank_und_sparkassen",
-                    "hypo_alpeadriabank_international_ag",
-                    "hypo_bank_burgenland_aktiengesellschaft",
-                    "hypo_noe_lb_fur_niederosterreich_u_wien",
-                    "hypo_oberosterreich_salzburg_steiermark",
-                    "hypo_tirol_bank_ag",
-                    "hypo_vorarlberg_bank_ag",
-                    "marchfelder_bank",
-                    "oberbank_ag",
-                    "raiffeisen_bankengruppe_osterreich",
-                    "schoellerbank_ag",
-                    "sparda_bank_wien",
-                    "volksbank_gruppe",
-                    "volkskreditbank_ag",
-                    "vr_bank_braunau",
-                ]
-            ]
+            "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']|None"
         ]
 
     class ModifyParamsPaymentMethodDataCustomerBalance(TypedDict):
@@ -3675,31 +2306,26 @@ class PaymentIntent(
 
     class ModifyParamsPaymentMethodDataBillingDetails(TypedDict):
         address: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentIntent.ModifyParamsPaymentMethodDataBillingDetailsAddress",
-                ]
-            ]
+            "Literal['']|PaymentIntent.ModifyParamsPaymentMethodDataBillingDetailsAddress|None"
         ]
-        email: NotRequired[Optional[Union[Literal[""], str]]]
-        name: NotRequired[Optional[Union[Literal[""], str]]]
-        phone: NotRequired[Optional[Union[Literal[""], str]]]
+        email: NotRequired["Literal['']|str|None"]
+        name: NotRequired["Literal['']|str|None"]
+        phone: NotRequired["Literal['']|str|None"]
 
     class ModifyParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class ModifyParamsPaymentMethodDataBancontact(TypedDict):
         pass
 
     class ModifyParamsPaymentMethodDataBacsDebit(TypedDict):
-        account_number: NotRequired[Optional[str]]
-        sort_code: NotRequired[Optional[str]]
+        account_number: NotRequired["str|None"]
+        sort_code: NotRequired["str|None"]
 
     class ModifyParamsPaymentMethodDataAuBecsDebit(TypedDict):
         account_number: str
@@ -3720,18 +2346,18 @@ class PaymentIntent(
         transit_number: str
 
     class RetrieveParams(RequestOptions):
-        client_secret: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
+        client_secret: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
 
     class VerifyMicrodepositsParams(RequestOptions):
-        amounts: NotRequired[Optional[List[int]]]
-        descriptor_code: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
+        amounts: NotRequired["List[int]|None"]
+        descriptor_code: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
 
     class SearchParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        page: NotRequired[Optional[str]]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        page: NotRequired["str|None"]
         query: str
 
     amount: int
@@ -4077,5 +2703,7 @@ class PaymentIntent(
         )
 
     @classmethod
-    def search_auto_paging_iter(cls, *args, **kwargs):
+    def search_auto_paging_iter(
+        cls, *args, **kwargs: Unpack["PaymentIntent.SearchParams"]
+    ):
         return cls.search(*args, **kwargs).auto_paging_iter()

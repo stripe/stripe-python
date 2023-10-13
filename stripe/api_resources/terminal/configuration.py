@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -12,7 +10,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, Union, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -31,228 +29,236 @@ class Configuration(
 
     class CreateParams(RequestOptions):
         bbpos_wisepos_e: NotRequired[
-            Optional["Configuration.CreateParamsBbposWiseposE"]
+            "Configuration.CreateParamsBbposWiseposE|None"
         ]
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
+        offline: NotRequired[
+            "Literal['']|Configuration.CreateParamsOffline|None"
+        ]
         tipping: NotRequired[
-            Optional[Union[Literal[""], "Configuration.CreateParamsTipping"]]
+            "Literal['']|Configuration.CreateParamsTipping|None"
         ]
         verifone_p400: NotRequired[
-            Optional["Configuration.CreateParamsVerifoneP400"]
+            "Configuration.CreateParamsVerifoneP400|None"
         ]
 
     class CreateParamsVerifoneP400(TypedDict):
-        splashscreen: NotRequired[Optional[Union[Literal[""], str]]]
+        splashscreen: NotRequired["Literal['']|str|None"]
 
     class CreateParamsTipping(TypedDict):
-        aud: NotRequired[Optional["Configuration.CreateParamsTippingAud"]]
-        cad: NotRequired[Optional["Configuration.CreateParamsTippingCad"]]
-        chf: NotRequired[Optional["Configuration.CreateParamsTippingChf"]]
-        czk: NotRequired[Optional["Configuration.CreateParamsTippingCzk"]]
-        dkk: NotRequired[Optional["Configuration.CreateParamsTippingDkk"]]
-        eur: NotRequired[Optional["Configuration.CreateParamsTippingEur"]]
-        gbp: NotRequired[Optional["Configuration.CreateParamsTippingGbp"]]
-        hkd: NotRequired[Optional["Configuration.CreateParamsTippingHkd"]]
-        myr: NotRequired[Optional["Configuration.CreateParamsTippingMyr"]]
-        nok: NotRequired[Optional["Configuration.CreateParamsTippingNok"]]
-        nzd: NotRequired[Optional["Configuration.CreateParamsTippingNzd"]]
-        sek: NotRequired[Optional["Configuration.CreateParamsTippingSek"]]
-        sgd: NotRequired[Optional["Configuration.CreateParamsTippingSgd"]]
-        usd: NotRequired[Optional["Configuration.CreateParamsTippingUsd"]]
+        aud: NotRequired["Configuration.CreateParamsTippingAud|None"]
+        cad: NotRequired["Configuration.CreateParamsTippingCad|None"]
+        chf: NotRequired["Configuration.CreateParamsTippingChf|None"]
+        czk: NotRequired["Configuration.CreateParamsTippingCzk|None"]
+        dkk: NotRequired["Configuration.CreateParamsTippingDkk|None"]
+        eur: NotRequired["Configuration.CreateParamsTippingEur|None"]
+        gbp: NotRequired["Configuration.CreateParamsTippingGbp|None"]
+        hkd: NotRequired["Configuration.CreateParamsTippingHkd|None"]
+        myr: NotRequired["Configuration.CreateParamsTippingMyr|None"]
+        nok: NotRequired["Configuration.CreateParamsTippingNok|None"]
+        nzd: NotRequired["Configuration.CreateParamsTippingNzd|None"]
+        sek: NotRequired["Configuration.CreateParamsTippingSek|None"]
+        sgd: NotRequired["Configuration.CreateParamsTippingSgd|None"]
+        usd: NotRequired["Configuration.CreateParamsTippingUsd|None"]
 
     class CreateParamsTippingUsd(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class CreateParamsTippingSgd(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class CreateParamsTippingSek(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class CreateParamsTippingNzd(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class CreateParamsTippingNok(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class CreateParamsTippingMyr(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class CreateParamsTippingHkd(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class CreateParamsTippingGbp(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class CreateParamsTippingEur(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class CreateParamsTippingDkk(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class CreateParamsTippingCzk(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class CreateParamsTippingChf(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class CreateParamsTippingCad(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class CreateParamsTippingAud(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
+
+    class CreateParamsOffline(TypedDict):
+        enabled: bool
 
     class CreateParamsBbposWiseposE(TypedDict):
-        splashscreen: NotRequired[Optional[Union[Literal[""], str]]]
+        splashscreen: NotRequired["Literal['']|str|None"]
 
     class DeleteParams(RequestOptions):
         pass
 
     class ListParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        is_account_default: NotRequired[Optional[bool]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        is_account_default: NotRequired["bool|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ModifyParams(RequestOptions):
         bbpos_wisepos_e: NotRequired[
-            Optional[
-                Union[Literal[""], "Configuration.ModifyParamsBbposWiseposE"]
-            ]
+            "Literal['']|Configuration.ModifyParamsBbposWiseposE|None"
         ]
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
+        offline: NotRequired[
+            "Literal['']|Configuration.ModifyParamsOffline|None"
+        ]
         tipping: NotRequired[
-            Optional[Union[Literal[""], "Configuration.ModifyParamsTipping"]]
+            "Literal['']|Configuration.ModifyParamsTipping|None"
         ]
         verifone_p400: NotRequired[
-            Optional[
-                Union[Literal[""], "Configuration.ModifyParamsVerifoneP400"]
-            ]
+            "Literal['']|Configuration.ModifyParamsVerifoneP400|None"
         ]
 
     class ModifyParamsVerifoneP400(TypedDict):
-        splashscreen: NotRequired[Optional[Union[Literal[""], str]]]
+        splashscreen: NotRequired["Literal['']|str|None"]
 
     class ModifyParamsTipping(TypedDict):
-        aud: NotRequired[Optional["Configuration.ModifyParamsTippingAud"]]
-        cad: NotRequired[Optional["Configuration.ModifyParamsTippingCad"]]
-        chf: NotRequired[Optional["Configuration.ModifyParamsTippingChf"]]
-        czk: NotRequired[Optional["Configuration.ModifyParamsTippingCzk"]]
-        dkk: NotRequired[Optional["Configuration.ModifyParamsTippingDkk"]]
-        eur: NotRequired[Optional["Configuration.ModifyParamsTippingEur"]]
-        gbp: NotRequired[Optional["Configuration.ModifyParamsTippingGbp"]]
-        hkd: NotRequired[Optional["Configuration.ModifyParamsTippingHkd"]]
-        myr: NotRequired[Optional["Configuration.ModifyParamsTippingMyr"]]
-        nok: NotRequired[Optional["Configuration.ModifyParamsTippingNok"]]
-        nzd: NotRequired[Optional["Configuration.ModifyParamsTippingNzd"]]
-        sek: NotRequired[Optional["Configuration.ModifyParamsTippingSek"]]
-        sgd: NotRequired[Optional["Configuration.ModifyParamsTippingSgd"]]
-        usd: NotRequired[Optional["Configuration.ModifyParamsTippingUsd"]]
+        aud: NotRequired["Configuration.ModifyParamsTippingAud|None"]
+        cad: NotRequired["Configuration.ModifyParamsTippingCad|None"]
+        chf: NotRequired["Configuration.ModifyParamsTippingChf|None"]
+        czk: NotRequired["Configuration.ModifyParamsTippingCzk|None"]
+        dkk: NotRequired["Configuration.ModifyParamsTippingDkk|None"]
+        eur: NotRequired["Configuration.ModifyParamsTippingEur|None"]
+        gbp: NotRequired["Configuration.ModifyParamsTippingGbp|None"]
+        hkd: NotRequired["Configuration.ModifyParamsTippingHkd|None"]
+        myr: NotRequired["Configuration.ModifyParamsTippingMyr|None"]
+        nok: NotRequired["Configuration.ModifyParamsTippingNok|None"]
+        nzd: NotRequired["Configuration.ModifyParamsTippingNzd|None"]
+        sek: NotRequired["Configuration.ModifyParamsTippingSek|None"]
+        sgd: NotRequired["Configuration.ModifyParamsTippingSgd|None"]
+        usd: NotRequired["Configuration.ModifyParamsTippingUsd|None"]
 
     class ModifyParamsTippingUsd(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class ModifyParamsTippingSgd(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class ModifyParamsTippingSek(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class ModifyParamsTippingNzd(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class ModifyParamsTippingNok(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class ModifyParamsTippingMyr(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class ModifyParamsTippingHkd(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class ModifyParamsTippingGbp(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class ModifyParamsTippingEur(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class ModifyParamsTippingDkk(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class ModifyParamsTippingCzk(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class ModifyParamsTippingChf(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class ModifyParamsTippingCad(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
 
     class ModifyParamsTippingAud(TypedDict):
-        fixed_amounts: NotRequired[Optional[List[int]]]
-        percentages: NotRequired[Optional[List[int]]]
-        smart_tip_threshold: NotRequired[Optional[int]]
+        fixed_amounts: NotRequired["List[int]|None"]
+        percentages: NotRequired["List[int]|None"]
+        smart_tip_threshold: NotRequired["int|None"]
+
+    class ModifyParamsOffline(TypedDict):
+        enabled: bool
 
     class ModifyParamsBbposWiseposE(TypedDict):
-        splashscreen: NotRequired[Optional[Union[Literal[""], str]]]
+        splashscreen: NotRequired["Literal['']|str|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     bbpos_wisepos_e: Optional[StripeObject]
     id: str

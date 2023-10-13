@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -43,77 +41,75 @@ class Plan(
     OBJECT_NAME = "plan"
 
     class CreateParams(RequestOptions):
-        active: NotRequired[Optional[bool]]
+        active: NotRequired["bool|None"]
         aggregate_usage: NotRequired[
-            Optional[Literal["last_during_period", "last_ever", "max", "sum"]]
+            "Literal['last_during_period', 'last_ever', 'max', 'sum']|None"
         ]
-        amount: NotRequired[Optional[int]]
-        amount_decimal: NotRequired[Optional[float]]
-        billing_scheme: NotRequired[Optional[Literal["per_unit", "tiered"]]]
+        amount: NotRequired["int|None"]
+        amount_decimal: NotRequired["float|None"]
+        billing_scheme: NotRequired["Literal['per_unit', 'tiered']|None"]
         currency: str
-        expand: NotRequired[Optional[List[str]]]
-        id: NotRequired[Optional[str]]
+        expand: NotRequired["List[str]|None"]
+        id: NotRequired["str|None"]
         interval: Literal["day", "month", "week", "year"]
-        interval_count: NotRequired[Optional[int]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        nickname: NotRequired[Optional[str]]
-        product: NotRequired[Optional[Union["Plan.CreateParamsProduct", str]]]
-        tiers: NotRequired[Optional[List["Plan.CreateParamsTier"]]]
-        tiers_mode: NotRequired[Optional[Literal["graduated", "volume"]]]
-        transform_usage: NotRequired[
-            Optional["Plan.CreateParamsTransformUsage"]
-        ]
-        trial_period_days: NotRequired[Optional[int]]
-        usage_type: NotRequired[Optional[Literal["licensed", "metered"]]]
+        interval_count: NotRequired["int|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        nickname: NotRequired["str|None"]
+        product: NotRequired["Plan.CreateParamsProduct|str|None"]
+        tiers: NotRequired["List[Plan.CreateParamsTier]|None"]
+        tiers_mode: NotRequired["Literal['graduated', 'volume']|None"]
+        transform_usage: NotRequired["Plan.CreateParamsTransformUsage|None"]
+        trial_period_days: NotRequired["int|None"]
+        usage_type: NotRequired["Literal['licensed', 'metered']|None"]
 
     class CreateParamsTransformUsage(TypedDict):
         divide_by: int
         round: Literal["down", "up"]
 
     class CreateParamsTier(TypedDict):
-        flat_amount: NotRequired[Optional[int]]
-        flat_amount_decimal: NotRequired[Optional[float]]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        flat_amount: NotRequired["int|None"]
+        flat_amount_decimal: NotRequired["float|None"]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
         up_to: Union[Literal["inf"], int]
 
     class CreateParamsProduct(TypedDict):
-        active: NotRequired[Optional[bool]]
-        id: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        active: NotRequired["bool|None"]
+        id: NotRequired["str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
         name: str
-        statement_descriptor: NotRequired[Optional[str]]
-        tax_code: NotRequired[Optional[str]]
-        unit_label: NotRequired[Optional[str]]
+        statement_descriptor: NotRequired["str|None"]
+        tax_code: NotRequired["str|None"]
+        unit_label: NotRequired["str|None"]
 
     class DeleteParams(RequestOptions):
         pass
 
     class ListParams(RequestOptions):
-        active: NotRequired[Optional[bool]]
-        created: NotRequired[Optional[Union["Plan.ListParamsCreated", int]]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        product: NotRequired[Optional[str]]
-        starting_after: NotRequired[Optional[str]]
+        active: NotRequired["bool|None"]
+        created: NotRequired["Plan.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        product: NotRequired["str|None"]
+        starting_after: NotRequired["str|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ModifyParams(RequestOptions):
-        active: NotRequired[Optional[bool]]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        nickname: NotRequired[Optional[str]]
-        product: NotRequired[Optional[str]]
-        trial_period_days: NotRequired[Optional[int]]
+        active: NotRequired["bool|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        nickname: NotRequired["str|None"]
+        product: NotRequired["str|None"]
+        trial_period_days: NotRequired["int|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     active: bool
     aggregate_usage: Optional[

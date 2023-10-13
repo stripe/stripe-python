@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -41,171 +39,161 @@ class Price(
     OBJECT_NAME = "price"
 
     class CreateParams(RequestOptions):
-        active: NotRequired[Optional[bool]]
-        billing_scheme: NotRequired[Optional[Literal["per_unit", "tiered"]]]
+        active: NotRequired["bool|None"]
+        billing_scheme: NotRequired["Literal['per_unit', 'tiered']|None"]
         currency: str
         currency_options: NotRequired[
-            Optional[Dict[str, "Price.CreateParamsCurrencyOptions"]]
+            "Dict[str, Price.CreateParamsCurrencyOptions]|None"
         ]
         custom_unit_amount: NotRequired[
-            Optional["Price.CreateParamsCustomUnitAmount"]
+            "Price.CreateParamsCustomUnitAmount|None"
         ]
-        expand: NotRequired[Optional[List[str]]]
-        lookup_key: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        nickname: NotRequired[Optional[str]]
-        product: NotRequired[Optional[str]]
-        product_data: NotRequired[Optional["Price.CreateParamsProductData"]]
-        recurring: NotRequired[Optional["Price.CreateParamsRecurring"]]
+        expand: NotRequired["List[str]|None"]
+        lookup_key: NotRequired["str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        nickname: NotRequired["str|None"]
+        product: NotRequired["str|None"]
+        product_data: NotRequired["Price.CreateParamsProductData|None"]
+        recurring: NotRequired["Price.CreateParamsRecurring|None"]
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
-        tiers: NotRequired[Optional[List["Price.CreateParamsTier"]]]
-        tiers_mode: NotRequired[Optional[Literal["graduated", "volume"]]]
-        transfer_lookup_key: NotRequired[Optional[bool]]
+        tiers: NotRequired["List[Price.CreateParamsTier]|None"]
+        tiers_mode: NotRequired["Literal['graduated', 'volume']|None"]
+        transfer_lookup_key: NotRequired["bool|None"]
         transform_quantity: NotRequired[
-            Optional["Price.CreateParamsTransformQuantity"]
+            "Price.CreateParamsTransformQuantity|None"
         ]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
     class CreateParamsTransformQuantity(TypedDict):
         divide_by: int
         round: Literal["down", "up"]
 
     class CreateParamsTier(TypedDict):
-        flat_amount: NotRequired[Optional[int]]
-        flat_amount_decimal: NotRequired[Optional[float]]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        flat_amount: NotRequired["int|None"]
+        flat_amount_decimal: NotRequired["float|None"]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
         up_to: Union[Literal["inf"], int]
 
     class CreateParamsRecurring(TypedDict):
         aggregate_usage: NotRequired[
-            Optional[Literal["last_during_period", "last_ever", "max", "sum"]]
+            "Literal['last_during_period', 'last_ever', 'max', 'sum']|None"
         ]
         interval: Literal["day", "month", "week", "year"]
-        interval_count: NotRequired[Optional[int]]
-        trial_period_days: NotRequired[Optional[int]]
-        usage_type: NotRequired[Optional[Literal["licensed", "metered"]]]
+        interval_count: NotRequired["int|None"]
+        trial_period_days: NotRequired["int|None"]
+        usage_type: NotRequired["Literal['licensed', 'metered']|None"]
 
     class CreateParamsProductData(TypedDict):
-        active: NotRequired[Optional[bool]]
-        id: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        active: NotRequired["bool|None"]
+        id: NotRequired["str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
         name: str
-        statement_descriptor: NotRequired[Optional[str]]
-        tax_code: NotRequired[Optional[str]]
-        unit_label: NotRequired[Optional[str]]
+        statement_descriptor: NotRequired["str|None"]
+        tax_code: NotRequired["str|None"]
+        unit_label: NotRequired["str|None"]
 
     class CreateParamsCustomUnitAmount(TypedDict):
         enabled: bool
-        maximum: NotRequired[Optional[int]]
-        minimum: NotRequired[Optional[int]]
-        preset: NotRequired[Optional[int]]
+        maximum: NotRequired["int|None"]
+        minimum: NotRequired["int|None"]
+        preset: NotRequired["int|None"]
 
     class CreateParamsCurrencyOptions(TypedDict):
         custom_unit_amount: NotRequired[
-            Optional["Price.CreateParamsCurrencyOptionsCustomUnitAmount"]
+            "Price.CreateParamsCurrencyOptionsCustomUnitAmount|None"
         ]
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
-        tiers: NotRequired[
-            Optional[List["Price.CreateParamsCurrencyOptionsTier"]]
-        ]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        tiers: NotRequired["List[Price.CreateParamsCurrencyOptionsTier]|None"]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
     class CreateParamsCurrencyOptionsTier(TypedDict):
-        flat_amount: NotRequired[Optional[int]]
-        flat_amount_decimal: NotRequired[Optional[float]]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        flat_amount: NotRequired["int|None"]
+        flat_amount_decimal: NotRequired["float|None"]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
         up_to: Union[Literal["inf"], int]
 
     class CreateParamsCurrencyOptionsCustomUnitAmount(TypedDict):
         enabled: bool
-        maximum: NotRequired[Optional[int]]
-        minimum: NotRequired[Optional[int]]
-        preset: NotRequired[Optional[int]]
+        maximum: NotRequired["int|None"]
+        minimum: NotRequired["int|None"]
+        preset: NotRequired["int|None"]
 
     class ListParams(RequestOptions):
-        active: NotRequired[Optional[bool]]
-        created: NotRequired[Optional[Union["Price.ListParamsCreated", int]]]
-        currency: NotRequired[Optional[str]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        lookup_keys: NotRequired[Optional[List[str]]]
-        product: NotRequired[Optional[str]]
-        recurring: NotRequired[Optional["Price.ListParamsRecurring"]]
-        starting_after: NotRequired[Optional[str]]
-        type: NotRequired[Optional[Literal["one_time", "recurring"]]]
+        active: NotRequired["bool|None"]
+        created: NotRequired["Price.ListParamsCreated|int|None"]
+        currency: NotRequired["str|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        lookup_keys: NotRequired["List[str]|None"]
+        product: NotRequired["str|None"]
+        recurring: NotRequired["Price.ListParamsRecurring|None"]
+        starting_after: NotRequired["str|None"]
+        type: NotRequired["Literal['one_time', 'recurring']|None"]
 
     class ListParamsRecurring(TypedDict):
-        interval: NotRequired[
-            Optional[Literal["day", "month", "week", "year"]]
-        ]
-        usage_type: NotRequired[Optional[Literal["licensed", "metered"]]]
+        interval: NotRequired["Literal['day', 'month', 'week', 'year']|None"]
+        usage_type: NotRequired["Literal['licensed', 'metered']|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ModifyParams(RequestOptions):
-        active: NotRequired[Optional[bool]]
+        active: NotRequired["bool|None"]
         currency_options: NotRequired[
-            Optional[
-                Union[
-                    Literal[""], Dict[str, "Price.ModifyParamsCurrencyOptions"]
-                ]
-            ]
+            "Literal['']|Dict[str, Price.ModifyParamsCurrencyOptions]|None"
         ]
-        expand: NotRequired[Optional[List[str]]]
-        lookup_key: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        nickname: NotRequired[Optional[str]]
+        expand: NotRequired["List[str]|None"]
+        lookup_key: NotRequired["str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        nickname: NotRequired["str|None"]
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
-        transfer_lookup_key: NotRequired[Optional[bool]]
+        transfer_lookup_key: NotRequired["bool|None"]
 
     class ModifyParamsCurrencyOptions(TypedDict):
         custom_unit_amount: NotRequired[
-            Optional["Price.ModifyParamsCurrencyOptionsCustomUnitAmount"]
+            "Price.ModifyParamsCurrencyOptionsCustomUnitAmount|None"
         ]
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
-        tiers: NotRequired[
-            Optional[List["Price.ModifyParamsCurrencyOptionsTier"]]
-        ]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        tiers: NotRequired["List[Price.ModifyParamsCurrencyOptionsTier]|None"]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
     class ModifyParamsCurrencyOptionsTier(TypedDict):
-        flat_amount: NotRequired[Optional[int]]
-        flat_amount_decimal: NotRequired[Optional[float]]
-        unit_amount: NotRequired[Optional[int]]
-        unit_amount_decimal: NotRequired[Optional[float]]
+        flat_amount: NotRequired["int|None"]
+        flat_amount_decimal: NotRequired["float|None"]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
         up_to: Union[Literal["inf"], int]
 
     class ModifyParamsCurrencyOptionsCustomUnitAmount(TypedDict):
         enabled: bool
-        maximum: NotRequired[Optional[int]]
-        minimum: NotRequired[Optional[int]]
-        preset: NotRequired[Optional[int]]
+        maximum: NotRequired["int|None"]
+        minimum: NotRequired["int|None"]
+        preset: NotRequired["int|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class SearchParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        page: NotRequired[Optional[str]]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        page: NotRequired["str|None"]
         query: str
 
     active: bool
@@ -301,5 +289,7 @@ class Price(
         return cls._search(search_url="/v1/prices/search", *args, **kwargs)
 
     @classmethod
-    def search_auto_paging_iter(cls, *args, **kwargs):
+    def search_auto_paging_iter(
+        cls, *args, **kwargs: Unpack["Price.SearchParams"]
+    ):
         return cls.search(*args, **kwargs).auto_paging_iter()

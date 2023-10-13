@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
@@ -24,24 +22,24 @@ class Session(CreateableAPIResource["Session"]):
 
     class CreateParams(RequestOptions):
         account_holder: "Session.CreateParamsAccountHolder"
-        expand: NotRequired[Optional[List[str]]]
-        filters: NotRequired[Optional["Session.CreateParamsFilters"]]
+        expand: NotRequired["List[str]|None"]
+        filters: NotRequired["Session.CreateParamsFilters|None"]
         permissions: List[
             Literal["balances", "ownership", "payment_method", "transactions"]
         ]
-        prefetch: NotRequired[Optional[List[Literal["balances", "ownership"]]]]
-        return_url: NotRequired[Optional[str]]
+        prefetch: NotRequired["List[Literal['balances', 'ownership']]|None"]
+        return_url: NotRequired["str|None"]
 
     class CreateParamsFilters(TypedDict):
         countries: List[str]
 
     class CreateParamsAccountHolder(TypedDict):
-        account: NotRequired[Optional[str]]
-        customer: NotRequired[Optional[str]]
+        account: NotRequired["str|None"]
+        customer: NotRequired["str|None"]
         type: Literal["account", "customer"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     account_holder: Optional[StripeObject]
     accounts: ListObject["Account"]

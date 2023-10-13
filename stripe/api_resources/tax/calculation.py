@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, Union, cast
+from typing import List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
@@ -29,42 +27,40 @@ class Calculation(CreateableAPIResource["Calculation"]):
 
     class CreateParams(RequestOptions):
         currency: str
-        customer: NotRequired[Optional[str]]
+        customer: NotRequired["str|None"]
         customer_details: NotRequired[
-            Optional["Calculation.CreateParamsCustomerDetails"]
+            "Calculation.CreateParamsCustomerDetails|None"
         ]
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
         line_items: List["Calculation.CreateParamsLineItem"]
-        shipping_cost: NotRequired[
-            Optional["Calculation.CreateParamsShippingCost"]
-        ]
-        tax_date: NotRequired[Optional[int]]
+        shipping_cost: NotRequired["Calculation.CreateParamsShippingCost|None"]
+        tax_date: NotRequired["int|None"]
 
     class CreateParamsShippingCost(TypedDict):
-        amount: NotRequired[Optional[int]]
-        shipping_rate: NotRequired[Optional[str]]
-        tax_behavior: NotRequired[Optional[Literal["exclusive", "inclusive"]]]
-        tax_code: NotRequired[Optional[str]]
+        amount: NotRequired["int|None"]
+        shipping_rate: NotRequired["str|None"]
+        tax_behavior: NotRequired["Literal['exclusive', 'inclusive']|None"]
+        tax_code: NotRequired["str|None"]
 
     class CreateParamsLineItem(TypedDict):
         amount: int
-        product: NotRequired[Optional[str]]
-        quantity: NotRequired[Optional[int]]
-        reference: NotRequired[Optional[str]]
-        tax_behavior: NotRequired[Optional[Literal["exclusive", "inclusive"]]]
-        tax_code: NotRequired[Optional[str]]
+        product: NotRequired["str|None"]
+        quantity: NotRequired["int|None"]
+        reference: NotRequired["str|None"]
+        tax_behavior: NotRequired["Literal['exclusive', 'inclusive']|None"]
+        tax_code: NotRequired["str|None"]
 
     class CreateParamsCustomerDetails(TypedDict):
         address: NotRequired[
-            Optional["Calculation.CreateParamsCustomerDetailsAddress"]
+            "Calculation.CreateParamsCustomerDetailsAddress|None"
         ]
-        address_source: NotRequired[Optional[Literal["billing", "shipping"]]]
-        ip_address: NotRequired[Optional[str]]
+        address_source: NotRequired["Literal['billing', 'shipping']|None"]
+        ip_address: NotRequired["str|None"]
         tax_ids: NotRequired[
-            Optional[List["Calculation.CreateParamsCustomerDetailsTaxId"]]
+            "List[Calculation.CreateParamsCustomerDetailsTaxId]|None"
         ]
         taxability_override: NotRequired[
-            Optional[Literal["customer_exempt", "none", "reverse_charge"]]
+            "Literal['customer_exempt', 'none', 'reverse_charge']|None"
         ]
 
     class CreateParamsCustomerDetailsTaxId(TypedDict):
@@ -139,18 +135,18 @@ class Calculation(CreateableAPIResource["Calculation"]):
         value: str
 
     class CreateParamsCustomerDetailsAddress(TypedDict):
-        city: NotRequired[Optional[Union[Literal[""], str]]]
+        city: NotRequired["Literal['']|str|None"]
         country: str
-        line1: NotRequired[Optional[Union[Literal[""], str]]]
-        line2: NotRequired[Optional[Union[Literal[""], str]]]
-        postal_code: NotRequired[Optional[Union[Literal[""], str]]]
-        state: NotRequired[Optional[Union[Literal[""], str]]]
+        line1: NotRequired["Literal['']|str|None"]
+        line2: NotRequired["Literal['']|str|None"]
+        postal_code: NotRequired["Literal['']|str|None"]
+        state: NotRequired["Literal['']|str|None"]
 
     class ListLineItemsParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     amount_total: int
     currency: str

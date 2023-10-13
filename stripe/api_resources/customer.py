@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
@@ -17,7 +15,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, Type, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -51,41 +49,33 @@ class Customer(
     OBJECT_NAME = "customer"
 
     class CreateParams(RequestOptions):
-        address: NotRequired[
-            Optional[
-                Union[Literal[""], "Customer.CreateParamsShippingAddress"]
-            ]
-        ]
-        balance: NotRequired[Optional[int]]
-        cash_balance: NotRequired[Optional["Customer.CreateParamsCashBalance"]]
-        coupon: NotRequired[Optional[str]]
-        description: NotRequired[Optional[str]]
-        email: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        invoice_prefix: NotRequired[Optional[str]]
+        address: NotRequired["Literal['']|Customer.CreateParamsAddress|None"]
+        balance: NotRequired["int|None"]
+        cash_balance: NotRequired["Customer.CreateParamsCashBalance|None"]
+        coupon: NotRequired["str|None"]
+        description: NotRequired["str|None"]
+        email: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        invoice_prefix: NotRequired["str|None"]
         invoice_settings: NotRequired[
-            Optional["Customer.CreateParamsInvoiceSettings"]
+            "Customer.CreateParamsInvoiceSettings|None"
         ]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        name: NotRequired[Optional[str]]
-        next_invoice_sequence: NotRequired[Optional[int]]
-        payment_method: NotRequired[Optional[str]]
-        phone: NotRequired[Optional[str]]
-        preferred_locales: NotRequired[Optional[List[str]]]
-        promotion_code: NotRequired[Optional[str]]
-        shipping: NotRequired[
-            Optional[Union[Literal[""], "Customer.CreateParamsShipping"]]
-        ]
-        source: NotRequired[Optional[str]]
-        tax: NotRequired[Optional["Customer.CreateParamsTax"]]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        name: NotRequired["str|None"]
+        next_invoice_sequence: NotRequired["int|None"]
+        payment_method: NotRequired["str|None"]
+        phone: NotRequired["str|None"]
+        preferred_locales: NotRequired["List[str]|None"]
+        promotion_code: NotRequired["str|None"]
+        shipping: NotRequired["Literal['']|Customer.CreateParamsShipping|None"]
+        source: NotRequired["str|None"]
+        tax: NotRequired["Customer.CreateParamsTax|None"]
         tax_exempt: NotRequired[
-            Optional[Union[Literal[""], Literal["exempt", "none", "reverse"]]]
+            "Literal['']|Literal['exempt', 'none', 'reverse']|None"
         ]
-        tax_id_data: NotRequired[
-            Optional[List["Customer.CreateParamsTaxIdDatum"]]
-        ]
-        test_clock: NotRequired[Optional[str]]
-        validate: NotRequired[Optional[bool]]
+        tax_id_data: NotRequired["List[Customer.CreateParamsTaxIdDatum]|None"]
+        test_clock: NotRequired["str|None"]
+        validate: NotRequired["bool|None"]
 
     class CreateParamsTaxIdDatum(TypedDict):
         type: Literal[
@@ -159,49 +149,34 @@ class Customer(
         value: str
 
     class CreateParamsTax(TypedDict):
-        ip_address: NotRequired[Optional[Union[Literal[""], str]]]
+        ip_address: NotRequired["Literal['']|str|None"]
 
     class CreateParamsShipping(TypedDict):
         address: "Customer.CreateParamsShippingAddress"
         name: str
-        phone: NotRequired[Optional[str]]
+        phone: NotRequired["str|None"]
 
     class CreateParamsShippingAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class CreateParamsInvoiceSettings(TypedDict):
         custom_fields: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    List["Customer.CreateParamsInvoiceSettingsCustomField"],
-                ]
-            ]
+            "Literal['']|List[Customer.CreateParamsInvoiceSettingsCustomField]|None"
         ]
-        default_payment_method: NotRequired[Optional[str]]
-        footer: NotRequired[Optional[str]]
+        default_payment_method: NotRequired["str|None"]
+        footer: NotRequired["str|None"]
         rendering_options: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "Customer.CreateParamsInvoiceSettingsRenderingOptions",
-                ]
-            ]
+            "Literal['']|Customer.CreateParamsInvoiceSettingsRenderingOptions|None"
         ]
 
     class CreateParamsInvoiceSettingsRenderingOptions(TypedDict):
         amount_tax_display: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    Literal["exclude_tax", "include_inclusive_tax"],
-                ]
-            ]
+            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|None"
         ]
 
     class CreateParamsInvoiceSettingsCustomField(TypedDict):
@@ -209,37 +184,33 @@ class Customer(
         value: str
 
     class CreateParamsCashBalance(TypedDict):
-        settings: NotRequired[
-            Optional["Customer.CreateParamsCashBalanceSettings"]
-        ]
+        settings: NotRequired["Customer.CreateParamsCashBalanceSettings|None"]
 
     class CreateParamsCashBalanceSettings(TypedDict):
         reconciliation_mode: NotRequired[
-            Optional[Literal["automatic", "manual", "merchant_default"]]
+            "Literal['automatic', 'manual', 'merchant_default']|None"
         ]
 
     class CreateParamsAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class CreateFundingInstructionsParams(RequestOptions):
         bank_transfer: "Customer.CreateFundingInstructionsParamsBankTransfer"
         currency: str
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
         funding_type: Literal["bank_transfer"]
 
     class CreateFundingInstructionsParamsBankTransfer(TypedDict):
         eu_bank_transfer: NotRequired[
-            Optional[
-                "Customer.CreateFundingInstructionsParamsBankTransferEuBankTransfer"
-            ]
+            "Customer.CreateFundingInstructionsParamsBankTransferEuBankTransfer|None"
         ]
         requested_address_types: NotRequired[
-            Optional[List[Literal["iban", "sort_code", "spei", "zengin"]]]
+            "List[Literal['iban', 'sort_code', 'spei', 'zengin']]|None"
         ]
         type: Literal[
             "eu_bank_transfer",
@@ -259,142 +230,85 @@ class Customer(
         pass
 
     class ListParams(RequestOptions):
-        created: NotRequired[
-            Optional[Union["Customer.ListParamsCreated", int]]
-        ]
-        email: NotRequired[Optional[str]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
-        test_clock: NotRequired[Optional[str]]
+        created: NotRequired["Customer.ListParamsCreated|int|None"]
+        email: NotRequired["str|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+        test_clock: NotRequired["str|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ListPaymentMethodsParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
         type: NotRequired[
-            Optional[
-                Literal[
-                    "acss_debit",
-                    "affirm",
-                    "afterpay_clearpay",
-                    "alipay",
-                    "au_becs_debit",
-                    "bacs_debit",
-                    "bancontact",
-                    "blik",
-                    "boleto",
-                    "card",
-                    "cashapp",
-                    "customer_balance",
-                    "eps",
-                    "fpx",
-                    "giropay",
-                    "grabpay",
-                    "ideal",
-                    "klarna",
-                    "konbini",
-                    "link",
-                    "oxxo",
-                    "p24",
-                    "paynow",
-                    "paypal",
-                    "pix",
-                    "promptpay",
-                    "sepa_debit",
-                    "sofort",
-                    "us_bank_account",
-                    "wechat_pay",
-                    "zip",
-                ]
-            ]
+            "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']|None"
         ]
 
     class ModifyParams(RequestOptions):
-        address: NotRequired[
-            Optional[
-                Union[Literal[""], "Customer.ModifyParamsShippingAddress"]
-            ]
-        ]
-        balance: NotRequired[Optional[int]]
-        cash_balance: NotRequired[Optional["Customer.ModifyParamsCashBalance"]]
-        coupon: NotRequired[Optional[str]]
-        default_source: NotRequired[Optional[str]]
-        description: NotRequired[Optional[str]]
-        email: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        invoice_prefix: NotRequired[Optional[str]]
+        address: NotRequired["Literal['']|Customer.ModifyParamsAddress|None"]
+        balance: NotRequired["int|None"]
+        cash_balance: NotRequired["Customer.ModifyParamsCashBalance|None"]
+        coupon: NotRequired["str|None"]
+        default_source: NotRequired["str|None"]
+        description: NotRequired["str|None"]
+        email: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        invoice_prefix: NotRequired["str|None"]
         invoice_settings: NotRequired[
-            Optional["Customer.ModifyParamsInvoiceSettings"]
+            "Customer.ModifyParamsInvoiceSettings|None"
         ]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        name: NotRequired[Optional[str]]
-        next_invoice_sequence: NotRequired[Optional[int]]
-        phone: NotRequired[Optional[str]]
-        preferred_locales: NotRequired[Optional[List[str]]]
-        promotion_code: NotRequired[Optional[str]]
-        shipping: NotRequired[
-            Optional[Union[Literal[""], "Customer.ModifyParamsShipping"]]
-        ]
-        source: NotRequired[Optional[str]]
-        tax: NotRequired[Optional["Customer.ModifyParamsTax"]]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        name: NotRequired["str|None"]
+        next_invoice_sequence: NotRequired["int|None"]
+        phone: NotRequired["str|None"]
+        preferred_locales: NotRequired["List[str]|None"]
+        promotion_code: NotRequired["str|None"]
+        shipping: NotRequired["Literal['']|Customer.ModifyParamsShipping|None"]
+        source: NotRequired["str|None"]
+        tax: NotRequired["Customer.ModifyParamsTax|None"]
         tax_exempt: NotRequired[
-            Optional[Union[Literal[""], Literal["exempt", "none", "reverse"]]]
+            "Literal['']|Literal['exempt', 'none', 'reverse']|None"
         ]
-        validate: NotRequired[Optional[bool]]
+        validate: NotRequired["bool|None"]
 
     class ModifyParamsTax(TypedDict):
-        ip_address: NotRequired[Optional[Union[Literal[""], str]]]
+        ip_address: NotRequired["Literal['']|str|None"]
 
     class ModifyParamsShipping(TypedDict):
         address: "Customer.ModifyParamsShippingAddress"
         name: str
-        phone: NotRequired[Optional[str]]
+        phone: NotRequired["str|None"]
 
     class ModifyParamsShippingAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class ModifyParamsInvoiceSettings(TypedDict):
         custom_fields: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    List["Customer.ModifyParamsInvoiceSettingsCustomField"],
-                ]
-            ]
+            "Literal['']|List[Customer.ModifyParamsInvoiceSettingsCustomField]|None"
         ]
-        default_payment_method: NotRequired[Optional[str]]
-        footer: NotRequired[Optional[str]]
+        default_payment_method: NotRequired["str|None"]
+        footer: NotRequired["str|None"]
         rendering_options: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "Customer.ModifyParamsInvoiceSettingsRenderingOptions",
-                ]
-            ]
+            "Literal['']|Customer.ModifyParamsInvoiceSettingsRenderingOptions|None"
         ]
 
     class ModifyParamsInvoiceSettingsRenderingOptions(TypedDict):
         amount_tax_display: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    Literal["exclude_tax", "include_inclusive_tax"],
-                ]
-            ]
+            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|None"
         ]
 
     class ModifyParamsInvoiceSettingsCustomField(TypedDict):
@@ -402,140 +316,134 @@ class Customer(
         value: str
 
     class ModifyParamsCashBalance(TypedDict):
-        settings: NotRequired[
-            Optional["Customer.ModifyParamsCashBalanceSettings"]
-        ]
+        settings: NotRequired["Customer.ModifyParamsCashBalanceSettings|None"]
 
     class ModifyParamsCashBalanceSettings(TypedDict):
         reconciliation_mode: NotRequired[
-            Optional[Literal["automatic", "manual", "merchant_default"]]
+            "Literal['automatic', 'manual', 'merchant_default']|None"
         ]
 
     class ModifyParamsAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class RetrievePaymentMethodParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class SearchParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        page: NotRequired[Optional[str]]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        page: NotRequired["str|None"]
         query: str
 
     class ModifyCashBalanceParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        settings: NotRequired[
-            Optional["Customer.ModifyCashBalanceParamsSettings"]
-        ]
+        expand: NotRequired["List[str]|None"]
+        settings: NotRequired["Customer.ModifyCashBalanceParamsSettings|None"]
 
     class ModifyCashBalanceParamsSettings(TypedDict):
         reconciliation_mode: NotRequired[
-            Optional[Literal["automatic", "manual", "merchant_default"]]
+            "Literal['automatic', 'manual', 'merchant_default']|None"
         ]
 
     class RetrieveCashBalanceParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class FundCashBalanceParams(RequestOptions):
         amount: int
         currency: str
-        expand: NotRequired[Optional[List[str]]]
-        reference: NotRequired[Optional[str]]
+        expand: NotRequired["List[str]|None"]
+        reference: NotRequired["str|None"]
 
     class CreateBalanceTransactionParams(RequestOptions):
         amount: int
         currency: str
-        description: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        description: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
     class RetrieveBalanceTransactionParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class ModifyBalanceTransactionParams(RequestOptions):
-        description: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        description: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
     class ListBalanceTransactionsParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class RetrieveCashBalanceTransactionParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class ListCashBalanceTransactionsParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class CreateSourceParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
         source: str
-        validate: NotRequired[Optional[bool]]
+        validate: NotRequired["bool|None"]
 
     class RetrieveSourceParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class ModifySourceParams(RequestOptions):
-        account_holder_name: NotRequired[Optional[str]]
+        account_holder_name: NotRequired["str|None"]
         account_holder_type: NotRequired[
-            Optional[Literal["company", "individual"]]
+            "Literal['company', 'individual']|None"
         ]
-        address_city: NotRequired[Optional[str]]
-        address_country: NotRequired[Optional[str]]
-        address_line1: NotRequired[Optional[str]]
-        address_line2: NotRequired[Optional[str]]
-        address_state: NotRequired[Optional[str]]
-        address_zip: NotRequired[Optional[str]]
-        exp_month: NotRequired[Optional[str]]
-        exp_year: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        name: NotRequired[Optional[str]]
-        owner: NotRequired[Optional["Customer.ModifySourceParamsOwner"]]
+        address_city: NotRequired["str|None"]
+        address_country: NotRequired["str|None"]
+        address_line1: NotRequired["str|None"]
+        address_line2: NotRequired["str|None"]
+        address_state: NotRequired["str|None"]
+        address_zip: NotRequired["str|None"]
+        exp_month: NotRequired["str|None"]
+        exp_year: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        name: NotRequired["str|None"]
+        owner: NotRequired["Customer.ModifySourceParamsOwner|None"]
 
     class ModifySourceParamsOwner(TypedDict):
-        address: NotRequired[
-            Optional["Customer.ModifySourceParamsOwnerAddress"]
-        ]
-        email: NotRequired[Optional[str]]
-        name: NotRequired[Optional[str]]
-        phone: NotRequired[Optional[str]]
+        address: NotRequired["Customer.ModifySourceParamsOwnerAddress|None"]
+        email: NotRequired["str|None"]
+        name: NotRequired["str|None"]
+        phone: NotRequired["str|None"]
 
     class ModifySourceParamsOwnerAddress(TypedDict):
-        city: NotRequired[Optional[str]]
-        country: NotRequired[Optional[str]]
-        line1: NotRequired[Optional[str]]
-        line2: NotRequired[Optional[str]]
-        postal_code: NotRequired[Optional[str]]
-        state: NotRequired[Optional[str]]
+        city: NotRequired["str|None"]
+        country: NotRequired["str|None"]
+        line1: NotRequired["str|None"]
+        line2: NotRequired["str|None"]
+        postal_code: NotRequired["str|None"]
+        state: NotRequired["str|None"]
 
     class DeleteSourceParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class ListSourcesParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        object: NotRequired[Optional[str]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        object: NotRequired["str|None"]
+        starting_after: NotRequired["str|None"]
 
     class CreateTaxIdParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
         type: Literal[
             "ad_nrt",
             "ae_trn",
@@ -607,16 +515,16 @@ class Customer(
         value: str
 
     class RetrieveTaxIdParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class DeleteTaxIdParams(RequestOptions):
         pass
 
     class ListTaxIdsParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     address: Optional[StripeObject]
     balance: Optional[int]
@@ -882,7 +790,9 @@ class Customer(
         return cls._search(search_url="/v1/customers/search", *args, **kwargs)
 
     @classmethod
-    def search_auto_paging_iter(cls, *args, **kwargs):
+    def search_auto_paging_iter(
+        cls, *args, **kwargs: Unpack["Customer.SearchParams"]
+    ):
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod

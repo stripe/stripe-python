@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.request_options import RequestOptions
@@ -23,7 +21,7 @@ class Mandate(APIResource["Mandate"]):
     OBJECT_NAME = "mandate"
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     customer_acceptance: StripeObject
     id: str

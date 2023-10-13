@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
     ListableAPIResource,
@@ -27,15 +25,13 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     OBJECT_NAME = "treasury.received_credit"
 
     class ListParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
         financial_account: str
-        limit: NotRequired[Optional[int]]
-        linked_flows: NotRequired[
-            Optional["ReceivedCredit.ListParamsLinkedFlows"]
-        ]
-        starting_after: NotRequired[Optional[str]]
-        status: NotRequired[Optional[Literal["failed", "succeeded"]]]
+        limit: NotRequired["int|None"]
+        linked_flows: NotRequired["ReceivedCredit.ListParamsLinkedFlows|None"]
+        starting_after: NotRequired["str|None"]
+        status: NotRequired["Literal['failed', 'succeeded']|None"]
 
     class ListParamsLinkedFlows(TypedDict):
         source_flow_type: Literal[
@@ -43,33 +39,29 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         ]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class CreateParams(RequestOptions):
         amount: int
         currency: str
-        description: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
+        description: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
         financial_account: str
         initiating_payment_method_details: NotRequired[
-            Optional[
-                "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetails"
-            ]
+            "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetails|None"
         ]
         network: Literal["ach", "us_domestic_wire"]
 
     class CreateParamsInitiatingPaymentMethodDetails(TypedDict):
         type: Literal["us_bank_account"]
         us_bank_account: NotRequired[
-            Optional[
-                "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetailsUsBankAccount"
-            ]
+            "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetailsUsBankAccount|None"
         ]
 
     class CreateParamsInitiatingPaymentMethodDetailsUsBankAccount(TypedDict):
-        account_holder_name: NotRequired[Optional[str]]
-        account_number: NotRequired[Optional[str]]
-        routing_number: NotRequired[Optional[str]]
+        account_holder_name: NotRequired["str|None"]
+        account_number: NotRequired["str|None"]
+        routing_number: NotRequired["str|None"]
 
     amount: int
     created: int

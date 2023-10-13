@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import SingletonAPIResource
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
@@ -27,7 +25,7 @@ class Balance(SingletonAPIResource["Balance"]):
     OBJECT_NAME = "balance"
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     available: List[StripeObject]
     connect_reserved: Optional[List[StripeObject]]

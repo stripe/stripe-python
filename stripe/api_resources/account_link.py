@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.request_options import RequestOptions
 from typing import List, Optional, cast
@@ -20,12 +18,10 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
 
     class CreateParams(RequestOptions):
         account: str
-        collect: NotRequired[
-            Optional[Literal["currently_due", "eventually_due"]]
-        ]
-        expand: NotRequired[Optional[List[str]]]
-        refresh_url: NotRequired[Optional[str]]
-        return_url: NotRequired[Optional[str]]
+        collect: NotRequired["Literal['currently_due', 'eventually_due']|None"]
+        expand: NotRequired["List[str]|None"]
+        refresh_url: NotRequired["str|None"]
+        return_url: NotRequired["str|None"]
         type: Literal["account_onboarding", "account_update"]
 
     created: int

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.request_options import RequestOptions
@@ -36,78 +34,28 @@ class Session(CreateableAPIResource["Session"]):
     OBJECT_NAME = "billing_portal.session"
 
     class CreateParams(RequestOptions):
-        configuration: NotRequired[Optional[str]]
+        configuration: NotRequired["str|None"]
         customer: str
-        expand: NotRequired[Optional[List[str]]]
-        flow_data: NotRequired[Optional["Session.CreateParamsFlowData"]]
+        expand: NotRequired["List[str]|None"]
+        flow_data: NotRequired["Session.CreateParamsFlowData|None"]
         locale: NotRequired[
-            Optional[
-                Literal[
-                    "auto",
-                    "bg",
-                    "cs",
-                    "da",
-                    "de",
-                    "el",
-                    "en",
-                    "en-AU",
-                    "en-CA",
-                    "en-GB",
-                    "en-IE",
-                    "en-IN",
-                    "en-NZ",
-                    "en-SG",
-                    "es",
-                    "es-419",
-                    "et",
-                    "fi",
-                    "fil",
-                    "fr",
-                    "fr-CA",
-                    "hr",
-                    "hu",
-                    "id",
-                    "it",
-                    "ja",
-                    "ko",
-                    "lt",
-                    "lv",
-                    "ms",
-                    "mt",
-                    "nb",
-                    "nl",
-                    "pl",
-                    "pt",
-                    "pt-BR",
-                    "ro",
-                    "ru",
-                    "sk",
-                    "sl",
-                    "sv",
-                    "th",
-                    "tr",
-                    "vi",
-                    "zh",
-                    "zh-HK",
-                    "zh-TW",
-                ]
-            ]
+            "Literal['auto', 'bg', 'cs', 'da', 'de', 'el', 'en', 'en-AU', 'en-CA', 'en-GB', 'en-IE', 'en-IN', 'en-NZ', 'en-SG', 'es', 'es-419', 'et', 'fi', 'fil', 'fr', 'fr-CA', 'hr', 'hu', 'id', 'it', 'ja', 'ko', 'lt', 'lv', 'ms', 'mt', 'nb', 'nl', 'pl', 'pt', 'pt-BR', 'ro', 'ru', 'sk', 'sl', 'sv', 'th', 'tr', 'vi', 'zh', 'zh-HK', 'zh-TW']|None"
         ]
-        on_behalf_of: NotRequired[Optional[str]]
-        return_url: NotRequired[Optional[str]]
+        on_behalf_of: NotRequired["str|None"]
+        return_url: NotRequired["str|None"]
 
     class CreateParamsFlowData(TypedDict):
         after_completion: NotRequired[
-            Optional["Session.CreateParamsFlowDataAfterCompletion"]
+            "Session.CreateParamsFlowDataAfterCompletion|None"
         ]
         subscription_cancel: NotRequired[
-            Optional["Session.CreateParamsFlowDataSubscriptionCancel"]
+            "Session.CreateParamsFlowDataSubscriptionCancel|None"
         ]
         subscription_update: NotRequired[
-            Optional["Session.CreateParamsFlowDataSubscriptionUpdate"]
+            "Session.CreateParamsFlowDataSubscriptionUpdate|None"
         ]
         subscription_update_confirm: NotRequired[
-            Optional["Session.CreateParamsFlowDataSubscriptionUpdateConfirm"]
+            "Session.CreateParamsFlowDataSubscriptionUpdateConfirm|None"
         ]
         type: Literal[
             "payment_method_update",
@@ -118,11 +66,7 @@ class Session(CreateableAPIResource["Session"]):
 
     class CreateParamsFlowDataSubscriptionUpdateConfirm(TypedDict):
         discounts: NotRequired[
-            Optional[
-                List[
-                    "Session.CreateParamsFlowDataSubscriptionUpdateConfirmDiscount"
-                ]
-            ]
+            "List[Session.CreateParamsFlowDataSubscriptionUpdateConfirmDiscount]|None"
         ]
         items: List[
             "Session.CreateParamsFlowDataSubscriptionUpdateConfirmItem"
@@ -131,19 +75,19 @@ class Session(CreateableAPIResource["Session"]):
 
     class CreateParamsFlowDataSubscriptionUpdateConfirmItem(TypedDict):
         id: str
-        price: NotRequired[Optional[str]]
-        quantity: NotRequired[Optional[int]]
+        price: NotRequired["str|None"]
+        quantity: NotRequired["int|None"]
 
     class CreateParamsFlowDataSubscriptionUpdateConfirmDiscount(TypedDict):
-        coupon: NotRequired[Optional[str]]
-        promotion_code: NotRequired[Optional[str]]
+        coupon: NotRequired["str|None"]
+        promotion_code: NotRequired["str|None"]
 
     class CreateParamsFlowDataSubscriptionUpdate(TypedDict):
         subscription: str
 
     class CreateParamsFlowDataSubscriptionCancel(TypedDict):
         retention: NotRequired[
-            Optional["Session.CreateParamsFlowDataSubscriptionCancelRetention"]
+            "Session.CreateParamsFlowDataSubscriptionCancelRetention|None"
         ]
         subscription: str
 
@@ -158,12 +102,10 @@ class Session(CreateableAPIResource["Session"]):
 
     class CreateParamsFlowDataAfterCompletion(TypedDict):
         hosted_confirmation: NotRequired[
-            Optional[
-                "Session.CreateParamsFlowDataAfterCompletionHostedConfirmation"
-            ]
+            "Session.CreateParamsFlowDataAfterCompletionHostedConfirmation|None"
         ]
         redirect: NotRequired[
-            Optional["Session.CreateParamsFlowDataAfterCompletionRedirect"]
+            "Session.CreateParamsFlowDataAfterCompletionRedirect|None"
         ]
         type: Literal["hosted_confirmation", "portal_homepage", "redirect"]
 
@@ -171,7 +113,7 @@ class Session(CreateableAPIResource["Session"]):
         return_url: str
 
     class CreateParamsFlowDataAfterCompletionHostedConfirmation(TypedDict):
-        custom_message: NotRequired[Optional[str]]
+        custom_message: NotRequired["str|None"]
 
     configuration: ExpandableField["Configuration"]
     created: int

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.request_options import RequestOptions
@@ -14,7 +12,7 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
     OBJECT_NAME = "ephemeral_key"
 
     class DeleteParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     created: int
     expires: int

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
@@ -11,7 +9,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -35,43 +33,37 @@ class ShippingRate(
 
     class CreateParams(RequestOptions):
         delivery_estimate: NotRequired[
-            Optional["ShippingRate.CreateParamsDeliveryEstimate"]
+            "ShippingRate.CreateParamsDeliveryEstimate|None"
         ]
         display_name: str
-        expand: NotRequired[Optional[List[str]]]
-        fixed_amount: NotRequired[
-            Optional["ShippingRate.CreateParamsFixedAmount"]
-        ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        expand: NotRequired["List[str]|None"]
+        fixed_amount: NotRequired["ShippingRate.CreateParamsFixedAmount|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
-        tax_code: NotRequired[Optional[str]]
-        type: NotRequired[Optional[Literal["fixed_amount"]]]
+        tax_code: NotRequired["str|None"]
+        type: NotRequired["Literal['fixed_amount']|None"]
 
     class CreateParamsFixedAmount(TypedDict):
         amount: int
         currency: str
         currency_options: NotRequired[
-            Optional[
-                Dict[
-                    str, "ShippingRate.CreateParamsFixedAmountCurrencyOptions"
-                ]
-            ]
+            "Dict[str, ShippingRate.CreateParamsFixedAmountCurrencyOptions]|None"
         ]
 
     class CreateParamsFixedAmountCurrencyOptions(TypedDict):
         amount: int
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
 
     class CreateParamsDeliveryEstimate(TypedDict):
         maximum: NotRequired[
-            Optional["ShippingRate.CreateParamsDeliveryEstimateMaximum"]
+            "ShippingRate.CreateParamsDeliveryEstimateMaximum|None"
         ]
         minimum: NotRequired[
-            Optional["ShippingRate.CreateParamsDeliveryEstimateMinimum"]
+            "ShippingRate.CreateParamsDeliveryEstimateMinimum|None"
         ]
 
     class CreateParamsDeliveryEstimateMinimum(TypedDict):
@@ -83,50 +75,42 @@ class ShippingRate(
         value: int
 
     class ListParams(RequestOptions):
-        active: NotRequired[Optional[bool]]
-        created: NotRequired[
-            Optional[Union["ShippingRate.ListParamsCreated", int]]
-        ]
-        currency: NotRequired[Optional[str]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        active: NotRequired["bool|None"]
+        created: NotRequired["ShippingRate.ListParamsCreated|int|None"]
+        currency: NotRequired["str|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class ModifyParams(RequestOptions):
-        active: NotRequired[Optional[bool]]
-        expand: NotRequired[Optional[List[str]]]
-        fixed_amount: NotRequired[
-            Optional["ShippingRate.ModifyParamsFixedAmount"]
-        ]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        active: NotRequired["bool|None"]
+        expand: NotRequired["List[str]|None"]
+        fixed_amount: NotRequired["ShippingRate.ModifyParamsFixedAmount|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
 
     class ModifyParamsFixedAmount(TypedDict):
         currency_options: NotRequired[
-            Optional[
-                Dict[
-                    str, "ShippingRate.ModifyParamsFixedAmountCurrencyOptions"
-                ]
-            ]
+            "Dict[str, ShippingRate.ModifyParamsFixedAmountCurrencyOptions]|None"
         ]
 
     class ModifyParamsFixedAmountCurrencyOptions(TypedDict):
-        amount: NotRequired[Optional[int]]
+        amount: NotRequired["int|None"]
         tax_behavior: NotRequired[
-            Optional[Literal["exclusive", "inclusive", "unspecified"]]
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
         ]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     active: bool
     created: int

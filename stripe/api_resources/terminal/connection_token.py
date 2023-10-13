@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.request_options import RequestOptions
 from typing import List, Optional, cast
@@ -18,8 +16,8 @@ class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
     OBJECT_NAME = "terminal.connection_token"
 
     class CreateParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
-        location: NotRequired[Optional[str]]
+        expand: NotRequired["List[str]|None"]
+        location: NotRequired["str|None"]
 
     location: Optional[str]
     object: Literal["terminal.connection_token"]

@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 import stripe
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import List, Optional, Union
+from typing import List, Optional
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 from typing_extensions import TYPE_CHECKING
@@ -30,41 +28,23 @@ class File(ListableAPIResource["File"]):
     OBJECT_NAME = "file"
 
     class ListParams(RequestOptions):
-        created: NotRequired[Optional[Union["File.ListParamsCreated", int]]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
+        created: NotRequired["File.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
         purpose: NotRequired[
-            Optional[
-                Literal[
-                    "account_requirement",
-                    "additional_verification",
-                    "business_icon",
-                    "business_logo",
-                    "customer_signature",
-                    "dispute_evidence",
-                    "document_provider_identity_document",
-                    "finance_report_run",
-                    "identity_document",
-                    "identity_document_downloadable",
-                    "pci_document",
-                    "selfie",
-                    "sigma_scheduled_query",
-                    "tax_document_user_upload",
-                    "terminal_reader_splashscreen",
-                ]
-            ]
+            "Literal['account_requirement', 'additional_verification', 'business_icon', 'business_logo', 'customer_signature', 'dispute_evidence', 'document_provider_identity_document', 'finance_report_run', 'identity_document', 'identity_document_downloadable', 'pci_document', 'selfie', 'sigma_scheduled_query', 'tax_document_user_upload', 'terminal_reader_splashscreen']|None"
         ]
-        starting_after: NotRequired[Optional[str]]
+        starting_after: NotRequired["str|None"]
 
     class ListParamsCreated(TypedDict):
-        gt: NotRequired[Optional[int]]
-        gte: NotRequired[Optional[int]]
-        lt: NotRequired[Optional[int]]
-        lte: NotRequired[Optional[int]]
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     created: int
     expires_at: Optional[int]

@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -12,7 +10,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
 
@@ -41,119 +39,74 @@ class PaymentLink(
 
     class CreateParams(RequestOptions):
         after_completion: NotRequired[
-            Optional["PaymentLink.CreateParamsAfterCompletion"]
+            "PaymentLink.CreateParamsAfterCompletion|None"
         ]
-        allow_promotion_codes: NotRequired[Optional[bool]]
-        application_fee_amount: NotRequired[Optional[int]]
-        application_fee_percent: NotRequired[Optional[float]]
-        automatic_tax: NotRequired[
-            Optional["PaymentLink.CreateParamsAutomaticTax"]
-        ]
+        allow_promotion_codes: NotRequired["bool|None"]
+        application_fee_amount: NotRequired["int|None"]
+        application_fee_percent: NotRequired["float|None"]
+        automatic_tax: NotRequired["PaymentLink.CreateParamsAutomaticTax|None"]
         billing_address_collection: NotRequired[
-            Optional[Literal["auto", "required"]]
+            "Literal['auto', 'required']|None"
         ]
         consent_collection: NotRequired[
-            Optional["PaymentLink.CreateParamsConsentCollection"]
+            "PaymentLink.CreateParamsConsentCollection|None"
         ]
-        currency: NotRequired[Optional[str]]
+        currency: NotRequired["str|None"]
         custom_fields: NotRequired[
-            Optional[
-                List[
-                    "PaymentLink.CreateParamsInvoiceCreationInvoiceDataCustomField"
-                ]
-            ]
+            "List[PaymentLink.CreateParamsCustomField]|None"
         ]
-        custom_text: NotRequired[
-            Optional["PaymentLink.CreateParamsCustomText"]
-        ]
-        customer_creation: NotRequired[
-            Optional[Literal["always", "if_required"]]
-        ]
-        expand: NotRequired[Optional[List[str]]]
+        custom_text: NotRequired["PaymentLink.CreateParamsCustomText|None"]
+        customer_creation: NotRequired["Literal['always', 'if_required']|None"]
+        expand: NotRequired["List[str]|None"]
         invoice_creation: NotRequired[
-            Optional["PaymentLink.CreateParamsInvoiceCreation"]
+            "PaymentLink.CreateParamsInvoiceCreation|None"
         ]
         line_items: List["PaymentLink.CreateParamsLineItem"]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        on_behalf_of: NotRequired[Optional[str]]
+        metadata: NotRequired["Dict[str, str]|None"]
+        on_behalf_of: NotRequired["str|None"]
         payment_intent_data: NotRequired[
-            Optional["PaymentLink.CreateParamsPaymentIntentData"]
+            "PaymentLink.CreateParamsPaymentIntentData|None"
         ]
         payment_method_collection: NotRequired[
-            Optional[Literal["always", "if_required"]]
+            "Literal['always', 'if_required']|None"
         ]
         payment_method_types: NotRequired[
-            Optional[
-                List[
-                    Literal[
-                        "affirm",
-                        "afterpay_clearpay",
-                        "alipay",
-                        "au_becs_debit",
-                        "bacs_debit",
-                        "bancontact",
-                        "blik",
-                        "boleto",
-                        "card",
-                        "cashapp",
-                        "eps",
-                        "fpx",
-                        "giropay",
-                        "grabpay",
-                        "ideal",
-                        "klarna",
-                        "konbini",
-                        "link",
-                        "oxxo",
-                        "p24",
-                        "paynow",
-                        "paypal",
-                        "pix",
-                        "promptpay",
-                        "sepa_debit",
-                        "sofort",
-                        "us_bank_account",
-                        "wechat_pay",
-                    ]
-                ]
-            ]
+            "List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay']]|None"
         ]
         phone_number_collection: NotRequired[
-            Optional["PaymentLink.CreateParamsPhoneNumberCollection"]
+            "PaymentLink.CreateParamsPhoneNumberCollection|None"
         ]
         shipping_address_collection: NotRequired[
-            Optional["PaymentLink.CreateParamsShippingAddressCollection"]
+            "PaymentLink.CreateParamsShippingAddressCollection|None"
         ]
         shipping_options: NotRequired[
-            Optional[List["PaymentLink.CreateParamsShippingOption"]]
+            "List[PaymentLink.CreateParamsShippingOption]|None"
         ]
         submit_type: NotRequired[
-            Optional[Literal["auto", "book", "donate", "pay"]]
+            "Literal['auto', 'book', 'donate', 'pay']|None"
         ]
         subscription_data: NotRequired[
-            Optional["PaymentLink.CreateParamsSubscriptionData"]
+            "PaymentLink.CreateParamsSubscriptionData|None"
         ]
         tax_id_collection: NotRequired[
-            Optional["PaymentLink.CreateParamsTaxIdCollection"]
+            "PaymentLink.CreateParamsTaxIdCollection|None"
         ]
-        transfer_data: NotRequired[
-            Optional["PaymentLink.CreateParamsTransferData"]
-        ]
+        transfer_data: NotRequired["PaymentLink.CreateParamsTransferData|None"]
 
     class CreateParamsTransferData(TypedDict):
-        amount: NotRequired[Optional[int]]
+        amount: NotRequired["int|None"]
         destination: str
 
     class CreateParamsTaxIdCollection(TypedDict):
         enabled: bool
 
     class CreateParamsSubscriptionData(TypedDict):
-        description: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Dict[str, str]]]
-        trial_period_days: NotRequired[Optional[int]]
+        description: NotRequired["str|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        trial_period_days: NotRequired["int|None"]
 
     class CreateParamsShippingOption(TypedDict):
-        shipping_rate: NotRequired[Optional[str]]
+        shipping_rate: NotRequired["str|None"]
 
     class CreateParamsShippingAddressCollection(TypedDict):
         allowed_countries: List[
@@ -403,65 +356,48 @@ class PaymentLink(
 
     class CreateParamsPaymentIntentData(TypedDict):
         capture_method: NotRequired[
-            Optional[Literal["automatic", "automatic_async", "manual"]]
+            "Literal['automatic', 'automatic_async', 'manual']|None"
         ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        metadata: NotRequired["Dict[str, str]|None"]
         setup_future_usage: NotRequired[
-            Optional[Literal["off_session", "on_session"]]
+            "Literal['off_session', 'on_session']|None"
         ]
-        statement_descriptor: NotRequired[Optional[str]]
-        statement_descriptor_suffix: NotRequired[Optional[str]]
+        statement_descriptor: NotRequired["str|None"]
+        statement_descriptor_suffix: NotRequired["str|None"]
 
     class CreateParamsLineItem(TypedDict):
         adjustable_quantity: NotRequired[
-            Optional["PaymentLink.CreateParamsLineItemAdjustableQuantity"]
+            "PaymentLink.CreateParamsLineItemAdjustableQuantity|None"
         ]
         price: str
         quantity: int
 
     class CreateParamsLineItemAdjustableQuantity(TypedDict):
         enabled: bool
-        maximum: NotRequired[Optional[int]]
-        minimum: NotRequired[Optional[int]]
+        maximum: NotRequired["int|None"]
+        minimum: NotRequired["int|None"]
 
     class CreateParamsInvoiceCreation(TypedDict):
         enabled: bool
         invoice_data: NotRequired[
-            Optional["PaymentLink.CreateParamsInvoiceCreationInvoiceData"]
+            "PaymentLink.CreateParamsInvoiceCreationInvoiceData|None"
         ]
 
     class CreateParamsInvoiceCreationInvoiceData(TypedDict):
-        account_tax_ids: NotRequired[Optional[Union[Literal[""], List[str]]]]
+        account_tax_ids: NotRequired["Literal['']|List[str]|None"]
         custom_fields: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    List[
-                        "PaymentLink.CreateParamsInvoiceCreationInvoiceDataCustomField"
-                    ],
-                ]
-            ]
+            "Literal['']|List[PaymentLink.CreateParamsInvoiceCreationInvoiceDataCustomField]|None"
         ]
-        description: NotRequired[Optional[str]]
-        footer: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        description: NotRequired["str|None"]
+        footer: NotRequired["str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
         rendering_options: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentLink.CreateParamsInvoiceCreationInvoiceDataRenderingOptions",
-                ]
-            ]
+            "Literal['']|PaymentLink.CreateParamsInvoiceCreationInvoiceDataRenderingOptions|None"
         ]
 
     class CreateParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
         amount_tax_display: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    Literal["exclude_tax", "include_inclusive_tax"],
-                ]
-            ]
+            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|None"
         ]
 
     class CreateParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
@@ -470,25 +406,13 @@ class PaymentLink(
 
     class CreateParamsCustomText(TypedDict):
         shipping_address: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentLink.CreateParamsCustomTextShippingAddress",
-                ]
-            ]
+            "Literal['']|PaymentLink.CreateParamsCustomTextShippingAddress|None"
         ]
         submit: NotRequired[
-            Optional[
-                Union[Literal[""], "PaymentLink.CreateParamsCustomTextSubmit"]
-            ]
+            "Literal['']|PaymentLink.CreateParamsCustomTextSubmit|None"
         ]
         terms_of_service_acceptance: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentLink.CreateParamsCustomTextTermsOfServiceAcceptance",
-                ]
-            ]
+            "Literal['']|PaymentLink.CreateParamsCustomTextTermsOfServiceAcceptance|None"
         ]
 
     class CreateParamsCustomTextTermsOfServiceAcceptance(TypedDict):
@@ -502,24 +426,22 @@ class PaymentLink(
 
     class CreateParamsCustomField(TypedDict):
         dropdown: NotRequired[
-            Optional["PaymentLink.CreateParamsCustomFieldDropdown"]
+            "PaymentLink.CreateParamsCustomFieldDropdown|None"
         ]
         key: str
         label: "PaymentLink.CreateParamsCustomFieldLabel"
-        numeric: NotRequired[
-            Optional["PaymentLink.CreateParamsCustomFieldNumeric"]
-        ]
-        optional: NotRequired[Optional[bool]]
-        text: NotRequired[Optional["PaymentLink.CreateParamsCustomFieldText"]]
+        numeric: NotRequired["PaymentLink.CreateParamsCustomFieldNumeric|None"]
+        optional: NotRequired["bool|None"]
+        text: NotRequired["PaymentLink.CreateParamsCustomFieldText|None"]
         type: Literal["dropdown", "numeric", "text"]
 
     class CreateParamsCustomFieldText(TypedDict):
-        maximum_length: NotRequired[Optional[int]]
-        minimum_length: NotRequired[Optional[int]]
+        maximum_length: NotRequired["int|None"]
+        minimum_length: NotRequired["int|None"]
 
     class CreateParamsCustomFieldNumeric(TypedDict):
-        maximum_length: NotRequired[Optional[int]]
-        minimum_length: NotRequired[Optional[int]]
+        maximum_length: NotRequired["int|None"]
+        minimum_length: NotRequired["int|None"]
 
     class CreateParamsCustomFieldLabel(TypedDict):
         custom: str
@@ -533,20 +455,18 @@ class PaymentLink(
         value: str
 
     class CreateParamsConsentCollection(TypedDict):
-        promotions: NotRequired[Optional[Literal["auto", "none"]]]
-        terms_of_service: NotRequired[Optional[Literal["none", "required"]]]
+        promotions: NotRequired["Literal['auto', 'none']|None"]
+        terms_of_service: NotRequired["Literal['none', 'required']|None"]
 
     class CreateParamsAutomaticTax(TypedDict):
         enabled: bool
 
     class CreateParamsAfterCompletion(TypedDict):
         hosted_confirmation: NotRequired[
-            Optional[
-                "PaymentLink.CreateParamsAfterCompletionHostedConfirmation"
-            ]
+            "PaymentLink.CreateParamsAfterCompletionHostedConfirmation|None"
         ]
         redirect: NotRequired[
-            Optional["PaymentLink.CreateParamsAfterCompletionRedirect"]
+            "PaymentLink.CreateParamsAfterCompletionRedirect|None"
         ]
         type: Literal["hosted_confirmation", "redirect"]
 
@@ -554,116 +474,60 @@ class PaymentLink(
         url: str
 
     class CreateParamsAfterCompletionHostedConfirmation(TypedDict):
-        custom_message: NotRequired[Optional[str]]
+        custom_message: NotRequired["str|None"]
 
     class ListParams(RequestOptions):
-        active: NotRequired[Optional[bool]]
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        active: NotRequired["bool|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ListLineItemsParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     class ModifyParams(RequestOptions):
-        active: NotRequired[Optional[bool]]
+        active: NotRequired["bool|None"]
         after_completion: NotRequired[
-            Optional["PaymentLink.ModifyParamsAfterCompletion"]
+            "PaymentLink.ModifyParamsAfterCompletion|None"
         ]
-        allow_promotion_codes: NotRequired[Optional[bool]]
-        automatic_tax: NotRequired[
-            Optional["PaymentLink.ModifyParamsAutomaticTax"]
-        ]
+        allow_promotion_codes: NotRequired["bool|None"]
+        automatic_tax: NotRequired["PaymentLink.ModifyParamsAutomaticTax|None"]
         billing_address_collection: NotRequired[
-            Optional[Literal["auto", "required"]]
+            "Literal['auto', 'required']|None"
         ]
         custom_fields: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    List[
-                        "PaymentLink.ModifyParamsInvoiceCreationInvoiceDataCustomField"
-                    ],
-                ]
-            ]
+            "Literal['']|List[PaymentLink.ModifyParamsCustomField]|None"
         ]
-        custom_text: NotRequired[
-            Optional["PaymentLink.ModifyParamsCustomText"]
-        ]
-        customer_creation: NotRequired[
-            Optional[Literal["always", "if_required"]]
-        ]
-        expand: NotRequired[Optional[List[str]]]
+        custom_text: NotRequired["PaymentLink.ModifyParamsCustomText|None"]
+        customer_creation: NotRequired["Literal['always', 'if_required']|None"]
+        expand: NotRequired["List[str]|None"]
         invoice_creation: NotRequired[
-            Optional["PaymentLink.ModifyParamsInvoiceCreation"]
+            "PaymentLink.ModifyParamsInvoiceCreation|None"
         ]
-        line_items: NotRequired[
-            Optional[List["PaymentLink.ModifyParamsLineItem"]]
-        ]
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        line_items: NotRequired["List[PaymentLink.ModifyParamsLineItem]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
         payment_intent_data: NotRequired[
-            Optional["PaymentLink.ModifyParamsPaymentIntentData"]
+            "PaymentLink.ModifyParamsPaymentIntentData|None"
         ]
         payment_method_collection: NotRequired[
-            Optional[Literal["always", "if_required"]]
+            "Literal['always', 'if_required']|None"
         ]
         payment_method_types: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    List[
-                        Literal[
-                            "affirm",
-                            "afterpay_clearpay",
-                            "alipay",
-                            "au_becs_debit",
-                            "bacs_debit",
-                            "bancontact",
-                            "blik",
-                            "boleto",
-                            "card",
-                            "cashapp",
-                            "eps",
-                            "fpx",
-                            "giropay",
-                            "grabpay",
-                            "ideal",
-                            "klarna",
-                            "konbini",
-                            "link",
-                            "oxxo",
-                            "p24",
-                            "paynow",
-                            "paypal",
-                            "pix",
-                            "promptpay",
-                            "sepa_debit",
-                            "sofort",
-                            "us_bank_account",
-                            "wechat_pay",
-                        ]
-                    ],
-                ]
-            ]
+            "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay']]|None"
         ]
         shipping_address_collection: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentLink.ModifyParamsShippingAddressCollection",
-                ]
-            ]
+            "Literal['']|PaymentLink.ModifyParamsShippingAddressCollection|None"
         ]
         subscription_data: NotRequired[
-            Optional["PaymentLink.ModifyParamsSubscriptionData"]
+            "PaymentLink.ModifyParamsSubscriptionData|None"
         ]
 
     class ModifyParamsSubscriptionData(TypedDict):
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
     class ModifyParamsShippingAddressCollection(TypedDict):
         allowed_countries: List[
@@ -909,62 +773,43 @@ class PaymentLink(
         ]
 
     class ModifyParamsPaymentIntentData(TypedDict):
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
-        statement_descriptor: NotRequired[Optional[Union[Literal[""], str]]]
-        statement_descriptor_suffix: NotRequired[
-            Optional[Union[Literal[""], str]]
-        ]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        statement_descriptor: NotRequired["Literal['']|str|None"]
+        statement_descriptor_suffix: NotRequired["Literal['']|str|None"]
 
     class ModifyParamsLineItem(TypedDict):
         adjustable_quantity: NotRequired[
-            Optional["PaymentLink.ModifyParamsLineItemAdjustableQuantity"]
+            "PaymentLink.ModifyParamsLineItemAdjustableQuantity|None"
         ]
         id: str
-        quantity: NotRequired[Optional[int]]
+        quantity: NotRequired["int|None"]
 
     class ModifyParamsLineItemAdjustableQuantity(TypedDict):
         enabled: bool
-        maximum: NotRequired[Optional[int]]
-        minimum: NotRequired[Optional[int]]
+        maximum: NotRequired["int|None"]
+        minimum: NotRequired["int|None"]
 
     class ModifyParamsInvoiceCreation(TypedDict):
         enabled: bool
         invoice_data: NotRequired[
-            Optional["PaymentLink.ModifyParamsInvoiceCreationInvoiceData"]
+            "PaymentLink.ModifyParamsInvoiceCreationInvoiceData|None"
         ]
 
     class ModifyParamsInvoiceCreationInvoiceData(TypedDict):
-        account_tax_ids: NotRequired[Optional[Union[Literal[""], List[str]]]]
+        account_tax_ids: NotRequired["Literal['']|List[str]|None"]
         custom_fields: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    List[
-                        "PaymentLink.ModifyParamsInvoiceCreationInvoiceDataCustomField"
-                    ],
-                ]
-            ]
+            "Literal['']|List[PaymentLink.ModifyParamsInvoiceCreationInvoiceDataCustomField]|None"
         ]
-        description: NotRequired[Optional[str]]
-        footer: NotRequired[Optional[str]]
-        metadata: NotRequired[Optional[Union[Literal[""], Dict[str, str]]]]
+        description: NotRequired["str|None"]
+        footer: NotRequired["str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
         rendering_options: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentLink.ModifyParamsInvoiceCreationInvoiceDataRenderingOptions",
-                ]
-            ]
+            "Literal['']|PaymentLink.ModifyParamsInvoiceCreationInvoiceDataRenderingOptions|None"
         ]
 
     class ModifyParamsInvoiceCreationInvoiceDataRenderingOptions(TypedDict):
         amount_tax_display: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    Literal["exclude_tax", "include_inclusive_tax"],
-                ]
-            ]
+            "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|None"
         ]
 
     class ModifyParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
@@ -973,25 +818,13 @@ class PaymentLink(
 
     class ModifyParamsCustomText(TypedDict):
         shipping_address: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentLink.ModifyParamsCustomTextShippingAddress",
-                ]
-            ]
+            "Literal['']|PaymentLink.ModifyParamsCustomTextShippingAddress|None"
         ]
         submit: NotRequired[
-            Optional[
-                Union[Literal[""], "PaymentLink.ModifyParamsCustomTextSubmit"]
-            ]
+            "Literal['']|PaymentLink.ModifyParamsCustomTextSubmit|None"
         ]
         terms_of_service_acceptance: NotRequired[
-            Optional[
-                Union[
-                    Literal[""],
-                    "PaymentLink.ModifyParamsCustomTextTermsOfServiceAcceptance",
-                ]
-            ]
+            "Literal['']|PaymentLink.ModifyParamsCustomTextTermsOfServiceAcceptance|None"
         ]
 
     class ModifyParamsCustomTextTermsOfServiceAcceptance(TypedDict):
@@ -1005,24 +838,22 @@ class PaymentLink(
 
     class ModifyParamsCustomField(TypedDict):
         dropdown: NotRequired[
-            Optional["PaymentLink.ModifyParamsCustomFieldDropdown"]
+            "PaymentLink.ModifyParamsCustomFieldDropdown|None"
         ]
         key: str
         label: "PaymentLink.ModifyParamsCustomFieldLabel"
-        numeric: NotRequired[
-            Optional["PaymentLink.ModifyParamsCustomFieldNumeric"]
-        ]
-        optional: NotRequired[Optional[bool]]
-        text: NotRequired[Optional["PaymentLink.ModifyParamsCustomFieldText"]]
+        numeric: NotRequired["PaymentLink.ModifyParamsCustomFieldNumeric|None"]
+        optional: NotRequired["bool|None"]
+        text: NotRequired["PaymentLink.ModifyParamsCustomFieldText|None"]
         type: Literal["dropdown", "numeric", "text"]
 
     class ModifyParamsCustomFieldText(TypedDict):
-        maximum_length: NotRequired[Optional[int]]
-        minimum_length: NotRequired[Optional[int]]
+        maximum_length: NotRequired["int|None"]
+        minimum_length: NotRequired["int|None"]
 
     class ModifyParamsCustomFieldNumeric(TypedDict):
-        maximum_length: NotRequired[Optional[int]]
-        minimum_length: NotRequired[Optional[int]]
+        maximum_length: NotRequired["int|None"]
+        minimum_length: NotRequired["int|None"]
 
     class ModifyParamsCustomFieldLabel(TypedDict):
         custom: str
@@ -1040,12 +871,10 @@ class PaymentLink(
 
     class ModifyParamsAfterCompletion(TypedDict):
         hosted_confirmation: NotRequired[
-            Optional[
-                "PaymentLink.ModifyParamsAfterCompletionHostedConfirmation"
-            ]
+            "PaymentLink.ModifyParamsAfterCompletionHostedConfirmation|None"
         ]
         redirect: NotRequired[
-            Optional["PaymentLink.ModifyParamsAfterCompletionRedirect"]
+            "PaymentLink.ModifyParamsAfterCompletionRedirect|None"
         ]
         type: Literal["hosted_confirmation", "redirect"]
 
@@ -1053,10 +882,10 @@ class PaymentLink(
         url: str
 
     class ModifyParamsAfterCompletionHostedConfirmation(TypedDict):
-        custom_message: NotRequired[Optional[str]]
+        custom_message: NotRequired["str|None"]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     active: bool
     after_completion: StripeObject

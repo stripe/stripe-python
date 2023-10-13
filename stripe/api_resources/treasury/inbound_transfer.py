@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from __future__ import absolute_import, division, print_function
-
 from stripe import util
 from stripe.api_resources.abstract import (
     APIResourceTestHelpers,
@@ -32,63 +30,47 @@ class InboundTransfer(
     OBJECT_NAME = "treasury.inbound_transfer"
 
     class CancelParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class CreateParams(RequestOptions):
         amount: int
         currency: str
-        description: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
+        description: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
         financial_account: str
-        metadata: NotRequired[Optional[Dict[str, str]]]
+        metadata: NotRequired["Dict[str, str]|None"]
         origin_payment_method: str
-        statement_descriptor: NotRequired[Optional[str]]
+        statement_descriptor: NotRequired["str|None"]
 
     class ListParams(RequestOptions):
-        ending_before: NotRequired[Optional[str]]
-        expand: NotRequired[Optional[List[str]]]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
         financial_account: str
-        limit: NotRequired[Optional[int]]
-        starting_after: NotRequired[Optional[str]]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
         status: NotRequired[
-            Optional[Literal["canceled", "failed", "processing", "succeeded"]]
+            "Literal['canceled', 'failed', 'processing', 'succeeded']|None"
         ]
 
     class RetrieveParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class FailParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
         failure_details: NotRequired[
-            Optional["InboundTransfer.FailParamsFailureDetails"]
+            "InboundTransfer.FailParamsFailureDetails|None"
         ]
 
     class FailParamsFailureDetails(TypedDict):
         code: NotRequired[
-            Optional[
-                Literal[
-                    "account_closed",
-                    "account_frozen",
-                    "bank_account_restricted",
-                    "bank_ownership_changed",
-                    "debit_not_authorized",
-                    "incorrect_account_holder_address",
-                    "incorrect_account_holder_name",
-                    "incorrect_account_holder_tax_id",
-                    "insufficient_funds",
-                    "invalid_account_number",
-                    "invalid_currency",
-                    "no_account",
-                    "other",
-                ]
-            ]
+            "Literal['account_closed', 'account_frozen', 'bank_account_restricted', 'bank_ownership_changed', 'debit_not_authorized', 'incorrect_account_holder_address', 'incorrect_account_holder_name', 'incorrect_account_holder_tax_id', 'insufficient_funds', 'invalid_account_number', 'invalid_currency', 'no_account', 'other']|None"
         ]
 
     class ReturnInboundTransferParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     class SucceedParams(RequestOptions):
-        expand: NotRequired[Optional[List[str]]]
+        expand: NotRequired["List[str]|None"]
 
     amount: int
     cancelable: bool
