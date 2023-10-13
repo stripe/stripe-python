@@ -34,6 +34,7 @@ pyright: venv
 	# we don't need to pass config-settings anyway because "editable_mode=compat" just
 	# means to perform as these old versions of pip already do.
 	pip install -e . --config-settings editable_mode=compat || pip install -e .
+	@${VENV_NAME}/bin/pyright --version
 	@${VENV_NAME}/bin/pyright
 
 fmt: venv
