@@ -4,8 +4,10 @@ from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
 from typing import Dict, Optional
-from typing_extensions import Literal, TYPE_CHECKING
+from typing_extensions import Literal
 from urllib.parse import quote_plus
+
+from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.credit_note import CreditNote

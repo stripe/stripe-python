@@ -3,7 +3,7 @@
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.request_options import RequestOptions
 from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack
 
 
 class AccountLink(CreateableAPIResource["AccountLink"]):
@@ -15,17 +15,14 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
     """
 
     OBJECT_NAME = "account_link"
-    if TYPE_CHECKING:
 
-        class CreateParams(RequestOptions):
-            account: str
-            collect: NotRequired[
-                "Literal['currently_due', 'eventually_due']|None"
-            ]
-            expand: NotRequired["List[str]|None"]
-            refresh_url: NotRequired["str|None"]
-            return_url: NotRequired["str|None"]
-            type: Literal["account_onboarding", "account_update"]
+    class CreateParams(RequestOptions):
+        account: str
+        collect: NotRequired["Literal['currently_due', 'eventually_due']|None"]
+        expand: NotRequired["List[str]|None"]
+        refresh_url: NotRequired["str|None"]
+        return_url: NotRequired["str|None"]
+        type: Literal["account_onboarding", "account_update"]
 
     created: int
     expires_at: int

@@ -5,13 +5,9 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+
+from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.financial_connections.account import Account
@@ -23,32 +19,27 @@ class Session(CreateableAPIResource["Session"]):
     """
 
     OBJECT_NAME = "financial_connections.session"
-    if TYPE_CHECKING:
 
-        class CreateParams(RequestOptions):
-            account_holder: "Session.CreateParamsAccountHolder"
-            expand: NotRequired["List[str]|None"]
-            filters: NotRequired["Session.CreateParamsFilters|None"]
-            permissions: List[
-                Literal[
-                    "balances", "ownership", "payment_method", "transactions"
-                ]
-            ]
-            prefetch: NotRequired[
-                "List[Literal['balances', 'ownership']]|None"
-            ]
-            return_url: NotRequired["str|None"]
+    class CreateParams(RequestOptions):
+        account_holder: "Session.CreateParamsAccountHolder"
+        expand: NotRequired["List[str]|None"]
+        filters: NotRequired["Session.CreateParamsFilters|None"]
+        permissions: List[
+            Literal["balances", "ownership", "payment_method", "transactions"]
+        ]
+        prefetch: NotRequired["List[Literal['balances', 'ownership']]|None"]
+        return_url: NotRequired["str|None"]
 
-        class CreateParamsFilters(TypedDict):
-            countries: List[str]
+    class CreateParamsFilters(TypedDict):
+        countries: List[str]
 
-        class CreateParamsAccountHolder(TypedDict):
-            account: NotRequired["str|None"]
-            customer: NotRequired["str|None"]
-            type: Literal["account", "customer"]
+    class CreateParamsAccountHolder(TypedDict):
+        account: NotRequired["str|None"]
+        customer: NotRequired["str|None"]
+        type: Literal["account", "customer"]
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
 
     account_holder: Optional[StripeObject]
     accounts: ListObject["Account"]

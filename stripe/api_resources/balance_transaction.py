@@ -6,13 +6,9 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional, Union
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+
+from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.application_fee import ApplicationFee
@@ -51,29 +47,26 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     """
 
     OBJECT_NAME = "balance_transaction"
-    if TYPE_CHECKING:
 
-        class ListParams(RequestOptions):
-            created: NotRequired[
-                "BalanceTransaction.ListParamsCreated|int|None"
-            ]
-            currency: NotRequired["str|None"]
-            ending_before: NotRequired["str|None"]
-            expand: NotRequired["List[str]|None"]
-            limit: NotRequired["int|None"]
-            payout: NotRequired["str|None"]
-            source: NotRequired["str|None"]
-            starting_after: NotRequired["str|None"]
-            type: NotRequired["str|None"]
+    class ListParams(RequestOptions):
+        created: NotRequired["BalanceTransaction.ListParamsCreated|int|None"]
+        currency: NotRequired["str|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        payout: NotRequired["str|None"]
+        source: NotRequired["str|None"]
+        starting_after: NotRequired["str|None"]
+        type: NotRequired["str|None"]
 
-        class ListParamsCreated(TypedDict):
-            gt: NotRequired["int|None"]
-            gte: NotRequired["int|None"]
-            lt: NotRequired["int|None"]
-            lte: NotRequired["int|None"]
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
 
     amount: int
     available_on: int

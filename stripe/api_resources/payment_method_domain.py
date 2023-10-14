@@ -10,7 +10,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack
 from urllib.parse import quote_plus
 
 
@@ -27,30 +27,29 @@ class PaymentMethodDomain(
     """
 
     OBJECT_NAME = "payment_method_domain"
-    if TYPE_CHECKING:
 
-        class CreateParams(RequestOptions):
-            domain_name: str
-            enabled: NotRequired["bool|None"]
-            expand: NotRequired["List[str]|None"]
+    class CreateParams(RequestOptions):
+        domain_name: str
+        enabled: NotRequired["bool|None"]
+        expand: NotRequired["List[str]|None"]
 
-        class ListParams(RequestOptions):
-            domain_name: NotRequired["str|None"]
-            enabled: NotRequired["bool|None"]
-            ending_before: NotRequired["str|None"]
-            expand: NotRequired["List[str]|None"]
-            limit: NotRequired["int|None"]
-            starting_after: NotRequired["str|None"]
+    class ListParams(RequestOptions):
+        domain_name: NotRequired["str|None"]
+        enabled: NotRequired["bool|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
-        class ModifyParams(RequestOptions):
-            enabled: NotRequired["bool|None"]
-            expand: NotRequired["List[str]|None"]
+    class ModifyParams(RequestOptions):
+        enabled: NotRequired["bool|None"]
+        expand: NotRequired["List[str]|None"]
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
 
-        class ValidateParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+    class ValidateParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
 
     apple_pay: StripeObject
     created: int

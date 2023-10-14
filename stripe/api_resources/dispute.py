@@ -10,14 +10,10 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
+
+from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.balance_transaction import BalanceTransaction
@@ -37,63 +33,62 @@ class Dispute(
     """
 
     OBJECT_NAME = "dispute"
-    if TYPE_CHECKING:
 
-        class CloseParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+    class CloseParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
 
-        class ListParams(RequestOptions):
-            charge: NotRequired["str|None"]
-            created: NotRequired["Dispute.ListParamsCreated|int|None"]
-            ending_before: NotRequired["str|None"]
-            expand: NotRequired["List[str]|None"]
-            limit: NotRequired["int|None"]
-            payment_intent: NotRequired["str|None"]
-            starting_after: NotRequired["str|None"]
+    class ListParams(RequestOptions):
+        charge: NotRequired["str|None"]
+        created: NotRequired["Dispute.ListParamsCreated|int|None"]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        payment_intent: NotRequired["str|None"]
+        starting_after: NotRequired["str|None"]
 
-        class ListParamsCreated(TypedDict):
-            gt: NotRequired["int|None"]
-            gte: NotRequired["int|None"]
-            lt: NotRequired["int|None"]
-            lte: NotRequired["int|None"]
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int|None"]
+        gte: NotRequired["int|None"]
+        lt: NotRequired["int|None"]
+        lte: NotRequired["int|None"]
 
-        class ModifyParams(RequestOptions):
-            evidence: NotRequired["Dispute.ModifyParamsEvidence|None"]
-            expand: NotRequired["List[str]|None"]
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-            submit: NotRequired["bool|None"]
+    class ModifyParams(RequestOptions):
+        evidence: NotRequired["Dispute.ModifyParamsEvidence|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        submit: NotRequired["bool|None"]
 
-        class ModifyParamsEvidence(TypedDict):
-            access_activity_log: NotRequired["str|None"]
-            billing_address: NotRequired["str|None"]
-            cancellation_policy: NotRequired["str|None"]
-            cancellation_policy_disclosure: NotRequired["str|None"]
-            cancellation_rebuttal: NotRequired["str|None"]
-            customer_communication: NotRequired["str|None"]
-            customer_email_address: NotRequired["str|None"]
-            customer_name: NotRequired["str|None"]
-            customer_purchase_ip: NotRequired["str|None"]
-            customer_signature: NotRequired["str|None"]
-            duplicate_charge_documentation: NotRequired["str|None"]
-            duplicate_charge_explanation: NotRequired["str|None"]
-            duplicate_charge_id: NotRequired["str|None"]
-            product_description: NotRequired["str|None"]
-            receipt: NotRequired["str|None"]
-            refund_policy: NotRequired["str|None"]
-            refund_policy_disclosure: NotRequired["str|None"]
-            refund_refusal_explanation: NotRequired["str|None"]
-            service_date: NotRequired["str|None"]
-            service_documentation: NotRequired["str|None"]
-            shipping_address: NotRequired["str|None"]
-            shipping_carrier: NotRequired["str|None"]
-            shipping_date: NotRequired["str|None"]
-            shipping_documentation: NotRequired["str|None"]
-            shipping_tracking_number: NotRequired["str|None"]
-            uncategorized_file: NotRequired["str|None"]
-            uncategorized_text: NotRequired["str|None"]
+    class ModifyParamsEvidence(TypedDict):
+        access_activity_log: NotRequired["str|None"]
+        billing_address: NotRequired["str|None"]
+        cancellation_policy: NotRequired["str|None"]
+        cancellation_policy_disclosure: NotRequired["str|None"]
+        cancellation_rebuttal: NotRequired["str|None"]
+        customer_communication: NotRequired["str|None"]
+        customer_email_address: NotRequired["str|None"]
+        customer_name: NotRequired["str|None"]
+        customer_purchase_ip: NotRequired["str|None"]
+        customer_signature: NotRequired["str|None"]
+        duplicate_charge_documentation: NotRequired["str|None"]
+        duplicate_charge_explanation: NotRequired["str|None"]
+        duplicate_charge_id: NotRequired["str|None"]
+        product_description: NotRequired["str|None"]
+        receipt: NotRequired["str|None"]
+        refund_policy: NotRequired["str|None"]
+        refund_policy_disclosure: NotRequired["str|None"]
+        refund_refusal_explanation: NotRequired["str|None"]
+        service_date: NotRequired["str|None"]
+        service_documentation: NotRequired["str|None"]
+        shipping_address: NotRequired["str|None"]
+        shipping_carrier: NotRequired["str|None"]
+        shipping_date: NotRequired["str|None"]
+        shipping_documentation: NotRequired["str|None"]
+        shipping_tracking_number: NotRequired["str|None"]
+        uncategorized_file: NotRequired["str|None"]
+        uncategorized_text: NotRequired["str|None"]
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
 
     amount: int
     balance_transactions: List["BalanceTransaction"]

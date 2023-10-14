@@ -8,13 +8,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
 class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
@@ -31,47 +25,46 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     """
 
     OBJECT_NAME = "apps.secret"
-    if TYPE_CHECKING:
 
-        class CreateParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
-            expires_at: NotRequired["int|None"]
-            name: str
-            payload: str
-            scope: "Secret.CreateParamsScope"
+    class CreateParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        expires_at: NotRequired["int|None"]
+        name: str
+        payload: str
+        scope: "Secret.CreateParamsScope"
 
-        class CreateParamsScope(TypedDict):
-            type: Literal["account", "user"]
-            user: NotRequired["str|None"]
+    class CreateParamsScope(TypedDict):
+        type: Literal["account", "user"]
+        user: NotRequired["str|None"]
 
-        class DeleteWhereParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
-            name: str
-            scope: "Secret.DeleteWhereParamsScope"
+    class DeleteWhereParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        name: str
+        scope: "Secret.DeleteWhereParamsScope"
 
-        class DeleteWhereParamsScope(TypedDict):
-            type: Literal["account", "user"]
-            user: NotRequired["str|None"]
+    class DeleteWhereParamsScope(TypedDict):
+        type: Literal["account", "user"]
+        user: NotRequired["str|None"]
 
-        class FindParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
-            name: str
-            scope: "Secret.FindParamsScope"
+    class FindParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        name: str
+        scope: "Secret.FindParamsScope"
 
-        class FindParamsScope(TypedDict):
-            type: Literal["account", "user"]
-            user: NotRequired["str|None"]
+    class FindParamsScope(TypedDict):
+        type: Literal["account", "user"]
+        user: NotRequired["str|None"]
 
-        class ListParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
-            expand: NotRequired["List[str]|None"]
-            limit: NotRequired["int|None"]
-            scope: "Secret.ListParamsScope"
-            starting_after: NotRequired["str|None"]
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        scope: "Secret.ListParamsScope"
+        starting_after: NotRequired["str|None"]
 
-        class ListParamsScope(TypedDict):
-            type: Literal["account", "user"]
-            user: NotRequired["str|None"]
+    class ListParamsScope(TypedDict):
+        type: Literal["account", "user"]
+        user: NotRequired["str|None"]
 
     created: int
     deleted: Optional[bool]

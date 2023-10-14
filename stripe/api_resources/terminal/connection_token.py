@@ -3,7 +3,7 @@
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.request_options import RequestOptions
 from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack
 
 
 class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
@@ -14,11 +14,10 @@ class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
     """
 
     OBJECT_NAME = "terminal.connection_token"
-    if TYPE_CHECKING:
 
-        class CreateParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
-            location: NotRequired["str|None"]
+    class CreateParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        location: NotRequired["str|None"]
 
     location: Optional[str]
     object: Literal["terminal.connection_token"]

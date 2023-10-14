@@ -6,7 +6,9 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack
+
+from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.customer import Customer
@@ -23,16 +25,15 @@ class CustomerCashBalanceTransaction(
     """
 
     OBJECT_NAME = "customer_cash_balance_transaction"
-    if TYPE_CHECKING:
 
-        class ListParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
-            expand: NotRequired["List[str]|None"]
-            limit: NotRequired["int|None"]
-            starting_after: NotRequired["str|None"]
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
 
     adjusted_for_overdraft: Optional[StripeObject]
     applied_to_payment: Optional[StripeObject]

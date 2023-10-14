@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import SingletonAPIResource
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack
 
 
 class Balance(SingletonAPIResource["Balance"]):
@@ -23,10 +23,9 @@ class Balance(SingletonAPIResource["Balance"]):
     """
 
     OBJECT_NAME = "balance"
-    if TYPE_CHECKING:
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
 
     available: List[StripeObject]
     connect_reserved: Optional[List[StripeObject]]

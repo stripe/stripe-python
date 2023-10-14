@@ -12,14 +12,10 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 from urllib.parse import quote_plus
+
+from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.plan import Plan
@@ -41,114 +37,109 @@ class SubscriptionItem(
     """
 
     OBJECT_NAME = "subscription_item"
-    if TYPE_CHECKING:
 
-        class CreateParams(RequestOptions):
-            billing_thresholds: NotRequired[
-                "Literal['']|SubscriptionItem.CreateParamsBillingThresholds|None"
-            ]
-            expand: NotRequired["List[str]|None"]
-            metadata: NotRequired["Dict[str, str]|None"]
-            payment_behavior: NotRequired[
-                "Literal['allow_incomplete', 'default_incomplete', 'error_if_incomplete', 'pending_if_incomplete']|None"
-            ]
-            plan: NotRequired["str|None"]
-            price: NotRequired["str|None"]
-            price_data: NotRequired[
-                "SubscriptionItem.CreateParamsPriceData|None"
-            ]
-            proration_behavior: NotRequired[
-                "Literal['always_invoice', 'create_prorations', 'none']|None"
-            ]
-            proration_date: NotRequired["int|None"]
-            quantity: NotRequired["int|None"]
-            subscription: str
-            tax_rates: NotRequired["Literal['']|List[str]|None"]
+    class CreateParams(RequestOptions):
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionItem.CreateParamsBillingThresholds|None"
+        ]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        payment_behavior: NotRequired[
+            "Literal['allow_incomplete', 'default_incomplete', 'error_if_incomplete', 'pending_if_incomplete']|None"
+        ]
+        plan: NotRequired["str|None"]
+        price: NotRequired["str|None"]
+        price_data: NotRequired["SubscriptionItem.CreateParamsPriceData|None"]
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
+        ]
+        proration_date: NotRequired["int|None"]
+        quantity: NotRequired["int|None"]
+        subscription: str
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
 
-        class CreateParamsPriceData(TypedDict):
-            currency: str
-            product: str
-            recurring: "SubscriptionItem.CreateParamsPriceDataRecurring"
-            tax_behavior: NotRequired[
-                "Literal['exclusive', 'inclusive', 'unspecified']|None"
-            ]
-            unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+    class CreateParamsPriceData(TypedDict):
+        currency: str
+        product: str
+        recurring: "SubscriptionItem.CreateParamsPriceDataRecurring"
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
+        ]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
-        class CreateParamsPriceDataRecurring(TypedDict):
-            interval: Literal["day", "month", "week", "year"]
-            interval_count: NotRequired["int|None"]
+    class CreateParamsPriceDataRecurring(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: NotRequired["int|None"]
 
-        class CreateParamsBillingThresholds(TypedDict):
-            usage_gte: int
+    class CreateParamsBillingThresholds(TypedDict):
+        usage_gte: int
 
-        class DeleteParams(RequestOptions):
-            clear_usage: NotRequired["bool|None"]
-            proration_behavior: NotRequired[
-                "Literal['always_invoice', 'create_prorations', 'none']|None"
-            ]
-            proration_date: NotRequired["int|None"]
+    class DeleteParams(RequestOptions):
+        clear_usage: NotRequired["bool|None"]
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
+        ]
+        proration_date: NotRequired["int|None"]
 
-        class ListParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
-            expand: NotRequired["List[str]|None"]
-            limit: NotRequired["int|None"]
-            starting_after: NotRequired["str|None"]
-            subscription: str
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
+        subscription: str
 
-        class ModifyParams(RequestOptions):
-            billing_thresholds: NotRequired[
-                "Literal['']|SubscriptionItem.ModifyParamsBillingThresholds|None"
-            ]
-            expand: NotRequired["List[str]|None"]
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-            off_session: NotRequired["bool|None"]
-            payment_behavior: NotRequired[
-                "Literal['allow_incomplete', 'default_incomplete', 'error_if_incomplete', 'pending_if_incomplete']|None"
-            ]
-            plan: NotRequired["str|None"]
-            price: NotRequired["str|None"]
-            price_data: NotRequired[
-                "SubscriptionItem.ModifyParamsPriceData|None"
-            ]
-            proration_behavior: NotRequired[
-                "Literal['always_invoice', 'create_prorations', 'none']|None"
-            ]
-            proration_date: NotRequired["int|None"]
-            quantity: NotRequired["int|None"]
-            tax_rates: NotRequired["Literal['']|List[str]|None"]
+    class ModifyParams(RequestOptions):
+        billing_thresholds: NotRequired[
+            "Literal['']|SubscriptionItem.ModifyParamsBillingThresholds|None"
+        ]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        off_session: NotRequired["bool|None"]
+        payment_behavior: NotRequired[
+            "Literal['allow_incomplete', 'default_incomplete', 'error_if_incomplete', 'pending_if_incomplete']|None"
+        ]
+        plan: NotRequired["str|None"]
+        price: NotRequired["str|None"]
+        price_data: NotRequired["SubscriptionItem.ModifyParamsPriceData|None"]
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']|None"
+        ]
+        proration_date: NotRequired["int|None"]
+        quantity: NotRequired["int|None"]
+        tax_rates: NotRequired["Literal['']|List[str]|None"]
 
-        class ModifyParamsPriceData(TypedDict):
-            currency: str
-            product: str
-            recurring: "SubscriptionItem.ModifyParamsPriceDataRecurring"
-            tax_behavior: NotRequired[
-                "Literal['exclusive', 'inclusive', 'unspecified']|None"
-            ]
-            unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+    class ModifyParamsPriceData(TypedDict):
+        currency: str
+        product: str
+        recurring: "SubscriptionItem.ModifyParamsPriceDataRecurring"
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']|None"
+        ]
+        unit_amount: NotRequired["int|None"]
+        unit_amount_decimal: NotRequired["float|None"]
 
-        class ModifyParamsPriceDataRecurring(TypedDict):
-            interval: Literal["day", "month", "week", "year"]
-            interval_count: NotRequired["int|None"]
+    class ModifyParamsPriceDataRecurring(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        interval_count: NotRequired["int|None"]
 
-        class ModifyParamsBillingThresholds(TypedDict):
-            usage_gte: int
+    class ModifyParamsBillingThresholds(TypedDict):
+        usage_gte: int
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
 
-        class CreateUsageRecordParams(RequestOptions):
-            action: NotRequired["Literal['increment', 'set']|None"]
-            expand: NotRequired["List[str]|None"]
-            quantity: int
-            timestamp: NotRequired["Literal['now']|int|None"]
+    class CreateUsageRecordParams(RequestOptions):
+        action: NotRequired["Literal['increment', 'set']|None"]
+        expand: NotRequired["List[str]|None"]
+        quantity: int
+        timestamp: NotRequired["Literal['now']|int|None"]
 
-        class ListUsageRecordSummariesParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
-            expand: NotRequired["List[str]|None"]
-            limit: NotRequired["int|None"]
-            starting_after: NotRequired["str|None"]
+    class ListUsageRecordSummariesParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
     billing_thresholds: Optional[StripeObject]
     created: int

@@ -5,7 +5,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack
 
 
 class CountrySpec(ListableAPIResource["CountrySpec"]):
@@ -19,16 +19,15 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
     """
 
     OBJECT_NAME = "country_spec"
-    if TYPE_CHECKING:
 
-        class ListParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
-            expand: NotRequired["List[str]|None"]
-            limit: NotRequired["int|None"]
-            starting_after: NotRequired["str|None"]
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        starting_after: NotRequired["str|None"]
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
 
     default_currency: str
     id: str

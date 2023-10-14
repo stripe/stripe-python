@@ -13,15 +13,10 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    Type,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, NotRequired, Type, TypedDict, Unpack
 from urllib.parse import quote_plus
+
+from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.terminal.location import Location
@@ -40,111 +35,108 @@ class Reader(
     """
 
     OBJECT_NAME = "terminal.reader"
-    if TYPE_CHECKING:
 
-        class CancelActionParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+    class CancelActionParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
 
-        class CreateParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
-            label: NotRequired["str|None"]
-            location: NotRequired["str|None"]
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-            registration_code: str
+    class CreateParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        label: NotRequired["str|None"]
+        location: NotRequired["str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+        registration_code: str
 
-        class DeleteParams(RequestOptions):
-            pass
+    class DeleteParams(RequestOptions):
+        pass
 
-        class ListParams(RequestOptions):
-            device_type: NotRequired[
-                "Literal['bbpos_chipper2x', 'bbpos_wisepad3', 'bbpos_wisepos_e', 'simulated_wisepos_e', 'stripe_m2', 'verifone_P400']|None"
-            ]
-            ending_before: NotRequired["str|None"]
-            expand: NotRequired["List[str]|None"]
-            limit: NotRequired["int|None"]
-            location: NotRequired["str|None"]
-            serial_number: NotRequired["str|None"]
-            starting_after: NotRequired["str|None"]
-            status: NotRequired["Literal['offline', 'online']|None"]
+    class ListParams(RequestOptions):
+        device_type: NotRequired[
+            "Literal['bbpos_chipper2x', 'bbpos_wisepad3', 'bbpos_wisepos_e', 'simulated_wisepos_e', 'stripe_m2', 'verifone_P400']|None"
+        ]
+        ending_before: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        limit: NotRequired["int|None"]
+        location: NotRequired["str|None"]
+        serial_number: NotRequired["str|None"]
+        starting_after: NotRequired["str|None"]
+        status: NotRequired["Literal['offline', 'online']|None"]
 
-        class ModifyParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
-            label: NotRequired["Literal['']|str|None"]
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+    class ModifyParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        label: NotRequired["Literal['']|str|None"]
+        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
 
-        class ProcessPaymentIntentParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
-            payment_intent: str
-            process_config: NotRequired[
-                "Reader.ProcessPaymentIntentParamsProcessConfig|None"
-            ]
+    class ProcessPaymentIntentParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
+        payment_intent: str
+        process_config: NotRequired[
+            "Reader.ProcessPaymentIntentParamsProcessConfig|None"
+        ]
 
-        class ProcessPaymentIntentParamsProcessConfig(TypedDict):
-            skip_tipping: NotRequired["bool|None"]
-            tipping: NotRequired[
-                "Reader.ProcessPaymentIntentParamsProcessConfigTipping|None"
-            ]
+    class ProcessPaymentIntentParamsProcessConfig(TypedDict):
+        skip_tipping: NotRequired["bool|None"]
+        tipping: NotRequired[
+            "Reader.ProcessPaymentIntentParamsProcessConfigTipping|None"
+        ]
 
-        class ProcessPaymentIntentParamsProcessConfigTipping(TypedDict):
-            amount_eligible: NotRequired["int|None"]
+    class ProcessPaymentIntentParamsProcessConfigTipping(TypedDict):
+        amount_eligible: NotRequired["int|None"]
 
-        class ProcessSetupIntentParams(RequestOptions):
-            customer_consent_collected: bool
-            expand: NotRequired["List[str]|None"]
-            process_config: NotRequired[
-                "Reader.ProcessSetupIntentParamsProcessConfig|None"
-            ]
-            setup_intent: str
+    class ProcessSetupIntentParams(RequestOptions):
+        customer_consent_collected: bool
+        expand: NotRequired["List[str]|None"]
+        process_config: NotRequired[
+            "Reader.ProcessSetupIntentParamsProcessConfig|None"
+        ]
+        setup_intent: str
 
-        class ProcessSetupIntentParamsProcessConfig(TypedDict):
-            pass
+    class ProcessSetupIntentParamsProcessConfig(TypedDict):
+        pass
 
-        class RefundPaymentParams(RequestOptions):
-            amount: NotRequired["int|None"]
-            charge: NotRequired["str|None"]
-            expand: NotRequired["List[str]|None"]
-            metadata: NotRequired["Dict[str, str]|None"]
-            payment_intent: NotRequired["str|None"]
-            refund_application_fee: NotRequired["bool|None"]
-            reverse_transfer: NotRequired["bool|None"]
+    class RefundPaymentParams(RequestOptions):
+        amount: NotRequired["int|None"]
+        charge: NotRequired["str|None"]
+        expand: NotRequired["List[str]|None"]
+        metadata: NotRequired["Dict[str, str]|None"]
+        payment_intent: NotRequired["str|None"]
+        refund_application_fee: NotRequired["bool|None"]
+        reverse_transfer: NotRequired["bool|None"]
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]|None"]
 
-        class SetReaderDisplayParams(RequestOptions):
-            cart: NotRequired["Reader.SetReaderDisplayParamsCart|None"]
-            expand: NotRequired["List[str]|None"]
-            type: Literal["cart"]
+    class SetReaderDisplayParams(RequestOptions):
+        cart: NotRequired["Reader.SetReaderDisplayParamsCart|None"]
+        expand: NotRequired["List[str]|None"]
+        type: Literal["cart"]
 
-        class SetReaderDisplayParamsCart(TypedDict):
-            currency: str
-            line_items: List["Reader.SetReaderDisplayParamsCartLineItem"]
-            tax: NotRequired["int|None"]
-            total: int
+    class SetReaderDisplayParamsCart(TypedDict):
+        currency: str
+        line_items: List["Reader.SetReaderDisplayParamsCartLineItem"]
+        tax: NotRequired["int|None"]
+        total: int
 
-        class SetReaderDisplayParamsCartLineItem(TypedDict):
-            amount: int
-            description: str
-            quantity: int
+    class SetReaderDisplayParamsCartLineItem(TypedDict):
+        amount: int
+        description: str
+        quantity: int
 
-        class PresentPaymentMethodParams(RequestOptions):
-            amount_tip: NotRequired["int|None"]
-            card_present: NotRequired[
-                "Reader.PresentPaymentMethodParamsCardPresent|None"
-            ]
-            expand: NotRequired["List[str]|None"]
-            interac_present: NotRequired[
-                "Reader.PresentPaymentMethodParamsInteracPresent|None"
-            ]
-            type: NotRequired[
-                "Literal['card_present', 'interac_present']|None"
-            ]
+    class PresentPaymentMethodParams(RequestOptions):
+        amount_tip: NotRequired["int|None"]
+        card_present: NotRequired[
+            "Reader.PresentPaymentMethodParamsCardPresent|None"
+        ]
+        expand: NotRequired["List[str]|None"]
+        interac_present: NotRequired[
+            "Reader.PresentPaymentMethodParamsInteracPresent|None"
+        ]
+        type: NotRequired["Literal['card_present', 'interac_present']|None"]
 
-        class PresentPaymentMethodParamsInteracPresent(TypedDict):
-            number: NotRequired["str|None"]
+    class PresentPaymentMethodParamsInteracPresent(TypedDict):
+        number: NotRequired["str|None"]
 
-        class PresentPaymentMethodParamsCardPresent(TypedDict):
-            number: NotRequired["str|None"]
+    class PresentPaymentMethodParamsCardPresent(TypedDict):
+        number: NotRequired["str|None"]
 
     action: Optional[StripeObject]
     device_sw_version: Optional[str]
