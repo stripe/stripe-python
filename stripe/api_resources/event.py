@@ -179,6 +179,8 @@ class Event(ListableAPIResource["Event"]):
         "issuing_dispute.funds_reinstated",
         "issuing_dispute.submitted",
         "issuing_dispute.updated",
+        "issuing_token.created",
+        "issuing_token.updated",
         "issuing_transaction.created",
         "issuing_transaction.updated",
         "mandate.updated",
