@@ -632,6 +632,7 @@ class Account(
         class PersonsParamsRelationship(TypedDict):
             director: NotRequired["bool|None"]
             executive: NotRequired["bool|None"]
+            legal_guardian: NotRequired["bool|None"]
             owner: NotRequired["bool|None"]
             representative: NotRequired["bool|None"]
 
@@ -706,6 +707,9 @@ class Account(
             expand: NotRequired["List[str]|None"]
 
         class CreatePersonParams(RequestOptions):
+            additional_tos_acceptances: NotRequired[
+                "Account.CreatePersonParamsAdditionalTosAcceptances|None"
+            ]
             address: NotRequired["Account.CreatePersonParamsAddress|None"]
             address_kana: NotRequired[
                 "Account.CreatePersonParamsAddressKana|None"
@@ -763,6 +767,7 @@ class Account(
         class CreatePersonParamsRelationship(TypedDict):
             director: NotRequired["bool|None"]
             executive: NotRequired["bool|None"]
+            legal_guardian: NotRequired["bool|None"]
             owner: NotRequired["bool|None"]
             percent_ownership: NotRequired["Literal['']|float|None"]
             representative: NotRequired["bool|None"]
@@ -825,10 +830,23 @@ class Account(
             postal_code: NotRequired["str|None"]
             state: NotRequired["str|None"]
 
+        class CreatePersonParamsAdditionalTosAcceptances(TypedDict):
+            account: NotRequired[
+                "Account.CreatePersonParamsAdditionalTosAcceptancesAccount|None"
+            ]
+
+        class CreatePersonParamsAdditionalTosAcceptancesAccount(TypedDict):
+            date: NotRequired["int|None"]
+            ip: NotRequired["str|None"]
+            user_agent: NotRequired["Literal['']|str|None"]
+
         class RetrievePersonParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
 
         class ModifyPersonParams(RequestOptions):
+            additional_tos_acceptances: NotRequired[
+                "Account.ModifyPersonParamsAdditionalTosAcceptances|None"
+            ]
             address: NotRequired["Account.ModifyPersonParamsAddress|None"]
             address_kana: NotRequired[
                 "Account.ModifyPersonParamsAddressKana|None"
@@ -886,6 +904,7 @@ class Account(
         class ModifyPersonParamsRelationship(TypedDict):
             director: NotRequired["bool|None"]
             executive: NotRequired["bool|None"]
+            legal_guardian: NotRequired["bool|None"]
             owner: NotRequired["bool|None"]
             percent_ownership: NotRequired["Literal['']|float|None"]
             representative: NotRequired["bool|None"]
@@ -948,6 +967,16 @@ class Account(
             postal_code: NotRequired["str|None"]
             state: NotRequired["str|None"]
 
+        class ModifyPersonParamsAdditionalTosAcceptances(TypedDict):
+            account: NotRequired[
+                "Account.ModifyPersonParamsAdditionalTosAcceptancesAccount|None"
+            ]
+
+        class ModifyPersonParamsAdditionalTosAcceptancesAccount(TypedDict):
+            date: NotRequired["int|None"]
+            ip: NotRequired["str|None"]
+            user_agent: NotRequired["Literal['']|str|None"]
+
         class DeletePersonParams(RequestOptions):
             pass
 
@@ -963,6 +992,7 @@ class Account(
         class ListPersonsParamsRelationship(TypedDict):
             director: NotRequired["bool|None"]
             executive: NotRequired["bool|None"]
+            legal_guardian: NotRequired["bool|None"]
             owner: NotRequired["bool|None"]
             representative: NotRequired["bool|None"]
 
