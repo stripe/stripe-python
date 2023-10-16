@@ -1,29 +1,12 @@
 # Changelog
 
+## 7.0.0 - 2023-10-16
+* This release changes the pinned API version to `2023-10-16`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2023-10-16) and carefully review the API changes before upgrading `stripe-python`.
+* [#1085](https://github.com/stripe/stripe-python/pull/1085) Update generated code
+  - Updated pinned API version
+
 ## 6.8.0b3 - 2023-10-13
 
-### Enable inline type annotations in the beta channel
-- This release enables type annotations in the beta channel including types for resources, methods, properties, and parameters.
-- Some type annotations on "infrastructure" (such as http_client) are still a work
-  in progress.
-- We do not consider the type annotations to be part of the library's "stable" interface. We may change the types in a way that changes the type errors you experience in a minor release.
-- Please report inaccurate types. Contributions are welcome to non-generated files (check for a comment near the top of the file).
-
-### To use the inline type annotations:
-- make sure you don't have a stubs library [types-stripe](https://pypi.org/project/types-stripe/) installed (`pip uninstall types-stripe`).
-- make sure you don't have `typings/stripe` stubs set up in your project directory
-- the inline annotations should take precedence over everything else
-
-### To ignore the inline type annotations:
-- `pip install types-stripe` might be a quick fix. The stubs are outdated but much less opinionated so they might make unwanted type errors go away. This isn't a permanent solution however.
-- Suppress errors with `#  type: ignore`.
-- Register your own stubs locally in your project beneath `typings/stripe`
-
-### Changes
-*  [#1080](https://github.com/stripe/stripe-python/pull/1080) Types: Polymorphic groups
-*  [#1078](https://github.com/stripe/stripe-python/pull/1078) Parameter types
-*  [#1077](https://github.com/stripe/stripe-python/pull/1077) Additional type annotations
-*  [#1074](https://github.com/stripe/stripe-python/pull/1074) Start shipping py.typed with the beta library
 
 ## 6.8.0b2 - 2023-10-11
 * [#1073](https://github.com/stripe/stripe-python/pull/1073) Update generated code for beta
@@ -42,7 +25,6 @@
 * [#1065](https://github.com/stripe/stripe-python/pull/1065) Update generated code
   * Add support for new resource `Issuing.Token`
   * Add support for `list`, `modify`, and `retrieve` methods on resource `Token`
-
 
 ## 6.7.0b2 - 2023-09-28
 * [#1059](https://github.com/stripe/stripe-python/pull/1059) Update generated code for beta
