@@ -11,9 +11,14 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
-from typing_extensions import Literal, NotRequired, Type, TypedDict, Unpack
-
-from typing_extensions import TYPE_CHECKING
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    Type,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 if TYPE_CHECKING:
     from stripe.api_resources.treasury.transaction import Transaction
@@ -30,60 +35,63 @@ class OutboundTransfer(
     """
 
     OBJECT_NAME = "treasury.outbound_transfer"
+    if TYPE_CHECKING:
 
-    class CancelParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class CancelParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class CreateParams(RequestOptions):
-        amount: int
-        currency: str
-        description: NotRequired["str|None"]
-        destination_payment_method: NotRequired["str|None"]
-        destination_payment_method_options: NotRequired[
-            "OutboundTransfer.CreateParamsDestinationPaymentMethodOptions|None"
-        ]
-        expand: NotRequired["List[str]|None"]
-        financial_account: str
-        metadata: NotRequired["Dict[str, str]|None"]
-        statement_descriptor: NotRequired["str|None"]
+        class CreateParams(RequestOptions):
+            amount: int
+            currency: str
+            description: NotRequired["str|None"]
+            destination_payment_method: NotRequired["str|None"]
+            destination_payment_method_options: NotRequired[
+                "OutboundTransfer.CreateParamsDestinationPaymentMethodOptions|None"
+            ]
+            expand: NotRequired["List[str]|None"]
+            financial_account: str
+            metadata: NotRequired["Dict[str, str]|None"]
+            statement_descriptor: NotRequired["str|None"]
 
-    class CreateParamsDestinationPaymentMethodOptions(TypedDict):
-        us_bank_account: NotRequired[
-            "Literal['']|OutboundTransfer.CreateParamsDestinationPaymentMethodOptionsUsBankAccount|None"
-        ]
+        class CreateParamsDestinationPaymentMethodOptions(TypedDict):
+            us_bank_account: NotRequired[
+                "Literal['']|OutboundTransfer.CreateParamsDestinationPaymentMethodOptionsUsBankAccount|None"
+            ]
 
-    class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(TypedDict):
-        network: NotRequired["Literal['ach', 'us_domestic_wire']|None"]
+        class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(
+            TypedDict,
+        ):
+            network: NotRequired["Literal['ach', 'us_domestic_wire']|None"]
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        financial_account: str
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
-        status: NotRequired[
-            "Literal['canceled', 'failed', 'posted', 'processing', 'returned']|None"
-        ]
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            financial_account: str
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            status: NotRequired[
+                "Literal['canceled', 'failed', 'posted', 'processing', 'returned']|None"
+            ]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class FailParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class FailParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class PostParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class PostParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class ReturnOutboundTransferParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        returned_details: NotRequired[
-            "OutboundTransfer.ReturnOutboundTransferParamsReturnedDetails|None"
-        ]
+        class ReturnOutboundTransferParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            returned_details: NotRequired[
+                "OutboundTransfer.ReturnOutboundTransferParamsReturnedDetails|None"
+            ]
 
-    class ReturnOutboundTransferParamsReturnedDetails(TypedDict):
-        code: NotRequired[
-            "Literal['account_closed', 'account_frozen', 'bank_account_restricted', 'bank_ownership_changed', 'declined', 'incorrect_account_holder_name', 'invalid_account_number', 'invalid_currency', 'no_account', 'other']|None"
-        ]
+        class ReturnOutboundTransferParamsReturnedDetails(TypedDict):
+            code: NotRequired[
+                "Literal['account_closed', 'account_frozen', 'bank_account_restricted', 'bank_ownership_changed', 'declined', 'incorrect_account_holder_name', 'invalid_account_number', 'invalid_currency', 'no_account', 'other']|None"
+            ]
 
     amount: int
     cancelable: bool

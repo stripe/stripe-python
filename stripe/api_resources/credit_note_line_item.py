@@ -5,9 +5,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
-from typing_extensions import Literal, NotRequired, Unpack
-
-from typing_extensions import TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.tax_rate import TaxRate
@@ -19,12 +17,13 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
     """
 
     OBJECT_NAME = "credit_note_line_item"
+    if TYPE_CHECKING:
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
     amount: int
     amount_excluding_tax: Optional[int]

@@ -14,10 +14,14 @@ from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, Union, cast
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.price import Price
@@ -43,142 +47,143 @@ class Product(
     """
 
     OBJECT_NAME = "product"
+    if TYPE_CHECKING:
 
-    class CreateParams(RequestOptions):
-        active: NotRequired["bool|None"]
-        default_price_data: NotRequired[
-            "Product.CreateParamsDefaultPriceData|None"
-        ]
-        description: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        features: NotRequired["List[Product.CreateParamsFeature]|None"]
-        id: NotRequired["str|None"]
-        images: NotRequired["List[str]|None"]
-        metadata: NotRequired["Dict[str, str]|None"]
-        name: str
-        package_dimensions: NotRequired[
-            "Product.CreateParamsPackageDimensions|None"
-        ]
-        shippable: NotRequired["bool|None"]
-        statement_descriptor: NotRequired["str|None"]
-        tax_code: NotRequired["str|None"]
-        type: NotRequired["Literal['good', 'service']|None"]
-        unit_label: NotRequired["str|None"]
-        url: NotRequired["str|None"]
+        class CreateParams(RequestOptions):
+            active: NotRequired["bool|None"]
+            default_price_data: NotRequired[
+                "Product.CreateParamsDefaultPriceData|None"
+            ]
+            description: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            features: NotRequired["List[Product.CreateParamsFeature]|None"]
+            id: NotRequired["str|None"]
+            images: NotRequired["List[str]|None"]
+            metadata: NotRequired["Dict[str, str]|None"]
+            name: str
+            package_dimensions: NotRequired[
+                "Product.CreateParamsPackageDimensions|None"
+            ]
+            shippable: NotRequired["bool|None"]
+            statement_descriptor: NotRequired["str|None"]
+            tax_code: NotRequired["str|None"]
+            type: NotRequired["Literal['good', 'service']|None"]
+            unit_label: NotRequired["str|None"]
+            url: NotRequired["str|None"]
 
-    class CreateParamsPackageDimensions(TypedDict):
-        height: float
-        length: float
-        weight: float
-        width: float
+        class CreateParamsPackageDimensions(TypedDict):
+            height: float
+            length: float
+            weight: float
+            width: float
 
-    class CreateParamsFeature(TypedDict):
-        name: str
+        class CreateParamsFeature(TypedDict):
+            name: str
 
-    class CreateParamsDefaultPriceData(TypedDict):
-        currency: str
-        currency_options: NotRequired[
-            "Dict[str, Product.CreateParamsDefaultPriceDataCurrencyOptions]|None"
-        ]
-        recurring: NotRequired[
-            "Product.CreateParamsDefaultPriceDataRecurring|None"
-        ]
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']|None"
-        ]
-        unit_amount: NotRequired["int|None"]
-        unit_amount_decimal: NotRequired["float|None"]
+        class CreateParamsDefaultPriceData(TypedDict):
+            currency: str
+            currency_options: NotRequired[
+                "Dict[str, Product.CreateParamsDefaultPriceDataCurrencyOptions]|None"
+            ]
+            recurring: NotRequired[
+                "Product.CreateParamsDefaultPriceDataRecurring|None"
+            ]
+            tax_behavior: NotRequired[
+                "Literal['exclusive', 'inclusive', 'unspecified']|None"
+            ]
+            unit_amount: NotRequired["int|None"]
+            unit_amount_decimal: NotRequired["float|None"]
 
-    class CreateParamsDefaultPriceDataRecurring(TypedDict):
-        interval: Literal["day", "month", "week", "year"]
-        interval_count: NotRequired["int|None"]
+        class CreateParamsDefaultPriceDataRecurring(TypedDict):
+            interval: Literal["day", "month", "week", "year"]
+            interval_count: NotRequired["int|None"]
 
-    class CreateParamsDefaultPriceDataCurrencyOptions(TypedDict):
-        custom_unit_amount: NotRequired[
-            "Product.CreateParamsDefaultPriceDataCurrencyOptionsCustomUnitAmount|None"
-        ]
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']|None"
-        ]
-        tiers: NotRequired[
-            "List[Product.CreateParamsDefaultPriceDataCurrencyOptionsTier]|None"
-        ]
-        unit_amount: NotRequired["int|None"]
-        unit_amount_decimal: NotRequired["float|None"]
+        class CreateParamsDefaultPriceDataCurrencyOptions(TypedDict):
+            custom_unit_amount: NotRequired[
+                "Product.CreateParamsDefaultPriceDataCurrencyOptionsCustomUnitAmount|None"
+            ]
+            tax_behavior: NotRequired[
+                "Literal['exclusive', 'inclusive', 'unspecified']|None"
+            ]
+            tiers: NotRequired[
+                "List[Product.CreateParamsDefaultPriceDataCurrencyOptionsTier]|None"
+            ]
+            unit_amount: NotRequired["int|None"]
+            unit_amount_decimal: NotRequired["float|None"]
 
-    class CreateParamsDefaultPriceDataCurrencyOptionsTier(TypedDict):
-        flat_amount: NotRequired["int|None"]
-        flat_amount_decimal: NotRequired["float|None"]
-        unit_amount: NotRequired["int|None"]
-        unit_amount_decimal: NotRequired["float|None"]
-        up_to: Union[Literal["inf"], int]
+        class CreateParamsDefaultPriceDataCurrencyOptionsTier(TypedDict):
+            flat_amount: NotRequired["int|None"]
+            flat_amount_decimal: NotRequired["float|None"]
+            unit_amount: NotRequired["int|None"]
+            unit_amount_decimal: NotRequired["float|None"]
+            up_to: Union[Literal["inf"], int]
 
-    class CreateParamsDefaultPriceDataCurrencyOptionsCustomUnitAmount(
-        TypedDict,
-    ):
-        enabled: bool
-        maximum: NotRequired["int|None"]
-        minimum: NotRequired["int|None"]
-        preset: NotRequired["int|None"]
+        class CreateParamsDefaultPriceDataCurrencyOptionsCustomUnitAmount(
+            TypedDict,
+        ):
+            enabled: bool
+            maximum: NotRequired["int|None"]
+            minimum: NotRequired["int|None"]
+            preset: NotRequired["int|None"]
 
-    class DeleteParams(RequestOptions):
-        pass
+        class DeleteParams(RequestOptions):
+            pass
 
-    class ListParams(RequestOptions):
-        active: NotRequired["bool|None"]
-        created: NotRequired["Product.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        ids: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        shippable: NotRequired["bool|None"]
-        starting_after: NotRequired["str|None"]
-        type: NotRequired["Literal['good', 'service']|None"]
-        url: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            active: NotRequired["bool|None"]
+            created: NotRequired["Product.ListParamsCreated|int|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            ids: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            shippable: NotRequired["bool|None"]
+            starting_after: NotRequired["str|None"]
+            type: NotRequired["Literal['good', 'service']|None"]
+            url: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class ModifyParams(RequestOptions):
-        active: NotRequired["bool|None"]
-        default_price: NotRequired["str|None"]
-        description: NotRequired["Literal['']|str|None"]
-        expand: NotRequired["List[str]|None"]
-        features: NotRequired[
-            "Literal['']|List[Product.ModifyParamsFeature]|None"
-        ]
-        images: NotRequired["Literal['']|List[str]|None"]
-        metadata: NotRequired["Literal['']|Dict[str, str]|None"]
-        name: NotRequired["str|None"]
-        package_dimensions: NotRequired[
-            "Literal['']|Product.ModifyParamsPackageDimensions|None"
-        ]
-        shippable: NotRequired["bool|None"]
-        statement_descriptor: NotRequired["str|None"]
-        tax_code: NotRequired["Literal['']|str|None"]
-        unit_label: NotRequired["Literal['']|str|None"]
-        url: NotRequired["Literal['']|str|None"]
+        class ModifyParams(RequestOptions):
+            active: NotRequired["bool|None"]
+            default_price: NotRequired["str|None"]
+            description: NotRequired["Literal['']|str|None"]
+            expand: NotRequired["List[str]|None"]
+            features: NotRequired[
+                "Literal['']|List[Product.ModifyParamsFeature]|None"
+            ]
+            images: NotRequired["Literal['']|List[str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            name: NotRequired["str|None"]
+            package_dimensions: NotRequired[
+                "Literal['']|Product.ModifyParamsPackageDimensions|None"
+            ]
+            shippable: NotRequired["bool|None"]
+            statement_descriptor: NotRequired["str|None"]
+            tax_code: NotRequired["Literal['']|str|None"]
+            unit_label: NotRequired["Literal['']|str|None"]
+            url: NotRequired["Literal['']|str|None"]
 
-    class ModifyParamsPackageDimensions(TypedDict):
-        height: float
-        length: float
-        weight: float
-        width: float
+        class ModifyParamsPackageDimensions(TypedDict):
+            height: float
+            length: float
+            weight: float
+            width: float
 
-    class ModifyParamsFeature(TypedDict):
-        name: str
+        class ModifyParamsFeature(TypedDict):
+            name: str
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
-    class SearchParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        page: NotRequired["str|None"]
-        query: str
+        class SearchParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            page: NotRequired["str|None"]
+            query: str
 
     active: bool
     created: int

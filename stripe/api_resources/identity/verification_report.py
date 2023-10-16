@@ -5,7 +5,13 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
-from typing_extensions import Literal, NotRequired, TypedDict, Unpack
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 
 class VerificationReport(ListableAPIResource["VerificationReport"]):
@@ -24,24 +30,27 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
 
     OBJECT_NAME = "identity.verification_report"
+    if TYPE_CHECKING:
 
-    class ListParams(RequestOptions):
-        created: NotRequired["VerificationReport.ListParamsCreated|int|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
-        type: NotRequired["Literal['document', 'id_number']|None"]
-        verification_session: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            created: NotRequired[
+                "VerificationReport.ListParamsCreated|int|None"
+            ]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
+            type: NotRequired["Literal['document', 'id_number']|None"]
+            verification_session: NotRequired["str|None"]
 
-    class ListParamsCreated(TypedDict):
-        gt: NotRequired["int|None"]
-        gte: NotRequired["int|None"]
-        lt: NotRequired["int|None"]
-        lte: NotRequired["int|None"]
+        class ListParamsCreated(TypedDict):
+            gt: NotRequired["int|None"]
+            gte: NotRequired["int|None"]
+            lt: NotRequired["int|None"]
+            lte: NotRequired["int|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     created: int
     document: Optional[StripeObject]

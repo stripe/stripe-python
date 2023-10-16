@@ -10,10 +10,8 @@ from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.request_options import RequestOptions
 from typing import Dict, List, Optional, Union, cast
-from typing_extensions import Literal, Unpack
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
-
-from typing_extensions import TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.bank_account import BankAccount
@@ -29,9 +27,10 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
 
     OBJECT_NAME = "card"
+    if TYPE_CHECKING:
 
-    class DeleteParams(RequestOptions):
-        pass
+        class DeleteParams(RequestOptions):
+            pass
 
     account: Optional[ExpandableField["Account"]]
     address_city: Optional[str]

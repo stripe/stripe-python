@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from typing import List, Optional
-from typing_extensions import Literal, NotRequired, Unpack
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
 class TaxCode(ListableAPIResource["TaxCode"]):
@@ -13,15 +13,16 @@ class TaxCode(ListableAPIResource["TaxCode"]):
     """
 
     OBJECT_NAME = "tax_code"
+    if TYPE_CHECKING:
 
-    class ListParams(RequestOptions):
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            starting_after: NotRequired["str|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     description: str
     id: str

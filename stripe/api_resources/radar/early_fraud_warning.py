@@ -5,9 +5,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from typing import List, Optional
-from typing_extensions import Literal, NotRequired, Unpack
-
-from typing_extensions import TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.charge import Charge
@@ -23,17 +21,18 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
     """
 
     OBJECT_NAME = "radar.early_fraud_warning"
+    if TYPE_CHECKING:
 
-    class ListParams(RequestOptions):
-        charge: NotRequired["str|None"]
-        ending_before: NotRequired["str|None"]
-        expand: NotRequired["List[str]|None"]
-        limit: NotRequired["int|None"]
-        payment_intent: NotRequired["str|None"]
-        starting_after: NotRequired["str|None"]
+        class ListParams(RequestOptions):
+            charge: NotRequired["str|None"]
+            ending_before: NotRequired["str|None"]
+            expand: NotRequired["List[str]|None"]
+            limit: NotRequired["int|None"]
+            payment_intent: NotRequired["str|None"]
+            starting_after: NotRequired["str|None"]
 
-    class RetrieveParams(RequestOptions):
-        expand: NotRequired["List[str]|None"]
+        class RetrieveParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
 
     actionable: bool
     charge: ExpandableField["Charge"]
