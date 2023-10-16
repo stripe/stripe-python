@@ -363,7 +363,7 @@ class Registration(
         hu: Optional[Hu]
         id: Optional[Id]
         ie: Optional[Ie]
-        # TODO: Cannot include a type definition for is as it is a python reserved word
+        is_: Optional[Is]
         it: Optional[It]
         jp: Optional[Jp]
         kr: Optional[Kr]
@@ -440,6 +440,7 @@ class Registration(
             "vn": Vn,
             "za": Za,
         }
+        _field_remappings = {"is_": "is"}
 
     if TYPE_CHECKING:
 
@@ -474,7 +475,6 @@ class Registration(
             hu: NotRequired["Registration.CreateParamsCountryOptionsHu|None"]
             id: NotRequired["Registration.CreateParamsCountryOptionsId|None"]
             ie: NotRequired["Registration.CreateParamsCountryOptionsIe|None"]
-            # TODO: Cannot include a type definition for is as it is a python reserved word
             it: NotRequired["Registration.CreateParamsCountryOptionsIt|None"]
             jp: NotRequired["Registration.CreateParamsCountryOptionsJp|None"]
             kr: NotRequired["Registration.CreateParamsCountryOptionsKr|None"]
