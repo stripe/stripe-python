@@ -20,6 +20,7 @@ class Person(UpdateableAPIResource["Person"]):
 
     OBJECT_NAME = "person"
     account: Optional[str]
+    additional_tos_acceptances: Optional[StripeObject]
     address: Optional[StripeObject]
     address_kana: Optional[StripeObject]
     address_kanji: Optional[StripeObject]
