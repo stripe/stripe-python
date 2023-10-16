@@ -1140,6 +1140,46 @@ class Customer(
             params=params,
         )
 
+    @classmethod
+    def modify_cash_balance(
+        cls,
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Customer.ModifyCashBalanceParams"]
+    ):
+        return cls._static_request(
+            "post",
+            "/v1/customers/{customer}/cash_balance".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
+    @classmethod
+    def retrieve_cash_balance(
+        cls,
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Customer.RetrieveCashBalanceParams"]
+    ):
+        return cls._static_request(
+            "get",
+            "/v1/customers/{customer}/cash_balance".format(
+                customer=util.sanitize_id(customer)
+            ),
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            params=params,
+        )
+
     class TestHelpers(APIResourceTestHelpers["Customer"]):
         _resource_cls: Type["Customer"]
 
