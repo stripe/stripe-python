@@ -57,6 +57,9 @@ class Token(CreateableAPIResource["Token"]):
             id_number: NotRequired["str|None"]
 
         class CreateParamsPerson(TypedDict):
+            additional_tos_acceptances: NotRequired[
+                "Token.CreateParamsPersonAdditionalTosAcceptances|None"
+            ]
             address: NotRequired["Token.CreateParamsPersonAddress|None"]
             address_kana: NotRequired[
                 "Token.CreateParamsPersonAddressKana|None"
@@ -112,6 +115,7 @@ class Token(CreateableAPIResource["Token"]):
         class CreateParamsPersonRelationship(TypedDict):
             director: NotRequired["bool|None"]
             executive: NotRequired["bool|None"]
+            legal_guardian: NotRequired["bool|None"]
             owner: NotRequired["bool|None"]
             percent_ownership: NotRequired["Literal['']|float|None"]
             representative: NotRequired["bool|None"]
@@ -173,6 +177,16 @@ class Token(CreateableAPIResource["Token"]):
             line2: NotRequired["str|None"]
             postal_code: NotRequired["str|None"]
             state: NotRequired["str|None"]
+
+        class CreateParamsPersonAdditionalTosAcceptances(TypedDict):
+            account: NotRequired[
+                "Token.CreateParamsPersonAdditionalTosAcceptancesAccount|None"
+            ]
+
+        class CreateParamsPersonAdditionalTosAcceptancesAccount(TypedDict):
+            date: NotRequired["int|None"]
+            ip: NotRequired["str|None"]
+            user_agent: NotRequired["Literal['']|str|None"]
 
         class CreateParamsCvcUpdate(TypedDict):
             cvc: str

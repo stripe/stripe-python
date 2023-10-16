@@ -253,10 +253,43 @@ class Account(
         class Error(StripeObject):
             code: Literal[
                 "invalid_address_city_state_postal_code",
+                "invalid_address_highway_contract_box",
+                "invalid_address_private_mailbox",
+                "invalid_business_profile_name",
+                "invalid_business_profile_name_denylisted",
+                "invalid_company_name_denylisted",
+                "invalid_dob_age_over_maximum",
                 "invalid_dob_age_under_18",
+                "invalid_product_description_length",
+                "invalid_product_description_url_match",
                 "invalid_representative_country",
+                "invalid_statement_descriptor_business_mismatch",
+                "invalid_statement_descriptor_denylisted",
+                "invalid_statement_descriptor_length",
+                "invalid_statement_descriptor_prefix_denylisted",
+                "invalid_statement_descriptor_prefix_mismatch",
                 "invalid_street_address",
+                "invalid_tax_id",
+                "invalid_tax_id_format",
                 "invalid_tos_acceptance",
+                "invalid_url_denylisted",
+                "invalid_url_format",
+                "invalid_url_length",
+                "invalid_url_web_presence_detected",
+                "invalid_url_website_business_information_mismatch",
+                "invalid_url_website_empty",
+                "invalid_url_website_inaccessible",
+                "invalid_url_website_inaccessible_geoblocked",
+                "invalid_url_website_inaccessible_password_protected",
+                "invalid_url_website_incomplete",
+                "invalid_url_website_incomplete_cancellation_policy",
+                "invalid_url_website_incomplete_customer_service_details",
+                "invalid_url_website_incomplete_legal_restrictions",
+                "invalid_url_website_incomplete_refund_policy",
+                "invalid_url_website_incomplete_return_policy",
+                "invalid_url_website_incomplete_terms_and_conditions",
+                "invalid_url_website_incomplete_under_construction",
+                "invalid_url_website_other",
                 "invalid_value_other",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
@@ -327,10 +360,43 @@ class Account(
         class Error(StripeObject):
             code: Literal[
                 "invalid_address_city_state_postal_code",
+                "invalid_address_highway_contract_box",
+                "invalid_address_private_mailbox",
+                "invalid_business_profile_name",
+                "invalid_business_profile_name_denylisted",
+                "invalid_company_name_denylisted",
+                "invalid_dob_age_over_maximum",
                 "invalid_dob_age_under_18",
+                "invalid_product_description_length",
+                "invalid_product_description_url_match",
                 "invalid_representative_country",
+                "invalid_statement_descriptor_business_mismatch",
+                "invalid_statement_descriptor_denylisted",
+                "invalid_statement_descriptor_length",
+                "invalid_statement_descriptor_prefix_denylisted",
+                "invalid_statement_descriptor_prefix_mismatch",
                 "invalid_street_address",
+                "invalid_tax_id",
+                "invalid_tax_id_format",
                 "invalid_tos_acceptance",
+                "invalid_url_denylisted",
+                "invalid_url_format",
+                "invalid_url_length",
+                "invalid_url_web_presence_detected",
+                "invalid_url_website_business_information_mismatch",
+                "invalid_url_website_empty",
+                "invalid_url_website_inaccessible",
+                "invalid_url_website_inaccessible_geoblocked",
+                "invalid_url_website_inaccessible_password_protected",
+                "invalid_url_website_incomplete",
+                "invalid_url_website_incomplete_cancellation_policy",
+                "invalid_url_website_incomplete_customer_service_details",
+                "invalid_url_website_incomplete_legal_restrictions",
+                "invalid_url_website_incomplete_refund_policy",
+                "invalid_url_website_incomplete_return_policy",
+                "invalid_url_website_incomplete_terms_and_conditions",
+                "invalid_url_website_incomplete_under_construction",
+                "invalid_url_website_other",
                 "invalid_value_other",
                 "verification_directors_mismatch",
                 "verification_document_address_mismatch",
@@ -1100,6 +1166,7 @@ class Account(
         class PersonsParamsRelationship(TypedDict):
             director: NotRequired["bool|None"]
             executive: NotRequired["bool|None"]
+            legal_guardian: NotRequired["bool|None"]
             owner: NotRequired["bool|None"]
             representative: NotRequired["bool|None"]
 
@@ -1174,6 +1241,9 @@ class Account(
             expand: NotRequired["List[str]|None"]
 
         class CreatePersonParams(RequestOptions):
+            additional_tos_acceptances: NotRequired[
+                "Account.CreatePersonParamsAdditionalTosAcceptances|None"
+            ]
             address: NotRequired["Account.CreatePersonParamsAddress|None"]
             address_kana: NotRequired[
                 "Account.CreatePersonParamsAddressKana|None"
@@ -1231,6 +1301,7 @@ class Account(
         class CreatePersonParamsRelationship(TypedDict):
             director: NotRequired["bool|None"]
             executive: NotRequired["bool|None"]
+            legal_guardian: NotRequired["bool|None"]
             owner: NotRequired["bool|None"]
             percent_ownership: NotRequired["Literal['']|float|None"]
             representative: NotRequired["bool|None"]
@@ -1293,10 +1364,23 @@ class Account(
             postal_code: NotRequired["str|None"]
             state: NotRequired["str|None"]
 
+        class CreatePersonParamsAdditionalTosAcceptances(TypedDict):
+            account: NotRequired[
+                "Account.CreatePersonParamsAdditionalTosAcceptancesAccount|None"
+            ]
+
+        class CreatePersonParamsAdditionalTosAcceptancesAccount(TypedDict):
+            date: NotRequired["int|None"]
+            ip: NotRequired["str|None"]
+            user_agent: NotRequired["Literal['']|str|None"]
+
         class RetrievePersonParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
 
         class ModifyPersonParams(RequestOptions):
+            additional_tos_acceptances: NotRequired[
+                "Account.ModifyPersonParamsAdditionalTosAcceptances|None"
+            ]
             address: NotRequired["Account.ModifyPersonParamsAddress|None"]
             address_kana: NotRequired[
                 "Account.ModifyPersonParamsAddressKana|None"
@@ -1354,6 +1438,7 @@ class Account(
         class ModifyPersonParamsRelationship(TypedDict):
             director: NotRequired["bool|None"]
             executive: NotRequired["bool|None"]
+            legal_guardian: NotRequired["bool|None"]
             owner: NotRequired["bool|None"]
             percent_ownership: NotRequired["Literal['']|float|None"]
             representative: NotRequired["bool|None"]
@@ -1416,6 +1501,16 @@ class Account(
             postal_code: NotRequired["str|None"]
             state: NotRequired["str|None"]
 
+        class ModifyPersonParamsAdditionalTosAcceptances(TypedDict):
+            account: NotRequired[
+                "Account.ModifyPersonParamsAdditionalTosAcceptancesAccount|None"
+            ]
+
+        class ModifyPersonParamsAdditionalTosAcceptancesAccount(TypedDict):
+            date: NotRequired["int|None"]
+            ip: NotRequired["str|None"]
+            user_agent: NotRequired["Literal['']|str|None"]
+
         class DeletePersonParams(RequestOptions):
             pass
 
@@ -1431,6 +1526,7 @@ class Account(
         class ListPersonsParamsRelationship(TypedDict):
             director: NotRequired["bool|None"]
             executive: NotRequired["bool|None"]
+            legal_guardian: NotRequired["bool|None"]
             owner: NotRequired["bool|None"]
             representative: NotRequired["bool|None"]
 
