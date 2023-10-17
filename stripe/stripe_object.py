@@ -45,6 +45,10 @@ class StripeObject(Dict[str, Any]):
     _retrieve_params: Dict[str, Any]
     _previous: Optional[Dict[str, Any]]
 
+    api_key: Optional[str]
+    stripe_version: Optional[str]
+    stripe_account: Optional[str]
+
     def __init__(
         self,
         id=None,
