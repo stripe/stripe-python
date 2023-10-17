@@ -3,7 +3,7 @@ import datetime
 import json
 import platform
 import time
-from typing import Tuple
+from typing import Optional, Tuple
 import uuid
 import warnings
 from collections import OrderedDict
@@ -13,6 +13,8 @@ from stripe import error, oauth_error, http_client, version, util
 from stripe.multipart_data_generator import MultipartDataGenerator
 from urllib.parse import urlencode, urlsplit, urlunsplit
 from stripe.stripe_response import StripeResponse, StripeStreamResponse
+
+from stripe.http_client import HTTPClient
 
 
 def _encode_datetime(dttime):
@@ -65,6 +67,11 @@ def _build_api_url(url, query):
 
 
 class APIRequestor(object):
+    api_key: Optional[str]
+    api_base: str
+    api_version: str
+    stripe_account: Optional[str]
+
     def __init__(
         self,
         key=None,
