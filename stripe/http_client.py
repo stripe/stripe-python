@@ -1,3 +1,4 @@
+from io import IOBase
 import sys
 import textwrap
 import warnings
@@ -126,7 +127,7 @@ class HTTPClient(object):
 
     def request_stream_with_retries(
         self, method, url, headers, post_data=None
-    ):
+    ) -> IOBase:
         return self._request_with_retries_internal(
             method, url, headers, post_data, is_streaming=True
         )
@@ -183,7 +184,7 @@ class HTTPClient(object):
             "HTTPClient subclasses must implement `request`"
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(self, method, url, headers, post_data=None) -> IOBase:
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request_stream`"
         )
@@ -309,7 +310,7 @@ class RequestsClient(HTTPClient):
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(self, method, url, headers, post_data=None) -> IOBase:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
@@ -457,7 +458,7 @@ class UrlFetchClient(HTTPClient):
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(self, method, url, headers, post_data=None) -> IOBase:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
@@ -556,7 +557,7 @@ class PycurlClient(HTTPClient):
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(self, method, url, headers, post_data=None) -> IOBase:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
@@ -691,7 +692,7 @@ class Urllib2Client(HTTPClient):
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(self, method, url, headers, post_data=None) -> IOBase:
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
