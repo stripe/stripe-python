@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.0.0 - 2023-10-16
+* This release changes the pinned API version to `2023-10-16`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2023-10-16) and carefully review the API changes before upgrading `stripe-python`.
+* [#1085](https://github.com/stripe/stripe-python/pull/1085) Update generated code
+  - Updated pinned API version
+
 ## 6.8.0b3 - 2023-10-13
 
 ### Enable inline type annotations in the beta channel
@@ -42,7 +47,6 @@
 * [#1065](https://github.com/stripe/stripe-python/pull/1065) Update generated code
   * Add support for new resource `Issuing.Token`
   * Add support for `list`, `modify`, and `retrieve` methods on resource `Token`
-
 
 ## 6.7.0b2 - 2023-09-28
 * [#1059](https://github.com/stripe/stripe-python/pull/1059) Update generated code for beta
