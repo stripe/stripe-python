@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.1.0b1 - 2023-10-17
+* [#1084](https://github.com/stripe/stripe-python/pull/1084) Update generated code for beta
+  - Update pinned API version to `2023-10-16`
+* [#1083](https://github.com/stripe/stripe-python/pull/1083) Update generated code for beta
+
 ## 7.0.0 - 2023-10-16
 * This release changes the pinned API version to `2023-10-16`. Please read the [API Upgrade Guide](https://stripe.com/docs/upgrades#2023-10-16) and carefully review the API changes before upgrading `stripe-python`.
 * [#1085](https://github.com/stripe/stripe-python/pull/1085) Update generated code
