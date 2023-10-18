@@ -1,5 +1,5 @@
-from typing_extensions import Literal
-from typing import Union, Optional
+from typing_extensions import TYPE_CHECKING, Literal
+from typing import Optional
 
 import os
 
@@ -15,24 +15,27 @@ from stripe.api_version import _ApiVersion
 
 from stripe.app_info import AppInfo
 
+if TYPE_CHECKING:
+    from stripe.http_client import HTTPClient
+
 api_key: Optional[str] = None
 client_id: Optional[str] = None
-api_base = "https://api.stripe.com"
-connect_api_base = "https://connect.stripe.com"
-upload_api_base = "https://files.stripe.com"
-api_version = _ApiVersion.CURRENT
-verify_ssl_certs = True
-proxy = None
-default_http_client = None
+api_base: str = "https://api.stripe.com"
+connect_api_base: str = "https://connect.stripe.com"
+upload_api_base: str = "https://files.stripe.com"
+api_version: str = _ApiVersion.CURRENT
+verify_ssl_certs: bool = True
+proxy: Optional[str] = None
+default_http_client: Optional["HTTPClient"] = None
 app_info: Optional[AppInfo] = None
-enable_telemetry = True
-max_network_retries = 0
-ca_bundle_path = os.path.join(
+enable_telemetry: bool = True
+max_network_retries: int = 0
+ca_bundle_path: str = os.path.join(
     os.path.dirname(__file__), "data", "ca-certificates.crt"
 )
 
 # Set to either 'debug' or 'info', controls console logging
-log: Optional[Union[Literal["debug"], Literal["info"]]] = None
+log: Optional[Literal["debug", "info"]] = None
 
 # API resources
 from stripe.api_resources import *  # pyright: ignore # noqa

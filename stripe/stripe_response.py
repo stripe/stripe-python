@@ -1,9 +1,14 @@
+from io import IOBase
 import json
 from collections import OrderedDict
+from typing import Dict
 
 
 class StripeResponseBase(object):
-    def __init__(self, code, headers):
+    code: int
+    headers: Dict[str, str]
+
+    def __init__(self, code: int, headers: Dict[str, str]):
         self.code = code
         self.headers = headers
 
@@ -23,6 +28,9 @@ class StripeResponseBase(object):
 
 
 class StripeResponse(StripeResponseBase):
+    body: str
+    data: object
+
     def __init__(self, body, code, headers):
         StripeResponseBase.__init__(self, code, headers)
         self.body = body
@@ -30,6 +38,8 @@ class StripeResponse(StripeResponseBase):
 
 
 class StripeStreamResponse(StripeResponseBase):
+    io: IOBase
+
     def __init__(self, io, code, headers):
         StripeResponseBase.__init__(self, code, headers)
         self.io = io

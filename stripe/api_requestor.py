@@ -3,7 +3,7 @@ import datetime
 import json
 import platform
 import time
-from typing import Tuple
+from typing import Optional, Tuple
 import uuid
 import warnings
 from collections import OrderedDict
@@ -65,6 +65,11 @@ def _build_api_url(url, query):
 
 
 class APIRequestor(object):
+    api_key: Optional[str]
+    api_base: str
+    api_version: str
+    stripe_account: Optional[str]
+
     def __init__(
         self,
         key=None,
@@ -275,8 +280,7 @@ class APIRequestor(object):
             headers["Content-Type"] = "application/x-www-form-urlencoded"
             headers.setdefault("Idempotency-Key", str(uuid.uuid4()))
 
-        if self.api_version is not None:
-            headers["Stripe-Version"] = self.api_version
+        headers["Stripe-Version"] = self.api_version
 
         return headers
 
