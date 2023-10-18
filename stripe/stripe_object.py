@@ -14,6 +14,7 @@ from typing import (
     Union,
     cast,
     overload,
+    ClassVar,
 )
 
 import stripe
@@ -268,6 +269,7 @@ class StripeObject(Dict[str, Any]):
         for k, v in values.items():
             inner_class = self._get_inner_class_type(k)
             is_dict = self._get_inner_class_is_beneath_dict(k)
+            obj: Union[StripeObject, Dict[str, Any]]
             if is_dict:
                 obj = {
                     k: None

@@ -7,13 +7,12 @@ import time
 from typing import (
     Any,
     Dict,
-    Literal,
     Mapping,
     Optional,
     Tuple,
     cast,
 )
-from typing_extensions import NoReturn
+from typing_extensions import NoReturn, Literal
 import uuid
 import warnings
 from collections import OrderedDict

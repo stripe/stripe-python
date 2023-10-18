@@ -9,7 +9,7 @@ import re
 import stripe
 from urllib.parse import parse_qsl, quote_plus
 
-from typing_extensions import Type, TYPE_CHECKING
+from typing_extensions import Literal, Type, TYPE_CHECKING
 from typing import (
     TypeVar,
     Union,
@@ -276,6 +276,39 @@ def populate_headers(
 
 
 T = TypeVar("T")
+
+
+@overload
+def read_special_variable(
+    params: Optional[Dict[str, Any]],
+    key_name: Literal[
+        "idempotency_key",
+        "stripe_version",
+        "stripe_account",
+        "api_key",
+        "stripe_context",
+    ],
+    default_value: Optional[str],
+) -> Optional[str]:
+    ...
+
+
+@overload
+def read_special_variable(
+    params: Optional[Dict[str, Any]],
+    key_name: Literal["api_mode"],
+    default_value: Optional[Literal["preview", "standard"]],
+) -> Optional[Literal["preview", "standard"]]:
+    ...
+
+
+@overload
+def read_special_variable(
+    params: Optional[Dict[str, Any]],
+    key_name: Literal["headers"],
+    default_value: Optional[Dict[str, str]],
+) -> Optional[Dict[str, str]]:
+    ...
 
 
 def read_special_variable(
