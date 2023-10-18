@@ -11,6 +11,7 @@ from typing import (
     Optional,
     Mapping,
     Set,
+    Tuple,
     Union,
     cast,
     overload,
@@ -89,12 +90,13 @@ class StripeObject(Dict[str, Any]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         last_response: Optional[StripeResponse] = None,
+        # TODO: is a more specific type possible here?
         **params: Any
     ):
         super(StripeObject, self).__init__()
 
-        self._unsaved_values: Set[Any] = set()
-        self._transient_values: Set[Any] = set()
+        self._unsaved_values: Set[str] = set()
+        self._transient_values: Set[str] = set()
         self._last_response = last_response
 
         self._retrieve_params = params
@@ -193,7 +195,7 @@ class StripeObject(Dict[str, Any]):
     # Custom pickling method to ensure the instance is pickled as a custom
     # class and not as a dict, otherwise __setstate__ would not be called when
     # unpickling.
-    def __reduce__(self) -> Any:
+    def __reduce__(self) -> Tuple[Any, ...]:
         reduce_value = (
             type(self),  # callable
             (  # args

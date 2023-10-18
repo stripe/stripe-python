@@ -1,4 +1,3 @@
-
 # pyright: strict
 from io import IOBase
 import json
@@ -9,7 +8,6 @@ from typing import Mapping, Optional
 class StripeResponseBase(object):
     code: int
     headers: Mapping[str, str]
-
 
     def __init__(self, code: int, headers: Mapping[str, str]):
         self.code = code

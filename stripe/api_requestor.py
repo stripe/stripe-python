@@ -321,7 +321,7 @@ class APIRequestor(object):
         Mechanism for issuing an API call
         """
 
-        supplied_headers_: Optional[Dict[str, str]] = (
+        supplied_headers_dict: Optional[Dict[str, str]] = (
             dict(supplied_headers) if supplied_headers is not None else None
         )
 
@@ -356,14 +356,14 @@ class APIRequestor(object):
             post_data = None
         elif method == "post":
             if (
-                supplied_headers_ is not None
-                and supplied_headers_.get("Content-Type")
+                supplied_headers_dict is not None
+                and supplied_headers_dict.get("Content-Type")
                 == "multipart/form-data"
             ):
                 generator = MultipartDataGenerator()
                 generator.add_params(params or {})
                 post_data = generator.get_post_data()
-                supplied_headers_[
+                supplied_headers_dict[
                     "Content-Type"
                 ] = "multipart/form-data; boundary=%s" % (generator.boundary,)
             else:
@@ -376,8 +376,8 @@ class APIRequestor(object):
             )
 
         headers = self.request_headers(my_api_key, method)
-        if supplied_headers_ is not None:
-            for key, value in supplied_headers_.items():
+        if supplied_headers_dict is not None:
+            for key, value in supplied_headers_dict.items():
                 headers[key] = value
 
         util.log_info("Request to Stripe api", method=method, path=abs_url)
@@ -422,7 +422,7 @@ class APIRequestor(object):
             resp = StripeResponse(
                 # TODO: should be able to remove this cast once self._client.request_with_retries
                 # returns a more specific type.
-                cast(Any, rbody).decode("utf-8"),
+                cast(bytes, rbody).decode("utf-8"),
                 rcode,
                 rheaders,
             )
@@ -430,7 +430,7 @@ class APIRequestor(object):
             raise error.APIError(
                 "Invalid response body from API: %s "
                 "(HTTP response code was %d)" % (rbody, rcode),
-                rbody,
+                cast(bytes, rbody),
                 rcode,
                 rheaders,
             )
@@ -457,6 +457,7 @@ class APIRequestor(object):
                 )
 
             self.interpret_response(json_content, rcode, rheaders)
+            # interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
             raise RuntimeError(
                 "interpret_response should have raised an error"
             )
