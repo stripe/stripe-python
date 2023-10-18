@@ -10,7 +10,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -45,7 +45,9 @@ class VerificationSession(
     Related guide: [The Verification Sessions API](https://stripe.com/docs/identity/verification-sessions)
     """
 
-    OBJECT_NAME = "identity.verification_session"
+    OBJECT_NAME: ClassVar[
+        Literal["identity.verification_session"]
+    ] = "identity.verification_session"
     if TYPE_CHECKING:
 
         class CancelParams(RequestOptions):

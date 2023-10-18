@@ -11,7 +11,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -40,7 +40,7 @@ class SubscriptionItem(
     one plan, making it easy to represent complex billing relationships.
     """
 
-    OBJECT_NAME = "subscription_item"
+    OBJECT_NAME: ClassVar[Literal["subscription_item"]] = "subscription_item"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

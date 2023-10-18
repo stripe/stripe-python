@@ -8,7 +8,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -27,7 +27,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     An issuing token object is created when an issued card is added to a digital wallet. As a [card issuer](https://stripe.com/docs/issuing), you can [view and manage these tokens](https://stripe.com/docs/issuing/controls/token-management) through Stripe.
     """
 
-    OBJECT_NAME = "issuing.token"
+    OBJECT_NAME: ClassVar[Literal["issuing.token"]] = "issuing.token"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

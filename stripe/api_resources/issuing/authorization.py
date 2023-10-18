@@ -10,7 +10,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -41,7 +41,9 @@ class Authorization(
     Related guide: [Issued card authorizations](https://stripe.com/docs/issuing/purchases/authorizations)
     """
 
-    OBJECT_NAME = "issuing.authorization"
+    OBJECT_NAME: ClassVar[
+        Literal["issuing.authorization"]
+    ] = "issuing.authorization"
     if TYPE_CHECKING:
 
         class ApproveParams(RequestOptions):

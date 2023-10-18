@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Optional
+from typing import ClassVar, Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -17,7 +17,7 @@ class TaxId(APIResource["TaxId"]):
     Related guides: [Customer tax identification numbers](https://stripe.com/docs/billing/taxes/tax-ids), [Account tax IDs](https://stripe.com/docs/invoicing/connect#account-tax-ids)
     """
 
-    OBJECT_NAME = "tax_id"
+    OBJECT_NAME: ClassVar[Literal["tax_id"]] = "tax_id"
     country: Optional[str]
     created: int
     customer: Optional[ExpandableField["Customer"]]

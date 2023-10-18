@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.stripe_object import StripeObject
+from typing import ClassVar
 from typing_extensions import Literal
 
 
@@ -13,7 +14,9 @@ class FundingInstructions(StripeObject):
     Related guide: [Customer balance funding instructions](https://stripe.com/docs/payments/customer-balance/funding-instructions)
     """
 
-    OBJECT_NAME = "funding_instructions"
+    OBJECT_NAME: ClassVar[
+        Literal["funding_instructions"]
+    ] = "funding_instructions"
     bank_transfer: StripeObject
     currency: str
     funding_type: Literal["bank_transfer"]

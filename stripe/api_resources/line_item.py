@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -13,7 +13,7 @@ class LineItem(StripeObject):
     A line item.
     """
 
-    OBJECT_NAME = "item"
+    OBJECT_NAME: ClassVar[Literal["item"]] = "item"
     amount_discount: int
     amount_subtotal: int
     amount_tax: int

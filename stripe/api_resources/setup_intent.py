@@ -10,7 +10,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -58,7 +58,7 @@ class SetupIntent(
     Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
     """
 
-    OBJECT_NAME = "setup_intent"
+    OBJECT_NAME: ClassVar[Literal["setup_intent"]] = "setup_intent"
     if TYPE_CHECKING:
 
         class CancelParams(RequestOptions):

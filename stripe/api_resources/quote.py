@@ -11,7 +11,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -44,7 +44,7 @@ class Quote(
     Once accepted, it will automatically create an invoice, subscription or subscription schedule.
     """
 
-    OBJECT_NAME = "quote"
+    OBJECT_NAME: ClassVar[Literal["quote"]] = "quote"
     if TYPE_CHECKING:
 
         class AcceptParams(RequestOptions):

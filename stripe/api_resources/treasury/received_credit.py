@@ -8,7 +8,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -27,7 +27,9 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     ReceivedCredits represent funds sent to a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
     """
 
-    OBJECT_NAME = "treasury.received_credit"
+    OBJECT_NAME: ClassVar[
+        Literal["treasury.received_credit"]
+    ] = "treasury.received_credit"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

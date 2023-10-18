@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.customer import Customer
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional
+from typing import ClassVar, Dict, Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -12,7 +12,7 @@ class CashBalance(StripeObject):
     A customer's `Cash balance` represents real funds. Customers can add funds to their cash balance by sending a bank transfer. These funds can be used for payment and can eventually be paid out to your bank account.
     """
 
-    OBJECT_NAME = "cash_balance"
+    OBJECT_NAME: ClassVar[Literal["cash_balance"]] = "cash_balance"
     available: Optional[Dict[str, int]]
     customer: str
     livemode: bool

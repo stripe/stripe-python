@@ -8,7 +8,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -23,7 +23,9 @@ class CreditReversal(
     You can reverse some [ReceivedCredits](https://stripe.com/docs/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
     """
 
-    OBJECT_NAME = "treasury.credit_reversal"
+    OBJECT_NAME: ClassVar[
+        Literal["treasury.credit_reversal"]
+    ] = "treasury.credit_reversal"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

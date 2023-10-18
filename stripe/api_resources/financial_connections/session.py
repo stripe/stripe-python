@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -22,7 +22,9 @@ class Session(CreateableAPIResource["Session"]):
     A Financial Connections Session is the secure way to programmatically launch the client-side Stripe.js modal that lets your users link their accounts.
     """
 
-    OBJECT_NAME = "financial_connections.session"
+    OBJECT_NAME: ClassVar[
+        Literal["financial_connections.session"]
+    ] = "financial_connections.session"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

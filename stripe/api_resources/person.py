@@ -3,7 +3,7 @@
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.account import Account
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal
 from urllib.parse import quote_plus
 
@@ -18,7 +18,7 @@ class Person(UpdateableAPIResource["Person"]):
     Related guide: [Handling identity verification with the API](https://stripe.com/docs/connect/handling-api-verification#person-information)
     """
 
-    OBJECT_NAME = "person"
+    OBJECT_NAME: ClassVar[Literal["person"]] = "person"
     account: Optional[str]
     additional_tos_acceptances: Optional[StripeObject]
     address: Optional[StripeObject]

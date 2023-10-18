@@ -6,7 +6,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -26,7 +26,9 @@ class Account(ListableAPIResource["Account"]):
     A Financial Connections Account represents an account that exists outside of Stripe, to which you have been granted some degree of access.
     """
 
-    OBJECT_NAME = "financial_connections.account"
+    OBJECT_NAME: ClassVar[
+        Literal["financial_connections.account"]
+    ] = "financial_connections.account"
     if TYPE_CHECKING:
 
         class DisconnectParams(RequestOptions):

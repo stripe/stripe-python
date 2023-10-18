@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -16,7 +16,9 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
     The credit note line item object
     """
 
-    OBJECT_NAME = "credit_note_line_item"
+    OBJECT_NAME: ClassVar[
+        Literal["credit_note_line_item"]
+    ] = "credit_note_line_item"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

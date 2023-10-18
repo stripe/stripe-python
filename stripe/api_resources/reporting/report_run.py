@@ -7,7 +7,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -35,7 +35,9 @@ class ReportRun(
     data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
     """
 
-    OBJECT_NAME = "reporting.report_run"
+    OBJECT_NAME: ClassVar[
+        Literal["reporting.report_run"]
+    ] = "reporting.report_run"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

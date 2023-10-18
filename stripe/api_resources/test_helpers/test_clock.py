@@ -8,7 +8,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import List, Optional, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
 
@@ -24,7 +24,9 @@ class TestClock(
     you can either validate the current state of your scenario (and test your assumptions), change the current state of your scenario (and test more complex scenarios), or keep advancing forward in time.
     """
 
-    OBJECT_NAME = "test_helpers.test_clock"
+    OBJECT_NAME: ClassVar[
+        Literal["test_helpers.test_clock"]
+    ] = "test_helpers.test_clock"
     if TYPE_CHECKING:
 
         class AdvanceParams(RequestOptions):

@@ -11,7 +11,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -52,7 +52,7 @@ class InvoiceItem(
     Related guides: [Integrate with the Invoicing API](https://stripe.com/docs/invoicing/integration), [Subscription Invoices](https://stripe.com/docs/billing/invoices/subscription#adding-upcoming-invoice-items).
     """
 
-    OBJECT_NAME = "invoiceitem"
+    OBJECT_NAME: ClassVar[Literal["invoiceitem"]] = "invoiceitem"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
