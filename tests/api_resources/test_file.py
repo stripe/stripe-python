@@ -32,7 +32,7 @@ class TestFile(object):
         hc = mocker.Mock(stripe.http_client.HTTPClient)
         hc.name = "mockclient"
         stripe.default_http_client = hc
-        hc.request_with_retries.return_value = ("{}", 200, {})
+        hc.request_with_retries.return_value = ('{"object": "file"}', 200, {})
         stripe.multipart_data_generator.MultipartDataGenerator._initialize_boundary = (
             lambda self: 1234567890
         )
@@ -55,6 +55,7 @@ class TestFile(object):
         assert parts[1].find(b'name="purpose"') > 0
         assert parts[2].find(b'name="file"') > 0
         assert parts[3].find(b'name="file_link_data[create]"') > 0
+        assert isinstance(resource, stripe.File)
 
     def test_create_respects_stripe_version(
         self, setup_upload_api_base, request_mock
