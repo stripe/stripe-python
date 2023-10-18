@@ -45,11 +45,18 @@ from stripe.oauth import OAuth  # noqa
 # Webhooks
 from stripe.webhook import Webhook, WebhookSignature  # noqa
 
-from stripe.raw_request import _raw_request as raw_request  # noqa
+from stripe.raw_request import _raw_request  # noqa
 
-from stripe.raw_request import _deserialize as deserialize  # noqa
+# The type checker won't re-export imported symbols unless they are redundant,
+# so we need to re-export them manually.
+raw_request = _raw_request
 
-from stripe.preview import preview  # noqa
+from stripe.raw_request import _deserialize  # noqa
+
+deserialize = _deserialize
+
+
+from stripe.preview import preview as preview  # noqa
 
 from . import stripe_response  # noqa
 from . import stripe_object  # noqa
