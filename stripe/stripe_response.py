@@ -1,3 +1,4 @@
+
 # pyright: strict
 from io import IOBase
 import json
