@@ -419,10 +419,12 @@ class APIRequestor(object):
         self, rbody: object, rcode: int, rheaders: Mapping[str, str]
     ) -> StripeResponse:
         try:
-            resp = StripeResponse(
+            if hasattr(rbody, "decode"):
                 # TODO: should be able to remove this cast once self._client.request_with_retries
                 # returns a more specific type.
-                cast(bytes, rbody).decode("utf-8"),
+                rbody = cast(bytes, rbody).decode("utf-8")
+            resp = StripeResponse(
+                cast(str, rbody),
                 rcode,
                 rheaders,
             )
