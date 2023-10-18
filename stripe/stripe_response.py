@@ -1,7 +1,7 @@
-from io import BufferedIOBase, IOBase
+from io import IOBase
 import json
 from collections import OrderedDict
-from typing import Any, Dict
+from typing import Dict
 
 
 class StripeResponseBase(object):

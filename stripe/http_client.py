@@ -1,4 +1,3 @@
-from io import IOBase
 import sys
 import textwrap
 import warnings
@@ -12,8 +11,8 @@ import stripe
 from stripe import error, util
 from stripe.request_metrics import RequestMetrics
 
-from typing import Any, Optional, Tuple
-from typing_extensions import ClassVar, NoReturn, TypedDict
+from typing import Any, Optional, Tuple, ClassVar
+from typing_extensions import NoReturn, TypedDict
 
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch

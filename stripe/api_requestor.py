@@ -14,8 +14,6 @@ from stripe.multipart_data_generator import MultipartDataGenerator
 from urllib.parse import urlencode, urlsplit, urlunsplit
 from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
-from stripe.http_client import HTTPClient
-
 
 def _encode_datetime(dttime):
     if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:

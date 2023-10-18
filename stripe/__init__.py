@@ -1,5 +1,5 @@
 from typing_extensions import TYPE_CHECKING, Literal
-from typing import Union, Optional
+from typing import Optional
 
 import os
 
