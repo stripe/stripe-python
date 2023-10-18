@@ -47,6 +47,8 @@ from stripe.webhook import Webhook, WebhookSignature  # noqa
 
 from stripe.raw_request import _raw_request  # noqa
 
+# The type checker won't re-export imported symbols unless they are redundant,
+# so we need to re-export them manually.
 raw_request = _raw_request
 
 from stripe.raw_request import _deserialize  # noqa
