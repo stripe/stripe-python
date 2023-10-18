@@ -8,7 +8,7 @@ class StripeResponseBase(object):
     code: int
     headers: Dict[str, str]
 
-    def __init__(self, code, headers):
+    def __init__(self, code: int, headers: Dict[str, str]):
         self.code = code
         self.headers = headers
 
