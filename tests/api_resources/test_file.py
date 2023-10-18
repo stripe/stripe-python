@@ -52,9 +52,9 @@ class TestFile(object):
         parts = body.split(b"--1234567890")
         assert len(parts) == 5
         assert parts[0] == b""
-        assert parts[1].find(b'name="purpose"') > 0
-        assert parts[2].find(b'name="file"') > 0
-        assert parts[3].find(b'name="file_link_data[create]"') > 0
+        assert b'name="purpose"' in parts[1]
+        assert b'name="file"' in parts[2]
+        assert b'name="file_link_data[create]"' in parts[3]
         assert isinstance(resource, stripe.File)
 
     def test_create_respects_stripe_version(
