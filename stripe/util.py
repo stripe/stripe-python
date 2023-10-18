@@ -11,6 +11,7 @@ from urllib.parse import parse_qsl, quote_plus
 
 from typing_extensions import Type, TYPE_CHECKING
 from typing import (
+    TypeVar,
     Union,
     overload,
     Dict,
@@ -268,7 +269,12 @@ def populate_headers(
     return None
 
 
-def read_special_variable(params, key_name, default_value):
+T = TypeVar("T")
+
+
+def read_special_variable(
+    params: Optional[Dict[str, Any]], key_name: str, default_value: T
+) -> Optional[T]:
     value = default_value
     params_value = None
 

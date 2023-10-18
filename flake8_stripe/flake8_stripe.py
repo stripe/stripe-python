@@ -49,6 +49,7 @@ class TypingImportsChecker:
         "Tuple",
         "Iterator",
         "Mapping",
+        "Set",
     ]
 
     def __init__(self, tree: ast.AST):
