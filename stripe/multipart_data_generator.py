@@ -5,6 +5,11 @@ import stripe
 
 
 class MultipartDataGenerator(object):
+    data: io.BytesIO
+    line_break: str
+    boundary: int
+    chunk_size: int
+
     def __init__(self, chunk_size=1028):
         self.data = io.BytesIO()
         self.line_break = "\r\n"

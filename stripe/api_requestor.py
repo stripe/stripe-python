@@ -282,8 +282,7 @@ class APIRequestor(object):
             headers["Content-Type"] = "application/x-www-form-urlencoded"
             headers.setdefault("Idempotency-Key", str(uuid.uuid4()))
 
-        if self.api_version is not None:
-            headers["Stripe-Version"] = self.api_version
+        headers["Stripe-Version"] = self.api_version
 
         return headers
 

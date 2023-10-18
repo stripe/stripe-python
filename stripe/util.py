@@ -27,7 +27,7 @@ if TYPE_CHECKING:
 
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
-logger = logging.getLogger("stripe")
+logger: logging.Logger = logging.getLogger("stripe")
 
 __all__ = [
     "io",
@@ -178,7 +178,7 @@ def convert_to_stripe_object(
 
     if isinstance(resp, stripe.stripe_response.StripeResponse):
         stripe_response = resp
-        resp = stripe_response.data
+        resp = cast(Resp, stripe_response.data)
 
     if isinstance(resp, list):
         return [

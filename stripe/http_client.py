@@ -12,8 +12,8 @@ import stripe
 from stripe import error, util
 from stripe.request_metrics import RequestMetrics
 
-from typing import Optional
-from typing_extensions import NoReturn, TypedDict
+from typing import Any, Optional, Tuple
+from typing_extensions import ClassVar, NoReturn, TypedDict
 
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch
@@ -38,7 +38,11 @@ except ImportError:
 else:
     try:
         # Require version 0.8.8, but don't want to depend on distutils
+        version: str
         version = requests.__version__
+        major: int
+        minor: int
+        patch: int
         major, minor, patch = [int(i) for i in version.split(".")]
     except Exception:
         # Probably some new-fangled version, so it should support verify
@@ -92,6 +96,8 @@ def new_default_http_client(*args, **kwargs):
 
 
 class HTTPClient(object):
+    name: ClassVar[str]
+
     class _Proxy(TypedDict):
         http: Optional[str]
         https: Optional[str]
@@ -120,14 +126,17 @@ class HTTPClient(object):
 
         self._thread_local = threading.local()
 
-    def request_with_retries(self, method, url, headers, post_data=None):
+    # TODO: more specific types here would be helpful
+    def request_with_retries(
+        self, method, url, headers, post_data=None
+    ) -> Tuple[Any, int, Any]:
         return self._request_with_retries_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
     def request_stream_with_retries(
         self, method, url, headers, post_data=None
-    ) -> IOBase:
+    ) -> Tuple[Any, int, Any]:
         return self._request_with_retries_internal(
             method, url, headers, post_data, is_streaming=True
         )
@@ -184,7 +193,7 @@ class HTTPClient(object):
             "HTTPClient subclasses must implement `request`"
         )
 
-    def request_stream(self, method, url, headers, post_data=None) -> IOBase:
+    def request_stream(self, method, url, headers, post_data=None):
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request_stream`"
         )
@@ -310,7 +319,7 @@ class RequestsClient(HTTPClient):
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None) -> IOBase:
+    def request_stream(self, method, url, headers, post_data=None):
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
@@ -458,7 +467,7 @@ class UrlFetchClient(HTTPClient):
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None) -> IOBase:
+    def request_stream(self, method, url, headers, post_data=None):
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
@@ -557,7 +566,7 @@ class PycurlClient(HTTPClient):
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None) -> IOBase:
+    def request_stream(self, method, url, headers, post_data=None):
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
@@ -692,7 +701,7 @@ class Urllib2Client(HTTPClient):
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None) -> IOBase:
+    def request_stream(self, method, url, headers, post_data=None):
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
