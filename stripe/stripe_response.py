@@ -9,6 +9,7 @@ class StripeResponseBase(object):
     code: int
     headers: Mapping[str, str]
 
+
     def __init__(self, code: int, headers: Mapping[str, str]):
         self.code = code
         self.headers = headers

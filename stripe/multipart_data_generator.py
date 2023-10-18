@@ -10,7 +10,7 @@ class MultipartDataGenerator(object):
     boundary: int
     chunk_size: int
 
-    def __init__(self, chunk_size=1028):
+    def __init__(self, chunk_size: int = 1028):
         self.data = io.BytesIO()
         self.line_break = "\r\n"
         self.boundary = self._initialize_boundary()

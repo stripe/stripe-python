@@ -11,7 +11,7 @@ import stripe
 from stripe import error, util
 from stripe.request_metrics import RequestMetrics
 
-from typing import Any, Optional, Tuple, ClassVar
+from typing import Any, Dict, Optional, Tuple, ClassVar, Union, cast
 from typing_extensions import NoReturn, TypedDict
 
 # - Requests is the preferred HTTP library
@@ -104,14 +104,21 @@ class HTTPClient(object):
     MAX_DELAY = 2
     INITIAL_DELAY = 0.5
     MAX_RETRY_AFTER = 60
-    proxy: _Proxy
+    _proxy: Optional[_Proxy]
+    _verify_ssl_certs: bool
 
-    def __init__(self, verify_ssl_certs=True, proxy=None):
+    def __init__(
+        self,
+        verify_ssl_certs: bool = True,
+        proxy: Optional[Union[str, _Proxy]] = None,
+    ):
         self._verify_ssl_certs = verify_ssl_certs
         if proxy:
             if isinstance(proxy, str):
                 proxy = {"http": proxy, "https": proxy}
-            if not isinstance(proxy, dict):
+            if not isinstance(
+                proxy, dict
+            ):  # pyright: ignore[reportUnnecessaryIsInstance]
                 raise ValueError(
                     "Proxy(ies) must be specified as either a string "
                     "URL or a dict() with string URL under the"
@@ -545,13 +552,11 @@ class PycurlClient(HTTPClient):
         # need to urlparse the proxy, since PyCurl
         # consumes the proxy url in small pieces
         if self._proxy:
-            # now that we have the parser, get the proxy url pieces
-            # Note: self._proxy is actually dict[str, str] because this is the
-            # type on the superclass. Here, we reassign self._proxy into
-            # dict[str, ParseResult]
             proxy_ = self._proxy
             for scheme, value in proxy_.items():
-                self._parsed_proxy[scheme] = urlparse(value)
+                # In general, TypedDict.items() gives you (key: str, value: object)
+                # but we know value to be a string because all the value types on Proxy_ are strings.
+                self._parsed_proxy[scheme] = urlparse(cast(str, value))
 
     def parse_headers(self, data):
         if "\r\n" not in data:
@@ -692,7 +697,11 @@ class Urllib2Client(HTTPClient):
         # prepare and cache proxy tied opener here
         self._opener = None
         if self._proxy:
-            proxy = urllibrequest.ProxyHandler(self._proxy)
+            # We have to cast _Proxy to Dict[str, str] because pyright is not smart enough to
+            # realize that all the value types are str.
+            proxy = urllibrequest.ProxyHandler(
+                cast(Dict[str, str], self._proxy)
+            )
             self._opener = urllibrequest.build_opener(proxy)
 
     def request(self, method, url, headers, post_data=None):
