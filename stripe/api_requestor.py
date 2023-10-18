@@ -3,7 +3,7 @@ import datetime
 import json
 import platform
 import time
-from typing import Optional, Tuple
+from typing import Dict, Optional, Tuple
 import uuid
 import warnings
 from collections import OrderedDict
@@ -296,6 +296,10 @@ class APIRequestor(object):
         Mechanism for issuing an API call
         """
 
+        supplied_headers_dict: Optional[Dict[str, str]] = (
+            dict(supplied_headers) if supplied_headers is not None else None
+        )
+
         if self.api_key:
             my_api_key = self.api_key
         else:
@@ -327,14 +331,14 @@ class APIRequestor(object):
             post_data = None
         elif method == "post":
             if (
-                supplied_headers is not None
-                and supplied_headers.get("Content-Type")
+                supplied_headers_dict is not None
+                and supplied_headers_dict.get("Content-Type")
                 == "multipart/form-data"
             ):
                 generator = MultipartDataGenerator()
                 generator.add_params(params or {})
                 post_data = generator.get_post_data()
-                supplied_headers[
+                supplied_headers_dict[
                     "Content-Type"
                 ] = "multipart/form-data; boundary=%s" % (generator.boundary,)
             else:
@@ -347,8 +351,8 @@ class APIRequestor(object):
             )
 
         headers = self.request_headers(my_api_key, method)
-        if supplied_headers is not None:
-            for key, value in supplied_headers.items():
+        if supplied_headers_dict is not None:
+            for key, value in supplied_headers_dict.items():
                 headers[key] = value
 
         util.log_info("Request to Stripe api", method=method, path=abs_url)
