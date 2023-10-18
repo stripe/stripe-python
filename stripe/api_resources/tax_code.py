@@ -3,7 +3,7 @@
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
@@ -12,7 +12,7 @@ class TaxCode(ListableAPIResource["TaxCode"]):
     [Tax codes](https://stripe.com/docs/tax/tax-categories) classify goods and services for tax purposes.
     """
 
-    OBJECT_NAME = "tax_code"
+    OBJECT_NAME: ClassVar[Literal["tax_code"]] = "tax_code"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

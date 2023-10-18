@@ -5,7 +5,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -26,7 +26,9 @@ if TYPE_CHECKING:
 class QuotePreviewSubscriptionSchedule(
     ListableAPIResource["QuotePreviewSubscriptionSchedule"],
 ):
-    OBJECT_NAME = "quote_preview_subscription_schedule"
+    OBJECT_NAME: ClassVar[
+        Literal["quote_preview_subscription_schedule"]
+    ] = "quote_preview_subscription_schedule"
 
     class AppliesTo(StripeObject):
         new_reference: Optional[str]

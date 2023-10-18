@@ -11,7 +11,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -38,7 +38,7 @@ class Card(
     You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
     """
 
-    OBJECT_NAME = "issuing.card"
+    OBJECT_NAME: ClassVar[Literal["issuing.card"]] = "issuing.card"
 
     class Shipping(StripeObject):
         class Address(StripeObject):

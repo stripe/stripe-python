@@ -5,7 +5,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -33,7 +33,9 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
     TransactionEntries represent individual units of money movements within a single [Transaction](https://stripe.com/docs/api#transactions).
     """
 
-    OBJECT_NAME = "treasury.transaction_entry"
+    OBJECT_NAME: ClassVar[
+        Literal["treasury.transaction_entry"]
+    ] = "treasury.transaction_entry"
 
     class BalanceImpact(StripeObject):
         cash: int

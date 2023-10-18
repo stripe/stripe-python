@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -19,7 +19,9 @@ class Transaction(ListableAPIResource["Transaction"]):
     A Transaction represents a real transaction that affects a Financial Connections Account balance.
     """
 
-    OBJECT_NAME = "financial_connections.transaction"
+    OBJECT_NAME: ClassVar[
+        Literal["financial_connections.transaction"]
+    ] = "financial_connections.transaction"
 
     class StatusTransitions(StripeObject):
         posted_at: Optional[int]

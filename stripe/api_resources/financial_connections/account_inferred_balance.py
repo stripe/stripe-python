@@ -3,7 +3,7 @@
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import Dict, List, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
@@ -12,7 +12,9 @@ class AccountInferredBalance(ListableAPIResource["AccountInferredBalance"]):
     A historical balance for the account on a particular day. It may be sourced from a balance snapshot provided by a financial institution, or inferred using transactions data.
     """
 
-    OBJECT_NAME = "financial_connections.account_inferred_balance"
+    OBJECT_NAME: ClassVar[
+        Literal["financial_connections.account_inferred_balance"]
+    ] = "financial_connections.account_inferred_balance"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

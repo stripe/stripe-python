@@ -8,7 +8,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -33,7 +33,7 @@ class FileLink(
     retrieve the contents of the file without authentication.
     """
 
-    OBJECT_NAME = "file_link"
+    OBJECT_NAME: ClassVar[Literal["file_link"]] = "file_link"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

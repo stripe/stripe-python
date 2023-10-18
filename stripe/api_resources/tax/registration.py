@@ -8,7 +8,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, Union, cast
+from typing import ClassVar, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -32,7 +32,7 @@ class Registration(
     Related guide: [Using the Registrations API](https://stripe.com/docs/tax/registrations-api)
     """
 
-    OBJECT_NAME = "tax.registration"
+    OBJECT_NAME: ClassVar[Literal["tax.registration"]] = "tax.registration"
 
     class CountryOptions(StripeObject):
         class Ae(StripeObject):

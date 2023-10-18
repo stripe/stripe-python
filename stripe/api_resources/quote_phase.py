@@ -6,7 +6,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -20,7 +20,7 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     A quote phase describes the line items, coupons, and trialing status of a subscription for a predefined time period.
     """
 
-    OBJECT_NAME = "quote_phase"
+    OBJECT_NAME: ClassVar[Literal["quote_phase"]] = "quote_phase"
 
     class InvoiceSettings(StripeObject):
         days_until_due: Optional[int]

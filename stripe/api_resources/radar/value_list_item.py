@@ -8,7 +8,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import List, Optional, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -30,7 +30,9 @@ class ValueListItem(
     Related guide: [Managing list items](https://stripe.com/docs/radar/lists#managing-list-items)
     """
 
-    OBJECT_NAME = "radar.value_list_item"
+    OBJECT_NAME: ClassVar[
+        Literal["radar.value_list_item"]
+    ] = "radar.value_list_item"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

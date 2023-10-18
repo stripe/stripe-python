@@ -2,6 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import APIResource
+from typing import ClassVar
 from typing_extensions import Literal
 
 
@@ -13,7 +14,7 @@ class UsageRecord(APIResource["UsageRecord"]):
     Related guide: [Metered billing](https://stripe.com/docs/billing/subscriptions/metered-billing)
     """
 
-    OBJECT_NAME = "usage_record"
+    OBJECT_NAME: ClassVar[Literal["usage_record"]] = "usage_record"
     id: str
     livemode: bool
     object: Literal["usage_record"]

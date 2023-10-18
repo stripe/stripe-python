@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -20,7 +20,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     is successful, values present on the ConfirmationToken are written onto the Intent.
     """
 
-    OBJECT_NAME = "confirmation_token"
+    OBJECT_NAME: ClassVar[Literal["confirmation_token"]] = "confirmation_token"
 
     class MandateData(StripeObject):
         class CustomerAcceptance(StripeObject):

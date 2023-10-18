@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -17,7 +17,7 @@ class QuoteLine(StripeObject):
     A quote line defines a set of changes, in the order provided, that will be applied upon quote acceptance.
     """
 
-    OBJECT_NAME = "quote_line"
+    OBJECT_NAME: ClassVar[Literal["quote_line"]] = "quote_line"
 
     class Action(StripeObject):
         class AddDiscount(StripeObject):

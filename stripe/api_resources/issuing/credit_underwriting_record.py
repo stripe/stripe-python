@@ -5,7 +5,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -24,7 +24,9 @@ class CreditUnderwritingRecord(
     [Follow the guide](https://stripe.com/docs/issuing/coming_soon) to learn about your requirements as a Platform.
     """
 
-    OBJECT_NAME = "issuing.credit_underwriting_record"
+    OBJECT_NAME: ClassVar[
+        Literal["issuing.credit_underwriting_record"]
+    ] = "issuing.credit_underwriting_record"
 
     class Application(StripeObject):
         application_method: Literal["in_person", "mail", "online", "phone"]

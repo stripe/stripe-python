@@ -9,7 +9,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -34,7 +34,7 @@ class PromotionCode(
     create multiple codes for a single coupon.
     """
 
-    OBJECT_NAME = "promotion_code"
+    OBJECT_NAME: ClassVar[Literal["promotion_code"]] = "promotion_code"
 
     class Restrictions(StripeObject):
         class CurrencyOptions(StripeObject):

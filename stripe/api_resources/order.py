@@ -10,7 +10,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -44,7 +44,7 @@ class Order(
     Related guide: [Orders overview](https://stripe.com/docs/orders)
     """
 
-    OBJECT_NAME = "order"
+    OBJECT_NAME: ClassVar[Literal["order"]] = "order"
 
     class AutomaticTax(StripeObject):
         enabled: bool

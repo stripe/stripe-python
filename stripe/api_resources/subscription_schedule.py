@@ -10,7 +10,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -46,7 +46,9 @@ class SubscriptionSchedule(
     Related guide: [Subscription schedules](https://stripe.com/docs/billing/subscriptions/subscription-schedules)
     """
 
-    OBJECT_NAME = "subscription_schedule"
+    OBJECT_NAME: ClassVar[
+        Literal["subscription_schedule"]
+    ] = "subscription_schedule"
 
     class CurrentPhase(StripeObject):
         end_date: int

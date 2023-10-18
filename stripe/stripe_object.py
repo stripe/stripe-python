@@ -1,17 +1,46 @@
+# pyright: strict
 import datetime
 import json
 from copy import deepcopy
-from typing_extensions import TYPE_CHECKING, Literal, Type
-from typing import Any, Dict, List, Optional, Mapping, ClassVar
+from typing_extensions import TYPE_CHECKING, Literal, Self, Type
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
+    Mapping,
+    Set,
+    Tuple,
+    Union,
+    cast,
+    overload,
+)
 
 import stripe
 from stripe import api_requestor, util
 
-from stripe.stripe_response import StripeResponse
+from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
 
-def _compute_diff(current, previous):
+@overload
+def _compute_diff(
+    current: Dict[str, Any], previous: Optional[Dict[str, Any]]
+) -> Dict[str, Any]:
+    ...
+
+
+@overload
+def _compute_diff(
+    current: object, previous: Optional[Dict[str, Any]]
+) -> object:
+    ...
+
+
+def _compute_diff(
+    current: object, previous: Optional[Dict[str, Any]]
+) -> object:
     if isinstance(current, dict):
+        current = cast(Dict[str, Any], current)
         previous = previous or {}
         diff = current.copy()
         for key in set(previous.keys()) - set(diff.keys()):
@@ -20,10 +49,12 @@ def _compute_diff(current, previous):
     return current if current is not None else ""
 
 
-def _serialize_list(array, previous):
+def _serialize_list(
+    array: Optional[List[Any]], previous: List[Any]
+) -> Dict[str, Any]:
     array = array or []
     previous = previous or []
-    params = {}
+    params: Dict[str, Any] = {}
 
     for i, v in enumerate(array):
         previous_item = previous[i] if len(previous) > i else None
@@ -37,27 +68,34 @@ def _serialize_list(array, previous):
 
 class StripeObject(Dict[str, Any]):
     class ReprJSONEncoder(json.JSONEncoder):
-        def default(self, obj):
-            if isinstance(obj, datetime.datetime):
-                return api_requestor._encode_datetime(obj)
-            return super(StripeObject.ReprJSONEncoder, self).default(obj)
+        def default(self, o: Any) -> Any:
+            if isinstance(o, datetime.datetime):
+                # pyright complains that _encode_datetime is "private", but it's
+                # private to outsiders, not to stripe_object
+                return api_requestor._encode_datetime(o)  # pyright: ignore
+            return super(StripeObject.ReprJSONEncoder, self).default(o)
 
     _retrieve_params: Dict[str, Any]
     _previous: Optional[Dict[str, Any]]
 
+    api_key: Optional[str]
+    stripe_version: Optional[str]
+    stripe_account: Optional[str]
+
     def __init__(
         self,
-        id=None,
-        api_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        last_response=None,
-        **params
+        id: Optional[str] = None,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        last_response: Optional[StripeResponse] = None,
+        # TODO: is a more specific type possible here?
+        **params: Any
     ):
         super(StripeObject, self).__init__()
 
-        self._unsaved_values = set()
-        self._transient_values = set()
+        self._unsaved_values: Set[str] = set()
+        self._transient_values: Set[str] = set()
         self._last_response = last_response
 
         self._retrieve_params = params
@@ -74,20 +112,22 @@ class StripeObject(Dict[str, Any]):
     def last_response(self) -> Optional[StripeResponse]:
         return self._last_response
 
-    def update(self, update_dict: Dict[str, Any]):
+    # StripeObject inherits from `dict` which has an update method, and this doesn't quite match
+    # the full signature of the update method in MutableMapping. But we ignore.
+    def update(self, update_dict: Mapping[str, Any]) -> None:  # type: ignore[override]
         for k in update_dict:
             self._unsaved_values.add(k)
 
         return super(StripeObject, self).update(update_dict)
 
-    def __setattr__(self, k, v):
-        if k[0] == "_" or k in self.__dict__:
-            return super(StripeObject, self).__setattr__(k, v)
-
-        self[k] = v
-        return None
-
     if not TYPE_CHECKING:
+
+        def __setattr__(self, k, v):
+            if k[0] == "_" or k in self.__dict__:
+                return super(StripeObject, self).__setattr__(k, v)
+
+            self[k] = v
+            return None
 
         def __getattr__(self, k):
             if k[0] == "_":
@@ -98,13 +138,13 @@ class StripeObject(Dict[str, Any]):
             except KeyError as err:
                 raise AttributeError(*err.args)
 
-    def __delattr__(self, k):
-        if k[0] == "_" or k in self.__dict__:
-            return super(StripeObject, self).__delattr__(k)
-        else:
-            del self[k]
+        def __delattr__(self, k):
+            if k[0] == "_" or k in self.__dict__:
+                return super(StripeObject, self).__delattr__(k)
+            else:
+                del self[k]
 
-    def __setitem__(self, k, v):
+    def __setitem__(self, k: str, v: Any) -> None:
         if v == "":
             raise ValueError(
                 "You cannot set %s to an empty string on this object. "
@@ -138,7 +178,7 @@ class StripeObject(Dict[str, Any]):
             else:
                 raise err
 
-    def __delitem__(self, k):
+    def __delitem__(self, k: str) -> None:
         super(StripeObject, self).__delitem__(k)
 
         # Allows for unpickling in Python 3.x
@@ -148,13 +188,13 @@ class StripeObject(Dict[str, Any]):
     # Custom unpickling method that uses `update` to update the dictionary
     # without calling __setitem__, which would fail if any value is an empty
     # string
-    def __setstate__(self, state):
+    def __setstate__(self, state: Dict[str, Any]) -> None:
         self.update(state)
 
     # Custom pickling method to ensure the instance is pickled as a custom
     # class and not as a dict, otherwise __setstate__ would not be called when
     # unpickling.
-    def __reduce__(self):
+    def __reduce__(self) -> Tuple[Any, ...]:
         reduce_value = (
             type(self),  # callable
             (  # args
@@ -175,7 +215,7 @@ class StripeObject(Dict[str, Any]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         last_response: Optional[StripeResponse] = None,
-    ):
+    ) -> Self:
         instance = cls(
             values.get("id"),
             api_key=key,
@@ -200,7 +240,7 @@ class StripeObject(Dict[str, Any]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         last_response: Optional[StripeResponse] = None,
-    ):
+    ) -> None:
         self.api_key = api_key or getattr(values, "api_key", None)
         self.stripe_version = stripe_version or getattr(
             values, "stripe_version", None
@@ -256,7 +296,7 @@ class StripeObject(Dict[str, Any]):
         self._previous = values
 
     @classmethod
-    def api_base(cls):
+    def api_base(cls) -> Optional[str]:
         return None
 
     def request(
@@ -264,8 +304,8 @@ class StripeObject(Dict[str, Any]):
         method: Literal["get", "post", "delete"],
         url: str,
         params: Optional[Dict[str, Any]] = None,
-        headers=None,
-    ):
+        headers: Optional[Dict[str, str]] = None,
+    ) -> "StripeObject":
         return StripeObject._request(
             self, method, url, headers=headers, params=params
         )
@@ -282,7 +322,7 @@ class StripeObject(Dict[str, Any]):
         stripe_account: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
         params: Optional[Mapping[str, Any]] = None,
-    ):
+    ) -> "StripeObject":
         params = None if params is None else dict(params)
         api_key = util.read_special_variable(params, "api_key", api_key)
         idempotency_key = util.read_special_variable(
@@ -318,7 +358,13 @@ class StripeObject(Dict[str, Any]):
             response, api_key, stripe_version, stripe_account, params
         )
 
-    def request_stream(self, method, url, params=None, headers=None):
+    def request_stream(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        headers: Optional[Mapping[str, str]] = None,
+    ) -> StripeStreamResponse:
         if params is None:
             params = self._retrieve_params
         requestor = api_requestor.APIRequestor(
@@ -331,7 +377,7 @@ class StripeObject(Dict[str, Any]):
 
         return response
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         ident_parts = [type(self).__name__]
 
         obj_str = self.get("object")
@@ -346,10 +392,9 @@ class StripeObject(Dict[str, Any]):
             hex(id(self)),
             str(self),
         )
-
         return unicode_repr
 
-    def __str__(self):
+    def __str__(self) -> str:
         return json.dumps(
             self.to_dict_recursive(),
             sort_keys=True,
@@ -357,11 +402,13 @@ class StripeObject(Dict[str, Any]):
             cls=self.ReprJSONEncoder,
         )
 
-    def to_dict(self):
+    def to_dict(self) -> Dict[str, Any]:
         return dict(self)
 
-    def to_dict_recursive(self):
-        def maybe_to_dict_recursive(value):
+    def to_dict_recursive(self) -> Dict[str, Any]:
+        def maybe_to_dict_recursive(
+            value: Optional[Union[StripeObject, Dict[str, Any]]]
+        ) -> Optional[Dict[str, Any]]:
             if value is None:
                 return None
             elif isinstance(value, StripeObject):
@@ -370,18 +417,18 @@ class StripeObject(Dict[str, Any]):
                 return value
 
         return {
-            key: list(map(maybe_to_dict_recursive, value))
+            key: list(map(maybe_to_dict_recursive, cast(List[Any], value)))
             if isinstance(value, list)
             else maybe_to_dict_recursive(value)
             for key, value in dict(self).items()
         }
 
     @property
-    def stripe_id(self):
+    def stripe_id(self) -> Optional[str]:
         return getattr(self, "id")
 
-    def serialize(self, previous):
-        params = {}
+    def serialize(self, previous: Optional[Dict[str, Any]]) -> Dict[str, Any]:
+        params: Dict[str, Any] = {}
         unsaved_keys = self._unsaved_values or set()
         previous = previous or self._previous or {}
 
@@ -406,7 +453,7 @@ class StripeObject(Dict[str, Any]):
     # wholesale because some data that's returned from the API may not be valid
     # if it was set to be set manually. Here we override the class' copy
     # arguments so that we can bypass these possible exceptions on __setitem__.
-    def __copy__(self):
+    def __copy__(self) -> Self:
         copied = StripeObject(
             self.get("id"),
             self.api_key,
@@ -428,7 +475,7 @@ class StripeObject(Dict[str, Any]):
     # wholesale because some data that's returned from the API may not be valid
     # if it was set to be set manually. Here we override the class' copy
     # arguments so that we can bypass these possible exceptions on __setitem__.
-    def __deepcopy__(self, memo):
+    def __deepcopy__(self, memo: Dict[int, Any]) -> Self:
         copied = self.__copy__()
         memo[id(self)] = copied
 

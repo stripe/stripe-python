@@ -11,7 +11,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import ClassVar, Dict, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -42,7 +42,7 @@ class Plan(
     Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription) and more about [products and prices](https://stripe.com/docs/products-prices/overview).
     """
 
-    OBJECT_NAME = "plan"
+    OBJECT_NAME: ClassVar[Literal["plan"]] = "plan"
 
     class Tier(StripeObject):
         flat_amount: Optional[int]

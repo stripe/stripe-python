@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.account import Account as AccountResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 from urllib.parse import quote_plus
 
@@ -22,7 +22,7 @@ class Person(UpdateableAPIResource["Person"]):
     Related guide: [Handling identity verification with the API](https://stripe.com/docs/connect/handling-api-verification#person-information)
     """
 
-    OBJECT_NAME = "person"
+    OBJECT_NAME: ClassVar[Literal["person"]] = "person"
 
     class AdditionalTosAcceptances(StripeObject):
         class Account(StripeObject):

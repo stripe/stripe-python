@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Optional
+from typing import ClassVar, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -19,7 +19,7 @@ class Discount(StripeObject):
     Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
     """
 
-    OBJECT_NAME = "discount"
+    OBJECT_NAME: ClassVar[Literal["discount"]] = "discount"
     checkout_session: Optional[str]
     coupon: "Coupon"
     customer: Optional[ExpandableField["Customer"]]

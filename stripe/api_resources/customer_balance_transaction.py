@@ -3,7 +3,7 @@
 from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
-from typing import Dict, Optional
+from typing import ClassVar, Dict, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 from urllib.parse import quote_plus
 
@@ -22,7 +22,9 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
     Related guide: [Customer balance](https://stripe.com/docs/billing/customer/balance)
     """
 
-    OBJECT_NAME = "customer_balance_transaction"
+    OBJECT_NAME: ClassVar[
+        Literal["customer_balance_transaction"]
+    ] = "customer_balance_transaction"
     amount: int
     created: int
     credit_note: Optional[ExpandableField["CreditNote"]]

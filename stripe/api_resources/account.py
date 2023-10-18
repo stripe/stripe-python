@@ -12,7 +12,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import ClassVar, Dict, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -50,7 +50,7 @@ class Account(
     below. Learn about the differences [between accounts](https://stripe.com/docs/connect/accounts).
     """
 
-    OBJECT_NAME = "account"
+    OBJECT_NAME: ClassVar[Literal["account"]] = "account"
 
     class BusinessProfile(StripeObject):
         class MonthlyEstimatedRevenue(StripeObject):

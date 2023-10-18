@@ -740,6 +740,7 @@ class TestAPIRequestor(object):
         supplied_headers = {"Content-Type": "multipart/form-data"}
         mock_response("{}", 200)
         requestor.request("post", "/v1/files", params, supplied_headers)
+        assert supplied_headers["Content-Type"] == "multipart/form-data"
 
 
 class TestDefaultClient(object):

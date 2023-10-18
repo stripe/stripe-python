@@ -10,7 +10,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, ClassVar, Dict, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -62,7 +62,7 @@ class SetupIntent(
     Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
     """
 
-    OBJECT_NAME = "setup_intent"
+    OBJECT_NAME: ClassVar[Literal["setup_intent"]] = "setup_intent"
 
     class AutomaticPaymentMethods(StripeObject):
         allow_redirects: Optional[Literal["always", "never"]]

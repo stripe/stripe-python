@@ -7,7 +7,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -28,7 +28,7 @@ class AccountNotice(
     See the [guide to send notices](https://stripe.com/docs/issuing/compliance-us/issuing-regulated-customer-notices) to your connected accounts.
     """
 
-    OBJECT_NAME = "account_notice"
+    OBJECT_NAME: ClassVar[Literal["account_notice"]] = "account_notice"
 
     class Email(StripeObject):
         plain_text: str

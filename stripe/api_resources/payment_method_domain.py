@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
 
@@ -26,7 +26,9 @@ class PaymentMethodDomain(
     Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
     """
 
-    OBJECT_NAME = "payment_method_domain"
+    OBJECT_NAME: ClassVar[
+        Literal["payment_method_domain"]
+    ] = "payment_method_domain"
 
     class ApplePay(StripeObject):
         class StatusDetails(StripeObject):

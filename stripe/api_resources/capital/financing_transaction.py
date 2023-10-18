@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
@@ -13,7 +13,9 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
     This is an object representing the details of a transaction on a Capital financing object.
     """
 
-    OBJECT_NAME = "capital.financing_transaction"
+    OBJECT_NAME: ClassVar[
+        Literal["capital.financing_transaction"]
+    ] = "capital.financing_transaction"
 
     class Details(StripeObject):
         class Transaction(StripeObject):

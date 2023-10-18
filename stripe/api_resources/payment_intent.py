@@ -12,7 +12,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, Dict, List, Optional, Union, cast
+from typing import Any, ClassVar, Dict, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -56,7 +56,7 @@ class PaymentIntent(
     Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
     """
 
-    OBJECT_NAME = "payment_intent"
+    OBJECT_NAME: ClassVar[Literal["payment_intent"]] = "payment_intent"
 
     class AmountDetails(StripeObject):
         class Tip(StripeObject):
@@ -1414,6 +1414,9 @@ class PaymentIntent(
                 "Literal['if_available', 'never']|None"
             ]
             request_incremental_authorization_support: NotRequired["bool|None"]
+            request_incremental_authorization: NotRequired[
+                "Literal['if_available', 'never']|None"
+            ]
 
         class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
             capture_method: NotRequired["Literal['']|Literal['manual']|None"]
@@ -2353,6 +2356,9 @@ class PaymentIntent(
                 "Literal['if_available', 'never']|None"
             ]
             request_incremental_authorization_support: NotRequired["bool|None"]
+            request_incremental_authorization: NotRequired[
+                "Literal['if_available', 'never']|None"
+            ]
 
         class CreateParamsPaymentMethodOptionsCard(TypedDict):
             capture_method: NotRequired["Literal['']|Literal['manual']|None"]
@@ -3289,6 +3295,9 @@ class PaymentIntent(
                 "Literal['if_available', 'never']|None"
             ]
             request_incremental_authorization_support: NotRequired["bool|None"]
+            request_incremental_authorization: NotRequired[
+                "Literal['if_available', 'never']|None"
+            ]
 
         class ModifyParamsPaymentMethodOptionsCard(TypedDict):
             capture_method: NotRequired["Literal['']|Literal['manual']|None"]

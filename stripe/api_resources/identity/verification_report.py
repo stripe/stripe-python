@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -29,7 +29,9 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     Related guides: [Accessing verification results](https://stripe.com/docs/identity/verification-sessions#results).
     """
 
-    OBJECT_NAME = "identity.verification_report"
+    OBJECT_NAME: ClassVar[
+        Literal["identity.verification_report"]
+    ] = "identity.verification_report"
 
     class Document(StripeObject):
         class Address(StripeObject):

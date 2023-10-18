@@ -5,7 +5,7 @@ from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -27,7 +27,7 @@ class Transaction(APIResource["Transaction"]):
     Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom#tax-transaction)
     """
 
-    OBJECT_NAME = "tax.transaction"
+    OBJECT_NAME: ClassVar[Literal["tax.transaction"]] = "tax.transaction"
 
     class CustomerDetails(StripeObject):
         class Address(StripeObject):

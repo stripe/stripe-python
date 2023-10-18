@@ -3,7 +3,7 @@
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.request_options import RequestOptions
-from typing import List, Optional, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -16,7 +16,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     control over a customer.
     """
 
-    OBJECT_NAME = "customer_session"
+    OBJECT_NAME: ClassVar[Literal["customer_session"]] = "customer_session"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

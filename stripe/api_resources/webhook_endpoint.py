@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
 
@@ -30,7 +30,7 @@ class WebhookEndpoint(
     Related guide: [Setting up webhooks](https://stripe.com/docs/webhooks/configure)
     """
 
-    OBJECT_NAME = "webhook_endpoint"
+    OBJECT_NAME: ClassVar[Literal["webhook_endpoint"]] = "webhook_endpoint"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

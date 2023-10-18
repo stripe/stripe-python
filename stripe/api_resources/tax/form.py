@@ -7,7 +7,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -28,7 +28,7 @@ class Form(ListableAPIResource["Form"]):
     Related guide: [US tax reporting for Connect platforms](https://stripe.com/docs/connect/tax-reporting)
     """
 
-    OBJECT_NAME = "tax.form"
+    OBJECT_NAME: ClassVar[Literal["tax.form"]] = "tax.form"
 
     class FilingStatus(StripeObject):
         class Jurisdiction(StripeObject):
