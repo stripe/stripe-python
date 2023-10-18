@@ -10,6 +10,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -41,7 +42,9 @@ class PaymentMethodConfiguration(
     - [Multiple configurations for your Connect accounts](https://stripe.com/docs/connect/multiple-payment-method-configurations)
     """
 
-    OBJECT_NAME = "payment_method_configuration"
+    OBJECT_NAME: ClassVar[
+        Literal["payment_method_configuration"]
+    ] = "payment_method_configuration"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

@@ -4,7 +4,13 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from typing import List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import (
+    ClassVar,
+    Literal,
+    NotRequired,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 
 class ReportType(ListableAPIResource["ReportType"]):
@@ -19,7 +25,9 @@ class ReportType(ListableAPIResource["ReportType"]):
     data), and will error when queried without a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).
     """
 
-    OBJECT_NAME = "reporting.report_type"
+    OBJECT_NAME: ClassVar[
+        Literal["reporting.report_type"]
+    ] = "reporting.report_type"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

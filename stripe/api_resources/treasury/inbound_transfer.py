@@ -12,6 +12,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     Type,
@@ -32,7 +33,9 @@ class InboundTransfer(
     Use [InboundTransfers](https://stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://stripe.com/docs/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
     """
 
-    OBJECT_NAME = "treasury.inbound_transfer"
+    OBJECT_NAME: ClassVar[
+        Literal["treasury.inbound_transfer"]
+    ] = "treasury.inbound_transfer"
     if TYPE_CHECKING:
 
         class CancelParams(RequestOptions):

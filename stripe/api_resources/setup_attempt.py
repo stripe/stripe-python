@@ -7,6 +7,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -30,7 +31,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
     payment method using a SetupIntent.
     """
 
-    OBJECT_NAME = "setup_attempt"
+    OBJECT_NAME: ClassVar[Literal["setup_attempt"]] = "setup_attempt"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

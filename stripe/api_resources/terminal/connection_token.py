@@ -3,7 +3,13 @@
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.request_options import RequestOptions
 from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import (
+    ClassVar,
+    Literal,
+    NotRequired,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 
 class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
@@ -13,7 +19,9 @@ class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
     Related guide: [Fleet management](https://stripe.com/docs/terminal/fleet/locations)
     """
 
-    OBJECT_NAME = "terminal.connection_token"
+    OBJECT_NAME: ClassVar[
+        Literal["terminal.connection_token"]
+    ] = "terminal.connection_token"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

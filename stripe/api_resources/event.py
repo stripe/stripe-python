@@ -6,6 +6,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -48,7 +49,7 @@ class Event(ListableAPIResource["Event"]):
     for 30 days.
     """
 
-    OBJECT_NAME = "event"
+    OBJECT_NAME: ClassVar[Literal["event"]] = "event"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

@@ -13,6 +13,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     Type,
@@ -35,7 +36,7 @@ class Card(
     You can [create physical or virtual cards](https://stripe.com/docs/issuing/cards) that are issued to cardholders.
     """
 
-    OBJECT_NAME = "issuing.card"
+    OBJECT_NAME: ClassVar[Literal["issuing.card"]] = "issuing.card"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

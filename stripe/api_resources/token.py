@@ -4,6 +4,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.request_options import RequestOptions
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -40,7 +41,7 @@ class Token(CreateableAPIResource["Token"]):
     performs best with integrations that use client-side tokenization.
     """
 
-    OBJECT_NAME = "token"
+    OBJECT_NAME: ClassVar[Literal["token"]] = "token"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

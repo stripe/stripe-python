@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe.stripe_object import StripeObject
 from typing import Optional
-from typing_extensions import Literal
+from typing_extensions import ClassVar, Literal
 
 
 class SourceTransaction(StripeObject):
@@ -13,7 +13,7 @@ class SourceTransaction(StripeObject):
     transactions.
     """
 
-    OBJECT_NAME = "source_transaction"
+    OBJECT_NAME: ClassVar[Literal["source_transaction"]] = "source_transaction"
     ach_credit_transfer: Optional[StripeObject]
     amount: int
     chf_credit_transfer: Optional[StripeObject]

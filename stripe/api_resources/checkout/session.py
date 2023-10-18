@@ -11,6 +11,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -48,7 +49,7 @@ class Session(
     Related guide: [Checkout quickstart](https://stripe.com/docs/checkout/quickstart)
     """
 
-    OBJECT_NAME = "checkout.session"
+    OBJECT_NAME: ClassVar[Literal["checkout.session"]] = "checkout.session"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

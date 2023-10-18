@@ -7,6 +7,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from typing import List, Optional
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -29,7 +30,7 @@ class File(ListableAPIResource["File"]):
     Related guide: [File upload guide](https://stripe.com/docs/file-upload)
     """
 
-    OBJECT_NAME = "file"
+    OBJECT_NAME: ClassVar[Literal["file"]] = "file"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.transfer import Transfer
 from typing import Dict, Optional
-from typing_extensions import Literal, TYPE_CHECKING
+from typing_extensions import ClassVar, Literal, TYPE_CHECKING
 from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
@@ -29,7 +29,7 @@ class Reversal(UpdateableAPIResource["Reversal"]):
     Related guide: [Reversing transfers](https://stripe.com/docs/connect/separate-charges-and-transfers#reversing-transfers)
     """
 
-    OBJECT_NAME = "transfer_reversal"
+    OBJECT_NAME: ClassVar[Literal["transfer_reversal"]] = "transfer_reversal"
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     created: int

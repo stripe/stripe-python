@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe.stripe_object import StripeObject
 from typing import Optional
-from typing_extensions import Literal
+from typing_extensions import ClassVar, Literal
 
 
 class AccountOwner(StripeObject):
@@ -10,7 +10,9 @@ class AccountOwner(StripeObject):
     Describes an owner of an account.
     """
 
-    OBJECT_NAME = "financial_connections.account_owner"
+    OBJECT_NAME: ClassVar[
+        Literal["financial_connections.account_owner"]
+    ] = "financial_connections.account_owner"
     email: Optional[str]
     id: str
     name: str

@@ -6,6 +6,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -29,7 +30,9 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     Related guides: [Accessing verification results](https://stripe.com/docs/identity/verification-sessions#results).
     """
 
-    OBJECT_NAME = "identity.verification_report"
+    OBJECT_NAME: ClassVar[
+        Literal["identity.verification_report"]
+    ] = "identity.verification_report"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

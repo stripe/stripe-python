@@ -12,6 +12,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     Type,
@@ -34,7 +35,9 @@ class OutboundPayment(
     Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
     """
 
-    OBJECT_NAME = "treasury.outbound_payment"
+    OBJECT_NAME: ClassVar[
+        Literal["treasury.outbound_payment"]
+    ] = "treasury.outbound_payment"
     if TYPE_CHECKING:
 
         class CancelParams(RequestOptions):

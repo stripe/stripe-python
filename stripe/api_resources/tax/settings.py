@@ -8,6 +8,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -27,7 +28,7 @@ class Settings(
     Related guide: [Using the Settings API](https://stripe.com/docs/tax/settings-api)
     """
 
-    OBJECT_NAME = "tax.settings"
+    OBJECT_NAME: ClassVar[Literal["tax.settings"]] = "tax.settings"
     if TYPE_CHECKING:
 
         class ModifyParams(RequestOptions):

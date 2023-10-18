@@ -9,6 +9,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -29,7 +30,7 @@ class TaxRate(
     Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
     """
 
-    OBJECT_NAME = "tax_rate"
+    OBJECT_NAME: ClassVar[Literal["tax_rate"]] = "tax_rate"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

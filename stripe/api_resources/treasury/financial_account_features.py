@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe.stripe_object import StripeObject
 from typing import Optional
-from typing_extensions import Literal
+from typing_extensions import ClassVar, Literal
 
 
 class FinancialAccountFeatures(StripeObject):
@@ -11,7 +11,9 @@ class FinancialAccountFeatures(StripeObject):
     Stripe or the platform can control Features via the requested field.
     """
 
-    OBJECT_NAME = "treasury.financial_account_features"
+    OBJECT_NAME: ClassVar[
+        Literal["treasury.financial_account_features"]
+    ] = "treasury.financial_account_features"
     card_issuing: Optional[StripeObject]
     deposit_insurance: Optional[StripeObject]
     financial_addresses: Optional[StripeObject]

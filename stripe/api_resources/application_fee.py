@@ -10,6 +10,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from typing import Dict, List, Optional
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -29,7 +30,7 @@ if TYPE_CHECKING:
 
 @nested_resource_class_methods("refund")
 class ApplicationFee(ListableAPIResource["ApplicationFee"]):
-    OBJECT_NAME = "application_fee"
+    OBJECT_NAME: ClassVar[Literal["application_fee"]] = "application_fee"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

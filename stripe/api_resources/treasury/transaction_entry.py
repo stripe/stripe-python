@@ -7,6 +7,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -23,7 +24,9 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
     TransactionEntries represent individual units of money movements within a single [Transaction](https://stripe.com/docs/api#transactions).
     """
 
-    OBJECT_NAME = "treasury.transaction_entry"
+    OBJECT_NAME: ClassVar[
+        Literal["treasury.transaction_entry"]
+    ] = "treasury.transaction_entry"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

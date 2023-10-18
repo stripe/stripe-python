@@ -5,6 +5,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -24,7 +25,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     Related guide: [Connect embedded components](https://stripe.com/docs/connect/get-started-connect-embedded-components)
     """
 
-    OBJECT_NAME = "account_session"
+    OBJECT_NAME: ClassVar[Literal["account_session"]] = "account_session"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

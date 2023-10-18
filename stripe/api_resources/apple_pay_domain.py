@@ -9,7 +9,13 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import (
+    ClassVar,
+    Literal,
+    NotRequired,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
 
 
@@ -18,7 +24,7 @@ class ApplePayDomain(
     DeletableAPIResource["ApplePayDomain"],
     ListableAPIResource["ApplePayDomain"],
 ):
-    OBJECT_NAME = "apple_pay_domain"
+    OBJECT_NAME: ClassVar[Literal["apple_pay_domain"]] = "apple_pay_domain"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

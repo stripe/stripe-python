@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe.stripe_object import StripeObject
 from typing import Optional
-from typing_extensions import Literal, TYPE_CHECKING
+from typing_extensions import ClassVar, Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.source import Source
@@ -15,7 +15,9 @@ class SourceMandateNotification(StripeObject):
     deliver an email to the customer.
     """
 
-    OBJECT_NAME = "source_mandate_notification"
+    OBJECT_NAME: ClassVar[
+        Literal["source_mandate_notification"]
+    ] = "source_mandate_notification"
     acss_debit: Optional[StripeObject]
     amount: Optional[int]
     bacs_debit: Optional[StripeObject]

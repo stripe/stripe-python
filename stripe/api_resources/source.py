@@ -10,6 +10,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -33,7 +34,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     Related guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).
     """
 
-    OBJECT_NAME = "source"
+    OBJECT_NAME: ClassVar[Literal["source"]] = "source"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

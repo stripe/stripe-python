@@ -12,6 +12,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -36,7 +37,7 @@ class Dispute(
     Related guide: [Issuing disputes](https://stripe.com/docs/issuing/purchases/disputes)
     """
 
-    OBJECT_NAME = "issuing.dispute"
+    OBJECT_NAME: ClassVar[Literal["issuing.dispute"]] = "issuing.dispute"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

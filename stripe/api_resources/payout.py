@@ -11,6 +11,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from typing import Dict, List, Optional, Union, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -41,7 +42,7 @@ class Payout(
     Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
     """
 
-    OBJECT_NAME = "payout"
+    OBJECT_NAME: ClassVar[Literal["payout"]] = "payout"
     if TYPE_CHECKING:
 
         class CancelParams(RequestOptions):

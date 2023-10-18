@@ -2,11 +2,13 @@
 # File generated from our OpenAPI spec
 from stripe.stripe_object import StripeObject
 from typing import Dict, Optional
-from typing_extensions import Literal
+from typing_extensions import ClassVar, Literal
 
 
 class TransactionLineItem(StripeObject):
-    OBJECT_NAME = "tax.transaction_line_item"
+    OBJECT_NAME: ClassVar[
+        Literal["tax.transaction_line_item"]
+    ] = "tax.transaction_line_item"
     amount: int
     amount_tax: int
     id: str

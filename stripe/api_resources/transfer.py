@@ -12,6 +12,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -46,7 +47,7 @@ class Transfer(
     Related guide: [Creating separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers)
     """
 
-    OBJECT_NAME = "transfer"
+    OBJECT_NAME: ClassVar[Literal["transfer"]] = "transfer"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

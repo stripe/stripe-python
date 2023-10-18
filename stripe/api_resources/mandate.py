@@ -5,7 +5,13 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import (
+    ClassVar,
+    Literal,
+    NotRequired,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 if TYPE_CHECKING:
     from stripe.api_resources.payment_method import PaymentMethod
@@ -16,7 +22,7 @@ class Mandate(APIResource["Mandate"]):
     A Mandate is a record of the permission that your customer gives you to debit their payment method.
     """
 
-    OBJECT_NAME = "mandate"
+    OBJECT_NAME: ClassVar[Literal["mandate"]] = "mandate"
     if TYPE_CHECKING:
 
         class RetrieveParams(RequestOptions):

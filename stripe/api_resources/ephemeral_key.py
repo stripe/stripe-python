@@ -4,12 +4,18 @@ from stripe import api_requestor, util
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.request_options import RequestOptions
 from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import (
+    ClassVar,
+    Literal,
+    NotRequired,
+    Unpack,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
 
 
 class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
-    OBJECT_NAME = "ephemeral_key"
+    OBJECT_NAME: ClassVar[Literal["ephemeral_key"]] = "ephemeral_key"
     if TYPE_CHECKING:
 
         class DeleteParams(RequestOptions):

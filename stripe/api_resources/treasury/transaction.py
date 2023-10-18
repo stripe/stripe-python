@@ -6,6 +6,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -24,7 +25,9 @@ class Transaction(ListableAPIResource["Transaction"]):
     Transactions represent changes to a [FinancialAccount's](https://stripe.com/docs/api#financial_accounts) balance.
     """
 
-    OBJECT_NAME = "treasury.transaction"
+    OBJECT_NAME: ClassVar[
+        Literal["treasury.transaction"]
+    ] = "treasury.transaction"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

@@ -11,6 +11,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, Union, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -32,7 +33,9 @@ class Configuration(
     A portal configuration describes the functionality and behavior of a portal session.
     """
 
-    OBJECT_NAME = "billing_portal.configuration"
+    OBJECT_NAME: ClassVar[
+        Literal["billing_portal.configuration"]
+    ] = "billing_portal.configuration"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

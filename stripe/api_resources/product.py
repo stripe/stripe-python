@@ -15,6 +15,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, Union, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -46,7 +47,7 @@ class Product(
     and more about [Products and Prices](https://stripe.com/docs/products-prices/overview)
     """
 
-    OBJECT_NAME = "product"
+    OBJECT_NAME: ClassVar[Literal["product"]] = "product"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

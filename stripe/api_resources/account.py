@@ -13,6 +13,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, Union, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -48,7 +49,7 @@ class Account(
     below. Learn about the differences [between accounts](https://stripe.com/docs/connect/accounts).
     """
 
-    OBJECT_NAME = "account"
+    OBJECT_NAME: ClassVar[Literal["account"]] = "account"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

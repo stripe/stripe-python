@@ -15,6 +15,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, Union, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -53,7 +54,7 @@ class Subscription(
     Related guide: [Creating subscriptions](https://stripe.com/docs/billing/subscriptions/creating)
     """
 
-    OBJECT_NAME = "subscription"
+    OBJECT_NAME: ClassVar[Literal["subscription"]] = "subscription"
     if TYPE_CHECKING:
 
         class CancelParams(RequestOptions):

@@ -12,6 +12,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -37,7 +38,7 @@ class PaymentMethod(
     Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
     """
 
-    OBJECT_NAME = "payment_method"
+    OBJECT_NAME: ClassVar[Literal["payment_method"]] = "payment_method"
     if TYPE_CHECKING:
 
         class AttachParams(RequestOptions):

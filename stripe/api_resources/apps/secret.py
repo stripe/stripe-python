@@ -9,6 +9,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -30,7 +31,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     Related guide: [Store data between page reloads](https://stripe.com/docs/stripe-apps/store-auth-data-custom-objects)
     """
 
-    OBJECT_NAME = "apps.secret"
+    OBJECT_NAME: ClassVar[Literal["apps.secret"]] = "apps.secret"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

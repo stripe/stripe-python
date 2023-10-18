@@ -8,6 +8,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -28,7 +29,7 @@ class Review(ListableAPIResource["Review"]):
     [here](https://stripe.com/docs/radar/reviews).
     """
 
-    OBJECT_NAME = "review"
+    OBJECT_NAME: ClassVar[Literal["review"]] = "review"
     if TYPE_CHECKING:
 
         class ApproveParams(RequestOptions):

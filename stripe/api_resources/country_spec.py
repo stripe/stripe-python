@@ -5,7 +5,13 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import (
+    ClassVar,
+    Literal,
+    NotRequired,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 
 class CountrySpec(ListableAPIResource["CountrySpec"]):
@@ -18,7 +24,7 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
     guide](https://stripe.com/docs/connect/required-verification-information).
     """
 
-    OBJECT_NAME = "country_spec"
+    OBJECT_NAME: ClassVar[Literal["country_spec"]] = "country_spec"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

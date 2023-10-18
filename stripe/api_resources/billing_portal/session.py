@@ -6,6 +6,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -35,7 +36,9 @@ class Session(CreateableAPIResource["Session"]):
     Learn more in the [integration guide](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal).
     """
 
-    OBJECT_NAME = "billing_portal.session"
+    OBJECT_NAME: ClassVar[
+        Literal["billing_portal.session"]
+    ] = "billing_portal.session"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

@@ -3,7 +3,13 @@
 from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.request_options import RequestOptions
 from typing import List, Optional, cast
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import (
+    ClassVar,
+    Literal,
+    NotRequired,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 
 class AccountLink(CreateableAPIResource["AccountLink"]):
@@ -14,7 +20,7 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
     Related guide: [Connect Onboarding](https://stripe.com/docs/connect/custom/hosted-onboarding)
     """
 
-    OBJECT_NAME = "account_link"
+    OBJECT_NAME: ClassVar[Literal["account_link"]] = "account_link"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

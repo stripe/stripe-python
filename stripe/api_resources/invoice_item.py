@@ -13,6 +13,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -52,7 +53,7 @@ class InvoiceItem(
     Related guides: [Integrate with the Invoicing API](https://stripe.com/docs/invoicing/integration), [Subscription Invoices](https://stripe.com/docs/billing/invoices/subscription#adding-upcoming-invoice-items).
     """
 
-    OBJECT_NAME = "invoiceitem"
+    OBJECT_NAME: ClassVar[Literal["invoiceitem"]] = "invoiceitem"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

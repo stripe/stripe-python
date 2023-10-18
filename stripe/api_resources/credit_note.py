@@ -13,6 +13,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -43,7 +44,7 @@ class CreditNote(
     Related guide: [Credit notes](https://stripe.com/docs/billing/invoices/credit-notes)
     """
 
-    OBJECT_NAME = "credit_note"
+    OBJECT_NAME: ClassVar[Literal["credit_note"]] = "credit_note"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

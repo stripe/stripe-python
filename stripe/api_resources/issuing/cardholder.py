@@ -10,6 +10,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -30,7 +31,7 @@ class Cardholder(
     Related guide: [How to create a cardholder](https://stripe.com/docs/issuing/cards#create-cardholder)
     """
 
-    OBJECT_NAME = "issuing.cardholder"
+    OBJECT_NAME: ClassVar[Literal["issuing.cardholder"]] = "issuing.cardholder"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

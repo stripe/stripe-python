@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.application_fee import ApplicationFee
 from stripe.api_resources.expandable_field import ExpandableField
 from typing import Dict, Optional
-from typing_extensions import Literal, TYPE_CHECKING
+from typing_extensions import ClassVar, Literal, TYPE_CHECKING
 from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
@@ -20,7 +20,7 @@ class ApplicationFeeRefund(UpdateableAPIResource["ApplicationFeeRefund"]):
     Related guide: [Refunding application fees](https://stripe.com/docs/connect/destination-charges#refunding-app-fee)
     """
 
-    OBJECT_NAME = "fee_refund"
+    OBJECT_NAME: ClassVar[Literal["fee_refund"]] = "fee_refund"
     amount: int
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
     created: int

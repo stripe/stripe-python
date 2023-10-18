@@ -14,6 +14,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     Type,
@@ -39,7 +40,7 @@ class Reader(
     Related guide: [Connecting to a reader](https://stripe.com/docs/terminal/payments/connect-reader)
     """
 
-    OBJECT_NAME = "terminal.reader"
+    OBJECT_NAME: ClassVar[Literal["terminal.reader"]] = "terminal.reader"
     if TYPE_CHECKING:
 
         class CancelActionParams(RequestOptions):

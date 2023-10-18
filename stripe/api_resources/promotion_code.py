@@ -11,6 +11,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -34,7 +35,7 @@ class PromotionCode(
     create multiple codes for a single coupon.
     """
 
-    OBJECT_NAME = "promotion_code"
+    OBJECT_NAME: ClassVar[Literal["promotion_code"]] = "promotion_code"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

@@ -17,6 +17,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, Union, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     Type,
@@ -55,7 +56,7 @@ class Customer(
     Related guide: [Save a card during payment](https://stripe.com/docs/payments/save-during-payment)
     """
 
-    OBJECT_NAME = "customer"
+    OBJECT_NAME: ClassVar[Literal["customer"]] = "customer"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

@@ -7,6 +7,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -27,7 +28,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     Related guide: [Calculate tax in your custom payment flow](https://stripe.com/docs/tax/custom)
     """
 
-    OBJECT_NAME = "tax.calculation"
+    OBJECT_NAME: ClassVar[Literal["tax.calculation"]] = "tax.calculation"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

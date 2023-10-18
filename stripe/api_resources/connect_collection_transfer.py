@@ -2,14 +2,16 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing_extensions import Literal, TYPE_CHECKING
+from typing_extensions import ClassVar, Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
 
 
 class ConnectCollectionTransfer(StripeObject):
-    OBJECT_NAME = "connect_collection_transfer"
+    OBJECT_NAME: ClassVar[
+        Literal["connect_collection_transfer"]
+    ] = "connect_collection_transfer"
     amount: int
     currency: str
     destination: ExpandableField["Account"]

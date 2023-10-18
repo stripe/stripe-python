@@ -12,6 +12,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -33,7 +34,7 @@ class Coupon(
     [checkout sessions](https://stripe.com/docs/api/checkout/sessions), [quotes](https://stripe.com/docs/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://stripe.com/docs/api#create_charge) or [payment intents](https://stripe.com/docs/api/payment_intents).
     """
 
-    OBJECT_NAME = "coupon"
+    OBJECT_NAME: ClassVar[Literal["coupon"]] = "coupon"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

@@ -15,6 +15,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, Union, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -84,7 +85,7 @@ class Invoice(
     Related guide: [Send invoices to customers](https://stripe.com/docs/billing/invoices/sending)
     """
 
-    OBJECT_NAME = "invoice"
+    OBJECT_NAME: ClassVar[Literal["invoice"]] = "invoice"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

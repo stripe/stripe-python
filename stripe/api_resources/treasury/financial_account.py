@@ -11,6 +11,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -35,7 +36,9 @@ class FinancialAccount(
     FinancialAccounts serve as the source and destination of Treasury's money movement APIs.
     """
 
-    OBJECT_NAME = "treasury.financial_account"
+    OBJECT_NAME: ClassVar[
+        Literal["treasury.financial_account"]
+    ] = "treasury.financial_account"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

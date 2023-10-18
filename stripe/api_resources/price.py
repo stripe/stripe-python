@@ -13,6 +13,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import Dict, List, Optional, Union, cast
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -40,7 +41,7 @@ class Price(
     Related guides: [Set up a subscription](https://stripe.com/docs/billing/subscriptions/set-up-subscription), [create an invoice](https://stripe.com/docs/billing/invoices/create), and more about [products and prices](https://stripe.com/docs/products-prices/overview).
     """
 
-    OBJECT_NAME = "price"
+    OBJECT_NAME: ClassVar[Literal["price"]] = "price"
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):

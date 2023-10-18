@@ -7,6 +7,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import List, Optional, Union
 from typing_extensions import (
+    ClassVar,
     Literal,
     NotRequired,
     TypedDict,
@@ -50,7 +51,9 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     Related guide: [Balance transaction types](https://stripe.com/docs/reports/balance-transaction-types)
     """
 
-    OBJECT_NAME = "balance_transaction"
+    OBJECT_NAME: ClassVar[
+        Literal["balance_transaction"]
+    ] = "balance_transaction"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
