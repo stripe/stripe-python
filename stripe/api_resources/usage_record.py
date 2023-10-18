@@ -2,7 +2,8 @@
 # File generated from our OpenAPI spec
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import APIResource
-from typing_extensions import ClassVar, Literal
+from typing import ClassVar
+from typing_extensions import Literal
 
 
 class UsageRecord(APIResource["UsageRecord"]):

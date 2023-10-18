@@ -2,8 +2,8 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Optional
-from typing_extensions import ClassVar, Literal, TYPE_CHECKING
+from typing import ClassVar, Optional
+from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.coupon import Coupon

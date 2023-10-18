@@ -9,8 +9,8 @@ from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.request_options import RequestOptions
-from typing import Dict, List, Optional, Union, cast
-from typing_extensions import ClassVar, Literal, Unpack, TYPE_CHECKING
+from typing import ClassVar, Dict, List, Optional, Union, cast
+from typing_extensions import Literal, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
 
 if TYPE_CHECKING:

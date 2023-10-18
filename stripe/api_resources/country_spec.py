@@ -4,14 +4,8 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional
-from typing_extensions import (
-    ClassVar,
-    Literal,
-    NotRequired,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing import ClassVar, Dict, List, Optional
+from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
 class CountrySpec(ListableAPIResource["CountrySpec"]):

@@ -3,8 +3,8 @@
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.application_fee import ApplicationFee
 from stripe.api_resources.expandable_field import ExpandableField
-from typing import Dict, Optional
-from typing_extensions import ClassVar, Literal, TYPE_CHECKING
+from typing import ClassVar, Dict, Optional
+from typing_extensions import Literal, TYPE_CHECKING
 from urllib.parse import quote_plus
 
 if TYPE_CHECKING:

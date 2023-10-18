@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.stripe_object import StripeObject
-from typing import Optional
-from typing_extensions import ClassVar, Literal, TYPE_CHECKING
+from typing import ClassVar, Optional
+from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
     from stripe.api_resources.source import Source

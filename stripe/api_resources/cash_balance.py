@@ -2,8 +2,8 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.customer import Customer
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional
-from typing_extensions import ClassVar, Literal
+from typing import ClassVar, Dict, Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 

@@ -4,8 +4,8 @@ from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.account import Account
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Optional
-from typing_extensions import ClassVar, Literal
+from typing import ClassVar, Optional
+from typing_extensions import Literal
 from urllib.parse import quote_plus
 
 

@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.stripe_object import StripeObject
-from typing_extensions import ClassVar, Literal
+from typing import ClassVar
+from typing_extensions import Literal
 
 
 class PlatformTaxFee(StripeObject):

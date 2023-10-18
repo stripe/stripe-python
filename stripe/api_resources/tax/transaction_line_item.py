@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.stripe_object import StripeObject
-from typing import Dict, Optional
-from typing_extensions import ClassVar, Literal
+from typing import ClassVar, Dict, Optional
+from typing_extensions import Literal
 
 
 class TransactionLineItem(StripeObject):
