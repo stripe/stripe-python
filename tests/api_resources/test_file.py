@@ -28,7 +28,11 @@ class TestFile(object):
         request_mock.assert_requested("get", "/v1/files/%s" % TEST_RESOURCE_ID)
         assert isinstance(resource, stripe.File)
 
-    def test_is_creatable(self, setup_upload_api_base, request_mock):
+    def test_is_creatable(self, mocker):
+        hc = mocker.Mock(stripe.http_client.HTTPClient)
+        hc.name = "mockclient"
+        stripe.default_http_client = hc
+        hc.request_with_retries.return_value = ("{}", 200, {})
         stripe.multipart_data_generator.MultipartDataGenerator._initialize_boundary = (
             lambda self: 1234567890
         )
@@ -38,15 +42,19 @@ class TestFile(object):
             file=test_file,
             file_link_data={"create": True},
         )
-        request_mock.assert_api_base(stripe.upload_api_base)
-        request_mock.assert_requested(
-            "post",
-            "/v1/files",
-            headers={
-                "Content-Type": "multipart/form-data; boundary=1234567890"
-            },
+        method, url, headers, body = hc.request_with_retries.call_args[0]
+        assert method == "post"
+        assert url.endswith("/v1/files")
+        assert (
+            headers["Content-Type"]
+            == "multipart/form-data; boundary=1234567890"
         )
-        assert isinstance(resource, stripe.File)
+        parts = body.split(b"--1234567890")
+        assert len(parts) == 5
+        assert parts[0] == b""
+        assert parts[1].find(b'name="purpose"') > 0
+        assert parts[2].find(b'name="file"') > 0
+        assert parts[3].find(b'name="file_link_data[create]"') > 0
 
     def test_create_respects_stripe_version(
         self, setup_upload_api_base, request_mock
