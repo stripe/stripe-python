@@ -286,7 +286,7 @@ class StripeObject(Dict[str, Any]):
                 }
             else:
                 obj = util.convert_to_stripe_object(
-                    v,
+                    cast(Dict[str, Any], v),
                     api_key,
                     stripe_version,
                     stripe_account,
