@@ -3,7 +3,7 @@ import datetime
 import json
 import platform
 import time
-from typing import Optional, Tuple
+from typing import Any, Dict, Mapping, Optional, Tuple
 import uuid
 import warnings
 from collections import OrderedDict
@@ -15,7 +15,7 @@ from urllib.parse import urlencode, urlsplit, urlunsplit
 from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
 
-def _encode_datetime(dttime):
+def _encode_datetime(dttime: datetime.datetime):
     if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
         utc_timestamp = calendar.timegm(dttime.utctimetuple())
     else:
@@ -119,7 +119,11 @@ class APIRequestor(object):
         return str
 
     def request(
-        self, method, url, params=None, headers=None
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        headers: Optional[Mapping[str, str]] = None,
     ) -> Tuple[StripeResponse, str]:
         rbody, rcode, rheaders, my_api_key = self.request_raw(
             method.lower(), url, params, headers, is_streaming=False
@@ -127,7 +131,13 @@ class APIRequestor(object):
         resp = self.interpret_response(rbody, rcode, rheaders)
         return resp, my_api_key
 
-    def request_stream(self, method, url, params=None, headers=None):
+    def request_stream(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        headers: Optional[Mapping[str, str]] = None,
+    ):
         stream, rcode, rheaders, my_api_key = self.request_raw(
             method.lower(), url, params, headers, is_streaming=True
         )
