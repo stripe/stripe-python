@@ -9,8 +9,9 @@ import re
 import stripe
 from urllib.parse import parse_qsl, quote_plus
 
-from typing_extensions import Type, TYPE_CHECKING
+from typing_extensions import Literal, Type, TYPE_CHECKING
 from typing import (
+    TypeVar,
     Union,
     overload,
     Dict,
@@ -27,7 +28,7 @@ if TYPE_CHECKING:
 
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
-logger = logging.getLogger("stripe")
+logger: logging.Logger = logging.getLogger("stripe")
 
 __all__ = [
     "io",
@@ -181,7 +182,7 @@ def convert_to_stripe_object(
 
     if isinstance(resp, stripe.stripe_response.StripeResponse):
         stripe_response = resp
-        resp = stripe_response.data
+        resp = cast(Resp, stripe_response.data)
 
     if isinstance(resp, list):
         return [
@@ -274,7 +275,45 @@ def populate_headers(
     return None
 
 
-def read_special_variable(params, key_name, default_value):
+T = TypeVar("T")
+
+
+@overload
+def read_special_variable(
+    params: Optional[Dict[str, Any]],
+    key_name: Literal[
+        "idempotency_key",
+        "stripe_version",
+        "stripe_account",
+        "api_key",
+        "stripe_context",
+    ],
+    default_value: Optional[str],
+) -> Optional[str]:
+    ...
+
+
+@overload
+def read_special_variable(
+    params: Optional[Dict[str, Any]],
+    key_name: Literal["api_mode"],
+    default_value: Optional[Literal["preview", "standard"]],
+) -> Optional[Literal["preview", "standard"]]:
+    ...
+
+
+@overload
+def read_special_variable(
+    params: Optional[Dict[str, Any]],
+    key_name: Literal["headers"],
+    default_value: Optional[Dict[str, str]],
+) -> Optional[Dict[str, str]]:
+    ...
+
+
+def read_special_variable(
+    params: Optional[Dict[str, Any]], key_name: str, default_value: T
+) -> Optional[T]:
     value = default_value
     params_value = None
 

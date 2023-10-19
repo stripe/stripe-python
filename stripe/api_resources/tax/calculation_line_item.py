@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal
 
 
 class CalculationLineItem(StripeObject):
-    OBJECT_NAME = "tax.calculation_line_item"
+    OBJECT_NAME: ClassVar[
+        Literal["tax.calculation_line_item"]
+    ] = "tax.calculation_line_item"
 
     class TaxBreakdown(StripeObject):
         class Jurisdiction(StripeObject):

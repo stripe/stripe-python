@@ -10,7 +10,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -39,7 +39,7 @@ class PaymentMethod(
     Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
     """
 
-    OBJECT_NAME = "payment_method"
+    OBJECT_NAME: ClassVar[Literal["payment_method"]] = "payment_method"
 
     class AcssDebit(StripeObject):
         bank_name: Optional[str]

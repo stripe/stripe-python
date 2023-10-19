@@ -3,7 +3,7 @@
 from stripe.api_resources.abstract import SingletonAPIResource
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
@@ -13,7 +13,9 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     platforms to read the state of Capital offered to their connected accounts.
     """
 
-    OBJECT_NAME = "capital.financing_summary"
+    OBJECT_NAME: ClassVar[
+        Literal["capital.financing_summary"]
+    ] = "capital.financing_summary"
 
     class Details(StripeObject):
         class CurrentRepaymentInterval(StripeObject):

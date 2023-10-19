@@ -9,7 +9,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -34,7 +34,9 @@ class Transaction(
     A `canceled` transaction has no effect on a gift card's balance.
     """
 
-    OBJECT_NAME = "gift_cards.transaction"
+    OBJECT_NAME: ClassVar[
+        Literal["gift_cards.transaction"]
+    ] = "gift_cards.transaction"
 
     class CreatedBy(StripeObject):
         class Checkout(StripeObject):

@@ -1,12 +1,14 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.stripe_object import StripeObject
-from typing import Optional
+from typing import ClassVar, Optional
 from typing_extensions import Literal
 
 
 class UsageRecordSummary(StripeObject):
-    OBJECT_NAME = "usage_record_summary"
+    OBJECT_NAME: ClassVar[
+        Literal["usage_record_summary"]
+    ] = "usage_record_summary"
 
     class Period(StripeObject):
         end: Optional[int]

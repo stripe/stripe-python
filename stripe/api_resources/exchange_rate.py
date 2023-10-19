@@ -3,7 +3,7 @@
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import Dict, List, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
@@ -22,7 +22,7 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
     details.
     """
 
-    OBJECT_NAME = "exchange_rate"
+    OBJECT_NAME: ClassVar[Literal["exchange_rate"]] = "exchange_rate"
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):

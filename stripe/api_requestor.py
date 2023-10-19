@@ -1,9 +1,18 @@
 import calendar
 import datetime
+from io import BytesIO, IOBase
 import json
 import platform
 import time
-from typing import Tuple
+from typing import (
+    Any,
+    Dict,
+    Mapping,
+    Optional,
+    Tuple,
+    cast,
+)
+from typing_extensions import NoReturn, Literal
 import uuid
 import warnings
 from collections import OrderedDict
@@ -15,7 +24,7 @@ from urllib.parse import urlencode, urlsplit, urlunsplit
 from stripe.stripe_response import StripeResponse, StripeStreamResponse
 
 
-def _encode_datetime(dttime):
+def _encode_datetime(dttime: datetime.datetime):
     if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
         utc_timestamp = calendar.timegm(dttime.utctimetuple())
     else:
@@ -71,6 +80,11 @@ def _build_api_url(url, query):
 
 
 class APIRequestor(object):
+    api_key: Optional[str]
+    api_base: str
+    api_version: str
+    stripe_account: Optional[str]
+
     def __init__(
         self,
         key=None,
@@ -120,7 +134,12 @@ class APIRequestor(object):
         return str
 
     def request(
-        self, method, url, params=None, headers=None, api_mode=None
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        headers: Optional[Mapping[str, str]] = None,
+        api_mode: Optional[Literal["preview", "standard"]] = None,
     ) -> Tuple[StripeResponse, str]:
         rbody, rcode, rheaders, my_api_key = self.request_raw(
             method.lower(),
@@ -134,8 +153,13 @@ class APIRequestor(object):
         return resp, my_api_key
 
     def request_stream(
-        self, method, url, params=None, headers=None, api_mode=None
-    ):
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        headers: Optional[Mapping[str, str]] = None,
+        api_mode: Optional[Literal["preview", "standard"]] = None,
+    ) -> Tuple[StripeStreamResponse, str]:
         stream, rcode, rheaders, my_api_key = self.request_raw(
             method.lower(),
             url,
@@ -144,10 +168,16 @@ class APIRequestor(object):
             is_streaming=True,
             api_mode=api_mode,
         )
-        resp = self.interpret_streaming_response(stream, rcode, rheaders)
+        resp = self.interpret_streaming_response(
+            # TODO: should be able to remove this cast once self._client.request_stream_with_retries
+            # returns a more specific type.
+            cast(IOBase, stream),
+            rcode,
+            rheaders,
+        )
         return resp, my_api_key
 
-    def handle_error_response(self, rbody, rcode, resp, rheaders):
+    def handle_error_response(self, rbody, rcode, resp, rheaders) -> NoReturn:
         try:
             error_data = resp["error"]
         except (KeyError, TypeError):
@@ -318,23 +348,26 @@ class APIRequestor(object):
             else:
                 headers["Content-Type"] = "application/x-www-form-urlencoded"
 
-        if self.api_version is not None:
-            headers["Stripe-Version"] = self.api_version
+        headers["Stripe-Version"] = self.api_version
 
         return headers
 
     def request_raw(
         self,
-        method,
-        url,
-        params=None,
-        supplied_headers=None,
-        is_streaming=False,
-        api_mode=None,
-    ):
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        supplied_headers: Optional[Mapping[str, str]] = None,
+        is_streaming: bool = False,
+        api_mode: Optional[Literal["preview", "standard"]] = None,
+    ) -> Tuple[object, int, Mapping[str, str], str]:
         """
         Mechanism for issuing an API call
         """
+
+        supplied_headers_dict: Optional[Dict[str, str]] = (
+            dict(supplied_headers) if supplied_headers is not None else None
+        )
 
         if self.api_key:
             my_api_key = self.api_key
@@ -374,14 +407,14 @@ class APIRequestor(object):
             post_data = None
         elif method == "post":
             if (
-                supplied_headers is not None
-                and supplied_headers.get("Content-Type")
+                supplied_headers_dict is not None
+                and supplied_headers_dict.get("Content-Type")
                 == "multipart/form-data"
             ):
                 generator = MultipartDataGenerator()
                 generator.add_params(params or {})
                 post_data = generator.get_post_data()
-                supplied_headers[
+                supplied_headers_dict[
                     "Content-Type"
                 ] = "multipart/form-data; boundary=%s" % (generator.boundary,)
             else:
@@ -394,8 +427,8 @@ class APIRequestor(object):
             )
 
         headers = self.request_headers(my_api_key, method, api_mode)
-        if supplied_headers is not None:
-            for key, value in supplied_headers.items():
+        if supplied_headers_dict is not None:
+            for key, value in supplied_headers_dict.items():
                 headers[key] = value
 
         util.log_info("Request to Stripe api", method=method, path=abs_url)
@@ -433,16 +466,24 @@ class APIRequestor(object):
     def _should_handle_code_as_error(self, rcode):
         return not 200 <= rcode < 300
 
-    def interpret_response(self, rbody, rcode, rheaders) -> StripeResponse:
+    def interpret_response(
+        self, rbody: object, rcode: int, rheaders: Mapping[str, str]
+    ) -> StripeResponse:
         try:
             if hasattr(rbody, "decode"):
-                rbody = rbody.decode("utf-8")
-            resp = StripeResponse(rbody, rcode, rheaders)
+                # TODO: should be able to remove this cast once self._client.request_with_retries
+                # returns a more specific type.
+                rbody = cast(bytes, rbody).decode("utf-8")
+            resp = StripeResponse(
+                cast(str, rbody),
+                rcode,
+                rheaders,
+            )
         except Exception:
             raise error.APIError(
                 "Invalid response body from API: %s "
                 "(HTTP response code was %d)" % (rbody, rcode),
-                rbody,
+                cast(bytes, rbody),
                 rcode,
                 rheaders,
             )
@@ -450,14 +491,16 @@ class APIRequestor(object):
             self.handle_error_response(rbody, rcode, resp.data, rheaders)
         return resp
 
-    def interpret_streaming_response(self, stream, rcode, rheaders):
+    def interpret_streaming_response(
+        self, stream: IOBase, rcode: int, rheaders: Mapping[str, str]
+    ) -> StripeStreamResponse:
         # Streaming response are handled with minimal processing for the success
         # case (ie. we don't want to read the content). When an error is
         # received, we need to read from the stream and parse the received JSON,
         # treating it like a standard JSON response.
         if self._should_handle_code_as_error(rcode):
             if hasattr(stream, "getvalue"):
-                json_content = stream.getvalue()
+                json_content = cast(BytesIO, stream).getvalue()
             elif hasattr(stream, "read"):
                 json_content = stream.read()
             else:
@@ -466,6 +509,10 @@ class APIRequestor(object):
                     "can be consumed when streaming a response."
                 )
 
-            return self.interpret_response(json_content, rcode, rheaders)
+            self.interpret_response(json_content, rcode, rheaders)
+            # interpret_response is guaranteed to throw since we've checked self._should_handle_code_as_error
+            raise RuntimeError(
+                "interpret_response should have raised an error"
+            )
         else:
             return StripeStreamResponse(stream, rcode, rheaders)

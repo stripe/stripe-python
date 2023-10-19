@@ -8,7 +8,7 @@ from stripe.api_resources.abstract import (
 )
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -33,7 +33,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     Related guides: [Sources API](https://stripe.com/docs/sources) and [Sources & Customers](https://stripe.com/docs/sources/customers).
     """
 
-    OBJECT_NAME = "source"
+    OBJECT_NAME: ClassVar[Literal["source"]] = "source"
 
     class AchCreditTransfer(StripeObject):
         account_number: Optional[str]

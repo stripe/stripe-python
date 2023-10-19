@@ -10,7 +10,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -34,7 +34,9 @@ class OutboundTransfer(
     Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
     """
 
-    OBJECT_NAME = "treasury.outbound_transfer"
+    OBJECT_NAME: ClassVar[
+        Literal["treasury.outbound_transfer"]
+    ] = "treasury.outbound_transfer"
 
     class DestinationPaymentMethodDetails(StripeObject):
         class BillingDetails(StripeObject):

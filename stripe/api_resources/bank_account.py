@@ -11,7 +11,7 @@ from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import ClassVar, Dict, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
 
@@ -34,7 +34,7 @@ class BankAccount(
     Related guide: [Bank debits and transfers](https://stripe.com/docs/payments/bank-debits-transfers)
     """
 
-    OBJECT_NAME = "bank_account"
+    OBJECT_NAME: ClassVar[Literal["bank_account"]] = "bank_account"
 
     class FutureRequirements(StripeObject):
         class Error(StripeObject):

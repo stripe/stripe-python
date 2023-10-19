@@ -11,7 +11,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -35,7 +35,9 @@ class Configuration(
     A Configurations object represents how features should be configured for terminal readers.
     """
 
-    OBJECT_NAME = "terminal.configuration"
+    OBJECT_NAME: ClassVar[
+        Literal["terminal.configuration"]
+    ] = "terminal.configuration"
 
     class BbposWiseposE(StripeObject):
         splashscreen: Optional[ExpandableField["File"]]

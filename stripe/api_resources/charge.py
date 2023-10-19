@@ -12,7 +12,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import ClassVar, Dict, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -53,7 +53,7 @@ class Charge(
     Some legacy payment flows create Charges directly, which is not recommended for new integrations.
     """
 
-    OBJECT_NAME = "charge"
+    OBJECT_NAME: ClassVar[Literal["charge"]] = "charge"
 
     class BillingDetails(StripeObject):
         class Address(StripeObject):

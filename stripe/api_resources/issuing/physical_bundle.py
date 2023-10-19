@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
@@ -13,7 +13,9 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
     A Physical Bundle represents the bundle of physical items - card stock, carrier letter, and envelope - that is shipped to a cardholder when you create a physical card.
     """
 
-    OBJECT_NAME = "issuing.physical_bundle"
+    OBJECT_NAME: ClassVar[
+        Literal["issuing.physical_bundle"]
+    ] = "issuing.physical_bundle"
 
     class Features(StripeObject):
         card_logo: Literal["optional", "required", "unsupported"]

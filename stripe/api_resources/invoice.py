@@ -13,7 +13,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, Union, cast
+from typing import ClassVar, Dict, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -86,7 +86,7 @@ class Invoice(
     Related guide: [Send invoices to customers](https://stripe.com/docs/billing/invoices/sending)
     """
 
-    OBJECT_NAME = "invoice"
+    OBJECT_NAME: ClassVar[Literal["invoice"]] = "invoice"
 
     class AutomaticTax(StripeObject):
         class Liability(StripeObject):

@@ -1,29 +1,41 @@
+from typing import Dict, Optional, Union, cast
 import stripe
+from stripe.api_resources.error_object import ErrorObject
 
 
 class StripeError(Exception):
+    _message: Optional[str]
+    http_body: Optional[str]
+    http_status: Optional[int]
+    json_body: Optional[object]
+    headers: Optional[Dict[str, str]]
+    code: Optional[str]
+    request_id: Optional[str]
+    error: Optional[ErrorObject]
+
     def __init__(
         self,
-        message=None,
-        http_body=None,
-        http_status=None,
-        json_body=None,
-        headers=None,
-        code=None,
+        message: Optional[str] = None,
+        http_body: Optional[Union[bytes, str]] = None,
+        http_status: Optional[int] = None,
+        json_body: Optional[object] = None,
+        headers: Optional[Dict[str, str]] = None,
+        code: Optional[str] = None,
     ):
         super(StripeError, self).__init__(message)
 
+        body: Optional[str] = None
         if http_body and hasattr(http_body, "decode"):
             try:
-                http_body = http_body.decode("utf-8")
+                body = cast(bytes, http_body).decode("utf-8")
             except BaseException:
-                http_body = (
+                body = (
                     "<Could not decode body as utf-8. "
                     "Please report to support@stripe.com>"
                 )
 
         self._message = message
-        self.http_body = http_body
+        self.http_body = body
         self.http_status = http_status
         self.json_body = json_body
         self.headers = headers or {}
@@ -54,15 +66,16 @@ class StripeError(Exception):
             self.request_id,
         )
 
-    def construct_error_object(self):
+    def construct_error_object(self) -> Optional[ErrorObject]:
         if (
             self.json_body is None
+            or not isinstance(self.json_body, dict)
             or "error" not in self.json_body
             or not isinstance(self.json_body["error"], dict)
         ):
             return None
 
-        return stripe.api_resources.error_object.ErrorObject.construct_from(  # type: ignore
+        return ErrorObject.construct_from(
             self.json_body["error"], stripe.api_key
         )
 
@@ -72,6 +85,8 @@ class APIError(StripeError):
 
 
 class APIConnectionError(StripeError):
+    should_retry: bool
+
     def __init__(
         self,
         message,

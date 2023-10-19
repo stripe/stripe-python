@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional
+from typing import ClassVar, Dict, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -16,7 +16,7 @@ if TYPE_CHECKING:
 
 
 class InvoiceLineItem(StripeObject):
-    OBJECT_NAME = "line_item"
+    OBJECT_NAME: ClassVar[Literal["line_item"]] = "line_item"
 
     class DiscountAmount(StripeObject):
         amount: int

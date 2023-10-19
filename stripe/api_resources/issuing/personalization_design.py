@@ -11,7 +11,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -36,7 +36,9 @@ class PersonalizationDesign(
     A Personalization Design is a logical grouping of a Physical Bundle, card logo, and carrier text that represents a product line.
     """
 
-    OBJECT_NAME = "issuing.personalization_design"
+    OBJECT_NAME: ClassVar[
+        Literal["issuing.personalization_design"]
+    ] = "issuing.personalization_design"
 
     class CarrierText(StripeObject):
         footer_body: Optional[str]

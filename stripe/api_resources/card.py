@@ -9,7 +9,7 @@ from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.request_options import RequestOptions
-from typing import Dict, List, Optional, Union, cast
+from typing import ClassVar, Dict, List, Optional, Union, cast
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
 
@@ -26,7 +26,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     Related guide: [Card payments with Sources](https://stripe.com/docs/sources/cards)
     """
 
-    OBJECT_NAME = "card"
+    OBJECT_NAME: ClassVar[Literal["card"]] = "card"
     if TYPE_CHECKING:
 
         class DeleteParams(RequestOptions):

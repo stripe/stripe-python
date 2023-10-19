@@ -3,7 +3,7 @@
 from stripe.api_resources.abstract import SingletonAPIResource
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional
+from typing import ClassVar, List, Optional
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 
@@ -22,7 +22,7 @@ class Balance(SingletonAPIResource["Balance"]):
     Related guide: [Understanding Connect account balances](https://stripe.com/docs/connect/account-balances)
     """
 
-    OBJECT_NAME = "balance"
+    OBJECT_NAME: ClassVar[Literal["balance"]] = "balance"
 
     class Available(StripeObject):
         class SourceTypes(StripeObject):

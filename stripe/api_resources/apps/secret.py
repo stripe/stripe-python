@@ -7,7 +7,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import List, Optional, cast
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -30,7 +30,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     Related guide: [Store data between page reloads](https://stripe.com/docs/stripe-apps/store-auth-data-custom-objects)
     """
 
-    OBJECT_NAME = "apps.secret"
+    OBJECT_NAME: ClassVar[Literal["apps.secret"]] = "apps.secret"
 
     class Scope(StripeObject):
         type: Literal["account", "user"]

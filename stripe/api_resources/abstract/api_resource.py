@@ -1,4 +1,4 @@
-from typing_extensions import Literal
+from typing_extensions import Literal, Self
 
 from stripe import api_requestor, error, util
 from stripe.stripe_object import StripeObject
@@ -26,11 +26,11 @@ class APIResource(StripeObject, Generic[T]):
         instance.refresh()
         return cast(T, instance)
 
-    def refresh(self):
+    def refresh(self) -> Self:
         return self._request_and_refresh("get", self.instance_url())
 
     @classmethod
-    def class_url(cls):
+    def class_url(cls) -> str:
         if cls == APIResource:
             raise NotImplementedError(
                 "APIResource is an abstract class.  You should perform "
@@ -41,7 +41,7 @@ class APIResource(StripeObject, Generic[T]):
         base = cls.OBJECT_NAME.replace(".", "/")
         return "/v1/%ss" % (base,)
 
-    def instance_url(self):
+    def instance_url(self) -> str:
         id = self.get("id")
 
         if not isinstance(id, str):
@@ -68,7 +68,7 @@ class APIResource(StripeObject, Generic[T]):
         stripe_account=None,
         headers=None,
         params=None,
-    ):
+    ) -> StripeObject:
         obj = StripeObject._request(
             self,
             method_,
@@ -99,7 +99,7 @@ class APIResource(StripeObject, Generic[T]):
         stripe_account: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
         params: Optional[Mapping[str, Any]] = None,
-    ):
+    ) -> Self:
         obj = StripeObject._request(
             self,
             method_,
