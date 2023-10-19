@@ -47,8 +47,8 @@ class PersonalizationDesign(
         header_title: Optional[str]
 
     class Preferences(StripeObject):
-        account_default: bool
-        platform_default: Optional[bool]
+        is_default: bool
+        is_platform_default: Optional[bool]
 
     class RejectionReasons(StripeObject):
         card_logo: Optional[
@@ -97,7 +97,7 @@ class PersonalizationDesign(
             transfer_lookup_key: NotRequired["bool|None"]
 
         class CreateParamsPreferences(TypedDict):
-            account_default: bool
+            is_default: bool
 
         class CreateParamsCarrierText(TypedDict):
             footer_body: NotRequired["Literal['']|str|None"]
@@ -119,8 +119,8 @@ class PersonalizationDesign(
             ]
 
         class ListParamsPreferences(TypedDict):
-            account_default: NotRequired["bool|None"]
-            platform_default: NotRequired["bool|None"]
+            is_default: NotRequired["bool|None"]
+            is_platform_default: NotRequired["bool|None"]
 
         class ModifyParams(RequestOptions):
             card_logo: NotRequired["Literal['']|str|None"]
@@ -138,7 +138,7 @@ class PersonalizationDesign(
             transfer_lookup_key: NotRequired["bool|None"]
 
         class ModifyParamsPreferences(TypedDict):
-            account_default: bool
+            is_default: bool
 
         class ModifyParamsCarrierText(TypedDict):
             footer_body: NotRequired["Literal['']|str|None"]

@@ -759,6 +759,7 @@ class PaymentIntent(
             reference: Optional[str]
             reference_id: Optional[str]
             setup_future_usage: Optional[Literal["none", "off_session"]]
+            subsellers: Optional[List[str]]
 
         class Pix(StripeObject):
             expires_after_seconds: Optional[int]
@@ -1320,6 +1321,7 @@ class PaymentIntent(
             setup_future_usage: NotRequired[
                 "Literal['']|Literal['none', 'off_session']|None"
             ]
+            subsellers: NotRequired["List[str]|None"]
 
         class ConfirmParamsPaymentMethodOptionsPaynow(TypedDict):
             setup_future_usage: NotRequired["Literal['none']|None"]
@@ -1410,9 +1412,6 @@ class PaymentIntent(
 
         class ConfirmParamsPaymentMethodOptionsCardPresent(TypedDict):
             request_extended_authorization: NotRequired["bool|None"]
-            request_incremental_authorization: NotRequired[
-                "Literal['if_available', 'never']|None"
-            ]
             request_incremental_authorization_support: NotRequired["bool|None"]
             request_incremental_authorization: NotRequired[
                 "Literal['if_available', 'never']|None"
@@ -2262,6 +2261,7 @@ class PaymentIntent(
             setup_future_usage: NotRequired[
                 "Literal['']|Literal['none', 'off_session']|None"
             ]
+            subsellers: NotRequired["List[str]|None"]
 
         class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
             setup_future_usage: NotRequired["Literal['none']|None"]
@@ -2352,9 +2352,6 @@ class PaymentIntent(
 
         class CreateParamsPaymentMethodOptionsCardPresent(TypedDict):
             request_extended_authorization: NotRequired["bool|None"]
-            request_incremental_authorization: NotRequired[
-                "Literal['if_available', 'never']|None"
-            ]
             request_incremental_authorization_support: NotRequired["bool|None"]
             request_incremental_authorization: NotRequired[
                 "Literal['if_available', 'never']|None"
@@ -3201,6 +3198,7 @@ class PaymentIntent(
             setup_future_usage: NotRequired[
                 "Literal['']|Literal['none', 'off_session']|None"
             ]
+            subsellers: NotRequired["List[str]|None"]
 
         class ModifyParamsPaymentMethodOptionsPaynow(TypedDict):
             setup_future_usage: NotRequired["Literal['none']|None"]
@@ -3291,9 +3289,6 @@ class PaymentIntent(
 
         class ModifyParamsPaymentMethodOptionsCardPresent(TypedDict):
             request_extended_authorization: NotRequired["bool|None"]
-            request_incremental_authorization: NotRequired[
-                "Literal['if_available', 'never']|None"
-            ]
             request_incremental_authorization_support: NotRequired["bool|None"]
             request_incremental_authorization: NotRequired[
                 "Literal['if_available', 'never']|None"

@@ -200,6 +200,7 @@ class Order(
                     setup_future_usage: Optional[
                         Literal["none", "off_session"]
                     ]
+                    subsellers: Optional[List[str]]
 
                 class SepaDebit(StripeObject):
                     class MandateOptions(StripeObject):
@@ -773,6 +774,7 @@ class Order(
             setup_future_usage: NotRequired[
                 "Literal['']|Literal['none', 'off_session']|None"
             ]
+            subsellers: NotRequired["List[str]|None"]
 
         class CreateParamsPaymentSettingsPaymentMethodOptionsP24(TypedDict):
             setup_future_usage: NotRequired["Literal['none']|None"]
@@ -1263,6 +1265,7 @@ class Order(
             setup_future_usage: NotRequired[
                 "Literal['']|Literal['none', 'off_session']|None"
             ]
+            subsellers: NotRequired["List[str]|None"]
 
         class ModifyParamsPaymentSettingsPaymentMethodOptionsP24(TypedDict):
             setup_future_usage: NotRequired["Literal['none']|None"]

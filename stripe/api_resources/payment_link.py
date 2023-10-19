@@ -59,7 +59,13 @@ class PaymentLink(
         }
 
     class AutomaticTax(StripeObject):
+        class Liability(StripeObject):
+            account: Optional[ExpandableField["Account"]]
+            type: Literal["account", "self"]
+
         enabled: bool
+        liability: Optional[Liability]
+        _inner_class_types = {"liability": Liability}
 
     class ConsentCollection(StripeObject):
         promotions: Optional[Literal["auto", "none"]]
@@ -125,6 +131,10 @@ class PaymentLink(
                 name: str
                 value: str
 
+            class Issuer(StripeObject):
+                account: Optional[ExpandableField["Account"]]
+                type: Literal["account", "self"]
+
             class RenderingOptions(StripeObject):
                 amount_tax_display: Optional[str]
 
@@ -132,10 +142,12 @@ class PaymentLink(
             custom_fields: Optional[List[CustomField]]
             description: Optional[str]
             footer: Optional[str]
+            issuer: Optional[Issuer]
             metadata: Optional[Dict[str, str]]
             rendering_options: Optional[RenderingOptions]
             _inner_class_types = {
                 "custom_fields": CustomField,
+                "issuer": Issuer,
                 "rendering_options": RenderingOptions,
             }
 
@@ -403,9 +415,19 @@ class PaymentLink(
         shipping_rate: ExpandableField["ShippingRate"]
 
     class SubscriptionData(StripeObject):
+        class InvoiceSettings(StripeObject):
+            class Issuer(StripeObject):
+                account: Optional[ExpandableField["Account"]]
+                type: Literal["account", "self"]
+
+            issuer: Optional[Issuer]
+            _inner_class_types = {"issuer": Issuer}
+
         description: Optional[str]
+        invoice_settings: Optional[InvoiceSettings]
         metadata: Dict[str, str]
         trial_period_days: Optional[int]
+        _inner_class_types = {"invoice_settings": InvoiceSettings}
 
     class TaxIdCollection(StripeObject):
         enabled: bool
@@ -487,8 +509,20 @@ class PaymentLink(
 
         class CreateParamsSubscriptionData(TypedDict):
             description: NotRequired["str|None"]
+            invoice_settings: NotRequired[
+                "PaymentLink.CreateParamsSubscriptionDataInvoiceSettings|None"
+            ]
             metadata: NotRequired["Dict[str, str]|None"]
             trial_period_days: NotRequired["int|None"]
+
+        class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
+            issuer: NotRequired[
+                "PaymentLink.CreateParamsSubscriptionDataInvoiceSettingsIssuer|None"
+            ]
+
+        class CreateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
+            account: NotRequired["str|None"]
+            type: Literal["account", "self"]
 
         class CreateParamsShippingOption(TypedDict):
             shipping_rate: NotRequired["str|None"]
@@ -775,6 +809,9 @@ class PaymentLink(
             ]
             description: NotRequired["str|None"]
             footer: NotRequired["str|None"]
+            issuer: NotRequired[
+                "PaymentLink.CreateParamsInvoiceCreationInvoiceDataIssuer|None"
+            ]
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
             rendering_options: NotRequired[
                 "Literal['']|PaymentLink.CreateParamsInvoiceCreationInvoiceDataRenderingOptions|None"
@@ -786,6 +823,10 @@ class PaymentLink(
             amount_tax_display: NotRequired[
                 "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|None"
             ]
+
+        class CreateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
+            account: NotRequired["str|None"]
+            type: Literal["account", "self"]
 
         class CreateParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
             name: str
@@ -849,6 +890,13 @@ class PaymentLink(
 
         class CreateParamsAutomaticTax(TypedDict):
             enabled: bool
+            liability: NotRequired[
+                "PaymentLink.CreateParamsAutomaticTaxLiability|None"
+            ]
+
+        class CreateParamsAutomaticTaxLiability(TypedDict):
+            account: NotRequired["str|None"]
+            type: Literal["account", "self"]
 
         class CreateParamsAfterCompletion(TypedDict):
             hosted_confirmation: NotRequired[
@@ -922,7 +970,19 @@ class PaymentLink(
             ]
 
         class ModifyParamsSubscriptionData(TypedDict):
+            invoice_settings: NotRequired[
+                "PaymentLink.ModifyParamsSubscriptionDataInvoiceSettings|None"
+            ]
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+
+        class ModifyParamsSubscriptionDataInvoiceSettings(TypedDict):
+            issuer: NotRequired[
+                "PaymentLink.ModifyParamsSubscriptionDataInvoiceSettingsIssuer|None"
+            ]
+
+        class ModifyParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
+            account: NotRequired["str|None"]
+            type: Literal["account", "self"]
 
         class ModifyParamsShippingAddressCollection(TypedDict):
             allowed_countries: List[
@@ -1197,6 +1257,9 @@ class PaymentLink(
             ]
             description: NotRequired["str|None"]
             footer: NotRequired["str|None"]
+            issuer: NotRequired[
+                "PaymentLink.ModifyParamsInvoiceCreationInvoiceDataIssuer|None"
+            ]
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
             rendering_options: NotRequired[
                 "Literal['']|PaymentLink.ModifyParamsInvoiceCreationInvoiceDataRenderingOptions|None"
@@ -1208,6 +1271,10 @@ class PaymentLink(
             amount_tax_display: NotRequired[
                 "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|None"
             ]
+
+        class ModifyParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
+            account: NotRequired["str|None"]
+            type: Literal["account", "self"]
 
         class ModifyParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
             name: str
@@ -1267,6 +1334,13 @@ class PaymentLink(
 
         class ModifyParamsAutomaticTax(TypedDict):
             enabled: bool
+            liability: NotRequired[
+                "PaymentLink.ModifyParamsAutomaticTaxLiability|None"
+            ]
+
+        class ModifyParamsAutomaticTaxLiability(TypedDict):
+            account: NotRequired["str|None"]
+            type: Literal["account", "self"]
 
         class ModifyParamsAfterCompletion(TypedDict):
             hosted_confirmation: NotRequired[

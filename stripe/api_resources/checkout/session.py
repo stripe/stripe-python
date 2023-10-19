@@ -1423,6 +1423,7 @@ class Session(
             setup_future_usage: NotRequired[
                 "Literal['']|Literal['none', 'off_session']|None"
             ]
+            subsellers: NotRequired["List[str]|None"]
 
         class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
             setup_future_usage: NotRequired["Literal['none']|None"]

@@ -350,6 +350,7 @@ class SetupIntent(
         class Paypal(StripeObject):
             billing_agreement_id: Optional[str]
             currency: Optional[str]
+            subsellers: Optional[List[str]]
 
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
@@ -504,6 +505,7 @@ class SetupIntent(
         class ConfirmParamsPaymentMethodOptionsPaypal(TypedDict):
             billing_agreement_id: NotRequired["str|None"]
             currency: NotRequired["str|None"]
+            subsellers: NotRequired["List[str]|None"]
 
         class ConfirmParamsPaymentMethodOptionsLink(TypedDict):
             persistent_token: NotRequired["str|None"]
@@ -986,6 +988,7 @@ class SetupIntent(
         class CreateParamsPaymentMethodOptionsPaypal(TypedDict):
             billing_agreement_id: NotRequired["str|None"]
             currency: NotRequired["str|None"]
+            subsellers: NotRequired["List[str]|None"]
 
         class CreateParamsPaymentMethodOptionsLink(TypedDict):
             persistent_token: NotRequired["str|None"]
@@ -1460,6 +1463,7 @@ class SetupIntent(
         class ModifyParamsPaymentMethodOptionsPaypal(TypedDict):
             billing_agreement_id: NotRequired["str|None"]
             currency: NotRequired["str|None"]
+            subsellers: NotRequired["List[str]|None"]
 
         class ModifyParamsPaymentMethodOptionsLink(TypedDict):
             persistent_token: NotRequired["str|None"]
