@@ -2,7 +2,7 @@
 # File generated from our OpenAPI spec
 # flake8: noqa
 
-from . import abstract
+from . import abstract as abstract
 from stripe.api_resources import (
     apps as apps,
     billing_portal as billing_portal,
