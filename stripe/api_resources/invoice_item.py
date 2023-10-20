@@ -284,7 +284,7 @@ class InvoiceItem(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["InvoiceItem.ModifyParams"]
+        cls, id: str, **params: Unpack["InvoiceItem.ModifyParams"]
     ) -> "InvoiceItem":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

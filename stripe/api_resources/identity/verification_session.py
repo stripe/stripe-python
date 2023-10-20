@@ -207,7 +207,7 @@ class VerificationSession(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["VerificationSession.CancelParams"]
-    ):
+    ) -> "VerificationSession":
         return cls._static_request(
             "post",
             "/v1/identity/verification_sessions/{session}/cancel".format(
@@ -224,7 +224,7 @@ class VerificationSession(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["VerificationSession.CancelParams"]
-    ):
+    ) -> "VerificationSession":
         return self._request(
             "post",
             "/v1/identity/verification_sessions/{session}/cancel".format(
@@ -283,7 +283,7 @@ class VerificationSession(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["VerificationSession.ModifyParams"]
+        cls, id: str, **params: Unpack["VerificationSession.ModifyParams"]
     ) -> "VerificationSession":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -299,7 +299,7 @@ class VerificationSession(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["VerificationSession.RedactParams"]
-    ):
+    ) -> "VerificationSession":
         return cls._static_request(
             "post",
             "/v1/identity/verification_sessions/{session}/redact".format(
@@ -316,7 +316,7 @@ class VerificationSession(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["VerificationSession.RedactParams"]
-    ):
+    ) -> "VerificationSession":
         return self._request(
             "post",
             "/v1/identity/verification_sessions/{session}/redact".format(

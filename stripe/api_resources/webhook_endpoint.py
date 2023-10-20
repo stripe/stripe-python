@@ -407,7 +407,7 @@ class WebhookEndpoint(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["WebhookEndpoint.ModifyParams"]
+        cls, id: str, **params: Unpack["WebhookEndpoint.ModifyParams"]
     ) -> "WebhookEndpoint":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

@@ -172,7 +172,7 @@ class PromotionCode(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["PromotionCode.ModifyParams"]
+        cls, id: str, **params: Unpack["PromotionCode.ModifyParams"]
     ) -> "PromotionCode":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

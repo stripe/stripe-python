@@ -120,7 +120,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["ApplicationFee.RefundParams"]
-    ):
+    ) -> "ApplicationFeeRefund":
         return cls._static_request(
             "post",
             "/v1/application_fees/{id}/refunds".format(
@@ -137,7 +137,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["ApplicationFee.RefundParams"]
-    ):
+    ) -> "ApplicationFeeRefund":
         return self._request(
             "post",
             "/v1/application_fees/{id}/refunds".format(
@@ -163,7 +163,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["ApplicationFee.CreateRefundParams"]
-    ):
+    ) -> "ApplicationFeeRefund":
         return cls._static_request(
             "post",
             "/v1/application_fees/{id}/refunds".format(
@@ -184,7 +184,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["ApplicationFee.RetrieveRefundParams"]
-    ):
+    ) -> "ApplicationFeeRefund":
         return cls._static_request(
             "get",
             "/v1/application_fees/{fee}/refunds/{id}".format(
@@ -205,7 +205,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["ApplicationFee.ModifyRefundParams"]
-    ):
+    ) -> "ApplicationFeeRefund":
         return cls._static_request(
             "post",
             "/v1/application_fees/{fee}/refunds/{id}".format(
@@ -225,7 +225,7 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["ApplicationFee.ListRefundsParams"]
-    ):
+    ) -> ListObject["ApplicationFeeRefund"]:
         return cls._static_request(
             "get",
             "/v1/application_fees/{id}/refunds".format(

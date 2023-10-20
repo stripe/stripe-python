@@ -1924,7 +1924,7 @@ class Session(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Session.ExpireParams"]
-    ):
+    ) -> "Session":
         return cls._static_request(
             "post",
             "/v1/checkout/sessions/{session}/expire".format(
@@ -1941,7 +1941,7 @@ class Session(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Session.ExpireParams"]
-    ):
+    ) -> "Session":
         return self._request(
             "post",
             "/v1/checkout/sessions/{session}/expire".format(
@@ -1984,7 +1984,7 @@ class Session(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Session.ListLineItemsParams"]
-    ):
+    ) -> ListObject["LineItem"]:
         return cls._static_request(
             "get",
             "/v1/checkout/sessions/{session}/line_items".format(
@@ -2001,7 +2001,7 @@ class Session(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Session.ListLineItemsParams"]
-    ):
+    ) -> ListObject["LineItem"]:
         return self._request(
             "get",
             "/v1/checkout/sessions/{session}/line_items".format(

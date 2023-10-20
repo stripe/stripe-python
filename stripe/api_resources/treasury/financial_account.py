@@ -464,7 +464,7 @@ class FinancialAccount(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["FinancialAccount.ModifyParams"]
+        cls, id: str, **params: Unpack["FinancialAccount.ModifyParams"]
     ) -> "FinancialAccount":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -488,7 +488,7 @@ class FinancialAccount(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
-    ):
+    ) -> "FinancialAccountFeatures":
         return cls._static_request(
             "get",
             "/v1/treasury/financial_accounts/{financial_account}/features".format(
@@ -505,7 +505,7 @@ class FinancialAccount(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
-    ):
+    ) -> "FinancialAccountFeatures":
         return self._request(
             "get",
             "/v1/treasury/financial_accounts/{financial_account}/features".format(
@@ -523,7 +523,7 @@ class FinancialAccount(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
-    ):
+    ) -> "FinancialAccountFeatures":
         return cls._static_request(
             "post",
             "/v1/treasury/financial_accounts/{financial_account}/features".format(
@@ -540,7 +540,7 @@ class FinancialAccount(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
-    ):
+    ) -> "FinancialAccountFeatures":
         return self._request(
             "post",
             "/v1/treasury/financial_accounts/{financial_account}/features".format(

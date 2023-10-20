@@ -94,7 +94,7 @@ class Settings(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["Settings.ModifyParams"]
+        cls, id: str, **params: Unpack["Settings.ModifyParams"]
     ) -> "Settings":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

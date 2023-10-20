@@ -1501,7 +1501,7 @@ class Order(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.CancelParams"]
-    ):
+    ) -> "Order":
         return cls._static_request(
             "post",
             "/v1/orders/{id}/cancel".format(id=util.sanitize_id(id)),
@@ -1516,7 +1516,7 @@ class Order(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.CancelParams"]
-    ):
+    ) -> "Order":
         return self._request(
             "post",
             "/v1/orders/{id}/cancel".format(
@@ -1581,7 +1581,7 @@ class Order(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.ListLineItemsParams"]
-    ):
+    ) -> ListObject["LineItem"]:
         return cls._static_request(
             "get",
             "/v1/orders/{id}/line_items".format(id=util.sanitize_id(id)),
@@ -1596,7 +1596,7 @@ class Order(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.ListLineItemsParams"]
-    ):
+    ) -> ListObject["LineItem"]:
         return self._request(
             "get",
             "/v1/orders/{id}/line_items".format(
@@ -1607,7 +1607,9 @@ class Order(
         )
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Order.ModifyParams"]) -> "Order":
+    def modify(
+        cls, id: str, **params: Unpack["Order.ModifyParams"]
+    ) -> "Order":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Order",
@@ -1622,7 +1624,7 @@ class Order(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.ReopenParams"]
-    ):
+    ) -> "Order":
         return cls._static_request(
             "post",
             "/v1/orders/{id}/reopen".format(id=util.sanitize_id(id)),
@@ -1637,7 +1639,7 @@ class Order(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.ReopenParams"]
-    ):
+    ) -> "Order":
         return self._request(
             "post",
             "/v1/orders/{id}/reopen".format(
@@ -1663,7 +1665,7 @@ class Order(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.SubmitParams"]
-    ):
+    ) -> "Order":
         return cls._static_request(
             "post",
             "/v1/orders/{id}/submit".format(id=util.sanitize_id(id)),
@@ -1678,7 +1680,7 @@ class Order(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.SubmitParams"]
-    ):
+    ) -> "Order":
         return self._request(
             "post",
             "/v1/orders/{id}/submit".format(

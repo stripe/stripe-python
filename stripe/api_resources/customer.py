@@ -31,7 +31,14 @@ if TYPE_CHECKING:
     from stripe.api_resources.bank_account import BankAccount
     from stripe.api_resources.card import Card
     from stripe.api_resources.cash_balance import CashBalance
+    from stripe.api_resources.customer_balance_transaction import (
+        CustomerBalanceTransaction,
+    )
+    from stripe.api_resources.customer_cash_balance_transaction import (
+        CustomerCashBalanceTransaction,
+    )
     from stripe.api_resources.discount import Discount
+    from stripe.api_resources.funding_instructions import FundingInstructions
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.source import Source
     from stripe.api_resources.subscription import Subscription
@@ -681,7 +688,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateFundingInstructionsParams"]
-    ):
+    ) -> "FundingInstructions":
         return cls._static_request(
             "post",
             "/v1/customers/{customer}/funding_instructions".format(
@@ -698,7 +705,7 @@ class Customer(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.CreateFundingInstructionsParams"]
-    ):
+    ) -> "FundingInstructions":
         return self._request(
             "post",
             "/v1/customers/{customer}/funding_instructions".format(
@@ -734,7 +741,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.DeleteDiscountParams"]
-    ):
+    ) -> "Discount":
         return cls._static_request(
             "delete",
             "/v1/customers/{customer}/discount".format(
@@ -751,7 +758,7 @@ class Customer(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.DeleteDiscountParams"]
-    ):
+    ) -> "Discount":
         return self._request(
             "delete",
             "/v1/customers/{customer}/discount".format(
@@ -794,7 +801,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListPaymentMethodsParams"]
-    ):
+    ) -> ListObject["PaymentMethod"]:
         return cls._static_request(
             "get",
             "/v1/customers/{customer}/payment_methods".format(
@@ -811,7 +818,7 @@ class Customer(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.ListPaymentMethodsParams"]
-    ):
+    ) -> ListObject["PaymentMethod"]:
         return self._request(
             "get",
             "/v1/customers/{customer}/payment_methods".format(
@@ -823,7 +830,7 @@ class Customer(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["Customer.ModifyParams"]
+        cls, id: str, **params: Unpack["Customer.ModifyParams"]
     ) -> "Customer":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -848,7 +855,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrievePaymentMethodParams"]
-    ):
+    ) -> "PaymentMethod":
         return cls._static_request(
             "get",
             "/v1/customers/{customer}/payment_methods/{payment_method}".format(
@@ -867,7 +874,7 @@ class Customer(
         payment_method: str,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.RetrievePaymentMethodParams"]
-    ):
+    ) -> "PaymentMethod":
         return self._request(
             "get",
             "/v1/customers/{customer}/payment_methods/{payment_method}".format(
@@ -887,7 +894,7 @@ class Customer(
     @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Customer.SearchParams"]
-    ):
+    ) -> "Customer":
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
@@ -898,7 +905,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateBalanceTransactionParams"]
-    ):
+    ) -> "CustomerBalanceTransaction":
         return cls._static_request(
             "post",
             "/v1/customers/{customer}/balance_transactions".format(
@@ -919,7 +926,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveBalanceTransactionParams"]
-    ):
+    ) -> "CustomerBalanceTransaction":
         return cls._static_request(
             "get",
             "/v1/customers/{customer}/balance_transactions/{transaction}".format(
@@ -941,7 +948,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ModifyBalanceTransactionParams"]
-    ):
+    ) -> "CustomerBalanceTransaction":
         return cls._static_request(
             "post",
             "/v1/customers/{customer}/balance_transactions/{transaction}".format(
@@ -962,7 +969,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListBalanceTransactionsParams"]
-    ):
+    ) -> ListObject["CustomerBalanceTransaction"]:
         return cls._static_request(
             "get",
             "/v1/customers/{customer}/balance_transactions".format(
@@ -983,7 +990,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"]
-    ):
+    ) -> "CustomerCashBalanceTransaction":
         return cls._static_request(
             "get",
             "/v1/customers/{customer}/cash_balance_transactions/{transaction}".format(
@@ -1004,7 +1011,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListCashBalanceTransactionsParams"]
-    ):
+    ) -> ListObject["CustomerCashBalanceTransaction"]:
         return cls._static_request(
             "get",
             "/v1/customers/{customer}/cash_balance_transactions".format(
@@ -1024,7 +1031,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateSourceParams"]
-    ):
+    ) -> Union["Account", "BankAccount", "Card", "Source"]:
         return cls._static_request(
             "post",
             "/v1/customers/{customer}/sources".format(
@@ -1045,7 +1052,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveSourceParams"]
-    ):
+    ) -> Union["Account", "BankAccount", "Card", "Source"]:
         return cls._static_request(
             "get",
             "/v1/customers/{customer}/sources/{id}".format(
@@ -1066,7 +1073,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ModifySourceParams"]
-    ):
+    ) -> Union["Account", "BankAccount", "Card", "Source"]:
         return cls._static_request(
             "post",
             "/v1/customers/{customer}/sources/{id}".format(
@@ -1087,7 +1094,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.DeleteSourceParams"]
-    ):
+    ) -> Union["Account", "BankAccount", "Card", "Source"]:
         return cls._static_request(
             "delete",
             "/v1/customers/{customer}/sources/{id}".format(
@@ -1107,7 +1114,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListSourcesParams"]
-    ):
+    ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
         return cls._static_request(
             "get",
             "/v1/customers/{customer}/sources".format(
@@ -1127,7 +1134,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateTaxIdParams"]
-    ):
+    ) -> "TaxId":
         return cls._static_request(
             "post",
             "/v1/customers/{customer}/tax_ids".format(
@@ -1148,7 +1155,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveTaxIdParams"]
-    ):
+    ) -> "TaxId":
         return cls._static_request(
             "get",
             "/v1/customers/{customer}/tax_ids/{id}".format(
@@ -1169,7 +1176,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.DeleteTaxIdParams"]
-    ):
+    ) -> "TaxId":
         return cls._static_request(
             "delete",
             "/v1/customers/{customer}/tax_ids/{id}".format(
@@ -1189,7 +1196,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListTaxIdsParams"]
-    ):
+    ) -> ListObject["TaxId"]:
         return cls._static_request(
             "get",
             "/v1/customers/{customer}/tax_ids".format(
@@ -1209,7 +1216,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ModifyCashBalanceParams"]
-    ):
+    ) -> "CashBalance":
         return cls._static_request(
             "post",
             "/v1/customers/{customer}/cash_balance".format(
@@ -1229,7 +1236,7 @@ class Customer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveCashBalanceParams"]
-    ):
+    ) -> "CashBalance":
         return cls._static_request(
             "get",
             "/v1/customers/{customer}/cash_balance".format(
@@ -1252,7 +1259,7 @@ class Customer(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Customer.FundCashBalanceParams"]
-        ):
+        ) -> "CustomerCashBalanceTransaction":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
@@ -1269,7 +1276,7 @@ class Customer(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Customer.FundCashBalanceParams"]
-        ):
+        ) -> "CustomerCashBalanceTransaction":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(

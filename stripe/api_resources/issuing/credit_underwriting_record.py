@@ -891,7 +891,7 @@ class CreditUnderwritingRecord(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
-    ):
+    ) -> "CreditUnderwritingRecord":
         return cls._static_request(
             "post",
             "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
@@ -910,7 +910,7 @@ class CreditUnderwritingRecord(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
-    ):
+    ) -> "CreditUnderwritingRecord":
         return self._request(
             "post",
             "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
@@ -929,7 +929,7 @@ class CreditUnderwritingRecord(
         **params: Unpack[
             "CreditUnderwritingRecord.CreateFromApplicationParams"
         ]
-    ):
+    ) -> "CreditUnderwritingRecord":
         return cls._static_request(
             "post",
             "/v1/issuing/credit_underwriting_records/create_from_application",
@@ -948,7 +948,7 @@ class CreditUnderwritingRecord(
         **params: Unpack[
             "CreditUnderwritingRecord.CreateFromProactiveReviewParams"
         ]
-    ):
+    ) -> "CreditUnderwritingRecord":
         return cls._static_request(
             "post",
             "/v1/issuing/credit_underwriting_records/create_from_proactive_review",
@@ -991,7 +991,7 @@ class CreditUnderwritingRecord(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
-    ):
+    ) -> "CreditUnderwritingRecord":
         return cls._static_request(
             "post",
             "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
@@ -1010,7 +1010,7 @@ class CreditUnderwritingRecord(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
-    ):
+    ) -> "CreditUnderwritingRecord":
         return self._request(
             "post",
             "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(

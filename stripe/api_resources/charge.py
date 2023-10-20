@@ -1202,7 +1202,7 @@ class Charge(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Charge.CaptureParams"]
-    ):
+    ) -> "Charge":
         return cls._static_request(
             "post",
             "/v1/charges/{charge}/capture".format(
@@ -1219,7 +1219,7 @@ class Charge(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Charge.CaptureParams"]
-    ):
+    ) -> "Charge":
         return self._request(
             "post",
             "/v1/charges/{charge}/capture".format(
@@ -1277,7 +1277,9 @@ class Charge(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Charge.ModifyParams"]) -> "Charge":
+    def modify(
+        cls, id: str, **params: Unpack["Charge.ModifyParams"]
+    ) -> "Charge":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Charge",
@@ -1301,7 +1303,7 @@ class Charge(
     @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Charge.SearchParams"]
-    ):
+    ) -> "Charge":
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     def mark_as_fraudulent(self, idempotency_key=None):

@@ -337,7 +337,7 @@ class Authorization(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.ApproveParams"]
-    ):
+    ) -> "Authorization":
         return cls._static_request(
             "post",
             "/v1/issuing/authorizations/{authorization}/approve".format(
@@ -354,7 +354,7 @@ class Authorization(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.ApproveParams"]
-    ):
+    ) -> "Authorization":
         return self._request(
             "post",
             "/v1/issuing/authorizations/{authorization}/approve".format(
@@ -372,7 +372,7 @@ class Authorization(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.DeclineParams"]
-    ):
+    ) -> "Authorization":
         return cls._static_request(
             "post",
             "/v1/issuing/authorizations/{authorization}/decline".format(
@@ -389,7 +389,7 @@ class Authorization(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.DeclineParams"]
-    ):
+    ) -> "Authorization":
         return self._request(
             "post",
             "/v1/issuing/authorizations/{authorization}/decline".format(
@@ -426,7 +426,7 @@ class Authorization(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["Authorization.ModifyParams"]
+        cls, id: str, **params: Unpack["Authorization.ModifyParams"]
     ) -> "Authorization":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -453,7 +453,7 @@ class Authorization(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.CaptureParams"]
-        ):
+        ) -> "Authorization":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
@@ -470,7 +470,7 @@ class Authorization(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.CaptureParams"]
-        ):
+        ) -> "Authorization":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
@@ -487,7 +487,7 @@ class Authorization(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.CreateParams"]
-        ):
+        ) -> "Authorization":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations",
@@ -505,7 +505,7 @@ class Authorization(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.ExpireParams"]
-        ):
+        ) -> "Authorization":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
@@ -522,7 +522,7 @@ class Authorization(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ExpireParams"]
-        ):
+        ) -> "Authorization":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
@@ -540,7 +540,7 @@ class Authorization(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.IncrementParams"]
-        ):
+        ) -> "Authorization":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
@@ -557,7 +557,7 @@ class Authorization(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.IncrementParams"]
-        ):
+        ) -> "Authorization":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
@@ -575,7 +575,7 @@ class Authorization(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.ReverseParams"]
-        ):
+        ) -> "Authorization":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
@@ -592,7 +592,7 @@ class Authorization(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ReverseParams"]
-        ):
+        ) -> "Authorization":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(

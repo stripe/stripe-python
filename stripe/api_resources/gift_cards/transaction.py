@@ -123,7 +123,7 @@ class Transaction(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.CancelParams"]
-    ):
+    ) -> "Transaction":
         return cls._static_request(
             "post",
             "/v1/gift_cards/transactions/{id}/cancel".format(
@@ -140,7 +140,7 @@ class Transaction(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Transaction.CancelParams"]
-    ):
+    ) -> "Transaction":
         return self._request(
             "post",
             "/v1/gift_cards/transactions/{id}/cancel".format(
@@ -158,7 +158,7 @@ class Transaction(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.ConfirmParams"]
-    ):
+    ) -> "Transaction":
         return cls._static_request(
             "post",
             "/v1/gift_cards/transactions/{id}/confirm".format(
@@ -175,7 +175,7 @@ class Transaction(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Transaction.ConfirmParams"]
-    ):
+    ) -> "Transaction":
         return self._request(
             "post",
             "/v1/gift_cards/transactions/{id}/confirm".format(
@@ -234,7 +234,7 @@ class Transaction(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["Transaction.ModifyParams"]
+        cls, id: str, **params: Unpack["Transaction.ModifyParams"]
     ) -> "Transaction":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

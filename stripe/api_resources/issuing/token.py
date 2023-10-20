@@ -183,7 +183,9 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Token.ModifyParams"]) -> "Token":
+    def modify(
+        cls, id: str, **params: Unpack["Token.ModifyParams"]
+    ) -> "Token":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Token",

@@ -109,7 +109,7 @@ class Topup(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Topup.CancelParams"]
-    ):
+    ) -> "Topup":
         return cls._static_request(
             "post",
             "/v1/topups/{topup}/cancel".format(topup=util.sanitize_id(topup)),
@@ -124,7 +124,7 @@ class Topup(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Topup.CancelParams"]
-    ):
+    ) -> "Topup":
         return self._request(
             "post",
             "/v1/topups/{topup}/cancel".format(
@@ -182,7 +182,9 @@ class Topup(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Topup.ModifyParams"]) -> "Topup":
+    def modify(
+        cls, id: str, **params: Unpack["Topup.ModifyParams"]
+    ) -> "Topup":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Topup",

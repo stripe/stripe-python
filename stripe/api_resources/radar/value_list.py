@@ -166,7 +166,7 @@ class ValueList(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["ValueList.ModifyParams"]
+        cls, id: str, **params: Unpack["ValueList.ModifyParams"]
     ) -> "ValueList":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

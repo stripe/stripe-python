@@ -1239,7 +1239,9 @@ class PaymentMethodConfiguration(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["PaymentMethodConfiguration.ModifyParams"]
+        cls,
+        id: str,
+        **params: Unpack["PaymentMethodConfiguration.ModifyParams"]
     ) -> "PaymentMethodConfiguration":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

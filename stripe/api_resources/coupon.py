@@ -183,7 +183,9 @@ class Coupon(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Coupon.ModifyParams"]) -> "Coupon":
+    def modify(
+        cls, id: str, **params: Unpack["Coupon.ModifyParams"]
+    ) -> "Coupon":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Coupon",

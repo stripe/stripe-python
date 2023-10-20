@@ -1176,7 +1176,7 @@ class SubscriptionSchedule(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.AmendParams"]
-    ):
+    ) -> "SubscriptionSchedule":
         return cls._static_request(
             "post",
             "/v1/subscription_schedules/{schedule}/amend".format(
@@ -1193,7 +1193,7 @@ class SubscriptionSchedule(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.AmendParams"]
-    ):
+    ) -> "SubscriptionSchedule":
         return self._request(
             "post",
             "/v1/subscription_schedules/{schedule}/amend".format(
@@ -1211,7 +1211,7 @@ class SubscriptionSchedule(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.CancelParams"]
-    ):
+    ) -> "SubscriptionSchedule":
         return cls._static_request(
             "post",
             "/v1/subscription_schedules/{schedule}/cancel".format(
@@ -1228,7 +1228,7 @@ class SubscriptionSchedule(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.CancelParams"]
-    ):
+    ) -> "SubscriptionSchedule":
         return self._request(
             "post",
             "/v1/subscription_schedules/{schedule}/cancel".format(
@@ -1287,7 +1287,7 @@ class SubscriptionSchedule(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["SubscriptionSchedule.ModifyParams"]
+        cls, id: str, **params: Unpack["SubscriptionSchedule.ModifyParams"]
     ) -> "SubscriptionSchedule":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -1303,7 +1303,7 @@ class SubscriptionSchedule(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.ReleaseParams"]
-    ):
+    ) -> "SubscriptionSchedule":
         return cls._static_request(
             "post",
             "/v1/subscription_schedules/{schedule}/release".format(
@@ -1320,7 +1320,7 @@ class SubscriptionSchedule(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.ReleaseParams"]
-    ):
+    ) -> "SubscriptionSchedule":
         return self._request(
             "post",
             "/v1/subscription_schedules/{schedule}/release".format(

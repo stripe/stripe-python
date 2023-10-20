@@ -127,7 +127,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancingOffer.MarkDeliveredParams"]
-    ):
+    ) -> "FinancingOffer":
         return cls._static_request(
             "post",
             "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(
@@ -144,7 +144,7 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancingOffer.MarkDeliveredParams"]
-    ):
+    ) -> "FinancingOffer":
         return self._request(
             "post",
             "/v1/capital/financing_offers/{financing_offer}/mark_delivered".format(

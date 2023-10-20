@@ -135,7 +135,7 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["QuotePhase.ListLineItemsParams"]
-    ):
+    ) -> ListObject["LineItem"]:
         return cls._static_request(
             "get",
             "/v1/quote_phases/{quote_phase}/line_items".format(
@@ -152,7 +152,7 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["QuotePhase.ListLineItemsParams"]
-    ):
+    ) -> ListObject["LineItem"]:
         return self._request(
             "get",
             "/v1/quote_phases/{quote_phase}/line_items".format(

@@ -904,7 +904,7 @@ class Registration(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["Registration.ModifyParams"]
+        cls, id: str, **params: Unpack["Registration.ModifyParams"]
     ) -> "Registration":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

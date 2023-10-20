@@ -163,7 +163,7 @@ class Location(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["Location.ModifyParams"]
+        cls, id: str, **params: Unpack["Location.ModifyParams"]
     ) -> "Location":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

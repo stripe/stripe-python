@@ -112,7 +112,7 @@ class AccountNotice(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["AccountNotice.ModifyParams"]
+        cls, id: str, **params: Unpack["AccountNotice.ModifyParams"]
     ) -> "AccountNotice":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

@@ -243,7 +243,7 @@ class OutboundPayment(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["OutboundPayment.CancelParams"]
-    ):
+    ) -> "OutboundPayment":
         return cls._static_request(
             "post",
             "/v1/treasury/outbound_payments/{id}/cancel".format(
@@ -260,7 +260,7 @@ class OutboundPayment(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["OutboundPayment.CancelParams"]
-    ):
+    ) -> "OutboundPayment":
         return self._request(
             "post",
             "/v1/treasury/outbound_payments/{id}/cancel".format(
@@ -336,7 +336,7 @@ class OutboundPayment(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundPayment.FailParams"]
-        ):
+        ) -> "OutboundPayment":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
@@ -353,7 +353,7 @@ class OutboundPayment(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.FailParams"]
-        ):
+        ) -> "OutboundPayment":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
@@ -371,7 +371,7 @@ class OutboundPayment(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundPayment.PostParams"]
-        ):
+        ) -> "OutboundPayment":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
@@ -388,7 +388,7 @@ class OutboundPayment(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.PostParams"]
-        ):
+        ) -> "OutboundPayment":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
@@ -406,7 +406,7 @@ class OutboundPayment(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
-        ):
+        ) -> "OutboundPayment":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
@@ -423,7 +423,7 @@ class OutboundPayment(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
-        ):
+        ) -> "OutboundPayment":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(

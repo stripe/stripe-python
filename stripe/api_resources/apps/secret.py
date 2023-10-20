@@ -117,7 +117,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Secret.DeleteWhereParams"]
-    ):
+    ) -> "Secret":
         return cls._static_request(
             "post",
             "/v1/apps/secrets/delete",
@@ -134,7 +134,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Secret.FindParams"]
-    ):
+    ) -> "Secret":
         return cls._static_request(
             "get",
             "/v1/apps/secrets/find",

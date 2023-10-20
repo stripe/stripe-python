@@ -147,7 +147,7 @@ class PaymentMethodDomain(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["PaymentMethodDomain.ModifyParams"]
+        cls, id: str, **params: Unpack["PaymentMethodDomain.ModifyParams"]
     ) -> "PaymentMethodDomain":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -171,7 +171,7 @@ class PaymentMethodDomain(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethodDomain.ValidateParams"]
-    ):
+    ) -> "PaymentMethodDomain":
         return cls._static_request(
             "post",
             "/v1/payment_method_domains/{payment_method_domain}/validate".format(
@@ -188,7 +188,7 @@ class PaymentMethodDomain(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethodDomain.ValidateParams"]
-    ):
+    ) -> "PaymentMethodDomain":
         return self._request(
             "post",
             "/v1/payment_method_domains/{payment_method_domain}/validate".format(

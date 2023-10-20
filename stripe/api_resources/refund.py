@@ -125,7 +125,7 @@ class Refund(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Refund.CancelParams"]
-    ):
+    ) -> "Refund":
         return cls._static_request(
             "post",
             "/v1/refunds/{refund}/cancel".format(
@@ -142,7 +142,7 @@ class Refund(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Refund.CancelParams"]
-    ):
+    ) -> "Refund":
         return self._request(
             "post",
             "/v1/refunds/{refund}/cancel".format(
@@ -200,7 +200,9 @@ class Refund(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Refund.ModifyParams"]) -> "Refund":
+    def modify(
+        cls, id: str, **params: Unpack["Refund.ModifyParams"]
+    ) -> "Refund":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Refund",
@@ -226,7 +228,7 @@ class Refund(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Refund.ExpireParams"]
-        ):
+        ) -> "Refund":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/refunds/{refund}/expire".format(
@@ -243,7 +245,7 @@ class Refund(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Refund.ExpireParams"]
-        ):
+        ) -> "Refund":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/refunds/{refund}/expire".format(

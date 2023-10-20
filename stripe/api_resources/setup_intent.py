@@ -1865,7 +1865,7 @@ class SetupIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
-    ):
+    ) -> "SetupIntent":
         return cls._static_request(
             "post",
             "/v1/setup_intents/{intent}/cancel".format(
@@ -1882,7 +1882,7 @@ class SetupIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
-    ):
+    ) -> "SetupIntent":
         return self._request(
             "post",
             "/v1/setup_intents/{intent}/cancel".format(
@@ -1900,7 +1900,7 @@ class SetupIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
-    ):
+    ) -> "SetupIntent":
         return cls._static_request(
             "post",
             "/v1/setup_intents/{intent}/confirm".format(
@@ -1917,7 +1917,7 @@ class SetupIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
-    ):
+    ) -> "SetupIntent":
         return self._request(
             "post",
             "/v1/setup_intents/{intent}/confirm".format(
@@ -1976,7 +1976,7 @@ class SetupIntent(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["SetupIntent.ModifyParams"]
+        cls, id: str, **params: Unpack["SetupIntent.ModifyParams"]
     ) -> "SetupIntent":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -2000,7 +2000,7 @@ class SetupIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
-    ):
+    ) -> "SetupIntent":
         return cls._static_request(
             "post",
             "/v1/setup_intents/{intent}/verify_microdeposits".format(
@@ -2017,7 +2017,7 @@ class SetupIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
-    ):
+    ) -> "SetupIntent":
         return self._request(
             "post",
             "/v1/setup_intents/{intent}/verify_microdeposits".format(

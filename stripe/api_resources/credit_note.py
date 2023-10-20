@@ -321,7 +321,7 @@ class CreditNote(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["CreditNote.ModifyParams"]
+        cls, id: str, **params: Unpack["CreditNote.ModifyParams"]
     ) -> "CreditNote":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -336,7 +336,7 @@ class CreditNote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.PreviewParams"]
-    ):
+    ) -> "CreditNote":
         return cls._static_request(
             "get",
             "/v1/credit_notes/preview",
@@ -353,7 +353,7 @@ class CreditNote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.PreviewLinesParams"]
-    ):
+    ) -> ListObject["CreditNoteLineItem"]:
         return cls._static_request(
             "get",
             "/v1/credit_notes/preview/lines",
@@ -379,7 +379,7 @@ class CreditNote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.VoidCreditNoteParams"]
-    ):
+    ) -> "CreditNote":
         return cls._static_request(
             "post",
             "/v1/credit_notes/{id}/void".format(id=util.sanitize_id(id)),
@@ -394,7 +394,7 @@ class CreditNote(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditNote.VoidCreditNoteParams"]
-    ):
+    ) -> "CreditNote":
         return self._request(
             "post",
             "/v1/credit_notes/{id}/void".format(
@@ -412,7 +412,7 @@ class CreditNote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.ListLinesParams"]
-    ):
+    ) -> ListObject["CreditNoteLineItem"]:
         return cls._static_request(
             "get",
             "/v1/credit_notes/{credit_note}/lines".format(

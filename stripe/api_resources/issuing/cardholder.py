@@ -1303,7 +1303,7 @@ class Cardholder(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["Cardholder.ModifyParams"]
+        cls, id: str, **params: Unpack["Cardholder.ModifyParams"]
     ) -> "Cardholder":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

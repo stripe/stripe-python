@@ -910,7 +910,7 @@ class PaymentMethod(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethod.AttachParams"]
-    ):
+    ) -> "PaymentMethod":
         return cls._static_request(
             "post",
             "/v1/payment_methods/{payment_method}/attach".format(
@@ -927,7 +927,7 @@ class PaymentMethod(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethod.AttachParams"]
-    ):
+    ) -> "PaymentMethod":
         return self._request(
             "post",
             "/v1/payment_methods/{payment_method}/attach".format(
@@ -967,7 +967,7 @@ class PaymentMethod(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethod.DetachParams"]
-    ):
+    ) -> "PaymentMethod":
         return cls._static_request(
             "post",
             "/v1/payment_methods/{payment_method}/detach".format(
@@ -984,7 +984,7 @@ class PaymentMethod(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethod.DetachParams"]
-    ):
+    ) -> "PaymentMethod":
         return self._request(
             "post",
             "/v1/payment_methods/{payment_method}/detach".format(
@@ -1021,7 +1021,7 @@ class PaymentMethod(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["PaymentMethod.ModifyParams"]
+        cls, id: str, **params: Unpack["PaymentMethod.ModifyParams"]
     ) -> "PaymentMethod":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

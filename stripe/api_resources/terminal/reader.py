@@ -372,7 +372,7 @@ class Reader(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CancelActionParams"]
-    ):
+    ) -> "Reader":
         return cls._static_request(
             "post",
             "/v1/terminal/readers/{reader}/cancel_action".format(
@@ -389,7 +389,7 @@ class Reader(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CancelActionParams"]
-    ):
+    ) -> "Reader":
         return self._request(
             "post",
             "/v1/terminal/readers/{reader}/cancel_action".format(
@@ -407,7 +407,7 @@ class Reader(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CollectInputsParams"]
-    ):
+    ) -> "Reader":
         return cls._static_request(
             "post",
             "/v1/terminal/readers/{reader}/collect_inputs".format(
@@ -424,7 +424,7 @@ class Reader(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CollectInputsParams"]
-    ):
+    ) -> "Reader":
         return self._request(
             "post",
             "/v1/terminal/readers/{reader}/collect_inputs".format(
@@ -442,7 +442,7 @@ class Reader(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CollectPaymentMethodParams"]
-    ):
+    ) -> "Reader":
         return cls._static_request(
             "post",
             "/v1/terminal/readers/{reader}/collect_payment_method".format(
@@ -459,7 +459,7 @@ class Reader(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CollectPaymentMethodParams"]
-    ):
+    ) -> "Reader":
         return self._request(
             "post",
             "/v1/terminal/readers/{reader}/collect_payment_method".format(
@@ -477,7 +477,7 @@ class Reader(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ConfirmPaymentIntentParams"]
-    ):
+    ) -> "Reader":
         return cls._static_request(
             "post",
             "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
@@ -494,7 +494,7 @@ class Reader(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ConfirmPaymentIntentParams"]
-    ):
+    ) -> "Reader":
         return self._request(
             "post",
             "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
@@ -570,7 +570,9 @@ class Reader(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Reader.ModifyParams"]) -> "Reader":
+    def modify(
+        cls, id: str, **params: Unpack["Reader.ModifyParams"]
+    ) -> "Reader":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Reader",
@@ -585,7 +587,7 @@ class Reader(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ProcessPaymentIntentParams"]
-    ):
+    ) -> "Reader":
         return cls._static_request(
             "post",
             "/v1/terminal/readers/{reader}/process_payment_intent".format(
@@ -602,7 +604,7 @@ class Reader(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessPaymentIntentParams"]
-    ):
+    ) -> "Reader":
         return self._request(
             "post",
             "/v1/terminal/readers/{reader}/process_payment_intent".format(
@@ -620,7 +622,7 @@ class Reader(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ProcessSetupIntentParams"]
-    ):
+    ) -> "Reader":
         return cls._static_request(
             "post",
             "/v1/terminal/readers/{reader}/process_setup_intent".format(
@@ -637,7 +639,7 @@ class Reader(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessSetupIntentParams"]
-    ):
+    ) -> "Reader":
         return self._request(
             "post",
             "/v1/terminal/readers/{reader}/process_setup_intent".format(
@@ -655,7 +657,7 @@ class Reader(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.RefundPaymentParams"]
-    ):
+    ) -> "Reader":
         return cls._static_request(
             "post",
             "/v1/terminal/readers/{reader}/refund_payment".format(
@@ -672,7 +674,7 @@ class Reader(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.RefundPaymentParams"]
-    ):
+    ) -> "Reader":
         return self._request(
             "post",
             "/v1/terminal/readers/{reader}/refund_payment".format(
@@ -698,7 +700,7 @@ class Reader(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.SetReaderDisplayParams"]
-    ):
+    ) -> "Reader":
         return cls._static_request(
             "post",
             "/v1/terminal/readers/{reader}/set_reader_display".format(
@@ -715,7 +717,7 @@ class Reader(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.SetReaderDisplayParams"]
-    ):
+    ) -> "Reader":
         return self._request(
             "post",
             "/v1/terminal/readers/{reader}/set_reader_display".format(
@@ -736,7 +738,7 @@ class Reader(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Reader.PresentPaymentMethodParams"]
-        ):
+        ) -> "Reader":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
@@ -753,7 +755,7 @@ class Reader(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Reader.PresentPaymentMethodParams"]
-        ):
+        ) -> "Reader":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(

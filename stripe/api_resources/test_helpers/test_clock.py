@@ -68,7 +68,7 @@ class TestClock(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["TestClock.AdvanceParams"]
-    ):
+    ) -> "TestClock":
         return cls._static_request(
             "post",
             "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
@@ -85,7 +85,7 @@ class TestClock(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["TestClock.AdvanceParams"]
-    ):
+    ) -> "TestClock":
         return self._request(
             "post",
             "/v1/test_helpers/test_clocks/{test_clock}/advance".format(

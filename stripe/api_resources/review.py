@@ -91,7 +91,7 @@ class Review(ListableAPIResource["Review"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Review.ApproveParams"]
-    ):
+    ) -> "Review":
         return cls._static_request(
             "post",
             "/v1/reviews/{review}/approve".format(
@@ -108,7 +108,7 @@ class Review(ListableAPIResource["Review"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Review.ApproveParams"]
-    ):
+    ) -> "Review":
         return self._request(
             "post",
             "/v1/reviews/{review}/approve".format(

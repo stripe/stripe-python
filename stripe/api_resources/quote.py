@@ -28,7 +28,13 @@ if TYPE_CHECKING:
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.discount import Discount as DiscountResource
     from stripe.api_resources.invoice import Invoice
+    from stripe.api_resources.invoice_line_item import InvoiceLineItem
     from stripe.api_resources.line_item import LineItem
+    from stripe.api_resources.quote_line import QuoteLine
+    from stripe.api_resources.quote_preview_invoice import QuotePreviewInvoice
+    from stripe.api_resources.quote_preview_subscription_schedule import (
+        QuotePreviewSubscriptionSchedule,
+    )
     from stripe.api_resources.subscription import Subscription
     from stripe.api_resources.subscription_schedule import (
         SubscriptionSchedule as SubscriptionScheduleResource,
@@ -1740,7 +1746,7 @@ class Quote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
-    ):
+    ) -> "Quote":
         return cls._static_request(
             "post",
             "/v1/quotes/{quote}/accept".format(quote=util.sanitize_id(quote)),
@@ -1755,7 +1761,7 @@ class Quote(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
-    ):
+    ) -> "Quote":
         return self._request(
             "post",
             "/v1/quotes/{quote}/accept".format(
@@ -1773,7 +1779,7 @@ class Quote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
-    ):
+    ) -> "Quote":
         return cls._static_request(
             "post",
             "/v1/quotes/{quote}/cancel".format(quote=util.sanitize_id(quote)),
@@ -1788,7 +1794,7 @@ class Quote(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
-    ):
+    ) -> "Quote":
         return self._request(
             "post",
             "/v1/quotes/{quote}/cancel".format(
@@ -1828,7 +1834,7 @@ class Quote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
-    ):
+    ) -> "Quote":
         return cls._static_request(
             "post",
             "/v1/quotes/{quote}/finalize".format(
@@ -1845,7 +1851,7 @@ class Quote(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
-    ):
+    ) -> "Quote":
         return self._request(
             "post",
             "/v1/quotes/{quote}/finalize".format(
@@ -1888,7 +1894,7 @@ class Quote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
-    ):
+    ) -> ListObject["LineItem"]:
         return cls._static_request(
             "get",
             "/v1/quotes/{quote}/computed_upfront_line_items".format(
@@ -1905,7 +1911,7 @@ class Quote(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
-    ):
+    ) -> ListObject["LineItem"]:
         return self._request(
             "get",
             "/v1/quotes/{quote}/computed_upfront_line_items".format(
@@ -1923,7 +1929,7 @@ class Quote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]
-    ):
+    ) -> ListObject["LineItem"]:
         return cls._static_request(
             "get",
             "/v1/quotes/{quote}/line_items".format(
@@ -1940,7 +1946,7 @@ class Quote(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]
-    ):
+    ) -> ListObject["LineItem"]:
         return self._request(
             "get",
             "/v1/quotes/{quote}/line_items".format(
@@ -1958,7 +1964,7 @@ class Quote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListLinesParams"]
-    ):
+    ) -> ListObject["QuoteLine"]:
         return cls._static_request(
             "get",
             "/v1/quotes/{quote}/lines".format(quote=util.sanitize_id(quote)),
@@ -1973,7 +1979,7 @@ class Quote(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListLinesParams"]
-    ):
+    ) -> ListObject["QuoteLine"]:
         return self._request(
             "get",
             "/v1/quotes/{quote}/lines".format(
@@ -1992,7 +1998,7 @@ class Quote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
-    ):
+    ) -> ListObject["InvoiceLineItem"]:
         return cls._static_request(
             "get",
             "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
@@ -2011,7 +2017,7 @@ class Quote(
         preview_invoice: str,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
-    ):
+    ) -> ListObject["InvoiceLineItem"]:
         return self._request(
             "get",
             "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
@@ -2030,7 +2036,7 @@ class Quote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.MarkDraftParams"]
-    ):
+    ) -> "Quote":
         return cls._static_request(
             "post",
             "/v1/quotes/{quote}/mark_draft".format(
@@ -2047,7 +2053,7 @@ class Quote(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.MarkDraftParams"]
-    ):
+    ) -> "Quote":
         return self._request(
             "post",
             "/v1/quotes/{quote}/mark_draft".format(
@@ -2065,7 +2071,7 @@ class Quote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.MarkStaleParams"]
-    ):
+    ) -> "Quote":
         return cls._static_request(
             "post",
             "/v1/quotes/{quote}/mark_stale".format(
@@ -2082,7 +2088,7 @@ class Quote(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.MarkStaleParams"]
-    ):
+    ) -> "Quote":
         return self._request(
             "post",
             "/v1/quotes/{quote}/mark_stale".format(
@@ -2093,7 +2099,9 @@ class Quote(
         )
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Quote.ModifyParams"]) -> "Quote":
+    def modify(
+        cls, id: str, **params: Unpack["Quote.ModifyParams"]
+    ) -> "Quote":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Quote",
@@ -2108,7 +2116,7 @@ class Quote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ReestimateParams"]
-    ):
+    ) -> "Quote":
         return cls._static_request(
             "post",
             "/v1/quotes/{quote}/reestimate".format(
@@ -2125,7 +2133,7 @@ class Quote(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ReestimateParams"]
-    ):
+    ) -> "Quote":
         return self._request(
             "post",
             "/v1/quotes/{quote}/reestimate".format(
@@ -2195,7 +2203,7 @@ class Quote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewInvoicesParams"]
-    ):
+    ) -> ListObject["QuotePreviewInvoice"]:
         return cls._static_request(
             "get",
             "/v1/quotes/{quote}/preview_invoices".format(
@@ -2215,7 +2223,7 @@ class Quote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewSubscriptionSchedulesParams"]
-    ):
+    ) -> ListObject["QuotePreviewSubscriptionSchedule"]:
         return cls._static_request(
             "get",
             "/v1/quotes/{quote}/preview_subscription_schedules".format(

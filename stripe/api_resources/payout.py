@@ -129,7 +129,7 @@ class Payout(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Payout.CancelParams"]
-    ):
+    ) -> "Payout":
         return cls._static_request(
             "post",
             "/v1/payouts/{payout}/cancel".format(
@@ -146,7 +146,7 @@ class Payout(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Payout.CancelParams"]
-    ):
+    ) -> "Payout":
         return self._request(
             "post",
             "/v1/payouts/{payout}/cancel".format(
@@ -204,7 +204,9 @@ class Payout(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Payout.ModifyParams"]) -> "Payout":
+    def modify(
+        cls, id: str, **params: Unpack["Payout.ModifyParams"]
+    ) -> "Payout":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Payout",
@@ -227,7 +229,7 @@ class Payout(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Payout.ReverseParams"]
-    ):
+    ) -> "Payout":
         return cls._static_request(
             "post",
             "/v1/payouts/{payout}/reverse".format(
@@ -244,7 +246,7 @@ class Payout(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Payout.ReverseParams"]
-    ):
+    ) -> "Payout":
         return self._request(
             "post",
             "/v1/payouts/{payout}/reverse".format(

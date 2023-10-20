@@ -3936,7 +3936,7 @@ class PaymentIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
-    ):
+    ) -> "PaymentIntent":
         return cls._static_request(
             "post",
             "/v1/payment_intents/{intent}/apply_customer_balance".format(
@@ -3953,7 +3953,7 @@ class PaymentIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
-    ):
+    ) -> "PaymentIntent":
         return self._request(
             "post",
             "/v1/payment_intents/{intent}/apply_customer_balance".format(
@@ -3971,7 +3971,7 @@ class PaymentIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentIntent.CancelParams"]
-    ):
+    ) -> "PaymentIntent":
         return cls._static_request(
             "post",
             "/v1/payment_intents/{intent}/cancel".format(
@@ -3988,7 +3988,7 @@ class PaymentIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.CancelParams"]
-    ):
+    ) -> "PaymentIntent":
         return self._request(
             "post",
             "/v1/payment_intents/{intent}/cancel".format(
@@ -4006,7 +4006,7 @@ class PaymentIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentIntent.CaptureParams"]
-    ):
+    ) -> "PaymentIntent":
         return cls._static_request(
             "post",
             "/v1/payment_intents/{intent}/capture".format(
@@ -4023,7 +4023,7 @@ class PaymentIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.CaptureParams"]
-    ):
+    ) -> "PaymentIntent":
         return self._request(
             "post",
             "/v1/payment_intents/{intent}/capture".format(
@@ -4041,7 +4041,7 @@ class PaymentIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentIntent.ConfirmParams"]
-    ):
+    ) -> "PaymentIntent":
         return cls._static_request(
             "post",
             "/v1/payment_intents/{intent}/confirm".format(
@@ -4058,7 +4058,7 @@ class PaymentIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.ConfirmParams"]
-    ):
+    ) -> "PaymentIntent":
         return self._request(
             "post",
             "/v1/payment_intents/{intent}/confirm".format(
@@ -4098,7 +4098,7 @@ class PaymentIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
-    ):
+    ) -> "PaymentIntent":
         return cls._static_request(
             "post",
             "/v1/payment_intents/{intent}/increment_authorization".format(
@@ -4115,7 +4115,7 @@ class PaymentIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
-    ):
+    ) -> "PaymentIntent":
         return self._request(
             "post",
             "/v1/payment_intents/{intent}/increment_authorization".format(
@@ -4152,7 +4152,7 @@ class PaymentIntent(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["PaymentIntent.ModifyParams"]
+        cls, id: str, **params: Unpack["PaymentIntent.ModifyParams"]
     ) -> "PaymentIntent":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -4176,7 +4176,7 @@ class PaymentIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
-    ):
+    ) -> "PaymentIntent":
         return cls._static_request(
             "post",
             "/v1/payment_intents/{intent}/verify_microdeposits".format(
@@ -4193,7 +4193,7 @@ class PaymentIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
-    ):
+    ) -> "PaymentIntent":
         return self._request(
             "post",
             "/v1/payment_intents/{intent}/verify_microdeposits".format(
@@ -4214,7 +4214,7 @@ class PaymentIntent(
     @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["PaymentIntent.SearchParams"]
-    ):
+    ) -> "PaymentIntent":
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     _inner_class_types = {

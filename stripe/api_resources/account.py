@@ -24,8 +24,10 @@ from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe.api_resources.bank_account import BankAccount
+    from stripe.api_resources.capability import Capability
     from stripe.api_resources.card import Card
     from stripe.api_resources.file import File
+    from stripe.api_resources.login_link import LoginLink
     from stripe.api_resources.person import Person
 
 
@@ -1631,7 +1633,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.PersonsParams"]
-    ):
+    ) -> ListObject["Person"]:
         return cls._static_request(
             "get",
             "/v1/accounts/{account}/persons".format(
@@ -1648,7 +1650,7 @@ class Account(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.PersonsParams"]
-    ):
+    ) -> ListObject["Person"]:
         return self._request(
             "get",
             "/v1/accounts/{account}/persons".format(
@@ -1666,7 +1668,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RejectParams"]
-    ):
+    ) -> "Account":
         return cls._static_request(
             "post",
             "/v1/accounts/{account}/reject".format(
@@ -1683,7 +1685,7 @@ class Account(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.RejectParams"]
-    ):
+    ) -> "Account":
         return self._request(
             "post",
             "/v1/accounts/{account}/reject".format(
@@ -1745,7 +1747,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RetrieveCapabilityParams"]
-    ):
+    ) -> "Capability":
         return cls._static_request(
             "get",
             "/v1/accounts/{account}/capabilities/{capability}".format(
@@ -1767,7 +1769,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ModifyCapabilityParams"]
-    ):
+    ) -> "Capability":
         return cls._static_request(
             "post",
             "/v1/accounts/{account}/capabilities/{capability}".format(
@@ -1788,7 +1790,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListCapabilitiesParams"]
-    ):
+    ) -> ListObject["Capability"]:
         return cls._static_request(
             "get",
             "/v1/accounts/{account}/capabilities".format(
@@ -1808,7 +1810,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.CreateExternalAccountParams"]
-    ):
+    ) -> Union["BankAccount", "Card"]:
         return cls._static_request(
             "post",
             "/v1/accounts/{account}/external_accounts".format(
@@ -1829,7 +1831,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RetrieveExternalAccountParams"]
-    ):
+    ) -> Union["BankAccount", "Card"]:
         return cls._static_request(
             "get",
             "/v1/accounts/{account}/external_accounts/{id}".format(
@@ -1850,7 +1852,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ModifyExternalAccountParams"]
-    ):
+    ) -> Union["BankAccount", "Card"]:
         return cls._static_request(
             "post",
             "/v1/accounts/{account}/external_accounts/{id}".format(
@@ -1871,7 +1873,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.DeleteExternalAccountParams"]
-    ):
+    ) -> Union["BankAccount", "Card"]:
         return cls._static_request(
             "delete",
             "/v1/accounts/{account}/external_accounts/{id}".format(
@@ -1891,7 +1893,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListExternalAccountsParams"]
-    ):
+    ) -> ListObject[Union["BankAccount", "Card"]]:
         return cls._static_request(
             "get",
             "/v1/accounts/{account}/external_accounts".format(
@@ -1911,7 +1913,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.CreateLoginLinkParams"]
-    ):
+    ) -> "LoginLink":
         return cls._static_request(
             "post",
             "/v1/accounts/{account}/login_links".format(
@@ -1931,7 +1933,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.CreatePersonParams"]
-    ):
+    ) -> "Person":
         return cls._static_request(
             "post",
             "/v1/accounts/{account}/persons".format(
@@ -1952,7 +1954,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RetrievePersonParams"]
-    ):
+    ) -> "Person":
         return cls._static_request(
             "get",
             "/v1/accounts/{account}/persons/{person}".format(
@@ -1974,7 +1976,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ModifyPersonParams"]
-    ):
+    ) -> "Person":
         return cls._static_request(
             "post",
             "/v1/accounts/{account}/persons/{person}".format(
@@ -1996,7 +1998,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.DeletePersonParams"]
-    ):
+    ) -> "Person":
         return cls._static_request(
             "delete",
             "/v1/accounts/{account}/persons/{person}".format(
@@ -2017,7 +2019,7 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListPersonsParams"]
-    ):
+    ) -> ListObject["Person"]:
         return cls._static_request(
             "get",
             "/v1/accounts/{account}/persons".format(

@@ -175,7 +175,7 @@ class Dispute(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.CloseParams"]
-    ):
+    ) -> "Dispute":
         return cls._static_request(
             "post",
             "/v1/disputes/{dispute}/close".format(
@@ -192,7 +192,7 @@ class Dispute(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.CloseParams"]
-    ):
+    ) -> "Dispute":
         return self._request(
             "post",
             "/v1/disputes/{dispute}/close".format(
@@ -228,7 +228,9 @@ class Dispute(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Dispute.ModifyParams"]) -> "Dispute":
+    def modify(
+        cls, id: str, **params: Unpack["Dispute.ModifyParams"]
+    ) -> "Dispute":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Dispute",

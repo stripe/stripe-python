@@ -345,7 +345,7 @@ class Transaction(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["Transaction.ModifyParams"]
+        cls, id: str, **params: Unpack["Transaction.ModifyParams"]
     ) -> "Transaction":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -371,7 +371,7 @@ class Transaction(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.CreateForceCaptureParams"]
-        ):
+        ) -> "Transaction":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/transactions/create_force_capture",
@@ -388,7 +388,7 @@ class Transaction(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.CreateUnlinkedRefundParams"]
-        ):
+        ) -> "Transaction":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
@@ -406,7 +406,7 @@ class Transaction(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.RefundParams"]
-        ):
+        ) -> "Transaction":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
@@ -423,7 +423,7 @@ class Transaction(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Transaction.RefundParams"]
-        ):
+        ) -> "Transaction":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(

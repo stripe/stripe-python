@@ -198,7 +198,7 @@ class OutboundTransfer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["OutboundTransfer.CancelParams"]
-    ):
+    ) -> "OutboundTransfer":
         return cls._static_request(
             "post",
             "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
@@ -215,7 +215,7 @@ class OutboundTransfer(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["OutboundTransfer.CancelParams"]
-    ):
+    ) -> "OutboundTransfer":
         return self._request(
             "post",
             "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
@@ -291,7 +291,7 @@ class OutboundTransfer(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundTransfer.FailParams"]
-        ):
+        ) -> "OutboundTransfer":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
@@ -308,7 +308,7 @@ class OutboundTransfer(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.FailParams"]
-        ):
+        ) -> "OutboundTransfer":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
@@ -326,7 +326,7 @@ class OutboundTransfer(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundTransfer.PostParams"]
-        ):
+        ) -> "OutboundTransfer":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
@@ -343,7 +343,7 @@ class OutboundTransfer(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.PostParams"]
-        ):
+        ) -> "OutboundTransfer":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
@@ -361,7 +361,7 @@ class OutboundTransfer(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
-        ):
+        ) -> "OutboundTransfer":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
@@ -378,7 +378,7 @@ class OutboundTransfer(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
-        ):
+        ) -> "OutboundTransfer":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(

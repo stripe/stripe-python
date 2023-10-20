@@ -250,7 +250,7 @@ class Transaction(APIResource["Transaction"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.CreateFromCalculationParams"]
-    ):
+    ) -> "Transaction":
         return cls._static_request(
             "post",
             "/v1/tax/transactions/create_from_calculation",
@@ -267,7 +267,7 @@ class Transaction(APIResource["Transaction"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.CreateReversalParams"]
-    ):
+    ) -> "Transaction":
         return cls._static_request(
             "post",
             "/v1/tax/transactions/create_reversal",
@@ -285,7 +285,7 @@ class Transaction(APIResource["Transaction"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.ListLineItemsParams"]
-    ):
+    ) -> ListObject["TransactionLineItem"]:
         return cls._static_request(
             "get",
             "/v1/tax/transactions/{transaction}/line_items".format(
@@ -302,7 +302,7 @@ class Transaction(APIResource["Transaction"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Transaction.ListLineItemsParams"]
-    ):
+    ) -> ListObject["TransactionLineItem"]:
         return self._request(
             "get",
             "/v1/tax/transactions/{transaction}/line_items".format(

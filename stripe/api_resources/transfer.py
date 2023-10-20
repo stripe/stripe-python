@@ -172,7 +172,7 @@ class Transfer(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["Transfer.ModifyParams"]
+        cls, id: str, **params: Unpack["Transfer.ModifyParams"]
     ) -> "Transfer":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -196,7 +196,7 @@ class Transfer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Transfer.CreateReversalParams"]
-    ):
+    ) -> "Reversal":
         return cls._static_request(
             "post",
             "/v1/transfers/{id}/reversals".format(id=util.sanitize_id(id)),
@@ -215,7 +215,7 @@ class Transfer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Transfer.RetrieveReversalParams"]
-    ):
+    ) -> "Reversal":
         return cls._static_request(
             "get",
             "/v1/transfers/{transfer}/reversals/{id}".format(
@@ -236,7 +236,7 @@ class Transfer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Transfer.ModifyReversalParams"]
-    ):
+    ) -> "Reversal":
         return cls._static_request(
             "post",
             "/v1/transfers/{transfer}/reversals/{id}".format(
@@ -256,7 +256,7 @@ class Transfer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Transfer.ListReversalsParams"]
-    ):
+    ) -> ListObject["Reversal"]:
         return cls._static_request(
             "get",
             "/v1/transfers/{id}/reversals".format(id=util.sanitize_id(id)),

@@ -220,7 +220,7 @@ class Plan(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Plan.ModifyParams"]) -> "Plan":
+    def modify(cls, id: str, **params: Unpack["Plan.ModifyParams"]) -> "Plan":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Plan",

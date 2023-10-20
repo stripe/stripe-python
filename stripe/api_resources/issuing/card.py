@@ -1312,7 +1312,7 @@ class Card(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Card.ModifyParams"]) -> "Card":
+    def modify(cls, id: str, **params: Unpack["Card.ModifyParams"]) -> "Card":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Card",
@@ -1338,7 +1338,7 @@ class Card(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.DeliverCardParams"]
-        ):
+        ) -> "Card":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
@@ -1355,7 +1355,7 @@ class Card(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.DeliverCardParams"]
-        ):
+        ) -> "Card":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
@@ -1373,7 +1373,7 @@ class Card(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.FailCardParams"]
-        ):
+        ) -> "Card":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
@@ -1390,7 +1390,7 @@ class Card(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.FailCardParams"]
-        ):
+        ) -> "Card":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
@@ -1408,7 +1408,7 @@ class Card(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.ReturnCardParams"]
-        ):
+        ) -> "Card":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
@@ -1425,7 +1425,7 @@ class Card(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.ReturnCardParams"]
-        ):
+        ) -> "Card":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
@@ -1443,7 +1443,7 @@ class Card(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.ShipCardParams"]
-        ):
+        ) -> "Card":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
@@ -1460,7 +1460,7 @@ class Card(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.ShipCardParams"]
-        ):
+        ) -> "Card":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(

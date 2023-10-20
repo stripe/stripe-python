@@ -399,7 +399,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Calculation.ListLineItemsParams"]
-    ):
+    ) -> ListObject["CalculationLineItem"]:
         return cls._static_request(
             "get",
             "/v1/tax/calculations/{calculation}/line_items".format(
@@ -416,7 +416,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Calculation.ListLineItemsParams"]
-    ):
+    ) -> ListObject["CalculationLineItem"]:
         return self._request(
             "get",
             "/v1/tax/calculations/{calculation}/line_items".format(

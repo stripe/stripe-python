@@ -21,6 +21,12 @@ from typing_extensions import (
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account as AccountResource
     from stripe.api_resources.customer import Customer
+    from stripe.api_resources.financial_connections.account_inferred_balance import (
+        AccountInferredBalance,
+    )
+    from stripe.api_resources.financial_connections.account_owner import (
+        AccountOwner,
+    )
     from stripe.api_resources.financial_connections.account_ownership import (
         AccountOwnership,
     )
@@ -165,7 +171,7 @@ class Account(ListableAPIResource["Account"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
-    ):
+    ) -> "Account":
         return cls._static_request(
             "post",
             "/v1/financial_connections/accounts/{account}/disconnect".format(
@@ -182,7 +188,7 @@ class Account(ListableAPIResource["Account"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
-    ):
+    ) -> "Account":
         return self._request(
             "post",
             "/v1/financial_connections/accounts/{account}/disconnect".format(
@@ -225,7 +231,7 @@ class Account(ListableAPIResource["Account"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
-    ):
+    ) -> ListObject["AccountOwner"]:
         return cls._static_request(
             "get",
             "/v1/financial_connections/accounts/{account}/owners".format(
@@ -242,7 +248,7 @@ class Account(ListableAPIResource["Account"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
-    ):
+    ) -> ListObject["AccountOwner"]:
         return self._request(
             "get",
             "/v1/financial_connections/accounts/{account}/owners".format(
@@ -260,7 +266,7 @@ class Account(ListableAPIResource["Account"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
-    ):
+    ) -> "Account":
         return cls._static_request(
             "post",
             "/v1/financial_connections/accounts/{account}/refresh".format(
@@ -277,7 +283,7 @@ class Account(ListableAPIResource["Account"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
-    ):
+    ) -> "Account":
         return self._request(
             "post",
             "/v1/financial_connections/accounts/{account}/refresh".format(
@@ -303,7 +309,7 @@ class Account(ListableAPIResource["Account"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.SubscribeParams"]
-    ):
+    ) -> "Account":
         return cls._static_request(
             "post",
             "/v1/financial_connections/accounts/{account}/subscribe".format(
@@ -320,7 +326,7 @@ class Account(ListableAPIResource["Account"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.SubscribeParams"]
-    ):
+    ) -> "Account":
         return self._request(
             "post",
             "/v1/financial_connections/accounts/{account}/subscribe".format(
@@ -338,7 +344,7 @@ class Account(ListableAPIResource["Account"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.UnsubscribeParams"]
-    ):
+    ) -> "Account":
         return cls._static_request(
             "post",
             "/v1/financial_connections/accounts/{account}/unsubscribe".format(
@@ -355,7 +361,7 @@ class Account(ListableAPIResource["Account"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.UnsubscribeParams"]
-    ):
+    ) -> "Account":
         return self._request(
             "post",
             "/v1/financial_connections/accounts/{account}/unsubscribe".format(
@@ -373,7 +379,7 @@ class Account(ListableAPIResource["Account"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListInferredBalancesParams"]
-    ):
+    ) -> ListObject["AccountInferredBalance"]:
         return cls._static_request(
             "get",
             "/v1/financial_connections/accounts/{account}/inferred_balances".format(

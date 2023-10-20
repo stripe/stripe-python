@@ -228,7 +228,7 @@ class PersonalizationDesign(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["PersonalizationDesign.ModifyParams"]
+        cls, id: str, **params: Unpack["PersonalizationDesign.ModifyParams"]
     ) -> "PersonalizationDesign":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -255,7 +255,7 @@ class PersonalizationDesign(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.ActivateParams"]
-        ):
+        ) -> "PersonalizationDesign":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
@@ -274,7 +274,7 @@ class PersonalizationDesign(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.ActivateParams"]
-        ):
+        ) -> "PersonalizationDesign":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
@@ -294,7 +294,7 @@ class PersonalizationDesign(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.DeactivateParams"]
-        ):
+        ) -> "PersonalizationDesign":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
@@ -313,7 +313,7 @@ class PersonalizationDesign(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.DeactivateParams"]
-        ):
+        ) -> "PersonalizationDesign":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
@@ -333,7 +333,7 @@ class PersonalizationDesign(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.RejectParams"]
-        ):
+        ) -> "PersonalizationDesign":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
@@ -352,7 +352,7 @@ class PersonalizationDesign(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.RejectParams"]
-        ):
+        ) -> "PersonalizationDesign":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(

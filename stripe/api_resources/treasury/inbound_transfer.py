@@ -167,7 +167,7 @@ class InboundTransfer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["InboundTransfer.CancelParams"]
-    ):
+    ) -> "InboundTransfer":
         return cls._static_request(
             "post",
             "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
@@ -184,7 +184,7 @@ class InboundTransfer(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["InboundTransfer.CancelParams"]
-    ):
+    ) -> "InboundTransfer":
         return self._request(
             "post",
             "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
@@ -260,7 +260,7 @@ class InboundTransfer(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["InboundTransfer.FailParams"]
-        ):
+        ) -> "InboundTransfer":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
@@ -277,7 +277,7 @@ class InboundTransfer(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.FailParams"]
-        ):
+        ) -> "InboundTransfer":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
@@ -295,7 +295,7 @@ class InboundTransfer(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
-        ):
+        ) -> "InboundTransfer":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
@@ -312,7 +312,7 @@ class InboundTransfer(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
-        ):
+        ) -> "InboundTransfer":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
@@ -330,7 +330,7 @@ class InboundTransfer(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["InboundTransfer.SucceedParams"]
-        ):
+        ) -> "InboundTransfer":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
@@ -347,7 +347,7 @@ class InboundTransfer(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.SucceedParams"]
-        ):
+        ) -> "InboundTransfer":
             return self.resource._request(
                 "post",
                 "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(

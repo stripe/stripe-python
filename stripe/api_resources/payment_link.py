@@ -1480,7 +1480,7 @@ class PaymentLink(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentLink.ListLineItemsParams"]
-    ):
+    ) -> ListObject["LineItem"]:
         return cls._static_request(
             "get",
             "/v1/payment_links/{payment_link}/line_items".format(
@@ -1497,7 +1497,7 @@ class PaymentLink(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentLink.ListLineItemsParams"]
-    ):
+    ) -> ListObject["LineItem"]:
         return self._request(
             "get",
             "/v1/payment_links/{payment_link}/line_items".format(
@@ -1509,7 +1509,7 @@ class PaymentLink(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["PaymentLink.ModifyParams"]
+        cls, id: str, **params: Unpack["PaymentLink.ModifyParams"]
     ) -> "PaymentLink":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

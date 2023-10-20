@@ -152,7 +152,7 @@ class Card(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Card.ModifyParams"]) -> "Card":
+    def modify(cls, id: str, **params: Unpack["Card.ModifyParams"]) -> "Card":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Card",
@@ -174,7 +174,7 @@ class Card(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Card.ValidateParams"]
-    ):
+    ) -> "Card":
         return cls._static_request(
             "post",
             "/v1/gift_cards/cards/validate",

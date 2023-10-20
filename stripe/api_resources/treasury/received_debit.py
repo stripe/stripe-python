@@ -214,7 +214,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["ReceivedDebit.CreateParams"]
-        ):
+        ) -> "ReceivedDebit":
             return cls._static_request(
                 "post",
                 "/v1/test_helpers/treasury/received_debits",

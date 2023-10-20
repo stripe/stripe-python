@@ -343,7 +343,9 @@ class Price(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Price.ModifyParams"]) -> "Price":
+    def modify(
+        cls, id: str, **params: Unpack["Price.ModifyParams"]
+    ) -> "Price":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Price",
@@ -367,7 +369,7 @@ class Price(
     @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Price.SearchParams"]
-    ):
+    ) -> "Price":
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     _inner_class_types = {

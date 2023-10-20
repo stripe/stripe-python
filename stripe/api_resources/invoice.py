@@ -2044,7 +2044,7 @@ class Invoice(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.FinalizeInvoiceParams"]
-    ):
+    ) -> "Invoice":
         return cls._static_request(
             "post",
             "/v1/invoices/{invoice}/finalize".format(
@@ -2061,7 +2061,7 @@ class Invoice(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.FinalizeInvoiceParams"]
-    ):
+    ) -> "Invoice":
         return self._request(
             "post",
             "/v1/invoices/{invoice}/finalize".format(
@@ -2104,7 +2104,7 @@ class Invoice(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.MarkUncollectibleParams"]
-    ):
+    ) -> "Invoice":
         return cls._static_request(
             "post",
             "/v1/invoices/{invoice}/mark_uncollectible".format(
@@ -2121,7 +2121,7 @@ class Invoice(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.MarkUncollectibleParams"]
-    ):
+    ) -> "Invoice":
         return self._request(
             "post",
             "/v1/invoices/{invoice}/mark_uncollectible".format(
@@ -2132,7 +2132,9 @@ class Invoice(
         )
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Invoice.ModifyParams"]) -> "Invoice":
+    def modify(
+        cls, id: str, **params: Unpack["Invoice.ModifyParams"]
+    ) -> "Invoice":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Invoice",
@@ -2147,7 +2149,7 @@ class Invoice(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.PayParams"]
-    ):
+    ) -> "Invoice":
         return cls._static_request(
             "post",
             "/v1/invoices/{invoice}/pay".format(
@@ -2164,7 +2166,7 @@ class Invoice(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.PayParams"]
-    ):
+    ) -> "Invoice":
         return self._request(
             "post",
             "/v1/invoices/{invoice}/pay".format(
@@ -2190,7 +2192,7 @@ class Invoice(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.SendInvoiceParams"]
-    ):
+    ) -> "Invoice":
         return cls._static_request(
             "post",
             "/v1/invoices/{invoice}/send".format(
@@ -2207,7 +2209,7 @@ class Invoice(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.SendInvoiceParams"]
-    ):
+    ) -> "Invoice":
         return self._request(
             "post",
             "/v1/invoices/{invoice}/send".format(
@@ -2224,7 +2226,7 @@ class Invoice(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.UpcomingParams"]
-    ):
+    ) -> "Invoice":
         return cls._static_request(
             "get",
             "/v1/invoices/upcoming",
@@ -2241,7 +2243,7 @@ class Invoice(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.UpcomingLinesParams"]
-    ):
+    ) -> ListObject["InvoiceLineItem"]:
         return cls._static_request(
             "get",
             "/v1/invoices/upcoming/lines",
@@ -2259,7 +2261,7 @@ class Invoice(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.VoidInvoiceParams"]
-    ):
+    ) -> "Invoice":
         return cls._static_request(
             "post",
             "/v1/invoices/{invoice}/void".format(
@@ -2276,7 +2278,7 @@ class Invoice(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.VoidInvoiceParams"]
-    ):
+    ) -> "Invoice":
         return self._request(
             "post",
             "/v1/invoices/{invoice}/void".format(
@@ -2295,7 +2297,7 @@ class Invoice(
     @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Invoice.SearchParams"]
-    ):
+    ) -> "Invoice":
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     _inner_class_types = {
