@@ -2,15 +2,21 @@
 # File generated from our OpenAPI spec
 # flake8: noqa
 
-from stripe.api_resources.financial_connections.account import Account
+from stripe.api_resources.financial_connections.account import (
+    Account as Account,
+)
 from stripe.api_resources.financial_connections.account_inferred_balance import (
-    AccountInferredBalance,
+    AccountInferredBalance as AccountInferredBalance,
 )
 from stripe.api_resources.financial_connections.account_owner import (
-    AccountOwner,
+    AccountOwner as AccountOwner,
 )
 from stripe.api_resources.financial_connections.account_ownership import (
-    AccountOwnership,
+    AccountOwnership as AccountOwnership,
 )
-from stripe.api_resources.financial_connections.session import Session
-from stripe.api_resources.financial_connections.transaction import Transaction
+from stripe.api_resources.financial_connections.session import (
+    Session as Session,
+)
+from stripe.api_resources.financial_connections.transaction import (
+    Transaction as Transaction,
+)
