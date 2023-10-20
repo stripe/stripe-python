@@ -212,6 +212,7 @@ class Quote(
                 subscription_schedule_released: Optional[str]
                 type: Optional[
                     Literal[
+                        "accept_failed_validations",
                         "bill_on_acceptance_invalid",
                         "line_invalid",
                         "marked_stale",
