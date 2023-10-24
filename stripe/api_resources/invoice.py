@@ -32,6 +32,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
+    from stripe.api_resources.margin import Margin
     from stripe.api_resources.payment_intent import PaymentIntent
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.quote import Quote
@@ -600,6 +601,10 @@ class Invoice(
         amount: int
         discount: ExpandableField["Discount"]
 
+    class TotalMarginAmount(StripeObject):
+        amount: int
+        margin: ExpandableField["Margin"]
+
     class TotalTaxAmount(StripeObject):
         amount: int
         inclusive: bool
@@ -645,6 +650,7 @@ class Invoice(
             ]
             customer: NotRequired["str|None"]
             days_until_due: NotRequired["int|None"]
+            default_margins: NotRequired["List[str]|None"]
             default_payment_method: NotRequired["str|None"]
             default_source: NotRequired["str|None"]
             default_tax_rates: NotRequired["List[str]|None"]
@@ -979,6 +985,7 @@ class Invoice(
                 "Literal['']|List[Invoice.ModifyParamsCustomField]|None"
             ]
             days_until_due: NotRequired["int|None"]
+            default_margins: NotRequired["Literal['']|List[str]|None"]
             default_payment_method: NotRequired["str|None"]
             default_source: NotRequired["Literal['']|str|None"]
             default_tax_rates: NotRequired["Literal['']|List[str]|None"]
@@ -1934,6 +1941,7 @@ class Invoice(
     customer_shipping: Optional[CustomerShipping]
     customer_tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
     customer_tax_ids: Optional[List[CustomerTaxId]]
+    default_margins: Optional[List[ExpandableField["Margin"]]]
     default_payment_method: Optional[ExpandableField["PaymentMethod"]]
     default_source: Optional[
         ExpandableField[
@@ -1991,6 +1999,7 @@ class Invoice(
     total: int
     total_discount_amounts: Optional[List[TotalDiscountAmount]]
     total_excluding_tax: Optional[int]
+    total_margin_amounts: Optional[List[TotalMarginAmount]]
     total_tax_amounts: List[TotalTaxAmount]
     transfer_data: Optional[TransferData]
     webhooks_delivered_at: Optional[int]
@@ -2318,6 +2327,7 @@ class Invoice(
         "subscription_details": SubscriptionDetails,
         "threshold_reason": ThresholdReason,
         "total_discount_amounts": TotalDiscountAmount,
+        "total_margin_amounts": TotalMarginAmount,
         "total_tax_amounts": TotalTaxAmount,
         "transfer_data": TransferData,
     }

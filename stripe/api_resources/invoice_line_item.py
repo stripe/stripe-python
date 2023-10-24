@@ -8,6 +8,7 @@ from typing_extensions import Literal, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice_item import InvoiceItem
+    from stripe.api_resources.margin import Margin
     from stripe.api_resources.plan import Plan
     from stripe.api_resources.price import Price
     from stripe.api_resources.subscription import Subscription
@@ -21,6 +22,10 @@ class InvoiceLineItem(StripeObject):
     class DiscountAmount(StripeObject):
         amount: int
         discount: ExpandableField["Discount"]
+
+    class MarginAmount(StripeObject):
+        amount: int
+        margin: ExpandableField["Margin"]
 
     class Period(StripeObject):
         end: int
@@ -69,6 +74,8 @@ class InvoiceLineItem(StripeObject):
     id: str
     invoice_item: Optional[ExpandableField["InvoiceItem"]]
     livemode: bool
+    margin_amounts: Optional[List[MarginAmount]]
+    margins: Optional[List[ExpandableField["Margin"]]]
     metadata: Dict[str, str]
     object: Literal["line_item"]
     period: Period
@@ -86,6 +93,7 @@ class InvoiceLineItem(StripeObject):
 
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
+        "margin_amounts": MarginAmount,
         "period": Period,
         "proration_details": ProrationDetails,
         "tax_amounts": TaxAmount,

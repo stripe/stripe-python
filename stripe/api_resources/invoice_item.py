@@ -25,6 +25,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice import Invoice
+    from stripe.api_resources.margin import Margin
     from stripe.api_resources.plan import Plan
     from stripe.api_resources.price import Price
     from stripe.api_resources.subscription import Subscription
@@ -71,6 +72,7 @@ class InvoiceItem(
             ]
             expand: NotRequired["List[str]|None"]
             invoice: NotRequired["str|None"]
+            margins: NotRequired["List[str]|None"]
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
             period: NotRequired["InvoiceItem.CreateParamsPeriod|None"]
             price: NotRequired["str|None"]
@@ -143,6 +145,7 @@ class InvoiceItem(
                 "Literal['']|List[InvoiceItem.ModifyParamsDiscount]|None"
             ]
             expand: NotRequired["List[str]|None"]
+            margins: NotRequired["Literal['']|List[str]|None"]
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
             period: NotRequired["InvoiceItem.ModifyParamsPeriod|None"]
             price: NotRequired["str|None"]
@@ -200,6 +203,7 @@ class InvoiceItem(
     id: str
     invoice: Optional[ExpandableField["Invoice"]]
     livemode: bool
+    margins: Optional[List[ExpandableField["Margin"]]]
     metadata: Optional[Dict[str, str]]
     object: Literal["invoiceitem"]
     period: Period
