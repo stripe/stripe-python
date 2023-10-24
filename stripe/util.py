@@ -5,12 +5,14 @@ import logging
 import sys
 import os
 import re
+import warnings
 
 import stripe
 from urllib.parse import parse_qsl, quote_plus
 
 from typing_extensions import Type, TYPE_CHECKING
 from typing import (
+    Callable,
     TypeVar,
     Union,
     overload,
@@ -22,6 +24,7 @@ from typing import (
 )
 
 from stripe.stripe_response import StripeResponse
+import typing_extensions
 
 if TYPE_CHECKING:
     from stripe.stripe_object import StripeObject
@@ -37,7 +40,67 @@ __all__ = [
     "log_debug",
     "dashboard_link",
     "logfmt",
+    "deprecated",
 ]
+
+if hasattr(typing_extensions, "deprecated"):
+    deprecated = typing_extensions.deprecated
+elif not TYPE_CHECKING:
+    _T = TypeVar("_T")
+
+    # Copied from python/typing_extensions, as this was added in typing_extensions 4.5.0 which is incompatible with
+    # python 3.6. We still need `deprecated = typing_extensions.deprecated` in addition to this fallback, as
+    # IDEs (pylance) specially detect references to symbols defined in `typing_extensions`
+    #
+    # https://github.com/python/typing_extensions/blob/5d20e9eed31de88667542ba5a6f66e6dc439b681/src/typing_extensions.py#L2289-L2370
+    def deprecated(
+        __msg: str,
+        *,
+        category: Optional[Type[Warning]] = DeprecationWarning,
+        stacklevel: int = 1,
+    ) -> Callable[[_T], _T]:
+        def decorator(__arg: _T) -> _T:
+            if category is None:
+                __arg.__deprecated__ = __msg
+                return __arg
+            elif isinstance(__arg, type):
+                original_new = __arg.__new__
+                has_init = __arg.__init__ is not object.__init__
+
+                @functools.wraps(original_new)
+                def __new__(cls, *args, **kwargs):
+                    warnings.warn(
+                        __msg, category=category, stacklevel=stacklevel + 1
+                    )
+                    if original_new is not object.__new__:
+                        return original_new(cls, *args, **kwargs)
+                    # Mirrors a similar check in object.__new__.
+                    elif not has_init and (args or kwargs):
+                        raise TypeError(f"{cls.__name__}() takes no arguments")
+                    else:
+                        return original_new(cls)
+
+                __arg.__new__ = staticmethod(__new__)
+                __arg.__deprecated__ = __new__.__deprecated__ = __msg
+                return __arg
+            elif callable(__arg):
+
+                @functools.wraps(__arg)
+                def wrapper(*args, **kwargs):
+                    warnings.warn(
+                        __msg, category=category, stacklevel=stacklevel + 1
+                    )
+                    return __arg(*args, **kwargs)
+
+                __arg.__deprecated__ = wrapper.__deprecated__ = __msg
+                return wrapper
+            else:
+                raise TypeError(
+                    "@deprecated decorator with non-None category must be applied to "
+                    f"a class or callable, not {__arg!r}"
+                )
+
+        return decorator
 
 
 def is_appengine_dev():
