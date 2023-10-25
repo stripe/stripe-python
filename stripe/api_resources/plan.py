@@ -51,7 +51,7 @@ class Plan(
                 "Literal['last_during_period', 'last_ever', 'max', 'sum']|None"
             ]
             amount: NotRequired["int|None"]
-            amount_decimal: NotRequired["float|None"]
+            amount_decimal: NotRequired["str|None"]
             billing_scheme: NotRequired["Literal['per_unit', 'tiered']|None"]
             currency: str
             expand: NotRequired["List[str]|None"]
@@ -75,9 +75,9 @@ class Plan(
 
         class CreateParamsTier(TypedDict):
             flat_amount: NotRequired["int|None"]
-            flat_amount_decimal: NotRequired["float|None"]
+            flat_amount_decimal: NotRequired["str|None"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
             up_to: Union[Literal["inf"], int]
 
         class CreateParamsProduct(TypedDict):
@@ -123,7 +123,7 @@ class Plan(
         Literal["last_during_period", "last_ever", "max", "sum"]
     ]
     amount: Optional[int]
-    amount_decimal: Optional[float]
+    amount_decimal: Optional[str]
     billing_scheme: Literal["per_unit", "tiered"]
     created: int
     currency: str

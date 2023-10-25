@@ -278,7 +278,7 @@ class Subscription(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -309,7 +309,7 @@ class Subscription(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class DeleteDiscountParams(RequestOptions):
             pass
@@ -581,7 +581,7 @@ class Subscription(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ModifyParamsItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -618,7 +618,7 @@ class Subscription(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ResumeParams(RequestOptions):
             billing_cycle_anchor: NotRequired[

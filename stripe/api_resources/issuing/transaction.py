@@ -99,7 +99,7 @@ class Transaction(
 
         class CreateForceCaptureParamsPurchaseDetailsReceipt(TypedDict):
             description: NotRequired["str|None"]
-            quantity: NotRequired["float|None"]
+            quantity: NotRequired["str|None"]
             total: NotRequired["int|None"]
             unit_cost: NotRequired["int|None"]
 
@@ -112,8 +112,8 @@ class Transaction(
                 "Literal['diesel', 'other', 'unleaded_plus', 'unleaded_regular', 'unleaded_super']|None"
             ]
             unit: NotRequired["Literal['liter', 'us_gallon']|None"]
-            unit_cost_decimal: NotRequired["float|None"]
-            volume_decimal: NotRequired["float|None"]
+            unit_cost_decimal: NotRequired["str|None"]
+            volume_decimal: NotRequired["str|None"]
 
         class CreateForceCaptureParamsPurchaseDetailsFlight(TypedDict):
             departure_at: NotRequired["int|None"]
@@ -173,7 +173,7 @@ class Transaction(
 
         class CreateUnlinkedRefundParamsPurchaseDetailsReceipt(TypedDict):
             description: NotRequired["str|None"]
-            quantity: NotRequired["float|None"]
+            quantity: NotRequired["str|None"]
             total: NotRequired["int|None"]
             unit_cost: NotRequired["int|None"]
 
@@ -186,8 +186,8 @@ class Transaction(
                 "Literal['diesel', 'other', 'unleaded_plus', 'unleaded_regular', 'unleaded_super']|None"
             ]
             unit: NotRequired["Literal['liter', 'us_gallon']|None"]
-            unit_cost_decimal: NotRequired["float|None"]
-            volume_decimal: NotRequired["float|None"]
+            unit_cost_decimal: NotRequired["str|None"]
+            volume_decimal: NotRequired["str|None"]
 
         class CreateUnlinkedRefundParamsPurchaseDetailsFlight(TypedDict):
             departure_at: NotRequired["int|None"]
