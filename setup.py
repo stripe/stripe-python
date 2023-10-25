@@ -28,12 +28,12 @@ setup(
     license="MIT",
     keywords="stripe api payments",
     packages=find_packages(exclude=["tests", "tests.*"]),
-    package_data={"stripe": ["data/ca-certificates.crt", "py.typed"]},
+    package_data={"stripe": ["data/ca-certificates.crt"]},
     zip_safe=False,
     install_requires=[
         'typing_extensions <= 4.2.0, > 3.7.2; python_version < "3.7"',
         # The best typing support comes from 4.5.0+ but we can support down to
-        # 4.0.0 without throwing exceptions.
+        # 3.7.2 without throwing exceptions.
         'typing_extensions >= 4.5.0; python_version >= "3.7"',
         'requests >= 2.20; python_version >= "3.0"',
     ],
