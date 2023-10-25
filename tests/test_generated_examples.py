@@ -3767,14 +3767,14 @@ class TestGeneratedExamples(object):
                 "fuel": {
                     "type": "diesel",
                     "unit": "liter",
-                    "unit_cost_decimal": 3.5,
-                    "volume_decimal": 10,
+                    "unit_cost_decimal": "3.5",
+                    "volume_decimal": "10",
                 },
                 "lodging": {"check_in_at": 1633651200, "nights": 2},
                 "receipt": [
                     {
                         "description": "Room charge",
-                        "quantity": 1,
+                        "quantity": "1",
                         "total": 200,
                         "unit_cost": 200,
                     },
@@ -3852,14 +3852,14 @@ class TestGeneratedExamples(object):
                 "fuel": {
                     "type": "diesel",
                     "unit": "liter",
-                    "unit_cost_decimal": 3.5,
-                    "volume_decimal": 10,
+                    "unit_cost_decimal": "3.5",
+                    "volume_decimal": "10",
                 },
                 "lodging": {"check_in_at": 1533651200, "nights": 2},
                 "receipt": [
                     {
                         "description": "Room charge",
-                        "quantity": 1,
+                        "quantity": "1",
                         "total": 200,
                         "unit_cost": 200,
                     },
@@ -3907,14 +3907,14 @@ class TestGeneratedExamples(object):
                 "fuel": {
                     "type": "diesel",
                     "unit": "liter",
-                    "unit_cost_decimal": 3.5,
-                    "volume_decimal": 10,
+                    "unit_cost_decimal": "3.5",
+                    "volume_decimal": "10",
                 },
                 "lodging": {"check_in_at": 1533651200, "nights": 2},
                 "receipt": [
                     {
                         "description": "Room charge",
-                        "quantity": 1,
+                        "quantity": "1",
                         "total": 200,
                         "unit_cost": 200,
                     },
