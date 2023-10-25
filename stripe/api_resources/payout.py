@@ -165,7 +165,7 @@ class Payout(
     ) -> "Payout":
         ...
 
-    @class_method_variant(_cls_cancel)
+    @class_method_variant("_cls_cancel")
     def cancel(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -291,7 +291,7 @@ class Payout(
     ) -> "Payout":
         ...
 
-    @class_method_variant(_cls_reverse)
+    @class_method_variant("_cls_reverse")
     def reverse(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

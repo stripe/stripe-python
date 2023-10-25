@@ -146,7 +146,7 @@ class Refund(
     ) -> "Refund":
         ...
 
-    @class_method_variant(_cls_cancel)
+    @class_method_variant("_cls_cancel")
     def cancel(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -275,7 +275,7 @@ class Refund(
         ) -> "Refund":
             ...
 
-        @class_method_variant(_cls_expire)
+        @class_method_variant("_cls_expire")
         def expire(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,

@@ -378,7 +378,7 @@ class Dispute(
     ) -> "Dispute":
         ...
 
-    @class_method_variant(_cls_submit)
+    @class_method_variant("_cls_submit")
     def submit(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

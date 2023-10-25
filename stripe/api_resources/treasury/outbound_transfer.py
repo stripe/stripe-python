@@ -159,7 +159,7 @@ class OutboundTransfer(
     ) -> "OutboundTransfer":
         ...
 
-    @class_method_variant(_cls_cancel)
+    @class_method_variant("_cls_cancel")
     def cancel(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -278,7 +278,7 @@ class OutboundTransfer(
         ) -> "OutboundTransfer":
             ...
 
-        @class_method_variant(_cls_fail)
+        @class_method_variant("_cls_fail")
         def fail(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,
@@ -341,7 +341,7 @@ class OutboundTransfer(
         ) -> "OutboundTransfer":
             ...
 
-        @class_method_variant(_cls_post)
+        @class_method_variant("_cls_post")
         def post(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,
@@ -404,7 +404,7 @@ class OutboundTransfer(
         ) -> "OutboundTransfer":
             ...
 
-        @class_method_variant(_cls_return_outbound_transfer)
+        @class_method_variant("_cls_return_outbound_transfer")
         def return_outbound_transfer(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,

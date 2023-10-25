@@ -373,7 +373,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     ) -> ListObject["SourceTransaction"]:
         ...
 
-    @class_method_variant(_cls_list_source_transactions)
+    @class_method_variant("_cls_list_source_transactions")
     def list_source_transactions(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -452,7 +452,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     ) -> "Source":
         ...
 
-    @class_method_variant(_cls_verify)
+    @class_method_variant("_cls_verify")
     def verify(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

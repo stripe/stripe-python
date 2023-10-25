@@ -450,7 +450,7 @@ class PaymentMethod(
     ) -> "PaymentMethod":
         ...
 
-    @class_method_variant(_cls_attach)
+    @class_method_variant("_cls_attach")
     def attach(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -533,7 +533,7 @@ class PaymentMethod(
     ) -> "PaymentMethod":
         ...
 
-    @class_method_variant(_cls_detach)
+    @class_method_variant("_cls_detach")
     def detach(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

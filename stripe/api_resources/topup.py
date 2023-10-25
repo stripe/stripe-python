@@ -145,7 +145,7 @@ class Topup(
     ) -> "Topup":
         ...
 
-    @class_method_variant(_cls_cancel)
+    @class_method_variant("_cls_cancel")
     def cancel(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

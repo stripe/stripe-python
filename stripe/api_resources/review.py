@@ -113,7 +113,7 @@ class Review(ListableAPIResource["Review"]):
     ) -> "Review":
         ...
 
-    @class_method_variant(_cls_approve)
+    @class_method_variant("_cls_approve")
     def approve(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

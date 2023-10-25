@@ -211,7 +211,7 @@ class Reader(
     ) -> "Reader":
         ...
 
-    @class_method_variant(_cls_cancel_action)
+    @class_method_variant("_cls_cancel_action")
     def cancel_action(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -360,7 +360,7 @@ class Reader(
     ) -> "Reader":
         ...
 
-    @class_method_variant(_cls_process_payment_intent)
+    @class_method_variant("_cls_process_payment_intent")
     def process_payment_intent(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -421,7 +421,7 @@ class Reader(
     ) -> "Reader":
         ...
 
-    @class_method_variant(_cls_process_setup_intent)
+    @class_method_variant("_cls_process_setup_intent")
     def process_setup_intent(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -482,7 +482,7 @@ class Reader(
     ) -> "Reader":
         ...
 
-    @class_method_variant(_cls_refund_payment)
+    @class_method_variant("_cls_refund_payment")
     def refund_payment(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -551,7 +551,7 @@ class Reader(
     ) -> "Reader":
         ...
 
-    @class_method_variant(_cls_set_reader_display)
+    @class_method_variant("_cls_set_reader_display")
     def set_reader_display(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -615,7 +615,7 @@ class Reader(
         ) -> "Reader":
             ...
 
-        @class_method_variant(_cls_present_payment_method)
+        @class_method_variant("_cls_present_payment_method")
         def present_payment_method(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,

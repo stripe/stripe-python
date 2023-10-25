@@ -1127,7 +1127,7 @@ class Session(
     ) -> "Session":
         ...
 
-    @class_method_variant(_cls_expire)
+    @class_method_variant("_cls_expire")
     def expire(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -1213,7 +1213,7 @@ class Session(
     ) -> ListObject["LineItem"]:
         ...
 
-    @class_method_variant(_cls_list_line_items)
+    @class_method_variant("_cls_list_line_items")
     def list_line_items(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

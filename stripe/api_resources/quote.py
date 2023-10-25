@@ -318,7 +318,7 @@ class Quote(
     ) -> "Quote":
         ...
 
-    @class_method_variant(_cls_accept)
+    @class_method_variant("_cls_accept")
     def accept(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -379,7 +379,7 @@ class Quote(
     ) -> "Quote":
         ...
 
-    @class_method_variant(_cls_cancel)
+    @class_method_variant("_cls_cancel")
     def cancel(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -462,7 +462,7 @@ class Quote(
     ) -> "Quote":
         ...
 
-    @class_method_variant(_cls_finalize_quote)
+    @class_method_variant("_cls_finalize_quote")
     def finalize_quote(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -548,7 +548,7 @@ class Quote(
     ) -> ListObject["LineItem"]:
         ...
 
-    @class_method_variant(_cls_list_computed_upfront_line_items)
+    @class_method_variant("_cls_list_computed_upfront_line_items")
     def list_computed_upfront_line_items(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -609,7 +609,7 @@ class Quote(
     ) -> ListObject["LineItem"]:
         ...
 
-    @class_method_variant(_cls_list_line_items)
+    @class_method_variant("_cls_list_line_items")
     def list_line_items(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

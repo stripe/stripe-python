@@ -473,7 +473,7 @@ class SubscriptionSchedule(
     ) -> "SubscriptionSchedule":
         ...
 
-    @class_method_variant(_cls_cancel)
+    @class_method_variant("_cls_cancel")
     def cancel(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -591,7 +591,7 @@ class SubscriptionSchedule(
     ) -> "SubscriptionSchedule":
         ...
 
-    @class_method_variant(_cls_release)
+    @class_method_variant("_cls_release")
     def release(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

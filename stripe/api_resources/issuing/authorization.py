@@ -280,7 +280,7 @@ class Authorization(
     ) -> "Authorization":
         ...
 
-    @class_method_variant(_cls_approve)
+    @class_method_variant("_cls_approve")
     def approve(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -341,7 +341,7 @@ class Authorization(
     ) -> "Authorization":
         ...
 
-    @class_method_variant(_cls_decline)
+    @class_method_variant("_cls_decline")
     def decline(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -448,7 +448,7 @@ class Authorization(
         ) -> "Authorization":
             ...
 
-        @class_method_variant(_cls_capture)
+        @class_method_variant("_cls_capture")
         def capture(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,
@@ -529,7 +529,7 @@ class Authorization(
         ) -> "Authorization":
             ...
 
-        @class_method_variant(_cls_expire)
+        @class_method_variant("_cls_expire")
         def expire(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,
@@ -590,7 +590,7 @@ class Authorization(
         ) -> "Authorization":
             ...
 
-        @class_method_variant(_cls_increment)
+        @class_method_variant("_cls_increment")
         def increment(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,
@@ -651,7 +651,7 @@ class Authorization(
         ) -> "Authorization":
             ...
 
-        @class_method_variant(_cls_reverse)
+        @class_method_variant("_cls_reverse")
         def reverse(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,

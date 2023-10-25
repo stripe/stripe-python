@@ -354,7 +354,7 @@ class CreditNote(
     ) -> "CreditNote":
         ...
 
-    @class_method_variant(_cls_void_credit_note)
+    @class_method_variant("_cls_void_credit_note")
     def void_credit_note(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

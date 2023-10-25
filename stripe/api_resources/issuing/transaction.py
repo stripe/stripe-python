@@ -376,7 +376,7 @@ class Transaction(
         ) -> "Transaction":
             ...
 
-        @class_method_variant(_cls_refund)
+        @class_method_variant("_cls_refund")
         def refund(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,

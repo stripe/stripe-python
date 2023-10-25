@@ -145,7 +145,7 @@ class InboundTransfer(
     ) -> "InboundTransfer":
         ...
 
-    @class_method_variant(_cls_cancel)
+    @class_method_variant("_cls_cancel")
     def cancel(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -264,7 +264,7 @@ class InboundTransfer(
         ) -> "InboundTransfer":
             ...
 
-        @class_method_variant(_cls_fail)
+        @class_method_variant("_cls_fail")
         def fail(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,
@@ -325,7 +325,7 @@ class InboundTransfer(
         ) -> "InboundTransfer":
             ...
 
-        @class_method_variant(_cls_return_inbound_transfer)
+        @class_method_variant("_cls_return_inbound_transfer")
         def return_inbound_transfer(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,
@@ -386,7 +386,7 @@ class InboundTransfer(
         ) -> "InboundTransfer":
             ...
 
-        @class_method_variant(_cls_succeed)
+        @class_method_variant("_cls_succeed")
         def succeed(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,

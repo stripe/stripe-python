@@ -1146,7 +1146,7 @@ class Account(
     ) -> ListObject["Person"]:
         ...
 
-    @class_method_variant(_cls_persons)
+    @class_method_variant("_cls_persons")
     def persons(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -1207,7 +1207,7 @@ class Account(
     ) -> "Account":
         ...
 
-    @class_method_variant(_cls_reject)
+    @class_method_variant("_cls_reject")
     def reject(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

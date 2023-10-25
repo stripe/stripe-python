@@ -136,7 +136,7 @@ class Account(ListableAPIResource["Account"]):
     ) -> "Account":
         ...
 
-    @class_method_variant(_cls_disconnect)
+    @class_method_variant("_cls_disconnect")
     def disconnect(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -222,7 +222,7 @@ class Account(ListableAPIResource["Account"]):
     ) -> ListObject["AccountOwner"]:
         ...
 
-    @class_method_variant(_cls_list_owners)
+    @class_method_variant("_cls_list_owners")
     def list_owners(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -283,7 +283,7 @@ class Account(ListableAPIResource["Account"]):
     ) -> "Account":
         ...
 
-    @class_method_variant(_cls_refresh_account)
+    @class_method_variant("_cls_refresh_account")
     def refresh_account(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

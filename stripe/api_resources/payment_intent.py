@@ -2567,7 +2567,7 @@ class PaymentIntent(
     ) -> "PaymentIntent":
         ...
 
-    @class_method_variant(_cls_apply_customer_balance)
+    @class_method_variant("_cls_apply_customer_balance")
     def apply_customer_balance(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -2628,7 +2628,7 @@ class PaymentIntent(
     ) -> "PaymentIntent":
         ...
 
-    @class_method_variant(_cls_cancel)
+    @class_method_variant("_cls_cancel")
     def cancel(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -2689,7 +2689,7 @@ class PaymentIntent(
     ) -> "PaymentIntent":
         ...
 
-    @class_method_variant(_cls_capture)
+    @class_method_variant("_cls_capture")
     def capture(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -2750,7 +2750,7 @@ class PaymentIntent(
     ) -> "PaymentIntent":
         ...
 
-    @class_method_variant(_cls_confirm)
+    @class_method_variant("_cls_confirm")
     def confirm(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -2833,7 +2833,7 @@ class PaymentIntent(
     ) -> "PaymentIntent":
         ...
 
-    @class_method_variant(_cls_increment_authorization)
+    @class_method_variant("_cls_increment_authorization")
     def increment_authorization(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -2937,7 +2937,7 @@ class PaymentIntent(
     ) -> "PaymentIntent":
         ...
 
-    @class_method_variant(_cls_verify_microdeposits)
+    @class_method_variant("_cls_verify_microdeposits")
     def verify_microdeposits(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

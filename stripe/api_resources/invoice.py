@@ -1355,7 +1355,7 @@ class Invoice(
     ) -> "Invoice":
         ...
 
-    @class_method_variant(_cls_finalize_invoice)
+    @class_method_variant("_cls_finalize_invoice")
     def finalize_invoice(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -1441,7 +1441,7 @@ class Invoice(
     ) -> "Invoice":
         ...
 
-    @class_method_variant(_cls_mark_uncollectible)
+    @class_method_variant("_cls_mark_uncollectible")
     def mark_uncollectible(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -1512,7 +1512,7 @@ class Invoice(
     ) -> "Invoice":
         ...
 
-    @class_method_variant(_cls_pay)
+    @class_method_variant("_cls_pay")
     def pay(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -1581,7 +1581,7 @@ class Invoice(
     ) -> "Invoice":
         ...
 
-    @class_method_variant(_cls_send_invoice)
+    @class_method_variant("_cls_send_invoice")
     def send_invoice(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -1682,7 +1682,7 @@ class Invoice(
     ) -> "Invoice":
         ...
 
-    @class_method_variant(_cls_void_invoice)
+    @class_method_variant("_cls_void_invoice")
     def void_invoice(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

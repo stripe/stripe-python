@@ -176,7 +176,7 @@ class PaymentMethodDomain(
     ) -> "PaymentMethodDomain":
         ...
 
-    @class_method_variant(_cls_validate)
+    @class_method_variant("_cls_validate")
     def validate(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

@@ -104,7 +104,7 @@ class TestClock(
     ) -> "TestClock":
         ...
 
-    @class_method_variant(_cls_advance)
+    @class_method_variant("_cls_advance")
     def advance(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

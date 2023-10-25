@@ -749,7 +749,7 @@ class Subscription(
     ) -> "Subscription":
         ...
 
-    @class_method_variant(_cls_cancel)
+    @class_method_variant("_cls_cancel")
     def cancel(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -834,7 +834,7 @@ class Subscription(
     ) -> "Discount":
         ...
 
-    @class_method_variant(_cls_delete_discount)
+    @class_method_variant("_cls_delete_discount")
     def delete_discount(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -930,7 +930,7 @@ class Subscription(
     ) -> "Subscription":
         ...
 
-    @class_method_variant(_cls_resume)
+    @class_method_variant("_cls_resume")
     def resume(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

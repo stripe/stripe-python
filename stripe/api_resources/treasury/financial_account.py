@@ -492,7 +492,7 @@ class FinancialAccount(
     ) -> "FinancialAccountFeatures":
         ...
 
-    @class_method_variant(_cls_retrieve_features)
+    @class_method_variant("_cls_retrieve_features")
     def retrieve_features(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -553,7 +553,7 @@ class FinancialAccount(
     ) -> "FinancialAccountFeatures":
         ...
 
-    @class_method_variant(_cls_update_features)
+    @class_method_variant("_cls_update_features")
     def update_features(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

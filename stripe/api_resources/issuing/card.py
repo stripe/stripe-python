@@ -314,7 +314,7 @@ class Card(
         ) -> "Card":
             ...
 
-        @class_method_variant(_cls_deliver_card)
+        @class_method_variant("_cls_deliver_card")
         def deliver_card(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,
@@ -375,7 +375,7 @@ class Card(
         ) -> "Card":
             ...
 
-        @class_method_variant(_cls_fail_card)
+        @class_method_variant("_cls_fail_card")
         def fail_card(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,
@@ -436,7 +436,7 @@ class Card(
         ) -> "Card":
             ...
 
-        @class_method_variant(_cls_return_card)
+        @class_method_variant("_cls_return_card")
         def return_card(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,
@@ -497,7 +497,7 @@ class Card(
         ) -> "Card":
             ...
 
-        @class_method_variant(_cls_ship_card)
+        @class_method_variant("_cls_ship_card")
         def ship_card(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,

@@ -236,7 +236,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
     ) -> ListObject["CalculationLineItem"]:
         ...
 
-    @class_method_variant(_cls_list_line_items)
+    @class_method_variant("_cls_list_line_items")
     def list_line_items(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

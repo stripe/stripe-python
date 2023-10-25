@@ -272,7 +272,7 @@ class Charge(
     ) -> "Charge":
         ...
 
-    @class_method_variant(_cls_capture)
+    @class_method_variant("_cls_capture")
     def capture(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

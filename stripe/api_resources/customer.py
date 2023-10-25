@@ -673,7 +673,7 @@ class Customer(
     ) -> "FundingInstructions":
         ...
 
-    @class_method_variant(_cls_create_funding_instructions)
+    @class_method_variant("_cls_create_funding_instructions")
     def create_funding_instructions(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -765,7 +765,7 @@ class Customer(
     ) -> "Discount":
         ...
 
-    @class_method_variant(_cls_delete_discount)
+    @class_method_variant("_cls_delete_discount")
     def delete_discount(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -851,7 +851,7 @@ class Customer(
     ) -> ListObject["PaymentMethod"]:
         ...
 
-    @class_method_variant(_cls_list_payment_methods)
+    @class_method_variant("_cls_list_payment_methods")
     def list_payment_methods(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -934,7 +934,7 @@ class Customer(
     ) -> "PaymentMethod":
         ...
 
-    @class_method_variant(_cls_retrieve_payment_method)
+    @class_method_variant("_cls_retrieve_payment_method")
     def retrieve_payment_method(  # type: ignore
         self,
         payment_method: str,
@@ -1419,7 +1419,7 @@ class Customer(
         ) -> "CustomerCashBalanceTransaction":
             ...
 
-        @class_method_variant(_cls_fund_cash_balance)
+        @class_method_variant("_cls_fund_cash_balance")
         def fund_cash_balance(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,

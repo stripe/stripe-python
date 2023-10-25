@@ -165,7 +165,7 @@ class Dispute(
     ) -> "Dispute":
         ...
 
-    @class_method_variant(_cls_close)
+    @class_method_variant("_cls_close")
     def close(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,

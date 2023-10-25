@@ -179,7 +179,7 @@ class VerificationSession(
     ) -> "VerificationSession":
         ...
 
-    @class_method_variant(_cls_cancel)
+    @class_method_variant("_cls_cancel")
     def cancel(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
@@ -297,7 +297,7 @@ class VerificationSession(
     ) -> "VerificationSession":
         ...
 
-    @class_method_variant(_cls_redact)
+    @class_method_variant("_cls_redact")
     def redact(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
