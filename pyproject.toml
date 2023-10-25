@@ -24,9 +24,10 @@ exclude = '''
 '''
 [tool.pyright]
 executionEnvironments=[
-  {"root" = "stripe"}
+  {"root" = "stripe"},
+  {"root" = "tests"}
 ]
-include=["stripe"]
+include=["stripe", "tests/test_generated_examples.py"]
 exclude=["build", "**/__pycache__"]
 reportMissingTypeArgument=true
 reportUnnecessaryCast=true
