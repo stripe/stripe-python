@@ -13,7 +13,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, Union, cast
+from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -702,18 +702,21 @@ class Subscription(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Subscription.CancelParams"]
-    ):
-        return cls._static_request(
-            "delete",
-            "/v1/subscriptions/{subscription_exposed_id}".format(
-                subscription_exposed_id=util.sanitize_id(
-                    subscription_exposed_id
-                )
+    ) -> "Subscription":
+        return cast(
+            "Subscription",
+            cls._static_request(
+                "delete",
+                "/v1/subscriptions/{subscription_exposed_id}".format(
+                    subscription_exposed_id=util.sanitize_id(
+                        subscription_exposed_id
+                    )
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -721,14 +724,17 @@ class Subscription(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Subscription.CancelParams"]
-    ):
-        return self._request(
-            "delete",
-            "/v1/subscriptions/{subscription_exposed_id}".format(
-                subscription_exposed_id=util.sanitize_id(self.get("id"))
+    ) -> "Subscription":
+        return cast(
+            "Subscription",
+            self._request(
+                "delete",
+                "/v1/subscriptions/{subscription_exposed_id}".format(
+                    subscription_exposed_id=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -761,18 +767,21 @@ class Subscription(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Subscription.DeleteDiscountParams"]
-    ):
-        return cls._static_request(
-            "delete",
-            "/v1/subscriptions/{subscription_exposed_id}/discount".format(
-                subscription_exposed_id=util.sanitize_id(
-                    subscription_exposed_id
-                )
+    ) -> "Discount":
+        return cast(
+            "Discount",
+            cls._static_request(
+                "delete",
+                "/v1/subscriptions/{subscription_exposed_id}/discount".format(
+                    subscription_exposed_id=util.sanitize_id(
+                        subscription_exposed_id
+                    )
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_delete_discount")
@@ -780,14 +789,17 @@ class Subscription(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Subscription.DeleteDiscountParams"]
-    ):
-        return self._request(
-            "delete",
-            "/v1/subscriptions/{subscription_exposed_id}/discount".format(
-                subscription_exposed_id=util.sanitize_id(self.get("id"))
+    ) -> "Discount":
+        return cast(
+            "Discount",
+            self._request(
+                "delete",
+                "/v1/subscriptions/{subscription_exposed_id}/discount".format(
+                    subscription_exposed_id=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -817,7 +829,7 @@ class Subscription(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["Subscription.ModifyParams"]
+        cls, id: str, **params: Unpack["Subscription.ModifyParams"]
     ) -> "Subscription":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -833,16 +845,19 @@ class Subscription(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Subscription.ResumeParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/subscriptions/{subscription}/resume".format(
-                subscription=util.sanitize_id(subscription)
+    ) -> "Subscription":
+        return cast(
+            "Subscription",
+            cls._static_request(
+                "post",
+                "/v1/subscriptions/{subscription}/resume".format(
+                    subscription=util.sanitize_id(subscription)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_resume")
@@ -850,14 +865,17 @@ class Subscription(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Subscription.ResumeParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/subscriptions/{subscription}/resume".format(
-                subscription=util.sanitize_id(self.get("id"))
+    ) -> "Subscription":
+        return cast(
+            "Subscription",
+            self._request(
+                "post",
+                "/v1/subscriptions/{subscription}/resume".format(
+                    subscription=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -879,5 +897,5 @@ class Subscription(
     @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Subscription.SearchParams"]
-    ):
+    ) -> Iterator["Subscription"]:
         return cls.search(*args, **kwargs).auto_paging_iter()

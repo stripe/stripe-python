@@ -123,16 +123,19 @@ class OutboundTransfer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["OutboundTransfer.CancelParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
-                outbound_transfer=util.sanitize_id(outbound_transfer)
+    ) -> "OutboundTransfer":
+        return cast(
+            "OutboundTransfer",
+            cls._static_request(
+                "post",
+                "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
+                    outbound_transfer=util.sanitize_id(outbound_transfer)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -140,14 +143,17 @@ class OutboundTransfer(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["OutboundTransfer.CancelParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
-                outbound_transfer=util.sanitize_id(self.get("id"))
+    ) -> "OutboundTransfer":
+        return cast(
+            "OutboundTransfer",
+            self._request(
+                "post",
+                "/v1/treasury/outbound_transfers/{outbound_transfer}/cancel".format(
+                    outbound_transfer=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -216,16 +222,19 @@ class OutboundTransfer(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundTransfer.FailParams"]
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
-                    outbound_transfer=util.sanitize_id(outbound_transfer)
+        ) -> "OutboundTransfer":
+            return cast(
+                "OutboundTransfer",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
+                        outbound_transfer=util.sanitize_id(outbound_transfer)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_fail")
@@ -233,14 +242,19 @@ class OutboundTransfer(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.FailParams"]
-        ):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
-                    outbound_transfer=util.sanitize_id(self.resource.get("id"))
+        ) -> "OutboundTransfer":
+            return cast(
+                "OutboundTransfer",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/fail".format(
+                        outbound_transfer=util.sanitize_id(
+                            self.resource.get("id")
+                        )
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -251,16 +265,19 @@ class OutboundTransfer(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundTransfer.PostParams"]
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
-                    outbound_transfer=util.sanitize_id(outbound_transfer)
+        ) -> "OutboundTransfer":
+            return cast(
+                "OutboundTransfer",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
+                        outbound_transfer=util.sanitize_id(outbound_transfer)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_post")
@@ -268,14 +285,19 @@ class OutboundTransfer(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.PostParams"]
-        ):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
-                    outbound_transfer=util.sanitize_id(self.resource.get("id"))
+        ) -> "OutboundTransfer":
+            return cast(
+                "OutboundTransfer",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/post".format(
+                        outbound_transfer=util.sanitize_id(
+                            self.resource.get("id")
+                        )
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -286,16 +308,19 @@ class OutboundTransfer(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
-                    outbound_transfer=util.sanitize_id(outbound_transfer)
+        ) -> "OutboundTransfer":
+            return cast(
+                "OutboundTransfer",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
+                        outbound_transfer=util.sanitize_id(outbound_transfer)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_return_outbound_transfer")
@@ -303,14 +328,19 @@ class OutboundTransfer(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
-        ):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
-                    outbound_transfer=util.sanitize_id(self.resource.get("id"))
+        ) -> "OutboundTransfer":
+            return cast(
+                "OutboundTransfer",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_transfers/{outbound_transfer}/return".format(
+                        outbound_transfer=util.sanitize_id(
+                            self.resource.get("id")
+                        )
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
     @property

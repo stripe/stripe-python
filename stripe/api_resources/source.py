@@ -6,6 +6,7 @@ from stripe.api_resources.abstract import (
     CreateableAPIResource,
     UpdateableAPIResource,
 )
+from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import ClassVar, Dict, List, Optional, cast
@@ -17,6 +18,9 @@ from typing_extensions import (
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
+
+if TYPE_CHECKING:
+    from stripe.api_resources.source_transaction import SourceTransaction
 
 
 class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
@@ -333,16 +337,19 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Source.ListSourceTransactionsParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/sources/{source}/source_transactions".format(
-                source=util.sanitize_id(source)
+    ) -> ListObject["SourceTransaction"]:
+        return cast(
+            ListObject["SourceTransaction"],
+            cls._static_request(
+                "get",
+                "/v1/sources/{source}/source_transactions".format(
+                    source=util.sanitize_id(source)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_list_source_transactions")
@@ -350,18 +357,23 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Source.ListSourceTransactionsParams"]
-    ):
-        return self._request(
-            "get",
-            "/v1/sources/{source}/source_transactions".format(
-                source=util.sanitize_id(self.get("id"))
+    ) -> ListObject["SourceTransaction"]:
+        return cast(
+            ListObject["SourceTransaction"],
+            self._request(
+                "get",
+                "/v1/sources/{source}/source_transactions".format(
+                    source=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Source.ModifyParams"]) -> "Source":
+    def modify(
+        cls, id: str, **params: Unpack["Source.ModifyParams"]
+    ) -> "Source":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Source",
@@ -384,16 +396,19 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Source.VerifyParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/sources/{source}/verify".format(
-                source=util.sanitize_id(source)
+    ) -> "Source":
+        return cast(
+            "Source",
+            cls._static_request(
+                "post",
+                "/v1/sources/{source}/verify".format(
+                    source=util.sanitize_id(source)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_verify")
@@ -401,14 +416,17 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Source.VerifyParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/sources/{source}/verify".format(
-                source=util.sanitize_id(self.get("id"))
+    ) -> "Source":
+        return cast(
+            "Source",
+            self._request(
+                "post",
+                "/v1/sources/{source}/verify".format(
+                    source=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     def detach(self, idempotency_key=None, **params):

@@ -12,7 +12,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, Union, cast
+from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -227,16 +227,19 @@ class Charge(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Charge.CaptureParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/charges/{charge}/capture".format(
-                charge=util.sanitize_id(charge)
+    ) -> "Charge":
+        return cast(
+            "Charge",
+            cls._static_request(
+                "post",
+                "/v1/charges/{charge}/capture".format(
+                    charge=util.sanitize_id(charge)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_capture")
@@ -244,14 +247,17 @@ class Charge(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Charge.CaptureParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/charges/{charge}/capture".format(
-                charge=util.sanitize_id(self.get("id"))
+    ) -> "Charge":
+        return cast(
+            "Charge",
+            self._request(
+                "post",
+                "/v1/charges/{charge}/capture".format(
+                    charge=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -302,7 +308,9 @@ class Charge(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Charge.ModifyParams"]) -> "Charge":
+    def modify(
+        cls, id: str, **params: Unpack["Charge.ModifyParams"]
+    ) -> "Charge":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Charge",
@@ -326,7 +334,7 @@ class Charge(
     @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Charge.SearchParams"]
-    ):
+    ) -> Iterator["Charge"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     def mark_as_fraudulent(self, idempotency_key=None):

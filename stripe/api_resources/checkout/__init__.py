@@ -2,4 +2,4 @@
 # File generated from our OpenAPI spec
 # flake8: noqa
 
-from stripe.api_resources.checkout.session import Session
+from stripe.api_resources.checkout.session import Session as Session

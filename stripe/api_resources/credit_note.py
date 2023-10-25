@@ -256,7 +256,7 @@ class CreditNote(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["CreditNote.ModifyParams"]
+        cls, id: str, **params: Unpack["CreditNote.ModifyParams"]
     ) -> "CreditNote":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -271,14 +271,17 @@ class CreditNote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.PreviewParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/credit_notes/preview",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+    ) -> "CreditNote":
+        return cast(
+            "CreditNote",
+            cls._static_request(
+                "get",
+                "/v1/credit_notes/preview",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -288,14 +291,17 @@ class CreditNote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.PreviewLinesParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/credit_notes/preview/lines",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+    ) -> ListObject["CreditNoteLineItem"]:
+        return cast(
+            ListObject["CreditNoteLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/credit_notes/preview/lines",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -314,14 +320,17 @@ class CreditNote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.VoidCreditNoteParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/credit_notes/{id}/void".format(id=util.sanitize_id(id)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+    ) -> "CreditNote":
+        return cast(
+            "CreditNote",
+            cls._static_request(
+                "post",
+                "/v1/credit_notes/{id}/void".format(id=util.sanitize_id(id)),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @util.class_method_variant("_cls_void_credit_note")
@@ -329,14 +338,17 @@ class CreditNote(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditNote.VoidCreditNoteParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/credit_notes/{id}/void".format(
-                id=util.sanitize_id(self.get("id"))
+    ) -> "CreditNote":
+        return cast(
+            "CreditNote",
+            self._request(
+                "post",
+                "/v1/credit_notes/{id}/void".format(
+                    id=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -347,14 +359,17 @@ class CreditNote(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.ListLinesParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/credit_notes/{credit_note}/lines".format(
-                credit_note=util.sanitize_id(credit_note)
+    ) -> ListObject["CreditNoteLineItem"]:
+        return cast(
+            ListObject["CreditNoteLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/credit_notes/{credit_note}/lines".format(
+                    credit_note=util.sanitize_id(credit_note)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )

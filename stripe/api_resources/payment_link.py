@@ -1032,16 +1032,19 @@ class PaymentLink(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentLink.ListLineItemsParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/payment_links/{payment_link}/line_items".format(
-                payment_link=util.sanitize_id(payment_link)
+    ) -> ListObject["LineItem"]:
+        return cast(
+            ListObject["LineItem"],
+            cls._static_request(
+                "get",
+                "/v1/payment_links/{payment_link}/line_items".format(
+                    payment_link=util.sanitize_id(payment_link)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_list_line_items")
@@ -1049,19 +1052,22 @@ class PaymentLink(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentLink.ListLineItemsParams"]
-    ):
-        return self._request(
-            "get",
-            "/v1/payment_links/{payment_link}/line_items".format(
-                payment_link=util.sanitize_id(self.get("id"))
+    ) -> ListObject["LineItem"]:
+        return cast(
+            ListObject["LineItem"],
+            self._request(
+                "get",
+                "/v1/payment_links/{payment_link}/line_items".format(
+                    payment_link=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["PaymentLink.ModifyParams"]
+        cls, id: str, **params: Unpack["PaymentLink.ModifyParams"]
     ) -> "PaymentLink":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

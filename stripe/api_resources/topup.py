@@ -109,14 +109,19 @@ class Topup(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Topup.CancelParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/topups/{topup}/cancel".format(topup=util.sanitize_id(topup)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+    ) -> "Topup":
+        return cast(
+            "Topup",
+            cls._static_request(
+                "post",
+                "/v1/topups/{topup}/cancel".format(
+                    topup=util.sanitize_id(topup)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -124,14 +129,17 @@ class Topup(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Topup.CancelParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/topups/{topup}/cancel".format(
-                topup=util.sanitize_id(self.get("id"))
+    ) -> "Topup":
+        return cast(
+            "Topup",
+            self._request(
+                "post",
+                "/v1/topups/{topup}/cancel".format(
+                    topup=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -182,7 +190,9 @@ class Topup(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Topup.ModifyParams"]) -> "Topup":
+    def modify(
+        cls, id: str, **params: Unpack["Topup.ModifyParams"]
+    ) -> "Topup":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Topup",

@@ -177,16 +177,19 @@ class OutboundPayment(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["OutboundPayment.CancelParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/treasury/outbound_payments/{id}/cancel".format(
-                id=util.sanitize_id(id)
+    ) -> "OutboundPayment":
+        return cast(
+            "OutboundPayment",
+            cls._static_request(
+                "post",
+                "/v1/treasury/outbound_payments/{id}/cancel".format(
+                    id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -194,14 +197,17 @@ class OutboundPayment(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["OutboundPayment.CancelParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/treasury/outbound_payments/{id}/cancel".format(
-                id=util.sanitize_id(self.get("id"))
+    ) -> "OutboundPayment":
+        return cast(
+            "OutboundPayment",
+            self._request(
+                "post",
+                "/v1/treasury/outbound_payments/{id}/cancel".format(
+                    id=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -270,16 +276,19 @@ class OutboundPayment(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundPayment.FailParams"]
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
-                    id=util.sanitize_id(id)
+        ) -> "OutboundPayment":
+            return cast(
+                "OutboundPayment",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
+                        id=util.sanitize_id(id)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_fail")
@@ -287,14 +296,17 @@ class OutboundPayment(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.FailParams"]
-        ):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
-                    id=util.sanitize_id(self.resource.get("id"))
+        ) -> "OutboundPayment":
+            return cast(
+                "OutboundPayment",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
+                        id=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -305,16 +317,19 @@ class OutboundPayment(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundPayment.PostParams"]
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
-                    id=util.sanitize_id(id)
+        ) -> "OutboundPayment":
+            return cast(
+                "OutboundPayment",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
+                        id=util.sanitize_id(id)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_post")
@@ -322,14 +337,17 @@ class OutboundPayment(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.PostParams"]
-        ):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
-                    id=util.sanitize_id(self.resource.get("id"))
+        ) -> "OutboundPayment":
+            return cast(
+                "OutboundPayment",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
+                        id=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -340,16 +358,19 @@ class OutboundPayment(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
-                    id=util.sanitize_id(id)
+        ) -> "OutboundPayment":
+            return cast(
+                "OutboundPayment",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
+                        id=util.sanitize_id(id)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_return_outbound_payment")
@@ -357,14 +378,17 @@ class OutboundPayment(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
-        ):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
-                    id=util.sanitize_id(self.resource.get("id"))
+        ) -> "OutboundPayment":
+            return cast(
+                "OutboundPayment",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
+                        id=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
     @property

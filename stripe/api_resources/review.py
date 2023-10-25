@@ -6,7 +6,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -77,16 +77,19 @@ class Review(ListableAPIResource["Review"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Review.ApproveParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/reviews/{review}/approve".format(
-                review=util.sanitize_id(review)
+    ) -> "Review":
+        return cast(
+            "Review",
+            cls._static_request(
+                "post",
+                "/v1/reviews/{review}/approve".format(
+                    review=util.sanitize_id(review)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_approve")
@@ -94,14 +97,17 @@ class Review(ListableAPIResource["Review"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Review.ApproveParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/reviews/{review}/approve".format(
-                review=util.sanitize_id(self.get("id"))
+    ) -> "Review":
+        return cast(
+            "Review",
+            self._request(
+                "post",
+                "/v1/reviews/{review}/approve".format(
+                    review=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

@@ -143,16 +143,19 @@ class VerificationSession(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["VerificationSession.CancelParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/identity/verification_sessions/{session}/cancel".format(
-                session=util.sanitize_id(session)
+    ) -> "VerificationSession":
+        return cast(
+            "VerificationSession",
+            cls._static_request(
+                "post",
+                "/v1/identity/verification_sessions/{session}/cancel".format(
+                    session=util.sanitize_id(session)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -160,14 +163,17 @@ class VerificationSession(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["VerificationSession.CancelParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/identity/verification_sessions/{session}/cancel".format(
-                session=util.sanitize_id(self.get("id"))
+    ) -> "VerificationSession":
+        return cast(
+            "VerificationSession",
+            self._request(
+                "post",
+                "/v1/identity/verification_sessions/{session}/cancel".format(
+                    session=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -219,7 +225,7 @@ class VerificationSession(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["VerificationSession.ModifyParams"]
+        cls, id: str, **params: Unpack["VerificationSession.ModifyParams"]
     ) -> "VerificationSession":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -235,16 +241,19 @@ class VerificationSession(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["VerificationSession.RedactParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/identity/verification_sessions/{session}/redact".format(
-                session=util.sanitize_id(session)
+    ) -> "VerificationSession":
+        return cast(
+            "VerificationSession",
+            cls._static_request(
+                "post",
+                "/v1/identity/verification_sessions/{session}/redact".format(
+                    session=util.sanitize_id(session)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_redact")
@@ -252,14 +261,17 @@ class VerificationSession(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["VerificationSession.RedactParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/identity/verification_sessions/{session}/redact".format(
-                session=util.sanitize_id(self.get("id"))
+    ) -> "VerificationSession":
+        return cast(
+            "VerificationSession",
+            self._request(
+                "post",
+                "/v1/identity/verification_sessions/{session}/redact".format(
+                    session=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

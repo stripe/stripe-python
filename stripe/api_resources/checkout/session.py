@@ -1091,16 +1091,19 @@ class Session(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Session.ExpireParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/checkout/sessions/{session}/expire".format(
-                session=util.sanitize_id(session)
+    ) -> "Session":
+        return cast(
+            "Session",
+            cls._static_request(
+                "post",
+                "/v1/checkout/sessions/{session}/expire".format(
+                    session=util.sanitize_id(session)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_expire")
@@ -1108,14 +1111,17 @@ class Session(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Session.ExpireParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/checkout/sessions/{session}/expire".format(
-                session=util.sanitize_id(self.get("id"))
+    ) -> "Session":
+        return cast(
+            "Session",
+            self._request(
+                "post",
+                "/v1/checkout/sessions/{session}/expire".format(
+                    session=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1151,16 +1157,19 @@ class Session(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Session.ListLineItemsParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/checkout/sessions/{session}/line_items".format(
-                session=util.sanitize_id(session)
+    ) -> ListObject["LineItem"]:
+        return cast(
+            ListObject["LineItem"],
+            cls._static_request(
+                "get",
+                "/v1/checkout/sessions/{session}/line_items".format(
+                    session=util.sanitize_id(session)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_list_line_items")
@@ -1168,14 +1177,17 @@ class Session(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Session.ListLineItemsParams"]
-    ):
-        return self._request(
-            "get",
-            "/v1/checkout/sessions/{session}/line_items".format(
-                session=util.sanitize_id(self.get("id"))
+    ) -> ListObject["LineItem"]:
+        return cast(
+            ListObject["LineItem"],
+            self._request(
+                "get",
+                "/v1/checkout/sessions/{session}/line_items".format(
+                    session=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

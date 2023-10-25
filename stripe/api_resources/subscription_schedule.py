@@ -437,16 +437,19 @@ class SubscriptionSchedule(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.CancelParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/cancel".format(
-                schedule=util.sanitize_id(schedule)
+    ) -> "SubscriptionSchedule":
+        return cast(
+            "SubscriptionSchedule",
+            cls._static_request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/cancel".format(
+                    schedule=util.sanitize_id(schedule)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -454,14 +457,17 @@ class SubscriptionSchedule(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.CancelParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/cancel".format(
-                schedule=util.sanitize_id(self.get("id"))
+    ) -> "SubscriptionSchedule":
+        return cast(
+            "SubscriptionSchedule",
+            self._request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/cancel".format(
+                    schedule=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -513,7 +519,7 @@ class SubscriptionSchedule(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["SubscriptionSchedule.ModifyParams"]
+        cls, id: str, **params: Unpack["SubscriptionSchedule.ModifyParams"]
     ) -> "SubscriptionSchedule":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -529,16 +535,19 @@ class SubscriptionSchedule(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.ReleaseParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/release".format(
-                schedule=util.sanitize_id(schedule)
+    ) -> "SubscriptionSchedule":
+        return cast(
+            "SubscriptionSchedule",
+            cls._static_request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/release".format(
+                    schedule=util.sanitize_id(schedule)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_release")
@@ -546,14 +555,17 @@ class SubscriptionSchedule(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.ReleaseParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/release".format(
-                schedule=util.sanitize_id(self.get("id"))
+    ) -> "SubscriptionSchedule":
+        return cast(
+            "SubscriptionSchedule",
+            self._request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/release".format(
+                    schedule=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

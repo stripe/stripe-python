@@ -23,7 +23,9 @@ from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe.api_resources.bank_account import BankAccount
+    from stripe.api_resources.capability import Capability
     from stripe.api_resources.card import Card
+    from stripe.api_resources.login_link import LoginLink
     from stripe.api_resources.person import Person
 
 
@@ -1095,16 +1097,19 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.PersonsParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/accounts/{account}/persons".format(
-                account=util.sanitize_id(account)
+    ) -> ListObject["Person"]:
+        return cast(
+            ListObject["Person"],
+            cls._static_request(
+                "get",
+                "/v1/accounts/{account}/persons".format(
+                    account=util.sanitize_id(account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_persons")
@@ -1112,14 +1117,17 @@ class Account(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.PersonsParams"]
-    ):
-        return self._request(
-            "get",
-            "/v1/accounts/{account}/persons".format(
-                account=util.sanitize_id(self.get("id"))
+    ) -> ListObject["Person"]:
+        return cast(
+            ListObject["Person"],
+            self._request(
+                "get",
+                "/v1/accounts/{account}/persons".format(
+                    account=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1130,16 +1138,19 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RejectParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/accounts/{account}/reject".format(
-                account=util.sanitize_id(account)
+    ) -> "Account":
+        return cast(
+            "Account",
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/reject".format(
+                    account=util.sanitize_id(account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_reject")
@@ -1147,14 +1158,17 @@ class Account(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.RejectParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/accounts/{account}/reject".format(
-                account=util.sanitize_id(self.get("id"))
+    ) -> "Account":
+        return cast(
+            "Account",
+            self._request(
+                "post",
+                "/v1/accounts/{account}/reject".format(
+                    account=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     # We are not adding a helper for capabilities here as the Account object already has a
@@ -1209,17 +1223,20 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RetrieveCapabilityParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/accounts/{account}/capabilities/{capability}".format(
-                account=util.sanitize_id(account),
-                capability=util.sanitize_id(capability),
+    ) -> "Capability":
+        return cast(
+            "Capability",
+            cls._static_request(
+                "get",
+                "/v1/accounts/{account}/capabilities/{capability}".format(
+                    account=util.sanitize_id(account),
+                    capability=util.sanitize_id(capability),
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -1231,17 +1248,20 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ModifyCapabilityParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/accounts/{account}/capabilities/{capability}".format(
-                account=util.sanitize_id(account),
-                capability=util.sanitize_id(capability),
+    ) -> "Capability":
+        return cast(
+            "Capability",
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/capabilities/{capability}".format(
+                    account=util.sanitize_id(account),
+                    capability=util.sanitize_id(capability),
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -1252,16 +1272,19 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListCapabilitiesParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/accounts/{account}/capabilities".format(
-                account=util.sanitize_id(account)
+    ) -> ListObject["Capability"]:
+        return cast(
+            ListObject["Capability"],
+            cls._static_request(
+                "get",
+                "/v1/accounts/{account}/capabilities".format(
+                    account=util.sanitize_id(account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -1272,16 +1295,19 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.CreateExternalAccountParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/accounts/{account}/external_accounts".format(
-                account=util.sanitize_id(account)
+    ) -> Union["BankAccount", "Card"]:
+        return cast(
+            Union["BankAccount", "Card"],
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/external_accounts".format(
+                    account=util.sanitize_id(account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -1293,16 +1319,19 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RetrieveExternalAccountParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/accounts/{account}/external_accounts/{id}".format(
-                account=util.sanitize_id(account), id=util.sanitize_id(id)
+    ) -> Union["BankAccount", "Card"]:
+        return cast(
+            Union["BankAccount", "Card"],
+            cls._static_request(
+                "get",
+                "/v1/accounts/{account}/external_accounts/{id}".format(
+                    account=util.sanitize_id(account), id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -1314,16 +1343,19 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ModifyExternalAccountParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/accounts/{account}/external_accounts/{id}".format(
-                account=util.sanitize_id(account), id=util.sanitize_id(id)
+    ) -> Union["BankAccount", "Card"]:
+        return cast(
+            Union["BankAccount", "Card"],
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/external_accounts/{id}".format(
+                    account=util.sanitize_id(account), id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -1335,16 +1367,19 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.DeleteExternalAccountParams"]
-    ):
-        return cls._static_request(
-            "delete",
-            "/v1/accounts/{account}/external_accounts/{id}".format(
-                account=util.sanitize_id(account), id=util.sanitize_id(id)
+    ) -> Union["BankAccount", "Card"]:
+        return cast(
+            Union["BankAccount", "Card"],
+            cls._static_request(
+                "delete",
+                "/v1/accounts/{account}/external_accounts/{id}".format(
+                    account=util.sanitize_id(account), id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -1355,16 +1390,19 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListExternalAccountsParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/accounts/{account}/external_accounts".format(
-                account=util.sanitize_id(account)
+    ) -> ListObject[Union["BankAccount", "Card"]]:
+        return cast(
+            ListObject[Union["BankAccount", "Card"]],
+            cls._static_request(
+                "get",
+                "/v1/accounts/{account}/external_accounts".format(
+                    account=util.sanitize_id(account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -1375,16 +1413,19 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.CreateLoginLinkParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/accounts/{account}/login_links".format(
-                account=util.sanitize_id(account)
+    ) -> "LoginLink":
+        return cast(
+            "LoginLink",
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/login_links".format(
+                    account=util.sanitize_id(account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -1395,16 +1436,19 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.CreatePersonParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/accounts/{account}/persons".format(
-                account=util.sanitize_id(account)
+    ) -> "Person":
+        return cast(
+            "Person",
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/persons".format(
+                    account=util.sanitize_id(account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -1416,17 +1460,20 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RetrievePersonParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/accounts/{account}/persons/{person}".format(
-                account=util.sanitize_id(account),
-                person=util.sanitize_id(person),
+    ) -> "Person":
+        return cast(
+            "Person",
+            cls._static_request(
+                "get",
+                "/v1/accounts/{account}/persons/{person}".format(
+                    account=util.sanitize_id(account),
+                    person=util.sanitize_id(person),
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -1438,17 +1485,20 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ModifyPersonParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/accounts/{account}/persons/{person}".format(
-                account=util.sanitize_id(account),
-                person=util.sanitize_id(person),
+    ) -> "Person":
+        return cast(
+            "Person",
+            cls._static_request(
+                "post",
+                "/v1/accounts/{account}/persons/{person}".format(
+                    account=util.sanitize_id(account),
+                    person=util.sanitize_id(person),
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -1460,17 +1510,20 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.DeletePersonParams"]
-    ):
-        return cls._static_request(
-            "delete",
-            "/v1/accounts/{account}/persons/{person}".format(
-                account=util.sanitize_id(account),
-                person=util.sanitize_id(person),
+    ) -> "Person":
+        return cast(
+            "Person",
+            cls._static_request(
+                "delete",
+                "/v1/accounts/{account}/persons/{person}".format(
+                    account=util.sanitize_id(account),
+                    person=util.sanitize_id(person),
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -1481,14 +1534,17 @@ class Account(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListPersonsParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/accounts/{account}/persons".format(
-                account=util.sanitize_id(account)
+    ) -> ListObject["Person"]:
+        return cast(
+            ListObject["Person"],
+            cls._static_request(
+                "get",
+                "/v1/accounts/{account}/persons".format(
+                    account=util.sanitize_id(account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
