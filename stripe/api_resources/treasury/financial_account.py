@@ -9,12 +9,14 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
+from stripe.util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
+    overload,
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
@@ -471,8 +473,28 @@ class FinancialAccount(
             ),
         )
 
-    @util.class_method_variant("_cls_retrieve_features")
+    @overload
+    @classmethod
     def retrieve_features(
+        cls,
+        financial_account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+    ) -> "FinancialAccountFeatures":
+        ...
+
+    @overload
+    def retrieve_features(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+    ) -> "FinancialAccountFeatures":
+        ...
+
+    @class_method_variant(_cls_retrieve_features)
+    def retrieve_features(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
@@ -512,8 +534,28 @@ class FinancialAccount(
             ),
         )
 
-    @util.class_method_variant("_cls_update_features")
+    @overload
+    @classmethod
     def update_features(
+        cls,
+        financial_account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+    ) -> "FinancialAccountFeatures":
+        ...
+
+    @overload
+    def update_features(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+    ) -> "FinancialAccountFeatures":
+        ...
+
+    @class_method_variant(_cls_update_features)
+    def update_features(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]

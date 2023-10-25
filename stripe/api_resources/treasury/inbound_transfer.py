@@ -10,6 +10,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
+from stripe.util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
@@ -17,6 +18,7 @@ from typing_extensions import (
     Type,
     TypedDict,
     Unpack,
+    overload,
     TYPE_CHECKING,
 )
 
@@ -124,8 +126,28 @@ class InboundTransfer(
             ),
         )
 
-    @util.class_method_variant("_cls_cancel")
+    @overload
+    @classmethod
     def cancel(
+        cls,
+        inbound_transfer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["InboundTransfer.CancelParams"]
+    ) -> "InboundTransfer":
+        ...
+
+    @overload
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["InboundTransfer.CancelParams"]
+    ) -> "InboundTransfer":
+        ...
+
+    @class_method_variant(_cls_cancel)
+    def cancel(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["InboundTransfer.CancelParams"]
@@ -223,8 +245,28 @@ class InboundTransfer(
                 ),
             )
 
-        @util.class_method_variant("_cls_fail")
+        @overload
+        @classmethod
         def fail(
+            cls,
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["InboundTransfer.FailParams"]
+        ) -> "InboundTransfer":
+            ...
+
+        @overload
+        def fail(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["InboundTransfer.FailParams"]
+        ) -> "InboundTransfer":
+            ...
+
+        @class_method_variant(_cls_fail)
+        def fail(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.FailParams"]
@@ -264,8 +306,28 @@ class InboundTransfer(
                 ),
             )
 
-        @util.class_method_variant("_cls_return_inbound_transfer")
+        @overload
+        @classmethod
         def return_inbound_transfer(
+            cls,
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+        ) -> "InboundTransfer":
+            ...
+
+        @overload
+        def return_inbound_transfer(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+        ) -> "InboundTransfer":
+            ...
+
+        @class_method_variant(_cls_return_inbound_transfer)
+        def return_inbound_transfer(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
@@ -305,8 +367,28 @@ class InboundTransfer(
                 ),
             )
 
-        @util.class_method_variant("_cls_succeed")
+        @overload
+        @classmethod
         def succeed(
+            cls,
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["InboundTransfer.SucceedParams"]
+        ) -> "InboundTransfer":
+            ...
+
+        @overload
+        def succeed(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["InboundTransfer.SucceedParams"]
+        ) -> "InboundTransfer":
+            ...
+
+        @class_method_variant(_cls_succeed)
+        def succeed(  # type: ignore
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.SucceedParams"]

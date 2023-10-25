@@ -9,12 +9,14 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
+from stripe.util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
+    overload,
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
@@ -352,8 +354,28 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             ),
         )
 
-    @util.class_method_variant("_cls_list_source_transactions")
+    @overload
+    @classmethod
     def list_source_transactions(
+        cls,
+        source: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Source.ListSourceTransactionsParams"]
+    ) -> ListObject["SourceTransaction"]:
+        ...
+
+    @overload
+    def list_source_transactions(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Source.ListSourceTransactionsParams"]
+    ) -> ListObject["SourceTransaction"]:
+        ...
+
+    @class_method_variant(_cls_list_source_transactions)
+    def list_source_transactions(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Source.ListSourceTransactionsParams"]
@@ -411,8 +433,28 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             ),
         )
 
-    @util.class_method_variant("_cls_verify")
+    @overload
+    @classmethod
     def verify(
+        cls,
+        source: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Source.VerifyParams"]
+    ) -> "Source":
+        ...
+
+    @overload
+    def verify(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Source.VerifyParams"]
+    ) -> "Source":
+        ...
+
+    @class_method_variant(_cls_verify)
+    def verify(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Source.VerifyParams"]

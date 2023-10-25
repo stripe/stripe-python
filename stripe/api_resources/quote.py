@@ -11,12 +11,14 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
+from stripe.util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
+    overload,
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
@@ -297,8 +299,28 @@ class Quote(
             ),
         )
 
-    @util.class_method_variant("_cls_accept")
+    @overload
+    @classmethod
     def accept(
+        cls,
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Quote.AcceptParams"]
+    ) -> "Quote":
+        ...
+
+    @overload
+    def accept(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.AcceptParams"]
+    ) -> "Quote":
+        ...
+
+    @class_method_variant(_cls_accept)
+    def accept(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
@@ -338,8 +360,28 @@ class Quote(
             ),
         )
 
-    @util.class_method_variant("_cls_cancel")
+    @overload
+    @classmethod
     def cancel(
+        cls,
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Quote.CancelParams"]
+    ) -> "Quote":
+        ...
+
+    @overload
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.CancelParams"]
+    ) -> "Quote":
+        ...
+
+    @class_method_variant(_cls_cancel)
+    def cancel(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
@@ -401,8 +443,28 @@ class Quote(
             ),
         )
 
-    @util.class_method_variant("_cls_finalize_quote")
+    @overload
+    @classmethod
     def finalize_quote(
+        cls,
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Quote.FinalizeQuoteParams"]
+    ) -> "Quote":
+        ...
+
+    @overload
+    def finalize_quote(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.FinalizeQuoteParams"]
+    ) -> "Quote":
+        ...
+
+    @class_method_variant(_cls_finalize_quote)
+    def finalize_quote(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
@@ -467,8 +529,28 @@ class Quote(
             ),
         )
 
-    @util.class_method_variant("_cls_list_computed_upfront_line_items")
+    @overload
+    @classmethod
     def list_computed_upfront_line_items(
+        cls,
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        ...
+
+    @overload
+    def list_computed_upfront_line_items(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        ...
+
+    @class_method_variant(_cls_list_computed_upfront_line_items)
+    def list_computed_upfront_line_items(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
@@ -508,8 +590,28 @@ class Quote(
             ),
         )
 
-    @util.class_method_variant("_cls_list_line_items")
+    @overload
+    @classmethod
     def list_line_items(
+        cls,
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Quote.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        ...
+
+    @overload
+    def list_line_items(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Quote.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        ...
+
+    @class_method_variant(_cls_list_line_items)
+    def list_line_items(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]
@@ -569,8 +671,32 @@ class Quote(
         response, _ = requestor.request_stream("get", url, params, headers)
         return response
 
-    @util.class_method_variant("_cls_pdf")
+    @overload
+    @classmethod
     def pdf(
+        cls,
+        sid,
+        api_key=None,
+        idempotency_key=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        ...
+
+    @overload
+    def pdf(
+        self,
+        api_key=None,
+        api_version=None,
+        stripe_version=None,
+        stripe_account=None,
+        **params
+    ):
+        ...
+
+    @util.class_method_variant("_cls_pdf")
+    def pdf(  # type: ignore
         self,
         api_key=None,
         api_version=None,

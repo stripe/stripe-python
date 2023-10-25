@@ -9,8 +9,15 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
+from stripe.util import class_method_variant
 from typing import ClassVar, List, Optional, cast
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    Unpack,
+    overload,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
 
 
@@ -155,8 +162,28 @@ class PaymentMethodDomain(
             ),
         )
 
-    @util.class_method_variant("_cls_validate")
+    @overload
+    @classmethod
     def validate(
+        cls,
+        payment_method_domain: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["PaymentMethodDomain.ValidateParams"]
+    ) -> "PaymentMethodDomain":
+        ...
+
+    @overload
+    def validate(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["PaymentMethodDomain.ValidateParams"]
+    ) -> "PaymentMethodDomain":
+        ...
+
+    @class_method_variant(_cls_validate)
+    def validate(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethodDomain.ValidateParams"]

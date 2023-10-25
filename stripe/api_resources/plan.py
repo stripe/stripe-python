@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     DeletableAPIResource,
@@ -11,12 +10,14 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
+from stripe.util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
+    overload,
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
@@ -174,8 +175,19 @@ class Plan(
             cls._static_request("delete", url, params=params),
         )
 
-    @util.class_method_variant("_cls_delete")
+    @overload
+    @classmethod
+    def delete(cls, sid: str, **params: Unpack["Plan.DeleteParams"]) -> "Plan":
+        ...
+
+    @overload
     def delete(self, **params: Unpack["Plan.DeleteParams"]) -> "Plan":
+        ...
+
+    @class_method_variant("_cls_delete")
+    def delete(  # type: ignore
+        self, **params: Unpack["Plan.DeleteParams"]
+    ) -> "Plan":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),

@@ -8,12 +8,14 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
+from stripe.util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
+    overload,
     TYPE_CHECKING,
 )
 
@@ -135,8 +137,28 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
             ),
         )
 
-    @util.class_method_variant("_cls_refund")
+    @overload
+    @classmethod
     def refund(
+        cls,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["ApplicationFee.RefundParams"]
+    ) -> "ApplicationFeeRefund":
+        ...
+
+    @overload
+    def refund(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["ApplicationFee.RefundParams"]
+    ) -> "ApplicationFeeRefund":
+        ...
+
+    @class_method_variant(_cls_refund)
+    def refund(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["ApplicationFee.RefundParams"]

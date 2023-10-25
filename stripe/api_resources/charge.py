@@ -12,12 +12,14 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
+from stripe.util import class_method_variant
 from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
+    overload,
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
@@ -242,8 +244,28 @@ class Charge(
             ),
         )
 
-    @util.class_method_variant("_cls_capture")
+    @overload
+    @classmethod
     def capture(
+        cls,
+        charge: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Charge.CaptureParams"]
+    ) -> "Charge":
+        ...
+
+    @overload
+    def capture(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Charge.CaptureParams"]
+    ) -> "Charge":
+        ...
+
+    @class_method_variant(_cls_capture)
+    def capture(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Charge.CaptureParams"]

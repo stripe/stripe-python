@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import error, util
+from stripe import error
 from stripe.api_resources.abstract import (
     DeletableAPIResource,
     UpdateableAPIResource,
@@ -11,8 +11,9 @@ from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
+from stripe.util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, Union, cast
-from typing_extensions import Literal, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, Unpack, overload, TYPE_CHECKING
 from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
@@ -71,8 +72,21 @@ class BankAccount(
             cls._static_request("delete", url, params=params),
         )
 
-    @util.class_method_variant("_cls_delete")
+    @overload
+    @classmethod
     def delete(
+        cls, sid: str, **params: Unpack["BankAccount.DeleteParams"]
+    ) -> Union["BankAccount", "Card"]:
+        ...
+
+    @overload
+    def delete(
+        self, **params: Unpack["BankAccount.DeleteParams"]
+    ) -> Union["BankAccount", "Card"]:
+        ...
+
+    @class_method_variant("_cls_delete")
+    def delete(  # type: ignore
         self, **params: Unpack["BankAccount.DeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         return self._request_and_refresh(

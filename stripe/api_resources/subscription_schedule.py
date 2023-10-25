@@ -10,12 +10,14 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
+from stripe.util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
+    overload,
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
@@ -452,8 +454,28 @@ class SubscriptionSchedule(
             ),
         )
 
-    @util.class_method_variant("_cls_cancel")
+    @overload
+    @classmethod
     def cancel(
+        cls,
+        schedule: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["SubscriptionSchedule.CancelParams"]
+    ) -> "SubscriptionSchedule":
+        ...
+
+    @overload
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["SubscriptionSchedule.CancelParams"]
+    ) -> "SubscriptionSchedule":
+        ...
+
+    @class_method_variant(_cls_cancel)
+    def cancel(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.CancelParams"]
@@ -550,8 +572,28 @@ class SubscriptionSchedule(
             ),
         )
 
-    @util.class_method_variant("_cls_release")
+    @overload
+    @classmethod
     def release(
+        cls,
+        schedule: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+    ) -> "SubscriptionSchedule":
+        ...
+
+    @overload
+    def release(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+    ) -> "SubscriptionSchedule":
+        ...
+
+    @class_method_variant(_cls_release)
+    def release(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.ReleaseParams"]

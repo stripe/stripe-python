@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     DeletableAPIResource,
@@ -8,8 +7,15 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
+from stripe.util import class_method_variant
 from typing import ClassVar, List, Optional, cast
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    Unpack,
+    overload,
+    TYPE_CHECKING,
+)
 from urllib.parse import quote_plus
 
 
@@ -77,8 +83,21 @@ class ApplePayDomain(
             cls._static_request("delete", url, params=params),
         )
 
-    @util.class_method_variant("_cls_delete")
+    @overload
+    @classmethod
     def delete(
+        cls, sid: str, **params: Unpack["ApplePayDomain.DeleteParams"]
+    ) -> "ApplePayDomain":
+        ...
+
+    @overload
+    def delete(
+        self, **params: Unpack["ApplePayDomain.DeleteParams"]
+    ) -> "ApplePayDomain":
+        ...
+
+    @class_method_variant("_cls_delete")
+    def delete(  # type: ignore
         self, **params: Unpack["ApplePayDomain.DeleteParams"]
     ) -> "ApplePayDomain":
         return self._request_and_refresh(

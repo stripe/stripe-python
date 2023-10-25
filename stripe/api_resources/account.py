@@ -11,12 +11,14 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
+from stripe.util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
+    overload,
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
@@ -1056,8 +1058,21 @@ class Account(
             cls._static_request("delete", url, params=params),
         )
 
-    @util.class_method_variant("_cls_delete")
+    @overload
+    @classmethod
+    def delete(
+        cls, sid: str, **params: Unpack["Account.DeleteParams"]
+    ) -> "Account":
+        ...
+
+    @overload
     def delete(self, **params: Unpack["Account.DeleteParams"]) -> "Account":
+        ...
+
+    @class_method_variant("_cls_delete")
+    def delete(  # type: ignore
+        self, **params: Unpack["Account.DeleteParams"]
+    ) -> "Account":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -1112,8 +1127,28 @@ class Account(
             ),
         )
 
-    @util.class_method_variant("_cls_persons")
+    @overload
+    @classmethod
     def persons(
+        cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.PersonsParams"]
+    ) -> ListObject["Person"]:
+        ...
+
+    @overload
+    def persons(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.PersonsParams"]
+    ) -> ListObject["Person"]:
+        ...
+
+    @class_method_variant(_cls_persons)
+    def persons(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.PersonsParams"]
@@ -1153,8 +1188,28 @@ class Account(
             ),
         )
 
-    @util.class_method_variant("_cls_reject")
+    @overload
+    @classmethod
     def reject(
+        cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.RejectParams"]
+    ) -> "Account":
+        ...
+
+    @overload
+    def reject(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.RejectParams"]
+    ) -> "Account":
+        ...
+
+    @class_method_variant(_cls_reject)
+    def reject(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.RejectParams"]

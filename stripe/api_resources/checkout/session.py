@@ -9,12 +9,14 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
+from stripe.util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
+    overload,
     TYPE_CHECKING,
 )
 
@@ -1106,8 +1108,28 @@ class Session(
             ),
         )
 
-    @util.class_method_variant("_cls_expire")
+    @overload
+    @classmethod
     def expire(
+        cls,
+        session: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Session.ExpireParams"]
+    ) -> "Session":
+        ...
+
+    @overload
+    def expire(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Session.ExpireParams"]
+    ) -> "Session":
+        ...
+
+    @class_method_variant(_cls_expire)
+    def expire(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Session.ExpireParams"]
@@ -1172,8 +1194,28 @@ class Session(
             ),
         )
 
-    @util.class_method_variant("_cls_list_line_items")
+    @overload
+    @classmethod
     def list_line_items(
+        cls,
+        session: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Session.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        ...
+
+    @overload
+    def list_line_items(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Session.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        ...
+
+    @class_method_variant(_cls_list_line_items)
+    def list_line_items(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Session.ListLineItemsParams"]

@@ -6,12 +6,14 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
+from stripe.util import class_method_variant
 from typing import ClassVar, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
+    overload,
     TYPE_CHECKING,
 )
 
@@ -115,8 +117,28 @@ class Account(ListableAPIResource["Account"]):
             ),
         )
 
-    @util.class_method_variant("_cls_disconnect")
+    @overload
+    @classmethod
     def disconnect(
+        cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.DisconnectParams"]
+    ) -> "Account":
+        ...
+
+    @overload
+    def disconnect(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.DisconnectParams"]
+    ) -> "Account":
+        ...
+
+    @class_method_variant(_cls_disconnect)
+    def disconnect(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
@@ -181,8 +203,28 @@ class Account(ListableAPIResource["Account"]):
             ),
         )
 
-    @util.class_method_variant("_cls_list_owners")
+    @overload
+    @classmethod
     def list_owners(
+        cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.ListOwnersParams"]
+    ) -> ListObject["AccountOwner"]:
+        ...
+
+    @overload
+    def list_owners(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.ListOwnersParams"]
+    ) -> ListObject["AccountOwner"]:
+        ...
+
+    @class_method_variant(_cls_list_owners)
+    def list_owners(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
@@ -222,8 +264,28 @@ class Account(ListableAPIResource["Account"]):
             ),
         )
 
-    @util.class_method_variant("_cls_refresh_account")
+    @overload
+    @classmethod
     def refresh_account(
+        cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.RefreshAccountParams"]
+    ) -> "Account":
+        ...
+
+    @overload
+    def refresh_account(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.RefreshAccountParams"]
+    ) -> "Account":
+        ...
+
+    @class_method_variant(_cls_refresh_account)
+    def refresh_account(  # type: ignore
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
