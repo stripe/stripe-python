@@ -5,7 +5,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -862,17 +862,20 @@ class CreditUnderwritingRecord(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
     ) -> "CreditUnderwritingRecord":
-        return cls._static_request(
-            "post",
-            "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
-                credit_underwriting_record=util.sanitize_id(
-                    credit_underwriting_record
-                )
+        return cast(
+            "CreditUnderwritingRecord",
+            cls._static_request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
+                    credit_underwriting_record=util.sanitize_id(
+                        credit_underwriting_record
+                    )
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_correct")
@@ -881,13 +884,16 @@ class CreditUnderwritingRecord(
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
     ) -> "CreditUnderwritingRecord":
-        return self._request(
-            "post",
-            "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
-                credit_underwriting_record=util.sanitize_id(self.get("id"))
+        return cast(
+            "CreditUnderwritingRecord",
+            self._request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/correct".format(
+                    credit_underwriting_record=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -900,13 +906,16 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord.CreateFromApplicationParams"
         ]
     ) -> "CreditUnderwritingRecord":
-        return cls._static_request(
-            "post",
-            "/v1/issuing/credit_underwriting_records/create_from_application",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "CreditUnderwritingRecord",
+            cls._static_request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/create_from_application",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -919,13 +928,16 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord.CreateFromProactiveReviewParams"
         ]
     ) -> "CreditUnderwritingRecord":
-        return cls._static_request(
-            "post",
-            "/v1/issuing/credit_underwriting_records/create_from_proactive_review",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "CreditUnderwritingRecord",
+            cls._static_request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/create_from_proactive_review",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -962,17 +974,20 @@ class CreditUnderwritingRecord(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
     ) -> "CreditUnderwritingRecord":
-        return cls._static_request(
-            "post",
-            "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
-                credit_underwriting_record=util.sanitize_id(
-                    credit_underwriting_record
-                )
+        return cast(
+            "CreditUnderwritingRecord",
+            cls._static_request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
+                    credit_underwriting_record=util.sanitize_id(
+                        credit_underwriting_record
+                    )
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_report_decision")
@@ -981,13 +996,16 @@ class CreditUnderwritingRecord(
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
     ) -> "CreditUnderwritingRecord":
-        return self._request(
-            "post",
-            "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
-                credit_underwriting_record=util.sanitize_id(self.get("id"))
+        return cast(
+            "CreditUnderwritingRecord",
+            self._request(
+                "post",
+                "/v1/issuing/credit_underwriting_records/{credit_underwriting_record}/report_decision".format(
+                    credit_underwriting_record=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

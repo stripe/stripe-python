@@ -317,15 +317,18 @@ class SubscriptionItem(
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionItem.CreateUsageRecordParams"]
     ) -> "UsageRecord":
-        return cls._static_request(
-            "post",
-            "/v1/subscription_items/{subscription_item}/usage_records".format(
-                subscription_item=util.sanitize_id(subscription_item)
+        return cast(
+            "UsageRecord",
+            cls._static_request(
+                "post",
+                "/v1/subscription_items/{subscription_item}/usage_records".format(
+                    subscription_item=util.sanitize_id(subscription_item)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -337,15 +340,18 @@ class SubscriptionItem(
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionItem.ListUsageRecordSummariesParams"]
     ) -> ListObject["UsageRecordSummary"]:
-        return cls._static_request(
-            "get",
-            "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
-                subscription_item=util.sanitize_id(subscription_item)
+        return cast(
+            ListObject["UsageRecordSummary"],
+            cls._static_request(
+                "get",
+                "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
+                    subscription_item=util.sanitize_id(subscription_item)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     _inner_class_types = {

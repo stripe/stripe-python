@@ -126,15 +126,18 @@ class Refund(
         stripe_account: Optional[str] = None,
         **params: Unpack["Refund.CancelParams"]
     ) -> "Refund":
-        return cls._static_request(
-            "post",
-            "/v1/refunds/{refund}/cancel".format(
-                refund=util.sanitize_id(refund)
+        return cast(
+            "Refund",
+            cls._static_request(
+                "post",
+                "/v1/refunds/{refund}/cancel".format(
+                    refund=util.sanitize_id(refund)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -143,13 +146,16 @@ class Refund(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Refund.CancelParams"]
     ) -> "Refund":
-        return self._request(
-            "post",
-            "/v1/refunds/{refund}/cancel".format(
-                refund=util.sanitize_id(self.get("id"))
+        return cast(
+            "Refund",
+            self._request(
+                "post",
+                "/v1/refunds/{refund}/cancel".format(
+                    refund=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -229,15 +235,18 @@ class Refund(
             stripe_account: Optional[str] = None,
             **params: Unpack["Refund.ExpireParams"]
         ) -> "Refund":
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/refunds/{refund}/expire".format(
-                    refund=util.sanitize_id(refund)
+            return cast(
+                "Refund",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/refunds/{refund}/expire".format(
+                        refund=util.sanitize_id(refund)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_expire")
@@ -246,13 +255,16 @@ class Refund(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Refund.ExpireParams"]
         ) -> "Refund":
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/refunds/{refund}/expire".format(
-                    refund=util.sanitize_id(self.resource.get("id"))
+            return cast(
+                "Refund",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/refunds/{refund}/expire".format(
+                        refund=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
     @property

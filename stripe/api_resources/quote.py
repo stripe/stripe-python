@@ -1747,13 +1747,18 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
     ) -> "Quote":
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/accept".format(quote=util.sanitize_id(quote)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "Quote",
+            cls._static_request(
+                "post",
+                "/v1/quotes/{quote}/accept".format(
+                    quote=util.sanitize_id(quote)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @util.class_method_variant("_cls_accept")
@@ -1762,13 +1767,16 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
     ) -> "Quote":
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/accept".format(
-                quote=util.sanitize_id(self.get("id"))
+        return cast(
+            "Quote",
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/accept".format(
+                    quote=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1780,13 +1788,18 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
     ) -> "Quote":
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/cancel".format(quote=util.sanitize_id(quote)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "Quote",
+            cls._static_request(
+                "post",
+                "/v1/quotes/{quote}/cancel".format(
+                    quote=util.sanitize_id(quote)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -1795,13 +1808,16 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
     ) -> "Quote":
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/cancel".format(
-                quote=util.sanitize_id(self.get("id"))
+        return cast(
+            "Quote",
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/cancel".format(
+                    quote=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1835,15 +1851,18 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/finalize".format(
-                quote=util.sanitize_id(quote)
+        return cast(
+            "Quote",
+            cls._static_request(
+                "post",
+                "/v1/quotes/{quote}/finalize".format(
+                    quote=util.sanitize_id(quote)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_finalize_quote")
@@ -1852,13 +1871,16 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/finalize".format(
-                quote=util.sanitize_id(self.get("id"))
+        return cast(
+            "Quote",
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/finalize".format(
+                    quote=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1895,15 +1917,18 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                quote=util.sanitize_id(quote)
+        return cast(
+            ListObject["LineItem"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/computed_upfront_line_items".format(
+                    quote=util.sanitize_id(quote)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_list_computed_upfront_line_items")
@@ -1912,13 +1937,16 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
-        return self._request(
-            "get",
-            "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                quote=util.sanitize_id(self.get("id"))
+        return cast(
+            ListObject["LineItem"],
+            self._request(
+                "get",
+                "/v1/quotes/{quote}/computed_upfront_line_items".format(
+                    quote=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1930,15 +1958,18 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/line_items".format(
-                quote=util.sanitize_id(quote)
+        return cast(
+            ListObject["LineItem"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/line_items".format(
+                    quote=util.sanitize_id(quote)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_list_line_items")
@@ -1947,13 +1978,16 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
-        return self._request(
-            "get",
-            "/v1/quotes/{quote}/line_items".format(
-                quote=util.sanitize_id(self.get("id"))
+        return cast(
+            ListObject["LineItem"],
+            self._request(
+                "get",
+                "/v1/quotes/{quote}/line_items".format(
+                    quote=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1965,13 +1999,18 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListLinesParams"]
     ) -> ListObject["QuoteLine"]:
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/lines".format(quote=util.sanitize_id(quote)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            ListObject["QuoteLine"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/lines".format(
+                    quote=util.sanitize_id(quote)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @util.class_method_variant("_cls_list_lines")
@@ -1980,13 +2019,16 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListLinesParams"]
     ) -> ListObject["QuoteLine"]:
-        return self._request(
-            "get",
-            "/v1/quotes/{quote}/lines".format(
-                quote=util.sanitize_id(self.get("id"))
+        return cast(
+            ListObject["QuoteLine"],
+            self._request(
+                "get",
+                "/v1/quotes/{quote}/lines".format(
+                    quote=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1999,16 +2041,19 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                quote=util.sanitize_id(quote),
-                preview_invoice=util.sanitize_id(preview_invoice),
+        return cast(
+            ListObject["InvoiceLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
+                    quote=util.sanitize_id(quote),
+                    preview_invoice=util.sanitize_id(preview_invoice),
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_list_preview_invoice_lines")
@@ -2018,14 +2063,17 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
-        return self._request(
-            "get",
-            "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                quote=util.sanitize_id(self.get("id")),
-                preview_invoice=util.sanitize_id(preview_invoice),
+        return cast(
+            ListObject["InvoiceLineItem"],
+            self._request(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
+                    quote=util.sanitize_id(self.get("id")),
+                    preview_invoice=util.sanitize_id(preview_invoice),
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2037,15 +2085,18 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.MarkDraftParams"]
     ) -> "Quote":
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/mark_draft".format(
-                quote=util.sanitize_id(quote)
+        return cast(
+            "Quote",
+            cls._static_request(
+                "post",
+                "/v1/quotes/{quote}/mark_draft".format(
+                    quote=util.sanitize_id(quote)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_mark_draft")
@@ -2054,13 +2105,16 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.MarkDraftParams"]
     ) -> "Quote":
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/mark_draft".format(
-                quote=util.sanitize_id(self.get("id"))
+        return cast(
+            "Quote",
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/mark_draft".format(
+                    quote=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2072,15 +2126,18 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.MarkStaleParams"]
     ) -> "Quote":
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/mark_stale".format(
-                quote=util.sanitize_id(quote)
+        return cast(
+            "Quote",
+            cls._static_request(
+                "post",
+                "/v1/quotes/{quote}/mark_stale".format(
+                    quote=util.sanitize_id(quote)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_mark_stale")
@@ -2089,13 +2146,16 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.MarkStaleParams"]
     ) -> "Quote":
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/mark_stale".format(
-                quote=util.sanitize_id(self.get("id"))
+        return cast(
+            "Quote",
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/mark_stale".format(
+                    quote=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2117,15 +2177,18 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ReestimateParams"]
     ) -> "Quote":
-        return cls._static_request(
-            "post",
-            "/v1/quotes/{quote}/reestimate".format(
-                quote=util.sanitize_id(quote)
+        return cast(
+            "Quote",
+            cls._static_request(
+                "post",
+                "/v1/quotes/{quote}/reestimate".format(
+                    quote=util.sanitize_id(quote)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_reestimate")
@@ -2134,13 +2197,16 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ReestimateParams"]
     ) -> "Quote":
-        return self._request(
-            "post",
-            "/v1/quotes/{quote}/reestimate".format(
-                quote=util.sanitize_id(self.get("id"))
+        return cast(
+            "Quote",
+            self._request(
+                "post",
+                "/v1/quotes/{quote}/reestimate".format(
+                    quote=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2204,15 +2270,18 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewInvoicesParams"]
     ) -> ListObject["QuotePreviewInvoice"]:
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/preview_invoices".format(
-                quote=util.sanitize_id(quote)
+        return cast(
+            ListObject["QuotePreviewInvoice"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/preview_invoices".format(
+                    quote=util.sanitize_id(quote)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -2224,15 +2293,18 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewSubscriptionSchedulesParams"]
     ) -> ListObject["QuotePreviewSubscriptionSchedule"]:
-        return cls._static_request(
-            "get",
-            "/v1/quotes/{quote}/preview_subscription_schedules".format(
-                quote=util.sanitize_id(quote)
+        return cast(
+            ListObject["QuotePreviewSubscriptionSchedule"],
+            cls._static_request(
+                "get",
+                "/v1/quotes/{quote}/preview_subscription_schedules".format(
+                    quote=util.sanitize_id(quote)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     _inner_class_types = {

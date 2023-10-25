@@ -124,15 +124,18 @@ class Transaction(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.CancelParams"]
     ) -> "Transaction":
-        return cls._static_request(
-            "post",
-            "/v1/gift_cards/transactions/{id}/cancel".format(
-                id=util.sanitize_id(id)
+        return cast(
+            "Transaction",
+            cls._static_request(
+                "post",
+                "/v1/gift_cards/transactions/{id}/cancel".format(
+                    id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -141,13 +144,16 @@ class Transaction(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Transaction.CancelParams"]
     ) -> "Transaction":
-        return self._request(
-            "post",
-            "/v1/gift_cards/transactions/{id}/cancel".format(
-                id=util.sanitize_id(self.get("id"))
+        return cast(
+            "Transaction",
+            self._request(
+                "post",
+                "/v1/gift_cards/transactions/{id}/cancel".format(
+                    id=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -159,15 +165,18 @@ class Transaction(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.ConfirmParams"]
     ) -> "Transaction":
-        return cls._static_request(
-            "post",
-            "/v1/gift_cards/transactions/{id}/confirm".format(
-                id=util.sanitize_id(id)
+        return cast(
+            "Transaction",
+            cls._static_request(
+                "post",
+                "/v1/gift_cards/transactions/{id}/confirm".format(
+                    id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_confirm")
@@ -176,13 +185,16 @@ class Transaction(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Transaction.ConfirmParams"]
     ) -> "Transaction":
-        return self._request(
-            "post",
-            "/v1/gift_cards/transactions/{id}/confirm".format(
-                id=util.sanitize_id(self.get("id"))
+        return cast(
+            "Transaction",
+            self._request(
+                "post",
+                "/v1/gift_cards/transactions/{id}/confirm".format(
+                    id=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

@@ -110,13 +110,18 @@ class Topup(
         stripe_account: Optional[str] = None,
         **params: Unpack["Topup.CancelParams"]
     ) -> "Topup":
-        return cls._static_request(
-            "post",
-            "/v1/topups/{topup}/cancel".format(topup=util.sanitize_id(topup)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "Topup",
+            cls._static_request(
+                "post",
+                "/v1/topups/{topup}/cancel".format(
+                    topup=util.sanitize_id(topup)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -125,13 +130,16 @@ class Topup(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Topup.CancelParams"]
     ) -> "Topup":
-        return self._request(
-            "post",
-            "/v1/topups/{topup}/cancel".format(
-                topup=util.sanitize_id(self.get("id"))
+        return cast(
+            "Topup",
+            self._request(
+                "post",
+                "/v1/topups/{topup}/cancel".format(
+                    topup=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

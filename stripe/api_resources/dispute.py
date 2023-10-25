@@ -176,15 +176,18 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.CloseParams"]
     ) -> "Dispute":
-        return cls._static_request(
-            "post",
-            "/v1/disputes/{dispute}/close".format(
-                dispute=util.sanitize_id(dispute)
+        return cast(
+            "Dispute",
+            cls._static_request(
+                "post",
+                "/v1/disputes/{dispute}/close".format(
+                    dispute=util.sanitize_id(dispute)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_close")
@@ -193,13 +196,16 @@ class Dispute(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.CloseParams"]
     ) -> "Dispute":
-        return self._request(
-            "post",
-            "/v1/disputes/{dispute}/close".format(
-                dispute=util.sanitize_id(self.get("id"))
+        return cast(
+            "Dispute",
+            self._request(
+                "post",
+                "/v1/disputes/{dispute}/close".format(
+                    dispute=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

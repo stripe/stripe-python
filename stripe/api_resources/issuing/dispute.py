@@ -428,15 +428,18 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.SubmitParams"]
     ) -> "Dispute":
-        return cls._static_request(
-            "post",
-            "/v1/issuing/disputes/{dispute}/submit".format(
-                dispute=util.sanitize_id(dispute)
+        return cast(
+            "Dispute",
+            cls._static_request(
+                "post",
+                "/v1/issuing/disputes/{dispute}/submit".format(
+                    dispute=util.sanitize_id(dispute)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_submit")
@@ -445,13 +448,16 @@ class Dispute(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.SubmitParams"]
     ) -> "Dispute":
-        return self._request(
-            "post",
-            "/v1/issuing/disputes/{dispute}/submit".format(
-                dispute=util.sanitize_id(self.get("id"))
+        return cast(
+            "Dispute",
+            self._request(
+                "post",
+                "/v1/issuing/disputes/{dispute}/submit".format(
+                    dispute=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     _inner_class_types = {"evidence": Evidence, "treasury": Treasury}

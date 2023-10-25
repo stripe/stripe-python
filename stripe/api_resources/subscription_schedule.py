@@ -1177,15 +1177,18 @@ class SubscriptionSchedule(
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.AmendParams"]
     ) -> "SubscriptionSchedule":
-        return cls._static_request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/amend".format(
-                schedule=util.sanitize_id(schedule)
+        return cast(
+            "SubscriptionSchedule",
+            cls._static_request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/amend".format(
+                    schedule=util.sanitize_id(schedule)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_amend")
@@ -1194,13 +1197,16 @@ class SubscriptionSchedule(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.AmendParams"]
     ) -> "SubscriptionSchedule":
-        return self._request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/amend".format(
-                schedule=util.sanitize_id(self.get("id"))
+        return cast(
+            "SubscriptionSchedule",
+            self._request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/amend".format(
+                    schedule=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1212,15 +1218,18 @@ class SubscriptionSchedule(
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.CancelParams"]
     ) -> "SubscriptionSchedule":
-        return cls._static_request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/cancel".format(
-                schedule=util.sanitize_id(schedule)
+        return cast(
+            "SubscriptionSchedule",
+            cls._static_request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/cancel".format(
+                    schedule=util.sanitize_id(schedule)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -1229,13 +1238,16 @@ class SubscriptionSchedule(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.CancelParams"]
     ) -> "SubscriptionSchedule":
-        return self._request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/cancel".format(
-                schedule=util.sanitize_id(self.get("id"))
+        return cast(
+            "SubscriptionSchedule",
+            self._request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/cancel".format(
+                    schedule=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1304,15 +1316,18 @@ class SubscriptionSchedule(
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.ReleaseParams"]
     ) -> "SubscriptionSchedule":
-        return cls._static_request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/release".format(
-                schedule=util.sanitize_id(schedule)
+        return cast(
+            "SubscriptionSchedule",
+            cls._static_request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/release".format(
+                    schedule=util.sanitize_id(schedule)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_release")
@@ -1321,13 +1336,16 @@ class SubscriptionSchedule(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.ReleaseParams"]
     ) -> "SubscriptionSchedule":
-        return self._request(
-            "post",
-            "/v1/subscription_schedules/{schedule}/release".format(
-                schedule=util.sanitize_id(self.get("id"))
+        return cast(
+            "SubscriptionSchedule",
+            self._request(
+                "post",
+                "/v1/subscription_schedules/{schedule}/release".format(
+                    schedule=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

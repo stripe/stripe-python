@@ -400,15 +400,18 @@ class Calculation(CreateableAPIResource["Calculation"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
-        return cls._static_request(
-            "get",
-            "/v1/tax/calculations/{calculation}/line_items".format(
-                calculation=util.sanitize_id(calculation)
+        return cast(
+            ListObject["CalculationLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/tax/calculations/{calculation}/line_items".format(
+                    calculation=util.sanitize_id(calculation)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_list_line_items")
@@ -417,13 +420,16 @@ class Calculation(CreateableAPIResource["Calculation"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
-        return self._request(
-            "get",
-            "/v1/tax/calculations/{calculation}/line_items".format(
-                calculation=util.sanitize_id(self.get("id"))
+        return cast(
+            ListObject["CalculationLineItem"],
+            self._request(
+                "get",
+                "/v1/tax/calculations/{calculation}/line_items".format(
+                    calculation=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     _inner_class_types = {

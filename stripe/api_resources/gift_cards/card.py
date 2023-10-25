@@ -175,13 +175,16 @@ class Card(
         stripe_account: Optional[str] = None,
         **params: Unpack["Card.ValidateParams"]
     ) -> "Card":
-        return cls._static_request(
-            "post",
-            "/v1/gift_cards/cards/validate",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "Card",
+            cls._static_request(
+                "post",
+                "/v1/gift_cards/cards/validate",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     _inner_class_types = {"created_by": CreatedBy}

@@ -911,15 +911,18 @@ class PaymentMethod(
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethod.AttachParams"]
     ) -> "PaymentMethod":
-        return cls._static_request(
-            "post",
-            "/v1/payment_methods/{payment_method}/attach".format(
-                payment_method=util.sanitize_id(payment_method)
+        return cast(
+            "PaymentMethod",
+            cls._static_request(
+                "post",
+                "/v1/payment_methods/{payment_method}/attach".format(
+                    payment_method=util.sanitize_id(payment_method)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_attach")
@@ -928,13 +931,16 @@ class PaymentMethod(
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethod.AttachParams"]
     ) -> "PaymentMethod":
-        return self._request(
-            "post",
-            "/v1/payment_methods/{payment_method}/attach".format(
-                payment_method=util.sanitize_id(self.get("id"))
+        return cast(
+            "PaymentMethod",
+            self._request(
+                "post",
+                "/v1/payment_methods/{payment_method}/attach".format(
+                    payment_method=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -968,15 +974,18 @@ class PaymentMethod(
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethod.DetachParams"]
     ) -> "PaymentMethod":
-        return cls._static_request(
-            "post",
-            "/v1/payment_methods/{payment_method}/detach".format(
-                payment_method=util.sanitize_id(payment_method)
+        return cast(
+            "PaymentMethod",
+            cls._static_request(
+                "post",
+                "/v1/payment_methods/{payment_method}/detach".format(
+                    payment_method=util.sanitize_id(payment_method)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_detach")
@@ -985,13 +994,16 @@ class PaymentMethod(
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethod.DetachParams"]
     ) -> "PaymentMethod":
-        return self._request(
-            "post",
-            "/v1/payment_methods/{payment_method}/detach".format(
-                payment_method=util.sanitize_id(self.get("id"))
+        return cast(
+            "PaymentMethod",
+            self._request(
+                "post",
+                "/v1/payment_methods/{payment_method}/detach".format(
+                    payment_method=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

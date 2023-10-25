@@ -338,15 +338,18 @@ class Authorization(
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
-        return cls._static_request(
-            "post",
-            "/v1/issuing/authorizations/{authorization}/approve".format(
-                authorization=util.sanitize_id(authorization)
+        return cast(
+            "Authorization",
+            cls._static_request(
+                "post",
+                "/v1/issuing/authorizations/{authorization}/approve".format(
+                    authorization=util.sanitize_id(authorization)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_approve")
@@ -355,13 +358,16 @@ class Authorization(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
-        return self._request(
-            "post",
-            "/v1/issuing/authorizations/{authorization}/approve".format(
-                authorization=util.sanitize_id(self.get("id"))
+        return cast(
+            "Authorization",
+            self._request(
+                "post",
+                "/v1/issuing/authorizations/{authorization}/approve".format(
+                    authorization=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -373,15 +379,18 @@ class Authorization(
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
-        return cls._static_request(
-            "post",
-            "/v1/issuing/authorizations/{authorization}/decline".format(
-                authorization=util.sanitize_id(authorization)
+        return cast(
+            "Authorization",
+            cls._static_request(
+                "post",
+                "/v1/issuing/authorizations/{authorization}/decline".format(
+                    authorization=util.sanitize_id(authorization)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_decline")
@@ -390,13 +399,16 @@ class Authorization(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
-        return self._request(
-            "post",
-            "/v1/issuing/authorizations/{authorization}/decline".format(
-                authorization=util.sanitize_id(self.get("id"))
+        return cast(
+            "Authorization",
+            self._request(
+                "post",
+                "/v1/issuing/authorizations/{authorization}/decline".format(
+                    authorization=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -454,15 +466,18 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
-                    authorization=util.sanitize_id(authorization)
+            return cast(
+                "Authorization",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
+                        authorization=util.sanitize_id(authorization)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_capture")
@@ -471,13 +486,16 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
-                    authorization=util.sanitize_id(self.resource.get("id"))
+            return cast(
+                "Authorization",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/capture".format(
+                        authorization=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -488,13 +506,16 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.CreateParams"]
         ) -> "Authorization":
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/authorizations",
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
+            return cast(
+                "Authorization",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations",
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
+                ),
             )
 
         @classmethod
@@ -506,15 +527,18 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
-                    authorization=util.sanitize_id(authorization)
+            return cast(
+                "Authorization",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
+                        authorization=util.sanitize_id(authorization)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_expire")
@@ -523,13 +547,16 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
-                    authorization=util.sanitize_id(self.resource.get("id"))
+            return cast(
+                "Authorization",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/expire".format(
+                        authorization=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -541,15 +568,18 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
-                    authorization=util.sanitize_id(authorization)
+            return cast(
+                "Authorization",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
+                        authorization=util.sanitize_id(authorization)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_increment")
@@ -558,13 +588,16 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
-                    authorization=util.sanitize_id(self.resource.get("id"))
+            return cast(
+                "Authorization",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/increment".format(
+                        authorization=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -576,15 +609,18 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
-                    authorization=util.sanitize_id(authorization)
+            return cast(
+                "Authorization",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
+                        authorization=util.sanitize_id(authorization)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_reverse")
@@ -593,13 +629,16 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
-                    authorization=util.sanitize_id(self.resource.get("id"))
+            return cast(
+                "Authorization",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/authorizations/{authorization}/reverse".format(
+                        authorization=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
     @property

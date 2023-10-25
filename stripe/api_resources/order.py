@@ -1502,13 +1502,16 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.CancelParams"]
     ) -> "Order":
-        return cls._static_request(
-            "post",
-            "/v1/orders/{id}/cancel".format(id=util.sanitize_id(id)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "Order",
+            cls._static_request(
+                "post",
+                "/v1/orders/{id}/cancel".format(id=util.sanitize_id(id)),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -1517,13 +1520,16 @@ class Order(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.CancelParams"]
     ) -> "Order":
-        return self._request(
-            "post",
-            "/v1/orders/{id}/cancel".format(
-                id=util.sanitize_id(self.get("id"))
+        return cast(
+            "Order",
+            self._request(
+                "post",
+                "/v1/orders/{id}/cancel".format(
+                    id=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1582,13 +1588,16 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
-        return cls._static_request(
-            "get",
-            "/v1/orders/{id}/line_items".format(id=util.sanitize_id(id)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            ListObject["LineItem"],
+            cls._static_request(
+                "get",
+                "/v1/orders/{id}/line_items".format(id=util.sanitize_id(id)),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @util.class_method_variant("_cls_list_line_items")
@@ -1597,13 +1606,16 @@ class Order(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
-        return self._request(
-            "get",
-            "/v1/orders/{id}/line_items".format(
-                id=util.sanitize_id(self.get("id"))
+        return cast(
+            ListObject["LineItem"],
+            self._request(
+                "get",
+                "/v1/orders/{id}/line_items".format(
+                    id=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1625,13 +1637,16 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.ReopenParams"]
     ) -> "Order":
-        return cls._static_request(
-            "post",
-            "/v1/orders/{id}/reopen".format(id=util.sanitize_id(id)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "Order",
+            cls._static_request(
+                "post",
+                "/v1/orders/{id}/reopen".format(id=util.sanitize_id(id)),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @util.class_method_variant("_cls_reopen")
@@ -1640,13 +1655,16 @@ class Order(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.ReopenParams"]
     ) -> "Order":
-        return self._request(
-            "post",
-            "/v1/orders/{id}/reopen".format(
-                id=util.sanitize_id(self.get("id"))
+        return cast(
+            "Order",
+            self._request(
+                "post",
+                "/v1/orders/{id}/reopen".format(
+                    id=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1666,13 +1684,16 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.SubmitParams"]
     ) -> "Order":
-        return cls._static_request(
-            "post",
-            "/v1/orders/{id}/submit".format(id=util.sanitize_id(id)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "Order",
+            cls._static_request(
+                "post",
+                "/v1/orders/{id}/submit".format(id=util.sanitize_id(id)),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @util.class_method_variant("_cls_submit")
@@ -1681,13 +1702,16 @@ class Order(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.SubmitParams"]
     ) -> "Order":
-        return self._request(
-            "post",
-            "/v1/orders/{id}/submit".format(
-                id=util.sanitize_id(self.get("id"))
+        return cast(
+            "Order",
+            self._request(
+                "post",
+                "/v1/orders/{id}/submit".format(
+                    id=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     _inner_class_types = {

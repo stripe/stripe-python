@@ -69,15 +69,18 @@ class TestClock(
         stripe_account: Optional[str] = None,
         **params: Unpack["TestClock.AdvanceParams"]
     ) -> "TestClock":
-        return cls._static_request(
-            "post",
-            "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
-                test_clock=util.sanitize_id(test_clock)
+        return cast(
+            "TestClock",
+            cls._static_request(
+                "post",
+                "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
+                    test_clock=util.sanitize_id(test_clock)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_advance")
@@ -86,13 +89,16 @@ class TestClock(
         idempotency_key: Optional[str] = None,
         **params: Unpack["TestClock.AdvanceParams"]
     ) -> "TestClock":
-        return self._request(
-            "post",
-            "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
-                test_clock=util.sanitize_id(self.get("id"))
+        return cast(
+            "TestClock",
+            self._request(
+                "post",
+                "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
+                    test_clock=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

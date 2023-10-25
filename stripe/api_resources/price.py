@@ -11,7 +11,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, Union, cast
+from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -369,7 +369,7 @@ class Price(
     @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Price.SearchParams"]
-    ) -> "Price":
+    ) -> Iterator["Price"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     _inner_class_types = {

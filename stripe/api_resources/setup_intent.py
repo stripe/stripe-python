@@ -1867,15 +1867,18 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
-        return cls._static_request(
-            "post",
-            "/v1/setup_intents/{intent}/cancel".format(
-                intent=util.sanitize_id(intent)
+        return cast(
+            "SetupIntent",
+            cls._static_request(
+                "post",
+                "/v1/setup_intents/{intent}/cancel".format(
+                    intent=util.sanitize_id(intent)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -1884,13 +1887,16 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
-        return self._request(
-            "post",
-            "/v1/setup_intents/{intent}/cancel".format(
-                intent=util.sanitize_id(self.get("id"))
+        return cast(
+            "SetupIntent",
+            self._request(
+                "post",
+                "/v1/setup_intents/{intent}/cancel".format(
+                    intent=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -1902,15 +1908,18 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
-        return cls._static_request(
-            "post",
-            "/v1/setup_intents/{intent}/confirm".format(
-                intent=util.sanitize_id(intent)
+        return cast(
+            "SetupIntent",
+            cls._static_request(
+                "post",
+                "/v1/setup_intents/{intent}/confirm".format(
+                    intent=util.sanitize_id(intent)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_confirm")
@@ -1919,13 +1928,16 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
-        return self._request(
-            "post",
-            "/v1/setup_intents/{intent}/confirm".format(
-                intent=util.sanitize_id(self.get("id"))
+        return cast(
+            "SetupIntent",
+            self._request(
+                "post",
+                "/v1/setup_intents/{intent}/confirm".format(
+                    intent=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2002,15 +2014,18 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
-        return cls._static_request(
-            "post",
-            "/v1/setup_intents/{intent}/verify_microdeposits".format(
-                intent=util.sanitize_id(intent)
+        return cast(
+            "SetupIntent",
+            cls._static_request(
+                "post",
+                "/v1/setup_intents/{intent}/verify_microdeposits".format(
+                    intent=util.sanitize_id(intent)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_verify_microdeposits")
@@ -2019,13 +2034,16 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
-        return self._request(
-            "post",
-            "/v1/setup_intents/{intent}/verify_microdeposits".format(
-                intent=util.sanitize_id(self.get("id"))
+        return cast(
+            "SetupIntent",
+            self._request(
+                "post",
+                "/v1/setup_intents/{intent}/verify_microdeposits".format(
+                    intent=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     _inner_class_types = {

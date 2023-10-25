@@ -208,15 +208,18 @@ class VerificationSession(
         stripe_account: Optional[str] = None,
         **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
-        return cls._static_request(
-            "post",
-            "/v1/identity/verification_sessions/{session}/cancel".format(
-                session=util.sanitize_id(session)
+        return cast(
+            "VerificationSession",
+            cls._static_request(
+                "post",
+                "/v1/identity/verification_sessions/{session}/cancel".format(
+                    session=util.sanitize_id(session)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -225,13 +228,16 @@ class VerificationSession(
         idempotency_key: Optional[str] = None,
         **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
-        return self._request(
-            "post",
-            "/v1/identity/verification_sessions/{session}/cancel".format(
-                session=util.sanitize_id(self.get("id"))
+        return cast(
+            "VerificationSession",
+            self._request(
+                "post",
+                "/v1/identity/verification_sessions/{session}/cancel".format(
+                    session=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -300,15 +306,18 @@ class VerificationSession(
         stripe_account: Optional[str] = None,
         **params: Unpack["VerificationSession.RedactParams"]
     ) -> "VerificationSession":
-        return cls._static_request(
-            "post",
-            "/v1/identity/verification_sessions/{session}/redact".format(
-                session=util.sanitize_id(session)
+        return cast(
+            "VerificationSession",
+            cls._static_request(
+                "post",
+                "/v1/identity/verification_sessions/{session}/redact".format(
+                    session=util.sanitize_id(session)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_redact")
@@ -317,13 +326,16 @@ class VerificationSession(
         idempotency_key: Optional[str] = None,
         **params: Unpack["VerificationSession.RedactParams"]
     ) -> "VerificationSession":
-        return self._request(
-            "post",
-            "/v1/identity/verification_sessions/{session}/redact".format(
-                session=util.sanitize_id(self.get("id"))
+        return cast(
+            "VerificationSession",
+            self._request(
+                "post",
+                "/v1/identity/verification_sessions/{session}/redact".format(
+                    session=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

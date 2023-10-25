@@ -337,13 +337,16 @@ class CreditNote(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.PreviewParams"]
     ) -> "CreditNote":
-        return cls._static_request(
-            "get",
-            "/v1/credit_notes/preview",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "CreditNote",
+            cls._static_request(
+                "get",
+                "/v1/credit_notes/preview",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -354,13 +357,16 @@ class CreditNote(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.PreviewLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
-        return cls._static_request(
-            "get",
-            "/v1/credit_notes/preview/lines",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            ListObject["CreditNoteLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/credit_notes/preview/lines",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -380,13 +386,16 @@ class CreditNote(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
-        return cls._static_request(
-            "post",
-            "/v1/credit_notes/{id}/void".format(id=util.sanitize_id(id)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "CreditNote",
+            cls._static_request(
+                "post",
+                "/v1/credit_notes/{id}/void".format(id=util.sanitize_id(id)),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @util.class_method_variant("_cls_void_credit_note")
@@ -395,13 +404,16 @@ class CreditNote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
-        return self._request(
-            "post",
-            "/v1/credit_notes/{id}/void".format(
-                id=util.sanitize_id(self.get("id"))
+        return cast(
+            "CreditNote",
+            self._request(
+                "post",
+                "/v1/credit_notes/{id}/void".format(
+                    id=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -413,15 +425,18 @@ class CreditNote(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.ListLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
-        return cls._static_request(
-            "get",
-            "/v1/credit_notes/{credit_note}/lines".format(
-                credit_note=util.sanitize_id(credit_note)
+        return cast(
+            ListObject["CreditNoteLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/credit_notes/{credit_note}/lines".format(
+                    credit_note=util.sanitize_id(credit_note)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     _inner_class_types = {

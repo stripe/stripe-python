@@ -372,13 +372,16 @@ class Transaction(
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.CreateForceCaptureParams"]
         ) -> "Transaction":
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/transactions/create_force_capture",
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
+            return cast(
+                "Transaction",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/transactions/create_force_capture",
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
+                ),
             )
 
         @classmethod
@@ -389,13 +392,16 @@ class Transaction(
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.CreateUnlinkedRefundParams"]
         ) -> "Transaction":
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
+            return cast(
+                "Transaction",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/transactions/create_unlinked_refund",
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
+                ),
             )
 
         @classmethod
@@ -407,15 +413,18 @@ class Transaction(
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.RefundParams"]
         ) -> "Transaction":
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
-                    transaction=util.sanitize_id(transaction)
+            return cast(
+                "Transaction",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
+                        transaction=util.sanitize_id(transaction)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_refund")
@@ -424,13 +433,16 @@ class Transaction(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Transaction.RefundParams"]
         ) -> "Transaction":
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
-                    transaction=util.sanitize_id(self.resource.get("id"))
+            return cast(
+                "Transaction",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/transactions/{transaction}/refund".format(
+                        transaction=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
     @property

@@ -5,7 +5,7 @@ from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -251,13 +251,16 @@ class Transaction(APIResource["Transaction"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.CreateFromCalculationParams"]
     ) -> "Transaction":
-        return cls._static_request(
-            "post",
-            "/v1/tax/transactions/create_from_calculation",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "Transaction",
+            cls._static_request(
+                "post",
+                "/v1/tax/transactions/create_from_calculation",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -268,13 +271,16 @@ class Transaction(APIResource["Transaction"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.CreateReversalParams"]
     ) -> "Transaction":
-        return cls._static_request(
-            "post",
-            "/v1/tax/transactions/create_reversal",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "Transaction",
+            cls._static_request(
+                "post",
+                "/v1/tax/transactions/create_reversal",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -286,15 +292,18 @@ class Transaction(APIResource["Transaction"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.ListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
-        return cls._static_request(
-            "get",
-            "/v1/tax/transactions/{transaction}/line_items".format(
-                transaction=util.sanitize_id(transaction)
+        return cast(
+            ListObject["TransactionLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/tax/transactions/{transaction}/line_items".format(
+                    transaction=util.sanitize_id(transaction)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_list_line_items")
@@ -303,13 +312,16 @@ class Transaction(APIResource["Transaction"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Transaction.ListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
-        return self._request(
-            "get",
-            "/v1/tax/transactions/{transaction}/line_items".format(
-                transaction=util.sanitize_id(self.get("id"))
+        return cast(
+            ListObject["TransactionLineItem"],
+            self._request(
+                "get",
+                "/v1/tax/transactions/{transaction}/line_items".format(
+                    transaction=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

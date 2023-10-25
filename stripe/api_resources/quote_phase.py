@@ -6,7 +6,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -136,15 +136,18 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["QuotePhase.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
-        return cls._static_request(
-            "get",
-            "/v1/quote_phases/{quote_phase}/line_items".format(
-                quote_phase=util.sanitize_id(quote_phase)
+        return cast(
+            ListObject["LineItem"],
+            cls._static_request(
+                "get",
+                "/v1/quote_phases/{quote_phase}/line_items".format(
+                    quote_phase=util.sanitize_id(quote_phase)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_list_line_items")
@@ -153,13 +156,16 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["QuotePhase.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
-        return self._request(
-            "get",
-            "/v1/quote_phases/{quote_phase}/line_items".format(
-                quote_phase=util.sanitize_id(self.get("id"))
+        return cast(
+            ListObject["LineItem"],
+            self._request(
+                "get",
+                "/v1/quote_phases/{quote_phase}/line_items".format(
+                    quote_phase=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

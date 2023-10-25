@@ -256,17 +256,20 @@ class PersonalizationDesign(
             stripe_account: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.ActivateParams"]
         ) -> "PersonalizationDesign":
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
-                    personalization_design=util.sanitize_id(
-                        personalization_design
-                    )
+            return cast(
+                "PersonalizationDesign",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
+                        personalization_design=util.sanitize_id(
+                            personalization_design
+                        )
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_activate")
@@ -275,15 +278,18 @@ class PersonalizationDesign(
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.ActivateParams"]
         ) -> "PersonalizationDesign":
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
-                    personalization_design=util.sanitize_id(
-                        self.resource.get("id")
-                    )
+            return cast(
+                "PersonalizationDesign",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/activate".format(
+                        personalization_design=util.sanitize_id(
+                            self.resource.get("id")
+                        )
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -295,17 +301,20 @@ class PersonalizationDesign(
             stripe_account: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.DeactivateParams"]
         ) -> "PersonalizationDesign":
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
-                    personalization_design=util.sanitize_id(
-                        personalization_design
-                    )
+            return cast(
+                "PersonalizationDesign",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
+                        personalization_design=util.sanitize_id(
+                            personalization_design
+                        )
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_deactivate")
@@ -314,15 +323,18 @@ class PersonalizationDesign(
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.DeactivateParams"]
         ) -> "PersonalizationDesign":
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
-                    personalization_design=util.sanitize_id(
-                        self.resource.get("id")
-                    )
+            return cast(
+                "PersonalizationDesign",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/deactivate".format(
+                        personalization_design=util.sanitize_id(
+                            self.resource.get("id")
+                        )
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -334,17 +346,20 @@ class PersonalizationDesign(
             stripe_account: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.RejectParams"]
         ) -> "PersonalizationDesign":
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
-                    personalization_design=util.sanitize_id(
-                        personalization_design
-                    )
+            return cast(
+                "PersonalizationDesign",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
+                        personalization_design=util.sanitize_id(
+                            personalization_design
+                        )
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_reject")
@@ -353,15 +368,18 @@ class PersonalizationDesign(
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.RejectParams"]
         ) -> "PersonalizationDesign":
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
-                    personalization_design=util.sanitize_id(
-                        self.resource.get("id")
-                    )
+            return cast(
+                "PersonalizationDesign",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/personalization_designs/{personalization_design}/reject".format(
+                        personalization_design=util.sanitize_id(
+                            self.resource.get("id")
+                        )
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
     @property

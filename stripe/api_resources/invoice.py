@@ -13,7 +13,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, Union, cast
+from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -2055,15 +2055,18 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.FinalizeInvoiceParams"]
     ) -> "Invoice":
-        return cls._static_request(
-            "post",
-            "/v1/invoices/{invoice}/finalize".format(
-                invoice=util.sanitize_id(invoice)
+        return cast(
+            "Invoice",
+            cls._static_request(
+                "post",
+                "/v1/invoices/{invoice}/finalize".format(
+                    invoice=util.sanitize_id(invoice)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_finalize_invoice")
@@ -2072,13 +2075,16 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.FinalizeInvoiceParams"]
     ) -> "Invoice":
-        return self._request(
-            "post",
-            "/v1/invoices/{invoice}/finalize".format(
-                invoice=util.sanitize_id(self.get("id"))
+        return cast(
+            "Invoice",
+            self._request(
+                "post",
+                "/v1/invoices/{invoice}/finalize".format(
+                    invoice=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2115,15 +2121,18 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.MarkUncollectibleParams"]
     ) -> "Invoice":
-        return cls._static_request(
-            "post",
-            "/v1/invoices/{invoice}/mark_uncollectible".format(
-                invoice=util.sanitize_id(invoice)
+        return cast(
+            "Invoice",
+            cls._static_request(
+                "post",
+                "/v1/invoices/{invoice}/mark_uncollectible".format(
+                    invoice=util.sanitize_id(invoice)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_mark_uncollectible")
@@ -2132,13 +2141,16 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.MarkUncollectibleParams"]
     ) -> "Invoice":
-        return self._request(
-            "post",
-            "/v1/invoices/{invoice}/mark_uncollectible".format(
-                invoice=util.sanitize_id(self.get("id"))
+        return cast(
+            "Invoice",
+            self._request(
+                "post",
+                "/v1/invoices/{invoice}/mark_uncollectible".format(
+                    invoice=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2160,15 +2172,18 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.PayParams"]
     ) -> "Invoice":
-        return cls._static_request(
-            "post",
-            "/v1/invoices/{invoice}/pay".format(
-                invoice=util.sanitize_id(invoice)
+        return cast(
+            "Invoice",
+            cls._static_request(
+                "post",
+                "/v1/invoices/{invoice}/pay".format(
+                    invoice=util.sanitize_id(invoice)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_pay")
@@ -2177,13 +2192,16 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.PayParams"]
     ) -> "Invoice":
-        return self._request(
-            "post",
-            "/v1/invoices/{invoice}/pay".format(
-                invoice=util.sanitize_id(self.get("id"))
+        return cast(
+            "Invoice",
+            self._request(
+                "post",
+                "/v1/invoices/{invoice}/pay".format(
+                    invoice=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2203,15 +2221,18 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.SendInvoiceParams"]
     ) -> "Invoice":
-        return cls._static_request(
-            "post",
-            "/v1/invoices/{invoice}/send".format(
-                invoice=util.sanitize_id(invoice)
+        return cast(
+            "Invoice",
+            cls._static_request(
+                "post",
+                "/v1/invoices/{invoice}/send".format(
+                    invoice=util.sanitize_id(invoice)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_send_invoice")
@@ -2220,13 +2241,16 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.SendInvoiceParams"]
     ) -> "Invoice":
-        return self._request(
-            "post",
-            "/v1/invoices/{invoice}/send".format(
-                invoice=util.sanitize_id(self.get("id"))
+        return cast(
+            "Invoice",
+            self._request(
+                "post",
+                "/v1/invoices/{invoice}/send".format(
+                    invoice=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2237,13 +2261,16 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.UpcomingParams"]
     ) -> "Invoice":
-        return cls._static_request(
-            "get",
-            "/v1/invoices/upcoming",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "Invoice",
+            cls._static_request(
+                "get",
+                "/v1/invoices/upcoming",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -2254,13 +2281,16 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.UpcomingLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
-        return cls._static_request(
-            "get",
-            "/v1/invoices/upcoming/lines",
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            ListObject["InvoiceLineItem"],
+            cls._static_request(
+                "get",
+                "/v1/invoices/upcoming/lines",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -2272,15 +2302,18 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.VoidInvoiceParams"]
     ) -> "Invoice":
-        return cls._static_request(
-            "post",
-            "/v1/invoices/{invoice}/void".format(
-                invoice=util.sanitize_id(invoice)
+        return cast(
+            "Invoice",
+            cls._static_request(
+                "post",
+                "/v1/invoices/{invoice}/void".format(
+                    invoice=util.sanitize_id(invoice)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_void_invoice")
@@ -2289,13 +2322,16 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.VoidInvoiceParams"]
     ) -> "Invoice":
-        return self._request(
-            "post",
-            "/v1/invoices/{invoice}/void".format(
-                invoice=util.sanitize_id(self.get("id"))
+        return cast(
+            "Invoice",
+            self._request(
+                "post",
+                "/v1/invoices/{invoice}/void".format(
+                    invoice=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2307,7 +2343,7 @@ class Invoice(
     @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Invoice.SearchParams"]
-    ) -> "Invoice":
+    ) -> Iterator["Invoice"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     _inner_class_types = {

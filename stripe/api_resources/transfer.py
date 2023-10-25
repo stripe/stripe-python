@@ -197,13 +197,16 @@ class Transfer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transfer.CreateReversalParams"]
     ) -> "Reversal":
-        return cls._static_request(
-            "post",
-            "/v1/transfers/{id}/reversals".format(id=util.sanitize_id(id)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            "Reversal",
+            cls._static_request(
+                "post",
+                "/v1/transfers/{id}/reversals".format(id=util.sanitize_id(id)),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )
 
     @classmethod
@@ -216,15 +219,19 @@ class Transfer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transfer.RetrieveReversalParams"]
     ) -> "Reversal":
-        return cls._static_request(
-            "get",
-            "/v1/transfers/{transfer}/reversals/{id}".format(
-                transfer=util.sanitize_id(transfer), id=util.sanitize_id(id)
+        return cast(
+            "Reversal",
+            cls._static_request(
+                "get",
+                "/v1/transfers/{transfer}/reversals/{id}".format(
+                    transfer=util.sanitize_id(transfer),
+                    id=util.sanitize_id(id),
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -237,15 +244,19 @@ class Transfer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transfer.ModifyReversalParams"]
     ) -> "Reversal":
-        return cls._static_request(
-            "post",
-            "/v1/transfers/{transfer}/reversals/{id}".format(
-                transfer=util.sanitize_id(transfer), id=util.sanitize_id(id)
+        return cast(
+            "Reversal",
+            cls._static_request(
+                "post",
+                "/v1/transfers/{transfer}/reversals/{id}".format(
+                    transfer=util.sanitize_id(transfer),
+                    id=util.sanitize_id(id),
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -257,11 +268,14 @@ class Transfer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transfer.ListReversalsParams"]
     ) -> ListObject["Reversal"]:
-        return cls._static_request(
-            "get",
-            "/v1/transfers/{id}/reversals".format(id=util.sanitize_id(id)),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
+        return cast(
+            ListObject["Reversal"],
+            cls._static_request(
+                "get",
+                "/v1/transfers/{id}/reversals".format(id=util.sanitize_id(id)),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
         )

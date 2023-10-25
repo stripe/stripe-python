@@ -130,15 +130,18 @@ class Payout(
         stripe_account: Optional[str] = None,
         **params: Unpack["Payout.CancelParams"]
     ) -> "Payout":
-        return cls._static_request(
-            "post",
-            "/v1/payouts/{payout}/cancel".format(
-                payout=util.sanitize_id(payout)
+        return cast(
+            "Payout",
+            cls._static_request(
+                "post",
+                "/v1/payouts/{payout}/cancel".format(
+                    payout=util.sanitize_id(payout)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -147,13 +150,16 @@ class Payout(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Payout.CancelParams"]
     ) -> "Payout":
-        return self._request(
-            "post",
-            "/v1/payouts/{payout}/cancel".format(
-                payout=util.sanitize_id(self.get("id"))
+        return cast(
+            "Payout",
+            self._request(
+                "post",
+                "/v1/payouts/{payout}/cancel".format(
+                    payout=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -230,15 +236,18 @@ class Payout(
         stripe_account: Optional[str] = None,
         **params: Unpack["Payout.ReverseParams"]
     ) -> "Payout":
-        return cls._static_request(
-            "post",
-            "/v1/payouts/{payout}/reverse".format(
-                payout=util.sanitize_id(payout)
+        return cast(
+            "Payout",
+            cls._static_request(
+                "post",
+                "/v1/payouts/{payout}/reverse".format(
+                    payout=util.sanitize_id(payout)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_reverse")
@@ -247,11 +256,14 @@ class Payout(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Payout.ReverseParams"]
     ) -> "Payout":
-        return self._request(
-            "post",
-            "/v1/payouts/{payout}/reverse".format(
-                payout=util.sanitize_id(self.get("id"))
+        return cast(
+            "Payout",
+            self._request(
+                "post",
+                "/v1/payouts/{payout}/reverse".format(
+                    payout=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )

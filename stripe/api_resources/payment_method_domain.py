@@ -172,15 +172,20 @@ class PaymentMethodDomain(
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethodDomain.ValidateParams"]
     ) -> "PaymentMethodDomain":
-        return cls._static_request(
-            "post",
-            "/v1/payment_method_domains/{payment_method_domain}/validate".format(
-                payment_method_domain=util.sanitize_id(payment_method_domain)
+        return cast(
+            "PaymentMethodDomain",
+            cls._static_request(
+                "post",
+                "/v1/payment_method_domains/{payment_method_domain}/validate".format(
+                    payment_method_domain=util.sanitize_id(
+                        payment_method_domain
+                    )
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_validate")
@@ -189,13 +194,16 @@ class PaymentMethodDomain(
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethodDomain.ValidateParams"]
     ) -> "PaymentMethodDomain":
-        return self._request(
-            "post",
-            "/v1/payment_method_domains/{payment_method_domain}/validate".format(
-                payment_method_domain=util.sanitize_id(self.get("id"))
+        return cast(
+            "PaymentMethodDomain",
+            self._request(
+                "post",
+                "/v1/payment_method_domains/{payment_method_domain}/validate".format(
+                    payment_method_domain=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     _inner_class_types = {

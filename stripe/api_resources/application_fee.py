@@ -8,7 +8,7 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import ClassVar, Dict, List, Optional
+from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -121,15 +121,18 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["ApplicationFee.RefundParams"]
     ) -> "ApplicationFeeRefund":
-        return cls._static_request(
-            "post",
-            "/v1/application_fees/{id}/refunds".format(
-                id=util.sanitize_id(id)
+        return cast(
+            "ApplicationFeeRefund",
+            cls._static_request(
+                "post",
+                "/v1/application_fees/{id}/refunds".format(
+                    id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_refund")
@@ -138,13 +141,16 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["ApplicationFee.RefundParams"]
     ) -> "ApplicationFeeRefund":
-        return self._request(
-            "post",
-            "/v1/application_fees/{id}/refunds".format(
-                id=util.sanitize_id(self.get("id"))
+        return cast(
+            "ApplicationFeeRefund",
+            self._request(
+                "post",
+                "/v1/application_fees/{id}/refunds".format(
+                    id=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -164,15 +170,18 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["ApplicationFee.CreateRefundParams"]
     ) -> "ApplicationFeeRefund":
-        return cls._static_request(
-            "post",
-            "/v1/application_fees/{id}/refunds".format(
-                id=util.sanitize_id(id)
+        return cast(
+            "ApplicationFeeRefund",
+            cls._static_request(
+                "post",
+                "/v1/application_fees/{id}/refunds".format(
+                    id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -185,15 +194,18 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["ApplicationFee.RetrieveRefundParams"]
     ) -> "ApplicationFeeRefund":
-        return cls._static_request(
-            "get",
-            "/v1/application_fees/{fee}/refunds/{id}".format(
-                fee=util.sanitize_id(fee), id=util.sanitize_id(id)
+        return cast(
+            "ApplicationFeeRefund",
+            cls._static_request(
+                "get",
+                "/v1/application_fees/{fee}/refunds/{id}".format(
+                    fee=util.sanitize_id(fee), id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -206,15 +218,18 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["ApplicationFee.ModifyRefundParams"]
     ) -> "ApplicationFeeRefund":
-        return cls._static_request(
-            "post",
-            "/v1/application_fees/{fee}/refunds/{id}".format(
-                fee=util.sanitize_id(fee), id=util.sanitize_id(id)
+        return cast(
+            "ApplicationFeeRefund",
+            cls._static_request(
+                "post",
+                "/v1/application_fees/{fee}/refunds/{id}".format(
+                    fee=util.sanitize_id(fee), id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -226,13 +241,16 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["ApplicationFee.ListRefundsParams"]
     ) -> ListObject["ApplicationFeeRefund"]:
-        return cls._static_request(
-            "get",
-            "/v1/application_fees/{id}/refunds".format(
-                id=util.sanitize_id(id)
+        return cast(
+            ListObject["ApplicationFeeRefund"],
+            cls._static_request(
+                "get",
+                "/v1/application_fees/{id}/refunds".format(
+                    id=util.sanitize_id(id)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )

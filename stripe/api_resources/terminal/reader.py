@@ -373,15 +373,18 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
-        return cls._static_request(
-            "post",
-            "/v1/terminal/readers/{reader}/cancel_action".format(
-                reader=util.sanitize_id(reader)
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/cancel_action".format(
+                    reader=util.sanitize_id(reader)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel_action")
@@ -390,13 +393,16 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
-        return self._request(
-            "post",
-            "/v1/terminal/readers/{reader}/cancel_action".format(
-                reader=util.sanitize_id(self.get("id"))
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/cancel_action".format(
+                    reader=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -408,15 +414,18 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CollectInputsParams"]
     ) -> "Reader":
-        return cls._static_request(
-            "post",
-            "/v1/terminal/readers/{reader}/collect_inputs".format(
-                reader=util.sanitize_id(reader)
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_inputs".format(
+                    reader=util.sanitize_id(reader)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_collect_inputs")
@@ -425,13 +434,16 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CollectInputsParams"]
     ) -> "Reader":
-        return self._request(
-            "post",
-            "/v1/terminal/readers/{reader}/collect_inputs".format(
-                reader=util.sanitize_id(self.get("id"))
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_inputs".format(
+                    reader=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -443,15 +455,18 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CollectPaymentMethodParams"]
     ) -> "Reader":
-        return cls._static_request(
-            "post",
-            "/v1/terminal/readers/{reader}/collect_payment_method".format(
-                reader=util.sanitize_id(reader)
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=util.sanitize_id(reader)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_collect_payment_method")
@@ -460,13 +475,16 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CollectPaymentMethodParams"]
     ) -> "Reader":
-        return self._request(
-            "post",
-            "/v1/terminal/readers/{reader}/collect_payment_method".format(
-                reader=util.sanitize_id(self.get("id"))
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/collect_payment_method".format(
+                    reader=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -478,15 +496,18 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ConfirmPaymentIntentParams"]
     ) -> "Reader":
-        return cls._static_request(
-            "post",
-            "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
-                reader=util.sanitize_id(reader)
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                    reader=util.sanitize_id(reader)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_confirm_payment_intent")
@@ -495,13 +516,16 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ConfirmPaymentIntentParams"]
     ) -> "Reader":
-        return self._request(
-            "post",
-            "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
-                reader=util.sanitize_id(self.get("id"))
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
+                    reader=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -588,15 +612,18 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
-        return cls._static_request(
-            "post",
-            "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                reader=util.sanitize_id(reader)
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/process_payment_intent".format(
+                    reader=util.sanitize_id(reader)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_process_payment_intent")
@@ -605,13 +632,16 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
-        return self._request(
-            "post",
-            "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                reader=util.sanitize_id(self.get("id"))
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/process_payment_intent".format(
+                    reader=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -623,15 +653,18 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
-        return cls._static_request(
-            "post",
-            "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                reader=util.sanitize_id(reader)
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/process_setup_intent".format(
+                    reader=util.sanitize_id(reader)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_process_setup_intent")
@@ -640,13 +673,16 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
-        return self._request(
-            "post",
-            "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                reader=util.sanitize_id(self.get("id"))
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/process_setup_intent".format(
+                    reader=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -658,15 +694,18 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
-        return cls._static_request(
-            "post",
-            "/v1/terminal/readers/{reader}/refund_payment".format(
-                reader=util.sanitize_id(reader)
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/refund_payment".format(
+                    reader=util.sanitize_id(reader)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_refund_payment")
@@ -675,13 +714,16 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
-        return self._request(
-            "post",
-            "/v1/terminal/readers/{reader}/refund_payment".format(
-                reader=util.sanitize_id(self.get("id"))
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/refund_payment".format(
+                    reader=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -701,15 +743,18 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
-        return cls._static_request(
-            "post",
-            "/v1/terminal/readers/{reader}/set_reader_display".format(
-                reader=util.sanitize_id(reader)
+        return cast(
+            "Reader",
+            cls._static_request(
+                "post",
+                "/v1/terminal/readers/{reader}/set_reader_display".format(
+                    reader=util.sanitize_id(reader)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_set_reader_display")
@@ -718,13 +763,16 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
-        return self._request(
-            "post",
-            "/v1/terminal/readers/{reader}/set_reader_display".format(
-                reader=util.sanitize_id(self.get("id"))
+        return cast(
+            "Reader",
+            self._request(
+                "post",
+                "/v1/terminal/readers/{reader}/set_reader_display".format(
+                    reader=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     class TestHelpers(APIResourceTestHelpers["Reader"]):
@@ -739,15 +787,18 @@ class Reader(
             stripe_account: Optional[str] = None,
             **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                    reader=util.sanitize_id(reader)
+            return cast(
+                "Reader",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
+                        reader=util.sanitize_id(reader)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_present_payment_method")
@@ -756,13 +807,16 @@ class Reader(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                    reader=util.sanitize_id(self.resource.get("id"))
+            return cast(
+                "Reader",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
+                        reader=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
     @property
