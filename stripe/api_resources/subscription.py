@@ -14,13 +14,21 @@ from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from stripe.util import class_method_variant
-from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
+from typing import (
+    ClassVar,
+    Dict,
+    Iterator,
+    List,
+    Optional,
+    Union,
+    cast,
+    overload,
+)
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
-    overload,
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
@@ -280,7 +288,7 @@ class Subscription(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -311,7 +319,7 @@ class Subscription(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class DeleteDiscountParams(RequestOptions):
             pass
@@ -583,7 +591,7 @@ class Subscription(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ModifyParamsItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -620,7 +628,7 @@ class Subscription(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ResumeParams(RequestOptions):
             billing_cycle_anchor: NotRequired[

@@ -13,13 +13,21 @@ from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from stripe.util import class_method_variant
-from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
+from typing import (
+    ClassVar,
+    Dict,
+    Iterator,
+    List,
+    Optional,
+    Union,
+    cast,
+    overload,
+)
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
-    overload,
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
@@ -93,7 +101,7 @@ class Product(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsDefaultPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -110,13 +118,13 @@ class Product(
                 "List[Product.CreateParamsDefaultPriceDataCurrencyOptionsTier]|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsDefaultPriceDataCurrencyOptionsTier(TypedDict):
             flat_amount: NotRequired["int|None"]
-            flat_amount_decimal: NotRequired["float|None"]
+            flat_amount_decimal: NotRequired["str|None"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
             up_to: Union[Literal["inf"], int]
 
         class CreateParamsDefaultPriceDataCurrencyOptionsCustomUnitAmount(

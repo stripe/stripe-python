@@ -11,14 +11,13 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from stripe.util import class_method_variant
-from typing import ClassVar, Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
     Type,
     TypedDict,
     Unpack,
-    overload,
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
@@ -107,7 +106,7 @@ class Authorization(
 
         class CaptureParamsPurchaseDetailsReceipt(TypedDict):
             description: NotRequired["str|None"]
-            quantity: NotRequired["float|None"]
+            quantity: NotRequired["str|None"]
             total: NotRequired["int|None"]
             unit_cost: NotRequired["int|None"]
 
@@ -120,8 +119,8 @@ class Authorization(
                 "Literal['diesel', 'other', 'unleaded_plus', 'unleaded_regular', 'unleaded_super']|None"
             ]
             unit: NotRequired["Literal['liter', 'us_gallon']|None"]
-            unit_cost_decimal: NotRequired["float|None"]
-            volume_decimal: NotRequired["float|None"]
+            unit_cost_decimal: NotRequired["str|None"]
+            volume_decimal: NotRequired["str|None"]
 
         class CaptureParamsPurchaseDetailsFlight(TypedDict):
             departure_at: NotRequired["int|None"]

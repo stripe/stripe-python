@@ -14,13 +14,21 @@ from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from stripe.util import class_method_variant
-from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
+from typing import (
+    ClassVar,
+    Dict,
+    Iterator,
+    List,
+    Optional,
+    Union,
+    cast,
+    overload,
+)
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
-    overload,
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
@@ -739,7 +747,7 @@ class Invoice(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class UpcomingParamsSubscriptionItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -770,7 +778,7 @@ class Invoice(
             tax_code: NotRequired["Literal['']|str|None"]
             tax_rates: NotRequired["Literal['']|List[str]|None"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class UpcomingParamsInvoiceItemPriceData(TypedDict):
             currency: str
@@ -779,7 +787,7 @@ class Invoice(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class UpcomingParamsInvoiceItemPeriod(TypedDict):
             end: int
@@ -973,7 +981,7 @@ class Invoice(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class UpcomingLinesParamsSubscriptionItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -1006,7 +1014,7 @@ class Invoice(
             tax_code: NotRequired["Literal['']|str|None"]
             tax_rates: NotRequired["Literal['']|List[str]|None"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class UpcomingLinesParamsInvoiceItemPriceData(TypedDict):
             currency: str
@@ -1015,7 +1023,7 @@ class Invoice(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class UpcomingLinesParamsInvoiceItemPeriod(TypedDict):
             end: int

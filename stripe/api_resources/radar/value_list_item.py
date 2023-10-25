@@ -8,13 +8,12 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.util import class_method_variant
-from typing import ClassVar, List, Optional, cast
+from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
-    overload,
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus

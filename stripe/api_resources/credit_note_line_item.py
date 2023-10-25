@@ -41,8 +41,8 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
     tax_rates: List["TaxRate"]
     type: Literal["custom_line_item", "invoice_line_item"]
     unit_amount: Optional[int]
-    unit_amount_decimal: Optional[float]
-    unit_amount_excluding_tax: Optional[float]
+    unit_amount_decimal: Optional[str]
+    unit_amount_excluding_tax: Optional[str]
 
     @classmethod
     def list(

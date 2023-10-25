@@ -40,4 +40,4 @@ class InvoiceLineItem(StripeObject):
     tax_amounts: Optional[List[StripeObject]]
     tax_rates: Optional[List["TaxRate"]]
     type: Literal["invoiceitem", "subscription"]
-    unit_amount_excluding_tax: Optional[float]
+    unit_amount_excluding_tax: Optional[str]

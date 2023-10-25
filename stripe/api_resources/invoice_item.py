@@ -11,13 +11,12 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from stripe.util import class_method_variant
-from typing import ClassVar, Dict, List, Optional, cast
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
     TypedDict,
     Unpack,
-    overload,
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
@@ -79,7 +78,7 @@ class InvoiceItem(
             tax_code: NotRequired["Literal['']|str|None"]
             tax_rates: NotRequired["List[str]|None"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsPriceData(TypedDict):
             currency: str
@@ -88,7 +87,7 @@ class InvoiceItem(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsPeriod(TypedDict):
             end: int
@@ -136,7 +135,7 @@ class InvoiceItem(
             tax_code: NotRequired["Literal['']|str|None"]
             tax_rates: NotRequired["Literal['']|List[str]|None"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ModifyParamsPriceData(TypedDict):
             currency: str
@@ -145,7 +144,7 @@ class InvoiceItem(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ModifyParamsPeriod(TypedDict):
             end: int
@@ -180,7 +179,7 @@ class InvoiceItem(
     tax_rates: Optional[List["TaxRate"]]
     test_clock: Optional[ExpandableField["TestClock"]]
     unit_amount: Optional[int]
-    unit_amount_decimal: Optional[float]
+    unit_amount_decimal: Optional[str]
     deleted: Optional[Literal[True]]
 
     @classmethod
