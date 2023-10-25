@@ -109,16 +109,19 @@ class InboundTransfer(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["InboundTransfer.CancelParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                inbound_transfer=util.sanitize_id(inbound_transfer)
+    ) -> "InboundTransfer":
+        return cast(
+            "InboundTransfer",
+            cls._static_request(
+                "post",
+                "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
+                    inbound_transfer=util.sanitize_id(inbound_transfer)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -126,14 +129,17 @@ class InboundTransfer(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["InboundTransfer.CancelParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                inbound_transfer=util.sanitize_id(self.get("id"))
+    ) -> "InboundTransfer":
+        return cast(
+            "InboundTransfer",
+            self._request(
+                "post",
+                "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
+                    inbound_transfer=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -202,16 +208,19 @@ class InboundTransfer(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["InboundTransfer.FailParams"]
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
-                    id=util.sanitize_id(id)
+        ) -> "InboundTransfer":
+            return cast(
+                "InboundTransfer",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
+                        id=util.sanitize_id(id)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_fail")
@@ -219,14 +228,17 @@ class InboundTransfer(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.FailParams"]
-        ):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
-                    id=util.sanitize_id(self.resource.get("id"))
+        ) -> "InboundTransfer":
+            return cast(
+                "InboundTransfer",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
+                        id=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -237,16 +249,19 @@ class InboundTransfer(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
-                    id=util.sanitize_id(id)
+        ) -> "InboundTransfer":
+            return cast(
+                "InboundTransfer",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
+                        id=util.sanitize_id(id)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_return_inbound_transfer")
@@ -254,14 +269,17 @@ class InboundTransfer(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
-        ):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
-                    id=util.sanitize_id(self.resource.get("id"))
+        ) -> "InboundTransfer":
+            return cast(
+                "InboundTransfer",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
+                        id=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -272,16 +290,19 @@ class InboundTransfer(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["InboundTransfer.SucceedParams"]
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
-                    id=util.sanitize_id(id)
+        ) -> "InboundTransfer":
+            return cast(
+                "InboundTransfer",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
+                        id=util.sanitize_id(id)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_succeed")
@@ -289,14 +310,17 @@ class InboundTransfer(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.SucceedParams"]
-        ):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
-                    id=util.sanitize_id(self.resource.get("id"))
+        ) -> "InboundTransfer":
+            return cast(
+                "InboundTransfer",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
+                        id=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
     @property

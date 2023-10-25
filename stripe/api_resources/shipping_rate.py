@@ -183,7 +183,7 @@ class ShippingRate(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["ShippingRate.ModifyParams"]
+        cls, id: str, **params: Unpack["ShippingRate.ModifyParams"]
     ) -> "ShippingRate":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

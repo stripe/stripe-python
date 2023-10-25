@@ -6,7 +6,7 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -16,6 +16,9 @@ from typing_extensions import (
 )
 
 if TYPE_CHECKING:
+    from stripe.api_resources.financial_connections.account_owner import (
+        AccountOwner,
+    )
     from stripe.api_resources.financial_connections.account_ownership import (
         AccountOwnership,
     )
@@ -97,16 +100,19 @@ class Account(ListableAPIResource["Account"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/financial_connections/accounts/{account}/disconnect".format(
-                account=util.sanitize_id(account)
+    ) -> "Account":
+        return cast(
+            "Account",
+            cls._static_request(
+                "post",
+                "/v1/financial_connections/accounts/{account}/disconnect".format(
+                    account=util.sanitize_id(account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_disconnect")
@@ -114,14 +120,17 @@ class Account(ListableAPIResource["Account"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/financial_connections/accounts/{account}/disconnect".format(
-                account=util.sanitize_id(self.get("id"))
+    ) -> "Account":
+        return cast(
+            "Account",
+            self._request(
+                "post",
+                "/v1/financial_connections/accounts/{account}/disconnect".format(
+                    account=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -157,16 +166,19 @@ class Account(ListableAPIResource["Account"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/financial_connections/accounts/{account}/owners".format(
-                account=util.sanitize_id(account)
+    ) -> ListObject["AccountOwner"]:
+        return cast(
+            ListObject["AccountOwner"],
+            cls._static_request(
+                "get",
+                "/v1/financial_connections/accounts/{account}/owners".format(
+                    account=util.sanitize_id(account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_list_owners")
@@ -174,14 +186,17 @@ class Account(ListableAPIResource["Account"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
-    ):
-        return self._request(
-            "get",
-            "/v1/financial_connections/accounts/{account}/owners".format(
-                account=util.sanitize_id(self.get("id"))
+    ) -> ListObject["AccountOwner"]:
+        return cast(
+            ListObject["AccountOwner"],
+            self._request(
+                "get",
+                "/v1/financial_connections/accounts/{account}/owners".format(
+                    account=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -192,16 +207,19 @@ class Account(ListableAPIResource["Account"]):
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/financial_connections/accounts/{account}/refresh".format(
-                account=util.sanitize_id(account)
+    ) -> "Account":
+        return cast(
+            "Account",
+            cls._static_request(
+                "post",
+                "/v1/financial_connections/accounts/{account}/refresh".format(
+                    account=util.sanitize_id(account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_refresh_account")
@@ -209,14 +227,17 @@ class Account(ListableAPIResource["Account"]):
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/financial_connections/accounts/{account}/refresh".format(
-                account=util.sanitize_id(self.get("id"))
+    ) -> "Account":
+        return cast(
+            "Account",
+            self._request(
+                "post",
+                "/v1/financial_connections/accounts/{account}/refresh".format(
+                    account=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod

@@ -300,7 +300,7 @@ class Configuration(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["Configuration.ModifyParams"]
+        cls, id: str, **params: Unpack["Configuration.ModifyParams"]
     ) -> "Configuration":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(

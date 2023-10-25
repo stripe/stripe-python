@@ -252,7 +252,7 @@ class Card(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Card.ModifyParams"]) -> "Card":
+    def modify(cls, id: str, **params: Unpack["Card.ModifyParams"]) -> "Card":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Card",
@@ -278,16 +278,19 @@ class Card(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.DeliverCardParams"]
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                    card=util.sanitize_id(card)
+        ) -> "Card":
+            return cast(
+                "Card",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
+                        card=util.sanitize_id(card)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_deliver_card")
@@ -295,14 +298,17 @@ class Card(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.DeliverCardParams"]
-        ):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
-                    card=util.sanitize_id(self.resource.get("id"))
+        ) -> "Card":
+            return cast(
+                "Card",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/deliver".format(
+                        card=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -313,16 +319,19 @@ class Card(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.FailCardParams"]
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                    card=util.sanitize_id(card)
+        ) -> "Card":
+            return cast(
+                "Card",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
+                        card=util.sanitize_id(card)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_fail_card")
@@ -330,14 +339,17 @@ class Card(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.FailCardParams"]
-        ):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
-                    card=util.sanitize_id(self.resource.get("id"))
+        ) -> "Card":
+            return cast(
+                "Card",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/fail".format(
+                        card=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -348,16 +360,19 @@ class Card(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.ReturnCardParams"]
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                    card=util.sanitize_id(card)
+        ) -> "Card":
+            return cast(
+                "Card",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
+                        card=util.sanitize_id(card)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_return_card")
@@ -365,14 +380,17 @@ class Card(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.ReturnCardParams"]
-        ):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
-                    card=util.sanitize_id(self.resource.get("id"))
+        ) -> "Card":
+            return cast(
+                "Card",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/return".format(
+                        card=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
         @classmethod
@@ -383,16 +401,19 @@ class Card(
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.ShipCardParams"]
-        ):
-            return cls._static_request(
-                "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                    card=util.sanitize_id(card)
+        ) -> "Card":
+            return cast(
+                "Card",
+                cls._static_request(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
+                        card=util.sanitize_id(card)
+                    ),
+                    api_key=api_key,
+                    stripe_version=stripe_version,
+                    stripe_account=stripe_account,
+                    params=params,
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
             )
 
         @util.class_method_variant("_cls_ship_card")
@@ -400,14 +421,17 @@ class Card(
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.ShipCardParams"]
-        ):
-            return self.resource._request(
-                "post",
-                "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
-                    card=util.sanitize_id(self.resource.get("id"))
+        ) -> "Card":
+            return cast(
+                "Card",
+                self.resource._request(
+                    "post",
+                    "/v1/test_helpers/issuing/cards/{card}/shipping/ship".format(
+                        card=util.sanitize_id(self.resource.get("id"))
+                    ),
+                    idempotency_key=idempotency_key,
+                    params=params,
                 ),
-                idempotency_key=idempotency_key,
-                params=params,
             )
 
     @property

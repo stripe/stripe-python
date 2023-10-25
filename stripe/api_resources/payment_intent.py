@@ -12,7 +12,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, Union, cast
+from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -2522,16 +2522,19 @@ class PaymentIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/payment_intents/{intent}/apply_customer_balance".format(
-                intent=util.sanitize_id(intent)
+    ) -> "PaymentIntent":
+        return cast(
+            "PaymentIntent",
+            cls._static_request(
+                "post",
+                "/v1/payment_intents/{intent}/apply_customer_balance".format(
+                    intent=util.sanitize_id(intent)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_apply_customer_balance")
@@ -2539,14 +2542,17 @@ class PaymentIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/payment_intents/{intent}/apply_customer_balance".format(
-                intent=util.sanitize_id(self.get("id"))
+    ) -> "PaymentIntent":
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/apply_customer_balance".format(
+                    intent=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2557,16 +2563,19 @@ class PaymentIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentIntent.CancelParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/payment_intents/{intent}/cancel".format(
-                intent=util.sanitize_id(intent)
+    ) -> "PaymentIntent":
+        return cast(
+            "PaymentIntent",
+            cls._static_request(
+                "post",
+                "/v1/payment_intents/{intent}/cancel".format(
+                    intent=util.sanitize_id(intent)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_cancel")
@@ -2574,14 +2583,17 @@ class PaymentIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.CancelParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/payment_intents/{intent}/cancel".format(
-                intent=util.sanitize_id(self.get("id"))
+    ) -> "PaymentIntent":
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/cancel".format(
+                    intent=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2592,16 +2604,19 @@ class PaymentIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentIntent.CaptureParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/payment_intents/{intent}/capture".format(
-                intent=util.sanitize_id(intent)
+    ) -> "PaymentIntent":
+        return cast(
+            "PaymentIntent",
+            cls._static_request(
+                "post",
+                "/v1/payment_intents/{intent}/capture".format(
+                    intent=util.sanitize_id(intent)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_capture")
@@ -2609,14 +2624,17 @@ class PaymentIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.CaptureParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/payment_intents/{intent}/capture".format(
-                intent=util.sanitize_id(self.get("id"))
+    ) -> "PaymentIntent":
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/capture".format(
+                    intent=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2627,16 +2645,19 @@ class PaymentIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentIntent.ConfirmParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/payment_intents/{intent}/confirm".format(
-                intent=util.sanitize_id(intent)
+    ) -> "PaymentIntent":
+        return cast(
+            "PaymentIntent",
+            cls._static_request(
+                "post",
+                "/v1/payment_intents/{intent}/confirm".format(
+                    intent=util.sanitize_id(intent)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_confirm")
@@ -2644,14 +2665,17 @@ class PaymentIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.ConfirmParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/payment_intents/{intent}/confirm".format(
-                intent=util.sanitize_id(self.get("id"))
+    ) -> "PaymentIntent":
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/confirm".format(
+                    intent=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2684,16 +2708,19 @@ class PaymentIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/payment_intents/{intent}/increment_authorization".format(
-                intent=util.sanitize_id(intent)
+    ) -> "PaymentIntent":
+        return cast(
+            "PaymentIntent",
+            cls._static_request(
+                "post",
+                "/v1/payment_intents/{intent}/increment_authorization".format(
+                    intent=util.sanitize_id(intent)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_increment_authorization")
@@ -2701,14 +2728,17 @@ class PaymentIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/payment_intents/{intent}/increment_authorization".format(
-                intent=util.sanitize_id(self.get("id"))
+    ) -> "PaymentIntent":
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/increment_authorization".format(
+                    intent=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2738,7 +2768,7 @@ class PaymentIntent(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["PaymentIntent.ModifyParams"]
+        cls, id: str, **params: Unpack["PaymentIntent.ModifyParams"]
     ) -> "PaymentIntent":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -2762,16 +2792,19 @@ class PaymentIntent(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/payment_intents/{intent}/verify_microdeposits".format(
-                intent=util.sanitize_id(intent)
+    ) -> "PaymentIntent":
+        return cast(
+            "PaymentIntent",
+            cls._static_request(
+                "post",
+                "/v1/payment_intents/{intent}/verify_microdeposits".format(
+                    intent=util.sanitize_id(intent)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_verify_microdeposits")
@@ -2779,14 +2812,17 @@ class PaymentIntent(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/payment_intents/{intent}/verify_microdeposits".format(
-                intent=util.sanitize_id(self.get("id"))
+    ) -> "PaymentIntent":
+        return cast(
+            "PaymentIntent",
+            self._request(
+                "post",
+                "/v1/payment_intents/{intent}/verify_microdeposits".format(
+                    intent=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -2800,5 +2836,5 @@ class PaymentIntent(
     @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["PaymentIntent.SearchParams"]
-    ):
+    ) -> Iterator["PaymentIntent"]:
         return cls.search(*args, **kwargs).auto_paging_iter()

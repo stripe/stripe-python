@@ -11,7 +11,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, Union, cast
+from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -278,7 +278,9 @@ class Price(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Price.ModifyParams"]) -> "Price":
+    def modify(
+        cls, id: str, **params: Unpack["Price.ModifyParams"]
+    ) -> "Price":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Price",
@@ -302,5 +304,5 @@ class Price(
     @classmethod
     def search_auto_paging_iter(
         cls, *args, **kwargs: Unpack["Price.SearchParams"]
-    ):
+    ) -> Iterator["Price"]:
         return cls.search(*args, **kwargs).auto_paging_iter()

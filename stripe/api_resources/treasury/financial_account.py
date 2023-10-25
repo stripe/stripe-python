@@ -432,7 +432,7 @@ class FinancialAccount(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["FinancialAccount.ModifyParams"]
+        cls, id: str, **params: Unpack["FinancialAccount.ModifyParams"]
     ) -> "FinancialAccount":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -456,16 +456,19 @@ class FinancialAccount(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                financial_account=util.sanitize_id(financial_account)
+    ) -> "FinancialAccountFeatures":
+        return cast(
+            "FinancialAccountFeatures",
+            cls._static_request(
+                "get",
+                "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                    financial_account=util.sanitize_id(financial_account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_retrieve_features")
@@ -473,14 +476,17 @@ class FinancialAccount(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
-    ):
-        return self._request(
-            "get",
-            "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                financial_account=util.sanitize_id(self.get("id"))
+    ) -> "FinancialAccountFeatures":
+        return cast(
+            "FinancialAccountFeatures",
+            self._request(
+                "get",
+                "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                    financial_account=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )
 
     @classmethod
@@ -491,16 +497,19 @@ class FinancialAccount(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                financial_account=util.sanitize_id(financial_account)
+    ) -> "FinancialAccountFeatures":
+        return cast(
+            "FinancialAccountFeatures",
+            cls._static_request(
+                "post",
+                "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                    financial_account=util.sanitize_id(financial_account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_update_features")
@@ -508,12 +517,15 @@ class FinancialAccount(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/treasury/financial_accounts/{financial_account}/features".format(
-                financial_account=util.sanitize_id(self.get("id"))
+    ) -> "FinancialAccountFeatures":
+        return cast(
+            "FinancialAccountFeatures",
+            self._request(
+                "post",
+                "/v1/treasury/financial_accounts/{financial_account}/features".format(
+                    financial_account=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )

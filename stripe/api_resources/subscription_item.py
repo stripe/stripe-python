@@ -25,6 +25,8 @@ if TYPE_CHECKING:
     from stripe.api_resources.plan import Plan
     from stripe.api_resources.price import Price
     from stripe.api_resources.tax_rate import TaxRate
+    from stripe.api_resources.usage_record import UsageRecord
+    from stripe.api_resources.usage_record_summary import UsageRecordSummary
 
 
 @nested_resource_class_methods("usage_record")
@@ -231,7 +233,7 @@ class SubscriptionItem(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["SubscriptionItem.ModifyParams"]
+        cls, id: str, **params: Unpack["SubscriptionItem.ModifyParams"]
     ) -> "SubscriptionItem":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
@@ -255,16 +257,19 @@ class SubscriptionItem(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionItem.CreateUsageRecordParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/subscription_items/{subscription_item}/usage_records".format(
-                subscription_item=util.sanitize_id(subscription_item)
+    ) -> "UsageRecord":
+        return cast(
+            "UsageRecord",
+            cls._static_request(
+                "post",
+                "/v1/subscription_items/{subscription_item}/usage_records".format(
+                    subscription_item=util.sanitize_id(subscription_item)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @classmethod
@@ -275,14 +280,17 @@ class SubscriptionItem(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionItem.ListUsageRecordSummariesParams"]
-    ):
-        return cls._static_request(
-            "get",
-            "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
-                subscription_item=util.sanitize_id(subscription_item)
+    ) -> ListObject["UsageRecordSummary"]:
+        return cast(
+            ListObject["UsageRecordSummary"],
+            cls._static_request(
+                "get",
+                "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
+                    subscription_item=util.sanitize_id(subscription_item)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )

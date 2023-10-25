@@ -317,7 +317,9 @@ class Dispute(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Dispute.ModifyParams"]) -> "Dispute":
+    def modify(
+        cls, id: str, **params: Unpack["Dispute.ModifyParams"]
+    ) -> "Dispute":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Dispute",
@@ -340,16 +342,19 @@ class Dispute(
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.SubmitParams"]
-    ):
-        return cls._static_request(
-            "post",
-            "/v1/issuing/disputes/{dispute}/submit".format(
-                dispute=util.sanitize_id(dispute)
+    ) -> "Dispute":
+        return cast(
+            "Dispute",
+            cls._static_request(
+                "post",
+                "/v1/issuing/disputes/{dispute}/submit".format(
+                    dispute=util.sanitize_id(dispute)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
-            api_key=api_key,
-            stripe_version=stripe_version,
-            stripe_account=stripe_account,
-            params=params,
         )
 
     @util.class_method_variant("_cls_submit")
@@ -357,12 +362,15 @@ class Dispute(
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.SubmitParams"]
-    ):
-        return self._request(
-            "post",
-            "/v1/issuing/disputes/{dispute}/submit".format(
-                dispute=util.sanitize_id(self.get("id"))
+    ) -> "Dispute":
+        return cast(
+            "Dispute",
+            self._request(
+                "post",
+                "/v1/issuing/disputes/{dispute}/submit".format(
+                    dispute=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
             ),
-            idempotency_key=idempotency_key,
-            params=params,
         )

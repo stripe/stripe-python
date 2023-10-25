@@ -158,7 +158,9 @@ class TaxRate(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["TaxRate.ModifyParams"]) -> "TaxRate":
+    def modify(
+        cls, id: str, **params: Unpack["TaxRate.ModifyParams"]
+    ) -> "TaxRate":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "TaxRate",

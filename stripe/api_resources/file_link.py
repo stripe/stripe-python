@@ -124,7 +124,7 @@ class FileLink(
 
     @classmethod
     def modify(
-        cls, id, **params: Unpack["FileLink.ModifyParams"]
+        cls, id: str, **params: Unpack["FileLink.ModifyParams"]
     ) -> "FileLink":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
