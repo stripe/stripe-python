@@ -141,7 +141,7 @@ class CreditNote(
             tax_rates: NotRequired["Literal['']|List[str]|None"]
             type: Literal["custom_line_item", "invoice_line_item"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ListParams(RequestOptions):
             customer: NotRequired["str|None"]
@@ -186,7 +186,7 @@ class CreditNote(
             tax_rates: NotRequired["Literal['']|List[str]|None"]
             type: Literal["custom_line_item", "invoice_line_item"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class PreviewLinesParams(RequestOptions):
             amount: NotRequired["int|None"]
@@ -221,7 +221,7 @@ class CreditNote(
             tax_rates: NotRequired["Literal['']|List[str]|None"]
             type: Literal["custom_line_item", "invoice_line_item"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]

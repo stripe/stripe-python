@@ -50,9 +50,9 @@ class Price(
 
         class Tier(StripeObject):
             flat_amount: Optional[int]
-            flat_amount_decimal: Optional[float]
+            flat_amount_decimal: Optional[str]
             unit_amount: Optional[int]
-            unit_amount_decimal: Optional[float]
+            unit_amount_decimal: Optional[str]
             up_to: Optional[int]
 
         custom_unit_amount: Optional[CustomUnitAmount]
@@ -61,7 +61,7 @@ class Price(
         ]
         tiers: Optional[List[Tier]]
         unit_amount: Optional[int]
-        unit_amount_decimal: Optional[float]
+        unit_amount_decimal: Optional[str]
         _inner_class_types = {
             "custom_unit_amount": CustomUnitAmount,
             "tiers": Tier,
@@ -88,9 +88,9 @@ class Price(
 
     class Tier(StripeObject):
         flat_amount: Optional[int]
-        flat_amount_decimal: Optional[float]
+        flat_amount_decimal: Optional[str]
         unit_amount: Optional[int]
-        unit_amount_decimal: Optional[float]
+        unit_amount_decimal: Optional[str]
         up_to: Optional[int]
 
     class TransformQuantity(StripeObject):
@@ -126,7 +126,7 @@ class Price(
                 "Price.CreateParamsTransformQuantity|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsTransformQuantity(TypedDict):
             divide_by: int
@@ -134,9 +134,9 @@ class Price(
 
         class CreateParamsTier(TypedDict):
             flat_amount: NotRequired["int|None"]
-            flat_amount_decimal: NotRequired["float|None"]
+            flat_amount_decimal: NotRequired["str|None"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
             up_to: Union[Literal["inf"], int]
 
         class CreateParamsRecurring(TypedDict):
@@ -174,13 +174,13 @@ class Price(
                 "List[Price.CreateParamsCurrencyOptionsTier]|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsCurrencyOptionsTier(TypedDict):
             flat_amount: NotRequired["int|None"]
-            flat_amount_decimal: NotRequired["float|None"]
+            flat_amount_decimal: NotRequired["str|None"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
             up_to: Union[Literal["inf"], int]
 
         class CreateParamsCurrencyOptionsCustomUnitAmount(TypedDict):
@@ -247,13 +247,13 @@ class Price(
                 "List[Price.ModifyParamsCurrencyOptionsTier]|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ModifyParamsCurrencyOptionsTier(TypedDict):
             flat_amount: NotRequired["int|None"]
-            flat_amount_decimal: NotRequired["float|None"]
+            flat_amount_decimal: NotRequired["str|None"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
             up_to: Union[Literal["inf"], int]
 
         class ModifyParamsCurrencyOptionsCustomUnitAmount(TypedDict):
@@ -292,7 +292,7 @@ class Price(
     transform_quantity: Optional[TransformQuantity]
     type: Literal["one_time", "recurring"]
     unit_amount: Optional[int]
-    unit_amount_decimal: Optional[float]
+    unit_amount_decimal: Optional[str]
     deleted: Optional[Literal[True]]
 
     @classmethod

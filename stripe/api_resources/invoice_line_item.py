@@ -89,7 +89,7 @@ class InvoiceLineItem(StripeObject):
     tax_amounts: Optional[List[TaxAmount]]
     tax_rates: Optional[List["TaxRate"]]
     type: Literal["invoiceitem", "subscription"]
-    unit_amount_excluding_tax: Optional[float]
+    unit_amount_excluding_tax: Optional[str]
 
     _inner_class_types = {
         "discount_amounts": DiscountAmount,

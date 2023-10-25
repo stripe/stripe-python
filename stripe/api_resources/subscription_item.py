@@ -93,7 +93,7 @@ class SubscriptionItem(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -167,7 +167,7 @@ class SubscriptionItem(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ModifyParamsPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]

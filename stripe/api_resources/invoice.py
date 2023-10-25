@@ -1356,7 +1356,7 @@ class Invoice(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class UpcomingParamsSubscriptionItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -1411,7 +1411,7 @@ class Invoice(
             tax_code: NotRequired["Literal['']|str|None"]
             tax_rates: NotRequired["Literal['']|List[str]|None"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class UpcomingParamsInvoiceItemPriceData(TypedDict):
             currency: str
@@ -1420,7 +1420,7 @@ class Invoice(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class UpcomingParamsInvoiceItemPeriod(TypedDict):
             end: int
@@ -1660,7 +1660,7 @@ class Invoice(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class UpcomingLinesParamsSubscriptionItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -1719,7 +1719,7 @@ class Invoice(
             tax_code: NotRequired["Literal['']|str|None"]
             tax_rates: NotRequired["Literal['']|List[str]|None"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class UpcomingLinesParamsInvoiceItemPriceData(TypedDict):
             currency: str
@@ -1728,7 +1728,7 @@ class Invoice(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class UpcomingLinesParamsInvoiceItemPeriod(TypedDict):
             end: int

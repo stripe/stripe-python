@@ -704,7 +704,7 @@ class Quote(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsPhaseLineItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -981,7 +981,7 @@ class Quote(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsLineItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -1335,7 +1335,7 @@ class Quote(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ModifyParamsPhaseLineItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -1615,7 +1615,7 @@ class Quote(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ModifyParamsLineItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]

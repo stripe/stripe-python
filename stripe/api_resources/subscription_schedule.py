@@ -648,7 +648,7 @@ class SubscriptionSchedule(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsPhaseItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -735,7 +735,7 @@ class SubscriptionSchedule(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsPhaseAddInvoiceItemDiscount(TypedDict):
             coupon: NotRequired["str|None"]
@@ -975,7 +975,7 @@ class SubscriptionSchedule(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ModifyParamsPhaseItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -1062,7 +1062,7 @@ class SubscriptionSchedule(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ModifyParamsPhaseAddInvoiceItemDiscount(TypedDict):
             coupon: NotRequired["str|None"]

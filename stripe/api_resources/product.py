@@ -133,7 +133,7 @@ class Product(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsDefaultPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
@@ -150,13 +150,13 @@ class Product(
                 "List[Product.CreateParamsDefaultPriceDataCurrencyOptionsTier]|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsDefaultPriceDataCurrencyOptionsTier(TypedDict):
             flat_amount: NotRequired["int|None"]
-            flat_amount_decimal: NotRequired["float|None"]
+            flat_amount_decimal: NotRequired["str|None"]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
             up_to: Union[Literal["inf"], int]
 
         class CreateParamsDefaultPriceDataCurrencyOptionsCustomUnitAmount(

@@ -931,7 +931,7 @@ class Order(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsLineItemDiscount(TypedDict):
             coupon: NotRequired["str|None"]
@@ -1423,7 +1423,7 @@ class Order(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class ModifyParamsLineItemDiscount(TypedDict):
             coupon: NotRequired["str|None"]

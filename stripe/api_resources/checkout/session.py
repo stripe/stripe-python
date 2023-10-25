@@ -88,7 +88,7 @@ class Session(
     class CurrencyConversion(StripeObject):
         amount_subtotal: int
         amount_total: int
-        fx_rate: float
+        fx_rate: str
         source_currency: str
 
     class CustomField(StripeObject):
@@ -1629,7 +1629,7 @@ class Session(
                 "Literal['exclusive', 'inclusive', 'unspecified']|None"
             ]
             unit_amount: NotRequired["int|None"]
-            unit_amount_decimal: NotRequired["float|None"]
+            unit_amount_decimal: NotRequired["str|None"]
 
         class CreateParamsLineItemPriceDataRecurring(TypedDict):
             interval: Literal["day", "month", "week", "year"]
