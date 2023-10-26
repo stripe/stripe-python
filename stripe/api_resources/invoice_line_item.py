@@ -8,6 +8,7 @@ from typing_extensions import Literal, TYPE_CHECKING
 if TYPE_CHECKING:
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice_item import InvoiceItem
+    from stripe.api_resources.margin import Margin
     from stripe.api_resources.plan import Plan
     from stripe.api_resources.price import Price
     from stripe.api_resources.subscription import Subscription
@@ -26,6 +27,16 @@ class InvoiceLineItem(StripeObject):
         discount: ExpandableField["Discount"]
         """
         The discount that was applied to get this discount amount.
+        """
+
+    class MarginAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the reduction in line item amount.
+        """
+        margin: ExpandableField["Margin"]
+        """
+        The margin that was applied to get this margin amount.
         """
 
     class Period(StripeObject):
@@ -135,6 +146,14 @@ class InvoiceLineItem(StripeObject):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
+    margin_amounts: Optional[List[MarginAmount]]
+    """
+    The amount of margin calculated per margin for this line item.
+    """
+    margins: Optional[List[ExpandableField["Margin"]]]
+    """
+    The margins applied to the line item. When set, the `default_margins` on the invoice do not apply to the line item. Use `expand[]=margins` to expand each margin.
+    """
     metadata: Dict[str, str]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Note that for line items with `type=subscription` this will reflect the metadata of the subscription that caused the line item to be created.
@@ -191,6 +210,7 @@ class InvoiceLineItem(StripeObject):
 
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
+        "margin_amounts": MarginAmount,
         "period": Period,
         "proration_details": ProrationDetails,
         "tax_amounts": TaxAmount,

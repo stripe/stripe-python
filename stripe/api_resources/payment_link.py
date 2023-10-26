@@ -69,10 +69,25 @@ class PaymentLink(
         }
 
     class AutomaticTax(StripeObject):
+        class Liability(StripeObject):
+            account: Optional[ExpandableField["Account"]]
+            """
+            The connected account being referenced when `type` is `account`.
+            """
+            type: Literal["account", "self"]
+            """
+            Type of the account referenced.
+            """
+
         enabled: bool
         """
         If `true`, tax will be calculated automatically using the customer's location.
         """
+        liability: Optional[Liability]
+        """
+        The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+        """
+        _inner_class_types = {"liability": Liability}
 
     class ConsentCollection(StripeObject):
         promotions: Optional[Literal["auto", "none"]]
@@ -204,6 +219,16 @@ class PaymentLink(
                 The value of the custom field.
                 """
 
+            class Issuer(StripeObject):
+                account: Optional[ExpandableField["Account"]]
+                """
+                The connected account being referenced when `type` is `account`.
+                """
+                type: Literal["account", "self"]
+                """
+                Type of the account referenced.
+                """
+
             class RenderingOptions(StripeObject):
                 amount_tax_display: Optional[str]
                 """
@@ -226,6 +251,10 @@ class PaymentLink(
             """
             Footer to be displayed on the invoice.
             """
+            issuer: Optional[Issuer]
+            """
+            The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+            """
             metadata: Optional[Dict[str, str]]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -236,6 +265,7 @@ class PaymentLink(
             """
             _inner_class_types = {
                 "custom_fields": CustomField,
+                "issuer": Issuer,
                 "rendering_options": RenderingOptions,
             }
 
@@ -536,9 +566,30 @@ class PaymentLink(
         """
 
     class SubscriptionData(StripeObject):
+        class InvoiceSettings(StripeObject):
+            class Issuer(StripeObject):
+                account: Optional[ExpandableField["Account"]]
+                """
+                The connected account being referenced when `type` is `account`.
+                """
+                type: Literal["account", "self"]
+                """
+                Type of the account referenced.
+                """
+
+            issuer: Optional[Issuer]
+            """
+            The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+            """
+            _inner_class_types = {"issuer": Issuer}
+
         description: Optional[str]
         """
-        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        invoice_settings: Optional[InvoiceSettings]
+        """
+        All invoices will be billed using the specified settings.
         """
         metadata: Dict[str, str]
         """
@@ -548,6 +599,7 @@ class PaymentLink(
         """
         Integer representing the number of trial period days before the customer is charged for the first time.
         """
+        _inner_class_types = {"invoice_settings": InvoiceSettings}
 
     class TaxIdCollection(StripeObject):
         enabled: bool
@@ -735,7 +787,13 @@ class PaymentLink(
         class CreateParamsSubscriptionData(TypedDict):
             description: NotRequired["str|None"]
             """
-            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+            """
+            invoice_settings: NotRequired[
+                "PaymentLink.CreateParamsSubscriptionDataInvoiceSettings|None"
+            ]
+            """
+            All invoices will be billed using the specified settings.
             """
             metadata: NotRequired["Dict[str, str]|None"]
             """
@@ -744,6 +802,24 @@ class PaymentLink(
             trial_period_days: NotRequired["int|None"]
             """
             Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+            """
+
+        class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
+            issuer: NotRequired[
+                "PaymentLink.CreateParamsSubscriptionDataInvoiceSettingsIssuer|None"
+            ]
+            """
+            The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+            """
+
+        class CreateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
+            account: NotRequired["str|None"]
+            """
+            The connected account being referenced when `type` is `account`.
+            """
+            type: Literal["account", "self"]
+            """
+            Type of the account referenced in the request.
             """
 
         class CreateParamsShippingOption(TypedDict):
@@ -1102,6 +1178,12 @@ class PaymentLink(
             """
             Default footer to be displayed on invoices for this customer.
             """
+            issuer: NotRequired[
+                "PaymentLink.CreateParamsInvoiceCreationInvoiceDataIssuer|None"
+            ]
+            """
+            The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1121,6 +1203,16 @@ class PaymentLink(
             ]
             """
             How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+            """
+
+        class CreateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
+            account: NotRequired["str|None"]
+            """
+            The connected account being referenced when `type` is `account`.
+            """
+            type: Literal["account", "self"]
+            """
+            Type of the account referenced in the request.
             """
 
         class CreateParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
@@ -1268,6 +1360,22 @@ class PaymentLink(
             enabled: bool
             """
             If `true`, tax will be calculated automatically using the customer's location.
+            """
+            liability: NotRequired[
+                "PaymentLink.CreateParamsAutomaticTaxLiability|None"
+            ]
+            """
+            The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+            """
+
+        class CreateParamsAutomaticTaxLiability(TypedDict):
+            account: NotRequired["str|None"]
+            """
+            The connected account being referenced when `type` is `account`.
+            """
+            type: Literal["account", "self"]
+            """
+            Type of the account referenced in the request.
             """
 
         class CreateParamsAfterCompletion(TypedDict):
@@ -1439,9 +1547,33 @@ class PaymentLink(
             """
 
         class ModifyParamsSubscriptionData(TypedDict):
+            invoice_settings: NotRequired[
+                "PaymentLink.ModifyParamsSubscriptionDataInvoiceSettings|None"
+            ]
+            """
+            All invoices will be billed using the specified settings.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+            """
+
+        class ModifyParamsSubscriptionDataInvoiceSettings(TypedDict):
+            issuer: NotRequired[
+                "PaymentLink.ModifyParamsSubscriptionDataInvoiceSettingsIssuer|None"
+            ]
+            """
+            The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+            """
+
+        class ModifyParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
+            account: NotRequired["str|None"]
+            """
+            The connected account being referenced when `type` is `account`.
+            """
+            type: Literal["account", "self"]
+            """
+            Type of the account referenced in the request.
             """
 
         class ModifyParamsShippingAddressCollection(TypedDict):
@@ -1766,6 +1898,12 @@ class PaymentLink(
             """
             Default footer to be displayed on invoices for this customer.
             """
+            issuer: NotRequired[
+                "PaymentLink.ModifyParamsInvoiceCreationInvoiceDataIssuer|None"
+            ]
+            """
+            The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -1785,6 +1923,16 @@ class PaymentLink(
             ]
             """
             How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
+            """
+
+        class ModifyParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
+            account: NotRequired["str|None"]
+            """
+            The connected account being referenced when `type` is `account`.
+            """
+            type: Literal["account", "self"]
+            """
+            Type of the account referenced in the request.
             """
 
         class ModifyParamsInvoiceCreationInvoiceDataCustomField(TypedDict):
@@ -1919,6 +2067,22 @@ class PaymentLink(
             enabled: bool
             """
             If `true`, tax will be calculated automatically using the customer's location.
+            """
+            liability: NotRequired[
+                "PaymentLink.ModifyParamsAutomaticTaxLiability|None"
+            ]
+            """
+            The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
+            """
+
+        class ModifyParamsAutomaticTaxLiability(TypedDict):
+            account: NotRequired["str|None"]
+            """
+            The connected account being referenced when `type` is `account`.
+            """
+            type: Literal["account", "self"]
+            """
+            Type of the account referenced in the request.
             """
 
         class ModifyParamsAfterCompletion(TypedDict):

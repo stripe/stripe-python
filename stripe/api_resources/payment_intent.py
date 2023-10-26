@@ -112,6 +112,7 @@ class PaymentIntent(
                 "application_fees_not_allowed",
                 "authentication_required",
                 "balance_insufficient",
+                "balance_invalid_parameter",
                 "bank_account_bad_routing_numbers",
                 "bank_account_declined",
                 "bank_account_exists",
@@ -422,6 +423,20 @@ class PaymentIntent(
 
         class DisplayBankTransferInstructions(StripeObject):
             class FinancialAddress(StripeObject):
+                class Aba(StripeObject):
+                    account_number: str
+                    """
+                    The ABA account number
+                    """
+                    bank_name: str
+                    """
+                    The bank name
+                    """
+                    routing_number: str
+                    """
+                    The ABA routing number
+                    """
+
                 class Iban(StripeObject):
                     account_holder_name: str
                     """
@@ -468,6 +483,20 @@ class PaymentIntent(
                     The CLABE number
                     """
 
+                class Swift(StripeObject):
+                    account_number: str
+                    """
+                    The account number
+                    """
+                    bank_name: str
+                    """
+                    The bank name
+                    """
+                    swift_code: str
+                    """
+                    The SWIFT code
+                    """
+
                 class Zengin(StripeObject):
                     account_holder_name: Optional[str]
                     """
@@ -498,6 +527,10 @@ class PaymentIntent(
                     The branch name of the account
                     """
 
+                aba: Optional[Aba]
+                """
+                ABA Records contain U.S. bank account details per the ABA format.
+                """
                 iban: Optional[Iban]
                 """
                 Iban Records contain E.U. bank account details per the SEPA format.
@@ -511,12 +544,29 @@ class PaymentIntent(
                 SPEI Records contain Mexico bank account details per the SPEI format.
                 """
                 supported_networks: Optional[
-                    List[Literal["bacs", "fps", "sepa", "spei", "zengin"]]
+                    List[
+                        Literal[
+                            "ach",
+                            "bacs",
+                            "domestic_wire_us",
+                            "fps",
+                            "sepa",
+                            "spei",
+                            "swift",
+                            "zengin",
+                        ]
+                    ]
                 ]
                 """
                 The payment networks supported by this FinancialAddress
                 """
-                type: Literal["iban", "sort_code", "spei", "zengin"]
+                swift: Optional[Swift]
+                """
+                SWIFT Records contain U.S. bank account details per the SWIFT format.
+                """
+                type: Literal[
+                    "aba", "iban", "sort_code", "spei", "swift", "zengin"
+                ]
                 """
                 The type of financial address
                 """
@@ -525,9 +575,11 @@ class PaymentIntent(
                 Zengin Records contain Japan bank account details per the Zengin format.
                 """
                 _inner_class_types = {
+                    "aba": Aba,
                     "iban": Iban,
                     "sort_code": SortCode,
                     "spei": Spei,
+                    "swift": Swift,
                     "zengin": Zengin,
                 }
 
@@ -1588,6 +1640,10 @@ class PaymentIntent(
             Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
 
             When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+            subsellers: Optional[List[str]]
+            """
+            The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
             """
 
         class Pix(StripeObject):
@@ -2862,6 +2918,10 @@ class PaymentIntent(
 
             If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
             """
+            subsellers: NotRequired["List[str]|None"]
+            """
+            The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+            """
 
         class ConfirmParamsPaymentMethodOptionsPaynow(TypedDict):
             setup_future_usage: NotRequired["Literal['none']|None"]
@@ -3136,12 +3196,6 @@ class PaymentIntent(
             request_extended_authorization: NotRequired["bool|None"]
             """
             Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
-            """
-            request_incremental_authorization: NotRequired[
-                "Literal['if_available', 'never']|None"
-            ]
-            """
-            Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
             """
             request_incremental_authorization_support: NotRequired["bool|None"]
             """
@@ -4583,7 +4637,7 @@ class PaymentIntent(
                 "PaymentIntent.CreateParamsTransferData|None"
             ]
             """
-            The parameters that you can use to automatically create a Transfer after the payment succeeds.
+            The parameters that you can use to automatically create a Transfer.
             Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
             """
             transfer_group: NotRequired["str|None"]
@@ -5092,6 +5146,10 @@ class PaymentIntent(
 
             If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
             """
+            subsellers: NotRequired["List[str]|None"]
+            """
+            The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+            """
 
         class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
             setup_future_usage: NotRequired["Literal['none']|None"]
@@ -5366,12 +5424,6 @@ class PaymentIntent(
             request_extended_authorization: NotRequired["bool|None"]
             """
             Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
-            """
-            request_incremental_authorization: NotRequired[
-                "Literal['if_available', 'never']|None"
-            ]
-            """
-            Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
             """
             request_incremental_authorization_support: NotRequired["bool|None"]
             """
@@ -7316,6 +7368,10 @@ class PaymentIntent(
 
             If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
             """
+            subsellers: NotRequired["List[str]|None"]
+            """
+            The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+            """
 
         class ModifyParamsPaymentMethodOptionsPaynow(TypedDict):
             setup_future_usage: NotRequired["Literal['none']|None"]
@@ -7590,12 +7646,6 @@ class PaymentIntent(
             request_extended_authorization: NotRequired["bool|None"]
             """
             Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
-            """
-            request_incremental_authorization: NotRequired[
-                "Literal['if_available', 'never']|None"
-            ]
-            """
-            Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
             """
             request_incremental_authorization_support: NotRequired["bool|None"]
             """

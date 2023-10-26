@@ -20,6 +20,20 @@ class FundingInstructions(StripeObject):
 
     class BankTransfer(StripeObject):
         class FinancialAddress(StripeObject):
+            class Aba(StripeObject):
+                account_number: str
+                """
+                The ABA account number
+                """
+                bank_name: str
+                """
+                The bank name
+                """
+                routing_number: str
+                """
+                The ABA routing number
+                """
+
             class Iban(StripeObject):
                 account_holder_name: str
                 """
@@ -66,6 +80,20 @@ class FundingInstructions(StripeObject):
                 The CLABE number
                 """
 
+            class Swift(StripeObject):
+                account_number: str
+                """
+                The account number
+                """
+                bank_name: str
+                """
+                The bank name
+                """
+                swift_code: str
+                """
+                The SWIFT code
+                """
+
             class Zengin(StripeObject):
                 account_holder_name: Optional[str]
                 """
@@ -96,6 +124,10 @@ class FundingInstructions(StripeObject):
                 The branch name of the account
                 """
 
+            aba: Optional[Aba]
+            """
+            ABA Records contain U.S. bank account details per the ABA format.
+            """
             iban: Optional[Iban]
             """
             Iban Records contain E.U. bank account details per the SEPA format.
@@ -109,12 +141,29 @@ class FundingInstructions(StripeObject):
             SPEI Records contain Mexico bank account details per the SPEI format.
             """
             supported_networks: Optional[
-                List[Literal["bacs", "fps", "sepa", "spei", "zengin"]]
+                List[
+                    Literal[
+                        "ach",
+                        "bacs",
+                        "domestic_wire_us",
+                        "fps",
+                        "sepa",
+                        "spei",
+                        "swift",
+                        "zengin",
+                    ]
+                ]
             ]
             """
             The payment networks supported by this FinancialAddress
             """
-            type: Literal["iban", "sort_code", "spei", "zengin"]
+            swift: Optional[Swift]
+            """
+            SWIFT Records contain U.S. bank account details per the SWIFT format.
+            """
+            type: Literal[
+                "aba", "iban", "sort_code", "spei", "swift", "zengin"
+            ]
             """
             The type of financial address
             """
@@ -123,9 +172,11 @@ class FundingInstructions(StripeObject):
             Zengin Records contain Japan bank account details per the Zengin format.
             """
             _inner_class_types = {
+                "aba": Aba,
                 "iban": Iban,
                 "sort_code": SortCode,
                 "spei": Spei,
+                "swift": Swift,
                 "zengin": Zengin,
             }
 

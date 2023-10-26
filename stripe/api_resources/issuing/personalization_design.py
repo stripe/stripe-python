@@ -60,13 +60,13 @@ class PersonalizationDesign(
         """
 
     class Preferences(StripeObject):
-        account_default: bool
+        is_default: bool
         """
-        Whether this personalization design is used to create cards when one is not specified. A connected account will use the Connect platform's default if no personalization design is set as the account default.
+        Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
         """
-        platform_default: Optional[bool]
+        is_platform_default: Optional[bool]
         """
-        Whether this personalization design is used to create cards when one is not specified and an account default for this connected account does not exist.
+        Whether this personalization design is used to create cards when one is not specified and a default for this connected account does not exist.
         """
 
     class RejectionReasons(StripeObject):
@@ -109,7 +109,7 @@ class PersonalizationDesign(
         class CreateParams(RequestOptions):
             card_logo: NotRequired["str|None"]
             """
-            The file for the card logo, for use with physical bundles that support card logos. Must have `purpose` value of `issuing_logo`.
+            The file for the card logo, for use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
             """
             carrier_text: NotRequired[
                 "PersonalizationDesign.CreateParamsCarrierText|None"
@@ -149,9 +149,9 @@ class PersonalizationDesign(
             """
 
         class CreateParamsPreferences(TypedDict):
-            account_default: bool
+            is_default: bool
             """
-            Whether this personalization design is used to create cards when one is not specified. A connected account will use the Connect platform's default if no personalization design is set as the account default.
+            Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
             """
 
         class CreateParamsCarrierText(TypedDict):
@@ -207,11 +207,11 @@ class PersonalizationDesign(
             """
 
         class ListParamsPreferences(TypedDict):
-            account_default: NotRequired["bool|None"]
+            is_default: NotRequired["bool|None"]
             """
-            Only return the personalization design that is set as the account default. A connected account will use the Connect platform's default if no personalization design is set as the account default.
+            Only return the personalization design that's set as the default. A connected account uses the Connect platform's default design if no personalization design is set as the default.
             """
-            platform_default: NotRequired["bool|None"]
+            is_platform_default: NotRequired["bool|None"]
             """
             Only return the personalization design that is set as the Connect platform's default. This parameter is only applicable to connected accounts.
             """
@@ -219,7 +219,7 @@ class PersonalizationDesign(
         class ModifyParams(RequestOptions):
             card_logo: NotRequired["Literal['']|str|None"]
             """
-            The file for the card logo, for use with physical bundles that support card logos. Must have `purpose` value of `issuing_logo`.
+            The file for the card logo, for use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
             """
             carrier_text: NotRequired[
                 "Literal['']|PersonalizationDesign.ModifyParamsCarrierText|None"
@@ -259,9 +259,9 @@ class PersonalizationDesign(
             """
 
         class ModifyParamsPreferences(TypedDict):
-            account_default: bool
+            is_default: bool
             """
-            Whether this personalization design is used to create cards when one is not specified. A connected account will use the Connect platform's default if no personalization design is set as the account default.
+            Whether we use this personalization design to create cards when one isn't specified. A connected account uses the Connect platform's default design if no personalization design is set as the default design.
             """
 
         class ModifyParamsCarrierText(TypedDict):
@@ -326,7 +326,7 @@ class PersonalizationDesign(
 
     card_logo: Optional[ExpandableField["File"]]
     """
-    The file for the card logo, for use with physical bundles that support card logos.
+    The file for the card logo to use with physical bundles that support card logos. Must have a `purpose` value of `issuing_logo`.
     """
     carrier_text: Optional[CarrierText]
     """

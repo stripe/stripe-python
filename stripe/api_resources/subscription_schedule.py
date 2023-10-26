@@ -149,7 +149,7 @@ class SubscriptionSchedule(
         """
         description: Optional[str]
         """
-        Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+        Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
         invoice_settings: Optional[InvoiceSettings]
         """
@@ -394,7 +394,7 @@ class SubscriptionSchedule(
 
             end_behavior: Optional[EndBehavior]
             """
-            Defines how the subscription should behaves when a trial ensd.
+            Defines how the subscription should behave when a trial ends.
             """
             _inner_class_types = {"end_behavior": EndBehavior}
 
@@ -439,7 +439,7 @@ class SubscriptionSchedule(
         """
         description: Optional[str]
         """
-        Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+        Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
         discounts: Optional[List[Discount]]
         """
@@ -1244,7 +1244,7 @@ class SubscriptionSchedule(
             """
             description: NotRequired["Literal['']|str|None"]
             """
-            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             discounts: NotRequired[
                 "Literal['']|List[SubscriptionSchedule.CreateParamsPhaseDiscount]|None"
@@ -1712,7 +1712,7 @@ class SubscriptionSchedule(
             """
             description: NotRequired["Literal['']|str|None"]
             """
-            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             invoice_settings: NotRequired[
                 "SubscriptionSchedule.CreateParamsDefaultSettingsInvoiceSettings|None"
@@ -2026,7 +2026,7 @@ class SubscriptionSchedule(
             """
             description: NotRequired["Literal['']|str|None"]
             """
-            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             discounts: NotRequired[
                 "Literal['']|List[SubscriptionSchedule.ModifyParamsPhaseDiscount]|None"
@@ -2498,7 +2498,7 @@ class SubscriptionSchedule(
             """
             description: NotRequired["Literal['']|str|None"]
             """
-            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             invoice_settings: NotRequired[
                 "SubscriptionSchedule.ModifyParamsDefaultSettingsInvoiceSettings|None"

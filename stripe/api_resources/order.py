@@ -411,6 +411,10 @@ class Order(
 
                     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
                     """
+                    subsellers: Optional[List[str]]
+                    """
+                    The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+                    """
 
                 class SepaDebit(StripeObject):
                     class MandateOptions(StripeObject):
@@ -1443,6 +1447,10 @@ class Order(
             When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
             If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+            """
+            subsellers: NotRequired["List[str]|None"]
+            """
+            The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
             """
 
         class CreateParamsPaymentSettingsPaymentMethodOptionsP24(TypedDict):
@@ -2571,6 +2579,10 @@ class Order(
             When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
 
             If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+            """
+            subsellers: NotRequired["List[str]|None"]
+            """
+            The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
             """
 
         class ModifyParamsPaymentSettingsPaymentMethodOptionsP24(TypedDict):

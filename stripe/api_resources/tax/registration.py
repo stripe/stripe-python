@@ -687,7 +687,7 @@ class Registration(
         class CreateParams(RequestOptions):
             active_from: Union[int, Literal["now"]]
             """
-            Time at which the Tax Registration becomes active. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
+            Time at which the Tax Registration becomes active. It can be either `now` to indicate the current time, or a future timestamp measured in seconds since the Unix epoch.
             """
             country: str
             """

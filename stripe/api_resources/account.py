@@ -684,7 +684,7 @@ class Account(
         """
         disabled_reason: Optional[str]
         """
-        This is typed as a string for consistency with `requirements.disabled_reason`, but it safe to assume `future_requirements.disabled_reason` is empty because fields in `future_requirements` will never disable the account.
+        This is typed as a string for consistency with `requirements.disabled_reason`.
         """
         errors: Optional[List[Error]]
         """
@@ -831,7 +831,7 @@ class Account(
         """
         disabled_reason: Optional[str]
         """
-        If the account is disabled, this string describes why. Can be `requirements.past_due`, `requirements.pending_verification`, `listed`, `platform_paused`, `rejected.fraud`, `rejected.listed`, `rejected.terms_of_service`, `rejected.other`, `under_review`, or `other`.
+        If the account is disabled, this string describes why. [Learn more about handling verification issues](https://stripe.com/docs/connect/handling-api-verification). Can be `action_required.requested_capabilities`, `requirements.past_due`, `requirements.pending_verification`, `listed`, `platform_paused`, `rejected.fraud`, `rejected.incomplete_verification`, `rejected.listed`, `rejected.other`, `rejected.terms_of_service`, `under_review`, or `other`.
         """
         errors: Optional[List[Error]]
         """

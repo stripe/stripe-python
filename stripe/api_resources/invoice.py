@@ -42,6 +42,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
+    from stripe.api_resources.margin import Margin
     from stripe.api_resources.payment_intent import PaymentIntent
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.quote import Quote
@@ -326,6 +327,7 @@ class Invoice(
                 "application_fees_not_allowed",
                 "authentication_required",
                 "balance_insufficient",
+                "balance_invalid_parameter",
                 "bank_account_bad_routing_numbers",
                 "bank_account_declined",
                 "bank_account_exists",
@@ -940,6 +942,16 @@ class Invoice(
         The discount that was applied to get this discount amount.
         """
 
+    class TotalMarginAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the reduction in line item amount.
+        """
+        margin: ExpandableField["Margin"]
+        """
+        The margin that was applied to get this margin amount.
+        """
+
     class TotalTaxAmount(StripeObject):
         amount: int
         """
@@ -1032,6 +1044,10 @@ class Invoice(
             days_until_due: NotRequired["int|None"]
             """
             The number of days from when the invoice is created until it is due. Valid only for invoices where `collection_method=send_invoice`.
+            """
+            default_margins: NotRequired["List[str]|None"]
+            """
+            The ids of the margins to apply to the invoice. Can be overridden by line item `margins`.
             """
             default_payment_method: NotRequired["str|None"]
             """
@@ -1762,6 +1778,10 @@ class Invoice(
             days_until_due: NotRequired["int|None"]
             """
             The number of days from which the invoice is created until it is due. Only valid for invoices where `collection_method=send_invoice`. This field can only be updated on `draft` invoices.
+            """
+            default_margins: NotRequired["Literal['']|List[str]|None"]
+            """
+            The ids of the margins to apply to the invoice. Can be overridden by line item `margins`.
             """
             default_payment_method: NotRequired["str|None"]
             """
@@ -3892,6 +3912,10 @@ class Invoice(
     """
     The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated.
     """
+    default_margins: Optional[List[ExpandableField["Margin"]]]
+    """
+    The margins applied to the invoice. Can be overridden by line item `margins`. Use `expand[]=default_margins` to expand each margin.
+    """
     default_payment_method: Optional[ExpandableField["PaymentMethod"]]
     """
     ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings.
@@ -4098,6 +4122,10 @@ class Invoice(
     total_excluding_tax: Optional[int]
     """
     The integer amount in cents (or local equivalent) representing the total amount of the invoice including all discounts but excluding all tax.
+    """
+    total_margin_amounts: Optional[List[TotalMarginAmount]]
+    """
+    The aggregate amounts calculated per margin across all line items.
     """
     total_tax_amounts: List[TotalTaxAmount]
     """
@@ -4587,6 +4615,7 @@ class Invoice(
         "subscription_details": SubscriptionDetails,
         "threshold_reason": ThresholdReason,
         "total_discount_amounts": TotalDiscountAmount,
+        "total_margin_amounts": TotalMarginAmount,
         "total_tax_amounts": TotalTaxAmount,
         "transfer_data": TransferData,
     }
