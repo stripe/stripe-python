@@ -530,7 +530,7 @@ class Subscription(
             """
             description: NotRequired["str|None"]
             """
-            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces.
+            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             discounts: NotRequired[
                 "Literal['']|List[Subscription.CreateParamsDiscount]|None"
@@ -1395,7 +1395,7 @@ class Subscription(
             """
             description: NotRequired["Literal['']|str|None"]
             """
-            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces.
+            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             discounts: NotRequired[
                 "Literal['']|List[Subscription.ModifyParamsDiscount]|None"
@@ -2214,7 +2214,7 @@ class Subscription(
     """
     description: Optional[str]
     """
-    The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces.
+    The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
     """
     discount: Optional["Discount"]
     """

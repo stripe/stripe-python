@@ -385,6 +385,7 @@ class Quote(
                 """
                 type: Optional[
                     Literal[
+                        "accept_failed_validations",
                         "bill_on_acceptance_invalid",
                         "line_invalid",
                         "marked_stale",
@@ -553,7 +554,7 @@ class Quote(
         """
         description: Optional[str]
         """
-        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
         effective_date: Optional[int]
         """
@@ -717,7 +718,7 @@ class Quote(
         """
         description: Optional[str]
         """
-        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
         end_behavior: Optional[Literal["cancel", "release"]]
         """
@@ -959,7 +960,7 @@ class Quote(
                 "List[Quote.CreateParamsSubscriptionDataOverride]|None"
             ]
             """
-            List representing overrides for `subscription_data` configurations for specific groups.
+            List representing overrides for `subscription_data` configurations for specific subscription schedules.
             """
             test_clock: NotRequired["str|None"]
             """
@@ -1009,7 +1010,7 @@ class Quote(
             """
             description: NotRequired["str|None"]
             """
-            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             end_behavior: NotRequired["Literal['cancel', 'release']|None"]
             """
@@ -1167,7 +1168,7 @@ class Quote(
             """
             description: NotRequired["str|None"]
             """
-            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             effective_date: NotRequired[
                 "Literal['']|Literal['current_period_end']|int|None"
@@ -2412,7 +2413,7 @@ class Quote(
                 "Literal['']|List[Quote.ModifyParamsSubscriptionDataOverride]|None"
             ]
             """
-            List representing overrides for `subscription_data` configurations for specific groups.
+            List representing overrides for `subscription_data` configurations for specific subscription schedules.
             """
             transfer_data: NotRequired[
                 "Literal['']|Quote.ModifyParamsTransferData|None"
@@ -2458,7 +2459,7 @@ class Quote(
             """
             description: NotRequired["Literal['']|str|None"]
             """
-            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             end_behavior: NotRequired["Literal['cancel', 'release']|None"]
             """
@@ -2616,7 +2617,7 @@ class Quote(
             """
             description: NotRequired["Literal['']|str|None"]
             """
-            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             effective_date: NotRequired[
                 "Literal['']|Literal['current_period_end']|int|None"
@@ -3803,6 +3804,9 @@ class Quote(
     """
     subscription_data: SubscriptionData
     subscription_data_overrides: Optional[List[SubscriptionDataOverride]]
+    """
+    List representing overrides for `subscription_data` configurations for specific subscription schedules.
+    """
     subscription_schedule: Optional[
         ExpandableField["SubscriptionScheduleResource"]
     ]

@@ -25,6 +25,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice import Invoice
+    from stripe.api_resources.margin import Margin
     from stripe.api_resources.plan import Plan
     from stripe.api_resources.price import Price
     from stripe.api_resources.subscription import Subscription
@@ -100,6 +101,10 @@ class InvoiceItem(
             invoice: NotRequired["str|None"]
             """
             The ID of an existing invoice to add this invoice item to. When left blank, the invoice item will be added to the next upcoming scheduled invoice. This is useful when adding invoice items in response to an invoice.created webhook. You can only add invoice items to draft invoices and there is a maximum of 250 items per invoice.
+            """
+            margins: NotRequired["List[str]|None"]
+            """
+            The ids of the margins to apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
             """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
             """
@@ -299,6 +304,10 @@ class InvoiceItem(
             """
             Specifies which fields in the response should be expanded.
             """
+            margins: NotRequired["Literal['']|List[str]|None"]
+            """
+            The ids of the margins to apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
@@ -463,6 +472,10 @@ class InvoiceItem(
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
+    margins: Optional[List[ExpandableField["Margin"]]]
+    """
+    The margins which apply to the invoice item. When set, the `default_margins` on the invoice do not apply to this invoice item.
     """
     metadata: Optional[Dict[str, str]]
     """

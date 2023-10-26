@@ -2461,6 +2461,10 @@ class Session(
 
             If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
             """
+            subsellers: NotRequired["List[str]|None"]
+            """
+            The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+            """
 
         class CreateParamsPaymentMethodOptionsPaynow(TypedDict):
             setup_future_usage: NotRequired["Literal['none']|None"]
