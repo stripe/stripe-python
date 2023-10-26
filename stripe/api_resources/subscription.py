@@ -13,7 +13,17 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
+from stripe.util import class_method_variant
+from typing import (
+    ClassVar,
+    Dict,
+    Iterator,
+    List,
+    Optional,
+    Union,
+    cast,
+    overload,
+)
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -1113,8 +1123,28 @@ class Subscription(
             ),
         )
 
-    @util.class_method_variant("_cls_cancel")
+    @overload
+    @classmethod
     def cancel(
+        cls,
+        subscription_exposed_id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Subscription.CancelParams"]
+    ) -> "Subscription":
+        ...
+
+    @overload
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Subscription.CancelParams"]
+    ) -> "Subscription":
+        ...
+
+    @class_method_variant("_cls_cancel")
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Subscription.CancelParams"]
@@ -1178,8 +1208,28 @@ class Subscription(
             ),
         )
 
-    @util.class_method_variant("_cls_delete_discount")
+    @overload
+    @classmethod
     def delete_discount(
+        cls,
+        subscription_exposed_id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Subscription.DeleteDiscountParams"]
+    ) -> "Discount":
+        ...
+
+    @overload
+    def delete_discount(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Subscription.DeleteDiscountParams"]
+    ) -> "Discount":
+        ...
+
+    @class_method_variant("_cls_delete_discount")
+    def delete_discount(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Subscription.DeleteDiscountParams"]
@@ -1254,8 +1304,28 @@ class Subscription(
             ),
         )
 
-    @util.class_method_variant("_cls_resume")
+    @overload
+    @classmethod
     def resume(
+        cls,
+        subscription: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Subscription.ResumeParams"]
+    ) -> "Subscription":
+        ...
+
+    @overload
+    def resume(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Subscription.ResumeParams"]
+    ) -> "Subscription":
+        ...
+
+    @class_method_variant("_cls_resume")
+    def resume(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Subscription.ResumeParams"]

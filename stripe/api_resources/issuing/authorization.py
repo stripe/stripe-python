@@ -10,7 +10,8 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -352,8 +353,28 @@ class Authorization(
             ),
         )
 
-    @util.class_method_variant("_cls_approve")
+    @overload
+    @classmethod
     def approve(
+        cls,
+        authorization: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Authorization.ApproveParams"]
+    ) -> "Authorization":
+        ...
+
+    @overload
+    def approve(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Authorization.ApproveParams"]
+    ) -> "Authorization":
+        ...
+
+    @class_method_variant("_cls_approve")
+    def approve(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.ApproveParams"]
@@ -393,8 +414,28 @@ class Authorization(
             ),
         )
 
-    @util.class_method_variant("_cls_decline")
+    @overload
+    @classmethod
     def decline(
+        cls,
+        authorization: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Authorization.DeclineParams"]
+    ) -> "Authorization":
+        ...
+
+    @overload
+    def decline(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Authorization.DeclineParams"]
+    ) -> "Authorization":
+        ...
+
+    @class_method_variant("_cls_decline")
+    def decline(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.DeclineParams"]
@@ -480,8 +521,28 @@ class Authorization(
                 ),
             )
 
-        @util.class_method_variant("_cls_capture")
+        @overload
+        @classmethod
         def capture(
+            cls,
+            authorization: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Authorization.CaptureParams"]
+        ) -> "Authorization":
+            ...
+
+        @overload
+        def capture(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["Authorization.CaptureParams"]
+        ) -> "Authorization":
+            ...
+
+        @class_method_variant("_cls_capture")
+        def capture(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.CaptureParams"]
@@ -541,8 +602,28 @@ class Authorization(
                 ),
             )
 
-        @util.class_method_variant("_cls_expire")
+        @overload
+        @classmethod
         def expire(
+            cls,
+            authorization: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Authorization.ExpireParams"]
+        ) -> "Authorization":
+            ...
+
+        @overload
+        def expire(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["Authorization.ExpireParams"]
+        ) -> "Authorization":
+            ...
+
+        @class_method_variant("_cls_expire")
+        def expire(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ExpireParams"]
@@ -582,8 +663,28 @@ class Authorization(
                 ),
             )
 
-        @util.class_method_variant("_cls_increment")
+        @overload
+        @classmethod
         def increment(
+            cls,
+            authorization: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Authorization.IncrementParams"]
+        ) -> "Authorization":
+            ...
+
+        @overload
+        def increment(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["Authorization.IncrementParams"]
+        ) -> "Authorization":
+            ...
+
+        @class_method_variant("_cls_increment")
+        def increment(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.IncrementParams"]
@@ -623,8 +724,28 @@ class Authorization(
                 ),
             )
 
-        @util.class_method_variant("_cls_reverse")
+        @overload
+        @classmethod
         def reverse(
+            cls,
+            authorization: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Authorization.ReverseParams"]
+        ) -> "Authorization":
+            ...
+
+        @overload
+        def reverse(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["Authorization.ReverseParams"]
+        ) -> "Authorization":
+            ...
+
+        @class_method_variant("_cls_reverse")
+        def reverse(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ReverseParams"]

@@ -10,7 +10,8 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, ClassVar, Dict, List, Optional, Union, cast
+from stripe.util import class_method_variant
+from typing import Any, ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -1881,8 +1882,28 @@ class SetupIntent(
             ),
         )
 
-    @util.class_method_variant("_cls_cancel")
+    @overload
+    @classmethod
     def cancel(
+        cls,
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["SetupIntent.CancelParams"]
+    ) -> "SetupIntent":
+        ...
+
+    @overload
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["SetupIntent.CancelParams"]
+    ) -> "SetupIntent":
+        ...
+
+    @class_method_variant("_cls_cancel")
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
@@ -1922,8 +1943,28 @@ class SetupIntent(
             ),
         )
 
-    @util.class_method_variant("_cls_confirm")
+    @overload
+    @classmethod
     def confirm(
+        cls,
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["SetupIntent.ConfirmParams"]
+    ) -> "SetupIntent":
+        ...
+
+    @overload
+    def confirm(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["SetupIntent.ConfirmParams"]
+    ) -> "SetupIntent":
+        ...
+
+    @class_method_variant("_cls_confirm")
+    def confirm(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
@@ -2028,8 +2069,28 @@ class SetupIntent(
             ),
         )
 
-    @util.class_method_variant("_cls_verify_microdeposits")
+    @overload
+    @classmethod
     def verify_microdeposits(
+        cls,
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+    ) -> "SetupIntent":
+        ...
+
+    @overload
+    def verify_microdeposits(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+    ) -> "SetupIntent":
+        ...
+
+    @class_method_variant("_cls_verify_microdeposits")
+    def verify_microdeposits(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]

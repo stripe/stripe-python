@@ -9,7 +9,8 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import ClassVar, Dict, List, Optional, Union, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -144,8 +145,28 @@ class Payout(
             ),
         )
 
-    @util.class_method_variant("_cls_cancel")
+    @overload
+    @classmethod
     def cancel(
+        cls,
+        payout: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Payout.CancelParams"]
+    ) -> "Payout":
+        ...
+
+    @overload
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Payout.CancelParams"]
+    ) -> "Payout":
+        ...
+
+    @class_method_variant("_cls_cancel")
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Payout.CancelParams"]
@@ -250,8 +271,28 @@ class Payout(
             ),
         )
 
-    @util.class_method_variant("_cls_reverse")
+    @overload
+    @classmethod
     def reverse(
+        cls,
+        payout: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Payout.ReverseParams"]
+    ) -> "Payout":
+        ...
+
+    @overload
+    def reverse(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Payout.ReverseParams"]
+    ) -> "Payout":
+        ...
+
+    @class_method_variant("_cls_reverse")
+    def reverse(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Payout.ReverseParams"]

@@ -10,7 +10,8 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -258,8 +259,28 @@ class OutboundPayment(
             ),
         )
 
-    @util.class_method_variant("_cls_cancel")
+    @overload
+    @classmethod
     def cancel(
+        cls,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["OutboundPayment.CancelParams"]
+    ) -> "OutboundPayment":
+        ...
+
+    @overload
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["OutboundPayment.CancelParams"]
+    ) -> "OutboundPayment":
+        ...
+
+    @class_method_variant("_cls_cancel")
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["OutboundPayment.CancelParams"]
@@ -357,8 +378,28 @@ class OutboundPayment(
                 ),
             )
 
-        @util.class_method_variant("_cls_fail")
+        @overload
+        @classmethod
         def fail(
+            cls,
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["OutboundPayment.FailParams"]
+        ) -> "OutboundPayment":
+            ...
+
+        @overload
+        def fail(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["OutboundPayment.FailParams"]
+        ) -> "OutboundPayment":
+            ...
+
+        @class_method_variant("_cls_fail")
+        def fail(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.FailParams"]
@@ -398,8 +439,28 @@ class OutboundPayment(
                 ),
             )
 
-        @util.class_method_variant("_cls_post")
+        @overload
+        @classmethod
         def post(
+            cls,
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["OutboundPayment.PostParams"]
+        ) -> "OutboundPayment":
+            ...
+
+        @overload
+        def post(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["OutboundPayment.PostParams"]
+        ) -> "OutboundPayment":
+            ...
+
+        @class_method_variant("_cls_post")
+        def post(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.PostParams"]
@@ -439,8 +500,28 @@ class OutboundPayment(
                 ),
             )
 
-        @util.class_method_variant("_cls_return_outbound_payment")
+        @overload
+        @classmethod
         def return_outbound_payment(
+            cls,
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+        ) -> "OutboundPayment":
+            ...
+
+        @overload
+        def return_outbound_payment(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
+        ) -> "OutboundPayment":
+            ...
+
+        @class_method_variant("_cls_return_outbound_payment")
+        def return_outbound_payment(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]

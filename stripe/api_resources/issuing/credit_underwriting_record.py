@@ -5,7 +5,8 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -878,8 +879,28 @@ class CreditUnderwritingRecord(
             ),
         )
 
-    @util.class_method_variant("_cls_correct")
+    @overload
+    @classmethod
     def correct(
+        cls,
+        credit_underwriting_record: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+    ) -> "CreditUnderwritingRecord":
+        ...
+
+    @overload
+    def correct(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+    ) -> "CreditUnderwritingRecord":
+        ...
+
+    @class_method_variant("_cls_correct")
+    def correct(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
@@ -990,8 +1011,28 @@ class CreditUnderwritingRecord(
             ),
         )
 
-    @util.class_method_variant("_cls_report_decision")
+    @overload
+    @classmethod
     def report_decision(
+        cls,
+        credit_underwriting_record: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+    ) -> "CreditUnderwritingRecord":
+        ...
+
+    @overload
+    def report_decision(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+    ) -> "CreditUnderwritingRecord":
+        ...
+
+    @class_method_variant("_cls_report_decision")
+    def report_decision(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]

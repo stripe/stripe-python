@@ -5,7 +5,8 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -142,8 +143,28 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
             ),
         )
 
-    @util.class_method_variant("_cls_mark_delivered")
+    @overload
+    @classmethod
     def mark_delivered(
+        cls,
+        financing_offer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+    ) -> "FinancingOffer":
+        ...
+
+    @overload
+    def mark_delivered(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+    ) -> "FinancingOffer":
+        ...
+
+    @class_method_variant("_cls_mark_delivered")
+    def mark_delivered(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancingOffer.MarkDeliveredParams"]

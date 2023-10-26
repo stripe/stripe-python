@@ -12,7 +12,18 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import Any, ClassVar, Dict, Iterator, List, Optional, Union, cast
+from stripe.util import class_method_variant
+from typing import (
+    Any,
+    ClassVar,
+    Dict,
+    Iterator,
+    List,
+    Optional,
+    Union,
+    cast,
+    overload,
+)
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -3952,8 +3963,28 @@ class PaymentIntent(
             ),
         )
 
-    @util.class_method_variant("_cls_apply_customer_balance")
+    @overload
+    @classmethod
     def apply_customer_balance(
+        cls,
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
+    ) -> "PaymentIntent":
+        ...
+
+    @overload
+    def apply_customer_balance(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
+    ) -> "PaymentIntent":
+        ...
+
+    @class_method_variant("_cls_apply_customer_balance")
+    def apply_customer_balance(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
@@ -3993,8 +4024,28 @@ class PaymentIntent(
             ),
         )
 
-    @util.class_method_variant("_cls_cancel")
+    @overload
+    @classmethod
     def cancel(
+        cls,
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["PaymentIntent.CancelParams"]
+    ) -> "PaymentIntent":
+        ...
+
+    @overload
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["PaymentIntent.CancelParams"]
+    ) -> "PaymentIntent":
+        ...
+
+    @class_method_variant("_cls_cancel")
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.CancelParams"]
@@ -4034,8 +4085,28 @@ class PaymentIntent(
             ),
         )
 
-    @util.class_method_variant("_cls_capture")
+    @overload
+    @classmethod
     def capture(
+        cls,
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["PaymentIntent.CaptureParams"]
+    ) -> "PaymentIntent":
+        ...
+
+    @overload
+    def capture(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["PaymentIntent.CaptureParams"]
+    ) -> "PaymentIntent":
+        ...
+
+    @class_method_variant("_cls_capture")
+    def capture(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.CaptureParams"]
@@ -4075,8 +4146,28 @@ class PaymentIntent(
             ),
         )
 
-    @util.class_method_variant("_cls_confirm")
+    @overload
+    @classmethod
     def confirm(
+        cls,
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["PaymentIntent.ConfirmParams"]
+    ) -> "PaymentIntent":
+        ...
+
+    @overload
+    def confirm(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["PaymentIntent.ConfirmParams"]
+    ) -> "PaymentIntent":
+        ...
+
+    @class_method_variant("_cls_confirm")
+    def confirm(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.ConfirmParams"]
@@ -4138,8 +4229,28 @@ class PaymentIntent(
             ),
         )
 
-    @util.class_method_variant("_cls_increment_authorization")
+    @overload
+    @classmethod
     def increment_authorization(
+        cls,
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        ...
+
+    @overload
+    def increment_authorization(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
+    ) -> "PaymentIntent":
+        ...
+
+    @class_method_variant("_cls_increment_authorization")
+    def increment_authorization(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
@@ -4222,8 +4333,28 @@ class PaymentIntent(
             ),
         )
 
-    @util.class_method_variant("_cls_verify_microdeposits")
+    @overload
+    @classmethod
     def verify_microdeposits(
+        cls,
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
+    ) -> "PaymentIntent":
+        ...
+
+    @overload
+    def verify_microdeposits(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]
+    ) -> "PaymentIntent":
+        ...
+
+    @class_method_variant("_cls_verify_microdeposits")
+    def verify_microdeposits(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]

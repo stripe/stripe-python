@@ -405,9 +405,13 @@ class class_method_variant(object):
     def __init__(self, class_method_name):
         self.class_method_name = class_method_name
 
-    def __call__(self, method):
+    T = TypeVar("T")
+
+    method: Any
+
+    def __call__(self, method: T) -> T:
         self.method = method
-        return self
+        return cast(T, self)
 
     def __get__(self, obj, objtype: Optional[Type[Any]] = None):
         @functools.wraps(self.method)

@@ -11,7 +11,8 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -272,8 +273,28 @@ class PersonalizationDesign(
                 ),
             )
 
-        @util.class_method_variant("_cls_activate")
+        @overload
+        @classmethod
         def activate(
+            cls,
+            personalization_design: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["PersonalizationDesign.ActivateParams"]
+        ) -> "PersonalizationDesign":
+            ...
+
+        @overload
+        def activate(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["PersonalizationDesign.ActivateParams"]
+        ) -> "PersonalizationDesign":
+            ...
+
+        @class_method_variant("_cls_activate")
+        def activate(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.ActivateParams"]
@@ -317,8 +338,28 @@ class PersonalizationDesign(
                 ),
             )
 
-        @util.class_method_variant("_cls_deactivate")
+        @overload
+        @classmethod
         def deactivate(
+            cls,
+            personalization_design: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["PersonalizationDesign.DeactivateParams"]
+        ) -> "PersonalizationDesign":
+            ...
+
+        @overload
+        def deactivate(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["PersonalizationDesign.DeactivateParams"]
+        ) -> "PersonalizationDesign":
+            ...
+
+        @class_method_variant("_cls_deactivate")
+        def deactivate(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.DeactivateParams"]
@@ -362,8 +403,28 @@ class PersonalizationDesign(
                 ),
             )
 
-        @util.class_method_variant("_cls_reject")
+        @overload
+        @classmethod
         def reject(
+            cls,
+            personalization_design: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["PersonalizationDesign.RejectParams"]
+        ) -> "PersonalizationDesign":
+            ...
+
+        @overload
+        def reject(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["PersonalizationDesign.RejectParams"]
+        ) -> "PersonalizationDesign":
+            ...
+
+        @class_method_variant("_cls_reject")
+        def reject(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.RejectParams"]

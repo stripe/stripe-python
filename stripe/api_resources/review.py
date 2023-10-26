@@ -6,7 +6,8 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -106,8 +107,28 @@ class Review(ListableAPIResource["Review"]):
             ),
         )
 
-    @util.class_method_variant("_cls_approve")
+    @overload
+    @classmethod
     def approve(
+        cls,
+        review: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Review.ApproveParams"]
+    ) -> "Review":
+        ...
+
+    @overload
+    def approve(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Review.ApproveParams"]
+    ) -> "Review":
+        ...
+
+    @class_method_variant("_cls_approve")
+    def approve(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Review.ApproveParams"]

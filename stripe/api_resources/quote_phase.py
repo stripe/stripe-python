@@ -6,7 +6,8 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -150,8 +151,28 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
             ),
         )
 
-    @util.class_method_variant("_cls_list_line_items")
+    @overload
+    @classmethod
     def list_line_items(
+        cls,
+        quote_phase: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["QuotePhase.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        ...
+
+    @overload
+    def list_line_items(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["QuotePhase.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        ...
+
+    @class_method_variant("_cls_list_line_items")
+    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["QuotePhase.ListLineItemsParams"]

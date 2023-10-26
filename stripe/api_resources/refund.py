@@ -11,7 +11,8 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Type, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
 
@@ -140,8 +141,28 @@ class Refund(
             ),
         )
 
-    @util.class_method_variant("_cls_cancel")
+    @overload
+    @classmethod
     def cancel(
+        cls,
+        refund: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Refund.CancelParams"]
+    ) -> "Refund":
+        ...
+
+    @overload
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Refund.CancelParams"]
+    ) -> "Refund":
+        ...
+
+    @class_method_variant("_cls_cancel")
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Refund.CancelParams"]
@@ -249,8 +270,28 @@ class Refund(
                 ),
             )
 
-        @util.class_method_variant("_cls_expire")
+        @overload
+        @classmethod
         def expire(
+            cls,
+            refund: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Refund.ExpireParams"]
+        ) -> "Refund":
+            ...
+
+        @overload
+        def expire(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["Refund.ExpireParams"]
+        ) -> "Refund":
+            ...
+
+        @class_method_variant("_cls_expire")
+        def expire(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Refund.ExpireParams"]

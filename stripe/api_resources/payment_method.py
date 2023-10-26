@@ -10,7 +10,8 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -925,8 +926,28 @@ class PaymentMethod(
             ),
         )
 
-    @util.class_method_variant("_cls_attach")
+    @overload
+    @classmethod
     def attach(
+        cls,
+        payment_method: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["PaymentMethod.AttachParams"]
+    ) -> "PaymentMethod":
+        ...
+
+    @overload
+    def attach(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["PaymentMethod.AttachParams"]
+    ) -> "PaymentMethod":
+        ...
+
+    @class_method_variant("_cls_attach")
+    def attach(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethod.AttachParams"]
@@ -988,8 +1009,28 @@ class PaymentMethod(
             ),
         )
 
-    @util.class_method_variant("_cls_detach")
+    @overload
+    @classmethod
     def detach(
+        cls,
+        payment_method: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["PaymentMethod.DetachParams"]
+    ) -> "PaymentMethod":
+        ...
+
+    @overload
+    def detach(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["PaymentMethod.DetachParams"]
+    ) -> "PaymentMethod":
+        ...
+
+    @class_method_variant("_cls_detach")
+    def detach(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethod.DetachParams"]

@@ -9,7 +9,8 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -186,8 +187,28 @@ class Account(ListableAPIResource["Account"]):
             ),
         )
 
-    @util.class_method_variant("_cls_disconnect")
+    @overload
+    @classmethod
     def disconnect(
+        cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.DisconnectParams"]
+    ) -> "Account":
+        ...
+
+    @overload
+    def disconnect(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.DisconnectParams"]
+    ) -> "Account":
+        ...
+
+    @class_method_variant("_cls_disconnect")
+    def disconnect(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
@@ -252,8 +273,28 @@ class Account(ListableAPIResource["Account"]):
             ),
         )
 
-    @util.class_method_variant("_cls_list_owners")
+    @overload
+    @classmethod
     def list_owners(
+        cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.ListOwnersParams"]
+    ) -> ListObject["AccountOwner"]:
+        ...
+
+    @overload
+    def list_owners(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.ListOwnersParams"]
+    ) -> ListObject["AccountOwner"]:
+        ...
+
+    @class_method_variant("_cls_list_owners")
+    def list_owners(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
@@ -293,8 +334,28 @@ class Account(ListableAPIResource["Account"]):
             ),
         )
 
-    @util.class_method_variant("_cls_refresh_account")
+    @overload
+    @classmethod
     def refresh_account(
+        cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.RefreshAccountParams"]
+    ) -> "Account":
+        ...
+
+    @overload
+    def refresh_account(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.RefreshAccountParams"]
+    ) -> "Account":
+        ...
+
+    @class_method_variant("_cls_refresh_account")
+    def refresh_account(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
@@ -342,8 +403,28 @@ class Account(ListableAPIResource["Account"]):
             ),
         )
 
-    @util.class_method_variant("_cls_subscribe")
+    @overload
+    @classmethod
     def subscribe(
+        cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.SubscribeParams"]
+    ) -> "Account":
+        ...
+
+    @overload
+    def subscribe(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.SubscribeParams"]
+    ) -> "Account":
+        ...
+
+    @class_method_variant("_cls_subscribe")
+    def subscribe(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.SubscribeParams"]
@@ -383,8 +464,28 @@ class Account(ListableAPIResource["Account"]):
             ),
         )
 
-    @util.class_method_variant("_cls_unsubscribe")
+    @overload
+    @classmethod
     def unsubscribe(
+        cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.UnsubscribeParams"]
+    ) -> "Account":
+        ...
+
+    @overload
+    def unsubscribe(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Account.UnsubscribeParams"]
+    ) -> "Account":
+        ...
+
+    @class_method_variant("_cls_unsubscribe")
+    def unsubscribe(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.UnsubscribeParams"]

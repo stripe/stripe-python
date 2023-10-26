@@ -3,7 +3,8 @@
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import DeletableAPIResource
 from stripe.request_options import RequestOptions
-from typing import ClassVar, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
 
@@ -32,8 +33,21 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
             cls._static_request("delete", url, params=params),
         )
 
-    @util.class_method_variant("_cls_delete")
+    @overload
+    @classmethod
     def delete(
+        cls, sid: str, **params: Unpack["EphemeralKey.DeleteParams"]
+    ) -> "EphemeralKey":
+        ...
+
+    @overload
+    def delete(
+        self, **params: Unpack["EphemeralKey.DeleteParams"]
+    ) -> "EphemeralKey":
+        ...
+
+    @class_method_variant("_cls_delete")
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["EphemeralKey.DeleteParams"]
     ) -> "EphemeralKey":
         return self._request_and_refresh(

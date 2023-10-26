@@ -11,7 +11,8 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -1353,8 +1354,28 @@ class Card(
                 ),
             )
 
-        @util.class_method_variant("_cls_deliver_card")
+        @overload
+        @classmethod
         def deliver_card(
+            cls,
+            card: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Card.DeliverCardParams"]
+        ) -> "Card":
+            ...
+
+        @overload
+        def deliver_card(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["Card.DeliverCardParams"]
+        ) -> "Card":
+            ...
+
+        @class_method_variant("_cls_deliver_card")
+        def deliver_card(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.DeliverCardParams"]
@@ -1394,8 +1415,28 @@ class Card(
                 ),
             )
 
-        @util.class_method_variant("_cls_fail_card")
+        @overload
+        @classmethod
         def fail_card(
+            cls,
+            card: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Card.FailCardParams"]
+        ) -> "Card":
+            ...
+
+        @overload
+        def fail_card(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["Card.FailCardParams"]
+        ) -> "Card":
+            ...
+
+        @class_method_variant("_cls_fail_card")
+        def fail_card(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.FailCardParams"]
@@ -1435,8 +1476,28 @@ class Card(
                 ),
             )
 
-        @util.class_method_variant("_cls_return_card")
+        @overload
+        @classmethod
         def return_card(
+            cls,
+            card: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Card.ReturnCardParams"]
+        ) -> "Card":
+            ...
+
+        @overload
+        def return_card(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["Card.ReturnCardParams"]
+        ) -> "Card":
+            ...
+
+        @class_method_variant("_cls_return_card")
+        def return_card(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.ReturnCardParams"]
@@ -1476,8 +1537,28 @@ class Card(
                 ),
             )
 
-        @util.class_method_variant("_cls_ship_card")
+        @overload
+        @classmethod
         def ship_card(
+            cls,
+            card: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Card.ShipCardParams"]
+        ) -> "Card":
+            ...
+
+        @overload
+        def ship_card(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["Card.ShipCardParams"]
+        ) -> "Card":
+            ...
+
+        @class_method_variant("_cls_ship_card")
+        def ship_card(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.ShipCardParams"]
