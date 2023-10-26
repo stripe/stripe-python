@@ -292,7 +292,7 @@ class Quote(
     class SubscriptionData(StripeObject):
         description: Optional[str]
         """
-        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
         effective_date: Optional[int]
         """
@@ -518,7 +518,7 @@ class Quote(
         class CreateParamsSubscriptionData(TypedDict):
             description: NotRequired["str|None"]
             """
-            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             effective_date: NotRequired[
                 "Literal['']|Literal['current_period_end']|int|None"
@@ -800,7 +800,7 @@ class Quote(
         class ModifyParamsSubscriptionData(TypedDict):
             description: NotRequired["Literal['']|str|None"]
             """
-            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             effective_date: NotRequired[
                 "Literal['']|Literal['current_period_end']|int|None"
