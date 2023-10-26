@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import CreateableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
@@ -14,7 +15,11 @@ from typing_extensions import (
 )
 
 if TYPE_CHECKING:
-    from stripe.api_resources.financial_connections.account import Account
+    from stripe.api_resources.account import Account as AccountResource
+    from stripe.api_resources.customer import Customer
+    from stripe.api_resources.financial_connections.account import (
+        Account as FinancialConnectionsAccountResource,
+    )
 
 
 class Session(CreateableAPIResource["Session"]):
@@ -25,6 +30,27 @@ class Session(CreateableAPIResource["Session"]):
     OBJECT_NAME: ClassVar[
         Literal["financial_connections.session"]
     ] = "financial_connections.session"
+
+    class AccountHolder(StripeObject):
+        account: Optional[ExpandableField["AccountResource"]]
+        """
+        The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
+        """
+        customer: Optional[ExpandableField["Customer"]]
+        """
+        ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
+        """
+        type: Literal["account", "customer"]
+        """
+        Type of account holder that this account belongs to.
+        """
+
+    class Filters(StripeObject):
+        countries: Optional[List[str]]
+        """
+        List of countries from which to filter accounts.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -87,11 +113,11 @@ class Session(CreateableAPIResource["Session"]):
             Specifies which fields in the response should be expanded.
             """
 
-    account_holder: Optional[StripeObject]
+    account_holder: Optional[AccountHolder]
     """
     The account holder for whom accounts are collected in this session.
     """
-    accounts: ListObject["Account"]
+    accounts: ListObject["FinancialConnectionsAccountResource"]
     """
     The accounts that were collected as part of this Session.
     """
@@ -99,7 +125,7 @@ class Session(CreateableAPIResource["Session"]):
     """
     A value that will be passed to the client to launch the authentication flow.
     """
-    filters: Optional[StripeObject]
+    filters: Optional[Filters]
     id: str
     """
     Unique identifier for the object.
@@ -156,3 +182,5 @@ class Session(CreateableAPIResource["Session"]):
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"account_holder": AccountHolder, "filters": Filters}

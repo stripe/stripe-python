@@ -31,6 +31,17 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["apps.secret"]] = "apps.secret"
+
+    class Scope(StripeObject):
+        type: Literal["account", "user"]
+        """
+        The secret scope type.
+        """
+        user: Optional[str]
+        """
+        The user ID, if type is set to "user"
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -177,7 +188,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     """
     The plaintext secret value to be stored.
     """
-    scope: StripeObject
+    scope: Scope
 
     @classmethod
     def create(
@@ -265,3 +276,5 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
             )
 
         return result
+
+    _inner_class_types = {"scope": Scope}

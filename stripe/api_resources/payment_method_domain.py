@@ -30,6 +30,75 @@ class PaymentMethodDomain(
     OBJECT_NAME: ClassVar[
         Literal["payment_method_domain"]
     ] = "payment_method_domain"
+
+    class ApplePay(StripeObject):
+        class StatusDetails(StripeObject):
+            error_message: str
+            """
+            The error message associated with the status of the payment method on the domain.
+            """
+
+        status: Literal["active", "inactive"]
+        """
+        The status of the payment method on the domain.
+        """
+        status_details: Optional[StatusDetails]
+        """
+        Contains additional details about the status of a payment method for a specific payment method domain.
+        """
+        _inner_class_types = {"status_details": StatusDetails}
+
+    class GooglePay(StripeObject):
+        class StatusDetails(StripeObject):
+            error_message: str
+            """
+            The error message associated with the status of the payment method on the domain.
+            """
+
+        status: Literal["active", "inactive"]
+        """
+        The status of the payment method on the domain.
+        """
+        status_details: Optional[StatusDetails]
+        """
+        Contains additional details about the status of a payment method for a specific payment method domain.
+        """
+        _inner_class_types = {"status_details": StatusDetails}
+
+    class Link(StripeObject):
+        class StatusDetails(StripeObject):
+            error_message: str
+            """
+            The error message associated with the status of the payment method on the domain.
+            """
+
+        status: Literal["active", "inactive"]
+        """
+        The status of the payment method on the domain.
+        """
+        status_details: Optional[StatusDetails]
+        """
+        Contains additional details about the status of a payment method for a specific payment method domain.
+        """
+        _inner_class_types = {"status_details": StatusDetails}
+
+    class Paypal(StripeObject):
+        class StatusDetails(StripeObject):
+            error_message: str
+            """
+            The error message associated with the status of the payment method on the domain.
+            """
+
+        status: Literal["active", "inactive"]
+        """
+        The status of the payment method on the domain.
+        """
+        status_details: Optional[StatusDetails]
+        """
+        Contains additional details about the status of a payment method for a specific payment method domain.
+        """
+        _inner_class_types = {"status_details": StatusDetails}
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -94,7 +163,7 @@ class PaymentMethodDomain(
             Specifies which fields in the response should be expanded.
             """
 
-    apple_pay: StripeObject
+    apple_pay: ApplePay
     """
     Indicates the status of a specific payment method on a payment method domain.
     """
@@ -110,7 +179,7 @@ class PaymentMethodDomain(
     """
     Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
     """
-    google_pay: StripeObject
+    google_pay: GooglePay
     """
     Indicates the status of a specific payment method on a payment method domain.
     """
@@ -118,7 +187,7 @@ class PaymentMethodDomain(
     """
     Unique identifier for the object.
     """
-    link: StripeObject
+    link: Link
     """
     Indicates the status of a specific payment method on a payment method domain.
     """
@@ -130,7 +199,7 @@ class PaymentMethodDomain(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    paypal: StripeObject
+    paypal: Paypal
     """
     Indicates the status of a specific payment method on a payment method domain.
     """
@@ -262,3 +331,10 @@ class PaymentMethodDomain(
                 params=params,
             ),
         )
+
+    _inner_class_types = {
+        "apple_pay": ApplePay,
+        "google_pay": GooglePay,
+        "link": Link,
+        "paypal": Paypal,
+    }

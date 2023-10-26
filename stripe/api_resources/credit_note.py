@@ -28,8 +28,11 @@ if TYPE_CHECKING:
     from stripe.api_resources.customer_balance_transaction import (
         CustomerBalanceTransaction,
     )
+    from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.refund import Refund
+    from stripe.api_resources.shipping_rate import ShippingRate
+    from stripe.api_resources.tax_rate import TaxRate
 
 
 @nested_resource_class_methods("line")
@@ -45,6 +48,118 @@ class CreditNote(
     """
 
     OBJECT_NAME: ClassVar[Literal["credit_note"]] = "credit_note"
+
+    class DiscountAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the discount.
+        """
+        discount: ExpandableField["Discount"]
+        """
+        The discount that was applied to get this discount amount.
+        """
+
+    class ShippingCost(StripeObject):
+        class Tax(StripeObject):
+            amount: int
+            """
+            Amount of tax applied for this rate.
+            """
+            rate: "TaxRate"
+            """
+            Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+
+            Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+            """
+            taxability_reason: Optional[
+                Literal[
+                    "customer_exempt",
+                    "not_collecting",
+                    "not_subject_to_tax",
+                    "not_supported",
+                    "portion_product_exempt",
+                    "portion_reduced_rated",
+                    "portion_standard_rated",
+                    "product_exempt",
+                    "product_exempt_holiday",
+                    "proportionally_rated",
+                    "reduced_rated",
+                    "reverse_charge",
+                    "standard_rated",
+                    "taxable_basis_reduced",
+                    "zero_rated",
+                ]
+            ]
+            """
+            The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+            """
+            taxable_amount: Optional[int]
+            """
+            The amount on which tax is calculated, in cents (or local equivalent).
+            """
+
+        amount_subtotal: int
+        """
+        Total shipping cost before any taxes are applied.
+        """
+        amount_tax: int
+        """
+        Total tax amount applied due to shipping costs. If no tax was applied, defaults to 0.
+        """
+        amount_total: int
+        """
+        Total shipping cost after taxes are applied.
+        """
+        shipping_rate: Optional[ExpandableField["ShippingRate"]]
+        """
+        The ID of the ShippingRate for this invoice.
+        """
+        taxes: Optional[List[Tax]]
+        """
+        The taxes applied to the shipping rate.
+        """
+        _inner_class_types = {"taxes": Tax}
+
+    class TaxAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the tax.
+        """
+        inclusive: bool
+        """
+        Whether this tax amount is inclusive or exclusive.
+        """
+        tax_rate: ExpandableField["TaxRate"]
+        """
+        The tax rate that was applied to get this tax amount.
+        """
+        taxability_reason: Optional[
+            Literal[
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ]
+        ]
+        """
+        The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+        """
+        taxable_amount: Optional[int]
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -453,7 +568,7 @@ class CreditNote(
     """
     The integer amount in cents (or local equivalent) representing the total amount of discount that was credited.
     """
-    discount_amounts: List[StripeObject]
+    discount_amounts: List[DiscountAmount]
     """
     The aggregate amounts calculated per discount for all line items.
     """
@@ -513,7 +628,7 @@ class CreditNote(
     """
     Refund related to this credit note.
     """
-    shipping_cost: Optional[StripeObject]
+    shipping_cost: Optional[ShippingCost]
     """
     The details of the cost of shipping, including the ShippingRate applied to the invoice.
     """
@@ -529,7 +644,7 @@ class CreditNote(
     """
     The integer amount in cents (or local equivalent) representing the amount of the credit note, excluding all tax and invoice level discounts.
     """
-    tax_amounts: List[StripeObject]
+    tax_amounts: List[TaxAmount]
     """
     The aggregate amounts calculated per tax rate for all line items.
     """
@@ -736,3 +851,9 @@ class CreditNote(
                 params=params,
             ),
         )
+
+    _inner_class_types = {
+        "discount_amounts": DiscountAmount,
+        "shipping_cost": ShippingCost,
+        "tax_amounts": TaxAmount,
+    }

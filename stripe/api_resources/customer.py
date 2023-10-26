@@ -74,6 +74,153 @@ class Customer(
     """
 
     OBJECT_NAME: ClassVar[Literal["customer"]] = "customer"
+
+    class Address(StripeObject):
+        city: Optional[str]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: Optional[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: Optional[str]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: Optional[str]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: Optional[str]
+        """
+        ZIP or postal code.
+        """
+        state: Optional[str]
+        """
+        State, county, province, or region.
+        """
+
+    class InvoiceSettings(StripeObject):
+        class CustomField(StripeObject):
+            name: str
+            """
+            The name of the custom field.
+            """
+            value: str
+            """
+            The value of the custom field.
+            """
+
+        class RenderingOptions(StripeObject):
+            amount_tax_display: Optional[str]
+            """
+            How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
+            """
+
+        custom_fields: Optional[List[CustomField]]
+        """
+        Default custom fields to be displayed on invoices for this customer.
+        """
+        default_payment_method: Optional[ExpandableField["PaymentMethod"]]
+        """
+        ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
+        """
+        footer: Optional[str]
+        """
+        Default footer to be displayed on invoices for this customer.
+        """
+        rendering_options: Optional[RenderingOptions]
+        """
+        Default options for invoice PDF rendering for this customer.
+        """
+        _inner_class_types = {
+            "custom_fields": CustomField,
+            "rendering_options": RenderingOptions,
+        }
+
+    class Shipping(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region.
+            """
+
+        address: Optional[Address]
+        carrier: Optional[str]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: Optional[str]
+        """
+        Recipient name.
+        """
+        phone: Optional[str]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: Optional[str]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
+        _inner_class_types = {"address": Address}
+
+    class Tax(StripeObject):
+        class Location(StripeObject):
+            country: str
+            """
+            The customer's country as identified by Stripe Tax.
+            """
+            source: Literal[
+                "billing_address",
+                "ip_address",
+                "payment_method",
+                "shipping_destination",
+            ]
+            """
+            The data source used to infer the customer's location.
+            """
+            state: Optional[str]
+            """
+            The customer's state, county, province, or region as identified by Stripe Tax.
+            """
+
+        automatic_tax: Literal[
+            "failed", "not_collecting", "supported", "unrecognized_location"
+        ]
+        """
+        Surfaces if automatic tax computation is possible given the current customer location information.
+        """
+        ip_address: Optional[str]
+        """
+        A recent IP address of the customer used for tax reporting and tax location inference.
+        """
+        location: Optional[Location]
+        """
+        The customer's location as identified by Stripe Tax.
+        """
+        _inner_class_types = {"location": Location}
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -1137,7 +1284,7 @@ class Customer(
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
-    address: Optional[StripeObject]
+    address: Optional[Address]
     """
     The customer's address.
     """
@@ -1197,7 +1344,7 @@ class Customer(
     """
     The prefix for the customer used to generate unique invoice numbers.
     """
-    invoice_settings: Optional[StripeObject]
+    invoice_settings: Optional[InvoiceSettings]
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -1226,7 +1373,7 @@ class Customer(
     """
     The customer's preferred locales (languages), ordered by preference.
     """
-    shipping: Optional[StripeObject]
+    shipping: Optional[Shipping]
     """
     Mailing and shipping address for the customer. Appears on invoices emailed to this customer.
     """
@@ -1240,7 +1387,7 @@ class Customer(
     """
     The customer's current subscriptions, if any.
     """
-    tax: Optional[StripeObject]
+    tax: Optional[Tax]
     tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
     """
     Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the following text: **"Reverse charge"**.
@@ -2090,6 +2237,13 @@ class Customer(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "address": Address,
+        "invoice_settings": InvoiceSettings,
+        "shipping": Shipping,
+        "tax": Tax,
+    }
 
 
 Customer.TestHelpers._resource_cls = Customer

@@ -21,12 +21,16 @@ from typing_extensions import (
 
 if TYPE_CHECKING:
     from stripe.api_resources.customer import Customer
+    from stripe.api_resources.discount import Discount as DiscountResource
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.line_item import LineItem
     from stripe.api_resources.payment_intent import PaymentIntent
     from stripe.api_resources.payment_link import PaymentLink
     from stripe.api_resources.setup_intent import SetupIntent
+    from stripe.api_resources.shipping_rate import ShippingRate
     from stripe.api_resources.subscription import Subscription
+    from stripe.api_resources.tax_id import TaxId as TaxIdResource
+    from stripe.api_resources.tax_rate import TaxRate
 
 
 class Session(
@@ -50,6 +54,1324 @@ class Session(
     """
 
     OBJECT_NAME: ClassVar[Literal["checkout.session"]] = "checkout.session"
+
+    class AfterExpiration(StripeObject):
+        class Recovery(StripeObject):
+            allow_promotion_codes: bool
+            """
+            Enables user redeemable promotion codes on the recovered Checkout Sessions. Defaults to `false`
+            """
+            enabled: bool
+            """
+            If `true`, a recovery url will be generated to recover this Checkout Session if it
+            expires before a transaction is completed. It will be attached to the
+            Checkout Session object upon expiration.
+            """
+            expires_at: Optional[int]
+            """
+            The timestamp at which the recovery URL will expire.
+            """
+            url: Optional[str]
+            """
+            URL that creates a new Checkout Session when clicked that is a copy of this expired Checkout Session
+            """
+
+        recovery: Optional[Recovery]
+        """
+        When set, configuration used to recover the Checkout Session on expiry.
+        """
+        _inner_class_types = {"recovery": Recovery}
+
+    class AutomaticTax(StripeObject):
+        enabled: bool
+        """
+        Indicates whether automatic tax is enabled for the session
+        """
+        status: Optional[
+            Literal["complete", "failed", "requires_location_inputs"]
+        ]
+        """
+        The status of the most recent automated tax calculation for this session.
+        """
+
+    class Consent(StripeObject):
+        promotions: Optional[Literal["opt_in", "opt_out"]]
+        """
+        If `opt_in`, the customer consents to receiving promotional communications
+        from the merchant about this Checkout Session.
+        """
+        terms_of_service: Optional[Literal["accepted"]]
+        """
+        If `accepted`, the customer in this Checkout Session has agreed to the merchant's terms of service.
+        """
+
+    class ConsentCollection(StripeObject):
+        promotions: Optional[Literal["auto", "none"]]
+        """
+        If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
+        Session will determine whether to display an option to opt into promotional communication
+        from the merchant depending on the customer's locale. Only available to US merchants.
+        """
+        terms_of_service: Optional[Literal["none", "required"]]
+        """
+        If set to `required`, it requires customers to accept the terms of service before being able to pay.
+        """
+
+    class CurrencyConversion(StripeObject):
+        amount_subtotal: int
+        """
+        Total of all items in source currency before discounts or taxes are applied.
+        """
+        amount_total: int
+        """
+        Total of all items in source currency after discounts and taxes are applied.
+        """
+        fx_rate: str
+        """
+        Exchange rate used to convert source currency amounts to customer currency amounts
+        """
+        source_currency: str
+        """
+        Creation currency of the CheckoutSession before localization
+        """
+
+    class CustomField(StripeObject):
+        class Dropdown(StripeObject):
+            class Option(StripeObject):
+                label: str
+                """
+                The label for the option, displayed to the customer. Up to 100 characters.
+                """
+                value: str
+                """
+                The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
+                """
+
+            options: List[Option]
+            """
+            The options available for the customer to select. Up to 200 options allowed.
+            """
+            value: Optional[str]
+            """
+            The option selected by the customer. This will be the `value` for the option.
+            """
+            _inner_class_types = {"options": Option}
+
+        class Label(StripeObject):
+            custom: Optional[str]
+            """
+            Custom text for the label, displayed to the customer. Up to 50 characters.
+            """
+            type: Literal["custom"]
+            """
+            The type of the label.
+            """
+
+        class Numeric(StripeObject):
+            maximum_length: Optional[int]
+            """
+            The maximum character length constraint for the customer's input.
+            """
+            minimum_length: Optional[int]
+            """
+            The minimum character length requirement for the customer's input.
+            """
+            value: Optional[str]
+            """
+            The value entered by the customer, containing only digits.
+            """
+
+        class Text(StripeObject):
+            maximum_length: Optional[int]
+            """
+            The maximum character length constraint for the customer's input.
+            """
+            minimum_length: Optional[int]
+            """
+            The minimum character length requirement for the customer's input.
+            """
+            value: Optional[str]
+            """
+            The value entered by the customer.
+            """
+
+        dropdown: Optional[Dropdown]
+        key: str
+        """
+        String of your choice that your integration can use to reconcile this field. Must be unique to this field, alphanumeric, and up to 200 characters.
+        """
+        label: Label
+        numeric: Optional[Numeric]
+        optional: bool
+        """
+        Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+        """
+        text: Optional[Text]
+        type: Literal["dropdown", "numeric", "text"]
+        """
+        The type of the field.
+        """
+        _inner_class_types = {
+            "dropdown": Dropdown,
+            "label": Label,
+            "numeric": Numeric,
+            "text": Text,
+        }
+
+    class CustomText(StripeObject):
+        class ShippingAddress(StripeObject):
+            message: str
+            """
+            Text may be up to 1200 characters in length.
+            """
+
+        class Submit(StripeObject):
+            message: str
+            """
+            Text may be up to 1200 characters in length.
+            """
+
+        class TermsOfServiceAcceptance(StripeObject):
+            message: str
+            """
+            Text may be up to 1200 characters in length.
+            """
+
+        shipping_address: Optional[ShippingAddress]
+        """
+        Custom text that should be displayed alongside shipping address collection.
+        """
+        submit: Optional[Submit]
+        """
+        Custom text that should be displayed alongside the payment confirmation button.
+        """
+        terms_of_service_acceptance: Optional[TermsOfServiceAcceptance]
+        """
+        Custom text that should be displayed in place of the default terms of service agreement text.
+        """
+        _inner_class_types = {
+            "shipping_address": ShippingAddress,
+            "submit": Submit,
+            "terms_of_service_acceptance": TermsOfServiceAcceptance,
+        }
+
+    class CustomerDetails(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region.
+            """
+
+        class TaxId(StripeObject):
+            type: Literal[
+                "ad_nrt",
+                "ae_trn",
+                "ar_cuit",
+                "au_abn",
+                "au_arn",
+                "bg_uic",
+                "bo_tin",
+                "br_cnpj",
+                "br_cpf",
+                "ca_bn",
+                "ca_gst_hst",
+                "ca_pst_bc",
+                "ca_pst_mb",
+                "ca_pst_sk",
+                "ca_qst",
+                "ch_vat",
+                "cl_tin",
+                "cn_tin",
+                "co_nit",
+                "cr_tin",
+                "do_rcn",
+                "ec_ruc",
+                "eg_tin",
+                "es_cif",
+                "eu_oss_vat",
+                "eu_vat",
+                "gb_vat",
+                "ge_vat",
+                "hk_br",
+                "hu_tin",
+                "id_npwp",
+                "il_vat",
+                "in_gst",
+                "is_vat",
+                "jp_cn",
+                "jp_rn",
+                "jp_trn",
+                "ke_pin",
+                "kr_brn",
+                "li_uid",
+                "mx_rfc",
+                "my_frp",
+                "my_itn",
+                "my_sst",
+                "no_vat",
+                "nz_gst",
+                "pe_ruc",
+                "ph_tin",
+                "ro_tin",
+                "rs_pib",
+                "ru_inn",
+                "ru_kpp",
+                "sa_vat",
+                "sg_gst",
+                "sg_uen",
+                "si_tin",
+                "sv_nit",
+                "th_vat",
+                "tr_tin",
+                "tw_vat",
+                "ua_vat",
+                "unknown",
+                "us_ein",
+                "uy_ruc",
+                "ve_rif",
+                "vn_tin",
+                "za_vat",
+            ]
+            """
+            The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
+            """
+            value: Optional[str]
+            """
+            The value of the tax ID.
+            """
+
+        address: Optional[Address]
+        """
+        The customer's address after a completed Checkout Session. Note: This property is populated only for sessions on or after March 30, 2022.
+        """
+        email: Optional[str]
+        """
+        The email associated with the Customer, if one exists, on the Checkout Session after a completed Checkout Session or at time of session expiry.
+        Otherwise, if the customer has consented to promotional content, this value is the most recent valid email provided by the customer on the Checkout form.
+        """
+        name: Optional[str]
+        """
+        The customer's name after a completed Checkout Session. Note: This property is populated only for sessions on or after March 30, 2022.
+        """
+        phone: Optional[str]
+        """
+        The customer's phone number after a completed Checkout Session.
+        """
+        tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
+        """
+        The customer's tax exempt status after a completed Checkout Session.
+        """
+        tax_ids: Optional[List[TaxId]]
+        """
+        The customer's tax IDs after a completed Checkout Session.
+        """
+        _inner_class_types = {"address": Address, "tax_ids": TaxId}
+
+    class InvoiceCreation(StripeObject):
+        class InvoiceData(StripeObject):
+            class CustomField(StripeObject):
+                name: str
+                """
+                The name of the custom field.
+                """
+                value: str
+                """
+                The value of the custom field.
+                """
+
+            class RenderingOptions(StripeObject):
+                amount_tax_display: Optional[str]
+                """
+                How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
+                """
+
+            account_tax_ids: Optional[List[ExpandableField["TaxIdResource"]]]
+            """
+            The account tax IDs associated with the invoice.
+            """
+            custom_fields: Optional[List[CustomField]]
+            """
+            Custom fields displayed on the invoice.
+            """
+            description: Optional[str]
+            """
+            An arbitrary string attached to the object. Often useful for displaying to users.
+            """
+            footer: Optional[str]
+            """
+            Footer displayed on the invoice.
+            """
+            metadata: Optional[Dict[str, str]]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            """
+            rendering_options: Optional[RenderingOptions]
+            """
+            Options for invoice PDF rendering.
+            """
+            _inner_class_types = {
+                "custom_fields": CustomField,
+                "rendering_options": RenderingOptions,
+            }
+
+        enabled: bool
+        """
+        Indicates whether invoice creation is enabled for the Checkout Session.
+        """
+        invoice_data: InvoiceData
+        _inner_class_types = {"invoice_data": InvoiceData}
+
+    class PaymentMethodConfigurationDetails(StripeObject):
+        id: str
+        """
+        ID of the payment method configuration used.
+        """
+        parent: Optional[str]
+        """
+        ID of the parent payment method configuration used.
+        """
+
+    class PaymentMethodOptions(StripeObject):
+        class AcssDebit(StripeObject):
+            class MandateOptions(StripeObject):
+                custom_mandate_url: Optional[str]
+                """
+                A URL for custom mandate text
+                """
+                default_for: Optional[List[Literal["invoice", "subscription"]]]
+                """
+                List of Stripe products where this mandate can be selected automatically. Returned when the Session is in `setup` mode.
+                """
+                interval_description: Optional[str]
+                """
+                Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
+                """
+                payment_schedule: Optional[
+                    Literal["combined", "interval", "sporadic"]
+                ]
+                """
+                Payment schedule for the mandate.
+                """
+                transaction_type: Optional[Literal["business", "personal"]]
+                """
+                Transaction type of the mandate.
+                """
+
+            currency: Optional[Literal["cad", "usd"]]
+            """
+            Currency supported by the bank account. Returned when the Session is in `setup` mode.
+            """
+            mandate_options: Optional[MandateOptions]
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+            verification_method: Optional[
+                Literal["automatic", "instant", "microdeposits"]
+            ]
+            """
+            Bank account verification method.
+            """
+            _inner_class_types = {"mandate_options": MandateOptions}
+
+        class Affirm(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class AfterpayClearpay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Alipay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class AuBecsDebit(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class BacsDebit(StripeObject):
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Bancontact(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Boleto(StripeObject):
+            expires_after_days: int
+            """
+            The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
+            """
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Card(StripeObject):
+            class Installments(StripeObject):
+                enabled: Optional[bool]
+                """
+                Indicates if installments are enabled
+                """
+
+            installments: Optional[Installments]
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+            statement_descriptor_suffix_kana: Optional[str]
+            """
+            Provides information about a card payment that customers see on their statements. Concatenated with the Kana prefix (shortened Kana descriptor) or Kana statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 22 characters.
+            """
+            statement_descriptor_suffix_kanji: Optional[str]
+            """
+            Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
+            """
+            _inner_class_types = {"installments": Installments}
+
+        class Cashapp(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class CustomerBalance(StripeObject):
+            class BankTransfer(StripeObject):
+                class EuBankTransfer(StripeObject):
+                    country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
+                    """
+                    The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+                    """
+
+                eu_bank_transfer: Optional[EuBankTransfer]
+                requested_address_types: Optional[
+                    List[
+                        Literal[
+                            "aba",
+                            "iban",
+                            "sepa",
+                            "sort_code",
+                            "spei",
+                            "swift",
+                            "zengin",
+                        ]
+                    ]
+                ]
+                """
+                List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
+
+                Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
+                """
+                type: Optional[
+                    Literal[
+                        "eu_bank_transfer",
+                        "gb_bank_transfer",
+                        "jp_bank_transfer",
+                        "mx_bank_transfer",
+                        "us_bank_transfer",
+                    ]
+                ]
+                """
+                The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
+                """
+                _inner_class_types = {"eu_bank_transfer": EuBankTransfer}
+
+            bank_transfer: Optional[BankTransfer]
+            funding_type: Optional[Literal["bank_transfer"]]
+            """
+            The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+            _inner_class_types = {"bank_transfer": BankTransfer}
+
+        class Eps(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Fpx(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Giropay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Grabpay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Ideal(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Klarna(StripeObject):
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Konbini(StripeObject):
+            expires_after_days: Optional[int]
+            """
+            The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Link(StripeObject):
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Oxxo(StripeObject):
+            expires_after_days: int
+            """
+            The number of calendar days before an OXXO invoice expires. For example, if you create an OXXO invoice on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class P24(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Paynow(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Pix(StripeObject):
+            expires_after_seconds: Optional[int]
+            """
+            The number of seconds after which Pix payment will expire.
+            """
+
+        class SepaDebit(StripeObject):
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Sofort(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class UsBankAccount(StripeObject):
+            class FinancialConnections(StripeObject):
+                permissions: Optional[
+                    List[
+                        Literal[
+                            "balances",
+                            "ownership",
+                            "payment_method",
+                            "transactions",
+                        ]
+                    ]
+                ]
+                """
+                The list of permissions to request. The `payment_method` permission must be included.
+                """
+                prefetch: Optional[List[Literal["balances"]]]
+                """
+                Data features requested to be retrieved upon account creation.
+                """
+                return_url: Optional[str]
+                """
+                For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+                """
+
+            financial_connections: Optional[FinancialConnections]
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+            verification_method: Optional[Literal["automatic", "instant"]]
+            """
+            Bank account verification method.
+            """
+            _inner_class_types = {
+                "financial_connections": FinancialConnections
+            }
+
+        acss_debit: Optional[AcssDebit]
+        affirm: Optional[Affirm]
+        afterpay_clearpay: Optional[AfterpayClearpay]
+        alipay: Optional[Alipay]
+        au_becs_debit: Optional[AuBecsDebit]
+        bacs_debit: Optional[BacsDebit]
+        bancontact: Optional[Bancontact]
+        boleto: Optional[Boleto]
+        card: Optional[Card]
+        cashapp: Optional[Cashapp]
+        customer_balance: Optional[CustomerBalance]
+        eps: Optional[Eps]
+        fpx: Optional[Fpx]
+        giropay: Optional[Giropay]
+        grabpay: Optional[Grabpay]
+        ideal: Optional[Ideal]
+        klarna: Optional[Klarna]
+        konbini: Optional[Konbini]
+        link: Optional[Link]
+        oxxo: Optional[Oxxo]
+        p24: Optional[P24]
+        paynow: Optional[Paynow]
+        pix: Optional[Pix]
+        sepa_debit: Optional[SepaDebit]
+        sofort: Optional[Sofort]
+        us_bank_account: Optional[UsBankAccount]
+        _inner_class_types = {
+            "acss_debit": AcssDebit,
+            "affirm": Affirm,
+            "afterpay_clearpay": AfterpayClearpay,
+            "alipay": Alipay,
+            "au_becs_debit": AuBecsDebit,
+            "bacs_debit": BacsDebit,
+            "bancontact": Bancontact,
+            "boleto": Boleto,
+            "card": Card,
+            "cashapp": Cashapp,
+            "customer_balance": CustomerBalance,
+            "eps": Eps,
+            "fpx": Fpx,
+            "giropay": Giropay,
+            "grabpay": Grabpay,
+            "ideal": Ideal,
+            "klarna": Klarna,
+            "konbini": Konbini,
+            "link": Link,
+            "oxxo": Oxxo,
+            "p24": P24,
+            "paynow": Paynow,
+            "pix": Pix,
+            "sepa_debit": SepaDebit,
+            "sofort": Sofort,
+            "us_bank_account": UsBankAccount,
+        }
+
+    class PhoneNumberCollection(StripeObject):
+        enabled: bool
+        """
+        Indicates whether phone number collection is enabled for the session
+        """
+
+    class ShippingAddressCollection(StripeObject):
+        allowed_countries: List[
+            Literal[
+                "AC",
+                "AD",
+                "AE",
+                "AF",
+                "AG",
+                "AI",
+                "AL",
+                "AM",
+                "AO",
+                "AQ",
+                "AR",
+                "AT",
+                "AU",
+                "AW",
+                "AX",
+                "AZ",
+                "BA",
+                "BB",
+                "BD",
+                "BE",
+                "BF",
+                "BG",
+                "BH",
+                "BI",
+                "BJ",
+                "BL",
+                "BM",
+                "BN",
+                "BO",
+                "BQ",
+                "BR",
+                "BS",
+                "BT",
+                "BV",
+                "BW",
+                "BY",
+                "BZ",
+                "CA",
+                "CD",
+                "CF",
+                "CG",
+                "CH",
+                "CI",
+                "CK",
+                "CL",
+                "CM",
+                "CN",
+                "CO",
+                "CR",
+                "CV",
+                "CW",
+                "CY",
+                "CZ",
+                "DE",
+                "DJ",
+                "DK",
+                "DM",
+                "DO",
+                "DZ",
+                "EC",
+                "EE",
+                "EG",
+                "EH",
+                "ER",
+                "ES",
+                "ET",
+                "FI",
+                "FJ",
+                "FK",
+                "FO",
+                "FR",
+                "GA",
+                "GB",
+                "GD",
+                "GE",
+                "GF",
+                "GG",
+                "GH",
+                "GI",
+                "GL",
+                "GM",
+                "GN",
+                "GP",
+                "GQ",
+                "GR",
+                "GS",
+                "GT",
+                "GU",
+                "GW",
+                "GY",
+                "HK",
+                "HN",
+                "HR",
+                "HT",
+                "HU",
+                "ID",
+                "IE",
+                "IL",
+                "IM",
+                "IN",
+                "IO",
+                "IQ",
+                "IS",
+                "IT",
+                "JE",
+                "JM",
+                "JO",
+                "JP",
+                "KE",
+                "KG",
+                "KH",
+                "KI",
+                "KM",
+                "KN",
+                "KR",
+                "KW",
+                "KY",
+                "KZ",
+                "LA",
+                "LB",
+                "LC",
+                "LI",
+                "LK",
+                "LR",
+                "LS",
+                "LT",
+                "LU",
+                "LV",
+                "LY",
+                "MA",
+                "MC",
+                "MD",
+                "ME",
+                "MF",
+                "MG",
+                "MK",
+                "ML",
+                "MM",
+                "MN",
+                "MO",
+                "MQ",
+                "MR",
+                "MS",
+                "MT",
+                "MU",
+                "MV",
+                "MW",
+                "MX",
+                "MY",
+                "MZ",
+                "NA",
+                "NC",
+                "NE",
+                "NG",
+                "NI",
+                "NL",
+                "NO",
+                "NP",
+                "NR",
+                "NU",
+                "NZ",
+                "OM",
+                "PA",
+                "PE",
+                "PF",
+                "PG",
+                "PH",
+                "PK",
+                "PL",
+                "PM",
+                "PN",
+                "PR",
+                "PS",
+                "PT",
+                "PY",
+                "QA",
+                "RE",
+                "RO",
+                "RS",
+                "RU",
+                "RW",
+                "SA",
+                "SB",
+                "SC",
+                "SE",
+                "SG",
+                "SH",
+                "SI",
+                "SJ",
+                "SK",
+                "SL",
+                "SM",
+                "SN",
+                "SO",
+                "SR",
+                "SS",
+                "ST",
+                "SV",
+                "SX",
+                "SZ",
+                "TA",
+                "TC",
+                "TD",
+                "TF",
+                "TG",
+                "TH",
+                "TJ",
+                "TK",
+                "TL",
+                "TM",
+                "TN",
+                "TO",
+                "TR",
+                "TT",
+                "TV",
+                "TW",
+                "TZ",
+                "UA",
+                "UG",
+                "US",
+                "UY",
+                "UZ",
+                "VA",
+                "VC",
+                "VE",
+                "VG",
+                "VN",
+                "VU",
+                "WF",
+                "WS",
+                "XK",
+                "YE",
+                "YT",
+                "ZA",
+                "ZM",
+                "ZW",
+                "ZZ",
+            ]
+        ]
+        """
+        An array of two-letter ISO country codes representing which countries Checkout should provide as options for
+        shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
+        """
+
+    class ShippingCost(StripeObject):
+        class Tax(StripeObject):
+            amount: int
+            """
+            Amount of tax applied for this rate.
+            """
+            rate: "TaxRate"
+            """
+            Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+
+            Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+            """
+            taxability_reason: Optional[
+                Literal[
+                    "customer_exempt",
+                    "not_collecting",
+                    "not_subject_to_tax",
+                    "not_supported",
+                    "portion_product_exempt",
+                    "portion_reduced_rated",
+                    "portion_standard_rated",
+                    "product_exempt",
+                    "product_exempt_holiday",
+                    "proportionally_rated",
+                    "reduced_rated",
+                    "reverse_charge",
+                    "standard_rated",
+                    "taxable_basis_reduced",
+                    "zero_rated",
+                ]
+            ]
+            """
+            The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+            """
+            taxable_amount: Optional[int]
+            """
+            The amount on which tax is calculated, in cents (or local equivalent).
+            """
+
+        amount_subtotal: int
+        """
+        Total shipping cost before any discounts or taxes are applied.
+        """
+        amount_tax: int
+        """
+        Total tax amount applied due to shipping costs. If no tax was applied, defaults to 0.
+        """
+        amount_total: int
+        """
+        Total shipping cost after discounts and taxes are applied.
+        """
+        shipping_rate: Optional[ExpandableField["ShippingRate"]]
+        """
+        The ID of the ShippingRate for this order.
+        """
+        taxes: Optional[List[Tax]]
+        """
+        The taxes applied to the shipping rate.
+        """
+        _inner_class_types = {"taxes": Tax}
+
+    class ShippingDetails(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region.
+            """
+
+        address: Optional[Address]
+        carrier: Optional[str]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: Optional[str]
+        """
+        Recipient name.
+        """
+        phone: Optional[str]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: Optional[str]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
+        _inner_class_types = {"address": Address}
+
+    class ShippingOption(StripeObject):
+        shipping_amount: int
+        """
+        A non-negative integer in cents representing how much to charge.
+        """
+        shipping_rate: ExpandableField["ShippingRate"]
+        """
+        The shipping rate.
+        """
+
+    class TaxIdCollection(StripeObject):
+        enabled: bool
+        """
+        Indicates whether tax ID collection is enabled for the session
+        """
+
+    class TotalDetails(StripeObject):
+        class Breakdown(StripeObject):
+            class Discount(StripeObject):
+                amount: int
+                """
+                The amount discounted.
+                """
+                discount: "DiscountResource"
+                """
+                A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+                It contains information about when the discount began, when it will end, and what it is applied to.
+
+                Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+                """
+
+            class Tax(StripeObject):
+                amount: int
+                """
+                Amount of tax applied for this rate.
+                """
+                rate: "TaxRate"
+                """
+                Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+
+                Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+                """
+                taxability_reason: Optional[
+                    Literal[
+                        "customer_exempt",
+                        "not_collecting",
+                        "not_subject_to_tax",
+                        "not_supported",
+                        "portion_product_exempt",
+                        "portion_reduced_rated",
+                        "portion_standard_rated",
+                        "product_exempt",
+                        "product_exempt_holiday",
+                        "proportionally_rated",
+                        "reduced_rated",
+                        "reverse_charge",
+                        "standard_rated",
+                        "taxable_basis_reduced",
+                        "zero_rated",
+                    ]
+                ]
+                """
+                The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+                """
+                taxable_amount: Optional[int]
+                """
+                The amount on which tax is calculated, in cents (or local equivalent).
+                """
+
+            discounts: List[Discount]
+            """
+            The aggregated discounts.
+            """
+            taxes: List[Tax]
+            """
+            The aggregated tax amounts by rate.
+            """
+            _inner_class_types = {"discounts": Discount, "taxes": Tax}
+
+        amount_discount: int
+        """
+        This is the sum of all the discounts.
+        """
+        amount_shipping: Optional[int]
+        """
+        This is the sum of all the shipping amounts.
+        """
+        amount_tax: int
+        """
+        This is the sum of all the tax amounts.
+        """
+        breakdown: Optional[Breakdown]
+        _inner_class_types = {"breakdown": Breakdown}
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -2000,7 +3322,7 @@ class Session(
             Specifies which fields in the response should be expanded.
             """
 
-    after_expiration: Optional[StripeObject]
+    after_expiration: Optional[AfterExpiration]
     """
     When set, provides configuration for actions to take if this Checkout Session expires.
     """
@@ -2016,7 +3338,7 @@ class Session(
     """
     Total of all items after discounts and taxes are applied.
     """
-    automatic_tax: StripeObject
+    automatic_tax: AutomaticTax
     billing_address_collection: Optional[Literal["auto", "required"]]
     """
     Describes whether Checkout should collect the customer's billing address.
@@ -2035,11 +3357,11 @@ class Session(
     """
     Client secret to be used when initializing Stripe.js embedded checkout.
     """
-    consent: Optional[StripeObject]
+    consent: Optional[Consent]
     """
     Results of `consent_collection` for this session.
     """
-    consent_collection: Optional[StripeObject]
+    consent_collection: Optional[ConsentCollection]
     """
     When set, provides configuration for the Checkout Session to gather active consent from customers.
     """
@@ -2051,15 +3373,15 @@ class Session(
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
-    currency_conversion: Optional[StripeObject]
+    currency_conversion: Optional[CurrencyConversion]
     """
     Currency conversion details for automatic currency conversion sessions
     """
-    custom_fields: List[StripeObject]
+    custom_fields: List[CustomField]
     """
     Collect additional information from your customer using custom fields. Up to 2 fields are supported.
     """
-    custom_text: StripeObject
+    custom_text: CustomText
     customer: Optional[ExpandableField["Customer"]]
     """
     The ID of the customer for this Session.
@@ -2072,7 +3394,7 @@ class Session(
     """
     Configure whether a Checkout Session creates a Customer when the Checkout Session completes.
     """
-    customer_details: Optional[StripeObject]
+    customer_details: Optional[CustomerDetails]
     """
     The customer details including the customer's tax exempt status and the customer's tax IDs. Only the customer's email is present on Sessions in `setup` mode.
     """
@@ -2096,7 +3418,7 @@ class Session(
     """
     ID of the invoice created by the Checkout Session, if it exists.
     """
-    invoice_creation: Optional[StripeObject]
+    invoice_creation: Optional[InvoiceCreation]
     """
     Details on the state of invoice creation for the Checkout Session.
     """
@@ -2180,11 +3502,13 @@ class Session(
     """
     Configure whether a Checkout Session should collect a payment method.
     """
-    payment_method_configuration_details: Optional[StripeObject]
+    payment_method_configuration_details: Optional[
+        PaymentMethodConfigurationDetails
+    ]
     """
     Information about the payment method configuration used for this Checkout session if using dynamic payment methods.
     """
-    payment_method_options: Optional[StripeObject]
+    payment_method_options: Optional[PaymentMethodOptions]
     """
     Payment-method-specific configuration for the PaymentIntent or SetupIntent of this CheckoutSession.
     """
@@ -2198,7 +3522,7 @@ class Session(
     The payment status of the Checkout Session, one of `paid`, `unpaid`, or `no_payment_required`.
     You can use this value to decide when to fulfill your customer's order.
     """
-    phone_number_collection: Optional[StripeObject]
+    phone_number_collection: Optional[PhoneNumberCollection]
     recovered_from: Optional[str]
     """
     The ID of the original expired Checkout Session that triggered the recovery flow.
@@ -2215,19 +3539,19 @@ class Session(
     """
     The ID of the SetupIntent for Checkout Sessions in `setup` mode.
     """
-    shipping_address_collection: Optional[StripeObject]
+    shipping_address_collection: Optional[ShippingAddressCollection]
     """
     When set, provides configuration for Checkout to collect a shipping address from a customer.
     """
-    shipping_cost: Optional[StripeObject]
+    shipping_cost: Optional[ShippingCost]
     """
     The details of the customer cost of shipping, including the customer chosen ShippingRate.
     """
-    shipping_details: Optional[StripeObject]
+    shipping_details: Optional[ShippingDetails]
     """
     Shipping information for this Checkout Session.
     """
-    shipping_options: List[StripeObject]
+    shipping_options: List[ShippingOption]
     """
     The shipping rate options applied to this Session.
     """
@@ -2251,8 +3575,8 @@ class Session(
     The URL the customer will be directed to after the payment or
     subscription creation is successful.
     """
-    tax_id_collection: Optional[StripeObject]
-    total_details: Optional[StripeObject]
+    tax_id_collection: Optional[TaxIdCollection]
+    total_details: Optional[TotalDetails]
     """
     Tax and discount details for the computed total amount.
     """
@@ -2442,3 +3766,24 @@ class Session(
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "after_expiration": AfterExpiration,
+        "automatic_tax": AutomaticTax,
+        "consent": Consent,
+        "consent_collection": ConsentCollection,
+        "currency_conversion": CurrencyConversion,
+        "custom_fields": CustomField,
+        "custom_text": CustomText,
+        "customer_details": CustomerDetails,
+        "invoice_creation": InvoiceCreation,
+        "payment_method_configuration_details": PaymentMethodConfigurationDetails,
+        "payment_method_options": PaymentMethodOptions,
+        "phone_number_collection": PhoneNumberCollection,
+        "shipping_address_collection": ShippingAddressCollection,
+        "shipping_cost": ShippingCost,
+        "shipping_details": ShippingDetails,
+        "shipping_options": ShippingOption,
+        "tax_id_collection": TaxIdCollection,
+        "total_details": TotalDetails,
+    }

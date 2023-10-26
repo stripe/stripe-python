@@ -56,6 +56,31 @@ class Product(
     """
 
     OBJECT_NAME: ClassVar[Literal["product"]] = "product"
+
+    class Feature(StripeObject):
+        name: str
+        """
+        The feature's name. Up to 80 characters long.
+        """
+
+    class PackageDimensions(StripeObject):
+        height: float
+        """
+        Height, in inches.
+        """
+        length: float
+        """
+        Length, in inches.
+        """
+        weight: float
+        """
+        Weight, in ounces.
+        """
+        width: float
+        """
+        Width, in inches.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -459,7 +484,7 @@ class Product(
     """
     The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
     """
-    features: List[StripeObject]
+    features: List[Feature]
     """
     A list of up to 15 features for this product. These are displayed in [pricing tables](https://stripe.com/docs/payments/checkout/pricing-table).
     """
@@ -487,7 +512,7 @@ class Product(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    package_dimensions: Optional[StripeObject]
+    package_dimensions: Optional[PackageDimensions]
     """
     The dimensions of this product for shipping purposes.
     """
@@ -631,3 +656,8 @@ class Product(
         cls, *args, **kwargs: Unpack["Product.SearchParams"]
     ) -> Iterator["Product"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
+
+    _inner_class_types = {
+        "features": Feature,
+        "package_dimensions": PackageDimensions,
+    }

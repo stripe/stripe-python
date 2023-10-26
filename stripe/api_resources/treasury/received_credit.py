@@ -19,6 +19,9 @@ from typing_extensions import (
 )
 
 if TYPE_CHECKING:
+    from stripe.api_resources.payout import Payout
+    from stripe.api_resources.treasury.credit_reversal import CreditReversal
+    from stripe.api_resources.treasury.outbound_payment import OutboundPayment
     from stripe.api_resources.treasury.transaction import Transaction
 
 
@@ -30,6 +33,171 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     OBJECT_NAME: ClassVar[
         Literal["treasury.received_credit"]
     ] = "treasury.received_credit"
+
+    class InitiatingPaymentMethodDetails(StripeObject):
+        class BillingDetails(StripeObject):
+            class Address(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1 (e.g., street, PO Box, or company name).
+                """
+                line2: Optional[str]
+                """
+                Address line 2 (e.g., apartment, suite, unit, or building).
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+
+            address: Address
+            email: Optional[str]
+            """
+            Email address.
+            """
+            name: Optional[str]
+            """
+            Full name.
+            """
+            _inner_class_types = {"address": Address}
+
+        class FinancialAccount(StripeObject):
+            id: str
+            """
+            The FinancialAccount ID.
+            """
+            network: Literal["stripe"]
+            """
+            The rails the ReceivedCredit was sent over. A FinancialAccount can only send funds over `stripe`.
+            """
+
+        class UsBankAccount(StripeObject):
+            bank_name: Optional[str]
+            """
+            Bank name.
+            """
+            last4: Optional[str]
+            """
+            The last four digits of the bank account number.
+            """
+            routing_number: Optional[str]
+            """
+            The routing number for the bank account.
+            """
+
+        balance: Optional[Literal["payments"]]
+        """
+        Set when `type` is `balance`.
+        """
+        billing_details: BillingDetails
+        financial_account: Optional[FinancialAccount]
+        issuing_card: Optional[str]
+        """
+        Set when `type` is `issuing_card`. This is an [Issuing Card](https://stripe.com/docs/api#issuing_cards) ID.
+        """
+        type: Literal[
+            "balance",
+            "financial_account",
+            "issuing_card",
+            "stripe",
+            "us_bank_account",
+        ]
+        """
+        Polymorphic type matching the originating money movement's source. This can be an external account, a Stripe balance, or a FinancialAccount.
+        """
+        us_bank_account: Optional[UsBankAccount]
+        _inner_class_types = {
+            "billing_details": BillingDetails,
+            "financial_account": FinancialAccount,
+            "us_bank_account": UsBankAccount,
+        }
+
+    class LinkedFlows(StripeObject):
+        class SourceFlowDetails(StripeObject):
+            credit_reversal: Optional["CreditReversal"]
+            """
+            You can reverse some [ReceivedCredits](https://stripe.com/docs/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
+            """
+            outbound_payment: Optional["OutboundPayment"]
+            """
+            Use OutboundPayments to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).
+
+            Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
+            """
+            payout: Optional["Payout"]
+            """
+            A `Payout` object is created when you receive funds from Stripe, or when you
+            initiate a payout to either a bank account or debit card of a [connected
+            Stripe account](https://stripe.com/docs/connect/bank-debit-card-payouts). You can retrieve individual payouts,
+            and list all payouts. Payouts are made on [varying
+            schedules](https://stripe.com/docs/connect/manage-payout-schedule), depending on your country and
+            industry.
+
+            Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
+            """
+            type: Literal[
+                "credit_reversal", "other", "outbound_payment", "payout"
+            ]
+            """
+            The type of the source flow that originated the ReceivedCredit.
+            """
+
+        credit_reversal: Optional[str]
+        """
+        The CreditReversal created as a result of this ReceivedCredit being reversed.
+        """
+        issuing_authorization: Optional[str]
+        """
+        Set if the ReceivedCredit was created due to an [Issuing Authorization](https://stripe.com/docs/api#issuing_authorizations) object.
+        """
+        issuing_transaction: Optional[str]
+        """
+        Set if the ReceivedCredit is also viewable as an [Issuing transaction](https://stripe.com/docs/api#issuing_transactions) object.
+        """
+        source_flow: Optional[str]
+        """
+        ID of the source flow. Set if `network` is `stripe` and the source flow is visible to the user. Examples of source flows include OutboundPayments, payouts, or CreditReversals.
+        """
+        source_flow_details: Optional[SourceFlowDetails]
+        """
+        The expandable object of the source flow.
+        """
+        source_flow_type: Optional[str]
+        """
+        The type of flow that originated the ReceivedCredit (for example, `outbound_payment`).
+        """
+        _inner_class_types = {"source_flow_details": SourceFlowDetails}
+
+    class ReversalDetails(StripeObject):
+        deadline: Optional[int]
+        """
+        Time before which a ReceivedCredit can be reversed.
+        """
+        restricted_reason: Optional[
+            Literal[
+                "already_reversed",
+                "deadline_passed",
+                "network_restricted",
+                "other",
+                "source_flow_restricted",
+            ]
+        ]
+        """
+        Set if a ReceivedCredit cannot be reversed.
+        """
+
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
@@ -172,8 +340,8 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     """
     Unique identifier for the object.
     """
-    initiating_payment_method_details: StripeObject
-    linked_flows: StripeObject
+    initiating_payment_method_details: InitiatingPaymentMethodDetails
+    linked_flows: LinkedFlows
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -186,7 +354,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    reversal_details: Optional[StripeObject]
+    reversal_details: Optional[ReversalDetails]
     """
     Details describing when a ReceivedCredit may be reversed.
     """
@@ -258,6 +426,12 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "initiating_payment_method_details": InitiatingPaymentMethodDetails,
+        "linked_flows": LinkedFlows,
+        "reversal_details": ReversalDetails,
+    }
 
 
 ReceivedCredit.TestHelpers._resource_cls = ReceivedCredit

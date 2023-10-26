@@ -53,6 +53,29 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     OBJECT_NAME: ClassVar[
         Literal["balance_transaction"]
     ] = "balance_transaction"
+
+    class FeeDetail(StripeObject):
+        amount: int
+        """
+        Amount of the fee, in cents.
+        """
+        application: Optional[str]
+        """
+        ID of the Connect application that earned the fee.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        description: Optional[str]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        type: str
+        """
+        Type of the fee, one of: `application_fee`, `stripe_fee` or `tax`.
+        """
+
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
@@ -144,7 +167,7 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     """
     Fees (in cents (or local equivalent)) paid for this transaction. Represented as a positive integer when assessed.
     """
-    fee_details: List[StripeObject]
+    fee_details: List[FeeDetail]
     """
     Detailed breakdown of fees (in cents (or local equivalent)) paid for this transaction.
     """
@@ -271,3 +294,5 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"fee_details": FeeDetail}

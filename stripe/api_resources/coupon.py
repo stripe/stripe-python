@@ -34,6 +34,19 @@ class Coupon(
     """
 
     OBJECT_NAME: ClassVar[Literal["coupon"]] = "coupon"
+
+    class AppliesTo(StripeObject):
+        products: List[str]
+        """
+        A list of product IDs this coupon applies to
+        """
+
+    class CurrencyOptions(StripeObject):
+        amount_off: int
+        """
+        Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -185,7 +198,7 @@ class Coupon(
     """
     Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
     """
-    applies_to: Optional[StripeObject]
+    applies_to: Optional[AppliesTo]
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -194,7 +207,7 @@ class Coupon(
     """
     If `amount_off` has been set, the three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the amount to take off.
     """
-    currency_options: Optional[Dict[str, StripeObject]]
+    currency_options: Optional[Dict[str, CurrencyOptions]]
     """
     Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     """
@@ -346,3 +359,8 @@ class Coupon(
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "applies_to": AppliesTo,
+        "currency_options": CurrencyOptions,
+    }

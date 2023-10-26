@@ -30,6 +30,133 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     OBJECT_NAME: ClassVar[
         Literal["treasury.received_debit"]
     ] = "treasury.received_debit"
+
+    class InitiatingPaymentMethodDetails(StripeObject):
+        class BillingDetails(StripeObject):
+            class Address(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1 (e.g., street, PO Box, or company name).
+                """
+                line2: Optional[str]
+                """
+                Address line 2 (e.g., apartment, suite, unit, or building).
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+
+            address: Address
+            email: Optional[str]
+            """
+            Email address.
+            """
+            name: Optional[str]
+            """
+            Full name.
+            """
+            _inner_class_types = {"address": Address}
+
+        class FinancialAccount(StripeObject):
+            id: str
+            """
+            The FinancialAccount ID.
+            """
+            network: Literal["stripe"]
+            """
+            The rails the ReceivedCredit was sent over. A FinancialAccount can only send funds over `stripe`.
+            """
+
+        class UsBankAccount(StripeObject):
+            bank_name: Optional[str]
+            """
+            Bank name.
+            """
+            last4: Optional[str]
+            """
+            The last four digits of the bank account number.
+            """
+            routing_number: Optional[str]
+            """
+            The routing number for the bank account.
+            """
+
+        balance: Optional[Literal["payments"]]
+        """
+        Set when `type` is `balance`.
+        """
+        billing_details: BillingDetails
+        financial_account: Optional[FinancialAccount]
+        issuing_card: Optional[str]
+        """
+        Set when `type` is `issuing_card`. This is an [Issuing Card](https://stripe.com/docs/api#issuing_cards) ID.
+        """
+        type: Literal[
+            "balance",
+            "financial_account",
+            "issuing_card",
+            "stripe",
+            "us_bank_account",
+        ]
+        """
+        Polymorphic type matching the originating money movement's source. This can be an external account, a Stripe balance, or a FinancialAccount.
+        """
+        us_bank_account: Optional[UsBankAccount]
+        _inner_class_types = {
+            "billing_details": BillingDetails,
+            "financial_account": FinancialAccount,
+            "us_bank_account": UsBankAccount,
+        }
+
+    class LinkedFlows(StripeObject):
+        debit_reversal: Optional[str]
+        """
+        The DebitReversal created as a result of this ReceivedDebit being reversed.
+        """
+        inbound_transfer: Optional[str]
+        """
+        Set if the ReceivedDebit is associated with an InboundTransfer's return of funds.
+        """
+        issuing_authorization: Optional[str]
+        """
+        Set if the ReceivedDebit was created due to an [Issuing Authorization](https://stripe.com/docs/api#issuing_authorizations) object.
+        """
+        issuing_transaction: Optional[str]
+        """
+        Set if the ReceivedDebit is also viewable as an [Issuing Dispute](https://stripe.com/docs/api#issuing_disputes) object.
+        """
+
+    class ReversalDetails(StripeObject):
+        deadline: Optional[int]
+        """
+        Time before which a ReceivedDebit can be reversed.
+        """
+        restricted_reason: Optional[
+            Literal[
+                "already_reversed",
+                "deadline_passed",
+                "network_restricted",
+                "other",
+                "source_flow_restricted",
+            ]
+        ]
+        """
+        Set if a ReceivedDebit can't be reversed.
+        """
+
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
@@ -160,8 +287,8 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     """
     Unique identifier for the object.
     """
-    initiating_payment_method_details: Optional[StripeObject]
-    linked_flows: StripeObject
+    initiating_payment_method_details: Optional[InitiatingPaymentMethodDetails]
+    linked_flows: LinkedFlows
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -174,7 +301,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    reversal_details: Optional[StripeObject]
+    reversal_details: Optional[ReversalDetails]
     """
     Details describing when a ReceivedDebit might be reversed.
     """
@@ -246,6 +373,12 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "initiating_payment_method_details": InitiatingPaymentMethodDetails,
+        "linked_flows": LinkedFlows,
+        "reversal_details": ReversalDetails,
+    }
 
 
 ReceivedDebit.TestHelpers._resource_cls = ReceivedDebit

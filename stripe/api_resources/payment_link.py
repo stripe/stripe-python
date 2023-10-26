@@ -25,6 +25,8 @@ if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
     from stripe.api_resources.line_item import LineItem
+    from stripe.api_resources.shipping_rate import ShippingRate
+    from stripe.api_resources.tax_id import TaxId
 
 
 class PaymentLink(
@@ -41,6 +43,528 @@ class PaymentLink(
     """
 
     OBJECT_NAME: ClassVar[Literal["payment_link"]] = "payment_link"
+
+    class AfterCompletion(StripeObject):
+        class HostedConfirmation(StripeObject):
+            custom_message: Optional[str]
+            """
+            The custom message that is displayed to the customer after the purchase is complete.
+            """
+
+        class Redirect(StripeObject):
+            url: str
+            """
+            The URL the customer will be redirected to after the purchase is complete.
+            """
+
+        hosted_confirmation: Optional[HostedConfirmation]
+        redirect: Optional[Redirect]
+        type: Literal["hosted_confirmation", "redirect"]
+        """
+        The specified behavior after the purchase is complete.
+        """
+        _inner_class_types = {
+            "hosted_confirmation": HostedConfirmation,
+            "redirect": Redirect,
+        }
+
+    class AutomaticTax(StripeObject):
+        enabled: bool
+        """
+        If `true`, tax will be calculated automatically using the customer's location.
+        """
+
+    class ConsentCollection(StripeObject):
+        promotions: Optional[Literal["auto", "none"]]
+        """
+        If set to `auto`, enables the collection of customer consent for promotional communications.
+        """
+        terms_of_service: Optional[Literal["none", "required"]]
+        """
+        If set to `required`, it requires cutomers to accept the terms of service before being able to pay. If set to `none`, customers won't be shown a checkbox to accept the terms of service.
+        """
+
+    class CustomField(StripeObject):
+        class Dropdown(StripeObject):
+            class Option(StripeObject):
+                label: str
+                """
+                The label for the option, displayed to the customer. Up to 100 characters.
+                """
+                value: str
+                """
+                The value for this option, not displayed to the customer, used by your integration to reconcile the option selected by the customer. Must be unique to this option, alphanumeric, and up to 100 characters.
+                """
+
+            options: List[Option]
+            """
+            The options available for the customer to select. Up to 200 options allowed.
+            """
+            _inner_class_types = {"options": Option}
+
+        class Label(StripeObject):
+            custom: Optional[str]
+            """
+            Custom text for the label, displayed to the customer. Up to 50 characters.
+            """
+            type: Literal["custom"]
+            """
+            The type of the label.
+            """
+
+        class Numeric(StripeObject):
+            maximum_length: Optional[int]
+            """
+            The maximum character length constraint for the customer's input.
+            """
+            minimum_length: Optional[int]
+            """
+            The minimum character length requirement for the customer's input.
+            """
+
+        class Text(StripeObject):
+            maximum_length: Optional[int]
+            """
+            The maximum character length constraint for the customer's input.
+            """
+            minimum_length: Optional[int]
+            """
+            The minimum character length requirement for the customer's input.
+            """
+
+        dropdown: Optional[Dropdown]
+        key: str
+        """
+        String of your choice that your integration can use to reconcile this field. Must be unique to this field, alphanumeric, and up to 200 characters.
+        """
+        label: Label
+        numeric: Optional[Numeric]
+        optional: bool
+        """
+        Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
+        """
+        text: Optional[Text]
+        type: Literal["dropdown", "numeric", "text"]
+        """
+        The type of the field.
+        """
+        _inner_class_types = {
+            "dropdown": Dropdown,
+            "label": Label,
+            "numeric": Numeric,
+            "text": Text,
+        }
+
+    class CustomText(StripeObject):
+        class ShippingAddress(StripeObject):
+            message: str
+            """
+            Text may be up to 1200 characters in length.
+            """
+
+        class Submit(StripeObject):
+            message: str
+            """
+            Text may be up to 1200 characters in length.
+            """
+
+        class TermsOfServiceAcceptance(StripeObject):
+            message: str
+            """
+            Text may be up to 1200 characters in length.
+            """
+
+        shipping_address: Optional[ShippingAddress]
+        """
+        Custom text that should be displayed alongside shipping address collection.
+        """
+        submit: Optional[Submit]
+        """
+        Custom text that should be displayed alongside the payment confirmation button.
+        """
+        terms_of_service_acceptance: Optional[TermsOfServiceAcceptance]
+        """
+        Custom text that should be displayed in place of the default terms of service agreement text.
+        """
+        _inner_class_types = {
+            "shipping_address": ShippingAddress,
+            "submit": Submit,
+            "terms_of_service_acceptance": TermsOfServiceAcceptance,
+        }
+
+    class InvoiceCreation(StripeObject):
+        class InvoiceData(StripeObject):
+            class CustomField(StripeObject):
+                name: str
+                """
+                The name of the custom field.
+                """
+                value: str
+                """
+                The value of the custom field.
+                """
+
+            class RenderingOptions(StripeObject):
+                amount_tax_display: Optional[str]
+                """
+                How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
+                """
+
+            account_tax_ids: Optional[List[ExpandableField["TaxId"]]]
+            """
+            The account tax IDs associated with the invoice.
+            """
+            custom_fields: Optional[List[CustomField]]
+            """
+            A list of up to 4 custom fields to be displayed on the invoice.
+            """
+            description: Optional[str]
+            """
+            An arbitrary string attached to the object. Often useful for displaying to users.
+            """
+            footer: Optional[str]
+            """
+            Footer to be displayed on the invoice.
+            """
+            metadata: Optional[Dict[str, str]]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            """
+            rendering_options: Optional[RenderingOptions]
+            """
+            Options for invoice PDF rendering.
+            """
+            _inner_class_types = {
+                "custom_fields": CustomField,
+                "rendering_options": RenderingOptions,
+            }
+
+        enabled: bool
+        """
+        Enable creating an invoice on successful payment.
+        """
+        invoice_data: Optional[InvoiceData]
+        """
+        Configuration for the invoice. Default invoice values will be used if unspecified.
+        """
+        _inner_class_types = {"invoice_data": InvoiceData}
+
+    class PaymentIntentData(StripeObject):
+        capture_method: Optional[
+            Literal["automatic", "automatic_async", "manual"]
+        ]
+        """
+        Indicates when the funds will be captured from the customer's account.
+        """
+        metadata: Dict[str, str]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link.
+        """
+        setup_future_usage: Optional[Literal["off_session", "on_session"]]
+        """
+        Indicates that you intend to make future payments with the payment method collected during checkout.
+        """
+        statement_descriptor: Optional[str]
+        """
+        Extra information about the payment. This will appear on your customer's statement when this payment succeeds in creating a charge.
+        """
+        statement_descriptor_suffix: Optional[str]
+        """
+        Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        """
+
+    class PhoneNumberCollection(StripeObject):
+        enabled: bool
+        """
+        If `true`, a phone number will be collected during checkout.
+        """
+
+    class ShippingAddressCollection(StripeObject):
+        allowed_countries: List[
+            Literal[
+                "AC",
+                "AD",
+                "AE",
+                "AF",
+                "AG",
+                "AI",
+                "AL",
+                "AM",
+                "AO",
+                "AQ",
+                "AR",
+                "AT",
+                "AU",
+                "AW",
+                "AX",
+                "AZ",
+                "BA",
+                "BB",
+                "BD",
+                "BE",
+                "BF",
+                "BG",
+                "BH",
+                "BI",
+                "BJ",
+                "BL",
+                "BM",
+                "BN",
+                "BO",
+                "BQ",
+                "BR",
+                "BS",
+                "BT",
+                "BV",
+                "BW",
+                "BY",
+                "BZ",
+                "CA",
+                "CD",
+                "CF",
+                "CG",
+                "CH",
+                "CI",
+                "CK",
+                "CL",
+                "CM",
+                "CN",
+                "CO",
+                "CR",
+                "CV",
+                "CW",
+                "CY",
+                "CZ",
+                "DE",
+                "DJ",
+                "DK",
+                "DM",
+                "DO",
+                "DZ",
+                "EC",
+                "EE",
+                "EG",
+                "EH",
+                "ER",
+                "ES",
+                "ET",
+                "FI",
+                "FJ",
+                "FK",
+                "FO",
+                "FR",
+                "GA",
+                "GB",
+                "GD",
+                "GE",
+                "GF",
+                "GG",
+                "GH",
+                "GI",
+                "GL",
+                "GM",
+                "GN",
+                "GP",
+                "GQ",
+                "GR",
+                "GS",
+                "GT",
+                "GU",
+                "GW",
+                "GY",
+                "HK",
+                "HN",
+                "HR",
+                "HT",
+                "HU",
+                "ID",
+                "IE",
+                "IL",
+                "IM",
+                "IN",
+                "IO",
+                "IQ",
+                "IS",
+                "IT",
+                "JE",
+                "JM",
+                "JO",
+                "JP",
+                "KE",
+                "KG",
+                "KH",
+                "KI",
+                "KM",
+                "KN",
+                "KR",
+                "KW",
+                "KY",
+                "KZ",
+                "LA",
+                "LB",
+                "LC",
+                "LI",
+                "LK",
+                "LR",
+                "LS",
+                "LT",
+                "LU",
+                "LV",
+                "LY",
+                "MA",
+                "MC",
+                "MD",
+                "ME",
+                "MF",
+                "MG",
+                "MK",
+                "ML",
+                "MM",
+                "MN",
+                "MO",
+                "MQ",
+                "MR",
+                "MS",
+                "MT",
+                "MU",
+                "MV",
+                "MW",
+                "MX",
+                "MY",
+                "MZ",
+                "NA",
+                "NC",
+                "NE",
+                "NG",
+                "NI",
+                "NL",
+                "NO",
+                "NP",
+                "NR",
+                "NU",
+                "NZ",
+                "OM",
+                "PA",
+                "PE",
+                "PF",
+                "PG",
+                "PH",
+                "PK",
+                "PL",
+                "PM",
+                "PN",
+                "PR",
+                "PS",
+                "PT",
+                "PY",
+                "QA",
+                "RE",
+                "RO",
+                "RS",
+                "RU",
+                "RW",
+                "SA",
+                "SB",
+                "SC",
+                "SE",
+                "SG",
+                "SH",
+                "SI",
+                "SJ",
+                "SK",
+                "SL",
+                "SM",
+                "SN",
+                "SO",
+                "SR",
+                "SS",
+                "ST",
+                "SV",
+                "SX",
+                "SZ",
+                "TA",
+                "TC",
+                "TD",
+                "TF",
+                "TG",
+                "TH",
+                "TJ",
+                "TK",
+                "TL",
+                "TM",
+                "TN",
+                "TO",
+                "TR",
+                "TT",
+                "TV",
+                "TW",
+                "TZ",
+                "UA",
+                "UG",
+                "US",
+                "UY",
+                "UZ",
+                "VA",
+                "VC",
+                "VE",
+                "VG",
+                "VN",
+                "VU",
+                "WF",
+                "WS",
+                "XK",
+                "YE",
+                "YT",
+                "ZA",
+                "ZM",
+                "ZW",
+                "ZZ",
+            ]
+        ]
+        """
+        An array of two-letter ISO country codes representing which countries Checkout should provide as options for shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
+        """
+
+    class ShippingOption(StripeObject):
+        shipping_amount: int
+        """
+        A non-negative integer in cents representing how much to charge.
+        """
+        shipping_rate: ExpandableField["ShippingRate"]
+        """
+        The ID of the Shipping Rate to use for this shipping option.
+        """
+
+    class SubscriptionData(StripeObject):
+        description: Optional[str]
+        """
+        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+        """
+        metadata: Dict[str, str]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link.
+        """
+        trial_period_days: Optional[int]
+        """
+        Integer representing the number of trial period days before the customer is charged for the first time.
+        """
+
+    class TaxIdCollection(StripeObject):
+        enabled: bool
+        """
+        Indicates whether tax ID collection is enabled for the session.
+        """
+
+    class TransferData(StripeObject):
+        amount: Optional[int]
+        """
+        The amount in cents (or local equivalent) that will be transferred to the destination account. By default, the entire amount is transferred to the destination.
+        """
+        destination: ExpandableField["Account"]
+        """
+        The connected account receiving the transfer.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -1437,7 +1961,7 @@ class PaymentLink(
     """
     Whether the payment link's `url` is active. If `false`, customers visiting the URL will be shown a page saying that the link has been deactivated.
     """
-    after_completion: StripeObject
+    after_completion: AfterCompletion
     allow_promotion_codes: bool
     """
     Whether user redeemable promotion codes are enabled.
@@ -1454,12 +1978,12 @@ class PaymentLink(
     """
     This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account.
     """
-    automatic_tax: StripeObject
+    automatic_tax: AutomaticTax
     billing_address_collection: Literal["auto", "required"]
     """
     Configuration for collecting the customer's billing address.
     """
-    consent_collection: Optional[StripeObject]
+    consent_collection: Optional[ConsentCollection]
     """
     When set, provides configuration to gather active consent from customers.
     """
@@ -1467,11 +1991,11 @@ class PaymentLink(
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
-    custom_fields: List[StripeObject]
+    custom_fields: List[CustomField]
     """
     Collect additional information from your customer using custom fields. Up to 2 fields are supported.
     """
-    custom_text: StripeObject
+    custom_text: CustomText
     customer_creation: Literal["always", "if_required"]
     """
     Configuration for Customer creation during checkout.
@@ -1480,7 +2004,7 @@ class PaymentLink(
     """
     Unique identifier for the object.
     """
-    invoice_creation: Optional[StripeObject]
+    invoice_creation: Optional[InvoiceCreation]
     """
     Configuration for creating invoice for payment mode payment links.
     """
@@ -1504,7 +2028,7 @@ class PaymentLink(
     """
     The account on behalf of which to charge. See the [Connect documentation](https://support.stripe.com/questions/sending-invoices-on-behalf-of-connected-accounts) for details.
     """
-    payment_intent_data: Optional[StripeObject]
+    payment_intent_data: Optional[PaymentIntentData]
     """
     Indicates the parameters to be passed to PaymentIntent creation during checkout.
     """
@@ -1549,12 +2073,12 @@ class PaymentLink(
     """
     The list of payment method types that customers can use. When `null`, Stripe will dynamically show relevant payment methods you've enabled in your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
     """
-    phone_number_collection: StripeObject
-    shipping_address_collection: Optional[StripeObject]
+    phone_number_collection: PhoneNumberCollection
+    shipping_address_collection: Optional[ShippingAddressCollection]
     """
     Configuration for collecting the customer's shipping address.
     """
-    shipping_options: List[StripeObject]
+    shipping_options: List[ShippingOption]
     """
     The shipping rate options applied to the session.
     """
@@ -1562,12 +2086,12 @@ class PaymentLink(
     """
     Indicates the type of transaction being performed which customizes relevant text on the page, such as the submit button.
     """
-    subscription_data: Optional[StripeObject]
+    subscription_data: Optional[SubscriptionData]
     """
     When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
     """
-    tax_id_collection: StripeObject
-    transfer_data: Optional[StripeObject]
+    tax_id_collection: TaxIdCollection
+    transfer_data: Optional[TransferData]
     """
     The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
     """
@@ -1701,3 +2225,19 @@ class PaymentLink(
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "after_completion": AfterCompletion,
+        "automatic_tax": AutomaticTax,
+        "consent_collection": ConsentCollection,
+        "custom_fields": CustomField,
+        "custom_text": CustomText,
+        "invoice_creation": InvoiceCreation,
+        "payment_intent_data": PaymentIntentData,
+        "phone_number_collection": PhoneNumberCollection,
+        "shipping_address_collection": ShippingAddressCollection,
+        "shipping_options": ShippingOption,
+        "subscription_data": SubscriptionData,
+        "tax_id_collection": TaxIdCollection,
+        "transfer_data": TransferData,
+    }

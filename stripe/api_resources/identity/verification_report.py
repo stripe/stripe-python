@@ -32,6 +32,273 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     OBJECT_NAME: ClassVar[
         Literal["identity.verification_report"]
     ] = "identity.verification_report"
+
+    class Document(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region.
+            """
+
+        class Dob(StripeObject):
+            day: Optional[int]
+            """
+            Numerical day between 1 and 31.
+            """
+            month: Optional[int]
+            """
+            Numerical month between 1 and 12.
+            """
+            year: Optional[int]
+            """
+            The four-digit year.
+            """
+
+        class Error(StripeObject):
+            code: Optional[
+                Literal[
+                    "document_expired",
+                    "document_type_not_supported",
+                    "document_unverified_other",
+                ]
+            ]
+            """
+            A short machine-readable string giving the reason for the verification failure.
+            """
+            reason: Optional[str]
+            """
+            A human-readable message giving the reason for the failure. These messages can be shown to your users.
+            """
+
+        class ExpirationDate(StripeObject):
+            day: Optional[int]
+            """
+            Numerical day between 1 and 31.
+            """
+            month: Optional[int]
+            """
+            Numerical month between 1 and 12.
+            """
+            year: Optional[int]
+            """
+            The four-digit year.
+            """
+
+        class IssuedDate(StripeObject):
+            day: Optional[int]
+            """
+            Numerical day between 1 and 31.
+            """
+            month: Optional[int]
+            """
+            Numerical month between 1 and 12.
+            """
+            year: Optional[int]
+            """
+            The four-digit year.
+            """
+
+        address: Optional[Address]
+        """
+        Address as it appears in the document.
+        """
+        dob: Optional[Dob]
+        """
+        Date of birth as it appears in the document.
+        """
+        error: Optional[Error]
+        """
+        Details on the verification error. Present when status is `unverified`.
+        """
+        expiration_date: Optional[ExpirationDate]
+        """
+        Expiration date of the document.
+        """
+        files: Optional[List[str]]
+        """
+        Array of [File](https://stripe.com/docs/api/files) ids containing images for this document.
+        """
+        first_name: Optional[str]
+        """
+        First name as it appears in the document.
+        """
+        issued_date: Optional[IssuedDate]
+        """
+        Issued date of the document.
+        """
+        issuing_country: Optional[str]
+        """
+        Issuing country of the document.
+        """
+        last_name: Optional[str]
+        """
+        Last name as it appears in the document.
+        """
+        number: Optional[str]
+        """
+        Document ID number.
+        """
+        status: Literal["unverified", "verified"]
+        """
+        Status of this `document` check.
+        """
+        type: Optional[Literal["driving_license", "id_card", "passport"]]
+        """
+        Type of the document.
+        """
+        _inner_class_types = {
+            "address": Address,
+            "dob": Dob,
+            "error": Error,
+            "expiration_date": ExpirationDate,
+            "issued_date": IssuedDate,
+        }
+
+    class IdNumber(StripeObject):
+        class Dob(StripeObject):
+            day: Optional[int]
+            """
+            Numerical day between 1 and 31.
+            """
+            month: Optional[int]
+            """
+            Numerical month between 1 and 12.
+            """
+            year: Optional[int]
+            """
+            The four-digit year.
+            """
+
+        class Error(StripeObject):
+            code: Optional[
+                Literal[
+                    "id_number_insufficient_document_data",
+                    "id_number_mismatch",
+                    "id_number_unverified_other",
+                ]
+            ]
+            """
+            A short machine-readable string giving the reason for the verification failure.
+            """
+            reason: Optional[str]
+            """
+            A human-readable message giving the reason for the failure. These messages can be shown to your users.
+            """
+
+        dob: Optional[Dob]
+        """
+        Date of birth.
+        """
+        error: Optional[Error]
+        """
+        Details on the verification error. Present when status is `unverified`.
+        """
+        first_name: Optional[str]
+        """
+        First name.
+        """
+        id_number: Optional[str]
+        """
+        ID number.
+        """
+        id_number_type: Optional[Literal["br_cpf", "sg_nric", "us_ssn"]]
+        """
+        Type of ID number.
+        """
+        last_name: Optional[str]
+        """
+        Last name.
+        """
+        status: Literal["unverified", "verified"]
+        """
+        Status of this `id_number` check.
+        """
+        _inner_class_types = {"dob": Dob, "error": Error}
+
+    class Options(StripeObject):
+        class Document(StripeObject):
+            allowed_types: Optional[
+                List[Literal["driving_license", "id_card", "passport"]]
+            ]
+            """
+            Array of strings of allowed identity document types. If the provided identity document isn't one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
+            """
+            require_id_number: Optional[bool]
+            """
+            Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document's extracted name and date of birth.
+            """
+            require_live_capture: Optional[bool]
+            """
+            Disable image uploads, identity document images have to be captured using the device's camera.
+            """
+            require_matching_selfie: Optional[bool]
+            """
+            Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
+            """
+
+        class IdNumber(StripeObject):
+            pass
+
+        document: Optional[Document]
+        id_number: Optional[IdNumber]
+        _inner_class_types = {"document": Document, "id_number": IdNumber}
+
+    class Selfie(StripeObject):
+        class Error(StripeObject):
+            code: Optional[
+                Literal[
+                    "selfie_document_missing_photo",
+                    "selfie_face_mismatch",
+                    "selfie_manipulated",
+                    "selfie_unverified_other",
+                ]
+            ]
+            """
+            A short machine-readable string giving the reason for the verification failure.
+            """
+            reason: Optional[str]
+            """
+            A human-readable message giving the reason for the failure. These messages can be shown to your users.
+            """
+
+        document: Optional[str]
+        """
+        ID of the [File](https://stripe.com/docs/api/files) holding the image of the identity document used in this check.
+        """
+        error: Optional[Error]
+        """
+        Details on the verification error. Present when status is `unverified`.
+        """
+        selfie: Optional[str]
+        """
+        ID of the [File](https://stripe.com/docs/api/files) holding the image of the selfie used in this check.
+        """
+        status: Literal["unverified", "verified"]
+        """
+        Status of this `selfie` check.
+        """
+        _inner_class_types = {"error": Error}
+
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
@@ -91,7 +358,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
-    document: Optional[StripeObject]
+    document: Optional[Document]
     """
     Result from a document check
     """
@@ -99,7 +366,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
     Unique identifier for the object.
     """
-    id_number: Optional[StripeObject]
+    id_number: Optional[IdNumber]
     """
     Result from an id_number check
     """
@@ -111,8 +378,8 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    options: Optional[StripeObject]
-    selfie: Optional[StripeObject]
+    options: Optional[Options]
+    selfie: Optional[Selfie]
     """
     Result from a selfie check
     """
@@ -157,3 +424,10 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "document": Document,
+        "id_number": IdNumber,
+        "options": Options,
+        "selfie": Selfie,
+    }

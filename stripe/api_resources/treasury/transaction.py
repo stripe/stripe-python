@@ -14,6 +14,16 @@ from typing_extensions import (
 )
 
 if TYPE_CHECKING:
+    from stripe.api_resources.issuing.authorization import Authorization
+    from stripe.api_resources.treasury.credit_reversal import CreditReversal
+    from stripe.api_resources.treasury.debit_reversal import DebitReversal
+    from stripe.api_resources.treasury.inbound_transfer import InboundTransfer
+    from stripe.api_resources.treasury.outbound_payment import OutboundPayment
+    from stripe.api_resources.treasury.outbound_transfer import (
+        OutboundTransfer,
+    )
+    from stripe.api_resources.treasury.received_credit import ReceivedCredit
+    from stripe.api_resources.treasury.received_debit import ReceivedDebit
     from stripe.api_resources.treasury.transaction_entry import (
         TransactionEntry,
     )
@@ -27,6 +37,87 @@ class Transaction(ListableAPIResource["Transaction"]):
     OBJECT_NAME: ClassVar[
         Literal["treasury.transaction"]
     ] = "treasury.transaction"
+
+    class BalanceImpact(StripeObject):
+        cash: int
+        """
+        The change made to funds the user can spend right now.
+        """
+        inbound_pending: int
+        """
+        The change made to funds that are not spendable yet, but will become available at a later time.
+        """
+        outbound_pending: int
+        """
+        The change made to funds in the account, but not spendable because they are being held for pending outbound flows.
+        """
+
+    class FlowDetails(StripeObject):
+        credit_reversal: Optional["CreditReversal"]
+        """
+        You can reverse some [ReceivedCredits](https://stripe.com/docs/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
+        """
+        debit_reversal: Optional["DebitReversal"]
+        """
+        You can reverse some [ReceivedDebits](https://stripe.com/docs/api#received_debits) depending on their network and source flow. Reversing a ReceivedDebit leads to the creation of a new object known as a DebitReversal.
+        """
+        inbound_transfer: Optional["InboundTransfer"]
+        """
+        Use [InboundTransfers](https://stripe.com/docs/treasury/moving-money/financial-accounts/into/inbound-transfers) to add funds to your [FinancialAccount](https://stripe.com/docs/api#financial_accounts) via a PaymentMethod that is owned by you. The funds will be transferred via an ACH debit.
+        """
+        issuing_authorization: Optional["Authorization"]
+        """
+        When an [issued card](https://stripe.com/docs/issuing) is used to make a purchase, an Issuing `Authorization`
+        object is created. [Authorizations](https://stripe.com/docs/issuing/purchases/authorizations) must be approved for the
+        purchase to be completed successfully.
+
+        Related guide: [Issued card authorizations](https://stripe.com/docs/issuing/purchases/authorizations)
+        """
+        outbound_payment: Optional["OutboundPayment"]
+        """
+        Use OutboundPayments to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).
+
+        Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
+        """
+        outbound_transfer: Optional["OutboundTransfer"]
+        """
+        Use OutboundTransfers to transfer funds from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) to a PaymentMethod belonging to the same entity. To send funds to a different party, use [OutboundPayments](https://stripe.com/docs/api#outbound_payments) instead. You can send funds over ACH rails or through a domestic wire transfer to a user's own external bank account.
+
+        Simulate OutboundTransfer state changes with the `/v1/test_helpers/treasury/outbound_transfers` endpoints. These methods can only be called on test mode objects.
+        """
+        received_credit: Optional["ReceivedCredit"]
+        """
+        ReceivedCredits represent funds sent to a [FinancialAccount](https://stripe.com/docs/api#financial_accounts) (for example, via ACH or wire). These money movements are not initiated from the FinancialAccount.
+        """
+        received_debit: Optional["ReceivedDebit"]
+        """
+        ReceivedDebits represent funds pulled from a [FinancialAccount](https://stripe.com/docs/api#financial_accounts). These are not initiated from the FinancialAccount.
+        """
+        type: Literal[
+            "credit_reversal",
+            "debit_reversal",
+            "inbound_transfer",
+            "issuing_authorization",
+            "other",
+            "outbound_payment",
+            "outbound_transfer",
+            "received_credit",
+            "received_debit",
+        ]
+        """
+        Type of the flow that created the Transaction. Set to the same value as `flow_type`.
+        """
+
+    class StatusTransitions(StripeObject):
+        posted_at: Optional[int]
+        """
+        Timestamp describing when the Transaction changed status to `posted`.
+        """
+        void_at: Optional[int]
+        """
+        Timestamp describing when the Transaction changed status to `void`.
+        """
+
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
@@ -120,7 +211,7 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
     Amount (in cents) transferred.
     """
-    balance_impact: StripeObject
+    balance_impact: BalanceImpact
     """
     Change to a FinancialAccount's balance
     """
@@ -148,7 +239,7 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
     ID of the flow that created the Transaction.
     """
-    flow_details: Optional[StripeObject]
+    flow_details: Optional[FlowDetails]
     """
     Details of the flow that created the Transaction.
     """
@@ -182,7 +273,7 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
     Status of the Transaction.
     """
-    status_transitions: StripeObject
+    status_transitions: StatusTransitions
 
     @classmethod
     def list(
@@ -216,3 +307,9 @@ class Transaction(ListableAPIResource["Transaction"]):
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "balance_impact": BalanceImpact,
+        "flow_details": FlowDetails,
+        "status_transitions": StatusTransitions,
+    }

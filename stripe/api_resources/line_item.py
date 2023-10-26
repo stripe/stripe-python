@@ -5,7 +5,9 @@ from typing import ClassVar, List, Optional
 from typing_extensions import Literal, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.discount import Discount as DiscountResource
     from stripe.api_resources.price import Price
+    from stripe.api_resources.tax_rate import TaxRate
 
 
 class LineItem(StripeObject):
@@ -14,6 +16,58 @@ class LineItem(StripeObject):
     """
 
     OBJECT_NAME: ClassVar[Literal["item"]] = "item"
+
+    class Discount(StripeObject):
+        amount: int
+        """
+        The amount discounted.
+        """
+        discount: "DiscountResource"
+        """
+        A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+        It contains information about when the discount began, when it will end, and what it is applied to.
+
+        Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+        """
+
+    class Tax(StripeObject):
+        amount: int
+        """
+        Amount of tax applied for this rate.
+        """
+        rate: "TaxRate"
+        """
+        Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+
+        Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+        """
+        taxability_reason: Optional[
+            Literal[
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ]
+        ]
+        """
+        The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+        """
+        taxable_amount: Optional[int]
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
+        """
+
     amount_discount: int
     """
     Total discount amount applied. If no discounts were applied, defaults to 0.
@@ -38,7 +92,7 @@ class LineItem(StripeObject):
     """
     An arbitrary string attached to the object. Often useful for displaying to users. Defaults to product name.
     """
-    discounts: Optional[List[StripeObject]]
+    discounts: Optional[List[Discount]]
     """
     The discounts applied to the line item.
     """
@@ -58,7 +112,9 @@ class LineItem(StripeObject):
     """
     The quantity of products being purchased.
     """
-    taxes: Optional[List[StripeObject]]
+    taxes: Optional[List[Tax]]
     """
     The taxes applied to the line item.
     """
+
+    _inner_class_types = {"discounts": Discount, "taxes": Tax}

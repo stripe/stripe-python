@@ -38,10 +38,12 @@ if TYPE_CHECKING:
     from stripe.api_resources.application_fee import ApplicationFee
     from stripe.api_resources.balance_transaction import BalanceTransaction
     from stripe.api_resources.bank_account import BankAccount
-    from stripe.api_resources.card import Card
+    from stripe.api_resources.card import Card as CardResource
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.invoice import Invoice
+    from stripe.api_resources.mandate import Mandate
     from stripe.api_resources.payment_intent import PaymentIntent
+    from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.refund import Refund
     from stripe.api_resources.review import Review
     from stripe.api_resources.source import Source
@@ -62,6 +64,1572 @@ class Charge(
     """
 
     OBJECT_NAME: ClassVar[Literal["charge"]] = "charge"
+
+    class BillingDetails(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region.
+            """
+
+        address: Optional[Address]
+        """
+        Billing address.
+        """
+        email: Optional[str]
+        """
+        Email address.
+        """
+        name: Optional[str]
+        """
+        Full name.
+        """
+        phone: Optional[str]
+        """
+        Billing phone number (including extension).
+        """
+        _inner_class_types = {"address": Address}
+
+    class FraudDetails(StripeObject):
+        stripe_report: Optional[str]
+        """
+        Assessments from Stripe. If set, the value is `fraudulent`.
+        """
+        user_report: Optional[str]
+        """
+        Assessments reported by you. If set, possible values of are `safe` and `fraudulent`.
+        """
+
+    class Level3(StripeObject):
+        class LineItem(StripeObject):
+            discount_amount: Optional[int]
+            product_code: str
+            product_description: str
+            quantity: Optional[int]
+            tax_amount: Optional[int]
+            unit_cost: Optional[int]
+
+        customer_reference: Optional[str]
+        line_items: List[LineItem]
+        merchant_reference: str
+        shipping_address_zip: Optional[str]
+        shipping_amount: Optional[int]
+        shipping_from_zip: Optional[str]
+        _inner_class_types = {"line_items": LineItem}
+
+    class Outcome(StripeObject):
+        class Rule(StripeObject):
+            action: str
+            """
+            The action taken on the payment.
+            """
+            id: str
+            """
+            Unique identifier for the object.
+            """
+            predicate: str
+            """
+            The predicate to evaluate the payment against.
+            """
+
+        network_status: Optional[str]
+        """
+        Possible values are `approved_by_network`, `declined_by_network`, `not_sent_to_network`, and `reversed_after_approval`. The value `reversed_after_approval` indicates the payment was [blocked by Stripe](https://stripe.com/docs/declines#blocked-payments) after bank authorization, and may temporarily appear as "pending" on a cardholder's statement.
+        """
+        reason: Optional[str]
+        """
+        An enumerated value providing a more detailed explanation of the outcome's `type`. Charges blocked by Radar's default block rule have the value `highest_risk_level`. Charges placed in review by Radar's default review rule have the value `elevated_risk_level`. Charges authorized, blocked, or placed in review by custom rules have the value `rule`. See [understanding declines](https://stripe.com/docs/declines) for more details.
+        """
+        risk_level: Optional[str]
+        """
+        Stripe Radar's evaluation of the riskiness of the payment. Possible values for evaluated payments are `normal`, `elevated`, `highest`. For non-card payments, and card-based payments predating the public assignment of risk levels, this field will have the value `not_assessed`. In the event of an error in the evaluation, this field will have the value `unknown`. This field is only available with Radar.
+        """
+        risk_score: Optional[int]
+        """
+        Stripe Radar's evaluation of the riskiness of the payment. Possible values for evaluated payments are between 0 and 100. For non-card payments, card-based payments predating the public assignment of risk scores, or in the event of an error during evaluation, this field will not be present. This field is only available with Radar for Fraud Teams.
+        """
+        rule: Optional[ExpandableField[Rule]]
+        """
+        The ID of the Radar rule that matched the payment, if applicable.
+        """
+        seller_message: Optional[str]
+        """
+        A human-readable description of the outcome type and reason, designed for you (the recipient of the payment), not your customer.
+        """
+        type: str
+        """
+        Possible values are `authorized`, `manual_review`, `issuer_declined`, `blocked`, and `invalid`. See [understanding declines](https://stripe.com/docs/declines) and [Radar reviews](https://stripe.com/docs/radar/reviews) for details.
+        """
+        _inner_class_types = {"rule": Rule}
+
+    class PaymentMethodDetails(StripeObject):
+        class AchCreditTransfer(StripeObject):
+            account_number: Optional[str]
+            """
+            Account number to transfer funds to.
+            """
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the routing number.
+            """
+            routing_number: Optional[str]
+            """
+            Routing transit number for the bank account to transfer funds to.
+            """
+            swift_code: Optional[str]
+            """
+            SWIFT code of the bank associated with the routing number.
+            """
+
+        class AchDebit(StripeObject):
+            account_holder_type: Optional[Literal["company", "individual"]]
+            """
+            Type of entity that holds the account. This can be either `individual` or `company`.
+            """
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the bank account.
+            """
+            country: Optional[str]
+            """
+            Two-letter ISO code representing the country the bank account is located in.
+            """
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            routing_number: Optional[str]
+            """
+            Routing transit number of the bank account.
+            """
+
+        class AcssDebit(StripeObject):
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the bank account.
+            """
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            """
+            institution_number: Optional[str]
+            """
+            Institution number of the bank account
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            mandate: Optional[str]
+            """
+            ID of the mandate used to make this payment.
+            """
+            transit_number: Optional[str]
+            """
+            Transit number of the bank account.
+            """
+
+        class Affirm(StripeObject):
+            pass
+
+        class AfterpayClearpay(StripeObject):
+            order_id: Optional[str]
+            """
+            The Afterpay order ID associated with this payment intent.
+            """
+            reference: Optional[str]
+            """
+            Order identifier shown to the merchant in Afterpay's online portal.
+            """
+
+        class Alipay(StripeObject):
+            buyer_id: Optional[str]
+            """
+            Uniquely identifies this particular Alipay account. You can use this attribute to check whether two Alipay accounts are the same.
+            """
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular Alipay account. You can use this attribute to check whether two Alipay accounts are the same.
+            """
+            transaction_id: Optional[str]
+            """
+            Transaction ID of this particular Alipay transaction.
+            """
+
+        class AuBecsDebit(StripeObject):
+            bsb_number: Optional[str]
+            """
+            Bank-State-Branch number of the bank account.
+            """
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            mandate: Optional[str]
+            """
+            ID of the mandate used to make this payment.
+            """
+
+        class BacsDebit(StripeObject):
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            mandate: Optional[str]
+            """
+            ID of the mandate used to make this payment.
+            """
+            sort_code: Optional[str]
+            """
+            Sort code of the bank account. (e.g., `10-20-30`)
+            """
+
+        class Bancontact(StripeObject):
+            bank_code: Optional[str]
+            """
+            Bank code of bank associated with the bank account.
+            """
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the bank account.
+            """
+            bic: Optional[str]
+            """
+            Bank Identifier Code of the bank associated with the bank account.
+            """
+            generated_sepa_debit: Optional[ExpandableField["PaymentMethod"]]
+            """
+            The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge.
+            """
+            generated_sepa_debit_mandate: Optional[ExpandableField["Mandate"]]
+            """
+            The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge.
+            """
+            iban_last4: Optional[str]
+            """
+            Last four characters of the IBAN.
+            """
+            preferred_language: Optional[Literal["de", "en", "fr", "nl"]]
+            """
+            Preferred language of the Bancontact authorization page that the customer is redirected to.
+            Can be one of `en`, `de`, `fr`, or `nl`
+            """
+            verified_name: Optional[str]
+            """
+            Owner's verified full name. Values are verified or provided by Bancontact directly
+            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            """
+
+        class Blik(StripeObject):
+            pass
+
+        class Boleto(StripeObject):
+            tax_id: str
+            """
+            The tax ID of the customer (CPF for individuals consumers or CNPJ for businesses consumers)
+            """
+
+        class Card(StripeObject):
+            class Checks(StripeObject):
+                address_line1_check: Optional[str]
+                """
+                If a address line1 was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                """
+                address_postal_code_check: Optional[str]
+                """
+                If a address postal code was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                """
+                cvc_check: Optional[str]
+                """
+                If a CVC was provided, results of the check, one of `pass`, `fail`, `unavailable`, or `unchecked`.
+                """
+
+            class ExtendedAuthorization(StripeObject):
+                status: Literal["disabled", "enabled"]
+                """
+                Indicates whether or not the capture window is extended beyond the standard authorization.
+                """
+
+            class IncrementalAuthorization(StripeObject):
+                status: Literal["available", "unavailable"]
+                """
+                Indicates whether or not the incremental authorization feature is supported.
+                """
+
+            class Installments(StripeObject):
+                class Plan(StripeObject):
+                    count: Optional[int]
+                    """
+                    For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+                    """
+                    interval: Optional[Literal["month"]]
+                    """
+                    For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
+                    One of `month`.
+                    """
+                    type: Literal["fixed_count"]
+                    """
+                    Type of installment plan, one of `fixed_count`.
+                    """
+
+                plan: Optional[Plan]
+                """
+                Installment plan selected for the payment.
+                """
+                _inner_class_types = {"plan": Plan}
+
+            class Multicapture(StripeObject):
+                status: Literal["available", "unavailable"]
+                """
+                Indicates whether or not multiple captures are supported.
+                """
+
+            class NetworkToken(StripeObject):
+                used: bool
+                """
+                Indicates if Stripe used a network token, either user provided or Stripe managed when processing the transaction.
+                """
+
+            class Overcapture(StripeObject):
+                maximum_amount_capturable: int
+                """
+                The maximum amount that can be captured.
+                """
+                status: Literal["available", "unavailable"]
+                """
+                Indicates whether or not the authorized amount can be over-captured.
+                """
+
+            class ThreeDSecure(StripeObject):
+                authentication_flow: Optional[
+                    Literal["challenge", "frictionless"]
+                ]
+                """
+                For authenticated transactions: how the customer was authenticated by
+                the issuing bank.
+                """
+                result: Optional[
+                    Literal[
+                        "attempt_acknowledged",
+                        "authenticated",
+                        "exempted",
+                        "failed",
+                        "not_supported",
+                        "processing_error",
+                    ]
+                ]
+                """
+                Indicates the outcome of 3D Secure authentication.
+                """
+                result_reason: Optional[
+                    Literal[
+                        "abandoned",
+                        "bypassed",
+                        "canceled",
+                        "card_not_enrolled",
+                        "network_not_supported",
+                        "protocol_error",
+                        "rejected",
+                    ]
+                ]
+                """
+                Additional information about why 3D Secure succeeded or failed based
+                on the `result`.
+                """
+                version: Optional[Literal["1.0.2", "2.1.0", "2.2.0"]]
+                """
+                The version of 3D Secure that was used.
+                """
+
+            class Wallet(StripeObject):
+                class AmexExpressCheckout(StripeObject):
+                    pass
+
+                class ApplePay(StripeObject):
+                    pass
+
+                class GooglePay(StripeObject):
+                    pass
+
+                class Link(StripeObject):
+                    pass
+
+                class Masterpass(StripeObject):
+                    class BillingAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class ShippingAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    billing_address: Optional[BillingAddress]
+                    """
+                    Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+                    """
+                    email: Optional[str]
+                    """
+                    Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+                    """
+                    name: Optional[str]
+                    """
+                    Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+                    """
+                    shipping_address: Optional[ShippingAddress]
+                    """
+                    Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+                    """
+                    _inner_class_types = {
+                        "billing_address": BillingAddress,
+                        "shipping_address": ShippingAddress,
+                    }
+
+                class SamsungPay(StripeObject):
+                    pass
+
+                class VisaCheckout(StripeObject):
+                    class BillingAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    class ShippingAddress(StripeObject):
+                        city: Optional[str]
+                        """
+                        City, district, suburb, town, or village.
+                        """
+                        country: Optional[str]
+                        """
+                        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                        """
+                        line1: Optional[str]
+                        """
+                        Address line 1 (e.g., street, PO Box, or company name).
+                        """
+                        line2: Optional[str]
+                        """
+                        Address line 2 (e.g., apartment, suite, unit, or building).
+                        """
+                        postal_code: Optional[str]
+                        """
+                        ZIP or postal code.
+                        """
+                        state: Optional[str]
+                        """
+                        State, county, province, or region.
+                        """
+
+                    billing_address: Optional[BillingAddress]
+                    """
+                    Owner's verified billing address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+                    """
+                    email: Optional[str]
+                    """
+                    Owner's verified email. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+                    """
+                    name: Optional[str]
+                    """
+                    Owner's verified full name. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+                    """
+                    shipping_address: Optional[ShippingAddress]
+                    """
+                    Owner's verified shipping address. Values are verified or provided by the wallet directly (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+                    """
+                    _inner_class_types = {
+                        "billing_address": BillingAddress,
+                        "shipping_address": ShippingAddress,
+                    }
+
+                amex_express_checkout: Optional[AmexExpressCheckout]
+                apple_pay: Optional[ApplePay]
+                dynamic_last4: Optional[str]
+                """
+                (For tokenized numbers only.) The last four digits of the device account number.
+                """
+                google_pay: Optional[GooglePay]
+                link: Optional[Link]
+                masterpass: Optional[Masterpass]
+                samsung_pay: Optional[SamsungPay]
+                type: Literal[
+                    "amex_express_checkout",
+                    "apple_pay",
+                    "google_pay",
+                    "link",
+                    "masterpass",
+                    "samsung_pay",
+                    "visa_checkout",
+                ]
+                """
+                The type of the card wallet, one of `amex_express_checkout`, `apple_pay`, `google_pay`, `masterpass`, `samsung_pay`, `visa_checkout`, or `link`. An additional hash is included on the Wallet subhash with a name matching this value. It contains additional information specific to the card wallet type.
+                """
+                visa_checkout: Optional[VisaCheckout]
+                _inner_class_types = {
+                    "amex_express_checkout": AmexExpressCheckout,
+                    "apple_pay": ApplePay,
+                    "google_pay": GooglePay,
+                    "link": Link,
+                    "masterpass": Masterpass,
+                    "samsung_pay": SamsungPay,
+                    "visa_checkout": VisaCheckout,
+                }
+
+            amount_authorized: Optional[int]
+            """
+            The authorized amount.
+            """
+            brand: Optional[str]
+            """
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            """
+            checks: Optional[Checks]
+            """
+            Check results by Card networks on Card address and CVC at time of payment.
+            """
+            country: Optional[str]
+            """
+            Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+            """
+            description: Optional[str]
+            """
+            A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
+            """
+            exp_month: int
+            """
+            Two-digit number representing the card's expiration month.
+            """
+            exp_year: int
+            """
+            Four-digit number representing the card's expiration year.
+            """
+            extended_authorization: Optional[ExtendedAuthorization]
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular card number. You can use this attribute to check whether two customers who've signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+
+            *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+            """
+            funding: Optional[str]
+            """
+            Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+            """
+            iin: Optional[str]
+            """
+            Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
+            """
+            incremental_authorization: Optional[IncrementalAuthorization]
+            installments: Optional[Installments]
+            """
+            Installment details for this payment (Mexico only).
+
+            For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+            """
+            issuer: Optional[str]
+            """
+            The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
+            """
+            last4: Optional[str]
+            """
+            The last four digits of the card.
+            """
+            mandate: Optional[str]
+            """
+            ID of the mandate used to make this payment or created by it.
+            """
+            moto: Optional[bool]
+            """
+            True if this payment was marked as MOTO and out of scope for SCA.
+            """
+            multicapture: Optional[Multicapture]
+            network: Optional[str]
+            """
+            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            """
+            network_token: Optional[NetworkToken]
+            """
+            If this card has network token credentials, this contains the details of the network token credentials.
+            """
+            overcapture: Optional[Overcapture]
+            three_d_secure: Optional[ThreeDSecure]
+            """
+            Populated if this transaction used 3D Secure authentication.
+            """
+            wallet: Optional[Wallet]
+            """
+            If this Card is part of a card wallet, this contains the details of the card wallet.
+            """
+            _inner_class_types = {
+                "checks": Checks,
+                "extended_authorization": ExtendedAuthorization,
+                "incremental_authorization": IncrementalAuthorization,
+                "installments": Installments,
+                "multicapture": Multicapture,
+                "network_token": NetworkToken,
+                "overcapture": Overcapture,
+                "three_d_secure": ThreeDSecure,
+                "wallet": Wallet,
+            }
+
+        class CardPresent(StripeObject):
+            class Receipt(StripeObject):
+                account_type: Optional[
+                    Literal["checking", "credit", "prepaid", "unknown"]
+                ]
+                """
+                The type of account being debited or credited
+                """
+                application_cryptogram: Optional[str]
+                """
+                EMV tag 9F26, cryptogram generated by the integrated circuit chip.
+                """
+                application_preferred_name: Optional[str]
+                """
+                Mnenomic of the Application Identifier.
+                """
+                authorization_code: Optional[str]
+                """
+                Identifier for this transaction.
+                """
+                authorization_response_code: Optional[str]
+                """
+                EMV tag 8A. A code returned by the card issuer.
+                """
+                cardholder_verification_method: Optional[str]
+                """
+                How the cardholder verified ownership of the card.
+                """
+                dedicated_file_name: Optional[str]
+                """
+                EMV tag 84. Similar to the application identifier stored on the integrated circuit chip.
+                """
+                terminal_verification_results: Optional[str]
+                """
+                The outcome of a series of EMV functions performed by the card reader.
+                """
+                transaction_status_information: Optional[str]
+                """
+                An indication of various EMV functions performed during the transaction.
+                """
+
+            amount_authorized: Optional[int]
+            """
+            The authorized amount
+            """
+            brand: Optional[str]
+            """
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            """
+            capture_before: Optional[int]
+            """
+            When using manual capture, a future timestamp after which the charge will be automatically refunded if uncaptured.
+            """
+            cardholder_name: Optional[str]
+            """
+            The cardholder name as read from the card, in [ISO 7813](https://en.wikipedia.org/wiki/ISO/IEC_7813) format. May include alphanumeric characters, special characters and first/last name separator (`/`). In some cases, the cardholder name may not be available depending on how the issuer has configured the card. Cardholder name is typically not available on swipe or contactless payments, such as those made with Apple Pay and Google Pay.
+            """
+            country: Optional[str]
+            """
+            Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+            """
+            description: Optional[str]
+            """
+            A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
+            """
+            emv_auth_data: Optional[str]
+            """
+            Authorization response cryptogram.
+            """
+            exp_month: int
+            """
+            Two-digit number representing the card's expiration month.
+            """
+            exp_year: int
+            """
+            Four-digit number representing the card's expiration year.
+            """
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular card number. You can use this attribute to check whether two customers who've signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+
+            *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+            """
+            funding: Optional[str]
+            """
+            Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+            """
+            generated_card: Optional[str]
+            """
+            ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
+            """
+            iin: Optional[str]
+            """
+            Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
+            """
+            incremental_authorization_supported: bool
+            """
+            Whether this [PaymentIntent](https://stripe.com/docs/api/payment_intents) is eligible for incremental authorizations. Request support using [request_incremental_authorization_support](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-payment_method_options-card_present-request_incremental_authorization_support).
+            """
+            issuer: Optional[str]
+            """
+            The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
+            """
+            last4: Optional[str]
+            """
+            The last four digits of the card.
+            """
+            network: Optional[str]
+            """
+            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            """
+            overcapture_supported: bool
+            """
+            Defines whether the authorized amount can be over-captured or not
+            """
+            read_method: Optional[
+                Literal[
+                    "contact_emv",
+                    "contactless_emv",
+                    "contactless_magstripe_mode",
+                    "magnetic_stripe_fallback",
+                    "magnetic_stripe_track2",
+                ]
+            ]
+            """
+            How card details were read in this transaction.
+            """
+            receipt: Optional[Receipt]
+            """
+            A collection of fields required to be displayed on receipts. Only required for EMV transactions.
+            """
+            _inner_class_types = {"receipt": Receipt}
+
+        class Cashapp(StripeObject):
+            buyer_id: Optional[str]
+            """
+            A unique and immutable identifier assigned by Cash App to every buyer.
+            """
+            cashtag: Optional[str]
+            """
+            A public identifier for buyers using Cash App.
+            """
+
+        class CustomerBalance(StripeObject):
+            pass
+
+        class Eps(StripeObject):
+            bank: Optional[
+                Literal[
+                    "arzte_und_apotheker_bank",
+                    "austrian_anadi_bank_ag",
+                    "bank_austria",
+                    "bankhaus_carl_spangler",
+                    "bankhaus_schelhammer_und_schattera_ag",
+                    "bawag_psk_ag",
+                    "bks_bank_ag",
+                    "brull_kallmus_bank_ag",
+                    "btv_vier_lander_bank",
+                    "capital_bank_grawe_gruppe_ag",
+                    "deutsche_bank_ag",
+                    "dolomitenbank",
+                    "easybank_ag",
+                    "erste_bank_und_sparkassen",
+                    "hypo_alpeadriabank_international_ag",
+                    "hypo_bank_burgenland_aktiengesellschaft",
+                    "hypo_noe_lb_fur_niederosterreich_u_wien",
+                    "hypo_oberosterreich_salzburg_steiermark",
+                    "hypo_tirol_bank_ag",
+                    "hypo_vorarlberg_bank_ag",
+                    "marchfelder_bank",
+                    "oberbank_ag",
+                    "raiffeisen_bankengruppe_osterreich",
+                    "schoellerbank_ag",
+                    "sparda_bank_wien",
+                    "volksbank_gruppe",
+                    "volkskreditbank_ag",
+                    "vr_bank_braunau",
+                ]
+            ]
+            """
+            The customer's bank. Should be one of `arzte_und_apotheker_bank`, `austrian_anadi_bank_ag`, `bank_austria`, `bankhaus_carl_spangler`, `bankhaus_schelhammer_und_schattera_ag`, `bawag_psk_ag`, `bks_bank_ag`, `brull_kallmus_bank_ag`, `btv_vier_lander_bank`, `capital_bank_grawe_gruppe_ag`, `deutsche_bank_ag`, `dolomitenbank`, `easybank_ag`, `erste_bank_und_sparkassen`, `hypo_alpeadriabank_international_ag`, `hypo_noe_lb_fur_niederosterreich_u_wien`, `hypo_oberosterreich_salzburg_steiermark`, `hypo_tirol_bank_ag`, `hypo_vorarlberg_bank_ag`, `hypo_bank_burgenland_aktiengesellschaft`, `marchfelder_bank`, `oberbank_ag`, `raiffeisen_bankengruppe_osterreich`, `schoellerbank_ag`, `sparda_bank_wien`, `volksbank_gruppe`, `volkskreditbank_ag`, or `vr_bank_braunau`.
+            """
+            verified_name: Optional[str]
+            """
+            Owner's verified full name. Values are verified or provided by EPS directly
+            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            EPS rarely provides this information so the attribute is usually empty.
+            """
+
+        class Fpx(StripeObject):
+            account_holder_type: Optional[Literal["company", "individual"]]
+            """
+            Account holder type, if provided. Can be one of `individual` or `company`.
+            """
+            bank: Literal[
+                "affin_bank",
+                "agrobank",
+                "alliance_bank",
+                "ambank",
+                "bank_islam",
+                "bank_muamalat",
+                "bank_of_china",
+                "bank_rakyat",
+                "bsn",
+                "cimb",
+                "deutsche_bank",
+                "hong_leong_bank",
+                "hsbc",
+                "kfh",
+                "maybank2e",
+                "maybank2u",
+                "ocbc",
+                "pb_enterprise",
+                "public_bank",
+                "rhb",
+                "standard_chartered",
+                "uob",
+            ]
+            """
+            The customer's bank. Can be one of `affin_bank`, `agrobank`, `alliance_bank`, `ambank`, `bank_islam`, `bank_muamalat`, `bank_rakyat`, `bsn`, `cimb`, `hong_leong_bank`, `hsbc`, `kfh`, `maybank2u`, `ocbc`, `public_bank`, `rhb`, `standard_chartered`, `uob`, `deutsche_bank`, `maybank2e`, `pb_enterprise`, or `bank_of_china`.
+            """
+            transaction_id: Optional[str]
+            """
+            Unique transaction id generated by FPX for every request from the merchant
+            """
+
+        class Giropay(StripeObject):
+            bank_code: Optional[str]
+            """
+            Bank code of bank associated with the bank account.
+            """
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the bank account.
+            """
+            bic: Optional[str]
+            """
+            Bank Identifier Code of the bank associated with the bank account.
+            """
+            verified_name: Optional[str]
+            """
+            Owner's verified full name. Values are verified or provided by Giropay directly
+            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            Giropay rarely provides this information so the attribute is usually empty.
+            """
+
+        class Grabpay(StripeObject):
+            transaction_id: Optional[str]
+            """
+            Unique transaction id generated by GrabPay
+            """
+
+        class Ideal(StripeObject):
+            bank: Optional[
+                Literal[
+                    "abn_amro",
+                    "asn_bank",
+                    "bunq",
+                    "handelsbanken",
+                    "ing",
+                    "knab",
+                    "moneyou",
+                    "n26",
+                    "rabobank",
+                    "regiobank",
+                    "revolut",
+                    "sns_bank",
+                    "triodos_bank",
+                    "van_lanschot",
+                    "yoursafe",
+                ]
+            ]
+            """
+            The customer's bank. Can be one of `abn_amro`, `asn_bank`, `bunq`, `handelsbanken`, `ing`, `knab`, `moneyou`, `n26`, `rabobank`, `regiobank`, `revolut`, `sns_bank`, `triodos_bank`, `van_lanschot`, or `yoursafe`.
+            """
+            bic: Optional[
+                Literal[
+                    "ABNANL2A",
+                    "ASNBNL21",
+                    "BITSNL2A",
+                    "BUNQNL2A",
+                    "FVLBNL22",
+                    "HANDNL2A",
+                    "INGBNL2A",
+                    "KNABNL2H",
+                    "MOYONL21",
+                    "NTSBDEB1",
+                    "RABONL2U",
+                    "RBRBNL21",
+                    "REVOIE23",
+                    "REVOLT21",
+                    "SNSBNL2A",
+                    "TRIONL2U",
+                ]
+            ]
+            """
+            The Bank Identifier Code of the customer's bank.
+            """
+            generated_sepa_debit: Optional[ExpandableField["PaymentMethod"]]
+            """
+            The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge.
+            """
+            generated_sepa_debit_mandate: Optional[ExpandableField["Mandate"]]
+            """
+            The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge.
+            """
+            iban_last4: Optional[str]
+            """
+            Last four characters of the IBAN.
+            """
+            verified_name: Optional[str]
+            """
+            Owner's verified full name. Values are verified or provided by iDEAL directly
+            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            """
+
+        class InteracPresent(StripeObject):
+            class Receipt(StripeObject):
+                account_type: Optional[
+                    Literal["checking", "savings", "unknown"]
+                ]
+                """
+                The type of account being debited or credited
+                """
+                application_cryptogram: Optional[str]
+                """
+                EMV tag 9F26, cryptogram generated by the integrated circuit chip.
+                """
+                application_preferred_name: Optional[str]
+                """
+                Mnenomic of the Application Identifier.
+                """
+                authorization_code: Optional[str]
+                """
+                Identifier for this transaction.
+                """
+                authorization_response_code: Optional[str]
+                """
+                EMV tag 8A. A code returned by the card issuer.
+                """
+                cardholder_verification_method: Optional[str]
+                """
+                How the cardholder verified ownership of the card.
+                """
+                dedicated_file_name: Optional[str]
+                """
+                EMV tag 84. Similar to the application identifier stored on the integrated circuit chip.
+                """
+                terminal_verification_results: Optional[str]
+                """
+                The outcome of a series of EMV functions performed by the card reader.
+                """
+                transaction_status_information: Optional[str]
+                """
+                An indication of various EMV functions performed during the transaction.
+                """
+
+            brand: Optional[str]
+            """
+            Card brand. Can be `interac`, `mastercard` or `visa`.
+            """
+            cardholder_name: Optional[str]
+            """
+            The cardholder name as read from the card, in [ISO 7813](https://en.wikipedia.org/wiki/ISO/IEC_7813) format. May include alphanumeric characters, special characters and first/last name separator (`/`). In some cases, the cardholder name may not be available depending on how the issuer has configured the card. Cardholder name is typically not available on swipe or contactless payments, such as those made with Apple Pay and Google Pay.
+            """
+            country: Optional[str]
+            """
+            Two-letter ISO code representing the country of the card. You could use this attribute to get a sense of the international breakdown of cards you've collected.
+            """
+            description: Optional[str]
+            """
+            A high-level description of the type of cards issued in this range. (For internal use only and not typically available in standard API requests.)
+            """
+            emv_auth_data: Optional[str]
+            """
+            Authorization response cryptogram.
+            """
+            exp_month: int
+            """
+            Two-digit number representing the card's expiration month.
+            """
+            exp_year: int
+            """
+            Four-digit number representing the card's expiration year.
+            """
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular card number. You can use this attribute to check whether two customers who've signed up with you are using the same card number, for example. For payment methods that tokenize card information (Apple Pay, Google Pay), the tokenized number might be provided instead of the underlying card number.
+
+            *As of May 1, 2021, card fingerprint in India for Connect changed to allow two fingerprints for the same card---one for India and one for the rest of the world.*
+            """
+            funding: Optional[str]
+            """
+            Card funding type. Can be `credit`, `debit`, `prepaid`, or `unknown`.
+            """
+            generated_card: Optional[str]
+            """
+            ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
+            """
+            iin: Optional[str]
+            """
+            Issuer identification number of the card. (For internal use only and not typically available in standard API requests.)
+            """
+            issuer: Optional[str]
+            """
+            The name of the card's issuing bank. (For internal use only and not typically available in standard API requests.)
+            """
+            last4: Optional[str]
+            """
+            The last four digits of the card.
+            """
+            network: Optional[str]
+            """
+            Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            """
+            preferred_locales: Optional[List[str]]
+            """
+            EMV tag 5F2D. Preferred languages specified by the integrated circuit chip.
+            """
+            read_method: Optional[
+                Literal[
+                    "contact_emv",
+                    "contactless_emv",
+                    "contactless_magstripe_mode",
+                    "magnetic_stripe_fallback",
+                    "magnetic_stripe_track2",
+                ]
+            ]
+            """
+            How card details were read in this transaction.
+            """
+            receipt: Optional[Receipt]
+            """
+            A collection of fields required to be displayed on receipts. Only required for EMV transactions.
+            """
+            _inner_class_types = {"receipt": Receipt}
+
+        class Klarna(StripeObject):
+            payment_method_category: Optional[str]
+            """
+            The Klarna payment method used for this transaction.
+            Can be one of `pay_later`, `pay_now`, `pay_with_financing`, or `pay_in_installments`
+            """
+            preferred_locale: Optional[str]
+            """
+            Preferred language of the Klarna authorization page that the customer is redirected to.
+            Can be one of `de-AT`, `en-AT`, `nl-BE`, `fr-BE`, `en-BE`, `de-DE`, `en-DE`, `da-DK`, `en-DK`, `es-ES`, `en-ES`, `fi-FI`, `sv-FI`, `en-FI`, `en-GB`, `en-IE`, `it-IT`, `en-IT`, `nl-NL`, `en-NL`, `nb-NO`, `en-NO`, `sv-SE`, `en-SE`, `en-US`, `es-US`, `fr-FR`, `en-FR`, `cs-CZ`, `en-CZ`, `el-GR`, `en-GR`, `en-AU`, `en-NZ`, `en-CA`, `fr-CA`, `pl-PL`, `en-PL`, `pt-PT`, `en-PT`, `de-CH`, `fr-CH`, `it-CH`, or `en-CH`
+            """
+
+        class Konbini(StripeObject):
+            class Store(StripeObject):
+                chain: Optional[
+                    Literal["familymart", "lawson", "ministop", "seicomart"]
+                ]
+                """
+                The name of the convenience store chain where the payment was completed.
+                """
+
+            store: Optional[Store]
+            """
+            If the payment succeeded, this contains the details of the convenience store where the payment was completed.
+            """
+            _inner_class_types = {"store": Store}
+
+        class Link(StripeObject):
+            country: Optional[str]
+            """
+            Two-letter ISO code representing the funding source country beneath the Link payment.
+            You could use this attribute to get a sense of international fees.
+            """
+
+        class Multibanco(StripeObject):
+            entity: Optional[str]
+            """
+            Entity number associated with this Multibanco payment.
+            """
+            reference: Optional[str]
+            """
+            Reference number associated with this Multibanco payment.
+            """
+
+        class Oxxo(StripeObject):
+            number: Optional[str]
+            """
+            OXXO reference number
+            """
+
+        class P24(StripeObject):
+            bank: Optional[
+                Literal[
+                    "alior_bank",
+                    "bank_millennium",
+                    "bank_nowy_bfg_sa",
+                    "bank_pekao_sa",
+                    "banki_spbdzielcze",
+                    "blik",
+                    "bnp_paribas",
+                    "boz",
+                    "citi_handlowy",
+                    "credit_agricole",
+                    "envelobank",
+                    "etransfer_pocztowy24",
+                    "getin_bank",
+                    "ideabank",
+                    "ing",
+                    "inteligo",
+                    "mbank_mtransfer",
+                    "nest_przelew",
+                    "noble_pay",
+                    "pbac_z_ipko",
+                    "plus_bank",
+                    "santander_przelew24",
+                    "tmobile_usbugi_bankowe",
+                    "toyota_bank",
+                    "volkswagen_bank",
+                ]
+            ]
+            """
+            The customer's bank. Can be one of `ing`, `citi_handlowy`, `tmobile_usbugi_bankowe`, `plus_bank`, `etransfer_pocztowy24`, `banki_spbdzielcze`, `bank_nowy_bfg_sa`, `getin_bank`, `blik`, `noble_pay`, `ideabank`, `envelobank`, `santander_przelew24`, `nest_przelew`, `mbank_mtransfer`, `inteligo`, `pbac_z_ipko`, `bnp_paribas`, `credit_agricole`, `toyota_bank`, `bank_pekao_sa`, `volkswagen_bank`, `bank_millennium`, `alior_bank`, or `boz`.
+            """
+            reference: Optional[str]
+            """
+            Unique reference for this Przelewy24 payment.
+            """
+            verified_name: Optional[str]
+            """
+            Owner's verified full name. Values are verified or provided by Przelewy24 directly
+            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            Przelewy24 rarely provides this information so the attribute is usually empty.
+            """
+
+        class Paynow(StripeObject):
+            reference: Optional[str]
+            """
+            Reference number associated with this PayNow payment
+            """
+
+        class Paypal(StripeObject):
+            class SellerProtection(StripeObject):
+                dispute_categories: Optional[
+                    List[Literal["fraudulent", "product_not_received"]]
+                ]
+                """
+                An array of conditions that are covered for the transaction, if applicable.
+                """
+                status: Literal[
+                    "eligible", "not_eligible", "partially_eligible"
+                ]
+                """
+                Indicates whether the transaction is eligible for PayPal's seller protection.
+                """
+
+            payer_email: Optional[str]
+            """
+            Owner's email. Values are provided by PayPal directly
+            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            """
+            payer_id: Optional[str]
+            """
+            PayPal account PayerID. This identifier uniquely identifies the PayPal customer.
+            """
+            payer_name: Optional[str]
+            """
+            Owner's full name. Values provided by PayPal directly
+            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            """
+            seller_protection: Optional[SellerProtection]
+            """
+            The level of protection offered as defined by PayPal Seller Protection for Merchants, for this transaction.
+            """
+            transaction_id: Optional[str]
+            """
+            A unique ID generated by PayPal for this transaction.
+            """
+            _inner_class_types = {"seller_protection": SellerProtection}
+
+        class Pix(StripeObject):
+            bank_transaction_id: Optional[str]
+            """
+            Unique transaction id generated by BCB
+            """
+
+        class Promptpay(StripeObject):
+            reference: Optional[str]
+            """
+            Bill reference generated by PromptPay
+            """
+
+        class SepaCreditTransfer(StripeObject):
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the bank account.
+            """
+            bic: Optional[str]
+            """
+            Bank Identifier Code of the bank associated with the bank account.
+            """
+            iban: Optional[str]
+            """
+            IBAN of the bank account to transfer funds to.
+            """
+
+        class SepaDebit(StripeObject):
+            bank_code: Optional[str]
+            """
+            Bank code of bank associated with the bank account.
+            """
+            branch_code: Optional[str]
+            """
+            Branch code of bank associated with the bank account.
+            """
+            country: Optional[str]
+            """
+            Two-letter ISO code representing the country the bank account is located in.
+            """
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            """
+            last4: Optional[str]
+            """
+            Last four characters of the IBAN.
+            """
+            mandate: Optional[str]
+            """
+            ID of the mandate used to make this payment.
+            """
+
+        class Sofort(StripeObject):
+            bank_code: Optional[str]
+            """
+            Bank code of bank associated with the bank account.
+            """
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the bank account.
+            """
+            bic: Optional[str]
+            """
+            Bank Identifier Code of the bank associated with the bank account.
+            """
+            country: Optional[str]
+            """
+            Two-letter ISO code representing the country the bank account is located in.
+            """
+            generated_sepa_debit: Optional[ExpandableField["PaymentMethod"]]
+            """
+            The ID of the SEPA Direct Debit PaymentMethod which was generated by this Charge.
+            """
+            generated_sepa_debit_mandate: Optional[ExpandableField["Mandate"]]
+            """
+            The mandate for the SEPA Direct Debit PaymentMethod which was generated by this Charge.
+            """
+            iban_last4: Optional[str]
+            """
+            Last four characters of the IBAN.
+            """
+            preferred_language: Optional[
+                Literal["de", "en", "es", "fr", "it", "nl", "pl"]
+            ]
+            """
+            Preferred language of the SOFORT authorization page that the customer is redirected to.
+            Can be one of `de`, `en`, `es`, `fr`, `it`, `nl`, or `pl`
+            """
+            verified_name: Optional[str]
+            """
+            Owner's verified full name. Values are verified or provided by SOFORT directly
+            (if supported) at the time of authorization or settlement. They cannot be set or mutated.
+            """
+
+        class StripeAccount(StripeObject):
+            pass
+
+        class UsBankAccount(StripeObject):
+            account_holder_type: Optional[Literal["company", "individual"]]
+            """
+            Account holder type: individual or company.
+            """
+            account_type: Optional[Literal["checking", "savings"]]
+            """
+            Account type: checkings or savings. Defaults to checking if omitted.
+            """
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the bank account.
+            """
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            routing_number: Optional[str]
+            """
+            Routing number of the bank account.
+            """
+
+        class Wechat(StripeObject):
+            pass
+
+        class WechatPay(StripeObject):
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular WeChat Pay account. You can use this attribute to check whether two WeChat accounts are the same.
+            """
+            transaction_id: Optional[str]
+            """
+            Transaction ID of this particular WeChat Pay transaction.
+            """
+
+        class Zip(StripeObject):
+            pass
+
+        ach_credit_transfer: Optional[AchCreditTransfer]
+        ach_debit: Optional[AchDebit]
+        acss_debit: Optional[AcssDebit]
+        affirm: Optional[Affirm]
+        afterpay_clearpay: Optional[AfterpayClearpay]
+        alipay: Optional[Alipay]
+        au_becs_debit: Optional[AuBecsDebit]
+        bacs_debit: Optional[BacsDebit]
+        bancontact: Optional[Bancontact]
+        blik: Optional[Blik]
+        boleto: Optional[Boleto]
+        card: Optional[Card]
+        card_present: Optional[CardPresent]
+        cashapp: Optional[Cashapp]
+        customer_balance: Optional[CustomerBalance]
+        eps: Optional[Eps]
+        fpx: Optional[Fpx]
+        giropay: Optional[Giropay]
+        grabpay: Optional[Grabpay]
+        ideal: Optional[Ideal]
+        interac_present: Optional[InteracPresent]
+        klarna: Optional[Klarna]
+        konbini: Optional[Konbini]
+        link: Optional[Link]
+        multibanco: Optional[Multibanco]
+        oxxo: Optional[Oxxo]
+        p24: Optional[P24]
+        paynow: Optional[Paynow]
+        paypal: Optional[Paypal]
+        pix: Optional[Pix]
+        promptpay: Optional[Promptpay]
+        sepa_credit_transfer: Optional[SepaCreditTransfer]
+        sepa_debit: Optional[SepaDebit]
+        sofort: Optional[Sofort]
+        stripe_account: Optional[StripeAccount]
+        type: str
+        """
+        The type of transaction-specific details of the payment method used in the payment, one of `ach_credit_transfer`, `ach_debit`, `acss_debit`, `alipay`, `au_becs_debit`, `bancontact`, `card`, `card_present`, `eps`, `giropay`, `ideal`, `klarna`, `multibanco`, `p24`, `sepa_debit`, `sofort`, `stripe_account`, or `wechat`.
+        An additional hash is included on `payment_method_details` with a name matching this value.
+        It contains information specific to the payment method.
+        """
+        us_bank_account: Optional[UsBankAccount]
+        wechat: Optional[Wechat]
+        wechat_pay: Optional[WechatPay]
+        zip: Optional[Zip]
+        _inner_class_types = {
+            "ach_credit_transfer": AchCreditTransfer,
+            "ach_debit": AchDebit,
+            "acss_debit": AcssDebit,
+            "affirm": Affirm,
+            "afterpay_clearpay": AfterpayClearpay,
+            "alipay": Alipay,
+            "au_becs_debit": AuBecsDebit,
+            "bacs_debit": BacsDebit,
+            "bancontact": Bancontact,
+            "blik": Blik,
+            "boleto": Boleto,
+            "card": Card,
+            "card_present": CardPresent,
+            "cashapp": Cashapp,
+            "customer_balance": CustomerBalance,
+            "eps": Eps,
+            "fpx": Fpx,
+            "giropay": Giropay,
+            "grabpay": Grabpay,
+            "ideal": Ideal,
+            "interac_present": InteracPresent,
+            "klarna": Klarna,
+            "konbini": Konbini,
+            "link": Link,
+            "multibanco": Multibanco,
+            "oxxo": Oxxo,
+            "p24": P24,
+            "paynow": Paynow,
+            "paypal": Paypal,
+            "pix": Pix,
+            "promptpay": Promptpay,
+            "sepa_credit_transfer": SepaCreditTransfer,
+            "sepa_debit": SepaDebit,
+            "sofort": Sofort,
+            "stripe_account": StripeAccount,
+            "us_bank_account": UsBankAccount,
+            "wechat": Wechat,
+            "wechat_pay": WechatPay,
+            "zip": Zip,
+        }
+
+    class RadarOptions(StripeObject):
+        session: Optional[str]
+        """
+        A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
+        """
+
+    class Shipping(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region.
+            """
+
+        address: Optional[Address]
+        carrier: Optional[str]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: Optional[str]
+        """
+        Recipient name.
+        """
+        phone: Optional[str]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: Optional[str]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
+        _inner_class_types = {"address": Address}
+
+    class TransferData(StripeObject):
+        amount: Optional[int]
+        """
+        The amount transferred to the destination account, if specified. By default, the entire charge amount is transferred to the destination account.
+        """
+        destination: ExpandableField["Account"]
+        """
+        ID of an existing, connected Stripe account to transfer funds to if `transfer_data` was specified in the charge request.
+        """
+
     if TYPE_CHECKING:
 
         class CaptureParams(RequestOptions):
@@ -447,7 +2015,7 @@ class Charge(
     """
     ID of the balance transaction that describes the impact of this charge on your account balance (not including refunds or disputes).
     """
-    billing_details: StripeObject
+    billing_details: BillingDetails
     calculated_statement_descriptor: Optional[str]
     """
     The full statement descriptor that is passed to card networks, and that is displayed on your customers' credit card and bank statements. Allows you to see what the statement descriptor looks like after the static and dynamic portions are combined.
@@ -490,7 +2058,7 @@ class Charge(
     """
     Message to user further explaining reason for charge failure if available.
     """
-    fraud_details: Optional[StripeObject]
+    fraud_details: Optional[FraudDetails]
     """
     Information on fraud assessments for the charge.
     """
@@ -502,7 +2070,7 @@ class Charge(
     """
     ID of the invoice this charge is for if one exists.
     """
-    level3: Optional[StripeObject]
+    level3: Optional[Level3]
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -519,7 +2087,7 @@ class Charge(
     """
     The account (if any) the charge was made on behalf of without triggering an automatic transfer. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
     """
-    outcome: Optional[StripeObject]
+    outcome: Optional[Outcome]
     """
     Details about whether the payment was accepted, and why. See [understanding declines](https://stripe.com/docs/declines) for details.
     """
@@ -535,11 +2103,11 @@ class Charge(
     """
     ID of the payment method used in this charge.
     """
-    payment_method_details: Optional[StripeObject]
+    payment_method_details: Optional[PaymentMethodDetails]
     """
     Details about the payment method at the time of the transaction.
     """
-    radar_options: Optional[StripeObject]
+    radar_options: Optional[RadarOptions]
     """
     Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
     """
@@ -567,11 +2135,11 @@ class Charge(
     """
     ID of the review associated with this charge if one exists.
     """
-    shipping: Optional[StripeObject]
+    shipping: Optional[Shipping]
     """
     Shipping information for the charge.
     """
-    source: Optional[Union["Account", "BankAccount", "Card", "Source"]]
+    source: Optional[Union["Account", "BankAccount", "CardResource", "Source"]]
     """
     This is a legacy field that will be removed in the future. It contains the Source, Card, or BankAccount object used for the charge. For details about the payment method used for this charge, refer to `payment_method` or `payment_method_details` instead.
     """
@@ -595,7 +2163,7 @@ class Charge(
     """
     ID of the transfer to the `destination` account (only applicable if the charge was created using the `destination` parameter).
     """
-    transfer_data: Optional[StripeObject]
+    transfer_data: Optional[TransferData]
     """
     An optional dictionary including the account to automatically transfer to as part of a destination charge. [See the Connect documentation](https://stripe.com/docs/connect/destination-charges) for details.
     """
@@ -755,3 +2323,14 @@ class Charge(
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
+
+    _inner_class_types = {
+        "billing_details": BillingDetails,
+        "fraud_details": FraudDetails,
+        "level3": Level3,
+        "outcome": Outcome,
+        "payment_method_details": PaymentMethodDetails,
+        "radar_options": RadarOptions,
+        "shipping": Shipping,
+        "transfer_data": TransferData,
+    }

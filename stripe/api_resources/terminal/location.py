@@ -34,6 +34,33 @@ class Location(
     """
 
     OBJECT_NAME: ClassVar[Literal["terminal.location"]] = "terminal.location"
+
+    class Address(StripeObject):
+        city: Optional[str]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: Optional[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: Optional[str]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: Optional[str]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: Optional[str]
+        """
+        ZIP or postal code.
+        """
+        state: Optional[str]
+        """
+        State, county, province, or region.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -159,7 +186,7 @@ class Location(
             Specifies which fields in the response should be expanded.
             """
 
-    address: StripeObject
+    address: Address
     configuration_overrides: Optional[str]
     """
     The ID of a configuration that will be used to customize all readers in this location.
@@ -284,3 +311,5 @@ class Location(
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"address": Address}

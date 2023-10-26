@@ -26,6 +26,13 @@ class CreditReversal(
     OBJECT_NAME: ClassVar[
         Literal["treasury.credit_reversal"]
     ] = "treasury.credit_reversal"
+
+    class StatusTransitions(StripeObject):
+        posted_at: Optional[int]
+        """
+        Timestamp describing when the CreditReversal changed status to `posted`
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -128,7 +135,7 @@ class CreditReversal(
     """
     Status of the CreditReversal
     """
-    status_transitions: StripeObject
+    status_transitions: StatusTransitions
     transaction: Optional[ExpandableField["Transaction"]]
     """
     The Transaction associated with this object.
@@ -188,3 +195,5 @@ class CreditReversal(
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"status_transitions": StatusTransitions}
