@@ -209,6 +209,9 @@ class Mandate(APIResource["Mandate"]):
     def retrieve(
         cls, id: str, **params: Unpack["Mandate.RetrieveParams"]
     ) -> "Mandate":
+        """
+        Retrieves a Mandate object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

@@ -48,6 +48,9 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
     def _cls_delete(
         cls, sid: str, **params: Unpack["EphemeralKey.DeleteParams"]
     ) -> "EphemeralKey":
+        """
+        Invalidates a short-lived API key for a given resource.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "EphemeralKey",
@@ -59,18 +62,27 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
     def delete(
         cls, sid: str, **params: Unpack["EphemeralKey.DeleteParams"]
     ) -> "EphemeralKey":
+        """
+        Invalidates a short-lived API key for a given resource.
+        """
         ...
 
     @overload
     def delete(
         self, **params: Unpack["EphemeralKey.DeleteParams"]
     ) -> "EphemeralKey":
+        """
+        Invalidates a short-lived API key for a given resource.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["EphemeralKey.DeleteParams"]
     ) -> "EphemeralKey":
+        """
+        Invalidates a short-lived API key for a given resource.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),

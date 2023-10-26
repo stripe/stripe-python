@@ -1714,6 +1714,9 @@ class Card(
         stripe_account: Optional[str] = None,
         **params: Unpack["Card.CreateParams"]
     ) -> "Card":
+        """
+        Creates an Issuing Card object.
+        """
         return cast(
             "Card",
             cls._static_request(
@@ -1735,6 +1738,9 @@ class Card(
         stripe_account: Optional[str] = None,
         **params: Unpack["Card.ListParams"]
     ) -> ListObject["Card"]:
+        """
+        Returns a list of Issuing Card objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -1754,6 +1760,9 @@ class Card(
 
     @classmethod
     def modify(cls, id: str, **params: Unpack["Card.ModifyParams"]) -> "Card":
+        """
+        Updates the specified Issuing Card object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Card",
@@ -1764,6 +1773,9 @@ class Card(
     def retrieve(
         cls, id: str, **params: Unpack["Card.RetrieveParams"]
     ) -> "Card":
+        """
+        Retrieves an Issuing Card object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -1780,6 +1792,9 @@ class Card(
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.DeliverCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to delivered.
+            """
             return cast(
                 "Card",
                 cls._static_request(
@@ -1804,6 +1819,9 @@ class Card(
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.DeliverCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to delivered.
+            """
             ...
 
         @overload
@@ -1812,6 +1830,9 @@ class Card(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.DeliverCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to delivered.
+            """
             ...
 
         @class_method_variant("_cls_deliver_card")
@@ -1820,6 +1841,9 @@ class Card(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.DeliverCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to delivered.
+            """
             return cast(
                 "Card",
                 self.resource._request(
@@ -1841,6 +1865,9 @@ class Card(
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.FailCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to failure.
+            """
             return cast(
                 "Card",
                 cls._static_request(
@@ -1865,6 +1892,9 @@ class Card(
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.FailCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to failure.
+            """
             ...
 
         @overload
@@ -1873,6 +1903,9 @@ class Card(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.FailCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to failure.
+            """
             ...
 
         @class_method_variant("_cls_fail_card")
@@ -1881,6 +1914,9 @@ class Card(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.FailCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to failure.
+            """
             return cast(
                 "Card",
                 self.resource._request(
@@ -1902,6 +1938,9 @@ class Card(
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.ReturnCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to returned.
+            """
             return cast(
                 "Card",
                 cls._static_request(
@@ -1926,6 +1965,9 @@ class Card(
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.ReturnCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to returned.
+            """
             ...
 
         @overload
@@ -1934,6 +1976,9 @@ class Card(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.ReturnCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to returned.
+            """
             ...
 
         @class_method_variant("_cls_return_card")
@@ -1942,6 +1987,9 @@ class Card(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.ReturnCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to returned.
+            """
             return cast(
                 "Card",
                 self.resource._request(
@@ -1963,6 +2011,9 @@ class Card(
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.ShipCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to shipped.
+            """
             return cast(
                 "Card",
                 cls._static_request(
@@ -1987,6 +2038,9 @@ class Card(
             stripe_account: Optional[str] = None,
             **params: Unpack["Card.ShipCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to shipped.
+            """
             ...
 
         @overload
@@ -1995,6 +2049,9 @@ class Card(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.ShipCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to shipped.
+            """
             ...
 
         @class_method_variant("_cls_ship_card")
@@ -2003,6 +2060,9 @@ class Card(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.ShipCardParams"]
         ) -> "Card":
+            """
+            Updates the shipping status of the specified Issuing Card object to shipped.
+            """
             return cast(
                 "Card",
                 self.resource._request(

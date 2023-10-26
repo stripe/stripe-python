@@ -351,6 +351,9 @@ class ShippingRate(
         stripe_account: Optional[str] = None,
         **params: Unpack["ShippingRate.CreateParams"]
     ) -> "ShippingRate":
+        """
+        Creates a new shipping rate object.
+        """
         return cast(
             "ShippingRate",
             cls._static_request(
@@ -372,6 +375,9 @@ class ShippingRate(
         stripe_account: Optional[str] = None,
         **params: Unpack["ShippingRate.ListParams"]
     ) -> ListObject["ShippingRate"]:
+        """
+        Returns a list of your shipping rates.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -393,6 +399,9 @@ class ShippingRate(
     def modify(
         cls, id: str, **params: Unpack["ShippingRate.ModifyParams"]
     ) -> "ShippingRate":
+        """
+        Updates an existing shipping rate object.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "ShippingRate",
@@ -403,6 +412,9 @@ class ShippingRate(
     def retrieve(
         cls, id: str, **params: Unpack["ShippingRate.RetrieveParams"]
     ) -> "ShippingRate":
+        """
+        Returns the shipping rate object with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

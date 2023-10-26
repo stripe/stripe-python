@@ -1632,6 +1632,9 @@ class Registration(
         stripe_account: Optional[str] = None,
         **params: Unpack["Registration.CreateParams"]
     ) -> "Registration":
+        """
+        Creates a new Tax Registration object.
+        """
         return cast(
             "Registration",
             cls._static_request(
@@ -1653,6 +1656,9 @@ class Registration(
         stripe_account: Optional[str] = None,
         **params: Unpack["Registration.ListParams"]
     ) -> ListObject["Registration"]:
+        """
+        Returns a list of Tax Registration objects.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -1674,6 +1680,11 @@ class Registration(
     def modify(
         cls, id: str, **params: Unpack["Registration.ModifyParams"]
     ) -> "Registration":
+        """
+        Updates an existing Tax Registration object.
+
+        A registration cannot be deleted after it has been created. If you wish to end a registration you may do so by setting expires_at.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Registration",

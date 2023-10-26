@@ -171,6 +171,9 @@ class Form(ListableAPIResource["Form"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Form.ListParams"]
     ) -> ListObject["Form"]:
+        """
+        Returns a list of tax forms which were previously created. The tax forms are returned in sorted order, with the oldest tax forms appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -192,6 +195,9 @@ class Form(ListableAPIResource["Form"]):
     def retrieve(
         cls, id: str, **params: Unpack["Form.RetrieveParams"]
     ) -> "Form":
+        """
+        Retrieves the details of a tax form that has previously been created. Supply the unique tax form ID that was returned from your previous request, and Stripe will return the corresponding tax form information.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

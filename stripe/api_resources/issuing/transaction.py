@@ -780,6 +780,9 @@ class Transaction(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.ListParams"]
     ) -> ListObject["Transaction"]:
+        """
+        Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -801,6 +804,9 @@ class Transaction(
     def modify(
         cls, id: str, **params: Unpack["Transaction.ModifyParams"]
     ) -> "Transaction":
+        """
+        Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Transaction",
@@ -811,6 +817,9 @@ class Transaction(
     def retrieve(
         cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
     ) -> "Transaction":
+        """
+        Retrieves an Issuing Transaction object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -826,6 +835,9 @@ class Transaction(
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.CreateForceCaptureParams"]
         ) -> "Transaction":
+            """
+            Allows the user to capture an arbitrary amount, also known as a forced capture.
+            """
             return cast(
                 "Transaction",
                 cls._static_request(
@@ -846,6 +858,9 @@ class Transaction(
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.CreateUnlinkedRefundParams"]
         ) -> "Transaction":
+            """
+            Allows the user to refund an arbitrary amount, also known as a unlinked refund.
+            """
             return cast(
                 "Transaction",
                 cls._static_request(
@@ -867,6 +882,9 @@ class Transaction(
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.RefundParams"]
         ) -> "Transaction":
+            """
+            Refund a test-mode Transaction.
+            """
             return cast(
                 "Transaction",
                 cls._static_request(
@@ -891,6 +909,9 @@ class Transaction(
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.RefundParams"]
         ) -> "Transaction":
+            """
+            Refund a test-mode Transaction.
+            """
             ...
 
         @overload
@@ -899,6 +920,9 @@ class Transaction(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Transaction.RefundParams"]
         ) -> "Transaction":
+            """
+            Refund a test-mode Transaction.
+            """
             ...
 
         @class_method_variant("_cls_refund")
@@ -907,6 +931,9 @@ class Transaction(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Transaction.RefundParams"]
         ) -> "Transaction":
+            """
+            Refund a test-mode Transaction.
+            """
             return cast(
                 "Transaction",
                 self.resource._request(

@@ -165,6 +165,9 @@ class FileLink(
         stripe_account: Optional[str] = None,
         **params: Unpack["FileLink.CreateParams"]
     ) -> "FileLink":
+        """
+        Creates a new file link object.
+        """
         return cast(
             "FileLink",
             cls._static_request(
@@ -186,6 +189,9 @@ class FileLink(
         stripe_account: Optional[str] = None,
         **params: Unpack["FileLink.ListParams"]
     ) -> ListObject["FileLink"]:
+        """
+        Returns a list of file links.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -207,6 +213,9 @@ class FileLink(
     def modify(
         cls, id: str, **params: Unpack["FileLink.ModifyParams"]
     ) -> "FileLink":
+        """
+        Updates an existing file link object. Expired links can no longer be updated.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "FileLink",
@@ -217,6 +226,9 @@ class FileLink(
     def retrieve(
         cls, id: str, **params: Unpack["FileLink.RetrieveParams"]
     ) -> "FileLink":
+        """
+        Retrieves the file link with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

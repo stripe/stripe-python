@@ -2865,6 +2865,13 @@ class Charge(
         stripe_account: Optional[str] = None,
         **params: Unpack["Charge.CaptureParams"]
     ) -> "Charge":
+        """
+        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
+
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        """
         return cast(
             "Charge",
             cls._static_request(
@@ -2889,6 +2896,13 @@ class Charge(
         stripe_account: Optional[str] = None,
         **params: Unpack["Charge.CaptureParams"]
     ) -> "Charge":
+        """
+        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
+
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        """
         ...
 
     @overload
@@ -2897,6 +2911,13 @@ class Charge(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Charge.CaptureParams"]
     ) -> "Charge":
+        """
+        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
+
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        """
         ...
 
     @class_method_variant("_cls_capture")
@@ -2905,6 +2926,13 @@ class Charge(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Charge.CaptureParams"]
     ) -> "Charge":
+        """
+        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
+
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        """
         return cast(
             "Charge",
             self._request(
@@ -2926,6 +2954,11 @@ class Charge(
         stripe_account: Optional[str] = None,
         **params: Unpack["Charge.CreateParams"]
     ) -> "Charge":
+        """
+        Use the [Payment Intents API](https://stripe.com/docs/api/payment_intents) to initiate a new payment instead
+        of using this method. Confirmation of the PaymentIntent creates the Charge
+        object used to request payment, so this method is limited to legacy integrations.
+        """
         return cast(
             "Charge",
             cls._static_request(
@@ -2947,6 +2980,9 @@ class Charge(
         stripe_account: Optional[str] = None,
         **params: Unpack["Charge.ListParams"]
     ) -> ListObject["Charge"]:
+        """
+        Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -2968,6 +3004,9 @@ class Charge(
     def modify(
         cls, id: str, **params: Unpack["Charge.ModifyParams"]
     ) -> "Charge":
+        """
+        Updates the specified charge by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Charge",
@@ -2978,6 +3017,9 @@ class Charge(
     def retrieve(
         cls, id: str, **params: Unpack["Charge.RetrieveParams"]
     ) -> "Charge":
+        """
+        Retrieves the details of a charge that has previously been created. Supply the unique charge ID that was returned from your previous request, and Stripe will return the corresponding charge information. The same information is returned when creating or refunding the charge.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -2986,6 +3028,12 @@ class Charge(
     def search(
         cls, *args, **kwargs: Unpack["Charge.SearchParams"]
     ) -> SearchResultObject["Charge"]:
+        """
+        Search for charges you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
         return cls._search(search_url="/v1/charges/search", *args, **kwargs)
 
     @classmethod

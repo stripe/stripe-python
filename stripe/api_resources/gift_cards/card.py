@@ -224,6 +224,9 @@ class Card(
         stripe_account: Optional[str] = None,
         **params: Unpack["Card.CreateParams"]
     ) -> "Card":
+        """
+        Creates a new gift card object.
+        """
         return cast(
             "Card",
             cls._static_request(
@@ -245,6 +248,9 @@ class Card(
         stripe_account: Optional[str] = None,
         **params: Unpack["Card.ListParams"]
     ) -> ListObject["Card"]:
+        """
+        List gift cards for an account
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -264,6 +270,9 @@ class Card(
 
     @classmethod
     def modify(cls, id: str, **params: Unpack["Card.ModifyParams"]) -> "Card":
+        """
+        Update a gift card
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Card",
@@ -274,6 +283,9 @@ class Card(
     def retrieve(
         cls, id: str, **params: Unpack["Card.RetrieveParams"]
     ) -> "Card":
+        """
+        Retrieve a gift card by id
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -286,6 +298,9 @@ class Card(
         stripe_account: Optional[str] = None,
         **params: Unpack["Card.ValidateParams"]
     ) -> "Card":
+        """
+        Validates a gift card code, returning the matching gift card object if it exists.
+        """
         return cast(
             "Card",
             cls._static_request(

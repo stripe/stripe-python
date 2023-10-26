@@ -180,6 +180,9 @@ class AccountNotice(
         stripe_account: Optional[str] = None,
         **params: Unpack["AccountNotice.ListParams"]
     ) -> ListObject["AccountNotice"]:
+        """
+        Retrieves a list of AccountNotice objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -201,6 +204,9 @@ class AccountNotice(
     def modify(
         cls, id: str, **params: Unpack["AccountNotice.ModifyParams"]
     ) -> "AccountNotice":
+        """
+        Updates an AccountNotice object.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "AccountNotice",
@@ -211,6 +217,9 @@ class AccountNotice(
     def retrieve(
         cls, id: str, **params: Unpack["AccountNotice.RetrieveParams"]
     ) -> "AccountNotice":
+        """
+        Retrieves an AccountNotice object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

@@ -780,6 +780,9 @@ class Price(
         stripe_account: Optional[str] = None,
         **params: Unpack["Price.CreateParams"]
     ) -> "Price":
+        """
+        Creates a new price for an existing product. The price can be recurring or one-time.
+        """
         return cast(
             "Price",
             cls._static_request(
@@ -801,6 +804,9 @@ class Price(
         stripe_account: Optional[str] = None,
         **params: Unpack["Price.ListParams"]
     ) -> ListObject["Price"]:
+        """
+        Returns a list of your prices.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -822,6 +828,9 @@ class Price(
     def modify(
         cls, id: str, **params: Unpack["Price.ModifyParams"]
     ) -> "Price":
+        """
+        Updates the specified price by setting the values of the parameters passed. Any parameters not provided are left unchanged.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Price",
@@ -832,6 +841,9 @@ class Price(
     def retrieve(
         cls, id: str, **params: Unpack["Price.RetrieveParams"]
     ) -> "Price":
+        """
+        Retrieves the price with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -840,6 +852,12 @@ class Price(
     def search(
         cls, *args, **kwargs: Unpack["Price.SearchParams"]
     ) -> SearchResultObject["Price"]:
+        """
+        Search for prices you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
         return cls._search(search_url="/v1/prices/search", *args, **kwargs)
 
     @classmethod

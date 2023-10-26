@@ -243,6 +243,9 @@ class Topup(
         stripe_account: Optional[str] = None,
         **params: Unpack["Topup.CancelParams"]
     ) -> "Topup":
+        """
+        Cancels a top-up. Only pending top-ups can be canceled.
+        """
         return cast(
             "Topup",
             cls._static_request(
@@ -267,6 +270,9 @@ class Topup(
         stripe_account: Optional[str] = None,
         **params: Unpack["Topup.CancelParams"]
     ) -> "Topup":
+        """
+        Cancels a top-up. Only pending top-ups can be canceled.
+        """
         ...
 
     @overload
@@ -275,6 +281,9 @@ class Topup(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Topup.CancelParams"]
     ) -> "Topup":
+        """
+        Cancels a top-up. Only pending top-ups can be canceled.
+        """
         ...
 
     @class_method_variant("_cls_cancel")
@@ -283,6 +292,9 @@ class Topup(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Topup.CancelParams"]
     ) -> "Topup":
+        """
+        Cancels a top-up. Only pending top-ups can be canceled.
+        """
         return cast(
             "Topup",
             self._request(
@@ -304,6 +316,9 @@ class Topup(
         stripe_account: Optional[str] = None,
         **params: Unpack["Topup.CreateParams"]
     ) -> "Topup":
+        """
+        Top up the balance of an account
+        """
         return cast(
             "Topup",
             cls._static_request(
@@ -325,6 +340,9 @@ class Topup(
         stripe_account: Optional[str] = None,
         **params: Unpack["Topup.ListParams"]
     ) -> ListObject["Topup"]:
+        """
+        Returns a list of top-ups.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -346,6 +364,9 @@ class Topup(
     def modify(
         cls, id: str, **params: Unpack["Topup.ModifyParams"]
     ) -> "Topup":
+        """
+        Updates the metadata of a top-up. Other top-up details are not editable by design.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Topup",
@@ -356,6 +377,9 @@ class Topup(
     def retrieve(
         cls, id: str, **params: Unpack["Topup.RetrieveParams"]
     ) -> "Topup":
+        """
+        Retrieves the details of a top-up that has previously been created. Supply the unique top-up ID that was returned from your previous request, and Stripe will return the corresponding top-up information.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

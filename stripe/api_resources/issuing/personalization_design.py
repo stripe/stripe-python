@@ -372,6 +372,9 @@ class PersonalizationDesign(
         stripe_account: Optional[str] = None,
         **params: Unpack["PersonalizationDesign.CreateParams"]
     ) -> "PersonalizationDesign":
+        """
+        Creates a personalization design object.
+        """
         return cast(
             "PersonalizationDesign",
             cls._static_request(
@@ -393,6 +396,9 @@ class PersonalizationDesign(
         stripe_account: Optional[str] = None,
         **params: Unpack["PersonalizationDesign.ListParams"]
     ) -> ListObject["PersonalizationDesign"]:
+        """
+        Returns a list of personalization design objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -414,6 +420,9 @@ class PersonalizationDesign(
     def modify(
         cls, id: str, **params: Unpack["PersonalizationDesign.ModifyParams"]
     ) -> "PersonalizationDesign":
+        """
+        Updates a card personalization object.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PersonalizationDesign",
@@ -424,6 +433,9 @@ class PersonalizationDesign(
     def retrieve(
         cls, id: str, **params: Unpack["PersonalizationDesign.RetrieveParams"]
     ) -> "PersonalizationDesign":
+        """
+        Retrieves a personalization design object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -440,6 +452,9 @@ class PersonalizationDesign(
             stripe_account: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.ActivateParams"]
         ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to active.
+            """
             return cast(
                 "PersonalizationDesign",
                 cls._static_request(
@@ -466,6 +481,9 @@ class PersonalizationDesign(
             stripe_account: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.ActivateParams"]
         ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to active.
+            """
             ...
 
         @overload
@@ -474,6 +492,9 @@ class PersonalizationDesign(
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.ActivateParams"]
         ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to active.
+            """
             ...
 
         @class_method_variant("_cls_activate")
@@ -482,6 +503,9 @@ class PersonalizationDesign(
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.ActivateParams"]
         ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to active.
+            """
             return cast(
                 "PersonalizationDesign",
                 self.resource._request(
@@ -505,6 +529,9 @@ class PersonalizationDesign(
             stripe_account: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.DeactivateParams"]
         ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to inactive.
+            """
             return cast(
                 "PersonalizationDesign",
                 cls._static_request(
@@ -531,6 +558,9 @@ class PersonalizationDesign(
             stripe_account: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.DeactivateParams"]
         ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to inactive.
+            """
             ...
 
         @overload
@@ -539,6 +569,9 @@ class PersonalizationDesign(
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.DeactivateParams"]
         ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to inactive.
+            """
             ...
 
         @class_method_variant("_cls_deactivate")
@@ -547,6 +580,9 @@ class PersonalizationDesign(
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.DeactivateParams"]
         ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to inactive.
+            """
             return cast(
                 "PersonalizationDesign",
                 self.resource._request(
@@ -570,6 +606,9 @@ class PersonalizationDesign(
             stripe_account: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.RejectParams"]
         ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to rejected.
+            """
             return cast(
                 "PersonalizationDesign",
                 cls._static_request(
@@ -596,6 +635,9 @@ class PersonalizationDesign(
             stripe_account: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.RejectParams"]
         ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to rejected.
+            """
             ...
 
         @overload
@@ -604,6 +646,9 @@ class PersonalizationDesign(
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.RejectParams"]
         ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to rejected.
+            """
             ...
 
         @class_method_variant("_cls_reject")
@@ -612,6 +657,9 @@ class PersonalizationDesign(
             idempotency_key: Optional[str] = None,
             **params: Unpack["PersonalizationDesign.RejectParams"]
         ) -> "PersonalizationDesign":
+            """
+            Updates the status of the specified testmode personalization design object to rejected.
+            """
             return cast(
                 "PersonalizationDesign",
                 self.resource._request(

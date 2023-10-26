@@ -61,6 +61,9 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["CustomerSession.CreateParams"]
     ) -> "CustomerSession":
+        """
+        Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.
+        """
         return cast(
             "CustomerSession",
             cls._static_request(

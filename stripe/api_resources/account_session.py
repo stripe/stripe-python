@@ -258,6 +258,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["AccountSession.CreateParams"]
     ) -> "AccountSession":
+        """
+        Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.
+        """
         return cast(
             "AccountSession",
             cls._static_request(

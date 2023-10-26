@@ -1247,6 +1247,9 @@ class CreditUnderwritingRecord(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
     ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to correct mistakes.
+        """
         return cast(
             "CreditUnderwritingRecord",
             cls._static_request(
@@ -1273,6 +1276,9 @@ class CreditUnderwritingRecord(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
     ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to correct mistakes.
+        """
         ...
 
     @overload
@@ -1281,6 +1287,9 @@ class CreditUnderwritingRecord(
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
     ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to correct mistakes.
+        """
         ...
 
     @class_method_variant("_cls_correct")
@@ -1289,6 +1298,9 @@ class CreditUnderwritingRecord(
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
     ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object to correct mistakes.
+        """
         return cast(
             "CreditUnderwritingRecord",
             self._request(
@@ -1311,6 +1323,9 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord.CreateFromApplicationParams"
         ]
     ) -> "CreditUnderwritingRecord":
+        """
+        Creates a CreditUnderwritingRecord object with information about a credit application submission.
+        """
         return cast(
             "CreditUnderwritingRecord",
             cls._static_request(
@@ -1333,6 +1348,9 @@ class CreditUnderwritingRecord(
             "CreditUnderwritingRecord.CreateFromProactiveReviewParams"
         ]
     ) -> "CreditUnderwritingRecord":
+        """
+        Creates a CreditUnderwritingRecord object from an underwriting decision coming from a proactive review of an existing accountholder.
+        """
         return cast(
             "CreditUnderwritingRecord",
             cls._static_request(
@@ -1353,6 +1371,9 @@ class CreditUnderwritingRecord(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.ListParams"]
     ) -> ListObject["CreditUnderwritingRecord"]:
+        """
+        Retrieves a list of CreditUnderwritingRecord objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -1379,6 +1400,9 @@ class CreditUnderwritingRecord(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
     ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object from a decision made on a credit application.
+        """
         return cast(
             "CreditUnderwritingRecord",
             cls._static_request(
@@ -1405,6 +1429,9 @@ class CreditUnderwritingRecord(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
     ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object from a decision made on a credit application.
+        """
         ...
 
     @overload
@@ -1413,6 +1440,9 @@ class CreditUnderwritingRecord(
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
     ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object from a decision made on a credit application.
+        """
         ...
 
     @class_method_variant("_cls_report_decision")
@@ -1421,6 +1451,9 @@ class CreditUnderwritingRecord(
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
     ) -> "CreditUnderwritingRecord":
+        """
+        Update a CreditUnderwritingRecord object from a decision made on a credit application.
+        """
         return cast(
             "CreditUnderwritingRecord",
             self._request(
@@ -1439,6 +1472,9 @@ class CreditUnderwritingRecord(
         id: str,
         **params: Unpack["CreditUnderwritingRecord.RetrieveParams"]
     ) -> "CreditUnderwritingRecord":
+        """
+        Retrieves a CreditUnderwritingRecord object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

@@ -174,6 +174,9 @@ class Settings(
     def modify(
         cls, id: str, **params: Unpack["Settings.ModifyParams"]
     ) -> "Settings":
+        """
+        Updates Tax Settings parameters used in tax calculations. All parameters are editable but none can be removed once set.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Settings",
@@ -184,6 +187,9 @@ class Settings(
     def retrieve(
         cls, **params: Unpack["Settings.RetrieveParams"]
     ) -> "Settings":
+        """
+        Retrieves Tax Settings for a merchant.
+        """
         instance = cls(None, **params)
         instance.refresh()
         return instance

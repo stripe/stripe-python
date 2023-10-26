@@ -70,6 +70,9 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["ExchangeRate.ListParams"]
     ) -> ListObject["ExchangeRate"]:
+        """
+        Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -91,6 +94,9 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
     def retrieve(
         cls, id: str, **params: Unpack["ExchangeRate.RetrieveParams"]
     ) -> "ExchangeRate":
+        """
+        Retrieves the exchange rates from the given currency to every supported currency.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
