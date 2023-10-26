@@ -270,6 +270,11 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["BalanceTransaction.ListParams"]
     ) -> ListObject["BalanceTransaction"]:
+        """
+        Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.
+
+        Note that this endpoint was previously called “Balance history” and used the path /v1/balance/history.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -291,6 +296,11 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     def retrieve(
         cls, id: str, **params: Unpack["BalanceTransaction.RetrieveParams"]
     ) -> "BalanceTransaction":
+        """
+        Retrieves the balance transaction with the given ID.
+
+        Note that this endpoint previously used the path /v1/balance/history/:id.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

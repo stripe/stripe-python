@@ -105,6 +105,9 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["ScheduledQueryRun.ListParams"]
     ) -> ListObject["ScheduledQueryRun"]:
+        """
+        Returns a list of scheduled query runs.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -126,6 +129,9 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
     def retrieve(
         cls, id: str, **params: Unpack["ScheduledQueryRun.RetrieveParams"]
     ) -> "ScheduledQueryRun":
+        """
+        Retrieves the details of an scheduled query run.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

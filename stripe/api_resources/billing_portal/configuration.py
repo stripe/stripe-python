@@ -661,6 +661,9 @@ class Configuration(
         stripe_account: Optional[str] = None,
         **params: Unpack["Configuration.CreateParams"]
     ) -> "Configuration":
+        """
+        Creates a configuration that describes the functionality and behavior of a PortalSession
+        """
         return cast(
             "Configuration",
             cls._static_request(
@@ -682,6 +685,9 @@ class Configuration(
         stripe_account: Optional[str] = None,
         **params: Unpack["Configuration.ListParams"]
     ) -> ListObject["Configuration"]:
+        """
+        Returns a list of configurations that describe the functionality of the customer portal.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -703,6 +709,9 @@ class Configuration(
     def modify(
         cls, id: str, **params: Unpack["Configuration.ModifyParams"]
     ) -> "Configuration":
+        """
+        Updates a configuration that describes the functionality of the customer portal.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Configuration",
@@ -713,6 +722,9 @@ class Configuration(
     def retrieve(
         cls, id: str, **params: Unpack["Configuration.RetrieveParams"]
     ) -> "Configuration":
+        """
+        Retrieves a configuration that describes the functionality of the customer portal.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

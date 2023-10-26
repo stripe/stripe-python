@@ -197,6 +197,10 @@ class Balance(SingletonAPIResource["Balance"]):
 
     @classmethod
     def retrieve(cls, **params: Unpack["Balance.RetrieveParams"]) -> "Balance":
+        """
+        Retrieves the current account balance, based on the authentication that was used to make the request.
+         For a sample request, see [Accounting for negative balances](https://stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
+        """
         instance = cls(None, **params)
         instance.refresh()
         return instance

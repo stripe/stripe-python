@@ -109,6 +109,9 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["CountrySpec.ListParams"]
     ) -> ListObject["CountrySpec"]:
+        """
+        Lists all Country Spec objects available in the API.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -130,6 +133,9 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
     def retrieve(
         cls, id: str, **params: Unpack["CountrySpec.RetrieveParams"]
     ) -> "CountrySpec":
+        """
+        Returns a Country Spec for a given Country code.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

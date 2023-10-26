@@ -786,6 +786,9 @@ class FinancialAccount(
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.CreateParams"]
     ) -> "FinancialAccount":
+        """
+        Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
+        """
         return cast(
             "FinancialAccount",
             cls._static_request(
@@ -807,6 +810,9 @@ class FinancialAccount(
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.ListParams"]
     ) -> ListObject["FinancialAccount"]:
+        """
+        Returns a list of FinancialAccounts.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -828,6 +834,9 @@ class FinancialAccount(
     def modify(
         cls, id: str, **params: Unpack["FinancialAccount.ModifyParams"]
     ) -> "FinancialAccount":
+        """
+        Updates the details of a FinancialAccount.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "FinancialAccount",
@@ -838,6 +847,9 @@ class FinancialAccount(
     def retrieve(
         cls, id: str, **params: Unpack["FinancialAccount.RetrieveParams"]
     ) -> "FinancialAccount":
+        """
+        Retrieves the details of a FinancialAccount.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -851,6 +863,9 @@ class FinancialAccount(
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Retrieves Features information associated with the FinancialAccount.
+        """
         return cast(
             "FinancialAccountFeatures",
             cls._static_request(
@@ -875,6 +890,9 @@ class FinancialAccount(
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Retrieves Features information associated with the FinancialAccount.
+        """
         ...
 
     @overload
@@ -883,6 +901,9 @@ class FinancialAccount(
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Retrieves Features information associated with the FinancialAccount.
+        """
         ...
 
     @class_method_variant("_cls_retrieve_features")
@@ -891,6 +912,9 @@ class FinancialAccount(
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Retrieves Features information associated with the FinancialAccount.
+        """
         return cast(
             "FinancialAccountFeatures",
             self._request(
@@ -912,6 +936,9 @@ class FinancialAccount(
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Updates the Features associated with a FinancialAccount.
+        """
         return cast(
             "FinancialAccountFeatures",
             cls._static_request(
@@ -936,6 +963,9 @@ class FinancialAccount(
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Updates the Features associated with a FinancialAccount.
+        """
         ...
 
     @overload
@@ -944,6 +974,9 @@ class FinancialAccount(
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Updates the Features associated with a FinancialAccount.
+        """
         ...
 
     @class_method_variant("_cls_update_features")
@@ -952,6 +985,9 @@ class FinancialAccount(
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Updates the Features associated with a FinancialAccount.
+        """
         return cast(
             "FinancialAccountFeatures",
             self._request(

@@ -453,6 +453,9 @@ class Session(CreateableAPIResource["Session"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Session.CreateParams"]
     ) -> "Session":
+        """
+        Creates a session of the customer portal.
+        """
         return cast(
             "Session",
             cls._static_request(

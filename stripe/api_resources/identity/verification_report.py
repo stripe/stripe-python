@@ -400,6 +400,9 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["VerificationReport.ListParams"]
     ) -> ListObject["VerificationReport"]:
+        """
+        List all verification reports.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -421,6 +424,9 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
     def retrieve(
         cls, id: str, **params: Unpack["VerificationReport.RetrieveParams"]
     ) -> "VerificationReport":
+        """
+        Retrieves an existing VerificationReport
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

@@ -81,6 +81,9 @@ class ReportType(ListableAPIResource["ReportType"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["ReportType.ListParams"]
     ) -> ListObject["ReportType"]:
+        """
+        Returns a full list of Report Types.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -102,6 +105,9 @@ class ReportType(ListableAPIResource["ReportType"]):
     def retrieve(
         cls, id: str, **params: Unpack["ReportType.RetrieveParams"]
     ) -> "ReportType":
+        """
+        Retrieves the details of a Report Type. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
