@@ -637,6 +637,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Calculation.CreateParams"]
     ) -> "Calculation":
+        """
+        Calculates tax based on input and returns a Tax Calculation object.
+        """
         return cast(
             "Calculation",
             cls._static_request(
@@ -659,6 +662,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
+        """
+        Retrieves the line items of a persisted tax calculation as a collection.
+        """
         return cast(
             ListObject["CalculationLineItem"],
             cls._static_request(
@@ -683,6 +689,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
+        """
+        Retrieves the line items of a persisted tax calculation as a collection.
+        """
         ...
 
     @overload
@@ -691,6 +700,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
+        """
+        Retrieves the line items of a persisted tax calculation as a collection.
+        """
         ...
 
     @class_method_variant("_cls_list_line_items")
@@ -699,6 +711,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Calculation.ListLineItemsParams"]
     ) -> ListObject["CalculationLineItem"]:
+        """
+        Retrieves the line items of a persisted tax calculation as a collection.
+        """
         return cast(
             ListObject["CalculationLineItem"],
             self._request(

@@ -558,6 +558,9 @@ class Product(
         stripe_account: Optional[str] = None,
         **params: Unpack["Product.CreateParams"]
     ) -> "Product":
+        """
+        Creates a new product object.
+        """
         return cast(
             "Product",
             cls._static_request(
@@ -575,6 +578,9 @@ class Product(
     def _cls_delete(
         cls, sid: str, **params: Unpack["Product.DeleteParams"]
     ) -> "Product":
+        """
+        Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Product",
@@ -586,16 +592,25 @@ class Product(
     def delete(
         cls, sid: str, **params: Unpack["Product.DeleteParams"]
     ) -> "Product":
+        """
+        Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
+        """
         ...
 
     @overload
     def delete(self, **params: Unpack["Product.DeleteParams"]) -> "Product":
+        """
+        Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Product.DeleteParams"]
     ) -> "Product":
+        """
+        Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -610,6 +625,9 @@ class Product(
         stripe_account: Optional[str] = None,
         **params: Unpack["Product.ListParams"]
     ) -> ListObject["Product"]:
+        """
+        Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -631,6 +649,9 @@ class Product(
     def modify(
         cls, id: str, **params: Unpack["Product.ModifyParams"]
     ) -> "Product":
+        """
+        Updates the specific product by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Product",
@@ -641,6 +662,9 @@ class Product(
     def retrieve(
         cls, id: str, **params: Unpack["Product.RetrieveParams"]
     ) -> "Product":
+        """
+        Retrieves the details of an existing product. Supply the unique product ID from either a product creation request or the product list, and Stripe will return the corresponding product information.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -649,6 +673,12 @@ class Product(
     def search(
         cls, *args, **kwargs: Unpack["Product.SearchParams"]
     ) -> SearchResultObject["Product"]:
+        """
+        Search for products you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
         return cls._search(search_url="/v1/products/search", *args, **kwargs)
 
     @classmethod

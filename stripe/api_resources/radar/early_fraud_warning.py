@@ -98,6 +98,9 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["EarlyFraudWarning.ListParams"]
     ) -> ListObject["EarlyFraudWarning"]:
+        """
+        Returns a list of early fraud warnings.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -119,6 +122,11 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
     def retrieve(
         cls, id: str, **params: Unpack["EarlyFraudWarning.RetrieveParams"]
     ) -> "EarlyFraudWarning":
+        """
+        Retrieves the details of an early fraud warning that has previously been created.
+
+        Please refer to the [early fraud warning](https://stripe.com/docs/api#early_fraud_warning_object) object reference for more details.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

@@ -1414,6 +1414,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateParams"]
     ) -> "Customer":
+        """
+        Creates a new customer object.
+        """
         return cast(
             "Customer",
             cls._static_request(
@@ -1436,6 +1439,11 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
+        """
+        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        funding instructions will be created. If funding instructions have already been created for a given customer, the same
+        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
+        """
         return cast(
             "FundingInstructions",
             cls._static_request(
@@ -1460,6 +1468,11 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
+        """
+        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        funding instructions will be created. If funding instructions have already been created for a given customer, the same
+        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
+        """
         ...
 
     @overload
@@ -1468,6 +1481,11 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
+        """
+        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        funding instructions will be created. If funding instructions have already been created for a given customer, the same
+        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
+        """
         ...
 
     @class_method_variant("_cls_create_funding_instructions")
@@ -1476,6 +1494,11 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
+        """
+        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        funding instructions will be created. If funding instructions have already been created for a given customer, the same
+        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
+        """
         return cast(
             "FundingInstructions",
             self._request(
@@ -1492,6 +1515,9 @@ class Customer(
     def _cls_delete(
         cls, sid: str, **params: Unpack["Customer.DeleteParams"]
     ) -> "Customer":
+        """
+        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Customer",
@@ -1503,16 +1529,25 @@ class Customer(
     def delete(
         cls, sid: str, **params: Unpack["Customer.DeleteParams"]
     ) -> "Customer":
+        """
+        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+        """
         ...
 
     @overload
     def delete(self, **params: Unpack["Customer.DeleteParams"]) -> "Customer":
+        """
+        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Customer.DeleteParams"]
     ) -> "Customer":
+        """
+        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -1528,6 +1563,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.DeleteDiscountParams"]
     ) -> "Discount":
+        """
+        Removes the currently applied discount on a customer.
+        """
         return cast(
             "Discount",
             cls._static_request(
@@ -1552,6 +1590,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.DeleteDiscountParams"]
     ) -> "Discount":
+        """
+        Removes the currently applied discount on a customer.
+        """
         ...
 
     @overload
@@ -1560,6 +1601,9 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.DeleteDiscountParams"]
     ) -> "Discount":
+        """
+        Removes the currently applied discount on a customer.
+        """
         ...
 
     @class_method_variant("_cls_delete_discount")
@@ -1568,6 +1612,9 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.DeleteDiscountParams"]
     ) -> "Discount":
+        """
+        Removes the currently applied discount on a customer.
+        """
         return cast(
             "Discount",
             self._request(
@@ -1588,6 +1635,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListParams"]
     ) -> ListObject["Customer"]:
+        """
+        Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -1614,6 +1664,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
+        """
+        Returns a list of PaymentMethods for a given Customer
+        """
         return cast(
             ListObject["PaymentMethod"],
             cls._static_request(
@@ -1638,6 +1691,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
+        """
+        Returns a list of PaymentMethods for a given Customer
+        """
         ...
 
     @overload
@@ -1646,6 +1702,9 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.ListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
+        """
+        Returns a list of PaymentMethods for a given Customer
+        """
         ...
 
     @class_method_variant("_cls_list_payment_methods")
@@ -1654,6 +1713,9 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.ListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
+        """
+        Returns a list of PaymentMethods for a given Customer
+        """
         return cast(
             ListObject["PaymentMethod"],
             self._request(
@@ -1670,6 +1732,11 @@ class Customer(
     def modify(
         cls, id: str, **params: Unpack["Customer.ModifyParams"]
     ) -> "Customer":
+        """
+        Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
+
+        This request accepts mostly the same arguments as the customer creation call.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Customer",
@@ -1680,6 +1747,9 @@ class Customer(
     def retrieve(
         cls, id: str, **params: Unpack["Customer.RetrieveParams"]
     ) -> "Customer":
+        """
+        Retrieves a Customer object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -1694,6 +1764,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ) -> "PaymentMethod":
+        """
+        Retrieves a PaymentMethod object for a given Customer.
+        """
         return cast(
             "PaymentMethod",
             cls._static_request(
@@ -1720,6 +1793,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ) -> "PaymentMethod":
+        """
+        Retrieves a PaymentMethod object for a given Customer.
+        """
         ...
 
     @overload
@@ -1729,6 +1805,9 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ) -> "PaymentMethod":
+        """
+        Retrieves a PaymentMethod object for a given Customer.
+        """
         ...
 
     @class_method_variant("_cls_retrieve_payment_method")
@@ -1738,6 +1817,9 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ) -> "PaymentMethod":
+        """
+        Retrieves a PaymentMethod object for a given Customer.
+        """
         return cast(
             "PaymentMethod",
             self._request(
@@ -1755,6 +1837,12 @@ class Customer(
     def search(
         cls, *args, **kwargs: Unpack["Customer.SearchParams"]
     ) -> SearchResultObject["Customer"]:
+        """
+        Search for customers you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
         return cls._search(search_url="/v1/customers/search", *args, **kwargs)
 
     @classmethod
@@ -1772,6 +1860,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateBalanceTransactionParams"]
     ) -> "CustomerBalanceTransaction":
+        """
+        Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
+        """
         return cast(
             "CustomerBalanceTransaction",
             cls._static_request(
@@ -1796,6 +1887,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveBalanceTransactionParams"]
     ) -> "CustomerBalanceTransaction":
+        """
+        Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        """
         return cast(
             "CustomerBalanceTransaction",
             cls._static_request(
@@ -1821,6 +1915,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ModifyBalanceTransactionParams"]
     ) -> "CustomerBalanceTransaction":
+        """
+        Most credit balance transaction fields are immutable, but you may update its description and metadata.
+        """
         return cast(
             "CustomerBalanceTransaction",
             cls._static_request(
@@ -1845,6 +1942,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListBalanceTransactionsParams"]
     ) -> ListObject["CustomerBalanceTransaction"]:
+        """
+        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        """
         return cast(
             ListObject["CustomerBalanceTransaction"],
             cls._static_request(
@@ -1869,6 +1969,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"]
     ) -> "CustomerCashBalanceTransaction":
+        """
+        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        """
         return cast(
             "CustomerCashBalanceTransaction",
             cls._static_request(
@@ -1893,6 +1996,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListCashBalanceTransactionsParams"]
     ) -> ListObject["CustomerCashBalanceTransaction"]:
+        """
+        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        """
         return cast(
             ListObject["CustomerCashBalanceTransaction"],
             cls._static_request(
@@ -1916,6 +2022,13 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
+        """
+        When you create a new credit card, you must specify a customer or recipient on which to create it.
+
+        If the card's owner has no default card, then the new card will become the default.
+        However, if the owner already has a default, then it will not change.
+        To change the default, you should [update the customer](https://stripe.com/docs/api#update_customer) to have a new default_source.
+        """
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
@@ -1940,6 +2053,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
+        """
+        Retrieve a specified source for a given customer.
+        """
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
@@ -1965,6 +2081,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ModifySourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
+        """
+        Update a specified source for a given customer.
+        """
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
@@ -1990,6 +2109,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.DeleteSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
+        """
+        Delete a specified source for a given customer.
+        """
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
@@ -2014,6 +2136,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListSourcesParams"]
     ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
+        """
+        List sources for a specified customer.
+        """
         return cast(
             ListObject[Union["Account", "BankAccount", "Card", "Source"]],
             cls._static_request(
@@ -2037,6 +2162,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateTaxIdParams"]
     ) -> "TaxId":
+        """
+        Creates a new tax_id object for a customer.
+        """
         return cast(
             "TaxId",
             cls._static_request(
@@ -2061,6 +2189,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveTaxIdParams"]
     ) -> "TaxId":
+        """
+        Retrieves the tax_id object with the given identifier.
+        """
         return cast(
             "TaxId",
             cls._static_request(
@@ -2086,6 +2217,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.DeleteTaxIdParams"]
     ) -> "TaxId":
+        """
+        Deletes an existing tax_id object.
+        """
         return cast(
             "TaxId",
             cls._static_request(
@@ -2110,6 +2244,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListTaxIdsParams"]
     ) -> ListObject["TaxId"]:
+        """
+        Returns a list of tax IDs for a customer.
+        """
         return cast(
             ListObject["TaxId"],
             cls._static_request(
@@ -2133,6 +2270,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ModifyCashBalanceParams"]
     ) -> "CashBalance":
+        """
+        Changes the settings on a customer's cash balance.
+        """
         return cast(
             "CashBalance",
             cls._static_request(
@@ -2156,6 +2296,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveCashBalanceParams"]
     ) -> "CashBalance":
+        """
+        Retrieves a customer's cash balance.
+        """
         return cast(
             "CashBalance",
             cls._static_request(
@@ -2182,6 +2325,9 @@ class Customer(
             stripe_account: Optional[str] = None,
             **params: Unpack["Customer.FundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
+            """
+            Create an incoming testmode bank transfer
+            """
             return cast(
                 "CustomerCashBalanceTransaction",
                 cls._static_request(
@@ -2206,6 +2352,9 @@ class Customer(
             stripe_account: Optional[str] = None,
             **params: Unpack["Customer.FundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
+            """
+            Create an incoming testmode bank transfer
+            """
             ...
 
         @overload
@@ -2214,6 +2363,9 @@ class Customer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Customer.FundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
+            """
+            Create an incoming testmode bank transfer
+            """
             ...
 
         @class_method_variant("_cls_fund_cash_balance")
@@ -2222,6 +2374,9 @@ class Customer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Customer.FundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
+            """
+            Create an incoming testmode bank transfer
+            """
             return cast(
                 "CustomerCashBalanceTransaction",
                 self.resource._request(

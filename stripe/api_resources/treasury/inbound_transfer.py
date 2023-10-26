@@ -349,6 +349,9 @@ class InboundTransfer(
         stripe_account: Optional[str] = None,
         **params: Unpack["InboundTransfer.CancelParams"]
     ) -> "InboundTransfer":
+        """
+        Cancels an InboundTransfer.
+        """
         return cast(
             "InboundTransfer",
             cls._static_request(
@@ -373,6 +376,9 @@ class InboundTransfer(
         stripe_account: Optional[str] = None,
         **params: Unpack["InboundTransfer.CancelParams"]
     ) -> "InboundTransfer":
+        """
+        Cancels an InboundTransfer.
+        """
         ...
 
     @overload
@@ -381,6 +387,9 @@ class InboundTransfer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["InboundTransfer.CancelParams"]
     ) -> "InboundTransfer":
+        """
+        Cancels an InboundTransfer.
+        """
         ...
 
     @class_method_variant("_cls_cancel")
@@ -389,6 +398,9 @@ class InboundTransfer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["InboundTransfer.CancelParams"]
     ) -> "InboundTransfer":
+        """
+        Cancels an InboundTransfer.
+        """
         return cast(
             "InboundTransfer",
             self._request(
@@ -410,6 +422,9 @@ class InboundTransfer(
         stripe_account: Optional[str] = None,
         **params: Unpack["InboundTransfer.CreateParams"]
     ) -> "InboundTransfer":
+        """
+        Creates an InboundTransfer.
+        """
         return cast(
             "InboundTransfer",
             cls._static_request(
@@ -431,6 +446,9 @@ class InboundTransfer(
         stripe_account: Optional[str] = None,
         **params: Unpack["InboundTransfer.ListParams"]
     ) -> ListObject["InboundTransfer"]:
+        """
+        Returns a list of InboundTransfers sent from the specified FinancialAccount.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -452,6 +470,9 @@ class InboundTransfer(
     def retrieve(
         cls, id: str, **params: Unpack["InboundTransfer.RetrieveParams"]
     ) -> "InboundTransfer":
+        """
+        Retrieves the details of an existing InboundTransfer.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -468,6 +489,9 @@ class InboundTransfer(
             stripe_account: Optional[str] = None,
             **params: Unpack["InboundTransfer.FailParams"]
         ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            """
             return cast(
                 "InboundTransfer",
                 cls._static_request(
@@ -492,6 +516,9 @@ class InboundTransfer(
             stripe_account: Optional[str] = None,
             **params: Unpack["InboundTransfer.FailParams"]
         ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            """
             ...
 
         @overload
@@ -500,6 +527,9 @@ class InboundTransfer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.FailParams"]
         ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            """
             ...
 
         @class_method_variant("_cls_fail")
@@ -508,6 +538,9 @@ class InboundTransfer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.FailParams"]
         ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            """
             return cast(
                 "InboundTransfer",
                 self.resource._request(
@@ -529,6 +562,9 @@ class InboundTransfer(
             stripe_account: Optional[str] = None,
             **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
         ) -> "InboundTransfer":
+            """
+            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            """
             return cast(
                 "InboundTransfer",
                 cls._static_request(
@@ -553,6 +589,9 @@ class InboundTransfer(
             stripe_account: Optional[str] = None,
             **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
         ) -> "InboundTransfer":
+            """
+            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            """
             ...
 
         @overload
@@ -561,6 +600,9 @@ class InboundTransfer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
         ) -> "InboundTransfer":
+            """
+            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            """
             ...
 
         @class_method_variant("_cls_return_inbound_transfer")
@@ -569,6 +611,9 @@ class InboundTransfer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
         ) -> "InboundTransfer":
+            """
+            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            """
             return cast(
                 "InboundTransfer",
                 self.resource._request(
@@ -590,6 +635,9 @@ class InboundTransfer(
             stripe_account: Optional[str] = None,
             **params: Unpack["InboundTransfer.SucceedParams"]
         ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            """
             return cast(
                 "InboundTransfer",
                 cls._static_request(
@@ -614,6 +662,9 @@ class InboundTransfer(
             stripe_account: Optional[str] = None,
             **params: Unpack["InboundTransfer.SucceedParams"]
         ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            """
             ...
 
         @overload
@@ -622,6 +673,9 @@ class InboundTransfer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.SucceedParams"]
         ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            """
             ...
 
         @class_method_variant("_cls_succeed")
@@ -630,6 +684,9 @@ class InboundTransfer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.SucceedParams"]
         ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            """
             return cast(
                 "InboundTransfer",
                 self.resource._request(

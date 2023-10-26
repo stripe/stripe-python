@@ -463,6 +463,9 @@ class InvoiceItem(
         stripe_account: Optional[str] = None,
         **params: Unpack["InvoiceItem.CreateParams"]
     ) -> "InvoiceItem":
+        """
+        Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
+        """
         return cast(
             "InvoiceItem",
             cls._static_request(
@@ -480,6 +483,9 @@ class InvoiceItem(
     def _cls_delete(
         cls, sid: str, **params: Unpack["InvoiceItem.DeleteParams"]
     ) -> "InvoiceItem":
+        """
+        Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "InvoiceItem",
@@ -491,18 +497,27 @@ class InvoiceItem(
     def delete(
         cls, sid: str, **params: Unpack["InvoiceItem.DeleteParams"]
     ) -> "InvoiceItem":
+        """
+        Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
+        """
         ...
 
     @overload
     def delete(
         self, **params: Unpack["InvoiceItem.DeleteParams"]
     ) -> "InvoiceItem":
+        """
+        Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["InvoiceItem.DeleteParams"]
     ) -> "InvoiceItem":
+        """
+        Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -517,6 +532,9 @@ class InvoiceItem(
         stripe_account: Optional[str] = None,
         **params: Unpack["InvoiceItem.ListParams"]
     ) -> ListObject["InvoiceItem"]:
+        """
+        Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -538,6 +556,9 @@ class InvoiceItem(
     def modify(
         cls, id: str, **params: Unpack["InvoiceItem.ModifyParams"]
     ) -> "InvoiceItem":
+        """
+        Updates the amount or description of an invoice item on an upcoming invoice. Updating an invoice item is only possible before the invoice it's attached to is closed.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "InvoiceItem",
@@ -548,6 +569,9 @@ class InvoiceItem(
     def retrieve(
         cls, id: str, **params: Unpack["InvoiceItem.RetrieveParams"]
     ) -> "InvoiceItem":
+        """
+        Retrieves the invoice item with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

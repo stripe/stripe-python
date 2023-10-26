@@ -757,6 +757,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupAttempt.ListParams"]
     ) -> ListObject["SetupAttempt"]:
+        """
+        Returns a list of SetupAttempts that associate with a provided SetupIntent.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),

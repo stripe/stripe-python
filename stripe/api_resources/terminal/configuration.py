@@ -956,6 +956,9 @@ class Configuration(
         stripe_account: Optional[str] = None,
         **params: Unpack["Configuration.CreateParams"]
     ) -> "Configuration":
+        """
+        Creates a new Configuration object.
+        """
         return cast(
             "Configuration",
             cls._static_request(
@@ -973,6 +976,9 @@ class Configuration(
     def _cls_delete(
         cls, sid: str, **params: Unpack["Configuration.DeleteParams"]
     ) -> "Configuration":
+        """
+        Deletes a Configuration object.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Configuration",
@@ -984,18 +990,27 @@ class Configuration(
     def delete(
         cls, sid: str, **params: Unpack["Configuration.DeleteParams"]
     ) -> "Configuration":
+        """
+        Deletes a Configuration object.
+        """
         ...
 
     @overload
     def delete(
         self, **params: Unpack["Configuration.DeleteParams"]
     ) -> "Configuration":
+        """
+        Deletes a Configuration object.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Configuration.DeleteParams"]
     ) -> "Configuration":
+        """
+        Deletes a Configuration object.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -1010,6 +1025,9 @@ class Configuration(
         stripe_account: Optional[str] = None,
         **params: Unpack["Configuration.ListParams"]
     ) -> ListObject["Configuration"]:
+        """
+        Returns a list of Configuration objects.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -1031,6 +1049,9 @@ class Configuration(
     def modify(
         cls, id: str, **params: Unpack["Configuration.ModifyParams"]
     ) -> "Configuration":
+        """
+        Updates a new Configuration object.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Configuration",
@@ -1041,6 +1062,9 @@ class Configuration(
     def retrieve(
         cls, id: str, **params: Unpack["Configuration.RetrieveParams"]
     ) -> "Configuration":
+        """
+        Retrieves a Configuration object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

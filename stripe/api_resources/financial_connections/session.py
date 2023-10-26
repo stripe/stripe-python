@@ -162,6 +162,9 @@ class Session(CreateableAPIResource["Session"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Session.CreateParams"]
     ) -> "Session":
+        """
+        To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.
+        """
         return cast(
             "Session",
             cls._static_request(
@@ -179,6 +182,9 @@ class Session(CreateableAPIResource["Session"]):
     def retrieve(
         cls, id: str, **params: Unpack["Session.RetrieveParams"]
     ) -> "Session":
+        """
+        Retrieves the details of a Financial Connections Session
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

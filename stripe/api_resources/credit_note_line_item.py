@@ -165,6 +165,9 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNoteLineItem.ListParams"]
     ) -> ListObject["CreditNoteLineItem"]:
+        """
+        When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),

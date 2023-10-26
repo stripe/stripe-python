@@ -145,6 +145,9 @@ class ValueListItem(
         stripe_account: Optional[str] = None,
         **params: Unpack["ValueListItem.CreateParams"]
     ) -> "ValueListItem":
+        """
+        Creates a new ValueListItem object, which is added to the specified parent value list.
+        """
         return cast(
             "ValueListItem",
             cls._static_request(
@@ -162,6 +165,9 @@ class ValueListItem(
     def _cls_delete(
         cls, sid: str, **params: Unpack["ValueListItem.DeleteParams"]
     ) -> "ValueListItem":
+        """
+        Deletes a ValueListItem object, removing it from its parent value list.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "ValueListItem",
@@ -173,18 +179,27 @@ class ValueListItem(
     def delete(
         cls, sid: str, **params: Unpack["ValueListItem.DeleteParams"]
     ) -> "ValueListItem":
+        """
+        Deletes a ValueListItem object, removing it from its parent value list.
+        """
         ...
 
     @overload
     def delete(
         self, **params: Unpack["ValueListItem.DeleteParams"]
     ) -> "ValueListItem":
+        """
+        Deletes a ValueListItem object, removing it from its parent value list.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["ValueListItem.DeleteParams"]
     ) -> "ValueListItem":
+        """
+        Deletes a ValueListItem object, removing it from its parent value list.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -199,6 +214,9 @@ class ValueListItem(
         stripe_account: Optional[str] = None,
         **params: Unpack["ValueListItem.ListParams"]
     ) -> ListObject["ValueListItem"]:
+        """
+        Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -220,6 +238,9 @@ class ValueListItem(
     def retrieve(
         cls, id: str, **params: Unpack["ValueListItem.RetrieveParams"]
     ) -> "ValueListItem":
+        """
+        Retrieves a ValueListItem object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

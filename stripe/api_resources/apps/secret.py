@@ -199,6 +199,9 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Secret.CreateParams"]
     ) -> "Secret":
+        """
+        Create or replace a secret in the secret store.
+        """
         return cast(
             "Secret",
             cls._static_request(
@@ -220,6 +223,9 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Secret.DeleteWhereParams"]
     ) -> "Secret":
+        """
+        Deletes a secret from the secret store by name and scope.
+        """
         return cast(
             "Secret",
             cls._static_request(
@@ -240,6 +246,9 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Secret.FindParams"]
     ) -> "Secret":
+        """
+        Finds a secret in the secret store by name and scope.
+        """
         return cast(
             "Secret",
             cls._static_request(
@@ -260,6 +269,9 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Secret.ListParams"]
     ) -> ListObject["Secret"]:
+        """
+        List all secrets stored on the given scope.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),

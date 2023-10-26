@@ -3332,6 +3332,11 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
         return cast(
             "SetupIntent",
             cls._static_request(
@@ -3356,6 +3361,11 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
         ...
 
     @overload
@@ -3364,6 +3374,11 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
         ...
 
     @class_method_variant("_cls_cancel")
@@ -3372,6 +3387,11 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
         return cast(
             "SetupIntent",
             self._request(
@@ -3393,6 +3413,22 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
         return cast(
             "SetupIntent",
             cls._static_request(
@@ -3417,6 +3453,22 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
         ...
 
     @overload
@@ -3425,6 +3477,22 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
         ...
 
     @class_method_variant("_cls_confirm")
@@ -3433,6 +3501,22 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
         return cast(
             "SetupIntent",
             self._request(
@@ -3454,6 +3538,12 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.CreateParams"]
     ) -> "SetupIntent":
+        """
+        Creates a SetupIntent object.
+
+        After you create the SetupIntent, attach a payment method and [confirm](https://stripe.com/docs/api/setup_intents/confirm)
+        it to collect any required permissions to charge the payment method later.
+        """
         return cast(
             "SetupIntent",
             cls._static_request(
@@ -3475,6 +3565,9 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.ListParams"]
     ) -> ListObject["SetupIntent"]:
+        """
+        Returns a list of SetupIntents.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -3496,6 +3589,9 @@ class SetupIntent(
     def modify(
         cls, id: str, **params: Unpack["SetupIntent.ModifyParams"]
     ) -> "SetupIntent":
+        """
+        Updates a SetupIntent object.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "SetupIntent",
@@ -3506,6 +3602,13 @@ class SetupIntent(
     def retrieve(
         cls, id: str, **params: Unpack["SetupIntent.RetrieveParams"]
     ) -> "SetupIntent":
+        """
+        Retrieves the details of a SetupIntent that has previously been created.
+
+        Client-side retrieval using a publishable key is allowed when the client_secret is provided in the query string.
+
+        When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://stripe.com/docs/api#setup_intent_object) object reference for more details.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -3519,6 +3622,9 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
         return cast(
             "SetupIntent",
             cls._static_request(
@@ -3543,6 +3649,9 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
         ...
 
     @overload
@@ -3551,6 +3660,9 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
         ...
 
     @class_method_variant("_cls_verify_microdeposits")
@@ -3559,6 +3671,9 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
         return cast(
             "SetupIntent",
             self._request(

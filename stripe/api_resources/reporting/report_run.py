@@ -222,6 +222,9 @@ class ReportRun(
         stripe_account: Optional[str] = None,
         **params: Unpack["ReportRun.CreateParams"]
     ) -> "ReportRun":
+        """
+        Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
+        """
         return cast(
             "ReportRun",
             cls._static_request(
@@ -243,6 +246,9 @@ class ReportRun(
         stripe_account: Optional[str] = None,
         **params: Unpack["ReportRun.ListParams"]
     ) -> ListObject["ReportRun"]:
+        """
+        Returns a list of Report Runs, with the most recent appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -264,6 +270,9 @@ class ReportRun(
     def retrieve(
         cls, id: str, **params: Unpack["ReportRun.RetrieveParams"]
     ) -> "ReportRun":
+        """
+        Retrieves the details of an existing Report Run.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
