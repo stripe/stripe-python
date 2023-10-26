@@ -47,80 +47,236 @@ class Payout(
 
         class CancelParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class CreateParams(RequestOptions):
             amount: int
+            """
+            A positive integer in cents representing how much to payout.
+            """
             currency: str
+            """
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            """
             description: NotRequired["str|None"]
+            """
+            An arbitrary string attached to the object. Often useful for displaying to users.
+            """
             destination: NotRequired["str|None"]
+            """
+            The ID of a bank account or a card to send the payout to. If you don't provide a destination, we use the default external account for the specified currency.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
             method: NotRequired["Literal['instant', 'standard']|None"]
+            """
+            The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
+            """
             source_type: NotRequired[
                 "Literal['bank_account', 'card', 'fpx']|None"
             ]
+            """
+            The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
+            """
             statement_descriptor: NotRequired["str|None"]
+            """
+            A string that displays on the recipient's bank or card statement (up to 22 characters). A `statement_descriptor` that's longer than 22 characters return an error. Most banks truncate this information and display it inconsistently. Some banks might not display it at all.
+            """
 
         class ListParams(RequestOptions):
             arrival_date: NotRequired["Payout.ListParamsArrivalDate|int|None"]
             created: NotRequired["Payout.ListParamsCreated|int|None"]
             destination: NotRequired["str|None"]
+            """
+            The ID of an external account - only return payouts sent to this external account.
+            """
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
             status: NotRequired["str|None"]
+            """
+            Only return payouts that have the given status: `pending`, `paid`, `failed`, or `canceled`.
+            """
 
         class ListParamsCreated(TypedDict):
             gt: NotRequired["int|None"]
+            """
+            Minimum value to filter by (exclusive)
+            """
             gte: NotRequired["int|None"]
+            """
+            Minimum value to filter by (inclusive)
+            """
             lt: NotRequired["int|None"]
+            """
+            Maximum value to filter by (exclusive)
+            """
             lte: NotRequired["int|None"]
+            """
+            Maximum value to filter by (inclusive)
+            """
 
         class ListParamsArrivalDate(TypedDict):
             gt: NotRequired["int|None"]
+            """
+            Minimum value to filter by (exclusive)
+            """
             gte: NotRequired["int|None"]
+            """
+            Minimum value to filter by (inclusive)
+            """
             lt: NotRequired["int|None"]
+            """
+            Maximum value to filter by (exclusive)
+            """
             lte: NotRequired["int|None"]
+            """
+            Maximum value to filter by (inclusive)
+            """
 
         class ModifyParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class ReverseParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
 
     amount: int
+    """
+    The amount (in cents (or local equivalent)) that transfers to your bank account or debit card.
+    """
     arrival_date: int
+    """
+    Date that you can expect the payout to arrive in the bank. This factors in delays to account for weekends or bank holidays.
+    """
     automatic: bool
+    """
+    Returns `true` if the payout is created by an [automated payout schedule](https://stripe.com/docs/payouts#payout-schedule) and `false` if it's [requested manually](https://stripe.com/docs/payouts#manual-payouts).
+    """
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
+    """
+    ID of the balance transaction that describes the impact of this payout on your account balance.
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
     description: Optional[str]
+    """
+    An arbitrary string attached to the object. Often useful for displaying to users.
+    """
     destination: Optional[ExpandableField[Union["BankAccount", "Card"]]]
+    """
+    ID of the bank account or card the payout is sent to.
+    """
     failure_balance_transaction: Optional[
         ExpandableField["BalanceTransaction"]
     ]
+    """
+    If the payout fails or cancels, this is the ID of the balance transaction that reverses the initial balance transaction and returns the funds from the failed payout back in your balance.
+    """
     failure_code: Optional[str]
+    """
+    Error code that provides a reason for a payout failure, if available. View our [list of failure codes](https://stripe.com/docs/api#payout_failures).
+    """
     failure_message: Optional[str]
+    """
+    Message that provides the reason for a payout failure, if available.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     metadata: Optional[Dict[str, str]]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     method: str
+    """
+    The method used to send this payout, which can be `standard` or `instant`. `instant` is supported for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
+    """
     object: Literal["payout"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     original_payout: Optional[ExpandableField["Payout"]]
+    """
+    If the payout reverses another, this is the ID of the original payout.
+    """
     reconciliation_status: Literal[
         "completed", "in_progress", "not_applicable"
     ]
+    """
+    If `completed`, you can use the [Balance Transactions API](https://stripe.com/docs/api/balance_transactions/list#balance_transaction_list-payout) to list all balance transactions that are paid out in this payout.
+    """
     reversed_by: Optional[ExpandableField["Payout"]]
+    """
+    If the payout reverses, this is the ID of the payout that reverses this payout.
+    """
     source_type: str
+    """
+    The source balance this payout came from, which can be one of the following: `card`, `fpx`, or `bank_account`.
+    """
     statement_descriptor: Optional[str]
+    """
+    Extra information about a payout that displays on the user's bank statement.
+    """
     status: str
+    """
+    Current status of the payout: `paid`, `pending`, `in_transit`, `canceled` or `failed`. A payout is `pending` until it's submitted to the bank, when it becomes `in_transit`. The status changes to `paid` if the transaction succeeds, or to `failed` or `canceled` (within 5 business days). Some payouts that fail might initially show as `paid`, then change to `failed`.
+    """
     type: Literal["bank_account", "card"]
+    """
+    Can be `bank_account` or `card`.
+    """
 
     @classmethod
     def _cls_cancel(

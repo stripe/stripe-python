@@ -23,11 +23,23 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
     class VerificationFields(StripeObject):
         class Company(StripeObject):
             additional: List[str]
+            """
+            Additional fields which are only required for some users.
+            """
             minimum: List[str]
+            """
+            Fields which every account must eventually provide.
+            """
 
         class Individual(StripeObject):
             additional: List[str]
+            """
+            Additional fields which are only required for some users.
+            """
             minimum: List[str]
+            """
+            Fields which every account must eventually provide.
+            """
 
         company: Company
         individual: Individual
@@ -37,20 +49,56 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
 
         class ListParams(RequestOptions):
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     default_currency: str
+    """
+    The default currency for this country. This applies to both payment methods and bank accounts.
+    """
     id: str
+    """
+    Unique identifier for the object. Represented as the ISO country code for this country.
+    """
     object: Literal["country_spec"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     supported_bank_account_currencies: Dict[str, List[str]]
+    """
+    Currencies that can be accepted in the specific country (for transfers).
+    """
     supported_payment_currencies: List[str]
+    """
+    Currencies that can be accepted in the specified country (for payments).
+    """
     supported_payment_methods: List[str]
+    """
+    Payment methods available in the specified country. You may need to enable some payment methods (e.g., [ACH](https://stripe.com/docs/ach)) on your account before they appear in this list. The `stripe` payment method refers to [charging through your platform](https://stripe.com/docs/connect/destination-charges).
+    """
     supported_transfer_countries: List[str]
+    """
+    Countries that can accept transfers from the specified country.
+    """
     verification_fields: VerificationFields
 
     @classmethod

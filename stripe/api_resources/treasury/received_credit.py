@@ -38,30 +38,75 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         class BillingDetails(StripeObject):
             class Address(StripeObject):
                 city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
                 country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
                 line1: Optional[str]
+                """
+                Address line 1 (e.g., street, PO Box, or company name).
+                """
                 line2: Optional[str]
+                """
+                Address line 2 (e.g., apartment, suite, unit, or building).
+                """
                 postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
                 state: Optional[str]
+                """
+                State, county, province, or region.
+                """
 
             address: Address
             email: Optional[str]
+            """
+            Email address.
+            """
             name: Optional[str]
+            """
+            Full name.
+            """
             _inner_class_types = {"address": Address}
 
         class FinancialAccount(StripeObject):
             id: str
+            """
+            The FinancialAccount ID.
+            """
             network: Literal["stripe"]
+            """
+            The rails the ReceivedCredit was sent over. A FinancialAccount can only send funds over `stripe`.
+            """
 
         class UsBankAccount(StripeObject):
             bank_name: Optional[str]
+            """
+            Bank name.
+            """
             last4: Optional[str]
+            """
+            The last four digits of the bank account number.
+            """
             routing_number: Optional[str]
+            """
+            The routing number for the bank account.
+            """
 
         balance: Optional[Literal["payments"]]
+        """
+        Set when `type` is `balance`.
+        """
         billing_details: BillingDetails
         financial_account: Optional[FinancialAccount]
         issuing_card: Optional[str]
+        """
+        Set when `type` is `issuing_card`. This is an [Issuing Card](https://stripe.com/docs/api#issuing_cards) ID.
+        """
         type: Literal[
             "balance",
             "financial_account",
@@ -69,6 +114,9 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
             "stripe",
             "us_bank_account",
         ]
+        """
+        Polymorphic type matching the originating money movement's source. This can be an external account, a Stripe balance, or a FinancialAccount.
+        """
         us_bank_account: Optional[UsBankAccount]
         _inner_class_types = {
             "billing_details": BillingDetails,
@@ -79,30 +127,81 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     class LinkedFlows(StripeObject):
         class SourceFlowDetails(StripeObject):
             credit_reversal: Optional["CreditReversal"]
+            """
+            You can reverse some [ReceivedCredits](https://stripe.com/docs/api#received_credits) depending on their network and source flow. Reversing a ReceivedCredit leads to the creation of a new object known as a CreditReversal.
+            """
             outbound_payment: Optional["OutboundPayment"]
+            """
+            Use OutboundPayments to send funds to another party's external bank account or [FinancialAccount](https://stripe.com/docs/api#financial_accounts). To send money to an account belonging to the same user, use an [OutboundTransfer](https://stripe.com/docs/api#outbound_transfers).
+
+            Simulate OutboundPayment state changes with the `/v1/test_helpers/treasury/outbound_payments` endpoints. These methods can only be called on test mode objects.
+            """
             payout: Optional["Payout"]
+            """
+            A `Payout` object is created when you receive funds from Stripe, or when you
+            initiate a payout to either a bank account or debit card of a [connected
+            Stripe account](https://stripe.com/docs/connect/bank-debit-card-payouts). You can retrieve individual payouts,
+            and list all payouts. Payouts are made on [varying
+            schedules](https://stripe.com/docs/connect/manage-payout-schedule), depending on your country and
+            industry.
+
+            Related guide: [Receiving payouts](https://stripe.com/docs/payouts)
+            """
             type: Literal[
                 "credit_reversal", "other", "outbound_payment", "payout"
             ]
+            """
+            The type of the source flow that originated the ReceivedCredit.
+            """
 
         credit_reversal: Optional[str]
+        """
+        The CreditReversal created as a result of this ReceivedCredit being reversed.
+        """
         issuing_authorization: Optional[str]
+        """
+        Set if the ReceivedCredit was created due to an [Issuing Authorization](https://stripe.com/docs/api#issuing_authorizations) object.
+        """
         issuing_transaction: Optional[str]
+        """
+        Set if the ReceivedCredit is also viewable as an [Issuing transaction](https://stripe.com/docs/api#issuing_transactions) object.
+        """
         source_flow: Optional[str]
+        """
+        ID of the source flow. Set if `network` is `stripe` and the source flow is visible to the user. Examples of source flows include OutboundPayments, payouts, or CreditReversals.
+        """
         source_flow_details: Optional[SourceFlowDetails]
+        """
+        The expandable object of the source flow.
+        """
         source_flow_type: Optional[str]
+        """
+        The type of flow that originated the ReceivedCredit (for example, `outbound_payment`).
+        """
         _inner_class_types = {"source_flow_details": SourceFlowDetails}
 
     class NetworkDetails(StripeObject):
         class Ach(StripeObject):
             addenda: Optional[str]
+            """
+            ACH Addenda record
+            """
 
         ach: Optional[Ach]
+        """
+        Details about an ACH transaction.
+        """
         type: Literal["ach"]
+        """
+        The type of flow that originated the ReceivedCredit.
+        """
         _inner_class_types = {"ach": Ach}
 
     class ReversalDetails(StripeObject):
         deadline: Optional[int]
+        """
+        Time before which a ReceivedCredit can be reversed.
+        """
         restricted_reason: Optional[
             Literal[
                 "already_reversed",
@@ -112,83 +211,206 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
                 "source_flow_restricted",
             ]
         ]
+        """
+        Set if a ReceivedCredit cannot be reversed.
+        """
 
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             financial_account: str
+            """
+            The FinancialAccount that received the funds.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             linked_flows: NotRequired[
                 "ReceivedCredit.ListParamsLinkedFlows|None"
             ]
+            """
+            Only return ReceivedCredits described by the flow.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
             status: NotRequired["Literal['failed', 'succeeded']|None"]
+            """
+            Only return ReceivedCredits that have the given status: `succeeded` or `failed`.
+            """
 
         class ListParamsLinkedFlows(TypedDict):
             source_flow_type: Literal[
                 "credit_reversal", "other", "outbound_payment", "payout"
             ]
+            """
+            The source flow type.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class CreateParams(RequestOptions):
             amount: int
+            """
+            Amount (in cents) to be transferred.
+            """
             currency: str
+            """
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            """
             description: NotRequired["str|None"]
+            """
+            An arbitrary string attached to the object. Often useful for displaying to users.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             financial_account: str
+            """
+            The FinancialAccount to send funds to.
+            """
             initiating_payment_method_details: NotRequired[
                 "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetails|None"
             ]
+            """
+            Initiating payment method details for the object.
+            """
             network: Literal["ach", "us_domestic_wire"]
+            """
+            The rails used for the object.
+            """
             network_details: NotRequired[
                 "ReceivedCredit.CreateParamsNetworkDetails|None"
             ]
+            """
+            Details about the network used for the ReceivedCredit.
+            """
 
         class CreateParamsNetworkDetails(TypedDict):
             ach: NotRequired[
                 "ReceivedCredit.CreateParamsNetworkDetailsAch|None"
             ]
+            """
+            Optional fields for `ach`.
+            """
             type: Literal["ach"]
+            """
+            The type of flow that originated the ReceivedCredit.
+            """
 
         class CreateParamsNetworkDetailsAch(TypedDict):
             addenda: NotRequired["str|None"]
+            """
+            ACH Addenda record
+            """
 
         class CreateParamsInitiatingPaymentMethodDetails(TypedDict):
             type: Literal["us_bank_account"]
+            """
+            The source type.
+            """
             us_bank_account: NotRequired[
                 "ReceivedCredit.CreateParamsInitiatingPaymentMethodDetailsUsBankAccount|None"
             ]
+            """
+            Optional fields for `us_bank_account`.
+            """
 
         class CreateParamsInitiatingPaymentMethodDetailsUsBankAccount(
             TypedDict,
         ):
             account_holder_name: NotRequired["str|None"]
+            """
+            The bank account holder's name.
+            """
             account_number: NotRequired["str|None"]
+            """
+            The bank account number.
+            """
             routing_number: NotRequired["str|None"]
+            """
+            The bank account's routing number.
+            """
 
     amount: int
+    """
+    Amount (in cents) transferred.
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
     description: str
+    """
+    An arbitrary string attached to the object. Often useful for displaying to users.
+    """
     failure_code: Optional[
         Literal["account_closed", "account_frozen", "other"]
     ]
+    """
+    Reason for the failure. A ReceivedCredit might fail because the receiving FinancialAccount is closed or frozen.
+    """
     financial_account: Optional[str]
+    """
+    The FinancialAccount that received the funds.
+    """
     hosted_regulatory_receipt_url: Optional[str]
+    """
+    A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     initiating_payment_method_details: InitiatingPaymentMethodDetails
     linked_flows: LinkedFlows
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     network: Literal["ach", "card", "stripe", "us_domestic_wire"]
+    """
+    The rails used to send the funds.
+    """
     network_details: Optional[NetworkDetails]
+    """
+    Details specific to the money movement rails.
+    """
     object: Literal["treasury.received_credit"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     reversal_details: Optional[ReversalDetails]
+    """
+    Details describing when a ReceivedCredit may be reversed.
+    """
     status: Literal["failed", "succeeded"]
+    """
+    Status of the ReceivedCredit. ReceivedCredits are created either `succeeded` (approved) or `failed` (declined). If a ReceivedCredit is declined, the failure reason can be found in the `failure_code` field.
+    """
     transaction: Optional[ExpandableField["Transaction"]]
+    """
+    The Transaction associated with this object.
+    """
 
     @classmethod
     def list(

@@ -43,13 +43,31 @@ class PersonalizationDesign(
 
     class CarrierText(StripeObject):
         footer_body: Optional[str]
+        """
+        The footer body text of the carrier letter.
+        """
         footer_title: Optional[str]
+        """
+        The footer title text of the carrier letter.
+        """
         header_body: Optional[str]
+        """
+        The header body text of the carrier letter.
+        """
         header_title: Optional[str]
+        """
+        The header title text of the carrier letter.
+        """
 
     class Preferences(StripeObject):
         is_default: bool
+        """
+        Whether this personalization design is used to create cards when one is not specified. A connected account will use the Connect platform's default if no personalization design is set as the account default.
+        """
         is_platform_default: Optional[bool]
+        """
+        Whether this personalization design is used to create cards when one is not specified and a default for this connected account does not exist.
+        """
 
     class RejectionReasons(StripeObject):
         card_logo: Optional[
@@ -66,6 +84,9 @@ class PersonalizationDesign(
                 ]
             ]
         ]
+        """
+        The reason(s) the card logo was rejected.
+        """
         carrier_text: Optional[
             List[
                 Literal[
@@ -79,106 +100,268 @@ class PersonalizationDesign(
                 ]
             ]
         ]
+        """
+        The reason(s) the carrier text was rejected.
+        """
 
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
             card_logo: NotRequired["str|None"]
+            """
+            The file for the card logo, for use with physical bundles that support card logos. Must have `purpose` value of `issuing_logo`.
+            """
             carrier_text: NotRequired[
                 "PersonalizationDesign.CreateParamsCarrierText|None"
             ]
+            """
+            Hash containing carrier text, for use with physical bundles that support carrier text.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             lookup_key: NotRequired["str|None"]
+            """
+            A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
+            """
             metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
             name: NotRequired["str|None"]
+            """
+            Friendly display name.
+            """
             physical_bundle: str
+            """
+            The physical bundle object belonging to this personalization design.
+            """
             preferences: NotRequired[
                 "PersonalizationDesign.CreateParamsPreferences|None"
             ]
+            """
+            Information on whether this personalization design is used to create cards when one is not specified.
+            """
             transfer_lookup_key: NotRequired["bool|None"]
+            """
+            If set to true, will atomically remove the lookup key from the existing personalization design, and assign it to this personalization design.
+            """
 
         class CreateParamsPreferences(TypedDict):
             is_default: bool
+            """
+            Whether this personalization design is used to create cards when one is not specified. A connected account will use the Connect platform's default if no personalization design is set as default.
+            """
 
         class CreateParamsCarrierText(TypedDict):
             footer_body: NotRequired["Literal['']|str|None"]
+            """
+            The footer body text of the carrier letter.
+            """
             footer_title: NotRequired["Literal['']|str|None"]
+            """
+            The footer title text of the carrier letter.
+            """
             header_body: NotRequired["Literal['']|str|None"]
+            """
+            The header body text of the carrier letter.
+            """
             header_title: NotRequired["Literal['']|str|None"]
+            """
+            The header title text of the carrier letter.
+            """
 
         class ListParams(RequestOptions):
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             lookup_keys: NotRequired["List[str]|None"]
+            """
+            Only return personalization designs with the given lookup keys.
+            """
             preferences: NotRequired[
                 "PersonalizationDesign.ListParamsPreferences|None"
             ]
+            """
+            Only return personalization designs with the given preferences.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
             status: NotRequired[
                 "Literal['active', 'inactive', 'rejected', 'review']|None"
             ]
+            """
+            Only return personalization designs with the given status.
+            """
 
         class ListParamsPreferences(TypedDict):
             is_default: NotRequired["bool|None"]
+            """
+            Only return the personalization design that is set as default. A connected account will use the Connect platform's default if no personalization design is set as default.
+            """
             is_platform_default: NotRequired["bool|None"]
+            """
+            Only return the personalization design that is set as the Connect platform's default. This parameter is only applicable to connected accounts.
+            """
 
         class ModifyParams(RequestOptions):
             card_logo: NotRequired["Literal['']|str|None"]
+            """
+            The file for the card logo, for use with physical bundles that support card logos. Must have `purpose` value of `issuing_logo`.
+            """
             carrier_text: NotRequired[
                 "Literal['']|PersonalizationDesign.ModifyParamsCarrierText|None"
             ]
+            """
+            Hash containing carrier text, for use with physical bundles that support carrier text.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             lookup_key: NotRequired["Literal['']|str|None"]
+            """
+            A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
+            """
             metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
             name: NotRequired["Literal['']|str|None"]
+            """
+            Friendly display name. Providing an empty string will set the field to null.
+            """
             physical_bundle: NotRequired["str|None"]
+            """
+            The physical bundle object belonging to this personalization design.
+            """
             preferences: NotRequired[
                 "PersonalizationDesign.ModifyParamsPreferences|None"
             ]
+            """
+            Information on whether this personalization design is used to create cards when one is not specified.
+            """
             transfer_lookup_key: NotRequired["bool|None"]
+            """
+            If set to true, will atomically remove the lookup key from the existing personalization design, and assign it to this personalization design.
+            """
 
         class ModifyParamsPreferences(TypedDict):
             is_default: bool
+            """
+            Whether this personalization design is used to create cards when one is not specified. A connected account will use the Connect platform's default if no personalization design is set as default.
+            """
 
         class ModifyParamsCarrierText(TypedDict):
             footer_body: NotRequired["Literal['']|str|None"]
+            """
+            The footer body text of the carrier letter.
+            """
             footer_title: NotRequired["Literal['']|str|None"]
+            """
+            The footer title text of the carrier letter.
+            """
             header_body: NotRequired["Literal['']|str|None"]
+            """
+            The header body text of the carrier letter.
+            """
             header_title: NotRequired["Literal['']|str|None"]
+            """
+            The header title text of the carrier letter.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class ActivateParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class DeactivateParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class RejectParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             rejection_reasons: "PersonalizationDesign.RejectParamsRejectionReasons"
+            """
+            The reason(s) the personalization design was rejected.
+            """
 
         class RejectParamsRejectionReasons(TypedDict):
             card_logo: NotRequired[
                 "List[Literal['geographic_location', 'inappropriate', 'network_name', 'non_binary_image', 'non_fiat_currency', 'other', 'other_entity', 'promotional_material']]|None"
             ]
+            """
+            The reason(s) the card logo was rejected.
+            """
             carrier_text: NotRequired[
                 "List[Literal['geographic_location', 'inappropriate', 'network_name', 'non_fiat_currency', 'other', 'other_entity', 'promotional_material']]|None"
             ]
+            """
+            The reason(s) the carrier text was rejected.
+            """
 
     card_logo: Optional[ExpandableField["File"]]
+    """
+    The file for the card logo, for use with physical bundles that support card logos.
+    """
     carrier_text: Optional[CarrierText]
+    """
+    Hash containing carrier text, for use with physical bundles that support carrier text.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     lookup_key: Optional[str]
+    """
+    A lookup key used to retrieve personalization designs dynamically from a static string. This may be up to 200 characters.
+    """
     metadata: Dict[str, str]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     name: Optional[str]
+    """
+    Friendly display name.
+    """
     object: Literal["issuing.personalization_design"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     physical_bundle: ExpandableField["PhysicalBundle"]
+    """
+    The physical bundle object belonging to this personalization design.
+    """
     preferences: Preferences
     rejection_reasons: RejectionReasons
     status: Literal["active", "inactive", "rejected", "review"]
+    """
+    Whether this personalization design can be used to create cards.
+    """
 
     @classmethod
     def create(

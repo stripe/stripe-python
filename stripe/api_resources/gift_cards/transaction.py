@@ -42,19 +42,37 @@ class Transaction(
     class CreatedBy(StripeObject):
         class Checkout(StripeObject):
             checkout_session: str
+            """
+            The Stripe CheckoutSession that created this object.
+            """
             line_item: Optional[str]
+            """
+            The Stripe CheckoutSession LineItem that created this object.
+            """
 
         class Order(StripeObject):
             line_item: Optional[str]
+            """
+            The Stripe Order LineItem that created this object.
+            """
             order: str
+            """
+            The Stripe Order that created this object.
+            """
 
         class Payment(StripeObject):
             payment_intent: str
+            """
+            The PaymentIntent that created this object.
+            """
 
         checkout: Optional[Checkout]
         order: Optional[Order]
         payment: Optional[Payment]
         type: Literal["checkout", "order", "payment"]
+        """
+        The type of event that created this object.
+        """
         _inner_class_types = {
             "checkout": Checkout,
             "order": Order,
@@ -65,56 +83,164 @@ class Transaction(
 
         class CancelParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class ConfirmParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class CreateParams(RequestOptions):
             amount: int
+            """
+            The amount of the transaction. A negative amount deducts funds, and a positive amount adds funds.
+            """
             confirm: NotRequired["bool|None"]
+            """
+            Whether this is a confirmed transaction. A confirmed transaction immediately deducts from/adds to the `amount_available` on the gift card. Otherwise, it creates a held transaction that increments the `amount_held` on the gift card.
+            """
             created_by: NotRequired["Transaction.CreateParamsCreatedBy|None"]
+            """
+            Related objects which created this transaction.
+            """
             currency: str
+            """
+            The currency of the transaction. This must match the currency of the gift card.
+            """
             description: NotRequired["str|None"]
+            """
+            An arbitrary string attached to the object. Often useful for displaying to users.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             gift_card: str
+            """
+            The gift card to create a new transaction on.
+            """
             metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
             transfer_group: NotRequired["str|None"]
+            """
+            A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+            """
 
         class CreateParamsCreatedBy(TypedDict):
             payment: "Transaction.CreateParamsCreatedByPayment"
+            """
+            The details for the payment that created this object.
+            """
             type: Literal["payment"]
+            """
+            The type of event that created this object.
+            """
 
         class CreateParamsCreatedByPayment(TypedDict):
             payment_intent: str
+            """
+            The PaymentIntent used to collect payment for this object.
+            """
 
         class ListParams(RequestOptions):
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             gift_card: NotRequired["str|None"]
+            """
+            The gift card to list transactions for.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
             transfer_group: NotRequired["str|None"]
+            """
+            A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+            """
 
         class ModifyParams(RequestOptions):
             description: NotRequired["str|None"]
+            """
+            An arbitrary string attached to the object. Often useful for displaying to users.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     amount: Optional[int]
+    """
+    The amount of this transaction. A positive value indicates that funds were added to the gift card. A negative value indicates that funds were removed from the gift card.
+    """
     confirmed_at: Optional[int]
+    """
+    Time at which the transaction was confirmed. Measured in seconds since the Unix epoch.
+    """
     created: Optional[int]
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     created_by: Optional[CreatedBy]
+    """
+    The related Stripe objects that created this gift card transaction.
+    """
     currency: Optional[str]
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
     description: Optional[str]
+    """
+    An arbitrary string attached to the object. Often useful for displaying to users.
+    """
     gift_card: Optional[str]
+    """
+    The gift card that this transaction occurred on
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     metadata: Optional[Dict[str, str]]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     object: Literal["gift_cards.transaction"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     status: Optional[Literal["canceled", "confirmed", "held", "invalid"]]
+    """
+    Status of this transaction, one of `held`, `confirmed`, or `canceled`.
+    """
     transfer_group: Optional[str]
+    """
+    A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+    """
 
     @classmethod
     def _cls_cancel(

@@ -35,28 +35,76 @@ class File(ListableAPIResource["File"]):
         class ListParams(RequestOptions):
             created: NotRequired["File.ListParamsCreated|int|None"]
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             purpose: NotRequired[
                 "Literal['account_requirement', 'additional_verification', 'business_icon', 'business_logo', 'customer_signature', 'dispute_evidence', 'document_provider_identity_document', 'finance_report_run', 'identity_document', 'identity_document_downloadable', 'pci_document', 'selfie', 'sigma_scheduled_query', 'tax_document_user_upload', 'terminal_reader_splashscreen']|None"
             ]
+            """
+            Filter queries by the file purpose. If you don't provide a purpose, the queries return unfiltered files.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
 
         class ListParamsCreated(TypedDict):
             gt: NotRequired["int|None"]
+            """
+            Minimum value to filter by (exclusive)
+            """
             gte: NotRequired["int|None"]
+            """
+            Minimum value to filter by (inclusive)
+            """
             lt: NotRequired["int|None"]
+            """
+            Maximum value to filter by (exclusive)
+            """
             lte: NotRequired["int|None"]
+            """
+            Maximum value to filter by (inclusive)
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     expires_at: Optional[int]
+    """
+    The file expires and isn't available at this time in epoch seconds.
+    """
     filename: Optional[str]
+    """
+    The suitable name for saving the file to a filesystem.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     links: Optional[ListObject["FileLink"]]
+    """
+    A list of [file links](https://stripe.com/docs/api#file_links) that point at this file.
+    """
     object: Literal["file"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     purpose: Literal[
         "account_requirement",
         "additional_verification",
@@ -74,10 +122,25 @@ class File(ListableAPIResource["File"]):
         "tax_document_user_upload",
         "terminal_reader_splashscreen",
     ]
+    """
+    The [purpose](https://stripe.com/docs/file-upload#uploading-a-file) of the uploaded file.
+    """
     size: int
+    """
+    The size of the file object in bytes.
+    """
     title: Optional[str]
+    """
+    A suitable title for the document.
+    """
     type: Optional[str]
+    """
+    The returned file type (for example, `csv`, `pdf`, `jpg`, or `png`).
+    """
     url: Optional[str]
+    """
+    Use your live secret API key to download the file from this URL.
+    """
 
     @classmethod
     def list(

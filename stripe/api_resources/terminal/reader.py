@@ -52,26 +52,59 @@ class Reader(
             class Input(StripeObject):
                 class CustomText(StripeObject):
                     description: Optional[str]
+                    """
+                    Customize the default description for this input
+                    """
                     skip_button: Optional[str]
+                    """
+                    Customize the default label for this input's skip button
+                    """
                     submit_button: Optional[str]
+                    """
+                    Customize the default label for this input's submit button
+                    """
                     title: Optional[str]
+                    """
+                    Customize the default title for this input
+                    """
 
                 class Selection(StripeObject):
                     class Choice(StripeObject):
                         style: Optional[Literal["primary", "secondary"]]
+                        """
+                        The button style for the choice
+                        """
                         value: str
+                        """
+                        A value to be selected
+                        """
 
                     choices: List[Choice]
+                    """
+                    List of possible choices to be selected
+                    """
                     value: Optional[str]
+                    """
+                    The value of the selected choice
+                    """
                     _inner_class_types = {"choices": Choice}
 
                 class Signature(StripeObject):
                     value: Optional[str]
+                    """
+                    The File ID of a collected signature image
+                    """
 
                 custom_text: Optional[CustomText]
                 required: Optional[bool]
                 selection: Optional[Selection]
+                """
+                Information about a selection being collected using a reader
+                """
                 signature: Optional[Signature]
+                """
+                Information about a signature being collected using a reader
+                """
                 skipped: Optional[bool]
                 type: Literal[
                     "email",
@@ -81,6 +114,9 @@ class Reader(
                     "signature",
                     "text",
                 ]
+                """
+                Which supported input type will be collected.
+                """
                 _inner_class_types = {
                     "custom_text": CustomText,
                     "selection": Selection,
@@ -88,39 +124,85 @@ class Reader(
                 }
 
             inputs: List[Input]
+            """
+            List of inputs to be collected.
+            """
             metadata: Optional[Dict[str, str]]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            """
             _inner_class_types = {"inputs": Input}
 
         class CollectPaymentMethod(StripeObject):
             class CollectConfig(StripeObject):
                 class Tipping(StripeObject):
                     amount_eligible: Optional[int]
+                    """
+                    Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+                    """
 
                 skip_tipping: Optional[bool]
+                """
+                Override showing a tipping selection screen on this transaction.
+                """
                 tipping: Optional[Tipping]
+                """
+                Represents a per-transaction tipping configuration
+                """
                 _inner_class_types = {"tipping": Tipping}
 
             collect_config: Optional[CollectConfig]
+            """
+            Represents a per-transaction override of a reader configuration
+            """
             payment_intent: ExpandableField["PaymentIntent"]
+            """
+            Most recent PaymentIntent processed by the reader.
+            """
             payment_method: Optional["PaymentMethod"]
+            """
+            PaymentMethod objects represent your customer's payment instruments.
+            You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+            Customer objects to store instrument details for future payments.
+
+            Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+            """
             stripe_account: Optional[str]
             _inner_class_types = {"collect_config": CollectConfig}
 
         class ConfirmPaymentIntent(StripeObject):
             payment_intent: ExpandableField["PaymentIntent"]
+            """
+            Most recent PaymentIntent processed by the reader.
+            """
             stripe_account: Optional[str]
 
         class ProcessPaymentIntent(StripeObject):
             class ProcessConfig(StripeObject):
                 class Tipping(StripeObject):
                     amount_eligible: Optional[int]
+                    """
+                    Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+                    """
 
                 skip_tipping: Optional[bool]
+                """
+                Override showing a tipping selection screen on this transaction.
+                """
                 tipping: Optional[Tipping]
+                """
+                Represents a per-transaction tipping configuration
+                """
                 _inner_class_types = {"tipping": Tipping}
 
             payment_intent: ExpandableField["PaymentIntent"]
+            """
+            Most recent PaymentIntent processed by the reader.
+            """
             process_config: Optional[ProcessConfig]
+            """
+            Represents a per-transaction override of a reader configuration
+            """
             stripe_account: Optional[str]
             _inner_class_types = {"process_config": ProcessConfig}
 
@@ -129,50 +211,140 @@ class Reader(
                 pass
 
             generated_card: Optional[str]
+            """
+            ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
+            """
             process_config: Optional[ProcessConfig]
+            """
+            Represents a per-setup override of a reader configuration
+            """
             setup_intent: ExpandableField["SetupIntent"]
+            """
+            Most recent SetupIntent processed by the reader.
+            """
             _inner_class_types = {"process_config": ProcessConfig}
 
         class RefundPayment(StripeObject):
             amount: Optional[int]
+            """
+            The amount being refunded.
+            """
             charge: Optional[ExpandableField["Charge"]]
+            """
+            Charge that is being refunded.
+            """
             metadata: Optional[Dict[str, str]]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            """
             payment_intent: Optional[ExpandableField["PaymentIntent"]]
+            """
+            Payment intent that is being refunded.
+            """
             reason: Optional[
                 Literal["duplicate", "fraudulent", "requested_by_customer"]
             ]
+            """
+            The reason for the refund.
+            """
             refund: Optional[ExpandableField["Refund"]]
+            """
+            Unique identifier for the refund object.
+            """
             refund_application_fee: Optional[bool]
+            """
+            Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
+            """
             reverse_transfer: Optional[bool]
+            """
+            Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
+            """
             stripe_account: Optional[str]
 
         class SetReaderDisplay(StripeObject):
             class Cart(StripeObject):
                 class LineItem(StripeObject):
                     amount: int
+                    """
+                    The amount of the line item. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+                    """
                     description: str
+                    """
+                    Description of the line item.
+                    """
                     quantity: int
+                    """
+                    The quantity of the line item.
+                    """
 
                 currency: str
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
                 line_items: List[LineItem]
+                """
+                List of line items in the cart.
+                """
                 tax: Optional[int]
+                """
+                Tax amount for the entire cart. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+                """
                 total: int
+                """
+                Total amount for the entire cart, including tax. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+                """
                 _inner_class_types = {"line_items": LineItem}
 
             cart: Optional[Cart]
+            """
+            Cart object to be displayed by the reader.
+            """
             type: Literal["cart"]
+            """
+            Type of information to be displayed by the reader.
+            """
             _inner_class_types = {"cart": Cart}
 
         collect_inputs: Optional[CollectInputs]
+        """
+        Represents a reader action to collect customer inputs
+        """
         collect_payment_method: Optional[CollectPaymentMethod]
+        """
+        Represents a reader action to collect a payment method
+        """
         confirm_payment_intent: Optional[ConfirmPaymentIntent]
+        """
+        Represents a reader action to confirm a payment
+        """
         failure_code: Optional[str]
+        """
+        Failure code, only set if status is `failed`.
+        """
         failure_message: Optional[str]
+        """
+        Detailed failure message, only set if status is `failed`.
+        """
         process_payment_intent: Optional[ProcessPaymentIntent]
+        """
+        Represents a reader action to process a payment intent
+        """
         process_setup_intent: Optional[ProcessSetupIntent]
+        """
+        Represents a reader action to process a setup intent
+        """
         refund_payment: Optional[RefundPayment]
+        """
+        Represents a reader action to refund a payment
+        """
         set_reader_display: Optional[SetReaderDisplay]
+        """
+        Represents a reader action to set the reader display
+        """
         status: Literal["failed", "in_progress", "succeeded"]
+        """
+        Status of the action performed by the reader.
+        """
         type: Literal[
             "collect_inputs",
             "collect_payment_method",
@@ -182,6 +354,9 @@ class Reader(
             "refund_payment",
             "set_reader_display",
         ]
+        """
+        Type of action performed by the reader.
+        """
         _inner_class_types = {
             "collect_inputs": CollectInputs,
             "collect_payment_method": CollectPaymentMethod,
@@ -196,59 +371,143 @@ class Reader(
 
         class CancelActionParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class CollectInputsParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             inputs: List["Reader.CollectInputsParamsInput"]
+            """
+            List of inputs to be collected using the Reader
+            """
             metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
 
         class CollectInputsParamsInput(TypedDict):
             custom_text: "Reader.CollectInputsParamsInputCustomText"
+            """
+            Customize the text which will be displayed while collecting this input
+            """
             required: NotRequired["bool|None"]
+            """
+            Indicate that this input is required, disabling the skip button
+            """
             selection: NotRequired[
                 "Reader.CollectInputsParamsInputSelection|None"
             ]
+            """
+            Options for the `selection` input
+            """
             type: Literal["selection", "signature"]
+            """
+            The type of input to collect
+            """
 
         class CollectInputsParamsInputSelection(TypedDict):
             choices: List["Reader.CollectInputsParamsInputSelectionChoice"]
+            """
+            List of choices for the `selection` input
+            """
 
         class CollectInputsParamsInputSelectionChoice(TypedDict):
             style: NotRequired["Literal['primary', 'secondary']|None"]
+            """
+            The style of the button which will be shown for this choice
+            """
             value: str
+            """
+            The text which will be shown on the button for this choice
+            """
 
         class CollectInputsParamsInputCustomText(TypedDict):
             description: NotRequired["str|None"]
+            """
+            The description which will be displayed when collecting this input
+            """
             skip_button: NotRequired["str|None"]
+            """
+            The skip button text
+            """
             submit_button: NotRequired["str|None"]
+            """
+            The submit button text
+            """
             title: str
+            """
+            The title which will be displayed when collecting this input
+            """
 
         class CollectPaymentMethodParams(RequestOptions):
             collect_config: NotRequired[
                 "Reader.CollectPaymentMethodParamsCollectConfig|None"
             ]
+            """
+            Configuration overrides
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             payment_intent: str
+            """
+            PaymentIntent ID
+            """
 
         class CollectPaymentMethodParamsCollectConfig(TypedDict):
             skip_tipping: NotRequired["bool|None"]
+            """
+            Override showing a tipping selection screen on this transaction.
+            """
             tipping: NotRequired[
                 "Reader.CollectPaymentMethodParamsCollectConfigTipping|None"
             ]
+            """
+            Tipping configuration for this transaction.
+            """
 
         class CollectPaymentMethodParamsCollectConfigTipping(TypedDict):
             amount_eligible: NotRequired["int|None"]
+            """
+            Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+            """
 
         class ConfirmPaymentIntentParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             payment_intent: str
+            """
+            PaymentIntent ID
+            """
 
         class CreateParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             label: NotRequired["str|None"]
+            """
+            Custom label given to the reader for easier identification. If no label is specified, the registration code will be used.
+            """
             location: NotRequired["str|None"]
+            """
+            The location to assign the reader to.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
             registration_code: str
+            """
+            A code generated by the reader used for registering to an account.
+            """
 
         class DeleteParams(RequestOptions):
             pass
@@ -257,95 +516,239 @@ class Reader(
             device_type: NotRequired[
                 "Literal['bbpos_chipper2x', 'bbpos_wisepad3', 'bbpos_wisepos_e', 'simulated_wisepos_e', 'stripe_m2', 'verifone_P400']|None"
             ]
+            """
+            Filters readers by device type
+            """
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             location: NotRequired["str|None"]
+            """
+            A location ID to filter the response list to only readers at the specific location
+            """
             serial_number: NotRequired["str|None"]
+            """
+            Filters readers by serial number
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
             status: NotRequired["Literal['offline', 'online']|None"]
+            """
+            A status filter to filter readers to only offline or online readers
+            """
 
         class ModifyParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             label: NotRequired["Literal['']|str|None"]
+            """
+            The new label of the reader.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
 
         class ProcessPaymentIntentParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             payment_intent: str
+            """
+            PaymentIntent ID
+            """
             process_config: NotRequired[
                 "Reader.ProcessPaymentIntentParamsProcessConfig|None"
             ]
+            """
+            Configuration overrides
+            """
 
         class ProcessPaymentIntentParamsProcessConfig(TypedDict):
             skip_tipping: NotRequired["bool|None"]
+            """
+            Override showing a tipping selection screen on this transaction.
+            """
             tipping: NotRequired[
                 "Reader.ProcessPaymentIntentParamsProcessConfigTipping|None"
             ]
+            """
+            Tipping configuration for this transaction.
+            """
 
         class ProcessPaymentIntentParamsProcessConfigTipping(TypedDict):
             amount_eligible: NotRequired["int|None"]
+            """
+            Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+            """
 
         class ProcessSetupIntentParams(RequestOptions):
             customer_consent_collected: bool
+            """
+            Customer Consent Collected
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             process_config: NotRequired[
                 "Reader.ProcessSetupIntentParamsProcessConfig|None"
             ]
+            """
+            Configuration overrides
+            """
             setup_intent: str
+            """
+            SetupIntent ID
+            """
 
         class ProcessSetupIntentParamsProcessConfig(TypedDict):
             pass
 
         class RefundPaymentParams(RequestOptions):
             amount: NotRequired["int|None"]
+            """
+            A positive integer in __cents__ representing how much of this charge to refund.
+            """
             charge: NotRequired["str|None"]
+            """
+            ID of the Charge to refund.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
             payment_intent: NotRequired["str|None"]
+            """
+            ID of the PaymentIntent to refund.
+            """
             refund_application_fee: NotRequired["bool|None"]
+            """
+            Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
+            """
             reverse_transfer: NotRequired["bool|None"]
+            """
+            Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class SetReaderDisplayParams(RequestOptions):
             cart: NotRequired["Reader.SetReaderDisplayParamsCart|None"]
+            """
+            Cart
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             type: Literal["cart"]
+            """
+            Type
+            """
 
         class SetReaderDisplayParamsCart(TypedDict):
             currency: str
+            """
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            """
             line_items: List["Reader.SetReaderDisplayParamsCartLineItem"]
+            """
+            Array of line items that were purchased.
+            """
             tax: NotRequired["int|None"]
+            """
+            The amount of tax in cents.
+            """
             total: int
+            """
+            Total balance of cart due in cents.
+            """
 
         class SetReaderDisplayParamsCartLineItem(TypedDict):
             amount: int
+            """
+            The price of the item in cents.
+            """
             description: str
+            """
+            The description or name of the item.
+            """
             quantity: int
+            """
+            The quantity of the line item being purchased.
+            """
 
         class PresentPaymentMethodParams(RequestOptions):
             amount_tip: NotRequired["int|None"]
+            """
+            Simulated on-reader tip amount.
+            """
             card_present: NotRequired[
                 "Reader.PresentPaymentMethodParamsCardPresent|None"
             ]
+            """
+            Simulated data for the card_present payment method.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             interac_present: NotRequired[
                 "Reader.PresentPaymentMethodParamsInteracPresent|None"
             ]
+            """
+            Simulated data for the interac_present payment method.
+            """
             type: NotRequired[
                 "Literal['card_present', 'interac_present']|None"
             ]
+            """
+            Simulated payment type.
+            """
 
         class PresentPaymentMethodParamsInteracPresent(TypedDict):
             number: NotRequired["str|None"]
+            """
+            Card Number
+            """
 
         class PresentPaymentMethodParamsCardPresent(TypedDict):
             number: NotRequired["str|None"]
+            """
+            The card number, as a string without any separators.
+            """
 
     action: Optional[Action]
+    """
+    The most recent action performed by the reader.
+    """
     device_sw_version: Optional[str]
+    """
+    The current software version of the reader.
+    """
     device_type: Literal[
         "bbpos_chipper2x",
         "bbpos_wisepad3",
@@ -354,16 +757,49 @@ class Reader(
         "stripe_m2",
         "verifone_P400",
     ]
+    """
+    Type of reader, one of `bbpos_wisepad3`, `stripe_m2`, `bbpos_chipper2x`, `bbpos_wisepos_e`, `verifone_P400`, or `simulated_wisepos_e`.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     ip_address: Optional[str]
+    """
+    The local IP address of the reader.
+    """
     label: str
+    """
+    Custom label given to the reader for easier identification.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     location: Optional[ExpandableField["Location"]]
+    """
+    The location identifier of the reader.
+    """
     metadata: Dict[str, str]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     object: Literal["terminal.reader"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     serial_number: str
+    """
+    Serial number of the reader.
+    """
     status: Optional[str]
+    """
+    The networking status of the reader.
+    """
     deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
 
     @classmethod
     def _cls_cancel_action(

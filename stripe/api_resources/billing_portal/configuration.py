@@ -38,8 +38,17 @@ class Configuration(
 
     class BusinessProfile(StripeObject):
         headline: Optional[str]
+        """
+        The messaging shown to customers in the portal.
+        """
         privacy_policy_url: Optional[str]
+        """
+        A link to the business's publicly available privacy policy.
+        """
         terms_of_service_url: Optional[str]
+        """
+        A link to the business's publicly available terms of service.
+        """
 
     class Features(StripeObject):
         class CustomerUpdate(StripeObject):
@@ -48,17 +57,32 @@ class Configuration(
                     "address", "email", "name", "phone", "shipping", "tax_id"
                 ]
             ]
+            """
+            The types of customer updates that are supported. When empty, customers are not updateable.
+            """
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
 
         class InvoiceHistory(StripeObject):
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
 
         class PaymentMethodUpdate(StripeObject):
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
 
         class SubscriptionCancel(StripeObject):
             class CancellationReason(StripeObject):
                 enabled: bool
+                """
+                Whether the feature is enabled.
+                """
                 options: List[
                     Literal[
                         "customer_service",
@@ -71,31 +95,64 @@ class Configuration(
                         "unused",
                     ]
                 ]
+                """
+                Which cancellation reasons will be given as options to the customer.
+                """
 
             cancellation_reason: CancellationReason
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
             mode: Literal["at_period_end", "immediately"]
+            """
+            Whether to cancel subscriptions immediately or at the end of the billing period.
+            """
             proration_behavior: Literal[
                 "always_invoice", "create_prorations", "none"
             ]
+            """
+            Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`.
+            """
             _inner_class_types = {"cancellation_reason": CancellationReason}
 
         class SubscriptionPause(StripeObject):
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
 
         class SubscriptionUpdate(StripeObject):
             class Product(StripeObject):
                 prices: List[str]
+                """
+                The list of price IDs which, when subscribed to, a subscription can be updated.
+                """
                 product: str
+                """
+                The product ID.
+                """
 
             default_allowed_updates: List[
                 Literal["price", "promotion_code", "quantity"]
             ]
+            """
+            The types of subscription updates that are supported for items listed in the `products` attribute. When empty, subscriptions are not updateable.
+            """
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
             products: Optional[List[Product]]
+            """
+            The list of products that support subscription updates.
+            """
             proration_behavior: Literal[
                 "always_invoice", "create_prorations", "none"
             ]
+            """
+            Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
+            """
             _inner_class_types = {"products": Product}
 
         customer_update: CustomerUpdate
@@ -115,78 +172,161 @@ class Configuration(
 
     class LoginPage(StripeObject):
         enabled: bool
+        """
+        If `true`, a shareable `url` will be generated that will take your customers to a hosted login page for the customer portal.
+
+        If `false`, the previously generated `url`, if any, will be deactivated.
+        """
         url: Optional[str]
+        """
+        A shareable URL to the hosted portal login page. Your customers will be able to log in with their [email](https://stripe.com/docs/api/customers/object#customer_object-email) and receive a link to their customer portal.
+        """
 
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
             business_profile: "Configuration.CreateParamsBusinessProfile"
+            """
+            The business information shown to customers in the portal.
+            """
             default_return_url: NotRequired["Literal['']|str|None"]
+            """
+            The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             features: "Configuration.CreateParamsFeatures"
+            """
+            Information about the features available in the portal.
+            """
             login_page: NotRequired["Configuration.CreateParamsLoginPage|None"]
+            """
+            The hosted login page for this configuration. Learn more about the portal login page in our [integration docs](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#share).
+            """
             metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
 
         class CreateParamsLoginPage(TypedDict):
             enabled: bool
+            """
+            Set to `true` to generate a shareable URL [`login_page.url`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-login_page-url) that will take your customers to a hosted login page for the customer portal.
+            """
 
         class CreateParamsFeatures(TypedDict):
             customer_update: NotRequired[
                 "Configuration.CreateParamsFeaturesCustomerUpdate|None"
             ]
+            """
+            Information about updating the customer details in the portal.
+            """
             invoice_history: NotRequired[
                 "Configuration.CreateParamsFeaturesInvoiceHistory|None"
             ]
+            """
+            Information about showing the billing history in the portal.
+            """
             payment_method_update: NotRequired[
                 "Configuration.CreateParamsFeaturesPaymentMethodUpdate|None"
             ]
+            """
+            Information about updating payment methods in the portal.
+            """
             subscription_cancel: NotRequired[
                 "Configuration.CreateParamsFeaturesSubscriptionCancel|None"
             ]
+            """
+            Information about canceling subscriptions in the portal.
+            """
             subscription_pause: NotRequired[
                 "Configuration.CreateParamsFeaturesSubscriptionPause|None"
             ]
+            """
+            Information about pausing subscriptions in the portal.
+            """
             subscription_update: NotRequired[
                 "Configuration.CreateParamsFeaturesSubscriptionUpdate|None"
             ]
+            """
+            Information about updating subscriptions in the portal.
+            """
 
         class CreateParamsFeaturesSubscriptionUpdate(TypedDict):
             default_allowed_updates: Union[
                 Literal[""],
                 List[Literal["price", "promotion_code", "quantity"]],
             ]
+            """
+            The types of subscription updates that are supported. When empty, subscriptions are not updateable.
+            """
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
             products: Union[
                 Literal[""],
                 List[
                     "Configuration.CreateParamsFeaturesSubscriptionUpdateProduct"
                 ],
             ]
+            """
+            The list of products that support subscription updates.
+            """
             proration_behavior: NotRequired[
                 "Literal['always_invoice', 'create_prorations', 'none']|None"
             ]
+            """
+            Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
+            """
 
         class CreateParamsFeaturesSubscriptionUpdateProduct(TypedDict):
             prices: List[str]
+            """
+            The list of price IDs for the product that a subscription can be updated to.
+            """
             product: str
+            """
+            The product id.
+            """
 
         class CreateParamsFeaturesSubscriptionPause(TypedDict):
             enabled: NotRequired["bool|None"]
+            """
+            Whether the feature is enabled.
+            """
 
         class CreateParamsFeaturesSubscriptionCancel(TypedDict):
             cancellation_reason: NotRequired[
                 "Configuration.CreateParamsFeaturesSubscriptionCancelCancellationReason|None"
             ]
+            """
+            Whether the cancellation reasons will be collected in the portal and which options are exposed to the customer
+            """
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
             mode: NotRequired["Literal['at_period_end', 'immediately']|None"]
+            """
+            Whether to cancel subscriptions immediately or at the end of the billing period.
+            """
             proration_behavior: NotRequired[
                 "Literal['always_invoice', 'create_prorations', 'none']|None"
             ]
+            """
+            Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
+            """
 
         class CreateParamsFeaturesSubscriptionCancelCancellationReason(
             TypedDict,
         ):
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
             options: Union[
                 Literal[""],
                 List[
@@ -202,136 +342,315 @@ class Configuration(
                     ]
                 ],
             ]
+            """
+            Which cancellation reasons will be given as options to the customer.
+            """
 
         class CreateParamsFeaturesPaymentMethodUpdate(TypedDict):
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
 
         class CreateParamsFeaturesInvoiceHistory(TypedDict):
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
 
         class CreateParamsFeaturesCustomerUpdate(TypedDict):
             allowed_updates: NotRequired[
                 "Literal['']|List[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id']]|None"
             ]
+            """
+            The types of customer updates that are supported. When empty, customers are not updateable.
+            """
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
 
         class CreateParamsBusinessProfile(TypedDict):
             headline: NotRequired["Literal['']|str|None"]
+            """
+            The messaging shown to customers in the portal.
+            """
             privacy_policy_url: NotRequired["str|None"]
+            """
+            A link to the business's publicly available privacy policy.
+            """
             terms_of_service_url: NotRequired["str|None"]
+            """
+            A link to the business's publicly available terms of service.
+            """
 
         class ListParams(RequestOptions):
             active: NotRequired["bool|None"]
+            """
+            Only return configurations that are active or inactive (e.g., pass `true` to only list active configurations).
+            """
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             is_default: NotRequired["bool|None"]
+            """
+            Only return the default or non-default configurations (e.g., pass `true` to only list the default configuration).
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
 
         class ModifyParams(RequestOptions):
             active: NotRequired["bool|None"]
+            """
+            Whether the configuration is active and can be used to create portal sessions.
+            """
             business_profile: NotRequired[
                 "Configuration.ModifyParamsBusinessProfile|None"
             ]
+            """
+            The business information shown to customers in the portal.
+            """
             default_return_url: NotRequired["Literal['']|str|None"]
+            """
+            The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             features: NotRequired["Configuration.ModifyParamsFeatures|None"]
+            """
+            Information about the features available in the portal.
+            """
             login_page: NotRequired["Configuration.ModifyParamsLoginPage|None"]
+            """
+            The hosted login page for this configuration. Learn more about the portal login page in our [integration docs](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#share).
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
 
         class ModifyParamsLoginPage(TypedDict):
             enabled: bool
+            """
+            Set to `true` to generate a shareable URL [`login_page.url`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-login_page-url) that will take your customers to a hosted login page for the customer portal.
+
+            Set to `false` to deactivate the `login_page.url`.
+            """
 
         class ModifyParamsFeatures(TypedDict):
             customer_update: NotRequired[
                 "Configuration.ModifyParamsFeaturesCustomerUpdate|None"
             ]
+            """
+            Information about updating the customer details in the portal.
+            """
             invoice_history: NotRequired[
                 "Configuration.ModifyParamsFeaturesInvoiceHistory|None"
             ]
+            """
+            Information about showing the billing history in the portal.
+            """
             payment_method_update: NotRequired[
                 "Configuration.ModifyParamsFeaturesPaymentMethodUpdate|None"
             ]
+            """
+            Information about updating payment methods in the portal.
+            """
             subscription_cancel: NotRequired[
                 "Configuration.ModifyParamsFeaturesSubscriptionCancel|None"
             ]
+            """
+            Information about canceling subscriptions in the portal.
+            """
             subscription_pause: NotRequired[
                 "Configuration.ModifyParamsFeaturesSubscriptionPause|None"
             ]
+            """
+            Information about pausing subscriptions in the portal.
+            """
             subscription_update: NotRequired[
                 "Configuration.ModifyParamsFeaturesSubscriptionUpdate|None"
             ]
+            """
+            Information about updating subscriptions in the portal.
+            """
 
         class ModifyParamsFeaturesSubscriptionUpdate(TypedDict):
             default_allowed_updates: NotRequired[
                 "Literal['']|List[Literal['price', 'promotion_code', 'quantity']]|None"
             ]
+            """
+            The types of subscription updates that are supported. When empty, subscriptions are not updateable.
+            """
             enabled: NotRequired["bool|None"]
+            """
+            Whether the feature is enabled.
+            """
             products: NotRequired[
                 "Literal['']|List[Configuration.ModifyParamsFeaturesSubscriptionUpdateProduct]|None"
             ]
+            """
+            The list of products that support subscription updates.
+            """
             proration_behavior: NotRequired[
                 "Literal['always_invoice', 'create_prorations', 'none']|None"
             ]
+            """
+            Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
+            """
 
         class ModifyParamsFeaturesSubscriptionUpdateProduct(TypedDict):
             prices: List[str]
+            """
+            The list of price IDs for the product that a subscription can be updated to.
+            """
             product: str
+            """
+            The product id.
+            """
 
         class ModifyParamsFeaturesSubscriptionPause(TypedDict):
             enabled: NotRequired["bool|None"]
+            """
+            Whether the feature is enabled.
+            """
 
         class ModifyParamsFeaturesSubscriptionCancel(TypedDict):
             cancellation_reason: NotRequired[
                 "Configuration.ModifyParamsFeaturesSubscriptionCancelCancellationReason|None"
             ]
+            """
+            Whether the cancellation reasons will be collected in the portal and which options are exposed to the customer
+            """
             enabled: NotRequired["bool|None"]
+            """
+            Whether the feature is enabled.
+            """
             mode: NotRequired["Literal['at_period_end', 'immediately']|None"]
+            """
+            Whether to cancel subscriptions immediately or at the end of the billing period.
+            """
             proration_behavior: NotRequired[
                 "Literal['always_invoice', 'create_prorations', 'none']|None"
             ]
+            """
+            Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
+            """
 
         class ModifyParamsFeaturesSubscriptionCancelCancellationReason(
             TypedDict,
         ):
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
             options: NotRequired[
                 "Literal['']|List[Literal['customer_service', 'low_quality', 'missing_features', 'other', 'switched_service', 'too_complex', 'too_expensive', 'unused']]|None"
             ]
+            """
+            Which cancellation reasons will be given as options to the customer.
+            """
 
         class ModifyParamsFeaturesPaymentMethodUpdate(TypedDict):
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
 
         class ModifyParamsFeaturesInvoiceHistory(TypedDict):
             enabled: bool
+            """
+            Whether the feature is enabled.
+            """
 
         class ModifyParamsFeaturesCustomerUpdate(TypedDict):
             allowed_updates: NotRequired[
                 "Literal['']|List[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id']]|None"
             ]
+            """
+            The types of customer updates that are supported. When empty, customers are not updateable.
+            """
             enabled: NotRequired["bool|None"]
+            """
+            Whether the feature is enabled.
+            """
 
         class ModifyParamsBusinessProfile(TypedDict):
             headline: NotRequired["Literal['']|str|None"]
+            """
+            The messaging shown to customers in the portal.
+            """
             privacy_policy_url: NotRequired["Literal['']|str|None"]
+            """
+            A link to the business's publicly available privacy policy.
+            """
             terms_of_service_url: NotRequired["Literal['']|str|None"]
+            """
+            A link to the business's publicly available terms of service.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     active: bool
+    """
+    Whether the configuration is active and can be used to create portal sessions.
+    """
     application: Optional[ExpandableField["Application"]]
+    """
+    ID of the Connect Application that created the configuration.
+    """
     business_profile: BusinessProfile
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     default_return_url: Optional[str]
+    """
+    The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
+    """
     features: Features
     id: str
+    """
+    Unique identifier for the object.
+    """
     is_default: bool
+    """
+    Whether the configuration is the default. If `true`, this configuration can be managed in the Dashboard and portal sessions will use this configuration unless it is overriden when creating the session.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     login_page: LoginPage
     metadata: Optional[Dict[str, str]]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     object: Literal["billing_portal.configuration"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     updated: int
+    """
+    Time at which the object was last updated. Measured in seconds since the Unix epoch.
+    """
 
     @classmethod
     def create(

@@ -15,13 +15,34 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
 
         class DeleteParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     expires: int
+    """
+    Time at which the key will expire. Measured in seconds since the Unix epoch.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["ephemeral_key"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     secret: Optional[str]
+    """
+    The key's secret. You can use this value to make authorized requests to the Stripe API.
+    """
 
     @classmethod
     def _cls_delete(

@@ -32,38 +32,104 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     class NetworkData(StripeObject):
         class Device(StripeObject):
             device_fingerprint: Optional[str]
+            """
+            An obfuscated ID derived from the device ID.
+            """
             ip_address: Optional[str]
+            """
+            The IP address of the device at provisioning time.
+            """
             location: Optional[str]
+            """
+            The geographic latitude/longitude coordinates of the device at provisioning time. The format is [+-]decimal/[+-]decimal.
+            """
             name: Optional[str]
+            """
+            The name of the device used for tokenization.
+            """
             phone_number: Optional[str]
+            """
+            The phone number of the device used for tokenization.
+            """
             type: Optional[Literal["other", "phone", "watch"]]
+            """
+            The type of device used for tokenization.
+            """
 
         class Mastercard(StripeObject):
             card_reference_id: Optional[str]
+            """
+            A unique reference ID from MasterCard to represent the card account number.
+            """
             token_reference_id: str
+            """
+            The network-unique identifier for the token.
+            """
             token_requestor_id: str
+            """
+            The ID of the entity requesting tokenization, specific to MasterCard.
+            """
             token_requestor_name: Optional[str]
+            """
+            The name of the entity requesting tokenization, if known. This is directly provided from MasterCard.
+            """
 
         class Visa(StripeObject):
             card_reference_id: str
+            """
+            A unique reference ID from Visa to represent the card account number.
+            """
             token_reference_id: str
+            """
+            The network-unique identifier for the token.
+            """
             token_requestor_id: str
+            """
+            The ID of the entity requesting tokenization, specific to Visa.
+            """
             token_risk_score: Optional[str]
+            """
+            Degree of risk associated with the token between `01` and `99`, with higher number indicating higher risk. A `00` value indicates the token was not scored by Visa.
+            """
 
         class WalletProvider(StripeObject):
             class CardholderAddress(StripeObject):
                 line1: str
+                """
+                The street address of the cardholder tokenizing the card.
+                """
                 postal_code: str
+                """
+                The postal code of the cardholder tokenizing the card.
+                """
 
             account_id: Optional[str]
+            """
+            The wallet provider-given account ID of the digital wallet the token belongs to.
+            """
             account_trust_score: Optional[int]
+            """
+            An evaluation on the trustworthiness of the wallet account between 1 and 5. A higher score indicates more trustworthy.
+            """
             card_number_source: Optional[
                 Literal["app", "manual", "on_file", "other"]
             ]
+            """
+            The method used for tokenizing a card.
+            """
             cardholder_address: Optional[CardholderAddress]
             cardholder_name: Optional[str]
+            """
+            The name of the cardholder tokenizing the card.
+            """
             device_trust_score: Optional[int]
+            """
+            An evaluation on the trustworthiness of the device. A higher score indicates more trustworthy.
+            """
             hashed_account_email_address: Optional[str]
+            """
+            The hashed email address of the cardholder's account with the wallet provider.
+            """
             reason_codes: Optional[
                 List[
                     Literal[
@@ -98,15 +164,27 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
                     ]
                 ]
             ]
+            """
+            The reasons for suggested tokenization given by the card network.
+            """
             suggested_decision: Optional[
                 Literal["approve", "decline", "require_auth"]
             ]
+            """
+            The recommendation on responding to the tokenization request.
+            """
             suggested_decision_version: Optional[str]
+            """
+            The version of the standard for mapping reason codes followed by the wallet provider.
+            """
             _inner_class_types = {"cardholder_address": CardholderAddress}
 
         device: Optional[Device]
         mastercard: Optional[Mastercard]
         type: Literal["mastercard", "visa"]
+        """
+        The network that the token is associated with. An additional hash is included with a name matching this value, containing tokenization data specific to the card network.
+        """
         visa: Optional[Visa]
         wallet_provider: Optional[WalletProvider]
         _inner_class_types = {
@@ -120,42 +198,117 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
 
         class ListParams(RequestOptions):
             card: str
+            """
+            The Issuing card identifier to list tokens for.
+            """
             created: NotRequired["Token.ListParamsCreated|int|None"]
+            """
+            Select Issuing tokens that were created during the given date interval.
+            """
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
             status: NotRequired[
                 "Literal['active', 'deleted', 'requested', 'suspended']|None"
             ]
+            """
+            Select Issuing tokens with the given status.
+            """
 
         class ListParamsCreated(TypedDict):
             gt: NotRequired["int|None"]
+            """
+            Minimum value to filter by (exclusive)
+            """
             gte: NotRequired["int|None"]
+            """
+            Minimum value to filter by (inclusive)
+            """
             lt: NotRequired["int|None"]
+            """
+            Maximum value to filter by (exclusive)
+            """
             lte: NotRequired["int|None"]
+            """
+            Maximum value to filter by (inclusive)
+            """
 
         class ModifyParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             status: Literal["active", "deleted", "suspended"]
+            """
+            Specifies which status the token should be updated to.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     card: ExpandableField["Card"]
+    """
+    Card associated with this token.
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     device_fingerprint: Optional[str]
+    """
+    The hashed ID derived from the device ID from the card network associated with the token
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     last4: Optional[str]
+    """
+    The last four digits of the token.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     network: Literal["mastercard", "visa"]
+    """
+    The token service provider / card network associated with the token.
+    """
     network_data: Optional[NetworkData]
     network_updated_at: int
+    """
+    Time at which the token was last updated by the card network. Measured in seconds since the Unix epoch.
+    """
     object: Literal["issuing.token"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     status: Literal["active", "deleted", "requested", "suspended"]
+    """
+    The usage state of the token.
+    """
     wallet_provider: Optional[
         Literal["apple_pay", "google_pay", "samsung_pay"]
     ]
+    """
+    The digital wallet for this token, if one was used.
+    """
 
     @classmethod
     def list(
