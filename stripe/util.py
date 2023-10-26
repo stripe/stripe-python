@@ -236,6 +236,7 @@ def convert_to_stripe_object(
     stripe_version: Optional[str] = None,
     stripe_account: Optional[str] = None,
     params: Optional[Dict[str, Any]] = None,
+    klass_: Optional[Type["StripeObject"]] = None,
 ) -> Union["StripeObject", List["StripeObject"]]:
     # If we get a StripeResponse, we'll want to return a
     # StripeObject with the last_response field filled out with

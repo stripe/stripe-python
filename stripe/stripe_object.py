@@ -2,7 +2,7 @@
 import datetime
 import json
 from copy import deepcopy
-from typing_extensions import TYPE_CHECKING, Literal, Self
+from typing_extensions import TYPE_CHECKING, Type, Literal, Self
 from typing import (
     Any,
     Dict,
@@ -11,6 +11,7 @@ from typing import (
     Mapping,
     Set,
     Tuple,
+    ClassVar,
     Union,
     cast,
     overload,
@@ -272,24 +273,30 @@ class StripeObject(Dict[str, Any]):
                 obj = {
                     k: None
                     if v is None
-                    else util.convert_to_stripe_object(
+                    else cast(
+                        StripeObject,
+                        util.convert_to_stripe_object(
+                            v,
+                            api_key,
+                            stripe_version,
+                            stripe_account,
+                            None,
+                            inner_class,
+                        ),
+                    )
+                    for k, v in v.items()
+                }
+            else:
+                obj = cast(
+                    Union[StripeObject, List[StripeObject]],
+                    util.convert_to_stripe_object(
                         v,
                         api_key,
                         stripe_version,
                         stripe_account,
                         None,
                         inner_class,
-                    )
-                    for k, v in v.items()
-                }
-            else:
-                obj = util.convert_to_stripe_object(
-                    v,
-                    api_key,
-                    stripe_version,
-                    stripe_account,
-                    None,
-                    inner_class,
+                    ),
                 )
             super(StripeObject, self).__setitem__(k, obj)
 
@@ -489,7 +496,9 @@ class StripeObject(Dict[str, Any]):
     _inner_class_types: ClassVar[Dict[str, Type["StripeObject"]]] = {}
     _inner_class_dicts: ClassVar[List[str]] = []
 
-    def _get_inner_class_type(self, field_name: str):
+    def _get_inner_class_type(
+        self, field_name: str
+    ) -> Optional[Type["StripeObject"]]:
         return self._inner_class_types.get(field_name)
 
     def _get_inner_class_is_beneath_dict(self, field_name: str):

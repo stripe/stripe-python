@@ -647,7 +647,7 @@ class Person(UpdateableAPIResource["Person"]):
     def instance_url(self):
         token = self.id
         account = self.account
-        base = Account.class_url()
+        base = AccountResource.class_url()
         assert account is not None
         acct_extn = quote_plus(account)
         extn = quote_plus(token)
