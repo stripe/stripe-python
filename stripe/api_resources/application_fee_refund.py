@@ -22,13 +22,37 @@ class ApplicationFeeRefund(UpdateableAPIResource["ApplicationFeeRefund"]):
 
     OBJECT_NAME: ClassVar[Literal["fee_refund"]] = "fee_refund"
     amount: int
+    """
+    Amount, in cents (or local equivalent).
+    """
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
+    """
+    Balance transaction that describes the impact on your account balance.
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
     fee: ExpandableField["ApplicationFee"]
+    """
+    ID of the application fee that was refunded.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     metadata: Optional[Dict[str, str]]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     object: Literal["fee_refund"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
 
     @classmethod
     def _build_instance_url(cls, fee, sid):

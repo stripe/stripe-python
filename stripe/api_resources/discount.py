@@ -21,15 +21,56 @@ class Discount(StripeObject):
 
     OBJECT_NAME: ClassVar[Literal["discount"]] = "discount"
     checkout_session: Optional[str]
+    """
+    The Checkout session that this coupon is applied to, if it is applied to a particular session in payment mode. Will not be present for subscription mode.
+    """
     coupon: "Coupon"
+    """
+    A coupon contains information about a percent-off or amount-off discount you
+    might want to apply to a customer. Coupons may be applied to [subscriptions](https://stripe.com/docs/api#subscriptions), [invoices](https://stripe.com/docs/api#invoices),
+    [checkout sessions](https://stripe.com/docs/api/checkout/sessions), [quotes](https://stripe.com/docs/api#quotes), and more. Coupons do not work with conventional one-off [charges](https://stripe.com/docs/api#create_charge) or [payment intents](https://stripe.com/docs/api/payment_intents).
+    """
     customer: Optional[ExpandableField["Customer"]]
+    """
+    The ID of the customer associated with this discount.
+    """
     end: Optional[int]
+    """
+    If the coupon has a duration of `repeating`, the date that this discount will end. If the coupon has a duration of `once` or `forever`, this attribute will be null.
+    """
     id: str
+    """
+    The ID of the discount object. Discounts cannot be fetched by ID. Use `expand[]=discounts` in API calls to expand discount IDs in an array.
+    """
     invoice: Optional[str]
+    """
+    The invoice that the discount's coupon was applied to, if it was applied directly to a particular invoice.
+    """
     invoice_item: Optional[str]
+    """
+    The invoice item `id` (or invoice line item `id` for invoice line items of type='subscription') that the discount's coupon was applied to, if it was applied directly to a particular invoice item or invoice line item.
+    """
     object: Literal["discount"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     promotion_code: Optional[ExpandableField["PromotionCode"]]
+    """
+    The promotion code applied to create this discount.
+    """
     start: int
+    """
+    Date that the coupon was applied.
+    """
     subscription: Optional[str]
+    """
+    The subscription that this coupon is applied to, if it is applied to a particular subscription.
+    """
     subscription_item: Optional[str]
+    """
+    The subscription item that this coupon is applied to, if it is applied to a particular subscription item.
+    """
     deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """

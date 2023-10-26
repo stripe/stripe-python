@@ -2,4 +2,4 @@
 # File generated from our OpenAPI spec
 # flake8: noqa
 
-from stripe.api_resources.apps.secret import Secret
+from stripe.api_resources.apps.secret import Secret as Secret

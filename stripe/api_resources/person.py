@@ -27,47 +27,131 @@ class Person(UpdateableAPIResource["Person"]):
     class AdditionalTosAcceptances(StripeObject):
         class Account(StripeObject):
             date: Optional[int]
+            """
+            The Unix timestamp marking when the legal guardian accepted the service agreement.
+            """
             ip: Optional[str]
+            """
+            The IP address from which the legal guardian accepted the service agreement.
+            """
             user_agent: Optional[str]
+            """
+            The user agent of the browser from which the legal guardian accepted the service agreement.
+            """
 
         account: Account
         _inner_class_types = {"account": Account}
 
     class Address(StripeObject):
         city: Optional[str]
+        """
+        City, district, suburb, town, or village.
+        """
         country: Optional[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
         line1: Optional[str]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
         line2: Optional[str]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
         postal_code: Optional[str]
+        """
+        ZIP or postal code.
+        """
         state: Optional[str]
+        """
+        State, county, province, or region.
+        """
 
     class AddressKana(StripeObject):
         city: Optional[str]
+        """
+        City/Ward.
+        """
         country: Optional[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
         line1: Optional[str]
+        """
+        Block/Building number.
+        """
         line2: Optional[str]
+        """
+        Building details.
+        """
         postal_code: Optional[str]
+        """
+        ZIP or postal code.
+        """
         state: Optional[str]
+        """
+        Prefecture.
+        """
         town: Optional[str]
+        """
+        Town/cho-me.
+        """
 
     class AddressKanji(StripeObject):
         city: Optional[str]
+        """
+        City/Ward.
+        """
         country: Optional[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
         line1: Optional[str]
+        """
+        Block/Building number.
+        """
         line2: Optional[str]
+        """
+        Building details.
+        """
         postal_code: Optional[str]
+        """
+        ZIP or postal code.
+        """
         state: Optional[str]
+        """
+        Prefecture.
+        """
         town: Optional[str]
+        """
+        Town/cho-me.
+        """
 
     class Dob(StripeObject):
         day: Optional[int]
+        """
+        The day of birth, between 1 and 31.
+        """
         month: Optional[int]
+        """
+        The month of birth, between 1 and 12.
+        """
         year: Optional[int]
+        """
+        The four-digit year of birth.
+        """
 
     class FutureRequirements(StripeObject):
         class Alternative(StripeObject):
             alternative_fields_due: List[str]
+            """
+            Fields that can be provided to satisfy all fields in `original_fields_due`.
+            """
             original_fields_due: List[str]
+            """
+            Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+            """
 
         class Error(StripeObject):
             code: Literal[
@@ -159,38 +243,110 @@ class Person(UpdateableAPIResource["Person"]):
                 "verification_missing_owners",
                 "verification_requires_additional_memorandum_of_associations",
             ]
+            """
+            The code for the type of error.
+            """
             reason: str
+            """
+            An informative message that indicates the error type and provides additional details about the error.
+            """
             requirement: str
+            """
+            The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
+            """
 
         alternatives: Optional[List[Alternative]]
+        """
+        Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+        """
         currently_due: List[str]
+        """
+        Fields that need to be collected to keep the person's account enabled. If not collected by the account's `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash, and may immediately become `past_due`, but the account may also be given a grace period depending on the account's enablement state prior to transition.
+        """
         errors: List[Error]
+        """
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        """
         eventually_due: List[str]
+        """
+        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `future_requirements[current_deadline]` becomes set.
+        """
         past_due: List[str]
+        """
+        Fields that weren't collected by the account's `requirements.current_deadline`. These fields need to be collected to enable the person's account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`.
+        """
         pending_verification: List[str]
+        """
+        Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`.
+        """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
     class RegisteredAddress(StripeObject):
         city: Optional[str]
+        """
+        City, district, suburb, town, or village.
+        """
         country: Optional[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
         line1: Optional[str]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
         line2: Optional[str]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
         postal_code: Optional[str]
+        """
+        ZIP or postal code.
+        """
         state: Optional[str]
+        """
+        State, county, province, or region.
+        """
 
     class Relationship(StripeObject):
         director: Optional[bool]
+        """
+        Whether the person is a director of the account's legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
+        """
         executive: Optional[bool]
+        """
+        Whether the person has significant responsibility to control, manage, or direct the organization.
+        """
         legal_guardian: Optional[bool]
+        """
+        Whether the person is the legal guardian of the account's representative.
+        """
         owner: Optional[bool]
+        """
+        Whether the person is an owner of the account's legal entity.
+        """
         percent_ownership: Optional[float]
+        """
+        The percent owned by the person of the account's legal entity.
+        """
         representative: Optional[bool]
+        """
+        Whether the person is authorized as the primary representative of the account. This is the person nominated by the business to provide information about themselves, and general information about the account. There can only be one representative at any given time. At the time the account is created, this person should be set to the person responsible for opening the account.
+        """
         title: Optional[str]
+        """
+        The person's title (e.g., CEO, Support Engineer).
+        """
 
     class Requirements(StripeObject):
         class Alternative(StripeObject):
             alternative_fields_due: List[str]
+            """
+            Fields that can be provided to satisfy all fields in `original_fields_due`.
+            """
             original_fields_due: List[str]
+            """
+            Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+            """
 
         class Error(StripeObject):
             code: Literal[
@@ -282,72 +438,213 @@ class Person(UpdateableAPIResource["Person"]):
                 "verification_missing_owners",
                 "verification_requires_additional_memorandum_of_associations",
             ]
+            """
+            The code for the type of error.
+            """
             reason: str
+            """
+            An informative message that indicates the error type and provides additional details about the error.
+            """
             requirement: str
+            """
+            The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
+            """
 
         alternatives: Optional[List[Alternative]]
+        """
+        Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+        """
         currently_due: List[str]
+        """
+        Fields that need to be collected to keep the person's account enabled. If not collected by the account's `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+        """
         errors: List[Error]
+        """
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        """
         eventually_due: List[str]
+        """
+        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and the account's `current_deadline` becomes set.
+        """
         past_due: List[str]
+        """
+        Fields that weren't collected by the account's `current_deadline`. These fields need to be collected to enable the person's account.
+        """
         pending_verification: List[str]
+        """
+        Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`.
+        """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
     class Verification(StripeObject):
         class AdditionalDocument(StripeObject):
             back: Optional[ExpandableField["File"]]
+            """
+            The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+            """
             details: Optional[str]
+            """
+            A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read".
+            """
             details_code: Optional[str]
+            """
+            One of `document_corrupt`, `document_country_not_supported`, `document_expired`, `document_failed_copy`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_failed_greyscale`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_missing_back`, `document_missing_front`, `document_not_readable`, `document_not_uploaded`, `document_photo_mismatch`, `document_too_large`, or `document_type_not_supported`. A machine-readable code specifying the verification state for this document.
+            """
             front: Optional[ExpandableField["File"]]
+            """
+            The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+            """
 
         class Document(StripeObject):
             back: Optional[ExpandableField["File"]]
+            """
+            The back of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+            """
             details: Optional[str]
+            """
+            A user-displayable string describing the verification state of this document. For example, if a document is uploaded and the picture is too fuzzy, this may say "Identity document is too unclear to read".
+            """
             details_code: Optional[str]
+            """
+            One of `document_corrupt`, `document_country_not_supported`, `document_expired`, `document_failed_copy`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_failed_greyscale`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_missing_back`, `document_missing_front`, `document_not_readable`, `document_not_uploaded`, `document_photo_mismatch`, `document_too_large`, or `document_type_not_supported`. A machine-readable code specifying the verification state for this document.
+            """
             front: Optional[ExpandableField["File"]]
+            """
+            The front of an ID returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `identity_document`.
+            """
 
         additional_document: Optional[AdditionalDocument]
+        """
+        A document showing address, either a passport, local ID card, or utility bill from a well-known utility company.
+        """
         details: Optional[str]
+        """
+        A user-displayable string describing the verification state for the person. For example, this may say "Provided identity information could not be verified".
+        """
         details_code: Optional[str]
+        """
+        One of `document_address_mismatch`, `document_dob_mismatch`, `document_duplicate_type`, `document_id_number_mismatch`, `document_name_mismatch`, `document_nationality_mismatch`, `failed_keyed_identity`, or `failed_other`. A machine-readable code specifying the verification state for the person.
+        """
         document: Optional[Document]
         status: str
+        """
+        The state of verification for the person. Possible values are `unverified`, `pending`, or `verified`.
+        """
         _inner_class_types = {
             "additional_document": AdditionalDocument,
             "document": Document,
         }
 
     account: Optional[str]
+    """
+    The account the person is associated with.
+    """
     additional_tos_acceptances: Optional[AdditionalTosAcceptances]
     address: Optional[Address]
     address_kana: Optional[AddressKana]
+    """
+    The Kana variation of the person's address (Japan only).
+    """
     address_kanji: Optional[AddressKanji]
+    """
+    The Kanji variation of the person's address (Japan only).
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     dob: Optional[Dob]
     email: Optional[str]
+    """
+    The person's email address.
+    """
     first_name: Optional[str]
+    """
+    The person's first name.
+    """
     first_name_kana: Optional[str]
+    """
+    The Kana variation of the person's first name (Japan only).
+    """
     first_name_kanji: Optional[str]
+    """
+    The Kanji variation of the person's first name (Japan only).
+    """
     full_name_aliases: Optional[List[str]]
+    """
+    A list of alternate names or aliases that the person is known by.
+    """
     future_requirements: Optional[FutureRequirements]
+    """
+    Information about the [upcoming new requirements for this person](https://stripe.com/docs/connect/custom-accounts/future-requirements), including what information needs to be collected, and by when.
+    """
     gender: Optional[str]
+    """
+    The person's gender (International regulations require either "male" or "female").
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     id_number_provided: Optional[bool]
+    """
+    Whether the person's `id_number` was provided. True if either the full ID number was provided or if only the required part of the ID number was provided (ex. last four of an individual's SSN for the US indicated by `ssn_last_4_provided`).
+    """
     id_number_secondary_provided: Optional[bool]
+    """
+    Whether the person's `id_number_secondary` was provided.
+    """
     last_name: Optional[str]
+    """
+    The person's last name.
+    """
     last_name_kana: Optional[str]
+    """
+    The Kana variation of the person's last name (Japan only).
+    """
     last_name_kanji: Optional[str]
+    """
+    The Kanji variation of the person's last name (Japan only).
+    """
     maiden_name: Optional[str]
+    """
+    The person's maiden name.
+    """
     metadata: Optional[Dict[str, str]]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     nationality: Optional[str]
+    """
+    The country where the person is a national.
+    """
     object: Literal["person"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     phone: Optional[str]
+    """
+    The person's phone number.
+    """
     political_exposure: Optional[Literal["existing", "none"]]
+    """
+    Indicates if the person or any of their representatives, family members, or other closely related persons, declares that they hold or have held an important public job or function, in any jurisdiction.
+    """
     registered_address: Optional[RegisteredAddress]
     relationship: Optional[Relationship]
     requirements: Optional[Requirements]
+    """
+    Information about the requirements for this person, including what information needs to be collected, and by when.
+    """
     ssn_last_4_provided: Optional[bool]
+    """
+    Whether the last four digits of the person's Social Security number have been provided (U.S. only).
+    """
     verification: Optional[Verification]
     deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
 
     def instance_url(self):
         token = self.id

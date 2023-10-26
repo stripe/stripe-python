@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     DeletableAPIResource,
@@ -8,7 +7,8 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import ClassVar, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
 
@@ -24,6 +24,9 @@ class ApplePayDomain(
         class CreateParams(RequestOptions):
             domain_name: str
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class DeleteParams(RequestOptions):
             pass
@@ -31,19 +34,49 @@ class ApplePayDomain(
         class ListParams(RequestOptions):
             domain_name: NotRequired["str|None"]
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     domain_name: str
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["apple_pay_domain"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
 
     @classmethod
     def create(
@@ -77,8 +110,21 @@ class ApplePayDomain(
             cls._static_request("delete", url, params=params),
         )
 
-    @util.class_method_variant("_cls_delete")
+    @overload
+    @classmethod
     def delete(
+        cls, sid: str, **params: Unpack["ApplePayDomain.DeleteParams"]
+    ) -> "ApplePayDomain":
+        ...
+
+    @overload
+    def delete(
+        self, **params: Unpack["ApplePayDomain.DeleteParams"]
+    ) -> "ApplePayDomain":
+        ...
+
+    @class_method_variant("_cls_delete")
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["ApplePayDomain.DeleteParams"]
     ) -> "ApplePayDomain":
         return self._request_and_refresh(

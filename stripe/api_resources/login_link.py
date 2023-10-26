@@ -12,5 +12,14 @@ class LoginLink(StripeObject):
 
     OBJECT_NAME: ClassVar[Literal["login_link"]] = "login_link"
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     object: Literal["login_link"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     url: str
+    """
+    The URL for the login link.
+    """

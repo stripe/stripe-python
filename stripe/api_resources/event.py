@@ -52,29 +52,54 @@ class Event(ListableAPIResource["Event"]):
 
     class Data(StripeObject):
         object: Dict[str, Any]
+        """
+        Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key.
+        """
         previous_attributes: Optional[Dict[str, Any]]
+        """
+        Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements.
+        """
 
     class Reason(StripeObject):
         class AutomationAction(StripeObject):
             class StripeSendWebhookCustomEvent(StripeObject):
                 custom_data: Optional[Dict[str, str]]
+                """
+                Set of key-value pairs attached to the action when creating an Automation.
+                """
 
             stripe_send_webhook_custom_event: Optional[
                 StripeSendWebhookCustomEvent
             ]
             trigger: str
+            """
+            The trigger name of the automation that triggered this action.
+             Please visit [Revenue and retention automations](https://stripe.com/docs/billing/revenue-recovery/automations#choose-a-trigger) for all possible trigger names.
+            """
             type: Literal["stripe_send_webhook_custom_event"]
+            """
+            The type of the `automation_action`.
+            """
             _inner_class_types = {
                 "stripe_send_webhook_custom_event": StripeSendWebhookCustomEvent,
             }
 
         class Request(StripeObject):
             id: Optional[str]
+            """
+            ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
+            """
             idempotency_key: Optional[str]
+            """
+            The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
+            """
 
         automation_action: Optional[AutomationAction]
         request: Optional[Request]
         type: Literal["automation_action", "request"]
+        """
+        The type of the reason for the event.
+        """
         _inner_class_types = {
             "automation_action": AutomationAction,
             "request": Request,
@@ -82,39 +107,108 @@ class Event(ListableAPIResource["Event"]):
 
     class Request(StripeObject):
         id: Optional[str]
+        """
+        ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
+        """
         idempotency_key: Optional[str]
+        """
+        The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
+        """
 
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
             created: NotRequired["Event.ListParamsCreated|int|None"]
             delivery_success: NotRequired["bool|None"]
+            """
+            Filter events by whether all webhooks were successfully delivered. If false, events which are still pending or have failed all delivery attempts to a webhook endpoint will be returned.
+            """
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
             type: NotRequired["str|None"]
+            """
+            A string containing a specific event name, or group of events using * as a wildcard. The list will be filtered to include only events with a matching event property.
+            """
             types: NotRequired["List[str]|None"]
+            """
+            An array of up to 20 strings containing specific event names. The list will be filtered to include only events with a matching event property. You may pass either `type` or `types`, but not both.
+            """
 
         class ListParamsCreated(TypedDict):
             gt: NotRequired["int|None"]
+            """
+            Minimum value to filter by (exclusive)
+            """
             gte: NotRequired["int|None"]
+            """
+            Minimum value to filter by (inclusive)
+            """
             lt: NotRequired["int|None"]
+            """
+            Maximum value to filter by (exclusive)
+            """
             lte: NotRequired["int|None"]
+            """
+            Maximum value to filter by (inclusive)
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     account: Optional[str]
+    """
+    The connected account that originates the event.
+    """
     api_version: Optional[str]
+    """
+    The Stripe API version used to render `data`. This property is populated only for events on or after October 31, 2014.
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     data: Data
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["event"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     pending_webhooks: int
+    """
+    Number of webhooks that haven't been successfully delivered (for example, to return a 20x response) to the URLs you specify.
+    """
     reason: Optional[Reason]
+    """
+    Information about the action that causes the event. Only present when the event is triggered by an API request or an [Automation](https://stripe.com/docs/billing/revenue-recovery/automations) action.
+    """
     request: Optional[Request]
+    """
+    Information on the API request that triggers the event.
+    """
     type: Literal[
         "account.application.authorized",
         "account.application.deauthorized",
@@ -371,6 +465,9 @@ class Event(ListableAPIResource["Event"]):
         "sku.deleted",
         "sku.updated",
     ]
+    """
+    Description of the event (for example, `invoice.created` or `charge.refunded`).
+    """
 
     @classmethod
     def list(

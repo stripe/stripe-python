@@ -26,19 +26,52 @@ class ReportType(ListableAPIResource["ReportType"]):
 
         class ListParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     data_available_end: int
+    """
+    Most recent time for which this Report Type is available. Measured in seconds since the Unix epoch.
+    """
     data_available_start: int
+    """
+    Earliest time for which this Report Type is available. Measured in seconds since the Unix epoch.
+    """
     default_columns: Optional[List[str]]
+    """
+    List of column names that are included by default when this Report Type gets run. (If the Report Type doesn't support the `columns` parameter, this will be null.)
+    """
     id: str
+    """
+    The [ID of the Report Type](https://stripe.com/docs/reporting/statements/api#available-report-types), such as `balance.summary.1`.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     name: str
+    """
+    Human-readable name of the Report Type
+    """
     object: Literal["reporting.report_type"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     updated: int
+    """
+    When this Report Type was latest updated. Measured in seconds since the Unix epoch.
+    """
     version: int
+    """
+    Version of the Report Type. Different versions report with the same ID will have the same purpose, but may take different run parameters or have different result schemas.
+    """
 
     @classmethod
     def list(

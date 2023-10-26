@@ -21,13 +21,36 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
 
         class CreateParams(RequestOptions):
             customer: str
+            """
+            The ID of an existing customer for which to create the customer session.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     client_secret: str
+    """
+    The client secret of this customer session. Used on the client to set up secure access to the given `customer`.
+
+    The client secret can be used to provide access to `customer` from your frontend. It should not be stored, logged, or exposed to anyone other than the relevant customer. Make sure that you have TLS enabled on any page that includes the client secret.
+    """
     customer: ExpandableField["Customer"]
+    """
+    The customer the customer session was created for.
+    """
     expires_at: int
+    """
+    The timestamp at which this customer session will expire.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["customer_session"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
 
     @classmethod
     def create(

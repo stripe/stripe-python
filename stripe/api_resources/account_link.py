@@ -19,23 +19,53 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
 
         class CreateParams(RequestOptions):
             account: str
+            """
+            The identifier of the account to create an account link for.
+            """
             collect: NotRequired[
                 "Literal['currently_due', 'eventually_due']|None"
             ]
+            """
+            Which information the platform needs to collect from the user. One of `currently_due` or `eventually_due`. Default is `currently_due`.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             refresh_url: NotRequired["str|None"]
+            """
+            The URL the user will be redirected to if the account link is expired, has been previously-visited, or is otherwise invalid. The URL you specify should attempt to generate a new account link with the same parameters used to create the original account link, then redirect the user to the new account link's URL so they can continue with Connect Onboarding. If a new account link cannot be generated or the redirect fails you should display a useful error to the user.
+            """
             return_url: NotRequired["str|None"]
+            """
+            The URL that the user will be redirected to upon leaving or completing the linked flow.
+            """
             type: Literal[
                 "account_onboarding",
                 "account_update",
                 "capital_financing_offer",
                 "capital_financing_reporting",
             ]
+            """
+            The type of account link the user is requesting. Possible values are `account_onboarding` or `account_update`.
+            """
 
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     expires_at: int
+    """
+    The timestamp at which this account link will expire.
+    """
     object: Literal["account_link"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     url: str
+    """
+    The URL for the account link.
+    """
 
     @classmethod
     def create(

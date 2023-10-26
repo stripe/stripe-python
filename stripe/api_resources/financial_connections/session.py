@@ -33,14 +33,29 @@ class Session(CreateableAPIResource["Session"]):
 
     class AccountHolder(StripeObject):
         account: Optional[ExpandableField["AccountResource"]]
+        """
+        The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
+        """
         customer: Optional[ExpandableField["Customer"]]
+        """
+        ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
+        """
         type: Literal["account", "customer"]
+        """
+        Type of account holder that this account belongs to.
+        """
 
     class Filters(StripeObject):
         countries: Optional[List[str]]
+        """
+        List of countries from which to filter accounts.
+        """
 
     class Limits(StripeObject):
         accounts: int
+        """
+        The number of accounts that can be linked in this Session.
+        """
 
     class ManualEntry(StripeObject):
         pass
@@ -48,6 +63,9 @@ class Session(CreateableAPIResource["Session"]):
     class StatusDetails(StripeObject):
         class Cancelled(StripeObject):
             reason: Literal["custom_manual_entry", "other"]
+            """
+            The reason for the Session being cancelled.
+            """
 
         cancelled: Optional[Cancelled]
         _inner_class_types = {"cancelled": Cancelled}
@@ -56,49 +74,117 @@ class Session(CreateableAPIResource["Session"]):
 
         class CreateParams(RequestOptions):
             account_holder: "Session.CreateParamsAccountHolder"
+            """
+            The account holder to link accounts for.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             filters: NotRequired["Session.CreateParamsFilters|None"]
+            """
+            Filters to restrict the kinds of accounts to collect.
+            """
             limits: NotRequired["Session.CreateParamsLimits|None"]
+            """
+            Settings for configuring Session-specific limits.
+            """
             manual_entry: NotRequired["Session.CreateParamsManualEntry|None"]
+            """
+            Settings for configuring manual entry of account details for this Session.
+            """
             permissions: List[
                 Literal[
                     "balances", "ownership", "payment_method", "transactions"
                 ]
             ]
+            """
+            List of data features that you would like to request access to.
+
+            Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
+            """
             prefetch: NotRequired[
                 "List[Literal['balances', 'inferred_balances', 'ownership', 'transactions']]|None"
             ]
+            """
+            List of data features that you would like to retrieve upon account creation.
+            """
             return_url: NotRequired["str|None"]
+            """
+            For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+            """
 
         class CreateParamsManualEntry(TypedDict):
             mode: NotRequired["Literal['automatic', 'custom']|None"]
+            """
+            Whether manual entry will be handled by Stripe during the Session.
+            """
 
         class CreateParamsLimits(TypedDict):
             accounts: int
+            """
+            The number of accounts that can be linked in this Session.
+            """
 
         class CreateParamsFilters(TypedDict):
             countries: List[str]
+            """
+            List of countries from which to collect accounts.
+            """
 
         class CreateParamsAccountHolder(TypedDict):
             account: NotRequired["str|None"]
+            """
+            The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.
+            """
             customer: NotRequired["str|None"]
+            """
+            The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
+            """
             type: Literal["account", "customer"]
+            """
+            Type of account holder to collect accounts for.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     account_holder: Optional[AccountHolder]
+    """
+    The account holder for whom accounts are collected in this session.
+    """
     accounts: ListObject["FinancialConnectionsAccountResource"]
+    """
+    The accounts that were collected as part of this Session.
+    """
     client_secret: str
+    """
+    A value that will be passed to the client to launch the authentication flow.
+    """
     filters: Optional[Filters]
     id: str
+    """
+    Unique identifier for the object.
+    """
     limits: Optional[Limits]
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     manual_entry: Optional[ManualEntry]
     object: Literal["financial_connections.session"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     permissions: List[
         Literal["balances", "ownership", "payment_method", "transactions"]
     ]
+    """
+    Permissions requested for accounts collected during this session.
+    """
     prefetch: Optional[
         List[
             Literal[
@@ -106,8 +192,17 @@ class Session(CreateableAPIResource["Session"]):
             ]
         ]
     ]
+    """
+    Data features requested to be retrieved upon account creation.
+    """
     return_url: Optional[str]
+    """
+    For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+    """
     status: Optional[Literal["cancelled", "failed", "pending", "succeeded"]]
+    """
+    The current state of the session.
+    """
     status_details: Optional[StatusDetails]
 
     @classmethod

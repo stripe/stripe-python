@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     DeletableAPIResource,
@@ -8,7 +7,8 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import ClassVar, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -37,8 +37,17 @@ class ValueListItem(
 
         class CreateParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             value: str
+            """
+            The value of the item (whose type must match the type of the parent value list).
+            """
             value_list: str
+            """
+            The identifier of the value list which the created item will be added to.
+            """
 
         class DeleteParams(RequestOptions):
             pass
@@ -46,29 +55,86 @@ class ValueListItem(
         class ListParams(RequestOptions):
             created: NotRequired["ValueListItem.ListParamsCreated|int|None"]
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
             value: NotRequired["str|None"]
+            """
+            Return items belonging to the parent list whose value matches the specified value (using an "is like" match).
+            """
             value_list: str
+            """
+            Identifier for the parent value list this item belongs to.
+            """
 
         class ListParamsCreated(TypedDict):
             gt: NotRequired["int|None"]
+            """
+            Minimum value to filter by (exclusive)
+            """
             gte: NotRequired["int|None"]
+            """
+            Minimum value to filter by (inclusive)
+            """
             lt: NotRequired["int|None"]
+            """
+            Maximum value to filter by (exclusive)
+            """
             lte: NotRequired["int|None"]
+            """
+            Maximum value to filter by (inclusive)
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     created_by: str
+    """
+    The name or email address of the user who added this item to the value list.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["radar.value_list_item"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     value: str
+    """
+    The value of the item.
+    """
     value_list: str
+    """
+    The identifier of the value list this item belongs to.
+    """
     deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
 
     @classmethod
     def create(
@@ -102,8 +168,21 @@ class ValueListItem(
             cls._static_request("delete", url, params=params),
         )
 
-    @util.class_method_variant("_cls_delete")
+    @overload
+    @classmethod
     def delete(
+        cls, sid: str, **params: Unpack["ValueListItem.DeleteParams"]
+    ) -> "ValueListItem":
+        ...
+
+    @overload
+    def delete(
+        self, **params: Unpack["ValueListItem.DeleteParams"]
+    ) -> "ValueListItem":
+        ...
+
+    @class_method_variant("_cls_delete")
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["ValueListItem.DeleteParams"]
     ) -> "ValueListItem":
         return self._request_and_refresh(
