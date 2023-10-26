@@ -29,41 +29,103 @@ class Session(CreateableAPIResource["Session"]):
 
         class CreateParams(RequestOptions):
             account_holder: "Session.CreateParamsAccountHolder"
+            """
+            The account holder to link accounts for.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             filters: NotRequired["Session.CreateParamsFilters|None"]
+            """
+            Filters to restrict the kinds of accounts to collect.
+            """
             permissions: List[
                 Literal[
                     "balances", "ownership", "payment_method", "transactions"
                 ]
             ]
+            """
+            List of data features that you would like to request access to.
+
+            Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
+            """
             prefetch: NotRequired[
                 "List[Literal['balances', 'ownership']]|None"
             ]
+            """
+            List of data features that you would like to retrieve upon account creation.
+            """
             return_url: NotRequired["str|None"]
+            """
+            For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+            """
 
         class CreateParamsFilters(TypedDict):
             countries: List[str]
+            """
+            List of countries from which to collect accounts.
+            """
 
         class CreateParamsAccountHolder(TypedDict):
             account: NotRequired["str|None"]
+            """
+            The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.
+            """
             customer: NotRequired["str|None"]
+            """
+            The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
+            """
             type: Literal["account", "customer"]
+            """
+            Type of account holder to collect accounts for.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     account_holder: Optional[StripeObject]
+    """
+    The account holder for whom accounts are collected in this session.
+    """
     accounts: ListObject["Account"]
+    """
+    The accounts that were collected as part of this Session.
+    """
     client_secret: str
+    """
+    A value that will be passed to the client to launch the authentication flow.
+    """
     filters: Optional[StripeObject]
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["financial_connections.session"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     permissions: List[
         Literal["balances", "ownership", "payment_method", "transactions"]
     ]
+    """
+    Permissions requested for accounts collected during this session.
+    """
     prefetch: Optional[List[Literal["balances", "ownership"]]]
+    """
+    Data features requested to be retrieved upon account creation.
+    """
     return_url: Optional[str]
+    """
+    For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+    """
 
     @classmethod
     def create(

@@ -21,18 +21,42 @@ class Mandate(APIResource["Mandate"]):
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     customer_acceptance: StripeObject
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     multi_use: Optional[StripeObject]
     object: Literal["mandate"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     on_behalf_of: Optional[str]
+    """
+    The account (if any) that the mandate is intended for.
+    """
     payment_method: ExpandableField["PaymentMethod"]
+    """
+    ID of the payment method associated with this mandate.
+    """
     payment_method_details: StripeObject
     single_use: Optional[StripeObject]
     status: Literal["active", "inactive", "pending"]
+    """
+    The mandate status indicates whether or not you can use it to initiate a payment.
+    """
     type: Literal["multi_use", "single_use"]
+    """
+    The type of the mandate.
+    """
 
     @classmethod
     def retrieve(

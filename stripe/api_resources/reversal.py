@@ -31,15 +31,45 @@ class Reversal(UpdateableAPIResource["Reversal"]):
 
     OBJECT_NAME: ClassVar[Literal["transfer_reversal"]] = "transfer_reversal"
     amount: int
+    """
+    Amount, in cents (or local equivalent).
+    """
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
+    """
+    Balance transaction that describes the impact on your account balance.
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
     destination_payment_refund: Optional[ExpandableField["Refund"]]
+    """
+    Linked payment refund for the transfer reversal.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     metadata: Optional[Dict[str, str]]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     object: Literal["transfer_reversal"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     source_refund: Optional[ExpandableField["Refund"]]
+    """
+    ID of the refund responsible for the transfer reversal.
+    """
     transfer: ExpandableField["Transfer"]
+    """
+    ID of the transfer that was reversed.
+    """
 
     def instance_url(self):
         token = self.id

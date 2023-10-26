@@ -35,58 +35,169 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
 
         class ListParams(RequestOptions):
             charge: NotRequired["str|None"]
+            """
+            Only return application fees for the charge specified by this charge ID.
+            """
             created: NotRequired["ApplicationFee.ListParamsCreated|int|None"]
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
 
         class ListParamsCreated(TypedDict):
             gt: NotRequired["int|None"]
+            """
+            Minimum value to filter by (exclusive)
+            """
             gte: NotRequired["int|None"]
+            """
+            Minimum value to filter by (inclusive)
+            """
             lt: NotRequired["int|None"]
+            """
+            Maximum value to filter by (exclusive)
+            """
             lte: NotRequired["int|None"]
+            """
+            Maximum value to filter by (inclusive)
+            """
 
         class RefundParams(RequestOptions):
             amount: NotRequired["int|None"]
+            """
+            A positive integer, in _cents (or local equivalent)_, representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the fee.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class CreateRefundParams(RequestOptions):
             amount: NotRequired["int|None"]
+            """
+            A positive integer, in _cents (or local equivalent)_, representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the fee.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
 
         class RetrieveRefundParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class ModifyRefundParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
 
         class ListRefundsParams(RequestOptions):
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
 
     account: ExpandableField["Account"]
+    """
+    ID of the Stripe account this fee was taken from.
+    """
     amount: int
+    """
+    Amount earned, in cents (or local equivalent).
+    """
     amount_refunded: int
+    """
+    Amount in cents (or local equivalent) refunded (can be less than the amount attribute on the fee if a partial refund was issued)
+    """
     application: ExpandableField["Application"]
+    """
+    ID of the Connect application that earned the fee.
+    """
     balance_transaction: Optional[ExpandableField["BalanceTransaction"]]
+    """
+    Balance transaction that describes the impact of this collected application fee on your account balance (not including refunds).
+    """
     charge: ExpandableField["Charge"]
+    """
+    ID of the charge that the application fee was taken from.
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["application_fee"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     originating_transaction: Optional[ExpandableField["Charge"]]
+    """
+    ID of the corresponding charge on the platform account, if this fee was the result of a charge using the `destination` parameter.
+    """
     refunded: bool
+    """
+    Whether the fee has been fully refunded. If the fee is only partially refunded, this attribute will still be false.
+    """
     refunds: ListObject["ApplicationFeeRefund"]
+    """
+    A list of refunds that have been applied to the fee.
+    """
 
     @classmethod
     def list(

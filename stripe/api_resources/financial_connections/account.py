@@ -37,52 +37,148 @@ class Account(ListableAPIResource["Account"]):
 
         class DisconnectParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class ListParams(RequestOptions):
             account_holder: NotRequired["Account.ListParamsAccountHolder|None"]
+            """
+            If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive.
+            """
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             session: NotRequired["str|None"]
+            """
+            If present, only return accounts that were collected as part of the given session.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
 
         class ListParamsAccountHolder(TypedDict):
             account: NotRequired["str|None"]
+            """
+            The ID of the Stripe account whose accounts will be retrieved.
+            """
             customer: NotRequired["str|None"]
+            """
+            The ID of the Stripe customer whose accounts will be retrieved.
+            """
 
         class ListOwnersParams(RequestOptions):
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             ownership: str
+            """
+            The ID of the ownership object to fetch owners from.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
 
         class RefreshAccountParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             features: List[Literal["balance", "ownership"]]
+            """
+            The list of account features that you would like to refresh.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     account_holder: Optional[StripeObject]
+    """
+    The account holder that this account belongs to.
+    """
     balance: Optional[StripeObject]
+    """
+    The most recent information about the account's balance.
+    """
     balance_refresh: Optional[StripeObject]
+    """
+    The state of the most recent attempt to refresh the account balance.
+    """
     category: Literal["cash", "credit", "investment", "other"]
+    """
+    The type of the account. Account category is further divided in `subcategory`.
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     display_name: Optional[str]
+    """
+    A human-readable name that has been assigned to this account, either by the account holder or by the institution.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     institution_name: str
+    """
+    The name of the institution that holds this account.
+    """
     last4: Optional[str]
+    """
+    The last 4 digits of the account number. If present, this will be 4 numeric characters.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["financial_connections.account"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     ownership: Optional[ExpandableField["AccountOwnership"]]
+    """
+    The most recent information about the account's owners.
+    """
     ownership_refresh: Optional[StripeObject]
+    """
+    The state of the most recent attempt to refresh the account owners.
+    """
     permissions: Optional[
         List[
             Literal["balances", "ownership", "payment_method", "transactions"]
         ]
     ]
+    """
+    The list of permissions granted by this account.
+    """
     status: Literal["active", "disconnected", "inactive"]
+    """
+    The status of the link to the account.
+    """
     subcategory: Literal[
         "checking",
         "credit_card",
@@ -91,7 +187,26 @@ class Account(ListableAPIResource["Account"]):
         "other",
         "savings",
     ]
+    """
+    If `category` is `cash`, one of:
+
+     - `checking`
+     - `savings`
+     - `other`
+
+    If `category` is `credit`, one of:
+
+     - `mortgage`
+     - `line_of_credit`
+     - `credit_card`
+     - `other`
+
+    If `category` is `investment` or `other`, this will be `other`.
+    """
     supported_payment_method_types: List[Literal["link", "us_bank_account"]]
+    """
+    The [PaymentMethod type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type)(s) that can be created from this account.
+    """
 
     @classmethod
     def _cls_disconnect(

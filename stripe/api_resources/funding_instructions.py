@@ -19,6 +19,18 @@ class FundingInstructions(StripeObject):
     ] = "funding_instructions"
     bank_transfer: StripeObject
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
     funding_type: Literal["bank_transfer"]
+    """
+    The `funding_type` of the returned instructions
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["funding_instructions"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """

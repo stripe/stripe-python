@@ -34,41 +34,113 @@ class Review(ListableAPIResource["Review"]):
 
         class ApproveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class ListParams(RequestOptions):
             created: NotRequired["Review.ListParamsCreated|int|None"]
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
 
         class ListParamsCreated(TypedDict):
             gt: NotRequired["int|None"]
+            """
+            Minimum value to filter by (exclusive)
+            """
             gte: NotRequired["int|None"]
+            """
+            Minimum value to filter by (inclusive)
+            """
             lt: NotRequired["int|None"]
+            """
+            Maximum value to filter by (exclusive)
+            """
             lte: NotRequired["int|None"]
+            """
+            Maximum value to filter by (inclusive)
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     billing_zip: Optional[str]
+    """
+    The ZIP or postal code of the card used, if applicable.
+    """
     charge: Optional[ExpandableField["Charge"]]
+    """
+    The charge associated with this review.
+    """
     closed_reason: Optional[
         Literal[
             "approved", "disputed", "redacted", "refunded", "refunded_as_fraud"
         ]
     ]
+    """
+    The reason the review was closed, or null if it has not yet been closed. One of `approved`, `refunded`, `refunded_as_fraud`, `disputed`, or `redacted`.
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     ip_address: Optional[str]
+    """
+    The IP address where the payment originated.
+    """
     ip_address_location: Optional[StripeObject]
+    """
+    Information related to the location of the payment. Note that this information is an approximation and attempts to locate the nearest population center - it should not be used to determine a specific address.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["review"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     open: bool
+    """
+    If `true`, the review needs action.
+    """
     opened_reason: Literal["manual", "rule"]
+    """
+    The reason the review was opened. One of `rule` or `manual`.
+    """
     payment_intent: Optional[ExpandableField["PaymentIntent"]]
+    """
+    The PaymentIntent ID associated with this review, if one exists.
+    """
     reason: str
+    """
+    The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, `disputed`, or `redacted`.
+    """
     session: Optional[StripeObject]
+    """
+    Information related to the browsing session of the user who initiated the payment.
+    """
 
     @classmethod
     def _cls_approve(

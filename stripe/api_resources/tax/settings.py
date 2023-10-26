@@ -32,34 +32,85 @@ class Settings(
 
         class ModifyParams(RequestOptions):
             defaults: NotRequired["Settings.ModifyParamsDefaults|None"]
+            """
+            Default configuration to be used on Stripe Tax calculations.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             head_office: NotRequired["Settings.ModifyParamsHeadOffice|None"]
+            """
+            The place where your business is located.
+            """
 
         class ModifyParamsHeadOffice(TypedDict):
             address: "Settings.ModifyParamsHeadOfficeAddress"
+            """
+            The location of the business for tax purposes.
+            """
 
         class ModifyParamsHeadOfficeAddress(TypedDict):
             city: NotRequired["str|None"]
+            """
+            City, district, suburb, town, or village.
+            """
             country: NotRequired["str|None"]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
             line1: NotRequired["str|None"]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
             line2: NotRequired["str|None"]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
             postal_code: NotRequired["str|None"]
+            """
+            ZIP or postal code.
+            """
             state: NotRequired["str|None"]
+            """
+            State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+            """
 
         class ModifyParamsDefaults(TypedDict):
             tax_behavior: NotRequired[
                 "Literal['exclusive', 'inclusive', 'inferred_by_currency']|None"
             ]
+            """
+            Specifies the default [tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#tax-behavior) to be used when the item's price has unspecified tax behavior. One of inclusive, exclusive, or inferred_by_currency. Once specified, it cannot be changed back to null.
+            """
             tax_code: NotRequired["str|None"]
+            """
+            A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     defaults: StripeObject
     head_office: Optional[StripeObject]
+    """
+    The place where your business is located.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["tax.settings"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     status: Literal["active", "pending"]
+    """
+    The `active` status indicates you have all required settings to calculate tax. A status can transition out of `active` when new required settings are introduced.
+    """
     status_details: StripeObject
 
     @classmethod

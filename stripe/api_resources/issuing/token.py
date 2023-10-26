@@ -32,42 +32,117 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
 
         class ListParams(RequestOptions):
             card: str
+            """
+            The Issuing card identifier to list tokens for.
+            """
             created: NotRequired["Token.ListParamsCreated|int|None"]
+            """
+            Select Issuing tokens that were created during the given date interval.
+            """
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
             status: NotRequired[
                 "Literal['active', 'deleted', 'requested', 'suspended']|None"
             ]
+            """
+            Select Issuing tokens with the given status.
+            """
 
         class ListParamsCreated(TypedDict):
             gt: NotRequired["int|None"]
+            """
+            Minimum value to filter by (exclusive)
+            """
             gte: NotRequired["int|None"]
+            """
+            Minimum value to filter by (inclusive)
+            """
             lt: NotRequired["int|None"]
+            """
+            Maximum value to filter by (exclusive)
+            """
             lte: NotRequired["int|None"]
+            """
+            Maximum value to filter by (inclusive)
+            """
 
         class ModifyParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             status: Literal["active", "deleted", "suspended"]
+            """
+            Specifies which status the token should be updated to.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     card: ExpandableField["Card"]
+    """
+    Card associated with this token.
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     device_fingerprint: Optional[str]
+    """
+    The hashed ID derived from the device ID from the card network associated with the token
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     last4: Optional[str]
+    """
+    The last four digits of the token.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     network: Literal["mastercard", "visa"]
+    """
+    The token service provider / card network associated with the token.
+    """
     network_data: Optional[StripeObject]
     network_updated_at: int
+    """
+    Time at which the token was last updated by the card network. Measured in seconds since the Unix epoch.
+    """
     object: Literal["issuing.token"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     status: Literal["active", "deleted", "requested", "suspended"]
+    """
+    The usage state of the token.
+    """
     wallet_provider: Optional[
         Literal["apple_pay", "google_pay", "samsung_pay"]
     ]
+    """
+    The digital wallet for this token, if one was used.
+    """
 
     @classmethod
     def list(
