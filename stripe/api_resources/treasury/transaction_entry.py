@@ -34,35 +34,104 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
                 "TransactionEntry.ListParamsEffectiveAt|int|None"
             ]
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             financial_account: str
+            """
+            Returns objects associated with this FinancialAccount.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             order_by: NotRequired["Literal['created', 'effective_at']|None"]
+            """
+            The results are in reverse chronological order by `created` or `effective_at`. The default is `created`.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
             transaction: NotRequired["str|None"]
+            """
+            Only return TransactionEntries associated with this Transaction.
+            """
 
         class ListParamsEffectiveAt(TypedDict):
             gt: NotRequired["int|None"]
+            """
+            Minimum value to filter by (exclusive)
+            """
             gte: NotRequired["int|None"]
+            """
+            Minimum value to filter by (inclusive)
+            """
             lt: NotRequired["int|None"]
+            """
+            Maximum value to filter by (exclusive)
+            """
             lte: NotRequired["int|None"]
+            """
+            Maximum value to filter by (inclusive)
+            """
 
         class ListParamsCreated(TypedDict):
             gt: NotRequired["int|None"]
+            """
+            Minimum value to filter by (exclusive)
+            """
             gte: NotRequired["int|None"]
+            """
+            Minimum value to filter by (inclusive)
+            """
             lt: NotRequired["int|None"]
+            """
+            Maximum value to filter by (exclusive)
+            """
             lte: NotRequired["int|None"]
+            """
+            Maximum value to filter by (inclusive)
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     balance_impact: StripeObject
+    """
+    Change to a FinancialAccount's balance
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
     effective_at: int
+    """
+    When the TransactionEntry will impact the FinancialAccount's balance.
+    """
     financial_account: str
+    """
+    The FinancialAccount associated with this object.
+    """
     flow: Optional[str]
+    """
+    Token of the flow associated with the TransactionEntry.
+    """
     flow_details: Optional[StripeObject]
+    """
+    Details of the flow associated with the TransactionEntry.
+    """
     flow_type: Literal[
         "credit_reversal",
         "debit_reversal",
@@ -74,10 +143,25 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
         "received_credit",
         "received_debit",
     ]
+    """
+    Type of the flow associated with the TransactionEntry.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     object: Literal["treasury.transaction_entry"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     transaction: ExpandableField["Transaction"]
+    """
+    The Transaction associated with this object.
+    """
     type: Literal[
         "credit_reversal",
         "credit_reversal_posting",
@@ -100,6 +184,9 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
         "received_credit",
         "received_debit",
     ]
+    """
+    The specific money movement that generated the TransactionEntry.
+    """
 
     @classmethod
     def list(

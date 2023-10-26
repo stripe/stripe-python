@@ -18,13 +18,31 @@ class Capability(UpdateableAPIResource["Capability"]):
 
     OBJECT_NAME: ClassVar[Literal["capability"]] = "capability"
     account: ExpandableField["Account"]
+    """
+    The account for which the capability enables functionality.
+    """
     future_requirements: Optional[StripeObject]
     id: str
+    """
+    The identifier for the capability.
+    """
     object: Literal["capability"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     requested: bool
+    """
+    Whether the capability has been requested.
+    """
     requested_at: Optional[int]
+    """
+    Time at which the capability was requested. Measured in seconds since the Unix epoch.
+    """
     requirements: Optional[StripeObject]
     status: Literal["active", "disabled", "inactive", "pending", "unrequested"]
+    """
+    The status of the capability. Can be `active`, `inactive`, `pending`, or `unrequested`.
+    """
 
     def instance_url(self):
         token = self.id

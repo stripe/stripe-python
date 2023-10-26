@@ -38,54 +38,156 @@ class Location(
 
         class CreateParams(RequestOptions):
             address: "Location.CreateParamsAddress"
+            """
+            The full address of the location.
+            """
             configuration_overrides: NotRequired["str|None"]
+            """
+            The ID of a configuration that will be used to customize all readers in this location.
+            """
             display_name: str
+            """
+            A name for the location.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
 
         class CreateParamsAddress(TypedDict):
             city: NotRequired["str|None"]
+            """
+            City, district, suburb, town, or village.
+            """
             country: str
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
             line1: NotRequired["str|None"]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
             line2: NotRequired["str|None"]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
             postal_code: NotRequired["str|None"]
+            """
+            ZIP or postal code.
+            """
             state: NotRequired["str|None"]
+            """
+            State, county, province, or region.
+            """
 
         class DeleteParams(RequestOptions):
             pass
 
         class ListParams(RequestOptions):
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
 
         class ModifyParams(RequestOptions):
             address: NotRequired["Location.ModifyParamsAddress|None"]
+            """
+            The full address of the location.
+            """
             configuration_overrides: NotRequired["Literal['']|str|None"]
+            """
+            The ID of a configuration that will be used to customize all readers in this location.
+            """
             display_name: NotRequired["str|None"]
+            """
+            A name for the location.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
 
         class ModifyParamsAddress(TypedDict):
             city: NotRequired["str|None"]
+            """
+            City, district, suburb, town, or village.
+            """
             country: NotRequired["str|None"]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
             line1: NotRequired["str|None"]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
             line2: NotRequired["str|None"]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
             postal_code: NotRequired["str|None"]
+            """
+            ZIP or postal code.
+            """
             state: NotRequired["str|None"]
+            """
+            State, county, province, or region.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     address: StripeObject
     configuration_overrides: Optional[str]
+    """
+    The ID of a configuration that will be used to customize all readers in this location.
+    """
     display_name: str
+    """
+    The display name of the location.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     metadata: Dict[str, str]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     object: Literal["terminal.location"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
 
     @classmethod
     def create(

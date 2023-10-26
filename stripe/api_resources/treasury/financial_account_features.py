@@ -15,10 +15,34 @@ class FinancialAccountFeatures(StripeObject):
         Literal["treasury.financial_account_features"]
     ] = "treasury.financial_account_features"
     card_issuing: Optional[StripeObject]
+    """
+    Toggle settings for enabling/disabling a feature
+    """
     deposit_insurance: Optional[StripeObject]
+    """
+    Toggle settings for enabling/disabling a feature
+    """
     financial_addresses: Optional[StripeObject]
+    """
+    Settings related to Financial Addresses features on a Financial Account
+    """
     inbound_transfers: Optional[StripeObject]
+    """
+    InboundTransfers contains inbound transfers features for a FinancialAccount.
+    """
     intra_stripe_flows: Optional[StripeObject]
+    """
+    Toggle settings for enabling/disabling a feature
+    """
     object: Literal["treasury.financial_account_features"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     outbound_payments: Optional[StripeObject]
+    """
+    Settings related to Outbound Payments features on a Financial Account
+    """
     outbound_transfers: Optional[StripeObject]
+    """
+    OutboundTransfers contains outbound transfers features for a FinancialAccount.
+    """

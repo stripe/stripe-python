@@ -32,34 +32,91 @@ class TestClock(
 
         class AdvanceParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             frozen_time: int
+            """
+            The time to advance the test clock. Must be after the test clock's current frozen time. Cannot be more than two intervals in the future from the shortest subscription in this test clock. If there are no subscriptions in this test clock, it cannot be more than two years in the future.
+            """
 
         class CreateParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             frozen_time: int
+            """
+            The initial frozen time for this test clock.
+            """
             name: NotRequired["str|None"]
+            """
+            The name for this test clock.
+            """
 
         class DeleteParams(RequestOptions):
             pass
 
         class ListParams(RequestOptions):
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     deletes_after: int
+    """
+    Time at which this clock is scheduled to auto delete.
+    """
     frozen_time: int
+    """
+    Time at which all objects belonging to this clock are frozen.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     name: Optional[str]
+    """
+    The custom name supplied at creation.
+    """
     object: Literal["test_helpers.test_clock"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     status: Literal["advancing", "internal_failure", "ready"]
+    """
+    The status of the Test Clock.
+    """
     deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
 
     @classmethod
     def _cls_advance(

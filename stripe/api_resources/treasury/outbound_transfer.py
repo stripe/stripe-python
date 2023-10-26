@@ -42,79 +42,202 @@ class OutboundTransfer(
 
         class CancelParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class CreateParams(RequestOptions):
             amount: int
+            """
+            Amount (in cents) to be transferred.
+            """
             currency: str
+            """
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            """
             description: NotRequired["str|None"]
+            """
+            An arbitrary string attached to the object. Often useful for displaying to users.
+            """
             destination_payment_method: NotRequired["str|None"]
+            """
+            The PaymentMethod to use as the payment instrument for the OutboundTransfer.
+            """
             destination_payment_method_options: NotRequired[
                 "OutboundTransfer.CreateParamsDestinationPaymentMethodOptions|None"
             ]
+            """
+            Hash describing payment method configuration details.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             financial_account: str
+            """
+            The FinancialAccount to pull funds from.
+            """
             metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
             statement_descriptor: NotRequired["str|None"]
+            """
+            Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `wire` transfers. The default value is `transfer`.
+            """
 
         class CreateParamsDestinationPaymentMethodOptions(TypedDict):
             us_bank_account: NotRequired[
                 "Literal['']|OutboundTransfer.CreateParamsDestinationPaymentMethodOptionsUsBankAccount|None"
             ]
+            """
+            Optional fields for `us_bank_account`.
+            """
 
         class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(
             TypedDict,
         ):
             network: NotRequired["Literal['ach', 'us_domestic_wire']|None"]
+            """
+            Designate the OutboundTransfer as using a US bank account network configuration.
+            """
 
         class ListParams(RequestOptions):
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             financial_account: str
+            """
+            Returns objects associated with this FinancialAccount.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
             status: NotRequired[
                 "Literal['canceled', 'failed', 'posted', 'processing', 'returned']|None"
             ]
+            """
+            Only return OutboundTransfers that have the given status: `processing`, `canceled`, `failed`, `posted`, or `returned`.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class FailParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class PostParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
         class ReturnOutboundTransferParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             returned_details: NotRequired[
                 "OutboundTransfer.ReturnOutboundTransferParamsReturnedDetails|None"
             ]
+            """
+            Details about a returned OutboundTransfer.
+            """
 
         class ReturnOutboundTransferParamsReturnedDetails(TypedDict):
             code: NotRequired[
                 "Literal['account_closed', 'account_frozen', 'bank_account_restricted', 'bank_ownership_changed', 'declined', 'incorrect_account_holder_name', 'invalid_account_number', 'invalid_currency', 'no_account', 'other']|None"
             ]
+            """
+            Reason for the return.
+            """
 
     amount: int
+    """
+    Amount (in cents) transferred.
+    """
     cancelable: bool
+    """
+    Returns `true` if the object can be canceled, and `false` otherwise.
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
     description: Optional[str]
+    """
+    An arbitrary string attached to the object. Often useful for displaying to users.
+    """
     destination_payment_method: Optional[str]
+    """
+    The PaymentMethod used as the payment instrument for an OutboundTransfer.
+    """
     destination_payment_method_details: StripeObject
     expected_arrival_date: int
+    """
+    The date when funds are expected to arrive in the destination account.
+    """
     financial_account: str
+    """
+    The FinancialAccount that funds were pulled from.
+    """
     hosted_regulatory_receipt_url: Optional[str]
+    """
+    A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     metadata: Dict[str, str]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     object: Literal["treasury.outbound_transfer"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     returned_details: Optional[StripeObject]
+    """
+    Details about a returned OutboundTransfer. Only set when the status is `returned`.
+    """
     statement_descriptor: str
+    """
+    Information about the OutboundTransfer to be sent to the recipient account.
+    """
     status: Literal["canceled", "failed", "posted", "processing", "returned"]
+    """
+    Current status of the OutboundTransfer: `processing`, `failed`, `canceled`, `posted`, `returned`. An OutboundTransfer is `processing` if it has been created and is pending. The status changes to `posted` once the OutboundTransfer has been "confirmed" and funds have left the account, or to `failed` or `canceled`. If an OutboundTransfer fails to arrive at its destination, its status will change to `returned`.
+    """
     status_transitions: StripeObject
     transaction: ExpandableField["Transaction"]
+    """
+    The Transaction associated with this object.
+    """
 
     @classmethod
     def _cls_cancel(
