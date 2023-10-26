@@ -28,7 +28,7 @@ setup(
     license="MIT",
     keywords="stripe api payments",
     packages=find_packages(exclude=["tests", "tests.*"]),
-    package_data={"stripe": ["data/ca-certificates.crt", "py.typed"]},
+    package_data={"stripe": ["data/ca-certificates.crt"]},
     zip_safe=False,
     install_requires=[
         'typing_extensions <= 4.2.0, > 3.7.2; python_version < "3.7"',
