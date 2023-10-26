@@ -8,7 +8,8 @@ from stripe.api_resources.abstract import (
 )
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import ClassVar, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
 
@@ -83,8 +84,28 @@ class TestClock(
             ),
         )
 
-    @util.class_method_variant("_cls_advance")
+    @overload
+    @classmethod
     def advance(
+        cls,
+        test_clock: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["TestClock.AdvanceParams"]
+    ) -> "TestClock":
+        ...
+
+    @overload
+    def advance(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["TestClock.AdvanceParams"]
+    ) -> "TestClock":
+        ...
+
+    @class_method_variant("_cls_advance")
+    def advance(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["TestClock.AdvanceParams"]
@@ -133,8 +154,21 @@ class TestClock(
             cls._static_request("delete", url, params=params),
         )
 
-    @util.class_method_variant("_cls_delete")
+    @overload
+    @classmethod
     def delete(
+        cls, sid: str, **params: Unpack["TestClock.DeleteParams"]
+    ) -> "TestClock":
+        ...
+
+    @overload
+    def delete(
+        self, **params: Unpack["TestClock.DeleteParams"]
+    ) -> "TestClock":
+        ...
+
+    @class_method_variant("_cls_delete")
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["TestClock.DeleteParams"]
     ) -> "TestClock":
         return self._request_and_refresh(

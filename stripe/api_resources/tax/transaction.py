@@ -5,7 +5,8 @@ from stripe.api_resources.abstract import APIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -149,8 +150,28 @@ class Transaction(APIResource["Transaction"]):
             ),
         )
 
-    @util.class_method_variant("_cls_list_line_items")
+    @overload
+    @classmethod
     def list_line_items(
+        cls,
+        transaction: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Transaction.ListLineItemsParams"]
+    ) -> ListObject["TransactionLineItem"]:
+        ...
+
+    @overload
+    def list_line_items(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Transaction.ListLineItemsParams"]
+    ) -> ListObject["TransactionLineItem"]:
+        ...
+
+    @class_method_variant("_cls_list_line_items")
+    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Transaction.ListLineItemsParams"]

@@ -15,7 +15,17 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
+from stripe.util import class_method_variant
+from typing import (
+    ClassVar,
+    Dict,
+    Iterator,
+    List,
+    Optional,
+    Union,
+    cast,
+    overload,
+)
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -643,8 +653,28 @@ class Customer(
             ),
         )
 
-    @util.class_method_variant("_cls_create_funding_instructions")
+    @overload
+    @classmethod
     def create_funding_instructions(
+        cls,
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Customer.CreateFundingInstructionsParams"]
+    ) -> "FundingInstructions":
+        ...
+
+    @overload
+    def create_funding_instructions(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Customer.CreateFundingInstructionsParams"]
+    ) -> "FundingInstructions":
+        ...
+
+    @class_method_variant("_cls_create_funding_instructions")
+    def create_funding_instructions(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.CreateFundingInstructionsParams"]
@@ -671,8 +701,21 @@ class Customer(
             cls._static_request("delete", url, params=params),
         )
 
-    @util.class_method_variant("_cls_delete")
+    @overload
+    @classmethod
+    def delete(
+        cls, sid: str, **params: Unpack["Customer.DeleteParams"]
+    ) -> "Customer":
+        ...
+
+    @overload
     def delete(self, **params: Unpack["Customer.DeleteParams"]) -> "Customer":
+        ...
+
+    @class_method_variant("_cls_delete")
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Customer.DeleteParams"]
+    ) -> "Customer":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -702,8 +745,28 @@ class Customer(
             ),
         )
 
-    @util.class_method_variant("_cls_delete_discount")
+    @overload
+    @classmethod
     def delete_discount(
+        cls,
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Customer.DeleteDiscountParams"]
+    ) -> "Discount":
+        ...
+
+    @overload
+    def delete_discount(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Customer.DeleteDiscountParams"]
+    ) -> "Discount":
+        ...
+
+    @class_method_variant("_cls_delete_discount")
+    def delete_discount(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.DeleteDiscountParams"]
@@ -768,8 +831,28 @@ class Customer(
             ),
         )
 
-    @util.class_method_variant("_cls_list_payment_methods")
+    @overload
+    @classmethod
     def list_payment_methods(
+        cls,
+        customer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Customer.ListPaymentMethodsParams"]
+    ) -> ListObject["PaymentMethod"]:
+        ...
+
+    @overload
+    def list_payment_methods(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Customer.ListPaymentMethodsParams"]
+    ) -> ListObject["PaymentMethod"]:
+        ...
+
+    @class_method_variant("_cls_list_payment_methods")
+    def list_payment_methods(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.ListPaymentMethodsParams"]
@@ -829,8 +912,30 @@ class Customer(
             ),
         )
 
-    @util.class_method_variant("_cls_retrieve_payment_method")
+    @overload
+    @classmethod
     def retrieve_payment_method(
+        cls,
+        customer: str,
+        payment_method: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+    ) -> "PaymentMethod":
+        ...
+
+    @overload
+    def retrieve_payment_method(
+        self,
+        payment_method: str,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+    ) -> "PaymentMethod":
+        ...
+
+    @class_method_variant("_cls_retrieve_payment_method")
+    def retrieve_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         payment_method: str,
         idempotency_key: Optional[str] = None,
@@ -1294,8 +1399,28 @@ class Customer(
                 ),
             )
 
-        @util.class_method_variant("_cls_fund_cash_balance")
+        @overload
+        @classmethod
         def fund_cash_balance(
+            cls,
+            customer: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Customer.FundCashBalanceParams"]
+        ) -> "CustomerCashBalanceTransaction":
+            ...
+
+        @overload
+        def fund_cash_balance(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["Customer.FundCashBalanceParams"]
+        ) -> "CustomerCashBalanceTransaction":
+            ...
+
+        @class_method_variant("_cls_fund_cash_balance")
+        def fund_cash_balance(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Customer.FundCashBalanceParams"]

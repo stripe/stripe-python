@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     DeletableAPIResource,
@@ -10,7 +9,8 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -142,8 +142,21 @@ class Coupon(
             cls._static_request("delete", url, params=params),
         )
 
-    @util.class_method_variant("_cls_delete")
+    @overload
+    @classmethod
+    def delete(
+        cls, sid: str, **params: Unpack["Coupon.DeleteParams"]
+    ) -> "Coupon":
+        ...
+
+    @overload
     def delete(self, **params: Unpack["Coupon.DeleteParams"]) -> "Coupon":
+        ...
+
+    @class_method_variant("_cls_delete")
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Coupon.DeleteParams"]
+    ) -> "Coupon":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),

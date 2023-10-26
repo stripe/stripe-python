@@ -13,7 +13,17 @@ from stripe.api_resources.list_object import ListObject
 from stripe.api_resources.search_result_object import SearchResultObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, Iterator, List, Optional, Union, cast
+from stripe.util import class_method_variant
+from typing import (
+    ClassVar,
+    Dict,
+    Iterator,
+    List,
+    Optional,
+    Union,
+    cast,
+    overload,
+)
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -1281,8 +1291,21 @@ class Invoice(
             cls._static_request("delete", url, params=params),
         )
 
-    @util.class_method_variant("_cls_delete")
+    @overload
+    @classmethod
+    def delete(
+        cls, sid: str, **params: Unpack["Invoice.DeleteParams"]
+    ) -> "Invoice":
+        ...
+
+    @overload
     def delete(self, **params: Unpack["Invoice.DeleteParams"]) -> "Invoice":
+        ...
+
+    @class_method_variant("_cls_delete")
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Invoice.DeleteParams"]
+    ) -> "Invoice":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -1312,8 +1335,28 @@ class Invoice(
             ),
         )
 
-    @util.class_method_variant("_cls_finalize_invoice")
+    @overload
+    @classmethod
     def finalize_invoice(
+        cls,
+        invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Invoice.FinalizeInvoiceParams"]
+    ) -> "Invoice":
+        ...
+
+    @overload
+    def finalize_invoice(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Invoice.FinalizeInvoiceParams"]
+    ) -> "Invoice":
+        ...
+
+    @class_method_variant("_cls_finalize_invoice")
+    def finalize_invoice(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.FinalizeInvoiceParams"]
@@ -1378,8 +1421,28 @@ class Invoice(
             ),
         )
 
-    @util.class_method_variant("_cls_mark_uncollectible")
+    @overload
+    @classmethod
     def mark_uncollectible(
+        cls,
+        invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Invoice.MarkUncollectibleParams"]
+    ) -> "Invoice":
+        ...
+
+    @overload
+    def mark_uncollectible(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Invoice.MarkUncollectibleParams"]
+    ) -> "Invoice":
+        ...
+
+    @class_method_variant("_cls_mark_uncollectible")
+    def mark_uncollectible(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.MarkUncollectibleParams"]
@@ -1429,8 +1492,28 @@ class Invoice(
             ),
         )
 
-    @util.class_method_variant("_cls_pay")
+    @overload
+    @classmethod
     def pay(
+        cls,
+        invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Invoice.PayParams"]
+    ) -> "Invoice":
+        ...
+
+    @overload
+    def pay(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Invoice.PayParams"]
+    ) -> "Invoice":
+        ...
+
+    @class_method_variant("_cls_pay")
+    def pay(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.PayParams"]
@@ -1478,8 +1561,28 @@ class Invoice(
             ),
         )
 
-    @util.class_method_variant("_cls_send_invoice")
+    @overload
+    @classmethod
     def send_invoice(
+        cls,
+        invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Invoice.SendInvoiceParams"]
+    ) -> "Invoice":
+        ...
+
+    @overload
+    def send_invoice(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Invoice.SendInvoiceParams"]
+    ) -> "Invoice":
+        ...
+
+    @class_method_variant("_cls_send_invoice")
+    def send_invoice(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.SendInvoiceParams"]
@@ -1559,8 +1662,28 @@ class Invoice(
             ),
         )
 
-    @util.class_method_variant("_cls_void_invoice")
+    @overload
+    @classmethod
     def void_invoice(
+        cls,
+        invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Invoice.VoidInvoiceParams"]
+    ) -> "Invoice":
+        ...
+
+    @overload
+    def void_invoice(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Invoice.VoidInvoiceParams"]
+    ) -> "Invoice":
+        ...
+
+    @class_method_variant("_cls_void_invoice")
+    def void_invoice(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.VoidInvoiceParams"]

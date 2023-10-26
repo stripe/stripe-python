@@ -11,7 +11,8 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -333,8 +334,28 @@ class CreditNote(
             ),
         )
 
-    @util.class_method_variant("_cls_void_credit_note")
+    @overload
+    @classmethod
     def void_credit_note(
+        cls,
+        id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["CreditNote.VoidCreditNoteParams"]
+    ) -> "CreditNote":
+        ...
+
+    @overload
+    def void_credit_note(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["CreditNote.VoidCreditNoteParams"]
+    ) -> "CreditNote":
+        ...
+
+    @class_method_variant("_cls_void_credit_note")
+    def void_credit_note(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditNote.VoidCreditNoteParams"]

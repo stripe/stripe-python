@@ -10,7 +10,8 @@ from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -138,8 +139,28 @@ class OutboundTransfer(
             ),
         )
 
-    @util.class_method_variant("_cls_cancel")
+    @overload
+    @classmethod
     def cancel(
+        cls,
+        outbound_transfer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["OutboundTransfer.CancelParams"]
+    ) -> "OutboundTransfer":
+        ...
+
+    @overload
+    def cancel(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["OutboundTransfer.CancelParams"]
+    ) -> "OutboundTransfer":
+        ...
+
+    @class_method_variant("_cls_cancel")
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["OutboundTransfer.CancelParams"]
@@ -237,8 +258,28 @@ class OutboundTransfer(
                 ),
             )
 
-        @util.class_method_variant("_cls_fail")
+        @overload
+        @classmethod
         def fail(
+            cls,
+            outbound_transfer: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["OutboundTransfer.FailParams"]
+        ) -> "OutboundTransfer":
+            ...
+
+        @overload
+        def fail(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["OutboundTransfer.FailParams"]
+        ) -> "OutboundTransfer":
+            ...
+
+        @class_method_variant("_cls_fail")
+        def fail(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.FailParams"]
@@ -280,8 +321,28 @@ class OutboundTransfer(
                 ),
             )
 
-        @util.class_method_variant("_cls_post")
+        @overload
+        @classmethod
         def post(
+            cls,
+            outbound_transfer: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["OutboundTransfer.PostParams"]
+        ) -> "OutboundTransfer":
+            ...
+
+        @overload
+        def post(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["OutboundTransfer.PostParams"]
+        ) -> "OutboundTransfer":
+            ...
+
+        @class_method_variant("_cls_post")
+        def post(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.PostParams"]
@@ -323,8 +384,28 @@ class OutboundTransfer(
                 ),
             )
 
-        @util.class_method_variant("_cls_return_outbound_transfer")
+        @overload
+        @classmethod
         def return_outbound_transfer(
+            cls,
+            outbound_transfer: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
+        ) -> "OutboundTransfer":
+            ...
+
+        @overload
+        def return_outbound_transfer(
+            self,
+            idempotency_key: Optional[str] = None,
+            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
+        ) -> "OutboundTransfer":
+            ...
+
+        @class_method_variant("_cls_return_outbound_transfer")
+        def return_outbound_transfer(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
