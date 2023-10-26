@@ -462,6 +462,9 @@ class Transaction(APIResource["Transaction"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.CreateFromCalculationParams"]
     ) -> "Transaction":
+        """
+        Creates a Tax Transaction from a calculation.
+        """
         return cast(
             "Transaction",
             cls._static_request(
@@ -482,6 +485,9 @@ class Transaction(APIResource["Transaction"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.CreateReversalParams"]
     ) -> "Transaction":
+        """
+        Partially or fully reverses a previously created Transaction.
+        """
         return cast(
             "Transaction",
             cls._static_request(
@@ -503,6 +509,9 @@ class Transaction(APIResource["Transaction"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.ListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
+        """
+        Retrieves the line items of a committed standalone transaction as a collection.
+        """
         return cast(
             ListObject["TransactionLineItem"],
             cls._static_request(
@@ -527,6 +536,9 @@ class Transaction(APIResource["Transaction"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.ListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
+        """
+        Retrieves the line items of a committed standalone transaction as a collection.
+        """
         ...
 
     @overload
@@ -535,6 +547,9 @@ class Transaction(APIResource["Transaction"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Transaction.ListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
+        """
+        Retrieves the line items of a committed standalone transaction as a collection.
+        """
         ...
 
     @class_method_variant("_cls_list_line_items")
@@ -543,6 +558,9 @@ class Transaction(APIResource["Transaction"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Transaction.ListLineItemsParams"]
     ) -> ListObject["TransactionLineItem"]:
+        """
+        Retrieves the line items of a committed standalone transaction as a collection.
+        """
         return cast(
             ListObject["TransactionLineItem"],
             self._request(
@@ -559,6 +577,9 @@ class Transaction(APIResource["Transaction"]):
     def retrieve(
         cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
     ) -> "Transaction":
+        """
+        Retrieves a Tax Transaction object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

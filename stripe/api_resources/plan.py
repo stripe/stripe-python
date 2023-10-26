@@ -396,6 +396,9 @@ class Plan(
         stripe_account: Optional[str] = None,
         **params: Unpack["Plan.CreateParams"]
     ) -> "Plan":
+        """
+        You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+        """
         return cast(
             "Plan",
             cls._static_request(
@@ -413,6 +416,9 @@ class Plan(
     def _cls_delete(
         cls, sid: str, **params: Unpack["Plan.DeleteParams"]
     ) -> "Plan":
+        """
+        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Plan",
@@ -422,16 +428,25 @@ class Plan(
     @overload
     @classmethod
     def delete(cls, sid: str, **params: Unpack["Plan.DeleteParams"]) -> "Plan":
+        """
+        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+        """
         ...
 
     @overload
     def delete(self, **params: Unpack["Plan.DeleteParams"]) -> "Plan":
+        """
+        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Plan.DeleteParams"]
     ) -> "Plan":
+        """
+        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -446,6 +461,9 @@ class Plan(
         stripe_account: Optional[str] = None,
         **params: Unpack["Plan.ListParams"]
     ) -> ListObject["Plan"]:
+        """
+        Returns a list of your plans.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -465,6 +483,9 @@ class Plan(
 
     @classmethod
     def modify(cls, id: str, **params: Unpack["Plan.ModifyParams"]) -> "Plan":
+        """
+        Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Plan",
@@ -475,6 +496,9 @@ class Plan(
     def retrieve(
         cls, id: str, **params: Unpack["Plan.RetrieveParams"]
     ) -> "Plan":
+        """
+        Retrieves the plan with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

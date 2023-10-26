@@ -399,6 +399,9 @@ class Event(ListableAPIResource["Event"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Event.ListParams"]
     ) -> ListObject["Event"]:
+        """
+        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://stripe.com/docs/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -420,6 +423,9 @@ class Event(ListableAPIResource["Event"]):
     def retrieve(
         cls, id: str, **params: Unpack["Event.RetrieveParams"]
     ) -> "Event":
+        """
+        Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

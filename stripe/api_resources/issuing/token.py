@@ -318,6 +318,9 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Token.ListParams"]
     ) -> ListObject["Token"]:
+        """
+        Lists all Issuing Token objects for a given card.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -339,6 +342,9 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     def modify(
         cls, id: str, **params: Unpack["Token.ModifyParams"]
     ) -> "Token":
+        """
+        Attempts to update the specified Issuing Token object to the status specified.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Token",
@@ -349,6 +355,9 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
     def retrieve(
         cls, id: str, **params: Unpack["Token.RetrieveParams"]
     ) -> "Token":
+        """
+        Retrieves an Issuing Token object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
