@@ -3,8 +3,8 @@
 # flake8: noqa
 
 from stripe.api_resources.identity.verification_report import (
-    VerificationReport,
+    VerificationReport as VerificationReport,
 )
 from stripe.api_resources.identity.verification_session import (
-    VerificationSession,
+    VerificationSession as VerificationSession,
 )

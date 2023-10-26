@@ -50,6 +50,7 @@ class TypingImportsChecker:
         "Iterator",
         "Mapping",
         "Set",
+        "Callable",
     ]
 
     def __init__(self, tree: ast.AST):

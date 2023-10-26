@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     DeletableAPIResource,
@@ -10,7 +9,8 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, Dict, List, Optional, cast
+from stripe.util import class_method_variant
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -37,85 +37,232 @@ class Coupon(
 
     class AppliesTo(StripeObject):
         products: List[str]
+        """
+        A list of product IDs this coupon applies to
+        """
 
     class CurrencyOptions(StripeObject):
         amount_off: int
+        """
+        Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
+        """
 
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
             amount_off: NotRequired["int|None"]
+            """
+            A positive integer representing the amount to subtract from an invoice total (required if `percent_off` is not passed).
+            """
             applies_to: NotRequired["Coupon.CreateParamsAppliesTo|None"]
+            """
+            A hash containing directions for what this Coupon will apply discounts to.
+            """
             currency: NotRequired["str|None"]
+            """
+            Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the `amount_off` parameter (required if `amount_off` is passed).
+            """
             currency_options: NotRequired[
                 "Dict[str, Coupon.CreateParamsCurrencyOptions]|None"
             ]
+            """
+            Coupons defined in each available currency option (only supported if `amount_off` is passed). Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+            """
             duration: NotRequired[
                 "Literal['forever', 'once', 'repeating', 'variable']|None"
             ]
+            """
+            Specifies how long the discount will be in effect if used on a subscription. Defaults to `once`.
+            """
             duration_in_months: NotRequired["int|None"]
+            """
+            Required only if `duration` is `repeating`, in which case it must be a positive integer that specifies the number of months the discount will be in effect.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             id: NotRequired["str|None"]
+            """
+            Unique string of your choice that will be used to identify this coupon when applying it to a customer. If you don't want to specify a particular code, you can leave the ID blank and we'll generate a random code for you.
+            """
             max_redemptions: NotRequired["int|None"]
+            """
+            A positive integer specifying the number of times the coupon can be redeemed before it's no longer valid. For example, you might have a 50% off coupon that the first 20 readers of your blog can use.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
             name: NotRequired["str|None"]
+            """
+            Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+            """
             percent_off: NotRequired["float|None"]
+            """
+            A positive float larger than 0, and smaller or equal to 100, that represents the discount the coupon will apply (required if `amount_off` is not passed).
+            """
             redeem_by: NotRequired["int|None"]
+            """
+            Unix timestamp specifying the last time at which the coupon can be redeemed. After the redeem_by date, the coupon can no longer be applied to new customers.
+            """
 
         class CreateParamsCurrencyOptions(TypedDict):
             amount_off: int
+            """
+            A positive integer representing the amount to subtract from an invoice total.
+            """
 
         class CreateParamsAppliesTo(TypedDict):
             products: NotRequired["List[str]|None"]
+            """
+            An array of Product IDs that this Coupon will apply to.
+            """
 
         class DeleteParams(RequestOptions):
             pass
 
         class ListParams(RequestOptions):
             created: NotRequired["Coupon.ListParamsCreated|int|None"]
+            """
+            A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
+            """
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
 
         class ListParamsCreated(TypedDict):
             gt: NotRequired["int|None"]
+            """
+            Minimum value to filter by (exclusive)
+            """
             gte: NotRequired["int|None"]
+            """
+            Minimum value to filter by (inclusive)
+            """
             lt: NotRequired["int|None"]
+            """
+            Maximum value to filter by (exclusive)
+            """
             lte: NotRequired["int|None"]
+            """
+            Maximum value to filter by (inclusive)
+            """
 
         class ModifyParams(RequestOptions):
             currency_options: NotRequired[
                 "Dict[str, Coupon.ModifyParamsCurrencyOptions]|None"
             ]
+            """
+            Coupons defined in each available currency option (only supported if the coupon is amount-based). Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
             name: NotRequired["str|None"]
+            """
+            Name of the coupon displayed to customers on, for instance invoices, or receipts. By default the `id` is shown if `name` is not set.
+            """
 
         class ModifyParamsCurrencyOptions(TypedDict):
             amount_off: int
+            """
+            A positive integer representing the amount to subtract from an invoice total.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     amount_off: Optional[int]
+    """
+    Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
+    """
     applies_to: Optional[AppliesTo]
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     currency: Optional[str]
+    """
+    If `amount_off` has been set, the three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the amount to take off.
+    """
     currency_options: Optional[Dict[str, CurrencyOptions]]
+    """
+    Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+    """
     duration: Literal["forever", "once", "repeating", "variable"]
+    """
+    One of `forever`, `once`, and `repeating`. Describes how long a customer who applies this coupon will get the discount.
+    """
     duration_in_months: Optional[int]
+    """
+    If `duration` is `repeating`, the number of months the coupon applies. Null if coupon `duration` is `forever` or `once`.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     max_redemptions: Optional[int]
+    """
+    Maximum number of times this coupon can be redeemed, in total, across all customers, before it is no longer valid.
+    """
     metadata: Optional[Dict[str, str]]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     name: Optional[str]
+    """
+    Name of the coupon displayed to customers on for instance invoices or receipts.
+    """
     object: Literal["coupon"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     percent_off: Optional[float]
+    """
+    Percent that will be taken off the subtotal of any invoices for this customer for the duration of the coupon. For example, a coupon with percent_off of 50 will make a $ (or local equivalent)100 invoice $ (or local equivalent)50 instead.
+    """
     redeem_by: Optional[int]
+    """
+    Date after which the coupon can no longer be redeemed.
+    """
     times_redeemed: int
+    """
+    Number of times this coupon has been applied to a customer.
+    """
     valid: bool
+    """
+    Taking account of the above properties, whether this coupon can still be applied to a customer.
+    """
     deleted: Optional[Literal[True]]
+    """
+    Always true for a deleted object
+    """
 
     @classmethod
     def create(
@@ -149,8 +296,21 @@ class Coupon(
             cls._static_request("delete", url, params=params),
         )
 
-    @util.class_method_variant("_cls_delete")
+    @overload
+    @classmethod
+    def delete(
+        cls, sid: str, **params: Unpack["Coupon.DeleteParams"]
+    ) -> "Coupon":
+        ...
+
+    @overload
     def delete(self, **params: Unpack["Coupon.DeleteParams"]) -> "Coupon":
+        ...
+
+    @class_method_variant("_cls_delete")
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
+        self, **params: Unpack["Coupon.DeleteParams"]
+    ) -> "Coupon":
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -183,7 +343,9 @@ class Coupon(
         return result
 
     @classmethod
-    def modify(cls, id, **params: Unpack["Coupon.ModifyParams"]) -> "Coupon":
+    def modify(
+        cls, id: str, **params: Unpack["Coupon.ModifyParams"]
+    ) -> "Coupon":
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Coupon",

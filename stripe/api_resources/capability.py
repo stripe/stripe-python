@@ -21,7 +21,13 @@ class Capability(UpdateableAPIResource["Capability"]):
     class FutureRequirements(StripeObject):
         class Alternative(StripeObject):
             alternative_fields_due: List[str]
+            """
+            Fields that can be provided to satisfy all fields in `original_fields_due`.
+            """
             original_fields_due: List[str]
+            """
+            Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+            """
 
         class Error(StripeObject):
             code: Literal[
@@ -113,23 +119,62 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "verification_missing_owners",
                 "verification_requires_additional_memorandum_of_associations",
             ]
+            """
+            The code for the type of error.
+            """
             reason: str
+            """
+            An informative message that indicates the error type and provides additional details about the error.
+            """
             requirement: str
+            """
+            The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
+            """
 
         alternatives: Optional[List[Alternative]]
+        """
+        Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+        """
         current_deadline: Optional[int]
+        """
+        Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on the capability's enablement state prior to transitioning.
+        """
         currently_due: List[str]
+        """
+        Fields that need to be collected to keep the capability enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
+        """
         disabled_reason: Optional[str]
+        """
+        This is typed as a string for consistency with `requirements.disabled_reason`, but it safe to assume `future_requirements.disabled_reason` is empty because fields in `future_requirements` will never disable the account.
+        """
         errors: List[Error]
+        """
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        """
         eventually_due: List[str]
+        """
+        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well.
+        """
         past_due: List[str]
+        """
+        Fields that weren't collected by `requirements.current_deadline`. These fields need to be collected to enable the capability on the account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`.
+        """
         pending_verification: List[str]
+        """
+        Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`.
+        """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
     class Requirements(StripeObject):
         class Alternative(StripeObject):
             alternative_fields_due: List[str]
+            """
+            Fields that can be provided to satisfy all fields in `original_fields_due`.
+            """
             original_fields_due: List[str]
+            """
+            Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+            """
 
         class Error(StripeObject):
             code: Literal[
@@ -221,27 +266,84 @@ class Capability(UpdateableAPIResource["Capability"]):
                 "verification_missing_owners",
                 "verification_requires_additional_memorandum_of_associations",
             ]
+            """
+            The code for the type of error.
+            """
             reason: str
+            """
+            An informative message that indicates the error type and provides additional details about the error.
+            """
             requirement: str
+            """
+            The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
+            """
 
         alternatives: Optional[List[Alternative]]
+        """
+        Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+        """
         current_deadline: Optional[int]
+        """
+        Date by which the fields in `currently_due` must be collected to keep the capability enabled for the account. These fields may disable the capability sooner if the next threshold is reached before they are collected.
+        """
         currently_due: List[str]
+        """
+        Fields that need to be collected to keep the capability enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the capability is disabled.
+        """
         disabled_reason: Optional[str]
+        """
+        If the capability is disabled, this string describes why. Can be `requirements.past_due`, `requirements.pending_verification`, `listed`, `platform_paused`, `rejected.fraud`, `rejected.listed`, `rejected.terms_of_service`, `rejected.other`, `under_review`, or `other`.
+
+        `rejected.unsupported_business` means that the account's business is not supported by the capability. For example, payment methods may restrict the businesses they support in their terms of service:
+
+        - [Afterpay Clearpay's terms of service](https://stripe.com/afterpay-clearpay/legal#restricted-businesses)
+
+        If you believe that the rejection is in error, please contact support at https://support.stripe.com/contact/ for assistance.
+        """
         errors: List[Error]
+        """
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        """
         eventually_due: List[str]
+        """
+        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
+        """
         past_due: List[str]
+        """
+        Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the capability on the account.
+        """
         pending_verification: List[str]
+        """
+        Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`.
+        """
         _inner_class_types = {"alternatives": Alternative, "errors": Error}
 
     account: ExpandableField["Account"]
+    """
+    The account for which the capability enables functionality.
+    """
     future_requirements: Optional[FutureRequirements]
     id: str
+    """
+    The identifier for the capability.
+    """
     object: Literal["capability"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     requested: bool
+    """
+    Whether the capability has been requested.
+    """
     requested_at: Optional[int]
+    """
+    Time at which the capability was requested. Measured in seconds since the Unix epoch.
+    """
     requirements: Optional[Requirements]
     status: Literal["active", "disabled", "inactive", "pending", "unrequested"]
+    """
+    The status of the capability. Can be `active`, `inactive`, `pending`, or `unrequested`.
+    """
 
     def instance_url(self):
         token = self.id

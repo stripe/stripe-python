@@ -29,42 +29,117 @@ class CreditReversal(
 
     class StatusTransitions(StripeObject):
         posted_at: Optional[int]
+        """
+        Timestamp describing when the CreditReversal changed status to `posted`
+        """
 
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+            """
             received_credit: str
+            """
+            The ReceivedCredit to reverse.
+            """
 
         class ListParams(RequestOptions):
             ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
             financial_account: str
+            """
+            Returns objects associated with this FinancialAccount.
+            """
             limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
             received_credit: NotRequired["str|None"]
+            """
+            Only return CreditReversals for the ReceivedCredit ID.
+            """
             starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
             status: NotRequired[
                 "Literal['canceled', 'posted', 'processing']|None"
             ]
+            """
+            Only return CreditReversals for a given status.
+            """
 
         class RetrieveParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
 
     amount: int
+    """
+    Amount (in cents) transferred.
+    """
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     currency: str
+    """
+    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+    """
     financial_account: str
+    """
+    The FinancialAccount to reverse funds from.
+    """
     hosted_regulatory_receipt_url: Optional[str]
+    """
+    A [hosted transaction receipt](https://stripe.com/docs/treasury/moving-money/regulatory-receipts) URL that is provided when money movement is considered regulated under Stripe's money transmission licenses.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     livemode: bool
+    """
+    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
+    """
     metadata: Dict[str, str]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+    """
     network: Literal["ach", "stripe"]
+    """
+    The rails used to reverse the funds.
+    """
     object: Literal["treasury.credit_reversal"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     received_credit: str
+    """
+    The ReceivedCredit being reversed.
+    """
     status: Literal["canceled", "posted", "processing"]
+    """
+    Status of the CreditReversal
+    """
     status_transitions: StatusTransitions
     transaction: Optional[ExpandableField["Transaction"]]
+    """
+    The Transaction associated with this object.
+    """
 
     @classmethod
     def create(

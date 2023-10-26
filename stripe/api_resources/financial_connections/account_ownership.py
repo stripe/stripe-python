@@ -20,6 +20,18 @@ class AccountOwnership(StripeObject):
         Literal["financial_connections.account_ownership"]
     ] = "financial_connections.account_ownership"
     created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     id: str
+    """
+    Unique identifier for the object.
+    """
     object: Literal["financial_connections.account_ownership"]
+    """
+    String representing the object's type. Objects of the same type share the same value.
+    """
     owners: ListObject["AccountOwner"]
+    """
+    A paginated list of owners for this account.
+    """

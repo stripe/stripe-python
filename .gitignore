@@ -59,3 +59,6 @@ venv.bak/
 !.vscode/launch.json
 !.vscode/extensions.json
 /.idea
+
+# Git
+*.orig
