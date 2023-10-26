@@ -212,7 +212,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_cancel_action")
-    def cancel_action(  # type: ignore
+    def cancel_action(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CancelActionParams"]
@@ -273,7 +273,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # type: ignore
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Reader.DeleteParams"]
     ) -> "Reader":
         return self._request_and_refresh(
@@ -361,7 +361,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_payment_intent")
-    def process_payment_intent(  # type: ignore
+    def process_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessPaymentIntentParams"]
@@ -422,7 +422,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_process_setup_intent")
-    def process_setup_intent(  # type: ignore
+    def process_setup_intent(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessSetupIntentParams"]
@@ -483,7 +483,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_refund_payment")
-    def refund_payment(  # type: ignore
+    def refund_payment(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.RefundPaymentParams"]
@@ -552,7 +552,7 @@ class Reader(
         ...
 
     @class_method_variant("_cls_set_reader_display")
-    def set_reader_display(  # type: ignore
+    def set_reader_display(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.SetReaderDisplayParams"]
@@ -616,7 +616,7 @@ class Reader(
             ...
 
         @class_method_variant("_cls_present_payment_method")
-        def present_payment_method(  # type: ignore
+        def present_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Reader.PresentPaymentMethodParams"]

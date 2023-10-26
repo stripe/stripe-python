@@ -319,7 +319,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_accept")
-    def accept(  # type: ignore
+    def accept(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
@@ -380,7 +380,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # type: ignore
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
@@ -463,7 +463,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_finalize_quote")
-    def finalize_quote(  # type: ignore
+    def finalize_quote(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
@@ -549,7 +549,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_list_computed_upfront_line_items")
-    def list_computed_upfront_line_items(  # type: ignore
+    def list_computed_upfront_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
@@ -610,7 +610,7 @@ class Quote(
         ...
 
     @class_method_variant("_cls_list_line_items")
-    def list_line_items(  # type: ignore
+    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]

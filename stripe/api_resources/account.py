@@ -1069,7 +1069,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # type: ignore
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Account.DeleteParams"]
     ) -> "Account":
         return self._request_and_refresh(
@@ -1147,7 +1147,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_persons")
-    def persons(  # type: ignore
+    def persons(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.PersonsParams"]
@@ -1208,7 +1208,7 @@ class Account(
         ...
 
     @class_method_variant("_cls_reject")
-    def reject(  # type: ignore
+    def reject(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.RejectParams"]

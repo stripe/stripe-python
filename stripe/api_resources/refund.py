@@ -147,7 +147,7 @@ class Refund(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # type: ignore
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Refund.CancelParams"]
@@ -276,7 +276,7 @@ class Refund(
             ...
 
         @class_method_variant("_cls_expire")
-        def expire(  # type: ignore
+        def expire(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Refund.ExpireParams"]

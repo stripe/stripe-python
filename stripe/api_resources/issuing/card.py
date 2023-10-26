@@ -315,7 +315,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_deliver_card")
-        def deliver_card(  # type: ignore
+        def deliver_card(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.DeliverCardParams"]
@@ -376,7 +376,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_fail_card")
-        def fail_card(  # type: ignore
+        def fail_card(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.FailCardParams"]
@@ -437,7 +437,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_return_card")
-        def return_card(  # type: ignore
+        def return_card(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.ReturnCardParams"]
@@ -498,7 +498,7 @@ class Card(
             ...
 
         @class_method_variant("_cls_ship_card")
-        def ship_card(  # type: ignore
+        def ship_card(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Card.ShipCardParams"]

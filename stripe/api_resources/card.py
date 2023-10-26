@@ -90,7 +90,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # type: ignore
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Card.DeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         return self._request_and_refresh(

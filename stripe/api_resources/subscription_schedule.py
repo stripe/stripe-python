@@ -474,7 +474,7 @@ class SubscriptionSchedule(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # type: ignore
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.CancelParams"]
@@ -592,7 +592,7 @@ class SubscriptionSchedule(
         ...
 
     @class_method_variant("_cls_release")
-    def release(  # type: ignore
+    def release(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SubscriptionSchedule.ReleaseParams"]

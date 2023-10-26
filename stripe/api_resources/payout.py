@@ -166,7 +166,7 @@ class Payout(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # type: ignore
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Payout.CancelParams"]
@@ -292,7 +292,7 @@ class Payout(
         ...
 
     @class_method_variant("_cls_reverse")
-    def reverse(  # type: ignore
+    def reverse(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Payout.ReverseParams"]

@@ -177,7 +177,7 @@ class PaymentMethodDomain(
         ...
 
     @class_method_variant("_cls_validate")
-    def validate(  # type: ignore
+    def validate(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethodDomain.ValidateParams"]

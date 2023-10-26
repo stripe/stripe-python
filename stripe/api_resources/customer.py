@@ -674,7 +674,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_create_funding_instructions")
-    def create_funding_instructions(  # type: ignore
+    def create_funding_instructions(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.CreateFundingInstructionsParams"]
@@ -713,7 +713,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # type: ignore
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Customer.DeleteParams"]
     ) -> "Customer":
         return self._request_and_refresh(
@@ -766,7 +766,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_delete_discount")
-    def delete_discount(  # type: ignore
+    def delete_discount(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.DeleteDiscountParams"]
@@ -852,7 +852,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_list_payment_methods")
-    def list_payment_methods(  # type: ignore
+    def list_payment_methods(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.ListPaymentMethodsParams"]
@@ -935,7 +935,7 @@ class Customer(
         ...
 
     @class_method_variant("_cls_retrieve_payment_method")
-    def retrieve_payment_method(  # type: ignore
+    def retrieve_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         payment_method: str,
         idempotency_key: Optional[str] = None,
@@ -1420,7 +1420,7 @@ class Customer(
             ...
 
         @class_method_variant("_cls_fund_cash_balance")
-        def fund_cash_balance(  # type: ignore
+        def fund_cash_balance(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Customer.FundCashBalanceParams"]

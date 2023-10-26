@@ -374,7 +374,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         ...
 
     @class_method_variant("_cls_list_source_transactions")
-    def list_source_transactions(  # type: ignore
+    def list_source_transactions(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Source.ListSourceTransactionsParams"]
@@ -453,7 +453,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         ...
 
     @class_method_variant("_cls_verify")
-    def verify(  # type: ignore
+    def verify(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Source.VerifyParams"]

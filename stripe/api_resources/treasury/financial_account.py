@@ -493,7 +493,7 @@ class FinancialAccount(
         ...
 
     @class_method_variant("_cls_retrieve_features")
-    def retrieve_features(  # type: ignore
+    def retrieve_features(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
@@ -554,7 +554,7 @@ class FinancialAccount(
         ...
 
     @class_method_variant("_cls_update_features")
-    def update_features(  # type: ignore
+    def update_features(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]

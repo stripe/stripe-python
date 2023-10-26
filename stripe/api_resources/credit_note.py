@@ -355,7 +355,7 @@ class CreditNote(
         ...
 
     @class_method_variant("_cls_void_credit_note")
-    def void_credit_note(  # type: ignore
+    def void_credit_note(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditNote.VoidCreditNoteParams"]

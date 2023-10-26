@@ -325,7 +325,7 @@ class Configuration(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # type: ignore
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Configuration.DeleteParams"]
     ) -> "Configuration":
         return self._request_and_refresh(

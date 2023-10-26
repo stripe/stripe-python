@@ -451,7 +451,7 @@ class PaymentMethod(
         ...
 
     @class_method_variant("_cls_attach")
-    def attach(  # type: ignore
+    def attach(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethod.AttachParams"]
@@ -534,7 +534,7 @@ class PaymentMethod(
         ...
 
     @class_method_variant("_cls_detach")
-    def detach(  # type: ignore
+    def detach(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethod.DetachParams"]

@@ -137,7 +137,7 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @class_method_variant("_cls_disconnect")
-    def disconnect(  # type: ignore
+    def disconnect(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
@@ -223,7 +223,7 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @class_method_variant("_cls_list_owners")
-    def list_owners(  # type: ignore
+    def list_owners(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
@@ -284,7 +284,7 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @class_method_variant("_cls_refresh_account")
-    def refresh_account(  # type: ignore
+    def refresh_account(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]

@@ -1510,7 +1510,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # type: ignore
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
@@ -1571,7 +1571,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_confirm")
-    def confirm(  # type: ignore
+    def confirm(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
@@ -1697,7 +1697,7 @@ class SetupIntent(
         ...
 
     @class_method_variant("_cls_verify_microdeposits")
-    def verify_microdeposits(  # type: ignore
+    def verify_microdeposits(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]

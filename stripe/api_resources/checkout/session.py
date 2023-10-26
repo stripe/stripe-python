@@ -1128,7 +1128,7 @@ class Session(
         ...
 
     @class_method_variant("_cls_expire")
-    def expire(  # type: ignore
+    def expire(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Session.ExpireParams"]
@@ -1214,7 +1214,7 @@ class Session(
         ...
 
     @class_method_variant("_cls_list_line_items")
-    def list_line_items(  # type: ignore
+    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Session.ListLineItemsParams"]

@@ -211,7 +211,7 @@ class SubscriptionItem(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # type: ignore
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["SubscriptionItem.DeleteParams"]
     ) -> "SubscriptionItem":
         return self._request_and_refresh(

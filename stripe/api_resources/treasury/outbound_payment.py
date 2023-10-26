@@ -214,7 +214,7 @@ class OutboundPayment(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # type: ignore
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["OutboundPayment.CancelParams"]
@@ -333,7 +333,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_fail")
-        def fail(  # type: ignore
+        def fail(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.FailParams"]
@@ -394,7 +394,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_post")
-        def post(  # type: ignore
+        def post(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.PostParams"]
@@ -455,7 +455,7 @@ class OutboundPayment(
             ...
 
         @class_method_variant("_cls_return_outbound_payment")
-        def return_outbound_payment(  # type: ignore
+        def return_outbound_payment(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]

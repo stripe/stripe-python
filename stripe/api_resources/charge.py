@@ -273,7 +273,7 @@ class Charge(
         ...
 
     @class_method_variant("_cls_capture")
-    def capture(  # type: ignore
+    def capture(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Charge.CaptureParams"]

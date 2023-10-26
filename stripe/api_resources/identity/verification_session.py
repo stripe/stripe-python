@@ -180,7 +180,7 @@ class VerificationSession(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # type: ignore
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["VerificationSession.CancelParams"]
@@ -298,7 +298,7 @@ class VerificationSession(
         ...
 
     @class_method_variant("_cls_redact")
-    def redact(  # type: ignore
+    def redact(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["VerificationSession.RedactParams"]

@@ -116,7 +116,7 @@ class ValueListItem(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # type: ignore
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["ValueListItem.DeleteParams"]
     ) -> "ValueListItem":
         return self._request_and_refresh(

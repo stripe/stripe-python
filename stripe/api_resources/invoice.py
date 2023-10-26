@@ -1303,7 +1303,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # type: ignore
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Invoice.DeleteParams"]
     ) -> "Invoice":
         return self._request_and_refresh(
@@ -1356,7 +1356,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_finalize_invoice")
-    def finalize_invoice(  # type: ignore
+    def finalize_invoice(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.FinalizeInvoiceParams"]
@@ -1442,7 +1442,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_mark_uncollectible")
-    def mark_uncollectible(  # type: ignore
+    def mark_uncollectible(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.MarkUncollectibleParams"]
@@ -1513,7 +1513,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_pay")
-    def pay(  # type: ignore
+    def pay(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.PayParams"]
@@ -1582,7 +1582,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_send_invoice")
-    def send_invoice(  # type: ignore
+    def send_invoice(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.SendInvoiceParams"]
@@ -1683,7 +1683,7 @@ class Invoice(
         ...
 
     @class_method_variant("_cls_void_invoice")
-    def void_invoice(  # type: ignore
+    def void_invoice(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.VoidInvoiceParams"]

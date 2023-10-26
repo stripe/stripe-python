@@ -379,7 +379,7 @@ class Dispute(
         ...
 
     @class_method_variant("_cls_submit")
-    def submit(  # type: ignore
+    def submit(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.SubmitParams"]

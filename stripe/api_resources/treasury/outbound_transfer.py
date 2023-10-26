@@ -160,7 +160,7 @@ class OutboundTransfer(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # type: ignore
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["OutboundTransfer.CancelParams"]
@@ -279,7 +279,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_fail")
-        def fail(  # type: ignore
+        def fail(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.FailParams"]
@@ -342,7 +342,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_post")
-        def post(  # type: ignore
+        def post(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.PostParams"]
@@ -405,7 +405,7 @@ class OutboundTransfer(
             ...
 
         @class_method_variant("_cls_return_outbound_transfer")
-        def return_outbound_transfer(  # type: ignore
+        def return_outbound_transfer(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]

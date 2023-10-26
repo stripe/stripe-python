@@ -355,7 +355,7 @@ class WebhookEndpoint(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # type: ignore
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["WebhookEndpoint.DeleteParams"]
     ) -> "WebhookEndpoint":
         return self._request_and_refresh(

@@ -146,7 +146,7 @@ class InboundTransfer(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # type: ignore
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["InboundTransfer.CancelParams"]
@@ -265,7 +265,7 @@ class InboundTransfer(
             ...
 
         @class_method_variant("_cls_fail")
-        def fail(  # type: ignore
+        def fail(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.FailParams"]
@@ -326,7 +326,7 @@ class InboundTransfer(
             ...
 
         @class_method_variant("_cls_return_inbound_transfer")
-        def return_inbound_transfer(  # type: ignore
+        def return_inbound_transfer(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
@@ -387,7 +387,7 @@ class InboundTransfer(
             ...
 
         @class_method_variant("_cls_succeed")
-        def succeed(  # type: ignore
+        def succeed(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["InboundTransfer.SucceedParams"]

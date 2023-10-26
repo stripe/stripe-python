@@ -237,7 +237,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
         ...
 
     @class_method_variant("_cls_list_line_items")
-    def list_line_items(  # type: ignore
+    def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Calculation.ListLineItemsParams"]

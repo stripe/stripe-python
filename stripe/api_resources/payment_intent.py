@@ -2568,7 +2568,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_apply_customer_balance")
-    def apply_customer_balance(  # type: ignore
+    def apply_customer_balance(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.ApplyCustomerBalanceParams"]
@@ -2629,7 +2629,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # type: ignore
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.CancelParams"]
@@ -2690,7 +2690,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_capture")
-    def capture(  # type: ignore
+    def capture(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.CaptureParams"]
@@ -2751,7 +2751,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_confirm")
-    def confirm(  # type: ignore
+    def confirm(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.ConfirmParams"]
@@ -2834,7 +2834,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_increment_authorization")
-    def increment_authorization(  # type: ignore
+    def increment_authorization(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.IncrementAuthorizationParams"]
@@ -2938,7 +2938,7 @@ class PaymentIntent(
         ...
 
     @class_method_variant("_cls_verify_microdeposits")
-    def verify_microdeposits(  # type: ignore
+    def verify_microdeposits(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentIntent.VerifyMicrodepositsParams"]

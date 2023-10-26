@@ -114,7 +114,7 @@ class Review(ListableAPIResource["Review"]):
         ...
 
     @class_method_variant("_cls_approve")
-    def approve(  # type: ignore
+    def approve(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Review.ApproveParams"]

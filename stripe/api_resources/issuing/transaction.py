@@ -377,7 +377,7 @@ class Transaction(
             ...
 
         @class_method_variant("_cls_refund")
-        def refund(  # type: ignore
+        def refund(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
             **params: Unpack["Transaction.RefundParams"]

@@ -166,7 +166,7 @@ class Dispute(
         ...
 
     @class_method_variant("_cls_close")
-    def close(  # type: ignore
+    def close(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.CloseParams"]

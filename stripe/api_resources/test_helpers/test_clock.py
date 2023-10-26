@@ -105,7 +105,7 @@ class TestClock(
         ...
 
     @class_method_variant("_cls_advance")
-    def advance(  # type: ignore
+    def advance(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["TestClock.AdvanceParams"]
@@ -168,7 +168,7 @@ class TestClock(
         ...
 
     @class_method_variant("_cls_delete")
-    def delete(  # type: ignore
+    def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["TestClock.DeleteParams"]
     ) -> "TestClock":
         return self._request_and_refresh(

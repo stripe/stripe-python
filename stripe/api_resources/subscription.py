@@ -750,7 +750,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_cancel")
-    def cancel(  # type: ignore
+    def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Subscription.CancelParams"]
@@ -835,7 +835,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_delete_discount")
-    def delete_discount(  # type: ignore
+    def delete_discount(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Subscription.DeleteDiscountParams"]
@@ -931,7 +931,7 @@ class Subscription(
         ...
 
     @class_method_variant("_cls_resume")
-    def resume(  # type: ignore
+    def resume(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
         **params: Unpack["Subscription.ResumeParams"]
