@@ -35,6 +35,33 @@ class PromotionCode(
     """
 
     OBJECT_NAME: ClassVar[Literal["promotion_code"]] = "promotion_code"
+
+    class Restrictions(StripeObject):
+        class CurrencyOptions(StripeObject):
+            minimum_amount: int
+            """
+            Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
+            """
+
+        currency_options: Optional[Dict[str, CurrencyOptions]]
+        """
+        Promotion code restrictions defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+        """
+        first_time_transaction: bool
+        """
+        A Boolean indicating if the Promotion Code should only be redeemed for Customers without any successful payments or invoices
+        """
+        minimum_amount: Optional[int]
+        """
+        Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
+        """
+        minimum_amount_currency: Optional[str]
+        """
+        Three-letter [ISO code](https://stripe.com/docs/currencies) for minimum_amount
+        """
+        _inner_class_types = {"currency_options": CurrencyOptions}
+        _inner_class_dicts = ["currency_options"]
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -245,7 +272,7 @@ class PromotionCode(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    restrictions: StripeObject
+    restrictions: Restrictions
     times_redeemed: int
     """
     Number of times this promotion code has been used.
@@ -315,3 +342,5 @@ class PromotionCode(
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"restrictions": Restrictions}

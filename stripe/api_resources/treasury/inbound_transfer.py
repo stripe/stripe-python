@@ -36,6 +36,127 @@ class InboundTransfer(
     OBJECT_NAME: ClassVar[
         Literal["treasury.inbound_transfer"]
     ] = "treasury.inbound_transfer"
+
+    class FailureDetails(StripeObject):
+        code: Literal[
+            "account_closed",
+            "account_frozen",
+            "bank_account_restricted",
+            "bank_ownership_changed",
+            "debit_not_authorized",
+            "incorrect_account_holder_address",
+            "incorrect_account_holder_name",
+            "incorrect_account_holder_tax_id",
+            "insufficient_funds",
+            "invalid_account_number",
+            "invalid_currency",
+            "no_account",
+            "other",
+        ]
+        """
+        Reason for the failure.
+        """
+
+    class LinkedFlows(StripeObject):
+        received_debit: Optional[str]
+        """
+        If funds for this flow were returned after the flow went to the `succeeded` state, this field contains a reference to the ReceivedDebit return.
+        """
+
+    class OriginPaymentMethodDetails(StripeObject):
+        class BillingDetails(StripeObject):
+            class Address(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1 (e.g., street, PO Box, or company name).
+                """
+                line2: Optional[str]
+                """
+                Address line 2 (e.g., apartment, suite, unit, or building).
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+
+            address: Address
+            email: Optional[str]
+            """
+            Email address.
+            """
+            name: Optional[str]
+            """
+            Full name.
+            """
+            _inner_class_types = {"address": Address}
+
+        class UsBankAccount(StripeObject):
+            account_holder_type: Optional[Literal["company", "individual"]]
+            """
+            Account holder type: individual or company.
+            """
+            account_type: Optional[Literal["checking", "savings"]]
+            """
+            Account type: checkings or savings. Defaults to checking if omitted.
+            """
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the bank account.
+            """
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            network: Literal["ach"]
+            """
+            The US bank account network used to debit funds.
+            """
+            routing_number: Optional[str]
+            """
+            Routing number of the bank account.
+            """
+
+        billing_details: BillingDetails
+        type: Literal["us_bank_account"]
+        """
+        The type of the payment method used in the InboundTransfer.
+        """
+        us_bank_account: Optional[UsBankAccount]
+        _inner_class_types = {
+            "billing_details": BillingDetails,
+            "us_bank_account": UsBankAccount,
+        }
+
+    class StatusTransitions(StripeObject):
+        canceled_at: Optional[int]
+        """
+        Timestamp describing when an InboundTransfer changed status to `canceled`.
+        """
+        failed_at: Optional[int]
+        """
+        Timestamp describing when an InboundTransfer changed status to `failed`.
+        """
+        succeeded_at: Optional[int]
+        """
+        Timestamp describing when an InboundTransfer changed status to `succeeded`.
+        """
+
     if TYPE_CHECKING:
 
         class CancelParams(RequestOptions):
@@ -164,7 +285,7 @@ class InboundTransfer(
     """
     An arbitrary string attached to the object. Often useful for displaying to users.
     """
-    failure_details: Optional[StripeObject]
+    failure_details: Optional[FailureDetails]
     """
     Details about this InboundTransfer's failure. Only set when status is `failed`.
     """
@@ -180,7 +301,7 @@ class InboundTransfer(
     """
     Unique identifier for the object.
     """
-    linked_flows: StripeObject
+    linked_flows: LinkedFlows
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -197,7 +318,7 @@ class InboundTransfer(
     """
     The origin payment method to be debited for an InboundTransfer.
     """
-    origin_payment_method_details: Optional[StripeObject]
+    origin_payment_method_details: Optional[OriginPaymentMethodDetails]
     """
     Details about the PaymentMethod for an InboundTransfer.
     """
@@ -213,7 +334,7 @@ class InboundTransfer(
     """
     Status of the InboundTransfer: `processing`, `succeeded`, `failed`, and `canceled`. An InboundTransfer is `processing` if it is created and pending. The status changes to `succeeded` once the funds have been "confirmed" and a `transaction` is created and posted. The status changes to `failed` if the transfer fails.
     """
-    status_transitions: StripeObject
+    status_transitions: StatusTransitions
     transaction: Optional[ExpandableField["Transaction"]]
     """
     The Transaction associated with this object.
@@ -524,6 +645,13 @@ class InboundTransfer(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "failure_details": FailureDetails,
+        "linked_flows": LinkedFlows,
+        "origin_payment_method_details": OriginPaymentMethodDetails,
+        "status_transitions": StatusTransitions,
+    }
 
 
 InboundTransfer.TestHelpers._resource_cls = InboundTransfer

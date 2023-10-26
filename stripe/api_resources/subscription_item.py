@@ -44,6 +44,13 @@ class SubscriptionItem(
     """
 
     OBJECT_NAME: ClassVar[Literal["subscription_item"]] = "subscription_item"
+
+    class BillingThresholds(StripeObject):
+        usage_gte: Optional[int]
+        """
+        Usage threshold that triggers the subscription to create an invoice
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -342,7 +349,7 @@ class SubscriptionItem(
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
-    billing_thresholds: Optional[StripeObject]
+    billing_thresholds: Optional[BillingThresholds]
     """
     Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
     """
@@ -542,3 +549,5 @@ class SubscriptionItem(
                 params=params,
             ),
         )
+
+    _inner_class_types = {"billing_thresholds": BillingThresholds}

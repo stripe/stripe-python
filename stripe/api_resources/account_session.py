@@ -25,6 +25,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["account_session"]] = "account_session"
+
+    class Components(StripeObject):
+        class AccountOnboarding(StripeObject):
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+
+        account_onboarding: AccountOnboarding
+        _inner_class_types = {"account_onboarding": AccountOnboarding}
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -67,7 +78,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
     Refer to our docs to [setup Connect embedded components](https://stripe.com/docs/connect/get-started-connect-embedded-components) and learn about how `client_secret` should be handled.
     """
-    components: StripeObject
+    components: Components
     expires_at: int
     """
     The timestamp at which this AccountSession will expire.
@@ -102,3 +113,5 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
                 params,
             ),
         )
+
+    _inner_class_types = {"components": Components}

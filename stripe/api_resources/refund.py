@@ -37,6 +37,36 @@ class Refund(
     """
 
     OBJECT_NAME: ClassVar[Literal["refund"]] = "refund"
+
+    class NextAction(StripeObject):
+        class DisplayDetails(StripeObject):
+            class EmailSent(StripeObject):
+                email_sent_at: int
+                """
+                The timestamp when the email was sent.
+                """
+                email_sent_to: str
+                """
+                The recipient's email address.
+                """
+
+            email_sent: EmailSent
+            expires_at: int
+            """
+            The expiry timestamp.
+            """
+            _inner_class_types = {"email_sent": EmailSent}
+
+        display_details: Optional[DisplayDetails]
+        """
+        Contains the refund details.
+        """
+        type: str
+        """
+        Type of the next action to perform.
+        """
+        _inner_class_types = {"display_details": DisplayDetails}
+
     if TYPE_CHECKING:
 
         class CancelParams(RequestOptions):
@@ -182,7 +212,7 @@ class Refund(
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
-    next_action: Optional[StripeObject]
+    next_action: Optional[NextAction]
     object: Literal["refund"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -412,6 +442,8 @@ class Refund(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {"next_action": NextAction}
 
 
 Refund.TestHelpers._resource_cls = Refund

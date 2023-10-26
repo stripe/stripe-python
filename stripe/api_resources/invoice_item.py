@@ -53,6 +53,17 @@ class InvoiceItem(
     """
 
     OBJECT_NAME: ClassVar[Literal["invoiceitem"]] = "invoiceitem"
+
+    class Period(StripeObject):
+        end: int
+        """
+        The end of the period, which must be greater than or equal to the start. This value is inclusive.
+        """
+        start: int
+        """
+        The start of the period. This value is inclusive.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -397,7 +408,7 @@ class InvoiceItem(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    period: StripeObject
+    period: Period
     plan: Optional["Plan"]
     """
     If the invoice item is a proration, the plan of the subscription that the proration was computed for.
@@ -540,3 +551,5 @@ class InvoiceItem(
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"period": Period}

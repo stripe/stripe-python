@@ -30,6 +30,47 @@ class Review(ListableAPIResource["Review"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["review"]] = "review"
+
+    class IpAddressLocation(StripeObject):
+        city: Optional[str]
+        """
+        The city where the payment originated.
+        """
+        country: Optional[str]
+        """
+        Two-letter ISO code representing the country where the payment originated.
+        """
+        latitude: Optional[float]
+        """
+        The geographic latitude where the payment originated.
+        """
+        longitude: Optional[float]
+        """
+        The geographic longitude where the payment originated.
+        """
+        region: Optional[str]
+        """
+        The state/county/province/region where the payment originated.
+        """
+
+    class Session(StripeObject):
+        browser: Optional[str]
+        """
+        The browser used in this browser session (e.g., `Chrome`).
+        """
+        device: Optional[str]
+        """
+        Information about the device used for the browser session (e.g., `Samsung SM-G930T`).
+        """
+        platform: Optional[str]
+        """
+        The platform for the browser session (e.g., `Macintosh`).
+        """
+        version: Optional[str]
+        """
+        The version for the browser session (e.g., `61.0.3163.100`).
+        """
+
     if TYPE_CHECKING:
 
         class ApproveParams(RequestOptions):
@@ -109,7 +150,7 @@ class Review(ListableAPIResource["Review"]):
     """
     The IP address where the payment originated.
     """
-    ip_address_location: Optional[StripeObject]
+    ip_address_location: Optional[IpAddressLocation]
     """
     Information related to the location of the payment. Note that this information is an approximation and attempts to locate the nearest population center - it should not be used to determine a specific address.
     """
@@ -137,7 +178,7 @@ class Review(ListableAPIResource["Review"]):
     """
     The reason the review is currently open or closed. One of `rule`, `manual`, `approved`, `refunded`, `refunded_as_fraud`, `disputed`, or `redacted`.
     """
-    session: Optional[StripeObject]
+    session: Optional[Session]
     """
     Information related to the browsing session of the user who initiated the payment.
     """
@@ -235,3 +276,8 @@ class Review(ListableAPIResource["Review"]):
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "ip_address_location": IpAddressLocation,
+        "session": Session,
+    }

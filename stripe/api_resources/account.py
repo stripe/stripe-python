@@ -8,6 +8,7 @@ from stripe.api_resources.abstract import (
     UpdateableAPIResource,
     nested_resource_class_methods,
 )
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
@@ -26,6 +27,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.bank_account import BankAccount
     from stripe.api_resources.capability import Capability
     from stripe.api_resources.card import Card
+    from stripe.api_resources.file import File
     from stripe.api_resources.login_link import LoginLink
     from stripe.api_resources.person import Person
 
@@ -52,6 +54,965 @@ class Account(
     """
 
     OBJECT_NAME: ClassVar[Literal["account"]] = "account"
+
+    class BusinessProfile(StripeObject):
+        class MonthlyEstimatedRevenue(StripeObject):
+            amount: int
+            """
+            A non-negative integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+            """
+            currency: str
+            """
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            """
+
+        class SupportAddress(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region.
+            """
+
+        mcc: Optional[str]
+        """
+        [The merchant category code for the account](https://stripe.com/docs/connect/setting-mcc). MCCs are used to classify businesses based on the goods or services they provide.
+        """
+        monthly_estimated_revenue: Optional[MonthlyEstimatedRevenue]
+        name: Optional[str]
+        """
+        The customer-facing business name.
+        """
+        product_description: Optional[str]
+        """
+        Internal-only description of the product sold or service provided by the business. It's used by Stripe for risk and underwriting purposes.
+        """
+        support_address: Optional[SupportAddress]
+        """
+        A publicly available mailing address for sending support issues to.
+        """
+        support_email: Optional[str]
+        """
+        A publicly available email address for sending support issues to.
+        """
+        support_phone: Optional[str]
+        """
+        A publicly available phone number to call with support issues.
+        """
+        support_url: Optional[str]
+        """
+        A publicly available website for handling support issues.
+        """
+        url: Optional[str]
+        """
+        The business's publicly available website.
+        """
+        _inner_class_types = {
+            "monthly_estimated_revenue": MonthlyEstimatedRevenue,
+            "support_address": SupportAddress,
+        }
+
+    class Capabilities(StripeObject):
+        acss_debit_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Canadian pre-authorized debits payments capability of the account, or whether the account can directly process Canadian pre-authorized debits charges.
+        """
+        affirm_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Affirm capability of the account, or whether the account can directly process Affirm charges.
+        """
+        afterpay_clearpay_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the Afterpay Clearpay capability of the account, or whether the account can directly process Afterpay Clearpay charges.
+        """
+        au_becs_debit_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the BECS Direct Debit (AU) payments capability of the account, or whether the account can directly process BECS Direct Debit (AU) charges.
+        """
+        bacs_debit_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Bacs Direct Debits payments capability of the account, or whether the account can directly process Bacs Direct Debits charges.
+        """
+        bancontact_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Bancontact payments capability of the account, or whether the account can directly process Bancontact charges.
+        """
+        bank_transfer_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the customer_balance payments capability of the account, or whether the account can directly process customer_balance charges.
+        """
+        blik_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the blik payments capability of the account, or whether the account can directly process blik charges.
+        """
+        boleto_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the boleto payments capability of the account, or whether the account can directly process boleto charges.
+        """
+        card_issuing: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the card issuing capability of the account, or whether you can use Issuing to distribute funds on cards
+        """
+        card_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the card payments capability of the account, or whether the account can directly process credit and debit card charges.
+        """
+        cartes_bancaires_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the Cartes Bancaires payments capability of the account, or whether the account can directly process Cartes Bancaires card charges in EUR currency.
+        """
+        cashapp_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Cash App Pay capability of the account, or whether the account can directly process Cash App Pay payments.
+        """
+        eps_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the EPS payments capability of the account, or whether the account can directly process EPS charges.
+        """
+        fpx_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the FPX payments capability of the account, or whether the account can directly process FPX charges.
+        """
+        giropay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the giropay payments capability of the account, or whether the account can directly process giropay charges.
+        """
+        grabpay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the GrabPay payments capability of the account, or whether the account can directly process GrabPay charges.
+        """
+        ideal_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the iDEAL payments capability of the account, or whether the account can directly process iDEAL charges.
+        """
+        india_international_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the india_international_payments capability of the account, or whether the account can process international charges (non INR) in India.
+        """
+        jcb_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the JCB payments capability of the account, or whether the account (Japan only) can directly process JCB credit card charges in JPY currency.
+        """
+        klarna_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Klarna payments capability of the account, or whether the account can directly process Klarna charges.
+        """
+        konbini_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the konbini payments capability of the account, or whether the account can directly process konbini charges.
+        """
+        legacy_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the legacy payments capability of the account.
+        """
+        link_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the link_payments capability of the account, or whether the account can directly process Link charges.
+        """
+        oxxo_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the OXXO payments capability of the account, or whether the account can directly process OXXO charges.
+        """
+        p24_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the P24 payments capability of the account, or whether the account can directly process P24 charges.
+        """
+        paynow_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the paynow payments capability of the account, or whether the account can directly process paynow charges.
+        """
+        promptpay_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
+        """
+        sepa_debit_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
+        """
+        sofort_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Sofort payments capability of the account, or whether the account can directly process Sofort charges.
+        """
+        tax_reporting_us_1099_k: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the tax reporting 1099-K (US) capability of the account.
+        """
+        tax_reporting_us_1099_misc: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the tax reporting 1099-MISC (US) capability of the account.
+        """
+        transfers: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the transfers capability of the account, or whether your platform can transfer funds to the account.
+        """
+        treasury: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the banking capability, or whether the account can have bank accounts.
+        """
+        us_bank_account_ach_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the US bank account ACH payments capability of the account, or whether the account can directly process US bank account charges.
+        """
+        zip_payments: Optional[Literal["active", "inactive", "pending"]]
+        """
+        The status of the Zip capability of the account, or whether the account can directly process Zip charges.
+        """
+
+    class Company(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region.
+            """
+
+        class AddressKana(StripeObject):
+            city: Optional[str]
+            """
+            City/Ward.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Block/Building number.
+            """
+            line2: Optional[str]
+            """
+            Building details.
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            Prefecture.
+            """
+            town: Optional[str]
+            """
+            Town/cho-me.
+            """
+
+        class AddressKanji(StripeObject):
+            city: Optional[str]
+            """
+            City/Ward.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Block/Building number.
+            """
+            line2: Optional[str]
+            """
+            Building details.
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            Prefecture.
+            """
+            town: Optional[str]
+            """
+            Town/cho-me.
+            """
+
+        class OwnershipDeclaration(StripeObject):
+            date: Optional[int]
+            """
+            The Unix timestamp marking when the beneficial owner attestation was made.
+            """
+            ip: Optional[str]
+            """
+            The IP address from which the beneficial owner attestation was made.
+            """
+            user_agent: Optional[str]
+            """
+            The user-agent string from the browser where the beneficial owner attestation was made.
+            """
+
+        class Verification(StripeObject):
+            class Document(StripeObject):
+                back: Optional[ExpandableField["File"]]
+                """
+                The back of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`.
+                """
+                details: Optional[str]
+                """
+                A user-displayable string describing the verification state of this document.
+                """
+                details_code: Optional[str]
+                """
+                One of `document_corrupt`, `document_expired`, `document_failed_copy`, `document_failed_greyscale`, `document_failed_other`, `document_failed_test_mode`, `document_fraudulent`, `document_incomplete`, `document_invalid`, `document_manipulated`, `document_not_readable`, `document_not_uploaded`, `document_type_not_supported`, or `document_too_large`. A machine-readable code specifying the verification state for this document.
+                """
+                front: Optional[ExpandableField["File"]]
+                """
+                The front of a document returned by a [file upload](https://stripe.com/docs/api#create_file) with a `purpose` value of `additional_verification`.
+                """
+
+            document: Document
+            _inner_class_types = {"document": Document}
+
+        address: Optional[Address]
+        address_kana: Optional[AddressKana]
+        """
+        The Kana variation of the company's primary address (Japan only).
+        """
+        address_kanji: Optional[AddressKanji]
+        """
+        The Kanji variation of the company's primary address (Japan only).
+        """
+        directors_provided: Optional[bool]
+        """
+        Whether the company's directors have been provided. This Boolean will be `true` if you've manually indicated that all directors are provided via [the `directors_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-directors_provided).
+        """
+        executives_provided: Optional[bool]
+        """
+        Whether the company's executives have been provided. This Boolean will be `true` if you've manually indicated that all executives are provided via [the `executives_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-executives_provided), or if Stripe determined that sufficient executives were provided.
+        """
+        export_license_id: Optional[str]
+        """
+        The export license ID number of the company, also referred as Import Export Code (India only).
+        """
+        export_purpose_code: Optional[str]
+        """
+        The purpose code to use for export transactions (India only).
+        """
+        name: Optional[str]
+        """
+        The company's legal name.
+        """
+        name_kana: Optional[str]
+        """
+        The Kana variation of the company's legal name (Japan only).
+        """
+        name_kanji: Optional[str]
+        """
+        The Kanji variation of the company's legal name (Japan only).
+        """
+        owners_provided: Optional[bool]
+        """
+        Whether the company's owners have been provided. This Boolean will be `true` if you've manually indicated that all owners are provided via [the `owners_provided` parameter](https://stripe.com/docs/api/accounts/update#update_account-company-owners_provided), or if Stripe determined that sufficient owners were provided. Stripe determines ownership requirements using both the number of owners provided and their total percent ownership (calculated by adding the `percent_ownership` of each owner together).
+        """
+        ownership_declaration: Optional[OwnershipDeclaration]
+        """
+        This hash is used to attest that the beneficial owner information provided to Stripe is both current and correct.
+        """
+        phone: Optional[str]
+        """
+        The company's phone number (used for verification).
+        """
+        structure: Optional[
+            Literal[
+                "free_zone_establishment",
+                "free_zone_llc",
+                "government_instrumentality",
+                "governmental_unit",
+                "incorporated_non_profit",
+                "incorporated_partnership",
+                "limited_liability_partnership",
+                "llc",
+                "multi_member_llc",
+                "private_company",
+                "private_corporation",
+                "private_partnership",
+                "public_company",
+                "public_corporation",
+                "public_partnership",
+                "single_member_llc",
+                "sole_establishment",
+                "sole_proprietorship",
+                "tax_exempt_government_instrumentality",
+                "unincorporated_association",
+                "unincorporated_non_profit",
+                "unincorporated_partnership",
+            ]
+        ]
+        """
+        The category identifying the legal structure of the company or legal entity. See [Business structure](https://stripe.com/docs/connect/identity-verification#business-structure) for more details.
+        """
+        tax_id_provided: Optional[bool]
+        """
+        Whether the company's business ID number was provided.
+        """
+        tax_id_registrar: Optional[str]
+        """
+        The jurisdiction in which the `tax_id` is registered (Germany-based companies only).
+        """
+        vat_id_provided: Optional[bool]
+        """
+        Whether the company's business VAT number was provided.
+        """
+        verification: Optional[Verification]
+        """
+        Information on the verification state of the company.
+        """
+        _inner_class_types = {
+            "address": Address,
+            "address_kana": AddressKana,
+            "address_kanji": AddressKanji,
+            "ownership_declaration": OwnershipDeclaration,
+            "verification": Verification,
+        }
+
+    class Controller(StripeObject):
+        is_controller: Optional[bool]
+        """
+        `true` if the Connect application retrieving the resource controls the account and can therefore exercise [platform controls](https://stripe.com/docs/connect/platform-controls-for-standard-accounts). Otherwise, this field is null.
+        """
+        type: Literal["account", "application"]
+        """
+        The controller type. Can be `application`, if a Connect application controls the account, or `account`, if the account controls itself.
+        """
+
+    class FutureRequirements(StripeObject):
+        class Alternative(StripeObject):
+            alternative_fields_due: List[str]
+            """
+            Fields that can be provided to satisfy all fields in `original_fields_due`.
+            """
+            original_fields_due: List[str]
+            """
+            Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+            """
+
+        class Error(StripeObject):
+            code: Literal[
+                "invalid_address_city_state_postal_code",
+                "invalid_address_highway_contract_box",
+                "invalid_address_private_mailbox",
+                "invalid_business_profile_name",
+                "invalid_business_profile_name_denylisted",
+                "invalid_company_name_denylisted",
+                "invalid_dob_age_over_maximum",
+                "invalid_dob_age_under_18",
+                "invalid_product_description_length",
+                "invalid_product_description_url_match",
+                "invalid_representative_country",
+                "invalid_statement_descriptor_business_mismatch",
+                "invalid_statement_descriptor_denylisted",
+                "invalid_statement_descriptor_length",
+                "invalid_statement_descriptor_prefix_denylisted",
+                "invalid_statement_descriptor_prefix_mismatch",
+                "invalid_street_address",
+                "invalid_tax_id",
+                "invalid_tax_id_format",
+                "invalid_tos_acceptance",
+                "invalid_url_denylisted",
+                "invalid_url_format",
+                "invalid_url_length",
+                "invalid_url_web_presence_detected",
+                "invalid_url_website_business_information_mismatch",
+                "invalid_url_website_empty",
+                "invalid_url_website_inaccessible",
+                "invalid_url_website_inaccessible_geoblocked",
+                "invalid_url_website_inaccessible_password_protected",
+                "invalid_url_website_incomplete",
+                "invalid_url_website_incomplete_cancellation_policy",
+                "invalid_url_website_incomplete_customer_service_details",
+                "invalid_url_website_incomplete_legal_restrictions",
+                "invalid_url_website_incomplete_refund_policy",
+                "invalid_url_website_incomplete_return_policy",
+                "invalid_url_website_incomplete_terms_and_conditions",
+                "invalid_url_website_incomplete_under_construction",
+                "invalid_url_website_other",
+                "invalid_value_other",
+                "verification_directors_mismatch",
+                "verification_document_address_mismatch",
+                "verification_document_address_missing",
+                "verification_document_corrupt",
+                "verification_document_country_not_supported",
+                "verification_document_directors_mismatch",
+                "verification_document_dob_mismatch",
+                "verification_document_duplicate_type",
+                "verification_document_expired",
+                "verification_document_failed_copy",
+                "verification_document_failed_greyscale",
+                "verification_document_failed_other",
+                "verification_document_failed_test_mode",
+                "verification_document_fraudulent",
+                "verification_document_id_number_mismatch",
+                "verification_document_id_number_missing",
+                "verification_document_incomplete",
+                "verification_document_invalid",
+                "verification_document_issue_or_expiry_date_missing",
+                "verification_document_manipulated",
+                "verification_document_missing_back",
+                "verification_document_missing_front",
+                "verification_document_name_mismatch",
+                "verification_document_name_missing",
+                "verification_document_nationality_mismatch",
+                "verification_document_not_readable",
+                "verification_document_not_signed",
+                "verification_document_not_uploaded",
+                "verification_document_photo_mismatch",
+                "verification_document_too_large",
+                "verification_document_type_not_supported",
+                "verification_extraneous_directors",
+                "verification_failed_address_match",
+                "verification_failed_business_iec_number",
+                "verification_failed_document_match",
+                "verification_failed_id_number_match",
+                "verification_failed_keyed_identity",
+                "verification_failed_keyed_match",
+                "verification_failed_name_match",
+                "verification_failed_other",
+                "verification_failed_residential_address",
+                "verification_failed_tax_id_match",
+                "verification_failed_tax_id_not_issued",
+                "verification_missing_directors",
+                "verification_missing_executives",
+                "verification_missing_owners",
+                "verification_requires_additional_memorandum_of_associations",
+            ]
+            """
+            The code for the type of error.
+            """
+            reason: str
+            """
+            An informative message that indicates the error type and provides additional details about the error.
+            """
+            requirement: str
+            """
+            The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
+            """
+
+        alternatives: Optional[List[Alternative]]
+        """
+        Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+        """
+        current_deadline: Optional[int]
+        """
+        Date on which `future_requirements` merges with the main `requirements` hash and `future_requirements` becomes empty. After the transition, `currently_due` requirements may immediately become `past_due`, but the account may also be given a grace period depending on its enablement state prior to transitioning.
+        """
+        currently_due: Optional[List[str]]
+        """
+        Fields that need to be collected to keep the account enabled. If not collected by `future_requirements[current_deadline]`, these fields will transition to the main `requirements` hash.
+        """
+        disabled_reason: Optional[str]
+        """
+        This is typed as a string for consistency with `requirements.disabled_reason`, but it safe to assume `future_requirements.disabled_reason` is empty because fields in `future_requirements` will never disable the account.
+        """
+        errors: Optional[List[Error]]
+        """
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        """
+        eventually_due: Optional[List[str]]
+        """
+        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well.
+        """
+        past_due: Optional[List[str]]
+        """
+        Fields that weren't collected by `requirements.current_deadline`. These fields need to be collected to enable the capability on the account. New fields will never appear here; `future_requirements.past_due` will always be a subset of `requirements.past_due`.
+        """
+        pending_verification: Optional[List[str]]
+        """
+        Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due` or `currently_due`.
+        """
+        _inner_class_types = {"alternatives": Alternative, "errors": Error}
+
+    class Requirements(StripeObject):
+        class Alternative(StripeObject):
+            alternative_fields_due: List[str]
+            """
+            Fields that can be provided to satisfy all fields in `original_fields_due`.
+            """
+            original_fields_due: List[str]
+            """
+            Fields that are due and can be satisfied by providing all fields in `alternative_fields_due`.
+            """
+
+        class Error(StripeObject):
+            code: Literal[
+                "invalid_address_city_state_postal_code",
+                "invalid_address_highway_contract_box",
+                "invalid_address_private_mailbox",
+                "invalid_business_profile_name",
+                "invalid_business_profile_name_denylisted",
+                "invalid_company_name_denylisted",
+                "invalid_dob_age_over_maximum",
+                "invalid_dob_age_under_18",
+                "invalid_product_description_length",
+                "invalid_product_description_url_match",
+                "invalid_representative_country",
+                "invalid_statement_descriptor_business_mismatch",
+                "invalid_statement_descriptor_denylisted",
+                "invalid_statement_descriptor_length",
+                "invalid_statement_descriptor_prefix_denylisted",
+                "invalid_statement_descriptor_prefix_mismatch",
+                "invalid_street_address",
+                "invalid_tax_id",
+                "invalid_tax_id_format",
+                "invalid_tos_acceptance",
+                "invalid_url_denylisted",
+                "invalid_url_format",
+                "invalid_url_length",
+                "invalid_url_web_presence_detected",
+                "invalid_url_website_business_information_mismatch",
+                "invalid_url_website_empty",
+                "invalid_url_website_inaccessible",
+                "invalid_url_website_inaccessible_geoblocked",
+                "invalid_url_website_inaccessible_password_protected",
+                "invalid_url_website_incomplete",
+                "invalid_url_website_incomplete_cancellation_policy",
+                "invalid_url_website_incomplete_customer_service_details",
+                "invalid_url_website_incomplete_legal_restrictions",
+                "invalid_url_website_incomplete_refund_policy",
+                "invalid_url_website_incomplete_return_policy",
+                "invalid_url_website_incomplete_terms_and_conditions",
+                "invalid_url_website_incomplete_under_construction",
+                "invalid_url_website_other",
+                "invalid_value_other",
+                "verification_directors_mismatch",
+                "verification_document_address_mismatch",
+                "verification_document_address_missing",
+                "verification_document_corrupt",
+                "verification_document_country_not_supported",
+                "verification_document_directors_mismatch",
+                "verification_document_dob_mismatch",
+                "verification_document_duplicate_type",
+                "verification_document_expired",
+                "verification_document_failed_copy",
+                "verification_document_failed_greyscale",
+                "verification_document_failed_other",
+                "verification_document_failed_test_mode",
+                "verification_document_fraudulent",
+                "verification_document_id_number_mismatch",
+                "verification_document_id_number_missing",
+                "verification_document_incomplete",
+                "verification_document_invalid",
+                "verification_document_issue_or_expiry_date_missing",
+                "verification_document_manipulated",
+                "verification_document_missing_back",
+                "verification_document_missing_front",
+                "verification_document_name_mismatch",
+                "verification_document_name_missing",
+                "verification_document_nationality_mismatch",
+                "verification_document_not_readable",
+                "verification_document_not_signed",
+                "verification_document_not_uploaded",
+                "verification_document_photo_mismatch",
+                "verification_document_too_large",
+                "verification_document_type_not_supported",
+                "verification_extraneous_directors",
+                "verification_failed_address_match",
+                "verification_failed_business_iec_number",
+                "verification_failed_document_match",
+                "verification_failed_id_number_match",
+                "verification_failed_keyed_identity",
+                "verification_failed_keyed_match",
+                "verification_failed_name_match",
+                "verification_failed_other",
+                "verification_failed_residential_address",
+                "verification_failed_tax_id_match",
+                "verification_failed_tax_id_not_issued",
+                "verification_missing_directors",
+                "verification_missing_executives",
+                "verification_missing_owners",
+                "verification_requires_additional_memorandum_of_associations",
+            ]
+            """
+            The code for the type of error.
+            """
+            reason: str
+            """
+            An informative message that indicates the error type and provides additional details about the error.
+            """
+            requirement: str
+            """
+            The specific user onboarding requirement field (in the requirements hash) that needs to be resolved.
+            """
+
+        alternatives: Optional[List[Alternative]]
+        """
+        Fields that are due and can be satisfied by providing the corresponding alternative fields instead.
+        """
+        current_deadline: Optional[int]
+        """
+        Date by which the fields in `currently_due` must be collected to keep the account enabled. These fields may disable the account sooner if the next threshold is reached before they are collected.
+        """
+        currently_due: Optional[List[str]]
+        """
+        Fields that need to be collected to keep the account enabled. If not collected by `current_deadline`, these fields appear in `past_due` as well, and the account is disabled.
+        """
+        disabled_reason: Optional[str]
+        """
+        If the account is disabled, this string describes why. Can be `requirements.past_due`, `requirements.pending_verification`, `listed`, `platform_paused`, `rejected.fraud`, `rejected.listed`, `rejected.terms_of_service`, `rejected.other`, `under_review`, or `other`.
+        """
+        errors: Optional[List[Error]]
+        """
+        Fields that are `currently_due` and need to be collected again because validation or verification failed.
+        """
+        eventually_due: Optional[List[str]]
+        """
+        Fields that need to be collected assuming all volume thresholds are reached. As they become required, they appear in `currently_due` as well, and `current_deadline` becomes set.
+        """
+        past_due: Optional[List[str]]
+        """
+        Fields that weren't collected by `current_deadline`. These fields need to be collected to enable the account.
+        """
+        pending_verification: Optional[List[str]]
+        """
+        Fields that may become required depending on the results of verification or review. Will be an empty array unless an asynchronous verification is pending. If verification fails, these fields move to `eventually_due`, `currently_due`, or `past_due`.
+        """
+        _inner_class_types = {"alternatives": Alternative, "errors": Error}
+
+    class Settings(StripeObject):
+        class BacsDebitPayments(StripeObject):
+            display_name: Optional[str]
+            """
+            The Bacs Direct Debit Display Name for this account. For payments made with Bacs Direct Debit, this will appear on the mandate, and as the statement descriptor.
+            """
+
+        class Branding(StripeObject):
+            icon: Optional[ExpandableField["File"]]
+            """
+            (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) An icon for the account. Must be square and at least 128px x 128px.
+            """
+            logo: Optional[ExpandableField["File"]]
+            """
+            (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A logo for the account that will be used in Checkout instead of the icon and without the account's name next to it if provided. Must be at least 128px x 128px.
+            """
+            primary_color: Optional[str]
+            """
+            A CSS hex color value representing the primary branding color for this account
+            """
+            secondary_color: Optional[str]
+            """
+            A CSS hex color value representing the secondary branding color for this account
+            """
+
+        class CardIssuing(StripeObject):
+            class TosAcceptance(StripeObject):
+                date: Optional[int]
+                """
+                The Unix timestamp marking when the account representative accepted the service agreement.
+                """
+                ip: Optional[str]
+                """
+                The IP address from which the account representative accepted the service agreement.
+                """
+                user_agent: Optional[str]
+                """
+                The user agent of the browser from which the account representative accepted the service agreement.
+                """
+
+            tos_acceptance: Optional[TosAcceptance]
+            _inner_class_types = {"tos_acceptance": TosAcceptance}
+
+        class CardPayments(StripeObject):
+            class DeclineOn(StripeObject):
+                avs_failure: bool
+                """
+                Whether Stripe automatically declines charges with an incorrect ZIP or postal code. This setting only applies when a ZIP or postal code is provided and they fail bank verification.
+                """
+                cvc_failure: bool
+                """
+                Whether Stripe automatically declines charges with an incorrect CVC. This setting only applies when a CVC is provided and it fails bank verification.
+                """
+
+            decline_on: Optional[DeclineOn]
+            statement_descriptor_prefix: Optional[str]
+            """
+            The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge. `statement_descriptor_prefix` is useful for maximizing descriptor space for the dynamic portion.
+            """
+            statement_descriptor_prefix_kana: Optional[str]
+            """
+            The Kana variation of the default text that appears on credit card statements when a charge is made (Japan only). This field prefixes any dynamic `statement_descriptor_suffix_kana` specified on the charge. `statement_descriptor_prefix_kana` is useful for maximizing descriptor space for the dynamic portion.
+            """
+            statement_descriptor_prefix_kanji: Optional[str]
+            """
+            The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only). This field prefixes any dynamic `statement_descriptor_suffix_kanji` specified on the charge. `statement_descriptor_prefix_kanji` is useful for maximizing descriptor space for the dynamic portion.
+            """
+            _inner_class_types = {"decline_on": DeclineOn}
+
+        class Dashboard(StripeObject):
+            display_name: Optional[str]
+            """
+            The display name for this account. This is used on the Stripe Dashboard to differentiate between accounts.
+            """
+            timezone: Optional[str]
+            """
+            The timezone used in the Stripe Dashboard for this account. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones).
+            """
+
+        class Payments(StripeObject):
+            statement_descriptor: Optional[str]
+            """
+            The default text that appears on credit card statements when a charge is made. This field prefixes any dynamic `statement_descriptor` specified on the charge.
+            """
+            statement_descriptor_kana: Optional[str]
+            """
+            The Kana variation of the default text that appears on credit card statements when a charge is made (Japan only)
+            """
+            statement_descriptor_kanji: Optional[str]
+            """
+            The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only)
+            """
+            statement_descriptor_prefix_kana: Optional[str]
+            """
+            The Kana variation of the default text that appears on credit card statements when a charge is made (Japan only). This field prefixes any dynamic `statement_descriptor_suffix_kana` specified on the charge. `statement_descriptor_prefix_kana` is useful for maximizing descriptor space for the dynamic portion.
+            """
+            statement_descriptor_prefix_kanji: Optional[str]
+            """
+            The Kanji variation of the default text that appears on credit card statements when a charge is made (Japan only). This field prefixes any dynamic `statement_descriptor_suffix_kanji` specified on the charge. `statement_descriptor_prefix_kanji` is useful for maximizing descriptor space for the dynamic portion.
+            """
+
+        class Payouts(StripeObject):
+            class Schedule(StripeObject):
+                delay_days: int
+                """
+                The number of days charges for the account will be held before being paid out.
+                """
+                interval: str
+                """
+                How frequently funds will be paid out. One of `manual` (payouts only created via API call), `daily`, `weekly`, or `monthly`.
+                """
+                monthly_anchor: Optional[int]
+                """
+                The day of the month funds will be paid out. Only shown if `interval` is monthly. Payouts scheduled between the 29th and 31st of the month are sent on the last day of shorter months.
+                """
+                weekly_anchor: Optional[str]
+                """
+                The day of the week funds will be paid out, of the style 'monday', 'tuesday', etc. Only shown if `interval` is weekly.
+                """
+
+            debit_negative_balances: bool
+            """
+            A Boolean indicating if Stripe should try to reclaim negative balances from an attached bank account. See our [Understanding Connect Account Balances](https://stripe.com/docs/connect/account-balances) documentation for details. Default value is `false` for Custom accounts, otherwise `true`.
+            """
+            schedule: Schedule
+            statement_descriptor: Optional[str]
+            """
+            The text that appears on the bank account statement for payouts. If not set, this defaults to the platform's bank descriptor as set in the Dashboard.
+            """
+            _inner_class_types = {"schedule": Schedule}
+
+        class SepaDebitPayments(StripeObject):
+            creditor_id: Optional[str]
+            """
+            SEPA creditor identifier that identifies the company making the payment.
+            """
+
+        class Treasury(StripeObject):
+            class TosAcceptance(StripeObject):
+                date: Optional[int]
+                """
+                The Unix timestamp marking when the account representative accepted the service agreement.
+                """
+                ip: Optional[str]
+                """
+                The IP address from which the account representative accepted the service agreement.
+                """
+                user_agent: Optional[str]
+                """
+                The user agent of the browser from which the account representative accepted the service agreement.
+                """
+
+            tos_acceptance: Optional[TosAcceptance]
+            _inner_class_types = {"tos_acceptance": TosAcceptance}
+
+        bacs_debit_payments: Optional[BacsDebitPayments]
+        branding: Branding
+        card_issuing: Optional[CardIssuing]
+        card_payments: CardPayments
+        dashboard: Dashboard
+        payments: Payments
+        payouts: Optional[Payouts]
+        sepa_debit_payments: Optional[SepaDebitPayments]
+        treasury: Optional[Treasury]
+        _inner_class_types = {
+            "bacs_debit_payments": BacsDebitPayments,
+            "branding": Branding,
+            "card_issuing": CardIssuing,
+            "card_payments": CardPayments,
+            "dashboard": Dashboard,
+            "payments": Payments,
+            "payouts": Payouts,
+            "sepa_debit_payments": SepaDebitPayments,
+            "treasury": Treasury,
+        }
+
+    class TosAcceptance(StripeObject):
+        date: Optional[int]
+        """
+        The Unix timestamp marking when the account representative accepted their service agreement
+        """
+        ip: Optional[str]
+        """
+        The IP address from which the account representative accepted their service agreement
+        """
+        service_agreement: Optional[str]
+        """
+        The user's service agreement type
+        """
+        user_agent: Optional[str]
+        """
+        The user agent of the browser from which the account representative accepted their service agreement
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -2452,7 +3413,7 @@ class Account(
             A filter on the list of people returned based on whether these people are the representative of the account's company.
             """
 
-    business_profile: Optional[StripeObject]
+    business_profile: Optional[BusinessProfile]
     """
     Business information about the account.
     """
@@ -2462,13 +3423,13 @@ class Account(
     """
     The business type.
     """
-    capabilities: Optional[StripeObject]
+    capabilities: Optional[Capabilities]
     charges_enabled: Optional[bool]
     """
     Whether the account can create live charges.
     """
-    company: Optional[StripeObject]
-    controller: Optional[StripeObject]
+    company: Optional[Company]
+    controller: Optional[Controller]
     country: Optional[str]
     """
     The account's country.
@@ -2493,7 +3454,7 @@ class Account(
     """
     External accounts (bank accounts and debit cards) currently attached to this account
     """
-    future_requirements: Optional[StripeObject]
+    future_requirements: Optional[FutureRequirements]
     id: str
     """
     Unique identifier for the object.
@@ -2519,12 +3480,12 @@ class Account(
     """
     Whether Stripe can send payouts to this account.
     """
-    requirements: Optional[StripeObject]
-    settings: Optional[StripeObject]
+    requirements: Optional[Requirements]
+    settings: Optional[Settings]
     """
     Options for customizing how the account functions within Stripe.
     """
-    tos_acceptance: Optional[StripeObject]
+    tos_acceptance: Optional[TosAcceptance]
     type: Optional[Literal["custom", "express", "standard"]]
     """
     The Stripe account type. Can be `standard`, `express`, or `custom`.
@@ -3111,3 +4072,14 @@ class Account(
                 params=params,
             ),
         )
+
+    _inner_class_types = {
+        "business_profile": BusinessProfile,
+        "capabilities": Capabilities,
+        "company": Company,
+        "controller": Controller,
+        "future_requirements": FutureRequirements,
+        "requirements": Requirements,
+        "settings": Settings,
+        "tos_acceptance": TosAcceptance,
+    }

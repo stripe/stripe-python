@@ -14,6 +14,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from stripe.util import class_method_variant
 from typing import (
+    Any,
     ClassVar,
     Dict,
     Iterator,
@@ -36,12 +37,13 @@ if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
     from stripe.api_resources.bank_account import BankAccount
-    from stripe.api_resources.card import Card
+    from stripe.api_resources.card import Card as CardResource
     from stripe.api_resources.charge import Charge
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.review import Review
+    from stripe.api_resources.setup_intent import SetupIntent
     from stripe.api_resources.source import Source
 
 
@@ -66,6 +68,1641 @@ class PaymentIntent(
     """
 
     OBJECT_NAME: ClassVar[Literal["payment_intent"]] = "payment_intent"
+
+    class AmountDetails(StripeObject):
+        class Tip(StripeObject):
+            amount: Optional[int]
+            """
+            Portion of the amount that corresponds to a tip.
+            """
+
+        tip: Optional[Tip]
+        _inner_class_types = {"tip": Tip}
+
+    class AutomaticPaymentMethods(StripeObject):
+        allow_redirects: Optional[Literal["always", "never"]]
+        """
+        Controls whether this PaymentIntent will accept redirect-based payment methods.
+
+        Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the payment.
+        """
+        enabled: bool
+        """
+        Automatically calculates compatible payment methods
+        """
+
+    class LastPaymentError(StripeObject):
+        charge: Optional[str]
+        """
+        For card errors, the ID of the failed charge.
+        """
+        code: Optional[
+            Literal[
+                "account_closed",
+                "account_country_invalid_address",
+                "account_error_country_change_requires_additional_steps",
+                "account_information_mismatch",
+                "account_invalid",
+                "account_number_invalid",
+                "acss_debit_session_incomplete",
+                "alipay_upgrade_required",
+                "amount_too_large",
+                "amount_too_small",
+                "api_key_expired",
+                "application_fees_not_allowed",
+                "authentication_required",
+                "balance_insufficient",
+                "bank_account_bad_routing_numbers",
+                "bank_account_declined",
+                "bank_account_exists",
+                "bank_account_restricted",
+                "bank_account_unusable",
+                "bank_account_unverified",
+                "bank_account_verification_failed",
+                "billing_invalid_mandate",
+                "bitcoin_upgrade_required",
+                "capture_charge_authorization_expired",
+                "capture_unauthorized_payment",
+                "card_decline_rate_limit_exceeded",
+                "card_declined",
+                "cardholder_phone_number_required",
+                "charge_already_captured",
+                "charge_already_refunded",
+                "charge_disputed",
+                "charge_exceeds_source_limit",
+                "charge_expired_for_capture",
+                "charge_invalid_parameter",
+                "charge_not_refundable",
+                "clearing_code_unsupported",
+                "country_code_invalid",
+                "country_unsupported",
+                "coupon_expired",
+                "customer_max_payment_methods",
+                "customer_max_subscriptions",
+                "debit_not_authorized",
+                "email_invalid",
+                "expired_card",
+                "idempotency_key_in_use",
+                "incorrect_address",
+                "incorrect_cvc",
+                "incorrect_number",
+                "incorrect_zip",
+                "instant_payouts_config_disabled",
+                "instant_payouts_currency_disabled",
+                "instant_payouts_limit_exceeded",
+                "instant_payouts_unsupported",
+                "insufficient_funds",
+                "intent_invalid_state",
+                "intent_verification_method_missing",
+                "invalid_card_type",
+                "invalid_characters",
+                "invalid_charge_amount",
+                "invalid_cvc",
+                "invalid_expiry_month",
+                "invalid_expiry_year",
+                "invalid_number",
+                "invalid_source_usage",
+                "invalid_tax_location",
+                "invoice_no_customer_line_items",
+                "invoice_no_payment_method_types",
+                "invoice_no_subscription_line_items",
+                "invoice_not_editable",
+                "invoice_on_behalf_of_not_editable",
+                "invoice_payment_intent_requires_action",
+                "invoice_upcoming_none",
+                "livemode_mismatch",
+                "lock_timeout",
+                "missing",
+                "no_account",
+                "not_allowed_on_standard_account",
+                "out_of_inventory",
+                "ownership_declaration_not_allowed",
+                "parameter_invalid_empty",
+                "parameter_invalid_integer",
+                "parameter_invalid_string_blank",
+                "parameter_invalid_string_empty",
+                "parameter_missing",
+                "parameter_unknown",
+                "parameters_exclusive",
+                "payment_intent_action_required",
+                "payment_intent_authentication_failure",
+                "payment_intent_incompatible_payment_method",
+                "payment_intent_invalid_parameter",
+                "payment_intent_konbini_rejected_confirmation_number",
+                "payment_intent_mandate_invalid",
+                "payment_intent_payment_attempt_expired",
+                "payment_intent_payment_attempt_failed",
+                "payment_intent_unexpected_state",
+                "payment_method_bank_account_already_verified",
+                "payment_method_bank_account_blocked",
+                "payment_method_billing_details_address_missing",
+                "payment_method_configuration_failures",
+                "payment_method_currency_mismatch",
+                "payment_method_customer_decline",
+                "payment_method_invalid_parameter",
+                "payment_method_invalid_parameter_testmode",
+                "payment_method_microdeposit_failed",
+                "payment_method_microdeposit_verification_amounts_invalid",
+                "payment_method_microdeposit_verification_amounts_mismatch",
+                "payment_method_microdeposit_verification_attempts_exceeded",
+                "payment_method_microdeposit_verification_descriptor_code_mismatch",
+                "payment_method_microdeposit_verification_timeout",
+                "payment_method_not_available",
+                "payment_method_provider_decline",
+                "payment_method_provider_timeout",
+                "payment_method_unactivated",
+                "payment_method_unexpected_state",
+                "payment_method_unsupported_type",
+                "payout_reconciliation_not_ready",
+                "payouts_limit_exceeded",
+                "payouts_not_allowed",
+                "platform_account_required",
+                "platform_api_key_expired",
+                "postal_code_invalid",
+                "processing_error",
+                "product_inactive",
+                "progressive_onboarding_limit_exceeded",
+                "rate_limit",
+                "refer_to_customer",
+                "refund_disputed_payment",
+                "resource_already_exists",
+                "resource_missing",
+                "return_intent_already_processed",
+                "routing_number_invalid",
+                "secret_key_required",
+                "sepa_unsupported_account",
+                "setup_attempt_failed",
+                "setup_intent_authentication_failure",
+                "setup_intent_invalid_parameter",
+                "setup_intent_mandate_invalid",
+                "setup_intent_setup_attempt_expired",
+                "setup_intent_unexpected_state",
+                "shipping_calculation_failed",
+                "sku_inactive",
+                "state_unsupported",
+                "status_transition_invalid",
+                "stripe_tax_inactive",
+                "tax_id_invalid",
+                "taxes_calculation_failed",
+                "terminal_location_country_unsupported",
+                "terminal_reader_busy",
+                "terminal_reader_offline",
+                "terminal_reader_timeout",
+                "testmode_charges_only",
+                "tls_version_unsupported",
+                "token_already_used",
+                "token_in_use",
+                "transfer_source_balance_parameters_mismatch",
+                "transfers_not_allowed",
+                "url_invalid",
+            ]
+        ]
+        """
+        For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
+        """
+        decline_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
+        """
+        doc_url: Optional[str]
+        """
+        A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
+        """
+        message: Optional[str]
+        """
+        A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
+        """
+        param: Optional[str]
+        """
+        If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
+        """
+        payment_intent: Optional["PaymentIntent"]
+        """
+        A PaymentIntent guides you through the process of collecting a payment from your customer.
+        We recommend that you create exactly one PaymentIntent for each order or
+        customer session in your system. You can reference the PaymentIntent later to
+        see the history of payment attempts for a particular session.
+
+        A PaymentIntent transitions through
+        [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+        throughout its lifetime as it interfaces with Stripe.js to perform
+        authentication flows and ultimately creates at most one successful charge.
+
+        Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
+        """
+        payment_method: Optional["PaymentMethod"]
+        """
+        PaymentMethod objects represent your customer's payment instruments.
+        You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+        Customer objects to store instrument details for future payments.
+
+        Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+        """
+        payment_method_type: Optional[str]
+        """
+        If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
+        """
+        request_log_url: Optional[str]
+        """
+        A URL to the request log entry in your dashboard.
+        """
+        setup_intent: Optional["SetupIntent"]
+        """
+        A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
+        For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
+        Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
+
+        Create a SetupIntent when you're ready to collect your customer's payment credentials.
+        Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
+        The SetupIntent transitions through multiple [statuses](https://stripe.com/docs/payments/intents#intent-statuses) as it guides
+        you through the setup process.
+
+        Successful SetupIntents result in payment credentials that are optimized for future payments.
+        For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
+        [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication) during payment method collection
+        to streamline later [off-session payments](https://stripe.com/docs/payments/setup-intents).
+        If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+        it automatically attaches the resulting payment method to that Customer after successful setup.
+        We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
+        PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
+
+        By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
+
+        Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
+        """
+        source: Optional[
+            Union["Account", "BankAccount", "CardResource", "Source"]
+        ]
+        type: Literal[
+            "api_error",
+            "card_error",
+            "idempotency_error",
+            "invalid_request_error",
+        ]
+        """
+        The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
+        """
+
+    class NextAction(StripeObject):
+        class AlipayHandleRedirect(StripeObject):
+            native_data: Optional[str]
+            """
+            The native data to be used with Alipay SDK you must redirect your customer to in order to authenticate the payment in an Android App.
+            """
+            native_url: Optional[str]
+            """
+            The native URL you must redirect your customer to in order to authenticate the payment in an iOS App.
+            """
+            return_url: Optional[str]
+            """
+            If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
+            """
+            url: Optional[str]
+            """
+            The URL you must redirect your customer to in order to authenticate the payment.
+            """
+
+        class BoletoDisplayDetails(StripeObject):
+            expires_at: Optional[int]
+            """
+            The timestamp after which the boleto expires.
+            """
+            hosted_voucher_url: Optional[str]
+            """
+            The URL to the hosted boleto voucher page, which allows customers to view the boleto voucher.
+            """
+            number: Optional[str]
+            """
+            The boleto number.
+            """
+            pdf: Optional[str]
+            """
+            The URL to the downloadable boleto voucher PDF.
+            """
+
+        class CardAwaitNotification(StripeObject):
+            charge_attempt_at: Optional[int]
+            """
+            The time that payment will be attempted. If customer approval is required, they need to provide approval before this time.
+            """
+            customer_approval_required: Optional[bool]
+            """
+            For payments greater than INR 15000, the customer must provide explicit approval of the payment with their bank. For payments of lower amount, no customer action is required.
+            """
+
+        class CashappHandleRedirectOrDisplayQrCode(StripeObject):
+            class QrCode(StripeObject):
+                expires_at: int
+                """
+                The date (unix timestamp) when the QR code expires.
+                """
+                image_url_png: str
+                """
+                The image_url_png string used to render QR code
+                """
+                image_url_svg: str
+                """
+                The image_url_svg string used to render QR code
+                """
+
+            hosted_instructions_url: str
+            """
+            The URL to the hosted Cash App Pay instructions page, which allows customers to view the QR code, and supports QR code refreshing on expiration.
+            """
+            mobile_auth_url: str
+            """
+            The url for mobile redirect based auth
+            """
+            qr_code: QrCode
+            _inner_class_types = {"qr_code": QrCode}
+
+        class DisplayBankTransferInstructions(StripeObject):
+            class FinancialAddress(StripeObject):
+                class Iban(StripeObject):
+                    account_holder_name: str
+                    """
+                    The name of the person or business that owns the bank account
+                    """
+                    bic: str
+                    """
+                    The BIC/SWIFT code of the account.
+                    """
+                    country: str
+                    """
+                    Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                    """
+                    iban: str
+                    """
+                    The IBAN of the account.
+                    """
+
+                class SortCode(StripeObject):
+                    account_holder_name: str
+                    """
+                    The name of the person or business that owns the bank account
+                    """
+                    account_number: str
+                    """
+                    The account number
+                    """
+                    sort_code: str
+                    """
+                    The six-digit sort code
+                    """
+
+                class Spei(StripeObject):
+                    bank_code: str
+                    """
+                    The three-digit bank code
+                    """
+                    bank_name: str
+                    """
+                    The short banking institution name
+                    """
+                    clabe: str
+                    """
+                    The CLABE number
+                    """
+
+                class Zengin(StripeObject):
+                    account_holder_name: Optional[str]
+                    """
+                    The account holder name
+                    """
+                    account_number: Optional[str]
+                    """
+                    The account number
+                    """
+                    account_type: Optional[str]
+                    """
+                    The bank account type. In Japan, this can only be `futsu` or `toza`.
+                    """
+                    bank_code: Optional[str]
+                    """
+                    The bank code of the account
+                    """
+                    bank_name: Optional[str]
+                    """
+                    The bank name of the account
+                    """
+                    branch_code: Optional[str]
+                    """
+                    The branch code of the account
+                    """
+                    branch_name: Optional[str]
+                    """
+                    The branch name of the account
+                    """
+
+                iban: Optional[Iban]
+                """
+                Iban Records contain E.U. bank account details per the SEPA format.
+                """
+                sort_code: Optional[SortCode]
+                """
+                Sort Code Records contain U.K. bank account details per the sort code format.
+                """
+                spei: Optional[Spei]
+                """
+                SPEI Records contain Mexico bank account details per the SPEI format.
+                """
+                supported_networks: Optional[
+                    List[Literal["bacs", "fps", "sepa", "spei", "zengin"]]
+                ]
+                """
+                The payment networks supported by this FinancialAddress
+                """
+                type: Literal["iban", "sort_code", "spei", "zengin"]
+                """
+                The type of financial address
+                """
+                zengin: Optional[Zengin]
+                """
+                Zengin Records contain Japan bank account details per the Zengin format.
+                """
+                _inner_class_types = {
+                    "iban": Iban,
+                    "sort_code": SortCode,
+                    "spei": Spei,
+                    "zengin": Zengin,
+                }
+
+            amount_remaining: Optional[int]
+            """
+            The remaining amount that needs to be transferred to complete the payment.
+            """
+            currency: Optional[str]
+            """
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            """
+            financial_addresses: Optional[List[FinancialAddress]]
+            """
+            A list of financial addresses that can be used to fund the customer balance
+            """
+            hosted_instructions_url: Optional[str]
+            """
+            A link to a hosted page that guides your customer through completing the transfer.
+            """
+            reference: Optional[str]
+            """
+            A string identifying this payment. Instruct your customer to include this code in the reference or memo field of their bank transfer.
+            """
+            type: Literal[
+                "eu_bank_transfer",
+                "gb_bank_transfer",
+                "jp_bank_transfer",
+                "mx_bank_transfer",
+                "us_bank_transfer",
+            ]
+            """
+            Type of bank transfer
+            """
+            _inner_class_types = {"financial_addresses": FinancialAddress}
+
+        class KonbiniDisplayDetails(StripeObject):
+            class Stores(StripeObject):
+                class Familymart(StripeObject):
+                    confirmation_number: Optional[str]
+                    """
+                    The confirmation number.
+                    """
+                    payment_code: str
+                    """
+                    The payment code.
+                    """
+
+                class Lawson(StripeObject):
+                    confirmation_number: Optional[str]
+                    """
+                    The confirmation number.
+                    """
+                    payment_code: str
+                    """
+                    The payment code.
+                    """
+
+                class Ministop(StripeObject):
+                    confirmation_number: Optional[str]
+                    """
+                    The confirmation number.
+                    """
+                    payment_code: str
+                    """
+                    The payment code.
+                    """
+
+                class Seicomart(StripeObject):
+                    confirmation_number: Optional[str]
+                    """
+                    The confirmation number.
+                    """
+                    payment_code: str
+                    """
+                    The payment code.
+                    """
+
+                familymart: Optional[Familymart]
+                """
+                FamilyMart instruction details.
+                """
+                lawson: Optional[Lawson]
+                """
+                Lawson instruction details.
+                """
+                ministop: Optional[Ministop]
+                """
+                Ministop instruction details.
+                """
+                seicomart: Optional[Seicomart]
+                """
+                Seicomart instruction details.
+                """
+                _inner_class_types = {
+                    "familymart": Familymart,
+                    "lawson": Lawson,
+                    "ministop": Ministop,
+                    "seicomart": Seicomart,
+                }
+
+            expires_at: int
+            """
+            The timestamp at which the pending Konbini payment expires.
+            """
+            hosted_voucher_url: Optional[str]
+            """
+            The URL for the Konbini payment instructions page, which allows customers to view and print a Konbini voucher.
+            """
+            stores: Stores
+            _inner_class_types = {"stores": Stores}
+
+        class OxxoDisplayDetails(StripeObject):
+            expires_after: Optional[int]
+            """
+            The timestamp after which the OXXO voucher expires.
+            """
+            hosted_voucher_url: Optional[str]
+            """
+            The URL for the hosted OXXO voucher page, which allows customers to view and print an OXXO voucher.
+            """
+            number: Optional[str]
+            """
+            OXXO reference number.
+            """
+
+        class PaynowDisplayQrCode(StripeObject):
+            data: str
+            """
+            The raw data string used to generate QR code, it should be used together with QR code library.
+            """
+            hosted_instructions_url: Optional[str]
+            """
+            The URL to the hosted PayNow instructions page, which allows customers to view the PayNow QR code.
+            """
+            image_url_png: str
+            """
+            The image_url_png string used to render QR code
+            """
+            image_url_svg: str
+            """
+            The image_url_svg string used to render QR code
+            """
+
+        class PixDisplayQrCode(StripeObject):
+            data: Optional[str]
+            """
+            The raw data string used to generate QR code, it should be used together with QR code library.
+            """
+            expires_at: Optional[int]
+            """
+            The date (unix timestamp) when the PIX expires.
+            """
+            hosted_instructions_url: Optional[str]
+            """
+            The URL to the hosted pix instructions page, which allows customers to view the pix QR code.
+            """
+            image_url_png: Optional[str]
+            """
+            The image_url_png string used to render png QR code
+            """
+            image_url_svg: Optional[str]
+            """
+            The image_url_svg string used to render svg QR code
+            """
+
+        class PromptpayDisplayQrCode(StripeObject):
+            data: str
+            """
+            The raw data string used to generate QR code, it should be used together with QR code library.
+            """
+            hosted_instructions_url: str
+            """
+            The URL to the hosted PromptPay instructions page, which allows customers to view the PromptPay QR code.
+            """
+            image_url_png: str
+            """
+            The PNG path used to render the QR code, can be used as the source in an HTML img tag
+            """
+            image_url_svg: str
+            """
+            The SVG path used to render the QR code, can be used as the source in an HTML img tag
+            """
+
+        class RedirectToUrl(StripeObject):
+            return_url: Optional[str]
+            """
+            If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
+            """
+            url: Optional[str]
+            """
+            The URL you must redirect your customer to in order to authenticate the payment.
+            """
+
+        class VerifyWithMicrodeposits(StripeObject):
+            arrival_date: int
+            """
+            The timestamp when the microdeposits are expected to land.
+            """
+            hosted_verification_url: str
+            """
+            The URL for the hosted verification page, which allows customers to verify their bank account.
+            """
+            microdeposit_type: Optional[Literal["amounts", "descriptor_code"]]
+            """
+            The type of the microdeposit sent to the customer. Used to distinguish between different verification methods.
+            """
+
+        class WechatPayDisplayQrCode(StripeObject):
+            data: str
+            """
+            The data being used to generate QR code
+            """
+            hosted_instructions_url: str
+            """
+            The URL to the hosted WeChat Pay instructions page, which allows customers to view the WeChat Pay QR code.
+            """
+            image_data_url: str
+            """
+            The base64 image data for a pre-generated QR code
+            """
+            image_url_png: str
+            """
+            The image_url_png string used to render QR code
+            """
+            image_url_svg: str
+            """
+            The image_url_svg string used to render QR code
+            """
+
+        class WechatPayRedirectToAndroidApp(StripeObject):
+            app_id: str
+            """
+            app_id is the APP ID registered on WeChat open platform
+            """
+            nonce_str: str
+            """
+            nonce_str is a random string
+            """
+            package: str
+            """
+            package is static value
+            """
+            partner_id: str
+            """
+            an unique merchant ID assigned by WeChat Pay
+            """
+            prepay_id: str
+            """
+            an unique trading ID assigned by WeChat Pay
+            """
+            sign: str
+            """
+            A signature
+            """
+            timestamp: str
+            """
+            Specifies the current time in epoch format
+            """
+
+        class WechatPayRedirectToIosApp(StripeObject):
+            native_url: str
+            """
+            An universal link that redirect to WeChat Pay app
+            """
+
+        alipay_handle_redirect: Optional[AlipayHandleRedirect]
+        boleto_display_details: Optional[BoletoDisplayDetails]
+        card_await_notification: Optional[CardAwaitNotification]
+        cashapp_handle_redirect_or_display_qr_code: Optional[
+            CashappHandleRedirectOrDisplayQrCode
+        ]
+        display_bank_transfer_instructions: Optional[
+            DisplayBankTransferInstructions
+        ]
+        konbini_display_details: Optional[KonbiniDisplayDetails]
+        oxxo_display_details: Optional[OxxoDisplayDetails]
+        paynow_display_qr_code: Optional[PaynowDisplayQrCode]
+        pix_display_qr_code: Optional[PixDisplayQrCode]
+        promptpay_display_qr_code: Optional[PromptpayDisplayQrCode]
+        redirect_to_url: Optional[RedirectToUrl]
+        type: str
+        """
+        Type of the next action to perform, one of `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
+        """
+        use_stripe_sdk: Optional[Dict[str, Any]]
+        """
+        When confirming a PaymentIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
+        """
+        verify_with_microdeposits: Optional[VerifyWithMicrodeposits]
+        wechat_pay_display_qr_code: Optional[WechatPayDisplayQrCode]
+        wechat_pay_redirect_to_android_app: Optional[
+            WechatPayRedirectToAndroidApp
+        ]
+        wechat_pay_redirect_to_ios_app: Optional[WechatPayRedirectToIosApp]
+        _inner_class_types = {
+            "alipay_handle_redirect": AlipayHandleRedirect,
+            "boleto_display_details": BoletoDisplayDetails,
+            "card_await_notification": CardAwaitNotification,
+            "cashapp_handle_redirect_or_display_qr_code": CashappHandleRedirectOrDisplayQrCode,
+            "display_bank_transfer_instructions": DisplayBankTransferInstructions,
+            "konbini_display_details": KonbiniDisplayDetails,
+            "oxxo_display_details": OxxoDisplayDetails,
+            "paynow_display_qr_code": PaynowDisplayQrCode,
+            "pix_display_qr_code": PixDisplayQrCode,
+            "promptpay_display_qr_code": PromptpayDisplayQrCode,
+            "redirect_to_url": RedirectToUrl,
+            "verify_with_microdeposits": VerifyWithMicrodeposits,
+            "wechat_pay_display_qr_code": WechatPayDisplayQrCode,
+            "wechat_pay_redirect_to_android_app": WechatPayRedirectToAndroidApp,
+            "wechat_pay_redirect_to_ios_app": WechatPayRedirectToIosApp,
+        }
+
+    class PaymentMethodConfigurationDetails(StripeObject):
+        id: str
+        """
+        ID of the payment method configuration used.
+        """
+        parent: Optional[str]
+        """
+        ID of the parent payment method configuration used.
+        """
+
+    class PaymentMethodOptions(StripeObject):
+        class AcssDebit(StripeObject):
+            class MandateOptions(StripeObject):
+                custom_mandate_url: Optional[str]
+                """
+                A URL for custom mandate text
+                """
+                interval_description: Optional[str]
+                """
+                Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
+                """
+                payment_schedule: Optional[
+                    Literal["combined", "interval", "sporadic"]
+                ]
+                """
+                Payment schedule for the mandate.
+                """
+                transaction_type: Optional[Literal["business", "personal"]]
+                """
+                Transaction type of the mandate.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+            verification_method: Optional[
+                Literal["automatic", "instant", "microdeposits"]
+            ]
+            """
+            Bank account verification method.
+            """
+            _inner_class_types = {"mandate_options": MandateOptions}
+
+        class Affirm(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            preferred_locale: Optional[str]
+            """
+            Preferred language of the Affirm authorization page that the customer is redirected to.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class AfterpayClearpay(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            reference: Optional[str]
+            """
+            An internal identifier or reference that this payment corresponds to. You must limit the identifier to 128 characters, and it can only contain letters, numbers, underscores, backslashes, and dashes.
+            This field differs from the statement descriptor and item name.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Alipay(StripeObject):
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class AuBecsDebit(StripeObject):
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class BacsDebit(StripeObject):
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Bancontact(StripeObject):
+            preferred_language: Literal["de", "en", "fr", "nl"]
+            """
+            Preferred language of the Bancontact authorization page that the customer is redirected to.
+            """
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Blik(StripeObject):
+            pass
+
+        class Boleto(StripeObject):
+            expires_after_days: int
+            """
+            The number of calendar days before a Boleto voucher expires. For example, if you create a Boleto voucher on Monday and you set expires_after_days to 2, the Boleto voucher will expire on Wednesday at 23:59 America/Sao_Paulo time.
+            """
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Card(StripeObject):
+            class Installments(StripeObject):
+                class AvailablePlan(StripeObject):
+                    count: Optional[int]
+                    """
+                    For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+                    """
+                    interval: Optional[Literal["month"]]
+                    """
+                    For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
+                    One of `month`.
+                    """
+                    type: Literal["fixed_count"]
+                    """
+                    Type of installment plan, one of `fixed_count`.
+                    """
+
+                class Plan(StripeObject):
+                    count: Optional[int]
+                    """
+                    For `fixed_count` installment plans, this is the number of installment payments your customer will make to their credit card.
+                    """
+                    interval: Optional[Literal["month"]]
+                    """
+                    For `fixed_count` installment plans, this is the interval between installment payments your customer will make to their credit card.
+                    One of `month`.
+                    """
+                    type: Literal["fixed_count"]
+                    """
+                    Type of installment plan, one of `fixed_count`.
+                    """
+
+                available_plans: Optional[List[AvailablePlan]]
+                """
+                Installment plans that may be selected for this PaymentIntent.
+                """
+                enabled: bool
+                """
+                Whether Installments are enabled for this PaymentIntent.
+                """
+                plan: Optional[Plan]
+                """
+                Installment plan selected for this PaymentIntent.
+                """
+                _inner_class_types = {
+                    "available_plans": AvailablePlan,
+                    "plan": Plan,
+                }
+
+            class MandateOptions(StripeObject):
+                amount: int
+                """
+                Amount to be charged for future payments.
+                """
+                amount_type: Literal["fixed", "maximum"]
+                """
+                One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+                """
+                description: Optional[str]
+                """
+                A description of the mandate or subscription that is meant to be displayed to the customer.
+                """
+                end_date: Optional[int]
+                """
+                End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+                """
+                interval: Literal["day", "month", "sporadic", "week", "year"]
+                """
+                Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+                """
+                interval_count: Optional[int]
+                """
+                The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+                """
+                reference: str
+                """
+                Unique identifier for the mandate or subscription.
+                """
+                start_date: int
+                """
+                Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+                """
+                supported_types: Optional[List[Literal["india"]]]
+                """
+                Specifies the type of mandates supported. Possible values are `india`.
+                """
+
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            installments: Optional[Installments]
+            """
+            Installment details for this payment (Mexico only).
+
+            For more information, see the [installments integration guide](https://stripe.com/docs/payments/installments).
+            """
+            mandate_options: Optional[MandateOptions]
+            """
+            Configuration options for setting up an eMandate for cards issued in India.
+            """
+            network: Optional[
+                Literal[
+                    "amex",
+                    "cartes_bancaires",
+                    "diners",
+                    "discover",
+                    "eftpos_au",
+                    "interac",
+                    "jcb",
+                    "mastercard",
+                    "unionpay",
+                    "unknown",
+                    "visa",
+                ]
+            ]
+            """
+            Selected network to process this payment intent on. Depends on the available networks of the card attached to the payment intent. Can be only set confirm-time.
+            """
+            request_extended_authorization: Optional[
+                Literal["if_available", "never"]
+            ]
+            """
+            Request ability to [capture beyond the standard authorization validity window](https://stripe.com/docs/payments/extended-authorization) for this PaymentIntent.
+            """
+            request_incremental_authorization: Optional[
+                Literal["if_available", "never"]
+            ]
+            """
+            Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
+            """
+            request_multicapture: Optional[Literal["if_available", "never"]]
+            """
+            Request ability to make [multiple captures](https://stripe.com/docs/payments/multicapture) for this PaymentIntent.
+            """
+            request_overcapture: Optional[Literal["if_available", "never"]]
+            """
+            Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
+            """
+            request_three_d_secure: Optional[
+                Literal["any", "automatic", "challenge_only"]
+            ]
+            """
+            We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+            """
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+            statement_descriptor_suffix_kana: Optional[str]
+            """
+            Provides information about a card payment that customers see on their statements. Concatenated with the Kana prefix (shortened Kana descriptor) or Kana statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 22 characters.
+            """
+            statement_descriptor_suffix_kanji: Optional[str]
+            """
+            Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
+            """
+            _inner_class_types = {
+                "installments": Installments,
+                "mandate_options": MandateOptions,
+            }
+
+        class CardPresent(StripeObject):
+            request_extended_authorization: Optional[bool]
+            """
+            Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
+            """
+            request_incremental_authorization_support: Optional[bool]
+            """
+            Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
+            """
+
+        class Cashapp(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class CustomerBalance(StripeObject):
+            class BankTransfer(StripeObject):
+                class EuBankTransfer(StripeObject):
+                    country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
+                    """
+                    The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+                    """
+
+                eu_bank_transfer: Optional[EuBankTransfer]
+                requested_address_types: Optional[
+                    List[
+                        Literal[
+                            "aba",
+                            "iban",
+                            "sepa",
+                            "sort_code",
+                            "spei",
+                            "swift",
+                            "zengin",
+                        ]
+                    ]
+                ]
+                """
+                List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
+
+                Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
+                """
+                type: Optional[
+                    Literal[
+                        "eu_bank_transfer",
+                        "gb_bank_transfer",
+                        "jp_bank_transfer",
+                        "mx_bank_transfer",
+                        "us_bank_transfer",
+                    ]
+                ]
+                """
+                The bank transfer type that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
+                """
+                _inner_class_types = {"eu_bank_transfer": EuBankTransfer}
+
+            bank_transfer: Optional[BankTransfer]
+            funding_type: Optional[Literal["bank_transfer"]]
+            """
+            The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+            _inner_class_types = {"bank_transfer": BankTransfer}
+
+        class Eps(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Fpx(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Giropay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Grabpay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Ideal(StripeObject):
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class InteracPresent(StripeObject):
+            pass
+
+        class Klarna(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            preferred_locale: Optional[str]
+            """
+            Preferred locale of the Klarna checkout page that the customer is redirected to.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Konbini(StripeObject):
+            confirmation_number: Optional[str]
+            """
+            An optional 10 to 11 digit numeric-only string determining the confirmation code at applicable convenience stores.
+            """
+            expires_after_days: Optional[int]
+            """
+            The number of calendar days (between 1 and 60) after which Konbini payment instructions will expire. For example, if a PaymentIntent is confirmed with Konbini and `expires_after_days` set to 2 on Monday JST, the instructions will expire on Wednesday 23:59:59 JST.
+            """
+            expires_at: Optional[int]
+            """
+            The timestamp at which the Konbini payment instructions will expire. Only one of `expires_after_days` or `expires_at` may be set.
+            """
+            product_description: Optional[str]
+            """
+            A product descriptor of up to 22 characters, which will appear to customers at the convenience store.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Link(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            persistent_token: Optional[str]
+            """
+            [Deprecated] This is a legacy parameter that no longer has any function.
+            """
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Oxxo(StripeObject):
+            expires_after_days: int
+            """
+            The number of calendar days before an OXXO invoice expires. For example, if you create an OXXO invoice on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class P24(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Paynow(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Paypal(StripeObject):
+            capture_method: Optional[Literal["manual"]]
+            """
+            Controls when the funds will be captured from the customer's account.
+            """
+            preferred_locale: Optional[str]
+            """
+            Preferred locale of the PayPal checkout page that the customer is redirected to.
+            """
+            reference: Optional[str]
+            """
+            A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+            """
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Pix(StripeObject):
+            expires_after_seconds: Optional[int]
+            """
+            The number of seconds (between 10 and 1209600) after which Pix payment will expire.
+            """
+            expires_at: Optional[int]
+            """
+            The timestamp at which the Pix expires.
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Promptpay(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class SepaDebit(StripeObject):
+            class MandateOptions(StripeObject):
+                pass
+
+            mandate_options: Optional[MandateOptions]
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+            _inner_class_types = {"mandate_options": MandateOptions}
+
+        class Sofort(StripeObject):
+            preferred_language: Optional[
+                Literal["de", "en", "es", "fr", "it", "nl", "pl"]
+            ]
+            """
+            Preferred language of the SOFORT authorization page that the customer is redirected to.
+            """
+            setup_future_usage: Optional[Literal["none", "off_session"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class UsBankAccount(StripeObject):
+            class FinancialConnections(StripeObject):
+                permissions: Optional[
+                    List[
+                        Literal[
+                            "balances",
+                            "ownership",
+                            "payment_method",
+                            "transactions",
+                        ]
+                    ]
+                ]
+                """
+                The list of permissions to request. The `payment_method` permission must be included.
+                """
+                prefetch: Optional[List[Literal["balances"]]]
+                """
+                Data features requested to be retrieved upon account creation.
+                """
+                return_url: Optional[str]
+                """
+                For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+                """
+
+            financial_connections: Optional[FinancialConnections]
+            preferred_settlement_speed: Optional[
+                Literal["fastest", "standard"]
+            ]
+            """
+            Preferred transaction settlement speed
+            """
+            setup_future_usage: Optional[
+                Literal["none", "off_session", "on_session"]
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+            verification_method: Optional[
+                Literal["automatic", "instant", "microdeposits"]
+            ]
+            """
+            Bank account verification method.
+            """
+            _inner_class_types = {
+                "financial_connections": FinancialConnections
+            }
+
+        class WechatPay(StripeObject):
+            app_id: Optional[str]
+            """
+            The app ID registered with WeChat Pay. Only required when client is ios or android.
+            """
+            client: Optional[Literal["android", "ios", "web"]]
+            """
+            The client type that the end customer will pay from
+            """
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class Zip(StripeObject):
+            setup_future_usage: Optional[Literal["none"]]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        acss_debit: Optional[AcssDebit]
+        affirm: Optional[Affirm]
+        afterpay_clearpay: Optional[AfterpayClearpay]
+        alipay: Optional[Alipay]
+        au_becs_debit: Optional[AuBecsDebit]
+        bacs_debit: Optional[BacsDebit]
+        bancontact: Optional[Bancontact]
+        blik: Optional[Blik]
+        boleto: Optional[Boleto]
+        card: Optional[Card]
+        card_present: Optional[CardPresent]
+        cashapp: Optional[Cashapp]
+        customer_balance: Optional[CustomerBalance]
+        eps: Optional[Eps]
+        fpx: Optional[Fpx]
+        giropay: Optional[Giropay]
+        grabpay: Optional[Grabpay]
+        ideal: Optional[Ideal]
+        interac_present: Optional[InteracPresent]
+        klarna: Optional[Klarna]
+        konbini: Optional[Konbini]
+        link: Optional[Link]
+        oxxo: Optional[Oxxo]
+        p24: Optional[P24]
+        paynow: Optional[Paynow]
+        paypal: Optional[Paypal]
+        pix: Optional[Pix]
+        promptpay: Optional[Promptpay]
+        sepa_debit: Optional[SepaDebit]
+        sofort: Optional[Sofort]
+        us_bank_account: Optional[UsBankAccount]
+        wechat_pay: Optional[WechatPay]
+        zip: Optional[Zip]
+        _inner_class_types = {
+            "acss_debit": AcssDebit,
+            "affirm": Affirm,
+            "afterpay_clearpay": AfterpayClearpay,
+            "alipay": Alipay,
+            "au_becs_debit": AuBecsDebit,
+            "bacs_debit": BacsDebit,
+            "bancontact": Bancontact,
+            "blik": Blik,
+            "boleto": Boleto,
+            "card": Card,
+            "card_present": CardPresent,
+            "cashapp": Cashapp,
+            "customer_balance": CustomerBalance,
+            "eps": Eps,
+            "fpx": Fpx,
+            "giropay": Giropay,
+            "grabpay": Grabpay,
+            "ideal": Ideal,
+            "interac_present": InteracPresent,
+            "klarna": Klarna,
+            "konbini": Konbini,
+            "link": Link,
+            "oxxo": Oxxo,
+            "p24": P24,
+            "paynow": Paynow,
+            "paypal": Paypal,
+            "pix": Pix,
+            "promptpay": Promptpay,
+            "sepa_debit": SepaDebit,
+            "sofort": Sofort,
+            "us_bank_account": UsBankAccount,
+            "wechat_pay": WechatPay,
+            "zip": Zip,
+        }
+
+    class Processing(StripeObject):
+        class Card(StripeObject):
+            class CustomerNotification(StripeObject):
+                approval_requested: Optional[bool]
+                """
+                Whether customer approval has been requested for this payment. For payments greater than INR 15000 or mandate amount, the customer must provide explicit approval of the payment with their bank.
+                """
+                completes_at: Optional[int]
+                """
+                If customer approval is required, they need to provide approval before this time.
+                """
+
+            customer_notification: Optional[CustomerNotification]
+            _inner_class_types = {
+                "customer_notification": CustomerNotification
+            }
+
+        card: Optional[Card]
+        type: Literal["card"]
+        """
+        Type of the payment method for which payment is in `processing` state, one of `card`.
+        """
+        _inner_class_types = {"card": Card}
+
+    class Shipping(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region.
+            """
+
+        address: Optional[Address]
+        carrier: Optional[str]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: Optional[str]
+        """
+        Recipient name.
+        """
+        phone: Optional[str]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: Optional[str]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
+        _inner_class_types = {"address": Address}
+
+    class TransferData(StripeObject):
+        amount: Optional[int]
+        """
+        Amount intended to be collected by this PaymentIntent. A positive integer representing how much to charge in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal) (e.g., 100 cents to charge $1.00 or 100 to charge ¥100, a zero-decimal currency). The minimum amount is $0.50 US or [equivalent in charge currency](https://stripe.com/docs/currencies#minimum-and-maximum-charge-amounts). The amount value supports up to eight digits (e.g., a value of 99999999 for a USD charge of $999,999.99).
+        """
+        destination: ExpandableField["Account"]
+        """
+        The account (if any) that the payment is attributed to for tax
+        reporting, and where funds from the payment are transferred to after
+        payment success.
+        """
+
     if TYPE_CHECKING:
 
         class ApplyCustomerBalanceParams(RequestOptions):
@@ -5576,7 +7213,7 @@ class PaymentIntent(
     """
     Amount that can be captured from this PaymentIntent.
     """
-    amount_details: Optional[StripeObject]
+    amount_details: Optional[AmountDetails]
     amount_received: int
     """
     Amount that this PaymentIntent collects.
@@ -5589,7 +7226,7 @@ class PaymentIntent(
     """
     The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. The amount of the application fee collected will be capped at the total payment amount. For more information, see the PaymentIntents [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
     """
-    automatic_payment_methods: Optional[StripeObject]
+    automatic_payment_methods: Optional[AutomaticPaymentMethods]
     """
     Settings to configure compatible payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods)
     """
@@ -5652,7 +7289,7 @@ class PaymentIntent(
     """
     ID of the invoice that created this PaymentIntent, if it exists.
     """
-    last_payment_error: Optional[StripeObject]
+    last_payment_error: Optional[LastPaymentError]
     """
     The payment error encountered in the previous PaymentIntent confirmation. It will be cleared if the PaymentIntent is later updated for any reason.
     """
@@ -5668,7 +7305,7 @@ class PaymentIntent(
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Learn more about [storing information in metadata](https://stripe.com/docs/payments/payment-intents/creating-payment-intents#storing-information-in-metadata).
     """
-    next_action: Optional[StripeObject]
+    next_action: Optional[NextAction]
     """
     If present, this property tells you what actions you need to take in order for your customer to fulfill a payment using the provided source.
     """
@@ -5684,11 +7321,13 @@ class PaymentIntent(
     """
     ID of the payment method used in this PaymentIntent.
     """
-    payment_method_configuration_details: Optional[StripeObject]
+    payment_method_configuration_details: Optional[
+        PaymentMethodConfigurationDetails
+    ]
     """
     Information about the payment method configuration used for this PaymentIntent.
     """
-    payment_method_options: Optional[StripeObject]
+    payment_method_options: Optional[PaymentMethodOptions]
     """
     Payment-method-specific configuration for this PaymentIntent.
     """
@@ -5696,7 +7335,7 @@ class PaymentIntent(
     """
     The list of payment method types (e.g. card) that this PaymentIntent is allowed to use.
     """
-    processing: Optional[StripeObject]
+    processing: Optional[Processing]
     """
     If present, this property tells you about the processing state of the payment.
     """
@@ -5716,12 +7355,14 @@ class PaymentIntent(
 
     When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
     """
-    shipping: Optional[StripeObject]
+    shipping: Optional[Shipping]
     """
     Shipping information for this PaymentIntent.
     """
     source: Optional[
-        ExpandableField[Union["Account", "BankAccount", "Card", "Source"]]
+        ExpandableField[
+            Union["Account", "BankAccount", "CardResource", "Source"]
+        ]
     ]
     """
     This is a legacy field that will be removed in the future. It is the ID of the Source object that is associated with this PaymentIntent, if one was supplied.
@@ -5746,7 +7387,7 @@ class PaymentIntent(
     """
     Status of this PaymentIntent, one of `requires_payment_method`, `requires_confirmation`, `requires_action`, `processing`, `requires_capture`, `canceled`, or `succeeded`. Read more about each PaymentIntent [status](https://stripe.com/docs/payments/intents#intent-statuses).
     """
-    transfer_data: Optional[StripeObject]
+    transfer_data: Optional[TransferData]
     """
     The data that automatically creates a Transfer after the payment finalizes. Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
     """
@@ -6199,3 +7840,15 @@ class PaymentIntent(
         cls, *args, **kwargs: Unpack["PaymentIntent.SearchParams"]
     ) -> Iterator["PaymentIntent"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
+
+    _inner_class_types = {
+        "amount_details": AmountDetails,
+        "automatic_payment_methods": AutomaticPaymentMethods,
+        "last_payment_error": LastPaymentError,
+        "next_action": NextAction,
+        "payment_method_configuration_details": PaymentMethodConfigurationDetails,
+        "payment_method_options": PaymentMethodOptions,
+        "processing": Processing,
+        "shipping": Shipping,
+        "transfer_data": TransferData,
+    }

@@ -41,6 +41,141 @@ class Price(
     """
 
     OBJECT_NAME: ClassVar[Literal["price"]] = "price"
+
+    class CurrencyOptions(StripeObject):
+        class CustomUnitAmount(StripeObject):
+            maximum: Optional[int]
+            """
+            The maximum unit amount the customer can specify for this item.
+            """
+            minimum: Optional[int]
+            """
+            The minimum unit amount the customer can specify for this item. Must be at least the minimum charge amount.
+            """
+            preset: Optional[int]
+            """
+            The starting unit amount which can be updated by the customer.
+            """
+
+        class Tier(StripeObject):
+            flat_amount: Optional[int]
+            """
+            Price for the entire tier.
+            """
+            flat_amount_decimal: Optional[str]
+            """
+            Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
+            """
+            unit_amount: Optional[int]
+            """
+            Per unit price for units relevant to the tier.
+            """
+            unit_amount_decimal: Optional[str]
+            """
+            Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
+            """
+            up_to: Optional[int]
+            """
+            Up to and including to this quantity will be contained in the tier.
+            """
+
+        custom_unit_amount: Optional[CustomUnitAmount]
+        """
+        When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
+        """
+        tax_behavior: Optional[
+            Literal["exclusive", "inclusive", "unspecified"]
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        tiers: Optional[List[Tier]]
+        """
+        Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
+        """
+        unit_amount: Optional[int]
+        """
+        The unit amount in cents (or local equivalent) to be charged, represented as a whole integer if possible. Only set if `billing_scheme=per_unit`.
+        """
+        unit_amount_decimal: Optional[str]
+        """
+        The unit amount in cents (or local equivalent) to be charged, represented as a decimal string with at most 12 decimal places. Only set if `billing_scheme=per_unit`.
+        """
+        _inner_class_types = {
+            "custom_unit_amount": CustomUnitAmount,
+            "tiers": Tier,
+        }
+
+    class CustomUnitAmount(StripeObject):
+        maximum: Optional[int]
+        """
+        The maximum unit amount the customer can specify for this item.
+        """
+        minimum: Optional[int]
+        """
+        The minimum unit amount the customer can specify for this item. Must be at least the minimum charge amount.
+        """
+        preset: Optional[int]
+        """
+        The starting unit amount which can be updated by the customer.
+        """
+
+    class Recurring(StripeObject):
+        aggregate_usage: Optional[
+            Literal["last_during_period", "last_ever", "max", "sum"]
+        ]
+        """
+        Specifies a usage aggregation strategy for prices of `usage_type=metered`. Allowed values are `sum` for summing up all usage during a period, `last_during_period` for using the last usage record reported within a period, `last_ever` for using the last usage record ever (across period bounds) or `max` which uses the usage record with the maximum reported usage during a period. Defaults to `sum`.
+        """
+        interval: Literal["day", "month", "week", "year"]
+        """
+        The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals (specified in the `interval` attribute) between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months.
+        """
+        trial_period_days: Optional[int]
+        """
+        Default number of trial days when subscribing a customer to this price using [`trial_from_plan=true`](https://stripe.com/docs/api#create_subscription-trial_from_plan).
+        """
+        usage_type: Literal["licensed", "metered"]
+        """
+        Configures how the quantity per period should be determined. Can be either `metered` or `licensed`. `licensed` automatically bills the `quantity` set when adding it to a subscription. `metered` aggregates the total usage based on usage records. Defaults to `licensed`.
+        """
+
+    class Tier(StripeObject):
+        flat_amount: Optional[int]
+        """
+        Price for the entire tier.
+        """
+        flat_amount_decimal: Optional[str]
+        """
+        Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
+        """
+        unit_amount: Optional[int]
+        """
+        Per unit price for units relevant to the tier.
+        """
+        unit_amount_decimal: Optional[str]
+        """
+        Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
+        """
+        up_to: Optional[int]
+        """
+        Up to and including to this quantity will be contained in the tier.
+        """
+
+    class TransformQuantity(StripeObject):
+        divide_by: int
+        """
+        Divide usage by this number.
+        """
+        round: Literal["down", "up"]
+        """
+        After division, either round the result `up` or `down`.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -525,11 +660,11 @@ class Price(
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
-    currency_options: Optional[Dict[str, StripeObject]]
+    currency_options: Optional[Dict[str, CurrencyOptions]]
     """
     Prices defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     """
-    custom_unit_amount: Optional[StripeObject]
+    custom_unit_amount: Optional[CustomUnitAmount]
     """
     When set, provides configuration for the amount to be adjusted by the customer during Checkout Sessions and Payment Links.
     """
@@ -561,7 +696,7 @@ class Price(
     """
     The ID of the product this price is associated with.
     """
-    recurring: Optional[StripeObject]
+    recurring: Optional[Recurring]
     """
     The recurring components of a price such as `interval` and `usage_type`.
     """
@@ -569,7 +704,7 @@ class Price(
     """
     Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
     """
-    tiers: Optional[List[StripeObject]]
+    tiers: Optional[List[Tier]]
     """
     Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
     """
@@ -577,7 +712,7 @@ class Price(
     """
     Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
     """
-    transform_quantity: Optional[StripeObject]
+    transform_quantity: Optional[TransformQuantity]
     """
     Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`.
     """
@@ -674,3 +809,11 @@ class Price(
         cls, *args, **kwargs: Unpack["Price.SearchParams"]
     ) -> Iterator["Price"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
+
+    _inner_class_types = {
+        "currency_options": CurrencyOptions,
+        "custom_unit_amount": CustomUnitAmount,
+        "recurring": Recurring,
+        "tiers": Tier,
+        "transform_quantity": TransformQuantity,
+    }

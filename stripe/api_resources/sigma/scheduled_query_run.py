@@ -22,6 +22,13 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
     OBJECT_NAME: ClassVar[
         Literal["scheduled_query_run"]
     ] = "scheduled_query_run"
+
+    class Error(StripeObject):
+        message: str
+        """
+        Information about the run failure.
+        """
+
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
@@ -56,7 +63,7 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
     """
     When the query was run, Sigma contained a snapshot of your Stripe data at this time.
     """
-    error: Optional[StripeObject]
+    error: Optional[Error]
     file: Optional["File"]
     """
     The file object representing the results of the query.
@@ -126,3 +133,5 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
     @classmethod
     def class_url(cls):
         return "/v1/sigma/scheduled_query_runs"
+
+    _inner_class_types = {"error": Error}

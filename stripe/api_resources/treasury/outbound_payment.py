@@ -38,6 +38,148 @@ class OutboundPayment(
     OBJECT_NAME: ClassVar[
         Literal["treasury.outbound_payment"]
     ] = "treasury.outbound_payment"
+
+    class DestinationPaymentMethodDetails(StripeObject):
+        class BillingDetails(StripeObject):
+            class Address(StripeObject):
+                city: Optional[str]
+                """
+                City, district, suburb, town, or village.
+                """
+                country: Optional[str]
+                """
+                Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+                """
+                line1: Optional[str]
+                """
+                Address line 1 (e.g., street, PO Box, or company name).
+                """
+                line2: Optional[str]
+                """
+                Address line 2 (e.g., apartment, suite, unit, or building).
+                """
+                postal_code: Optional[str]
+                """
+                ZIP or postal code.
+                """
+                state: Optional[str]
+                """
+                State, county, province, or region.
+                """
+
+            address: Address
+            email: Optional[str]
+            """
+            Email address.
+            """
+            name: Optional[str]
+            """
+            Full name.
+            """
+            _inner_class_types = {"address": Address}
+
+        class FinancialAccount(StripeObject):
+            id: str
+            """
+            Token of the FinancialAccount.
+            """
+            network: Literal["stripe"]
+            """
+            The rails used to send funds.
+            """
+
+        class UsBankAccount(StripeObject):
+            account_holder_type: Optional[Literal["company", "individual"]]
+            """
+            Account holder type: individual or company.
+            """
+            account_type: Optional[Literal["checking", "savings"]]
+            """
+            Account type: checkings or savings. Defaults to checking if omitted.
+            """
+            bank_name: Optional[str]
+            """
+            Name of the bank associated with the bank account.
+            """
+            fingerprint: Optional[str]
+            """
+            Uniquely identifies this particular bank account. You can use this attribute to check whether two bank accounts are the same.
+            """
+            last4: Optional[str]
+            """
+            Last four digits of the bank account number.
+            """
+            network: Literal["ach", "us_domestic_wire"]
+            """
+            The US bank account network used to send funds.
+            """
+            routing_number: Optional[str]
+            """
+            Routing number of the bank account.
+            """
+
+        billing_details: BillingDetails
+        financial_account: Optional[FinancialAccount]
+        type: Literal["financial_account", "us_bank_account"]
+        """
+        The type of the payment method used in the OutboundPayment.
+        """
+        us_bank_account: Optional[UsBankAccount]
+        _inner_class_types = {
+            "billing_details": BillingDetails,
+            "financial_account": FinancialAccount,
+            "us_bank_account": UsBankAccount,
+        }
+
+    class EndUserDetails(StripeObject):
+        ip_address: Optional[str]
+        """
+        IP address of the user initiating the OutboundPayment. Set if `present` is set to `true`. IP address collection is required for risk and compliance reasons. This will be used to help determine if the OutboundPayment is authorized or should be blocked.
+        """
+        present: bool
+        """
+        `true` if the OutboundPayment creation request is being made on behalf of an end user by a platform. Otherwise, `false`.
+        """
+
+    class ReturnedDetails(StripeObject):
+        code: Literal[
+            "account_closed",
+            "account_frozen",
+            "bank_account_restricted",
+            "bank_ownership_changed",
+            "declined",
+            "incorrect_account_holder_name",
+            "invalid_account_number",
+            "invalid_currency",
+            "no_account",
+            "other",
+        ]
+        """
+        Reason for the return.
+        """
+        transaction: ExpandableField["Transaction"]
+        """
+        The Transaction associated with this object.
+        """
+
+    class StatusTransitions(StripeObject):
+        canceled_at: Optional[int]
+        """
+        Timestamp describing when an OutboundPayment changed status to `canceled`.
+        """
+        failed_at: Optional[int]
+        """
+        Timestamp describing when an OutboundPayment changed status to `failed`.
+        """
+        posted_at: Optional[int]
+        """
+        Timestamp describing when an OutboundPayment changed status to `posted`.
+        """
+        returned_at: Optional[int]
+        """
+        Timestamp describing when an OutboundPayment changed status to `returned`.
+        """
+
     if TYPE_CHECKING:
 
         class CancelParams(RequestOptions):
@@ -326,11 +468,13 @@ class OutboundPayment(
     """
     The PaymentMethod via which an OutboundPayment is sent. This field can be empty if the OutboundPayment was created using `destination_payment_method_data`.
     """
-    destination_payment_method_details: Optional[StripeObject]
+    destination_payment_method_details: Optional[
+        DestinationPaymentMethodDetails
+    ]
     """
     Details about the PaymentMethod for an OutboundPayment.
     """
-    end_user_details: Optional[StripeObject]
+    end_user_details: Optional[EndUserDetails]
     """
     Details about the end user.
     """
@@ -362,7 +506,7 @@ class OutboundPayment(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    returned_details: Optional[StripeObject]
+    returned_details: Optional[ReturnedDetails]
     """
     Details about a returned OutboundPayment. Only set when the status is `returned`.
     """
@@ -374,7 +518,7 @@ class OutboundPayment(
     """
     Current status of the OutboundPayment: `processing`, `failed`, `posted`, `returned`, `canceled`. An OutboundPayment is `processing` if it has been created and is pending. The status changes to `posted` once the OutboundPayment has been "confirmed" and funds have left the account, or to `failed` or `canceled`. If an OutboundPayment fails to arrive at its destination, its status will change to `returned`.
     """
-    status_transitions: StripeObject
+    status_transitions: StatusTransitions
     transaction: ExpandableField["Transaction"]
     """
     The Transaction associated with this object.
@@ -685,6 +829,13 @@ class OutboundPayment(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "destination_payment_method_details": DestinationPaymentMethodDetails,
+        "end_user_details": EndUserDetails,
+        "returned_details": ReturnedDetails,
+        "status_transitions": StatusTransitions,
+    }
 
 
 OutboundPayment.TestHelpers._resource_cls = OutboundPayment

@@ -9,6 +9,13 @@ class TransactionLineItem(StripeObject):
     OBJECT_NAME: ClassVar[
         Literal["tax.transaction_line_item"]
     ] = "tax.transaction_line_item"
+
+    class Reversal(StripeObject):
+        original_line_item: str
+        """
+        The `id` of the line item to reverse in the original transaction.
+        """
+
     amount: int
     """
     The line item amount in integer cents. If `tax_behavior=inclusive`, then this amount includes taxes. Otherwise, taxes were calculated on top of this amount.
@@ -45,7 +52,7 @@ class TransactionLineItem(StripeObject):
     """
     A custom identifier for this line item in the transaction.
     """
-    reversal: Optional[StripeObject]
+    reversal: Optional[Reversal]
     """
     If `type=reversal`, contains information about what was reversed.
     """
@@ -61,3 +68,5 @@ class TransactionLineItem(StripeObject):
     """
     If `reversal`, this line item reverses an earlier transaction.
     """
+
+    _inner_class_types = {"reversal": Reversal}

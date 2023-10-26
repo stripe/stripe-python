@@ -34,6 +34,64 @@ class ShippingRate(
     """
 
     OBJECT_NAME: ClassVar[Literal["shipping_rate"]] = "shipping_rate"
+
+    class DeliveryEstimate(StripeObject):
+        class Maximum(StripeObject):
+            unit: Literal["business_day", "day", "hour", "month", "week"]
+            """
+            A unit of time.
+            """
+            value: int
+            """
+            Must be greater than 0.
+            """
+
+        class Minimum(StripeObject):
+            unit: Literal["business_day", "day", "hour", "month", "week"]
+            """
+            A unit of time.
+            """
+            value: int
+            """
+            Must be greater than 0.
+            """
+
+        maximum: Optional[Maximum]
+        """
+        The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
+        """
+        minimum: Optional[Minimum]
+        """
+        The lower bound of the estimated range. If empty, represents no lower bound.
+        """
+        _inner_class_types = {"maximum": Maximum, "minimum": Minimum}
+
+    class FixedAmount(StripeObject):
+        class CurrencyOptions(StripeObject):
+            amount: int
+            """
+            A non-negative integer in cents representing how much to charge.
+            """
+            tax_behavior: Literal["exclusive", "inclusive", "unspecified"]
+            """
+            Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
+            """
+
+        amount: int
+        """
+        A non-negative integer in cents representing how much to charge.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        currency_options: Optional[Dict[str, CurrencyOptions]]
+        """
+        Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+        """
+        _inner_class_types = {"currency_options": CurrencyOptions}
+        _inner_class_dicts = ["currency_options"]
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -246,7 +304,7 @@ class ShippingRate(
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
-    delivery_estimate: Optional[StripeObject]
+    delivery_estimate: Optional[DeliveryEstimate]
     """
     The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
     """
@@ -254,7 +312,7 @@ class ShippingRate(
     """
     The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
     """
-    fixed_amount: Optional[StripeObject]
+    fixed_amount: Optional[FixedAmount]
     id: str
     """
     Unique identifier for the object.
@@ -348,3 +406,8 @@ class ShippingRate(
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "delivery_estimate": DeliveryEstimate,
+        "fixed_amount": FixedAmount,
+    }
