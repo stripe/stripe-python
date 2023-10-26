@@ -112,6 +112,7 @@ class PaymentIntent(
                 "application_fees_not_allowed",
                 "authentication_required",
                 "balance_insufficient",
+                "balance_invalid_parameter",
                 "bank_account_bad_routing_numbers",
                 "bank_account_declined",
                 "bank_account_exists",
@@ -2600,12 +2601,6 @@ class PaymentIntent(
             """
             Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
             """
-            request_incremental_authorization: NotRequired[
-                "Literal['if_available', 'never']|None"
-            ]
-            """
-            Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
-            """
             request_incremental_authorization_support: NotRequired["bool|None"]
             """
             Request ability to [increment](https://stripe.com/docs/terminal/features/incremental-authorizations) this PaymentIntent if the combination of MCC and card brand is eligible. Check [incremental_authorization_supported](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-card_present-incremental_authorization_supported) in the [Confirm](https://stripe.com/docs/api/payment_intents/confirm) response to verify support.
@@ -3682,7 +3677,7 @@ class PaymentIntent(
                 "PaymentIntent.CreateParamsTransferData|None"
             ]
             """
-            The parameters that you can use to automatically create a Transfer after the payment succeeds.
+            The parameters that you can use to automatically create a Transfer.
             Learn more about the [use case for connected accounts](https://stripe.com/docs/payments/connected-accounts).
             """
             transfer_group: NotRequired["str|None"]
@@ -4445,12 +4440,6 @@ class PaymentIntent(
             request_extended_authorization: NotRequired["bool|None"]
             """
             Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
-            """
-            request_incremental_authorization: NotRequired[
-                "Literal['if_available', 'never']|None"
-            ]
-            """
-            Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
             """
             request_incremental_authorization_support: NotRequired["bool|None"]
             """
@@ -6291,12 +6280,6 @@ class PaymentIntent(
             request_extended_authorization: NotRequired["bool|None"]
             """
             Request ability to capture this payment beyond the standard [authorization validity window](https://stripe.com/docs/terminal/features/extended-authorizations#authorization-validity)
-            """
-            request_incremental_authorization: NotRequired[
-                "Literal['if_available', 'never']|None"
-            ]
-            """
-            Request ability to [increment](https://stripe.com/docs/payments/incremental-authorization) for this PaymentIntent.
             """
             request_incremental_authorization_support: NotRequired["bool|None"]
             """

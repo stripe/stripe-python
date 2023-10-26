@@ -538,7 +538,7 @@ class PaymentLink(
     class SubscriptionData(StripeObject):
         description: Optional[str]
         """
-        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
         metadata: Dict[str, str]
         """
@@ -735,7 +735,7 @@ class PaymentLink(
         class CreateParamsSubscriptionData(TypedDict):
             description: NotRequired["str|None"]
             """
-            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             metadata: NotRequired["Dict[str, str]|None"]
             """

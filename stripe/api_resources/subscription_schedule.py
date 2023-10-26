@@ -117,7 +117,7 @@ class SubscriptionSchedule(
         """
         description: Optional[str]
         """
-        Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+        Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
         invoice_settings: Optional[InvoiceSettings]
         """
@@ -259,7 +259,7 @@ class SubscriptionSchedule(
         """
         description: Optional[str]
         """
-        Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+        Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
         """
         end_date: int
         """
@@ -417,7 +417,7 @@ class SubscriptionSchedule(
             """
             description: NotRequired["Literal['']|str|None"]
             """
-            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             end_date: NotRequired["int|None"]
             """
@@ -655,7 +655,7 @@ class SubscriptionSchedule(
             """
             description: NotRequired["Literal['']|str|None"]
             """
-            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             invoice_settings: NotRequired[
                 "SubscriptionSchedule.CreateParamsDefaultSettingsInvoiceSettings|None"
@@ -915,7 +915,7 @@ class SubscriptionSchedule(
             """
             description: NotRequired["Literal['']|str|None"]
             """
-            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             end_date: NotRequired["int|Literal['now']|None"]
             """
@@ -1157,7 +1157,7 @@ class SubscriptionSchedule(
             """
             description: NotRequired["Literal['']|str|None"]
             """
-            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            Subscription description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             invoice_settings: NotRequired[
                 "SubscriptionSchedule.ModifyParamsDefaultSettingsInvoiceSettings|None"
