@@ -1,3 +1,15 @@
+## 7.1.0 - 2023-10-26
+* [#1104](https://github.com/stripe/stripe-python/pull/1104) Include `py.typed` and enable type annotations for the package
+  * This PR includes `py.typed` and enables inline type annotations for stripe-python package. Inline type annotations will now take precedence over Typeshed for users who use a type checker or IDE.
+  * See a detailed guide on the [Github Wiki](https://github.com/stripe/stripe-python/wiki/Inline-type-annotations).
+* [#1103](https://github.com/stripe/stripe-python/pull/1103) Inner resource classes
+  * Behavior change: nested json objects will now deserialize into instances of specific classes that subclass `StripeObject`, instead of into generic `StripeObject` instances.
+  * ⚠️  Behavior change: `PromotionCode.restrictions.currency_options` will now deserialize into `dict` and not `StripeObject`.
+* [#1090](https://github.com/stripe/stripe-python/pull/1090) Update generated code
+  * Add support for new value `balance_invalid_parameter` on enums `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, and `SetupIntent.LastSetupError`
+* [#1096](https://github.com/stripe/stripe-python/pull/1096) Add @util.deprecated decorator and deprecate `save`.
+* [#1091](https://github.com/stripe/stripe-python/pull/1091) APIRequestor: don't mutate incoming multipart headers
+
 
 # Changelog
 ## 7.0.0 - 2023-10-16
