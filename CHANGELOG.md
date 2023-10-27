@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.2.0b1 - 2023-10-26
+* [#1107](https://github.com/stripe/stripe-python/pull/1107) Update generated code for beta
+  * Add support for new resource `Margin`
+  * Add support for `create`, `list`, `modify`, and `retrieve` methods on resource `Margin`
+
 ## 7.1.0b1 - 2023-10-17
 * [#1084](https://github.com/stripe/stripe-python/pull/1084) Update generated code for beta
   - Update pinned API version to `2023-10-16`
