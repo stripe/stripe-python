@@ -9,6 +9,17 @@ class UsageRecordSummary(StripeObject):
     OBJECT_NAME: ClassVar[
         Literal["usage_record_summary"]
     ] = "usage_record_summary"
+
+    class Period(StripeObject):
+        end: Optional[int]
+        """
+        The end date of this usage period. All usage up to and including this point in time is included.
+        """
+        start: Optional[int]
+        """
+        The start date of this usage period. All usage after this point in time is included.
+        """
+
     id: str
     """
     Unique identifier for the object.
@@ -25,7 +36,7 @@ class UsageRecordSummary(StripeObject):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    period: StripeObject
+    period: Period
     subscription_item: str
     """
     The ID of the subscription item this summary is describing.
@@ -34,3 +45,5 @@ class UsageRecordSummary(StripeObject):
     """
     The total usage within this usage period.
     """
+
+    _inner_class_types = {"period": Period}

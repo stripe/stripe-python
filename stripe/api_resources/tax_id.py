@@ -18,6 +18,21 @@ class TaxId(APIResource["TaxId"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["tax_id"]] = "tax_id"
+
+    class Verification(StripeObject):
+        status: Literal["pending", "unavailable", "unverified", "verified"]
+        """
+        Verification status, one of `pending`, `verified`, `unverified`, or `unavailable`.
+        """
+        verified_address: Optional[str]
+        """
+        Verified address.
+        """
+        verified_name: Optional[str]
+        """
+        Verified name.
+        """
+
     country: Optional[str]
     """
     Two-letter ISO code representing the country of the tax ID.
@@ -118,7 +133,7 @@ class TaxId(APIResource["TaxId"]):
     """
     Value of the tax ID.
     """
-    verification: Optional[StripeObject]
+    verification: Optional[Verification]
     """
     Tax ID verification information.
     """
@@ -143,3 +158,5 @@ class TaxId(APIResource["TaxId"]):
         raise NotImplementedError(
             "Can't retrieve a tax id without a customer ID. Use customer.retrieve_tax_id('tax_id')"
         )
+
+    _inner_class_types = {"verification": Verification}

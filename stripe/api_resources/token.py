@@ -1097,6 +1097,10 @@ class Token(CreateableAPIResource["Token"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Token.CreateParams"]
     ) -> "Token":
+        """
+        Creates a single-use token that represents a bank account's details.
+        You can use this token with any API method in place of a bank account dictionary. You can only use this token once. To do so, attach it to a [Custom account](https://stripe.com/docs/api#accounts).
+        """
         return cast(
             "Token",
             cls._static_request(
@@ -1114,6 +1118,9 @@ class Token(CreateableAPIResource["Token"]):
     def retrieve(
         cls, id: str, **params: Unpack["Token.RetrieveParams"]
     ) -> "Token":
+        """
+        Retrieves the token with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

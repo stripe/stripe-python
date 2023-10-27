@@ -87,6 +87,9 @@ class ApplePayDomain(
         stripe_account: Optional[str] = None,
         **params: Unpack["ApplePayDomain.CreateParams"]
     ) -> "ApplePayDomain":
+        """
+        Create an apple pay domain.
+        """
         return cast(
             "ApplePayDomain",
             cls._static_request(
@@ -104,6 +107,9 @@ class ApplePayDomain(
     def _cls_delete(
         cls, sid: str, **params: Unpack["ApplePayDomain.DeleteParams"]
     ) -> "ApplePayDomain":
+        """
+        Delete an apple pay domain.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "ApplePayDomain",
@@ -115,18 +121,27 @@ class ApplePayDomain(
     def delete(
         cls, sid: str, **params: Unpack["ApplePayDomain.DeleteParams"]
     ) -> "ApplePayDomain":
+        """
+        Delete an apple pay domain.
+        """
         ...
 
     @overload
     def delete(
         self, **params: Unpack["ApplePayDomain.DeleteParams"]
     ) -> "ApplePayDomain":
+        """
+        Delete an apple pay domain.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["ApplePayDomain.DeleteParams"]
     ) -> "ApplePayDomain":
+        """
+        Delete an apple pay domain.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -141,6 +156,9 @@ class ApplePayDomain(
         stripe_account: Optional[str] = None,
         **params: Unpack["ApplePayDomain.ListParams"]
     ) -> ListObject["ApplePayDomain"]:
+        """
+        List apple pay domains.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -162,6 +180,9 @@ class ApplePayDomain(
     def retrieve(
         cls, id: str, **params: Unpack["ApplePayDomain.RetrieveParams"]
     ) -> "ApplePayDomain":
+        """
+        Retrieve an apple pay domain.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

@@ -35,6 +35,33 @@ class PromotionCode(
     """
 
     OBJECT_NAME: ClassVar[Literal["promotion_code"]] = "promotion_code"
+
+    class Restrictions(StripeObject):
+        class CurrencyOptions(StripeObject):
+            minimum_amount: int
+            """
+            Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
+            """
+
+        currency_options: Optional[Dict[str, CurrencyOptions]]
+        """
+        Promotion code restrictions defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+        """
+        first_time_transaction: bool
+        """
+        A Boolean indicating if the Promotion Code should only be redeemed for Customers without any successful payments or invoices
+        """
+        minimum_amount: Optional[int]
+        """
+        Minimum amount required to redeem this Promotion Code into a Coupon (e.g., a purchase must be $100 or more to work).
+        """
+        minimum_amount_currency: Optional[str]
+        """
+        Three-letter [ISO code](https://stripe.com/docs/currencies) for minimum_amount
+        """
+        _inner_class_types = {"currency_options": CurrencyOptions}
+        _inner_class_dicts = ["currency_options"]
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -245,7 +272,7 @@ class PromotionCode(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    restrictions: StripeObject
+    restrictions: Restrictions
     times_redeemed: int
     """
     Number of times this promotion code has been used.
@@ -260,6 +287,9 @@ class PromotionCode(
         stripe_account: Optional[str] = None,
         **params: Unpack["PromotionCode.CreateParams"]
     ) -> "PromotionCode":
+        """
+        A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+        """
         return cast(
             "PromotionCode",
             cls._static_request(
@@ -281,6 +311,9 @@ class PromotionCode(
         stripe_account: Optional[str] = None,
         **params: Unpack["PromotionCode.ListParams"]
     ) -> ListObject["PromotionCode"]:
+        """
+        Returns a list of your promotion codes.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -302,6 +335,9 @@ class PromotionCode(
     def modify(
         cls, id: str, **params: Unpack["PromotionCode.ModifyParams"]
     ) -> "PromotionCode":
+        """
+        Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PromotionCode",
@@ -312,6 +348,11 @@ class PromotionCode(
     def retrieve(
         cls, id: str, **params: Unpack["PromotionCode.RetrieveParams"]
     ) -> "PromotionCode":
+        """
+        Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://stripe.com/docs/api/promotion_codes/list) with the desired code.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"restrictions": Restrictions}

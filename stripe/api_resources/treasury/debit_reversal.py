@@ -26,6 +26,19 @@ class DebitReversal(
     OBJECT_NAME: ClassVar[
         Literal["treasury.debit_reversal"]
     ] = "treasury.debit_reversal"
+
+    class LinkedFlows(StripeObject):
+        issuing_dispute: Optional[str]
+        """
+        Set if there is an Issuing dispute associated with the DebitReversal.
+        """
+
+    class StatusTransitions(StripeObject):
+        completed_at: Optional[int]
+        """
+        Timestamp describing when the DebitReversal changed status to `completed`.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -108,7 +121,7 @@ class DebitReversal(
     """
     Unique identifier for the object.
     """
-    linked_flows: Optional[StripeObject]
+    linked_flows: Optional[LinkedFlows]
     """
     Other flows linked to a DebitReversal.
     """
@@ -136,7 +149,7 @@ class DebitReversal(
     """
     Status of the DebitReversal
     """
-    status_transitions: StripeObject
+    status_transitions: StatusTransitions
     transaction: Optional[ExpandableField["Transaction"]]
     """
     The Transaction associated with this object.
@@ -151,6 +164,9 @@ class DebitReversal(
         stripe_account: Optional[str] = None,
         **params: Unpack["DebitReversal.CreateParams"]
     ) -> "DebitReversal":
+        """
+        Reverses a ReceivedDebit and creates a DebitReversal object.
+        """
         return cast(
             "DebitReversal",
             cls._static_request(
@@ -172,6 +188,9 @@ class DebitReversal(
         stripe_account: Optional[str] = None,
         **params: Unpack["DebitReversal.ListParams"]
     ) -> ListObject["DebitReversal"]:
+        """
+        Returns a list of DebitReversals.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -193,6 +212,14 @@ class DebitReversal(
     def retrieve(
         cls, id: str, **params: Unpack["DebitReversal.RetrieveParams"]
     ) -> "DebitReversal":
+        """
+        Retrieves a DebitReversal object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "linked_flows": LinkedFlows,
+        "status_transitions": StatusTransitions,
+    }

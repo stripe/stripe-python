@@ -6,6 +6,7 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
     UpdateableAPIResource,
 )
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
@@ -19,6 +20,9 @@ from typing_extensions import (
     TYPE_CHECKING,
 )
 from urllib.parse import quote_plus
+
+if TYPE_CHECKING:
+    from stripe.api_resources.file import File
 
 
 class Configuration(
@@ -34,6 +38,253 @@ class Configuration(
     OBJECT_NAME: ClassVar[
         Literal["terminal.configuration"]
     ] = "terminal.configuration"
+
+    class BbposWiseposE(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+        """
+        A File ID representing an image you would like displayed on the reader.
+        """
+
+    class Offline(StripeObject):
+        enabled: Optional[bool]
+        """
+        Determines whether to allow transactions to be collected while reader is offline. Defaults to false.
+        """
+
+    class Tipping(StripeObject):
+        class Aud(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Cad(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Chf(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Czk(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Dkk(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Eur(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Gbp(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Hkd(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Myr(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Nok(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Nzd(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Sek(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Sgd(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        class Usd(StripeObject):
+            fixed_amounts: Optional[List[int]]
+            """
+            Fixed amounts displayed when collecting a tip
+            """
+            percentages: Optional[List[int]]
+            """
+            Percentages displayed when collecting a tip
+            """
+            smart_tip_threshold: Optional[int]
+            """
+            Below this amount, fixed amounts will be displayed; above it, percentages will be displayed
+            """
+
+        aud: Optional[Aud]
+        cad: Optional[Cad]
+        chf: Optional[Chf]
+        czk: Optional[Czk]
+        dkk: Optional[Dkk]
+        eur: Optional[Eur]
+        gbp: Optional[Gbp]
+        hkd: Optional[Hkd]
+        myr: Optional[Myr]
+        nok: Optional[Nok]
+        nzd: Optional[Nzd]
+        sek: Optional[Sek]
+        sgd: Optional[Sgd]
+        usd: Optional[Usd]
+        _inner_class_types = {
+            "aud": Aud,
+            "cad": Cad,
+            "chf": Chf,
+            "czk": Czk,
+            "dkk": Dkk,
+            "eur": Eur,
+            "gbp": Gbp,
+            "hkd": Hkd,
+            "myr": Myr,
+            "nok": Nok,
+            "nzd": Nzd,
+            "sek": Sek,
+            "sgd": Sgd,
+            "usd": Usd,
+        }
+
+    class VerifoneP400(StripeObject):
+        splashscreen: Optional[ExpandableField["File"]]
+        """
+        A File ID representing an image you would like displayed on the reader.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -671,7 +922,7 @@ class Configuration(
             Specifies which fields in the response should be expanded.
             """
 
-    bbpos_wisepos_e: Optional[StripeObject]
+    bbpos_wisepos_e: Optional[BbposWiseposE]
     id: str
     """
     Unique identifier for the object.
@@ -688,9 +939,9 @@ class Configuration(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    offline: Optional[StripeObject]
-    tipping: Optional[StripeObject]
-    verifone_p400: Optional[StripeObject]
+    offline: Optional[Offline]
+    tipping: Optional[Tipping]
+    verifone_p400: Optional[VerifoneP400]
     deleted: Optional[Literal[True]]
     """
     Always true for a deleted object
@@ -705,6 +956,9 @@ class Configuration(
         stripe_account: Optional[str] = None,
         **params: Unpack["Configuration.CreateParams"]
     ) -> "Configuration":
+        """
+        Creates a new Configuration object.
+        """
         return cast(
             "Configuration",
             cls._static_request(
@@ -722,6 +976,9 @@ class Configuration(
     def _cls_delete(
         cls, sid: str, **params: Unpack["Configuration.DeleteParams"]
     ) -> "Configuration":
+        """
+        Deletes a Configuration object.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Configuration",
@@ -733,18 +990,27 @@ class Configuration(
     def delete(
         cls, sid: str, **params: Unpack["Configuration.DeleteParams"]
     ) -> "Configuration":
+        """
+        Deletes a Configuration object.
+        """
         ...
 
     @overload
     def delete(
         self, **params: Unpack["Configuration.DeleteParams"]
     ) -> "Configuration":
+        """
+        Deletes a Configuration object.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Configuration.DeleteParams"]
     ) -> "Configuration":
+        """
+        Deletes a Configuration object.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -759,6 +1025,9 @@ class Configuration(
         stripe_account: Optional[str] = None,
         **params: Unpack["Configuration.ListParams"]
     ) -> ListObject["Configuration"]:
+        """
+        Returns a list of Configuration objects.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -780,6 +1049,9 @@ class Configuration(
     def modify(
         cls, id: str, **params: Unpack["Configuration.ModifyParams"]
     ) -> "Configuration":
+        """
+        Updates a new Configuration object.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Configuration",
@@ -790,6 +1062,16 @@ class Configuration(
     def retrieve(
         cls, id: str, **params: Unpack["Configuration.RetrieveParams"]
     ) -> "Configuration":
+        """
+        Retrieves a Configuration object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "bbpos_wisepos_e": BbposWiseposE,
+        "offline": Offline,
+        "tipping": Tipping,
+        "verifone_p400": VerifoneP400,
+    }

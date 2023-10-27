@@ -26,7 +26,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
     from stripe.api_resources.customer import Customer
-    from stripe.api_resources.discount import Discount
+    from stripe.api_resources.discount import Discount as DiscountResource
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.line_item import LineItem
     from stripe.api_resources.subscription import Subscription
@@ -46,6 +46,355 @@ class Quote(
     """
 
     OBJECT_NAME: ClassVar[Literal["quote"]] = "quote"
+
+    class AutomaticTax(StripeObject):
+        enabled: bool
+        """
+        Automatically calculate taxes
+        """
+        status: Optional[
+            Literal["complete", "failed", "requires_location_inputs"]
+        ]
+        """
+        The status of the most recent automated tax calculation for this quote.
+        """
+
+    class Computed(StripeObject):
+        class Recurring(StripeObject):
+            class TotalDetails(StripeObject):
+                class Breakdown(StripeObject):
+                    class Discount(StripeObject):
+                        amount: int
+                        """
+                        The amount discounted.
+                        """
+                        discount: "DiscountResource"
+                        """
+                        A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+                        It contains information about when the discount began, when it will end, and what it is applied to.
+
+                        Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+                        """
+
+                    class Tax(StripeObject):
+                        amount: int
+                        """
+                        Amount of tax applied for this rate.
+                        """
+                        rate: "TaxRate"
+                        """
+                        Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+
+                        Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+                        """
+                        taxability_reason: Optional[
+                            Literal[
+                                "customer_exempt",
+                                "not_collecting",
+                                "not_subject_to_tax",
+                                "not_supported",
+                                "portion_product_exempt",
+                                "portion_reduced_rated",
+                                "portion_standard_rated",
+                                "product_exempt",
+                                "product_exempt_holiday",
+                                "proportionally_rated",
+                                "reduced_rated",
+                                "reverse_charge",
+                                "standard_rated",
+                                "taxable_basis_reduced",
+                                "zero_rated",
+                            ]
+                        ]
+                        """
+                        The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+                        """
+                        taxable_amount: Optional[int]
+                        """
+                        The amount on which tax is calculated, in cents (or local equivalent).
+                        """
+
+                    discounts: List[Discount]
+                    """
+                    The aggregated discounts.
+                    """
+                    taxes: List[Tax]
+                    """
+                    The aggregated tax amounts by rate.
+                    """
+                    _inner_class_types = {"discounts": Discount, "taxes": Tax}
+
+                amount_discount: int
+                """
+                This is the sum of all the discounts.
+                """
+                amount_shipping: Optional[int]
+                """
+                This is the sum of all the shipping amounts.
+                """
+                amount_tax: int
+                """
+                This is the sum of all the tax amounts.
+                """
+                breakdown: Optional[Breakdown]
+                _inner_class_types = {"breakdown": Breakdown}
+
+            amount_subtotal: int
+            """
+            Total before any discounts or taxes are applied.
+            """
+            amount_total: int
+            """
+            Total after discounts and taxes are applied.
+            """
+            interval: Literal["day", "month", "week", "year"]
+            """
+            The frequency at which a subscription is billed. One of `day`, `week`, `month` or `year`.
+            """
+            interval_count: int
+            """
+            The number of intervals (specified in the `interval` attribute) between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months.
+            """
+            total_details: TotalDetails
+            _inner_class_types = {"total_details": TotalDetails}
+
+        class Upfront(StripeObject):
+            class TotalDetails(StripeObject):
+                class Breakdown(StripeObject):
+                    class Discount(StripeObject):
+                        amount: int
+                        """
+                        The amount discounted.
+                        """
+                        discount: "DiscountResource"
+                        """
+                        A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+                        It contains information about when the discount began, when it will end, and what it is applied to.
+
+                        Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+                        """
+
+                    class Tax(StripeObject):
+                        amount: int
+                        """
+                        Amount of tax applied for this rate.
+                        """
+                        rate: "TaxRate"
+                        """
+                        Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+
+                        Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+                        """
+                        taxability_reason: Optional[
+                            Literal[
+                                "customer_exempt",
+                                "not_collecting",
+                                "not_subject_to_tax",
+                                "not_supported",
+                                "portion_product_exempt",
+                                "portion_reduced_rated",
+                                "portion_standard_rated",
+                                "product_exempt",
+                                "product_exempt_holiday",
+                                "proportionally_rated",
+                                "reduced_rated",
+                                "reverse_charge",
+                                "standard_rated",
+                                "taxable_basis_reduced",
+                                "zero_rated",
+                            ]
+                        ]
+                        """
+                        The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+                        """
+                        taxable_amount: Optional[int]
+                        """
+                        The amount on which tax is calculated, in cents (or local equivalent).
+                        """
+
+                    discounts: List[Discount]
+                    """
+                    The aggregated discounts.
+                    """
+                    taxes: List[Tax]
+                    """
+                    The aggregated tax amounts by rate.
+                    """
+                    _inner_class_types = {"discounts": Discount, "taxes": Tax}
+
+                amount_discount: int
+                """
+                This is the sum of all the discounts.
+                """
+                amount_shipping: Optional[int]
+                """
+                This is the sum of all the shipping amounts.
+                """
+                amount_tax: int
+                """
+                This is the sum of all the tax amounts.
+                """
+                breakdown: Optional[Breakdown]
+                _inner_class_types = {"breakdown": Breakdown}
+
+            amount_subtotal: int
+            """
+            Total before any discounts or taxes are applied.
+            """
+            amount_total: int
+            """
+            Total after discounts and taxes are applied.
+            """
+            line_items: Optional[ListObject["LineItem"]]
+            """
+            The line items that will appear on the next invoice after this quote is accepted. This does not include pending invoice items that exist on the customer but may still be included in the next invoice.
+            """
+            total_details: TotalDetails
+            _inner_class_types = {"total_details": TotalDetails}
+
+        recurring: Optional[Recurring]
+        """
+        The definitive totals and line items the customer will be charged on a recurring basis. Takes into account the line items with recurring prices and discounts with `duration=forever` coupons only. Defaults to `null` if no inputted line items with recurring prices.
+        """
+        upfront: Upfront
+        _inner_class_types = {"recurring": Recurring, "upfront": Upfront}
+
+    class FromQuote(StripeObject):
+        is_revision: bool
+        """
+        Whether this quote is a revision of a different quote.
+        """
+        quote: ExpandableField["Quote"]
+        """
+        The quote that was cloned.
+        """
+
+    class InvoiceSettings(StripeObject):
+        days_until_due: Optional[int]
+        """
+        Number of days within which a customer must pay invoices generated by this quote. This value will be `null` for quotes where `collection_method=charge_automatically`.
+        """
+
+    class StatusTransitions(StripeObject):
+        accepted_at: Optional[int]
+        """
+        The time that the quote was accepted. Measured in seconds since Unix epoch.
+        """
+        canceled_at: Optional[int]
+        """
+        The time that the quote was canceled. Measured in seconds since Unix epoch.
+        """
+        finalized_at: Optional[int]
+        """
+        The time that the quote was finalized. Measured in seconds since Unix epoch.
+        """
+
+    class SubscriptionData(StripeObject):
+        description: Optional[str]
+        """
+        The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
+        """
+        effective_date: Optional[int]
+        """
+        When creating a new subscription, the date of which the subscription schedule will start after the quote is accepted. This date is ignored if it is in the past when the quote is accepted. Measured in seconds since the Unix epoch.
+        """
+        trial_period_days: Optional[int]
+        """
+        Integer representing the number of trial period days before the customer is charged for the first time.
+        """
+
+    class TotalDetails(StripeObject):
+        class Breakdown(StripeObject):
+            class Discount(StripeObject):
+                amount: int
+                """
+                The amount discounted.
+                """
+                discount: "DiscountResource"
+                """
+                A discount represents the actual application of a [coupon](https://stripe.com/docs/api#coupons) or [promotion code](https://stripe.com/docs/api#promotion_codes).
+                It contains information about when the discount began, when it will end, and what it is applied to.
+
+                Related guide: [Applying discounts to subscriptions](https://stripe.com/docs/billing/subscriptions/discounts)
+                """
+
+            class Tax(StripeObject):
+                amount: int
+                """
+                Amount of tax applied for this rate.
+                """
+                rate: "TaxRate"
+                """
+                Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+
+                Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+                """
+                taxability_reason: Optional[
+                    Literal[
+                        "customer_exempt",
+                        "not_collecting",
+                        "not_subject_to_tax",
+                        "not_supported",
+                        "portion_product_exempt",
+                        "portion_reduced_rated",
+                        "portion_standard_rated",
+                        "product_exempt",
+                        "product_exempt_holiday",
+                        "proportionally_rated",
+                        "reduced_rated",
+                        "reverse_charge",
+                        "standard_rated",
+                        "taxable_basis_reduced",
+                        "zero_rated",
+                    ]
+                ]
+                """
+                The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+                """
+                taxable_amount: Optional[int]
+                """
+                The amount on which tax is calculated, in cents (or local equivalent).
+                """
+
+            discounts: List[Discount]
+            """
+            The aggregated discounts.
+            """
+            taxes: List[Tax]
+            """
+            The aggregated tax amounts by rate.
+            """
+            _inner_class_types = {"discounts": Discount, "taxes": Tax}
+
+        amount_discount: int
+        """
+        This is the sum of all the discounts.
+        """
+        amount_shipping: Optional[int]
+        """
+        This is the sum of all the shipping amounts.
+        """
+        amount_tax: int
+        """
+        This is the sum of all the tax amounts.
+        """
+        breakdown: Optional[Breakdown]
+        _inner_class_types = {"breakdown": Breakdown}
+
+    class TransferData(StripeObject):
+        amount: Optional[int]
+        """
+        The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
+        """
+        amount_percent: Optional[float]
+        """
+        A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the destination account. By default, the entire amount will be transferred to the destination.
+        """
+        destination: ExpandableField["Account"]
+        """
+        The account where funds from the payment will be transferred to upon payment success.
+        """
+
     if TYPE_CHECKING:
 
         class AcceptParams(RequestOptions):
@@ -169,7 +518,7 @@ class Quote(
         class CreateParamsSubscriptionData(TypedDict):
             description: NotRequired["str|None"]
             """
-            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             effective_date: NotRequired[
                 "Literal['']|Literal['current_period_end']|int|None"
@@ -451,7 +800,7 @@ class Quote(
         class ModifyParamsSubscriptionData(TypedDict):
             description: NotRequired["Literal['']|str|None"]
             """
-            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription.
+            The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             effective_date: NotRequired[
                 "Literal['']|Literal['current_period_end']|int|None"
@@ -574,12 +923,12 @@ class Quote(
     """
     A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. Only applicable if there are line items with recurring prices on the quote.
     """
-    automatic_tax: StripeObject
+    automatic_tax: AutomaticTax
     collection_method: Literal["charge_automatically", "send_invoice"]
     """
     Either `charge_automatically`, or `send_invoice`. When charging automatically, Stripe will attempt to pay invoices at the end of the subscription cycle or on finalization using the default payment method attached to the subscription or customer. When sending an invoice, Stripe will email your customer an invoice with payment instructions and mark the subscription as `active`. Defaults to `charge_automatically`.
     """
-    computed: StripeObject
+    computed: Computed
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -600,7 +949,7 @@ class Quote(
     """
     A description that will be displayed on the quote PDF.
     """
-    discounts: List[ExpandableField["Discount"]]
+    discounts: List[ExpandableField["DiscountResource"]]
     """
     The discounts applied to this quote.
     """
@@ -612,7 +961,7 @@ class Quote(
     """
     A footer that will be displayed on the quote PDF.
     """
-    from_quote: Optional[StripeObject]
+    from_quote: Optional[FromQuote]
     """
     Details of the quote that was cloned. See the [cloning documentation](https://stripe.com/docs/quotes/clone) for more details.
     """
@@ -628,7 +977,7 @@ class Quote(
     """
     The invoice that was created from this quote.
     """
-    invoice_settings: Optional[StripeObject]
+    invoice_settings: Optional[InvoiceSettings]
     """
     All invoices will be billed using the specified settings.
     """
@@ -660,12 +1009,12 @@ class Quote(
     """
     The status of the quote.
     """
-    status_transitions: StripeObject
+    status_transitions: StatusTransitions
     subscription: Optional[ExpandableField["Subscription"]]
     """
     The subscription that was created or updated from this quote.
     """
-    subscription_data: StripeObject
+    subscription_data: SubscriptionData
     subscription_schedule: Optional[ExpandableField["SubscriptionSchedule"]]
     """
     The subscription schedule that was created or updated from this quote.
@@ -674,8 +1023,8 @@ class Quote(
     """
     ID of the test clock this quote belongs to.
     """
-    total_details: StripeObject
-    transfer_data: Optional[StripeObject]
+    total_details: TotalDetails
+    transfer_data: Optional[TransferData]
     """
     The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to for each of the invoices.
     """
@@ -689,6 +1038,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
     ) -> "Quote":
+        """
+        Accepts the specified quote.
+        """
         return cast(
             "Quote",
             cls._static_request(
@@ -713,6 +1065,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
     ) -> "Quote":
+        """
+        Accepts the specified quote.
+        """
         ...
 
     @overload
@@ -721,6 +1076,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
     ) -> "Quote":
+        """
+        Accepts the specified quote.
+        """
         ...
 
     @class_method_variant("_cls_accept")
@@ -729,6 +1087,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
     ) -> "Quote":
+        """
+        Accepts the specified quote.
+        """
         return cast(
             "Quote",
             self._request(
@@ -750,6 +1111,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
     ) -> "Quote":
+        """
+        Cancels the quote.
+        """
         return cast(
             "Quote",
             cls._static_request(
@@ -774,6 +1138,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
     ) -> "Quote":
+        """
+        Cancels the quote.
+        """
         ...
 
     @overload
@@ -782,6 +1149,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
     ) -> "Quote":
+        """
+        Cancels the quote.
+        """
         ...
 
     @class_method_variant("_cls_cancel")
@@ -790,6 +1160,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
     ) -> "Quote":
+        """
+        Cancels the quote.
+        """
         return cast(
             "Quote",
             self._request(
@@ -811,6 +1184,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.CreateParams"]
     ) -> "Quote":
+        """
+        A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
+        """
         return cast(
             "Quote",
             cls._static_request(
@@ -833,6 +1209,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
+        """
+        Finalizes the quote.
+        """
         return cast(
             "Quote",
             cls._static_request(
@@ -857,6 +1236,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
+        """
+        Finalizes the quote.
+        """
         ...
 
     @overload
@@ -865,6 +1247,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
+        """
+        Finalizes the quote.
+        """
         ...
 
     @class_method_variant("_cls_finalize_quote")
@@ -873,6 +1258,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
+        """
+        Finalizes the quote.
+        """
         return cast(
             "Quote",
             self._request(
@@ -893,6 +1281,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListParams"]
     ) -> ListObject["Quote"]:
+        """
+        Returns a list of your quotes.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -919,6 +1310,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
+        """
         return cast(
             ListObject["LineItem"],
             cls._static_request(
@@ -943,6 +1337,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
+        """
         ...
 
     @overload
@@ -951,6 +1348,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
+        """
         ...
 
     @class_method_variant("_cls_list_computed_upfront_line_items")
@@ -959,6 +1359,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
+        """
         return cast(
             ListObject["LineItem"],
             self._request(
@@ -980,6 +1383,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         return cast(
             ListObject["LineItem"],
             cls._static_request(
@@ -1004,6 +1410,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         ...
 
     @overload
@@ -1012,6 +1421,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         ...
 
     @class_method_variant("_cls_list_line_items")
@@ -1020,6 +1432,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         return cast(
             ListObject["LineItem"],
             self._request(
@@ -1036,6 +1451,9 @@ class Quote(
     def modify(
         cls, id: str, **params: Unpack["Quote.ModifyParams"]
     ) -> "Quote":
+        """
+        A quote models prices and services for a customer.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Quote",
@@ -1046,6 +1464,9 @@ class Quote(
     def retrieve(
         cls, id: str, **params: Unpack["Quote.RetrieveParams"]
     ) -> "Quote":
+        """
+        Retrieves the quote with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -1117,3 +1538,14 @@ class Quote(
         )
         url = self.instance_url() + "/pdf"
         return requestor.request_stream("get", url, params=params)
+
+    _inner_class_types = {
+        "automatic_tax": AutomaticTax,
+        "computed": Computed,
+        "from_quote": FromQuote,
+        "invoice_settings": InvoiceSettings,
+        "status_transitions": StatusTransitions,
+        "subscription_data": SubscriptionData,
+        "total_details": TotalDetails,
+        "transfer_data": TransferData,
+    }

@@ -46,6 +46,188 @@ class Transaction(
     OBJECT_NAME: ClassVar[
         Literal["issuing.transaction"]
     ] = "issuing.transaction"
+
+    class AmountDetails(StripeObject):
+        atm_fee: Optional[int]
+        """
+        The fee charged by the ATM for the cash withdrawal.
+        """
+        cashback_amount: Optional[int]
+        """
+        The amount of cash requested by the cardholder.
+        """
+
+    class MerchantData(StripeObject):
+        category: str
+        """
+        A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
+        """
+        category_code: str
+        """
+        The merchant category code for the seller's business
+        """
+        city: Optional[str]
+        """
+        City where the seller is located
+        """
+        country: Optional[str]
+        """
+        Country where the seller is located
+        """
+        name: Optional[str]
+        """
+        Name of the seller
+        """
+        network_id: str
+        """
+        Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
+        """
+        postal_code: Optional[str]
+        """
+        Postal code where the seller is located
+        """
+        state: Optional[str]
+        """
+        State where the seller is located
+        """
+        terminal_id: Optional[str]
+        """
+        An ID assigned by the seller to the location of the sale.
+        """
+
+    class PurchaseDetails(StripeObject):
+        class Flight(StripeObject):
+            class Segment(StripeObject):
+                arrival_airport_code: Optional[str]
+                """
+                The three-letter IATA airport code of the flight's destination.
+                """
+                carrier: Optional[str]
+                """
+                The airline carrier code.
+                """
+                departure_airport_code: Optional[str]
+                """
+                The three-letter IATA airport code that the flight departed from.
+                """
+                flight_number: Optional[str]
+                """
+                The flight number.
+                """
+                service_class: Optional[str]
+                """
+                The flight's service class.
+                """
+                stopover_allowed: Optional[bool]
+                """
+                Whether a stopover is allowed on this flight.
+                """
+
+            departure_at: Optional[int]
+            """
+            The time that the flight departed.
+            """
+            passenger_name: Optional[str]
+            """
+            The name of the passenger.
+            """
+            refundable: Optional[bool]
+            """
+            Whether the ticket is refundable.
+            """
+            segments: Optional[List[Segment]]
+            """
+            The legs of the trip.
+            """
+            travel_agency: Optional[str]
+            """
+            The travel agency that issued the ticket.
+            """
+            _inner_class_types = {"segments": Segment}
+
+        class Fuel(StripeObject):
+            type: str
+            """
+            The type of fuel that was purchased. One of `diesel`, `unleaded_plus`, `unleaded_regular`, `unleaded_super`, or `other`.
+            """
+            unit: str
+            """
+            The units for `volume_decimal`. One of `us_gallon` or `liter`.
+            """
+            unit_cost_decimal: str
+            """
+            The cost in cents per each unit of fuel, represented as a decimal string with at most 12 decimal places.
+            """
+            volume_decimal: Optional[str]
+            """
+            The volume of the fuel that was pumped, represented as a decimal string with at most 12 decimal places.
+            """
+
+        class Lodging(StripeObject):
+            check_in_at: Optional[int]
+            """
+            The time of checking into the lodging.
+            """
+            nights: Optional[int]
+            """
+            The number of nights stayed at the lodging.
+            """
+
+        class Receipt(StripeObject):
+            description: Optional[str]
+            """
+            The description of the item. The maximum length of this field is 26 characters.
+            """
+            quantity: Optional[float]
+            """
+            The quantity of the item.
+            """
+            total: Optional[int]
+            """
+            The total for this line item in cents.
+            """
+            unit_cost: Optional[int]
+            """
+            The unit cost of the item in cents.
+            """
+
+        flight: Optional[Flight]
+        """
+        Information about the flight that was purchased with this transaction.
+        """
+        fuel: Optional[Fuel]
+        """
+        Information about fuel that was purchased with this transaction.
+        """
+        lodging: Optional[Lodging]
+        """
+        Information about lodging that was purchased with this transaction.
+        """
+        receipt: Optional[List[Receipt]]
+        """
+        The line items in the purchase.
+        """
+        reference: Optional[str]
+        """
+        A merchant-specific order number.
+        """
+        _inner_class_types = {
+            "flight": Flight,
+            "fuel": Fuel,
+            "lodging": Lodging,
+            "receipt": Receipt,
+        }
+
+    class Treasury(StripeObject):
+        received_credit: Optional[str]
+        """
+        The Treasury [ReceivedCredit](https://stripe.com/docs/api/treasury/received_credits) representing this Issuing transaction if it is a refund
+        """
+        received_debit: Optional[str]
+        """
+        The Treasury [ReceivedDebit](https://stripe.com/docs/api/treasury/received_debits) representing this Issuing transaction if it is a capture
+        """
+
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
@@ -496,7 +678,7 @@ class Transaction(
     """
     The transaction amount, which will be reflected in your balance. This amount is in your currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     """
-    amount_details: Optional[StripeObject]
+    amount_details: Optional[AmountDetails]
     """
     Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     """
@@ -544,7 +726,7 @@ class Transaction(
     """
     The currency with which the merchant is taking payment.
     """
-    merchant_data: StripeObject
+    merchant_data: MerchantData
     metadata: Dict[str, str]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
@@ -553,7 +735,7 @@ class Transaction(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    purchase_details: Optional[StripeObject]
+    purchase_details: Optional[PurchaseDetails]
     """
     Additional purchase information that is optionally provided by the merchant.
     """
@@ -561,7 +743,7 @@ class Transaction(
     """
     [Token](https://stripe.com/docs/api/issuing/tokens/object) object used for this transaction. If a network token was not used for this transaction, this field will be null.
     """
-    treasury: Optional[StripeObject]
+    treasury: Optional[Treasury]
     """
     [Treasury](https://stripe.com/docs/api/treasury) details related to this transaction if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
     """
@@ -582,6 +764,9 @@ class Transaction(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.ListParams"]
     ) -> ListObject["Transaction"]:
+        """
+        Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -603,6 +788,9 @@ class Transaction(
     def modify(
         cls, id: str, **params: Unpack["Transaction.ModifyParams"]
     ) -> "Transaction":
+        """
+        Updates the specified Issuing Transaction object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Transaction",
@@ -613,6 +801,9 @@ class Transaction(
     def retrieve(
         cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
     ) -> "Transaction":
+        """
+        Retrieves an Issuing Transaction object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -628,6 +819,9 @@ class Transaction(
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.CreateForceCaptureParams"]
         ) -> "Transaction":
+            """
+            Allows the user to capture an arbitrary amount, also known as a forced capture.
+            """
             return cast(
                 "Transaction",
                 cls._static_request(
@@ -648,6 +842,9 @@ class Transaction(
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.CreateUnlinkedRefundParams"]
         ) -> "Transaction":
+            """
+            Allows the user to refund an arbitrary amount, also known as a unlinked refund.
+            """
             return cast(
                 "Transaction",
                 cls._static_request(
@@ -669,6 +866,9 @@ class Transaction(
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.RefundParams"]
         ) -> "Transaction":
+            """
+            Refund a test-mode Transaction.
+            """
             return cast(
                 "Transaction",
                 cls._static_request(
@@ -693,6 +893,9 @@ class Transaction(
             stripe_account: Optional[str] = None,
             **params: Unpack["Transaction.RefundParams"]
         ) -> "Transaction":
+            """
+            Refund a test-mode Transaction.
+            """
             ...
 
         @overload
@@ -701,6 +904,9 @@ class Transaction(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Transaction.RefundParams"]
         ) -> "Transaction":
+            """
+            Refund a test-mode Transaction.
+            """
             ...
 
         @class_method_variant("_cls_refund")
@@ -709,6 +915,9 @@ class Transaction(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Transaction.RefundParams"]
         ) -> "Transaction":
+            """
+            Refund a test-mode Transaction.
+            """
             return cast(
                 "Transaction",
                 self.resource._request(
@@ -724,6 +933,13 @@ class Transaction(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "amount_details": AmountDetails,
+        "merchant_data": MerchantData,
+        "purchase_details": PurchaseDetails,
+        "treasury": Treasury,
+    }
 
 
 Transaction.TestHelpers._resource_cls = Transaction

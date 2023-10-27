@@ -23,6 +23,144 @@ class Balance(SingletonAPIResource["Balance"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["balance"]] = "balance"
+
+    class Available(StripeObject):
+        class SourceTypes(StripeObject):
+            bank_account: Optional[int]
+            """
+            Amount for bank account.
+            """
+            card: Optional[int]
+            """
+            Amount for card.
+            """
+            fpx: Optional[int]
+            """
+            Amount for FPX.
+            """
+
+        amount: int
+        """
+        Balance amount.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        source_types: Optional[SourceTypes]
+        _inner_class_types = {"source_types": SourceTypes}
+
+    class ConnectReserved(StripeObject):
+        class SourceTypes(StripeObject):
+            bank_account: Optional[int]
+            """
+            Amount for bank account.
+            """
+            card: Optional[int]
+            """
+            Amount for card.
+            """
+            fpx: Optional[int]
+            """
+            Amount for FPX.
+            """
+
+        amount: int
+        """
+        Balance amount.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        source_types: Optional[SourceTypes]
+        _inner_class_types = {"source_types": SourceTypes}
+
+    class InstantAvailable(StripeObject):
+        class SourceTypes(StripeObject):
+            bank_account: Optional[int]
+            """
+            Amount for bank account.
+            """
+            card: Optional[int]
+            """
+            Amount for card.
+            """
+            fpx: Optional[int]
+            """
+            Amount for FPX.
+            """
+
+        amount: int
+        """
+        Balance amount.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        source_types: Optional[SourceTypes]
+        _inner_class_types = {"source_types": SourceTypes}
+
+    class Issuing(StripeObject):
+        class Available(StripeObject):
+            class SourceTypes(StripeObject):
+                bank_account: Optional[int]
+                """
+                Amount for bank account.
+                """
+                card: Optional[int]
+                """
+                Amount for card.
+                """
+                fpx: Optional[int]
+                """
+                Amount for FPX.
+                """
+
+            amount: int
+            """
+            Balance amount.
+            """
+            currency: str
+            """
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            """
+            source_types: Optional[SourceTypes]
+            _inner_class_types = {"source_types": SourceTypes}
+
+        available: List[Available]
+        """
+        Funds that are available for use.
+        """
+        _inner_class_types = {"available": Available}
+
+    class Pending(StripeObject):
+        class SourceTypes(StripeObject):
+            bank_account: Optional[int]
+            """
+            Amount for bank account.
+            """
+            card: Optional[int]
+            """
+            Amount for card.
+            """
+            fpx: Optional[int]
+            """
+            Amount for FPX.
+            """
+
+        amount: int
+        """
+        Balance amount.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        source_types: Optional[SourceTypes]
+        _inner_class_types = {"source_types": SourceTypes}
+
     if TYPE_CHECKING:
 
         class RetrieveParams(RequestOptions):
@@ -31,19 +169,19 @@ class Balance(SingletonAPIResource["Balance"]):
             Specifies which fields in the response should be expanded.
             """
 
-    available: List[StripeObject]
+    available: List[Available]
     """
     Available funds that you can transfer or pay out automatically by Stripe or explicitly through the [Transfers API](https://stripe.com/docs/api#transfers) or [Payouts API](https://stripe.com/docs/api#payouts). You can find the available balance for each currency and payment type in the `source_types` property.
     """
-    connect_reserved: Optional[List[StripeObject]]
+    connect_reserved: Optional[List[ConnectReserved]]
     """
     Funds held due to negative balances on connected Custom accounts. You can find the connect reserve balance for each currency and payment type in the `source_types` property.
     """
-    instant_available: Optional[List[StripeObject]]
+    instant_available: Optional[List[InstantAvailable]]
     """
     Funds that you can pay out using Instant Payouts.
     """
-    issuing: Optional[StripeObject]
+    issuing: Optional[Issuing]
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -52,13 +190,17 @@ class Balance(SingletonAPIResource["Balance"]):
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    pending: List[StripeObject]
+    pending: List[Pending]
     """
     Funds that aren't available in the balance yet. You can find the pending balance for each currency and each payment type in the `source_types` property.
     """
 
     @classmethod
     def retrieve(cls, **params: Unpack["Balance.RetrieveParams"]) -> "Balance":
+        """
+        Retrieves the current account balance, based on the authentication that was used to make the request.
+         For a sample request, see [Accounting for negative balances](https://stripe.com/docs/connect/account-balances#accounting-for-negative-balances).
+        """
         instance = cls(None, **params)
         instance.refresh()
         return instance
@@ -66,3 +208,11 @@ class Balance(SingletonAPIResource["Balance"]):
     @classmethod
     def class_url(cls):
         return "/v1/balance"
+
+    _inner_class_types = {
+        "available": Available,
+        "connect_reserved": ConnectReserved,
+        "instant_available": InstantAvailable,
+        "issuing": Issuing,
+        "pending": Pending,
+    }

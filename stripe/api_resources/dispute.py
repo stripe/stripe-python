@@ -23,6 +23,7 @@ from urllib.parse import quote_plus
 if TYPE_CHECKING:
     from stripe.api_resources.balance_transaction import BalanceTransaction
     from stripe.api_resources.charge import Charge
+    from stripe.api_resources.file import File
     from stripe.api_resources.payment_intent import PaymentIntent
 
 
@@ -38,6 +39,156 @@ class Dispute(
     """
 
     OBJECT_NAME: ClassVar[Literal["dispute"]] = "dispute"
+
+    class Evidence(StripeObject):
+        access_activity_log: Optional[str]
+        """
+        Any server or activity logs showing proof that the customer accessed or downloaded the purchased digital product. This information should include IP addresses, corresponding timestamps, and any detailed recorded activity.
+        """
+        billing_address: Optional[str]
+        """
+        The billing address provided by the customer.
+        """
+        cancellation_policy: Optional[ExpandableField["File"]]
+        """
+        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your subscription cancellation policy, as shown to the customer.
+        """
+        cancellation_policy_disclosure: Optional[str]
+        """
+        An explanation of how and when the customer was shown your refund policy prior to purchase.
+        """
+        cancellation_rebuttal: Optional[str]
+        """
+        A justification for why the customer's subscription was not canceled.
+        """
+        customer_communication: Optional[ExpandableField["File"]]
+        """
+        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any communication with the customer that you feel is relevant to your case. Examples include emails proving that the customer received the product or service, or demonstrating their use of or satisfaction with the product or service.
+        """
+        customer_email_address: Optional[str]
+        """
+        The email address of the customer.
+        """
+        customer_name: Optional[str]
+        """
+        The name of the customer.
+        """
+        customer_purchase_ip: Optional[str]
+        """
+        The IP address that the customer used when making the purchase.
+        """
+        customer_signature: Optional[ExpandableField["File"]]
+        """
+        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) A relevant document or contract showing the customer's signature.
+        """
+        duplicate_charge_documentation: Optional[ExpandableField["File"]]
+        """
+        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation for the prior charge that can uniquely identify the charge, such as a receipt, shipping label, work order, etc. This document should be paired with a similar document from the disputed payment that proves the two payments are separate.
+        """
+        duplicate_charge_explanation: Optional[str]
+        """
+        An explanation of the difference between the disputed charge versus the prior charge that appears to be a duplicate.
+        """
+        duplicate_charge_id: Optional[str]
+        """
+        The Stripe ID for the prior charge which appears to be a duplicate of the disputed charge.
+        """
+        product_description: Optional[str]
+        """
+        A description of the product or service that was sold.
+        """
+        receipt: Optional[ExpandableField["File"]]
+        """
+        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any receipt or message sent to the customer notifying them of the charge.
+        """
+        refund_policy: Optional[ExpandableField["File"]]
+        """
+        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Your refund policy, as shown to the customer.
+        """
+        refund_policy_disclosure: Optional[str]
+        """
+        Documentation demonstrating that the customer was shown your refund policy prior to purchase.
+        """
+        refund_refusal_explanation: Optional[str]
+        """
+        A justification for why the customer is not entitled to a refund.
+        """
+        service_date: Optional[str]
+        """
+        The date on which the customer received or began receiving the purchased service, in a clear human-readable format.
+        """
+        service_documentation: Optional[ExpandableField["File"]]
+        """
+        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a service was provided to the customer. This could include a copy of a signed contract, work order, or other form of written agreement.
+        """
+        shipping_address: Optional[str]
+        """
+        The address to which a physical product was shipped. You should try to include as complete address information as possible.
+        """
+        shipping_carrier: Optional[str]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc. If multiple carriers were used for this purchase, please separate them with commas.
+        """
+        shipping_date: Optional[str]
+        """
+        The date on which a physical product began its route to the shipping address, in a clear human-readable format.
+        """
+        shipping_documentation: Optional[ExpandableField["File"]]
+        """
+        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Documentation showing proof that a product was shipped to the customer at the same address the customer provided to you. This could include a copy of the shipment receipt, shipping label, etc. It should show the customer's full shipping address, if possible.
+        """
+        shipping_tracking_number: Optional[str]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
+        uncategorized_file: Optional[ExpandableField["File"]]
+        """
+        (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Any additional evidence or statements.
+        """
+        uncategorized_text: Optional[str]
+        """
+        Any additional evidence or statements.
+        """
+
+    class EvidenceDetails(StripeObject):
+        due_by: Optional[int]
+        """
+        Date by which evidence must be submitted in order to successfully challenge dispute. Will be 0 if the customer's bank or credit card company doesn't allow a response for this particular dispute.
+        """
+        has_evidence: bool
+        """
+        Whether evidence has been staged for this dispute.
+        """
+        past_due: bool
+        """
+        Whether the last evidence submission was submitted past the due date. Defaults to `false` if no evidence submissions have occurred. If `true`, then delivery of the latest evidence is *not* guaranteed.
+        """
+        submission_count: int
+        """
+        The number of times evidence has been submitted. Typically, you may only submit evidence once.
+        """
+
+    class PaymentMethodDetails(StripeObject):
+        class Card(StripeObject):
+            brand: str
+            """
+            Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
+            """
+            network_reason_code: Optional[str]
+            """
+            The card network's specific dispute reason code, which maps to one of Stripe's primary dispute categories to simplify response guidance. The [Network code map](https://stripe.com/docs/disputes/categories#network-code-map) lists all available dispute reason codes by network.
+            """
+
+        card: Optional[Card]
+        """
+        Card specific dispute details.
+        """
+        type: Literal["card"]
+        """
+        Payment method type.
+        """
+        _inner_class_types = {"card": Card}
+
     if TYPE_CHECKING:
 
         class CloseParams(RequestOptions):
@@ -245,8 +396,8 @@ class Dispute(
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
-    evidence: StripeObject
-    evidence_details: StripeObject
+    evidence: Evidence
+    evidence_details: EvidenceDetails
     id: str
     """
     Unique identifier for the object.
@@ -275,7 +426,7 @@ class Dispute(
     """
     ID of the PaymentIntent that's disputed.
     """
-    payment_method_details: Optional[StripeObject]
+    payment_method_details: Optional[PaymentMethodDetails]
     reason: str
     """
     Reason given by cardholder for dispute. Possible values are `bank_cannot_process`, `check_returned`, `credit_not_processed`, `customer_initiated`, `debit_not_authorized`, `duplicate`, `fraudulent`, `general`, `incorrect_account_details`, `insufficient_funds`, `product_not_received`, `product_unacceptable`, `subscription_canceled`, or `unrecognized`. Learn more about [dispute reasons](https://stripe.com/docs/disputes/categories).
@@ -302,6 +453,11 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.CloseParams"]
     ) -> "Dispute":
+        """
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+
+        The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
+        """
         return cast(
             "Dispute",
             cls._static_request(
@@ -326,6 +482,11 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.CloseParams"]
     ) -> "Dispute":
+        """
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+
+        The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
+        """
         ...
 
     @overload
@@ -334,6 +495,11 @@ class Dispute(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.CloseParams"]
     ) -> "Dispute":
+        """
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+
+        The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
+        """
         ...
 
     @class_method_variant("_cls_close")
@@ -342,6 +508,11 @@ class Dispute(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.CloseParams"]
     ) -> "Dispute":
+        """
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+
+        The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
+        """
         return cast(
             "Dispute",
             self._request(
@@ -362,6 +533,9 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.ListParams"]
     ) -> ListObject["Dispute"]:
+        """
+        Returns a list of your disputes.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -383,6 +557,11 @@ class Dispute(
     def modify(
         cls, id: str, **params: Unpack["Dispute.ModifyParams"]
     ) -> "Dispute":
+        """
+        When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
+
+        Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://stripe.com/docs/disputes/categories).
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Dispute",
@@ -393,6 +572,15 @@ class Dispute(
     def retrieve(
         cls, id: str, **params: Unpack["Dispute.RetrieveParams"]
     ) -> "Dispute":
+        """
+        Retrieves the dispute with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "evidence": Evidence,
+        "evidence_details": EvidenceDetails,
+        "payment_method_details": PaymentMethodDetails,
+    }

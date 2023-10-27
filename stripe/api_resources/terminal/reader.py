@@ -25,6 +25,10 @@ from typing_extensions import (
 from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
+    from stripe.api_resources.charge import Charge
+    from stripe.api_resources.payment_intent import PaymentIntent
+    from stripe.api_resources.refund import Refund
+    from stripe.api_resources.setup_intent import SetupIntent
     from stripe.api_resources.terminal.location import Location
 
 
@@ -41,6 +45,178 @@ class Reader(
     """
 
     OBJECT_NAME: ClassVar[Literal["terminal.reader"]] = "terminal.reader"
+
+    class Action(StripeObject):
+        class ProcessPaymentIntent(StripeObject):
+            class ProcessConfig(StripeObject):
+                class Tipping(StripeObject):
+                    amount_eligible: Optional[int]
+                    """
+                    Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+                    """
+
+                skip_tipping: Optional[bool]
+                """
+                Override showing a tipping selection screen on this transaction.
+                """
+                tipping: Optional[Tipping]
+                """
+                Represents a per-transaction tipping configuration
+                """
+                _inner_class_types = {"tipping": Tipping}
+
+            payment_intent: ExpandableField["PaymentIntent"]
+            """
+            Most recent PaymentIntent processed by the reader.
+            """
+            process_config: Optional[ProcessConfig]
+            """
+            Represents a per-transaction override of a reader configuration
+            """
+            _inner_class_types = {"process_config": ProcessConfig}
+
+        class ProcessSetupIntent(StripeObject):
+            class ProcessConfig(StripeObject):
+                pass
+
+            generated_card: Optional[str]
+            """
+            ID of a card PaymentMethod generated from the card_present PaymentMethod that may be attached to a Customer for future transactions. Only present if it was possible to generate a card PaymentMethod.
+            """
+            process_config: Optional[ProcessConfig]
+            """
+            Represents a per-setup override of a reader configuration
+            """
+            setup_intent: ExpandableField["SetupIntent"]
+            """
+            Most recent SetupIntent processed by the reader.
+            """
+            _inner_class_types = {"process_config": ProcessConfig}
+
+        class RefundPayment(StripeObject):
+            amount: Optional[int]
+            """
+            The amount being refunded.
+            """
+            charge: Optional[ExpandableField["Charge"]]
+            """
+            Charge that is being refunded.
+            """
+            metadata: Optional[Dict[str, str]]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
+            """
+            payment_intent: Optional[ExpandableField["PaymentIntent"]]
+            """
+            Payment intent that is being refunded.
+            """
+            reason: Optional[
+                Literal["duplicate", "fraudulent", "requested_by_customer"]
+            ]
+            """
+            The reason for the refund.
+            """
+            refund: Optional[ExpandableField["Refund"]]
+            """
+            Unique identifier for the refund object.
+            """
+            refund_application_fee: Optional[bool]
+            """
+            Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
+            """
+            reverse_transfer: Optional[bool]
+            """
+            Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
+            """
+
+        class SetReaderDisplay(StripeObject):
+            class Cart(StripeObject):
+                class LineItem(StripeObject):
+                    amount: int
+                    """
+                    The amount of the line item. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+                    """
+                    description: str
+                    """
+                    Description of the line item.
+                    """
+                    quantity: int
+                    """
+                    The quantity of the line item.
+                    """
+
+                currency: str
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                line_items: List[LineItem]
+                """
+                List of line items in the cart.
+                """
+                tax: Optional[int]
+                """
+                Tax amount for the entire cart. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+                """
+                total: int
+                """
+                Total amount for the entire cart, including tax. A positive integer in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+                """
+                _inner_class_types = {"line_items": LineItem}
+
+            cart: Optional[Cart]
+            """
+            Cart object to be displayed by the reader.
+            """
+            type: Literal["cart"]
+            """
+            Type of information to be displayed by the reader.
+            """
+            _inner_class_types = {"cart": Cart}
+
+        failure_code: Optional[str]
+        """
+        Failure code, only set if status is `failed`.
+        """
+        failure_message: Optional[str]
+        """
+        Detailed failure message, only set if status is `failed`.
+        """
+        process_payment_intent: Optional[ProcessPaymentIntent]
+        """
+        Represents a reader action to process a payment intent
+        """
+        process_setup_intent: Optional[ProcessSetupIntent]
+        """
+        Represents a reader action to process a setup intent
+        """
+        refund_payment: Optional[RefundPayment]
+        """
+        Represents a reader action to refund a payment
+        """
+        set_reader_display: Optional[SetReaderDisplay]
+        """
+        Represents a reader action to set the reader display
+        """
+        status: Literal["failed", "in_progress", "succeeded"]
+        """
+        Status of the action performed by the reader.
+        """
+        type: Literal[
+            "process_payment_intent",
+            "process_setup_intent",
+            "refund_payment",
+            "set_reader_display",
+        ]
+        """
+        Type of action performed by the reader.
+        """
+        _inner_class_types = {
+            "process_payment_intent": ProcessPaymentIntent,
+            "process_setup_intent": ProcessSetupIntent,
+            "refund_payment": RefundPayment,
+            "set_reader_display": SetReaderDisplay,
+        }
+
     if TYPE_CHECKING:
 
         class CancelActionParams(RequestOptions):
@@ -303,7 +479,7 @@ class Reader(
             The card number, as a string without any separators.
             """
 
-    action: Optional[StripeObject]
+    action: Optional[Action]
     """
     The most recent action performed by the reader.
     """
@@ -372,6 +548,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
+        """
+        Cancels the current reader action.
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -396,6 +575,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
+        """
+        Cancels the current reader action.
+        """
         ...
 
     @overload
@@ -404,6 +586,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
+        """
+        Cancels the current reader action.
+        """
         ...
 
     @class_method_variant("_cls_cancel_action")
@@ -412,6 +597,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
+        """
+        Cancels the current reader action.
+        """
         return cast(
             "Reader",
             self._request(
@@ -433,6 +621,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CreateParams"]
     ) -> "Reader":
+        """
+        Creates a new Reader object.
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -450,6 +641,9 @@ class Reader(
     def _cls_delete(
         cls, sid: str, **params: Unpack["Reader.DeleteParams"]
     ) -> "Reader":
+        """
+        Deletes a Reader object.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Reader",
@@ -461,16 +655,25 @@ class Reader(
     def delete(
         cls, sid: str, **params: Unpack["Reader.DeleteParams"]
     ) -> "Reader":
+        """
+        Deletes a Reader object.
+        """
         ...
 
     @overload
     def delete(self, **params: Unpack["Reader.DeleteParams"]) -> "Reader":
+        """
+        Deletes a Reader object.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Reader.DeleteParams"]
     ) -> "Reader":
+        """
+        Deletes a Reader object.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -485,6 +688,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ListParams"]
     ) -> ListObject["Reader"]:
+        """
+        Returns a list of Reader objects.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -506,6 +712,9 @@ class Reader(
     def modify(
         cls, id: str, **params: Unpack["Reader.ModifyParams"]
     ) -> "Reader":
+        """
+        Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Reader",
@@ -521,6 +730,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader.
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -545,6 +757,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader.
+        """
         ...
 
     @overload
@@ -553,6 +768,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader.
+        """
         ...
 
     @class_method_variant("_cls_process_payment_intent")
@@ -561,6 +779,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader.
+        """
         return cast(
             "Reader",
             self._request(
@@ -582,6 +803,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a setup intent flow on a Reader.
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -606,6 +830,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a setup intent flow on a Reader.
+        """
         ...
 
     @overload
@@ -614,6 +841,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a setup intent flow on a Reader.
+        """
         ...
 
     @class_method_variant("_cls_process_setup_intent")
@@ -622,6 +852,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a setup intent flow on a Reader.
+        """
         return cast(
             "Reader",
             self._request(
@@ -643,6 +876,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
+        """
+        Initiates a refund on a Reader
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -667,6 +903,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
+        """
+        Initiates a refund on a Reader
+        """
         ...
 
     @overload
@@ -675,6 +914,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
+        """
+        Initiates a refund on a Reader
+        """
         ...
 
     @class_method_variant("_cls_refund_payment")
@@ -683,6 +925,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
+        """
+        Initiates a refund on a Reader
+        """
         return cast(
             "Reader",
             self._request(
@@ -699,6 +944,9 @@ class Reader(
     def retrieve(
         cls, id: str, **params: Unpack["Reader.RetrieveParams"]
     ) -> "Reader":
+        """
+        Retrieves a Reader object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -712,6 +960,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
+        """
+        Sets reader display to show cart details.
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -736,6 +987,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
+        """
+        Sets reader display to show cart details.
+        """
         ...
 
     @overload
@@ -744,6 +998,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
+        """
+        Sets reader display to show cart details.
+        """
         ...
 
     @class_method_variant("_cls_set_reader_display")
@@ -752,6 +1009,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
+        """
+        Sets reader display to show cart details.
+        """
         return cast(
             "Reader",
             self._request(
@@ -776,6 +1036,9 @@ class Reader(
             stripe_account: Optional[str] = None,
             **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
+            """
+            Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
+            """
             return cast(
                 "Reader",
                 cls._static_request(
@@ -800,6 +1063,9 @@ class Reader(
             stripe_account: Optional[str] = None,
             **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
+            """
+            Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
+            """
             ...
 
         @overload
@@ -808,6 +1074,9 @@ class Reader(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
+            """
+            Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
+            """
             ...
 
         @class_method_variant("_cls_present_payment_method")
@@ -816,6 +1085,9 @@ class Reader(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
+            """
+            Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
+            """
             return cast(
                 "Reader",
                 self.resource._request(
@@ -831,6 +1103,8 @@ class Reader(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {"action": Action}
 
 
 Reader.TestHelpers._resource_cls = Reader

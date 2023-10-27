@@ -34,6 +34,19 @@ class Coupon(
     """
 
     OBJECT_NAME: ClassVar[Literal["coupon"]] = "coupon"
+
+    class AppliesTo(StripeObject):
+        products: List[str]
+        """
+        A list of product IDs this coupon applies to
+        """
+
+    class CurrencyOptions(StripeObject):
+        amount_off: int
+        """
+        Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -185,7 +198,7 @@ class Coupon(
     """
     Amount (in the `currency` specified) that will be taken off the subtotal of any invoices for this customer.
     """
-    applies_to: Optional[StripeObject]
+    applies_to: Optional[AppliesTo]
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
@@ -194,7 +207,7 @@ class Coupon(
     """
     If `amount_off` has been set, the three-letter [ISO code for the currency](https://stripe.com/docs/currencies) of the amount to take off.
     """
-    currency_options: Optional[Dict[str, StripeObject]]
+    currency_options: Optional[Dict[str, CurrencyOptions]]
     """
     Coupons defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
     """
@@ -260,6 +273,11 @@ class Coupon(
         stripe_account: Optional[str] = None,
         **params: Unpack["Coupon.CreateParams"]
     ) -> "Coupon":
+        """
+        You can create coupons easily via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. Coupon creation is also accessible via the API if you need to create coupons on the fly.
+
+        A coupon has either a percent_off or an amount_off and currency. If you set an amount_off, that amount will be subtracted from any invoice's subtotal. For example, an invoice with a subtotal of 100 will have a final total of 0 if a coupon with an amount_off of 200 is applied to it and an invoice with a subtotal of 300 will have a final total of 100 if a coupon with an amount_off of 200 is applied to it.
+        """
         return cast(
             "Coupon",
             cls._static_request(
@@ -277,6 +295,9 @@ class Coupon(
     def _cls_delete(
         cls, sid: str, **params: Unpack["Coupon.DeleteParams"]
     ) -> "Coupon":
+        """
+        You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Coupon",
@@ -288,16 +309,25 @@ class Coupon(
     def delete(
         cls, sid: str, **params: Unpack["Coupon.DeleteParams"]
     ) -> "Coupon":
+        """
+        You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
+        """
         ...
 
     @overload
     def delete(self, **params: Unpack["Coupon.DeleteParams"]) -> "Coupon":
+        """
+        You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Coupon.DeleteParams"]
     ) -> "Coupon":
+        """
+        You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -312,6 +342,9 @@ class Coupon(
         stripe_account: Optional[str] = None,
         **params: Unpack["Coupon.ListParams"]
     ) -> ListObject["Coupon"]:
+        """
+        Returns a list of your coupons.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -333,6 +366,9 @@ class Coupon(
     def modify(
         cls, id: str, **params: Unpack["Coupon.ModifyParams"]
     ) -> "Coupon":
+        """
+        Updates the metadata of a coupon. Other coupon details (currency, duration, amount_off) are, by design, not editable.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Coupon",
@@ -343,6 +379,14 @@ class Coupon(
     def retrieve(
         cls, id: str, **params: Unpack["Coupon.RetrieveParams"]
     ) -> "Coupon":
+        """
+        Retrieves the coupon with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "applies_to": AppliesTo,
+        "currency_options": CurrencyOptions,
+    }

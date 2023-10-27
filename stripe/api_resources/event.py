@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
-from typing import ClassVar, List, Optional
+from typing import Any, ClassVar, Dict, List, Optional
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -49,6 +49,27 @@ class Event(ListableAPIResource["Event"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["event"]] = "event"
+
+    class Data(StripeObject):
+        object: Dict[str, Any]
+        """
+        Object containing the API resource relevant to the event. For example, an `invoice.created` event will have a full [invoice object](https://stripe.com/docs/api#invoice_object) as the value of the object key.
+        """
+        previous_attributes: Optional[Dict[str, Any]]
+        """
+        Object containing the names of the updated attributes and their values prior to the event (only included in events of type `*.updated`). If an array attribute has any updated elements, this object contains the entire array. In Stripe API versions 2017-04-06 or earlier, an updated array attribute in this object includes only the updated array elements.
+        """
+
+    class Request(StripeObject):
+        id: Optional[str]
+        """
+        ID of the API request that caused the event. If null, the event was automatic (e.g., Stripe's automatic subscription handling). Request logs are available in the [dashboard](https://dashboard.stripe.com/logs), but currently not in the API.
+        """
+        idempotency_key: Optional[str]
+        """
+        The idempotency key transmitted during the request, if any. *Note: This property is populated only for events on or after May 23, 2017*.
+        """
+
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
@@ -118,7 +139,7 @@ class Event(ListableAPIResource["Event"]):
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
     """
-    data: StripeObject
+    data: Data
     id: str
     """
     Unique identifier for the object.
@@ -135,7 +156,7 @@ class Event(ListableAPIResource["Event"]):
     """
     Number of webhooks that haven't been successfully delivered (for example, to return a 20x response) to the URLs you specify.
     """
-    request: Optional[StripeObject]
+    request: Optional[Request]
     """
     Information on the API request that triggers the event.
     """
@@ -378,6 +399,9 @@ class Event(ListableAPIResource["Event"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Event.ListParams"]
     ) -> ListObject["Event"]:
+        """
+        List events, going back up to 30 days. Each event data is rendered according to Stripe API version at its creation time, specified in [event object](https://stripe.com/docs/api/events/object) api_version attribute (not according to your current Stripe API version or Stripe-Version header).
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -399,6 +423,11 @@ class Event(ListableAPIResource["Event"]):
     def retrieve(
         cls, id: str, **params: Unpack["Event.RetrieveParams"]
     ) -> "Event":
+        """
+        Retrieves the details of an event. Supply the unique identifier of the event, which you might have received in a webhook.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"data": Data, "request": Request}

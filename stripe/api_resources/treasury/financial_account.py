@@ -39,6 +39,83 @@ class FinancialAccount(
     OBJECT_NAME: ClassVar[
         Literal["treasury.financial_account"]
     ] = "treasury.financial_account"
+
+    class Balance(StripeObject):
+        cash: Dict[str, int]
+        """
+        Funds the user can spend right now.
+        """
+        inbound_pending: Dict[str, int]
+        """
+        Funds not spendable yet, but will become available at a later time.
+        """
+        outbound_pending: Dict[str, int]
+        """
+        Funds in the account, but not spendable because they are being held for pending outbound flows.
+        """
+
+    class FinancialAddress(StripeObject):
+        class Aba(StripeObject):
+            account_holder_name: str
+            """
+            The name of the person or business that owns the bank account.
+            """
+            account_number: Optional[str]
+            """
+            The account number.
+            """
+            account_number_last4: str
+            """
+            The last four characters of the account number.
+            """
+            bank_name: str
+            """
+            Name of the bank.
+            """
+            routing_number: str
+            """
+            Routing number for the account.
+            """
+
+        aba: Optional[Aba]
+        """
+        ABA Records contain U.S. bank account details per the ABA format.
+        """
+        supported_networks: Optional[List[Literal["ach", "us_domestic_wire"]]]
+        """
+        The list of networks that the address supports
+        """
+        type: Literal["aba"]
+        """
+        The type of financial address
+        """
+        _inner_class_types = {"aba": Aba}
+
+    class PlatformRestrictions(StripeObject):
+        inbound_flows: Optional[Literal["restricted", "unrestricted"]]
+        """
+        Restricts all inbound money movement.
+        """
+        outbound_flows: Optional[Literal["restricted", "unrestricted"]]
+        """
+        Restricts all outbound money movement.
+        """
+
+    class StatusDetails(StripeObject):
+        class Closed(StripeObject):
+            reasons: List[
+                Literal["account_rejected", "closed_by_platform", "other"]
+            ]
+            """
+            The array that contains reasons for a FinancialAccount closure.
+            """
+
+        closed: Optional[Closed]
+        """
+        Details related to the closure of this FinancialAccount
+        """
+        _inner_class_types = {"closed": Closed}
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -611,7 +688,7 @@ class FinancialAccount(
     """
     The array of paths to active Features in the Features hash.
     """
-    balance: StripeObject
+    balance: Balance
     """
     Balance information for the FinancialAccount
     """
@@ -628,7 +705,7 @@ class FinancialAccount(
     Encodes whether a FinancialAccount has access to a particular Feature, with a `status` enum and associated `status_details`.
     Stripe or the platform can control Features via the requested field.
     """
-    financial_addresses: List[StripeObject]
+    financial_addresses: List[FinancialAddress]
     """
     The set of credentials that resolve to a FinancialAccount.
     """
@@ -667,7 +744,7 @@ class FinancialAccount(
     """
     The array of paths to pending Features in the Features hash.
     """
-    platform_restrictions: Optional[StripeObject]
+    platform_restrictions: Optional[PlatformRestrictions]
     """
     The set of functionalities that the platform can restrict on the FinancialAccount.
     """
@@ -694,7 +771,7 @@ class FinancialAccount(
     """
     The enum specifying what state the account is in.
     """
-    status_details: StripeObject
+    status_details: StatusDetails
     supported_currencies: List[str]
     """
     The currencies the FinancialAccount can hold a balance in. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
@@ -709,6 +786,9 @@ class FinancialAccount(
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.CreateParams"]
     ) -> "FinancialAccount":
+        """
+        Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
+        """
         return cast(
             "FinancialAccount",
             cls._static_request(
@@ -730,6 +810,9 @@ class FinancialAccount(
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.ListParams"]
     ) -> ListObject["FinancialAccount"]:
+        """
+        Returns a list of FinancialAccounts.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -751,6 +834,9 @@ class FinancialAccount(
     def modify(
         cls, id: str, **params: Unpack["FinancialAccount.ModifyParams"]
     ) -> "FinancialAccount":
+        """
+        Updates the details of a FinancialAccount.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "FinancialAccount",
@@ -761,6 +847,9 @@ class FinancialAccount(
     def retrieve(
         cls, id: str, **params: Unpack["FinancialAccount.RetrieveParams"]
     ) -> "FinancialAccount":
+        """
+        Retrieves the details of a FinancialAccount.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -774,6 +863,9 @@ class FinancialAccount(
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Retrieves Features information associated with the FinancialAccount.
+        """
         return cast(
             "FinancialAccountFeatures",
             cls._static_request(
@@ -798,6 +890,9 @@ class FinancialAccount(
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Retrieves Features information associated with the FinancialAccount.
+        """
         ...
 
     @overload
@@ -806,6 +901,9 @@ class FinancialAccount(
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Retrieves Features information associated with the FinancialAccount.
+        """
         ...
 
     @class_method_variant("_cls_retrieve_features")
@@ -814,6 +912,9 @@ class FinancialAccount(
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Retrieves Features information associated with the FinancialAccount.
+        """
         return cast(
             "FinancialAccountFeatures",
             self._request(
@@ -835,6 +936,9 @@ class FinancialAccount(
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Updates the Features associated with a FinancialAccount.
+        """
         return cast(
             "FinancialAccountFeatures",
             cls._static_request(
@@ -859,6 +963,9 @@ class FinancialAccount(
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Updates the Features associated with a FinancialAccount.
+        """
         ...
 
     @overload
@@ -867,6 +974,9 @@ class FinancialAccount(
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Updates the Features associated with a FinancialAccount.
+        """
         ...
 
     @class_method_variant("_cls_update_features")
@@ -875,6 +985,9 @@ class FinancialAccount(
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
     ) -> "FinancialAccountFeatures":
+        """
+        Updates the Features associated with a FinancialAccount.
+        """
         return cast(
             "FinancialAccountFeatures",
             self._request(
@@ -886,3 +999,10 @@ class FinancialAccount(
                 params=params,
             ),
         )
+
+    _inner_class_types = {
+        "balance": Balance,
+        "financial_addresses": FinancialAddress,
+        "platform_restrictions": PlatformRestrictions,
+        "status_details": StatusDetails,
+    }

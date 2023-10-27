@@ -38,6 +38,140 @@ class Session(CreateableAPIResource["Session"]):
     OBJECT_NAME: ClassVar[
         Literal["billing_portal.session"]
     ] = "billing_portal.session"
+
+    class Flow(StripeObject):
+        class AfterCompletion(StripeObject):
+            class HostedConfirmation(StripeObject):
+                custom_message: Optional[str]
+                """
+                A custom message to display to the customer after the flow is completed.
+                """
+
+            class Redirect(StripeObject):
+                return_url: str
+                """
+                The URL the customer will be redirected to after the flow is completed.
+                """
+
+            hosted_confirmation: Optional[HostedConfirmation]
+            """
+            Configuration when `after_completion.type=hosted_confirmation`.
+            """
+            redirect: Optional[Redirect]
+            """
+            Configuration when `after_completion.type=redirect`.
+            """
+            type: Literal["hosted_confirmation", "portal_homepage", "redirect"]
+            """
+            The specified type of behavior after the flow is completed.
+            """
+            _inner_class_types = {
+                "hosted_confirmation": HostedConfirmation,
+                "redirect": Redirect,
+            }
+
+        class SubscriptionCancel(StripeObject):
+            class Retention(StripeObject):
+                class CouponOffer(StripeObject):
+                    coupon: str
+                    """
+                    The ID of the coupon to be offered.
+                    """
+
+                coupon_offer: Optional[CouponOffer]
+                """
+                Configuration when `retention.type=coupon_offer`.
+                """
+                type: Literal["coupon_offer"]
+                """
+                Type of retention strategy that will be used.
+                """
+                _inner_class_types = {"coupon_offer": CouponOffer}
+
+            retention: Optional[Retention]
+            """
+            Specify a retention strategy to be used in the cancellation flow.
+            """
+            subscription: str
+            """
+            The ID of the subscription to be canceled.
+            """
+            _inner_class_types = {"retention": Retention}
+
+        class SubscriptionUpdate(StripeObject):
+            subscription: str
+            """
+            The ID of the subscription to be updated.
+            """
+
+        class SubscriptionUpdateConfirm(StripeObject):
+            class Discount(StripeObject):
+                coupon: Optional[str]
+                """
+                The ID of the coupon to apply to this subscription update.
+                """
+                promotion_code: Optional[str]
+                """
+                The ID of a promotion code to apply to this subscription update.
+                """
+
+            class Item(StripeObject):
+                id: Optional[str]
+                """
+                The ID of the [subscription item](https://stripe.com/docs/api/subscriptions/object#subscription_object-items-data-id) to be updated.
+                """
+                price: Optional[str]
+                """
+                The price the customer should subscribe to through this flow. The price must also be included in the configuration's [`features.subscription_update.products`](https://stripe.com/docs/api/customer_portal/configuration#portal_configuration_object-features-subscription_update-products).
+                """
+                quantity: Optional[int]
+                """
+                [Quantity](https://stripe.com/docs/subscriptions/quantities) for this item that the customer should subscribe to through this flow.
+                """
+
+            discounts: Optional[List[Discount]]
+            """
+            The coupon or promotion code to apply to this subscription update. Currently, only up to one may be specified.
+            """
+            items: List[Item]
+            """
+            The [subscription item](https://stripe.com/docs/api/subscription_items) to be updated through this flow. Currently, only up to one may be specified and subscriptions with multiple items are not updatable.
+            """
+            subscription: str
+            """
+            The ID of the subscription to be updated.
+            """
+            _inner_class_types = {"discounts": Discount, "items": Item}
+
+        after_completion: AfterCompletion
+        subscription_cancel: Optional[SubscriptionCancel]
+        """
+        Configuration when `flow.type=subscription_cancel`.
+        """
+        subscription_update: Optional[SubscriptionUpdate]
+        """
+        Configuration when `flow.type=subscription_update`.
+        """
+        subscription_update_confirm: Optional[SubscriptionUpdateConfirm]
+        """
+        Configuration when `flow.type=subscription_update_confirm`.
+        """
+        type: Literal[
+            "payment_method_update",
+            "subscription_cancel",
+            "subscription_update",
+            "subscription_update_confirm",
+        ]
+        """
+        Type of flow that the customer will go through.
+        """
+        _inner_class_types = {
+            "after_completion": AfterCompletion,
+            "subscription_cancel": SubscriptionCancel,
+            "subscription_update": SubscriptionUpdate,
+            "subscription_update_confirm": SubscriptionUpdateConfirm,
+        }
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -227,7 +361,7 @@ class Session(CreateableAPIResource["Session"]):
     """
     The ID of the customer for this session.
     """
-    flow: Optional[StripeObject]
+    flow: Optional[Flow]
     """
     Information about a specific flow for the customer to go through. See the [docs](https://stripe.com/docs/customer-management/portal-deep-links) to learn more about using customer portal deep links and flows.
     """
@@ -319,6 +453,9 @@ class Session(CreateableAPIResource["Session"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Session.CreateParams"]
     ) -> "Session":
+        """
+        Creates a session of the customer portal.
+        """
         return cast(
             "Session",
             cls._static_request(
@@ -331,3 +468,5 @@ class Session(CreateableAPIResource["Session"]):
                 params,
             ),
         )
+
+    _inner_class_types = {"flow": Flow}

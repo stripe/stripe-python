@@ -45,6 +45,202 @@ class Authorization(
     OBJECT_NAME: ClassVar[
         Literal["issuing.authorization"]
     ] = "issuing.authorization"
+
+    class AmountDetails(StripeObject):
+        atm_fee: Optional[int]
+        """
+        The fee charged by the ATM for the cash withdrawal.
+        """
+        cashback_amount: Optional[int]
+        """
+        The amount of cash requested by the cardholder.
+        """
+
+    class MerchantData(StripeObject):
+        category: str
+        """
+        A categorization of the seller's type of business. See our [merchant categories guide](https://stripe.com/docs/issuing/merchant-categories) for a list of possible values.
+        """
+        category_code: str
+        """
+        The merchant category code for the seller's business
+        """
+        city: Optional[str]
+        """
+        City where the seller is located
+        """
+        country: Optional[str]
+        """
+        Country where the seller is located
+        """
+        name: Optional[str]
+        """
+        Name of the seller
+        """
+        network_id: str
+        """
+        Identifier assigned to the seller by the card network. Different card networks may assign different network_id fields to the same merchant.
+        """
+        postal_code: Optional[str]
+        """
+        Postal code where the seller is located
+        """
+        state: Optional[str]
+        """
+        State where the seller is located
+        """
+        terminal_id: Optional[str]
+        """
+        An ID assigned by the seller to the location of the sale.
+        """
+
+    class NetworkData(StripeObject):
+        acquiring_institution_id: Optional[str]
+        """
+        Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be `null`.
+        """
+
+    class PendingRequest(StripeObject):
+        class AmountDetails(StripeObject):
+            atm_fee: Optional[int]
+            """
+            The fee charged by the ATM for the cash withdrawal.
+            """
+            cashback_amount: Optional[int]
+            """
+            The amount of cash requested by the cardholder.
+            """
+
+        amount: int
+        """
+        The additional amount Stripe will hold if the authorization is approved, in the card's [currency](https://stripe.com/docs/api#issuing_authorization_object-pending-request-currency) and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        """
+        amount_details: Optional[AmountDetails]
+        """
+        Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        is_amount_controllable: bool
+        """
+        If set `true`, you may provide [amount](https://stripe.com/docs/api/issuing/authorizations/approve#approve_issuing_authorization-amount) to control how much to hold for the authorization.
+        """
+        merchant_amount: int
+        """
+        The amount the merchant is requesting to be authorized in the `merchant_currency`. The amount is in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        """
+        merchant_currency: str
+        """
+        The local currency the merchant is requesting to authorize.
+        """
+        _inner_class_types = {"amount_details": AmountDetails}
+
+    class RequestHistory(StripeObject):
+        class AmountDetails(StripeObject):
+            atm_fee: Optional[int]
+            """
+            The fee charged by the ATM for the cash withdrawal.
+            """
+            cashback_amount: Optional[int]
+            """
+            The amount of cash requested by the cardholder.
+            """
+
+        amount: int
+        """
+        The `pending_request.amount` at the time of the request, presented in your card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). Stripe held this amount from your account to fund the authorization if the request was approved.
+        """
+        amount_details: Optional[AmountDetails]
+        """
+        Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        """
+        approved: bool
+        """
+        Whether this request was approved.
+        """
+        authorization_code: Optional[str]
+        """
+        A code created by Stripe which is shared with the merchant to validate the authorization. This field will be populated if the authorization message was approved. The code typically starts with the letter "S", followed by a six-digit number. For example, "S498162". Please note that the code is not guaranteed to be unique across authorizations.
+        """
+        created: int
+        """
+        Time at which the object was created. Measured in seconds since the Unix epoch.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        merchant_amount: int
+        """
+        The `pending_request.merchant_amount` at the time of the request, presented in the `merchant_currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
+        """
+        merchant_currency: str
+        """
+        The currency that was collected by the merchant and presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        reason: Literal[
+            "account_disabled",
+            "card_active",
+            "card_inactive",
+            "cardholder_inactive",
+            "cardholder_verification_required",
+            "insufficient_funds",
+            "not_allowed",
+            "spending_controls",
+            "suspected_fraud",
+            "verification_failed",
+            "webhook_approved",
+            "webhook_declined",
+            "webhook_error",
+            "webhook_timeout",
+        ]
+        """
+        When an authorization is approved or declined by you or by Stripe, this field provides additional detail on the reason for the outcome.
+        """
+        reason_message: Optional[str]
+        """
+        If approve/decline decision is directly responsed to the webhook with json payload and if the response is invalid (e.g., parsing errors), we surface the detailed message via this field.
+        """
+        _inner_class_types = {"amount_details": AmountDetails}
+
+    class Treasury(StripeObject):
+        received_credits: List[str]
+        """
+        The array of [ReceivedCredits](https://stripe.com/docs/api/treasury/received_credits) associated with this authorization
+        """
+        received_debits: List[str]
+        """
+        The array of [ReceivedDebits](https://stripe.com/docs/api/treasury/received_debits) associated with this authorization
+        """
+        transaction: Optional[str]
+        """
+        The Treasury [Transaction](https://stripe.com/docs/api/treasury/transactions) associated with this authorization
+        """
+
+    class VerificationData(StripeObject):
+        address_line1_check: Literal["match", "mismatch", "not_provided"]
+        """
+        Whether the cardholder provided an address first line and if it matched the cardholder's `billing.address.line1`.
+        """
+        address_postal_code_check: Literal["match", "mismatch", "not_provided"]
+        """
+        Whether the cardholder provided a postal code and if it matched the cardholder's `billing.address.postal_code`.
+        """
+        cvc_check: Literal["match", "mismatch", "not_provided"]
+        """
+        Whether the cardholder provided a CVC and if it matched Stripe's record.
+        """
+        expiry_check: Literal["match", "mismatch", "not_provided"]
+        """
+        Whether the cardholder provided an expiry date and if it matched Stripe's record.
+        """
+        postal_code: Optional[str]
+        """
+        The postal code submitted as part of the authorization used for postal code verification.
+        """
+
     if TYPE_CHECKING:
 
         class ApproveParams(RequestOptions):
@@ -447,7 +643,7 @@ class Authorization(
     """
     The total amount that was authorized or rejected. This amount is in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     """
-    amount_details: Optional[StripeObject]
+    amount_details: Optional[AmountDetails]
     """
     Detailed breakdown of amount components. These amounts are denominated in `currency` and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
     """
@@ -497,12 +693,12 @@ class Authorization(
     """
     The currency that was presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
-    merchant_data: StripeObject
+    merchant_data: MerchantData
     metadata: Dict[str, str]
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
-    network_data: Optional[StripeObject]
+    network_data: Optional[NetworkData]
     """
     Details about the authorization, such as identifiers, set by the card network.
     """
@@ -510,11 +706,11 @@ class Authorization(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    pending_request: Optional[StripeObject]
+    pending_request: Optional[PendingRequest]
     """
     The pending authorization request. This field will only be non-null during an `issuing_authorization.request` webhook.
     """
-    request_history: List[StripeObject]
+    request_history: List[RequestHistory]
     """
     History of every time a `pending_request` authorization was approved/declined, either by you directly or by Stripe (e.g. based on your spending_controls). If the merchant changes the authorization by performing an incremental authorization, you can look at this field to see the previous requests for the authorization. This field can be helpful in determining why a given authorization was approved/declined.
     """
@@ -530,11 +726,11 @@ class Authorization(
     """
     List of [transactions](https://stripe.com/docs/api/issuing/transactions) associated with this authorization.
     """
-    treasury: Optional[StripeObject]
+    treasury: Optional[Treasury]
     """
     [Treasury](https://stripe.com/docs/api/treasury) details related to this authorization if it was created on a [FinancialAccount](https://stripe.com/docs/api/treasury/financial_accounts).
     """
-    verification_data: StripeObject
+    verification_data: VerificationData
     wallet: Optional[str]
     """
     The digital wallet used for this transaction. One of `apple_pay`, `google_pay`, or `samsung_pay`. Will populate as `null` when no digital wallet was utilized.
@@ -549,6 +745,10 @@ class Authorization(
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         return cast(
             "Authorization",
             cls._static_request(
@@ -573,6 +773,10 @@ class Authorization(
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         ...
 
     @overload
@@ -581,6 +785,10 @@ class Authorization(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         ...
 
     @class_method_variant("_cls_approve")
@@ -589,6 +797,10 @@ class Authorization(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         return cast(
             "Authorization",
             self._request(
@@ -610,6 +822,10 @@ class Authorization(
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         return cast(
             "Authorization",
             cls._static_request(
@@ -634,6 +850,10 @@ class Authorization(
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         ...
 
     @overload
@@ -642,6 +862,10 @@ class Authorization(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         ...
 
     @class_method_variant("_cls_decline")
@@ -650,6 +874,10 @@ class Authorization(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         return cast(
             "Authorization",
             self._request(
@@ -670,6 +898,9 @@ class Authorization(
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.ListParams"]
     ) -> ListObject["Authorization"]:
+        """
+        Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -691,6 +922,9 @@ class Authorization(
     def modify(
         cls, id: str, **params: Unpack["Authorization.ModifyParams"]
     ) -> "Authorization":
+        """
+        Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Authorization",
@@ -701,6 +935,9 @@ class Authorization(
     def retrieve(
         cls, id: str, **params: Unpack["Authorization.RetrieveParams"]
     ) -> "Authorization":
+        """
+        Retrieves an Issuing Authorization object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -717,6 +954,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
+            """
+            Capture a test-mode authorization.
+            """
             return cast(
                 "Authorization",
                 cls._static_request(
@@ -741,6 +981,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
+            """
+            Capture a test-mode authorization.
+            """
             ...
 
         @overload
@@ -749,6 +992,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
+            """
+            Capture a test-mode authorization.
+            """
             ...
 
         @class_method_variant("_cls_capture")
@@ -757,6 +1003,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
+            """
+            Capture a test-mode authorization.
+            """
             return cast(
                 "Authorization",
                 self.resource._request(
@@ -777,6 +1026,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.CreateParams"]
         ) -> "Authorization":
+            """
+            Create a test-mode authorization.
+            """
             return cast(
                 "Authorization",
                 cls._static_request(
@@ -798,6 +1050,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
+            """
+            Expire a test-mode Authorization.
+            """
             return cast(
                 "Authorization",
                 cls._static_request(
@@ -822,6 +1077,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
+            """
+            Expire a test-mode Authorization.
+            """
             ...
 
         @overload
@@ -830,6 +1088,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
+            """
+            Expire a test-mode Authorization.
+            """
             ...
 
         @class_method_variant("_cls_expire")
@@ -838,6 +1099,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
+            """
+            Expire a test-mode Authorization.
+            """
             return cast(
                 "Authorization",
                 self.resource._request(
@@ -859,6 +1123,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
+            """
+            Increment a test-mode Authorization.
+            """
             return cast(
                 "Authorization",
                 cls._static_request(
@@ -883,6 +1150,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
+            """
+            Increment a test-mode Authorization.
+            """
             ...
 
         @overload
@@ -891,6 +1161,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
+            """
+            Increment a test-mode Authorization.
+            """
             ...
 
         @class_method_variant("_cls_increment")
@@ -899,6 +1172,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
+            """
+            Increment a test-mode Authorization.
+            """
             return cast(
                 "Authorization",
                 self.resource._request(
@@ -920,6 +1196,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
+            """
+            Reverse a test-mode Authorization.
+            """
             return cast(
                 "Authorization",
                 cls._static_request(
@@ -944,6 +1223,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
+            """
+            Reverse a test-mode Authorization.
+            """
             ...
 
         @overload
@@ -952,6 +1234,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
+            """
+            Reverse a test-mode Authorization.
+            """
             ...
 
         @class_method_variant("_cls_reverse")
@@ -960,6 +1245,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
+            """
+            Reverse a test-mode Authorization.
+            """
             return cast(
                 "Authorization",
                 self.resource._request(
@@ -975,6 +1263,16 @@ class Authorization(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "amount_details": AmountDetails,
+        "merchant_data": MerchantData,
+        "network_data": NetworkData,
+        "pending_request": PendingRequest,
+        "request_history": RequestHistory,
+        "treasury": Treasury,
+        "verification_data": VerificationData,
+    }
 
 
 Authorization.TestHelpers._resource_cls = Authorization

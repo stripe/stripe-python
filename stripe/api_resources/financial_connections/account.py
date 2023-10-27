@@ -7,7 +7,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from stripe.util import class_method_variant
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -17,6 +17,8 @@ from typing_extensions import (
 )
 
 if TYPE_CHECKING:
+    from stripe.api_resources.account import Account as AccountResource
+    from stripe.api_resources.customer import Customer
     from stripe.api_resources.financial_connections.account_owner import (
         AccountOwner,
     )
@@ -33,6 +35,82 @@ class Account(ListableAPIResource["Account"]):
     OBJECT_NAME: ClassVar[
         Literal["financial_connections.account"]
     ] = "financial_connections.account"
+
+    class AccountHolder(StripeObject):
+        account: Optional[ExpandableField["AccountResource"]]
+        """
+        The ID of the Stripe account this account belongs to. Should only be present if `account_holder.type` is `account`.
+        """
+        customer: Optional[ExpandableField["Customer"]]
+        """
+        ID of the Stripe customer this account belongs to. Present if and only if `account_holder.type` is `customer`.
+        """
+        type: Literal["account", "customer"]
+        """
+        Type of account holder that this account belongs to.
+        """
+
+    class Balance(StripeObject):
+        class Cash(StripeObject):
+            available: Optional[Dict[str, int]]
+            """
+            The funds available to the account holder. Typically this is the current balance less any holds.
+
+            Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+
+            Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
+            """
+
+        class Credit(StripeObject):
+            used: Optional[Dict[str, int]]
+            """
+            The credit that has been used by the account holder.
+
+            Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+
+            Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
+            """
+
+        as_of: int
+        """
+        The time that the external institution calculated this balance. Measured in seconds since the Unix epoch.
+        """
+        cash: Optional[Cash]
+        credit: Optional[Credit]
+        current: Dict[str, int]
+        """
+        The balances owed to (or by) the account holder.
+
+        Each key is a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase.
+
+        Each value is a integer amount. A positive amount indicates money owed to the account holder. A negative amount indicates money owed by the account holder.
+        """
+        type: Literal["cash", "credit"]
+        """
+        The `type` of the balance. An additional hash is included on the balance with a name matching this value.
+        """
+        _inner_class_types = {"cash": Cash, "credit": Credit}
+
+    class BalanceRefresh(StripeObject):
+        last_attempted_at: int
+        """
+        The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
+        """
+        status: Literal["failed", "pending", "succeeded"]
+        """
+        The status of the last refresh attempt.
+        """
+
+    class OwnershipRefresh(StripeObject):
+        last_attempted_at: int
+        """
+        The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
+        """
+        status: Literal["failed", "pending", "succeeded"]
+        """
+        The status of the last refresh attempt.
+        """
+
     if TYPE_CHECKING:
 
         class DisconnectParams(RequestOptions):
@@ -115,15 +193,15 @@ class Account(ListableAPIResource["Account"]):
             Specifies which fields in the response should be expanded.
             """
 
-    account_holder: Optional[StripeObject]
+    account_holder: Optional[AccountHolder]
     """
     The account holder that this account belongs to.
     """
-    balance: Optional[StripeObject]
+    balance: Optional[Balance]
     """
     The most recent information about the account's balance.
     """
-    balance_refresh: Optional[StripeObject]
+    balance_refresh: Optional[BalanceRefresh]
     """
     The state of the most recent attempt to refresh the account balance.
     """
@@ -163,7 +241,7 @@ class Account(ListableAPIResource["Account"]):
     """
     The most recent information about the account's owners.
     """
-    ownership_refresh: Optional[StripeObject]
+    ownership_refresh: Optional[OwnershipRefresh]
     """
     The state of the most recent attempt to refresh the account owners.
     """
@@ -217,6 +295,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
     ) -> "Account":
+        """
+        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
+        """
         return cast(
             "Account",
             cls._static_request(
@@ -241,6 +322,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
     ) -> "Account":
+        """
+        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
+        """
         ...
 
     @overload
@@ -249,6 +333,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
     ) -> "Account":
+        """
+        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
+        """
         ...
 
     @class_method_variant("_cls_disconnect")
@@ -257,6 +344,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
     ) -> "Account":
+        """
+        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
+        """
         return cast(
             "Account",
             self._request(
@@ -277,6 +367,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListParams"]
     ) -> ListObject["Account"]:
+        """
+        Returns a list of Financial Connections Account objects.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -303,6 +396,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
+        """
+        Lists all owners for a given Account
+        """
         return cast(
             ListObject["AccountOwner"],
             cls._static_request(
@@ -327,6 +423,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
+        """
+        Lists all owners for a given Account
+        """
         ...
 
     @overload
@@ -335,6 +434,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
+        """
+        Lists all owners for a given Account
+        """
         ...
 
     @class_method_variant("_cls_list_owners")
@@ -343,6 +445,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
+        """
+        Lists all owners for a given Account
+        """
         return cast(
             ListObject["AccountOwner"],
             self._request(
@@ -364,6 +469,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
     ) -> "Account":
+        """
+        Refreshes the data associated with a Financial Connections Account.
+        """
         return cast(
             "Account",
             cls._static_request(
@@ -388,6 +496,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
     ) -> "Account":
+        """
+        Refreshes the data associated with a Financial Connections Account.
+        """
         ...
 
     @overload
@@ -396,6 +507,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
     ) -> "Account":
+        """
+        Refreshes the data associated with a Financial Connections Account.
+        """
         ...
 
     @class_method_variant("_cls_refresh_account")
@@ -404,6 +518,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
     ) -> "Account":
+        """
+        Refreshes the data associated with a Financial Connections Account.
+        """
         return cast(
             "Account",
             self._request(
@@ -420,6 +537,16 @@ class Account(ListableAPIResource["Account"]):
     def retrieve(
         cls, id: str, **params: Unpack["Account.RetrieveParams"]
     ) -> "Account":
+        """
+        Retrieves the details of an Financial Connections Account.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "account_holder": AccountHolder,
+        "balance": Balance,
+        "balance_refresh": BalanceRefresh,
+        "ownership_refresh": OwnershipRefresh,
+    }

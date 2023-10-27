@@ -23,6 +23,7 @@ from urllib.parse import quote_plus
 
 if TYPE_CHECKING:
     from stripe.api_resources.balance_transaction import BalanceTransaction
+    from stripe.api_resources.file import File
     from stripe.api_resources.issuing.transaction import Transaction
 
 
@@ -38,6 +39,213 @@ class Dispute(
     """
 
     OBJECT_NAME: ClassVar[Literal["issuing.dispute"]] = "issuing.dispute"
+
+    class Evidence(StripeObject):
+        class Canceled(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            """
+            (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+            """
+            canceled_at: Optional[int]
+            """
+            Date when order was canceled.
+            """
+            cancellation_policy_provided: Optional[bool]
+            """
+            Whether the cardholder was provided with a cancellation policy.
+            """
+            cancellation_reason: Optional[str]
+            """
+            Reason for canceling the order.
+            """
+            expected_at: Optional[int]
+            """
+            Date when the cardholder expected to receive the product.
+            """
+            explanation: Optional[str]
+            """
+            Explanation of why the cardholder is disputing this transaction.
+            """
+            product_description: Optional[str]
+            """
+            Description of the merchandise or service that was purchased.
+            """
+            product_type: Optional[Literal["merchandise", "service"]]
+            """
+            Whether the product was a merchandise or service.
+            """
+            return_status: Optional[Literal["merchant_rejected", "successful"]]
+            """
+            Result of cardholder's attempt to return the product.
+            """
+            returned_at: Optional[int]
+            """
+            Date when the product was returned or attempted to be returned.
+            """
+
+        class Duplicate(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            """
+            (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+            """
+            card_statement: Optional[ExpandableField["File"]]
+            """
+            (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
+            """
+            cash_receipt: Optional[ExpandableField["File"]]
+            """
+            (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the receipt showing that the product had been paid for in cash.
+            """
+            check_image: Optional[ExpandableField["File"]]
+            """
+            (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Image of the front and back of the check that was used to pay for the product.
+            """
+            explanation: Optional[str]
+            """
+            Explanation of why the cardholder is disputing this transaction.
+            """
+            original_transaction: Optional[str]
+            """
+            Transaction (e.g., ipi_...) that the disputed transaction is a duplicate of. Of the two or more transactions that are copies of each other, this is original undisputed one.
+            """
+
+        class Fraudulent(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            """
+            (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+            """
+            explanation: Optional[str]
+            """
+            Explanation of why the cardholder is disputing this transaction.
+            """
+
+        class MerchandiseNotAsDescribed(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            """
+            (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+            """
+            explanation: Optional[str]
+            """
+            Explanation of why the cardholder is disputing this transaction.
+            """
+            received_at: Optional[int]
+            """
+            Date when the product was received.
+            """
+            return_description: Optional[str]
+            """
+            Description of the cardholder's attempt to return the product.
+            """
+            return_status: Optional[Literal["merchant_rejected", "successful"]]
+            """
+            Result of cardholder's attempt to return the product.
+            """
+            returned_at: Optional[int]
+            """
+            Date when the product was returned or attempted to be returned.
+            """
+
+        class NotReceived(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            """
+            (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+            """
+            expected_at: Optional[int]
+            """
+            Date when the cardholder expected to receive the product.
+            """
+            explanation: Optional[str]
+            """
+            Explanation of why the cardholder is disputing this transaction.
+            """
+            product_description: Optional[str]
+            """
+            Description of the merchandise or service that was purchased.
+            """
+            product_type: Optional[Literal["merchandise", "service"]]
+            """
+            Whether the product was a merchandise or service.
+            """
+
+        class Other(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            """
+            (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+            """
+            explanation: Optional[str]
+            """
+            Explanation of why the cardholder is disputing this transaction.
+            """
+            product_description: Optional[str]
+            """
+            Description of the merchandise or service that was purchased.
+            """
+            product_type: Optional[Literal["merchandise", "service"]]
+            """
+            Whether the product was a merchandise or service.
+            """
+
+        class ServiceNotAsDescribed(StripeObject):
+            additional_documentation: Optional[ExpandableField["File"]]
+            """
+            (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
+            """
+            canceled_at: Optional[int]
+            """
+            Date when order was canceled.
+            """
+            cancellation_reason: Optional[str]
+            """
+            Reason for canceling the order.
+            """
+            explanation: Optional[str]
+            """
+            Explanation of why the cardholder is disputing this transaction.
+            """
+            received_at: Optional[int]
+            """
+            Date when the product was received.
+            """
+
+        canceled: Optional[Canceled]
+        duplicate: Optional[Duplicate]
+        fraudulent: Optional[Fraudulent]
+        merchandise_not_as_described: Optional[MerchandiseNotAsDescribed]
+        not_received: Optional[NotReceived]
+        other: Optional[Other]
+        reason: Literal[
+            "canceled",
+            "duplicate",
+            "fraudulent",
+            "merchandise_not_as_described",
+            "not_received",
+            "other",
+            "service_not_as_described",
+        ]
+        """
+        The reason for filing the dispute. Its value will match the field containing the evidence.
+        """
+        service_not_as_described: Optional[ServiceNotAsDescribed]
+        _inner_class_types = {
+            "canceled": Canceled,
+            "duplicate": Duplicate,
+            "fraudulent": Fraudulent,
+            "merchandise_not_as_described": MerchandiseNotAsDescribed,
+            "not_received": NotReceived,
+            "other": Other,
+            "service_not_as_described": ServiceNotAsDescribed,
+        }
+
+    class Treasury(StripeObject):
+        debit_reversal: Optional[str]
+        """
+        The Treasury [DebitReversal](https://stripe.com/docs/api/treasury/debit_reversals) representing this Issuing dispute
+        """
+        received_debit: str
+        """
+        The Treasury [ReceivedDebit](https://stripe.com/docs/api/treasury/received_debits) that is being disputed.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -624,7 +832,7 @@ class Dispute(
     """
     The currency the `transaction` was made in.
     """
-    evidence: StripeObject
+    evidence: Evidence
     id: str
     """
     Unique identifier for the object.
@@ -649,7 +857,7 @@ class Dispute(
     """
     The transaction being disputed.
     """
-    treasury: Optional[StripeObject]
+    treasury: Optional[Treasury]
     """
     [Treasury](https://stripe.com/docs/api/treasury) details related to this dispute if it was created on a [FinancialAccount](/docs/api/treasury/financial_accounts
     """
@@ -663,6 +871,9 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.CreateParams"]
     ) -> "Dispute":
+        """
+        Creates an Issuing Dispute object. Individual pieces of evidence within the evidence object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence) for more details about evidence requirements.
+        """
         return cast(
             "Dispute",
             cls._static_request(
@@ -684,6 +895,9 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.ListParams"]
     ) -> ListObject["Dispute"]:
+        """
+        Returns a list of Issuing Dispute objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -705,6 +919,9 @@ class Dispute(
     def modify(
         cls, id: str, **params: Unpack["Dispute.ModifyParams"]
     ) -> "Dispute":
+        """
+        Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Dispute",
@@ -715,6 +932,9 @@ class Dispute(
     def retrieve(
         cls, id: str, **params: Unpack["Dispute.RetrieveParams"]
     ) -> "Dispute":
+        """
+        Retrieves an Issuing Dispute object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -728,6 +948,9 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.SubmitParams"]
     ) -> "Dispute":
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
         return cast(
             "Dispute",
             cls._static_request(
@@ -752,6 +975,9 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.SubmitParams"]
     ) -> "Dispute":
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
         ...
 
     @overload
@@ -760,6 +986,9 @@ class Dispute(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.SubmitParams"]
     ) -> "Dispute":
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
         ...
 
     @class_method_variant("_cls_submit")
@@ -768,6 +997,9 @@ class Dispute(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.SubmitParams"]
     ) -> "Dispute":
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
         return cast(
             "Dispute",
             self._request(
@@ -779,3 +1011,5 @@ class Dispute(
                 params=params,
             ),
         )
+
+    _inner_class_types = {"evidence": Evidence, "treasury": Treasury}

@@ -43,6 +43,39 @@ class Plan(
     """
 
     OBJECT_NAME: ClassVar[Literal["plan"]] = "plan"
+
+    class Tier(StripeObject):
+        flat_amount: Optional[int]
+        """
+        Price for the entire tier.
+        """
+        flat_amount_decimal: Optional[str]
+        """
+        Same as `flat_amount`, but contains a decimal value with at most 12 decimal places.
+        """
+        unit_amount: Optional[int]
+        """
+        Per unit price for units relevant to the tier.
+        """
+        unit_amount_decimal: Optional[str]
+        """
+        Same as `unit_amount`, but contains a decimal value with at most 12 decimal places.
+        """
+        up_to: Optional[int]
+        """
+        Up to and including to this quantity will be contained in the tier.
+        """
+
+    class TransformUsage(StripeObject):
+        divide_by: int
+        """
+        Divide usage by this number.
+        """
+        round: Literal["down", "up"]
+        """
+        After division, either round the result `up` or `down`.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -329,7 +362,7 @@ class Plan(
     """
     The product whose pricing this plan determines.
     """
-    tiers: Optional[List[StripeObject]]
+    tiers: Optional[List[Tier]]
     """
     Each element represents a pricing tier. This parameter requires `billing_scheme` to be set to `tiered`. See also the documentation for `billing_scheme`.
     """
@@ -337,7 +370,7 @@ class Plan(
     """
     Defines if the tiering price should be `graduated` or `volume` based. In `volume`-based tiering, the maximum quantity within a period determines the per unit price. In `graduated` tiering, pricing can change as the quantity grows.
     """
-    transform_usage: Optional[StripeObject]
+    transform_usage: Optional[TransformUsage]
     """
     Apply a transformation to the reported usage or set quantity before computing the amount billed. Cannot be combined with `tiers`.
     """
@@ -363,6 +396,9 @@ class Plan(
         stripe_account: Optional[str] = None,
         **params: Unpack["Plan.CreateParams"]
     ) -> "Plan":
+        """
+        You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
+        """
         return cast(
             "Plan",
             cls._static_request(
@@ -380,6 +416,9 @@ class Plan(
     def _cls_delete(
         cls, sid: str, **params: Unpack["Plan.DeleteParams"]
     ) -> "Plan":
+        """
+        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Plan",
@@ -389,16 +428,25 @@ class Plan(
     @overload
     @classmethod
     def delete(cls, sid: str, **params: Unpack["Plan.DeleteParams"]) -> "Plan":
+        """
+        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+        """
         ...
 
     @overload
     def delete(self, **params: Unpack["Plan.DeleteParams"]) -> "Plan":
+        """
+        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Plan.DeleteParams"]
     ) -> "Plan":
+        """
+        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -413,6 +461,9 @@ class Plan(
         stripe_account: Optional[str] = None,
         **params: Unpack["Plan.ListParams"]
     ) -> ListObject["Plan"]:
+        """
+        Returns a list of your plans.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -432,6 +483,9 @@ class Plan(
 
     @classmethod
     def modify(cls, id: str, **params: Unpack["Plan.ModifyParams"]) -> "Plan":
+        """
+        Updates the specified plan by setting the values of the parameters passed. Any parameters not provided are left unchanged. By design, you cannot change a plan's ID, amount, currency, or billing cycle.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Plan",
@@ -442,6 +496,11 @@ class Plan(
     def retrieve(
         cls, id: str, **params: Unpack["Plan.RetrieveParams"]
     ) -> "Plan":
+        """
+        Retrieves the plan with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"tiers": Tier, "transform_usage": TransformUsage}

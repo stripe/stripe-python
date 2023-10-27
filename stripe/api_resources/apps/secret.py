@@ -31,6 +31,17 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["apps.secret"]] = "apps.secret"
+
+    class Scope(StripeObject):
+        type: Literal["account", "user"]
+        """
+        The secret scope type.
+        """
+        user: Optional[str]
+        """
+        The user ID, if type is set to "user"
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -177,7 +188,7 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
     """
     The plaintext secret value to be stored.
     """
-    scope: StripeObject
+    scope: Scope
 
     @classmethod
     def create(
@@ -188,6 +199,9 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Secret.CreateParams"]
     ) -> "Secret":
+        """
+        Create or replace a secret in the secret store.
+        """
         return cast(
             "Secret",
             cls._static_request(
@@ -209,6 +223,9 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Secret.DeleteWhereParams"]
     ) -> "Secret":
+        """
+        Deletes a secret from the secret store by name and scope.
+        """
         return cast(
             "Secret",
             cls._static_request(
@@ -229,6 +246,9 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Secret.FindParams"]
     ) -> "Secret":
+        """
+        Finds a secret in the secret store by name and scope.
+        """
         return cast(
             "Secret",
             cls._static_request(
@@ -249,6 +269,9 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Secret.ListParams"]
     ) -> ListObject["Secret"]:
+        """
+        List all secrets stored on the given scope.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -265,3 +288,5 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
             )
 
         return result
+
+    _inner_class_types = {"scope": Scope}

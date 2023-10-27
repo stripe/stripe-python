@@ -74,6 +74,153 @@ class Customer(
     """
 
     OBJECT_NAME: ClassVar[Literal["customer"]] = "customer"
+
+    class Address(StripeObject):
+        city: Optional[str]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: Optional[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: Optional[str]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: Optional[str]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: Optional[str]
+        """
+        ZIP or postal code.
+        """
+        state: Optional[str]
+        """
+        State, county, province, or region.
+        """
+
+    class InvoiceSettings(StripeObject):
+        class CustomField(StripeObject):
+            name: str
+            """
+            The name of the custom field.
+            """
+            value: str
+            """
+            The value of the custom field.
+            """
+
+        class RenderingOptions(StripeObject):
+            amount_tax_display: Optional[str]
+            """
+            How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
+            """
+
+        custom_fields: Optional[List[CustomField]]
+        """
+        Default custom fields to be displayed on invoices for this customer.
+        """
+        default_payment_method: Optional[ExpandableField["PaymentMethod"]]
+        """
+        ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
+        """
+        footer: Optional[str]
+        """
+        Default footer to be displayed on invoices for this customer.
+        """
+        rendering_options: Optional[RenderingOptions]
+        """
+        Default options for invoice PDF rendering for this customer.
+        """
+        _inner_class_types = {
+            "custom_fields": CustomField,
+            "rendering_options": RenderingOptions,
+        }
+
+    class Shipping(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region.
+            """
+
+        address: Optional[Address]
+        carrier: Optional[str]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: Optional[str]
+        """
+        Recipient name.
+        """
+        phone: Optional[str]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: Optional[str]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
+        _inner_class_types = {"address": Address}
+
+    class Tax(StripeObject):
+        class Location(StripeObject):
+            country: str
+            """
+            The customer's country as identified by Stripe Tax.
+            """
+            source: Literal[
+                "billing_address",
+                "ip_address",
+                "payment_method",
+                "shipping_destination",
+            ]
+            """
+            The data source used to infer the customer's location.
+            """
+            state: Optional[str]
+            """
+            The customer's state, county, province, or region as identified by Stripe Tax.
+            """
+
+        automatic_tax: Literal[
+            "failed", "not_collecting", "supported", "unrecognized_location"
+        ]
+        """
+        Surfaces if automatic tax computation is possible given the current customer location information.
+        """
+        ip_address: Optional[str]
+        """
+        A recent IP address of the customer used for tax reporting and tax location inference.
+        """
+        location: Optional[Location]
+        """
+        The customer's location as identified by Stripe Tax.
+        """
+        _inner_class_types = {"location": Location}
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -1137,7 +1284,7 @@ class Customer(
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
-    address: Optional[StripeObject]
+    address: Optional[Address]
     """
     The customer's address.
     """
@@ -1197,7 +1344,7 @@ class Customer(
     """
     The prefix for the customer used to generate unique invoice numbers.
     """
-    invoice_settings: Optional[StripeObject]
+    invoice_settings: Optional[InvoiceSettings]
     livemode: bool
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
@@ -1226,7 +1373,7 @@ class Customer(
     """
     The customer's preferred locales (languages), ordered by preference.
     """
-    shipping: Optional[StripeObject]
+    shipping: Optional[Shipping]
     """
     Mailing and shipping address for the customer. Appears on invoices emailed to this customer.
     """
@@ -1240,7 +1387,7 @@ class Customer(
     """
     The customer's current subscriptions, if any.
     """
-    tax: Optional[StripeObject]
+    tax: Optional[Tax]
     tax_exempt: Optional[Literal["exempt", "none", "reverse"]]
     """
     Describes the customer's tax exemption status, which is `none`, `exempt`, or `reverse`. When set to `reverse`, invoice and receipt PDFs include the following text: **"Reverse charge"**.
@@ -1267,6 +1414,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateParams"]
     ) -> "Customer":
+        """
+        Creates a new customer object.
+        """
         return cast(
             "Customer",
             cls._static_request(
@@ -1289,6 +1439,11 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
+        """
+        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        funding instructions will be created. If funding instructions have already been created for a given customer, the same
+        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
+        """
         return cast(
             "FundingInstructions",
             cls._static_request(
@@ -1313,6 +1468,11 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
+        """
+        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        funding instructions will be created. If funding instructions have already been created for a given customer, the same
+        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
+        """
         ...
 
     @overload
@@ -1321,6 +1481,11 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
+        """
+        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        funding instructions will be created. If funding instructions have already been created for a given customer, the same
+        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
+        """
         ...
 
     @class_method_variant("_cls_create_funding_instructions")
@@ -1329,6 +1494,11 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.CreateFundingInstructionsParams"]
     ) -> "FundingInstructions":
+        """
+        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
+        funding instructions will be created. If funding instructions have already been created for a given customer, the same
+        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
+        """
         return cast(
             "FundingInstructions",
             self._request(
@@ -1345,6 +1515,9 @@ class Customer(
     def _cls_delete(
         cls, sid: str, **params: Unpack["Customer.DeleteParams"]
     ) -> "Customer":
+        """
+        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Customer",
@@ -1356,16 +1529,25 @@ class Customer(
     def delete(
         cls, sid: str, **params: Unpack["Customer.DeleteParams"]
     ) -> "Customer":
+        """
+        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+        """
         ...
 
     @overload
     def delete(self, **params: Unpack["Customer.DeleteParams"]) -> "Customer":
+        """
+        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Customer.DeleteParams"]
     ) -> "Customer":
+        """
+        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -1381,6 +1563,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.DeleteDiscountParams"]
     ) -> "Discount":
+        """
+        Removes the currently applied discount on a customer.
+        """
         return cast(
             "Discount",
             cls._static_request(
@@ -1405,6 +1590,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.DeleteDiscountParams"]
     ) -> "Discount":
+        """
+        Removes the currently applied discount on a customer.
+        """
         ...
 
     @overload
@@ -1413,6 +1601,9 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.DeleteDiscountParams"]
     ) -> "Discount":
+        """
+        Removes the currently applied discount on a customer.
+        """
         ...
 
     @class_method_variant("_cls_delete_discount")
@@ -1421,6 +1612,9 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.DeleteDiscountParams"]
     ) -> "Discount":
+        """
+        Removes the currently applied discount on a customer.
+        """
         return cast(
             "Discount",
             self._request(
@@ -1441,6 +1635,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListParams"]
     ) -> ListObject["Customer"]:
+        """
+        Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -1467,6 +1664,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
+        """
+        Returns a list of PaymentMethods for a given Customer
+        """
         return cast(
             ListObject["PaymentMethod"],
             cls._static_request(
@@ -1491,6 +1691,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
+        """
+        Returns a list of PaymentMethods for a given Customer
+        """
         ...
 
     @overload
@@ -1499,6 +1702,9 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.ListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
+        """
+        Returns a list of PaymentMethods for a given Customer
+        """
         ...
 
     @class_method_variant("_cls_list_payment_methods")
@@ -1507,6 +1713,9 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.ListPaymentMethodsParams"]
     ) -> ListObject["PaymentMethod"]:
+        """
+        Returns a list of PaymentMethods for a given Customer
+        """
         return cast(
             ListObject["PaymentMethod"],
             self._request(
@@ -1523,6 +1732,11 @@ class Customer(
     def modify(
         cls, id: str, **params: Unpack["Customer.ModifyParams"]
     ) -> "Customer":
+        """
+        Updates the specified customer by setting the values of the parameters passed. Any parameters not provided will be left unchanged. For example, if you pass the source parameter, that becomes the customer's active source (e.g., a card) to be used for all charges in the future. When you update a customer to a new valid card source by passing the source parameter: for each of the customer's current subscriptions, if the subscription bills automatically and is in the past_due state, then the latest open invoice for the subscription with automatic collection enabled will be retried. This retry will not count as an automatic retry, and will not affect the next regularly scheduled payment for the invoice. Changing the default_source for a customer will not trigger this behavior.
+
+        This request accepts mostly the same arguments as the customer creation call.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Customer",
@@ -1533,6 +1747,9 @@ class Customer(
     def retrieve(
         cls, id: str, **params: Unpack["Customer.RetrieveParams"]
     ) -> "Customer":
+        """
+        Retrieves a Customer object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -1547,6 +1764,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ) -> "PaymentMethod":
+        """
+        Retrieves a PaymentMethod object for a given Customer.
+        """
         return cast(
             "PaymentMethod",
             cls._static_request(
@@ -1573,6 +1793,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ) -> "PaymentMethod":
+        """
+        Retrieves a PaymentMethod object for a given Customer.
+        """
         ...
 
     @overload
@@ -1582,6 +1805,9 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ) -> "PaymentMethod":
+        """
+        Retrieves a PaymentMethod object for a given Customer.
+        """
         ...
 
     @class_method_variant("_cls_retrieve_payment_method")
@@ -1591,6 +1817,9 @@ class Customer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Customer.RetrievePaymentMethodParams"]
     ) -> "PaymentMethod":
+        """
+        Retrieves a PaymentMethod object for a given Customer.
+        """
         return cast(
             "PaymentMethod",
             self._request(
@@ -1608,6 +1837,12 @@ class Customer(
     def search(
         cls, *args, **kwargs: Unpack["Customer.SearchParams"]
     ) -> SearchResultObject["Customer"]:
+        """
+        Search for customers you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
         return cls._search(search_url="/v1/customers/search", *args, **kwargs)
 
     @classmethod
@@ -1625,6 +1860,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateBalanceTransactionParams"]
     ) -> "CustomerBalanceTransaction":
+        """
+        Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
+        """
         return cast(
             "CustomerBalanceTransaction",
             cls._static_request(
@@ -1649,6 +1887,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveBalanceTransactionParams"]
     ) -> "CustomerBalanceTransaction":
+        """
+        Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        """
         return cast(
             "CustomerBalanceTransaction",
             cls._static_request(
@@ -1674,6 +1915,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ModifyBalanceTransactionParams"]
     ) -> "CustomerBalanceTransaction":
+        """
+        Most credit balance transaction fields are immutable, but you may update its description and metadata.
+        """
         return cast(
             "CustomerBalanceTransaction",
             cls._static_request(
@@ -1698,6 +1942,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListBalanceTransactionsParams"]
     ) -> ListObject["CustomerBalanceTransaction"]:
+        """
+        Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
+        """
         return cast(
             ListObject["CustomerBalanceTransaction"],
             cls._static_request(
@@ -1722,6 +1969,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"]
     ) -> "CustomerCashBalanceTransaction":
+        """
+        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        """
         return cast(
             "CustomerCashBalanceTransaction",
             cls._static_request(
@@ -1746,6 +1996,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListCashBalanceTransactionsParams"]
     ) -> ListObject["CustomerCashBalanceTransaction"]:
+        """
+        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        """
         return cast(
             ListObject["CustomerCashBalanceTransaction"],
             cls._static_request(
@@ -1769,6 +2022,13 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
+        """
+        When you create a new credit card, you must specify a customer or recipient on which to create it.
+
+        If the card's owner has no default card, then the new card will become the default.
+        However, if the owner already has a default, then it will not change.
+        To change the default, you should [update the customer](https://stripe.com/docs/api#update_customer) to have a new default_source.
+        """
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
@@ -1793,6 +2053,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
+        """
+        Retrieve a specified source for a given customer.
+        """
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
@@ -1818,6 +2081,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ModifySourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
+        """
+        Update a specified source for a given customer.
+        """
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
@@ -1843,6 +2109,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.DeleteSourceParams"]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
+        """
+        Delete a specified source for a given customer.
+        """
         return cast(
             Union["Account", "BankAccount", "Card", "Source"],
             cls._static_request(
@@ -1867,6 +2136,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListSourcesParams"]
     ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
+        """
+        List sources for a specified customer.
+        """
         return cast(
             ListObject[Union["Account", "BankAccount", "Card", "Source"]],
             cls._static_request(
@@ -1890,6 +2162,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.CreateTaxIdParams"]
     ) -> "TaxId":
+        """
+        Creates a new tax_id object for a customer.
+        """
         return cast(
             "TaxId",
             cls._static_request(
@@ -1914,6 +2189,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveTaxIdParams"]
     ) -> "TaxId":
+        """
+        Retrieves the tax_id object with the given identifier.
+        """
         return cast(
             "TaxId",
             cls._static_request(
@@ -1939,6 +2217,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.DeleteTaxIdParams"]
     ) -> "TaxId":
+        """
+        Deletes an existing tax_id object.
+        """
         return cast(
             "TaxId",
             cls._static_request(
@@ -1963,6 +2244,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ListTaxIdsParams"]
     ) -> ListObject["TaxId"]:
+        """
+        Returns a list of tax IDs for a customer.
+        """
         return cast(
             ListObject["TaxId"],
             cls._static_request(
@@ -1986,6 +2270,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.ModifyCashBalanceParams"]
     ) -> "CashBalance":
+        """
+        Changes the settings on a customer's cash balance.
+        """
         return cast(
             "CashBalance",
             cls._static_request(
@@ -2009,6 +2296,9 @@ class Customer(
         stripe_account: Optional[str] = None,
         **params: Unpack["Customer.RetrieveCashBalanceParams"]
     ) -> "CashBalance":
+        """
+        Retrieves a customer's cash balance.
+        """
         return cast(
             "CashBalance",
             cls._static_request(
@@ -2035,6 +2325,9 @@ class Customer(
             stripe_account: Optional[str] = None,
             **params: Unpack["Customer.FundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
+            """
+            Create an incoming testmode bank transfer
+            """
             return cast(
                 "CustomerCashBalanceTransaction",
                 cls._static_request(
@@ -2059,6 +2352,9 @@ class Customer(
             stripe_account: Optional[str] = None,
             **params: Unpack["Customer.FundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
+            """
+            Create an incoming testmode bank transfer
+            """
             ...
 
         @overload
@@ -2067,6 +2363,9 @@ class Customer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Customer.FundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
+            """
+            Create an incoming testmode bank transfer
+            """
             ...
 
         @class_method_variant("_cls_fund_cash_balance")
@@ -2075,6 +2374,9 @@ class Customer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Customer.FundCashBalanceParams"]
         ) -> "CustomerCashBalanceTransaction":
+            """
+            Create an incoming testmode bank transfer
+            """
             return cast(
                 "CustomerCashBalanceTransaction",
                 self.resource._request(
@@ -2090,6 +2392,13 @@ class Customer(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {
+        "address": Address,
+        "invoice_settings": InvoiceSettings,
+        "shipping": Shipping,
+        "tax": Tax,
+    }
 
 
 Customer.TestHelpers._resource_cls = Customer

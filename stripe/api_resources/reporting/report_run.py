@@ -38,6 +38,41 @@ class ReportRun(
     OBJECT_NAME: ClassVar[
         Literal["reporting.report_run"]
     ] = "reporting.report_run"
+
+    class Parameters(StripeObject):
+        columns: Optional[List[str]]
+        """
+        The set of output columns requested for inclusion in the report run.
+        """
+        connected_account: Optional[str]
+        """
+        Connected account ID by which to filter the report run.
+        """
+        currency: Optional[str]
+        """
+        Currency of objects to be included in the report run.
+        """
+        interval_end: Optional[int]
+        """
+        Ending timestamp of data to be included in the report run. Can be any UTC timestamp between 1 second after the user specified `interval_start` and 1 second before this report's last `data_available_end` value.
+        """
+        interval_start: Optional[int]
+        """
+        Starting timestamp of data to be included in the report run. Can be any UTC timestamp between 1 second after this report's `data_available_start` and 1 second before the user specified `interval_end` value.
+        """
+        payout: Optional[str]
+        """
+        Payout ID by which to filter the report run.
+        """
+        reporting_category: Optional[str]
+        """
+        Category of balance transactions to be included in the report run.
+        """
+        timezone: Optional[str]
+        """
+        Defaults to `Etc/UTC`. The output timezone for all timestamps in the report. A list of possible time zone values is maintained at the [IANA Time Zone Database](http://www.iana.org/time-zones). Has no effect on `interval_start` or `interval_end`.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -156,7 +191,7 @@ class ReportRun(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    parameters: StripeObject
+    parameters: Parameters
     report_type: str
     """
     The ID of the [report type](https://stripe.com/docs/reports/report-types) to run, such as `"balance.summary.1"`.
@@ -187,6 +222,9 @@ class ReportRun(
         stripe_account: Optional[str] = None,
         **params: Unpack["ReportRun.CreateParams"]
     ) -> "ReportRun":
+        """
+        Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
+        """
         return cast(
             "ReportRun",
             cls._static_request(
@@ -208,6 +246,9 @@ class ReportRun(
         stripe_account: Optional[str] = None,
         **params: Unpack["ReportRun.ListParams"]
     ) -> ListObject["ReportRun"]:
+        """
+        Returns a list of Report Runs, with the most recent appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -229,6 +270,11 @@ class ReportRun(
     def retrieve(
         cls, id: str, **params: Unpack["ReportRun.RetrieveParams"]
     ) -> "ReportRun":
+        """
+        Retrieves the details of an existing Report Run.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"parameters": Parameters}

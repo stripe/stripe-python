@@ -11,7 +11,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from stripe.util import class_method_variant
-from typing import ClassVar, Dict, List, Optional, cast, overload
+from typing import Any, ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -24,10 +24,14 @@ from urllib.parse import quote_plus
 if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
+    from stripe.api_resources.bank_account import BankAccount
+    from stripe.api_resources.card import Card as CardResource
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.mandate import Mandate
+    from stripe.api_resources.payment_intent import PaymentIntent
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.setup_attempt import SetupAttempt
+    from stripe.api_resources.source import Source
 
 
 class SetupIntent(
@@ -60,6 +64,533 @@ class SetupIntent(
     """
 
     OBJECT_NAME: ClassVar[Literal["setup_intent"]] = "setup_intent"
+
+    class AutomaticPaymentMethods(StripeObject):
+        allow_redirects: Optional[Literal["always", "never"]]
+        """
+        Controls whether this SetupIntent will accept redirect-based payment methods.
+
+        Redirect-based payment methods may require your customer to be redirected to a payment method's app or site for authentication or additional steps. To [confirm](https://stripe.com/docs/api/setup_intents/confirm) this SetupIntent, you may be required to provide a `return_url` to redirect customers back to your site after they authenticate or complete the setup.
+        """
+        enabled: Optional[bool]
+        """
+        Automatically calculates compatible payment methods
+        """
+
+    class LastSetupError(StripeObject):
+        charge: Optional[str]
+        """
+        For card errors, the ID of the failed charge.
+        """
+        code: Optional[
+            Literal[
+                "account_closed",
+                "account_country_invalid_address",
+                "account_error_country_change_requires_additional_steps",
+                "account_information_mismatch",
+                "account_invalid",
+                "account_number_invalid",
+                "acss_debit_session_incomplete",
+                "alipay_upgrade_required",
+                "amount_too_large",
+                "amount_too_small",
+                "api_key_expired",
+                "application_fees_not_allowed",
+                "authentication_required",
+                "balance_insufficient",
+                "balance_invalid_parameter",
+                "bank_account_bad_routing_numbers",
+                "bank_account_declined",
+                "bank_account_exists",
+                "bank_account_restricted",
+                "bank_account_unusable",
+                "bank_account_unverified",
+                "bank_account_verification_failed",
+                "billing_invalid_mandate",
+                "bitcoin_upgrade_required",
+                "capture_charge_authorization_expired",
+                "capture_unauthorized_payment",
+                "card_decline_rate_limit_exceeded",
+                "card_declined",
+                "cardholder_phone_number_required",
+                "charge_already_captured",
+                "charge_already_refunded",
+                "charge_disputed",
+                "charge_exceeds_source_limit",
+                "charge_expired_for_capture",
+                "charge_invalid_parameter",
+                "charge_not_refundable",
+                "clearing_code_unsupported",
+                "country_code_invalid",
+                "country_unsupported",
+                "coupon_expired",
+                "customer_max_payment_methods",
+                "customer_max_subscriptions",
+                "debit_not_authorized",
+                "email_invalid",
+                "expired_card",
+                "idempotency_key_in_use",
+                "incorrect_address",
+                "incorrect_cvc",
+                "incorrect_number",
+                "incorrect_zip",
+                "instant_payouts_config_disabled",
+                "instant_payouts_currency_disabled",
+                "instant_payouts_limit_exceeded",
+                "instant_payouts_unsupported",
+                "insufficient_funds",
+                "intent_invalid_state",
+                "intent_verification_method_missing",
+                "invalid_card_type",
+                "invalid_characters",
+                "invalid_charge_amount",
+                "invalid_cvc",
+                "invalid_expiry_month",
+                "invalid_expiry_year",
+                "invalid_number",
+                "invalid_source_usage",
+                "invalid_tax_location",
+                "invoice_no_customer_line_items",
+                "invoice_no_payment_method_types",
+                "invoice_no_subscription_line_items",
+                "invoice_not_editable",
+                "invoice_on_behalf_of_not_editable",
+                "invoice_payment_intent_requires_action",
+                "invoice_upcoming_none",
+                "livemode_mismatch",
+                "lock_timeout",
+                "missing",
+                "no_account",
+                "not_allowed_on_standard_account",
+                "out_of_inventory",
+                "ownership_declaration_not_allowed",
+                "parameter_invalid_empty",
+                "parameter_invalid_integer",
+                "parameter_invalid_string_blank",
+                "parameter_invalid_string_empty",
+                "parameter_missing",
+                "parameter_unknown",
+                "parameters_exclusive",
+                "payment_intent_action_required",
+                "payment_intent_authentication_failure",
+                "payment_intent_incompatible_payment_method",
+                "payment_intent_invalid_parameter",
+                "payment_intent_konbini_rejected_confirmation_number",
+                "payment_intent_mandate_invalid",
+                "payment_intent_payment_attempt_expired",
+                "payment_intent_payment_attempt_failed",
+                "payment_intent_unexpected_state",
+                "payment_method_bank_account_already_verified",
+                "payment_method_bank_account_blocked",
+                "payment_method_billing_details_address_missing",
+                "payment_method_configuration_failures",
+                "payment_method_currency_mismatch",
+                "payment_method_customer_decline",
+                "payment_method_invalid_parameter",
+                "payment_method_invalid_parameter_testmode",
+                "payment_method_microdeposit_failed",
+                "payment_method_microdeposit_verification_amounts_invalid",
+                "payment_method_microdeposit_verification_amounts_mismatch",
+                "payment_method_microdeposit_verification_attempts_exceeded",
+                "payment_method_microdeposit_verification_descriptor_code_mismatch",
+                "payment_method_microdeposit_verification_timeout",
+                "payment_method_not_available",
+                "payment_method_provider_decline",
+                "payment_method_provider_timeout",
+                "payment_method_unactivated",
+                "payment_method_unexpected_state",
+                "payment_method_unsupported_type",
+                "payout_reconciliation_not_ready",
+                "payouts_limit_exceeded",
+                "payouts_not_allowed",
+                "platform_account_required",
+                "platform_api_key_expired",
+                "postal_code_invalid",
+                "processing_error",
+                "product_inactive",
+                "progressive_onboarding_limit_exceeded",
+                "rate_limit",
+                "refer_to_customer",
+                "refund_disputed_payment",
+                "resource_already_exists",
+                "resource_missing",
+                "return_intent_already_processed",
+                "routing_number_invalid",
+                "secret_key_required",
+                "sepa_unsupported_account",
+                "setup_attempt_failed",
+                "setup_intent_authentication_failure",
+                "setup_intent_invalid_parameter",
+                "setup_intent_mandate_invalid",
+                "setup_intent_setup_attempt_expired",
+                "setup_intent_unexpected_state",
+                "shipping_calculation_failed",
+                "sku_inactive",
+                "state_unsupported",
+                "status_transition_invalid",
+                "stripe_tax_inactive",
+                "tax_id_invalid",
+                "taxes_calculation_failed",
+                "terminal_location_country_unsupported",
+                "terminal_reader_busy",
+                "terminal_reader_offline",
+                "terminal_reader_timeout",
+                "testmode_charges_only",
+                "tls_version_unsupported",
+                "token_already_used",
+                "token_in_use",
+                "transfer_source_balance_parameters_mismatch",
+                "transfers_not_allowed",
+                "url_invalid",
+            ]
+        ]
+        """
+        For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
+        """
+        decline_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
+        """
+        doc_url: Optional[str]
+        """
+        A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
+        """
+        message: Optional[str]
+        """
+        A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
+        """
+        param: Optional[str]
+        """
+        If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
+        """
+        payment_intent: Optional["PaymentIntent"]
+        """
+        A PaymentIntent guides you through the process of collecting a payment from your customer.
+        We recommend that you create exactly one PaymentIntent for each order or
+        customer session in your system. You can reference the PaymentIntent later to
+        see the history of payment attempts for a particular session.
+
+        A PaymentIntent transitions through
+        [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+        throughout its lifetime as it interfaces with Stripe.js to perform
+        authentication flows and ultimately creates at most one successful charge.
+
+        Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
+        """
+        payment_method: Optional["PaymentMethod"]
+        """
+        PaymentMethod objects represent your customer's payment instruments.
+        You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+        Customer objects to store instrument details for future payments.
+
+        Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+        """
+        payment_method_type: Optional[str]
+        """
+        If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
+        """
+        request_log_url: Optional[str]
+        """
+        A URL to the request log entry in your dashboard.
+        """
+        setup_intent: Optional["SetupIntent"]
+        """
+        A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
+        For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
+        Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
+
+        Create a SetupIntent when you're ready to collect your customer's payment credentials.
+        Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
+        The SetupIntent transitions through multiple [statuses](https://stripe.com/docs/payments/intents#intent-statuses) as it guides
+        you through the setup process.
+
+        Successful SetupIntents result in payment credentials that are optimized for future payments.
+        For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
+        [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication) during payment method collection
+        to streamline later [off-session payments](https://stripe.com/docs/payments/setup-intents).
+        If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+        it automatically attaches the resulting payment method to that Customer after successful setup.
+        We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
+        PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
+
+        By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
+
+        Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
+        """
+        source: Optional[
+            Union["Account", "BankAccount", "CardResource", "Source"]
+        ]
+        type: Literal[
+            "api_error",
+            "card_error",
+            "idempotency_error",
+            "invalid_request_error",
+        ]
+        """
+        The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
+        """
+
+    class NextAction(StripeObject):
+        class CashappHandleRedirectOrDisplayQrCode(StripeObject):
+            class QrCode(StripeObject):
+                expires_at: int
+                """
+                The date (unix timestamp) when the QR code expires.
+                """
+                image_url_png: str
+                """
+                The image_url_png string used to render QR code
+                """
+                image_url_svg: str
+                """
+                The image_url_svg string used to render QR code
+                """
+
+            hosted_instructions_url: str
+            """
+            The URL to the hosted Cash App Pay instructions page, which allows customers to view the QR code, and supports QR code refreshing on expiration.
+            """
+            mobile_auth_url: str
+            """
+            The url for mobile redirect based auth
+            """
+            qr_code: QrCode
+            _inner_class_types = {"qr_code": QrCode}
+
+        class RedirectToUrl(StripeObject):
+            return_url: Optional[str]
+            """
+            If the customer does not exit their browser while authenticating, they will be redirected to this specified URL after completion.
+            """
+            url: Optional[str]
+            """
+            The URL you must redirect your customer to in order to authenticate.
+            """
+
+        class VerifyWithMicrodeposits(StripeObject):
+            arrival_date: int
+            """
+            The timestamp when the microdeposits are expected to land.
+            """
+            hosted_verification_url: str
+            """
+            The URL for the hosted verification page, which allows customers to verify their bank account.
+            """
+            microdeposit_type: Optional[Literal["amounts", "descriptor_code"]]
+            """
+            The type of the microdeposit sent to the customer. Used to distinguish between different verification methods.
+            """
+
+        cashapp_handle_redirect_or_display_qr_code: Optional[
+            CashappHandleRedirectOrDisplayQrCode
+        ]
+        redirect_to_url: Optional[RedirectToUrl]
+        type: str
+        """
+        Type of the next action to perform, one of `redirect_to_url`, `use_stripe_sdk`, `alipay_handle_redirect`, `oxxo_display_details`, or `verify_with_microdeposits`.
+        """
+        use_stripe_sdk: Optional[Dict[str, Any]]
+        """
+        When confirming a SetupIntent with Stripe.js, Stripe.js depends on the contents of this dictionary to invoke authentication flows. The shape of the contents is subject to change and is only intended to be used by Stripe.js.
+        """
+        verify_with_microdeposits: Optional[VerifyWithMicrodeposits]
+        _inner_class_types = {
+            "cashapp_handle_redirect_or_display_qr_code": CashappHandleRedirectOrDisplayQrCode,
+            "redirect_to_url": RedirectToUrl,
+            "verify_with_microdeposits": VerifyWithMicrodeposits,
+        }
+
+    class PaymentMethodConfigurationDetails(StripeObject):
+        id: str
+        """
+        ID of the payment method configuration used.
+        """
+        parent: Optional[str]
+        """
+        ID of the parent payment method configuration used.
+        """
+
+    class PaymentMethodOptions(StripeObject):
+        class AcssDebit(StripeObject):
+            class MandateOptions(StripeObject):
+                custom_mandate_url: Optional[str]
+                """
+                A URL for custom mandate text
+                """
+                default_for: Optional[List[Literal["invoice", "subscription"]]]
+                """
+                List of Stripe products where this mandate can be selected automatically.
+                """
+                interval_description: Optional[str]
+                """
+                Description of the interval. Only required if the 'payment_schedule' parameter is 'interval' or 'combined'.
+                """
+                payment_schedule: Optional[
+                    Literal["combined", "interval", "sporadic"]
+                ]
+                """
+                Payment schedule for the mandate.
+                """
+                transaction_type: Optional[Literal["business", "personal"]]
+                """
+                Transaction type of the mandate.
+                """
+
+            currency: Optional[Literal["cad", "usd"]]
+            """
+            Currency supported by the bank account
+            """
+            mandate_options: Optional[MandateOptions]
+            verification_method: Optional[
+                Literal["automatic", "instant", "microdeposits"]
+            ]
+            """
+            Bank account verification method.
+            """
+            _inner_class_types = {"mandate_options": MandateOptions}
+
+        class Card(StripeObject):
+            class MandateOptions(StripeObject):
+                amount: int
+                """
+                Amount to be charged for future payments.
+                """
+                amount_type: Literal["fixed", "maximum"]
+                """
+                One of `fixed` or `maximum`. If `fixed`, the `amount` param refers to the exact amount to be charged in future payments. If `maximum`, the amount charged can be up to the value passed for the `amount` param.
+                """
+                currency: str
+                """
+                Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+                """
+                description: Optional[str]
+                """
+                A description of the mandate or subscription that is meant to be displayed to the customer.
+                """
+                end_date: Optional[int]
+                """
+                End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
+                """
+                interval: Literal["day", "month", "sporadic", "week", "year"]
+                """
+                Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
+                """
+                interval_count: Optional[int]
+                """
+                The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
+                """
+                reference: str
+                """
+                Unique identifier for the mandate or subscription.
+                """
+                start_date: int
+                """
+                Start date of the mandate or subscription. Start date should not be lesser than yesterday.
+                """
+                supported_types: Optional[List[Literal["india"]]]
+                """
+                Specifies the type of mandates supported. Possible values are `india`.
+                """
+
+            mandate_options: Optional[MandateOptions]
+            """
+            Configuration options for setting up an eMandate for cards issued in India.
+            """
+            network: Optional[
+                Literal[
+                    "amex",
+                    "cartes_bancaires",
+                    "diners",
+                    "discover",
+                    "eftpos_au",
+                    "interac",
+                    "jcb",
+                    "mastercard",
+                    "unionpay",
+                    "unknown",
+                    "visa",
+                ]
+            ]
+            """
+            Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the setup intent. Can be only set confirm-time.
+            """
+            request_three_d_secure: Optional[
+                Literal["any", "automatic", "challenge_only"]
+            ]
+            """
+            We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+            """
+            _inner_class_types = {"mandate_options": MandateOptions}
+
+        class Link(StripeObject):
+            persistent_token: Optional[str]
+            """
+            [Deprecated] This is a legacy parameter that no longer has any function.
+            """
+
+        class Paypal(StripeObject):
+            billing_agreement_id: Optional[str]
+            """
+            The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
+            """
+
+        class SepaDebit(StripeObject):
+            class MandateOptions(StripeObject):
+                pass
+
+            mandate_options: Optional[MandateOptions]
+            _inner_class_types = {"mandate_options": MandateOptions}
+
+        class UsBankAccount(StripeObject):
+            class FinancialConnections(StripeObject):
+                permissions: Optional[
+                    List[
+                        Literal[
+                            "balances",
+                            "ownership",
+                            "payment_method",
+                            "transactions",
+                        ]
+                    ]
+                ]
+                """
+                The list of permissions to request. The `payment_method` permission must be included.
+                """
+                prefetch: Optional[List[Literal["balances"]]]
+                """
+                Data features requested to be retrieved upon account creation.
+                """
+                return_url: Optional[str]
+                """
+                For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+                """
+
+            financial_connections: Optional[FinancialConnections]
+            verification_method: Optional[
+                Literal["automatic", "instant", "microdeposits"]
+            ]
+            """
+            Bank account verification method.
+            """
+            _inner_class_types = {
+                "financial_connections": FinancialConnections
+            }
+
+        acss_debit: Optional[AcssDebit]
+        card: Optional[Card]
+        link: Optional[Link]
+        paypal: Optional[Paypal]
+        sepa_debit: Optional[SepaDebit]
+        us_bank_account: Optional[UsBankAccount]
+        _inner_class_types = {
+            "acss_debit": AcssDebit,
+            "card": Card,
+            "link": Link,
+            "paypal": Paypal,
+            "sepa_debit": SepaDebit,
+            "us_bank_account": UsBankAccount,
+        }
+
     if TYPE_CHECKING:
 
         class CancelParams(RequestOptions):
@@ -2680,7 +3211,7 @@ class SetupIntent(
 
     It can only be used for this Stripe Account's own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
     """
-    automatic_payment_methods: Optional[StripeObject]
+    automatic_payment_methods: Optional[AutomaticPaymentMethods]
     """
     Settings for dynamic payment methods compatible with this Setup Intent
     """
@@ -2720,7 +3251,7 @@ class SetupIntent(
     """
     Unique identifier for the object.
     """
-    last_setup_error: Optional[StripeObject]
+    last_setup_error: Optional[LastSetupError]
     """
     The error encountered in the previous SetupIntent confirmation.
     """
@@ -2740,7 +3271,7 @@ class SetupIntent(
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
-    next_action: Optional[StripeObject]
+    next_action: Optional[NextAction]
     """
     If present, this property tells you what actions you need to take in order for your customer to continue payment setup.
     """
@@ -2756,11 +3287,13 @@ class SetupIntent(
     """
     ID of the payment method used with this SetupIntent.
     """
-    payment_method_configuration_details: Optional[StripeObject]
+    payment_method_configuration_details: Optional[
+        PaymentMethodConfigurationDetails
+    ]
     """
     Information about the payment method configuration used for this Setup Intent.
     """
-    payment_method_options: Optional[StripeObject]
+    payment_method_options: Optional[PaymentMethodOptions]
     """
     Payment method-specific configuration for this SetupIntent.
     """
@@ -2799,6 +3332,11 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
         return cast(
             "SetupIntent",
             cls._static_request(
@@ -2823,6 +3361,11 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
         ...
 
     @overload
@@ -2831,6 +3374,11 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
         ...
 
     @class_method_variant("_cls_cancel")
@@ -2839,6 +3387,11 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.CancelParams"]
     ) -> "SetupIntent":
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
         return cast(
             "SetupIntent",
             self._request(
@@ -2860,6 +3413,22 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
         return cast(
             "SetupIntent",
             cls._static_request(
@@ -2884,6 +3453,22 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
         ...
 
     @overload
@@ -2892,6 +3477,22 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
         ...
 
     @class_method_variant("_cls_confirm")
@@ -2900,6 +3501,22 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.ConfirmParams"]
     ) -> "SetupIntent":
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
         return cast(
             "SetupIntent",
             self._request(
@@ -2921,6 +3538,12 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.CreateParams"]
     ) -> "SetupIntent":
+        """
+        Creates a SetupIntent object.
+
+        After you create the SetupIntent, attach a payment method and [confirm](https://stripe.com/docs/api/setup_intents/confirm)
+        it to collect any required permissions to charge the payment method later.
+        """
         return cast(
             "SetupIntent",
             cls._static_request(
@@ -2942,6 +3565,9 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.ListParams"]
     ) -> ListObject["SetupIntent"]:
+        """
+        Returns a list of SetupIntents.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -2963,6 +3589,9 @@ class SetupIntent(
     def modify(
         cls, id: str, **params: Unpack["SetupIntent.ModifyParams"]
     ) -> "SetupIntent":
+        """
+        Updates a SetupIntent object.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "SetupIntent",
@@ -2973,6 +3602,13 @@ class SetupIntent(
     def retrieve(
         cls, id: str, **params: Unpack["SetupIntent.RetrieveParams"]
     ) -> "SetupIntent":
+        """
+        Retrieves the details of a SetupIntent that has previously been created.
+
+        Client-side retrieval using a publishable key is allowed when the client_secret is provided in the query string.
+
+        When retrieved with a publishable key, only a subset of properties will be returned. Please refer to the [SetupIntent](https://stripe.com/docs/api#setup_intent_object) object reference for more details.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -2986,6 +3622,9 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
         return cast(
             "SetupIntent",
             cls._static_request(
@@ -3010,6 +3649,9 @@ class SetupIntent(
         stripe_account: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
         ...
 
     @overload
@@ -3018,6 +3660,9 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
         ...
 
     @class_method_variant("_cls_verify_microdeposits")
@@ -3026,6 +3671,9 @@ class SetupIntent(
         idempotency_key: Optional[str] = None,
         **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
     ) -> "SetupIntent":
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
         return cast(
             "SetupIntent",
             self._request(
@@ -3037,3 +3685,11 @@ class SetupIntent(
                 params=params,
             ),
         )
+
+    _inner_class_types = {
+        "automatic_payment_methods": AutomaticPaymentMethods,
+        "last_setup_error": LastSetupError,
+        "next_action": NextAction,
+        "payment_method_configuration_details": PaymentMethodConfigurationDetails,
+        "payment_method_options": PaymentMethodOptions,
+    }

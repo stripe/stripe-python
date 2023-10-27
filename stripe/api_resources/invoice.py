@@ -37,7 +37,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.account import Account
     from stripe.api_resources.application import Application
     from stripe.api_resources.bank_account import BankAccount
-    from stripe.api_resources.card import Card
+    from stripe.api_resources.card import Card as CardResource
     from stripe.api_resources.charge import Charge
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.discount import Discount
@@ -45,6 +45,8 @@ if TYPE_CHECKING:
     from stripe.api_resources.payment_intent import PaymentIntent
     from stripe.api_resources.payment_method import PaymentMethod
     from stripe.api_resources.quote import Quote
+    from stripe.api_resources.setup_intent import SetupIntent
+    from stripe.api_resources.shipping_rate import ShippingRate
     from stripe.api_resources.source import Source
     from stripe.api_resources.subscription import Subscription
     from stripe.api_resources.tax_id import TaxId
@@ -95,6 +97,844 @@ class Invoice(
     """
 
     OBJECT_NAME: ClassVar[Literal["invoice"]] = "invoice"
+
+    class AutomaticTax(StripeObject):
+        enabled: bool
+        """
+        Whether Stripe automatically computes tax on this invoice. Note that incompatible invoice items (invoice items with manually specified [tax rates](https://stripe.com/docs/api/tax_rates), negative amounts, or `tax_behavior=unspecified`) cannot be added to automatic tax invoices.
+        """
+        status: Optional[
+            Literal["complete", "failed", "requires_location_inputs"]
+        ]
+        """
+        The status of the most recent automated tax calculation for this invoice.
+        """
+
+    class CustomField(StripeObject):
+        name: str
+        """
+        The name of the custom field.
+        """
+        value: str
+        """
+        The value of the custom field.
+        """
+
+    class CustomerAddress(StripeObject):
+        city: Optional[str]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: Optional[str]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: Optional[str]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: Optional[str]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: Optional[str]
+        """
+        ZIP or postal code.
+        """
+        state: Optional[str]
+        """
+        State, county, province, or region.
+        """
+
+    class CustomerShipping(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region.
+            """
+
+        address: Optional[Address]
+        carrier: Optional[str]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: Optional[str]
+        """
+        Recipient name.
+        """
+        phone: Optional[str]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: Optional[str]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
+        _inner_class_types = {"address": Address}
+
+    class CustomerTaxId(StripeObject):
+        type: Literal[
+            "ad_nrt",
+            "ae_trn",
+            "ar_cuit",
+            "au_abn",
+            "au_arn",
+            "bg_uic",
+            "bo_tin",
+            "br_cnpj",
+            "br_cpf",
+            "ca_bn",
+            "ca_gst_hst",
+            "ca_pst_bc",
+            "ca_pst_mb",
+            "ca_pst_sk",
+            "ca_qst",
+            "ch_vat",
+            "cl_tin",
+            "cn_tin",
+            "co_nit",
+            "cr_tin",
+            "do_rcn",
+            "ec_ruc",
+            "eg_tin",
+            "es_cif",
+            "eu_oss_vat",
+            "eu_vat",
+            "gb_vat",
+            "ge_vat",
+            "hk_br",
+            "hu_tin",
+            "id_npwp",
+            "il_vat",
+            "in_gst",
+            "is_vat",
+            "jp_cn",
+            "jp_rn",
+            "jp_trn",
+            "ke_pin",
+            "kr_brn",
+            "li_uid",
+            "mx_rfc",
+            "my_frp",
+            "my_itn",
+            "my_sst",
+            "no_vat",
+            "nz_gst",
+            "pe_ruc",
+            "ph_tin",
+            "ro_tin",
+            "rs_pib",
+            "ru_inn",
+            "ru_kpp",
+            "sa_vat",
+            "sg_gst",
+            "sg_uen",
+            "si_tin",
+            "sv_nit",
+            "th_vat",
+            "tr_tin",
+            "tw_vat",
+            "ua_vat",
+            "unknown",
+            "us_ein",
+            "uy_ruc",
+            "ve_rif",
+            "vn_tin",
+            "za_vat",
+        ]
+        """
+        The type of the tax ID, one of `ad_nrt`, `ar_cuit`, `eu_vat`, `bo_tin`, `br_cnpj`, `br_cpf`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eu_oss_vat`, `pe_ruc`, `ro_tin`, `rs_pib`, `sv_nit`, `uy_ruc`, `ve_rif`, `vn_tin`, `gb_vat`, `nz_gst`, `au_abn`, `au_arn`, `in_gst`, `no_vat`, `za_vat`, `ch_vat`, `mx_rfc`, `sg_uen`, `ru_inn`, `ru_kpp`, `ca_bn`, `hk_br`, `es_cif`, `tw_vat`, `th_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `li_uid`, `my_itn`, `us_ein`, `kr_brn`, `ca_qst`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `my_sst`, `sg_gst`, `ae_trn`, `cl_tin`, `sa_vat`, `id_npwp`, `my_frp`, `il_vat`, `ge_vat`, `ua_vat`, `is_vat`, `bg_uic`, `hu_tin`, `si_tin`, `ke_pin`, `tr_tin`, `eg_tin`, `ph_tin`, or `unknown`
+        """
+        value: Optional[str]
+        """
+        The value of the tax ID.
+        """
+
+    class FromInvoice(StripeObject):
+        action: str
+        """
+        The relation between this invoice and the cloned invoice
+        """
+        invoice: ExpandableField["Invoice"]
+        """
+        The invoice that was cloned.
+        """
+
+    class LastFinalizationError(StripeObject):
+        charge: Optional[str]
+        """
+        For card errors, the ID of the failed charge.
+        """
+        code: Optional[
+            Literal[
+                "account_closed",
+                "account_country_invalid_address",
+                "account_error_country_change_requires_additional_steps",
+                "account_information_mismatch",
+                "account_invalid",
+                "account_number_invalid",
+                "acss_debit_session_incomplete",
+                "alipay_upgrade_required",
+                "amount_too_large",
+                "amount_too_small",
+                "api_key_expired",
+                "application_fees_not_allowed",
+                "authentication_required",
+                "balance_insufficient",
+                "balance_invalid_parameter",
+                "bank_account_bad_routing_numbers",
+                "bank_account_declined",
+                "bank_account_exists",
+                "bank_account_restricted",
+                "bank_account_unusable",
+                "bank_account_unverified",
+                "bank_account_verification_failed",
+                "billing_invalid_mandate",
+                "bitcoin_upgrade_required",
+                "capture_charge_authorization_expired",
+                "capture_unauthorized_payment",
+                "card_decline_rate_limit_exceeded",
+                "card_declined",
+                "cardholder_phone_number_required",
+                "charge_already_captured",
+                "charge_already_refunded",
+                "charge_disputed",
+                "charge_exceeds_source_limit",
+                "charge_expired_for_capture",
+                "charge_invalid_parameter",
+                "charge_not_refundable",
+                "clearing_code_unsupported",
+                "country_code_invalid",
+                "country_unsupported",
+                "coupon_expired",
+                "customer_max_payment_methods",
+                "customer_max_subscriptions",
+                "debit_not_authorized",
+                "email_invalid",
+                "expired_card",
+                "idempotency_key_in_use",
+                "incorrect_address",
+                "incorrect_cvc",
+                "incorrect_number",
+                "incorrect_zip",
+                "instant_payouts_config_disabled",
+                "instant_payouts_currency_disabled",
+                "instant_payouts_limit_exceeded",
+                "instant_payouts_unsupported",
+                "insufficient_funds",
+                "intent_invalid_state",
+                "intent_verification_method_missing",
+                "invalid_card_type",
+                "invalid_characters",
+                "invalid_charge_amount",
+                "invalid_cvc",
+                "invalid_expiry_month",
+                "invalid_expiry_year",
+                "invalid_number",
+                "invalid_source_usage",
+                "invalid_tax_location",
+                "invoice_no_customer_line_items",
+                "invoice_no_payment_method_types",
+                "invoice_no_subscription_line_items",
+                "invoice_not_editable",
+                "invoice_on_behalf_of_not_editable",
+                "invoice_payment_intent_requires_action",
+                "invoice_upcoming_none",
+                "livemode_mismatch",
+                "lock_timeout",
+                "missing",
+                "no_account",
+                "not_allowed_on_standard_account",
+                "out_of_inventory",
+                "ownership_declaration_not_allowed",
+                "parameter_invalid_empty",
+                "parameter_invalid_integer",
+                "parameter_invalid_string_blank",
+                "parameter_invalid_string_empty",
+                "parameter_missing",
+                "parameter_unknown",
+                "parameters_exclusive",
+                "payment_intent_action_required",
+                "payment_intent_authentication_failure",
+                "payment_intent_incompatible_payment_method",
+                "payment_intent_invalid_parameter",
+                "payment_intent_konbini_rejected_confirmation_number",
+                "payment_intent_mandate_invalid",
+                "payment_intent_payment_attempt_expired",
+                "payment_intent_payment_attempt_failed",
+                "payment_intent_unexpected_state",
+                "payment_method_bank_account_already_verified",
+                "payment_method_bank_account_blocked",
+                "payment_method_billing_details_address_missing",
+                "payment_method_configuration_failures",
+                "payment_method_currency_mismatch",
+                "payment_method_customer_decline",
+                "payment_method_invalid_parameter",
+                "payment_method_invalid_parameter_testmode",
+                "payment_method_microdeposit_failed",
+                "payment_method_microdeposit_verification_amounts_invalid",
+                "payment_method_microdeposit_verification_amounts_mismatch",
+                "payment_method_microdeposit_verification_attempts_exceeded",
+                "payment_method_microdeposit_verification_descriptor_code_mismatch",
+                "payment_method_microdeposit_verification_timeout",
+                "payment_method_not_available",
+                "payment_method_provider_decline",
+                "payment_method_provider_timeout",
+                "payment_method_unactivated",
+                "payment_method_unexpected_state",
+                "payment_method_unsupported_type",
+                "payout_reconciliation_not_ready",
+                "payouts_limit_exceeded",
+                "payouts_not_allowed",
+                "platform_account_required",
+                "platform_api_key_expired",
+                "postal_code_invalid",
+                "processing_error",
+                "product_inactive",
+                "progressive_onboarding_limit_exceeded",
+                "rate_limit",
+                "refer_to_customer",
+                "refund_disputed_payment",
+                "resource_already_exists",
+                "resource_missing",
+                "return_intent_already_processed",
+                "routing_number_invalid",
+                "secret_key_required",
+                "sepa_unsupported_account",
+                "setup_attempt_failed",
+                "setup_intent_authentication_failure",
+                "setup_intent_invalid_parameter",
+                "setup_intent_mandate_invalid",
+                "setup_intent_setup_attempt_expired",
+                "setup_intent_unexpected_state",
+                "shipping_calculation_failed",
+                "sku_inactive",
+                "state_unsupported",
+                "status_transition_invalid",
+                "stripe_tax_inactive",
+                "tax_id_invalid",
+                "taxes_calculation_failed",
+                "terminal_location_country_unsupported",
+                "terminal_reader_busy",
+                "terminal_reader_offline",
+                "terminal_reader_timeout",
+                "testmode_charges_only",
+                "tls_version_unsupported",
+                "token_already_used",
+                "token_in_use",
+                "transfer_source_balance_parameters_mismatch",
+                "transfers_not_allowed",
+                "url_invalid",
+            ]
+        ]
+        """
+        For some errors that could be handled programmatically, a short string indicating the [error code](https://stripe.com/docs/error-codes) reported.
+        """
+        decline_code: Optional[str]
+        """
+        For card errors resulting from a card issuer decline, a short string indicating the [card issuer's reason for the decline](https://stripe.com/docs/declines#issuer-declines) if they provide one.
+        """
+        doc_url: Optional[str]
+        """
+        A URL to more information about the [error code](https://stripe.com/docs/error-codes) reported.
+        """
+        message: Optional[str]
+        """
+        A human-readable message providing more details about the error. For card errors, these messages can be shown to your users.
+        """
+        param: Optional[str]
+        """
+        If the error is parameter-specific, the parameter related to the error. For example, you can use this to display a message near the correct form field.
+        """
+        payment_intent: Optional["PaymentIntent"]
+        """
+        A PaymentIntent guides you through the process of collecting a payment from your customer.
+        We recommend that you create exactly one PaymentIntent for each order or
+        customer session in your system. You can reference the PaymentIntent later to
+        see the history of payment attempts for a particular session.
+
+        A PaymentIntent transitions through
+        [multiple statuses](https://stripe.com/docs/payments/intents#intent-statuses)
+        throughout its lifetime as it interfaces with Stripe.js to perform
+        authentication flows and ultimately creates at most one successful charge.
+
+        Related guide: [Payment Intents API](https://stripe.com/docs/payments/payment-intents)
+        """
+        payment_method: Optional["PaymentMethod"]
+        """
+        PaymentMethod objects represent your customer's payment instruments.
+        You can use them with [PaymentIntents](https://stripe.com/docs/payments/payment-intents) to collect payments or save them to
+        Customer objects to store instrument details for future payments.
+
+        Related guides: [Payment Methods](https://stripe.com/docs/payments/payment-methods) and [More Payment Scenarios](https://stripe.com/docs/payments/more-payment-scenarios).
+        """
+        payment_method_type: Optional[str]
+        """
+        If the error is specific to the type of payment method, the payment method type that had a problem. This field is only populated for invoice-related errors.
+        """
+        request_log_url: Optional[str]
+        """
+        A URL to the request log entry in your dashboard.
+        """
+        setup_intent: Optional["SetupIntent"]
+        """
+        A SetupIntent guides you through the process of setting up and saving a customer's payment credentials for future payments.
+        For example, you can use a SetupIntent to set up and save your customer's card without immediately collecting a payment.
+        Later, you can use [PaymentIntents](https://stripe.com/docs/api#payment_intents) to drive the payment flow.
+
+        Create a SetupIntent when you're ready to collect your customer's payment credentials.
+        Don't maintain long-lived, unconfirmed SetupIntents because they might not be valid.
+        The SetupIntent transitions through multiple [statuses](https://stripe.com/docs/payments/intents#intent-statuses) as it guides
+        you through the setup process.
+
+        Successful SetupIntents result in payment credentials that are optimized for future payments.
+        For example, cardholders in [certain regions](https://stripe.com/guides/strong-customer-authentication) might need to be run through
+        [Strong Customer Authentication](https://stripe.com/docs/strong-customer-authentication) during payment method collection
+        to streamline later [off-session payments](https://stripe.com/docs/payments/setup-intents).
+        If you use the SetupIntent with a [Customer](https://stripe.com/docs/api#setup_intent_object-customer),
+        it automatically attaches the resulting payment method to that Customer after successful setup.
+        We recommend using SetupIntents or [setup_future_usage](https://stripe.com/docs/api#payment_intent_object-setup_future_usage) on
+        PaymentIntents to save payment methods to prevent saving invalid or unoptimized payment methods.
+
+        By using SetupIntents, you can reduce friction for your customers, even as regulations change over time.
+
+        Related guide: [Setup Intents API](https://stripe.com/docs/payments/setup-intents)
+        """
+        source: Optional[
+            Union["Account", "BankAccount", "CardResource", "Source"]
+        ]
+        type: Literal[
+            "api_error",
+            "card_error",
+            "idempotency_error",
+            "invalid_request_error",
+        ]
+        """
+        The type of error returned. One of `api_error`, `card_error`, `idempotency_error`, or `invalid_request_error`
+        """
+
+    class PaymentSettings(StripeObject):
+        class PaymentMethodOptions(StripeObject):
+            class AcssDebit(StripeObject):
+                class MandateOptions(StripeObject):
+                    transaction_type: Optional[Literal["business", "personal"]]
+                    """
+                    Transaction type of the mandate.
+                    """
+
+                mandate_options: Optional[MandateOptions]
+                verification_method: Optional[
+                    Literal["automatic", "instant", "microdeposits"]
+                ]
+                """
+                Bank account verification method.
+                """
+                _inner_class_types = {"mandate_options": MandateOptions}
+
+            class Bancontact(StripeObject):
+                preferred_language: Literal["de", "en", "fr", "nl"]
+                """
+                Preferred language of the Bancontact authorization page that the customer is redirected to.
+                """
+
+            class Card(StripeObject):
+                class Installments(StripeObject):
+                    enabled: Optional[bool]
+                    """
+                    Whether Installments are enabled for this Invoice.
+                    """
+
+                installments: Optional[Installments]
+                request_three_d_secure: Optional[Literal["any", "automatic"]]
+                """
+                We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
+                """
+                _inner_class_types = {"installments": Installments}
+
+            class CustomerBalance(StripeObject):
+                class BankTransfer(StripeObject):
+                    class EuBankTransfer(StripeObject):
+                        country: Literal["BE", "DE", "ES", "FR", "IE", "NL"]
+                        """
+                        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+                        """
+
+                    eu_bank_transfer: Optional[EuBankTransfer]
+                    type: Optional[str]
+                    """
+                    The bank transfer type that can be used for funding. Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
+                    """
+                    _inner_class_types = {"eu_bank_transfer": EuBankTransfer}
+
+                bank_transfer: Optional[BankTransfer]
+                funding_type: Optional[Literal["bank_transfer"]]
+                """
+                The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
+                """
+                _inner_class_types = {"bank_transfer": BankTransfer}
+
+            class Konbini(StripeObject):
+                pass
+
+            class UsBankAccount(StripeObject):
+                class FinancialConnections(StripeObject):
+                    permissions: Optional[
+                        List[
+                            Literal[
+                                "balances", "payment_method", "transactions"
+                            ]
+                        ]
+                    ]
+                    """
+                    The list of permissions to request. The `payment_method` permission must be included.
+                    """
+                    prefetch: Optional[List[Literal["balances"]]]
+                    """
+                    Data features requested to be retrieved upon account creation.
+                    """
+
+                financial_connections: Optional[FinancialConnections]
+                verification_method: Optional[
+                    Literal["automatic", "instant", "microdeposits"]
+                ]
+                """
+                Bank account verification method.
+                """
+                _inner_class_types = {
+                    "financial_connections": FinancialConnections,
+                }
+
+            acss_debit: Optional[AcssDebit]
+            """
+            If paying by `acss_debit`, this sub-hash contains details about the Canadian pre-authorized debit payment method options to pass to the invoice's PaymentIntent.
+            """
+            bancontact: Optional[Bancontact]
+            """
+            If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the invoice's PaymentIntent.
+            """
+            card: Optional[Card]
+            """
+            If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the invoice's PaymentIntent.
+            """
+            customer_balance: Optional[CustomerBalance]
+            """
+            If paying by `customer_balance`, this sub-hash contains details about the Bank transfer payment method options to pass to the invoice's PaymentIntent.
+            """
+            konbini: Optional[Konbini]
+            """
+            If paying by `konbini`, this sub-hash contains details about the Konbini payment method options to pass to the invoice's PaymentIntent.
+            """
+            us_bank_account: Optional[UsBankAccount]
+            """
+            If paying by `us_bank_account`, this sub-hash contains details about the ACH direct debit payment method options to pass to the invoice's PaymentIntent.
+            """
+            _inner_class_types = {
+                "acss_debit": AcssDebit,
+                "bancontact": Bancontact,
+                "card": Card,
+                "customer_balance": CustomerBalance,
+                "konbini": Konbini,
+                "us_bank_account": UsBankAccount,
+            }
+
+        default_mandate: Optional[str]
+        """
+        ID of the mandate to be used for this invoice. It must correspond to the payment method used to pay the invoice, including the invoice's default_payment_method or default_source, if set.
+        """
+        payment_method_options: Optional[PaymentMethodOptions]
+        """
+        Payment-method-specific configuration to provide to the invoice's PaymentIntent.
+        """
+        payment_method_types: Optional[
+            List[
+                Literal[
+                    "ach_credit_transfer",
+                    "ach_debit",
+                    "acss_debit",
+                    "au_becs_debit",
+                    "bacs_debit",
+                    "bancontact",
+                    "boleto",
+                    "card",
+                    "cashapp",
+                    "customer_balance",
+                    "fpx",
+                    "giropay",
+                    "grabpay",
+                    "ideal",
+                    "konbini",
+                    "link",
+                    "paynow",
+                    "paypal",
+                    "promptpay",
+                    "sepa_credit_transfer",
+                    "sepa_debit",
+                    "sofort",
+                    "us_bank_account",
+                    "wechat_pay",
+                ]
+            ]
+        ]
+        """
+        The list of payment method types (e.g. card) to provide to the invoice's PaymentIntent. If not set, Stripe attempts to automatically determine the types to use by looking at the invoice's default payment method, the subscription's default payment method, the customer's default payment method, and your [invoice template settings](https://dashboard.stripe.com/settings/billing/invoice).
+        """
+        _inner_class_types = {"payment_method_options": PaymentMethodOptions}
+
+    class Rendering(StripeObject):
+        class Pdf(StripeObject):
+            page_size: Optional[Literal["a4", "auto", "letter"]]
+            """
+            Page size of invoice pdf. Options include a4, letter, and auto. If set to auto, page size will be switched to a4 or letter based on customer locale.
+            """
+
+        amount_tax_display: Optional[str]
+        """
+        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
+        """
+        pdf: Optional[Pdf]
+        """
+        Invoice pdf rendering options
+        """
+        _inner_class_types = {"pdf": Pdf}
+
+    class RenderingOptions(StripeObject):
+        amount_tax_display: Optional[str]
+        """
+        How line-item prices and amounts will be displayed with respect to tax on invoice PDFs.
+        """
+
+    class ShippingCost(StripeObject):
+        class Tax(StripeObject):
+            amount: int
+            """
+            Amount of tax applied for this rate.
+            """
+            rate: "TaxRate"
+            """
+            Tax rates can be applied to [invoices](https://stripe.com/docs/billing/invoices/tax-rates), [subscriptions](https://stripe.com/docs/billing/subscriptions/taxes) and [Checkout Sessions](https://stripe.com/docs/payments/checkout/set-up-a-subscription#tax-rates) to collect tax.
+
+            Related guide: [Tax rates](https://stripe.com/docs/billing/taxes/tax-rates)
+            """
+            taxability_reason: Optional[
+                Literal[
+                    "customer_exempt",
+                    "not_collecting",
+                    "not_subject_to_tax",
+                    "not_supported",
+                    "portion_product_exempt",
+                    "portion_reduced_rated",
+                    "portion_standard_rated",
+                    "product_exempt",
+                    "product_exempt_holiday",
+                    "proportionally_rated",
+                    "reduced_rated",
+                    "reverse_charge",
+                    "standard_rated",
+                    "taxable_basis_reduced",
+                    "zero_rated",
+                ]
+            ]
+            """
+            The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+            """
+            taxable_amount: Optional[int]
+            """
+            The amount on which tax is calculated, in cents (or local equivalent).
+            """
+
+        amount_subtotal: int
+        """
+        Total shipping cost before any taxes are applied.
+        """
+        amount_tax: int
+        """
+        Total tax amount applied due to shipping costs. If no tax was applied, defaults to 0.
+        """
+        amount_total: int
+        """
+        Total shipping cost after taxes are applied.
+        """
+        shipping_rate: Optional[ExpandableField["ShippingRate"]]
+        """
+        The ID of the ShippingRate for this invoice.
+        """
+        taxes: Optional[List[Tax]]
+        """
+        The taxes applied to the shipping rate.
+        """
+        _inner_class_types = {"taxes": Tax}
+
+    class ShippingDetails(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region.
+            """
+
+        address: Optional[Address]
+        carrier: Optional[str]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: Optional[str]
+        """
+        Recipient name.
+        """
+        phone: Optional[str]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: Optional[str]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
+        _inner_class_types = {"address": Address}
+
+    class StatusTransitions(StripeObject):
+        finalized_at: Optional[int]
+        """
+        The time that the invoice draft was finalized.
+        """
+        marked_uncollectible_at: Optional[int]
+        """
+        The time that the invoice was marked uncollectible.
+        """
+        paid_at: Optional[int]
+        """
+        The time that the invoice was paid.
+        """
+        voided_at: Optional[int]
+        """
+        The time that the invoice was voided.
+        """
+
+    class SubscriptionDetails(StripeObject):
+        metadata: Optional[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will reflect the metadata of the subscription at the time of invoice creation. *Note: This attribute is populated only for invoices created on or after June 29, 2023.*
+        """
+
+    class ThresholdReason(StripeObject):
+        class ItemReason(StripeObject):
+            line_item_ids: List[str]
+            """
+            The IDs of the line items that triggered the threshold invoice.
+            """
+            usage_gte: int
+            """
+            The quantity threshold boundary that applied to the given line item.
+            """
+
+        amount_gte: Optional[int]
+        """
+        The total invoice amount threshold boundary if it triggered the threshold invoice.
+        """
+        item_reasons: List[ItemReason]
+        """
+        Indicates which line items triggered a threshold invoice.
+        """
+        _inner_class_types = {"item_reasons": ItemReason}
+
+    class TotalDiscountAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the discount.
+        """
+        discount: ExpandableField["Discount"]
+        """
+        The discount that was applied to get this discount amount.
+        """
+
+    class TotalTaxAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the tax.
+        """
+        inclusive: bool
+        """
+        Whether this tax amount is inclusive or exclusive.
+        """
+        tax_rate: ExpandableField["TaxRate"]
+        """
+        The tax rate that was applied to get this tax amount.
+        """
+        taxability_reason: Optional[
+            Literal[
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ]
+        ]
+        """
+        The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+        """
+        taxable_amount: Optional[int]
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
+        """
+
+    class TransferData(StripeObject):
+        amount: Optional[int]
+        """
+        The amount in cents (or local equivalent) that will be transferred to the destination account when the invoice is paid. By default, the entire amount is transferred to the destination.
+        """
+        destination: ExpandableField["Account"]
+        """
+        The account where funds from the payment will be transferred to upon payment success.
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -2468,7 +3308,7 @@ class Invoice(
     """
     Controls whether Stripe performs [automatic collection](https://stripe.com/docs/invoicing/integration/automatic-advancement-collection) of the invoice. If `false`, the invoice's state doesn't automatically advance without an explicit action.
     """
-    automatic_tax: StripeObject
+    automatic_tax: AutomaticTax
     billing_reason: Optional[
         Literal[
             "automatic_pending_invoice_item_invoice",
@@ -2509,7 +3349,7 @@ class Invoice(
     """
     Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
     """
-    custom_fields: Optional[List[StripeObject]]
+    custom_fields: Optional[List[CustomField]]
     """
     Custom fields displayed on the invoice.
     """
@@ -2517,7 +3357,7 @@ class Invoice(
     """
     The ID of the customer who will be billed.
     """
-    customer_address: Optional[StripeObject]
+    customer_address: Optional[CustomerAddress]
     """
     The customer's address. Until the invoice is finalized, this field will equal `customer.address`. Once the invoice is finalized, this field will no longer be updated.
     """
@@ -2533,7 +3373,7 @@ class Invoice(
     """
     The customer's phone number. Until the invoice is finalized, this field will equal `customer.phone`. Once the invoice is finalized, this field will no longer be updated.
     """
-    customer_shipping: Optional[StripeObject]
+    customer_shipping: Optional[CustomerShipping]
     """
     The customer's shipping information. Until the invoice is finalized, this field will equal `customer.shipping`. Once the invoice is finalized, this field will no longer be updated.
     """
@@ -2541,7 +3381,7 @@ class Invoice(
     """
     The customer's tax exempt status. Until the invoice is finalized, this field will equal `customer.tax_exempt`. Once the invoice is finalized, this field will no longer be updated.
     """
-    customer_tax_ids: Optional[List[StripeObject]]
+    customer_tax_ids: Optional[List[CustomerTaxId]]
     """
     The customer's tax IDs. Until the invoice is finalized, this field will contain the same tax IDs as `customer.tax_ids`. Once the invoice is finalized, this field will no longer be updated.
     """
@@ -2550,7 +3390,9 @@ class Invoice(
     ID of the default payment method for the invoice. It must belong to the customer associated with the invoice. If not set, defaults to the subscription's default payment method, if any, or to the default payment method in the customer's invoice settings.
     """
     default_source: Optional[
-        ExpandableField[Union["Account", "BankAccount", "Card", "Source"]]
+        ExpandableField[
+            Union["Account", "BankAccount", "CardResource", "Source"]
+        ]
     ]
     """
     ID of the default payment source for the invoice. It must belong to the customer associated with the invoice and be in a chargeable state. If not set, defaults to the subscription's default source, if any, or to the customer's default source.
@@ -2587,7 +3429,7 @@ class Invoice(
     """
     Footer displayed on the invoice.
     """
-    from_invoice: Optional[StripeObject]
+    from_invoice: Optional[FromInvoice]
     """
     Details of the invoice that was cloned. See the [revision documentation](https://stripe.com/docs/invoicing/invoice-revisions) for more details.
     """
@@ -2603,7 +3445,7 @@ class Invoice(
     """
     The link to download the PDF for the invoice. If the invoice has not been finalized yet, this will be null.
     """
-    last_finalization_error: Optional[StripeObject]
+    last_finalization_error: Optional[LastFinalizationError]
     """
     The error encountered during the previous attempt to finalize the invoice. This field is cleared when the invoice is successfully finalized.
     """
@@ -2651,7 +3493,7 @@ class Invoice(
     """
     The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized, and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent.
     """
-    payment_settings: StripeObject
+    payment_settings: PaymentSettings
     period_end: int
     """
     End of the usage period during which invoice items were added to this invoice.
@@ -2676,19 +3518,19 @@ class Invoice(
     """
     This is the transaction number that appears on email receipts sent for this invoice.
     """
-    rendering: Optional[StripeObject]
+    rendering: Optional[Rendering]
     """
     The rendering-related settings that control how the invoice is displayed on customer-facing surfaces such as PDF and Hosted Invoice Page.
     """
-    rendering_options: Optional[StripeObject]
+    rendering_options: Optional[RenderingOptions]
     """
     This is a legacy field that will be removed soon. For details about `rendering_options`, refer to `rendering` instead. Options for invoice PDF rendering.
     """
-    shipping_cost: Optional[StripeObject]
+    shipping_cost: Optional[ShippingCost]
     """
     The details of the cost of shipping, including the ShippingRate applied on the invoice.
     """
-    shipping_details: Optional[StripeObject]
+    shipping_details: Optional[ShippingDetails]
     """
     Shipping details for the invoice. The Invoice PDF will use the `shipping_details` value if it is set, otherwise the PDF will render the shipping address from the customer.
     """
@@ -2704,12 +3546,12 @@ class Invoice(
     """
     The status of the invoice, one of `draft`, `open`, `paid`, `uncollectible`, or `void`. [Learn more](https://stripe.com/docs/billing/invoices/workflow#workflow-overview)
     """
-    status_transitions: StripeObject
+    status_transitions: StatusTransitions
     subscription: Optional[ExpandableField["Subscription"]]
     """
     The subscription that this invoice was prepared for, if any.
     """
-    subscription_details: Optional[StripeObject]
+    subscription_details: Optional[SubscriptionDetails]
     """
     Details about the subscription that created this invoice.
     """
@@ -2733,12 +3575,12 @@ class Invoice(
     """
     ID of the test clock this invoice belongs to.
     """
-    threshold_reason: Optional[StripeObject]
+    threshold_reason: Optional[ThresholdReason]
     total: int
     """
     Total after discounts and taxes.
     """
-    total_discount_amounts: Optional[List[StripeObject]]
+    total_discount_amounts: Optional[List[TotalDiscountAmount]]
     """
     The aggregate amounts calculated per discount across all line items.
     """
@@ -2746,11 +3588,11 @@ class Invoice(
     """
     The integer amount in cents (or local equivalent) representing the total amount of the invoice including all discounts but excluding all tax.
     """
-    total_tax_amounts: List[StripeObject]
+    total_tax_amounts: List[TotalTaxAmount]
     """
     The aggregate amounts calculated per tax rate for all line items.
     """
-    transfer_data: Optional[StripeObject]
+    transfer_data: Optional[TransferData]
     """
     The account (if any) the payment will be attributed to for tax reporting, and where funds from the payment will be transferred to for the invoice.
     """
@@ -2772,6 +3614,9 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.CreateParams"]
     ) -> "Invoice":
+        """
+        This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://stripe.com/docs/api#finalize_invoice) the invoice to your customers.
+        """
         return cast(
             "Invoice",
             cls._static_request(
@@ -2789,6 +3634,9 @@ class Invoice(
     def _cls_delete(
         cls, sid: str, **params: Unpack["Invoice.DeleteParams"]
     ) -> "Invoice":
+        """
+        Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Invoice",
@@ -2800,16 +3648,25 @@ class Invoice(
     def delete(
         cls, sid: str, **params: Unpack["Invoice.DeleteParams"]
     ) -> "Invoice":
+        """
+        Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+        """
         ...
 
     @overload
     def delete(self, **params: Unpack["Invoice.DeleteParams"]) -> "Invoice":
+        """
+        Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Invoice.DeleteParams"]
     ) -> "Invoice":
+        """
+        Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -2825,6 +3682,9 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.FinalizeInvoiceParams"]
     ) -> "Invoice":
+        """
+        Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
+        """
         return cast(
             "Invoice",
             cls._static_request(
@@ -2849,6 +3709,9 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.FinalizeInvoiceParams"]
     ) -> "Invoice":
+        """
+        Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
+        """
         ...
 
     @overload
@@ -2857,6 +3720,9 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.FinalizeInvoiceParams"]
     ) -> "Invoice":
+        """
+        Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
+        """
         ...
 
     @class_method_variant("_cls_finalize_invoice")
@@ -2865,6 +3731,9 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.FinalizeInvoiceParams"]
     ) -> "Invoice":
+        """
+        Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
+        """
         return cast(
             "Invoice",
             self._request(
@@ -2885,6 +3754,9 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.ListParams"]
     ) -> ListObject["Invoice"]:
+        """
+        You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -2911,6 +3783,9 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.MarkUncollectibleParams"]
     ) -> "Invoice":
+        """
+        Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
+        """
         return cast(
             "Invoice",
             cls._static_request(
@@ -2935,6 +3810,9 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.MarkUncollectibleParams"]
     ) -> "Invoice":
+        """
+        Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
+        """
         ...
 
     @overload
@@ -2943,6 +3821,9 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.MarkUncollectibleParams"]
     ) -> "Invoice":
+        """
+        Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
+        """
         ...
 
     @class_method_variant("_cls_mark_uncollectible")
@@ -2951,6 +3832,9 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.MarkUncollectibleParams"]
     ) -> "Invoice":
+        """
+        Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
+        """
         return cast(
             "Invoice",
             self._request(
@@ -2967,6 +3851,14 @@ class Invoice(
     def modify(
         cls, id: str, **params: Unpack["Invoice.ModifyParams"]
     ) -> "Invoice":
+        """
+        Draft invoices are fully editable. Once an invoice is [finalized](https://stripe.com/docs/billing/invoices/workflow#finalized),
+        monetary values, as well as collection_method, become uneditable.
+
+        If you would like to stop the Stripe Billing engine from automatically finalizing, reattempting payments on,
+        sending reminders for, or [automatically reconciling](https://stripe.com/docs/billing/invoices/reconciliation) invoices, pass
+        auto_advance=false.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Invoice",
@@ -2982,6 +3874,9 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.PayParams"]
     ) -> "Invoice":
+        """
+        Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
+        """
         return cast(
             "Invoice",
             cls._static_request(
@@ -3006,6 +3901,9 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.PayParams"]
     ) -> "Invoice":
+        """
+        Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
+        """
         ...
 
     @overload
@@ -3014,6 +3912,9 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.PayParams"]
     ) -> "Invoice":
+        """
+        Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
+        """
         ...
 
     @class_method_variant("_cls_pay")
@@ -3022,6 +3923,9 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.PayParams"]
     ) -> "Invoice":
+        """
+        Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
+        """
         return cast(
             "Invoice",
             self._request(
@@ -3038,6 +3942,9 @@ class Invoice(
     def retrieve(
         cls, id: str, **params: Unpack["Invoice.RetrieveParams"]
     ) -> "Invoice":
+        """
+        Retrieves the invoice with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -3051,6 +3958,11 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.SendInvoiceParams"]
     ) -> "Invoice":
+        """
+        Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
+
+        Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
+        """
         return cast(
             "Invoice",
             cls._static_request(
@@ -3075,6 +3987,11 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.SendInvoiceParams"]
     ) -> "Invoice":
+        """
+        Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
+
+        Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
+        """
         ...
 
     @overload
@@ -3083,6 +4000,11 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.SendInvoiceParams"]
     ) -> "Invoice":
+        """
+        Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
+
+        Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
+        """
         ...
 
     @class_method_variant("_cls_send_invoice")
@@ -3091,6 +4013,11 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.SendInvoiceParams"]
     ) -> "Invoice":
+        """
+        Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
+
+        Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
+        """
         return cast(
             "Invoice",
             self._request(
@@ -3111,6 +4038,13 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.UpcomingParams"]
     ) -> "Invoice":
+        """
+        At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
+
+        Note that when you are viewing an upcoming invoice, you are simply viewing a preview – the invoice has not yet been created. As such, the upcoming invoice will not show up in invoice listing calls, and you cannot use the API to pay or edit the invoice. If you want to change the amount that your customer will be billed, you can add, remove, or update pending invoice items, or update the customer's discount.
+
+        You can preview the effects of updating a subscription, including a preview of what proration will take place. To ensure that the actual proration is calculated exactly the same as the previewed proration, you should pass a proration_date parameter when doing the actual subscription update. The value passed in should be the same as the subscription_proration_date returned on the upcoming invoice resource. The recommended way to get only the prorations being previewed is to consider only proration line items where period[start] is equal to the subscription_proration_date on the upcoming invoice resource.
+        """
         return cast(
             "Invoice",
             cls._static_request(
@@ -3131,6 +4065,9 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.UpcomingLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
+        """
+        When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         return cast(
             ListObject["InvoiceLineItem"],
             cls._static_request(
@@ -3152,6 +4089,9 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.VoidInvoiceParams"]
     ) -> "Invoice":
+        """
+        Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+        """
         return cast(
             "Invoice",
             cls._static_request(
@@ -3176,6 +4116,9 @@ class Invoice(
         stripe_account: Optional[str] = None,
         **params: Unpack["Invoice.VoidInvoiceParams"]
     ) -> "Invoice":
+        """
+        Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+        """
         ...
 
     @overload
@@ -3184,6 +4127,9 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.VoidInvoiceParams"]
     ) -> "Invoice":
+        """
+        Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+        """
         ...
 
     @class_method_variant("_cls_void_invoice")
@@ -3192,6 +4138,9 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Invoice.VoidInvoiceParams"]
     ) -> "Invoice":
+        """
+        Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
+        """
         return cast(
             "Invoice",
             self._request(
@@ -3208,6 +4157,12 @@ class Invoice(
     def search(
         cls, *args, **kwargs: Unpack["Invoice.SearchParams"]
     ) -> SearchResultObject["Invoice"]:
+        """
+        Search for invoices you've previously created using Stripe's [Search Query Language](https://stripe.com/docs/search#search-query-language).
+        Don't use search in read-after-write flows where strict consistency is necessary. Under normal operating
+        conditions, data is searchable in less than a minute. Occasionally, propagation of new or updated data can be up
+        to an hour behind during outages. Search functionality is not available to merchants in India.
+        """
         return cls._search(search_url="/v1/invoices/search", *args, **kwargs)
 
     @classmethod
@@ -3215,3 +4170,24 @@ class Invoice(
         cls, *args, **kwargs: Unpack["Invoice.SearchParams"]
     ) -> Iterator["Invoice"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
+
+    _inner_class_types = {
+        "automatic_tax": AutomaticTax,
+        "custom_fields": CustomField,
+        "customer_address": CustomerAddress,
+        "customer_shipping": CustomerShipping,
+        "customer_tax_ids": CustomerTaxId,
+        "from_invoice": FromInvoice,
+        "last_finalization_error": LastFinalizationError,
+        "payment_settings": PaymentSettings,
+        "rendering": Rendering,
+        "rendering_options": RenderingOptions,
+        "shipping_cost": ShippingCost,
+        "shipping_details": ShippingDetails,
+        "status_transitions": StatusTransitions,
+        "subscription_details": SubscriptionDetails,
+        "threshold_reason": ThresholdReason,
+        "total_discount_amounts": TotalDiscountAmount,
+        "total_tax_amounts": TotalTaxAmount,
+        "transfer_data": TransferData,
+    }

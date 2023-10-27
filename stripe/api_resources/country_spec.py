@@ -19,6 +19,32 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["country_spec"]] = "country_spec"
+
+    class VerificationFields(StripeObject):
+        class Company(StripeObject):
+            additional: List[str]
+            """
+            Additional fields which are only required for some users.
+            """
+            minimum: List[str]
+            """
+            Fields which every account must eventually provide.
+            """
+
+        class Individual(StripeObject):
+            additional: List[str]
+            """
+            Additional fields which are only required for some users.
+            """
+            minimum: List[str]
+            """
+            Fields which every account must eventually provide.
+            """
+
+        company: Company
+        individual: Individual
+        _inner_class_types = {"company": Company, "individual": Individual}
+
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
@@ -73,7 +99,7 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
     """
     Countries that can accept transfers from the specified country.
     """
-    verification_fields: StripeObject
+    verification_fields: VerificationFields
 
     @classmethod
     def list(
@@ -83,6 +109,9 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["CountrySpec.ListParams"]
     ) -> ListObject["CountrySpec"]:
+        """
+        Lists all Country Spec objects available in the API.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -104,6 +133,11 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
     def retrieve(
         cls, id: str, **params: Unpack["CountrySpec.RetrieveParams"]
     ) -> "CountrySpec":
+        """
+        Returns a Country Spec for a given Country code.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {"verification_fields": VerificationFields}

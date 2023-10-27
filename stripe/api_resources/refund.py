@@ -37,6 +37,36 @@ class Refund(
     """
 
     OBJECT_NAME: ClassVar[Literal["refund"]] = "refund"
+
+    class NextAction(StripeObject):
+        class DisplayDetails(StripeObject):
+            class EmailSent(StripeObject):
+                email_sent_at: int
+                """
+                The timestamp when the email was sent.
+                """
+                email_sent_to: str
+                """
+                The recipient's email address.
+                """
+
+            email_sent: EmailSent
+            expires_at: int
+            """
+            The expiry timestamp.
+            """
+            _inner_class_types = {"email_sent": EmailSent}
+
+        display_details: Optional[DisplayDetails]
+        """
+        Contains the refund details.
+        """
+        type: str
+        """
+        Type of the next action to perform.
+        """
+        _inner_class_types = {"display_details": DisplayDetails}
+
     if TYPE_CHECKING:
 
         class CancelParams(RequestOptions):
@@ -182,7 +212,7 @@ class Refund(
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
-    next_action: Optional[StripeObject]
+    next_action: Optional[NextAction]
     object: Literal["refund"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -228,6 +258,11 @@ class Refund(
         stripe_account: Optional[str] = None,
         **params: Unpack["Refund.CancelParams"]
     ) -> "Refund":
+        """
+        Cancels a refund with a status of requires_action.
+
+        You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
+        """
         return cast(
             "Refund",
             cls._static_request(
@@ -252,6 +287,11 @@ class Refund(
         stripe_account: Optional[str] = None,
         **params: Unpack["Refund.CancelParams"]
     ) -> "Refund":
+        """
+        Cancels a refund with a status of requires_action.
+
+        You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
+        """
         ...
 
     @overload
@@ -260,6 +300,11 @@ class Refund(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Refund.CancelParams"]
     ) -> "Refund":
+        """
+        Cancels a refund with a status of requires_action.
+
+        You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
+        """
         ...
 
     @class_method_variant("_cls_cancel")
@@ -268,6 +313,11 @@ class Refund(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Refund.CancelParams"]
     ) -> "Refund":
+        """
+        Cancels a refund with a status of requires_action.
+
+        You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
+        """
         return cast(
             "Refund",
             self._request(
@@ -289,6 +339,19 @@ class Refund(
         stripe_account: Optional[str] = None,
         **params: Unpack["Refund.CreateParams"]
     ) -> "Refund":
+        """
+        When you create a new refund, you must specify a Charge or a PaymentIntent object on which to create it.
+
+        Creating a new refund will refund a charge that has previously been created but not yet refunded.
+        Funds will be refunded to the credit or debit card that was originally charged.
+
+        You can optionally refund only part of a charge.
+        You can do so multiple times, until the entire charge has been refunded.
+
+        Once entirely refunded, a charge can't be refunded again.
+        This method will raise an error when called on an already-refunded charge,
+        or when trying to refund more money than is left on a charge.
+        """
         return cast(
             "Refund",
             cls._static_request(
@@ -310,6 +373,9 @@ class Refund(
         stripe_account: Optional[str] = None,
         **params: Unpack["Refund.ListParams"]
     ) -> ListObject["Refund"]:
+        """
+        You can see a list of the refunds belonging to a specific charge. Note that the 10 most recent refunds are always available by default on the charge object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -331,6 +397,11 @@ class Refund(
     def modify(
         cls, id: str, **params: Unpack["Refund.ModifyParams"]
     ) -> "Refund":
+        """
+        Updates the refund that you specify by setting the values of the passed parameters. Any parameters that you don't provide remain unchanged.
+
+        This request only accepts metadata as an argument.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Refund",
@@ -341,6 +412,9 @@ class Refund(
     def retrieve(
         cls, id: str, **params: Unpack["Refund.RetrieveParams"]
     ) -> "Refund":
+        """
+        Retrieves the details of an existing refund.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -357,6 +431,9 @@ class Refund(
             stripe_account: Optional[str] = None,
             **params: Unpack["Refund.ExpireParams"]
         ) -> "Refund":
+            """
+            Expire a refund with a status of requires_action.
+            """
             return cast(
                 "Refund",
                 cls._static_request(
@@ -381,6 +458,9 @@ class Refund(
             stripe_account: Optional[str] = None,
             **params: Unpack["Refund.ExpireParams"]
         ) -> "Refund":
+            """
+            Expire a refund with a status of requires_action.
+            """
             ...
 
         @overload
@@ -389,6 +469,9 @@ class Refund(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Refund.ExpireParams"]
         ) -> "Refund":
+            """
+            Expire a refund with a status of requires_action.
+            """
             ...
 
         @class_method_variant("_cls_expire")
@@ -397,6 +480,9 @@ class Refund(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Refund.ExpireParams"]
         ) -> "Refund":
+            """
+            Expire a refund with a status of requires_action.
+            """
             return cast(
                 "Refund",
                 self.resource._request(
@@ -412,6 +498,8 @@ class Refund(
     @property
     def test_helpers(self):
         return self.TestHelpers(self)
+
+    _inner_class_types = {"next_action": NextAction}
 
 
 Refund.TestHelpers._resource_cls = Refund

@@ -44,6 +44,13 @@ class SubscriptionItem(
     """
 
     OBJECT_NAME: ClassVar[Literal["subscription_item"]] = "subscription_item"
+
+    class BillingThresholds(StripeObject):
+        usage_gte: Optional[int]
+        """
+        Usage threshold that triggers the subscription to create an invoice
+        """
+
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
@@ -342,7 +349,7 @@ class SubscriptionItem(
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
-    billing_thresholds: Optional[StripeObject]
+    billing_thresholds: Optional[BillingThresholds]
     """
     Define thresholds at which an invoice will be sent, and the related subscription advanced to a new billing period
     """
@@ -408,6 +415,9 @@ class SubscriptionItem(
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionItem.CreateParams"]
     ) -> "SubscriptionItem":
+        """
+        Adds a new item to an existing subscription. No existing items will be changed or replaced.
+        """
         return cast(
             "SubscriptionItem",
             cls._static_request(
@@ -425,6 +435,9 @@ class SubscriptionItem(
     def _cls_delete(
         cls, sid: str, **params: Unpack["SubscriptionItem.DeleteParams"]
     ) -> "SubscriptionItem":
+        """
+        Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "SubscriptionItem",
@@ -436,18 +449,27 @@ class SubscriptionItem(
     def delete(
         cls, sid: str, **params: Unpack["SubscriptionItem.DeleteParams"]
     ) -> "SubscriptionItem":
+        """
+        Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
+        """
         ...
 
     @overload
     def delete(
         self, **params: Unpack["SubscriptionItem.DeleteParams"]
     ) -> "SubscriptionItem":
+        """
+        Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["SubscriptionItem.DeleteParams"]
     ) -> "SubscriptionItem":
+        """
+        Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -462,6 +484,9 @@ class SubscriptionItem(
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionItem.ListParams"]
     ) -> ListObject["SubscriptionItem"]:
+        """
+        Returns a list of your subscription items for a given subscription.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -483,6 +508,9 @@ class SubscriptionItem(
     def modify(
         cls, id: str, **params: Unpack["SubscriptionItem.ModifyParams"]
     ) -> "SubscriptionItem":
+        """
+        Updates the plan or quantity of an item on a current subscription.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "SubscriptionItem",
@@ -493,6 +521,9 @@ class SubscriptionItem(
     def retrieve(
         cls, id: str, **params: Unpack["SubscriptionItem.RetrieveParams"]
     ) -> "SubscriptionItem":
+        """
+        Retrieves the subscription item with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -506,6 +537,15 @@ class SubscriptionItem(
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionItem.CreateUsageRecordParams"]
     ) -> "UsageRecord":
+        """
+        Creates a usage record for a specified subscription item and date, and fills it with a quantity.
+
+        Usage records provide quantity information that Stripe uses to track how much a customer is using your service. With usage information and the pricing model set up by the [metered billing](https://stripe.com/docs/billing/subscriptions/metered-billing) plan, Stripe helps you send accurate invoices to your customers.
+
+        The default calculation for usage is to add up all the quantity values of the usage records within a billing period. You can change this default behavior with the billing plan's aggregate_usage [parameter](https://stripe.com/docs/api/plans/create#create_plan-aggregate_usage). When there is more than one usage record with the same timestamp, Stripe adds the quantity values together. In most cases, this is the desired resolution, however, you can change this behavior with the action parameter.
+
+        The default pricing model for metered billing is [per-unit pricing. For finer granularity, you can configure metered billing to have a <a href="https://stripe.com/docs/billing/subscriptions/tiers">tiered pricing](https://stripe.com/docs/api/plans/object#plan_object-billing_scheme) model.
+        """
         return cast(
             "UsageRecord",
             cls._static_request(
@@ -529,6 +569,11 @@ class SubscriptionItem(
         stripe_account: Optional[str] = None,
         **params: Unpack["SubscriptionItem.ListUsageRecordSummariesParams"]
     ) -> ListObject["UsageRecordSummary"]:
+        """
+        For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that's been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the month of September).
+
+        The list is sorted in reverse-chronological order (newest first). The first list item represents the most current usage period that hasn't ended yet. Since new usage records can still be added, the returned summary information for the subscription item's ID should be seen as unstable until the subscription billing period ends.
+        """
         return cast(
             ListObject["UsageRecordSummary"],
             cls._static_request(
@@ -542,3 +587,5 @@ class SubscriptionItem(
                 params=params,
             ),
         )
+
+    _inner_class_types = {"billing_thresholds": BillingThresholds}

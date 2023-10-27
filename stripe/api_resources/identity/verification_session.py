@@ -49,6 +49,136 @@ class VerificationSession(
     OBJECT_NAME: ClassVar[
         Literal["identity.verification_session"]
     ] = "identity.verification_session"
+
+    class LastError(StripeObject):
+        code: Optional[
+            Literal[
+                "abandoned",
+                "consent_declined",
+                "country_not_supported",
+                "device_not_supported",
+                "document_expired",
+                "document_type_not_supported",
+                "document_unverified_other",
+                "id_number_insufficient_document_data",
+                "id_number_mismatch",
+                "id_number_unverified_other",
+                "selfie_document_missing_photo",
+                "selfie_face_mismatch",
+                "selfie_manipulated",
+                "selfie_unverified_other",
+                "under_supported_age",
+            ]
+        ]
+        """
+        A short machine-readable string giving the reason for the verification or user-session failure.
+        """
+        reason: Optional[str]
+        """
+        A message that explains the reason for verification or user-session failure.
+        """
+
+    class Options(StripeObject):
+        class Document(StripeObject):
+            allowed_types: Optional[
+                List[Literal["driving_license", "id_card", "passport"]]
+            ]
+            """
+            Array of strings of allowed identity document types. If the provided identity document isn't one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
+            """
+            require_id_number: Optional[bool]
+            """
+            Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document's extracted name and date of birth.
+            """
+            require_live_capture: Optional[bool]
+            """
+            Disable image uploads, identity document images have to be captured using the device's camera.
+            """
+            require_matching_selfie: Optional[bool]
+            """
+            Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
+            """
+
+        class IdNumber(StripeObject):
+            pass
+
+        document: Optional[Document]
+        id_number: Optional[IdNumber]
+        _inner_class_types = {"document": Document, "id_number": IdNumber}
+
+    class Redaction(StripeObject):
+        status: Literal["processing", "redacted"]
+        """
+        Indicates whether this object and its related objects have been redacted or not.
+        """
+
+    class VerifiedOutputs(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: Optional[str]
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State, county, province, or region.
+            """
+
+        class Dob(StripeObject):
+            day: Optional[int]
+            """
+            Numerical day between 1 and 31.
+            """
+            month: Optional[int]
+            """
+            Numerical month between 1 and 12.
+            """
+            year: Optional[int]
+            """
+            The four-digit year.
+            """
+
+        address: Optional[Address]
+        """
+        The user's verified address.
+        """
+        dob: Optional[Dob]
+        """
+        The user's verified date of birth.
+        """
+        first_name: Optional[str]
+        """
+        The user's verified first name.
+        """
+        id_number: Optional[str]
+        """
+        The user's verified id number.
+        """
+        id_number_type: Optional[Literal["br_cpf", "sg_nric", "us_ssn"]]
+        """
+        The user's verified id number type.
+        """
+        last_name: Optional[str]
+        """
+        The user's verified last name.
+        """
+        _inner_class_types = {"address": Address, "dob": Dob}
+
     if TYPE_CHECKING:
 
         class CancelParams(RequestOptions):
@@ -226,7 +356,7 @@ class VerificationSession(
     """
     Unique identifier for the object.
     """
-    last_error: Optional[StripeObject]
+    last_error: Optional[LastError]
     """
     If present, this property tells you the last error encountered when processing the verification.
     """
@@ -246,11 +376,11 @@ class VerificationSession(
     """
     String representing the object's type. Objects of the same type share the same value.
     """
-    options: Optional[StripeObject]
+    options: Optional[Options]
     """
     A set of options for the session's verification checks.
     """
-    redaction: Optional[StripeObject]
+    redaction: Optional[Redaction]
     """
     Redaction status of this VerificationSession. If the VerificationSession is not redacted, this field will be null.
     """
@@ -266,7 +396,7 @@ class VerificationSession(
     """
     The short-lived URL that you use to redirect a user to Stripe to submit their identity information. This URL expires after 48 hours and can only be used once. Don't store it, log it, send it in emails or expose it to anyone other than the user. Refer to our docs on [verifying identity documents](https://stripe.com/docs/identity/verify-identity-documents?platform=web&type=redirect) to learn how to redirect users to Stripe.
     """
-    verified_outputs: Optional[StripeObject]
+    verified_outputs: Optional[VerifiedOutputs]
     """
     The user's verified data.
     """
@@ -280,6 +410,11 @@ class VerificationSession(
         stripe_account: Optional[str] = None,
         **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
+        """
+        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        """
         return cast(
             "VerificationSession",
             cls._static_request(
@@ -304,6 +439,11 @@ class VerificationSession(
         stripe_account: Optional[str] = None,
         **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
+        """
+        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        """
         ...
 
     @overload
@@ -312,6 +452,11 @@ class VerificationSession(
         idempotency_key: Optional[str] = None,
         **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
+        """
+        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        """
         ...
 
     @class_method_variant("_cls_cancel")
@@ -320,6 +465,11 @@ class VerificationSession(
         idempotency_key: Optional[str] = None,
         **params: Unpack["VerificationSession.CancelParams"]
     ) -> "VerificationSession":
+        """
+        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
+
+        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
+        """
         return cast(
             "VerificationSession",
             self._request(
@@ -341,6 +491,15 @@ class VerificationSession(
         stripe_account: Optional[str] = None,
         **params: Unpack["VerificationSession.CreateParams"]
     ) -> "VerificationSession":
+        """
+        Creates a VerificationSession object.
+
+        After the VerificationSession is created, display a verification modal using the session client_secret or send your users to the session's url.
+
+        If your API key is in test mode, verification checks won't actually process, though everything else will occur as if in live mode.
+
+        Related guide: [Verify your users' identity documents](https://stripe.com/docs/identity/verify-identity-documents)
+        """
         return cast(
             "VerificationSession",
             cls._static_request(
@@ -362,6 +521,9 @@ class VerificationSession(
         stripe_account: Optional[str] = None,
         **params: Unpack["VerificationSession.ListParams"]
     ) -> ListObject["VerificationSession"]:
+        """
+        Returns a list of VerificationSessions
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -383,6 +545,12 @@ class VerificationSession(
     def modify(
         cls, id: str, **params: Unpack["VerificationSession.ModifyParams"]
     ) -> "VerificationSession":
+        """
+        Updates a VerificationSession object.
+
+        When the session status is requires_input, you can use this method to update the
+        verification check and options.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "VerificationSession",
@@ -398,6 +566,27 @@ class VerificationSession(
         stripe_account: Optional[str] = None,
         **params: Unpack["VerificationSession.RedactParams"]
     ) -> "VerificationSession":
+        """
+        Redact a VerificationSession to remove all collected information from Stripe. This will redact
+        the VerificationSession and all objects related to it, including VerificationReports, Events,
+        request logs, etc.
+
+        A VerificationSession object can be redacted when it is in requires_input or verified
+        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        state will automatically cancel it.
+
+        The redaction process may take up to four days. When the redaction process is in progress, the
+        VerificationSession's redaction.status field will be set to processing; when the process is
+        finished, it will change to redacted and an identity.verification_session.redacted event
+        will be emitted.
+
+        Redaction is irreversible. Redacted objects are still accessible in the Stripe API, but all the
+        fields that contain personal data will be replaced by the string [redacted] or a similar
+        placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
+        used for any purpose.
+
+        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        """
         return cast(
             "VerificationSession",
             cls._static_request(
@@ -422,6 +611,27 @@ class VerificationSession(
         stripe_account: Optional[str] = None,
         **params: Unpack["VerificationSession.RedactParams"]
     ) -> "VerificationSession":
+        """
+        Redact a VerificationSession to remove all collected information from Stripe. This will redact
+        the VerificationSession and all objects related to it, including VerificationReports, Events,
+        request logs, etc.
+
+        A VerificationSession object can be redacted when it is in requires_input or verified
+        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        state will automatically cancel it.
+
+        The redaction process may take up to four days. When the redaction process is in progress, the
+        VerificationSession's redaction.status field will be set to processing; when the process is
+        finished, it will change to redacted and an identity.verification_session.redacted event
+        will be emitted.
+
+        Redaction is irreversible. Redacted objects are still accessible in the Stripe API, but all the
+        fields that contain personal data will be replaced by the string [redacted] or a similar
+        placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
+        used for any purpose.
+
+        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        """
         ...
 
     @overload
@@ -430,6 +640,27 @@ class VerificationSession(
         idempotency_key: Optional[str] = None,
         **params: Unpack["VerificationSession.RedactParams"]
     ) -> "VerificationSession":
+        """
+        Redact a VerificationSession to remove all collected information from Stripe. This will redact
+        the VerificationSession and all objects related to it, including VerificationReports, Events,
+        request logs, etc.
+
+        A VerificationSession object can be redacted when it is in requires_input or verified
+        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        state will automatically cancel it.
+
+        The redaction process may take up to four days. When the redaction process is in progress, the
+        VerificationSession's redaction.status field will be set to processing; when the process is
+        finished, it will change to redacted and an identity.verification_session.redacted event
+        will be emitted.
+
+        Redaction is irreversible. Redacted objects are still accessible in the Stripe API, but all the
+        fields that contain personal data will be replaced by the string [redacted] or a similar
+        placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
+        used for any purpose.
+
+        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        """
         ...
 
     @class_method_variant("_cls_redact")
@@ -438,6 +669,27 @@ class VerificationSession(
         idempotency_key: Optional[str] = None,
         **params: Unpack["VerificationSession.RedactParams"]
     ) -> "VerificationSession":
+        """
+        Redact a VerificationSession to remove all collected information from Stripe. This will redact
+        the VerificationSession and all objects related to it, including VerificationReports, Events,
+        request logs, etc.
+
+        A VerificationSession object can be redacted when it is in requires_input or verified
+        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
+        state will automatically cancel it.
+
+        The redaction process may take up to four days. When the redaction process is in progress, the
+        VerificationSession's redaction.status field will be set to processing; when the process is
+        finished, it will change to redacted and an identity.verification_session.redacted event
+        will be emitted.
+
+        Redaction is irreversible. Redacted objects are still accessible in the Stripe API, but all the
+        fields that contain personal data will be replaced by the string [redacted] or a similar
+        placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
+        used for any purpose.
+
+        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
+        """
         return cast(
             "VerificationSession",
             self._request(
@@ -454,6 +706,19 @@ class VerificationSession(
     def retrieve(
         cls, id: str, **params: Unpack["VerificationSession.RetrieveParams"]
     ) -> "VerificationSession":
+        """
+        Retrieves the details of a VerificationSession that was previously created.
+
+        When the session status is requires_input, you can use this method to retrieve a valid
+        client_secret or url to allow re-submission.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
+
+    _inner_class_types = {
+        "last_error": LastError,
+        "options": Options,
+        "redaction": Redaction,
+        "verified_outputs": VerifiedOutputs,
+    }

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe.api_resources.abstract import ListableAPIResource
+from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
@@ -8,6 +9,7 @@ from typing import ClassVar, List, Optional
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
+    from stripe.api_resources.discount import Discount
     from stripe.api_resources.tax_rate import TaxRate
 
 
@@ -19,6 +21,57 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
     OBJECT_NAME: ClassVar[
         Literal["credit_note_line_item"]
     ] = "credit_note_line_item"
+
+    class DiscountAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the discount.
+        """
+        discount: ExpandableField["Discount"]
+        """
+        The discount that was applied to get this discount amount.
+        """
+
+    class TaxAmount(StripeObject):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the tax.
+        """
+        inclusive: bool
+        """
+        Whether this tax amount is inclusive or exclusive.
+        """
+        tax_rate: ExpandableField["TaxRate"]
+        """
+        The tax rate that was applied to get this tax amount.
+        """
+        taxability_reason: Optional[
+            Literal[
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+            ]
+        ]
+        """
+        The reasoning behind this tax, for example, if the product is tax exempt. The possible values for this field may be extended as new tax rules are supported.
+        """
+        taxable_amount: Optional[int]
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
+        """
+
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
@@ -55,7 +108,7 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
     """
     The integer amount in cents (or local equivalent) representing the discount being credited for this line item.
     """
-    discount_amounts: List[StripeObject]
+    discount_amounts: List[DiscountAmount]
     """
     The amount of discount calculated per discount for this line item
     """
@@ -79,7 +132,7 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
     """
     The number of units of product being credited.
     """
-    tax_amounts: List[StripeObject]
+    tax_amounts: List[TaxAmount]
     """
     The amount of tax calculated per tax rate for this line item
     """
@@ -112,6 +165,9 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNoteLineItem.ListParams"]
     ) -> ListObject["CreditNoteLineItem"]:
+        """
+        When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -128,3 +184,8 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
             )
 
         return result
+
+    _inner_class_types = {
+        "discount_amounts": DiscountAmount,
+        "tax_amounts": TaxAmount,
+    }

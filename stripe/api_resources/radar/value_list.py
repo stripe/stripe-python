@@ -199,6 +199,9 @@ class ValueList(
         stripe_account: Optional[str] = None,
         **params: Unpack["ValueList.CreateParams"]
     ) -> "ValueList":
+        """
+        Creates a new ValueList object, which can then be referenced in rules.
+        """
         return cast(
             "ValueList",
             cls._static_request(
@@ -216,6 +219,9 @@ class ValueList(
     def _cls_delete(
         cls, sid: str, **params: Unpack["ValueList.DeleteParams"]
     ) -> "ValueList":
+        """
+        Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "ValueList",
@@ -227,18 +233,27 @@ class ValueList(
     def delete(
         cls, sid: str, **params: Unpack["ValueList.DeleteParams"]
     ) -> "ValueList":
+        """
+        Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
+        """
         ...
 
     @overload
     def delete(
         self, **params: Unpack["ValueList.DeleteParams"]
     ) -> "ValueList":
+        """
+        Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["ValueList.DeleteParams"]
     ) -> "ValueList":
+        """
+        Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -253,6 +268,9 @@ class ValueList(
         stripe_account: Optional[str] = None,
         **params: Unpack["ValueList.ListParams"]
     ) -> ListObject["ValueList"]:
+        """
+        Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -274,6 +292,9 @@ class ValueList(
     def modify(
         cls, id: str, **params: Unpack["ValueList.ModifyParams"]
     ) -> "ValueList":
+        """
+        Updates a ValueList object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Note that item_type is immutable.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "ValueList",
@@ -284,6 +305,9 @@ class ValueList(
     def retrieve(
         cls, id: str, **params: Unpack["ValueList.RetrieveParams"]
     ) -> "ValueList":
+        """
+        Retrieves a ValueList object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
