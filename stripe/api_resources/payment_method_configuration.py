@@ -2288,6 +2288,9 @@ class PaymentMethodConfiguration(
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethodConfiguration.CreateParams"]
     ) -> "PaymentMethodConfiguration":
+        """
+        Creates a payment method configuration
+        """
         return cast(
             "PaymentMethodConfiguration",
             cls._static_request(
@@ -2309,6 +2312,9 @@ class PaymentMethodConfiguration(
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethodConfiguration.ListParams"]
     ) -> ListObject["PaymentMethodConfiguration"]:
+        """
+        List payment method configurations
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -2332,6 +2338,9 @@ class PaymentMethodConfiguration(
         id: str,
         **params: Unpack["PaymentMethodConfiguration.ModifyParams"]
     ) -> "PaymentMethodConfiguration":
+        """
+        Update payment method configuration
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PaymentMethodConfiguration",
@@ -2344,6 +2353,9 @@ class PaymentMethodConfiguration(
         id: str,
         **params: Unpack["PaymentMethodConfiguration.RetrieveParams"]
     ) -> "PaymentMethodConfiguration":
+        """
+        Retrieve payment method configuration
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

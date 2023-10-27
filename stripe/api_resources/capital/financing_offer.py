@@ -226,6 +226,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancingOffer.ListParams"]
     ) -> ListObject["FinancingOffer"]:
+        """
+        Retrieves the financing offers available for Connected accounts that belong to your platform.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -252,6 +255,10 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancingOffer.MarkDeliveredParams"]
     ) -> "FinancingOffer":
+        """
+        Acknowledges that platform has received and delivered the financing_offer to
+        the intended merchant recipient.
+        """
         return cast(
             "FinancingOffer",
             cls._static_request(
@@ -276,6 +283,10 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancingOffer.MarkDeliveredParams"]
     ) -> "FinancingOffer":
+        """
+        Acknowledges that platform has received and delivered the financing_offer to
+        the intended merchant recipient.
+        """
         ...
 
     @overload
@@ -284,6 +295,10 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancingOffer.MarkDeliveredParams"]
     ) -> "FinancingOffer":
+        """
+        Acknowledges that platform has received and delivered the financing_offer to
+        the intended merchant recipient.
+        """
         ...
 
     @class_method_variant("_cls_mark_delivered")
@@ -292,6 +307,10 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["FinancingOffer.MarkDeliveredParams"]
     ) -> "FinancingOffer":
+        """
+        Acknowledges that platform has received and delivered the financing_offer to
+        the intended merchant recipient.
+        """
         return cast(
             "FinancingOffer",
             self._request(
@@ -308,6 +327,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     def retrieve(
         cls, id: str, **params: Unpack["FinancingOffer.RetrieveParams"]
     ) -> "FinancingOffer":
+        """
+        Get the details of the financing offer
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

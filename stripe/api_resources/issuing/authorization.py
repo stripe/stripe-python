@@ -777,6 +777,10 @@ class Authorization(
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         return cast(
             "Authorization",
             cls._static_request(
@@ -801,6 +805,10 @@ class Authorization(
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         ...
 
     @overload
@@ -809,6 +817,10 @@ class Authorization(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         ...
 
     @class_method_variant("_cls_approve")
@@ -817,6 +829,10 @@ class Authorization(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.ApproveParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         return cast(
             "Authorization",
             self._request(
@@ -838,6 +854,10 @@ class Authorization(
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         return cast(
             "Authorization",
             cls._static_request(
@@ -862,6 +882,10 @@ class Authorization(
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         ...
 
     @overload
@@ -870,6 +894,10 @@ class Authorization(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         ...
 
     @class_method_variant("_cls_decline")
@@ -878,6 +906,10 @@ class Authorization(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Authorization.DeclineParams"]
     ) -> "Authorization":
+        """
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
         return cast(
             "Authorization",
             self._request(
@@ -898,6 +930,9 @@ class Authorization(
         stripe_account: Optional[str] = None,
         **params: Unpack["Authorization.ListParams"]
     ) -> ListObject["Authorization"]:
+        """
+        Returns a list of Issuing Authorization objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -919,6 +954,9 @@ class Authorization(
     def modify(
         cls, id: str, **params: Unpack["Authorization.ModifyParams"]
     ) -> "Authorization":
+        """
+        Updates the specified Issuing Authorization object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Authorization",
@@ -929,6 +967,9 @@ class Authorization(
     def retrieve(
         cls, id: str, **params: Unpack["Authorization.RetrieveParams"]
     ) -> "Authorization":
+        """
+        Retrieves an Issuing Authorization object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -945,6 +986,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
+            """
+            Capture a test-mode authorization.
+            """
             return cast(
                 "Authorization",
                 cls._static_request(
@@ -969,6 +1013,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
+            """
+            Capture a test-mode authorization.
+            """
             ...
 
         @overload
@@ -977,6 +1024,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
+            """
+            Capture a test-mode authorization.
+            """
             ...
 
         @class_method_variant("_cls_capture")
@@ -985,6 +1035,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.CaptureParams"]
         ) -> "Authorization":
+            """
+            Capture a test-mode authorization.
+            """
             return cast(
                 "Authorization",
                 self.resource._request(
@@ -1005,6 +1058,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.CreateParams"]
         ) -> "Authorization":
+            """
+            Create a test-mode authorization.
+            """
             return cast(
                 "Authorization",
                 cls._static_request(
@@ -1026,6 +1082,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
+            """
+            Expire a test-mode Authorization.
+            """
             return cast(
                 "Authorization",
                 cls._static_request(
@@ -1050,6 +1109,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
+            """
+            Expire a test-mode Authorization.
+            """
             ...
 
         @overload
@@ -1058,6 +1120,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
+            """
+            Expire a test-mode Authorization.
+            """
             ...
 
         @class_method_variant("_cls_expire")
@@ -1066,6 +1131,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ExpireParams"]
         ) -> "Authorization":
+            """
+            Expire a test-mode Authorization.
+            """
             return cast(
                 "Authorization",
                 self.resource._request(
@@ -1087,6 +1155,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
+            """
+            Increment a test-mode Authorization.
+            """
             return cast(
                 "Authorization",
                 cls._static_request(
@@ -1111,6 +1182,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
+            """
+            Increment a test-mode Authorization.
+            """
             ...
 
         @overload
@@ -1119,6 +1193,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
+            """
+            Increment a test-mode Authorization.
+            """
             ...
 
         @class_method_variant("_cls_increment")
@@ -1127,6 +1204,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.IncrementParams"]
         ) -> "Authorization":
+            """
+            Increment a test-mode Authorization.
+            """
             return cast(
                 "Authorization",
                 self.resource._request(
@@ -1148,6 +1228,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
+            """
+            Reverse a test-mode Authorization.
+            """
             return cast(
                 "Authorization",
                 cls._static_request(
@@ -1172,6 +1255,9 @@ class Authorization(
             stripe_account: Optional[str] = None,
             **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
+            """
+            Reverse a test-mode Authorization.
+            """
             ...
 
         @overload
@@ -1180,6 +1266,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
+            """
+            Reverse a test-mode Authorization.
+            """
             ...
 
         @class_method_variant("_cls_reverse")
@@ -1188,6 +1277,9 @@ class Authorization(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Authorization.ReverseParams"]
         ) -> "Authorization":
+            """
+            Reverse a test-mode Authorization.
+            """
             return cast(
                 "Authorization",
                 self.resource._request(

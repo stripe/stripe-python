@@ -1715,6 +1715,21 @@ class PaymentMethod(
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethod.AttachParams"]
     ) -> "PaymentMethod":
+        """
+        Attaches a PaymentMethod object to a Customer.
+
+        To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://stripe.com/docs/api/setup_intents)
+        or a PaymentIntent with [setup_future_usage](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
+        These approaches will perform any necessary steps to set up the PaymentMethod for future payments. Using the /v1/payment_methods/:id/attach
+        endpoint without first using a SetupIntent or PaymentIntent with setup_future_usage does not optimize the PaymentMethod for
+        future use, which makes later declines and payment friction more likely.
+        See [Optimizing cards for future payments](https://stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
+        future payments.
+
+        To use this PaymentMethod as the default for invoice or subscription payments,
+        set [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
+        on the Customer to the PaymentMethod's ID.
+        """
         return cast(
             "PaymentMethod",
             cls._static_request(
@@ -1739,6 +1754,21 @@ class PaymentMethod(
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethod.AttachParams"]
     ) -> "PaymentMethod":
+        """
+        Attaches a PaymentMethod object to a Customer.
+
+        To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://stripe.com/docs/api/setup_intents)
+        or a PaymentIntent with [setup_future_usage](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
+        These approaches will perform any necessary steps to set up the PaymentMethod for future payments. Using the /v1/payment_methods/:id/attach
+        endpoint without first using a SetupIntent or PaymentIntent with setup_future_usage does not optimize the PaymentMethod for
+        future use, which makes later declines and payment friction more likely.
+        See [Optimizing cards for future payments](https://stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
+        future payments.
+
+        To use this PaymentMethod as the default for invoice or subscription payments,
+        set [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
+        on the Customer to the PaymentMethod's ID.
+        """
         ...
 
     @overload
@@ -1747,6 +1777,21 @@ class PaymentMethod(
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethod.AttachParams"]
     ) -> "PaymentMethod":
+        """
+        Attaches a PaymentMethod object to a Customer.
+
+        To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://stripe.com/docs/api/setup_intents)
+        or a PaymentIntent with [setup_future_usage](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
+        These approaches will perform any necessary steps to set up the PaymentMethod for future payments. Using the /v1/payment_methods/:id/attach
+        endpoint without first using a SetupIntent or PaymentIntent with setup_future_usage does not optimize the PaymentMethod for
+        future use, which makes later declines and payment friction more likely.
+        See [Optimizing cards for future payments](https://stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
+        future payments.
+
+        To use this PaymentMethod as the default for invoice or subscription payments,
+        set [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
+        on the Customer to the PaymentMethod's ID.
+        """
         ...
 
     @class_method_variant("_cls_attach")
@@ -1755,6 +1800,21 @@ class PaymentMethod(
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethod.AttachParams"]
     ) -> "PaymentMethod":
+        """
+        Attaches a PaymentMethod object to a Customer.
+
+        To attach a new PaymentMethod to a customer for future payments, we recommend you use a [SetupIntent](https://stripe.com/docs/api/setup_intents)
+        or a PaymentIntent with [setup_future_usage](https://stripe.com/docs/api/payment_intents/create#create_payment_intent-setup_future_usage).
+        These approaches will perform any necessary steps to set up the PaymentMethod for future payments. Using the /v1/payment_methods/:id/attach
+        endpoint without first using a SetupIntent or PaymentIntent with setup_future_usage does not optimize the PaymentMethod for
+        future use, which makes later declines and payment friction more likely.
+        See [Optimizing cards for future payments](https://stripe.com/docs/payments/payment-intents#future-usage) for more information about setting up
+        future payments.
+
+        To use this PaymentMethod as the default for invoice or subscription payments,
+        set [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method),
+        on the Customer to the PaymentMethod's ID.
+        """
         return cast(
             "PaymentMethod",
             self._request(
@@ -1776,6 +1836,11 @@ class PaymentMethod(
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethod.CreateParams"]
     ) -> "PaymentMethod":
+        """
+        Creates a PaymentMethod object. Read the [Stripe.js reference](https://stripe.com/docs/stripe-js/reference#stripe-create-payment-method) to learn how to create PaymentMethods via Stripe.js.
+
+        Instead of creating a PaymentMethod directly, we recommend using the [PaymentIntents API to accept a payment immediately or the <a href="/docs/payments/save-and-reuse">SetupIntent](https://stripe.com/docs/payments/accept-a-payment) API to collect payment method details ahead of a future payment.
+        """
         return cast(
             "PaymentMethod",
             cls._static_request(
@@ -1798,6 +1863,9 @@ class PaymentMethod(
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethod.DetachParams"]
     ) -> "PaymentMethod":
+        """
+        Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
+        """
         return cast(
             "PaymentMethod",
             cls._static_request(
@@ -1822,6 +1890,9 @@ class PaymentMethod(
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethod.DetachParams"]
     ) -> "PaymentMethod":
+        """
+        Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
+        """
         ...
 
     @overload
@@ -1830,6 +1901,9 @@ class PaymentMethod(
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethod.DetachParams"]
     ) -> "PaymentMethod":
+        """
+        Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
+        """
         ...
 
     @class_method_variant("_cls_detach")
@@ -1838,6 +1912,9 @@ class PaymentMethod(
         idempotency_key: Optional[str] = None,
         **params: Unpack["PaymentMethod.DetachParams"]
     ) -> "PaymentMethod":
+        """
+        Detaches a PaymentMethod object from a Customer. After a PaymentMethod is detached, it can no longer be used for a payment or re-attached to a Customer.
+        """
         return cast(
             "PaymentMethod",
             self._request(
@@ -1858,6 +1935,9 @@ class PaymentMethod(
         stripe_account: Optional[str] = None,
         **params: Unpack["PaymentMethod.ListParams"]
     ) -> ListObject["PaymentMethod"]:
+        """
+        Returns a list of PaymentMethods for Treasury flows. If you want to list the PaymentMethods attached to a Customer for payments, you should use the [List a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer_list) API instead.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -1879,6 +1959,9 @@ class PaymentMethod(
     def modify(
         cls, id: str, **params: Unpack["PaymentMethod.ModifyParams"]
     ) -> "PaymentMethod":
+        """
+        Updates a PaymentMethod object. A PaymentMethod must be attached a customer to be updated.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PaymentMethod",
@@ -1889,6 +1972,9 @@ class PaymentMethod(
     def retrieve(
         cls, id: str, **params: Unpack["PaymentMethod.RetrieveParams"]
     ) -> "PaymentMethod":
+        """
+        Retrieves a PaymentMethod object attached to the StripeAccount. To retrieve a payment method attached to a Customer, you should use [Retrieve a Customer's PaymentMethods](https://stripe.com/docs/api/payment_methods/customer)
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

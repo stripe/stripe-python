@@ -810,6 +810,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
+        """
+        Cancels the current reader action.
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -834,6 +837,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
+        """
+        Cancels the current reader action.
+        """
         ...
 
     @overload
@@ -842,6 +848,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
+        """
+        Cancels the current reader action.
+        """
         ...
 
     @class_method_variant("_cls_cancel_action")
@@ -850,6 +859,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CancelActionParams"]
     ) -> "Reader":
+        """
+        Cancels the current reader action.
+        """
         return cast(
             "Reader",
             self._request(
@@ -871,6 +883,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CollectInputsParams"]
     ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -895,6 +910,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CollectInputsParams"]
     ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
         ...
 
     @overload
@@ -903,6 +921,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CollectInputsParams"]
     ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
         ...
 
     @class_method_variant("_cls_collect_inputs")
@@ -911,6 +932,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CollectInputsParams"]
     ) -> "Reader":
+        """
+        Initiates an input collection flow on a Reader.
+        """
         return cast(
             "Reader",
             self._request(
@@ -932,6 +956,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CollectPaymentMethodParams"]
     ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -956,6 +983,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CollectPaymentMethodParams"]
     ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
         ...
 
     @overload
@@ -964,6 +994,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CollectPaymentMethodParams"]
     ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
         ...
 
     @class_method_variant("_cls_collect_payment_method")
@@ -972,6 +1005,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.CollectPaymentMethodParams"]
     ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
+        """
         return cast(
             "Reader",
             self._request(
@@ -993,6 +1029,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ConfirmPaymentIntentParams"]
     ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -1017,6 +1056,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ConfirmPaymentIntentParams"]
     ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
         ...
 
     @overload
@@ -1025,6 +1067,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ConfirmPaymentIntentParams"]
     ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
         ...
 
     @class_method_variant("_cls_confirm_payment_intent")
@@ -1033,6 +1078,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ConfirmPaymentIntentParams"]
     ) -> "Reader":
+        """
+        Finalizes a payment on a Reader.
+        """
         return cast(
             "Reader",
             self._request(
@@ -1054,6 +1102,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.CreateParams"]
     ) -> "Reader":
+        """
+        Creates a new Reader object.
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -1071,6 +1122,9 @@ class Reader(
     def _cls_delete(
         cls, sid: str, **params: Unpack["Reader.DeleteParams"]
     ) -> "Reader":
+        """
+        Deletes a Reader object.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Reader",
@@ -1082,16 +1136,25 @@ class Reader(
     def delete(
         cls, sid: str, **params: Unpack["Reader.DeleteParams"]
     ) -> "Reader":
+        """
+        Deletes a Reader object.
+        """
         ...
 
     @overload
     def delete(self, **params: Unpack["Reader.DeleteParams"]) -> "Reader":
+        """
+        Deletes a Reader object.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Reader.DeleteParams"]
     ) -> "Reader":
+        """
+        Deletes a Reader object.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -1106,6 +1169,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ListParams"]
     ) -> ListObject["Reader"]:
+        """
+        Returns a list of Reader objects.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -1127,6 +1193,9 @@ class Reader(
     def modify(
         cls, id: str, **params: Unpack["Reader.ModifyParams"]
     ) -> "Reader":
+        """
+        Updates a Reader object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Reader",
@@ -1142,6 +1211,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader.
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -1166,6 +1238,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader.
+        """
         ...
 
     @overload
@@ -1174,6 +1249,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader.
+        """
         ...
 
     @class_method_variant("_cls_process_payment_intent")
@@ -1182,6 +1260,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessPaymentIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a payment flow on a Reader.
+        """
         return cast(
             "Reader",
             self._request(
@@ -1203,6 +1284,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a setup intent flow on a Reader.
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -1227,6 +1311,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a setup intent flow on a Reader.
+        """
         ...
 
     @overload
@@ -1235,6 +1322,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a setup intent flow on a Reader.
+        """
         ...
 
     @class_method_variant("_cls_process_setup_intent")
@@ -1243,6 +1333,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.ProcessSetupIntentParams"]
     ) -> "Reader":
+        """
+        Initiates a setup intent flow on a Reader.
+        """
         return cast(
             "Reader",
             self._request(
@@ -1264,6 +1357,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
+        """
+        Initiates a refund on a Reader
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -1288,6 +1384,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
+        """
+        Initiates a refund on a Reader
+        """
         ...
 
     @overload
@@ -1296,6 +1395,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
+        """
+        Initiates a refund on a Reader
+        """
         ...
 
     @class_method_variant("_cls_refund_payment")
@@ -1304,6 +1406,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.RefundPaymentParams"]
     ) -> "Reader":
+        """
+        Initiates a refund on a Reader
+        """
         return cast(
             "Reader",
             self._request(
@@ -1320,6 +1425,9 @@ class Reader(
     def retrieve(
         cls, id: str, **params: Unpack["Reader.RetrieveParams"]
     ) -> "Reader":
+        """
+        Retrieves a Reader object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -1333,6 +1441,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
+        """
+        Sets reader display to show cart details.
+        """
         return cast(
             "Reader",
             cls._static_request(
@@ -1357,6 +1468,9 @@ class Reader(
         stripe_account: Optional[str] = None,
         **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
+        """
+        Sets reader display to show cart details.
+        """
         ...
 
     @overload
@@ -1365,6 +1479,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
+        """
+        Sets reader display to show cart details.
+        """
         ...
 
     @class_method_variant("_cls_set_reader_display")
@@ -1373,6 +1490,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Reader.SetReaderDisplayParams"]
     ) -> "Reader":
+        """
+        Sets reader display to show cart details.
+        """
         return cast(
             "Reader",
             self._request(
@@ -1397,6 +1517,9 @@ class Reader(
             stripe_account: Optional[str] = None,
             **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
+            """
+            Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
+            """
             return cast(
                 "Reader",
                 cls._static_request(
@@ -1421,6 +1544,9 @@ class Reader(
             stripe_account: Optional[str] = None,
             **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
+            """
+            Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
+            """
             ...
 
         @overload
@@ -1429,6 +1555,9 @@ class Reader(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
+            """
+            Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
+            """
             ...
 
         @class_method_variant("_cls_present_payment_method")
@@ -1437,6 +1566,9 @@ class Reader(
             idempotency_key: Optional[str] = None,
             **params: Unpack["Reader.PresentPaymentMethodParams"]
         ) -> "Reader":
+            """
+            Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
+            """
             return cast(
                 "Reader",
                 self.resource._request(

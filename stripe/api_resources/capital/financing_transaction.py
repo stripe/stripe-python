@@ -167,6 +167,10 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["FinancingTransaction.ListParams"]
     ) -> ListObject["FinancingTransaction"]:
+        """
+        Returns a list of financing transactions. The transactions are returned in sorted order,
+        with the most recent transactions appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -188,6 +192,9 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
     def retrieve(
         cls, id: str, **params: Unpack["FinancingTransaction.RetrieveParams"]
     ) -> "FinancingTransaction":
+        """
+        Retrieves a financing transaction for a financing offer.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

@@ -3228,6 +3228,9 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.CancelParams"]
     ) -> "Order":
+        """
+        Cancels the order as well as the payment intent if one is attached.
+        """
         return cast(
             "Order",
             cls._static_request(
@@ -3250,6 +3253,9 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.CancelParams"]
     ) -> "Order":
+        """
+        Cancels the order as well as the payment intent if one is attached.
+        """
         ...
 
     @overload
@@ -3258,6 +3264,9 @@ class Order(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.CancelParams"]
     ) -> "Order":
+        """
+        Cancels the order as well as the payment intent if one is attached.
+        """
         ...
 
     @class_method_variant("_cls_cancel")
@@ -3266,6 +3275,9 @@ class Order(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.CancelParams"]
     ) -> "Order":
+        """
+        Cancels the order as well as the payment intent if one is attached.
+        """
         return cast(
             "Order",
             self._request(
@@ -3287,6 +3299,9 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.CreateParams"]
     ) -> "Order":
+        """
+        Creates a new open order object.
+        """
         return cast(
             "Order",
             cls._static_request(
@@ -3308,6 +3323,9 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.ListParams"]
     ) -> ListObject["Order"]:
+        """
+        Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -3334,6 +3352,9 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         return cast(
             ListObject["LineItem"],
             cls._static_request(
@@ -3356,6 +3377,9 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         ...
 
     @overload
@@ -3364,6 +3388,9 @@ class Order(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         ...
 
     @class_method_variant("_cls_list_line_items")
@@ -3372,6 +3399,9 @@ class Order(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         return cast(
             ListObject["LineItem"],
             self._request(
@@ -3388,6 +3418,9 @@ class Order(
     def modify(
         cls, id: str, **params: Unpack["Order.ModifyParams"]
     ) -> "Order":
+        """
+        Updates the specific order by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Order",
@@ -3403,6 +3436,9 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.ReopenParams"]
     ) -> "Order":
+        """
+        Reopens a submitted order.
+        """
         return cast(
             "Order",
             cls._static_request(
@@ -3425,6 +3461,9 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.ReopenParams"]
     ) -> "Order":
+        """
+        Reopens a submitted order.
+        """
         ...
 
     @overload
@@ -3433,6 +3472,9 @@ class Order(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.ReopenParams"]
     ) -> "Order":
+        """
+        Reopens a submitted order.
+        """
         ...
 
     @class_method_variant("_cls_reopen")
@@ -3441,6 +3483,9 @@ class Order(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.ReopenParams"]
     ) -> "Order":
+        """
+        Reopens a submitted order.
+        """
         return cast(
             "Order",
             self._request(
@@ -3457,6 +3502,9 @@ class Order(
     def retrieve(
         cls, id: str, **params: Unpack["Order.RetrieveParams"]
     ) -> "Order":
+        """
+        Retrieves the details of an existing order. Supply the unique order ID from either an order creation request or the order list, and Stripe will return the corresponding order information.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -3470,6 +3518,9 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.SubmitParams"]
     ) -> "Order":
+        """
+        Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
+        """
         return cast(
             "Order",
             cls._static_request(
@@ -3492,6 +3543,9 @@ class Order(
         stripe_account: Optional[str] = None,
         **params: Unpack["Order.SubmitParams"]
     ) -> "Order":
+        """
+        Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
+        """
         ...
 
     @overload
@@ -3500,6 +3554,9 @@ class Order(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.SubmitParams"]
     ) -> "Order":
+        """
+        Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
+        """
         ...
 
     @class_method_variant("_cls_submit")
@@ -3508,6 +3565,9 @@ class Order(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Order.SubmitParams"]
     ) -> "Order":
+        """
+        Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
+        """
         return cast(
             "Order",
             self._request(

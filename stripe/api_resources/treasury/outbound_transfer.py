@@ -413,6 +413,9 @@ class OutboundTransfer(
         stripe_account: Optional[str] = None,
         **params: Unpack["OutboundTransfer.CancelParams"]
     ) -> "OutboundTransfer":
+        """
+        An OutboundTransfer can be canceled if the funds have not yet been paid out.
+        """
         return cast(
             "OutboundTransfer",
             cls._static_request(
@@ -437,6 +440,9 @@ class OutboundTransfer(
         stripe_account: Optional[str] = None,
         **params: Unpack["OutboundTransfer.CancelParams"]
     ) -> "OutboundTransfer":
+        """
+        An OutboundTransfer can be canceled if the funds have not yet been paid out.
+        """
         ...
 
     @overload
@@ -445,6 +451,9 @@ class OutboundTransfer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["OutboundTransfer.CancelParams"]
     ) -> "OutboundTransfer":
+        """
+        An OutboundTransfer can be canceled if the funds have not yet been paid out.
+        """
         ...
 
     @class_method_variant("_cls_cancel")
@@ -453,6 +462,9 @@ class OutboundTransfer(
         idempotency_key: Optional[str] = None,
         **params: Unpack["OutboundTransfer.CancelParams"]
     ) -> "OutboundTransfer":
+        """
+        An OutboundTransfer can be canceled if the funds have not yet been paid out.
+        """
         return cast(
             "OutboundTransfer",
             self._request(
@@ -474,6 +486,9 @@ class OutboundTransfer(
         stripe_account: Optional[str] = None,
         **params: Unpack["OutboundTransfer.CreateParams"]
     ) -> "OutboundTransfer":
+        """
+        Creates an OutboundTransfer.
+        """
         return cast(
             "OutboundTransfer",
             cls._static_request(
@@ -495,6 +510,9 @@ class OutboundTransfer(
         stripe_account: Optional[str] = None,
         **params: Unpack["OutboundTransfer.ListParams"]
     ) -> ListObject["OutboundTransfer"]:
+        """
+        Returns a list of OutboundTransfers sent from the specified FinancialAccount.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -516,6 +534,9 @@ class OutboundTransfer(
     def retrieve(
         cls, id: str, **params: Unpack["OutboundTransfer.RetrieveParams"]
     ) -> "OutboundTransfer":
+        """
+        Retrieves the details of an existing OutboundTransfer by passing the unique OutboundTransfer ID from either the OutboundTransfer creation request or OutboundTransfer list.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -532,6 +553,9 @@ class OutboundTransfer(
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundTransfer.FailParams"]
         ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+            """
             return cast(
                 "OutboundTransfer",
                 cls._static_request(
@@ -556,6 +580,9 @@ class OutboundTransfer(
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundTransfer.FailParams"]
         ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+            """
             ...
 
         @overload
@@ -564,6 +591,9 @@ class OutboundTransfer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.FailParams"]
         ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+            """
             ...
 
         @class_method_variant("_cls_fail")
@@ -572,6 +602,9 @@ class OutboundTransfer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.FailParams"]
         ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+            """
             return cast(
                 "OutboundTransfer",
                 self.resource._request(
@@ -595,6 +628,9 @@ class OutboundTransfer(
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundTransfer.PostParams"]
         ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+            """
             return cast(
                 "OutboundTransfer",
                 cls._static_request(
@@ -619,6 +655,9 @@ class OutboundTransfer(
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundTransfer.PostParams"]
         ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+            """
             ...
 
         @overload
@@ -627,6 +666,9 @@ class OutboundTransfer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.PostParams"]
         ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+            """
             ...
 
         @class_method_variant("_cls_post")
@@ -635,6 +677,9 @@ class OutboundTransfer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.PostParams"]
         ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+            """
             return cast(
                 "OutboundTransfer",
                 self.resource._request(
@@ -658,6 +703,9 @@ class OutboundTransfer(
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
         ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+            """
             return cast(
                 "OutboundTransfer",
                 cls._static_request(
@@ -682,6 +730,9 @@ class OutboundTransfer(
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
         ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+            """
             ...
 
         @overload
@@ -690,6 +741,9 @@ class OutboundTransfer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
         ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+            """
             ...
 
         @class_method_variant("_cls_return_outbound_transfer")
@@ -698,6 +752,9 @@ class OutboundTransfer(
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
         ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+            """
             return cast(
                 "OutboundTransfer",
                 self.resource._request(

@@ -192,6 +192,9 @@ class Review(ListableAPIResource["Review"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Review.ApproveParams"]
     ) -> "Review":
+        """
+        Approves a Review object, closing it and removing it from the list of reviews.
+        """
         return cast(
             "Review",
             cls._static_request(
@@ -216,6 +219,9 @@ class Review(ListableAPIResource["Review"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Review.ApproveParams"]
     ) -> "Review":
+        """
+        Approves a Review object, closing it and removing it from the list of reviews.
+        """
         ...
 
     @overload
@@ -224,6 +230,9 @@ class Review(ListableAPIResource["Review"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Review.ApproveParams"]
     ) -> "Review":
+        """
+        Approves a Review object, closing it and removing it from the list of reviews.
+        """
         ...
 
     @class_method_variant("_cls_approve")
@@ -232,6 +241,9 @@ class Review(ListableAPIResource["Review"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Review.ApproveParams"]
     ) -> "Review":
+        """
+        Approves a Review object, closing it and removing it from the list of reviews.
+        """
         return cast(
             "Review",
             self._request(
@@ -252,6 +264,9 @@ class Review(ListableAPIResource["Review"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Review.ListParams"]
     ) -> ListObject["Review"]:
+        """
+        Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -273,6 +288,9 @@ class Review(ListableAPIResource["Review"]):
     def retrieve(
         cls, id: str, **params: Unpack["Review.RetrieveParams"]
     ) -> "Review":
+        """
+        Retrieves a Review object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

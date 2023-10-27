@@ -287,6 +287,9 @@ class PromotionCode(
         stripe_account: Optional[str] = None,
         **params: Unpack["PromotionCode.CreateParams"]
     ) -> "PromotionCode":
+        """
+        A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
+        """
         return cast(
             "PromotionCode",
             cls._static_request(
@@ -308,6 +311,9 @@ class PromotionCode(
         stripe_account: Optional[str] = None,
         **params: Unpack["PromotionCode.ListParams"]
     ) -> ListObject["PromotionCode"]:
+        """
+        Returns a list of your promotion codes.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -329,6 +335,9 @@ class PromotionCode(
     def modify(
         cls, id: str, **params: Unpack["PromotionCode.ModifyParams"]
     ) -> "PromotionCode":
+        """
+        Updates the specified promotion code by setting the values of the parameters passed. Most fields are, by design, not editable.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "PromotionCode",
@@ -339,6 +348,9 @@ class PromotionCode(
     def retrieve(
         cls, id: str, **params: Unpack["PromotionCode.RetrieveParams"]
     ) -> "PromotionCode":
+        """
+        Retrieves the promotion code with the given ID. In order to retrieve a promotion code by the customer-facing code use [list](https://stripe.com/docs/api/promotion_codes/list) with the desired code.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

@@ -283,6 +283,9 @@ class Transaction(ListableAPIResource["Transaction"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.ListParams"]
     ) -> ListObject["Transaction"]:
+        """
+        Retrieves a list of Transaction objects.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -304,6 +307,9 @@ class Transaction(ListableAPIResource["Transaction"]):
     def retrieve(
         cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
     ) -> "Transaction":
+        """
+        Retrieves the details of an existing Transaction.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

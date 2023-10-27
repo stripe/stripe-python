@@ -150,6 +150,9 @@ class CreditReversal(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditReversal.CreateParams"]
     ) -> "CreditReversal":
+        """
+        Reverses a ReceivedCredit and creates a CreditReversal object.
+        """
         return cast(
             "CreditReversal",
             cls._static_request(
@@ -171,6 +174,9 @@ class CreditReversal(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditReversal.ListParams"]
     ) -> ListObject["CreditReversal"]:
+        """
+        Returns a list of CreditReversals.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -192,6 +198,9 @@ class CreditReversal(
     def retrieve(
         cls, id: str, **params: Unpack["CreditReversal.RetrieveParams"]
     ) -> "CreditReversal":
+        """
+        Retrieves the details of an existing CreditReversal by passing the unique CreditReversal ID from either the CreditReversal creation request or CreditReversal list
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

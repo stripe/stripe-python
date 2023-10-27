@@ -225,6 +225,10 @@ class Location(
         stripe_account: Optional[str] = None,
         **params: Unpack["Location.CreateParams"]
     ) -> "Location":
+        """
+        Creates a new Location object.
+        For further details, including which address fields are required in each country, see the [Manage locations](https://stripe.com/docs/terminal/fleet/locations) guide.
+        """
         return cast(
             "Location",
             cls._static_request(
@@ -242,6 +246,9 @@ class Location(
     def _cls_delete(
         cls, sid: str, **params: Unpack["Location.DeleteParams"]
     ) -> "Location":
+        """
+        Deletes a Location object.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "Location",
@@ -253,16 +260,25 @@ class Location(
     def delete(
         cls, sid: str, **params: Unpack["Location.DeleteParams"]
     ) -> "Location":
+        """
+        Deletes a Location object.
+        """
         ...
 
     @overload
     def delete(self, **params: Unpack["Location.DeleteParams"]) -> "Location":
+        """
+        Deletes a Location object.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["Location.DeleteParams"]
     ) -> "Location":
+        """
+        Deletes a Location object.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -277,6 +293,9 @@ class Location(
         stripe_account: Optional[str] = None,
         **params: Unpack["Location.ListParams"]
     ) -> ListObject["Location"]:
+        """
+        Returns a list of Location objects.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -298,6 +317,9 @@ class Location(
     def modify(
         cls, id: str, **params: Unpack["Location.ModifyParams"]
     ) -> "Location":
+        """
+        Updates a Location object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Location",
@@ -308,6 +330,9 @@ class Location(
     def retrieve(
         cls, id: str, **params: Unpack["Location.RetrieveParams"]
     ) -> "Location":
+        """
+        Retrieves a Location object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

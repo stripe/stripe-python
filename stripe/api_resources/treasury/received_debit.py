@@ -371,6 +371,9 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["ReceivedDebit.ListParams"]
     ) -> ListObject["ReceivedDebit"]:
+        """
+        Returns a list of ReceivedDebits.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -392,6 +395,9 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
     def retrieve(
         cls, id: str, **params: Unpack["ReceivedDebit.RetrieveParams"]
     ) -> "ReceivedDebit":
+        """
+        Retrieves the details of an existing ReceivedDebit by passing the unique ReceivedDebit ID from the ReceivedDebit list
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -407,6 +413,9 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
             stripe_account: Optional[str] = None,
             **params: Unpack["ReceivedDebit.CreateParams"]
         ) -> "ReceivedDebit":
+            """
+            Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
+            """
             return cast(
                 "ReceivedDebit",
                 cls._static_request(

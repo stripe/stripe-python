@@ -147,6 +147,9 @@ class Transaction(ListableAPIResource["Transaction"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.ListParams"]
     ) -> ListObject["Transaction"]:
+        """
+        Returns a list of Financial Connections Transaction objects.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),

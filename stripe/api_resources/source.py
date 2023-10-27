@@ -1160,6 +1160,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Source.CreateParams"]
     ) -> "Source":
+        """
+        Creates a new source object.
+        """
         return cast(
             "Source",
             cls._static_request(
@@ -1182,6 +1185,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Source.ListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
+        """
+        List source transactions for a given source.
+        """
         return cast(
             ListObject["SourceTransaction"],
             cls._static_request(
@@ -1206,6 +1212,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Source.ListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
+        """
+        List source transactions for a given source.
+        """
         ...
 
     @overload
@@ -1214,6 +1223,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Source.ListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
+        """
+        List source transactions for a given source.
+        """
         ...
 
     @class_method_variant("_cls_list_source_transactions")
@@ -1222,6 +1234,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Source.ListSourceTransactionsParams"]
     ) -> ListObject["SourceTransaction"]:
+        """
+        List source transactions for a given source.
+        """
         return cast(
             ListObject["SourceTransaction"],
             self._request(
@@ -1238,6 +1253,11 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     def modify(
         cls, id: str, **params: Unpack["Source.ModifyParams"]
     ) -> "Source":
+        """
+        Updates the specified source by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+
+        This request accepts the metadata and owner as arguments. It is also possible to update type specific information for selected payment methods. Please refer to our [payment method guides](https://stripe.com/docs/sources) for more detail.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Source",
@@ -1248,6 +1268,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     def retrieve(
         cls, id: str, **params: Unpack["Source.RetrieveParams"]
     ) -> "Source":
+        """
+        Retrieves an existing source object. Supply the unique source ID from a source creation request and Stripe will return the corresponding up-to-date source object information.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -1261,6 +1284,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Source.VerifyParams"]
     ) -> "Source":
+        """
+        Verify a given source.
+        """
         return cast(
             "Source",
             cls._static_request(
@@ -1285,6 +1311,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Source.VerifyParams"]
     ) -> "Source":
+        """
+        Verify a given source.
+        """
         ...
 
     @overload
@@ -1293,6 +1322,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Source.VerifyParams"]
     ) -> "Source":
+        """
+        Verify a given source.
+        """
         ...
 
     @class_method_variant("_cls_verify")
@@ -1301,6 +1333,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Source.VerifyParams"]
     ) -> "Source":
+        """
+        Verify a given source.
+        """
         return cast(
             "Source",
             self._request(

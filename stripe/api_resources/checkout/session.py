@@ -3713,6 +3713,9 @@ class Session(
         stripe_account: Optional[str] = None,
         **params: Unpack["Session.CreateParams"]
     ) -> "Session":
+        """
+        Creates a Session object.
+        """
         return cast(
             "Session",
             cls._static_request(
@@ -3735,6 +3738,11 @@ class Session(
         stripe_account: Optional[str] = None,
         **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
+        """
+        A Session can be expired when it is in one of these statuses: open
+
+        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        """
         return cast(
             "Session",
             cls._static_request(
@@ -3759,6 +3767,11 @@ class Session(
         stripe_account: Optional[str] = None,
         **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
+        """
+        A Session can be expired when it is in one of these statuses: open
+
+        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        """
         ...
 
     @overload
@@ -3767,6 +3780,11 @@ class Session(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
+        """
+        A Session can be expired when it is in one of these statuses: open
+
+        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        """
         ...
 
     @class_method_variant("_cls_expire")
@@ -3775,6 +3793,11 @@ class Session(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Session.ExpireParams"]
     ) -> "Session":
+        """
+        A Session can be expired when it is in one of these statuses: open
+
+        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
+        """
         return cast(
             "Session",
             self._request(
@@ -3795,6 +3818,9 @@ class Session(
         stripe_account: Optional[str] = None,
         **params: Unpack["Session.ListParams"]
     ) -> ListObject["Session"]:
+        """
+        Returns a list of Checkout Sessions.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -3821,6 +3847,9 @@ class Session(
         stripe_account: Optional[str] = None,
         **params: Unpack["Session.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         return cast(
             ListObject["LineItem"],
             cls._static_request(
@@ -3845,6 +3874,9 @@ class Session(
         stripe_account: Optional[str] = None,
         **params: Unpack["Session.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         ...
 
     @overload
@@ -3853,6 +3885,9 @@ class Session(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Session.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         ...
 
     @class_method_variant("_cls_list_line_items")
@@ -3861,6 +3896,9 @@ class Session(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Session.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         return cast(
             ListObject["LineItem"],
             self._request(
@@ -3877,6 +3915,9 @@ class Session(
     def retrieve(
         cls, id: str, **params: Unpack["Session.RetrieveParams"]
     ) -> "Session":
+        """
+        Retrieves a Session object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

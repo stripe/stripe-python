@@ -150,6 +150,9 @@ class File(ListableAPIResource["File"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["File.ListParams"]
     ) -> ListObject["File"]:
+        """
+        Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -171,6 +174,9 @@ class File(ListableAPIResource["File"]):
     def retrieve(
         cls, id: str, **params: Unpack["File.RetrieveParams"]
     ) -> "File":
+        """
+        Retrieves the details of an existing file object. After you supply a unique file ID, Stripe returns the corresponding file object. Learn how to [access file contents](https://stripe.com/docs/file-upload#download-file-contents).
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

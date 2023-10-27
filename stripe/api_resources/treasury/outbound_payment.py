@@ -533,6 +533,9 @@ class OutboundPayment(
         stripe_account: Optional[str] = None,
         **params: Unpack["OutboundPayment.CancelParams"]
     ) -> "OutboundPayment":
+        """
+        Cancel an OutboundPayment.
+        """
         return cast(
             "OutboundPayment",
             cls._static_request(
@@ -557,6 +560,9 @@ class OutboundPayment(
         stripe_account: Optional[str] = None,
         **params: Unpack["OutboundPayment.CancelParams"]
     ) -> "OutboundPayment":
+        """
+        Cancel an OutboundPayment.
+        """
         ...
 
     @overload
@@ -565,6 +571,9 @@ class OutboundPayment(
         idempotency_key: Optional[str] = None,
         **params: Unpack["OutboundPayment.CancelParams"]
     ) -> "OutboundPayment":
+        """
+        Cancel an OutboundPayment.
+        """
         ...
 
     @class_method_variant("_cls_cancel")
@@ -573,6 +582,9 @@ class OutboundPayment(
         idempotency_key: Optional[str] = None,
         **params: Unpack["OutboundPayment.CancelParams"]
     ) -> "OutboundPayment":
+        """
+        Cancel an OutboundPayment.
+        """
         return cast(
             "OutboundPayment",
             self._request(
@@ -594,6 +606,9 @@ class OutboundPayment(
         stripe_account: Optional[str] = None,
         **params: Unpack["OutboundPayment.CreateParams"]
     ) -> "OutboundPayment":
+        """
+        Creates an OutboundPayment.
+        """
         return cast(
             "OutboundPayment",
             cls._static_request(
@@ -615,6 +630,9 @@ class OutboundPayment(
         stripe_account: Optional[str] = None,
         **params: Unpack["OutboundPayment.ListParams"]
     ) -> ListObject["OutboundPayment"]:
+        """
+        Returns a list of OutboundPayments sent from the specified FinancialAccount.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -636,6 +654,9 @@ class OutboundPayment(
     def retrieve(
         cls, id: str, **params: Unpack["OutboundPayment.RetrieveParams"]
     ) -> "OutboundPayment":
+        """
+        Retrieves the details of an existing OutboundPayment by passing the unique OutboundPayment ID from either the OutboundPayment creation request or OutboundPayment list.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -652,6 +673,9 @@ class OutboundPayment(
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundPayment.FailParams"]
         ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            """
             return cast(
                 "OutboundPayment",
                 cls._static_request(
@@ -676,6 +700,9 @@ class OutboundPayment(
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundPayment.FailParams"]
         ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            """
             ...
 
         @overload
@@ -684,6 +711,9 @@ class OutboundPayment(
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.FailParams"]
         ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            """
             ...
 
         @class_method_variant("_cls_fail")
@@ -692,6 +722,9 @@ class OutboundPayment(
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.FailParams"]
         ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
+            """
             return cast(
                 "OutboundPayment",
                 self.resource._request(
@@ -713,6 +746,9 @@ class OutboundPayment(
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundPayment.PostParams"]
         ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            """
             return cast(
                 "OutboundPayment",
                 cls._static_request(
@@ -737,6 +773,9 @@ class OutboundPayment(
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundPayment.PostParams"]
         ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            """
             ...
 
         @overload
@@ -745,6 +784,9 @@ class OutboundPayment(
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.PostParams"]
         ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            """
             ...
 
         @class_method_variant("_cls_post")
@@ -753,6 +795,9 @@ class OutboundPayment(
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.PostParams"]
         ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
+            """
             return cast(
                 "OutboundPayment",
                 self.resource._request(
@@ -774,6 +819,9 @@ class OutboundPayment(
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
         ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            """
             return cast(
                 "OutboundPayment",
                 cls._static_request(
@@ -798,6 +846,9 @@ class OutboundPayment(
             stripe_account: Optional[str] = None,
             **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
         ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            """
             ...
 
         @overload
@@ -806,6 +857,9 @@ class OutboundPayment(
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
         ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            """
             ...
 
         @class_method_variant("_cls_return_outbound_payment")
@@ -814,6 +868,9 @@ class OutboundPayment(
             idempotency_key: Optional[str] = None,
             **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
         ) -> "OutboundPayment":
+            """
+            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
+            """
             return cast(
                 "OutboundPayment",
                 self.resource._request(

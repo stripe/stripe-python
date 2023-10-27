@@ -262,6 +262,9 @@ class TaxRate(
         stripe_account: Optional[str] = None,
         **params: Unpack["TaxRate.CreateParams"]
     ) -> "TaxRate":
+        """
+        Creates a new tax rate.
+        """
         return cast(
             "TaxRate",
             cls._static_request(
@@ -283,6 +286,9 @@ class TaxRate(
         stripe_account: Optional[str] = None,
         **params: Unpack["TaxRate.ListParams"]
     ) -> ListObject["TaxRate"]:
+        """
+        Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -304,6 +310,9 @@ class TaxRate(
     def modify(
         cls, id: str, **params: Unpack["TaxRate.ModifyParams"]
     ) -> "TaxRate":
+        """
+        Updates an existing tax rate.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "TaxRate",
@@ -314,6 +323,9 @@ class TaxRate(
     def retrieve(
         cls, id: str, **params: Unpack["TaxRate.RetrieveParams"]
     ) -> "TaxRate":
+        """
+        Retrieves a tax rate with the given ID
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

@@ -871,6 +871,9 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.CreateParams"]
     ) -> "Dispute":
+        """
+        Creates an Issuing Dispute object. Individual pieces of evidence within the evidence object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence) for more details about evidence requirements.
+        """
         return cast(
             "Dispute",
             cls._static_request(
@@ -892,6 +895,9 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.ListParams"]
     ) -> ListObject["Dispute"]:
+        """
+        Returns a list of Issuing Dispute objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -913,6 +919,9 @@ class Dispute(
     def modify(
         cls, id: str, **params: Unpack["Dispute.ModifyParams"]
     ) -> "Dispute":
+        """
+        Updates the specified Issuing Dispute object by setting the values of the parameters passed. Any parameters not provided will be left unchanged. Properties on the evidence object can be unset by passing in an empty string.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Dispute",
@@ -923,6 +932,9 @@ class Dispute(
     def retrieve(
         cls, id: str, **params: Unpack["Dispute.RetrieveParams"]
     ) -> "Dispute":
+        """
+        Retrieves an Issuing Dispute object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -936,6 +948,9 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.SubmitParams"]
     ) -> "Dispute":
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
         return cast(
             "Dispute",
             cls._static_request(
@@ -960,6 +975,9 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.SubmitParams"]
     ) -> "Dispute":
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
         ...
 
     @overload
@@ -968,6 +986,9 @@ class Dispute(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.SubmitParams"]
     ) -> "Dispute":
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
         ...
 
     @class_method_variant("_cls_submit")
@@ -976,6 +997,9 @@ class Dispute(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.SubmitParams"]
     ) -> "Dispute":
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
         return cast(
             "Dispute",
             self._request(

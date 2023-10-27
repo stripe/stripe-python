@@ -396,6 +396,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
     ) -> "Account":
+        """
+        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
+        """
         return cast(
             "Account",
             cls._static_request(
@@ -420,6 +423,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
     ) -> "Account":
+        """
+        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
+        """
         ...
 
     @overload
@@ -428,6 +434,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
     ) -> "Account":
+        """
+        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
+        """
         ...
 
     @class_method_variant("_cls_disconnect")
@@ -436,6 +445,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.DisconnectParams"]
     ) -> "Account":
+        """
+        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
+        """
         return cast(
             "Account",
             self._request(
@@ -456,6 +468,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListParams"]
     ) -> ListObject["Account"]:
+        """
+        Returns a list of Financial Connections Account objects.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -482,6 +497,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
+        """
+        Lists all owners for a given Account
+        """
         return cast(
             ListObject["AccountOwner"],
             cls._static_request(
@@ -506,6 +524,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
+        """
+        Lists all owners for a given Account
+        """
         ...
 
     @overload
@@ -514,6 +535,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
+        """
+        Lists all owners for a given Account
+        """
         ...
 
     @class_method_variant("_cls_list_owners")
@@ -522,6 +546,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.ListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
+        """
+        Lists all owners for a given Account
+        """
         return cast(
             ListObject["AccountOwner"],
             self._request(
@@ -543,6 +570,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
     ) -> "Account":
+        """
+        Refreshes the data associated with a Financial Connections Account.
+        """
         return cast(
             "Account",
             cls._static_request(
@@ -567,6 +597,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
     ) -> "Account":
+        """
+        Refreshes the data associated with a Financial Connections Account.
+        """
         ...
 
     @overload
@@ -575,6 +608,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
     ) -> "Account":
+        """
+        Refreshes the data associated with a Financial Connections Account.
+        """
         ...
 
     @class_method_variant("_cls_refresh_account")
@@ -583,6 +619,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.RefreshAccountParams"]
     ) -> "Account":
+        """
+        Refreshes the data associated with a Financial Connections Account.
+        """
         return cast(
             "Account",
             self._request(
@@ -599,6 +638,9 @@ class Account(ListableAPIResource["Account"]):
     def retrieve(
         cls, id: str, **params: Unpack["Account.RetrieveParams"]
     ) -> "Account":
+        """
+        Retrieves the details of an Financial Connections Account.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -612,6 +654,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.SubscribeParams"]
     ) -> "Account":
+        """
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        """
         return cast(
             "Account",
             cls._static_request(
@@ -636,6 +681,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.SubscribeParams"]
     ) -> "Account":
+        """
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        """
         ...
 
     @overload
@@ -644,6 +692,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.SubscribeParams"]
     ) -> "Account":
+        """
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        """
         ...
 
     @class_method_variant("_cls_subscribe")
@@ -652,6 +703,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.SubscribeParams"]
     ) -> "Account":
+        """
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        """
         return cast(
             "Account",
             self._request(
@@ -673,6 +727,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.UnsubscribeParams"]
     ) -> "Account":
+        """
+        Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
+        """
         return cast(
             "Account",
             cls._static_request(
@@ -697,6 +754,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.UnsubscribeParams"]
     ) -> "Account":
+        """
+        Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
+        """
         ...
 
     @overload
@@ -705,6 +765,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.UnsubscribeParams"]
     ) -> "Account":
+        """
+        Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
+        """
         ...
 
     @class_method_variant("_cls_unsubscribe")
@@ -713,6 +776,9 @@ class Account(ListableAPIResource["Account"]):
         idempotency_key: Optional[str] = None,
         **params: Unpack["Account.UnsubscribeParams"]
     ) -> "Account":
+        """
+        Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
+        """
         return cast(
             "Account",
             self._request(
@@ -734,6 +800,9 @@ class Account(ListableAPIResource["Account"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["Account.ListInferredBalancesParams"]
     ) -> ListObject["AccountInferredBalance"]:
+        """
+        Lists the recorded inferred balances for a Financial Connections Account.
+        """
         return cast(
             ListObject["AccountInferredBalance"],
             cls._static_request(

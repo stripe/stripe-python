@@ -95,6 +95,9 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["PhysicalBundle.ListParams"]
     ) -> ListObject["PhysicalBundle"]:
+        """
+        Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -116,6 +119,9 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
     def retrieve(
         cls, id: str, **params: Unpack["PhysicalBundle.RetrieveParams"]
     ) -> "PhysicalBundle":
+        """
+        Retrieves a physical bundle object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

@@ -453,6 +453,11 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.CloseParams"]
     ) -> "Dispute":
+        """
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+
+        The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
+        """
         return cast(
             "Dispute",
             cls._static_request(
@@ -477,6 +482,11 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.CloseParams"]
     ) -> "Dispute":
+        """
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+
+        The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
+        """
         ...
 
     @overload
@@ -485,6 +495,11 @@ class Dispute(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.CloseParams"]
     ) -> "Dispute":
+        """
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+
+        The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
+        """
         ...
 
     @class_method_variant("_cls_close")
@@ -493,6 +508,11 @@ class Dispute(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Dispute.CloseParams"]
     ) -> "Dispute":
+        """
+        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
+
+        The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
+        """
         return cast(
             "Dispute",
             self._request(
@@ -513,6 +533,9 @@ class Dispute(
         stripe_account: Optional[str] = None,
         **params: Unpack["Dispute.ListParams"]
     ) -> ListObject["Dispute"]:
+        """
+        Returns a list of your disputes.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -534,6 +557,11 @@ class Dispute(
     def modify(
         cls, id: str, **params: Unpack["Dispute.ModifyParams"]
     ) -> "Dispute":
+        """
+        When you get a dispute, contacting your customer is always the best first step. If that doesn't work, you can submit evidence to help us resolve the dispute in your favor. You can do this in your [dashboard](https://dashboard.stripe.com/disputes), but if you prefer, you can use the API to submit evidence programmatically.
+
+        Depending on your dispute type, different evidence fields will give you a better chance of winning your dispute. To figure out which evidence fields to provide, see our [guide to dispute types](https://stripe.com/docs/disputes/categories).
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Dispute",
@@ -544,6 +572,9 @@ class Dispute(
     def retrieve(
         cls, id: str, **params: Unpack["Dispute.RetrieveParams"]
     ) -> "Dispute":
+        """
+        Retrieves the dispute with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

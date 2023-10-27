@@ -127,6 +127,9 @@ class TestClock(
         stripe_account: Optional[str] = None,
         **params: Unpack["TestClock.AdvanceParams"]
     ) -> "TestClock":
+        """
+        Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
+        """
         return cast(
             "TestClock",
             cls._static_request(
@@ -151,6 +154,9 @@ class TestClock(
         stripe_account: Optional[str] = None,
         **params: Unpack["TestClock.AdvanceParams"]
     ) -> "TestClock":
+        """
+        Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
+        """
         ...
 
     @overload
@@ -159,6 +165,9 @@ class TestClock(
         idempotency_key: Optional[str] = None,
         **params: Unpack["TestClock.AdvanceParams"]
     ) -> "TestClock":
+        """
+        Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
+        """
         ...
 
     @class_method_variant("_cls_advance")
@@ -167,6 +176,9 @@ class TestClock(
         idempotency_key: Optional[str] = None,
         **params: Unpack["TestClock.AdvanceParams"]
     ) -> "TestClock":
+        """
+        Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
+        """
         return cast(
             "TestClock",
             self._request(
@@ -188,6 +200,9 @@ class TestClock(
         stripe_account: Optional[str] = None,
         **params: Unpack["TestClock.CreateParams"]
     ) -> "TestClock":
+        """
+        Creates a new test clock that can be attached to new customers and quotes.
+        """
         return cast(
             "TestClock",
             cls._static_request(
@@ -205,6 +220,9 @@ class TestClock(
     def _cls_delete(
         cls, sid: str, **params: Unpack["TestClock.DeleteParams"]
     ) -> "TestClock":
+        """
+        Deletes a test clock.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             "TestClock",
@@ -216,18 +234,27 @@ class TestClock(
     def delete(
         cls, sid: str, **params: Unpack["TestClock.DeleteParams"]
     ) -> "TestClock":
+        """
+        Deletes a test clock.
+        """
         ...
 
     @overload
     def delete(
         self, **params: Unpack["TestClock.DeleteParams"]
     ) -> "TestClock":
+        """
+        Deletes a test clock.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["TestClock.DeleteParams"]
     ) -> "TestClock":
+        """
+        Deletes a test clock.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),
@@ -242,6 +269,9 @@ class TestClock(
         stripe_account: Optional[str] = None,
         **params: Unpack["TestClock.ListParams"]
     ) -> ListObject["TestClock"]:
+        """
+        Returns a list of your test clocks.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -263,6 +293,9 @@ class TestClock(
     def retrieve(
         cls, id: str, **params: Unpack["TestClock.RetrieveParams"]
     ) -> "TestClock":
+        """
+        Retrieves a test clock.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

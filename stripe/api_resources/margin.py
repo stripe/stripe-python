@@ -139,6 +139,9 @@ class Margin(
         stripe_account: Optional[str] = None,
         **params: Unpack["Margin.CreateParams"]
     ) -> "Margin":
+        """
+        Create a margin object to be used with invoices, invoice items, and invoice line items for a customer to represent a partner discount.A margin has a percent_off which is the percent that will be taken off the subtotal after all items and other discounts and promotions) of any invoices for a customer. Calculation of prorations do not include any partner margins applied on the original invoice item.
+        """
         return cast(
             "Margin",
             cls._static_request(
@@ -160,6 +163,9 @@ class Margin(
         stripe_account: Optional[str] = None,
         **params: Unpack["Margin.ListParams"]
     ) -> ListObject["Margin"]:
+        """
+        Retrieve a list of your margins.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -181,6 +187,9 @@ class Margin(
     def modify(
         cls, id: str, **params: Unpack["Margin.ModifyParams"]
     ) -> "Margin":
+        """
+        Update the specified margin object. Certain fields of the margin object are not editable.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Margin",
@@ -191,6 +200,9 @@ class Margin(
     def retrieve(
         cls, id: str, **params: Unpack["Margin.RetrieveParams"]
     ) -> "Margin":
+        """
+        Retrieve a margin object with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

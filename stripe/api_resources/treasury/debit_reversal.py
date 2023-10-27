@@ -164,6 +164,9 @@ class DebitReversal(
         stripe_account: Optional[str] = None,
         **params: Unpack["DebitReversal.CreateParams"]
     ) -> "DebitReversal":
+        """
+        Reverses a ReceivedDebit and creates a DebitReversal object.
+        """
         return cast(
             "DebitReversal",
             cls._static_request(
@@ -185,6 +188,9 @@ class DebitReversal(
         stripe_account: Optional[str] = None,
         **params: Unpack["DebitReversal.ListParams"]
     ) -> ListObject["DebitReversal"]:
+        """
+        Returns a list of DebitReversals.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -206,6 +212,9 @@ class DebitReversal(
     def retrieve(
         cls, id: str, **params: Unpack["DebitReversal.RetrieveParams"]
     ) -> "DebitReversal":
+        """
+        Retrieves a DebitReversal object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

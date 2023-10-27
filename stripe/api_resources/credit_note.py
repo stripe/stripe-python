@@ -674,6 +674,22 @@ class CreditNote(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.CreateParams"]
     ) -> "CreditNote":
+        """
+        Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
+        its amount_due. For a status=paid invoice, a credit note does not affect its amount_due. Instead, it can result
+        in any combination of the following:
+
+
+        Refund: create a new refund (using refund_amount) or link an existing refund (using refund).
+        Customer balance credit: credit the customer's balance (using credit_amount) which will be automatically applied to their next invoice when it's finalized.
+        Outside of Stripe credit: record the amount that is or will be credited outside of Stripe (using out_of_band_amount).
+
+
+        For post-payment credit notes the sum of the refund, credit and outside of Stripe amounts must equal the credit note total.
+
+        You may issue multiple credit notes for an invoice. Each credit note will increment the invoice's pre_payment_credit_notes_amount
+        or post_payment_credit_notes_amount depending on its status at the time of credit note creation.
+        """
         return cast(
             "CreditNote",
             cls._static_request(
@@ -695,6 +711,9 @@ class CreditNote(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.ListParams"]
     ) -> ListObject["CreditNote"]:
+        """
+        Returns a list of credit notes.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -716,6 +735,9 @@ class CreditNote(
     def modify(
         cls, id: str, **params: Unpack["CreditNote.ModifyParams"]
     ) -> "CreditNote":
+        """
+        Updates an existing credit note.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "CreditNote",
@@ -730,6 +752,9 @@ class CreditNote(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.PreviewParams"]
     ) -> "CreditNote":
+        """
+        Get a preview of a credit note without creating it.
+        """
         return cast(
             "CreditNote",
             cls._static_request(
@@ -750,6 +775,9 @@ class CreditNote(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.PreviewLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
+        """
+        When retrieving a credit note preview, you'll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.
+        """
         return cast(
             ListObject["CreditNoteLineItem"],
             cls._static_request(
@@ -766,6 +794,9 @@ class CreditNote(
     def retrieve(
         cls, id: str, **params: Unpack["CreditNote.RetrieveParams"]
     ) -> "CreditNote":
+        """
+        Retrieves the credit note object with the given identifier.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -779,6 +810,9 @@ class CreditNote(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
+        """
+        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        """
         return cast(
             "CreditNote",
             cls._static_request(
@@ -801,6 +835,9 @@ class CreditNote(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
+        """
+        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        """
         ...
 
     @overload
@@ -809,6 +846,9 @@ class CreditNote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
+        """
+        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        """
         ...
 
     @class_method_variant("_cls_void_credit_note")
@@ -817,6 +857,9 @@ class CreditNote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["CreditNote.VoidCreditNoteParams"]
     ) -> "CreditNote":
+        """
+        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
+        """
         return cast(
             "CreditNote",
             self._request(
@@ -838,6 +881,9 @@ class CreditNote(
         stripe_account: Optional[str] = None,
         **params: Unpack["CreditNote.ListLinesParams"]
     ) -> ListObject["CreditNoteLineItem"]:
+        """
+        When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         return cast(
             ListObject["CreditNoteLineItem"],
             cls._static_request(

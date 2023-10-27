@@ -371,6 +371,9 @@ class BankAccount(
     def _cls_delete(
         cls, sid: str, **params: Unpack["BankAccount.DeleteParams"]
     ) -> Union["BankAccount", "Card"]:
+        """
+        Delete a specified external account for a given account.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(
             Union["BankAccount", "Card"],
@@ -382,18 +385,27 @@ class BankAccount(
     def delete(
         cls, sid: str, **params: Unpack["BankAccount.DeleteParams"]
     ) -> Union["BankAccount", "Card"]:
+        """
+        Delete a specified external account for a given account.
+        """
         ...
 
     @overload
     def delete(
         self, **params: Unpack["BankAccount.DeleteParams"]
     ) -> Union["BankAccount", "Card"]:
+        """
+        Delete a specified external account for a given account.
+        """
         ...
 
     @class_method_variant("_cls_delete")
     def delete(  # pyright: ignore[reportGeneralTypeIssues]
         self, **params: Unpack["BankAccount.DeleteParams"]
     ) -> Union["BankAccount", "Card"]:
+        """
+        Delete a specified external account for a given account.
+        """
         return self._request_and_refresh(
             "delete",
             self.instance_url(),

@@ -104,6 +104,9 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
     def retrieve(
         cls, **params: Unpack["FinancingSummary.RetrieveParams"]
     ) -> "FinancingSummary":
+        """
+        Retrieve the financing state for the account that was authenticated in the request.
+        """
         instance = cls(None, **params)
         instance.refresh()
         return instance

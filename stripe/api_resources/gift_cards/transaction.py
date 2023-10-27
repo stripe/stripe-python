@@ -251,6 +251,9 @@ class Transaction(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.CancelParams"]
     ) -> "Transaction":
+        """
+        Cancel a gift card transaction
+        """
         return cast(
             "Transaction",
             cls._static_request(
@@ -275,6 +278,9 @@ class Transaction(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.CancelParams"]
     ) -> "Transaction":
+        """
+        Cancel a gift card transaction
+        """
         ...
 
     @overload
@@ -283,6 +289,9 @@ class Transaction(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Transaction.CancelParams"]
     ) -> "Transaction":
+        """
+        Cancel a gift card transaction
+        """
         ...
 
     @class_method_variant("_cls_cancel")
@@ -291,6 +300,9 @@ class Transaction(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Transaction.CancelParams"]
     ) -> "Transaction":
+        """
+        Cancel a gift card transaction
+        """
         return cast(
             "Transaction",
             self._request(
@@ -312,6 +324,9 @@ class Transaction(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.ConfirmParams"]
     ) -> "Transaction":
+        """
+        Confirm a gift card transaction
+        """
         return cast(
             "Transaction",
             cls._static_request(
@@ -336,6 +351,9 @@ class Transaction(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.ConfirmParams"]
     ) -> "Transaction":
+        """
+        Confirm a gift card transaction
+        """
         ...
 
     @overload
@@ -344,6 +362,9 @@ class Transaction(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Transaction.ConfirmParams"]
     ) -> "Transaction":
+        """
+        Confirm a gift card transaction
+        """
         ...
 
     @class_method_variant("_cls_confirm")
@@ -352,6 +373,9 @@ class Transaction(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Transaction.ConfirmParams"]
     ) -> "Transaction":
+        """
+        Confirm a gift card transaction
+        """
         return cast(
             "Transaction",
             self._request(
@@ -373,6 +397,9 @@ class Transaction(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.CreateParams"]
     ) -> "Transaction":
+        """
+        Create a gift card transaction
+        """
         return cast(
             "Transaction",
             cls._static_request(
@@ -394,6 +421,9 @@ class Transaction(
         stripe_account: Optional[str] = None,
         **params: Unpack["Transaction.ListParams"]
     ) -> ListObject["Transaction"]:
+        """
+        List gift card transactions for a gift card
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -415,6 +445,9 @@ class Transaction(
     def modify(
         cls, id: str, **params: Unpack["Transaction.ModifyParams"]
     ) -> "Transaction":
+        """
+        Update a gift card transaction
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Transaction",
@@ -425,6 +458,9 @@ class Transaction(
     def retrieve(
         cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
     ) -> "Transaction":
+        """
+        Retrieves the gift card transaction.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

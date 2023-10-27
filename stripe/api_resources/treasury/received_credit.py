@@ -420,6 +420,9 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["ReceivedCredit.ListParams"]
     ) -> ListObject["ReceivedCredit"]:
+        """
+        Returns a list of ReceivedCredits.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -441,6 +444,9 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
     def retrieve(
         cls, id: str, **params: Unpack["ReceivedCredit.RetrieveParams"]
     ) -> "ReceivedCredit":
+        """
+        Retrieves the details of an existing ReceivedCredit by passing the unique ReceivedCredit ID from the ReceivedCredit list.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -456,6 +462,9 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
             stripe_account: Optional[str] = None,
             **params: Unpack["ReceivedCredit.CreateParams"]
         ) -> "ReceivedCredit":
+            """
+            Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.
+            """
             return cast(
                 "ReceivedCredit",
                 cls._static_request(

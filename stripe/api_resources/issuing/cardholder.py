@@ -1691,6 +1691,9 @@ class Cardholder(
         stripe_account: Optional[str] = None,
         **params: Unpack["Cardholder.CreateParams"]
     ) -> "Cardholder":
+        """
+        Creates a new Issuing Cardholder object that can be issued cards.
+        """
         return cast(
             "Cardholder",
             cls._static_request(
@@ -1712,6 +1715,9 @@ class Cardholder(
         stripe_account: Optional[str] = None,
         **params: Unpack["Cardholder.ListParams"]
     ) -> ListObject["Cardholder"]:
+        """
+        Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -1733,6 +1739,9 @@ class Cardholder(
     def modify(
         cls, id: str, **params: Unpack["Cardholder.ModifyParams"]
     ) -> "Cardholder":
+        """
+        Updates the specified Issuing Cardholder object by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Cardholder",
@@ -1743,6 +1752,9 @@ class Cardholder(
     def retrieve(
         cls, id: str, **params: Unpack["Cardholder.RetrieveParams"]
     ) -> "Cardholder":
+        """
+        Retrieves an Issuing Cardholder object.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

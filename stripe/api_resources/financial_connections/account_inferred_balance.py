@@ -64,6 +64,9 @@ class AccountInferredBalance(ListableAPIResource["AccountInferredBalance"]):
         stripe_account: Optional[str] = None,
         **params: Unpack["AccountInferredBalance.ListParams"]
     ) -> ListObject["AccountInferredBalance"]:
+        """
+        Lists the recorded inferred balances for a Financial Connections Account.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),

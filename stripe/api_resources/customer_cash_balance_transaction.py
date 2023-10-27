@@ -224,6 +224,9 @@ class CustomerCashBalanceTransaction(
         stripe_account: Optional[str] = None,
         **params: Unpack["CustomerCashBalanceTransaction.ListParams"]
     ) -> ListObject["CustomerCashBalanceTransaction"]:
+        """
+        Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -247,6 +250,9 @@ class CustomerCashBalanceTransaction(
         id: str,
         **params: Unpack["CustomerCashBalanceTransaction.RetrieveParams"]
     ) -> "CustomerCashBalanceTransaction":
+        """
+        Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance

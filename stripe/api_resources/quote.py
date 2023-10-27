@@ -3836,6 +3836,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
     ) -> "Quote":
+        """
+        Accepts the specified quote.
+        """
         return cast(
             "Quote",
             cls._static_request(
@@ -3860,6 +3863,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
     ) -> "Quote":
+        """
+        Accepts the specified quote.
+        """
         ...
 
     @overload
@@ -3868,6 +3874,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
     ) -> "Quote":
+        """
+        Accepts the specified quote.
+        """
         ...
 
     @class_method_variant("_cls_accept")
@@ -3876,6 +3885,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.AcceptParams"]
     ) -> "Quote":
+        """
+        Accepts the specified quote.
+        """
         return cast(
             "Quote",
             self._request(
@@ -3897,6 +3909,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
     ) -> "Quote":
+        """
+        Cancels the quote.
+        """
         return cast(
             "Quote",
             cls._static_request(
@@ -3921,6 +3936,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
     ) -> "Quote":
+        """
+        Cancels the quote.
+        """
         ...
 
     @overload
@@ -3929,6 +3947,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
     ) -> "Quote":
+        """
+        Cancels the quote.
+        """
         ...
 
     @class_method_variant("_cls_cancel")
@@ -3937,6 +3958,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.CancelParams"]
     ) -> "Quote":
+        """
+        Cancels the quote.
+        """
         return cast(
             "Quote",
             self._request(
@@ -3958,6 +3982,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.CreateParams"]
     ) -> "Quote":
+        """
+        A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
+        """
         return cast(
             "Quote",
             cls._static_request(
@@ -3980,6 +4007,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
+        """
+        Finalizes the quote.
+        """
         return cast(
             "Quote",
             cls._static_request(
@@ -4004,6 +4034,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
+        """
+        Finalizes the quote.
+        """
         ...
 
     @overload
@@ -4012,6 +4045,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
+        """
+        Finalizes the quote.
+        """
         ...
 
     @class_method_variant("_cls_finalize_quote")
@@ -4020,6 +4056,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.FinalizeQuoteParams"]
     ) -> "Quote":
+        """
+        Finalizes the quote.
+        """
         return cast(
             "Quote",
             self._request(
@@ -4040,6 +4079,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListParams"]
     ) -> ListObject["Quote"]:
+        """
+        Returns a list of your quotes.
+        """
         result = cls._static_request(
             "get",
             cls.class_url(),
@@ -4066,6 +4108,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
+        """
         return cast(
             ListObject["LineItem"],
             cls._static_request(
@@ -4090,6 +4135,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
+        """
         ...
 
     @overload
@@ -4098,6 +4146,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
+        """
         ...
 
     @class_method_variant("_cls_list_computed_upfront_line_items")
@@ -4106,6 +4157,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
+        """
         return cast(
             ListObject["LineItem"],
             self._request(
@@ -4127,6 +4181,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         return cast(
             ListObject["LineItem"],
             cls._static_request(
@@ -4151,6 +4208,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         ...
 
     @overload
@@ -4159,6 +4219,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         ...
 
     @class_method_variant("_cls_list_line_items")
@@ -4167,6 +4230,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListLineItemsParams"]
     ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
         return cast(
             ListObject["LineItem"],
             self._request(
@@ -4188,6 +4254,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListLinesParams"]
     ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
         return cast(
             ListObject["QuoteLine"],
             cls._static_request(
@@ -4212,6 +4281,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListLinesParams"]
     ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
         ...
 
     @overload
@@ -4220,6 +4292,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListLinesParams"]
     ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
         ...
 
     @class_method_variant("_cls_list_lines")
@@ -4228,6 +4303,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListLinesParams"]
     ) -> ListObject["QuoteLine"]:
+        """
+        Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
+        """
         return cast(
             ListObject["QuoteLine"],
             self._request(
@@ -4250,6 +4328,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
         return cast(
             ListObject["InvoiceLineItem"],
             cls._static_request(
@@ -4276,6 +4357,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
         ...
 
     @overload
@@ -4285,6 +4369,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
         ...
 
     @class_method_variant("_cls_list_preview_invoice_lines")
@@ -4294,6 +4381,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
     ) -> ListObject["InvoiceLineItem"]:
+        """
+        Preview the invoice line items that would be generated by accepting the quote.
+        """
         return cast(
             ListObject["InvoiceLineItem"],
             self._request(
@@ -4316,6 +4406,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.MarkDraftParams"]
     ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
         return cast(
             "Quote",
             cls._static_request(
@@ -4340,6 +4433,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.MarkDraftParams"]
     ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
         ...
 
     @overload
@@ -4348,6 +4444,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.MarkDraftParams"]
     ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
         ...
 
     @class_method_variant("_cls_mark_draft")
@@ -4356,6 +4455,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.MarkDraftParams"]
     ) -> "Quote":
+        """
+        Converts a stale quote to draft.
+        """
         return cast(
             "Quote",
             self._request(
@@ -4377,6 +4479,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.MarkStaleParams"]
     ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
         return cast(
             "Quote",
             cls._static_request(
@@ -4401,6 +4506,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.MarkStaleParams"]
     ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
         ...
 
     @overload
@@ -4409,6 +4517,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.MarkStaleParams"]
     ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
         ...
 
     @class_method_variant("_cls_mark_stale")
@@ -4417,6 +4528,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.MarkStaleParams"]
     ) -> "Quote":
+        """
+        Converts a draft or open quote to stale.
+        """
         return cast(
             "Quote",
             self._request(
@@ -4433,6 +4547,9 @@ class Quote(
     def modify(
         cls, id: str, **params: Unpack["Quote.ModifyParams"]
     ) -> "Quote":
+        """
+        A quote models prices and services for a customer.
+        """
         url = "%s/%s" % (cls.class_url(), quote_plus(id))
         return cast(
             "Quote",
@@ -4448,6 +4565,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ReestimateParams"]
     ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
         return cast(
             "Quote",
             cls._static_request(
@@ -4472,6 +4592,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ReestimateParams"]
     ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
         ...
 
     @overload
@@ -4480,6 +4603,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ReestimateParams"]
     ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
         ...
 
     @class_method_variant("_cls_reestimate")
@@ -4488,6 +4614,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         **params: Unpack["Quote.ReestimateParams"]
     ) -> "Quote":
+        """
+        Recompute the upcoming invoice estimate for the quote.
+        """
         return cast(
             "Quote",
             self._request(
@@ -4504,6 +4633,9 @@ class Quote(
     def retrieve(
         cls, id: str, **params: Unpack["Quote.RetrieveParams"]
     ) -> "Quote":
+        """
+        Retrieves the quote with the given ID.
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
@@ -4585,6 +4717,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewInvoicesParams"]
     ) -> ListObject["QuotePreviewInvoice"]:
+        """
+        Preview the invoices that would be generated by accepting the quote.
+        """
         return cast(
             ListObject["QuotePreviewInvoice"],
             cls._static_request(
@@ -4608,6 +4743,9 @@ class Quote(
         stripe_account: Optional[str] = None,
         **params: Unpack["Quote.ListPreviewSubscriptionSchedulesParams"]
     ) -> ListObject["QuotePreviewSubscriptionSchedule"]:
+        """
+        Preview the schedules that would be generated by accepting the quote
+        """
         return cast(
             ListObject["QuotePreviewSubscriptionSchedule"],
             cls._static_request(

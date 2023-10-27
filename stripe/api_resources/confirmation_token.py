@@ -1207,6 +1207,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
     def retrieve(
         cls, id: str, **params: Unpack["ConfirmationToken.RetrieveParams"]
     ) -> "ConfirmationToken":
+        """
+        Retrieves an existing ConfirmationToken object
+        """
         instance = cls(id, **params)
         instance.refresh()
         return instance
