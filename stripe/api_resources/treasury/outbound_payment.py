@@ -551,21 +551,6 @@ class OutboundPayment(
         )
 
     @overload
-    @classmethod
-    def cancel(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["OutboundPayment.CancelParams"]
-    ) -> "OutboundPayment":
-        """
-        Cancel an OutboundPayment.
-        """
-        ...
-
-    @overload
     @staticmethod
     def cancel(
         id: str,
@@ -705,21 +690,6 @@ class OutboundPayment(
             )
 
         @overload
-        @classmethod
-        def fail(
-            cls,
-            id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundPayment.FailParams"]
-        ) -> "OutboundPayment":
-            """
-            Transitions a test mode created OutboundPayment to the failed status. The OutboundPayment must already be in the processing state.
-            """
-            ...
-
-        @overload
         @staticmethod
         def fail(
             id: str,
@@ -792,21 +762,6 @@ class OutboundPayment(
             )
 
         @overload
-        @classmethod
-        def post(
-            cls,
-            id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundPayment.PostParams"]
-        ) -> "OutboundPayment":
-            """
-            Transitions a test mode created OutboundPayment to the posted status. The OutboundPayment must already be in the processing state.
-            """
-            ...
-
-        @overload
         @staticmethod
         def post(
             id: str,
@@ -877,21 +832,6 @@ class OutboundPayment(
                     params=params,
                 ),
             )
-
-        @overload
-        @classmethod
-        def return_outbound_payment(
-            cls,
-            id: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundPayment.ReturnOutboundPaymentParams"]
-        ) -> "OutboundPayment":
-            """
-            Transitions a test mode created OutboundPayment to the returned status. The OutboundPayment must already be in the processing state.
-            """
-            ...
 
         @overload
         @staticmethod

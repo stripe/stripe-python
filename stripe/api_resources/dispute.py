@@ -473,23 +473,6 @@ class Dispute(
         )
 
     @overload
-    @classmethod
-    def close(
-        cls,
-        dispute: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Dispute.CloseParams"]
-    ) -> "Dispute":
-        """
-        Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
-
-        The status of the dispute will change from needs_response to lost. Closing a dispute is irreversible.
-        """
-        ...
-
-    @overload
     @staticmethod
     def close(
         dispute: str,

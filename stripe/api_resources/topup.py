@@ -261,21 +261,6 @@ class Topup(
         )
 
     @overload
-    @classmethod
-    def cancel(
-        cls,
-        topup: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Topup.CancelParams"]
-    ) -> "Topup":
-        """
-        Cancels a top-up. Only pending top-ups can be canceled.
-        """
-        ...
-
-    @overload
     @staticmethod
     def cancel(
         topup: str,

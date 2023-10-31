@@ -566,21 +566,6 @@ class Reader(
         )
 
     @overload
-    @classmethod
-    def cancel_action(
-        cls,
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.CancelActionParams"]
-    ) -> "Reader":
-        """
-        Cancels the current reader action.
-        """
-        ...
-
-    @overload
     @staticmethod
     def cancel_action(
         reader: str,
@@ -663,16 +648,6 @@ class Reader(
             "Reader",
             cls._static_request("delete", url, params=params),
         )
-
-    @overload
-    @classmethod
-    def delete(
-        cls, sid: str, **params: Unpack["Reader.DeleteParams"]
-    ) -> "Reader":
-        """
-        Deletes a Reader object.
-        """
-        ...
 
     @overload
     @staticmethod
@@ -770,21 +745,6 @@ class Reader(
         )
 
     @overload
-    @classmethod
-    def process_payment_intent(
-        cls,
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.ProcessPaymentIntentParams"]
-    ) -> "Reader":
-        """
-        Initiates a payment flow on a Reader.
-        """
-        ...
-
-    @overload
     @staticmethod
     def process_payment_intent(
         reader: str,
@@ -857,21 +817,6 @@ class Reader(
         )
 
     @overload
-    @classmethod
-    def process_setup_intent(
-        cls,
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.ProcessSetupIntentParams"]
-    ) -> "Reader":
-        """
-        Initiates a setup intent flow on a Reader.
-        """
-        ...
-
-    @overload
     @staticmethod
     def process_setup_intent(
         reader: str,
@@ -942,21 +887,6 @@ class Reader(
                 params=params,
             ),
         )
-
-    @overload
-    @classmethod
-    def refund_payment(
-        cls,
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.RefundPaymentParams"]
-    ) -> "Reader":
-        """
-        Initiates a refund on a Reader
-        """
-        ...
 
     @overload
     @staticmethod
@@ -1042,21 +972,6 @@ class Reader(
         )
 
     @overload
-    @classmethod
-    def set_reader_display(
-        cls,
-        reader: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.SetReaderDisplayParams"]
-    ) -> "Reader":
-        """
-        Sets reader display to show cart details.
-        """
-        ...
-
-    @overload
     @staticmethod
     def set_reader_display(
         reader: str,
@@ -1130,21 +1045,6 @@ class Reader(
                     params=params,
                 ),
             )
-
-        @overload
-        @classmethod
-        def present_payment_method(
-            cls,
-            reader: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack["Reader.PresentPaymentMethodParams"]
-        ) -> "Reader":
-            """
-            Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
-            """
-            ...
 
         @overload
         @staticmethod

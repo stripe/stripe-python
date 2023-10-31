@@ -145,21 +145,6 @@ class TestClock(
         )
 
     @overload
-    @classmethod
-    def advance(
-        cls,
-        test_clock: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["TestClock.AdvanceParams"]
-    ) -> "TestClock":
-        """
-        Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
-        """
-        ...
-
-    @overload
     @staticmethod
     def advance(
         test_clock: str,
@@ -242,16 +227,6 @@ class TestClock(
             "TestClock",
             cls._static_request("delete", url, params=params),
         )
-
-    @overload
-    @classmethod
-    def delete(
-        cls, sid: str, **params: Unpack["TestClock.DeleteParams"]
-    ) -> "TestClock":
-        """
-        Deletes a test clock.
-        """
-        ...
 
     @overload
     @staticmethod

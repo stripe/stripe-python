@@ -445,16 +445,6 @@ class SubscriptionItem(
         )
 
     @overload
-    @classmethod
-    def delete(
-        cls, sid: str, **params: Unpack["SubscriptionItem.DeleteParams"]
-    ) -> "SubscriptionItem":
-        """
-        Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.
-        """
-        ...
-
-    @overload
     @staticmethod
     def delete(
         sid: str, **params: Unpack["SubscriptionItem.DeleteParams"]

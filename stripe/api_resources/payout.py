@@ -305,21 +305,6 @@ class Payout(
         )
 
     @overload
-    @classmethod
-    def cancel(
-        cls,
-        payout: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Payout.CancelParams"]
-    ) -> "Payout":
-        """
-        You can cancel a previously created payout if it hasn't been paid out yet. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
-        """
-        ...
-
-    @overload
     @staticmethod
     def cancel(
         payout: str,
@@ -473,23 +458,6 @@ class Payout(
                 params=params,
             ),
         )
-
-    @overload
-    @classmethod
-    def reverse(
-        cls,
-        payout: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Payout.ReverseParams"]
-    ) -> "Payout":
-        """
-        Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is in the pending status, use /v1/payouts/:id/cancel instead.
-
-        By requesting a reversal through /v1/payouts/:id/reverse, you confirm that the authorized signatory of the selected bank account authorizes the debit on the bank account and that no other authorization is required.
-        """
-        ...
 
     @overload
     @staticmethod

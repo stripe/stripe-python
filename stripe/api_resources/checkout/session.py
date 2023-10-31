@@ -3644,23 +3644,6 @@ class Session(
         )
 
     @overload
-    @classmethod
-    def expire(
-        cls,
-        session: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Session.ExpireParams"]
-    ) -> "Session":
-        """
-        A Session can be expired when it is in one of these statuses: open
-
-        After it expires, a customer can't complete a Session and customers loading the Session see a message saying the Session is expired.
-        """
-        ...
-
-    @overload
     @staticmethod
     def expire(
         session: str,
@@ -3765,21 +3748,6 @@ class Session(
                 params=params,
             ),
         )
-
-    @overload
-    @classmethod
-    def list_line_items(
-        cls,
-        session: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Session.ListLineItemsParams"]
-    ) -> ListObject["LineItem"]:
-        """
-        When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
-        """
-        ...
 
     @overload
     @staticmethod

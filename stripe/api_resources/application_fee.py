@@ -262,29 +262,6 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         )
 
     @overload
-    @classmethod
-    def refund(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["ApplicationFee.RefundParams"]
-    ) -> "ApplicationFeeRefund":
-        """
-        Refunds an application fee that has previously been collected but not yet refunded.
-        Funds will be refunded to the Stripe account from which the fee was originally collected.
-
-        You can optionally refund only part of an application fee.
-        You can do so multiple times, until the entire fee has been refunded.
-
-        Once entirely refunded, an application fee can't be refunded again.
-        This method will raise an error when called on an already-refunded application fee,
-        or when trying to refund more money than is left on an application fee.
-        """
-        ...
-
-    @overload
     @staticmethod
     def refund(
         id: str,

@@ -229,16 +229,6 @@ class ValueList(
         )
 
     @overload
-    @classmethod
-    def delete(
-        cls, sid: str, **params: Unpack["ValueList.DeleteParams"]
-    ) -> "ValueList":
-        """
-        Deletes a ValueList object, also deleting any items contained within the value list. To be deleted, a value list must not be referenced in any rules.
-        """
-        ...
-
-    @overload
     @staticmethod
     def delete(
         sid: str, **params: Unpack["ValueList.DeleteParams"]

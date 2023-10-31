@@ -881,21 +881,6 @@ class FinancialAccount(
         )
 
     @overload
-    @classmethod
-    def retrieve_features(
-        cls,
-        financial_account: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
-    ) -> "FinancialAccountFeatures":
-        """
-        Retrieves Features information associated with the FinancialAccount.
-        """
-        ...
-
-    @overload
     @staticmethod
     def retrieve_features(
         financial_account: str,
@@ -966,21 +951,6 @@ class FinancialAccount(
                 params=params,
             ),
         )
-
-    @overload
-    @classmethod
-    def update_features(
-        cls,
-        financial_account: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
-    ) -> "FinancialAccountFeatures":
-        """
-        Updates the Features associated with a FinancialAccount.
-        """
-        ...
 
     @overload
     @staticmethod

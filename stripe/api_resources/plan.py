@@ -426,14 +426,6 @@ class Plan(
         )
 
     @overload
-    @classmethod
-    def delete(cls, sid: str, **params: Unpack["Plan.DeleteParams"]) -> "Plan":
-        """
-        Deleting plans means new subscribers can't be added. Existing subscribers aren't affected.
-        """
-        ...
-
-    @overload
     @staticmethod
     def delete(sid: str, **params: Unpack["Plan.DeleteParams"]) -> "Plan":
         """

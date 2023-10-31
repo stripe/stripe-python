@@ -826,21 +826,6 @@ class CreditNote(
         )
 
     @overload
-    @classmethod
-    def void_credit_note(
-        cls,
-        id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.VoidCreditNoteParams"]
-    ) -> "CreditNote":
-        """
-        Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
-        """
-        ...
-
-    @overload
     @staticmethod
     def void_credit_note(
         id: str,

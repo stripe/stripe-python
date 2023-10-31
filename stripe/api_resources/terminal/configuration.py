@@ -986,16 +986,6 @@ class Configuration(
         )
 
     @overload
-    @classmethod
-    def delete(
-        cls, sid: str, **params: Unpack["Configuration.DeleteParams"]
-    ) -> "Configuration":
-        """
-        Deletes a Configuration object.
-        """
-        ...
-
-    @overload
     @staticmethod
     def delete(
         sid: str, **params: Unpack["Configuration.DeleteParams"]

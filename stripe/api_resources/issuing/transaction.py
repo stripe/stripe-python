@@ -884,21 +884,6 @@ class Transaction(
             )
 
         @overload
-        @classmethod
-        def refund(
-            cls,
-            transaction: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack["Transaction.RefundParams"]
-        ) -> "Transaction":
-            """
-            Refund a test-mode Transaction.
-            """
-            ...
-
-        @overload
         @staticmethod
         def refund(
             transaction: str,

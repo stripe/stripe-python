@@ -305,16 +305,6 @@ class Coupon(
         )
 
     @overload
-    @classmethod
-    def delete(
-        cls, sid: str, **params: Unpack["Coupon.DeleteParams"]
-    ) -> "Coupon":
-        """
-        You can delete coupons via the [coupon management](https://dashboard.stripe.com/coupons) page of the Stripe dashboard. However, deleting a coupon does not affect any customers who have already applied the coupon; it means that new customers can't redeem the coupon. You can also delete coupons via the API.
-        """
-        ...
-
-    @overload
     @staticmethod
     def delete(sid: str, **params: Unpack["Coupon.DeleteParams"]) -> "Coupon":
         """

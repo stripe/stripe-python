@@ -3644,16 +3644,6 @@ class Invoice(
         )
 
     @overload
-    @classmethod
-    def delete(
-        cls, sid: str, **params: Unpack["Invoice.DeleteParams"]
-    ) -> "Invoice":
-        """
-        Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
-        """
-        ...
-
-    @overload
     @staticmethod
     def delete(
         sid: str, **params: Unpack["Invoice.DeleteParams"]
@@ -3708,21 +3698,6 @@ class Invoice(
                 params=params,
             ),
         )
-
-    @overload
-    @classmethod
-    def finalize_invoice(
-        cls,
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.FinalizeInvoiceParams"]
-    ) -> "Invoice":
-        """
-        Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
-        """
-        ...
 
     @overload
     @staticmethod
@@ -3825,21 +3800,6 @@ class Invoice(
         )
 
     @overload
-    @classmethod
-    def mark_uncollectible(
-        cls,
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.MarkUncollectibleParams"]
-    ) -> "Invoice":
-        """
-        Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
-        """
-        ...
-
-    @overload
     @staticmethod
     def mark_uncollectible(
         invoice: str,
@@ -3930,21 +3890,6 @@ class Invoice(
         )
 
     @overload
-    @classmethod
-    def pay(
-        cls,
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.PayParams"]
-    ) -> "Invoice":
-        """
-        Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
-        """
-        ...
-
-    @overload
     @staticmethod
     def pay(
         invoice: str,
@@ -4028,23 +3973,6 @@ class Invoice(
                 params=params,
             ),
         )
-
-    @overload
-    @classmethod
-    def send_invoice(
-        cls,
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.SendInvoiceParams"]
-    ) -> "Invoice":
-        """
-        Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
-
-        Requests made in test-mode result in no emails being sent, despite sending an invoice.sent event.
-        """
-        ...
 
     @overload
     @staticmethod
@@ -4173,21 +4101,6 @@ class Invoice(
                 params=params,
             ),
         )
-
-    @overload
-    @classmethod
-    def void_invoice(
-        cls,
-        invoice: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.VoidInvoiceParams"]
-    ) -> "Invoice":
-        """
-        Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
-        """
-        ...
 
     @overload
     @staticmethod

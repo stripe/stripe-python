@@ -278,23 +278,6 @@ class Refund(
         )
 
     @overload
-    @classmethod
-    def cancel(
-        cls,
-        refund: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Refund.CancelParams"]
-    ) -> "Refund":
-        """
-        Cancels a refund with a status of requires_action.
-
-        You can't cancel refunds in other states. Only refunds for payment methods that require customer action can enter the requires_action state.
-        """
-        ...
-
-    @overload
     @staticmethod
     def cancel(
         refund: str,
@@ -463,21 +446,6 @@ class Refund(
                     params=params,
                 ),
             )
-
-        @overload
-        @classmethod
-        def expire(
-            cls,
-            refund: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack["Refund.ExpireParams"]
-        ) -> "Refund":
-            """
-            Expire a refund with a status of requires_action.
-            """
-            ...
 
         @overload
         @staticmethod

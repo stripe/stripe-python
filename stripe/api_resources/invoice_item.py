@@ -493,16 +493,6 @@ class InvoiceItem(
         )
 
     @overload
-    @classmethod
-    def delete(
-        cls, sid: str, **params: Unpack["InvoiceItem.DeleteParams"]
-    ) -> "InvoiceItem":
-        """
-        Deletes an invoice item, removing it from an invoice. Deleting invoice items is only possible when they're not attached to invoices, or if it's attached to a draft invoice.
-        """
-        ...
-
-    @overload
     @staticmethod
     def delete(
         sid: str, **params: Unpack["InvoiceItem.DeleteParams"]

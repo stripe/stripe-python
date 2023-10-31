@@ -58,16 +58,6 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
         )
 
     @overload
-    @classmethod
-    def delete(
-        cls, sid: str, **params: Unpack["EphemeralKey.DeleteParams"]
-    ) -> "EphemeralKey":
-        """
-        Invalidates a short-lived API key for a given resource.
-        """
-        ...
-
-    @overload
     @staticmethod
     def delete(
         sid: str, **params: Unpack["EphemeralKey.DeleteParams"]

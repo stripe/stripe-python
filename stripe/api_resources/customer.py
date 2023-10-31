@@ -1459,23 +1459,6 @@ class Customer(
         )
 
     @overload
-    @classmethod
-    def create_funding_instructions(
-        cls,
-        customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"]
-    ) -> "FundingInstructions":
-        """
-        Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
-        funding instructions will be created. If funding instructions have already been created for a given customer, the same
-        funding instructions will be retrieved. In other words, we will return the same funding instructions each time.
-        """
-        ...
-
-    @overload
     @staticmethod
     def create_funding_instructions(
         customer: str,
@@ -1541,16 +1524,6 @@ class Customer(
         )
 
     @overload
-    @classmethod
-    def delete(
-        cls, sid: str, **params: Unpack["Customer.DeleteParams"]
-    ) -> "Customer":
-        """
-        Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
-        """
-        ...
-
-    @overload
     @staticmethod
     def delete(
         sid: str, **params: Unpack["Customer.DeleteParams"]
@@ -1605,21 +1578,6 @@ class Customer(
                 params=params,
             ),
         )
-
-    @overload
-    @classmethod
-    def delete_discount(
-        cls,
-        customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.DeleteDiscountParams"]
-    ) -> "Discount":
-        """
-        Removes the currently applied discount on a customer.
-        """
-        ...
 
     @overload
     @staticmethod
@@ -1722,21 +1680,6 @@ class Customer(
         )
 
     @overload
-    @classmethod
-    def list_payment_methods(
-        cls,
-        customer: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.ListPaymentMethodsParams"]
-    ) -> ListObject["PaymentMethod"]:
-        """
-        Returns a list of PaymentMethods for a given Customer
-        """
-        ...
-
-    @overload
     @staticmethod
     def list_payment_methods(
         customer: str,
@@ -1835,22 +1778,6 @@ class Customer(
                 params=params,
             ),
         )
-
-    @overload
-    @classmethod
-    def retrieve_payment_method(
-        cls,
-        customer: str,
-        payment_method: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"]
-    ) -> "PaymentMethod":
-        """
-        Retrieves a PaymentMethod object for a given Customer.
-        """
-        ...
 
     @overload
     @staticmethod
@@ -2410,21 +2337,6 @@ class Customer(
                     params=params,
                 ),
             )
-
-        @overload
-        @classmethod
-        def fund_cash_balance(
-            cls,
-            customer: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack["Customer.FundCashBalanceParams"]
-        ) -> "CustomerCashBalanceTransaction":
-            """
-            Create an incoming testmode bank transfer
-            """
-            ...
 
         @overload
         @staticmethod

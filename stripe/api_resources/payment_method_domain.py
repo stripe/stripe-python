@@ -315,26 +315,6 @@ class PaymentMethodDomain(
         )
 
     @overload
-    @classmethod
-    def validate(
-        cls,
-        payment_method_domain: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"]
-    ) -> "PaymentMethodDomain":
-        """
-        Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
-        The payment method doesn't appear in Elements for this domain until it is active.
-
-        To activate a payment method on an existing payment method domain, complete the required validation steps specific to the payment method, and then validate the payment method domain with this endpoint.
-
-        Related guides: [Payment method domains](https://stripe.com/docs/payments/payment-methods/pmd-registration).
-        """
-        ...
-
-    @overload
     @staticmethod
     def validate(
         payment_method_domain: str,

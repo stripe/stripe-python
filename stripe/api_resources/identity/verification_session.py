@@ -430,23 +430,6 @@ class VerificationSession(
         )
 
     @overload
-    @classmethod
-    def cancel(
-        cls,
-        session: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.CancelParams"]
-    ) -> "VerificationSession":
-        """
-        A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
-
-        Once canceled, future submission attempts are disabled. This cannot be undone. [Learn more](https://stripe.com/docs/identity/verification-sessions#cancel).
-        """
-        ...
-
-    @overload
     @staticmethod
     def cancel(
         session: str,
@@ -616,39 +599,6 @@ class VerificationSession(
                 params=params,
             ),
         )
-
-    @overload
-    @classmethod
-    def redact(
-        cls,
-        session: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.RedactParams"]
-    ) -> "VerificationSession":
-        """
-        Redact a VerificationSession to remove all collected information from Stripe. This will redact
-        the VerificationSession and all objects related to it, including VerificationReports, Events,
-        request logs, etc.
-
-        A VerificationSession object can be redacted when it is in requires_input or verified
-        [status](https://stripe.com/docs/identity/how-sessions-work). Redacting a VerificationSession in requires_action
-        state will automatically cancel it.
-
-        The redaction process may take up to four days. When the redaction process is in progress, the
-        VerificationSession's redaction.status field will be set to processing; when the process is
-        finished, it will change to redacted and an identity.verification_session.redacted event
-        will be emitted.
-
-        Redaction is irreversible. Redacted objects are still accessible in the Stripe API, but all the
-        fields that contain personal data will be replaced by the string [redacted] or a similar
-        placeholder. The metadata field will also be erased. Redacted objects cannot be updated or
-        used for any purpose.
-
-        [Learn more](https://stripe.com/docs/identity/verification-sessions#redact).
-        """
-        ...
 
     @overload
     @staticmethod

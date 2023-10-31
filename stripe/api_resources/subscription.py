@@ -1896,25 +1896,6 @@ class Subscription(
         )
 
     @overload
-    @classmethod
-    def cancel(
-        cls,
-        subscription_exposed_id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Subscription.CancelParams"]
-    ) -> "Subscription":
-        """
-        Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
-
-        Note, however, that any pending invoice items that you've created will still be charged for at the end of the period, unless manually [deleted](https://stripe.com/docs/api#delete_invoiceitem). If you've set the subscription to cancel at the end of the period, any pending prorations will also be left in place and collected at the end of the period. But if the subscription is set to cancel immediately, pending prorations will be removed.
-
-        By default, upon subscription cancellation, Stripe will stop automatic collection of all finalized invoices for the customer. This is intended to prevent unexpected payment attempts after the customer has canceled a subscription. However, you can resume automatic collection of the invoices manually after subscription cancellation to have us proceed. Or, you could check for unpaid invoices before allowing the customer to cancel the subscription at all.
-        """
-        ...
-
-    @overload
     @staticmethod
     def cancel(
         subscription_exposed_id: str,
@@ -2030,21 +2011,6 @@ class Subscription(
                 params=params,
             ),
         )
-
-    @overload
-    @classmethod
-    def delete_discount(
-        cls,
-        subscription_exposed_id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Subscription.DeleteDiscountParams"]
-    ) -> "Discount":
-        """
-        Removes the currently applied discount on a subscription.
-        """
-        ...
 
     @overload
     @staticmethod
@@ -2178,21 +2144,6 @@ class Subscription(
                 params=params,
             ),
         )
-
-    @overload
-    @classmethod
-    def resume(
-        cls,
-        subscription: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Subscription.ResumeParams"]
-    ) -> "Subscription":
-        """
-        Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
-        """
-        ...
 
     @overload
     @staticmethod

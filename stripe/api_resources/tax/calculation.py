@@ -680,21 +680,6 @@ class Calculation(CreateableAPIResource["Calculation"]):
         )
 
     @overload
-    @classmethod
-    def list_line_items(
-        cls,
-        calculation: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["Calculation.ListLineItemsParams"]
-    ) -> ListObject["CalculationLineItem"]:
-        """
-        Retrieves the line items of a persisted tax calculation as a collection.
-        """
-        ...
-
-    @overload
     @staticmethod
     def list_line_items(
         calculation: str,

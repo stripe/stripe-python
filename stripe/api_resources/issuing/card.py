@@ -1638,21 +1638,6 @@ class Card(
             )
 
         @overload
-        @classmethod
-        def deliver_card(
-            cls,
-            card: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack["Card.DeliverCardParams"]
-        ) -> "Card":
-            """
-            Updates the shipping status of the specified Issuing Card object to delivered.
-            """
-            ...
-
-        @overload
         @staticmethod
         def deliver_card(
             card: str,
@@ -1723,21 +1708,6 @@ class Card(
                     params=params,
                 ),
             )
-
-        @overload
-        @classmethod
-        def fail_card(
-            cls,
-            card: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack["Card.FailCardParams"]
-        ) -> "Card":
-            """
-            Updates the shipping status of the specified Issuing Card object to failure.
-            """
-            ...
 
         @overload
         @staticmethod
@@ -1812,21 +1782,6 @@ class Card(
             )
 
         @overload
-        @classmethod
-        def return_card(
-            cls,
-            card: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack["Card.ReturnCardParams"]
-        ) -> "Card":
-            """
-            Updates the shipping status of the specified Issuing Card object to returned.
-            """
-            ...
-
-        @overload
         @staticmethod
         def return_card(
             card: str,
@@ -1897,21 +1852,6 @@ class Card(
                     params=params,
                 ),
             )
-
-        @overload
-        @classmethod
-        def ship_card(
-            cls,
-            card: str,
-            api_key: Optional[str] = None,
-            stripe_version: Optional[str] = None,
-            stripe_account: Optional[str] = None,
-            **params: Unpack["Card.ShipCardParams"]
-        ) -> "Card":
-            """
-            Updates the shipping status of the specified Issuing Card object to shipped.
-            """
-            ...
 
         @overload
         @staticmethod

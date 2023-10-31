@@ -1323,21 +1323,6 @@ class SubscriptionSchedule(
         )
 
     @overload
-    @classmethod
-    def cancel(
-        cls,
-        schedule: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.CancelParams"]
-    ) -> "SubscriptionSchedule":
-        """
-        Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
-        """
-        ...
-
-    @overload
     @staticmethod
     def cancel(
         schedule: str,
@@ -1474,21 +1459,6 @@ class SubscriptionSchedule(
                 params=params,
             ),
         )
-
-    @overload
-    @classmethod
-    def release(
-        cls,
-        schedule: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.ReleaseParams"]
-    ) -> "SubscriptionSchedule":
-        """
-        Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
-        """
-        ...
 
     @overload
     @staticmethod
