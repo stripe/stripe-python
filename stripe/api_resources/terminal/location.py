@@ -266,6 +266,16 @@ class Location(
         ...
 
     @overload
+    @staticmethod
+    def delete(
+        sid: str, **params: Unpack["Location.DeleteParams"]
+    ) -> "Location":
+        """
+        Deletes a Location object.
+        """
+        ...
+
+    @overload
     def delete(self, **params: Unpack["Location.DeleteParams"]) -> "Location":
         """
         Deletes a Location object.

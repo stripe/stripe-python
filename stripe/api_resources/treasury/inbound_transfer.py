@@ -382,6 +382,20 @@ class InboundTransfer(
         ...
 
     @overload
+    @staticmethod
+    def cancel(
+        inbound_transfer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["InboundTransfer.CancelParams"]
+    ) -> "InboundTransfer":
+        """
+        Cancels an InboundTransfer.
+        """
+        ...
+
+    @overload
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
@@ -522,6 +536,20 @@ class InboundTransfer(
             ...
 
         @overload
+        @staticmethod
+        def fail(
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["InboundTransfer.FailParams"]
+        ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the failed status. The InboundTransfer must already be in the processing state.
+            """
+            ...
+
+        @overload
         def fail(
             self,
             idempotency_key: Optional[str] = None,
@@ -595,6 +623,20 @@ class InboundTransfer(
             ...
 
         @overload
+        @staticmethod
+        def return_inbound_transfer(
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["InboundTransfer.ReturnInboundTransferParams"]
+        ) -> "InboundTransfer":
+            """
+            Marks the test mode InboundTransfer object as returned and links the InboundTransfer to a ReceivedDebit. The InboundTransfer must already be in the succeeded state.
+            """
+            ...
+
+        @overload
         def return_inbound_transfer(
             self,
             idempotency_key: Optional[str] = None,
@@ -656,6 +698,20 @@ class InboundTransfer(
         @classmethod
         def succeed(
             cls,
+            id: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["InboundTransfer.SucceedParams"]
+        ) -> "InboundTransfer":
+            """
+            Transitions a test mode created InboundTransfer to the succeeded status. The InboundTransfer must already be in the processing state.
+            """
+            ...
+
+        @overload
+        @staticmethod
+        def succeed(
             id: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

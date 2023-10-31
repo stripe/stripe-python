@@ -981,6 +981,20 @@ class Dispute(
         ...
 
     @overload
+    @staticmethod
+    def submit(
+        dispute: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Dispute.SubmitParams"]
+    ) -> "Dispute":
+        """
+        Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
+        """
+        ...
+
+    @overload
     def submit(
         self,
         idempotency_key: Optional[str] = None,

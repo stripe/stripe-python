@@ -3369,6 +3369,22 @@ class SetupIntent(
         ...
 
     @overload
+    @staticmethod
+    def cancel(
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["SetupIntent.CancelParams"]
+    ) -> "SetupIntent":
+        """
+        You can cancel a SetupIntent object when it's in one of these statuses: requires_payment_method, requires_confirmation, or requires_action.
+
+        After you cancel it, setup is abandoned and any operations on the SetupIntent fail with an error.
+        """
+        ...
+
+    @overload
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
@@ -3447,6 +3463,33 @@ class SetupIntent(
     @classmethod
     def confirm(
         cls,
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["SetupIntent.ConfirmParams"]
+    ) -> "SetupIntent":
+        """
+        Confirm that your customer intends to set up the current or
+        provided payment method. For example, you would confirm a SetupIntent
+        when a customer hits the “Save” button on a payment method management
+        page on your website.
+
+        If the selected payment method does not require any additional
+        steps from the customer, the SetupIntent will transition to the
+        succeeded status.
+
+        Otherwise, it will transition to the requires_action status and
+        suggest additional actions via next_action. If setup fails,
+        the SetupIntent will transition to the
+        requires_payment_method status or the canceled status if the
+        confirmation limit is reached.
+        """
+        ...
+
+    @overload
+    @staticmethod
+    def confirm(
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -3643,6 +3686,20 @@ class SetupIntent(
     @classmethod
     def verify_microdeposits(
         cls,
+        intent: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["SetupIntent.VerifyMicrodepositsParams"]
+    ) -> "SetupIntent":
+        """
+        Verifies microdeposits on a SetupIntent object.
+        """
+        ...
+
+    @overload
+    @staticmethod
+    def verify_microdeposits(
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

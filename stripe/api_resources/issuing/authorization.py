@@ -780,6 +780,21 @@ class Authorization(
         ...
 
     @overload
+    @staticmethod
+    def approve(
+        authorization: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Authorization.ApproveParams"]
+    ) -> "Authorization":
+        """
+        [Deprecated] Approves a pending Issuing Authorization object. This request should be made within the timeout window of the [real-time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to approve an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
+        ...
+
+    @overload
     def approve(
         self,
         idempotency_key: Optional[str] = None,
@@ -844,6 +859,21 @@ class Authorization(
     @classmethod
     def decline(
         cls,
+        authorization: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Authorization.DeclineParams"]
+    ) -> "Authorization":
+        """
+        [Deprecated] Declines a pending Issuing Authorization object. This request should be made within the timeout window of the [real time authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations) flow.
+        This method is deprecated. Instead, [respond directly to the webhook request to decline an authorization](https://stripe.com/docs/issuing/controls/real-time-authorizations#authorization-handling).
+        """
+        ...
+
+    @overload
+    @staticmethod
+    def decline(
         authorization: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -987,6 +1017,20 @@ class Authorization(
             ...
 
         @overload
+        @staticmethod
+        def capture(
+            authorization: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Authorization.CaptureParams"]
+        ) -> "Authorization":
+            """
+            Capture a test-mode authorization.
+            """
+            ...
+
+        @overload
         def capture(
             self,
             idempotency_key: Optional[str] = None,
@@ -1083,6 +1127,20 @@ class Authorization(
             ...
 
         @overload
+        @staticmethod
+        def expire(
+            authorization: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Authorization.ExpireParams"]
+        ) -> "Authorization":
+            """
+            Expire a test-mode Authorization.
+            """
+            ...
+
+        @overload
         def expire(
             self,
             idempotency_key: Optional[str] = None,
@@ -1156,6 +1214,20 @@ class Authorization(
             ...
 
         @overload
+        @staticmethod
+        def increment(
+            authorization: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Authorization.IncrementParams"]
+        ) -> "Authorization":
+            """
+            Increment a test-mode Authorization.
+            """
+            ...
+
+        @overload
         def increment(
             self,
             idempotency_key: Optional[str] = None,
@@ -1217,6 +1289,20 @@ class Authorization(
         @classmethod
         def reverse(
             cls,
+            authorization: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["Authorization.ReverseParams"]
+        ) -> "Authorization":
+            """
+            Reverse a test-mode Authorization.
+            """
+            ...
+
+        @overload
+        @staticmethod
+        def reverse(
             authorization: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

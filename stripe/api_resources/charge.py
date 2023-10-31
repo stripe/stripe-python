@@ -2222,6 +2222,24 @@ class Charge(
         ...
 
     @overload
+    @staticmethod
+    def capture(
+        charge: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Charge.CaptureParams"]
+    ) -> "Charge":
+        """
+        Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
+
+        Uncaptured payments expire a set number of days after they are created ([7 by default](https://stripe.com/docs/charges/placing-a-hold)), after which they are marked as refunded and capture attempts will fail.
+
+        Don't use this method to capture a PaymentIntent-initiated charge. Use [Capture a PaymentIntent](https://stripe.com/docs/api/payment_intents/capture).
+        """
+        ...
+
+    @overload
     def capture(
         self,
         idempotency_key: Optional[str] = None,

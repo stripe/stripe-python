@@ -542,6 +542,20 @@ class Transaction(APIResource["Transaction"]):
         ...
 
     @overload
+    @staticmethod
+    def list_line_items(
+        transaction: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Transaction.ListLineItemsParams"]
+    ) -> ListObject["TransactionLineItem"]:
+        """
+        Retrieves the line items of a committed standalone transaction as a collection.
+        """
+        ...
+
+    @overload
     def list_line_items(
         self,
         idempotency_key: Optional[str] = None,

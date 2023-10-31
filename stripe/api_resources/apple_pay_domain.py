@@ -127,6 +127,16 @@ class ApplePayDomain(
         ...
 
     @overload
+    @staticmethod
+    def delete(
+        sid: str, **params: Unpack["ApplePayDomain.DeleteParams"]
+    ) -> "ApplePayDomain":
+        """
+        Delete an apple pay domain.
+        """
+        ...
+
+    @overload
     def delete(
         self, **params: Unpack["ApplePayDomain.DeleteParams"]
     ) -> "ApplePayDomain":

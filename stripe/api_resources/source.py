@@ -1205,6 +1205,20 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         ...
 
     @overload
+    @staticmethod
+    def list_source_transactions(
+        source: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Source.ListSourceTransactionsParams"]
+    ) -> ListObject["SourceTransaction"]:
+        """
+        List source transactions for a given source.
+        """
+        ...
+
+    @overload
     def list_source_transactions(
         self,
         idempotency_key: Optional[str] = None,
@@ -1292,6 +1306,20 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     @classmethod
     def verify(
         cls,
+        source: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Source.VerifyParams"]
+    ) -> "Source":
+        """
+        Verify a given source.
+        """
+        ...
+
+    @overload
+    @staticmethod
+    def verify(
         source: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

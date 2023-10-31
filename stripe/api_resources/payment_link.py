@@ -2195,6 +2195,20 @@ class PaymentLink(
         ...
 
     @overload
+    @staticmethod
+    def list_line_items(
+        payment_link: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["PaymentLink.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        ...
+
+    @overload
     def list_line_items(
         self,
         idempotency_key: Optional[str] = None,

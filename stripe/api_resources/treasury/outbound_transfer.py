@@ -401,6 +401,20 @@ class OutboundTransfer(
         ...
 
     @overload
+    @staticmethod
+    def cancel(
+        outbound_transfer: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["OutboundTransfer.CancelParams"]
+    ) -> "OutboundTransfer":
+        """
+        An OutboundTransfer can be canceled if the funds have not yet been paid out.
+        """
+        ...
+
+    @overload
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
@@ -541,6 +555,20 @@ class OutboundTransfer(
             ...
 
         @overload
+        @staticmethod
+        def fail(
+            outbound_transfer: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["OutboundTransfer.FailParams"]
+        ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
+            """
+            ...
+
+        @overload
         def fail(
             self,
             idempotency_key: Optional[str] = None,
@@ -616,6 +644,20 @@ class OutboundTransfer(
             ...
 
         @overload
+        @staticmethod
+        def post(
+            outbound_transfer: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["OutboundTransfer.PostParams"]
+        ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
+            """
+            ...
+
+        @overload
         def post(
             self,
             idempotency_key: Optional[str] = None,
@@ -679,6 +721,20 @@ class OutboundTransfer(
         @classmethod
         def return_outbound_transfer(
             cls,
+            outbound_transfer: str,
+            api_key: Optional[str] = None,
+            stripe_version: Optional[str] = None,
+            stripe_account: Optional[str] = None,
+            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
+        ) -> "OutboundTransfer":
+            """
+            Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
+            """
+            ...
+
+        @overload
+        @staticmethod
+        def return_outbound_transfer(
             outbound_transfer: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

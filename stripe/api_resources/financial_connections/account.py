@@ -328,6 +328,20 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @overload
+    @staticmethod
+    def disconnect(
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.DisconnectParams"]
+    ) -> "Account":
+        """
+        Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
+        """
+        ...
+
+    @overload
     def disconnect(
         self,
         idempotency_key: Optional[str] = None,
@@ -429,6 +443,20 @@ class Account(ListableAPIResource["Account"]):
         ...
 
     @overload
+    @staticmethod
+    def list_owners(
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.ListOwnersParams"]
+    ) -> ListObject["AccountOwner"]:
+        """
+        Lists all owners for a given Account
+        """
+        ...
+
+    @overload
     def list_owners(
         self,
         idempotency_key: Optional[str] = None,
@@ -490,6 +518,20 @@ class Account(ListableAPIResource["Account"]):
     @classmethod
     def refresh_account(
         cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.RefreshAccountParams"]
+    ) -> "Account":
+        """
+        Refreshes the data associated with a Financial Connections Account.
+        """
+        ...
+
+    @overload
+    @staticmethod
+    def refresh_account(
         account: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

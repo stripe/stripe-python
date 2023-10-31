@@ -3559,6 +3559,20 @@ class Account(
         ...
 
     @overload
+    @staticmethod
+    def delete(
+        sid: str, **params: Unpack["Account.DeleteParams"]
+    ) -> "Account":
+        """
+        With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
+
+        Accounts created using test-mode keys can be deleted at any time. Standard accounts created using live-mode keys cannot be deleted. Custom or Express accounts created using live-mode keys can only be deleted once all balances are zero.
+
+        If you want to delete your own account, use the [account information tab in your account settings](https://dashboard.stripe.com/settings/account) instead.
+        """
+        ...
+
+    @overload
     def delete(self, **params: Unpack["Account.DeleteParams"]) -> "Account":
         """
         With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
@@ -3656,6 +3670,20 @@ class Account(
         ...
 
     @overload
+    @staticmethod
+    def persons(
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.PersonsParams"]
+    ) -> ListObject["Person"]:
+        """
+        Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
+        """
+        ...
+
+    @overload
     def persons(
         self,
         idempotency_key: Optional[str] = None,
@@ -3719,6 +3747,22 @@ class Account(
     @classmethod
     def reject(
         cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Account.RejectParams"]
+    ) -> "Account":
+        """
+        With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
+
+        Test-mode Custom and Express accounts can be rejected at any time. Accounts created using live-mode keys may only be rejected once all balances are zero.
+        """
+        ...
+
+    @overload
+    @staticmethod
+    def reject(
         account: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

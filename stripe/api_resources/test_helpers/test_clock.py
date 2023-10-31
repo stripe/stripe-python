@@ -160,6 +160,20 @@ class TestClock(
         ...
 
     @overload
+    @staticmethod
+    def advance(
+        test_clock: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["TestClock.AdvanceParams"]
+    ) -> "TestClock":
+        """
+        Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
+        """
+        ...
+
+    @overload
     def advance(
         self,
         idempotency_key: Optional[str] = None,
@@ -233,6 +247,16 @@ class TestClock(
     @classmethod
     def delete(
         cls, sid: str, **params: Unpack["TestClock.DeleteParams"]
+    ) -> "TestClock":
+        """
+        Deletes a test clock.
+        """
+        ...
+
+    @overload
+    @staticmethod
+    def delete(
+        sid: str, **params: Unpack["TestClock.DeleteParams"]
     ) -> "TestClock":
         """
         Deletes a test clock.

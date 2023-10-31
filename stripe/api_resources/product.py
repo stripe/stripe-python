@@ -598,6 +598,16 @@ class Product(
         ...
 
     @overload
+    @staticmethod
+    def delete(
+        sid: str, **params: Unpack["Product.DeleteParams"]
+    ) -> "Product":
+        """
+        Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.
+        """
+        ...
+
+    @overload
     def delete(self, **params: Unpack["Product.DeleteParams"]) -> "Product":
         """
         Delete a product. Deleting a product is only possible if it has no prices associated with it. Additionally, deleting a product with type=good is only possible if it has no SKUs associated with it.

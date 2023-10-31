@@ -225,6 +225,20 @@ class Review(ListableAPIResource["Review"]):
         ...
 
     @overload
+    @staticmethod
+    def approve(
+        review: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Review.ApproveParams"]
+    ) -> "Review":
+        """
+        Approves a Review object, closing it and removing it from the list of reviews.
+        """
+        ...
+
+    @overload
     def approve(
         self,
         idempotency_key: Optional[str] = None,

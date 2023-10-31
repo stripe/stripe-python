@@ -391,6 +391,16 @@ class BankAccount(
         ...
 
     @overload
+    @staticmethod
+    def delete(
+        sid: str, **params: Unpack["BankAccount.DeleteParams"]
+    ) -> Union["BankAccount", "Card"]:
+        """
+        Delete a specified external account for a given account.
+        """
+        ...
+
+    @overload
     def delete(
         self, **params: Unpack["BankAccount.DeleteParams"]
     ) -> Union["BankAccount", "Card"]:

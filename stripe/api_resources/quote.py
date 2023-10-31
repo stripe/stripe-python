@@ -1071,6 +1071,20 @@ class Quote(
         ...
 
     @overload
+    @staticmethod
+    def accept(
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Quote.AcceptParams"]
+    ) -> "Quote":
+        """
+        Accepts the specified quote.
+        """
+        ...
+
+    @overload
     def accept(
         self,
         idempotency_key: Optional[str] = None,
@@ -1132,6 +1146,20 @@ class Quote(
     @classmethod
     def cancel(
         cls,
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Quote.CancelParams"]
+    ) -> "Quote":
+        """
+        Cancels the quote.
+        """
+        ...
+
+    @overload
+    @staticmethod
+    def cancel(
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1230,6 +1258,20 @@ class Quote(
     @classmethod
     def finalize_quote(
         cls,
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Quote.FinalizeQuoteParams"]
+    ) -> "Quote":
+        """
+        Finalizes the quote.
+        """
+        ...
+
+    @overload
+    @staticmethod
+    def finalize_quote(
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1343,6 +1385,20 @@ class Quote(
         ...
 
     @overload
+    @staticmethod
+    def list_computed_upfront_line_items(
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
+        """
+        ...
+
+    @overload
     def list_computed_upfront_line_items(
         self,
         idempotency_key: Optional[str] = None,
@@ -1404,6 +1460,20 @@ class Quote(
     @classmethod
     def list_line_items(
         cls,
+        quote: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Quote.ListLineItemsParams"]
+    ) -> ListObject["LineItem"]:
+        """
+        When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
+        """
+        ...
+
+    @overload
+    @staticmethod
+    def list_line_items(
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
