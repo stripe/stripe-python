@@ -685,7 +685,7 @@ class Registration(
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
-            active_from: Union[int, Literal["now"]]
+            active_from: Union[Literal["now"], int]
             """
             Time at which the Tax Registration becomes active. It can be either `now` to indicate the current time, or a future timestamp measured in seconds since the Unix epoch.
             """
@@ -1588,7 +1588,7 @@ class Registration(
             """
 
         class ModifyParams(RequestOptions):
-            active_from: NotRequired["int|Literal['now']|None"]
+            active_from: NotRequired["Literal['now']|int|None"]
             """
             Time at which the registration becomes active. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
             """
@@ -1596,7 +1596,7 @@ class Registration(
             """
             Specifies which fields in the response should be expanded.
             """
-            expires_at: NotRequired["Literal['']|int|Literal['now']|None"]
+            expires_at: NotRequired["Literal['']|Literal['now']|int|None"]
             """
             If set, the registration stops being active at this time. If not set, the registration will be active indefinitely. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
             """
