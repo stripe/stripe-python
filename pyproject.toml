@@ -34,3 +34,11 @@ reportUnnecessaryCast=true
 reportUnnecessaryComparison=true
 reportUnnecessaryContains=true
 reportUnnecessaryIsInstance=true
+
+[tool.mypy]
+no_site_packages = true
+enable_incomplete_feature=["Unpack"]
+
+[[tool.mypy.overrides]]
+module = "stripe.*"
+ignore_errors = true

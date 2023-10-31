@@ -11,7 +11,7 @@ venv: $(VENV_NAME)/bin/activate
 	# support python 3.6 don't know about "--config-settings", but in this case
 	# we don't need to pass config-settings anyway because "editable_mode=compat" just
 	# means to perform as these old versions of pip already do.
-	${VENV_NAME}/bin/python -m pip install -e . --config-settings editable_mode=compat || pip install -e .
+	${VENV_NAME}/bin/python -m pip install -e . --config-settings editable_mode=compat || ${VENV_NAME}/bin/python -m pip install -e .
 
 $(VENV_NAME)/bin/activate: setup.py requirements.txt
 	@test -d $(VENV_NAME) || $(PYTHON) -m venv --clear $(VENV_NAME)
