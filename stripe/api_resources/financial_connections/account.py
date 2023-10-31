@@ -313,9 +313,8 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def disconnect(
-        cls,
         account: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -414,9 +413,8 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_owners(
-        cls,
         account: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -487,9 +485,8 @@ class Account(ListableAPIResource["Account"]):
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def refresh_account(
-        cls,
         account: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

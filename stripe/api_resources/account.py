@@ -3545,9 +3545,9 @@ class Account(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def delete(
-        cls, sid: str, **params: Unpack["Account.DeleteParams"]
+        sid: str, **params: Unpack["Account.DeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
@@ -3641,9 +3641,8 @@ class Account(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def persons(
-        cls,
         account: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -3716,9 +3715,8 @@ class Account(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def reject(
-        cls,
         account: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

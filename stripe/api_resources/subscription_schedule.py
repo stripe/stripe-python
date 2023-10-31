@@ -1323,9 +1323,8 @@ class SubscriptionSchedule(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         schedule: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1462,9 +1461,8 @@ class SubscriptionSchedule(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def release(
-        cls,
         schedule: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

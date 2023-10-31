@@ -1732,9 +1732,8 @@ class PaymentMethod(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def attach(
-        cls,
         payment_method: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1868,9 +1867,8 @@ class PaymentMethod(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def detach(
-        cls,
         payment_method: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
