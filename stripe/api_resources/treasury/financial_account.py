@@ -881,9 +881,8 @@ class FinancialAccount(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def retrieve_features(
-        cls,
         financial_account: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -954,9 +953,8 @@ class FinancialAccount(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def update_features(
-        cls,
         financial_account: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

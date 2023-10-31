@@ -178,9 +178,9 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def delete(
-        cls, sid: str, **params: Unpack["Card.DeleteParams"]
+        sid: str, **params: Unpack["Card.DeleteParams"]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.

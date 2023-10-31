@@ -441,9 +441,9 @@ class WebhookEndpoint(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def delete(
-        cls, sid: str, **params: Unpack["WebhookEndpoint.DeleteParams"]
+        sid: str, **params: Unpack["WebhookEndpoint.DeleteParams"]
     ) -> "WebhookEndpoint":
         """
         You can also delete webhook endpoints via the [webhook endpoint management](https://dashboard.stripe.com/account/webhooks) page of the Stripe dashboard.

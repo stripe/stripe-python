@@ -566,9 +566,8 @@ class Reader(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel_action(
-        cls,
         reader: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -651,10 +650,8 @@ class Reader(
         )
 
     @overload
-    @classmethod
-    def delete(
-        cls, sid: str, **params: Unpack["Reader.DeleteParams"]
-    ) -> "Reader":
+    @staticmethod
+    def delete(sid: str, **params: Unpack["Reader.DeleteParams"]) -> "Reader":
         """
         Deletes a Reader object.
         """
@@ -748,9 +745,8 @@ class Reader(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def process_payment_intent(
-        cls,
         reader: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -821,9 +817,8 @@ class Reader(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def process_setup_intent(
-        cls,
         reader: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -894,9 +889,8 @@ class Reader(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def refund_payment(
-        cls,
         reader: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -978,9 +972,8 @@ class Reader(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def set_reader_display(
-        cls,
         reader: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1054,9 +1047,8 @@ class Reader(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def present_payment_method(
-            cls,
             reader: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

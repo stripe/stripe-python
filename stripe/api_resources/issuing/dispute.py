@@ -966,9 +966,8 @@ class Dispute(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def submit(
-        cls,
         dispute: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

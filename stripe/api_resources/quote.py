@@ -1056,9 +1056,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def accept(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1129,9 +1128,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1227,9 +1225,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def finalize_quote(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1328,9 +1325,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_computed_upfront_line_items(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1401,9 +1397,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_line_items(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
