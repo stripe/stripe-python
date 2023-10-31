@@ -274,9 +274,8 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def mark_delivered(
-        cls,
         financing_offer: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

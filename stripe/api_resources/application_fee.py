@@ -262,9 +262,8 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def refund(
-        cls,
         id: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

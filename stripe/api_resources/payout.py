@@ -305,9 +305,8 @@ class Payout(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         payout: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -461,9 +460,8 @@ class Payout(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def reverse(
-        cls,
         payout: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

@@ -2367,9 +2367,8 @@ class Subscription(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         subscription_exposed_id: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -2485,9 +2484,8 @@ class Subscription(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def delete_discount(
-        cls,
         subscription_exposed_id: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -2619,9 +2617,8 @@ class Subscription(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def resume(
-        cls,
         subscription: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

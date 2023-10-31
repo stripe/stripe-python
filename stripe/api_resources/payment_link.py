@@ -2344,9 +2344,8 @@ class PaymentLink(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_line_items(
-        cls,
         payment_link: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

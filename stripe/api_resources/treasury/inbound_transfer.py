@@ -367,9 +367,8 @@ class InboundTransfer(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         inbound_transfer: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -507,9 +506,8 @@ class InboundTransfer(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def fail(
-            cls,
             id: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -580,9 +578,8 @@ class InboundTransfer(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def return_inbound_transfer(
-            cls,
             id: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -653,9 +650,8 @@ class InboundTransfer(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def succeed(
-            cls,
             id: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

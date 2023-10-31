@@ -796,9 +796,8 @@ class Authorization(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def approve(
-        cls,
         authorization: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -873,9 +872,8 @@ class Authorization(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def decline(
-        cls,
         authorization: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1004,9 +1002,8 @@ class Authorization(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def capture(
-            cls,
             authorization: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -1100,9 +1097,8 @@ class Authorization(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def expire(
-            cls,
             authorization: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -1173,9 +1169,8 @@ class Authorization(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def increment(
-            cls,
             authorization: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -1246,9 +1241,8 @@ class Authorization(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def reverse(
-            cls,
             authorization: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

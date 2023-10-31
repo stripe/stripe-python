@@ -3854,9 +3854,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def accept(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -3927,9 +3926,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -4025,9 +4023,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def finalize_quote(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -4126,9 +4123,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_computed_upfront_line_items(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -4199,9 +4195,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_line_items(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -4272,9 +4267,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_lines(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -4347,9 +4341,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_preview_invoice_lines(
-        cls,
         quote: str,
         preview_invoice: str,
         api_key: Optional[str] = None,
@@ -4424,9 +4417,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def mark_draft(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -4497,9 +4489,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def mark_stale(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -4583,9 +4574,8 @@ class Quote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def reestimate(
-        cls,
         quote: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

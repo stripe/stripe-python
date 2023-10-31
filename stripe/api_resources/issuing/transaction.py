@@ -900,9 +900,8 @@ class Transaction(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def refund(
-            cls,
             transaction: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

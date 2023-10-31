@@ -472,9 +472,8 @@ class PersonalizationDesign(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def activate(
-            cls,
             personalization_design: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -549,9 +548,8 @@ class PersonalizationDesign(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def deactivate(
-            cls,
             personalization_design: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -626,9 +624,8 @@ class PersonalizationDesign(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def reject(
-            cls,
             personalization_design: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

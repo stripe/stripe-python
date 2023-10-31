@@ -1810,9 +1810,8 @@ class Card(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def deliver_card(
-            cls,
             card: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -1883,9 +1882,8 @@ class Card(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def fail_card(
-            cls,
             card: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -1956,9 +1954,8 @@ class Card(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def return_card(
-            cls,
             card: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -2029,9 +2026,8 @@ class Card(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def ship_card(
-            cls,
             card: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

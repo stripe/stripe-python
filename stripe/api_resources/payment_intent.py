@@ -9149,9 +9149,8 @@ class PaymentIntent(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def apply_customer_balance(
-        cls,
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -9226,9 +9225,8 @@ class PaymentIntent(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -9315,9 +9313,8 @@ class PaymentIntent(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def capture(
-        cls,
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -9422,9 +9419,8 @@ class PaymentIntent(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def confirm(
-        cls,
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -9618,9 +9614,8 @@ class PaymentIntent(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def increment_authorization(
-        cls,
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -9822,9 +9817,8 @@ class PaymentIntent(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def verify_microdeposits(
-        cls,
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

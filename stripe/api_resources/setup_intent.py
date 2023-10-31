@@ -3456,9 +3456,8 @@ class SetupIntent(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -3548,9 +3547,8 @@ class SetupIntent(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def confirm(
-        cls,
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -3744,9 +3742,8 @@ class SetupIntent(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def verify_microdeposits(
-        cls,
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

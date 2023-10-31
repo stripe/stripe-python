@@ -4183,9 +4183,9 @@ class Invoice(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def delete(
-        cls, sid: str, **params: Unpack["Invoice.DeleteParams"]
+        sid: str, **params: Unpack["Invoice.DeleteParams"]
     ) -> "Invoice":
         """
         Permanently deletes a one-off invoice draft. This cannot be undone. Attempts to delete invoices that are no longer in a draft state will fail; once an invoice has been finalized or if an invoice is for a subscription, it must be [voided](https://stripe.com/docs/api#void_invoice).
@@ -4239,9 +4239,8 @@ class Invoice(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def finalize_invoice(
-        cls,
         invoice: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -4340,9 +4339,8 @@ class Invoice(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def mark_uncollectible(
-        cls,
         invoice: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -4431,9 +4429,8 @@ class Invoice(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def pay(
-        cls,
         invoice: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -4517,9 +4514,8 @@ class Invoice(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def send_invoice(
-        cls,
         invoice: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -4646,9 +4642,8 @@ class Invoice(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def void_invoice(
-        cls,
         invoice: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

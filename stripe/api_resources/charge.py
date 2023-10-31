@@ -2887,9 +2887,8 @@ class Charge(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def capture(
-        cls,
         charge: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

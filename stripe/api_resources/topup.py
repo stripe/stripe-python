@@ -261,9 +261,8 @@ class Topup(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         topup: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
