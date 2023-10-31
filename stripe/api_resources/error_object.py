@@ -2,10 +2,9 @@ from typing import Optional
 from stripe.api_resources.payment_intent import PaymentIntent
 from stripe.api_resources.setup_intent import SetupIntent
 from stripe.api_resources.source import Source
+from stripe.api_resources.payment_method import PaymentMethod
 from stripe.util import merge_dicts
 from stripe.stripe_object import StripeObject
-
-from api_resources.payment_method import PaymentMethod
 
 
 class ErrorObject(StripeObject):
