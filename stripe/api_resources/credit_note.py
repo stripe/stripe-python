@@ -826,9 +826,8 @@ class CreditNote(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def void_credit_note(
-        cls,
         id: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

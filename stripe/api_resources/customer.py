@@ -1459,9 +1459,8 @@ class Customer(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def create_funding_instructions(
-        cls,
         customer: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1525,9 +1524,9 @@ class Customer(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def delete(
-        cls, sid: str, **params: Unpack["Customer.DeleteParams"]
+        sid: str, **params: Unpack["Customer.DeleteParams"]
     ) -> "Customer":
         """
         Permanently deletes a customer. It cannot be undone. Also immediately cancels any active subscriptions on the customer.
@@ -1581,9 +1580,8 @@ class Customer(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def delete_discount(
-        cls,
         customer: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1682,9 +1680,8 @@ class Customer(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_payment_methods(
-        cls,
         customer: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1783,9 +1780,8 @@ class Customer(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def retrieve_payment_method(
-        cls,
         customer: str,
         payment_method: str,
         api_key: Optional[str] = None,
@@ -2343,9 +2339,8 @@ class Customer(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def fund_cash_balance(
-            cls,
             customer: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

@@ -210,9 +210,8 @@ class Review(ListableAPIResource["Review"]):
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def approve(
-        cls,
         review: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
