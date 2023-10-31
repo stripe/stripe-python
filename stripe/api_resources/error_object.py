@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.source import Source
     from stripe.api_resources.payment_method import PaymentMethod
 
+
 class ErrorObject(StripeObject):
     charge: Optional[str]
     code: int
