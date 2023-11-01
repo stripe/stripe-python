@@ -332,6 +332,10 @@ class PersonalizationDesign(
     """
     Hash containing carrier text, for use with physical bundles that support carrier text.
     """
+    created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     id: str
     """
     Unique identifier for the object.
