@@ -1674,6 +1674,9 @@ class PaymentIntent(
             When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
             """
 
+        class RevolutPay(StripeObject):
+            pass
+
         class SepaDebit(StripeObject):
             class MandateOptions(StripeObject):
                 pass
@@ -1831,6 +1834,7 @@ class PaymentIntent(
         paypal: Optional[Paypal]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
+        revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         us_bank_account: Optional[UsBankAccount]
@@ -1865,6 +1869,7 @@ class PaymentIntent(
             "paypal": Paypal,
             "pix": Pix,
             "promptpay": Promptpay,
+            "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "us_bank_account": UsBankAccount,
@@ -2661,6 +2666,12 @@ class PaymentIntent(
             """
             If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
             """
+            revolut_pay: NotRequired[
+                "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsRevolutPay|None"
+            ]
+            """
+            If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
+            """
             sepa_debit: NotRequired[
                 "Literal['']|PaymentIntent.ConfirmParamsPaymentMethodOptionsSepaDebit|None"
             ]
@@ -2850,6 +2861,18 @@ class PaymentIntent(
             TypedDict,
         ):
             pass
+
+        class ConfirmParamsPaymentMethodOptionsRevolutPay(TypedDict):
+            setup_future_usage: NotRequired[
+                "Literal['']|Literal['none', 'off_session']|None"
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
 
         class ConfirmParamsPaymentMethodOptionsPromptpay(TypedDict):
             setup_future_usage: NotRequired["Literal['none']|None"]
@@ -3776,6 +3799,12 @@ class PaymentIntent(
             """
             Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
             """
+            revolut_pay: NotRequired[
+                "PaymentIntent.ConfirmParamsPaymentMethodDataRevolutPay|None"
+            ]
+            """
+            If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+            """
             sepa_debit: NotRequired[
                 "PaymentIntent.ConfirmParamsPaymentMethodDataSepaDebit|None"
             ]
@@ -3814,6 +3843,7 @@ class PaymentIntent(
                 "paypal",
                 "pix",
                 "promptpay",
+                "revolut_pay",
                 "sepa_debit",
                 "sofort",
                 "us_bank_account",
@@ -3883,6 +3913,9 @@ class PaymentIntent(
             """
             IBAN of the bank account.
             """
+
+        class ConfirmParamsPaymentMethodDataRevolutPay(TypedDict):
+            pass
 
         class ConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
             session: NotRequired["str|None"]
@@ -4891,6 +4924,12 @@ class PaymentIntent(
             """
             If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
             """
+            revolut_pay: NotRequired[
+                "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsRevolutPay|None"
+            ]
+            """
+            If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
+            """
             sepa_debit: NotRequired[
                 "Literal['']|PaymentIntent.CreateParamsPaymentMethodOptionsSepaDebit|None"
             ]
@@ -5078,6 +5117,18 @@ class PaymentIntent(
             TypedDict,
         ):
             pass
+
+        class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
+            setup_future_usage: NotRequired[
+                "Literal['']|Literal['none', 'off_session']|None"
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
 
         class CreateParamsPaymentMethodOptionsPromptpay(TypedDict):
             setup_future_usage: NotRequired["Literal['none']|None"]
@@ -6004,6 +6055,12 @@ class PaymentIntent(
             """
             Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
             """
+            revolut_pay: NotRequired[
+                "PaymentIntent.CreateParamsPaymentMethodDataRevolutPay|None"
+            ]
+            """
+            If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+            """
             sepa_debit: NotRequired[
                 "PaymentIntent.CreateParamsPaymentMethodDataSepaDebit|None"
             ]
@@ -6042,6 +6099,7 @@ class PaymentIntent(
                 "paypal",
                 "pix",
                 "promptpay",
+                "revolut_pay",
                 "sepa_debit",
                 "sofort",
                 "us_bank_account",
@@ -6111,6 +6169,9 @@ class PaymentIntent(
             """
             IBAN of the bank account.
             """
+
+        class CreateParamsPaymentMethodDataRevolutPay(TypedDict):
+            pass
 
         class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
             session: NotRequired["str|None"]
@@ -7113,6 +7174,12 @@ class PaymentIntent(
             """
             If this is a `promptpay` PaymentMethod, this sub-hash contains details about the PromptPay payment method options.
             """
+            revolut_pay: NotRequired[
+                "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsRevolutPay|None"
+            ]
+            """
+            If this is a `revolut_pay` PaymentMethod, this sub-hash contains details about the Demo Pay payment method options.
+            """
             sepa_debit: NotRequired[
                 "Literal['']|PaymentIntent.ModifyParamsPaymentMethodOptionsSepaDebit|None"
             ]
@@ -7300,6 +7367,18 @@ class PaymentIntent(
             TypedDict,
         ):
             pass
+
+        class ModifyParamsPaymentMethodOptionsRevolutPay(TypedDict):
+            setup_future_usage: NotRequired[
+                "Literal['']|Literal['none', 'off_session']|None"
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
 
         class ModifyParamsPaymentMethodOptionsPromptpay(TypedDict):
             setup_future_usage: NotRequired["Literal['none']|None"]
@@ -8226,6 +8305,12 @@ class PaymentIntent(
             """
             Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
             """
+            revolut_pay: NotRequired[
+                "PaymentIntent.ModifyParamsPaymentMethodDataRevolutPay|None"
+            ]
+            """
+            If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+            """
             sepa_debit: NotRequired[
                 "PaymentIntent.ModifyParamsPaymentMethodDataSepaDebit|None"
             ]
@@ -8264,6 +8349,7 @@ class PaymentIntent(
                 "paypal",
                 "pix",
                 "promptpay",
+                "revolut_pay",
                 "sepa_debit",
                 "sofort",
                 "us_bank_account",
@@ -8333,6 +8419,9 @@ class PaymentIntent(
             """
             IBAN of the bank account.
             """
+
+        class ModifyParamsPaymentMethodDataRevolutPay(TypedDict):
+            pass
 
         class ModifyParamsPaymentMethodDataRadarOptions(TypedDict):
             session: NotRequired["str|None"]

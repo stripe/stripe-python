@@ -850,6 +850,9 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         class Promptpay(StripeObject):
             pass
 
+        class RevolutPay(StripeObject):
+            pass
+
         class SepaDebit(StripeObject):
             class GeneratedFrom(StripeObject):
                 charge: Optional[ExpandableField["Charge"]]
@@ -1022,6 +1025,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
         paypal: Optional[Paypal]
         pix: Optional[Pix]
         promptpay: Optional[Promptpay]
+        revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         type: Literal[
@@ -1053,6 +1057,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "paypal",
             "pix",
             "promptpay",
+            "revolut_pay",
             "sepa_debit",
             "sofort",
             "us_bank_account",
@@ -1095,6 +1100,7 @@ class ConfirmationToken(APIResource["ConfirmationToken"]):
             "paypal": Paypal,
             "pix": Pix,
             "promptpay": Promptpay,
+            "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "us_bank_account": UsBankAccount,
