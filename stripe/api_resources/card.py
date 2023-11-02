@@ -153,7 +153,7 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
     status: Optional[str]
     """
-    For external accounts, possible values are `new` and `errored`. If a transfer fails, the status is set to `errored` and transfers are stopped until account details are updated.
+    For external accounts that are cards, possible values are `new` and `errored`. If a payout fails, the status is set to `errored` and [scheduled payouts](https://stripe.com/docs/payouts#payout-schedule) are stopped until account details are updated.
     """
     tokenization_method: Optional[str]
     """
