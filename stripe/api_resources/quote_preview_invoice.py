@@ -16,6 +16,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice import Invoice
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
+    from stripe.api_resources.invoice_payment import InvoicePayment
     from stripe.api_resources.margin import Margin
     from stripe.api_resources.payment_intent import PaymentIntent
     from stripe.api_resources.payment_method import PaymentMethod
@@ -68,6 +69,40 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     OBJECT_NAME: ClassVar[
         Literal["quote_preview_invoice"]
     ] = "quote_preview_invoice"
+
+    class AmountsDue(StripeObject):
+        amount: int
+        """
+        Incremental amount due for this payment in cents (or local equivalent).
+        """
+        amount_paid: int
+        """
+        The amount in cents (or local equivalent) that was paid for this payment.
+        """
+        amount_remaining: int
+        """
+        The difference between the payment's amount and amount_paid, in cents (or local equivalent).
+        """
+        days_until_due: Optional[int]
+        """
+        Number of days from when invoice is finalized until the payment is due.
+        """
+        description: Optional[str]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        due_date: Optional[int]
+        """
+        Date on which a payment plan's payment is due.
+        """
+        paid_at: Optional[int]
+        """
+        Timestamp when the payment was paid.
+        """
+        status: Literal["open", "paid", "past_due"]
+        """
+        The status of the payment, one of `open`, `paid`, or `past_due`
+        """
 
     class AppliesTo(StripeObject):
         new_reference: Optional[str]
@@ -1035,6 +1070,10 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     """
     This is the sum of all the shipping amounts.
     """
+    amounts_due: Optional[List[AmountsDue]]
+    """
+    List of expected payments and corresponding due dates. This value will be null for invoices where collection_method=charge_automatically.
+    """
     application: Optional[ExpandableField["Application"]]
     """
     ID of the Connect Application that created the invoice.
@@ -1230,6 +1269,10 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
     The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized, and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent.
     """
     payment_settings: PaymentSettings
+    payments: Optional[ListObject["InvoicePayment"]]
+    """
+    Payments for this invoice
+    """
     period_end: int
     """
     End of the usage period during which invoice items were added to this invoice.
@@ -1370,6 +1413,7 @@ class QuotePreviewInvoice(ListableAPIResource["QuotePreviewInvoice"]):
         return result
 
     _inner_class_types = {
+        "amounts_due": AmountsDue,
         "applies_to": AppliesTo,
         "automatic_tax": AutomaticTax,
         "custom_fields": CustomField,

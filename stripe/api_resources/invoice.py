@@ -7,6 +7,7 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
     SearchableAPIResource,
     UpdateableAPIResource,
+    nested_resource_class_methods,
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
@@ -42,6 +43,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.customer import Customer
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice_line_item import InvoiceLineItem
+    from stripe.api_resources.invoice_payment import InvoicePayment
     from stripe.api_resources.margin import Margin
     from stripe.api_resources.payment_intent import PaymentIntent
     from stripe.api_resources.payment_method import PaymentMethod
@@ -55,6 +57,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
+@nested_resource_class_methods("payment")
 class Invoice(
     CreateableAPIResource["Invoice"],
     DeletableAPIResource["Invoice"],
@@ -98,6 +101,40 @@ class Invoice(
     """
 
     OBJECT_NAME: ClassVar[Literal["invoice"]] = "invoice"
+
+    class AmountsDue(StripeObject):
+        amount: int
+        """
+        Incremental amount due for this payment in cents (or local equivalent).
+        """
+        amount_paid: int
+        """
+        The amount in cents (or local equivalent) that was paid for this payment.
+        """
+        amount_remaining: int
+        """
+        The difference between the payment's amount and amount_paid, in cents (or local equivalent).
+        """
+        days_until_due: Optional[int]
+        """
+        Number of days from when invoice is finalized until the payment is due.
+        """
+        description: Optional[str]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        due_date: Optional[int]
+        """
+        Date on which a payment plan's payment is due.
+        """
+        paid_at: Optional[int]
+        """
+        Timestamp when the payment was paid.
+        """
+        status: Literal["open", "paid", "past_due"]
+        """
+        The status of the payment, one of `open`, `paid`, or `past_due`
+        """
 
     class AutomaticTax(StripeObject):
         class Liability(StripeObject):
@@ -1005,10 +1042,30 @@ class Invoice(
 
     if TYPE_CHECKING:
 
+        class AttachPaymentIntentParams(RequestOptions):
+            amount_requested: NotRequired["int|None"]
+            """
+            The portion of the PaymentIntent's `amount` that should be applied to thisinvoice. Defaults to the entire amount.
+            """
+            expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
+            payment_intent: str
+            """
+            The ID of the PaymentIntent to attach to the invoice.
+            """
+
         class CreateParams(RequestOptions):
             account_tax_ids: NotRequired["Literal['']|List[str]|None"]
             """
             The account tax IDs associated with the invoice. Only editable when the invoice is a draft.
+            """
+            amounts_due: NotRequired[
+                "Literal['']|List[Invoice.CreateParamsAmountsDue]|None"
+            ]
+            """
+            List of expected payments and corresponding due dates. Valid only for invoices where `collection_method=send_invoice`.
             """
             application_fee_amount: NotRequired["int|None"]
             """
@@ -1652,6 +1709,24 @@ class Invoice(
             Type of the account referenced in the request.
             """
 
+        class CreateParamsAmountsDue(TypedDict):
+            amount: int
+            """
+            The amount in cents (or local equivalent).
+            """
+            days_until_due: NotRequired["int|None"]
+            """
+            Number of days from when invoice is finalized until the payment is due.
+            """
+            description: str
+            """
+            An arbitrary string attached to the object. Often useful for displaying to users.
+            """
+            due_date: NotRequired["int|None"]
+            """
+            Date on which a payment plan's payment is due.
+            """
+
         class DeleteParams(RequestOptions):
             pass
 
@@ -1751,6 +1826,12 @@ class Invoice(
             account_tax_ids: NotRequired["Literal['']|List[str]|None"]
             """
             The account tax IDs associated with the invoice. Only editable when the invoice is a draft.
+            """
+            amounts_due: NotRequired[
+                "Literal['']|List[Invoice.ModifyParamsAmountsDue]|None"
+            ]
+            """
+            List of expected payments and corresponding due dates. Valid only for invoices where `collection_method=send_invoice`.
             """
             application_fee_amount: NotRequired["int|None"]
             """
@@ -2364,6 +2445,24 @@ class Invoice(
             type: Literal["account", "self"]
             """
             Type of the account referenced in the request.
+            """
+
+        class ModifyParamsAmountsDue(TypedDict):
+            amount: int
+            """
+            The amount in cents (or local equivalent).
+            """
+            days_until_due: NotRequired["int|None"]
+            """
+            Number of days from when invoice is finalized until the payment is due.
+            """
+            description: str
+            """
+            An arbitrary string attached to the object. Often useful for displaying to users.
+            """
+            due_date: NotRequired["int|None"]
+            """
+            Date on which a payment plan's payment is due.
             """
 
         class PayParams(RequestOptions):
@@ -6004,6 +6103,30 @@ class Invoice(
             The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for invoices](https://stripe.com/docs/search#query-fields-for-invoices).
             """
 
+        class RetrievePaymentParams(RequestOptions):
+            expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
+
+        class ListPaymentsParams(RequestOptions):
+            ending_before: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+            """
+            expand: NotRequired["List[str]|None"]
+            """
+            Specifies which fields in the response should be expanded.
+            """
+            limit: NotRequired["int|None"]
+            """
+            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+            """
+            starting_after: NotRequired["str|None"]
+            """
+            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+            """
+
     account_country: Optional[str]
     """
     The country of the business associated with this invoice, most often the business creating the invoice.
@@ -6031,6 +6154,10 @@ class Invoice(
     amount_shipping: int
     """
     This is the sum of all the shipping amounts.
+    """
+    amounts_due: Optional[List[AmountsDue]]
+    """
+    List of expected payments and corresponding due dates. This value will be null for invoices where collection_method=charge_automatically.
     """
     application: Optional[ExpandableField["Application"]]
     """
@@ -6246,6 +6373,10 @@ class Invoice(
     The PaymentIntent associated with this invoice. The PaymentIntent is generated when the invoice is finalized, and can then be used to pay the invoice. Note that voiding an invoice will cancel the PaymentIntent.
     """
     payment_settings: PaymentSettings
+    payments: Optional[ListObject["InvoicePayment"]]
+    """
+    Payments for this invoice
+    """
     period_end: int
     """
     End of the usage period during which invoice items were added to this invoice.
@@ -6360,6 +6491,110 @@ class Invoice(
     """
     Always true for a deleted object
     """
+
+    @classmethod
+    def _cls_attach_payment_intent(
+        cls,
+        invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Invoice.AttachPaymentIntentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent to the invoice, adding it to the list of payments.
+        When the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it is attached, it is
+        credited to the invoice immediately.
+
+        Related guide: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create)
+        """
+        return cast(
+            "Invoice",
+            cls._static_request(
+                "post",
+                "/v1/invoices/{invoice}/attach_payment_intent".format(
+                    invoice=util.sanitize_id(invoice)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def attach_payment_intent(
+        invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Invoice.AttachPaymentIntentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent to the invoice, adding it to the list of payments.
+        When the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it is attached, it is
+        credited to the invoice immediately.
+
+        Related guide: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create)
+        """
+        ...
+
+    @overload
+    def attach_payment_intent(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Invoice.AttachPaymentIntentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent to the invoice, adding it to the list of payments.
+        When the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it is attached, it is
+        credited to the invoice immediately.
+
+        Related guide: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create)
+        """
+        ...
+
+    @class_method_variant("_cls_attach_payment_intent")
+    def attach_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack["Invoice.AttachPaymentIntentParams"]
+    ) -> "Invoice":
+        """
+        Attaches a PaymentIntent to the invoice, adding it to the list of payments.
+        When the PaymentIntent's status changes to succeeded, the payment is credited
+        to the invoice, increasing its amount_paid. When the invoice is fully paid, the
+        invoice's status becomes paid.
+
+        If the PaymentIntent's status is already succeeded when it is attached, it is
+        credited to the invoice immediately.
+
+        Related guide: [Create an invoice payment](https://stripe.com/docs/invoicing/payments/create)
+        """
+        return cast(
+            "Invoice",
+            self._request(
+                "post",
+                "/v1/invoices/{invoice}/attach_payment_intent".format(
+                    invoice=util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            ),
+        )
 
     @classmethod
     def create(
@@ -6922,7 +7157,62 @@ class Invoice(
     ) -> Iterator["Invoice"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
 
+    @classmethod
+    def retrieve_payment(
+        cls,
+        invoice: str,
+        invoice_payment: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Invoice.RetrievePaymentParams"]
+    ) -> "InvoicePayment":
+        """
+        Retrieves the invoice payment with the given ID.
+        """
+        return cast(
+            "InvoicePayment",
+            cls._static_request(
+                "get",
+                "/v1/invoices/{invoice}/payments/{invoice_payment}".format(
+                    invoice=util.sanitize_id(invoice),
+                    invoice_payment=util.sanitize_id(invoice_payment),
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def list_payments(
+        cls,
+        invoice: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack["Invoice.ListPaymentsParams"]
+    ) -> ListObject["InvoicePayment"]:
+        """
+        When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.
+        """
+        return cast(
+            ListObject["InvoicePayment"],
+            cls._static_request(
+                "get",
+                "/v1/invoices/{invoice}/payments".format(
+                    invoice=util.sanitize_id(invoice)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
+        )
+
     _inner_class_types = {
+        "amounts_due": AmountsDue,
         "automatic_tax": AutomaticTax,
         "custom_fields": CustomField,
         "customer_address": CustomerAddress,

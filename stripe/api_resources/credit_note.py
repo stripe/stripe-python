@@ -30,7 +30,7 @@ if TYPE_CHECKING:
     )
     from stripe.api_resources.discount import Discount
     from stripe.api_resources.invoice import Invoice
-    from stripe.api_resources.refund import Refund
+    from stripe.api_resources.refund import Refund as RefundResource
     from stripe.api_resources.shipping_rate import ShippingRate
     from stripe.api_resources.tax_rate import TaxRate
 
@@ -57,6 +57,16 @@ class CreditNote(
         discount: ExpandableField["Discount"]
         """
         The discount that was applied to get this discount amount.
+        """
+
+    class Refund(StripeObject):
+        amount_refunded: int
+        """
+        Amount of the refund that applies to this credit note, in cents (or local equivalent).
+        """
+        refund: ExpandableField["RefundResource"]
+        """
+        ID of the refund.
         """
 
     class ShippingCost(StripeObject):
@@ -213,6 +223,10 @@ class CreditNote(
             """
             The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
             """
+            refunds: NotRequired["List[CreditNote.CreateParamsRefund]|None"]
+            """
+            Refunds to link to this credit note.
+            """
             shipping_cost: NotRequired[
                 "CreditNote.CreateParamsShippingCost|None"
             ]
@@ -224,6 +238,16 @@ class CreditNote(
             shipping_rate: NotRequired["str|None"]
             """
             The ID of the shipping rate to use for this order.
+            """
+
+        class CreateParamsRefund(TypedDict):
+            amount_refunded: NotRequired["int|None"]
+            """
+            Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
+            """
+            refund: str
+            """
+            ID of an existing refund to link this credit note to.
             """
 
         class CreateParamsLine(TypedDict):
@@ -351,6 +375,10 @@ class CreditNote(
             """
             The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
             """
+            refunds: NotRequired["List[CreditNote.PreviewParamsRefund]|None"]
+            """
+            Refunds to link to this credit note.
+            """
             shipping_cost: NotRequired[
                 "CreditNote.PreviewParamsShippingCost|None"
             ]
@@ -362,6 +390,16 @@ class CreditNote(
             shipping_rate: NotRequired["str|None"]
             """
             The ID of the shipping rate to use for this order.
+            """
+
+        class PreviewParamsRefund(TypedDict):
+            amount_refunded: NotRequired["int|None"]
+            """
+            Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
+            """
+            refund: str
+            """
+            ID of an existing refund to link this credit note to.
             """
 
         class PreviewParamsLine(TypedDict):
@@ -457,6 +495,12 @@ class CreditNote(
             """
             The integer amount in cents (or local equivalent) representing the amount to refund. If set, a refund will be created for the charge associated with the invoice.
             """
+            refunds: NotRequired[
+                "List[CreditNote.PreviewLinesParamsRefund]|None"
+            ]
+            """
+            Refunds to link to this credit note.
+            """
             shipping_cost: NotRequired[
                 "CreditNote.PreviewLinesParamsShippingCost|None"
             ]
@@ -472,6 +516,16 @@ class CreditNote(
             shipping_rate: NotRequired["str|None"]
             """
             The ID of the shipping rate to use for this order.
+            """
+
+        class PreviewLinesParamsRefund(TypedDict):
+            amount_refunded: NotRequired["int|None"]
+            """
+            Amount of the refund that applies to this credit note, in cents (or local equivalent). Defaults to the entire refund amount.
+            """
+            refund: str
+            """
+            ID of an existing refund to link this credit note to.
             """
 
         class PreviewLinesParamsLine(TypedDict):
@@ -616,6 +670,8 @@ class CreditNote(
     """
     The link to download the PDF of the credit note.
     """
+    post_payment_amount: Optional[int]
+    pre_payment_amount: Optional[int]
     reason: Optional[
         Literal[
             "duplicate", "fraudulent", "order_change", "product_unsatisfactory"
@@ -624,9 +680,13 @@ class CreditNote(
     """
     Reason for issuing this credit note, one of `duplicate`, `fraudulent`, `order_change`, or `product_unsatisfactory`
     """
-    refund: Optional[ExpandableField["Refund"]]
+    refund: Optional[ExpandableField["RefundResource"]]
     """
     Refund related to this credit note.
+    """
+    refunds: Optional[List[Refund]]
+    """
+    Refunds related to this credit note.
     """
     shipping_cost: Optional[ShippingCost]
     """
@@ -899,6 +959,7 @@ class CreditNote(
 
     _inner_class_types = {
         "discount_amounts": DiscountAmount,
+        "refunds": Refund,
         "shipping_cost": ShippingCost,
         "tax_amounts": TaxAmount,
     }
