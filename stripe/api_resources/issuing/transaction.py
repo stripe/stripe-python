@@ -94,6 +94,10 @@ class Transaction(
         """
         An ID assigned by the seller to the location of the sale.
         """
+        url: Optional[str]
+        """
+        URL provided by the merchant on a 3DS request
+        """
 
     class PurchaseDetails(StripeObject):
         class Flight(StripeObject):
@@ -479,6 +483,10 @@ class Transaction(
             """
             An ID assigned by the seller to the location of the sale.
             """
+            url: NotRequired["str|None"]
+            """
+            URL provided by the merchant on a 3DS request
+            """
 
         class CreateUnlinkedRefundParams(RequestOptions):
             amount: int
@@ -662,6 +670,10 @@ class Transaction(
             terminal_id: NotRequired["str|None"]
             """
             An ID assigned by the seller to the location of the sale.
+            """
+            url: NotRequired["str|None"]
+            """
+            URL provided by the merchant on a 3DS request
             """
 
         class RefundParams(RequestOptions):

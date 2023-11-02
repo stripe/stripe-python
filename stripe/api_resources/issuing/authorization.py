@@ -93,6 +93,10 @@ class Authorization(
         """
         An ID assigned by the seller to the location of the sale.
         """
+        url: Optional[str]
+        """
+        URL provided by the merchant on a 3DS request
+        """
 
     class NetworkData(StripeObject):
         acquiring_institution_id: Optional[str]
@@ -220,6 +224,24 @@ class Authorization(
         """
 
     class VerificationData(StripeObject):
+        class AuthenticationExemption(StripeObject):
+            claimed_by: Literal["acquirer", "issuer"]
+            """
+            The entity that requested the exemption, either the acquiring merchant or the Issuing user.
+            """
+            type: Literal["low_value_transaction", "transaction_risk_analysis"]
+            """
+            The specific exemption claimed for this authorization.
+            """
+
+        class ThreeDSecure(StripeObject):
+            result: Literal[
+                "attempt_acknowledged", "authenticated", "failed", "required"
+            ]
+            """
+            The outcome of the 3D Secure authentication request.
+            """
+
         address_line1_check: Literal["match", "mismatch", "not_provided"]
         """
         Whether the cardholder provided an address first line and if it matched the cardholder's `billing.address.line1`.
@@ -227,6 +249,10 @@ class Authorization(
         address_postal_code_check: Literal["match", "mismatch", "not_provided"]
         """
         Whether the cardholder provided a postal code and if it matched the cardholder's `billing.address.postal_code`.
+        """
+        authentication_exemption: Optional[AuthenticationExemption]
+        """
+        The exemption applied to this authorization.
         """
         cvc_check: Literal["match", "mismatch", "not_provided"]
         """
@@ -240,6 +266,14 @@ class Authorization(
         """
         The postal code submitted as part of the authorization used for postal code verification.
         """
+        three_d_secure: Optional[ThreeDSecure]
+        """
+        3D Secure details.
+        """
+        _inner_class_types = {
+            "authentication_exemption": AuthenticationExemption,
+            "three_d_secure": ThreeDSecure,
+        }
 
     if TYPE_CHECKING:
 
@@ -544,6 +578,12 @@ class Authorization(
             """
             Whether the cardholder provided a postal code and if it matched the cardholder's `billing.address.postal_code`.
             """
+            authentication_exemption: NotRequired[
+                "Authorization.CreateParamsVerificationDataAuthenticationExemption|None"
+            ]
+            """
+            The exemption applied to this authorization.
+            """
             cvc_check: NotRequired[
                 "Literal['match', 'mismatch', 'not_provided']|None"
             ]
@@ -555,6 +595,30 @@ class Authorization(
             ]
             """
             Whether the cardholder provided an expiry date and if it matched Stripe's record.
+            """
+            three_d_secure: NotRequired[
+                "Authorization.CreateParamsVerificationDataThreeDSecure|None"
+            ]
+            """
+            3D Secure details.
+            """
+
+        class CreateParamsVerificationDataThreeDSecure(TypedDict):
+            result: Literal[
+                "attempt_acknowledged", "authenticated", "failed", "required"
+            ]
+            """
+            The outcome of the 3D Secure authentication request.
+            """
+
+        class CreateParamsVerificationDataAuthenticationExemption(TypedDict):
+            claimed_by: Literal["acquirer", "issuer"]
+            """
+            The entity that requested the exemption, either the acquiring merchant or the Issuing user.
+            """
+            type: Literal["low_value_transaction", "transaction_risk_analysis"]
+            """
+            The specific exemption claimed for this authorization.
             """
 
         class CreateParamsNetworkData(TypedDict):
@@ -597,6 +661,10 @@ class Authorization(
             terminal_id: NotRequired["str|None"]
             """
             An ID assigned by the seller to the location of the sale.
+            """
+            url: NotRequired["str|None"]
+            """
+            URL provided by the merchant on a 3DS request
             """
 
         class CreateParamsAmountDetails(TypedDict):
