@@ -256,6 +256,7 @@ class PaymentIntent(
                 "testmode_charges_only",
                 "tls_version_unsupported",
                 "token_already_used",
+                "token_card_network_invalid",
                 "token_in_use",
                 "transfer_source_balance_parameters_mismatch",
                 "transfers_not_allowed",
