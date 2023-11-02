@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.4.0b1 - 2023-11-02
+* [#1110](https://github.com/stripe/stripe-python/pull/1110) Update generated code for beta
+  * Add support for `attach_payment_intent` method on resource `Invoice`
+
 ## 7.3.0 - 2023-11-02
 * [#1112](https://github.com/stripe/stripe-python/pull/1112) Update generated code
   * Add support for new resource `Tax.Registration`
