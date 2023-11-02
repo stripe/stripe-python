@@ -332,6 +332,10 @@ class PersonalizationDesign(
     """
     Hash containing carrier text, for use with physical bundles that support carrier text.
     """
+    created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     id: str
     """
     Unique identifier for the object.
@@ -472,9 +476,8 @@ class PersonalizationDesign(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def activate(
-            cls,
             personalization_design: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -549,9 +552,8 @@ class PersonalizationDesign(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def deactivate(
-            cls,
             personalization_design: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -626,9 +628,8 @@ class PersonalizationDesign(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def reject(
-            cls,
             personalization_design: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

@@ -278,9 +278,8 @@ class Refund(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         refund: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -449,9 +448,8 @@ class Refund(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def expire(
-            cls,
             refund: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

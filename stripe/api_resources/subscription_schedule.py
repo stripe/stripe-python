@@ -330,6 +330,9 @@ class SubscriptionSchedule(
                 List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
                 """
                 type: Literal["free", "paid"]
+                """
+                Determines the type of trial for this item.
+                """
 
             billing_thresholds: Optional[BillingThresholds]
             """
@@ -2706,9 +2709,8 @@ class SubscriptionSchedule(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def amend(
-        cls,
         schedule: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -2779,9 +2781,8 @@ class SubscriptionSchedule(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         schedule: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -2918,9 +2919,8 @@ class SubscriptionSchedule(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def release(
-        cls,
         schedule: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

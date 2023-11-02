@@ -286,6 +286,10 @@ class PaymentLink(
         """
         Indicates when the funds will be captured from the customer's account.
         """
+        description: Optional[str]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
         metadata: Dict[str, str]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link.
@@ -1088,6 +1092,10 @@ class PaymentLink(
             """
             Controls when the funds will be captured from the customer's account.
             """
+            description: NotRequired["str|None"]
+            """
+            An arbitrary string attached to the object. Often useful for displaying to users.
+            """
             metadata: NotRequired["Dict[str, str]|None"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
@@ -1824,6 +1832,10 @@ class PaymentLink(
             """
 
         class ModifyParamsPaymentIntentData(TypedDict):
+            description: NotRequired["Literal['']|str|None"]
+            """
+            An arbitrary string attached to the object. Often useful for displaying to users.
+            """
             metadata: NotRequired["Literal['']|Dict[str, str]|None"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
@@ -2344,9 +2356,8 @@ class PaymentLink(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_line_items(
-        cls,
         payment_link: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

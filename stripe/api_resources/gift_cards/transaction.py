@@ -269,9 +269,8 @@ class Transaction(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         id: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -342,9 +341,8 @@ class Transaction(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def confirm(
-        cls,
         id: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

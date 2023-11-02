@@ -59,6 +59,9 @@ class SubscriptionItem(
         List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
         """
         type: Literal["free", "paid"]
+        """
+        Determines the type of trial for this item.
+        """
 
     if TYPE_CHECKING:
 
@@ -572,9 +575,9 @@ class SubscriptionItem(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def delete(
-        cls, sid: str, **params: Unpack["SubscriptionItem.DeleteParams"]
+        sid: str, **params: Unpack["SubscriptionItem.DeleteParams"]
     ) -> "SubscriptionItem":
         """
         Deletes an item from the subscription. Removing a subscription item from a subscription will not cancel the subscription.

@@ -847,6 +847,9 @@ class PaymentMethod(
         A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
         """
 
+    class RevolutPay(StripeObject):
+        pass
+
     class SepaDebit(StripeObject):
         class GeneratedFrom(StripeObject):
             charge: Optional[ExpandableField["Charge"]]
@@ -1151,6 +1154,12 @@ class PaymentMethod(
             """
             Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
             """
+            revolut_pay: NotRequired[
+                "PaymentMethod.CreateParamsRevolutPay|None"
+            ]
+            """
+            If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+            """
             sepa_debit: NotRequired["PaymentMethod.CreateParamsSepaDebit|None"]
             """
             If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
@@ -1160,7 +1169,7 @@ class PaymentMethod(
             If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
             """
             type: NotRequired[
-                "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']|None"
+                "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']|None"
             ]
             """
             The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
@@ -1221,6 +1230,9 @@ class PaymentMethod(
             """
             IBAN of the bank account.
             """
+
+        class CreateParamsRevolutPay(TypedDict):
+            pass
 
         class CreateParamsRadarOptions(TypedDict):
             session: NotRequired["str|None"]
@@ -1496,7 +1508,7 @@ class PaymentMethod(
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
             type: NotRequired[
-                "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']|None"
+                "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']|None"
             ]
             """
             An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
@@ -1662,6 +1674,7 @@ class PaymentMethod(
     """
     Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
     """
+    revolut_pay: Optional[RevolutPay]
     sepa_debit: Optional[SepaDebit]
     sofort: Optional[Sofort]
     type: Literal[
@@ -1693,6 +1706,7 @@ class PaymentMethod(
         "paypal",
         "pix",
         "promptpay",
+        "revolut_pay",
         "sepa_debit",
         "sofort",
         "us_bank_account",
@@ -1745,9 +1759,8 @@ class PaymentMethod(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def attach(
-        cls,
         payment_method: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1881,9 +1894,8 @@ class PaymentMethod(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def detach(
-        cls,
         payment_method: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -2010,6 +2022,7 @@ class PaymentMethod(
         "pix": Pix,
         "promptpay": Promptpay,
         "radar_options": RadarOptions,
+        "revolut_pay": RevolutPay,
         "sepa_debit": SepaDebit,
         "sofort": Sofort,
         "us_bank_account": UsBankAccount,

@@ -3244,9 +3244,8 @@ class Order(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         id: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -3368,9 +3367,8 @@ class Order(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_line_items(
-        cls,
         id: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -3452,9 +3450,8 @@ class Order(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def reopen(
-        cls,
         id: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -3534,9 +3531,8 @@ class Order(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def submit(
-        cls,
         id: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

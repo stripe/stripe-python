@@ -274,9 +274,8 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_line_items(
-        cls,
         quote_phase: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

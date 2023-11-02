@@ -431,9 +431,8 @@ class OutboundTransfer(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         outbound_transfer: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -571,9 +570,8 @@ class OutboundTransfer(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def fail(
-            cls,
             outbound_transfer: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -646,9 +644,8 @@ class OutboundTransfer(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def post(
-            cls,
             outbound_transfer: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -721,9 +718,8 @@ class OutboundTransfer(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def return_outbound_transfer(
-            cls,
             outbound_transfer: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

@@ -473,9 +473,8 @@ class Dispute(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def close(
-        cls,
         dispute: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

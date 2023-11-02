@@ -1203,9 +1203,8 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_source_transactions(
-        cls,
         source: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1302,9 +1301,8 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def verify(
-        cls,
         source: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

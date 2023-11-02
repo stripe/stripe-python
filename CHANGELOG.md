@@ -1,5 +1,29 @@
 # Changelog
 
+## 7.3.0 - 2023-11-02
+* [#1112](https://github.com/stripe/stripe-python/pull/1112) Update generated code
+  * Add support for new resource `Tax.Registration`
+  * Add support for `create`, `list`, and `modify` methods on resource `Registration`
+
+## 7.2.0 - 2023-10-31
+* [#1115](https://github.com/stripe/stripe-python/pull/1115) Types: Add types for `ErrorObject`.
+* [#1116](https://github.com/stripe/stripe-python/pull/1116) Types: Use @staticmethod overloads instead of @classmethod to fix MyPy compatibility.
+
+## 7.1.0 - 2023-10-26
+* [#1104](https://github.com/stripe/stripe-python/pull/1104) Include `py.typed` and enable type annotations for the package
+  * This PR includes `py.typed` and enables inline type annotations for stripe-python package. Inline type annotations will now take precedence over Typeshed for users who use a type checker or IDE.
+  * See a detailed guide on the [Github Wiki](https://github.com/stripe/stripe-python/wiki/Inline-type-annotations).
+* [#1103](https://github.com/stripe/stripe-python/pull/1103) Inner resource classes
+  * Behavior change: nested json objects will now deserialize into instances of specific classes that subclass `StripeObject`, instead of into generic `StripeObject` instances.
+  * ⚠️  Behavior change: `PromotionCode.restrictions.currency_options` will now deserialize into `dict` and not `StripeObject`.
+* [#1090](https://github.com/stripe/stripe-python/pull/1090) Update generated code
+  * Add support for new value `balance_invalid_parameter` on enums `Invoice.LastFinalizationError`, `PaymentIntent.LastPaymentError`, `SetupAttempt.SetupError`, and `SetupIntent.LastSetupError`
+* [#1096](https://github.com/stripe/stripe-python/pull/1096) Add @util.deprecated decorator and deprecate `save`.
+* [#1091](https://github.com/stripe/stripe-python/pull/1091) APIRequestor: don't mutate incoming multipart headers
+
+
+# Changelog
+
 ## 7.2.0b1 - 2023-10-26
 * [#1107](https://github.com/stripe/stripe-python/pull/1107) Update generated code for beta
   * Add support for new resource `Margin`
@@ -17,28 +41,6 @@
 
 ## 6.8.0b3 - 2023-10-13
 
-### Enable inline type annotations in the beta channel
-- This release enables type annotations in the beta channel including types for resources, methods, properties, and parameters.
-- Some type annotations on "infrastructure" (such as http_client) are still a work
-  in progress.
-- We do not consider the type annotations to be part of the library's "stable" interface. We may change the types in a way that changes the type errors you experience in a minor release.
-- Please report inaccurate types. Contributions are welcome to non-generated files (check for a comment near the top of the file).
-
-### To use the inline type annotations:
-- make sure you don't have a stubs library [types-stripe](https://pypi.org/project/types-stripe/) installed (`pip uninstall types-stripe`).
-- make sure you don't have `typings/stripe` stubs set up in your project directory
-- the inline annotations should take precedence over everything else
-
-### To ignore the inline type annotations:
-- `pip install types-stripe` might be a quick fix. The stubs are outdated but much less opinionated so they might make unwanted type errors go away. This isn't a permanent solution however.
-- Suppress errors with `#  type: ignore`.
-- Register your own stubs locally in your project beneath `typings/stripe`
-
-### Changes
-*  [#1080](https://github.com/stripe/stripe-python/pull/1080) Types: Polymorphic groups
-*  [#1078](https://github.com/stripe/stripe-python/pull/1078) Parameter types
-*  [#1077](https://github.com/stripe/stripe-python/pull/1077) Additional type annotations
-*  [#1074](https://github.com/stripe/stripe-python/pull/1074) Start shipping py.typed with the beta library
 
 ## 6.8.0b2 - 2023-10-11
 * [#1073](https://github.com/stripe/stripe-python/pull/1073) Update generated code for beta

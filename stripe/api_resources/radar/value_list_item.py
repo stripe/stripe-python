@@ -175,9 +175,9 @@ class ValueListItem(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def delete(
-        cls, sid: str, **params: Unpack["ValueListItem.DeleteParams"]
+        sid: str, **params: Unpack["ValueListItem.DeleteParams"]
     ) -> "ValueListItem":
         """
         Deletes a ValueListItem object, removing it from its parent value list.

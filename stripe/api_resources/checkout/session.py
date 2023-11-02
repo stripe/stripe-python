@@ -829,6 +829,9 @@ class Session(
             The number of seconds after which Pix payment will expire.
             """
 
+        class RevolutPay(StripeObject):
+            pass
+
         class SepaDebit(StripeObject):
             setup_future_usage: Optional[
                 Literal["none", "off_session", "on_session"]
@@ -934,6 +937,7 @@ class Session(
         p24: Optional[P24]
         paynow: Optional[Paynow]
         pix: Optional[Pix]
+        revolut_pay: Optional[RevolutPay]
         sepa_debit: Optional[SepaDebit]
         sofort: Optional[Sofort]
         us_bank_account: Optional[UsBankAccount]
@@ -961,6 +965,7 @@ class Session(
             "p24": P24,
             "paynow": Paynow,
             "pix": Pix,
+            "revolut_pay": RevolutPay,
             "sepa_debit": SepaDebit,
             "sofort": Sofort,
             "us_bank_account": UsBankAccount,
@@ -1475,10 +1480,10 @@ class Session(
             """
             customer: NotRequired["str|None"]
             """
-            ID of an existing Customer, if one exists. In `payment` mode, the customer's most recent card
+            ID of an existing Customer, if one exists. In `payment` mode, the customer's most recently saved card
             payment method will be used to prefill the email, name, card details, and billing address
             on the Checkout page. In `subscription` mode, the customer's [default payment method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method)
-            will be used if it's a card, and otherwise the most recent card will be used. A valid billing address, billing name and billing email are required on the payment method for Checkout to prefill the customer's card details.
+            will be used if it's a card, otherwise the most recently saved card will be used. A valid billing address, billing name and billing email are required on the payment method for Checkout to prefill the customer's card details.
 
             If the Customer already has a valid [email](https://stripe.com/docs/api/customers/object#customer_object-email) set, the email will be prefilled and not editable in Checkout.
             If the Customer does not have a valid `email`, Checkout will set the email entered during the session on the Customer.
@@ -1585,7 +1590,7 @@ class Session(
             Payment-method-specific configuration.
             """
             payment_method_types: NotRequired[
-                "List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']]|None"
+                "List[Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']]|None"
             ]
             """
             A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
@@ -2315,6 +2320,12 @@ class Session(
             """
             contains details about the Pix payment method options.
             """
+            revolut_pay: NotRequired[
+                "Session.CreateParamsPaymentMethodOptionsRevolutPay|None"
+            ]
+            """
+            contains details about the RevolutPay payment method options.
+            """
             sepa_debit: NotRequired[
                 "Session.CreateParamsPaymentMethodOptionsSepaDebit|None"
             ]
@@ -2411,6 +2422,18 @@ class Session(
         class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
             setup_future_usage: NotRequired[
                 "Literal['none', 'off_session', 'on_session']|None"
+            ]
+            """
+            Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+            """
+
+        class CreateParamsPaymentMethodOptionsRevolutPay(TypedDict):
+            setup_future_usage: NotRequired[
+                "Literal['none', 'off_session']|None"
             ]
             """
             Indicates that you intend to make future payments with this PaymentIntent's payment method.
@@ -3758,9 +3781,8 @@ class Session(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def expire(
-        cls,
         session: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -3865,9 +3887,8 @@ class Session(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_line_items(
-        cls,
         session: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

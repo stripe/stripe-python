@@ -145,7 +145,7 @@ class Configuration(
             """
             products: Optional[List[Product]]
             """
-            The list of products that support subscription updates.
+            The list of up to 10 products that support subscription updates.
             """
             proration_behavior: Literal[
                 "always_invoice", "create_prorations", "none"
@@ -273,7 +273,7 @@ class Configuration(
                 ],
             ]
             """
-            The list of products that support subscription updates.
+            The list of up to 10 products that support subscription updates.
             """
             proration_behavior: NotRequired[
                 "Literal['always_invoice', 'create_prorations', 'none']|None"
@@ -503,7 +503,7 @@ class Configuration(
                 "Literal['']|List[Configuration.ModifyParamsFeaturesSubscriptionUpdateProduct]|None"
             ]
             """
-            The list of products that support subscription updates.
+            The list of up to 10 products that support subscription updates.
             """
             proration_behavior: NotRequired[
                 "Literal['always_invoice', 'create_prorations', 'none']|None"

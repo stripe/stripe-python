@@ -1267,9 +1267,8 @@ class CreditUnderwritingRecord(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def correct(
-        cls,
         credit_underwriting_record: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -1420,9 +1419,8 @@ class CreditUnderwritingRecord(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def report_decision(
-        cls,
         credit_underwriting_record: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

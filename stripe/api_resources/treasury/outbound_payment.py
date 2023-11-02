@@ -551,9 +551,8 @@ class OutboundPayment(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         id: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -691,9 +690,8 @@ class OutboundPayment(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def fail(
-            cls,
             id: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -764,9 +762,8 @@ class OutboundPayment(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def post(
-            cls,
             id: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
@@ -837,9 +834,8 @@ class OutboundPayment(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def return_outbound_payment(
-            cls,
             id: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

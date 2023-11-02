@@ -315,9 +315,8 @@ class PaymentMethodDomain(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def validate(
-        cls,
         payment_method_domain: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

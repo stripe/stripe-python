@@ -490,6 +490,9 @@ class Transaction(
             An ID assigned by the seller to the location of the sale.
             """
             url: NotRequired["str|None"]
+            """
+            URL provided by the merchant on a 3DS request
+            """
 
         class CreateUnlinkedRefundParams(RequestOptions):
             amount: int
@@ -675,6 +678,9 @@ class Transaction(
             An ID assigned by the seller to the location of the sale.
             """
             url: NotRequired["str|None"]
+            """
+            URL provided by the merchant on a 3DS request
+            """
 
         class RefundParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
@@ -900,9 +906,8 @@ class Transaction(
             )
 
         @overload
-        @classmethod
+        @staticmethod
         def refund(
-            cls,
             transaction: str,
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,

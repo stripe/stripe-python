@@ -680,9 +680,8 @@ class Calculation(CreateableAPIResource["Calculation"]):
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def list_line_items(
-        cls,
         calculation: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

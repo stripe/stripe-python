@@ -242,6 +242,7 @@ class SetupIntent(
                 "testmode_charges_only",
                 "tls_version_unsupported",
                 "token_already_used",
+                "token_card_network_invalid",
                 "token_in_use",
                 "transfer_source_balance_parameters_mismatch",
                 "transfers_not_allowed",
@@ -1099,6 +1100,12 @@ class SetupIntent(
             """
             Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
             """
+            revolut_pay: NotRequired[
+                "SetupIntent.ConfirmParamsPaymentMethodDataRevolutPay|None"
+            ]
+            """
+            If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+            """
             sepa_debit: NotRequired[
                 "SetupIntent.ConfirmParamsPaymentMethodDataSepaDebit|None"
             ]
@@ -1137,6 +1144,7 @@ class SetupIntent(
                 "paypal",
                 "pix",
                 "promptpay",
+                "revolut_pay",
                 "sepa_debit",
                 "sofort",
                 "us_bank_account",
@@ -1206,6 +1214,9 @@ class SetupIntent(
             """
             IBAN of the bank account.
             """
+
+        class ConfirmParamsPaymentMethodDataRevolutPay(TypedDict):
+            pass
 
         class ConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
             session: NotRequired["str|None"]
@@ -2030,6 +2041,12 @@ class SetupIntent(
             """
             Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
             """
+            revolut_pay: NotRequired[
+                "SetupIntent.CreateParamsPaymentMethodDataRevolutPay|None"
+            ]
+            """
+            If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+            """
             sepa_debit: NotRequired[
                 "SetupIntent.CreateParamsPaymentMethodDataSepaDebit|None"
             ]
@@ -2068,6 +2085,7 @@ class SetupIntent(
                 "paypal",
                 "pix",
                 "promptpay",
+                "revolut_pay",
                 "sepa_debit",
                 "sofort",
                 "us_bank_account",
@@ -2137,6 +2155,9 @@ class SetupIntent(
             """
             IBAN of the bank account.
             """
+
+        class CreateParamsPaymentMethodDataRevolutPay(TypedDict):
+            pass
 
         class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
             session: NotRequired["str|None"]
@@ -2949,6 +2970,12 @@ class SetupIntent(
             """
             Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
             """
+            revolut_pay: NotRequired[
+                "SetupIntent.ModifyParamsPaymentMethodDataRevolutPay|None"
+            ]
+            """
+            If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
+            """
             sepa_debit: NotRequired[
                 "SetupIntent.ModifyParamsPaymentMethodDataSepaDebit|None"
             ]
@@ -2987,6 +3014,7 @@ class SetupIntent(
                 "paypal",
                 "pix",
                 "promptpay",
+                "revolut_pay",
                 "sepa_debit",
                 "sofort",
                 "us_bank_account",
@@ -3056,6 +3084,9 @@ class SetupIntent(
             """
             IBAN of the bank account.
             """
+
+        class ModifyParamsPaymentMethodDataRevolutPay(TypedDict):
+            pass
 
         class ModifyParamsPaymentMethodDataRadarOptions(TypedDict):
             session: NotRequired["str|None"]
@@ -3456,9 +3487,8 @@ class SetupIntent(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def cancel(
-        cls,
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -3548,9 +3578,8 @@ class SetupIntent(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def confirm(
-        cls,
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -3744,9 +3773,8 @@ class SetupIntent(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def verify_microdeposits(
-        cls,
         intent: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

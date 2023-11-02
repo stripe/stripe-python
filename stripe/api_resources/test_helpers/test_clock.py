@@ -145,9 +145,8 @@ class TestClock(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def advance(
-        cls,
         test_clock: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -230,9 +229,9 @@ class TestClock(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def delete(
-        cls, sid: str, **params: Unpack["TestClock.DeleteParams"]
+        sid: str, **params: Unpack["TestClock.DeleteParams"]
     ) -> "TestClock":
         """
         Deletes a test clock.

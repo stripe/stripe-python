@@ -257,6 +257,12 @@ class Account(
         """
         The status of the promptpay payments capability of the account, or whether the account can directly process promptpay charges.
         """
+        revolut_pay_payments: Optional[
+            Literal["active", "inactive", "pending"]
+        ]
+        """
+        The status of the RevolutPay capability of the account, or whether the account can directly process RevolutPay payments.
+        """
         sepa_debit_payments: Optional[Literal["active", "inactive", "pending"]]
         """
         The status of the SEPA Direct Debits payments capability of the account, or whether the account can directly process SEPA Direct Debits charges.
@@ -2100,6 +2106,12 @@ class Account(
             """
             The promptpay_payments capability.
             """
+            revolut_pay_payments: NotRequired[
+                "Account.CreateParamsCapabilitiesRevolutPayPayments|None"
+            ]
+            """
+            The revolut_pay_payments capability.
+            """
             sepa_debit_payments: NotRequired[
                 "Account.CreateParamsCapabilitiesSepaDebitPayments|None"
             ]
@@ -2192,6 +2204,12 @@ class Account(
             """
 
         class CreateParamsCapabilitiesSepaDebitPayments(TypedDict):
+            requested: NotRequired["bool|None"]
+            """
+            Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
+            """
+
+        class CreateParamsCapabilitiesRevolutPayPayments(TypedDict):
             requested: NotRequired["bool|None"]
             """
             Passing true requests the capability for the account, if it is not already requested. A requested capability may not immediately become active. Any requirements to activate the capability are returned in the `requirements` arrays.
@@ -3643,9 +3661,9 @@ class Account(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def delete(
-        cls, sid: str, **params: Unpack["Account.DeleteParams"]
+        sid: str, **params: Unpack["Account.DeleteParams"]
     ) -> "Account":
         """
         With [Connect](https://stripe.com/docs/connect), you can delete accounts you manage.
@@ -3739,9 +3757,8 @@ class Account(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def persons(
-        cls,
         account: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -3814,9 +3831,8 @@ class Account(
         )
 
     @overload
-    @classmethod
+    @staticmethod
     def reject(
-        cls,
         account: str,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,

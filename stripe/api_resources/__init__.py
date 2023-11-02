@@ -86,6 +86,9 @@ from stripe.api_resources.invoice_item import InvoiceItem as InvoiceItem
 from stripe.api_resources.invoice_line_item import (
     InvoiceLineItem as InvoiceLineItem,
 )
+from stripe.api_resources.invoice_payment import (
+    InvoicePayment as InvoicePayment,
+)
 from stripe.api_resources.line_item import LineItem as LineItem
 from stripe.api_resources.list_object import ListObject as ListObject
 from stripe.api_resources.login_link import LoginLink as LoginLink
