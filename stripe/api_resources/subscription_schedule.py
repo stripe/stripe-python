@@ -330,6 +330,9 @@ class SubscriptionSchedule(
                 List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
                 """
                 type: Literal["free", "paid"]
+                """
+                Determines the type of trial for this item.
+                """
 
             billing_thresholds: Optional[BillingThresholds]
             """

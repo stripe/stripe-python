@@ -77,6 +77,9 @@ class QuoteLine(StripeObject):
                 List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
                 """
                 type: Literal["free", "paid"]
+                """
+                Determines the type of trial for this item.
+                """
 
             discounts: Optional[List[Discount]]
             """
@@ -192,6 +195,9 @@ class QuoteLine(StripeObject):
                 List of price IDs which, if present on the subscription following a paid trial, constitute opting-in to the paid trial.
                 """
                 type: Literal["free", "paid"]
+                """
+                Determines the type of trial for this item.
+                """
 
             discounts: Optional[List[Discount]]
             """
