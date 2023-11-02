@@ -490,6 +490,9 @@ class Transaction(
             An ID assigned by the seller to the location of the sale.
             """
             url: NotRequired["str|None"]
+            """
+            URL provided by the merchant on a 3DS request
+            """
 
         class CreateUnlinkedRefundParams(RequestOptions):
             amount: int
@@ -675,6 +678,9 @@ class Transaction(
             An ID assigned by the seller to the location of the sale.
             """
             url: NotRequired["str|None"]
+            """
+            URL provided by the merchant on a 3DS request
+            """
 
         class RefundParams(RequestOptions):
             expand: NotRequired["List[str]|None"]
