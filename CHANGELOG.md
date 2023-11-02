@@ -1,3 +1,8 @@
+## 7.3.0 - 2023-11-02
+* [#1112](https://github.com/stripe/stripe-python/pull/1112) Update generated code
+  * Add support for new resource `Tax.Registration`
+  * Add support for `create`, `list`, and `modify` methods on resource `Registration`
+
 ## 7.2.0 - 2023-10-31
 * [#1115](https://github.com/stripe/stripe-python/pull/1115) Types: Add types for `ErrorObject`.
 * [#1116](https://github.com/stripe/stripe-python/pull/1116) Types: Use @staticmethod overloads instead of @classmethod to fix MyPy compatibility.
