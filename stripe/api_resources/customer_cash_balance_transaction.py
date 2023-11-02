@@ -209,6 +209,7 @@ class CustomerCashBalanceTransaction(
         "refunded_from_payment",
         "return_canceled",
         "return_initiated",
+        "transferred_to_balance",
         "unapplied_from_payment",
     ]
     """
