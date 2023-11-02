@@ -1,3 +1,7 @@
+## 7.2.0 - 2023-10-31
+* [#1115](https://github.com/stripe/stripe-python/pull/1115) Types: Add types for `ErrorObject`.
+* [#1116](https://github.com/stripe/stripe-python/pull/1116) Types: Use @staticmethod overloads instead of @classmethod to fix MyPy compatibility.
+
 ## 7.1.0 - 2023-10-26
 * [#1104](https://github.com/stripe/stripe-python/pull/1104) Include `py.typed` and enable type annotations for the package
   * This PR includes `py.typed` and enables inline type annotations for stripe-python package. Inline type annotations will now take precedence over Typeshed for users who use a type checker or IDE.
