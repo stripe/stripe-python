@@ -86,6 +86,31 @@ class Quote(
         _inner_class_types = {"liability": Liability}
 
     class Computed(StripeObject):
+        class LastReestimationDetails(StripeObject):
+            class Failed(StripeObject):
+                failure_code: Optional[str]
+                """
+                The failure `code` is more granular than the `reason` provided and may correspond to a Stripe error code. For automation errors, this field is one of: `reverse_api_failure`, `reverse_api_deadline_exceeeded`, or `reverse_api_response_validation_error`, which are Stripe error codes and map to the error `message` field.
+                """
+                message: Optional[str]
+                """
+                Information derived from the `failure_code` or a freeform message that explains the error as a human-readable English string. For example, "margin ID is not a valid ID".
+                """
+                reason: Literal["automation_failure", "internal_error"]
+                """
+                The reason the reestimation failed.
+                """
+
+            failed: Optional[Failed]
+            """
+            When `status` is `failed`, provides details about the quote reestimation failure.
+            """
+            status: Literal["failed", "in_progress", "succeeded"]
+            """
+            Latest status of the reestimation.
+            """
+            _inner_class_types = {"failed": Failed}
+
         class Recurring(StripeObject):
             class TotalDetails(StripeObject):
                 class Breakdown(StripeObject):
@@ -278,6 +303,10 @@ class Quote(
             total_details: TotalDetails
             _inner_class_types = {"total_details": TotalDetails}
 
+        last_reestimation_details: Optional[LastReestimationDetails]
+        """
+        Details of the most recent reestimate of the quote's preview schedules and upcoming invoices, including the status of Stripe's calculation.
+        """
         recurring: Optional[Recurring]
         """
         The definitive totals and line items the customer will be charged on a recurring basis. Takes into account the line items with recurring prices and discounts with `duration=forever` coupons only. Defaults to `null` if no inputted line items with recurring prices.
@@ -287,7 +316,11 @@ class Quote(
         The time at which the quote's estimated schedules and upcoming invoices were generated.
         """
         upfront: Upfront
-        _inner_class_types = {"recurring": Recurring, "upfront": Upfront}
+        _inner_class_types = {
+            "last_reestimation_details": LastReestimationDetails,
+            "recurring": Recurring,
+            "upfront": Upfront,
+        }
 
     class FromQuote(StripeObject):
         is_revision: bool
@@ -573,6 +606,10 @@ class Quote(
         from_subscription: Optional[ExpandableField["Subscription"]]
         """
         The id of the subscription that will be updated when the quote is accepted.
+        """
+        metadata: Optional[Dict[str, str]]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is finalized. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
         """
         prebilling: Optional[Prebilling]
         """
@@ -1188,6 +1225,10 @@ class Quote(
             """
             The id of a subscription that the quote will update. By default, the quote will contain the state of the subscription (such as line items, collection method and billing thresholds) unless overridden.
             """
+            metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is finalized. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+            """
             prebilling: NotRequired[
                 "Literal['']|Quote.CreateParamsSubscriptionDataPrebilling|None"
             ]
@@ -1355,6 +1396,10 @@ class Quote(
             line_items: List["Quote.CreateParamsPhaseLineItem"]
             """
             A list of line items the customer is being quoted for within this phase. Each line item includes information about the product, the quantity, and the resulting cost.
+            """
+            metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on the subscription schedule's phases when the quote is accepted.
             """
             proration_behavior: NotRequired[
                 "Literal['always_invoice', 'create_prorations', 'none']|None"
@@ -2629,6 +2674,10 @@ class Quote(
             """
             Behavior of the subscription schedule and underlying subscription when it ends.
             """
+            metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will set metadata on the subscription or subscription schedule when the quote is finalized. If a recurring price is included in `line_items`, this field will be passed to the resulting subscription's `metadata` field. If `subscription_data.effective_date` is used, this field will be passed to the resulting subscription schedule's `phases.metadata` field. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+            """
             prebilling: NotRequired[
                 "Literal['']|Quote.ModifyParamsSubscriptionDataPrebilling|None"
             ]
@@ -2796,6 +2845,10 @@ class Quote(
             line_items: List["Quote.ModifyParamsPhaseLineItem"]
             """
             A list of line items the customer is being quoted for within this phase. Each line item includes information about the product, the quantity, and the resulting cost.
+            """
+            metadata: NotRequired["Dict[str, str]|None"]
+            """
+            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on the subscription schedule's phases when the quote is accepted. After a quote has been finalized, this field can be updated by specifying an identical set of quote phases to what was on the quote originally, excluding changes in metadata and phases that are now in the past.
             """
             proration_behavior: NotRequired[
                 "Literal['always_invoice', 'create_prorations', 'none']|None"

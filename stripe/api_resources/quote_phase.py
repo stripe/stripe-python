@@ -7,7 +7,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from stripe.util import class_method_variant
-from typing import ClassVar, List, Optional, cast, overload
+from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
 
 if TYPE_CHECKING:
@@ -200,6 +200,10 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     line_items: Optional[ListObject["LineItem"]]
     """
     A list of items the customer is being quoted for.
+    """
+    metadata: Optional[Dict[str, str]]
+    """
+    Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on the subscription schedule's phases when the quote is accepted.
     """
     object: Literal["quote_phase"]
     """
