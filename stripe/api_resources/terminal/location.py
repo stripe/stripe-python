@@ -68,7 +68,7 @@ class Location(
             """
             The full address of the location.
             """
-            configuration_overrides: NotRequired[str]
+            configuration_overrides: NotRequired["str"]
             """
             The ID of a configuration that will be used to customize all readers in this location.
             """
@@ -76,17 +76,17 @@ class Location(
             """
             A name for the location.
             """
-            expand: NotRequired[List[str]]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired[Literal[""] | Dict[str, str]]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
 
         class CreateParamsAddress(TypedDict):
-            city: NotRequired[str]
+            city: NotRequired["str"]
             """
             City, district, suburb, town, or village.
             """
@@ -94,19 +94,19 @@ class Location(
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            line1: NotRequired[str]
+            line1: NotRequired["str"]
             """
             Address line 1 (e.g., street, PO Box, or company name).
             """
-            line2: NotRequired[str]
+            line2: NotRequired["str"]
             """
             Address line 2 (e.g., apartment, suite, unit, or building).
             """
-            postal_code: NotRequired[str]
+            postal_code: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            state: NotRequired[str]
+            state: NotRequired["str"]
             """
             State, county, province, or region.
             """
@@ -115,19 +115,19 @@ class Location(
             pass
 
         class ListParams(RequestOptions):
-            ending_before: NotRequired[str]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired[List[str]]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired[int]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired[str]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
@@ -137,51 +137,51 @@ class Location(
             """
             The full address of the location.
             """
-            configuration_overrides: NotRequired[Literal[""] | str]
+            configuration_overrides: NotRequired["Literal['']|str"]
             """
             The ID of a configuration that will be used to customize all readers in this location.
             """
-            display_name: NotRequired[str]
+            display_name: NotRequired["str"]
             """
             A name for the location.
             """
-            expand: NotRequired[List[str]]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired[Literal[""] | Dict[str, str]]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
 
         class ModifyParamsAddress(TypedDict):
-            city: NotRequired[str]
+            city: NotRequired["str"]
             """
             City, district, suburb, town, or village.
             """
-            country: NotRequired[str]
+            country: NotRequired["str"]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            line1: NotRequired[str]
+            line1: NotRequired["str"]
             """
             Address line 1 (e.g., street, PO Box, or company name).
             """
-            line2: NotRequired[str]
+            line2: NotRequired["str"]
             """
             Address line 2 (e.g., apartment, suite, unit, or building).
             """
-            postal_code: NotRequired[str]
+            postal_code: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            state: NotRequired[str]
+            state: NotRequired["str"]
             """
             State, county, province, or region.
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired[List[str]]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """

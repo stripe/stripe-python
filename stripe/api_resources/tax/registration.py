@@ -697,11 +697,11 @@ class Registration(
             """
             Specific options for a registration in the specified `country`.
             """
-            expand: NotRequired[List[str]]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            expires_at: NotRequired[int]
+            expires_at: NotRequired["int"]
             """
             If set, the Tax Registration stops being active at this time. If not set, the Tax Registration will be active indefinitely. Timestamp measured in seconds since the Unix epoch.
             """
@@ -1564,39 +1564,39 @@ class Registration(
             """
 
         class ListParams(RequestOptions):
-            ending_before: NotRequired[str]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired[List[str]]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired[int]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired[str]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
             status: NotRequired[
-                Literal["active", "all", "expired", "scheduled"]
+                "Literal['active', 'all', 'expired', 'scheduled']"
             ]
             """
             The status of the Tax Registration.
             """
 
         class ModifyParams(RequestOptions):
-            active_from: NotRequired[Literal["now"] | int]
+            active_from: NotRequired["Literal['now']|int"]
             """
             Time at which the registration becomes active. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
             """
-            expand: NotRequired[List[str]]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            expires_at: NotRequired[Literal[""] | Literal["now"] | int]
+            expires_at: NotRequired["Literal['']|Literal['now']|int"]
             """
             If set, the registration stops being active at this time. If not set, the registration will be active indefinitely. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
             """

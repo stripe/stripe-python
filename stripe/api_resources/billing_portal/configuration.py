@@ -189,11 +189,11 @@ class Configuration(
             """
             The business information shown to customers in the portal.
             """
-            default_return_url: NotRequired[Literal[""] | str]
+            default_return_url: NotRequired["Literal['']|str"]
             """
             The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
             """
-            expand: NotRequired[List[str]]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
@@ -205,7 +205,7 @@ class Configuration(
             """
             The hosted login page for this configuration. Learn more about the portal login page in our [integration docs](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#share).
             """
-            metadata: NotRequired[Dict[str, str]]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
@@ -276,7 +276,7 @@ class Configuration(
             The list of up to 10 products that support subscription updates.
             """
             proration_behavior: NotRequired[
-                Literal["always_invoice", "create_prorations", "none"]
+                "Literal['always_invoice', 'create_prorations', 'none']"
             ]
             """
             Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
@@ -293,7 +293,7 @@ class Configuration(
             """
 
         class CreateParamsFeaturesSubscriptionPause(TypedDict):
-            enabled: NotRequired[bool]
+            enabled: NotRequired["bool"]
             """
             Whether the feature is enabled.
             """
@@ -309,12 +309,12 @@ class Configuration(
             """
             Whether the feature is enabled.
             """
-            mode: NotRequired[Literal["at_period_end", "immediately"]]
+            mode: NotRequired["Literal['at_period_end', 'immediately']"]
             """
             Whether to cancel subscriptions immediately or at the end of the billing period.
             """
             proration_behavior: NotRequired[
-                Literal["always_invoice", "create_prorations", "none"]
+                "Literal['always_invoice', 'create_prorations', 'none']"
             ]
             """
             Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
@@ -360,17 +360,7 @@ class Configuration(
 
         class CreateParamsFeaturesCustomerUpdate(TypedDict):
             allowed_updates: NotRequired[
-                Literal[""]
-                | List[
-                    Literal[
-                        "address",
-                        "email",
-                        "name",
-                        "phone",
-                        "shipping",
-                        "tax_id",
-                    ]
-                ]
+                "Literal['']|List[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id']]"
             ]
             """
             The types of customer updates that are supported. When empty, customers are not updateable.
@@ -381,47 +371,47 @@ class Configuration(
             """
 
         class CreateParamsBusinessProfile(TypedDict):
-            headline: NotRequired[Literal[""] | str]
+            headline: NotRequired["Literal['']|str"]
             """
             The messaging shown to customers in the portal.
             """
-            privacy_policy_url: NotRequired[str]
+            privacy_policy_url: NotRequired["str"]
             """
             A link to the business's publicly available privacy policy.
             """
-            terms_of_service_url: NotRequired[str]
+            terms_of_service_url: NotRequired["str"]
             """
             A link to the business's publicly available terms of service.
             """
 
         class ListParams(RequestOptions):
-            active: NotRequired[bool]
+            active: NotRequired["bool"]
             """
             Only return configurations that are active or inactive (e.g., pass `true` to only list active configurations).
             """
-            ending_before: NotRequired[str]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired[List[str]]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            is_default: NotRequired[bool]
+            is_default: NotRequired["bool"]
             """
             Only return the default or non-default configurations (e.g., pass `true` to only list the default configuration).
             """
-            limit: NotRequired[int]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired[str]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class ModifyParams(RequestOptions):
-            active: NotRequired[bool]
+            active: NotRequired["bool"]
             """
             Whether the configuration is active and can be used to create portal sessions.
             """
@@ -431,11 +421,11 @@ class Configuration(
             """
             The business information shown to customers in the portal.
             """
-            default_return_url: NotRequired[Literal[""] | str]
+            default_return_url: NotRequired["Literal['']|str"]
             """
             The default URL to redirect customers to when they click on the portal's link to return to your website. This can be [overriden](https://stripe.com/docs/api/customer_portal/sessions/create#create_portal_session-return_url) when creating the session.
             """
-            expand: NotRequired[List[str]]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
@@ -447,7 +437,7 @@ class Configuration(
             """
             The hosted login page for this configuration. Learn more about the portal login page in our [integration docs](https://stripe.com/docs/billing/subscriptions/integrating-customer-portal#share).
             """
-            metadata: NotRequired[Literal[""] | Dict[str, str]]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
@@ -500,27 +490,23 @@ class Configuration(
 
         class ModifyParamsFeaturesSubscriptionUpdate(TypedDict):
             default_allowed_updates: NotRequired[
-                Literal[""]
-                | List[Literal["price", "promotion_code", "quantity"]]
+                "Literal['']|List[Literal['price', 'promotion_code', 'quantity']]"
             ]
             """
             The types of subscription updates that are supported. When empty, subscriptions are not updateable.
             """
-            enabled: NotRequired[bool]
+            enabled: NotRequired["bool"]
             """
             Whether the feature is enabled.
             """
             products: NotRequired[
-                Literal[""]
-                | List[
-                    "Configuration.ModifyParamsFeaturesSubscriptionUpdateProduct"
-                ]
+                "Literal['']|List[Configuration.ModifyParamsFeaturesSubscriptionUpdateProduct]"
             ]
             """
             The list of up to 10 products that support subscription updates.
             """
             proration_behavior: NotRequired[
-                Literal["always_invoice", "create_prorations", "none"]
+                "Literal['always_invoice', 'create_prorations', 'none']"
             ]
             """
             Determines how to handle prorations resulting from subscription updates. Valid values are `none`, `create_prorations`, and `always_invoice`.
@@ -537,7 +523,7 @@ class Configuration(
             """
 
         class ModifyParamsFeaturesSubscriptionPause(TypedDict):
-            enabled: NotRequired[bool]
+            enabled: NotRequired["bool"]
             """
             Whether the feature is enabled.
             """
@@ -549,16 +535,16 @@ class Configuration(
             """
             Whether the cancellation reasons will be collected in the portal and which options are exposed to the customer
             """
-            enabled: NotRequired[bool]
+            enabled: NotRequired["bool"]
             """
             Whether the feature is enabled.
             """
-            mode: NotRequired[Literal["at_period_end", "immediately"]]
+            mode: NotRequired["Literal['at_period_end', 'immediately']"]
             """
             Whether to cancel subscriptions immediately or at the end of the billing period.
             """
             proration_behavior: NotRequired[
-                Literal["always_invoice", "create_prorations", "none"]
+                "Literal['always_invoice', 'create_prorations', 'none']"
             ]
             """
             Whether to create prorations when canceling subscriptions. Possible values are `none` and `create_prorations`, which is only compatible with `mode=immediately`. No prorations are generated when canceling a subscription at the end of its natural billing period.
@@ -572,19 +558,7 @@ class Configuration(
             Whether the feature is enabled.
             """
             options: NotRequired[
-                Literal[""]
-                | List[
-                    Literal[
-                        "customer_service",
-                        "low_quality",
-                        "missing_features",
-                        "other",
-                        "switched_service",
-                        "too_complex",
-                        "too_expensive",
-                        "unused",
-                    ]
-                ]
+                "Literal['']|List[Literal['customer_service', 'low_quality', 'missing_features', 'other', 'switched_service', 'too_complex', 'too_expensive', 'unused']]"
             ]
             """
             Which cancellation reasons will be given as options to the customer.
@@ -604,42 +578,32 @@ class Configuration(
 
         class ModifyParamsFeaturesCustomerUpdate(TypedDict):
             allowed_updates: NotRequired[
-                Literal[""]
-                | List[
-                    Literal[
-                        "address",
-                        "email",
-                        "name",
-                        "phone",
-                        "shipping",
-                        "tax_id",
-                    ]
-                ]
+                "Literal['']|List[Literal['address', 'email', 'name', 'phone', 'shipping', 'tax_id']]"
             ]
             """
             The types of customer updates that are supported. When empty, customers are not updateable.
             """
-            enabled: NotRequired[bool]
+            enabled: NotRequired["bool"]
             """
             Whether the feature is enabled.
             """
 
         class ModifyParamsBusinessProfile(TypedDict):
-            headline: NotRequired[Literal[""] | str]
+            headline: NotRequired["Literal['']|str"]
             """
             The messaging shown to customers in the portal.
             """
-            privacy_policy_url: NotRequired[Literal[""] | str]
+            privacy_policy_url: NotRequired["Literal['']|str"]
             """
             A link to the business's publicly available privacy policy.
             """
-            terms_of_service_url: NotRequired[Literal[""] | str]
+            terms_of_service_url: NotRequired["Literal['']|str"]
             """
             A link to the business's publicly available terms of service.
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired[List[str]]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """

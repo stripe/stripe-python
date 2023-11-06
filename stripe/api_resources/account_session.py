@@ -47,7 +47,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             """
             Each key of the dictionary represents an embedded component, and each embedded component maps to its configuration (e.g. whether it has been enabled or not).
             """
-            expand: NotRequired[List[str]]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
