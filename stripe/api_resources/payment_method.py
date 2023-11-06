@@ -987,191 +987,185 @@ class PaymentMethod(
             """
             The ID of the customer to which to attach the PaymentMethod.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class CreateParams(RequestOptions):
-            acss_debit: NotRequired["PaymentMethod.CreateParamsAcssDebit|None"]
+            acss_debit: NotRequired["PaymentMethod.CreateParamsAcssDebit"]
             """
             If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
             """
-            affirm: NotRequired["PaymentMethod.CreateParamsAffirm|None"]
+            affirm: NotRequired["PaymentMethod.CreateParamsAffirm"]
             """
             If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
             """
             afterpay_clearpay: NotRequired[
-                "PaymentMethod.CreateParamsAfterpayClearpay|None"
+                "PaymentMethod.CreateParamsAfterpayClearpay"
             ]
             """
             If this is an `AfterpayClearpay` PaymentMethod, this hash contains details about the AfterpayClearpay payment method.
             """
-            alipay: NotRequired["PaymentMethod.CreateParamsAlipay|None"]
+            alipay: NotRequired["PaymentMethod.CreateParamsAlipay"]
             """
             If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
             """
-            au_becs_debit: NotRequired[
-                "PaymentMethod.CreateParamsAuBecsDebit|None"
-            ]
+            au_becs_debit: NotRequired["PaymentMethod.CreateParamsAuBecsDebit"]
             """
             If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
             """
-            bacs_debit: NotRequired["PaymentMethod.CreateParamsBacsDebit|None"]
+            bacs_debit: NotRequired["PaymentMethod.CreateParamsBacsDebit"]
             """
             If this is a `bacs_debit` PaymentMethod, this hash contains details about the Bacs Direct Debit bank account.
             """
-            bancontact: NotRequired[
-                "PaymentMethod.CreateParamsBancontact|None"
-            ]
+            bancontact: NotRequired["PaymentMethod.CreateParamsBancontact"]
             """
             If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
             """
             billing_details: NotRequired[
-                "PaymentMethod.CreateParamsBillingDetails|None"
+                "PaymentMethod.CreateParamsBillingDetails"
             ]
             """
             Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
             """
-            blik: NotRequired["PaymentMethod.CreateParamsBlik|None"]
+            blik: NotRequired["PaymentMethod.CreateParamsBlik"]
             """
             If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
             """
-            boleto: NotRequired["PaymentMethod.CreateParamsBoleto|None"]
+            boleto: NotRequired["PaymentMethod.CreateParamsBoleto"]
             """
             If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
             """
             card: NotRequired[
-                "PaymentMethod.CreateParamsCard|PaymentMethod.CreateParamsCard2|None"
+                "PaymentMethod.CreateParamsCard|PaymentMethod.CreateParamsCard2"
             ]
             """
             If this is a `card` PaymentMethod, this hash contains the user's card details. For backwards compatibility, you can alternatively provide a Stripe token (e.g., for Apple Pay, Amex Express Checkout, or legacy Checkout) into the card hash with format `card: {token: "tok_visa"}`. When providing a card number, you must meet the requirements for [PCI compliance](https://stripe.com/docs/security#validating-pci-compliance). We strongly recommend using Stripe.js instead of interacting with this API directly.
             """
-            cashapp: NotRequired["PaymentMethod.CreateParamsCashapp|None"]
+            cashapp: NotRequired["PaymentMethod.CreateParamsCashapp"]
             """
             If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
             """
-            customer: NotRequired["str|None"]
+            customer: NotRequired["str"]
             """
             The `Customer` to whom the original PaymentMethod is attached.
             """
             customer_balance: NotRequired[
-                "PaymentMethod.CreateParamsCustomerBalance|None"
+                "PaymentMethod.CreateParamsCustomerBalance"
             ]
             """
             If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
             """
-            eps: NotRequired["PaymentMethod.CreateParamsEps|None"]
+            eps: NotRequired["PaymentMethod.CreateParamsEps"]
             """
             If this is an `eps` PaymentMethod, this hash contains details about the EPS payment method.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            fpx: NotRequired["PaymentMethod.CreateParamsFpx|None"]
+            fpx: NotRequired["PaymentMethod.CreateParamsFpx"]
             """
             If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
             """
-            giropay: NotRequired["PaymentMethod.CreateParamsGiropay|None"]
+            giropay: NotRequired["PaymentMethod.CreateParamsGiropay"]
             """
             If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
             """
-            grabpay: NotRequired["PaymentMethod.CreateParamsGrabpay|None"]
+            grabpay: NotRequired["PaymentMethod.CreateParamsGrabpay"]
             """
             If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
             """
-            ideal: NotRequired["PaymentMethod.CreateParamsIdeal|None"]
+            ideal: NotRequired["PaymentMethod.CreateParamsIdeal"]
             """
             If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
             """
             interac_present: NotRequired[
-                "PaymentMethod.CreateParamsInteracPresent|None"
+                "PaymentMethod.CreateParamsInteracPresent"
             ]
             """
             If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
             """
-            klarna: NotRequired["PaymentMethod.CreateParamsKlarna|None"]
+            klarna: NotRequired["PaymentMethod.CreateParamsKlarna"]
             """
             If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method.
             """
-            konbini: NotRequired["PaymentMethod.CreateParamsKonbini|None"]
+            konbini: NotRequired["PaymentMethod.CreateParamsKonbini"]
             """
             If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
             """
-            link: NotRequired["PaymentMethod.CreateParamsLink|None"]
+            link: NotRequired["PaymentMethod.CreateParamsLink"]
             """
             If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            oxxo: NotRequired["PaymentMethod.CreateParamsOxxo|None"]
+            oxxo: NotRequired["PaymentMethod.CreateParamsOxxo"]
             """
             If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
             """
-            p24: NotRequired["PaymentMethod.CreateParamsP24|None"]
+            p24: NotRequired["PaymentMethod.CreateParamsP24"]
             """
             If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
             """
-            payment_method: NotRequired["str|None"]
+            payment_method: NotRequired["str"]
             """
             The PaymentMethod to share.
             """
-            paynow: NotRequired["PaymentMethod.CreateParamsPaynow|None"]
+            paynow: NotRequired["PaymentMethod.CreateParamsPaynow"]
             """
             If this is a `paynow` PaymentMethod, this hash contains details about the PayNow payment method.
             """
-            paypal: NotRequired["PaymentMethod.CreateParamsPaypal|None"]
+            paypal: NotRequired["PaymentMethod.CreateParamsPaypal"]
             """
             If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
             """
-            pix: NotRequired["PaymentMethod.CreateParamsPix|None"]
+            pix: NotRequired["PaymentMethod.CreateParamsPix"]
             """
             If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
             """
-            promptpay: NotRequired["PaymentMethod.CreateParamsPromptpay|None"]
+            promptpay: NotRequired["PaymentMethod.CreateParamsPromptpay"]
             """
             If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
             """
             radar_options: NotRequired[
-                "PaymentMethod.CreateParamsRadarOptions|None"
+                "PaymentMethod.CreateParamsRadarOptions"
             ]
             """
             Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
             """
-            revolut_pay: NotRequired[
-                "PaymentMethod.CreateParamsRevolutPay|None"
-            ]
+            revolut_pay: NotRequired["PaymentMethod.CreateParamsRevolutPay"]
             """
             If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
             """
-            sepa_debit: NotRequired["PaymentMethod.CreateParamsSepaDebit|None"]
+            sepa_debit: NotRequired["PaymentMethod.CreateParamsSepaDebit"]
             """
             If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
             """
-            sofort: NotRequired["PaymentMethod.CreateParamsSofort|None"]
+            sofort: NotRequired["PaymentMethod.CreateParamsSofort"]
             """
             If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
             """
             type: NotRequired[
-                "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']|None"
+                "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']"
             ]
             """
             The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
             """
             us_bank_account: NotRequired[
-                "PaymentMethod.CreateParamsUsBankAccount|None"
+                "PaymentMethod.CreateParamsUsBankAccount"
             ]
             """
             If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
             """
-            wechat_pay: NotRequired["PaymentMethod.CreateParamsWechatPay|None"]
+            wechat_pay: NotRequired["PaymentMethod.CreateParamsWechatPay"]
             """
             If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
             """
-            zip: NotRequired["PaymentMethod.CreateParamsZip|None"]
+            zip: NotRequired["PaymentMethod.CreateParamsZip"]
             """
             If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
             """
@@ -1184,24 +1178,24 @@ class PaymentMethod(
 
         class CreateParamsUsBankAccount(TypedDict):
             account_holder_type: NotRequired[
-                "Literal['company', 'individual']|None"
+                "Literal['company', 'individual']"
             ]
             """
             Account holder type: individual or company.
             """
-            account_number: NotRequired["str|None"]
+            account_number: NotRequired["str"]
             """
             Account number of the bank account.
             """
-            account_type: NotRequired["Literal['checking', 'savings']|None"]
+            account_type: NotRequired["Literal['checking', 'savings']"]
             """
             Account type: checkings or savings. Defaults to checking if omitted.
             """
-            financial_connections_account: NotRequired["str|None"]
+            financial_connections_account: NotRequired["str"]
             """
             The ID of a Financial Connections Account to use as a payment method.
             """
-            routing_number: NotRequired["str|None"]
+            routing_number: NotRequired["str"]
             """
             Routing number of the bank account.
             """
@@ -1222,7 +1216,7 @@ class PaymentMethod(
             pass
 
         class CreateParamsRadarOptions(TypedDict):
-            session: NotRequired["str|None"]
+            session: NotRequired["str"]
             """
             A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
             """
@@ -1241,7 +1235,7 @@ class PaymentMethod(
 
         class CreateParamsP24(TypedDict):
             bank: NotRequired[
-                "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']|None"
+                "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
             ]
             """
             The customer's bank.
@@ -1257,7 +1251,7 @@ class PaymentMethod(
             pass
 
         class CreateParamsKlarna(TypedDict):
-            dob: NotRequired["PaymentMethod.CreateParamsKlarnaDob|None"]
+            dob: NotRequired["PaymentMethod.CreateParamsKlarnaDob"]
             """
             Customer's date of birth
             """
@@ -1281,7 +1275,7 @@ class PaymentMethod(
 
         class CreateParamsIdeal(TypedDict):
             bank: NotRequired[
-                "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']|None"
+                "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
             ]
             """
             The customer's bank.
@@ -1295,7 +1289,7 @@ class PaymentMethod(
 
         class CreateParamsFpx(TypedDict):
             account_holder_type: NotRequired[
-                "Literal['company', 'individual']|None"
+                "Literal['company', 'individual']"
             ]
             """
             Account holder type for FPX transaction
@@ -1330,7 +1324,7 @@ class PaymentMethod(
 
         class CreateParamsEps(TypedDict):
             bank: NotRequired[
-                "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']|None"
+                "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
             ]
             """
             The customer's bank.
@@ -1349,7 +1343,7 @@ class PaymentMethod(
             """
 
         class CreateParamsCard(TypedDict):
-            cvc: NotRequired["str|None"]
+            cvc: NotRequired["str"]
             """
             The card's CVC. It is highly recommended to always include this value.
             """
@@ -1377,46 +1371,46 @@ class PaymentMethod(
 
         class CreateParamsBillingDetails(TypedDict):
             address: NotRequired[
-                "Literal['']|PaymentMethod.CreateParamsBillingDetailsAddress|None"
+                "Literal['']|PaymentMethod.CreateParamsBillingDetailsAddress"
             ]
             """
             Billing address.
             """
-            email: NotRequired["Literal['']|str|None"]
+            email: NotRequired["Literal['']|str"]
             """
             Email address.
             """
-            name: NotRequired["Literal['']|str|None"]
+            name: NotRequired["Literal['']|str"]
             """
             Full name.
             """
-            phone: NotRequired["Literal['']|str|None"]
+            phone: NotRequired["Literal['']|str"]
             """
             Billing phone number (including extension).
             """
 
         class CreateParamsBillingDetailsAddress(TypedDict):
-            city: NotRequired["str|None"]
+            city: NotRequired["str"]
             """
             City, district, suburb, town, or village.
             """
-            country: NotRequired["str|None"]
+            country: NotRequired["str"]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            line1: NotRequired["str|None"]
+            line1: NotRequired["str"]
             """
             Address line 1 (e.g., street, PO Box, or company name).
             """
-            line2: NotRequired["str|None"]
+            line2: NotRequired["str"]
             """
             Address line 2 (e.g., apartment, suite, unit, or building).
             """
-            postal_code: NotRequired["str|None"]
+            postal_code: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            state: NotRequired["str|None"]
+            state: NotRequired["str"]
             """
             State, county, province, or region.
             """
@@ -1425,11 +1419,11 @@ class PaymentMethod(
             pass
 
         class CreateParamsBacsDebit(TypedDict):
-            account_number: NotRequired["str|None"]
+            account_number: NotRequired["str"]
             """
             Account number of the bank account that the funds will be debited from.
             """
-            sort_code: NotRequired["str|None"]
+            sort_code: NotRequired["str"]
             """
             Sort code of the bank account. (e.g., `10-20-30`)
             """
@@ -1468,34 +1462,34 @@ class PaymentMethod(
             """
 
         class DetachParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class ListParams(RequestOptions):
-            customer: NotRequired["str|None"]
+            customer: NotRequired["str"]
             """
             The ID of the customer whose PaymentMethods will be retrieved.
             """
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
             type: NotRequired[
-                "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']|None"
+                "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']"
             ]
             """
             An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
@@ -1503,29 +1497,29 @@ class PaymentMethod(
 
         class ModifyParams(RequestOptions):
             billing_details: NotRequired[
-                "PaymentMethod.ModifyParamsBillingDetails|None"
+                "PaymentMethod.ModifyParamsBillingDetails"
             ]
             """
             Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
             """
-            card: NotRequired["PaymentMethod.ModifyParamsCard|None"]
+            card: NotRequired["PaymentMethod.ModifyParamsCard"]
             """
             If this is a `card` PaymentMethod, this hash contains the user's card details.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            link: NotRequired["PaymentMethod.ModifyParamsLink|None"]
+            link: NotRequired["PaymentMethod.ModifyParamsLink"]
             """
             If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
             us_bank_account: NotRequired[
-                "PaymentMethod.ModifyParamsUsBankAccount|None"
+                "PaymentMethod.ModifyParamsUsBankAccount"
             ]
             """
             If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
@@ -1533,7 +1527,7 @@ class PaymentMethod(
 
         class ModifyParamsUsBankAccount(TypedDict):
             account_holder_type: NotRequired[
-                "Literal['company', 'individual']|None"
+                "Literal['company', 'individual']"
             ]
             """
             Bank account type.
@@ -1543,63 +1537,63 @@ class PaymentMethod(
             pass
 
         class ModifyParamsCard(TypedDict):
-            exp_month: NotRequired["int|None"]
+            exp_month: NotRequired["int"]
             """
             Two-digit number representing the card's expiration month.
             """
-            exp_year: NotRequired["int|None"]
+            exp_year: NotRequired["int"]
             """
             Four-digit number representing the card's expiration year.
             """
 
         class ModifyParamsBillingDetails(TypedDict):
             address: NotRequired[
-                "Literal['']|PaymentMethod.ModifyParamsBillingDetailsAddress|None"
+                "Literal['']|PaymentMethod.ModifyParamsBillingDetailsAddress"
             ]
             """
             Billing address.
             """
-            email: NotRequired["Literal['']|str|None"]
+            email: NotRequired["Literal['']|str"]
             """
             Email address.
             """
-            name: NotRequired["Literal['']|str|None"]
+            name: NotRequired["Literal['']|str"]
             """
             Full name.
             """
-            phone: NotRequired["Literal['']|str|None"]
+            phone: NotRequired["Literal['']|str"]
             """
             Billing phone number (including extension).
             """
 
         class ModifyParamsBillingDetailsAddress(TypedDict):
-            city: NotRequired["str|None"]
+            city: NotRequired["str"]
             """
             City, district, suburb, town, or village.
             """
-            country: NotRequired["str|None"]
+            country: NotRequired["str"]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            line1: NotRequired["str|None"]
+            line1: NotRequired["str"]
             """
             Address line 1 (e.g., street, PO Box, or company name).
             """
-            line2: NotRequired["str|None"]
+            line2: NotRequired["str"]
             """
             Address line 2 (e.g., apartment, suite, unit, or building).
             """
-            postal_code: NotRequired["str|None"]
+            postal_code: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            state: NotRequired["str|None"]
+            state: NotRequired["str"]
             """
             State, county, province, or region.
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """

@@ -220,25 +220,25 @@ class Reader(
     if TYPE_CHECKING:
 
         class CancelActionParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class CreateParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            label: NotRequired["str|None"]
+            label: NotRequired["str"]
             """
             Custom label given to the reader for easier identification. If no label is specified, the registration code will be used.
             """
-            location: NotRequired["str|None"]
+            location: NotRequired["str"]
             """
             The location to assign the reader to.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
@@ -252,56 +252,56 @@ class Reader(
 
         class ListParams(RequestOptions):
             device_type: NotRequired[
-                "Literal['bbpos_chipper2x', 'bbpos_wisepad3', 'bbpos_wisepos_e', 'simulated_wisepos_e', 'stripe_m2', 'verifone_P400']|None"
+                "Literal['bbpos_chipper2x', 'bbpos_wisepad3', 'bbpos_wisepos_e', 'simulated_wisepos_e', 'stripe_m2', 'verifone_P400']"
             ]
             """
             Filters readers by device type
             """
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            location: NotRequired["str|None"]
+            location: NotRequired["str"]
             """
             A location ID to filter the response list to only readers at the specific location
             """
-            serial_number: NotRequired["str|None"]
+            serial_number: NotRequired["str"]
             """
             Filters readers by serial number
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
-            status: NotRequired["Literal['offline', 'online']|None"]
+            status: NotRequired["Literal['offline', 'online']"]
             """
             A status filter to filter readers to only offline or online readers
             """
 
         class ModifyParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            label: NotRequired["Literal['']|str|None"]
+            label: NotRequired["Literal['']|str"]
             """
             The new label of the reader.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
 
         class ProcessPaymentIntentParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
@@ -310,26 +310,26 @@ class Reader(
             PaymentIntent ID
             """
             process_config: NotRequired[
-                "Reader.ProcessPaymentIntentParamsProcessConfig|None"
+                "Reader.ProcessPaymentIntentParamsProcessConfig"
             ]
             """
             Configuration overrides
             """
 
         class ProcessPaymentIntentParamsProcessConfig(TypedDict):
-            skip_tipping: NotRequired["bool|None"]
+            skip_tipping: NotRequired["bool"]
             """
             Override showing a tipping selection screen on this transaction.
             """
             tipping: NotRequired[
-                "Reader.ProcessPaymentIntentParamsProcessConfigTipping|None"
+                "Reader.ProcessPaymentIntentParamsProcessConfigTipping"
             ]
             """
             Tipping configuration for this transaction.
             """
 
         class ProcessPaymentIntentParamsProcessConfigTipping(TypedDict):
-            amount_eligible: NotRequired["int|None"]
+            amount_eligible: NotRequired["int"]
             """
             Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
             """
@@ -339,12 +339,12 @@ class Reader(
             """
             Customer Consent Collected
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
             process_config: NotRequired[
-                "Reader.ProcessSetupIntentParamsProcessConfig|None"
+                "Reader.ProcessSetupIntentParamsProcessConfig"
             ]
             """
             Configuration overrides
@@ -358,47 +358,47 @@ class Reader(
             pass
 
         class RefundPaymentParams(RequestOptions):
-            amount: NotRequired["int|None"]
+            amount: NotRequired["int"]
             """
             A positive integer in __cents__ representing how much of this charge to refund.
             """
-            charge: NotRequired["str|None"]
+            charge: NotRequired["str"]
             """
             ID of the Charge to refund.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            payment_intent: NotRequired["str|None"]
+            payment_intent: NotRequired["str"]
             """
             ID of the PaymentIntent to refund.
             """
-            refund_application_fee: NotRequired["bool|None"]
+            refund_application_fee: NotRequired["bool"]
             """
             Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
             """
-            reverse_transfer: NotRequired["bool|None"]
+            reverse_transfer: NotRequired["bool"]
             """
             Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class SetReaderDisplayParams(RequestOptions):
-            cart: NotRequired["Reader.SetReaderDisplayParamsCart|None"]
+            cart: NotRequired["Reader.SetReaderDisplayParamsCart"]
             """
             Cart
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
@@ -416,7 +416,7 @@ class Reader(
             """
             Array of line items that were purchased.
             """
-            tax: NotRequired["int|None"]
+            tax: NotRequired["int"]
             """
             The amount of tax in cents.
             """
@@ -440,41 +440,39 @@ class Reader(
             """
 
         class PresentPaymentMethodParams(RequestOptions):
-            amount_tip: NotRequired["int|None"]
+            amount_tip: NotRequired["int"]
             """
             Simulated on-reader tip amount.
             """
             card_present: NotRequired[
-                "Reader.PresentPaymentMethodParamsCardPresent|None"
+                "Reader.PresentPaymentMethodParamsCardPresent"
             ]
             """
             Simulated data for the card_present payment method.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
             interac_present: NotRequired[
-                "Reader.PresentPaymentMethodParamsInteracPresent|None"
+                "Reader.PresentPaymentMethodParamsInteracPresent"
             ]
             """
             Simulated data for the interac_present payment method.
             """
-            type: NotRequired[
-                "Literal['card_present', 'interac_present']|None"
-            ]
+            type: NotRequired["Literal['card_present', 'interac_present']"]
             """
             Simulated payment type.
             """
 
         class PresentPaymentMethodParamsInteracPresent(TypedDict):
-            number: NotRequired["str|None"]
+            number: NotRequired["str"]
             """
             Card Number
             """
 
         class PresentPaymentMethodParamsCardPresent(TypedDict):
-            number: NotRequired["str|None"]
+            number: NotRequired["str"]
             """
             The card number, as a string without any separators.
             """

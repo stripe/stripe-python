@@ -47,14 +47,14 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             """
             Each key of the dictionary represents an embedded component, and each embedded component maps to its configuration (e.g. whether it has been enabled or not).
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class CreateParamsComponents(TypedDict):
             account_onboarding: NotRequired[
-                "AccountSession.CreateParamsComponentsAccountOnboarding|None"
+                "AccountSession.CreateParamsComponentsAccountOnboarding"
             ]
             """
             Configuration for the account onboarding embedded component.

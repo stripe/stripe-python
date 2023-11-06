@@ -697,205 +697,205 @@ class Registration(
             """
             Specific options for a registration in the specified `country`.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            expires_at: NotRequired["int|None"]
+            expires_at: NotRequired["int"]
             """
             If set, the Tax Registration stops being active at this time. If not set, the Tax Registration will be active indefinitely. Timestamp measured in seconds since the Unix epoch.
             """
 
         class CreateParamsCountryOptions(TypedDict):
-            ae: NotRequired["Registration.CreateParamsCountryOptionsAe|None"]
+            ae: NotRequired["Registration.CreateParamsCountryOptionsAe"]
             """
             Options for the registration in AE.
             """
-            at: NotRequired["Registration.CreateParamsCountryOptionsAt|None"]
+            at: NotRequired["Registration.CreateParamsCountryOptionsAt"]
             """
             Options for the registration in AT.
             """
-            au: NotRequired["Registration.CreateParamsCountryOptionsAu|None"]
+            au: NotRequired["Registration.CreateParamsCountryOptionsAu"]
             """
             Options for the registration in AU.
             """
-            be: NotRequired["Registration.CreateParamsCountryOptionsBe|None"]
+            be: NotRequired["Registration.CreateParamsCountryOptionsBe"]
             """
             Options for the registration in BE.
             """
-            bg: NotRequired["Registration.CreateParamsCountryOptionsBg|None"]
+            bg: NotRequired["Registration.CreateParamsCountryOptionsBg"]
             """
             Options for the registration in BG.
             """
-            ca: NotRequired["Registration.CreateParamsCountryOptionsCa|None"]
+            ca: NotRequired["Registration.CreateParamsCountryOptionsCa"]
             """
             Options for the registration in CA.
             """
-            ch: NotRequired["Registration.CreateParamsCountryOptionsCh|None"]
+            ch: NotRequired["Registration.CreateParamsCountryOptionsCh"]
             """
             Options for the registration in CH.
             """
-            cl: NotRequired["Registration.CreateParamsCountryOptionsCl|None"]
+            cl: NotRequired["Registration.CreateParamsCountryOptionsCl"]
             """
             Options for the registration in CL.
             """
-            co: NotRequired["Registration.CreateParamsCountryOptionsCo|None"]
+            co: NotRequired["Registration.CreateParamsCountryOptionsCo"]
             """
             Options for the registration in CO.
             """
-            cy: NotRequired["Registration.CreateParamsCountryOptionsCy|None"]
+            cy: NotRequired["Registration.CreateParamsCountryOptionsCy"]
             """
             Options for the registration in CY.
             """
-            cz: NotRequired["Registration.CreateParamsCountryOptionsCz|None"]
+            cz: NotRequired["Registration.CreateParamsCountryOptionsCz"]
             """
             Options for the registration in CZ.
             """
-            de: NotRequired["Registration.CreateParamsCountryOptionsDe|None"]
+            de: NotRequired["Registration.CreateParamsCountryOptionsDe"]
             """
             Options for the registration in DE.
             """
-            dk: NotRequired["Registration.CreateParamsCountryOptionsDk|None"]
+            dk: NotRequired["Registration.CreateParamsCountryOptionsDk"]
             """
             Options for the registration in DK.
             """
-            ee: NotRequired["Registration.CreateParamsCountryOptionsEe|None"]
+            ee: NotRequired["Registration.CreateParamsCountryOptionsEe"]
             """
             Options for the registration in EE.
             """
-            es: NotRequired["Registration.CreateParamsCountryOptionsEs|None"]
+            es: NotRequired["Registration.CreateParamsCountryOptionsEs"]
             """
             Options for the registration in ES.
             """
-            fi: NotRequired["Registration.CreateParamsCountryOptionsFi|None"]
+            fi: NotRequired["Registration.CreateParamsCountryOptionsFi"]
             """
             Options for the registration in FI.
             """
-            fr: NotRequired["Registration.CreateParamsCountryOptionsFr|None"]
+            fr: NotRequired["Registration.CreateParamsCountryOptionsFr"]
             """
             Options for the registration in FR.
             """
-            gb: NotRequired["Registration.CreateParamsCountryOptionsGb|None"]
+            gb: NotRequired["Registration.CreateParamsCountryOptionsGb"]
             """
             Options for the registration in GB.
             """
-            gr: NotRequired["Registration.CreateParamsCountryOptionsGr|None"]
+            gr: NotRequired["Registration.CreateParamsCountryOptionsGr"]
             """
             Options for the registration in GR.
             """
-            hr: NotRequired["Registration.CreateParamsCountryOptionsHr|None"]
+            hr: NotRequired["Registration.CreateParamsCountryOptionsHr"]
             """
             Options for the registration in HR.
             """
-            hu: NotRequired["Registration.CreateParamsCountryOptionsHu|None"]
+            hu: NotRequired["Registration.CreateParamsCountryOptionsHu"]
             """
             Options for the registration in HU.
             """
-            id: NotRequired["Registration.CreateParamsCountryOptionsId|None"]
+            id: NotRequired["Registration.CreateParamsCountryOptionsId"]
             """
             Options for the registration in ID.
             """
-            ie: NotRequired["Registration.CreateParamsCountryOptionsIe|None"]
+            ie: NotRequired["Registration.CreateParamsCountryOptionsIe"]
             """
             Options for the registration in IE.
             """
-            it: NotRequired["Registration.CreateParamsCountryOptionsIt|None"]
+            it: NotRequired["Registration.CreateParamsCountryOptionsIt"]
             """
             Options for the registration in IT.
             """
-            jp: NotRequired["Registration.CreateParamsCountryOptionsJp|None"]
+            jp: NotRequired["Registration.CreateParamsCountryOptionsJp"]
             """
             Options for the registration in JP.
             """
-            kr: NotRequired["Registration.CreateParamsCountryOptionsKr|None"]
+            kr: NotRequired["Registration.CreateParamsCountryOptionsKr"]
             """
             Options for the registration in KR.
             """
-            lt: NotRequired["Registration.CreateParamsCountryOptionsLt|None"]
+            lt: NotRequired["Registration.CreateParamsCountryOptionsLt"]
             """
             Options for the registration in LT.
             """
-            lu: NotRequired["Registration.CreateParamsCountryOptionsLu|None"]
+            lu: NotRequired["Registration.CreateParamsCountryOptionsLu"]
             """
             Options for the registration in LU.
             """
-            lv: NotRequired["Registration.CreateParamsCountryOptionsLv|None"]
+            lv: NotRequired["Registration.CreateParamsCountryOptionsLv"]
             """
             Options for the registration in LV.
             """
-            mt: NotRequired["Registration.CreateParamsCountryOptionsMt|None"]
+            mt: NotRequired["Registration.CreateParamsCountryOptionsMt"]
             """
             Options for the registration in MT.
             """
-            mx: NotRequired["Registration.CreateParamsCountryOptionsMx|None"]
+            mx: NotRequired["Registration.CreateParamsCountryOptionsMx"]
             """
             Options for the registration in MX.
             """
-            my: NotRequired["Registration.CreateParamsCountryOptionsMy|None"]
+            my: NotRequired["Registration.CreateParamsCountryOptionsMy"]
             """
             Options for the registration in MY.
             """
-            nl: NotRequired["Registration.CreateParamsCountryOptionsNl|None"]
+            nl: NotRequired["Registration.CreateParamsCountryOptionsNl"]
             """
             Options for the registration in NL.
             """
-            no: NotRequired["Registration.CreateParamsCountryOptionsNo|None"]
+            no: NotRequired["Registration.CreateParamsCountryOptionsNo"]
             """
             Options for the registration in NO.
             """
-            nz: NotRequired["Registration.CreateParamsCountryOptionsNz|None"]
+            nz: NotRequired["Registration.CreateParamsCountryOptionsNz"]
             """
             Options for the registration in NZ.
             """
-            pl: NotRequired["Registration.CreateParamsCountryOptionsPl|None"]
+            pl: NotRequired["Registration.CreateParamsCountryOptionsPl"]
             """
             Options for the registration in PL.
             """
-            pt: NotRequired["Registration.CreateParamsCountryOptionsPt|None"]
+            pt: NotRequired["Registration.CreateParamsCountryOptionsPt"]
             """
             Options for the registration in PT.
             """
-            ro: NotRequired["Registration.CreateParamsCountryOptionsRo|None"]
+            ro: NotRequired["Registration.CreateParamsCountryOptionsRo"]
             """
             Options for the registration in RO.
             """
-            sa: NotRequired["Registration.CreateParamsCountryOptionsSa|None"]
+            sa: NotRequired["Registration.CreateParamsCountryOptionsSa"]
             """
             Options for the registration in SA.
             """
-            se: NotRequired["Registration.CreateParamsCountryOptionsSe|None"]
+            se: NotRequired["Registration.CreateParamsCountryOptionsSe"]
             """
             Options for the registration in SE.
             """
-            sg: NotRequired["Registration.CreateParamsCountryOptionsSg|None"]
+            sg: NotRequired["Registration.CreateParamsCountryOptionsSg"]
             """
             Options for the registration in SG.
             """
-            si: NotRequired["Registration.CreateParamsCountryOptionsSi|None"]
+            si: NotRequired["Registration.CreateParamsCountryOptionsSi"]
             """
             Options for the registration in SI.
             """
-            sk: NotRequired["Registration.CreateParamsCountryOptionsSk|None"]
+            sk: NotRequired["Registration.CreateParamsCountryOptionsSk"]
             """
             Options for the registration in SK.
             """
-            th: NotRequired["Registration.CreateParamsCountryOptionsTh|None"]
+            th: NotRequired["Registration.CreateParamsCountryOptionsTh"]
             """
             Options for the registration in TH.
             """
-            tr: NotRequired["Registration.CreateParamsCountryOptionsTr|None"]
+            tr: NotRequired["Registration.CreateParamsCountryOptionsTr"]
             """
             Options for the registration in TR.
             """
-            us: NotRequired["Registration.CreateParamsCountryOptionsUs|None"]
+            us: NotRequired["Registration.CreateParamsCountryOptionsUs"]
             """
             Options for the registration in US.
             """
-            vn: NotRequired["Registration.CreateParamsCountryOptionsVn|None"]
+            vn: NotRequired["Registration.CreateParamsCountryOptionsVn"]
             """
             Options for the registration in VN.
             """
-            za: NotRequired["Registration.CreateParamsCountryOptionsZa|None"]
+            za: NotRequired["Registration.CreateParamsCountryOptionsZa"]
             """
             Options for the registration in ZA.
             """
@@ -914,13 +914,13 @@ class Registration(
 
         class CreateParamsCountryOptionsUs(TypedDict):
             local_amusement_tax: NotRequired[
-                "Registration.CreateParamsCountryOptionsUsLocalAmusementTax|None"
+                "Registration.CreateParamsCountryOptionsUsLocalAmusementTax"
             ]
             """
             Options for the local amusement tax registration.
             """
             local_lease_tax: NotRequired[
-                "Registration.CreateParamsCountryOptionsUsLocalLeaseTax|None"
+                "Registration.CreateParamsCountryOptionsUsLocalLeaseTax"
             ]
             """
             Options for the local lease tax registration.
@@ -965,7 +965,7 @@ class Registration(
 
         class CreateParamsCountryOptionsSk(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsSkStandard|None"
+                "Registration.CreateParamsCountryOptionsSkStandard"
             ]
             """
             Options for the standard registration.
@@ -983,7 +983,7 @@ class Registration(
 
         class CreateParamsCountryOptionsSi(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsSiStandard|None"
+                "Registration.CreateParamsCountryOptionsSiStandard"
             ]
             """
             Options for the standard registration.
@@ -1007,7 +1007,7 @@ class Registration(
 
         class CreateParamsCountryOptionsSe(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsSeStandard|None"
+                "Registration.CreateParamsCountryOptionsSeStandard"
             ]
             """
             Options for the standard registration.
@@ -1031,7 +1031,7 @@ class Registration(
 
         class CreateParamsCountryOptionsRo(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsRoStandard|None"
+                "Registration.CreateParamsCountryOptionsRoStandard"
             ]
             """
             Options for the standard registration.
@@ -1049,7 +1049,7 @@ class Registration(
 
         class CreateParamsCountryOptionsPt(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsPtStandard|None"
+                "Registration.CreateParamsCountryOptionsPtStandard"
             ]
             """
             Options for the standard registration.
@@ -1067,7 +1067,7 @@ class Registration(
 
         class CreateParamsCountryOptionsPl(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsPlStandard|None"
+                "Registration.CreateParamsCountryOptionsPlStandard"
             ]
             """
             Options for the standard registration.
@@ -1097,7 +1097,7 @@ class Registration(
 
         class CreateParamsCountryOptionsNl(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsNlStandard|None"
+                "Registration.CreateParamsCountryOptionsNlStandard"
             ]
             """
             Options for the standard registration.
@@ -1127,7 +1127,7 @@ class Registration(
 
         class CreateParamsCountryOptionsMt(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsMtStandard|None"
+                "Registration.CreateParamsCountryOptionsMtStandard"
             ]
             """
             Options for the standard registration.
@@ -1145,7 +1145,7 @@ class Registration(
 
         class CreateParamsCountryOptionsLv(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsLvStandard|None"
+                "Registration.CreateParamsCountryOptionsLvStandard"
             ]
             """
             Options for the standard registration.
@@ -1163,7 +1163,7 @@ class Registration(
 
         class CreateParamsCountryOptionsLu(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsLuStandard|None"
+                "Registration.CreateParamsCountryOptionsLuStandard"
             ]
             """
             Options for the standard registration.
@@ -1181,7 +1181,7 @@ class Registration(
 
         class CreateParamsCountryOptionsLt(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsLtStandard|None"
+                "Registration.CreateParamsCountryOptionsLtStandard"
             ]
             """
             Options for the standard registration.
@@ -1211,7 +1211,7 @@ class Registration(
 
         class CreateParamsCountryOptionsIt(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsItStandard|None"
+                "Registration.CreateParamsCountryOptionsItStandard"
             ]
             """
             Options for the standard registration.
@@ -1235,7 +1235,7 @@ class Registration(
 
         class CreateParamsCountryOptionsIe(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsIeStandard|None"
+                "Registration.CreateParamsCountryOptionsIeStandard"
             ]
             """
             Options for the standard registration.
@@ -1259,7 +1259,7 @@ class Registration(
 
         class CreateParamsCountryOptionsHu(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsHuStandard|None"
+                "Registration.CreateParamsCountryOptionsHuStandard"
             ]
             """
             Options for the standard registration.
@@ -1277,7 +1277,7 @@ class Registration(
 
         class CreateParamsCountryOptionsHr(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsHrStandard|None"
+                "Registration.CreateParamsCountryOptionsHrStandard"
             ]
             """
             Options for the standard registration.
@@ -1295,7 +1295,7 @@ class Registration(
 
         class CreateParamsCountryOptionsGr(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsGrStandard|None"
+                "Registration.CreateParamsCountryOptionsGrStandard"
             ]
             """
             Options for the standard registration.
@@ -1319,7 +1319,7 @@ class Registration(
 
         class CreateParamsCountryOptionsFr(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsFrStandard|None"
+                "Registration.CreateParamsCountryOptionsFrStandard"
             ]
             """
             Options for the standard registration.
@@ -1337,7 +1337,7 @@ class Registration(
 
         class CreateParamsCountryOptionsFi(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsFiStandard|None"
+                "Registration.CreateParamsCountryOptionsFiStandard"
             ]
             """
             Options for the standard registration.
@@ -1355,7 +1355,7 @@ class Registration(
 
         class CreateParamsCountryOptionsEs(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsEsStandard|None"
+                "Registration.CreateParamsCountryOptionsEsStandard"
             ]
             """
             Options for the standard registration.
@@ -1373,7 +1373,7 @@ class Registration(
 
         class CreateParamsCountryOptionsEe(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsEeStandard|None"
+                "Registration.CreateParamsCountryOptionsEeStandard"
             ]
             """
             Options for the standard registration.
@@ -1391,7 +1391,7 @@ class Registration(
 
         class CreateParamsCountryOptionsDk(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsDkStandard|None"
+                "Registration.CreateParamsCountryOptionsDkStandard"
             ]
             """
             Options for the standard registration.
@@ -1409,7 +1409,7 @@ class Registration(
 
         class CreateParamsCountryOptionsDe(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsDeStandard|None"
+                "Registration.CreateParamsCountryOptionsDeStandard"
             ]
             """
             Options for the standard registration.
@@ -1427,7 +1427,7 @@ class Registration(
 
         class CreateParamsCountryOptionsCz(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsCzStandard|None"
+                "Registration.CreateParamsCountryOptionsCzStandard"
             ]
             """
             Options for the standard registration.
@@ -1445,7 +1445,7 @@ class Registration(
 
         class CreateParamsCountryOptionsCy(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsCyStandard|None"
+                "Registration.CreateParamsCountryOptionsCyStandard"
             ]
             """
             Options for the standard registration.
@@ -1481,7 +1481,7 @@ class Registration(
 
         class CreateParamsCountryOptionsCa(TypedDict):
             province_standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsCaProvinceStandard|None"
+                "Registration.CreateParamsCountryOptionsCaProvinceStandard"
             ]
             """
             Options for the provincial tax registration.
@@ -1499,7 +1499,7 @@ class Registration(
 
         class CreateParamsCountryOptionsBg(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsBgStandard|None"
+                "Registration.CreateParamsCountryOptionsBgStandard"
             ]
             """
             Options for the standard registration.
@@ -1517,7 +1517,7 @@ class Registration(
 
         class CreateParamsCountryOptionsBe(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsBeStandard|None"
+                "Registration.CreateParamsCountryOptionsBeStandard"
             ]
             """
             Options for the standard registration.
@@ -1541,7 +1541,7 @@ class Registration(
 
         class CreateParamsCountryOptionsAt(TypedDict):
             standard: NotRequired[
-                "Registration.CreateParamsCountryOptionsAtStandard|None"
+                "Registration.CreateParamsCountryOptionsAtStandard"
             ]
             """
             Options for the standard registration.
@@ -1564,39 +1564,39 @@ class Registration(
             """
 
         class ListParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
             status: NotRequired[
-                "Literal['active', 'all', 'expired', 'scheduled']|None"
+                "Literal['active', 'all', 'expired', 'scheduled']"
             ]
             """
             The status of the Tax Registration.
             """
 
         class ModifyParams(RequestOptions):
-            active_from: NotRequired["Literal['now']|int|None"]
+            active_from: NotRequired["Literal['now']|int"]
             """
             Time at which the registration becomes active. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            expires_at: NotRequired["Literal['']|Literal['now']|int|None"]
+            expires_at: NotRequired["Literal['']|Literal['now']|int"]
             """
             If set, the registration stops being active at this time. If not set, the registration will be active indefinitely. It can be either `now` to indicate the current time, or a timestamp measured in seconds since the Unix epoch.
             """
