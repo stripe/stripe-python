@@ -14,7 +14,7 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
     if TYPE_CHECKING:
 
         class DeleteParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """

@@ -37,11 +37,11 @@ class FileLink(
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """
-            expires_at: NotRequired["int|None"]
+            expires_at: NotRequired[int]
             """
             The link isn't usable after this future timestamp.
             """
@@ -49,72 +49,72 @@ class FileLink(
             """
             The ID of the file. The file's `purpose` must be one of the following: `business_icon`, `business_logo`, `customer_signature`, `dispute_evidence`, `finance_report_run`, `identity_document_downloadable`, `pci_document`, `selfie`, `sigma_scheduled_query`, `tax_document_user_upload`, or `terminal_reader_splashscreen`.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired[Literal[""] | Dict[str, str]]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
 
         class ListParams(RequestOptions):
-            created: NotRequired["FileLink.ListParamsCreated|int|None"]
-            ending_before: NotRequired["str|None"]
+            created: NotRequired["FileLink.ListParamsCreated" | int]
+            ending_before: NotRequired[str]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """
-            expired: NotRequired["bool|None"]
+            expired: NotRequired[bool]
             """
             Filter links by their expiration status. By default, Stripe returns all links.
             """
-            file: NotRequired["str|None"]
+            file: NotRequired[str]
             """
             Only return links for the given file.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired[int]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired[str]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class ListParamsCreated(TypedDict):
-            gt: NotRequired["int|None"]
+            gt: NotRequired[int]
             """
             Minimum value to filter by (exclusive)
             """
-            gte: NotRequired["int|None"]
+            gte: NotRequired[int]
             """
             Minimum value to filter by (inclusive)
             """
-            lt: NotRequired["int|None"]
+            lt: NotRequired[int]
             """
             Maximum value to filter by (exclusive)
             """
-            lte: NotRequired["int|None"]
+            lte: NotRequired[int]
             """
             Maximum value to filter by (inclusive)
             """
 
         class ModifyParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """
-            expires_at: NotRequired["Literal['']|Literal['now']|int|None"]
+            expires_at: NotRequired[Literal[""] | Literal["now"] | int]
             """
             A future timestamp after which the link will no longer be usable, or `now` to expire the link immediately.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired[Literal[""] | Dict[str, str]]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """

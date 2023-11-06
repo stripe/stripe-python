@@ -158,7 +158,7 @@ class Mandate(APIResource["Mandate"]):
     if TYPE_CHECKING:
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """

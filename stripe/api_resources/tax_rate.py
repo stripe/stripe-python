@@ -33,15 +33,15 @@ class TaxRate(
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
-            active: NotRequired["bool|None"]
+            active: NotRequired[bool]
             """
             Flag determining whether the tax rate is active or inactive (archived). Inactive tax rates cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.
             """
-            country: NotRequired["str|None"]
+            country: NotRequired[str]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            description: NotRequired["str|None"]
+            description: NotRequired[str]
             """
             An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
             """
@@ -49,7 +49,7 @@ class TaxRate(
             """
             The display name of the tax rate, which will be shown to users.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """
@@ -57,11 +57,11 @@ class TaxRate(
             """
             This specifies if the tax rate is inclusive or exclusive.
             """
-            jurisdiction: NotRequired["str|None"]
+            jurisdiction: NotRequired[str]
             """
             The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired[Dict[str, str]]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
@@ -69,107 +69,135 @@ class TaxRate(
             """
             This represents the tax rate percent out of 100.
             """
-            state: NotRequired["str|None"]
+            state: NotRequired[str]
             """
             [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
             """
             tax_type: NotRequired[
-                "Literal['amusement_tax', 'communications_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'pst', 'qst', 'rst', 'sales_tax', 'service_tax', 'vat']|None"
+                Literal[
+                    "amusement_tax",
+                    "communications_tax",
+                    "gst",
+                    "hst",
+                    "igst",
+                    "jct",
+                    "lease_tax",
+                    "pst",
+                    "qst",
+                    "rst",
+                    "sales_tax",
+                    "service_tax",
+                    "vat",
+                ]
             ]
             """
             The high-level tax type, such as `vat` or `sales_tax`.
             """
 
         class ListParams(RequestOptions):
-            active: NotRequired["bool|None"]
+            active: NotRequired[bool]
             """
             Optional flag to filter by tax rates that are either active or inactive (archived).
             """
-            created: NotRequired["TaxRate.ListParamsCreated|int|None"]
+            created: NotRequired["TaxRate.ListParamsCreated" | int]
             """
             Optional range for filtering created date.
             """
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired[str]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """
-            inclusive: NotRequired["bool|None"]
+            inclusive: NotRequired[bool]
             """
             Optional flag to filter by tax rates that are inclusive (or those that are not inclusive).
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired[int]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired[str]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class ListParamsCreated(TypedDict):
-            gt: NotRequired["int|None"]
+            gt: NotRequired[int]
             """
             Minimum value to filter by (exclusive)
             """
-            gte: NotRequired["int|None"]
+            gte: NotRequired[int]
             """
             Minimum value to filter by (inclusive)
             """
-            lt: NotRequired["int|None"]
+            lt: NotRequired[int]
             """
             Maximum value to filter by (exclusive)
             """
-            lte: NotRequired["int|None"]
+            lte: NotRequired[int]
             """
             Maximum value to filter by (inclusive)
             """
 
         class ModifyParams(RequestOptions):
-            active: NotRequired["bool|None"]
+            active: NotRequired[bool]
             """
             Flag determining whether the tax rate is active or inactive (archived). Inactive tax rates cannot be used with new applications or Checkout Sessions, but will still work for subscriptions and invoices that already have it set.
             """
-            country: NotRequired["str|None"]
+            country: NotRequired[str]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            description: NotRequired["str|None"]
+            description: NotRequired[str]
             """
             An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
             """
-            display_name: NotRequired["str|None"]
+            display_name: NotRequired[str]
             """
             The display name of the tax rate, which will be shown to users.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """
-            jurisdiction: NotRequired["str|None"]
+            jurisdiction: NotRequired[str]
             """
             The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired[Literal[""] | Dict[str, str]]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            state: NotRequired["str|None"]
+            state: NotRequired[str]
             """
             [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
             """
             tax_type: NotRequired[
-                "Literal['amusement_tax', 'communications_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'pst', 'qst', 'rst', 'sales_tax', 'service_tax', 'vat']|None"
+                Literal[
+                    "amusement_tax",
+                    "communications_tax",
+                    "gst",
+                    "hst",
+                    "igst",
+                    "jct",
+                    "lease_tax",
+                    "pst",
+                    "qst",
+                    "rst",
+                    "sales_tax",
+                    "service_tax",
+                    "vat",
+                ]
             ]
             """
             The high-level tax type, such as `vat` or `sales_tax`.
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """

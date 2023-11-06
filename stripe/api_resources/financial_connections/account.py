@@ -114,57 +114,57 @@ class Account(ListableAPIResource["Account"]):
     if TYPE_CHECKING:
 
         class DisconnectParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class ListParams(RequestOptions):
-            account_holder: NotRequired["Account.ListParamsAccountHolder|None"]
+            account_holder: NotRequired["Account.ListParamsAccountHolder"]
             """
             If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive.
             """
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired[str]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired[int]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            session: NotRequired["str|None"]
+            session: NotRequired[str]
             """
             If present, only return accounts that were collected as part of the given session.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired[str]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class ListParamsAccountHolder(TypedDict):
-            account: NotRequired["str|None"]
+            account: NotRequired[str]
             """
             The ID of the Stripe account whose accounts will be retrieved.
             """
-            customer: NotRequired["str|None"]
+            customer: NotRequired[str]
             """
             The ID of the Stripe customer whose accounts will be retrieved.
             """
 
         class ListOwnersParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired[str]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired[int]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
@@ -172,13 +172,13 @@ class Account(ListableAPIResource["Account"]):
             """
             The ID of the ownership object to fetch owners from.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired[str]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class RefreshAccountParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """
@@ -188,7 +188,7 @@ class Account(ListableAPIResource["Account"]):
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """

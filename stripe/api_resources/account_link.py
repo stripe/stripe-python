@@ -22,21 +22,19 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
             """
             The identifier of the account to create an account link for.
             """
-            collect: NotRequired[
-                "Literal['currently_due', 'eventually_due']|None"
-            ]
+            collect: NotRequired[Literal["currently_due", "eventually_due"]]
             """
             Which information the platform needs to collect from the user. One of `currently_due` or `eventually_due`. Default is `currently_due`.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired[List[str]]
             """
             Specifies which fields in the response should be expanded.
             """
-            refresh_url: NotRequired["str|None"]
+            refresh_url: NotRequired[str]
             """
             The URL the user will be redirected to if the account link is expired, has been previously-visited, or is otherwise invalid. The URL you specify should attempt to generate a new account link with the same parameters used to create the original account link, then redirect the user to the new account link's URL so they can continue with Connect Onboarding. If a new account link cannot be generated or the redirect fails you should display a useful error to the user.
             """
-            return_url: NotRequired["str|None"]
+            return_url: NotRequired[str]
             """
             The URL that the user will be redirected to upon leaving or completing the linked flow.
             """
