@@ -249,27 +249,27 @@ class Dispute(
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
-            amount: NotRequired["int|None"]
+            amount: NotRequired["int"]
             """
             The dispute amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal). If not set, defaults to the full transaction amount.
             """
-            evidence: NotRequired["Dispute.CreateParamsEvidence|None"]
+            evidence: NotRequired["Dispute.CreateParamsEvidence"]
             """
             Evidence provided for the dispute.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            transaction: NotRequired["str|None"]
+            transaction: NotRequired["str"]
             """
             The ID of the issuing transaction to create a dispute for. For transaction on Treasury FinancialAccounts, use `treasury.received_debit`.
             """
-            treasury: NotRequired["Dispute.CreateParamsTreasury|None"]
+            treasury: NotRequired["Dispute.CreateParamsTreasury"]
             """
             Params for disputes related to Treasury FinancialAccounts
             """
@@ -282,536 +282,532 @@ class Dispute(
 
         class CreateParamsEvidence(TypedDict):
             canceled: NotRequired[
-                "Literal['']|Dispute.CreateParamsEvidenceCanceled|None"
+                "Literal['']|Dispute.CreateParamsEvidenceCanceled"
             ]
             """
             Evidence provided when `reason` is 'canceled'.
             """
             duplicate: NotRequired[
-                "Literal['']|Dispute.CreateParamsEvidenceDuplicate|None"
+                "Literal['']|Dispute.CreateParamsEvidenceDuplicate"
             ]
             """
             Evidence provided when `reason` is 'duplicate'.
             """
             fraudulent: NotRequired[
-                "Literal['']|Dispute.CreateParamsEvidenceFraudulent|None"
+                "Literal['']|Dispute.CreateParamsEvidenceFraudulent"
             ]
             """
             Evidence provided when `reason` is 'fraudulent'.
             """
             merchandise_not_as_described: NotRequired[
-                "Literal['']|Dispute.CreateParamsEvidenceMerchandiseNotAsDescribed|None"
+                "Literal['']|Dispute.CreateParamsEvidenceMerchandiseNotAsDescribed"
             ]
             """
             Evidence provided when `reason` is 'merchandise_not_as_described'.
             """
             not_received: NotRequired[
-                "Literal['']|Dispute.CreateParamsEvidenceNotReceived|None"
+                "Literal['']|Dispute.CreateParamsEvidenceNotReceived"
             ]
             """
             Evidence provided when `reason` is 'not_received'.
             """
-            other: NotRequired[
-                "Literal['']|Dispute.CreateParamsEvidenceOther|None"
-            ]
+            other: NotRequired["Literal['']|Dispute.CreateParamsEvidenceOther"]
             """
             Evidence provided when `reason` is 'other'.
             """
             reason: NotRequired[
-                "Literal['canceled', 'duplicate', 'fraudulent', 'merchandise_not_as_described', 'not_received', 'other', 'service_not_as_described']|None"
+                "Literal['canceled', 'duplicate', 'fraudulent', 'merchandise_not_as_described', 'not_received', 'other', 'service_not_as_described']"
             ]
             """
             The reason for filing the dispute. The evidence should be submitted in the field of the same name.
             """
             service_not_as_described: NotRequired[
-                "Literal['']|Dispute.CreateParamsEvidenceServiceNotAsDescribed|None"
+                "Literal['']|Dispute.CreateParamsEvidenceServiceNotAsDescribed"
             ]
             """
             Evidence provided when `reason` is 'service_not_as_described'.
             """
 
         class CreateParamsEvidenceServiceNotAsDescribed(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            canceled_at: NotRequired["Literal['']|int|None"]
+            canceled_at: NotRequired["Literal['']|int"]
             """
             Date when order was canceled.
             """
-            cancellation_reason: NotRequired["Literal['']|str|None"]
+            cancellation_reason: NotRequired["Literal['']|str"]
             """
             Reason for canceling the order.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
-            received_at: NotRequired["Literal['']|int|None"]
+            received_at: NotRequired["Literal['']|int"]
             """
             Date when the product was received.
             """
 
         class CreateParamsEvidenceOther(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
-            product_description: NotRequired["Literal['']|str|None"]
+            product_description: NotRequired["Literal['']|str"]
             """
             Description of the merchandise or service that was purchased.
             """
             product_type: NotRequired[
-                "Literal['']|Literal['merchandise', 'service']|None"
+                "Literal['']|Literal['merchandise', 'service']"
             ]
             """
             Whether the product was a merchandise or service.
             """
 
         class CreateParamsEvidenceNotReceived(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            expected_at: NotRequired["Literal['']|int|None"]
+            expected_at: NotRequired["Literal['']|int"]
             """
             Date when the cardholder expected to receive the product.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
-            product_description: NotRequired["Literal['']|str|None"]
+            product_description: NotRequired["Literal['']|str"]
             """
             Description of the merchandise or service that was purchased.
             """
             product_type: NotRequired[
-                "Literal['']|Literal['merchandise', 'service']|None"
+                "Literal['']|Literal['merchandise', 'service']"
             ]
             """
             Whether the product was a merchandise or service.
             """
 
         class CreateParamsEvidenceMerchandiseNotAsDescribed(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
-            received_at: NotRequired["Literal['']|int|None"]
+            received_at: NotRequired["Literal['']|int"]
             """
             Date when the product was received.
             """
-            return_description: NotRequired["Literal['']|str|None"]
+            return_description: NotRequired["Literal['']|str"]
             """
             Description of the cardholder's attempt to return the product.
             """
             return_status: NotRequired[
-                "Literal['']|Literal['merchant_rejected', 'successful']|None"
+                "Literal['']|Literal['merchant_rejected', 'successful']"
             ]
             """
             Result of cardholder's attempt to return the product.
             """
-            returned_at: NotRequired["Literal['']|int|None"]
+            returned_at: NotRequired["Literal['']|int"]
             """
             Date when the product was returned or attempted to be returned.
             """
 
         class CreateParamsEvidenceFraudulent(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
 
         class CreateParamsEvidenceDuplicate(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            card_statement: NotRequired["Literal['']|str|None"]
+            card_statement: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
             """
-            cash_receipt: NotRequired["Literal['']|str|None"]
+            cash_receipt: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the receipt showing that the product had been paid for in cash.
             """
-            check_image: NotRequired["Literal['']|str|None"]
+            check_image: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Image of the front and back of the check that was used to pay for the product.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
-            original_transaction: NotRequired["str|None"]
+            original_transaction: NotRequired["str"]
             """
             Transaction (e.g., ipi_...) that the disputed transaction is a duplicate of. Of the two or more transactions that are copies of each other, this is original undisputed one.
             """
 
         class CreateParamsEvidenceCanceled(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            canceled_at: NotRequired["Literal['']|int|None"]
+            canceled_at: NotRequired["Literal['']|int"]
             """
             Date when order was canceled.
             """
-            cancellation_policy_provided: NotRequired["Literal['']|bool|None"]
+            cancellation_policy_provided: NotRequired["Literal['']|bool"]
             """
             Whether the cardholder was provided with a cancellation policy.
             """
-            cancellation_reason: NotRequired["Literal['']|str|None"]
+            cancellation_reason: NotRequired["Literal['']|str"]
             """
             Reason for canceling the order.
             """
-            expected_at: NotRequired["Literal['']|int|None"]
+            expected_at: NotRequired["Literal['']|int"]
             """
             Date when the cardholder expected to receive the product.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
-            product_description: NotRequired["Literal['']|str|None"]
+            product_description: NotRequired["Literal['']|str"]
             """
             Description of the merchandise or service that was purchased.
             """
             product_type: NotRequired[
-                "Literal['']|Literal['merchandise', 'service']|None"
+                "Literal['']|Literal['merchandise', 'service']"
             ]
             """
             Whether the product was a merchandise or service.
             """
             return_status: NotRequired[
-                "Literal['']|Literal['merchant_rejected', 'successful']|None"
+                "Literal['']|Literal['merchant_rejected', 'successful']"
             ]
             """
             Result of cardholder's attempt to return the product.
             """
-            returned_at: NotRequired["Literal['']|int|None"]
+            returned_at: NotRequired["Literal['']|int"]
             """
             Date when the product was returned or attempted to be returned.
             """
 
         class ListParams(RequestOptions):
-            created: NotRequired["Dispute.ListParamsCreated|int|None"]
+            created: NotRequired["Dispute.ListParamsCreated|int"]
             """
             Select Issuing disputes that were created during the given date interval.
             """
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
             status: NotRequired[
-                "Literal['expired', 'lost', 'submitted', 'unsubmitted', 'won']|None"
+                "Literal['expired', 'lost', 'submitted', 'unsubmitted', 'won']"
             ]
             """
             Select Issuing disputes with the given status.
             """
-            transaction: NotRequired["str|None"]
+            transaction: NotRequired["str"]
             """
             Select the Issuing dispute for the given transaction.
             """
 
         class ListParamsCreated(TypedDict):
-            gt: NotRequired["int|None"]
+            gt: NotRequired["int"]
             """
             Minimum value to filter by (exclusive)
             """
-            gte: NotRequired["int|None"]
+            gte: NotRequired["int"]
             """
             Minimum value to filter by (inclusive)
             """
-            lt: NotRequired["int|None"]
+            lt: NotRequired["int"]
             """
             Maximum value to filter by (exclusive)
             """
-            lte: NotRequired["int|None"]
+            lte: NotRequired["int"]
             """
             Maximum value to filter by (inclusive)
             """
 
         class ModifyParams(RequestOptions):
-            amount: NotRequired["int|None"]
+            amount: NotRequired["int"]
             """
             The dispute amount in the card's currency and in the [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             """
-            evidence: NotRequired["Dispute.ModifyParamsEvidence|None"]
+            evidence: NotRequired["Dispute.ModifyParamsEvidence"]
             """
             Evidence provided for the dispute.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
 
         class ModifyParamsEvidence(TypedDict):
             canceled: NotRequired[
-                "Literal['']|Dispute.ModifyParamsEvidenceCanceled|None"
+                "Literal['']|Dispute.ModifyParamsEvidenceCanceled"
             ]
             """
             Evidence provided when `reason` is 'canceled'.
             """
             duplicate: NotRequired[
-                "Literal['']|Dispute.ModifyParamsEvidenceDuplicate|None"
+                "Literal['']|Dispute.ModifyParamsEvidenceDuplicate"
             ]
             """
             Evidence provided when `reason` is 'duplicate'.
             """
             fraudulent: NotRequired[
-                "Literal['']|Dispute.ModifyParamsEvidenceFraudulent|None"
+                "Literal['']|Dispute.ModifyParamsEvidenceFraudulent"
             ]
             """
             Evidence provided when `reason` is 'fraudulent'.
             """
             merchandise_not_as_described: NotRequired[
-                "Literal['']|Dispute.ModifyParamsEvidenceMerchandiseNotAsDescribed|None"
+                "Literal['']|Dispute.ModifyParamsEvidenceMerchandiseNotAsDescribed"
             ]
             """
             Evidence provided when `reason` is 'merchandise_not_as_described'.
             """
             not_received: NotRequired[
-                "Literal['']|Dispute.ModifyParamsEvidenceNotReceived|None"
+                "Literal['']|Dispute.ModifyParamsEvidenceNotReceived"
             ]
             """
             Evidence provided when `reason` is 'not_received'.
             """
-            other: NotRequired[
-                "Literal['']|Dispute.ModifyParamsEvidenceOther|None"
-            ]
+            other: NotRequired["Literal['']|Dispute.ModifyParamsEvidenceOther"]
             """
             Evidence provided when `reason` is 'other'.
             """
             reason: NotRequired[
-                "Literal['canceled', 'duplicate', 'fraudulent', 'merchandise_not_as_described', 'not_received', 'other', 'service_not_as_described']|None"
+                "Literal['canceled', 'duplicate', 'fraudulent', 'merchandise_not_as_described', 'not_received', 'other', 'service_not_as_described']"
             ]
             """
             The reason for filing the dispute. The evidence should be submitted in the field of the same name.
             """
             service_not_as_described: NotRequired[
-                "Literal['']|Dispute.ModifyParamsEvidenceServiceNotAsDescribed|None"
+                "Literal['']|Dispute.ModifyParamsEvidenceServiceNotAsDescribed"
             ]
             """
             Evidence provided when `reason` is 'service_not_as_described'.
             """
 
         class ModifyParamsEvidenceServiceNotAsDescribed(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            canceled_at: NotRequired["Literal['']|int|None"]
+            canceled_at: NotRequired["Literal['']|int"]
             """
             Date when order was canceled.
             """
-            cancellation_reason: NotRequired["Literal['']|str|None"]
+            cancellation_reason: NotRequired["Literal['']|str"]
             """
             Reason for canceling the order.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
-            received_at: NotRequired["Literal['']|int|None"]
+            received_at: NotRequired["Literal['']|int"]
             """
             Date when the product was received.
             """
 
         class ModifyParamsEvidenceOther(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
-            product_description: NotRequired["Literal['']|str|None"]
+            product_description: NotRequired["Literal['']|str"]
             """
             Description of the merchandise or service that was purchased.
             """
             product_type: NotRequired[
-                "Literal['']|Literal['merchandise', 'service']|None"
+                "Literal['']|Literal['merchandise', 'service']"
             ]
             """
             Whether the product was a merchandise or service.
             """
 
         class ModifyParamsEvidenceNotReceived(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            expected_at: NotRequired["Literal['']|int|None"]
+            expected_at: NotRequired["Literal['']|int"]
             """
             Date when the cardholder expected to receive the product.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
-            product_description: NotRequired["Literal['']|str|None"]
+            product_description: NotRequired["Literal['']|str"]
             """
             Description of the merchandise or service that was purchased.
             """
             product_type: NotRequired[
-                "Literal['']|Literal['merchandise', 'service']|None"
+                "Literal['']|Literal['merchandise', 'service']"
             ]
             """
             Whether the product was a merchandise or service.
             """
 
         class ModifyParamsEvidenceMerchandiseNotAsDescribed(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
-            received_at: NotRequired["Literal['']|int|None"]
+            received_at: NotRequired["Literal['']|int"]
             """
             Date when the product was received.
             """
-            return_description: NotRequired["Literal['']|str|None"]
+            return_description: NotRequired["Literal['']|str"]
             """
             Description of the cardholder's attempt to return the product.
             """
             return_status: NotRequired[
-                "Literal['']|Literal['merchant_rejected', 'successful']|None"
+                "Literal['']|Literal['merchant_rejected', 'successful']"
             ]
             """
             Result of cardholder's attempt to return the product.
             """
-            returned_at: NotRequired["Literal['']|int|None"]
+            returned_at: NotRequired["Literal['']|int"]
             """
             Date when the product was returned or attempted to be returned.
             """
 
         class ModifyParamsEvidenceFraudulent(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
 
         class ModifyParamsEvidenceDuplicate(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            card_statement: NotRequired["Literal['']|str|None"]
+            card_statement: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the card statement showing that the product had already been paid for.
             """
-            cash_receipt: NotRequired["Literal['']|str|None"]
+            cash_receipt: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Copy of the receipt showing that the product had been paid for in cash.
             """
-            check_image: NotRequired["Literal['']|str|None"]
+            check_image: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Image of the front and back of the check that was used to pay for the product.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
-            original_transaction: NotRequired["str|None"]
+            original_transaction: NotRequired["str"]
             """
             Transaction (e.g., ipi_...) that the disputed transaction is a duplicate of. Of the two or more transactions that are copies of each other, this is original undisputed one.
             """
 
         class ModifyParamsEvidenceCanceled(TypedDict):
-            additional_documentation: NotRequired["Literal['']|str|None"]
+            additional_documentation: NotRequired["Literal['']|str"]
             """
             (ID of a [file upload](https://stripe.com/docs/guides/file-upload)) Additional documentation supporting the dispute.
             """
-            canceled_at: NotRequired["Literal['']|int|None"]
+            canceled_at: NotRequired["Literal['']|int"]
             """
             Date when order was canceled.
             """
-            cancellation_policy_provided: NotRequired["Literal['']|bool|None"]
+            cancellation_policy_provided: NotRequired["Literal['']|bool"]
             """
             Whether the cardholder was provided with a cancellation policy.
             """
-            cancellation_reason: NotRequired["Literal['']|str|None"]
+            cancellation_reason: NotRequired["Literal['']|str"]
             """
             Reason for canceling the order.
             """
-            expected_at: NotRequired["Literal['']|int|None"]
+            expected_at: NotRequired["Literal['']|int"]
             """
             Date when the cardholder expected to receive the product.
             """
-            explanation: NotRequired["Literal['']|str|None"]
+            explanation: NotRequired["Literal['']|str"]
             """
             Explanation of why the cardholder is disputing this transaction.
             """
-            product_description: NotRequired["Literal['']|str|None"]
+            product_description: NotRequired["Literal['']|str"]
             """
             Description of the merchandise or service that was purchased.
             """
             product_type: NotRequired[
-                "Literal['']|Literal['merchandise', 'service']|None"
+                "Literal['']|Literal['merchandise', 'service']"
             ]
             """
             Whether the product was a merchandise or service.
             """
             return_status: NotRequired[
-                "Literal['']|Literal['merchant_rejected', 'successful']|None"
+                "Literal['']|Literal['merchant_rejected', 'successful']"
             ]
             """
             Result of cardholder's attempt to return the product.
             """
-            returned_at: NotRequired["Literal['']|int|None"]
+            returned_at: NotRequired["Literal['']|int"]
             """
             Date when the product was returned or attempted to be returned.
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class SubmitParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """

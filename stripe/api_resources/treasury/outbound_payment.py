@@ -183,7 +183,7 @@ class OutboundPayment(
     if TYPE_CHECKING:
 
         class CancelParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
@@ -197,37 +197,37 @@ class OutboundPayment(
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            customer: NotRequired["str|None"]
+            customer: NotRequired["str"]
             """
             ID of the customer to whom the OutboundPayment is sent. Must match the Customer attached to the `destination_payment_method` passed in.
             """
-            description: NotRequired["str|None"]
+            description: NotRequired["str"]
             """
             An arbitrary string attached to the object. Often useful for displaying to users.
             """
-            destination_payment_method: NotRequired["str|None"]
+            destination_payment_method: NotRequired["str"]
             """
             The PaymentMethod to use as the payment instrument for the OutboundPayment. Exclusive with `destination_payment_method_data`.
             """
             destination_payment_method_data: NotRequired[
-                "OutboundPayment.CreateParamsDestinationPaymentMethodData|None"
+                "OutboundPayment.CreateParamsDestinationPaymentMethodData"
             ]
             """
             Hash used to generate the PaymentMethod to be used for this OutboundPayment. Exclusive with `destination_payment_method`.
             """
             destination_payment_method_options: NotRequired[
-                "OutboundPayment.CreateParamsDestinationPaymentMethodOptions|None"
+                "OutboundPayment.CreateParamsDestinationPaymentMethodOptions"
             ]
             """
             Payment method-specific configuration for this OutboundPayment.
             """
             end_user_details: NotRequired[
-                "OutboundPayment.CreateParamsEndUserDetails|None"
+                "OutboundPayment.CreateParamsEndUserDetails"
             ]
             """
             End user details.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
@@ -235,17 +235,17 @@ class OutboundPayment(
             """
             The FinancialAccount to pull funds from.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            statement_descriptor: NotRequired["str|None"]
+            statement_descriptor: NotRequired["str"]
             """
             The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `wire` payments, or 500 characters for `stripe` network transfers. The default value is `payment`.
             """
 
         class CreateParamsEndUserDetails(TypedDict):
-            ip_address: NotRequired["str|None"]
+            ip_address: NotRequired["str"]
             """
             IP address of the user initiating the OutboundPayment. Must be supplied if `present` is set to `true`.
             """
@@ -256,7 +256,7 @@ class OutboundPayment(
 
         class CreateParamsDestinationPaymentMethodOptions(TypedDict):
             us_bank_account: NotRequired[
-                "Literal['']|OutboundPayment.CreateParamsDestinationPaymentMethodOptionsUsBankAccount|None"
+                "Literal['']|OutboundPayment.CreateParamsDestinationPaymentMethodOptionsUsBankAccount"
             ]
             """
             Optional fields for `us_bank_account`.
@@ -265,23 +265,23 @@ class OutboundPayment(
         class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(
             TypedDict,
         ):
-            network: NotRequired["Literal['ach', 'us_domestic_wire']|None"]
+            network: NotRequired["Literal['ach', 'us_domestic_wire']"]
             """
             The US bank account network that must be used for this OutboundPayment. If not set, we will default to the PaymentMethod's preferred network.
             """
 
         class CreateParamsDestinationPaymentMethodData(TypedDict):
             billing_details: NotRequired[
-                "OutboundPayment.CreateParamsDestinationPaymentMethodDataBillingDetails|None"
+                "OutboundPayment.CreateParamsDestinationPaymentMethodDataBillingDetails"
             ]
             """
             Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
             """
-            financial_account: NotRequired["str|None"]
+            financial_account: NotRequired["str"]
             """
             Required if type is set to `financial_account`. The FinancialAccount ID to send funds to.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
@@ -290,7 +290,7 @@ class OutboundPayment(
             The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
             """
             us_bank_account: NotRequired[
-                "OutboundPayment.CreateParamsDestinationPaymentMethodDataUsBankAccount|None"
+                "OutboundPayment.CreateParamsDestinationPaymentMethodDataUsBankAccount"
             ]
             """
             Required hash if type is set to `us_bank_account`.
@@ -298,24 +298,24 @@ class OutboundPayment(
 
         class CreateParamsDestinationPaymentMethodDataUsBankAccount(TypedDict):
             account_holder_type: NotRequired[
-                "Literal['company', 'individual']|None"
+                "Literal['company', 'individual']"
             ]
             """
             Account holder type: individual or company.
             """
-            account_number: NotRequired["str|None"]
+            account_number: NotRequired["str"]
             """
             Account number of the bank account.
             """
-            account_type: NotRequired["Literal['checking', 'savings']|None"]
+            account_type: NotRequired["Literal['checking', 'savings']"]
             """
             Account type: checkings or savings. Defaults to checking if omitted.
             """
-            financial_connections_account: NotRequired["str|None"]
+            financial_connections_account: NotRequired["str"]
             """
             The ID of a Financial Connections Account to use as a payment method.
             """
-            routing_number: NotRequired["str|None"]
+            routing_number: NotRequired["str"]
             """
             Routing number of the bank account.
             """
@@ -324,20 +324,20 @@ class OutboundPayment(
             TypedDict
         ):
             address: NotRequired[
-                "Literal['']|OutboundPayment.CreateParamsDestinationPaymentMethodDataBillingDetailsAddress|None"
+                "Literal['']|OutboundPayment.CreateParamsDestinationPaymentMethodDataBillingDetailsAddress"
             ]
             """
             Billing address.
             """
-            email: NotRequired["Literal['']|str|None"]
+            email: NotRequired["Literal['']|str"]
             """
             Email address.
             """
-            name: NotRequired["Literal['']|str|None"]
+            name: NotRequired["Literal['']|str"]
             """
             Full name.
             """
-            phone: NotRequired["Literal['']|str|None"]
+            phone: NotRequired["Literal['']|str"]
             """
             Billing phone number (including extension).
             """
@@ -345,41 +345,41 @@ class OutboundPayment(
         class CreateParamsDestinationPaymentMethodDataBillingDetailsAddress(
             TypedDict,
         ):
-            city: NotRequired["str|None"]
+            city: NotRequired["str"]
             """
             City, district, suburb, town, or village.
             """
-            country: NotRequired["str|None"]
+            country: NotRequired["str"]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            line1: NotRequired["str|None"]
+            line1: NotRequired["str"]
             """
             Address line 1 (e.g., street, PO Box, or company name).
             """
-            line2: NotRequired["str|None"]
+            line2: NotRequired["str"]
             """
             Address line 2 (e.g., apartment, suite, unit, or building).
             """
-            postal_code: NotRequired["str|None"]
+            postal_code: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            state: NotRequired["str|None"]
+            state: NotRequired["str"]
             """
             State, county, province, or region.
             """
 
         class ListParams(RequestOptions):
-            customer: NotRequired["str|None"]
+            customer: NotRequired["str"]
             """
             Only return OutboundPayments sent to this customer.
             """
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
@@ -387,46 +387,46 @@ class OutboundPayment(
             """
             Returns objects associated with this FinancialAccount.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
             status: NotRequired[
-                "Literal['canceled', 'failed', 'posted', 'processing', 'returned']|None"
+                "Literal['canceled', 'failed', 'posted', 'processing', 'returned']"
             ]
             """
             Only return OutboundPayments that have the given status: `processing`, `failed`, `posted`, `returned`, or `canceled`.
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class FailParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class PostParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class ReturnOutboundPaymentParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
             returned_details: NotRequired[
-                "OutboundPayment.ReturnOutboundPaymentParamsReturnedDetails|None"
+                "OutboundPayment.ReturnOutboundPaymentParamsReturnedDetails"
             ]
             """
             Optional hash to set the the return code.
@@ -434,7 +434,7 @@ class OutboundPayment(
 
         class ReturnOutboundPaymentParamsReturnedDetails(TypedDict):
             code: NotRequired[
-                "Literal['account_closed', 'account_frozen', 'bank_account_restricted', 'bank_ownership_changed', 'declined', 'incorrect_account_holder_name', 'invalid_account_number', 'invalid_currency', 'no_account', 'other']|None"
+                "Literal['account_closed', 'account_frozen', 'bank_account_restricted', 'bank_ownership_changed', 'declined', 'incorrect_account_holder_name', 'invalid_account_number', 'invalid_currency', 'no_account', 'other']"
             ]
             """
             The return code to be set on the OutboundPayment object.

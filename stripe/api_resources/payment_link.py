@@ -625,67 +625,63 @@ class PaymentLink(
 
         class CreateParams(RequestOptions):
             after_completion: NotRequired[
-                "PaymentLink.CreateParamsAfterCompletion|None"
+                "PaymentLink.CreateParamsAfterCompletion"
             ]
             """
             Behavior after the purchase is complete.
             """
-            allow_promotion_codes: NotRequired["bool|None"]
+            allow_promotion_codes: NotRequired["bool"]
             """
             Enables user redeemable promotion codes.
             """
-            application_fee_amount: NotRequired["int|None"]
+            application_fee_amount: NotRequired["int"]
             """
             The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account. Can only be applied when there are no line items with recurring prices.
             """
-            application_fee_percent: NotRequired["float|None"]
+            application_fee_percent: NotRequired["float"]
             """
             A non-negative decimal between 0 and 100, with at most two decimal places. This represents the percentage of the subscription invoice total that will be transferred to the application owner's Stripe account. There must be at least 1 line item with a recurring price to use this field.
             """
-            automatic_tax: NotRequired[
-                "PaymentLink.CreateParamsAutomaticTax|None"
-            ]
+            automatic_tax: NotRequired["PaymentLink.CreateParamsAutomaticTax"]
             """
             Configuration for automatic tax collection.
             """
             billing_address_collection: NotRequired[
-                "Literal['auto', 'required']|None"
+                "Literal['auto', 'required']"
             ]
             """
             Configuration for collecting the customer's billing address.
             """
             consent_collection: NotRequired[
-                "PaymentLink.CreateParamsConsentCollection|None"
+                "PaymentLink.CreateParamsConsentCollection"
             ]
             """
             Configure fields to gather active consent from customers.
             """
-            currency: NotRequired["str|None"]
+            currency: NotRequired["str"]
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies) and supported by each line item's price.
             """
             custom_fields: NotRequired[
-                "List[PaymentLink.CreateParamsCustomField]|None"
+                "List[PaymentLink.CreateParamsCustomField]"
             ]
             """
             Collect additional information from your customer using custom fields. Up to 2 fields are supported.
             """
-            custom_text: NotRequired["PaymentLink.CreateParamsCustomText|None"]
+            custom_text: NotRequired["PaymentLink.CreateParamsCustomText"]
             """
             Display additional text for your customers using custom text.
             """
-            customer_creation: NotRequired[
-                "Literal['always', 'if_required']|None"
-            ]
+            customer_creation: NotRequired["Literal['always', 'if_required']"]
             """
             Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers).
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
             invoice_creation: NotRequired[
-                "PaymentLink.CreateParamsInvoiceCreation|None"
+                "PaymentLink.CreateParamsInvoiceCreation"
             ]
             """
             Generate a post-purchase Invoice for one-time payments.
@@ -694,22 +690,22 @@ class PaymentLink(
             """
             The line items representing what is being sold. Each line item represents an item being sold. Up to 20 line items are supported.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
             """
-            on_behalf_of: NotRequired["str|None"]
+            on_behalf_of: NotRequired["str"]
             """
             The account on behalf of which to charge.
             """
             payment_intent_data: NotRequired[
-                "PaymentLink.CreateParamsPaymentIntentData|None"
+                "PaymentLink.CreateParamsPaymentIntentData"
             ]
             """
             A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
             """
             payment_method_collection: NotRequired[
-                "Literal['always', 'if_required']|None"
+                "Literal['always', 'if_required']"
             ]
             """
             Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
@@ -719,13 +715,13 @@ class PaymentLink(
             If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
             """
             payment_method_types: NotRequired[
-                "List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay']]|None"
+                "List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay']]"
             ]
             """
             The list of payment method types that customers can use. If no value is passed, Stripe will dynamically show relevant payment methods from your [payment method settings](https://dashboard.stripe.com/settings/payment_methods) (20+ payment methods [supported](https://stripe.com/docs/payments/payment-methods/integration-options#payment-method-product-support)).
             """
             phone_number_collection: NotRequired[
-                "PaymentLink.CreateParamsPhoneNumberCollection|None"
+                "PaymentLink.CreateParamsPhoneNumberCollection"
             ]
             """
             Controls phone number collection settings during checkout.
@@ -733,44 +729,42 @@ class PaymentLink(
             We recommend that you review your privacy policy and check with your legal contacts.
             """
             shipping_address_collection: NotRequired[
-                "PaymentLink.CreateParamsShippingAddressCollection|None"
+                "PaymentLink.CreateParamsShippingAddressCollection"
             ]
             """
             Configuration for collecting the customer's shipping address.
             """
             shipping_options: NotRequired[
-                "List[PaymentLink.CreateParamsShippingOption]|None"
+                "List[PaymentLink.CreateParamsShippingOption]"
             ]
             """
             The shipping rate options to apply to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
             """
             submit_type: NotRequired[
-                "Literal['auto', 'book', 'donate', 'pay']|None"
+                "Literal['auto', 'book', 'donate', 'pay']"
             ]
             """
             Describes the type of transaction being performed in order to customize relevant text on the page, such as the submit button. Changing this value will also affect the hostname in the [url](https://stripe.com/docs/api/payment_links/payment_links/object#url) property (example: `donate.stripe.com`).
             """
             subscription_data: NotRequired[
-                "PaymentLink.CreateParamsSubscriptionData|None"
+                "PaymentLink.CreateParamsSubscriptionData"
             ]
             """
             When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
             """
             tax_id_collection: NotRequired[
-                "PaymentLink.CreateParamsTaxIdCollection|None"
+                "PaymentLink.CreateParamsTaxIdCollection"
             ]
             """
             Controls tax ID collection during checkout.
             """
-            transfer_data: NotRequired[
-                "PaymentLink.CreateParamsTransferData|None"
-            ]
+            transfer_data: NotRequired["PaymentLink.CreateParamsTransferData"]
             """
             The account (if any) the payments will be attributed to for tax reporting, and where funds from each payment will be transferred to.
             """
 
         class CreateParamsTransferData(TypedDict):
-            amount: NotRequired["int|None"]
+            amount: NotRequired["int"]
             """
             The amount that will be transferred automatically when a charge succeeds.
             """
@@ -789,35 +783,35 @@ class PaymentLink(
             """
 
         class CreateParamsSubscriptionData(TypedDict):
-            description: NotRequired["str|None"]
+            description: NotRequired["str"]
             """
             The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
             """
             invoice_settings: NotRequired[
-                "PaymentLink.CreateParamsSubscriptionDataInvoiceSettings|None"
+                "PaymentLink.CreateParamsSubscriptionDataInvoiceSettings"
             ]
             """
             All invoices will be billed using the specified settings.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
             """
-            trial_period_days: NotRequired["int|None"]
+            trial_period_days: NotRequired["int"]
             """
             Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
             """
 
         class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
             issuer: NotRequired[
-                "PaymentLink.CreateParamsSubscriptionDataInvoiceSettingsIssuer|None"
+                "PaymentLink.CreateParamsSubscriptionDataInvoiceSettingsIssuer"
             ]
             """
             The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
             """
 
         class CreateParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
-            account: NotRequired["str|None"]
+            account: NotRequired["str"]
             """
             The connected account being referenced when `type` is `account`.
             """
@@ -827,7 +821,7 @@ class PaymentLink(
             """
 
         class CreateParamsShippingOption(TypedDict):
-            shipping_rate: NotRequired["str|None"]
+            shipping_rate: NotRequired["str"]
             """
             The ID of the Shipping Rate to use for this shipping option.
             """
@@ -1087,21 +1081,21 @@ class PaymentLink(
 
         class CreateParamsPaymentIntentData(TypedDict):
             capture_method: NotRequired[
-                "Literal['automatic', 'automatic_async', 'manual']|None"
+                "Literal['automatic', 'automatic_async', 'manual']"
             ]
             """
             Controls when the funds will be captured from the customer's account.
             """
-            description: NotRequired["str|None"]
+            description: NotRequired["str"]
             """
             An arbitrary string attached to the object. Often useful for displaying to users.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
             """
             setup_future_usage: NotRequired[
-                "Literal['off_session', 'on_session']|None"
+                "Literal['off_session', 'on_session']"
             ]
             """
             Indicates that you intend to [make future payments](https://stripe.com/docs/payments/payment-intents#future-usage) with the payment method collected by this Checkout Session.
@@ -1116,18 +1110,18 @@ class PaymentLink(
 
             When processing card payments, Checkout also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as SCA.
             """
-            statement_descriptor: NotRequired["str|None"]
+            statement_descriptor: NotRequired["str"]
             """
             Extra information about the payment. This will appear on your customer's statement when this payment succeeds in creating a charge.
             """
-            statement_descriptor_suffix: NotRequired["str|None"]
+            statement_descriptor_suffix: NotRequired["str"]
             """
             Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
             """
 
         class CreateParamsLineItem(TypedDict):
             adjustable_quantity: NotRequired[
-                "PaymentLink.CreateParamsLineItemAdjustableQuantity|None"
+                "PaymentLink.CreateParamsLineItemAdjustableQuantity"
             ]
             """
             When set, provides configuration for this item's quantity to be adjusted by the customer during checkout.
@@ -1146,11 +1140,11 @@ class PaymentLink(
             """
             Set to true if the quantity can be adjusted to any non-negative Integer.
             """
-            maximum: NotRequired["int|None"]
+            maximum: NotRequired["int"]
             """
             The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
             """
-            minimum: NotRequired["int|None"]
+            minimum: NotRequired["int"]
             """
             The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
             """
@@ -1161,43 +1155,43 @@ class PaymentLink(
             Whether the feature is enabled
             """
             invoice_data: NotRequired[
-                "PaymentLink.CreateParamsInvoiceCreationInvoiceData|None"
+                "PaymentLink.CreateParamsInvoiceCreationInvoiceData"
             ]
             """
             Invoice PDF configuration.
             """
 
         class CreateParamsInvoiceCreationInvoiceData(TypedDict):
-            account_tax_ids: NotRequired["Literal['']|List[str]|None"]
+            account_tax_ids: NotRequired["Literal['']|List[str]"]
             """
             The account tax IDs associated with the invoice.
             """
             custom_fields: NotRequired[
-                "Literal['']|List[PaymentLink.CreateParamsInvoiceCreationInvoiceDataCustomField]|None"
+                "Literal['']|List[PaymentLink.CreateParamsInvoiceCreationInvoiceDataCustomField]"
             ]
             """
             Default custom fields to be displayed on invoices for this customer.
             """
-            description: NotRequired["str|None"]
+            description: NotRequired["str"]
             """
             An arbitrary string attached to the object. Often useful for displaying to users.
             """
-            footer: NotRequired["str|None"]
+            footer: NotRequired["str"]
             """
             Default footer to be displayed on invoices for this customer.
             """
             issuer: NotRequired[
-                "PaymentLink.CreateParamsInvoiceCreationInvoiceDataIssuer|None"
+                "PaymentLink.CreateParamsInvoiceCreationInvoiceDataIssuer"
             ]
             """
             The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
             rendering_options: NotRequired[
-                "Literal['']|PaymentLink.CreateParamsInvoiceCreationInvoiceDataRenderingOptions|None"
+                "Literal['']|PaymentLink.CreateParamsInvoiceCreationInvoiceDataRenderingOptions"
             ]
             """
             Default options for invoice PDF rendering for this customer.
@@ -1207,14 +1201,14 @@ class PaymentLink(
             TypedDict
         ):
             amount_tax_display: NotRequired[
-                "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|None"
+                "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
             ]
             """
             How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
             """
 
         class CreateParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
-            account: NotRequired["str|None"]
+            account: NotRequired["str"]
             """
             The connected account being referenced when `type` is `account`.
             """
@@ -1235,19 +1229,19 @@ class PaymentLink(
 
         class CreateParamsCustomText(TypedDict):
             shipping_address: NotRequired[
-                "Literal['']|PaymentLink.CreateParamsCustomTextShippingAddress|None"
+                "Literal['']|PaymentLink.CreateParamsCustomTextShippingAddress"
             ]
             """
             Custom text that should be displayed alongside shipping address collection.
             """
             submit: NotRequired[
-                "Literal['']|PaymentLink.CreateParamsCustomTextSubmit|None"
+                "Literal['']|PaymentLink.CreateParamsCustomTextSubmit"
             ]
             """
             Custom text that should be displayed alongside the payment confirmation button.
             """
             terms_of_service_acceptance: NotRequired[
-                "Literal['']|PaymentLink.CreateParamsCustomTextTermsOfServiceAcceptance|None"
+                "Literal['']|PaymentLink.CreateParamsCustomTextTermsOfServiceAcceptance"
             ]
             """
             Custom text that should be displayed in place of the default terms of service agreement text.
@@ -1273,7 +1267,7 @@ class PaymentLink(
 
         class CreateParamsCustomField(TypedDict):
             dropdown: NotRequired[
-                "PaymentLink.CreateParamsCustomFieldDropdown|None"
+                "PaymentLink.CreateParamsCustomFieldDropdown"
             ]
             """
             Configuration for `type=dropdown` fields.
@@ -1286,17 +1280,15 @@ class PaymentLink(
             """
             The label for the field, displayed to the customer.
             """
-            numeric: NotRequired[
-                "PaymentLink.CreateParamsCustomFieldNumeric|None"
-            ]
+            numeric: NotRequired["PaymentLink.CreateParamsCustomFieldNumeric"]
             """
             Configuration for `type=numeric` fields.
             """
-            optional: NotRequired["bool|None"]
+            optional: NotRequired["bool"]
             """
             Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
             """
-            text: NotRequired["PaymentLink.CreateParamsCustomFieldText|None"]
+            text: NotRequired["PaymentLink.CreateParamsCustomFieldText"]
             """
             Configuration for `type=text` fields.
             """
@@ -1306,21 +1298,21 @@ class PaymentLink(
             """
 
         class CreateParamsCustomFieldText(TypedDict):
-            maximum_length: NotRequired["int|None"]
+            maximum_length: NotRequired["int"]
             """
             The maximum character length constraint for the customer's input.
             """
-            minimum_length: NotRequired["int|None"]
+            minimum_length: NotRequired["int"]
             """
             The minimum character length requirement for the customer's input.
             """
 
         class CreateParamsCustomFieldNumeric(TypedDict):
-            maximum_length: NotRequired["int|None"]
+            maximum_length: NotRequired["int"]
             """
             The maximum character length constraint for the customer's input.
             """
-            minimum_length: NotRequired["int|None"]
+            minimum_length: NotRequired["int"]
             """
             The minimum character length requirement for the customer's input.
             """
@@ -1352,13 +1344,13 @@ class PaymentLink(
             """
 
         class CreateParamsConsentCollection(TypedDict):
-            promotions: NotRequired["Literal['auto', 'none']|None"]
+            promotions: NotRequired["Literal['auto', 'none']"]
             """
             If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
             Session will determine whether to display an option to opt into promotional communication
             from the merchant depending on the customer's locale. Only available to US merchants.
             """
-            terms_of_service: NotRequired["Literal['none', 'required']|None"]
+            terms_of_service: NotRequired["Literal['none', 'required']"]
             """
             If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
             There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
@@ -1370,14 +1362,14 @@ class PaymentLink(
             If `true`, tax will be calculated automatically using the customer's location.
             """
             liability: NotRequired[
-                "PaymentLink.CreateParamsAutomaticTaxLiability|None"
+                "PaymentLink.CreateParamsAutomaticTaxLiability"
             ]
             """
             The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
             """
 
         class CreateParamsAutomaticTaxLiability(TypedDict):
-            account: NotRequired["str|None"]
+            account: NotRequired["str"]
             """
             The connected account being referenced when `type` is `account`.
             """
@@ -1388,13 +1380,13 @@ class PaymentLink(
 
         class CreateParamsAfterCompletion(TypedDict):
             hosted_confirmation: NotRequired[
-                "PaymentLink.CreateParamsAfterCompletionHostedConfirmation|None"
+                "PaymentLink.CreateParamsAfterCompletionHostedConfirmation"
             ]
             """
             Configuration when `type=hosted_confirmation`.
             """
             redirect: NotRequired[
-                "PaymentLink.CreateParamsAfterCompletionRedirect|None"
+                "PaymentLink.CreateParamsAfterCompletionRedirect"
             ]
             """
             Configuration when `type=redirect`.
@@ -1411,122 +1403,116 @@ class PaymentLink(
             """
 
         class CreateParamsAfterCompletionHostedConfirmation(TypedDict):
-            custom_message: NotRequired["str|None"]
+            custom_message: NotRequired["str"]
             """
             A custom message to display to the customer after the purchase is complete.
             """
 
         class ListParams(RequestOptions):
-            active: NotRequired["bool|None"]
+            active: NotRequired["bool"]
             """
             Only return payment links that are active or inactive (e.g., pass `false` to list all inactive payment links).
             """
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class ListLineItemsParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class ModifyParams(RequestOptions):
-            active: NotRequired["bool|None"]
+            active: NotRequired["bool"]
             """
             Whether the payment link's `url` is active. If `false`, customers visiting the URL will be shown a page saying that the link has been deactivated.
             """
             after_completion: NotRequired[
-                "PaymentLink.ModifyParamsAfterCompletion|None"
+                "PaymentLink.ModifyParamsAfterCompletion"
             ]
             """
             Behavior after the purchase is complete.
             """
-            allow_promotion_codes: NotRequired["bool|None"]
+            allow_promotion_codes: NotRequired["bool"]
             """
             Enables user redeemable promotion codes.
             """
-            automatic_tax: NotRequired[
-                "PaymentLink.ModifyParamsAutomaticTax|None"
-            ]
+            automatic_tax: NotRequired["PaymentLink.ModifyParamsAutomaticTax"]
             """
             Configuration for automatic tax collection.
             """
             billing_address_collection: NotRequired[
-                "Literal['auto', 'required']|None"
+                "Literal['auto', 'required']"
             ]
             """
             Configuration for collecting the customer's billing address.
             """
             custom_fields: NotRequired[
-                "Literal['']|List[PaymentLink.ModifyParamsCustomField]|None"
+                "Literal['']|List[PaymentLink.ModifyParamsCustomField]"
             ]
             """
             Collect additional information from your customer using custom fields. Up to 2 fields are supported.
             """
-            custom_text: NotRequired["PaymentLink.ModifyParamsCustomText|None"]
+            custom_text: NotRequired["PaymentLink.ModifyParamsCustomText"]
             """
             Display additional text for your customers using custom text.
             """
-            customer_creation: NotRequired[
-                "Literal['always', 'if_required']|None"
-            ]
+            customer_creation: NotRequired["Literal['always', 'if_required']"]
             """
             Configures whether [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link create a [Customer](https://stripe.com/docs/api/customers).
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
             invoice_creation: NotRequired[
-                "PaymentLink.ModifyParamsInvoiceCreation|None"
+                "PaymentLink.ModifyParamsInvoiceCreation"
             ]
             """
             Generate a post-purchase Invoice for one-time payments.
             """
-            line_items: NotRequired[
-                "List[PaymentLink.ModifyParamsLineItem]|None"
-            ]
+            line_items: NotRequired["List[PaymentLink.ModifyParamsLineItem]"]
             """
             The line items representing what is being sold. Each line item represents an item being sold. Up to 20 line items are supported.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`. Metadata associated with this Payment Link will automatically be copied to [checkout sessions](https://stripe.com/docs/api/checkout/sessions) created by this payment link.
             """
             payment_intent_data: NotRequired[
-                "PaymentLink.ModifyParamsPaymentIntentData|None"
+                "PaymentLink.ModifyParamsPaymentIntentData"
             ]
             """
             A subset of parameters to be passed to PaymentIntent creation for Checkout Sessions in `payment` mode.
             """
             payment_method_collection: NotRequired[
-                "Literal['always', 'if_required']|None"
+                "Literal['always', 'if_required']"
             ]
             """
             Specify whether Checkout should collect a payment method. When set to `if_required`, Checkout will not collect a payment method when the total due for the session is 0.This may occur if the Checkout Session includes a free trial or a discount.
@@ -1536,19 +1522,19 @@ class PaymentLink(
             If you'd like information on how to collect a payment method outside of Checkout, read the guide on [configuring subscriptions with a free trial](https://stripe.com/docs/payments/checkout/free-trials).
             """
             payment_method_types: NotRequired[
-                "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay']]|None"
+                "Literal['']|List[Literal['affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay']]"
             ]
             """
             The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
             """
             shipping_address_collection: NotRequired[
-                "Literal['']|PaymentLink.ModifyParamsShippingAddressCollection|None"
+                "Literal['']|PaymentLink.ModifyParamsShippingAddressCollection"
             ]
             """
             Configuration for collecting the customer's shipping address.
             """
             subscription_data: NotRequired[
-                "PaymentLink.ModifyParamsSubscriptionData|None"
+                "PaymentLink.ModifyParamsSubscriptionData"
             ]
             """
             When creating a subscription, the specified configuration data will be used. There must be at least one line item with a recurring price to use `subscription_data`.
@@ -1556,26 +1542,26 @@ class PaymentLink(
 
         class ModifyParamsSubscriptionData(TypedDict):
             invoice_settings: NotRequired[
-                "PaymentLink.ModifyParamsSubscriptionDataInvoiceSettings|None"
+                "PaymentLink.ModifyParamsSubscriptionDataInvoiceSettings"
             ]
             """
             All invoices will be billed using the specified settings.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
             """
 
         class ModifyParamsSubscriptionDataInvoiceSettings(TypedDict):
             issuer: NotRequired[
-                "PaymentLink.ModifyParamsSubscriptionDataInvoiceSettingsIssuer|None"
+                "PaymentLink.ModifyParamsSubscriptionDataInvoiceSettingsIssuer"
             ]
             """
             The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
             """
 
         class ModifyParamsSubscriptionDataInvoiceSettingsIssuer(TypedDict):
-            account: NotRequired["str|None"]
+            account: NotRequired["str"]
             """
             The connected account being referenced when `type` is `account`.
             """
@@ -1832,26 +1818,26 @@ class PaymentLink(
             """
 
         class ModifyParamsPaymentIntentData(TypedDict):
-            description: NotRequired["Literal['']|str|None"]
+            description: NotRequired["Literal['']|str"]
             """
             An arbitrary string attached to the object. Often useful for displaying to users.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Payment Intents](https://stripe.com/docs/api/payment_intents) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
             """
-            statement_descriptor: NotRequired["Literal['']|str|None"]
+            statement_descriptor: NotRequired["Literal['']|str"]
             """
             Extra information about the payment. This will appear on your customer's statement when this payment succeeds in creating a charge.
             """
-            statement_descriptor_suffix: NotRequired["Literal['']|str|None"]
+            statement_descriptor_suffix: NotRequired["Literal['']|str"]
             """
             Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
             """
 
         class ModifyParamsLineItem(TypedDict):
             adjustable_quantity: NotRequired[
-                "PaymentLink.ModifyParamsLineItemAdjustableQuantity|None"
+                "PaymentLink.ModifyParamsLineItemAdjustableQuantity"
             ]
             """
             When set, provides configuration for this item's quantity to be adjusted by the customer during checkout.
@@ -1860,7 +1846,7 @@ class PaymentLink(
             """
             The ID of an existing line item on the payment link.
             """
-            quantity: NotRequired["int|None"]
+            quantity: NotRequired["int"]
             """
             The quantity of the line item being purchased.
             """
@@ -1870,11 +1856,11 @@ class PaymentLink(
             """
             Set to true if the quantity can be adjusted to any non-negative Integer.
             """
-            maximum: NotRequired["int|None"]
+            maximum: NotRequired["int"]
             """
             The maximum quantity the customer can purchase. By default this value is 99. You can specify a value up to 999.
             """
-            minimum: NotRequired["int|None"]
+            minimum: NotRequired["int"]
             """
             The minimum quantity the customer can purchase. By default this value is 0. If there is only one item in the cart then that item's quantity cannot go down to 0.
             """
@@ -1885,43 +1871,43 @@ class PaymentLink(
             Whether the feature is enabled
             """
             invoice_data: NotRequired[
-                "PaymentLink.ModifyParamsInvoiceCreationInvoiceData|None"
+                "PaymentLink.ModifyParamsInvoiceCreationInvoiceData"
             ]
             """
             Invoice PDF configuration.
             """
 
         class ModifyParamsInvoiceCreationInvoiceData(TypedDict):
-            account_tax_ids: NotRequired["Literal['']|List[str]|None"]
+            account_tax_ids: NotRequired["Literal['']|List[str]"]
             """
             The account tax IDs associated with the invoice.
             """
             custom_fields: NotRequired[
-                "Literal['']|List[PaymentLink.ModifyParamsInvoiceCreationInvoiceDataCustomField]|None"
+                "Literal['']|List[PaymentLink.ModifyParamsInvoiceCreationInvoiceDataCustomField]"
             ]
             """
             Default custom fields to be displayed on invoices for this customer.
             """
-            description: NotRequired["str|None"]
+            description: NotRequired["str"]
             """
             An arbitrary string attached to the object. Often useful for displaying to users.
             """
-            footer: NotRequired["str|None"]
+            footer: NotRequired["str"]
             """
             Default footer to be displayed on invoices for this customer.
             """
             issuer: NotRequired[
-                "PaymentLink.ModifyParamsInvoiceCreationInvoiceDataIssuer|None"
+                "PaymentLink.ModifyParamsInvoiceCreationInvoiceDataIssuer"
             ]
             """
             The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
             rendering_options: NotRequired[
-                "Literal['']|PaymentLink.ModifyParamsInvoiceCreationInvoiceDataRenderingOptions|None"
+                "Literal['']|PaymentLink.ModifyParamsInvoiceCreationInvoiceDataRenderingOptions"
             ]
             """
             Default options for invoice PDF rendering for this customer.
@@ -1931,14 +1917,14 @@ class PaymentLink(
             TypedDict
         ):
             amount_tax_display: NotRequired[
-                "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|None"
+                "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
             ]
             """
             How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
             """
 
         class ModifyParamsInvoiceCreationInvoiceDataIssuer(TypedDict):
-            account: NotRequired["str|None"]
+            account: NotRequired["str"]
             """
             The connected account being referenced when `type` is `account`.
             """
@@ -1959,19 +1945,19 @@ class PaymentLink(
 
         class ModifyParamsCustomText(TypedDict):
             shipping_address: NotRequired[
-                "Literal['']|PaymentLink.ModifyParamsCustomTextShippingAddress|None"
+                "Literal['']|PaymentLink.ModifyParamsCustomTextShippingAddress"
             ]
             """
             Custom text that should be displayed alongside shipping address collection.
             """
             submit: NotRequired[
-                "Literal['']|PaymentLink.ModifyParamsCustomTextSubmit|None"
+                "Literal['']|PaymentLink.ModifyParamsCustomTextSubmit"
             ]
             """
             Custom text that should be displayed alongside the payment confirmation button.
             """
             terms_of_service_acceptance: NotRequired[
-                "Literal['']|PaymentLink.ModifyParamsCustomTextTermsOfServiceAcceptance|None"
+                "Literal['']|PaymentLink.ModifyParamsCustomTextTermsOfServiceAcceptance"
             ]
             """
             Custom text that should be displayed in place of the default terms of service agreement text.
@@ -1997,7 +1983,7 @@ class PaymentLink(
 
         class ModifyParamsCustomField(TypedDict):
             dropdown: NotRequired[
-                "PaymentLink.ModifyParamsCustomFieldDropdown|None"
+                "PaymentLink.ModifyParamsCustomFieldDropdown"
             ]
             """
             Configuration for `type=dropdown` fields.
@@ -2010,17 +1996,15 @@ class PaymentLink(
             """
             The label for the field, displayed to the customer.
             """
-            numeric: NotRequired[
-                "PaymentLink.ModifyParamsCustomFieldNumeric|None"
-            ]
+            numeric: NotRequired["PaymentLink.ModifyParamsCustomFieldNumeric"]
             """
             Configuration for `type=numeric` fields.
             """
-            optional: NotRequired["bool|None"]
+            optional: NotRequired["bool"]
             """
             Whether the customer is required to complete the field before completing the Checkout Session. Defaults to `false`.
             """
-            text: NotRequired["PaymentLink.ModifyParamsCustomFieldText|None"]
+            text: NotRequired["PaymentLink.ModifyParamsCustomFieldText"]
             """
             Configuration for `type=text` fields.
             """
@@ -2030,21 +2014,21 @@ class PaymentLink(
             """
 
         class ModifyParamsCustomFieldText(TypedDict):
-            maximum_length: NotRequired["int|None"]
+            maximum_length: NotRequired["int"]
             """
             The maximum character length constraint for the customer's input.
             """
-            minimum_length: NotRequired["int|None"]
+            minimum_length: NotRequired["int"]
             """
             The minimum character length requirement for the customer's input.
             """
 
         class ModifyParamsCustomFieldNumeric(TypedDict):
-            maximum_length: NotRequired["int|None"]
+            maximum_length: NotRequired["int"]
             """
             The maximum character length constraint for the customer's input.
             """
-            minimum_length: NotRequired["int|None"]
+            minimum_length: NotRequired["int"]
             """
             The minimum character length requirement for the customer's input.
             """
@@ -2081,14 +2065,14 @@ class PaymentLink(
             If `true`, tax will be calculated automatically using the customer's location.
             """
             liability: NotRequired[
-                "PaymentLink.ModifyParamsAutomaticTaxLiability|None"
+                "PaymentLink.ModifyParamsAutomaticTaxLiability"
             ]
             """
             The account that's liable for tax. If set, the business address and tax registrations required to perform the tax calculation are loaded from this account. The tax transaction is returned in the report of the connected account.
             """
 
         class ModifyParamsAutomaticTaxLiability(TypedDict):
-            account: NotRequired["str|None"]
+            account: NotRequired["str"]
             """
             The connected account being referenced when `type` is `account`.
             """
@@ -2099,13 +2083,13 @@ class PaymentLink(
 
         class ModifyParamsAfterCompletion(TypedDict):
             hosted_confirmation: NotRequired[
-                "PaymentLink.ModifyParamsAfterCompletionHostedConfirmation|None"
+                "PaymentLink.ModifyParamsAfterCompletionHostedConfirmation"
             ]
             """
             Configuration when `type=hosted_confirmation`.
             """
             redirect: NotRequired[
-                "PaymentLink.ModifyParamsAfterCompletionRedirect|None"
+                "PaymentLink.ModifyParamsAfterCompletionRedirect"
             ]
             """
             Configuration when `type=redirect`.
@@ -2122,13 +2106,13 @@ class PaymentLink(
             """
 
         class ModifyParamsAfterCompletionHostedConfirmation(TypedDict):
-            custom_message: NotRequired["str|None"]
+            custom_message: NotRequired["str"]
             """
             A custom message to display to the customer after the purchase is complete.
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """

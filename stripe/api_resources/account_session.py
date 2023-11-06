@@ -110,32 +110,32 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             """
             Each key of the dictionary represents an embedded component, and each embedded component maps to its configuration (e.g. whether it has been enabled or not).
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class CreateParamsComponents(TypedDict):
             account_onboarding: NotRequired[
-                "AccountSession.CreateParamsComponentsAccountOnboarding|None"
+                "AccountSession.CreateParamsComponentsAccountOnboarding"
             ]
             """
             Configuration for the account onboarding embedded component.
             """
             payment_details: NotRequired[
-                "AccountSession.CreateParamsComponentsPaymentDetails|None"
+                "AccountSession.CreateParamsComponentsPaymentDetails"
             ]
             """
             Configuration for the payment details embedded component.
             """
             payments: NotRequired[
-                "AccountSession.CreateParamsComponentsPayments|None"
+                "AccountSession.CreateParamsComponentsPayments"
             ]
             """
             Configuration for the payments embedded component.
             """
             payouts: NotRequired[
-                "AccountSession.CreateParamsComponentsPayouts|None"
+                "AccountSession.CreateParamsComponentsPayouts"
             ]
             """
             Configuration for the payouts embedded component.
@@ -147,7 +147,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             Whether the embedded component is enabled.
             """
             features: NotRequired[
-                "AccountSession.CreateParamsComponentsPayoutsFeatures|None"
+                "AccountSession.CreateParamsComponentsPayoutsFeatures"
             ]
             """
             The list of features enabled in the embedded component.
@@ -162,22 +162,22 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             Whether the embedded component is enabled.
             """
             features: NotRequired[
-                "AccountSession.CreateParamsComponentsPaymentsFeatures|None"
+                "AccountSession.CreateParamsComponentsPaymentsFeatures"
             ]
             """
             The list of features enabled in the embedded component.
             """
 
         class CreateParamsComponentsPaymentsFeatures(TypedDict):
-            capture_payments: NotRequired["bool|None"]
+            capture_payments: NotRequired["bool"]
             """
             Whether to allow capturing and cancelling payment intents. This is `true` by default.
             """
-            dispute_management: NotRequired["bool|None"]
+            dispute_management: NotRequired["bool"]
             """
             Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
             """
-            refund_management: NotRequired["bool|None"]
+            refund_management: NotRequired["bool"]
             """
             Whether to allow sending refunds. This is `true` by default.
             """
@@ -188,22 +188,22 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             Whether the embedded component is enabled.
             """
             features: NotRequired[
-                "AccountSession.CreateParamsComponentsPaymentDetailsFeatures|None"
+                "AccountSession.CreateParamsComponentsPaymentDetailsFeatures"
             ]
             """
             The list of features enabled in the embedded component.
             """
 
         class CreateParamsComponentsPaymentDetailsFeatures(TypedDict):
-            capture_payments: NotRequired["bool|None"]
+            capture_payments: NotRequired["bool"]
             """
             Whether to allow capturing and cancelling payment intents. This is `true` by default.
             """
-            dispute_management: NotRequired["bool|None"]
+            dispute_management: NotRequired["bool"]
             """
             Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
             """
-            refund_management: NotRequired["bool|None"]
+            refund_management: NotRequired["bool"]
             """
             Whether to allow sending refunds. This is `true` by default.
             """
@@ -214,7 +214,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             Whether the embedded component is enabled.
             """
             features: NotRequired[
-                "AccountSession.CreateParamsComponentsAccountOnboardingFeatures|None"
+                "AccountSession.CreateParamsComponentsAccountOnboardingFeatures"
             ]
             """
             The list of features enabled in the embedded component.

@@ -224,96 +224,90 @@ class Customer(
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
-            address: NotRequired[
-                "Literal['']|Customer.CreateParamsAddress|None"
-            ]
+            address: NotRequired["Literal['']|Customer.CreateParamsAddress"]
             """
             The customer's address.
             """
-            balance: NotRequired["int|None"]
+            balance: NotRequired["int"]
             """
             An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
             """
-            cash_balance: NotRequired["Customer.CreateParamsCashBalance|None"]
+            cash_balance: NotRequired["Customer.CreateParamsCashBalance"]
             """
             Balance information and default balance settings for this customer.
             """
-            coupon: NotRequired["str|None"]
-            description: NotRequired["str|None"]
+            coupon: NotRequired["str"]
+            description: NotRequired["str"]
             """
             An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
             """
-            email: NotRequired["str|None"]
+            email: NotRequired["str"]
             """
             Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            invoice_prefix: NotRequired["str|None"]
+            invoice_prefix: NotRequired["str"]
             """
             The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
             """
             invoice_settings: NotRequired[
-                "Customer.CreateParamsInvoiceSettings|None"
+                "Customer.CreateParamsInvoiceSettings"
             ]
             """
             Default invoice settings for this customer.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            name: NotRequired["str|None"]
+            name: NotRequired["str"]
             """
             The customer's full name or business name.
             """
-            next_invoice_sequence: NotRequired["int|None"]
+            next_invoice_sequence: NotRequired["int"]
             """
             The sequence to be used on the customer's next invoice. Defaults to 1.
             """
-            payment_method: NotRequired["str|None"]
-            phone: NotRequired["str|None"]
+            payment_method: NotRequired["str"]
+            phone: NotRequired["str"]
             """
             The customer's phone number.
             """
-            preferred_locales: NotRequired["List[str]|None"]
+            preferred_locales: NotRequired["List[str]"]
             """
             Customer's preferred languages, ordered by preference.
             """
-            promotion_code: NotRequired["str|None"]
+            promotion_code: NotRequired["str"]
             """
             The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
             """
-            shipping: NotRequired[
-                "Literal['']|Customer.CreateParamsShipping|None"
-            ]
+            shipping: NotRequired["Literal['']|Customer.CreateParamsShipping"]
             """
             The customer's shipping information. Appears on invoices emailed to this customer.
             """
-            source: NotRequired["str|None"]
-            tax: NotRequired["Customer.CreateParamsTax|None"]
+            source: NotRequired["str"]
+            tax: NotRequired["Customer.CreateParamsTax"]
             """
             Tax details about the customer.
             """
             tax_exempt: NotRequired[
-                "Literal['']|Literal['exempt', 'none', 'reverse']|None"
+                "Literal['']|Literal['exempt', 'none', 'reverse']"
             ]
             """
             The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
             """
-            tax_id_data: NotRequired[
-                "List[Customer.CreateParamsTaxIdDatum]|None"
-            ]
+            tax_id_data: NotRequired["List[Customer.CreateParamsTaxIdDatum]"]
             """
             The customer's tax IDs.
             """
-            test_clock: NotRequired["str|None"]
+            test_clock: NotRequired["str"]
             """
             ID of the test clock to attach to the customer.
             """
-            validate: NotRequired["bool|None"]
+            validate: NotRequired["bool"]
 
         class CreateParamsTaxIdDatum(TypedDict):
             type: Literal[
@@ -393,7 +387,7 @@ class Customer(
             """
 
         class CreateParamsTax(TypedDict):
-            ip_address: NotRequired["Literal['']|str|None"]
+            ip_address: NotRequired["Literal['']|str"]
             """
             A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
             """
@@ -407,54 +401,54 @@ class Customer(
             """
             Customer name.
             """
-            phone: NotRequired["str|None"]
+            phone: NotRequired["str"]
             """
             Customer phone (including extension).
             """
 
         class CreateParamsShippingAddress(TypedDict):
-            city: NotRequired["str|None"]
+            city: NotRequired["str"]
             """
             City, district, suburb, town, or village.
             """
-            country: NotRequired["str|None"]
+            country: NotRequired["str"]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            line1: NotRequired["str|None"]
+            line1: NotRequired["str"]
             """
             Address line 1 (e.g., street, PO Box, or company name).
             """
-            line2: NotRequired["str|None"]
+            line2: NotRequired["str"]
             """
             Address line 2 (e.g., apartment, suite, unit, or building).
             """
-            postal_code: NotRequired["str|None"]
+            postal_code: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            state: NotRequired["str|None"]
+            state: NotRequired["str"]
             """
             State, county, province, or region.
             """
 
         class CreateParamsInvoiceSettings(TypedDict):
             custom_fields: NotRequired[
-                "Literal['']|List[Customer.CreateParamsInvoiceSettingsCustomField]|None"
+                "Literal['']|List[Customer.CreateParamsInvoiceSettingsCustomField]"
             ]
             """
             Default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
             """
-            default_payment_method: NotRequired["str|None"]
+            default_payment_method: NotRequired["str"]
             """
             ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
             """
-            footer: NotRequired["str|None"]
+            footer: NotRequired["str"]
             """
             Default footer to be displayed on invoices for this customer.
             """
             rendering_options: NotRequired[
-                "Literal['']|Customer.CreateParamsInvoiceSettingsRenderingOptions|None"
+                "Literal['']|Customer.CreateParamsInvoiceSettingsRenderingOptions"
             ]
             """
             Default options for invoice PDF rendering for this customer.
@@ -462,7 +456,7 @@ class Customer(
 
         class CreateParamsInvoiceSettingsRenderingOptions(TypedDict):
             amount_tax_display: NotRequired[
-                "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|None"
+                "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
             ]
             """
             How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
@@ -479,9 +473,7 @@ class Customer(
             """
 
         class CreateParamsCashBalance(TypedDict):
-            settings: NotRequired[
-                "Customer.CreateParamsCashBalanceSettings|None"
-            ]
+            settings: NotRequired["Customer.CreateParamsCashBalanceSettings"]
             """
             Settings controlling the behavior of the customer's cash balance,
             such as reconciliation of funds received.
@@ -489,34 +481,34 @@ class Customer(
 
         class CreateParamsCashBalanceSettings(TypedDict):
             reconciliation_mode: NotRequired[
-                "Literal['automatic', 'manual', 'merchant_default']|None"
+                "Literal['automatic', 'manual', 'merchant_default']"
             ]
             """
             Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
             """
 
         class CreateParamsAddress(TypedDict):
-            city: NotRequired["str|None"]
+            city: NotRequired["str"]
             """
             City, district, suburb, town, or village.
             """
-            country: NotRequired["str|None"]
+            country: NotRequired["str"]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            line1: NotRequired["str|None"]
+            line1: NotRequired["str"]
             """
             Address line 1 (e.g., street, PO Box, or company name).
             """
-            line2: NotRequired["str|None"]
+            line2: NotRequired["str"]
             """
             Address line 2 (e.g., apartment, suite, unit, or building).
             """
-            postal_code: NotRequired["str|None"]
+            postal_code: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            state: NotRequired["str|None"]
+            state: NotRequired["str"]
             """
             State, county, province, or region.
             """
@@ -530,7 +522,7 @@ class Customer(
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
@@ -541,13 +533,13 @@ class Customer(
 
         class CreateFundingInstructionsParamsBankTransfer(TypedDict):
             eu_bank_transfer: NotRequired[
-                "Customer.CreateFundingInstructionsParamsBankTransferEuBankTransfer|None"
+                "Customer.CreateFundingInstructionsParamsBankTransferEuBankTransfer"
             ]
             """
             Configuration for eu_bank_transfer funding type.
             """
             requested_address_types: NotRequired[
-                "List[Literal['iban', 'sort_code', 'spei', 'zengin']]|None"
+                "List[Literal['iban', 'sort_code', 'spei', 'zengin']]"
             ]
             """
             List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
@@ -580,91 +572,89 @@ class Customer(
             pass
 
         class ListParams(RequestOptions):
-            created: NotRequired["Customer.ListParamsCreated|int|None"]
-            email: NotRequired["str|None"]
+            created: NotRequired["Customer.ListParamsCreated|int"]
+            email: NotRequired["str"]
             """
             A case-sensitive filter on the list based on the customer's `email` field. The value must be a string.
             """
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
-            test_clock: NotRequired["str|None"]
+            test_clock: NotRequired["str"]
             """
             Provides a list of customers that are associated with the specified test clock. The response will not include customers with test clocks if this parameter is not set.
             """
 
         class ListParamsCreated(TypedDict):
-            gt: NotRequired["int|None"]
+            gt: NotRequired["int"]
             """
             Minimum value to filter by (exclusive)
             """
-            gte: NotRequired["int|None"]
+            gte: NotRequired["int"]
             """
             Minimum value to filter by (inclusive)
             """
-            lt: NotRequired["int|None"]
+            lt: NotRequired["int"]
             """
             Maximum value to filter by (exclusive)
             """
-            lte: NotRequired["int|None"]
+            lte: NotRequired["int"]
             """
             Maximum value to filter by (inclusive)
             """
 
         class ListPaymentMethodsParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
             type: NotRequired[
-                "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']|None"
+                "Literal['acss_debit', 'affirm', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'blik', 'boleto', 'card', 'cashapp', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'konbini', 'link', 'oxxo', 'p24', 'paynow', 'paypal', 'pix', 'promptpay', 'revolut_pay', 'sepa_debit', 'sofort', 'us_bank_account', 'wechat_pay', 'zip']"
             ]
             """
             An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future payment method types. If your integration expects only one type of payment method in the response, make sure to provide a type value in the request.
             """
 
         class ModifyParams(RequestOptions):
-            address: NotRequired[
-                "Literal['']|Customer.ModifyParamsAddress|None"
-            ]
+            address: NotRequired["Literal['']|Customer.ModifyParamsAddress"]
             """
             The customer's address.
             """
-            balance: NotRequired["int|None"]
+            balance: NotRequired["int"]
             """
             An integer amount in cents (or local equivalent) that represents the customer's current balance, which affect the customer's future invoices. A negative amount represents a credit that decreases the amount due on an invoice; a positive amount increases the amount due on an invoice.
             """
-            cash_balance: NotRequired["Customer.ModifyParamsCashBalance|None"]
+            cash_balance: NotRequired["Customer.ModifyParamsCashBalance"]
             """
             Balance information and default balance settings for this customer.
             """
-            coupon: NotRequired["str|None"]
-            default_source: NotRequired["str|None"]
+            coupon: NotRequired["str"]
+            default_source: NotRequired["str"]
             """
             If you are using payment methods created via the PaymentMethods API, see the [invoice_settings.default_payment_method](https://stripe.com/docs/api/customers/update#update_customer-invoice_settings-default_payment_method) parameter.
 
@@ -672,73 +662,71 @@ class Customer(
 
             If you want to add a new payment source and make it the default, see the [source](https://stripe.com/docs/api/customers/update#update_customer-source) property.
             """
-            description: NotRequired["str|None"]
+            description: NotRequired["str"]
             """
             An arbitrary string that you can attach to a customer object. It is displayed alongside the customer in the dashboard.
             """
-            email: NotRequired["str|None"]
+            email: NotRequired["str"]
             """
             Customer's email address. It's displayed alongside the customer in your dashboard and can be useful for searching and tracking. This may be up to *512 characters*.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            invoice_prefix: NotRequired["str|None"]
+            invoice_prefix: NotRequired["str"]
             """
             The prefix for the customer used to generate unique invoice numbers. Must be 3–12 uppercase letters or numbers.
             """
             invoice_settings: NotRequired[
-                "Customer.ModifyParamsInvoiceSettings|None"
+                "Customer.ModifyParamsInvoiceSettings"
             ]
             """
             Default invoice settings for this customer.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            name: NotRequired["str|None"]
+            name: NotRequired["str"]
             """
             The customer's full name or business name.
             """
-            next_invoice_sequence: NotRequired["int|None"]
+            next_invoice_sequence: NotRequired["int"]
             """
             The sequence to be used on the customer's next invoice. Defaults to 1.
             """
-            phone: NotRequired["str|None"]
+            phone: NotRequired["str"]
             """
             The customer's phone number.
             """
-            preferred_locales: NotRequired["List[str]|None"]
+            preferred_locales: NotRequired["List[str]"]
             """
             Customer's preferred languages, ordered by preference.
             """
-            promotion_code: NotRequired["str|None"]
+            promotion_code: NotRequired["str"]
             """
             The API ID of a promotion code to apply to the customer. The customer will have a discount applied on all recurring payments. Charges you create through the API will not have the discount.
             """
-            shipping: NotRequired[
-                "Literal['']|Customer.ModifyParamsShipping|None"
-            ]
+            shipping: NotRequired["Literal['']|Customer.ModifyParamsShipping"]
             """
             The customer's shipping information. Appears on invoices emailed to this customer.
             """
-            source: NotRequired["str|None"]
-            tax: NotRequired["Customer.ModifyParamsTax|None"]
+            source: NotRequired["str"]
+            tax: NotRequired["Customer.ModifyParamsTax"]
             """
             Tax details about the customer.
             """
             tax_exempt: NotRequired[
-                "Literal['']|Literal['exempt', 'none', 'reverse']|None"
+                "Literal['']|Literal['exempt', 'none', 'reverse']"
             ]
             """
             The customer's tax exemption. One of `none`, `exempt`, or `reverse`.
             """
-            validate: NotRequired["bool|None"]
+            validate: NotRequired["bool"]
 
         class ModifyParamsTax(TypedDict):
-            ip_address: NotRequired["Literal['']|str|None"]
+            ip_address: NotRequired["Literal['']|str"]
             """
             A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
             """
@@ -752,54 +740,54 @@ class Customer(
             """
             Customer name.
             """
-            phone: NotRequired["str|None"]
+            phone: NotRequired["str"]
             """
             Customer phone (including extension).
             """
 
         class ModifyParamsShippingAddress(TypedDict):
-            city: NotRequired["str|None"]
+            city: NotRequired["str"]
             """
             City, district, suburb, town, or village.
             """
-            country: NotRequired["str|None"]
+            country: NotRequired["str"]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            line1: NotRequired["str|None"]
+            line1: NotRequired["str"]
             """
             Address line 1 (e.g., street, PO Box, or company name).
             """
-            line2: NotRequired["str|None"]
+            line2: NotRequired["str"]
             """
             Address line 2 (e.g., apartment, suite, unit, or building).
             """
-            postal_code: NotRequired["str|None"]
+            postal_code: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            state: NotRequired["str|None"]
+            state: NotRequired["str"]
             """
             State, county, province, or region.
             """
 
         class ModifyParamsInvoiceSettings(TypedDict):
             custom_fields: NotRequired[
-                "Literal['']|List[Customer.ModifyParamsInvoiceSettingsCustomField]|None"
+                "Literal['']|List[Customer.ModifyParamsInvoiceSettingsCustomField]"
             ]
             """
             Default custom fields to be displayed on invoices for this customer. When updating, pass an empty string to remove previously-defined fields.
             """
-            default_payment_method: NotRequired["str|None"]
+            default_payment_method: NotRequired["str"]
             """
             ID of a payment method that's attached to the customer, to be used as the customer's default payment method for subscriptions and invoices.
             """
-            footer: NotRequired["str|None"]
+            footer: NotRequired["str"]
             """
             Default footer to be displayed on invoices for this customer.
             """
             rendering_options: NotRequired[
-                "Literal['']|Customer.ModifyParamsInvoiceSettingsRenderingOptions|None"
+                "Literal['']|Customer.ModifyParamsInvoiceSettingsRenderingOptions"
             ]
             """
             Default options for invoice PDF rendering for this customer.
@@ -807,7 +795,7 @@ class Customer(
 
         class ModifyParamsInvoiceSettingsRenderingOptions(TypedDict):
             amount_tax_display: NotRequired[
-                "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']|None"
+                "Literal['']|Literal['exclude_tax', 'include_inclusive_tax']"
             ]
             """
             How line-item prices and amounts will be displayed with respect to tax on invoice PDFs. One of `exclude_tax` or `include_inclusive_tax`. `include_inclusive_tax` will include inclusive tax (and exclude exclusive tax) in invoice PDF amounts. `exclude_tax` will exclude all tax (inclusive and exclusive alike) from invoice PDF amounts.
@@ -824,9 +812,7 @@ class Customer(
             """
 
         class ModifyParamsCashBalance(TypedDict):
-            settings: NotRequired[
-                "Customer.ModifyParamsCashBalanceSettings|None"
-            ]
+            settings: NotRequired["Customer.ModifyParamsCashBalanceSettings"]
             """
             Settings controlling the behavior of the customer's cash balance,
             such as reconciliation of funds received.
@@ -834,60 +820,60 @@ class Customer(
 
         class ModifyParamsCashBalanceSettings(TypedDict):
             reconciliation_mode: NotRequired[
-                "Literal['automatic', 'manual', 'merchant_default']|None"
+                "Literal['automatic', 'manual', 'merchant_default']"
             ]
             """
             Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
             """
 
         class ModifyParamsAddress(TypedDict):
-            city: NotRequired["str|None"]
+            city: NotRequired["str"]
             """
             City, district, suburb, town, or village.
             """
-            country: NotRequired["str|None"]
+            country: NotRequired["str"]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            line1: NotRequired["str|None"]
+            line1: NotRequired["str"]
             """
             Address line 1 (e.g., street, PO Box, or company name).
             """
-            line2: NotRequired["str|None"]
+            line2: NotRequired["str"]
             """
             Address line 2 (e.g., apartment, suite, unit, or building).
             """
-            postal_code: NotRequired["str|None"]
+            postal_code: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            state: NotRequired["str|None"]
+            state: NotRequired["str"]
             """
             State, county, province, or region.
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class RetrievePaymentMethodParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class SearchParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            page: NotRequired["str|None"]
+            page: NotRequired["str"]
             """
             A cursor for pagination across multiple pages of results. Don't include this parameter on the first call. Use the next_page value returned in a previous response to request subsequent results.
             """
@@ -897,27 +883,25 @@ class Customer(
             """
 
         class ModifyCashBalanceParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            settings: NotRequired[
-                "Customer.ModifyCashBalanceParamsSettings|None"
-            ]
+            settings: NotRequired["Customer.ModifyCashBalanceParamsSettings"]
             """
             A hash of settings for this cash balance.
             """
 
         class ModifyCashBalanceParamsSettings(TypedDict):
             reconciliation_mode: NotRequired[
-                "Literal['automatic', 'manual', 'merchant_default']|None"
+                "Literal['automatic', 'manual', 'merchant_default']"
             ]
             """
             Controls how funds transferred by the customer are applied to payment intents and invoices. Valid options are `automatic`, `manual`, or `merchant_default`. For more information about these reconciliation modes, see [Reconciliation](https://stripe.com/docs/payments/customer-balance/reconciliation).
             """
 
         class RetrieveCashBalanceParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
@@ -931,11 +915,11 @@ class Customer(
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            reference: NotRequired["str|None"]
+            reference: NotRequired["str"]
             """
             A description of the test funding. This simulates free-text references supplied by customers when making bank transfers to their cash balance. You can use this to test how Stripe's [reconciliation algorithm](https://stripe.com/docs/payments/customer-balance/reconciliation) applies to different user inputs.
             """
@@ -949,87 +933,87 @@ class Customer(
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Specifies the [`invoice_credit_balance`](https://stripe.com/docs/api/customers/object#customer_object-invoice_credit_balance) that this transaction will apply to. If the customer's `currency` is not set, it will be updated to this value.
             """
-            description: NotRequired["str|None"]
+            description: NotRequired["str"]
             """
             An arbitrary string attached to the object. Often useful for displaying to users.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
 
         class RetrieveBalanceTransactionParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class ModifyBalanceTransactionParams(RequestOptions):
-            description: NotRequired["str|None"]
+            description: NotRequired["str"]
             """
             An arbitrary string attached to the object. Often useful for displaying to users.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
 
         class ListBalanceTransactionsParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class RetrieveCashBalanceTransactionParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class ListCashBalanceTransactionsParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class CreateSourceParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
@@ -1037,147 +1021,145 @@ class Customer(
             """
             Please refer to full [documentation](https://stripe.com/docs/api) instead.
             """
-            validate: NotRequired["bool|None"]
+            validate: NotRequired["bool"]
 
         class RetrieveSourceParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class ModifySourceParams(RequestOptions):
-            account_holder_name: NotRequired["str|None"]
+            account_holder_name: NotRequired["str"]
             """
             The name of the person or business that owns the bank account.
             """
             account_holder_type: NotRequired[
-                "Literal['company', 'individual']|None"
+                "Literal['company', 'individual']"
             ]
             """
             The type of entity that holds the account. This can be either `individual` or `company`.
             """
-            address_city: NotRequired["str|None"]
+            address_city: NotRequired["str"]
             """
             City/District/Suburb/Town/Village.
             """
-            address_country: NotRequired["str|None"]
+            address_country: NotRequired["str"]
             """
             Billing address country, if provided when creating card.
             """
-            address_line1: NotRequired["str|None"]
+            address_line1: NotRequired["str"]
             """
             Address line 1 (Street address/PO Box/Company name).
             """
-            address_line2: NotRequired["str|None"]
+            address_line2: NotRequired["str"]
             """
             Address line 2 (Apartment/Suite/Unit/Building).
             """
-            address_state: NotRequired["str|None"]
+            address_state: NotRequired["str"]
             """
             State/County/Province/Region.
             """
-            address_zip: NotRequired["str|None"]
+            address_zip: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            exp_month: NotRequired["str|None"]
+            exp_month: NotRequired["str"]
             """
             Two digit number representing the card's expiration month.
             """
-            exp_year: NotRequired["str|None"]
+            exp_year: NotRequired["str"]
             """
             Four digit number representing the card's expiration year.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            name: NotRequired["str|None"]
+            name: NotRequired["str"]
             """
             Cardholder name.
             """
-            owner: NotRequired["Customer.ModifySourceParamsOwner|None"]
+            owner: NotRequired["Customer.ModifySourceParamsOwner"]
 
         class ModifySourceParamsOwner(TypedDict):
-            address: NotRequired[
-                "Customer.ModifySourceParamsOwnerAddress|None"
-            ]
+            address: NotRequired["Customer.ModifySourceParamsOwnerAddress"]
             """
             Owner's address.
             """
-            email: NotRequired["str|None"]
+            email: NotRequired["str"]
             """
             Owner's email address.
             """
-            name: NotRequired["str|None"]
+            name: NotRequired["str"]
             """
             Owner's full name.
             """
-            phone: NotRequired["str|None"]
+            phone: NotRequired["str"]
             """
             Owner's phone number.
             """
 
         class ModifySourceParamsOwnerAddress(TypedDict):
-            city: NotRequired["str|None"]
+            city: NotRequired["str"]
             """
             City, district, suburb, town, or village.
             """
-            country: NotRequired["str|None"]
+            country: NotRequired["str"]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            line1: NotRequired["str|None"]
+            line1: NotRequired["str"]
             """
             Address line 1 (e.g., street, PO Box, or company name).
             """
-            line2: NotRequired["str|None"]
+            line2: NotRequired["str"]
             """
             Address line 2 (e.g., apartment, suite, unit, or building).
             """
-            postal_code: NotRequired["str|None"]
+            postal_code: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            state: NotRequired["str|None"]
+            state: NotRequired["str"]
             """
             State, county, province, or region.
             """
 
         class DeleteSourceParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class ListSourcesParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            object: NotRequired["str|None"]
+            object: NotRequired["str"]
             """
             Filter sources according to a particular object type.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class CreateTaxIdParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
@@ -1258,7 +1240,7 @@ class Customer(
             """
 
         class RetrieveTaxIdParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
@@ -1267,19 +1249,19 @@ class Customer(
             pass
 
         class ListTaxIdsParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
