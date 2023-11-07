@@ -1466,7 +1466,7 @@ class Session(
             """
             currency: NotRequired["str"]
             """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies). Required in `setup` mode when `payment_method_types` is not set.
             """
             custom_fields: NotRequired["List[Session.CreateParamsCustomField]"]
             """
@@ -1587,8 +1587,8 @@ class Session(
             """
             A list of the types of payment methods (e.g., `card`) this Checkout Session can accept.
 
-            In `payment` and `subscription` mode, you can omit this attribute to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
-            It is required in `setup` mode.
+            You can omit this attribute to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+            See [Dynamic Payment Methods](https://stripe.com/docs/payments/payment-methods/integration-options#using-dynamic-payment-methods) for more details.
 
             Read more about the supported payment methods and their requirements in our [payment
             method details guide](https://stripe.com/docs/payments/checkout/payment-methods).
