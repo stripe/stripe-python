@@ -130,7 +130,7 @@ class QueryMatcher(object):
     def __eq__(self, other):
         query = urlsplit(other).query or other
 
-        parsed = stripe.util.parse_qsl(query)
+        parsed = stripe._util.parse_qsl(query)
         return self.expected == sorted(parsed)
 
     def __repr__(self):
@@ -236,7 +236,7 @@ class TestAPIRequestor(object):
 
     @pytest.fixture
     def requestor(self, http_client):
-        requestor = stripe.api_requestor.APIRequestor(client=http_client)
+        requestor = stripe._api_requestor.APIRequestor(client=http_client)
         return requestor
 
     @pytest.fixture
@@ -295,7 +295,7 @@ class TestAPIRequestor(object):
         ]
 
         stk = []
-        fn = getattr(stripe.api_requestor.APIRequestor, "encode_%s" % (key,))
+        fn = getattr(stripe._api_requestor.APIRequestor, "encode_%s" % (key,))
         fn(stk, stk_key, value)
 
         if isinstance(value, dict):
@@ -307,7 +307,7 @@ class TestAPIRequestor(object):
     def _test_encode_naive_datetime(self):
         stk = []
 
-        stripe.api_requestor.APIRequestor.encode_datetime(
+        stripe._api_requestor.APIRequestor.encode_datetime(
             stk, "test", datetime.datetime(2013, 1, 1)
         )
 
@@ -329,7 +329,7 @@ class TestAPIRequestor(object):
 
     def test_dictionary_list_encoding(self):
         params = {"foo": {"0": {"bar": "bat"}}}
-        encoded = list(stripe.api_requestor._api_encode(params))
+        encoded = list(stripe._api_requestor._api_encode(params))
         key, value = encoded[0]
 
         assert key == "foo[0][bar]"
@@ -346,7 +346,7 @@ class TestAPIRequestor(object):
                 ]
             )
         }
-        encoded = list(stripe.api_requestor._api_encode(params))
+        encoded = list(stripe._api_requestor._api_encode(params))
 
         assert encoded[0][0] == "ordered[one]"
         assert encoded[1][0] == "ordered[two]"
@@ -502,7 +502,7 @@ class TestAPIRequestor(object):
 
     def test_uses_instance_key(self, http_client, mock_response, check_call):
         key = "fookey"
-        requestor = stripe.api_requestor.APIRequestor(key, client=http_client)
+        requestor = stripe._api_requestor.APIRequestor(key, client=http_client)
 
         mock_response("{}", 200)
 
@@ -515,7 +515,7 @@ class TestAPIRequestor(object):
         self, http_client, mock_response, check_call
     ):
         api_version = "fooversion"
-        requestor = stripe.api_requestor.APIRequestor(
+        requestor = stripe._api_requestor.APIRequestor(
             api_version=api_version, client=http_client
         )
 
@@ -534,7 +534,7 @@ class TestAPIRequestor(object):
         self, http_client, mock_response, check_call
     ):
         account = "acct_foo"
-        requestor = stripe.api_requestor.APIRequestor(
+        requestor = stripe._api_requestor.APIRequestor(
             account=account, client=http_client
         )
 
@@ -552,18 +552,18 @@ class TestAPIRequestor(object):
     def test_sets_default_http_client(self, http_client):
         assert not stripe.default_http_client
 
-        stripe.api_requestor.APIRequestor(client=http_client)
+        stripe._api_requestor.APIRequestor(client=http_client)
 
         # default_http_client is not populated if a client is provided
         assert not stripe.default_http_client
 
-        stripe.api_requestor.APIRequestor()
+        stripe._api_requestor.APIRequestor()
 
         # default_http_client is set when no client is specified
         assert stripe.default_http_client
 
         new_default_client = stripe.default_http_client
-        stripe.api_requestor.APIRequestor()
+        stripe._api_requestor.APIRequestor()
 
         # the newly created client is reused
         assert stripe.default_http_client == new_default_client

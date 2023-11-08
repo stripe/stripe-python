@@ -18,7 +18,7 @@ class MultipartDataGenerator(object):
 
     def add_params(self, params):
         # Flatten parameters first
-        params = dict(stripe.api_requestor._api_encode(params))  # type: ignore
+        params = dict(stripe._api_requestor._api_encode(params))  # type: ignore
 
         for key, value in params.items():
             if value is None:

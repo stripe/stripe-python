@@ -9,26 +9,26 @@ class RequestMock(object):
     def __init__(self, mocker):
         self._mocker = mocker
 
-        self._real_request = stripe.api_requestor.APIRequestor.request
+        self._real_request = stripe._api_requestor.APIRequestor.request
         self._real_request_stream = (
-            stripe.api_requestor.APIRequestor.request_stream
+            stripe._api_requestor.APIRequestor.request_stream
         )
         self._stub_request_handler = StubRequestHandler()
 
         self.constructor_patcher = self._mocker.patch(
-            "stripe.api_requestor.APIRequestor.__init__",
-            side_effect=stripe.api_requestor.APIRequestor.__init__,
+            "stripe._api_requestor.APIRequestor.__init__",
+            side_effect=stripe._api_requestor.APIRequestor.__init__,
             autospec=True,
         )
 
         self.request_patcher = self._mocker.patch(
-            "stripe.api_requestor.APIRequestor.request",
+            "stripe._api_requestor.APIRequestor.request",
             side_effect=self._patched_request,
             autospec=True,
         )
 
         self.request_stream_patcher = self._mocker.patch(
-            "stripe.api_requestor.APIRequestor.request_stream",
+            "stripe._api_requestor.APIRequestor.request_stream",
             side_effect=self._patched_request_stream,
             autospec=True,
         )

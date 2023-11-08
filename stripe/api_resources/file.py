@@ -2,9 +2,9 @@
 # File generated from our OpenAPI spec
 import stripe
 from stripe import api_requestor, util
+from stripe._request_options import RequestOptions
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
-from stripe.request_options import RequestOptions
 from typing import ClassVar, List, Optional
 from typing_extensions import (
     Literal,

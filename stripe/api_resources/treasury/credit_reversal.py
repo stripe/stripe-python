@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
+from stripe._request_options import RequestOptions
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
     ListableAPIResource,
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
-from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import ClassVar, Dict, List, Optional, cast
 from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING

@@ -13,7 +13,7 @@ import os
 # Configuration variables
 from stripe.api_version import _ApiVersion
 
-from stripe.app_info import AppInfo
+from ._app_info import AppInfo
 
 if TYPE_CHECKING:
     from stripe.http_client import HTTPClient
@@ -46,10 +46,15 @@ from stripe.api_resources import abstract  # pyright: ignore # noqa
 from stripe.oauth import OAuth  # noqa
 
 # Webhooks
-from stripe.webhook import Webhook, WebhookSignature  # noqa
+from stripe._webhook import Webhook, WebhookSignature  # noqa
 
 from . import stripe_response  # noqa
 from . import stripe_object  # noqa
+
+from ._request_options import RequestOptions as RequestOptions  # noqa
+from ._app_info import AppInfo as AppInfo  # noqa
+from ._stripe_object import StripeObject as StripeObject  # noqa
+from ._api_requestor import APIRequestor as APIRequestor  # noqa
 
 
 # Sets some basic information about the running application that's sent along

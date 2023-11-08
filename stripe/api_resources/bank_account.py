@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 from stripe import error
+from stripe._request_options import RequestOptions
 from stripe.api_resources.abstract import (
     DeletableAPIResource,
     UpdateableAPIResource,
@@ -9,7 +10,6 @@ from stripe.api_resources.abstract import (
 from stripe.api_resources.account import Account
 from stripe.api_resources.customer import Customer
 from stripe.api_resources.expandable_field import ExpandableField
-from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from stripe.util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
