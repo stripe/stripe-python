@@ -2,7 +2,7 @@
 cryptography<40
 tox
 twine
-pyright==1.1.334
+pyright <= 1.1.334
 pytest-cov >= 2.8.1, < 2.11.0
 pytest-mock >= 2.0.0
 pytest-xdist >= 1.31.0
