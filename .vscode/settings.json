@@ -10,15 +10,11 @@
 
   // Formatting
   "editor.formatOnSave": true,
-  "python.formatting.provider": "black",
-
-  // Linting
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": false,
-  "python.linting.flake8Enabled": true,
 
   // Tests
   "python.testing.unittestEnabled": false,
   "python.testing.pytestEnabled": true,
-  "python.testing.nosetestsEnabled": false
+
+  "python.terminal.activateEnvironment": true,
+  "python.defaultInterpreterPath": "~/venv/bin/python3"
 }
