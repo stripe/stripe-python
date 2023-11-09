@@ -7,7 +7,7 @@ venv: $(VENV_NAME)/bin/activate
 $(VENV_NAME)/bin/activate: setup.py
 	$(PIP) install --upgrade pip virtualenv
 	@test -d $(VENV_NAME) || $(PYTHON) -m virtualenv --clear $(VENV_NAME)
-	${VENV_NAME}/bin/python -m pip install -U pip tox twine pyright -c constraints.txt
+	${VENV_NAME}/bin/python -m pip install -r requirements.txt
 	@touch $(VENV_NAME)/bin/activate
 
 test: venv
@@ -17,11 +17,9 @@ test-nomock: venv
 	@${VENV_NAME}/bin/tox -p auto -- --nomock $(TOX_ARGS)
 
 ci-test: venv
-	${VENV_NAME}/bin/python -m pip install -U tox-gh-actions
 	@${VENV_NAME}/bin/tox $(TOX_ARGS)
 
 coveralls: venv
-	${VENV_NAME}/bin/python -m pip install -U coveralls
 	@${VENV_NAME}/bin/tox -e coveralls
 
 pyright: venv
