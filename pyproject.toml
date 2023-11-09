@@ -7,6 +7,8 @@ target-version = [
   "py38",
   "py39",
   "py310",
+#   "py311",  # black 21.12b0 doesn't
+#   "py312",  # support these targets
 ]
 exclude = '''
 /(
