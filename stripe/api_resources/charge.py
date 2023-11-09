@@ -1394,7 +1394,7 @@ class Charge(
             """
             mandate: Optional[str]
             """
-            ID of the mandate used to make this payment.
+            Find the ID of the mandate used for this payment under the [payment_method_details.sepa_debit.mandate](https://stripe.com/docs/api/charges/object#charge_object-payment_method_details-sepa_debit-mandate) property on the Charge. Use this mandate ID to [retrieve the Mandate](https://stripe.com/docs/api/mandates/retrieve).
             """
 
         class Sofort(StripeObject):
