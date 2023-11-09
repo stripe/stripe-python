@@ -190,7 +190,7 @@ class ListObject(StripeObject, Generic[T]):
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
-            **params_with_filters
+            **params_with_filters,
         )
         assert isinstance(result, ListObject)
         return result
@@ -223,7 +223,7 @@ class ListObject(StripeObject, Generic[T]):
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
-            **params_with_filters
+            **params_with_filters,
         )
         assert isinstance(result, ListObject)
         return result
