@@ -460,7 +460,7 @@ class StripeObject(Dict[str, Any]):
     # wholesale because some data that's returned from the API may not be valid
     # if it was set to be set manually. Here we override the class' copy
     # arguments so that we can bypass these possible exceptions on __setitem__.
-    def __copy__(self) -> Self:
+    def __copy__(self) -> "StripeObject":
         copied = StripeObject(
             self.get("id"),
             self.api_key,
@@ -482,7 +482,7 @@ class StripeObject(Dict[str, Any]):
     # wholesale because some data that's returned from the API may not be valid
     # if it was set to be set manually. Here we override the class' copy
     # arguments so that we can bypass these possible exceptions on __setitem__.
-    def __deepcopy__(self, memo: Dict[int, Any]) -> Self:
+    def __deepcopy__(self, memo: Dict[int, Any]) -> "StripeObject":
         copied = self.__copy__()
         memo[id(self)] = copied
 
