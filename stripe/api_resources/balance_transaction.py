@@ -79,62 +79,60 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
     if TYPE_CHECKING:
 
         class ListParams(RequestOptions):
-            created: NotRequired[
-                "BalanceTransaction.ListParamsCreated|int|None"
-            ]
-            currency: NotRequired["str|None"]
+            created: NotRequired["BalanceTransaction.ListParamsCreated|int"]
+            currency: NotRequired["str"]
             """
             Only return transactions in a certain currency. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            payout: NotRequired["str|None"]
+            payout: NotRequired["str"]
             """
             For automatic Stripe payouts only, only returns transactions that were paid out on the specified payout ID.
             """
-            source: NotRequired["str|None"]
+            source: NotRequired["str"]
             """
             Only returns the original transaction.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
-            type: NotRequired["str|None"]
+            type: NotRequired["str"]
             """
             Only returns transactions of the given type. One of: `adjustment`, `advance`, `advance_funding`, `anticipation_repayment`, `application_fee`, `application_fee_refund`, `charge`, `connect_collection_transfer`, `contribution`, `issuing_authorization_hold`, `issuing_authorization_release`, `issuing_dispute`, `issuing_transaction`, `obligation_inbound`, `obligation_outbound`, `obligation_reversal_inbound`, `obligation_reversal_outbound`, `obligation_payout`, `obligation_payout_failure`, `payment`, `payment_failure_refund`, `payment_refund`, `payment_reversal`, `payment_unreconciled`, `payout`, `payout_cancel`, `payout_failure`, `refund`, `refund_failure`, `reserve_transaction`, `reserved_funds`, `stripe_fee`, `stripe_fx_fee`, `tax_fee`, `topup`, `topup_reversal`, `transfer`, `transfer_cancel`, `transfer_failure`, or `transfer_refund`.
             """
 
         class ListParamsCreated(TypedDict):
-            gt: NotRequired["int|None"]
+            gt: NotRequired["int"]
             """
             Minimum value to filter by (exclusive)
             """
-            gte: NotRequired["int|None"]
+            gte: NotRequired["int"]
             """
             Minimum value to filter by (inclusive)
             """
-            lt: NotRequired["int|None"]
+            lt: NotRequired["int"]
             """
             Maximum value to filter by (exclusive)
             """
-            lte: NotRequired["int|None"]
+            lte: NotRequired["int"]
             """
             Maximum value to filter by (inclusive)
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """

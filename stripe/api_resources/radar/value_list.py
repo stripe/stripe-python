@@ -43,17 +43,17 @@ class ValueList(
             """
             The name of the value list for use in rules.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
             item_type: NotRequired[
-                "Literal['card_bin', 'card_fingerprint', 'case_sensitive_string', 'country', 'customer_id', 'email', 'ip_address', 'sepa_debit_fingerprint', 'string', 'us_bank_account_fingerprint']|None"
+                "Literal['card_bin', 'card_fingerprint', 'case_sensitive_string', 'country', 'customer_id', 'email', 'ip_address', 'sepa_debit_fingerprint', 'string', 'us_bank_account_fingerprint']"
             ]
             """
             Type of the items in the value list. One of `card_fingerprint`, `us_bank_account_fingerprint`, `sepa_debit_fingerprint`, `card_bin`, `email`, `ip_address`, `country`, `string`, `case_sensitive_string`, or `customer_id`. Use `string` if the item type is unknown or mixed.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
@@ -66,70 +66,70 @@ class ValueList(
             pass
 
         class ListParams(RequestOptions):
-            alias: NotRequired["str|None"]
+            alias: NotRequired["str"]
             """
             The alias used to reference the value list when writing rules.
             """
-            contains: NotRequired["str|None"]
+            contains: NotRequired["str"]
             """
             A value contained within a value list - returns all value lists containing this value.
             """
-            created: NotRequired["ValueList.ListParamsCreated|int|None"]
-            ending_before: NotRequired["str|None"]
+            created: NotRequired["ValueList.ListParamsCreated|int"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class ListParamsCreated(TypedDict):
-            gt: NotRequired["int|None"]
+            gt: NotRequired["int"]
             """
             Minimum value to filter by (exclusive)
             """
-            gte: NotRequired["int|None"]
+            gte: NotRequired["int"]
             """
             Minimum value to filter by (inclusive)
             """
-            lt: NotRequired["int|None"]
+            lt: NotRequired["int"]
             """
             Maximum value to filter by (exclusive)
             """
-            lte: NotRequired["int|None"]
+            lte: NotRequired["int"]
             """
             Maximum value to filter by (inclusive)
             """
 
         class ModifyParams(RequestOptions):
-            alias: NotRequired["str|None"]
+            alias: NotRequired["str"]
             """
             The name of the value list for use in rules.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            name: NotRequired["str|None"]
+            name: NotRequired["str"]
             """
             The human-readable name of the value list.
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """

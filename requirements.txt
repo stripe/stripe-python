@@ -1,0 +1,17 @@
+# cryptography 40.0.0 deprecates support for Python 3.6 and PyPy3 < 7.3.10
+cryptography<40
+tox
+twine
+pyright <= 1.1.334
+pytest-cov >= 2.8.1, < 2.11.0
+pytest-mock >= 2.0.0
+pytest-xdist >= 1.31.0
+pytest >= 6.0.0
+# black==23.11.0 supports py311/py312 targets,
+# but it's keen to reformat way too many files
+black==21.12b0
+click==8.0.4 # Version 8.1 breaks black
+flake8
+coverage >= 4.5.3, < 5
+coveralls
+tox-gh-actions

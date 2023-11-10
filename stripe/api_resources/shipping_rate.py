@@ -96,7 +96,7 @@ class ShippingRate(
 
         class CreateParams(RequestOptions):
             delivery_estimate: NotRequired[
-                "ShippingRate.CreateParamsDeliveryEstimate|None"
+                "ShippingRate.CreateParamsDeliveryEstimate"
             ]
             """
             The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
@@ -105,31 +105,29 @@ class ShippingRate(
             """
             The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            fixed_amount: NotRequired[
-                "ShippingRate.CreateParamsFixedAmount|None"
-            ]
+            fixed_amount: NotRequired["ShippingRate.CreateParamsFixedAmount"]
             """
             Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
             tax_behavior: NotRequired[
-                "Literal['exclusive', 'inclusive', 'unspecified']|None"
+                "Literal['exclusive', 'inclusive', 'unspecified']"
             ]
             """
             Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
             """
-            tax_code: NotRequired["str|None"]
+            tax_code: NotRequired["str"]
             """
             A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
             """
-            type: NotRequired["Literal['fixed_amount']|None"]
+            type: NotRequired["Literal['fixed_amount']"]
             """
             The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now.
             """
@@ -144,7 +142,7 @@ class ShippingRate(
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
             currency_options: NotRequired[
-                "Dict[str, ShippingRate.CreateParamsFixedAmountCurrencyOptions]|None"
+                "Dict[str, ShippingRate.CreateParamsFixedAmountCurrencyOptions]"
             ]
             """
             Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
@@ -156,7 +154,7 @@ class ShippingRate(
             A non-negative integer in cents representing how much to charge.
             """
             tax_behavior: NotRequired[
-                "Literal['exclusive', 'inclusive', 'unspecified']|None"
+                "Literal['exclusive', 'inclusive', 'unspecified']"
             ]
             """
             Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
@@ -164,13 +162,13 @@ class ShippingRate(
 
         class CreateParamsDeliveryEstimate(TypedDict):
             maximum: NotRequired[
-                "ShippingRate.CreateParamsDeliveryEstimateMaximum|None"
+                "ShippingRate.CreateParamsDeliveryEstimateMaximum"
             ]
             """
             The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
             """
             minimum: NotRequired[
-                "ShippingRate.CreateParamsDeliveryEstimateMinimum|None"
+                "ShippingRate.CreateParamsDeliveryEstimateMinimum"
             ]
             """
             The lower bound of the estimated range. If empty, represents no lower bound.
@@ -197,74 +195,72 @@ class ShippingRate(
             """
 
         class ListParams(RequestOptions):
-            active: NotRequired["bool|None"]
+            active: NotRequired["bool"]
             """
             Only return shipping rates that are active or inactive.
             """
-            created: NotRequired["ShippingRate.ListParamsCreated|int|None"]
+            created: NotRequired["ShippingRate.ListParamsCreated|int"]
             """
             A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
             """
-            currency: NotRequired["str|None"]
+            currency: NotRequired["str"]
             """
             Only return shipping rates for the given currency.
             """
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class ListParamsCreated(TypedDict):
-            gt: NotRequired["int|None"]
+            gt: NotRequired["int"]
             """
             Minimum value to filter by (exclusive)
             """
-            gte: NotRequired["int|None"]
+            gte: NotRequired["int"]
             """
             Minimum value to filter by (inclusive)
             """
-            lt: NotRequired["int|None"]
+            lt: NotRequired["int"]
             """
             Maximum value to filter by (exclusive)
             """
-            lte: NotRequired["int|None"]
+            lte: NotRequired["int"]
             """
             Maximum value to filter by (inclusive)
             """
 
         class ModifyParams(RequestOptions):
-            active: NotRequired["bool|None"]
+            active: NotRequired["bool"]
             """
             Whether the shipping rate can be used for new purchases. Defaults to `true`.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            fixed_amount: NotRequired[
-                "ShippingRate.ModifyParamsFixedAmount|None"
-            ]
+            fixed_amount: NotRequired["ShippingRate.ModifyParamsFixedAmount"]
             """
             Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
             tax_behavior: NotRequired[
-                "Literal['exclusive', 'inclusive', 'unspecified']|None"
+                "Literal['exclusive', 'inclusive', 'unspecified']"
             ]
             """
             Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
@@ -272,26 +268,26 @@ class ShippingRate(
 
         class ModifyParamsFixedAmount(TypedDict):
             currency_options: NotRequired[
-                "Dict[str, ShippingRate.ModifyParamsFixedAmountCurrencyOptions]|None"
+                "Dict[str, ShippingRate.ModifyParamsFixedAmountCurrencyOptions]"
             ]
             """
             Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
             """
 
         class ModifyParamsFixedAmountCurrencyOptions(TypedDict):
-            amount: NotRequired["int|None"]
+            amount: NotRequired["int"]
             """
             A non-negative integer in cents representing how much to charge.
             """
             tax_behavior: NotRequired[
-                "Literal['exclusive', 'inclusive', 'unspecified']|None"
+                "Literal['exclusive', 'inclusive', 'unspecified']"
             ]
             """
             Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """

@@ -354,37 +354,37 @@ class CreditUnderwritingRecord(
 
         class CorrectParams(RequestOptions):
             application: NotRequired[
-                "CreditUnderwritingRecord.CorrectParamsApplication|None"
+                "CreditUnderwritingRecord.CorrectParamsApplication"
             ]
             """
             Details about the application submission.
             """
             credit_user: NotRequired[
-                "CreditUnderwritingRecord.CorrectParamsCreditUser|None"
+                "CreditUnderwritingRecord.CorrectParamsCreditUser"
             ]
             """
             Information about the company or person applying or holding the account.
             """
-            decided_at: NotRequired["int|None"]
+            decided_at: NotRequired["int"]
             """
             Date when a decision was made.
             """
             decision: NotRequired[
-                "CreditUnderwritingRecord.CorrectParamsDecision|None"
+                "CreditUnderwritingRecord.CorrectParamsDecision"
             ]
             """
             Details about the decision.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
             underwriting_exception: NotRequired[
-                "CreditUnderwritingRecord.CorrectParamsUnderwritingException|None"
+                "CreditUnderwritingRecord.CorrectParamsUnderwritingException"
             ]
             """
             If an exception to the usual underwriting criteria was made for this decision, details about the exception must be provided. Exceptions should only be granted in rare circumstances, in consultation with Stripe Compliance.
@@ -410,25 +410,25 @@ class CreditUnderwritingRecord(
 
         class CorrectParamsDecision(TypedDict):
             application_rejected: NotRequired[
-                "CreditUnderwritingRecord.CorrectParamsDecisionApplicationRejected|None"
+                "CreditUnderwritingRecord.CorrectParamsDecisionApplicationRejected"
             ]
             """
             Details about the application rejection.
             """
             credit_limit_approved: NotRequired[
-                "CreditUnderwritingRecord.CorrectParamsDecisionCreditLimitApproved|None"
+                "CreditUnderwritingRecord.CorrectParamsDecisionCreditLimitApproved"
             ]
             """
             Details about the credit limit approved. An approved credit limit is required before you can set a `credit_limit_amount` in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy/)
             """
             credit_limit_decreased: NotRequired[
-                "CreditUnderwritingRecord.CorrectParamsDecisionCreditLimitDecreased|None"
+                "CreditUnderwritingRecord.CorrectParamsDecisionCreditLimitDecreased"
             ]
             """
             Details about the credit limit decreased.
             """
             credit_line_closed: NotRequired[
-                "CreditUnderwritingRecord.CorrectParamsDecisionCreditLineClosed|None"
+                "CreditUnderwritingRecord.CorrectParamsDecisionCreditLineClosed"
             ]
             """
             Details about the credit line closed.
@@ -447,7 +447,7 @@ class CreditUnderwritingRecord(
             """
 
         class CorrectParamsDecisionCreditLineClosed(TypedDict):
-            reason_other_explanation: NotRequired["str|None"]
+            reason_other_explanation: NotRequired["str"]
             """
             Details about the `reasons.other` when present.
             """
@@ -529,11 +529,11 @@ class CreditUnderwritingRecord(
             """
             The credit approved, in the currency of the account and [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             """
-            currency: NotRequired["str|None"]
+            currency: NotRequired["str"]
             """
             The currency of the credit approved, will default to the Account's Issuing currency.
             """
-            reason_other_explanation: NotRequired["str|None"]
+            reason_other_explanation: NotRequired["str"]
             """
             Details about the `reasons.other` when present.
             """
@@ -615,13 +615,13 @@ class CreditUnderwritingRecord(
             """
             The credit approved, in the currency of the account and [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             """
-            currency: NotRequired["str|None"]
+            currency: NotRequired["str"]
             """
             The currency of the credit approved, will default to the Account's Issuing currency.
             """
 
         class CorrectParamsDecisionApplicationRejected(TypedDict):
-            reason_other_explanation: NotRequired["str|None"]
+            reason_other_explanation: NotRequired["str"]
             """
             Details about the `reasons.other` when present.
             """
@@ -701,7 +701,7 @@ class CreditUnderwritingRecord(
 
         class CorrectParamsApplication(TypedDict):
             application_method: NotRequired[
-                "Literal['in_person', 'mail', 'online', 'phone']|None"
+                "Literal['in_person', 'mail', 'online', 'phone']"
             ]
             """
             The channel through which the applicant has submitted their application. Defaults to `online`.
@@ -724,11 +724,11 @@ class CreditUnderwritingRecord(
             """
             Information about the company or person applying or holding the account.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
@@ -745,7 +745,7 @@ class CreditUnderwritingRecord(
 
         class CreateFromApplicationParamsApplication(TypedDict):
             application_method: NotRequired[
-                "Literal['in_person', 'mail', 'online', 'phone']|None"
+                "Literal['in_person', 'mail', 'online', 'phone']"
             ]
             """
             The channel through which the applicant has submitted their application. Defaults to `online`.
@@ -772,16 +772,16 @@ class CreditUnderwritingRecord(
             """
             Details about the decision.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
             underwriting_exception: NotRequired[
-                "CreditUnderwritingRecord.CreateFromProactiveReviewParamsUnderwritingException|None"
+                "CreditUnderwritingRecord.CreateFromProactiveReviewParamsUnderwritingException"
             ]
             """
             If an exception to the usual underwriting criteria was made for this decision, details about the exception must be provided. Exceptions should only be granted in rare circumstances, in consultation with Stripe Compliance.
@@ -807,19 +807,19 @@ class CreditUnderwritingRecord(
 
         class CreateFromProactiveReviewParamsDecision(TypedDict):
             credit_limit_approved: NotRequired[
-                "CreditUnderwritingRecord.CreateFromProactiveReviewParamsDecisionCreditLimitApproved|None"
+                "CreditUnderwritingRecord.CreateFromProactiveReviewParamsDecisionCreditLimitApproved"
             ]
             """
             Details about the credit limit approved. An approved credit limit is required before you can set a `credit_limit_amount` in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy/)
             """
             credit_limit_decreased: NotRequired[
-                "CreditUnderwritingRecord.CreateFromProactiveReviewParamsDecisionCreditLimitDecreased|None"
+                "CreditUnderwritingRecord.CreateFromProactiveReviewParamsDecisionCreditLimitDecreased"
             ]
             """
             Details about the credit limit decreased.
             """
             credit_line_closed: NotRequired[
-                "CreditUnderwritingRecord.CreateFromProactiveReviewParamsDecisionCreditLineClosed|None"
+                "CreditUnderwritingRecord.CreateFromProactiveReviewParamsDecisionCreditLineClosed"
             ]
             """
             Details about the credit line closed.
@@ -837,7 +837,7 @@ class CreditUnderwritingRecord(
         class CreateFromProactiveReviewParamsDecisionCreditLineClosed(
             TypedDict,
         ):
-            reason_other_explanation: NotRequired["str|None"]
+            reason_other_explanation: NotRequired["str"]
             """
             Details about the `reasons.other` when present.
             """
@@ -921,11 +921,11 @@ class CreditUnderwritingRecord(
             """
             The credit approved, in the currency of the account and [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             """
-            currency: NotRequired["str|None"]
+            currency: NotRequired["str"]
             """
             The currency of the credit approved, will default to the Account's Issuing currency.
             """
-            reason_other_explanation: NotRequired["str|None"]
+            reason_other_explanation: NotRequired["str"]
             """
             Details about the `reasons.other` when present.
             """
@@ -1009,7 +1009,7 @@ class CreditUnderwritingRecord(
             """
             The credit approved, in the currency of the account and [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             """
-            currency: NotRequired["str|None"]
+            currency: NotRequired["str"]
             """
             The currency of the credit approved, will default to the Account's Issuing currency.
             """
@@ -1025,19 +1025,19 @@ class CreditUnderwritingRecord(
             """
 
         class ListParams(RequestOptions):
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
@@ -1051,16 +1051,16 @@ class CreditUnderwritingRecord(
             """
             Details about the decision.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
             underwriting_exception: NotRequired[
-                "CreditUnderwritingRecord.ReportDecisionParamsUnderwritingException|None"
+                "CreditUnderwritingRecord.ReportDecisionParamsUnderwritingException"
             ]
             """
             If an exception to the usual underwriting criteria was made for this decision, details about the exception must be provided. Exceptions should only be granted in rare circumstances, in consultation with Stripe Compliance.
@@ -1086,13 +1086,13 @@ class CreditUnderwritingRecord(
 
         class ReportDecisionParamsDecision(TypedDict):
             application_rejected: NotRequired[
-                "CreditUnderwritingRecord.ReportDecisionParamsDecisionApplicationRejected|None"
+                "CreditUnderwritingRecord.ReportDecisionParamsDecisionApplicationRejected"
             ]
             """
             Details about the application rejection.
             """
             credit_limit_approved: NotRequired[
-                "CreditUnderwritingRecord.ReportDecisionParamsDecisionCreditLimitApproved|None"
+                "CreditUnderwritingRecord.ReportDecisionParamsDecisionCreditLimitApproved"
             ]
             """
             Details about the credit limit approved. An approved credit limit is required before you can set a `credit_limit_amount` in the [CreditPolicy API](https://stripe.com/docs/api/issuing/credit_policy/)
@@ -1112,13 +1112,13 @@ class CreditUnderwritingRecord(
             """
             The credit approved, in the currency of the account and [smallest currency unit](https://stripe.com/docs/currencies#zero-decimal).
             """
-            currency: NotRequired["str|None"]
+            currency: NotRequired["str"]
             """
             The currency of the credit approved, will default to the Account's Issuing currency.
             """
 
         class ReportDecisionParamsDecisionApplicationRejected(TypedDict):
-            reason_other_explanation: NotRequired["str|None"]
+            reason_other_explanation: NotRequired["str"]
             """
             Details about the `reasons.other` when present.
             """
@@ -1187,7 +1187,7 @@ class CreditUnderwritingRecord(
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """

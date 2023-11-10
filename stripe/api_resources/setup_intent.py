@@ -237,6 +237,7 @@ class SetupIntent(
                 "taxes_calculation_failed",
                 "terminal_location_country_unsupported",
                 "terminal_reader_busy",
+                "terminal_reader_hardware_fault",
                 "terminal_reader_offline",
                 "terminal_reader_timeout",
                 "testmode_charges_only",
@@ -625,91 +626,91 @@ class SetupIntent(
 
         class CancelParams(RequestOptions):
             cancellation_reason: NotRequired[
-                "Literal['abandoned', 'duplicate', 'requested_by_customer']|None"
+                "Literal['abandoned', 'duplicate', 'requested_by_customer']"
             ]
             """
             Reason for canceling this SetupIntent. Possible values are: `abandoned`, `requested_by_customer`, or `duplicate`
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class ConfirmParams(RequestOptions):
-            confirmation_token: NotRequired["str|None"]
+            confirmation_token: NotRequired["str"]
             """
             ID of the ConfirmationToken used to confirm this SetupIntent.
 
             If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
             mandate_data: NotRequired[
-                "Literal['']|SetupIntent.ConfirmParamsMandateData|SetupIntent.ConfirmParamsMandateData2|None"
+                "Literal['']|SetupIntent.ConfirmParamsMandateData|SetupIntent.ConfirmParamsMandateData2"
             ]
-            payment_method: NotRequired["str|None"]
+            payment_method: NotRequired["str"]
             """
             ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
             """
             payment_method_data: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodData|None"
+                "SetupIntent.ConfirmParamsPaymentMethodData"
             ]
             """
             When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-payment_method)
             value in the SetupIntent.
             """
             payment_method_options: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodOptions|None"
+                "SetupIntent.ConfirmParamsPaymentMethodOptions"
             ]
             """
             Payment method-specific configuration for this SetupIntent.
             """
-            return_url: NotRequired["str|None"]
+            return_url: NotRequired["str"]
             """
             The URL to redirect your customer back to after they authenticate on the payment method's app or site.
             If you'd prefer to redirect to a mobile application, you can alternatively supply an application URI scheme.
             This parameter is only used for cards and other redirect-based payment methods.
             """
-            use_stripe_sdk: NotRequired["bool|None"]
+            use_stripe_sdk: NotRequired["bool"]
             """
             Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
             """
 
         class ConfirmParamsPaymentMethodOptions(TypedDict):
             acss_debit: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodOptionsAcssDebit|None"
+                "SetupIntent.ConfirmParamsPaymentMethodOptionsAcssDebit"
             ]
             """
             If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
             """
             card: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodOptionsCard|None"
+                "SetupIntent.ConfirmParamsPaymentMethodOptionsCard"
             ]
             """
             Configuration for any card setup attempted on this SetupIntent.
             """
             link: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodOptionsLink|None"
+                "SetupIntent.ConfirmParamsPaymentMethodOptionsLink"
             ]
             """
             If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
             """
             paypal: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodOptionsPaypal|None"
+                "SetupIntent.ConfirmParamsPaymentMethodOptionsPaypal"
             ]
             """
             If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
             """
             sepa_debit: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodOptionsSepaDebit|None"
+                "SetupIntent.ConfirmParamsPaymentMethodOptionsSepaDebit"
             ]
             """
             If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
             """
             us_bank_account: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccount|None"
+                "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccount"
             ]
             """
             If this is a `us_bank_account` SetupIntent, this sub-hash contains details about the US bank account payment method options.
@@ -717,19 +718,19 @@ class SetupIntent(
 
         class ConfirmParamsPaymentMethodOptionsUsBankAccount(TypedDict):
             financial_connections: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections|None"
+                "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
             ]
             """
             Additional fields for Financial Connections Session creation
             """
             networks: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks|None"
+                "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks"
             ]
             """
             Additional fields for network related functions
             """
             verification_method: NotRequired[
-                "Literal['automatic', 'instant', 'microdeposits']|None"
+                "Literal['automatic', 'instant', 'microdeposits']"
             ]
             """
             Verification method for the intent
@@ -738,9 +739,7 @@ class SetupIntent(
         class ConfirmParamsPaymentMethodOptionsUsBankAccountNetworks(
             TypedDict
         ):
-            requested: NotRequired[
-                "List[Literal['ach', 'us_domestic_wire']]|None"
-            ]
+            requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
             """
             Triggers validations to run across the selected networks
             """
@@ -749,24 +748,24 @@ class SetupIntent(
             TypedDict,
         ):
             manual_entry: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry|None"
+                "SetupIntent.ConfirmParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
             ]
             """
             Customize manual entry behavior
             """
             permissions: NotRequired[
-                "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]|None"
+                "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
             ]
             """
             The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
             """
             prefetch: NotRequired[
-                "List[Literal['balances', 'inferred_balances', 'ownership', 'transactions']]|None"
+                "List[Literal['balances', 'inferred_balances', 'ownership', 'transactions']]"
             ]
             """
             List of data features that you would like to retrieve upon account creation.
             """
-            return_url: NotRequired["str|None"]
+            return_url: NotRequired["str"]
             """
             For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
             """
@@ -781,7 +780,7 @@ class SetupIntent(
 
         class ConfirmParamsPaymentMethodOptionsSepaDebit(TypedDict):
             mandate_options: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions|None"
+                "SetupIntent.ConfirmParamsPaymentMethodOptionsSepaDebitMandateOptions"
             ]
             """
             Additional fields for Mandate creation
@@ -793,44 +792,42 @@ class SetupIntent(
             pass
 
         class ConfirmParamsPaymentMethodOptionsPaypal(TypedDict):
-            billing_agreement_id: NotRequired["str|None"]
+            billing_agreement_id: NotRequired["str"]
             """
             The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
             """
-            currency: NotRequired["str|None"]
-            subsellers: NotRequired["List[str]|None"]
+            currency: NotRequired["str"]
+            subsellers: NotRequired["List[str]"]
             """
             The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
             """
 
         class ConfirmParamsPaymentMethodOptionsLink(TypedDict):
-            persistent_token: NotRequired["str|None"]
+            persistent_token: NotRequired["str"]
             """
             [Deprecated] This is a legacy parameter that no longer has any function.
             """
 
         class ConfirmParamsPaymentMethodOptionsCard(TypedDict):
             mandate_options: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodOptionsCardMandateOptions|None"
+                "SetupIntent.ConfirmParamsPaymentMethodOptionsCardMandateOptions"
             ]
             """
             Configuration options for setting up an eMandate for cards issued in India.
             """
-            moto: NotRequired["bool|None"]
+            moto: NotRequired["bool"]
             """
             When specified, this parameter signals that a card has been collected
             as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
             parameter can only be provided during confirmation.
             """
             network: NotRequired[
-                "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']|None"
+                "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
             ]
             """
             Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
             """
-            request_three_d_secure: NotRequired[
-                "Literal['any', 'automatic']|None"
-            ]
+            request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             """
@@ -848,11 +845,11 @@ class SetupIntent(
             """
             Currency in which future payments will be charged. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            description: NotRequired["str|None"]
+            description: NotRequired["str"]
             """
             A description of the mandate or subscription that is meant to be displayed to the customer.
             """
-            end_date: NotRequired["int|None"]
+            end_date: NotRequired["int"]
             """
             End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
             """
@@ -860,7 +857,7 @@ class SetupIntent(
             """
             Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
             """
-            interval_count: NotRequired["int|None"]
+            interval_count: NotRequired["int"]
             """
             The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
             """
@@ -872,24 +869,24 @@ class SetupIntent(
             """
             Start date of the mandate or subscription. Start date should not be lesser than yesterday.
             """
-            supported_types: NotRequired["List[Literal['india']]|None"]
+            supported_types: NotRequired["List[Literal['india']]"]
             """
             Specifies the type of mandates supported. Possible values are `india`.
             """
 
         class ConfirmParamsPaymentMethodOptionsAcssDebit(TypedDict):
-            currency: NotRequired["Literal['cad', 'usd']|None"]
+            currency: NotRequired["Literal['cad', 'usd']"]
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
             mandate_options: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions|None"
+                "SetupIntent.ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions"
             ]
             """
             Additional fields for Mandate creation
             """
             verification_method: NotRequired[
-                "Literal['automatic', 'instant', 'microdeposits']|None"
+                "Literal['automatic', 'instant', 'microdeposits']"
             ]
             """
             Verification method for the intent
@@ -898,222 +895,206 @@ class SetupIntent(
         class ConfirmParamsPaymentMethodOptionsAcssDebitMandateOptions(
             TypedDict,
         ):
-            custom_mandate_url: NotRequired["Literal['']|str|None"]
+            custom_mandate_url: NotRequired["Literal['']|str"]
             """
             A URL for custom mandate text to render during confirmation step.
             The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
             or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
             """
             default_for: NotRequired[
-                "List[Literal['invoice', 'subscription']]|None"
+                "List[Literal['invoice', 'subscription']]"
             ]
             """
             List of Stripe products where this mandate can be selected automatically.
             """
-            interval_description: NotRequired["str|None"]
+            interval_description: NotRequired["str"]
             """
             Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
             """
             payment_schedule: NotRequired[
-                "Literal['combined', 'interval', 'sporadic']|None"
+                "Literal['combined', 'interval', 'sporadic']"
             ]
             """
             Payment schedule for the mandate.
             """
-            transaction_type: NotRequired[
-                "Literal['business', 'personal']|None"
-            ]
+            transaction_type: NotRequired["Literal['business', 'personal']"]
             """
             Transaction type of the mandate.
             """
 
         class ConfirmParamsPaymentMethodData(TypedDict):
             acss_debit: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataAcssDebit|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataAcssDebit"
             ]
             """
             If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
             """
             affirm: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataAffirm|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataAffirm"
             ]
             """
             If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
             """
             afterpay_clearpay: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataAfterpayClearpay|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataAfterpayClearpay"
             ]
             """
             If this is an `AfterpayClearpay` PaymentMethod, this hash contains details about the AfterpayClearpay payment method.
             """
             alipay: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataAlipay|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataAlipay"
             ]
             """
             If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
             """
             au_becs_debit: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataAuBecsDebit|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataAuBecsDebit"
             ]
             """
             If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
             """
             bacs_debit: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataBacsDebit|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataBacsDebit"
             ]
             """
             If this is a `bacs_debit` PaymentMethod, this hash contains details about the Bacs Direct Debit bank account.
             """
             bancontact: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataBancontact|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataBancontact"
             ]
             """
             If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
             """
             billing_details: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataBillingDetails|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataBillingDetails"
             ]
             """
             Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
             """
-            blik: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataBlik|None"
-            ]
+            blik: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataBlik"]
             """
             If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
             """
             boleto: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataBoleto|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataBoleto"
             ]
             """
             If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
             """
             cashapp: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataCashapp|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataCashapp"
             ]
             """
             If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
             """
             customer_balance: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataCustomerBalance|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataCustomerBalance"
             ]
             """
             If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
             """
-            eps: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataEps|None"
-            ]
+            eps: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataEps"]
             """
             If this is an `eps` PaymentMethod, this hash contains details about the EPS payment method.
             """
-            fpx: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataFpx|None"
-            ]
+            fpx: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataFpx"]
             """
             If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
             """
             giropay: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataGiropay|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataGiropay"
             ]
             """
             If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
             """
             grabpay: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataGrabpay|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataGrabpay"
             ]
             """
             If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
             """
             ideal: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataIdeal|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataIdeal"
             ]
             """
             If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
             """
             interac_present: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataInteracPresent|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataInteracPresent"
             ]
             """
             If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
             """
             klarna: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataKlarna|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataKlarna"
             ]
             """
             If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method.
             """
             konbini: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataKonbini|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataKonbini"
             ]
             """
             If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
             """
-            link: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataLink|None"
-            ]
+            link: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataLink"]
             """
             If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            oxxo: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataOxxo|None"
-            ]
+            oxxo: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataOxxo"]
             """
             If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
             """
-            p24: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataP24|None"
-            ]
+            p24: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataP24"]
             """
             If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
             """
             paynow: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataPaynow|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataPaynow"
             ]
             """
             If this is a `paynow` PaymentMethod, this hash contains details about the PayNow payment method.
             """
             paypal: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataPaypal|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataPaypal"
             ]
             """
             If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
             """
-            pix: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataPix|None"
-            ]
+            pix: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataPix"]
             """
             If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
             """
             promptpay: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataPromptpay|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataPromptpay"
             ]
             """
             If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
             """
             radar_options: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataRadarOptions|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataRadarOptions"
             ]
             """
             Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
             """
             revolut_pay: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataRevolutPay|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataRevolutPay"
             ]
             """
             If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
             """
             sepa_debit: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataSepaDebit|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataSepaDebit"
             ]
             """
             If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
             """
             sofort: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataSofort|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataSofort"
             ]
             """
             If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -1155,20 +1136,18 @@ class SetupIntent(
             The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
             """
             us_bank_account: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataUsBankAccount|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataUsBankAccount"
             ]
             """
             If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
             """
             wechat_pay: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataWechatPay|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataWechatPay"
             ]
             """
             If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
             """
-            zip: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataZip|None"
-            ]
+            zip: NotRequired["SetupIntent.ConfirmParamsPaymentMethodDataZip"]
             """
             If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
             """
@@ -1181,24 +1160,24 @@ class SetupIntent(
 
         class ConfirmParamsPaymentMethodDataUsBankAccount(TypedDict):
             account_holder_type: NotRequired[
-                "Literal['company', 'individual']|None"
+                "Literal['company', 'individual']"
             ]
             """
             Account holder type: individual or company.
             """
-            account_number: NotRequired["str|None"]
+            account_number: NotRequired["str"]
             """
             Account number of the bank account.
             """
-            account_type: NotRequired["Literal['checking', 'savings']|None"]
+            account_type: NotRequired["Literal['checking', 'savings']"]
             """
             Account type: checkings or savings. Defaults to checking if omitted.
             """
-            financial_connections_account: NotRequired["str|None"]
+            financial_connections_account: NotRequired["str"]
             """
             The ID of a Financial Connections Account to use as a payment method.
             """
-            routing_number: NotRequired["str|None"]
+            routing_number: NotRequired["str"]
             """
             Routing number of the bank account.
             """
@@ -1219,7 +1198,7 @@ class SetupIntent(
             pass
 
         class ConfirmParamsPaymentMethodDataRadarOptions(TypedDict):
-            session: NotRequired["str|None"]
+            session: NotRequired["str"]
             """
             A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
             """
@@ -1238,7 +1217,7 @@ class SetupIntent(
 
         class ConfirmParamsPaymentMethodDataP24(TypedDict):
             bank: NotRequired[
-                "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']|None"
+                "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
             ]
             """
             The customer's bank.
@@ -1255,7 +1234,7 @@ class SetupIntent(
 
         class ConfirmParamsPaymentMethodDataKlarna(TypedDict):
             dob: NotRequired[
-                "SetupIntent.ConfirmParamsPaymentMethodDataKlarnaDob|None"
+                "SetupIntent.ConfirmParamsPaymentMethodDataKlarnaDob"
             ]
             """
             Customer's date of birth
@@ -1280,7 +1259,7 @@ class SetupIntent(
 
         class ConfirmParamsPaymentMethodDataIdeal(TypedDict):
             bank: NotRequired[
-                "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']|None"
+                "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
             ]
             """
             The customer's bank.
@@ -1294,7 +1273,7 @@ class SetupIntent(
 
         class ConfirmParamsPaymentMethodDataFpx(TypedDict):
             account_holder_type: NotRequired[
-                "Literal['company', 'individual']|None"
+                "Literal['company', 'individual']"
             ]
             """
             Account holder type for FPX transaction
@@ -1329,7 +1308,7 @@ class SetupIntent(
 
         class ConfirmParamsPaymentMethodDataEps(TypedDict):
             bank: NotRequired[
-                "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']|None"
+                "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
             ]
             """
             The customer's bank.
@@ -1352,46 +1331,46 @@ class SetupIntent(
 
         class ConfirmParamsPaymentMethodDataBillingDetails(TypedDict):
             address: NotRequired[
-                "Literal['']|SetupIntent.ConfirmParamsPaymentMethodDataBillingDetailsAddress|None"
+                "Literal['']|SetupIntent.ConfirmParamsPaymentMethodDataBillingDetailsAddress"
             ]
             """
             Billing address.
             """
-            email: NotRequired["Literal['']|str|None"]
+            email: NotRequired["Literal['']|str"]
             """
             Email address.
             """
-            name: NotRequired["Literal['']|str|None"]
+            name: NotRequired["Literal['']|str"]
             """
             Full name.
             """
-            phone: NotRequired["Literal['']|str|None"]
+            phone: NotRequired["Literal['']|str"]
             """
             Billing phone number (including extension).
             """
 
         class ConfirmParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
-            city: NotRequired["str|None"]
+            city: NotRequired["str"]
             """
             City, district, suburb, town, or village.
             """
-            country: NotRequired["str|None"]
+            country: NotRequired["str"]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            line1: NotRequired["str|None"]
+            line1: NotRequired["str"]
             """
             Address line 1 (e.g., street, PO Box, or company name).
             """
-            line2: NotRequired["str|None"]
+            line2: NotRequired["str"]
             """
             Address line 2 (e.g., apartment, suite, unit, or building).
             """
-            postal_code: NotRequired["str|None"]
+            postal_code: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            state: NotRequired["str|None"]
+            state: NotRequired["str"]
             """
             State, county, province, or region.
             """
@@ -1400,11 +1379,11 @@ class SetupIntent(
             pass
 
         class ConfirmParamsPaymentMethodDataBacsDebit(TypedDict):
-            account_number: NotRequired["str|None"]
+            account_number: NotRequired["str"]
             """
             Account number of the bank account that the funds will be debited from.
             """
-            sort_code: NotRequired["str|None"]
+            sort_code: NotRequired["str"]
             """
             Sort code of the bank account. (e.g., `10-20-30`)
             """
@@ -1459,11 +1438,11 @@ class SetupIntent(
             """
 
         class ConfirmParamsMandateDataCustomerAcceptanceOnline2(TypedDict):
-            ip_address: NotRequired["str|None"]
+            ip_address: NotRequired["str"]
             """
             The IP address from which the Mandate was accepted by the customer.
             """
-            user_agent: NotRequired["str|None"]
+            user_agent: NotRequired["str"]
             """
             The user agent of the browser from which the Mandate was accepted by the customer.
             """
@@ -1475,18 +1454,18 @@ class SetupIntent(
             """
 
         class ConfirmParamsMandateDataCustomerAcceptance(TypedDict):
-            accepted_at: NotRequired["int|None"]
+            accepted_at: NotRequired["int"]
             """
             The time at which the customer accepted the Mandate.
             """
             offline: NotRequired[
-                "SetupIntent.ConfirmParamsMandateDataCustomerAcceptanceOffline|None"
+                "SetupIntent.ConfirmParamsMandateDataCustomerAcceptanceOffline"
             ]
             """
             If this is a Mandate accepted offline, this hash contains details about the offline acceptance.
             """
             online: NotRequired[
-                "SetupIntent.ConfirmParamsMandateDataCustomerAcceptanceOnline|None"
+                "SetupIntent.ConfirmParamsMandateDataCustomerAcceptanceOnline"
             ]
             """
             If this is a Mandate accepted online, this hash contains details about the online acceptance.
@@ -1510,44 +1489,44 @@ class SetupIntent(
             pass
 
         class CreateParams(RequestOptions):
-            attach_to_self: NotRequired["bool|None"]
+            attach_to_self: NotRequired["bool"]
             """
             If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
 
             It can only be used for this Stripe Account's own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
             """
             automatic_payment_methods: NotRequired[
-                "SetupIntent.CreateParamsAutomaticPaymentMethods|None"
+                "SetupIntent.CreateParamsAutomaticPaymentMethods"
             ]
             """
             When you enable this parameter, this SetupIntent accepts payment methods that you enable in the Dashboard and that are compatible with its other parameters.
             """
-            confirm: NotRequired["bool|None"]
+            confirm: NotRequired["bool"]
             """
             Set to `true` to attempt to confirm this SetupIntent immediately. This parameter defaults to `false`. If a card is the attached payment method, you can provide a `return_url` in case further authentication is necessary.
             """
-            confirmation_token: NotRequired["str|None"]
+            confirmation_token: NotRequired["str"]
             """
             ID of the ConfirmationToken used to confirm this SetupIntent.
 
             If the provided ConfirmationToken contains properties that are also being provided in this request, such as `payment_method`, then the values in this request will take precedence.
             """
-            customer: NotRequired["str|None"]
+            customer: NotRequired["str"]
             """
             ID of the Customer this SetupIntent belongs to, if one exists.
 
             If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
             """
-            description: NotRequired["str|None"]
+            description: NotRequired["str"]
             """
             An arbitrary string attached to the object. Often useful for displaying to users.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
             flow_directions: NotRequired[
-                "List[Literal['inbound', 'outbound']]|None"
+                "List[Literal['inbound', 'outbound']]"
             ]
             """
             Indicates the directions of money movement for which this payment method is intended to be used.
@@ -1555,57 +1534,57 @@ class SetupIntent(
             Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.
             """
             mandate_data: NotRequired[
-                "Literal['']|SetupIntent.CreateParamsMandateData|None"
+                "Literal['']|SetupIntent.CreateParamsMandateData"
             ]
             """
             This hash contains details about the mandate to create. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            on_behalf_of: NotRequired["str|None"]
+            on_behalf_of: NotRequired["str"]
             """
             The Stripe account ID created for this SetupIntent.
             """
-            payment_method: NotRequired["str|None"]
+            payment_method: NotRequired["str"]
             """
             ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
             """
-            payment_method_configuration: NotRequired["str|None"]
+            payment_method_configuration: NotRequired["str"]
             """
             The ID of the payment method configuration to use with this SetupIntent.
             """
             payment_method_data: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodData|None"
+                "SetupIntent.CreateParamsPaymentMethodData"
             ]
             """
             When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-payment_method)
             value in the SetupIntent.
             """
             payment_method_options: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodOptions|None"
+                "SetupIntent.CreateParamsPaymentMethodOptions"
             ]
             """
             Payment method-specific configuration for this SetupIntent.
             """
-            payment_method_types: NotRequired["List[str]|None"]
+            payment_method_types: NotRequired["List[str]"]
             """
             The list of payment method types (for example, card) that this SetupIntent can use. If you don't provide this, it defaults to ["card"].
             """
-            return_url: NotRequired["str|None"]
+            return_url: NotRequired["str"]
             """
             The URL to redirect your customer back to after they authenticate or cancel their payment on the payment method's app or site. To redirect to a mobile application, you can alternatively supply an application URI scheme. This parameter can only be used with [`confirm=true`](https://stripe.com/docs/api/setup_intents/create#create_setup_intent-confirm).
             """
-            single_use: NotRequired["SetupIntent.CreateParamsSingleUse|None"]
+            single_use: NotRequired["SetupIntent.CreateParamsSingleUse"]
             """
             If you populate this hash, this SetupIntent generates a `single_use` mandate after successful completion.
             """
-            usage: NotRequired["Literal['off_session', 'on_session']|None"]
+            usage: NotRequired["Literal['off_session', 'on_session']"]
             """
             Indicates how the payment method is intended to be used in the future. If not provided, this value defaults to `off_session`.
             """
-            use_stripe_sdk: NotRequired["bool|None"]
+            use_stripe_sdk: NotRequired["bool"]
             """
             Set to `true` when confirming server-side and using Stripe.js, iOS, or Android client-side SDKs to handle the next actions.
             """
@@ -1622,37 +1601,37 @@ class SetupIntent(
 
         class CreateParamsPaymentMethodOptions(TypedDict):
             acss_debit: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodOptionsAcssDebit|None"
+                "SetupIntent.CreateParamsPaymentMethodOptionsAcssDebit"
             ]
             """
             If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
             """
             card: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodOptionsCard|None"
+                "SetupIntent.CreateParamsPaymentMethodOptionsCard"
             ]
             """
             Configuration for any card setup attempted on this SetupIntent.
             """
             link: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodOptionsLink|None"
+                "SetupIntent.CreateParamsPaymentMethodOptionsLink"
             ]
             """
             If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
             """
             paypal: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodOptionsPaypal|None"
+                "SetupIntent.CreateParamsPaymentMethodOptionsPaypal"
             ]
             """
             If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
             """
             sepa_debit: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodOptionsSepaDebit|None"
+                "SetupIntent.CreateParamsPaymentMethodOptionsSepaDebit"
             ]
             """
             If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
             """
             us_bank_account: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccount|None"
+                "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccount"
             ]
             """
             If this is a `us_bank_account` SetupIntent, this sub-hash contains details about the US bank account payment method options.
@@ -1660,28 +1639,26 @@ class SetupIntent(
 
         class CreateParamsPaymentMethodOptionsUsBankAccount(TypedDict):
             financial_connections: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections|None"
+                "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
             ]
             """
             Additional fields for Financial Connections Session creation
             """
             networks: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountNetworks|None"
+                "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountNetworks"
             ]
             """
             Additional fields for network related functions
             """
             verification_method: NotRequired[
-                "Literal['automatic', 'instant', 'microdeposits']|None"
+                "Literal['automatic', 'instant', 'microdeposits']"
             ]
             """
             Verification method for the intent
             """
 
         class CreateParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-            requested: NotRequired[
-                "List[Literal['ach', 'us_domestic_wire']]|None"
-            ]
+            requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
             """
             Triggers validations to run across the selected networks
             """
@@ -1690,24 +1667,24 @@ class SetupIntent(
             TypedDict,
         ):
             manual_entry: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry|None"
+                "SetupIntent.CreateParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
             ]
             """
             Customize manual entry behavior
             """
             permissions: NotRequired[
-                "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]|None"
+                "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
             ]
             """
             The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
             """
             prefetch: NotRequired[
-                "List[Literal['balances', 'inferred_balances', 'ownership', 'transactions']]|None"
+                "List[Literal['balances', 'inferred_balances', 'ownership', 'transactions']]"
             ]
             """
             List of data features that you would like to retrieve upon account creation.
             """
-            return_url: NotRequired["str|None"]
+            return_url: NotRequired["str"]
             """
             For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
             """
@@ -1722,7 +1699,7 @@ class SetupIntent(
 
         class CreateParamsPaymentMethodOptionsSepaDebit(TypedDict):
             mandate_options: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodOptionsSepaDebitMandateOptions|None"
+                "SetupIntent.CreateParamsPaymentMethodOptionsSepaDebitMandateOptions"
             ]
             """
             Additional fields for Mandate creation
@@ -1734,44 +1711,42 @@ class SetupIntent(
             pass
 
         class CreateParamsPaymentMethodOptionsPaypal(TypedDict):
-            billing_agreement_id: NotRequired["str|None"]
+            billing_agreement_id: NotRequired["str"]
             """
             The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
             """
-            currency: NotRequired["str|None"]
-            subsellers: NotRequired["List[str]|None"]
+            currency: NotRequired["str"]
+            subsellers: NotRequired["List[str]"]
             """
             The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
             """
 
         class CreateParamsPaymentMethodOptionsLink(TypedDict):
-            persistent_token: NotRequired["str|None"]
+            persistent_token: NotRequired["str"]
             """
             [Deprecated] This is a legacy parameter that no longer has any function.
             """
 
         class CreateParamsPaymentMethodOptionsCard(TypedDict):
             mandate_options: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodOptionsCardMandateOptions|None"
+                "SetupIntent.CreateParamsPaymentMethodOptionsCardMandateOptions"
             ]
             """
             Configuration options for setting up an eMandate for cards issued in India.
             """
-            moto: NotRequired["bool|None"]
+            moto: NotRequired["bool"]
             """
             When specified, this parameter signals that a card has been collected
             as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
             parameter can only be provided during confirmation.
             """
             network: NotRequired[
-                "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']|None"
+                "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
             ]
             """
             Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
             """
-            request_three_d_secure: NotRequired[
-                "Literal['any', 'automatic']|None"
-            ]
+            request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             """
@@ -1789,11 +1764,11 @@ class SetupIntent(
             """
             Currency in which future payments will be charged. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            description: NotRequired["str|None"]
+            description: NotRequired["str"]
             """
             A description of the mandate or subscription that is meant to be displayed to the customer.
             """
-            end_date: NotRequired["int|None"]
+            end_date: NotRequired["int"]
             """
             End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
             """
@@ -1801,7 +1776,7 @@ class SetupIntent(
             """
             Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
             """
-            interval_count: NotRequired["int|None"]
+            interval_count: NotRequired["int"]
             """
             The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
             """
@@ -1813,24 +1788,24 @@ class SetupIntent(
             """
             Start date of the mandate or subscription. Start date should not be lesser than yesterday.
             """
-            supported_types: NotRequired["List[Literal['india']]|None"]
+            supported_types: NotRequired["List[Literal['india']]"]
             """
             Specifies the type of mandates supported. Possible values are `india`.
             """
 
         class CreateParamsPaymentMethodOptionsAcssDebit(TypedDict):
-            currency: NotRequired["Literal['cad', 'usd']|None"]
+            currency: NotRequired["Literal['cad', 'usd']"]
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
             mandate_options: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodOptionsAcssDebitMandateOptions|None"
+                "SetupIntent.CreateParamsPaymentMethodOptionsAcssDebitMandateOptions"
             ]
             """
             Additional fields for Mandate creation
             """
             verification_method: NotRequired[
-                "Literal['automatic', 'instant', 'microdeposits']|None"
+                "Literal['automatic', 'instant', 'microdeposits']"
             ]
             """
             Verification method for the intent
@@ -1839,222 +1814,206 @@ class SetupIntent(
         class CreateParamsPaymentMethodOptionsAcssDebitMandateOptions(
             TypedDict,
         ):
-            custom_mandate_url: NotRequired["Literal['']|str|None"]
+            custom_mandate_url: NotRequired["Literal['']|str"]
             """
             A URL for custom mandate text to render during confirmation step.
             The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
             or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
             """
             default_for: NotRequired[
-                "List[Literal['invoice', 'subscription']]|None"
+                "List[Literal['invoice', 'subscription']]"
             ]
             """
             List of Stripe products where this mandate can be selected automatically.
             """
-            interval_description: NotRequired["str|None"]
+            interval_description: NotRequired["str"]
             """
             Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
             """
             payment_schedule: NotRequired[
-                "Literal['combined', 'interval', 'sporadic']|None"
+                "Literal['combined', 'interval', 'sporadic']"
             ]
             """
             Payment schedule for the mandate.
             """
-            transaction_type: NotRequired[
-                "Literal['business', 'personal']|None"
-            ]
+            transaction_type: NotRequired["Literal['business', 'personal']"]
             """
             Transaction type of the mandate.
             """
 
         class CreateParamsPaymentMethodData(TypedDict):
             acss_debit: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataAcssDebit|None"
+                "SetupIntent.CreateParamsPaymentMethodDataAcssDebit"
             ]
             """
             If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
             """
             affirm: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataAffirm|None"
+                "SetupIntent.CreateParamsPaymentMethodDataAffirm"
             ]
             """
             If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
             """
             afterpay_clearpay: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataAfterpayClearpay|None"
+                "SetupIntent.CreateParamsPaymentMethodDataAfterpayClearpay"
             ]
             """
             If this is an `AfterpayClearpay` PaymentMethod, this hash contains details about the AfterpayClearpay payment method.
             """
             alipay: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataAlipay|None"
+                "SetupIntent.CreateParamsPaymentMethodDataAlipay"
             ]
             """
             If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
             """
             au_becs_debit: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataAuBecsDebit|None"
+                "SetupIntent.CreateParamsPaymentMethodDataAuBecsDebit"
             ]
             """
             If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
             """
             bacs_debit: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataBacsDebit|None"
+                "SetupIntent.CreateParamsPaymentMethodDataBacsDebit"
             ]
             """
             If this is a `bacs_debit` PaymentMethod, this hash contains details about the Bacs Direct Debit bank account.
             """
             bancontact: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataBancontact|None"
+                "SetupIntent.CreateParamsPaymentMethodDataBancontact"
             ]
             """
             If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
             """
             billing_details: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataBillingDetails|None"
+                "SetupIntent.CreateParamsPaymentMethodDataBillingDetails"
             ]
             """
             Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
             """
-            blik: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataBlik|None"
-            ]
+            blik: NotRequired["SetupIntent.CreateParamsPaymentMethodDataBlik"]
             """
             If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
             """
             boleto: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataBoleto|None"
+                "SetupIntent.CreateParamsPaymentMethodDataBoleto"
             ]
             """
             If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
             """
             cashapp: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataCashapp|None"
+                "SetupIntent.CreateParamsPaymentMethodDataCashapp"
             ]
             """
             If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
             """
             customer_balance: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataCustomerBalance|None"
+                "SetupIntent.CreateParamsPaymentMethodDataCustomerBalance"
             ]
             """
             If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
             """
-            eps: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataEps|None"
-            ]
+            eps: NotRequired["SetupIntent.CreateParamsPaymentMethodDataEps"]
             """
             If this is an `eps` PaymentMethod, this hash contains details about the EPS payment method.
             """
-            fpx: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataFpx|None"
-            ]
+            fpx: NotRequired["SetupIntent.CreateParamsPaymentMethodDataFpx"]
             """
             If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
             """
             giropay: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataGiropay|None"
+                "SetupIntent.CreateParamsPaymentMethodDataGiropay"
             ]
             """
             If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
             """
             grabpay: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataGrabpay|None"
+                "SetupIntent.CreateParamsPaymentMethodDataGrabpay"
             ]
             """
             If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
             """
             ideal: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataIdeal|None"
+                "SetupIntent.CreateParamsPaymentMethodDataIdeal"
             ]
             """
             If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
             """
             interac_present: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataInteracPresent|None"
+                "SetupIntent.CreateParamsPaymentMethodDataInteracPresent"
             ]
             """
             If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
             """
             klarna: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataKlarna|None"
+                "SetupIntent.CreateParamsPaymentMethodDataKlarna"
             ]
             """
             If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method.
             """
             konbini: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataKonbini|None"
+                "SetupIntent.CreateParamsPaymentMethodDataKonbini"
             ]
             """
             If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
             """
-            link: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataLink|None"
-            ]
+            link: NotRequired["SetupIntent.CreateParamsPaymentMethodDataLink"]
             """
             If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            oxxo: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataOxxo|None"
-            ]
+            oxxo: NotRequired["SetupIntent.CreateParamsPaymentMethodDataOxxo"]
             """
             If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
             """
-            p24: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataP24|None"
-            ]
+            p24: NotRequired["SetupIntent.CreateParamsPaymentMethodDataP24"]
             """
             If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
             """
             paynow: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataPaynow|None"
+                "SetupIntent.CreateParamsPaymentMethodDataPaynow"
             ]
             """
             If this is a `paynow` PaymentMethod, this hash contains details about the PayNow payment method.
             """
             paypal: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataPaypal|None"
+                "SetupIntent.CreateParamsPaymentMethodDataPaypal"
             ]
             """
             If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
             """
-            pix: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataPix|None"
-            ]
+            pix: NotRequired["SetupIntent.CreateParamsPaymentMethodDataPix"]
             """
             If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
             """
             promptpay: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataPromptpay|None"
+                "SetupIntent.CreateParamsPaymentMethodDataPromptpay"
             ]
             """
             If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
             """
             radar_options: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataRadarOptions|None"
+                "SetupIntent.CreateParamsPaymentMethodDataRadarOptions"
             ]
             """
             Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
             """
             revolut_pay: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataRevolutPay|None"
+                "SetupIntent.CreateParamsPaymentMethodDataRevolutPay"
             ]
             """
             If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
             """
             sepa_debit: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataSepaDebit|None"
+                "SetupIntent.CreateParamsPaymentMethodDataSepaDebit"
             ]
             """
             If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
             """
             sofort: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataSofort|None"
+                "SetupIntent.CreateParamsPaymentMethodDataSofort"
             ]
             """
             If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -2096,20 +2055,18 @@ class SetupIntent(
             The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
             """
             us_bank_account: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataUsBankAccount|None"
+                "SetupIntent.CreateParamsPaymentMethodDataUsBankAccount"
             ]
             """
             If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
             """
             wechat_pay: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataWechatPay|None"
+                "SetupIntent.CreateParamsPaymentMethodDataWechatPay"
             ]
             """
             If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
             """
-            zip: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataZip|None"
-            ]
+            zip: NotRequired["SetupIntent.CreateParamsPaymentMethodDataZip"]
             """
             If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
             """
@@ -2122,24 +2079,24 @@ class SetupIntent(
 
         class CreateParamsPaymentMethodDataUsBankAccount(TypedDict):
             account_holder_type: NotRequired[
-                "Literal['company', 'individual']|None"
+                "Literal['company', 'individual']"
             ]
             """
             Account holder type: individual or company.
             """
-            account_number: NotRequired["str|None"]
+            account_number: NotRequired["str"]
             """
             Account number of the bank account.
             """
-            account_type: NotRequired["Literal['checking', 'savings']|None"]
+            account_type: NotRequired["Literal['checking', 'savings']"]
             """
             Account type: checkings or savings. Defaults to checking if omitted.
             """
-            financial_connections_account: NotRequired["str|None"]
+            financial_connections_account: NotRequired["str"]
             """
             The ID of a Financial Connections Account to use as a payment method.
             """
-            routing_number: NotRequired["str|None"]
+            routing_number: NotRequired["str"]
             """
             Routing number of the bank account.
             """
@@ -2160,7 +2117,7 @@ class SetupIntent(
             pass
 
         class CreateParamsPaymentMethodDataRadarOptions(TypedDict):
-            session: NotRequired["str|None"]
+            session: NotRequired["str"]
             """
             A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
             """
@@ -2179,7 +2136,7 @@ class SetupIntent(
 
         class CreateParamsPaymentMethodDataP24(TypedDict):
             bank: NotRequired[
-                "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']|None"
+                "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
             ]
             """
             The customer's bank.
@@ -2196,7 +2153,7 @@ class SetupIntent(
 
         class CreateParamsPaymentMethodDataKlarna(TypedDict):
             dob: NotRequired[
-                "SetupIntent.CreateParamsPaymentMethodDataKlarnaDob|None"
+                "SetupIntent.CreateParamsPaymentMethodDataKlarnaDob"
             ]
             """
             Customer's date of birth
@@ -2221,7 +2178,7 @@ class SetupIntent(
 
         class CreateParamsPaymentMethodDataIdeal(TypedDict):
             bank: NotRequired[
-                "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']|None"
+                "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
             ]
             """
             The customer's bank.
@@ -2235,7 +2192,7 @@ class SetupIntent(
 
         class CreateParamsPaymentMethodDataFpx(TypedDict):
             account_holder_type: NotRequired[
-                "Literal['company', 'individual']|None"
+                "Literal['company', 'individual']"
             ]
             """
             Account holder type for FPX transaction
@@ -2270,7 +2227,7 @@ class SetupIntent(
 
         class CreateParamsPaymentMethodDataEps(TypedDict):
             bank: NotRequired[
-                "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']|None"
+                "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
             ]
             """
             The customer's bank.
@@ -2293,46 +2250,46 @@ class SetupIntent(
 
         class CreateParamsPaymentMethodDataBillingDetails(TypedDict):
             address: NotRequired[
-                "Literal['']|SetupIntent.CreateParamsPaymentMethodDataBillingDetailsAddress|None"
+                "Literal['']|SetupIntent.CreateParamsPaymentMethodDataBillingDetailsAddress"
             ]
             """
             Billing address.
             """
-            email: NotRequired["Literal['']|str|None"]
+            email: NotRequired["Literal['']|str"]
             """
             Email address.
             """
-            name: NotRequired["Literal['']|str|None"]
+            name: NotRequired["Literal['']|str"]
             """
             Full name.
             """
-            phone: NotRequired["Literal['']|str|None"]
+            phone: NotRequired["Literal['']|str"]
             """
             Billing phone number (including extension).
             """
 
         class CreateParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
-            city: NotRequired["str|None"]
+            city: NotRequired["str"]
             """
             City, district, suburb, town, or village.
             """
-            country: NotRequired["str|None"]
+            country: NotRequired["str"]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            line1: NotRequired["str|None"]
+            line1: NotRequired["str"]
             """
             Address line 1 (e.g., street, PO Box, or company name).
             """
-            line2: NotRequired["str|None"]
+            line2: NotRequired["str"]
             """
             Address line 2 (e.g., apartment, suite, unit, or building).
             """
-            postal_code: NotRequired["str|None"]
+            postal_code: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            state: NotRequired["str|None"]
+            state: NotRequired["str"]
             """
             State, county, province, or region.
             """
@@ -2341,11 +2298,11 @@ class SetupIntent(
             pass
 
         class CreateParamsPaymentMethodDataBacsDebit(TypedDict):
-            account_number: NotRequired["str|None"]
+            account_number: NotRequired["str"]
             """
             Account number of the bank account that the funds will be debited from.
             """
-            sort_code: NotRequired["str|None"]
+            sort_code: NotRequired["str"]
             """
             Sort code of the bank account. (e.g., `10-20-30`)
             """
@@ -2390,18 +2347,18 @@ class SetupIntent(
             """
 
         class CreateParamsMandateDataCustomerAcceptance(TypedDict):
-            accepted_at: NotRequired["int|None"]
+            accepted_at: NotRequired["int"]
             """
             The time at which the customer accepted the Mandate.
             """
             offline: NotRequired[
-                "SetupIntent.CreateParamsMandateDataCustomerAcceptanceOffline|None"
+                "SetupIntent.CreateParamsMandateDataCustomerAcceptanceOffline"
             ]
             """
             If this is a Mandate accepted offline, this hash contains details about the offline acceptance.
             """
             online: NotRequired[
-                "SetupIntent.CreateParamsMandateDataCustomerAcceptanceOnline|None"
+                "SetupIntent.CreateParamsMandateDataCustomerAcceptanceOnline"
             ]
             """
             If this is a Mandate accepted online, this hash contains details about the online acceptance.
@@ -2425,7 +2382,7 @@ class SetupIntent(
             pass
 
         class CreateParamsAutomaticPaymentMethods(TypedDict):
-            allow_redirects: NotRequired["Literal['always', 'never']|None"]
+            allow_redirects: NotRequired["Literal['always', 'never']"]
             """
             Controls whether this SetupIntent will accept redirect-based payment methods.
 
@@ -2437,151 +2394,151 @@ class SetupIntent(
             """
 
         class ListParams(RequestOptions):
-            attach_to_self: NotRequired["bool|None"]
+            attach_to_self: NotRequired["bool"]
             """
             If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
 
             It can only be used for this Stripe Account's own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
             """
-            created: NotRequired["SetupIntent.ListParamsCreated|int|None"]
+            created: NotRequired["SetupIntent.ListParamsCreated|int"]
             """
             A filter on the list, based on the object `created` field. The value can be a string with an integer Unix timestamp, or it can be a dictionary with a number of different query options.
             """
-            customer: NotRequired["str|None"]
+            customer: NotRequired["str"]
             """
             Only return SetupIntents for the customer specified by this customer ID.
             """
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            payment_method: NotRequired["str|None"]
+            payment_method: NotRequired["str"]
             """
             Only return SetupIntents that associate with the specified payment method.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class ListParamsCreated(TypedDict):
-            gt: NotRequired["int|None"]
+            gt: NotRequired["int"]
             """
             Minimum value to filter by (exclusive)
             """
-            gte: NotRequired["int|None"]
+            gte: NotRequired["int"]
             """
             Minimum value to filter by (inclusive)
             """
-            lt: NotRequired["int|None"]
+            lt: NotRequired["int"]
             """
             Maximum value to filter by (exclusive)
             """
-            lte: NotRequired["int|None"]
+            lte: NotRequired["int"]
             """
             Maximum value to filter by (inclusive)
             """
 
         class ModifyParams(RequestOptions):
-            attach_to_self: NotRequired["bool|None"]
+            attach_to_self: NotRequired["bool"]
             """
             If present, the SetupIntent's payment method will be attached to the in-context Stripe Account.
 
             It can only be used for this Stripe Account's own money movement flows like InboundTransfer and OutboundTransfers. It cannot be set to true when setting up a PaymentMethod for a Customer, and defaults to false when attaching a PaymentMethod to a Customer.
             """
-            customer: NotRequired["str|None"]
+            customer: NotRequired["str"]
             """
             ID of the Customer this SetupIntent belongs to, if one exists.
 
             If present, the SetupIntent's payment method will be attached to the Customer on successful setup. Payment methods attached to other Customers cannot be used with this SetupIntent.
             """
-            description: NotRequired["str|None"]
+            description: NotRequired["str"]
             """
             An arbitrary string attached to the object. Often useful for displaying to users.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
             flow_directions: NotRequired[
-                "List[Literal['inbound', 'outbound']]|None"
+                "List[Literal['inbound', 'outbound']]"
             ]
             """
             Indicates the directions of money movement for which this payment method is intended to be used.
 
             Include `inbound` if you intend to use the payment method as the origin to pull funds from. Include `outbound` if you intend to use the payment method as the destination to send funds to. You can include both if you intend to use the payment method for both purposes.
             """
-            metadata: NotRequired["Literal['']|Dict[str, str]|None"]
+            metadata: NotRequired["Literal['']|Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            payment_method: NotRequired["str|None"]
+            payment_method: NotRequired["str"]
             """
             ID of the payment method (a PaymentMethod, Card, or saved Source object) to attach to this SetupIntent.
             """
-            payment_method_configuration: NotRequired["str|None"]
+            payment_method_configuration: NotRequired["str"]
             """
             The ID of the payment method configuration to use with this SetupIntent.
             """
             payment_method_data: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodData|None"
+                "SetupIntent.ModifyParamsPaymentMethodData"
             ]
             """
             When included, this hash creates a PaymentMethod that is set as the [`payment_method`](https://stripe.com/docs/api/setup_intents/object#setup_intent_object-payment_method)
             value in the SetupIntent.
             """
             payment_method_options: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodOptions|None"
+                "SetupIntent.ModifyParamsPaymentMethodOptions"
             ]
             """
             Payment method-specific configuration for this SetupIntent.
             """
-            payment_method_types: NotRequired["List[str]|None"]
+            payment_method_types: NotRequired["List[str]"]
             """
             The list of payment method types (for example, card) that this SetupIntent can set up. If you don't provide this array, it defaults to ["card"].
             """
 
         class ModifyParamsPaymentMethodOptions(TypedDict):
             acss_debit: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodOptionsAcssDebit|None"
+                "SetupIntent.ModifyParamsPaymentMethodOptionsAcssDebit"
             ]
             """
             If this is a `acss_debit` SetupIntent, this sub-hash contains details about the ACSS Debit payment method options.
             """
             card: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodOptionsCard|None"
+                "SetupIntent.ModifyParamsPaymentMethodOptionsCard"
             ]
             """
             Configuration for any card setup attempted on this SetupIntent.
             """
             link: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodOptionsLink|None"
+                "SetupIntent.ModifyParamsPaymentMethodOptionsLink"
             ]
             """
             If this is a `link` PaymentMethod, this sub-hash contains details about the Link payment method options.
             """
             paypal: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodOptionsPaypal|None"
+                "SetupIntent.ModifyParamsPaymentMethodOptionsPaypal"
             ]
             """
             If this is a `paypal` PaymentMethod, this sub-hash contains details about the PayPal payment method options.
             """
             sepa_debit: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodOptionsSepaDebit|None"
+                "SetupIntent.ModifyParamsPaymentMethodOptionsSepaDebit"
             ]
             """
             If this is a `sepa_debit` SetupIntent, this sub-hash contains details about the SEPA Debit payment method options.
             """
             us_bank_account: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccount|None"
+                "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccount"
             ]
             """
             If this is a `us_bank_account` SetupIntent, this sub-hash contains details about the US bank account payment method options.
@@ -2589,28 +2546,26 @@ class SetupIntent(
 
         class ModifyParamsPaymentMethodOptionsUsBankAccount(TypedDict):
             financial_connections: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections|None"
+                "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnections"
             ]
             """
             Additional fields for Financial Connections Session creation
             """
             networks: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountNetworks|None"
+                "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountNetworks"
             ]
             """
             Additional fields for network related functions
             """
             verification_method: NotRequired[
-                "Literal['automatic', 'instant', 'microdeposits']|None"
+                "Literal['automatic', 'instant', 'microdeposits']"
             ]
             """
             Verification method for the intent
             """
 
         class ModifyParamsPaymentMethodOptionsUsBankAccountNetworks(TypedDict):
-            requested: NotRequired[
-                "List[Literal['ach', 'us_domestic_wire']]|None"
-            ]
+            requested: NotRequired["List[Literal['ach', 'us_domestic_wire']]"]
             """
             Triggers validations to run across the selected networks
             """
@@ -2619,24 +2574,24 @@ class SetupIntent(
             TypedDict,
         ):
             manual_entry: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry|None"
+                "SetupIntent.ModifyParamsPaymentMethodOptionsUsBankAccountFinancialConnectionsManualEntry"
             ]
             """
             Customize manual entry behavior
             """
             permissions: NotRequired[
-                "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]|None"
+                "List[Literal['balances', 'ownership', 'payment_method', 'transactions']]"
             ]
             """
             The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
             """
             prefetch: NotRequired[
-                "List[Literal['balances', 'inferred_balances', 'ownership', 'transactions']]|None"
+                "List[Literal['balances', 'inferred_balances', 'ownership', 'transactions']]"
             ]
             """
             List of data features that you would like to retrieve upon account creation.
             """
-            return_url: NotRequired["str|None"]
+            return_url: NotRequired["str"]
             """
             For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
             """
@@ -2651,7 +2606,7 @@ class SetupIntent(
 
         class ModifyParamsPaymentMethodOptionsSepaDebit(TypedDict):
             mandate_options: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions|None"
+                "SetupIntent.ModifyParamsPaymentMethodOptionsSepaDebitMandateOptions"
             ]
             """
             Additional fields for Mandate creation
@@ -2663,44 +2618,42 @@ class SetupIntent(
             pass
 
         class ModifyParamsPaymentMethodOptionsPaypal(TypedDict):
-            billing_agreement_id: NotRequired["str|None"]
+            billing_agreement_id: NotRequired["str"]
             """
             The PayPal Billing Agreement ID (BAID). This is an ID generated by PayPal which represents the mandate between the merchant and the customer.
             """
-            currency: NotRequired["str|None"]
-            subsellers: NotRequired["List[str]|None"]
+            currency: NotRequired["str"]
+            subsellers: NotRequired["List[str]"]
             """
             The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
             """
 
         class ModifyParamsPaymentMethodOptionsLink(TypedDict):
-            persistent_token: NotRequired["str|None"]
+            persistent_token: NotRequired["str"]
             """
             [Deprecated] This is a legacy parameter that no longer has any function.
             """
 
         class ModifyParamsPaymentMethodOptionsCard(TypedDict):
             mandate_options: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodOptionsCardMandateOptions|None"
+                "SetupIntent.ModifyParamsPaymentMethodOptionsCardMandateOptions"
             ]
             """
             Configuration options for setting up an eMandate for cards issued in India.
             """
-            moto: NotRequired["bool|None"]
+            moto: NotRequired["bool"]
             """
             When specified, this parameter signals that a card has been collected
             as MOTO (Mail Order Telephone Order) and thus out of scope for SCA. This
             parameter can only be provided during confirmation.
             """
             network: NotRequired[
-                "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']|None"
+                "Literal['amex', 'cartes_bancaires', 'diners', 'discover', 'eftpos_au', 'interac', 'jcb', 'mastercard', 'unionpay', 'unknown', 'visa']"
             ]
             """
             Selected network to process this SetupIntent on. Depends on the available networks of the card attached to the SetupIntent. Can be only set confirm-time.
             """
-            request_three_d_secure: NotRequired[
-                "Literal['any', 'automatic']|None"
-            ]
+            request_three_d_secure: NotRequired["Literal['any', 'automatic']"]
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
             """
@@ -2718,11 +2671,11 @@ class SetupIntent(
             """
             Currency in which future payments will be charged. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
-            description: NotRequired["str|None"]
+            description: NotRequired["str"]
             """
             A description of the mandate or subscription that is meant to be displayed to the customer.
             """
-            end_date: NotRequired["int|None"]
+            end_date: NotRequired["int"]
             """
             End date of the mandate or subscription. If not provided, the mandate will be active until canceled. If provided, end date should be after start date.
             """
@@ -2730,7 +2683,7 @@ class SetupIntent(
             """
             Specifies payment frequency. One of `day`, `week`, `month`, `year`, or `sporadic`.
             """
-            interval_count: NotRequired["int|None"]
+            interval_count: NotRequired["int"]
             """
             The number of intervals between payments. For example, `interval=month` and `interval_count=3` indicates one payment every three months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks). This parameter is optional when `interval=sporadic`.
             """
@@ -2742,24 +2695,24 @@ class SetupIntent(
             """
             Start date of the mandate or subscription. Start date should not be lesser than yesterday.
             """
-            supported_types: NotRequired["List[Literal['india']]|None"]
+            supported_types: NotRequired["List[Literal['india']]"]
             """
             Specifies the type of mandates supported. Possible values are `india`.
             """
 
         class ModifyParamsPaymentMethodOptionsAcssDebit(TypedDict):
-            currency: NotRequired["Literal['cad', 'usd']|None"]
+            currency: NotRequired["Literal['cad', 'usd']"]
             """
             Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
             """
             mandate_options: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions|None"
+                "SetupIntent.ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions"
             ]
             """
             Additional fields for Mandate creation
             """
             verification_method: NotRequired[
-                "Literal['automatic', 'instant', 'microdeposits']|None"
+                "Literal['automatic', 'instant', 'microdeposits']"
             ]
             """
             Verification method for the intent
@@ -2768,222 +2721,206 @@ class SetupIntent(
         class ModifyParamsPaymentMethodOptionsAcssDebitMandateOptions(
             TypedDict,
         ):
-            custom_mandate_url: NotRequired["Literal['']|str|None"]
+            custom_mandate_url: NotRequired["Literal['']|str"]
             """
             A URL for custom mandate text to render during confirmation step.
             The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
             or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
             """
             default_for: NotRequired[
-                "List[Literal['invoice', 'subscription']]|None"
+                "List[Literal['invoice', 'subscription']]"
             ]
             """
             List of Stripe products where this mandate can be selected automatically.
             """
-            interval_description: NotRequired["str|None"]
+            interval_description: NotRequired["str"]
             """
             Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
             """
             payment_schedule: NotRequired[
-                "Literal['combined', 'interval', 'sporadic']|None"
+                "Literal['combined', 'interval', 'sporadic']"
             ]
             """
             Payment schedule for the mandate.
             """
-            transaction_type: NotRequired[
-                "Literal['business', 'personal']|None"
-            ]
+            transaction_type: NotRequired["Literal['business', 'personal']"]
             """
             Transaction type of the mandate.
             """
 
         class ModifyParamsPaymentMethodData(TypedDict):
             acss_debit: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataAcssDebit|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataAcssDebit"
             ]
             """
             If this is an `acss_debit` PaymentMethod, this hash contains details about the ACSS Debit payment method.
             """
             affirm: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataAffirm|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataAffirm"
             ]
             """
             If this is an `affirm` PaymentMethod, this hash contains details about the Affirm payment method.
             """
             afterpay_clearpay: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataAfterpayClearpay|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataAfterpayClearpay"
             ]
             """
             If this is an `AfterpayClearpay` PaymentMethod, this hash contains details about the AfterpayClearpay payment method.
             """
             alipay: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataAlipay|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataAlipay"
             ]
             """
             If this is an `Alipay` PaymentMethod, this hash contains details about the Alipay payment method.
             """
             au_becs_debit: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataAuBecsDebit|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataAuBecsDebit"
             ]
             """
             If this is an `au_becs_debit` PaymentMethod, this hash contains details about the bank account.
             """
             bacs_debit: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataBacsDebit|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataBacsDebit"
             ]
             """
             If this is a `bacs_debit` PaymentMethod, this hash contains details about the Bacs Direct Debit bank account.
             """
             bancontact: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataBancontact|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataBancontact"
             ]
             """
             If this is a `bancontact` PaymentMethod, this hash contains details about the Bancontact payment method.
             """
             billing_details: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataBillingDetails|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataBillingDetails"
             ]
             """
             Billing information associated with the PaymentMethod that may be used or required by particular types of payment methods.
             """
-            blik: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataBlik|None"
-            ]
+            blik: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataBlik"]
             """
             If this is a `blik` PaymentMethod, this hash contains details about the BLIK payment method.
             """
             boleto: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataBoleto|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataBoleto"
             ]
             """
             If this is a `boleto` PaymentMethod, this hash contains details about the Boleto payment method.
             """
             cashapp: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataCashapp|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataCashapp"
             ]
             """
             If this is a `cashapp` PaymentMethod, this hash contains details about the Cash App Pay payment method.
             """
             customer_balance: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataCustomerBalance|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataCustomerBalance"
             ]
             """
             If this is a `customer_balance` PaymentMethod, this hash contains details about the CustomerBalance payment method.
             """
-            eps: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataEps|None"
-            ]
+            eps: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataEps"]
             """
             If this is an `eps` PaymentMethod, this hash contains details about the EPS payment method.
             """
-            fpx: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataFpx|None"
-            ]
+            fpx: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataFpx"]
             """
             If this is an `fpx` PaymentMethod, this hash contains details about the FPX payment method.
             """
             giropay: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataGiropay|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataGiropay"
             ]
             """
             If this is a `giropay` PaymentMethod, this hash contains details about the Giropay payment method.
             """
             grabpay: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataGrabpay|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataGrabpay"
             ]
             """
             If this is a `grabpay` PaymentMethod, this hash contains details about the GrabPay payment method.
             """
             ideal: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataIdeal|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataIdeal"
             ]
             """
             If this is an `ideal` PaymentMethod, this hash contains details about the iDEAL payment method.
             """
             interac_present: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataInteracPresent|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataInteracPresent"
             ]
             """
             If this is an `interac_present` PaymentMethod, this hash contains details about the Interac Present payment method.
             """
             klarna: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataKlarna|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataKlarna"
             ]
             """
             If this is a `klarna` PaymentMethod, this hash contains details about the Klarna payment method.
             """
             konbini: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataKonbini|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataKonbini"
             ]
             """
             If this is a `konbini` PaymentMethod, this hash contains details about the Konbini payment method.
             """
-            link: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataLink|None"
-            ]
+            link: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataLink"]
             """
             If this is an `Link` PaymentMethod, this hash contains details about the Link payment method.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            oxxo: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataOxxo|None"
-            ]
+            oxxo: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataOxxo"]
             """
             If this is an `oxxo` PaymentMethod, this hash contains details about the OXXO payment method.
             """
-            p24: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataP24|None"
-            ]
+            p24: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataP24"]
             """
             If this is a `p24` PaymentMethod, this hash contains details about the P24 payment method.
             """
             paynow: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataPaynow|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataPaynow"
             ]
             """
             If this is a `paynow` PaymentMethod, this hash contains details about the PayNow payment method.
             """
             paypal: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataPaypal|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataPaypal"
             ]
             """
             If this is a `paypal` PaymentMethod, this hash contains details about the PayPal payment method.
             """
-            pix: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataPix|None"
-            ]
+            pix: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataPix"]
             """
             If this is a `pix` PaymentMethod, this hash contains details about the Pix payment method.
             """
             promptpay: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataPromptpay|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataPromptpay"
             ]
             """
             If this is a `promptpay` PaymentMethod, this hash contains details about the PromptPay payment method.
             """
             radar_options: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataRadarOptions|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataRadarOptions"
             ]
             """
             Options to configure Radar. See [Radar Session](https://stripe.com/docs/radar/radar-session) for more information.
             """
             revolut_pay: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataRevolutPay|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataRevolutPay"
             ]
             """
             If this is a `Revolut Pay` PaymentMethod, this hash contains details about the Revolut Pay payment method.
             """
             sepa_debit: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataSepaDebit|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataSepaDebit"
             ]
             """
             If this is a `sepa_debit` PaymentMethod, this hash contains details about the SEPA debit bank account.
             """
             sofort: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataSofort|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataSofort"
             ]
             """
             If this is a `sofort` PaymentMethod, this hash contains details about the SOFORT payment method.
@@ -3025,20 +2962,18 @@ class SetupIntent(
             The type of the PaymentMethod. An additional hash is included on the PaymentMethod with a name matching this value. It contains additional information specific to the PaymentMethod type.
             """
             us_bank_account: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataUsBankAccount|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataUsBankAccount"
             ]
             """
             If this is an `us_bank_account` PaymentMethod, this hash contains details about the US bank account payment method.
             """
             wechat_pay: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataWechatPay|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataWechatPay"
             ]
             """
             If this is an `wechat_pay` PaymentMethod, this hash contains details about the wechat_pay payment method.
             """
-            zip: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataZip|None"
-            ]
+            zip: NotRequired["SetupIntent.ModifyParamsPaymentMethodDataZip"]
             """
             If this is a `zip` PaymentMethod, this hash contains details about the Zip payment method.
             """
@@ -3051,24 +2986,24 @@ class SetupIntent(
 
         class ModifyParamsPaymentMethodDataUsBankAccount(TypedDict):
             account_holder_type: NotRequired[
-                "Literal['company', 'individual']|None"
+                "Literal['company', 'individual']"
             ]
             """
             Account holder type: individual or company.
             """
-            account_number: NotRequired["str|None"]
+            account_number: NotRequired["str"]
             """
             Account number of the bank account.
             """
-            account_type: NotRequired["Literal['checking', 'savings']|None"]
+            account_type: NotRequired["Literal['checking', 'savings']"]
             """
             Account type: checkings or savings. Defaults to checking if omitted.
             """
-            financial_connections_account: NotRequired["str|None"]
+            financial_connections_account: NotRequired["str"]
             """
             The ID of a Financial Connections Account to use as a payment method.
             """
-            routing_number: NotRequired["str|None"]
+            routing_number: NotRequired["str"]
             """
             Routing number of the bank account.
             """
@@ -3089,7 +3024,7 @@ class SetupIntent(
             pass
 
         class ModifyParamsPaymentMethodDataRadarOptions(TypedDict):
-            session: NotRequired["str|None"]
+            session: NotRequired["str"]
             """
             A [Radar Session](https://stripe.com/docs/radar/radar-session) is a snapshot of the browser metadata and device details that help Radar make more accurate predictions on your payments.
             """
@@ -3108,7 +3043,7 @@ class SetupIntent(
 
         class ModifyParamsPaymentMethodDataP24(TypedDict):
             bank: NotRequired[
-                "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']|None"
+                "Literal['alior_bank', 'bank_millennium', 'bank_nowy_bfg_sa', 'bank_pekao_sa', 'banki_spbdzielcze', 'blik', 'bnp_paribas', 'boz', 'citi_handlowy', 'credit_agricole', 'envelobank', 'etransfer_pocztowy24', 'getin_bank', 'ideabank', 'ing', 'inteligo', 'mbank_mtransfer', 'nest_przelew', 'noble_pay', 'pbac_z_ipko', 'plus_bank', 'santander_przelew24', 'tmobile_usbugi_bankowe', 'toyota_bank', 'volkswagen_bank']"
             ]
             """
             The customer's bank.
@@ -3125,7 +3060,7 @@ class SetupIntent(
 
         class ModifyParamsPaymentMethodDataKlarna(TypedDict):
             dob: NotRequired[
-                "SetupIntent.ModifyParamsPaymentMethodDataKlarnaDob|None"
+                "SetupIntent.ModifyParamsPaymentMethodDataKlarnaDob"
             ]
             """
             Customer's date of birth
@@ -3150,7 +3085,7 @@ class SetupIntent(
 
         class ModifyParamsPaymentMethodDataIdeal(TypedDict):
             bank: NotRequired[
-                "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']|None"
+                "Literal['abn_amro', 'asn_bank', 'bunq', 'handelsbanken', 'ing', 'knab', 'moneyou', 'n26', 'rabobank', 'regiobank', 'revolut', 'sns_bank', 'triodos_bank', 'van_lanschot', 'yoursafe']"
             ]
             """
             The customer's bank.
@@ -3164,7 +3099,7 @@ class SetupIntent(
 
         class ModifyParamsPaymentMethodDataFpx(TypedDict):
             account_holder_type: NotRequired[
-                "Literal['company', 'individual']|None"
+                "Literal['company', 'individual']"
             ]
             """
             Account holder type for FPX transaction
@@ -3199,7 +3134,7 @@ class SetupIntent(
 
         class ModifyParamsPaymentMethodDataEps(TypedDict):
             bank: NotRequired[
-                "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']|None"
+                "Literal['arzte_und_apotheker_bank', 'austrian_anadi_bank_ag', 'bank_austria', 'bankhaus_carl_spangler', 'bankhaus_schelhammer_und_schattera_ag', 'bawag_psk_ag', 'bks_bank_ag', 'brull_kallmus_bank_ag', 'btv_vier_lander_bank', 'capital_bank_grawe_gruppe_ag', 'deutsche_bank_ag', 'dolomitenbank', 'easybank_ag', 'erste_bank_und_sparkassen', 'hypo_alpeadriabank_international_ag', 'hypo_bank_burgenland_aktiengesellschaft', 'hypo_noe_lb_fur_niederosterreich_u_wien', 'hypo_oberosterreich_salzburg_steiermark', 'hypo_tirol_bank_ag', 'hypo_vorarlberg_bank_ag', 'marchfelder_bank', 'oberbank_ag', 'raiffeisen_bankengruppe_osterreich', 'schoellerbank_ag', 'sparda_bank_wien', 'volksbank_gruppe', 'volkskreditbank_ag', 'vr_bank_braunau']"
             ]
             """
             The customer's bank.
@@ -3222,46 +3157,46 @@ class SetupIntent(
 
         class ModifyParamsPaymentMethodDataBillingDetails(TypedDict):
             address: NotRequired[
-                "Literal['']|SetupIntent.ModifyParamsPaymentMethodDataBillingDetailsAddress|None"
+                "Literal['']|SetupIntent.ModifyParamsPaymentMethodDataBillingDetailsAddress"
             ]
             """
             Billing address.
             """
-            email: NotRequired["Literal['']|str|None"]
+            email: NotRequired["Literal['']|str"]
             """
             Email address.
             """
-            name: NotRequired["Literal['']|str|None"]
+            name: NotRequired["Literal['']|str"]
             """
             Full name.
             """
-            phone: NotRequired["Literal['']|str|None"]
+            phone: NotRequired["Literal['']|str"]
             """
             Billing phone number (including extension).
             """
 
         class ModifyParamsPaymentMethodDataBillingDetailsAddress(TypedDict):
-            city: NotRequired["str|None"]
+            city: NotRequired["str"]
             """
             City, district, suburb, town, or village.
             """
-            country: NotRequired["str|None"]
+            country: NotRequired["str"]
             """
             Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
             """
-            line1: NotRequired["str|None"]
+            line1: NotRequired["str"]
             """
             Address line 1 (e.g., street, PO Box, or company name).
             """
-            line2: NotRequired["str|None"]
+            line2: NotRequired["str"]
             """
             Address line 2 (e.g., apartment, suite, unit, or building).
             """
-            postal_code: NotRequired["str|None"]
+            postal_code: NotRequired["str"]
             """
             ZIP or postal code.
             """
-            state: NotRequired["str|None"]
+            state: NotRequired["str"]
             """
             State, county, province, or region.
             """
@@ -3270,11 +3205,11 @@ class SetupIntent(
             pass
 
         class ModifyParamsPaymentMethodDataBacsDebit(TypedDict):
-            account_number: NotRequired["str|None"]
+            account_number: NotRequired["str"]
             """
             Account number of the bank account that the funds will be debited from.
             """
-            sort_code: NotRequired["str|None"]
+            sort_code: NotRequired["str"]
             """
             Sort code of the bank account. (e.g., `10-20-30`)
             """
@@ -3313,25 +3248,25 @@ class SetupIntent(
             """
 
         class RetrieveParams(RequestOptions):
-            client_secret: NotRequired["str|None"]
+            client_secret: NotRequired["str"]
             """
             The client secret of the SetupIntent. We require this string if you use a publishable key to retrieve the SetupIntent.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
 
         class VerifyMicrodepositsParams(RequestOptions):
-            amounts: NotRequired["List[int]|None"]
+            amounts: NotRequired["List[int]"]
             """
             Two positive integers, in *cents*, equal to the values of the microdeposits sent to the bank account.
             """
-            descriptor_code: NotRequired["str|None"]
+            descriptor_code: NotRequired["str"]
             """
             A six-character code starting with SM present in the microdeposit sent to the bank account.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """

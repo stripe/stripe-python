@@ -196,7 +196,7 @@ class TestAPIRequestor(object):
         },
         "list": [1, "foo", "baz"],
         "string": "boo",
-        "unicode": u"\u1234",
+        "unicode": "\u1234",
         "datetime": datetime.datetime(2013, 1, 1, second=1, tzinfo=GMT1()),
         "none": None,
     }
@@ -215,7 +215,7 @@ class TestAPIRequestor(object):
         ],
         "list": [("%s[0]", 1), ("%s[1]", "foo"), ("%s[2]", "baz")],
         "string": [("%s", "boo")],
-        "unicode": [("%s", u"\u1234")],
+        "unicode": [("%s", "\u1234")],
         "datetime": [("%s", 1356994801)],
         "none": [],
     }

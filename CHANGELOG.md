@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.4.0 - 2023-11-09
+* [#1119](https://github.com/stripe/stripe-python/pull/1119) Update generated code
+  * Add support for new value `terminal_reader_hardware_fault` on enums `Invoice.last_finalization_error.code`, `PaymentIntent.last_payment_error.code`, `SetupAttempt.setup_error.code`, `SetupIntent.last_setup_error.code`, and `StripeError.code`
+  * Add support for `metadata` on `Quote.subscription_data`, `QuoteCreateParams.subscription_data`, and `QuoteUpdateParams.subscription_data`
+* [#1121](https://github.com/stripe/stripe-python/pull/1121) [types] Remove `None` from optional param types
+
 ## 7.4.0b1 - 2023-11-02
 * [#1110](https://github.com/stripe/stripe-python/pull/1110) Update generated code for beta
   * Add support for `attach_payment_intent` method on resource `Invoice`

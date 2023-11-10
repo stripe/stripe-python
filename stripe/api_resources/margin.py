@@ -26,19 +26,19 @@ class Margin(
     if TYPE_CHECKING:
 
         class CreateParams(RequestOptions):
-            active: NotRequired["bool|None"]
+            active: NotRequired["bool"]
             """
             Whether the margin can be applied to invoices, invoice items, or invoice line items or not. Defaults to `true`.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            name: NotRequired["str|None"]
+            name: NotRequired["str"]
             """
             Name of the margin, which is displayed to customers, such as on invoices.
             """
@@ -48,47 +48,47 @@ class Margin(
             """
 
         class ListParams(RequestOptions):
-            active: NotRequired["bool|None"]
+            active: NotRequired["bool"]
             """
             Only return margins that are active or inactive, i.e., pass false to list all inactive margins.
             """
-            ending_before: NotRequired["str|None"]
+            ending_before: NotRequired["str"]
             """
             A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            limit: NotRequired["int|None"]
+            limit: NotRequired["int"]
             """
             A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
             """
-            starting_after: NotRequired["str|None"]
+            starting_after: NotRequired["str"]
             """
             A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
             """
 
         class ModifyParams(RequestOptions):
-            active: NotRequired["bool|None"]
+            active: NotRequired["bool"]
             """
             Whether the margin can be applied to invoices, invoice items, or invoice line items or not.
             """
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
-            metadata: NotRequired["Dict[str, str]|None"]
+            metadata: NotRequired["Dict[str, str]"]
             """
             Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
             """
-            name: NotRequired["str|None"]
+            name: NotRequired["str"]
             """
             Name of the margin, which is displayed to customers, such as on invoices.
             """
 
         class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]|None"]
+            expand: NotRequired["List[str]"]
             """
             Specifies which fields in the response should be expanded.
             """
