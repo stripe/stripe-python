@@ -1394,7 +1394,9 @@ class Customer(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.CreateParams"]
+        **params: Unpack[
+            "Customer.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Customer":
         """
         Creates a new customer object.
@@ -1419,7 +1421,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        **params: Unpack[
+            "Customer.CreateFundingInstructionsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1447,7 +1451,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        **params: Unpack[
+            "Customer.CreateFundingInstructionsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1460,7 +1466,9 @@ class Customer(
     def create_funding_instructions(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        **params: Unpack[
+            "Customer.CreateFundingInstructionsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1473,7 +1481,9 @@ class Customer(
     def create_funding_instructions(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Customer.CreateFundingInstructionsParams"]
+        **params: Unpack[
+            "Customer.CreateFundingInstructionsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FundingInstructions":
         """
         Retrieve funding instructions for a customer cash balance. If funding instructions do not yet exist for the customer, new
@@ -1542,7 +1552,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.DeleteDiscountParams"]
+        **params: Unpack[
+            "Customer.DeleteDiscountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1568,7 +1580,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.DeleteDiscountParams"]
+        **params: Unpack[
+            "Customer.DeleteDiscountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1579,7 +1593,9 @@ class Customer(
     def delete_discount(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Customer.DeleteDiscountParams"]
+        **params: Unpack[
+            "Customer.DeleteDiscountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1590,7 +1606,9 @@ class Customer(
     def delete_discount(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Customer.DeleteDiscountParams"]
+        **params: Unpack[
+            "Customer.DeleteDiscountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Discount":
         """
         Removes the currently applied discount on a customer.
@@ -1613,7 +1631,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.ListParams"]
+        **params: Unpack[
+            "Customer.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Customer"]:
         """
         Returns a list of your customers. The customers are returned sorted by creation date, with the most recent customers appearing first.
@@ -1642,7 +1662,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.ListPaymentMethodsParams"]
+        **params: Unpack[
+            "Customer.ListPaymentMethodsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -1668,7 +1690,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.ListPaymentMethodsParams"]
+        **params: Unpack[
+            "Customer.ListPaymentMethodsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -1679,7 +1703,9 @@ class Customer(
     def list_payment_methods(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Customer.ListPaymentMethodsParams"]
+        **params: Unpack[
+            "Customer.ListPaymentMethodsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -1690,7 +1716,9 @@ class Customer(
     def list_payment_methods(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Customer.ListPaymentMethodsParams"]
+        **params: Unpack[
+            "Customer.ListPaymentMethodsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["PaymentMethod"]:
         """
         Returns a list of PaymentMethods for a given Customer
@@ -1741,7 +1769,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+        **params: Unpack[
+            "Customer.RetrievePaymentMethodParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -1769,7 +1799,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+        **params: Unpack[
+            "Customer.RetrievePaymentMethodParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -1781,7 +1813,9 @@ class Customer(
         self,
         payment_method: str,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+        **params: Unpack[
+            "Customer.RetrievePaymentMethodParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -1793,7 +1827,9 @@ class Customer(
         self,
         payment_method: str,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Customer.RetrievePaymentMethodParams"]
+        **params: Unpack[
+            "Customer.RetrievePaymentMethodParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "PaymentMethod":
         """
         Retrieves a PaymentMethod object for a given Customer.
@@ -1836,7 +1872,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.CreateBalanceTransactionParams"]
+        **params: Unpack[
+            "Customer.CreateBalanceTransactionParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CustomerBalanceTransaction":
         """
         Creates an immutable transaction that updates the customer's credit [balance](https://stripe.com/docs/billing/customer/balance).
@@ -1863,7 +1901,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.RetrieveBalanceTransactionParams"]
+        **params: Unpack[
+            "Customer.RetrieveBalanceTransactionParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CustomerBalanceTransaction":
         """
         Retrieves a specific customer balance transaction that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
@@ -1891,7 +1931,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.ModifyBalanceTransactionParams"]
+        **params: Unpack[
+            "Customer.ModifyBalanceTransactionParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CustomerBalanceTransaction":
         """
         Most credit balance transaction fields are immutable, but you may update its description and metadata.
@@ -1918,7 +1960,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.ListBalanceTransactionsParams"]
+        **params: Unpack[
+            "Customer.ListBalanceTransactionsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CustomerBalanceTransaction"]:
         """
         Returns a list of transactions that updated the customer's [balances](https://stripe.com/docs/billing/customer/balance).
@@ -1945,7 +1989,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.RetrieveCashBalanceTransactionParams"]
+        **params: Unpack[
+            "Customer.RetrieveCashBalanceTransactionParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CustomerCashBalanceTransaction":
         """
         Retrieves a specific cash balance transaction, which updated the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
@@ -1972,7 +2018,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.ListCashBalanceTransactionsParams"]
+        **params: Unpack[
+            "Customer.ListCashBalanceTransactionsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
         Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
@@ -1998,7 +2046,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.CreateSourceParams"]
+        **params: Unpack[
+            "Customer.CreateSourceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         When you create a new credit card, you must specify a customer or recipient on which to create it.
@@ -2029,7 +2079,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.RetrieveSourceParams"]
+        **params: Unpack[
+            "Customer.RetrieveSourceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Retrieve a specified source for a given customer.
@@ -2057,7 +2109,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.ModifySourceParams"]
+        **params: Unpack[
+            "Customer.ModifySourceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Update a specified source for a given customer.
@@ -2085,7 +2139,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.DeleteSourceParams"]
+        **params: Unpack[
+            "Customer.DeleteSourceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> Union["Account", "BankAccount", "Card", "Source"]:
         """
         Delete a specified source for a given customer.
@@ -2112,7 +2168,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.ListSourcesParams"]
+        **params: Unpack[
+            "Customer.ListSourcesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject[Union["Account", "BankAccount", "Card", "Source"]]:
         """
         List sources for a specified customer.
@@ -2138,7 +2196,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.CreateTaxIdParams"]
+        **params: Unpack[
+            "Customer.CreateTaxIdParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TaxId":
         """
         Creates a new tax_id object for a customer.
@@ -2165,7 +2225,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.RetrieveTaxIdParams"]
+        **params: Unpack[
+            "Customer.RetrieveTaxIdParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TaxId":
         """
         Retrieves the tax_id object with the given identifier.
@@ -2193,7 +2255,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.DeleteTaxIdParams"]
+        **params: Unpack[
+            "Customer.DeleteTaxIdParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TaxId":
         """
         Deletes an existing tax_id object.
@@ -2220,7 +2284,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.ListTaxIdsParams"]
+        **params: Unpack[
+            "Customer.ListTaxIdsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["TaxId"]:
         """
         Returns a list of tax IDs for a customer.
@@ -2246,7 +2312,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.ModifyCashBalanceParams"]
+        **params: Unpack[
+            "Customer.ModifyCashBalanceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CashBalance":
         """
         Changes the settings on a customer's cash balance.
@@ -2272,7 +2340,9 @@ class Customer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Customer.RetrieveCashBalanceParams"]
+        **params: Unpack[
+            "Customer.RetrieveCashBalanceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CashBalance":
         """
         Retrieves a customer's cash balance.
@@ -2301,7 +2371,9 @@ class Customer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["Customer.FundCashBalanceParams"]
+            **params: Unpack[
+                "Customer.FundCashBalanceParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -2327,7 +2399,9 @@ class Customer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["Customer.FundCashBalanceParams"]
+            **params: Unpack[
+                "Customer.FundCashBalanceParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -2338,7 +2412,9 @@ class Customer(
         def fund_cash_balance(
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["Customer.FundCashBalanceParams"]
+            **params: Unpack[
+                "Customer.FundCashBalanceParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer
@@ -2349,7 +2425,9 @@ class Customer(
         def fund_cash_balance(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["Customer.FundCashBalanceParams"]
+            **params: Unpack[
+                "Customer.FundCashBalanceParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "CustomerCashBalanceTransaction":
             """
             Create an incoming testmode bank transfer

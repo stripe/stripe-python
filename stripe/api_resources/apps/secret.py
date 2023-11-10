@@ -197,7 +197,9 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Secret.CreateParams"]
+        **params: Unpack[
+            "Secret.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Secret":
         """
         Create or replace a secret in the secret store.
@@ -221,7 +223,9 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Secret.DeleteWhereParams"]
+        **params: Unpack[
+            "Secret.DeleteWhereParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Secret":
         """
         Deletes a secret from the secret store by name and scope.
@@ -244,7 +248,9 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Secret.FindParams"]
+        **params: Unpack[
+            "Secret.FindParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Secret":
         """
         Finds a secret in the secret store by name and scope.
@@ -267,7 +273,9 @@ class Secret(CreateableAPIResource["Secret"], ListableAPIResource["Secret"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Secret.ListParams"]
+        **params: Unpack[
+            "Secret.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Secret"]:
         """
         List all secrets stored on the given scope.

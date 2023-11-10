@@ -281,7 +281,9 @@ class PromotionCode(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["PromotionCode.CreateParams"]
+        **params: Unpack[
+            "PromotionCode.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "PromotionCode":
         """
         A promotion code points to a coupon. You can optionally restrict the code to a specific customer, redemption limit, and expiration date.
@@ -305,7 +307,9 @@ class PromotionCode(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["PromotionCode.ListParams"]
+        **params: Unpack[
+            "PromotionCode.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["PromotionCode"]:
         """
         Returns a list of your promotion codes.

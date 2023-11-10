@@ -366,7 +366,9 @@ class OutboundTransfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["OutboundTransfer.CancelParams"]
+        **params: Unpack[
+            "OutboundTransfer.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -392,7 +394,9 @@ class OutboundTransfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["OutboundTransfer.CancelParams"]
+        **params: Unpack[
+            "OutboundTransfer.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -403,7 +407,9 @@ class OutboundTransfer(
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["OutboundTransfer.CancelParams"]
+        **params: Unpack[
+            "OutboundTransfer.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -414,7 +420,9 @@ class OutboundTransfer(
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["OutboundTransfer.CancelParams"]
+        **params: Unpack[
+            "OutboundTransfer.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -438,7 +446,9 @@ class OutboundTransfer(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["OutboundTransfer.CreateParams"]
+        **params: Unpack[
+            "OutboundTransfer.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "OutboundTransfer":
         """
         Creates an OutboundTransfer.
@@ -462,7 +472,9 @@ class OutboundTransfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["OutboundTransfer.ListParams"]
+        **params: Unpack[
+            "OutboundTransfer.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["OutboundTransfer"]:
         """
         Returns a list of OutboundTransfers sent from the specified FinancialAccount.
@@ -505,7 +517,9 @@ class OutboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.FailParams"]
+            **params: Unpack[
+                "OutboundTransfer.FailParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -531,7 +545,9 @@ class OutboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.FailParams"]
+            **params: Unpack[
+                "OutboundTransfer.FailParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -542,7 +558,9 @@ class OutboundTransfer(
         def fail(
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.FailParams"]
+            **params: Unpack[
+                "OutboundTransfer.FailParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -553,7 +571,9 @@ class OutboundTransfer(
         def fail(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.FailParams"]
+            **params: Unpack[
+                "OutboundTransfer.FailParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -579,7 +599,9 @@ class OutboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.PostParams"]
+            **params: Unpack[
+                "OutboundTransfer.PostParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -605,7 +627,9 @@ class OutboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.PostParams"]
+            **params: Unpack[
+                "OutboundTransfer.PostParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -616,7 +640,9 @@ class OutboundTransfer(
         def post(
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.PostParams"]
+            **params: Unpack[
+                "OutboundTransfer.PostParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -627,7 +653,9 @@ class OutboundTransfer(
         def post(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.PostParams"]
+            **params: Unpack[
+                "OutboundTransfer.PostParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -653,7 +681,9 @@ class OutboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
+            **params: Unpack[
+                "OutboundTransfer.ReturnOutboundTransferParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -679,7 +709,9 @@ class OutboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
+            **params: Unpack[
+                "OutboundTransfer.ReturnOutboundTransferParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -690,7 +722,9 @@ class OutboundTransfer(
         def return_outbound_transfer(
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
+            **params: Unpack[
+                "OutboundTransfer.ReturnOutboundTransferParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -701,7 +735,9 @@ class OutboundTransfer(
         def return_outbound_transfer(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
+            **params: Unpack[
+                "OutboundTransfer.ReturnOutboundTransferParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.

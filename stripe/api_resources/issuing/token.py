@@ -316,7 +316,9 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Token.ListParams"]
+        **params: Unpack[
+            "Token.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Token"]:
         """
         Lists all Issuing Token objects for a given card.

@@ -220,7 +220,9 @@ class ReportRun(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ReportRun.CreateParams"]
+        **params: Unpack[
+            "ReportRun.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ReportRun":
         """
         Creates a new object and begin running the report. (Certain report types require a [live-mode API key](https://stripe.com/docs/keys#test-live-modes).)
@@ -244,7 +246,9 @@ class ReportRun(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ReportRun.ListParams"]
+        **params: Unpack[
+            "ReportRun.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ReportRun"]:
         """
         Returns a list of Report Runs, with the most recent appearing first.

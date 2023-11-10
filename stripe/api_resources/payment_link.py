@@ -2103,7 +2103,9 @@ class PaymentLink(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["PaymentLink.CreateParams"]
+        **params: Unpack[
+            "PaymentLink.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "PaymentLink":
         """
         Creates a payment link.
@@ -2127,7 +2129,9 @@ class PaymentLink(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["PaymentLink.ListParams"]
+        **params: Unpack[
+            "PaymentLink.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["PaymentLink"]:
         """
         Returns a list of your payment links.
@@ -2156,7 +2160,9 @@ class PaymentLink(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["PaymentLink.ListLineItemsParams"]
+        **params: Unpack[
+            "PaymentLink.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2182,7 +2188,9 @@ class PaymentLink(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["PaymentLink.ListLineItemsParams"]
+        **params: Unpack[
+            "PaymentLink.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2193,7 +2201,9 @@ class PaymentLink(
     def list_line_items(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["PaymentLink.ListLineItemsParams"]
+        **params: Unpack[
+            "PaymentLink.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -2204,7 +2214,9 @@ class PaymentLink(
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["PaymentLink.ListLineItemsParams"]
+        **params: Unpack[
+            "PaymentLink.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a payment link, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

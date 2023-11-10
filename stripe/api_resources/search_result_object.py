@@ -120,5 +120,8 @@ class SearchResultObject(StripeObject, Generic[T]):
             stripe_account=stripe_account,
             **params_with_filters,
         )
+        # Sanity check that the object returned should be a SearchResultObject
         assert isinstance(result, SearchResultObject)
-        return result
+        # We still have to assert that the items *inside* the search result
+        # object are the types indicated by "Self"
+        return cast(Self, result)

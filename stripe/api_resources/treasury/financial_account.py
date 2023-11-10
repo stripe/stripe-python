@@ -780,7 +780,9 @@ class FinancialAccount(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FinancialAccount.CreateParams"]
+        **params: Unpack[
+            "FinancialAccount.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancialAccount":
         """
         Creates a new FinancialAccount. For now, each connected account can only have one FinancialAccount.
@@ -804,7 +806,9 @@ class FinancialAccount(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FinancialAccount.ListParams"]
+        **params: Unpack[
+            "FinancialAccount.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["FinancialAccount"]:
         """
         Returns a list of FinancialAccounts.
@@ -857,7 +861,9 @@ class FinancialAccount(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        **params: Unpack[
+            "FinancialAccount.RetrieveFeaturesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -883,7 +889,9 @@ class FinancialAccount(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        **params: Unpack[
+            "FinancialAccount.RetrieveFeaturesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -894,7 +902,9 @@ class FinancialAccount(
     def retrieve_features(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        **params: Unpack[
+            "FinancialAccount.RetrieveFeaturesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -905,7 +915,9 @@ class FinancialAccount(
     def retrieve_features(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["FinancialAccount.RetrieveFeaturesParams"]
+        **params: Unpack[
+            "FinancialAccount.RetrieveFeaturesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancialAccountFeatures":
         """
         Retrieves Features information associated with the FinancialAccount.
@@ -929,7 +941,9 @@ class FinancialAccount(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        **params: Unpack[
+            "FinancialAccount.UpdateFeaturesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -955,7 +969,9 @@ class FinancialAccount(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        **params: Unpack[
+            "FinancialAccount.UpdateFeaturesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -966,7 +982,9 @@ class FinancialAccount(
     def update_features(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        **params: Unpack[
+            "FinancialAccount.UpdateFeaturesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.
@@ -977,7 +995,9 @@ class FinancialAccount(
     def update_features(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["FinancialAccount.UpdateFeaturesParams"]
+        **params: Unpack[
+            "FinancialAccount.UpdateFeaturesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancialAccountFeatures":
         """
         Updates the Features associated with a FinancialAccount.

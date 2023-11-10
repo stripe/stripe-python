@@ -659,7 +659,9 @@ class Configuration(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Configuration.CreateParams"]
+        **params: Unpack[
+            "Configuration.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Configuration":
         """
         Creates a configuration that describes the functionality and behavior of a PortalSession
@@ -683,7 +685,9 @@ class Configuration(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Configuration.ListParams"]
+        **params: Unpack[
+            "Configuration.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Configuration"]:
         """
         Returns a list of configurations that describe the functionality of the customer portal.
