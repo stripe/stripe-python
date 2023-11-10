@@ -58,7 +58,7 @@ class Product(
     OBJECT_NAME: ClassVar[Literal["product"]] = "product"
 
     class Feature(StripeObject):
-        name: str
+        name: Optional[str]
         """
         The feature's name. Up to 80 characters long.
         """
