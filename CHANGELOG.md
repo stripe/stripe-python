@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.5.0b1 - 2023-11-10
+* [#1120](https://github.com/stripe/stripe-python/pull/1120) Update generated code for beta
+
 ## 7.4.0 - 2023-11-09
 * [#1119](https://github.com/stripe/stripe-python/pull/1119) Update generated code
   * Add support for new value `terminal_reader_hardware_fault` on enums `Invoice.last_finalization_error.code`, `PaymentIntent.last_payment_error.code`, `SetupAttempt.setup_error.code`, `SetupIntent.last_setup_error.code`, and `StripeError.code`
