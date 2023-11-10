@@ -706,7 +706,16 @@ class Registration(
             If set, the Tax Registration stops being active at this time. If not set, the Tax Registration will be active indefinitely. Timestamp measured in seconds since the Unix epoch.
             """
 
-        class CreateParamsCountryOptions(TypedDict):
+        class CreateParamsCountryOptions(
+            TypedDict(
+                "CreateParamsCountryOptions",
+                {
+                    "is": NotRequired[
+                        "Registration.CreateParamsCountryOptionsIs"
+                    ],
+                },
+            ),
+        ):
             ae: NotRequired["Registration.CreateParamsCountryOptionsAe"]
             """
             Options for the registration in AE.
