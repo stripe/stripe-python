@@ -10,7 +10,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.util import class_method_variant
 from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack
 from urllib.parse import quote_plus
 
 
