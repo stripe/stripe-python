@@ -499,531 +499,525 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         qr_code_url: Optional[str]
         statement_descriptor: Optional[str]
 
-    if TYPE_CHECKING:
+    class CreateParams(RequestOptions):
+        amount: NotRequired["int"]
+        """
+        Amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources. Not supported for `receiver` type sources, where charge amount may not be specified until funds land.
+        """
+        currency: NotRequired["str"]
+        """
+        Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready.
+        """
+        customer: NotRequired["str"]
+        """
+        The `Customer` to whom the original source is attached to. Must be set when the original source is not a `Source` (e.g., `Card`).
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        flow: NotRequired[
+            "Literal['code_verification', 'none', 'receiver', 'redirect']"
+        ]
+        """
+        The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows.
+        """
+        mandate: NotRequired["Source.CreateParamsMandate"]
+        """
+        Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        original_source: NotRequired["str"]
+        """
+        The source to share.
+        """
+        owner: NotRequired["Source.CreateParamsOwner"]
+        """
+        Information about the owner of the payment instrument that may be used or required by particular source types.
+        """
+        receiver: NotRequired["Source.CreateParamsReceiver"]
+        """
+        Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`).
+        """
+        redirect: NotRequired["Source.CreateParamsRedirect"]
+        """
+        Parameters required for the redirect flow. Required if the source is authenticated by a redirect (`flow` is `redirect`).
+        """
+        source_order: NotRequired["Source.CreateParamsSourceOrder"]
+        """
+        Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
+        """
+        statement_descriptor: NotRequired["str"]
+        """
+        An arbitrary string to be displayed on your customer's statement. As an example, if your website is `RunClub` and the item you're charging for is a race ticket, you may want to specify a `statement_descriptor` of `RunClub 5K race ticket.` While many payment types will display this information, some may not display it at all.
+        """
+        token: NotRequired["str"]
+        """
+        An optional token used to create the source. When passed, token properties will override source parameters.
+        """
+        type: NotRequired["str"]
+        """
+        The `type` of the source to create. Required unless `customer` and `original_source` are specified (see the [Cloning card Sources](https://stripe.com/docs/sources/connect#cloning-card-sources) guide)
+        """
+        usage: NotRequired["Literal['reusable', 'single_use']"]
 
-        class CreateParams(RequestOptions):
-            amount: NotRequired["int"]
-            """
-            Amount associated with the source. This is the amount for which the source will be chargeable once ready. Required for `single_use` sources. Not supported for `receiver` type sources, where charge amount may not be specified until funds land.
-            """
-            currency: NotRequired["str"]
-            """
-            Three-letter [ISO code for the currency](https://stripe.com/docs/currencies) associated with the source. This is the currency for which the source will be chargeable once ready.
-            """
-            customer: NotRequired["str"]
-            """
-            The `Customer` to whom the original source is attached to. Must be set when the original source is not a `Source` (e.g., `Card`).
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            flow: NotRequired[
-                "Literal['code_verification', 'none', 'receiver', 'redirect']"
-            ]
-            """
-            The authentication `flow` of the source to create. `flow` is one of `redirect`, `receiver`, `code_verification`, `none`. It is generally inferred unless a type supports multiple flows.
-            """
-            mandate: NotRequired["Source.CreateParamsMandate"]
-            """
-            Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            original_source: NotRequired["str"]
-            """
-            The source to share.
-            """
-            owner: NotRequired["Source.CreateParamsOwner"]
-            """
-            Information about the owner of the payment instrument that may be used or required by particular source types.
-            """
-            receiver: NotRequired["Source.CreateParamsReceiver"]
-            """
-            Optional parameters for the receiver flow. Can be set only if the source is a receiver (`flow` is `receiver`).
-            """
-            redirect: NotRequired["Source.CreateParamsRedirect"]
-            """
-            Parameters required for the redirect flow. Required if the source is authenticated by a redirect (`flow` is `redirect`).
-            """
-            source_order: NotRequired["Source.CreateParamsSourceOrder"]
-            """
-            Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
-            """
-            statement_descriptor: NotRequired["str"]
-            """
-            An arbitrary string to be displayed on your customer's statement. As an example, if your website is `RunClub` and the item you're charging for is a race ticket, you may want to specify a `statement_descriptor` of `RunClub 5K race ticket.` While many payment types will display this information, some may not display it at all.
-            """
-            token: NotRequired["str"]
-            """
-            An optional token used to create the source. When passed, token properties will override source parameters.
-            """
-            type: NotRequired["str"]
-            """
-            The `type` of the source to create. Required unless `customer` and `original_source` are specified (see the [Cloning card Sources](https://stripe.com/docs/sources/connect#cloning-card-sources) guide)
-            """
-            usage: NotRequired["Literal['reusable', 'single_use']"]
+    class CreateParamsSourceOrder(TypedDict):
+        items: NotRequired["List[Source.CreateParamsSourceOrderItem]"]
+        """
+        List of items constituting the order.
+        """
+        shipping: NotRequired["Source.CreateParamsSourceOrderShipping"]
+        """
+        Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
+        """
 
-        class CreateParamsSourceOrder(TypedDict):
-            items: NotRequired["List[Source.CreateParamsSourceOrderItem]"]
-            """
-            List of items constituting the order.
-            """
-            shipping: NotRequired["Source.CreateParamsSourceOrderShipping"]
-            """
-            Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
-            """
+    class CreateParamsSourceOrderShipping(TypedDict):
+        address: "Source.CreateParamsSourceOrderShippingAddress"
+        """
+        Shipping address.
+        """
+        carrier: NotRequired["str"]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: NotRequired["str"]
+        """
+        Recipient name.
+        """
+        phone: NotRequired["str"]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: NotRequired["str"]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
 
-        class CreateParamsSourceOrderShipping(TypedDict):
-            address: "Source.CreateParamsSourceOrderShippingAddress"
-            """
-            Shipping address.
-            """
-            carrier: NotRequired["str"]
-            """
-            The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-            """
-            name: NotRequired["str"]
-            """
-            Recipient name.
-            """
-            phone: NotRequired["str"]
-            """
-            Recipient phone (including extension).
-            """
-            tracking_number: NotRequired["str"]
-            """
-            The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-            """
+    class CreateParamsSourceOrderShippingAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: str
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
 
-        class CreateParamsSourceOrderShippingAddress(TypedDict):
-            city: NotRequired["str"]
-            """
-            City, district, suburb, town, or village.
-            """
-            country: NotRequired["str"]
-            """
-            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            """
-            line1: str
-            """
-            Address line 1 (e.g., street, PO Box, or company name).
-            """
-            line2: NotRequired["str"]
-            """
-            Address line 2 (e.g., apartment, suite, unit, or building).
-            """
-            postal_code: NotRequired["str"]
-            """
-            ZIP or postal code.
-            """
-            state: NotRequired["str"]
-            """
-            State, county, province, or region.
-            """
+    class CreateParamsSourceOrderItem(TypedDict):
+        amount: NotRequired["int"]
+        currency: NotRequired["str"]
+        description: NotRequired["str"]
+        parent: NotRequired["str"]
+        """
+        The ID of the SKU being ordered.
+        """
+        quantity: NotRequired["int"]
+        """
+        The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
+        """
+        type: NotRequired["Literal['discount', 'shipping', 'sku', 'tax']"]
 
-        class CreateParamsSourceOrderItem(TypedDict):
-            amount: NotRequired["int"]
-            currency: NotRequired["str"]
-            description: NotRequired["str"]
-            parent: NotRequired["str"]
-            """
-            The ID of the SKU being ordered.
-            """
-            quantity: NotRequired["int"]
-            """
-            The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
-            """
-            type: NotRequired["Literal['discount', 'shipping', 'sku', 'tax']"]
+    class CreateParamsRedirect(TypedDict):
+        return_url: str
+        """
+        The URL you provide to redirect the customer back to you after they authenticated their payment. It can use your application URI scheme in the context of a mobile application.
+        """
 
-        class CreateParamsRedirect(TypedDict):
-            return_url: str
-            """
-            The URL you provide to redirect the customer back to you after they authenticated their payment. It can use your application URI scheme in the context of a mobile application.
-            """
+    class CreateParamsReceiver(TypedDict):
+        refund_attributes_method: NotRequired[
+            "Literal['email', 'manual', 'none']"
+        ]
+        """
+        The method Stripe should use to request information needed to process a refund or mispayment. Either `email` (an email is sent directly to the customer) or `manual` (a `source.refund_attributes_required` event is sent to your webhooks endpoint). Refer to each payment method's documentation to learn which refund attributes may be required.
+        """
 
-        class CreateParamsReceiver(TypedDict):
-            refund_attributes_method: NotRequired[
-                "Literal['email', 'manual', 'none']"
-            ]
-            """
-            The method Stripe should use to request information needed to process a refund or mispayment. Either `email` (an email is sent directly to the customer) or `manual` (a `source.refund_attributes_required` event is sent to your webhooks endpoint). Refer to each payment method's documentation to learn which refund attributes may be required.
-            """
+    class CreateParamsOwner(TypedDict):
+        address: NotRequired["Source.CreateParamsOwnerAddress"]
+        """
+        Owner's address.
+        """
+        email: NotRequired["str"]
+        """
+        Owner's email address.
+        """
+        name: NotRequired["str"]
+        """
+        Owner's full name.
+        """
+        phone: NotRequired["str"]
+        """
+        Owner's phone number.
+        """
 
-        class CreateParamsOwner(TypedDict):
-            address: NotRequired["Source.CreateParamsOwnerAddress"]
-            """
-            Owner's address.
-            """
-            email: NotRequired["str"]
-            """
-            Owner's email address.
-            """
-            name: NotRequired["str"]
-            """
-            Owner's full name.
-            """
-            phone: NotRequired["str"]
-            """
-            Owner's phone number.
-            """
+    class CreateParamsOwnerAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
 
-        class CreateParamsOwnerAddress(TypedDict):
-            city: NotRequired["str"]
-            """
-            City, district, suburb, town, or village.
-            """
-            country: NotRequired["str"]
-            """
-            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            """
-            line1: NotRequired["str"]
-            """
-            Address line 1 (e.g., street, PO Box, or company name).
-            """
-            line2: NotRequired["str"]
-            """
-            Address line 2 (e.g., apartment, suite, unit, or building).
-            """
-            postal_code: NotRequired["str"]
-            """
-            ZIP or postal code.
-            """
-            state: NotRequired["str"]
-            """
-            State, county, province, or region.
-            """
+    class CreateParamsMandate(TypedDict):
+        acceptance: NotRequired["Source.CreateParamsMandateAcceptance"]
+        """
+        The parameters required to notify Stripe of a mandate acceptance or refusal by the customer.
+        """
+        amount: NotRequired["Literal['']|int"]
+        """
+        The amount specified by the mandate. (Leave null for a mandate covering all amounts)
+        """
+        currency: NotRequired["str"]
+        """
+        The currency specified by the mandate. (Must match `currency` of the source)
+        """
+        interval: NotRequired["Literal['one_time', 'scheduled', 'variable']"]
+        """
+        The interval of debits permitted by the mandate. Either `one_time` (just permitting a single debit), `scheduled` (with debits on an agreed schedule or for clearly-defined events), or `variable`(for debits with any frequency)
+        """
+        notification_method: NotRequired[
+            "Literal['deprecated_none', 'email', 'manual', 'none', 'stripe_email']"
+        ]
+        """
+        The method Stripe should use to notify the customer of upcoming debit instructions and/or mandate confirmation as required by the underlying debit network. Either `email` (an email is sent directly to the customer), `manual` (a `source.mandate_notification` event is sent to your webhooks endpoint and you should handle the notification) or `none` (the underlying debit network does not require any notification).
+        """
 
-        class CreateParamsMandate(TypedDict):
-            acceptance: NotRequired["Source.CreateParamsMandateAcceptance"]
-            """
-            The parameters required to notify Stripe of a mandate acceptance or refusal by the customer.
-            """
-            amount: NotRequired["Literal['']|int"]
-            """
-            The amount specified by the mandate. (Leave null for a mandate covering all amounts)
-            """
-            currency: NotRequired["str"]
-            """
-            The currency specified by the mandate. (Must match `currency` of the source)
-            """
-            interval: NotRequired[
-                "Literal['one_time', 'scheduled', 'variable']"
-            ]
-            """
-            The interval of debits permitted by the mandate. Either `one_time` (just permitting a single debit), `scheduled` (with debits on an agreed schedule or for clearly-defined events), or `variable`(for debits with any frequency)
-            """
-            notification_method: NotRequired[
-                "Literal['deprecated_none', 'email', 'manual', 'none', 'stripe_email']"
-            ]
-            """
-            The method Stripe should use to notify the customer of upcoming debit instructions and/or mandate confirmation as required by the underlying debit network. Either `email` (an email is sent directly to the customer), `manual` (a `source.mandate_notification` event is sent to your webhooks endpoint and you should handle the notification) or `none` (the underlying debit network does not require any notification).
-            """
+    class CreateParamsMandateAcceptance(TypedDict):
+        date: NotRequired["int"]
+        """
+        The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
+        """
+        ip: NotRequired["str"]
+        """
+        The IP address from which the mandate was accepted or refused by the customer.
+        """
+        offline: NotRequired["Source.CreateParamsMandateAcceptanceOffline"]
+        """
+        The parameters required to store a mandate accepted offline. Should only be set if `mandate[type]` is `offline`
+        """
+        online: NotRequired["Source.CreateParamsMandateAcceptanceOnline"]
+        """
+        The parameters required to store a mandate accepted online. Should only be set if `mandate[type]` is `online`
+        """
+        status: Literal["accepted", "pending", "refused", "revoked"]
+        """
+        The status of the mandate acceptance. Either `accepted` (the mandate was accepted) or `refused` (the mandate was refused).
+        """
+        type: NotRequired["Literal['offline', 'online']"]
+        """
+        The type of acceptance information included with the mandate. Either `online` or `offline`
+        """
+        user_agent: NotRequired["str"]
+        """
+        The user agent of the browser from which the mandate was accepted or refused by the customer.
+        """
 
-        class CreateParamsMandateAcceptance(TypedDict):
-            date: NotRequired["int"]
-            """
-            The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
-            """
-            ip: NotRequired["str"]
-            """
-            The IP address from which the mandate was accepted or refused by the customer.
-            """
-            offline: NotRequired["Source.CreateParamsMandateAcceptanceOffline"]
-            """
-            The parameters required to store a mandate accepted offline. Should only be set if `mandate[type]` is `offline`
-            """
-            online: NotRequired["Source.CreateParamsMandateAcceptanceOnline"]
-            """
-            The parameters required to store a mandate accepted online. Should only be set if `mandate[type]` is `online`
-            """
-            status: Literal["accepted", "pending", "refused", "revoked"]
-            """
-            The status of the mandate acceptance. Either `accepted` (the mandate was accepted) or `refused` (the mandate was refused).
-            """
-            type: NotRequired["Literal['offline', 'online']"]
-            """
-            The type of acceptance information included with the mandate. Either `online` or `offline`
-            """
-            user_agent: NotRequired["str"]
-            """
-            The user agent of the browser from which the mandate was accepted or refused by the customer.
-            """
+    class CreateParamsMandateAcceptanceOnline(TypedDict):
+        date: NotRequired["int"]
+        """
+        The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
+        """
+        ip: NotRequired["str"]
+        """
+        The IP address from which the mandate was accepted or refused by the customer.
+        """
+        user_agent: NotRequired["str"]
+        """
+        The user agent of the browser from which the mandate was accepted or refused by the customer.
+        """
 
-        class CreateParamsMandateAcceptanceOnline(TypedDict):
-            date: NotRequired["int"]
-            """
-            The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
-            """
-            ip: NotRequired["str"]
-            """
-            The IP address from which the mandate was accepted or refused by the customer.
-            """
-            user_agent: NotRequired["str"]
-            """
-            The user agent of the browser from which the mandate was accepted or refused by the customer.
-            """
+    class CreateParamsMandateAcceptanceOffline(TypedDict):
+        contact_email: str
+        """
+        An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
+        """
 
-        class CreateParamsMandateAcceptanceOffline(TypedDict):
-            contact_email: str
-            """
-            An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
-            """
+    class ListSourceTransactionsParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
-        class ListSourceTransactionsParams(RequestOptions):
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
+    class ModifyParams(RequestOptions):
+        amount: NotRequired["int"]
+        """
+        Amount associated with the source.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        mandate: NotRequired["Source.ModifyParamsMandate"]
+        """
+        Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        owner: NotRequired["Source.ModifyParamsOwner"]
+        """
+        Information about the owner of the payment instrument that may be used or required by particular source types.
+        """
+        source_order: NotRequired["Source.ModifyParamsSourceOrder"]
+        """
+        Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
+        """
 
-        class ModifyParams(RequestOptions):
-            amount: NotRequired["int"]
-            """
-            Amount associated with the source.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            mandate: NotRequired["Source.ModifyParamsMandate"]
-            """
-            Information about a mandate possibility attached to a source object (generally for bank debits) as well as its acceptance status.
-            """
-            metadata: NotRequired["Literal['']|Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            owner: NotRequired["Source.ModifyParamsOwner"]
-            """
-            Information about the owner of the payment instrument that may be used or required by particular source types.
-            """
-            source_order: NotRequired["Source.ModifyParamsSourceOrder"]
-            """
-            Information about the items and shipping associated with the source. Required for transactional credit (for example Klarna) sources before you can charge it.
-            """
+    class ModifyParamsSourceOrder(TypedDict):
+        items: NotRequired["List[Source.ModifyParamsSourceOrderItem]"]
+        """
+        List of items constituting the order.
+        """
+        shipping: NotRequired["Source.ModifyParamsSourceOrderShipping"]
+        """
+        Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
+        """
 
-        class ModifyParamsSourceOrder(TypedDict):
-            items: NotRequired["List[Source.ModifyParamsSourceOrderItem]"]
-            """
-            List of items constituting the order.
-            """
-            shipping: NotRequired["Source.ModifyParamsSourceOrderShipping"]
-            """
-            Shipping address for the order. Required if any of the SKUs are for products that have `shippable` set to true.
-            """
+    class ModifyParamsSourceOrderShipping(TypedDict):
+        address: "Source.ModifyParamsSourceOrderShippingAddress"
+        """
+        Shipping address.
+        """
+        carrier: NotRequired["str"]
+        """
+        The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
+        """
+        name: NotRequired["str"]
+        """
+        Recipient name.
+        """
+        phone: NotRequired["str"]
+        """
+        Recipient phone (including extension).
+        """
+        tracking_number: NotRequired["str"]
+        """
+        The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
+        """
 
-        class ModifyParamsSourceOrderShipping(TypedDict):
-            address: "Source.ModifyParamsSourceOrderShippingAddress"
-            """
-            Shipping address.
-            """
-            carrier: NotRequired["str"]
-            """
-            The delivery service that shipped a physical product, such as Fedex, UPS, USPS, etc.
-            """
-            name: NotRequired["str"]
-            """
-            Recipient name.
-            """
-            phone: NotRequired["str"]
-            """
-            Recipient phone (including extension).
-            """
-            tracking_number: NotRequired["str"]
-            """
-            The tracking number for a physical product, obtained from the delivery service. If multiple tracking numbers were generated for this purchase, please separate them with commas.
-            """
+    class ModifyParamsSourceOrderShippingAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: str
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
 
-        class ModifyParamsSourceOrderShippingAddress(TypedDict):
-            city: NotRequired["str"]
-            """
-            City, district, suburb, town, or village.
-            """
-            country: NotRequired["str"]
-            """
-            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            """
-            line1: str
-            """
-            Address line 1 (e.g., street, PO Box, or company name).
-            """
-            line2: NotRequired["str"]
-            """
-            Address line 2 (e.g., apartment, suite, unit, or building).
-            """
-            postal_code: NotRequired["str"]
-            """
-            ZIP or postal code.
-            """
-            state: NotRequired["str"]
-            """
-            State, county, province, or region.
-            """
+    class ModifyParamsSourceOrderItem(TypedDict):
+        amount: NotRequired["int"]
+        currency: NotRequired["str"]
+        description: NotRequired["str"]
+        parent: NotRequired["str"]
+        """
+        The ID of the SKU being ordered.
+        """
+        quantity: NotRequired["int"]
+        """
+        The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
+        """
+        type: NotRequired["Literal['discount', 'shipping', 'sku', 'tax']"]
 
-        class ModifyParamsSourceOrderItem(TypedDict):
-            amount: NotRequired["int"]
-            currency: NotRequired["str"]
-            description: NotRequired["str"]
-            parent: NotRequired["str"]
-            """
-            The ID of the SKU being ordered.
-            """
-            quantity: NotRequired["int"]
-            """
-            The quantity of this order item. When type is `sku`, this is the number of instances of the SKU to be ordered.
-            """
-            type: NotRequired["Literal['discount', 'shipping', 'sku', 'tax']"]
+    class ModifyParamsOwner(TypedDict):
+        address: NotRequired["Source.ModifyParamsOwnerAddress"]
+        """
+        Owner's address.
+        """
+        email: NotRequired["str"]
+        """
+        Owner's email address.
+        """
+        name: NotRequired["str"]
+        """
+        Owner's full name.
+        """
+        phone: NotRequired["str"]
+        """
+        Owner's phone number.
+        """
 
-        class ModifyParamsOwner(TypedDict):
-            address: NotRequired["Source.ModifyParamsOwnerAddress"]
-            """
-            Owner's address.
-            """
-            email: NotRequired["str"]
-            """
-            Owner's email address.
-            """
-            name: NotRequired["str"]
-            """
-            Owner's full name.
-            """
-            phone: NotRequired["str"]
-            """
-            Owner's phone number.
-            """
+    class ModifyParamsOwnerAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
 
-        class ModifyParamsOwnerAddress(TypedDict):
-            city: NotRequired["str"]
-            """
-            City, district, suburb, town, or village.
-            """
-            country: NotRequired["str"]
-            """
-            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            """
-            line1: NotRequired["str"]
-            """
-            Address line 1 (e.g., street, PO Box, or company name).
-            """
-            line2: NotRequired["str"]
-            """
-            Address line 2 (e.g., apartment, suite, unit, or building).
-            """
-            postal_code: NotRequired["str"]
-            """
-            ZIP or postal code.
-            """
-            state: NotRequired["str"]
-            """
-            State, county, province, or region.
-            """
+    class ModifyParamsMandate(TypedDict):
+        acceptance: NotRequired["Source.ModifyParamsMandateAcceptance"]
+        """
+        The parameters required to notify Stripe of a mandate acceptance or refusal by the customer.
+        """
+        amount: NotRequired["Literal['']|int"]
+        """
+        The amount specified by the mandate. (Leave null for a mandate covering all amounts)
+        """
+        currency: NotRequired["str"]
+        """
+        The currency specified by the mandate. (Must match `currency` of the source)
+        """
+        interval: NotRequired["Literal['one_time', 'scheduled', 'variable']"]
+        """
+        The interval of debits permitted by the mandate. Either `one_time` (just permitting a single debit), `scheduled` (with debits on an agreed schedule or for clearly-defined events), or `variable`(for debits with any frequency)
+        """
+        notification_method: NotRequired[
+            "Literal['deprecated_none', 'email', 'manual', 'none', 'stripe_email']"
+        ]
+        """
+        The method Stripe should use to notify the customer of upcoming debit instructions and/or mandate confirmation as required by the underlying debit network. Either `email` (an email is sent directly to the customer), `manual` (a `source.mandate_notification` event is sent to your webhooks endpoint and you should handle the notification) or `none` (the underlying debit network does not require any notification).
+        """
 
-        class ModifyParamsMandate(TypedDict):
-            acceptance: NotRequired["Source.ModifyParamsMandateAcceptance"]
-            """
-            The parameters required to notify Stripe of a mandate acceptance or refusal by the customer.
-            """
-            amount: NotRequired["Literal['']|int"]
-            """
-            The amount specified by the mandate. (Leave null for a mandate covering all amounts)
-            """
-            currency: NotRequired["str"]
-            """
-            The currency specified by the mandate. (Must match `currency` of the source)
-            """
-            interval: NotRequired[
-                "Literal['one_time', 'scheduled', 'variable']"
-            ]
-            """
-            The interval of debits permitted by the mandate. Either `one_time` (just permitting a single debit), `scheduled` (with debits on an agreed schedule or for clearly-defined events), or `variable`(for debits with any frequency)
-            """
-            notification_method: NotRequired[
-                "Literal['deprecated_none', 'email', 'manual', 'none', 'stripe_email']"
-            ]
-            """
-            The method Stripe should use to notify the customer of upcoming debit instructions and/or mandate confirmation as required by the underlying debit network. Either `email` (an email is sent directly to the customer), `manual` (a `source.mandate_notification` event is sent to your webhooks endpoint and you should handle the notification) or `none` (the underlying debit network does not require any notification).
-            """
+    class ModifyParamsMandateAcceptance(TypedDict):
+        date: NotRequired["int"]
+        """
+        The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
+        """
+        ip: NotRequired["str"]
+        """
+        The IP address from which the mandate was accepted or refused by the customer.
+        """
+        offline: NotRequired["Source.ModifyParamsMandateAcceptanceOffline"]
+        """
+        The parameters required to store a mandate accepted offline. Should only be set if `mandate[type]` is `offline`
+        """
+        online: NotRequired["Source.ModifyParamsMandateAcceptanceOnline"]
+        """
+        The parameters required to store a mandate accepted online. Should only be set if `mandate[type]` is `online`
+        """
+        status: Literal["accepted", "pending", "refused", "revoked"]
+        """
+        The status of the mandate acceptance. Either `accepted` (the mandate was accepted) or `refused` (the mandate was refused).
+        """
+        type: NotRequired["Literal['offline', 'online']"]
+        """
+        The type of acceptance information included with the mandate. Either `online` or `offline`
+        """
+        user_agent: NotRequired["str"]
+        """
+        The user agent of the browser from which the mandate was accepted or refused by the customer.
+        """
 
-        class ModifyParamsMandateAcceptance(TypedDict):
-            date: NotRequired["int"]
-            """
-            The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
-            """
-            ip: NotRequired["str"]
-            """
-            The IP address from which the mandate was accepted or refused by the customer.
-            """
-            offline: NotRequired["Source.ModifyParamsMandateAcceptanceOffline"]
-            """
-            The parameters required to store a mandate accepted offline. Should only be set if `mandate[type]` is `offline`
-            """
-            online: NotRequired["Source.ModifyParamsMandateAcceptanceOnline"]
-            """
-            The parameters required to store a mandate accepted online. Should only be set if `mandate[type]` is `online`
-            """
-            status: Literal["accepted", "pending", "refused", "revoked"]
-            """
-            The status of the mandate acceptance. Either `accepted` (the mandate was accepted) or `refused` (the mandate was refused).
-            """
-            type: NotRequired["Literal['offline', 'online']"]
-            """
-            The type of acceptance information included with the mandate. Either `online` or `offline`
-            """
-            user_agent: NotRequired["str"]
-            """
-            The user agent of the browser from which the mandate was accepted or refused by the customer.
-            """
+    class ModifyParamsMandateAcceptanceOnline(TypedDict):
+        date: NotRequired["int"]
+        """
+        The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
+        """
+        ip: NotRequired["str"]
+        """
+        The IP address from which the mandate was accepted or refused by the customer.
+        """
+        user_agent: NotRequired["str"]
+        """
+        The user agent of the browser from which the mandate was accepted or refused by the customer.
+        """
 
-        class ModifyParamsMandateAcceptanceOnline(TypedDict):
-            date: NotRequired["int"]
-            """
-            The Unix timestamp (in seconds) when the mandate was accepted or refused by the customer.
-            """
-            ip: NotRequired["str"]
-            """
-            The IP address from which the mandate was accepted or refused by the customer.
-            """
-            user_agent: NotRequired["str"]
-            """
-            The user agent of the browser from which the mandate was accepted or refused by the customer.
-            """
+    class ModifyParamsMandateAcceptanceOffline(TypedDict):
+        contact_email: str
+        """
+        An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
+        """
 
-        class ModifyParamsMandateAcceptanceOffline(TypedDict):
-            contact_email: str
-            """
-            An email to contact you with if a copy of the mandate is requested, required if `type` is `offline`.
-            """
+    class RetrieveParams(RequestOptions):
+        client_secret: NotRequired["str"]
+        """
+        The client secret of the source. Required if a publishable key is used to retrieve the source.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class RetrieveParams(RequestOptions):
-            client_secret: NotRequired["str"]
-            """
-            The client secret of the source. Required if a publishable key is used to retrieve the source.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-
-        class VerifyParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            values: List[str]
-            """
-            The values needed to verify the source.
-            """
+    class VerifyParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        values: List[str]
+        """
+        The values needed to verify the source.
+        """
 
     ach_credit_transfer: Optional[AchCreditTransfer]
     ach_debit: Optional[AchDebit]

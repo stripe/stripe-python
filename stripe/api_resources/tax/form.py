@@ -84,51 +84,49 @@ class Form(ListableAPIResource["Form"]):
         Year represented by the information reported on the tax form.
         """
 
-    if TYPE_CHECKING:
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        payee: "Form.ListParamsPayee"
+        """
+        The payee whose volume is represented on the tax form.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+        type: NotRequired[
+            "Literal['us_1099_k', 'us_1099_misc', 'us_1099_nec']"
+        ]
+        """
+        An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future tax form types. If your integration expects only one type of tax form in the response, make sure to provide a type value in the request.
+        """
 
-        class ListParams(RequestOptions):
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            payee: "Form.ListParamsPayee"
-            """
-            The payee whose volume is represented on the tax form.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
-            type: NotRequired[
-                "Literal['us_1099_k', 'us_1099_misc', 'us_1099_nec']"
-            ]
-            """
-            An optional filter on the list, based on the object `type` field. Without the filter, the list includes all current and future tax form types. If your integration expects only one type of tax form in the response, make sure to provide a type value in the request.
-            """
+    class ListParamsPayee(TypedDict):
+        account: NotRequired["str"]
+        """
+        The ID of the Stripe account whose forms will be retrieved.
+        """
+        type: NotRequired["Literal['account']"]
+        """
+        Specifies the payee type. Always `account`.
+        """
 
-        class ListParamsPayee(TypedDict):
-            account: NotRequired["str"]
-            """
-            The ID of the Stripe account whose forms will be retrieved.
-            """
-            type: NotRequired["Literal['account']"]
-            """
-            Specifies the payee type. Always `account`.
-            """
-
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     corrected_by: Optional[ExpandableField["Form"]]
     """

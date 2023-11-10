@@ -17,17 +17,16 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["customer_session"]] = "customer_session"
-    if TYPE_CHECKING:
 
-        class CreateParams(RequestOptions):
-            customer: str
-            """
-            The ID of an existing customer for which to create the customer session.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class CreateParams(RequestOptions):
+        customer: str
+        """
+        The ID of an existing customer for which to create the customer session.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     client_secret: str
     """

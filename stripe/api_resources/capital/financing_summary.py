@@ -73,13 +73,11 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
             "current_repayment_interval": CurrentRepaymentInterval,
         }
 
-    if TYPE_CHECKING:
-
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     details: Optional[Details]
     """

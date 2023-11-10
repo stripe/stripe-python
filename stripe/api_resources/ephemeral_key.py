@@ -11,13 +11,12 @@ from urllib.parse import quote_plus
 
 class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
     OBJECT_NAME: ClassVar[Literal["ephemeral_key"]] = "ephemeral_key"
-    if TYPE_CHECKING:
 
-        class DeleteParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class DeleteParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     created: int
     """
