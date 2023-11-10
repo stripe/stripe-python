@@ -392,7 +392,9 @@ class Plan(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Plan.CreateParams"]
+        **params: Unpack[
+            "Plan.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Plan":
         """
         You can now model subscriptions more flexibly using the [Prices API](https://stripe.com/docs/api#prices). It replaces the Plans API and is backwards compatible to simplify your migration.
@@ -457,7 +459,9 @@ class Plan(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Plan.ListParams"]
+        **params: Unpack[
+            "Plan.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Plan"]:
         """
         Returns a list of your plans.

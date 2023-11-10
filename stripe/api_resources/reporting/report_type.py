@@ -79,7 +79,9 @@ class ReportType(ListableAPIResource["ReportType"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ReportType.ListParams"]
+        **params: Unpack[
+            "ReportType.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ReportType"]:
         """
         Returns a full list of Report Types.

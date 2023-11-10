@@ -223,7 +223,9 @@ class Location(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Location.CreateParams"]
+        **params: Unpack[
+            "Location.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Location":
         """
         Creates a new Location object.
@@ -291,7 +293,9 @@ class Location(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Location.ListParams"]
+        **params: Unpack[
+            "Location.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Location"]:
         """
         Returns a list of Location objects.

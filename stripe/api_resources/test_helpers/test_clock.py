@@ -125,7 +125,9 @@ class TestClock(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["TestClock.AdvanceParams"]
+        **params: Unpack[
+            "TestClock.AdvanceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -151,7 +153,9 @@ class TestClock(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["TestClock.AdvanceParams"]
+        **params: Unpack[
+            "TestClock.AdvanceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -162,7 +166,9 @@ class TestClock(
     def advance(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["TestClock.AdvanceParams"]
+        **params: Unpack[
+            "TestClock.AdvanceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -173,7 +179,9 @@ class TestClock(
     def advance(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["TestClock.AdvanceParams"]
+        **params: Unpack[
+            "TestClock.AdvanceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -197,7 +205,9 @@ class TestClock(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["TestClock.CreateParams"]
+        **params: Unpack[
+            "TestClock.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TestClock":
         """
         Creates a new test clock that can be attached to new customers and quotes.
@@ -266,7 +276,9 @@ class TestClock(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["TestClock.ListParams"]
+        **params: Unpack[
+            "TestClock.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["TestClock"]:
         """
         Returns a list of your test clocks.

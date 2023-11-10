@@ -260,7 +260,9 @@ class TaxRate(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["TaxRate.CreateParams"]
+        **params: Unpack[
+            "TaxRate.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TaxRate":
         """
         Creates a new tax rate.
@@ -284,7 +286,9 @@ class TaxRate(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["TaxRate.ListParams"]
+        **params: Unpack[
+            "TaxRate.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["TaxRate"]:
         """
         Returns a list of your tax rates. Tax rates are returned sorted by creation date, with the most recently created tax rates appearing first.

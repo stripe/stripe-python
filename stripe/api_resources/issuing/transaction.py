@@ -774,7 +774,9 @@ class Transaction(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transaction.ListParams"]
+        **params: Unpack[
+            "Transaction.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Transaction"]:
         """
         Returns a list of Issuing Transaction objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -829,7 +831,9 @@ class Transaction(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["Transaction.CreateForceCaptureParams"]
+            **params: Unpack[
+                "Transaction.CreateForceCaptureParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "Transaction":
             """
             Allows the user to capture an arbitrary amount, also known as a forced capture.
@@ -852,7 +856,9 @@ class Transaction(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["Transaction.CreateUnlinkedRefundParams"]
+            **params: Unpack[
+                "Transaction.CreateUnlinkedRefundParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "Transaction":
             """
             Allows the user to refund an arbitrary amount, also known as a unlinked refund.
@@ -876,7 +882,9 @@ class Transaction(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["Transaction.RefundParams"]
+            **params: Unpack[
+                "Transaction.RefundParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -902,7 +910,9 @@ class Transaction(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["Transaction.RefundParams"]
+            **params: Unpack[
+                "Transaction.RefundParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -913,7 +923,9 @@ class Transaction(
         def refund(
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["Transaction.RefundParams"]
+            **params: Unpack[
+                "Transaction.RefundParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.
@@ -924,7 +936,9 @@ class Transaction(
         def refund(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["Transaction.RefundParams"]
+            **params: Unpack[
+                "Transaction.RefundParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "Transaction":
             """
             Refund a test-mode Transaction.

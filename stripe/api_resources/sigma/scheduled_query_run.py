@@ -103,7 +103,9 @@ class ScheduledQueryRun(ListableAPIResource["ScheduledQueryRun"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ScheduledQueryRun.ListParams"]
+        **params: Unpack[
+            "ScheduledQueryRun.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ScheduledQueryRun"]:
         """
         Returns a list of scheduled query runs.

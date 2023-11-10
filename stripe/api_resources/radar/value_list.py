@@ -197,7 +197,9 @@ class ValueList(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ValueList.CreateParams"]
+        **params: Unpack[
+            "ValueList.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ValueList":
         """
         Creates a new ValueList object, which can then be referenced in rules.
@@ -266,7 +268,9 @@ class ValueList(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ValueList.ListParams"]
+        **params: Unpack[
+            "ValueList.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ValueList"]:
         """
         Returns a list of ValueList objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.

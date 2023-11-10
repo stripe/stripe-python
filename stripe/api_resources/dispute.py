@@ -451,7 +451,9 @@ class Dispute(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Dispute.CloseParams"]
+        **params: Unpack[
+            "Dispute.CloseParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -479,7 +481,9 @@ class Dispute(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Dispute.CloseParams"]
+        **params: Unpack[
+            "Dispute.CloseParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -492,7 +496,9 @@ class Dispute(
     def close(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Dispute.CloseParams"]
+        **params: Unpack[
+            "Dispute.CloseParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -505,7 +511,9 @@ class Dispute(
     def close(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Dispute.CloseParams"]
+        **params: Unpack[
+            "Dispute.CloseParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Dispute":
         """
         Closing the dispute for a charge indicates that you do not have any evidence to submit and are essentially dismissing the dispute, acknowledging it as lost.
@@ -530,7 +538,9 @@ class Dispute(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Dispute.ListParams"]
+        **params: Unpack[
+            "Dispute.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Dispute"]:
         """
         Returns a list of your disputes.

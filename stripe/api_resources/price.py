@@ -734,7 +734,9 @@ class Price(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Price.CreateParams"]
+        **params: Unpack[
+            "Price.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Price":
         """
         Creates a new price for an existing product. The price can be recurring or one-time.
@@ -758,7 +760,9 @@ class Price(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Price.ListParams"]
+        **params: Unpack[
+            "Price.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Price"]:
         """
         Returns a list of your prices.

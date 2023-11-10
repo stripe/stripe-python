@@ -190,7 +190,9 @@ class Review(ListableAPIResource["Review"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Review.ApproveParams"]
+        **params: Unpack[
+            "Review.ApproveParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -216,7 +218,9 @@ class Review(ListableAPIResource["Review"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Review.ApproveParams"]
+        **params: Unpack[
+            "Review.ApproveParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -227,7 +231,9 @@ class Review(ListableAPIResource["Review"]):
     def approve(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Review.ApproveParams"]
+        **params: Unpack[
+            "Review.ApproveParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -238,7 +244,9 @@ class Review(ListableAPIResource["Review"]):
     def approve(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Review.ApproveParams"]
+        **params: Unpack[
+            "Review.ApproveParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -261,7 +269,9 @@ class Review(ListableAPIResource["Review"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Review.ListParams"]
+        **params: Unpack[
+            "Review.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Review"]:
         """
         Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
