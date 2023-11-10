@@ -51,65 +51,61 @@ class Session(CreateableAPIResource["Session"]):
         List of countries from which to filter accounts.
         """
 
-    if TYPE_CHECKING:
+    class CreateParams(RequestOptions):
+        account_holder: "Session.CreateParamsAccountHolder"
+        """
+        The account holder to link accounts for.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        filters: NotRequired["Session.CreateParamsFilters"]
+        """
+        Filters to restrict the kinds of accounts to collect.
+        """
+        permissions: List[
+            Literal["balances", "ownership", "payment_method", "transactions"]
+        ]
+        """
+        List of data features that you would like to request access to.
 
-        class CreateParams(RequestOptions):
-            account_holder: "Session.CreateParamsAccountHolder"
-            """
-            The account holder to link accounts for.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            filters: NotRequired["Session.CreateParamsFilters"]
-            """
-            Filters to restrict the kinds of accounts to collect.
-            """
-            permissions: List[
-                Literal[
-                    "balances", "ownership", "payment_method", "transactions"
-                ]
-            ]
-            """
-            List of data features that you would like to request access to.
+        Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
+        """
+        prefetch: NotRequired["List[Literal['balances', 'ownership']]"]
+        """
+        List of data features that you would like to retrieve upon account creation.
+        """
+        return_url: NotRequired["str"]
+        """
+        For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
+        """
 
-            Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
-            """
-            prefetch: NotRequired["List[Literal['balances', 'ownership']]"]
-            """
-            List of data features that you would like to retrieve upon account creation.
-            """
-            return_url: NotRequired["str"]
-            """
-            For webview integrations only. Upon completing OAuth login in the native browser, the user will be redirected to this URL to return to your app.
-            """
+    class CreateParamsFilters(TypedDict):
+        countries: List[str]
+        """
+        List of countries from which to collect accounts.
+        """
 
-        class CreateParamsFilters(TypedDict):
-            countries: List[str]
-            """
-            List of countries from which to collect accounts.
-            """
+    class CreateParamsAccountHolder(TypedDict):
+        account: NotRequired["str"]
+        """
+        The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.
+        """
+        customer: NotRequired["str"]
+        """
+        The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
+        """
+        type: Literal["account", "customer"]
+        """
+        Type of account holder to collect accounts for.
+        """
 
-        class CreateParamsAccountHolder(TypedDict):
-            account: NotRequired["str"]
-            """
-            The ID of the Stripe account whose accounts will be retrieved. Should only be present if `type` is `account`.
-            """
-            customer: NotRequired["str"]
-            """
-            The ID of the Stripe customer whose accounts will be retrieved. Should only be present if `type` is `customer`.
-            """
-            type: Literal["account", "customer"]
-            """
-            Type of account holder to collect accounts for.
-            """
-
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     account_holder: Optional[AccountHolder]
     """

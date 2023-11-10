@@ -161,13 +161,11 @@ class Balance(SingletonAPIResource["Balance"]):
         source_types: Optional[SourceTypes]
         _inner_class_types = {"source_types": SourceTypes}
 
-    if TYPE_CHECKING:
-
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     available: List[Available]
     """
