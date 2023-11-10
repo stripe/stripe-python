@@ -279,10 +279,8 @@ class BankAccount(
         """
         _inner_class_types = {"errors": Error}
 
-    if TYPE_CHECKING:
-
-        class DeleteParams(RequestOptions):
-            pass
+    class DeleteParams(RequestOptions):
+        pass
 
     account: Optional[ExpandableField["Account"]]
     """

@@ -22,19 +22,18 @@ class ReportType(ListableAPIResource["ReportType"]):
     OBJECT_NAME: ClassVar[
         Literal["reporting.report_type"]
     ] = "reporting.report_type"
-    if TYPE_CHECKING:
 
-        class ListParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class ListParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     data_available_end: int
     """
@@ -79,9 +78,7 @@ class ReportType(ListableAPIResource["ReportType"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ReportType.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["ReportType.ListParams"]
     ) -> ListObject["ReportType"]:
         """
         Returns a full list of Report Types.

@@ -194,73 +194,71 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
             "wallet_provider": WalletProvider,
         }
 
-    if TYPE_CHECKING:
+    class ListParams(RequestOptions):
+        card: str
+        """
+        The Issuing card identifier to list tokens for.
+        """
+        created: NotRequired["Token.ListParamsCreated|int"]
+        """
+        Select Issuing tokens that were created during the given date interval.
+        """
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+        status: NotRequired[
+            "Literal['active', 'deleted', 'requested', 'suspended']"
+        ]
+        """
+        Select Issuing tokens with the given status.
+        """
 
-        class ListParams(RequestOptions):
-            card: str
-            """
-            The Issuing card identifier to list tokens for.
-            """
-            created: NotRequired["Token.ListParamsCreated|int"]
-            """
-            Select Issuing tokens that were created during the given date interval.
-            """
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
-            status: NotRequired[
-                "Literal['active', 'deleted', 'requested', 'suspended']"
-            ]
-            """
-            Select Issuing tokens with the given status.
-            """
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
+        """
 
-        class ListParamsCreated(TypedDict):
-            gt: NotRequired["int"]
-            """
-            Minimum value to filter by (exclusive)
-            """
-            gte: NotRequired["int"]
-            """
-            Minimum value to filter by (inclusive)
-            """
-            lt: NotRequired["int"]
-            """
-            Maximum value to filter by (exclusive)
-            """
-            lte: NotRequired["int"]
-            """
-            Maximum value to filter by (inclusive)
-            """
+    class ModifyParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        status: Literal["active", "deleted", "suspended"]
+        """
+        Specifies which status the token should be updated to.
+        """
 
-        class ModifyParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            status: Literal["active", "deleted", "suspended"]
-            """
-            Specifies which status the token should be updated to.
-            """
-
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     card: ExpandableField["Card"]
     """
@@ -316,9 +314,7 @@ class Token(ListableAPIResource["Token"], UpdateableAPIResource["Token"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Token.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Token.ListParams"]
     ) -> ListObject["Token"]:
         """
         Lists all Issuing Token objects for a given card.

@@ -99,69 +99,67 @@ class PaymentMethodDomain(
         """
         _inner_class_types = {"status_details": StatusDetails}
 
-    if TYPE_CHECKING:
+    class CreateParams(RequestOptions):
+        domain_name: str
+        """
+        The domain name that this payment method domain object represents.
+        """
+        enabled: NotRequired["bool"]
+        """
+        Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class CreateParams(RequestOptions):
-            domain_name: str
-            """
-            The domain name that this payment method domain object represents.
-            """
-            enabled: NotRequired["bool"]
-            """
-            Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class ListParams(RequestOptions):
+        domain_name: NotRequired["str"]
+        """
+        The domain name that this payment method domain object represents.
+        """
+        enabled: NotRequired["bool"]
+        """
+        Whether this payment method domain is enabled. If the domain is not enabled, payment methods will not appear in Elements
+        """
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
-        class ListParams(RequestOptions):
-            domain_name: NotRequired["str"]
-            """
-            The domain name that this payment method domain object represents.
-            """
-            enabled: NotRequired["bool"]
-            """
-            Whether this payment method domain is enabled. If the domain is not enabled, payment methods will not appear in Elements
-            """
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
+    class ModifyParams(RequestOptions):
+        enabled: NotRequired["bool"]
+        """
+        Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class ModifyParams(RequestOptions):
-            enabled: NotRequired["bool"]
-            """
-            Whether this payment method domain is enabled. If the domain is not enabled, payment methods that require a payment method domain will not appear in Elements.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-
-        class ValidateParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class ValidateParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     apple_pay: ApplePay
     """
@@ -211,9 +209,7 @@ class PaymentMethodDomain(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethodDomain.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentMethodDomain.CreateParams"]
     ) -> "PaymentMethodDomain":
         """
         Creates a payment method domain.
@@ -237,9 +233,7 @@ class PaymentMethodDomain(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethodDomain.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentMethodDomain.ListParams"]
     ) -> ListObject["PaymentMethodDomain"]:
         """
         Lists the details of existing payment method domains.
@@ -292,9 +286,7 @@ class PaymentMethodDomain(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethodDomain.ValidateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentMethodDomain.ValidateParams"]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -327,9 +319,7 @@ class PaymentMethodDomain(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethodDomain.ValidateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentMethodDomain.ValidateParams"]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -345,9 +335,7 @@ class PaymentMethodDomain(
     def validate(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethodDomain.ValidateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentMethodDomain.ValidateParams"]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -363,9 +351,7 @@ class PaymentMethodDomain(
     def validate(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "PaymentMethodDomain.ValidateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["PaymentMethodDomain.ValidateParams"]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.

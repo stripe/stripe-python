@@ -111,87 +111,85 @@ class Account(ListableAPIResource["Account"]):
         The status of the last refresh attempt.
         """
 
-    if TYPE_CHECKING:
+    class DisconnectParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class DisconnectParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class ListParams(RequestOptions):
+        account_holder: NotRequired["Account.ListParamsAccountHolder"]
+        """
+        If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive.
+        """
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        session: NotRequired["str"]
+        """
+        If present, only return accounts that were collected as part of the given session.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
-        class ListParams(RequestOptions):
-            account_holder: NotRequired["Account.ListParamsAccountHolder"]
-            """
-            If present, only return accounts that belong to the specified account holder. `account_holder[customer]` and `account_holder[account]` are mutually exclusive.
-            """
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            session: NotRequired["str"]
-            """
-            If present, only return accounts that were collected as part of the given session.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
+    class ListParamsAccountHolder(TypedDict):
+        account: NotRequired["str"]
+        """
+        The ID of the Stripe account whose accounts will be retrieved.
+        """
+        customer: NotRequired["str"]
+        """
+        The ID of the Stripe customer whose accounts will be retrieved.
+        """
 
-        class ListParamsAccountHolder(TypedDict):
-            account: NotRequired["str"]
-            """
-            The ID of the Stripe account whose accounts will be retrieved.
-            """
-            customer: NotRequired["str"]
-            """
-            The ID of the Stripe customer whose accounts will be retrieved.
-            """
+    class ListOwnersParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        ownership: str
+        """
+        The ID of the ownership object to fetch owners from.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
-        class ListOwnersParams(RequestOptions):
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            ownership: str
-            """
-            The ID of the ownership object to fetch owners from.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
+    class RefreshAccountParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        features: List[Literal["balance", "ownership"]]
+        """
+        The list of account features that you would like to refresh.
+        """
 
-        class RefreshAccountParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            features: List[Literal["balance", "ownership"]]
-            """
-            The list of account features that you would like to refresh.
-            """
-
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     account_holder: Optional[AccountHolder]
     """
@@ -293,9 +291,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Account.DisconnectParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Account.DisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -321,9 +317,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Account.DisconnectParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Account.DisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -334,9 +328,7 @@ class Account(ListableAPIResource["Account"]):
     def disconnect(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Account.DisconnectParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Account.DisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -347,9 +339,7 @@ class Account(ListableAPIResource["Account"]):
     def disconnect(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Account.DisconnectParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Account.DisconnectParams"]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -372,9 +362,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Account.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Account.ListParams"]
     ) -> ListObject["Account"]:
         """
         Returns a list of Financial Connections Account objects.
@@ -403,9 +391,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Account.ListOwnersParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Account.ListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -431,9 +417,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Account.ListOwnersParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Account.ListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -444,9 +428,7 @@ class Account(ListableAPIResource["Account"]):
     def list_owners(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Account.ListOwnersParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Account.ListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -457,9 +439,7 @@ class Account(ListableAPIResource["Account"]):
     def list_owners(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Account.ListOwnersParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Account.ListOwnersParams"]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -483,9 +463,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Account.RefreshAccountParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Account.RefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -511,9 +489,7 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Account.RefreshAccountParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Account.RefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -524,9 +500,7 @@ class Account(ListableAPIResource["Account"]):
     def refresh_account(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Account.RefreshAccountParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Account.RefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -537,9 +511,7 @@ class Account(ListableAPIResource["Account"]):
     def refresh_account(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack[
-            "Account.RefreshAccountParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["Account.RefreshAccountParams"]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.

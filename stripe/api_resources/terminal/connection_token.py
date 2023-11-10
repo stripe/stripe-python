@@ -16,17 +16,16 @@ class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
     OBJECT_NAME: ClassVar[
         Literal["terminal.connection_token"]
     ] = "terminal.connection_token"
-    if TYPE_CHECKING:
 
-        class CreateParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            location: NotRequired["str"]
-            """
-            The id of the location that this connection token is scoped to. If specified the connection token will only be usable with readers assigned to that location, otherwise the connection token will be usable with all readers. Note that location scoping only applies to internet-connected readers. For more details, see [the docs on scoping connection tokens](https://stripe.com/docs/terminal/fleet/locations#connection-tokens).
-            """
+    class CreateParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        location: NotRequired["str"]
+        """
+        The id of the location that this connection token is scoped to. If specified the connection token will only be usable with readers assigned to that location, otherwise the connection token will be usable with all readers. Note that location scoping only applies to internet-connected readers. For more details, see [the docs on scoping connection tokens](https://stripe.com/docs/terminal/fleet/locations#connection-tokens).
+        """
 
     location: Optional[str]
     """
@@ -48,9 +47,7 @@ class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ConnectionToken.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["ConnectionToken.CreateParams"]
     ) -> "ConnectionToken":
         """
         To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.

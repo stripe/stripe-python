@@ -15,33 +15,32 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["account_link"]] = "account_link"
-    if TYPE_CHECKING:
 
-        class CreateParams(RequestOptions):
-            account: str
-            """
-            The identifier of the account to create an account link for.
-            """
-            collect: NotRequired["Literal['currently_due', 'eventually_due']"]
-            """
-            Which information the platform needs to collect from the user. One of `currently_due` or `eventually_due`. Default is `currently_due`.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            refresh_url: NotRequired["str"]
-            """
-            The URL the user will be redirected to if the account link is expired, has been previously-visited, or is otherwise invalid. The URL you specify should attempt to generate a new account link with the same parameters used to create the original account link, then redirect the user to the new account link's URL so they can continue with Connect Onboarding. If a new account link cannot be generated or the redirect fails you should display a useful error to the user.
-            """
-            return_url: NotRequired["str"]
-            """
-            The URL that the user will be redirected to upon leaving or completing the linked flow.
-            """
-            type: Literal["account_onboarding", "account_update"]
-            """
-            The type of account link the user is requesting. Possible values are `account_onboarding` or `account_update`.
-            """
+    class CreateParams(RequestOptions):
+        account: str
+        """
+        The identifier of the account to create an account link for.
+        """
+        collect: NotRequired["Literal['currently_due', 'eventually_due']"]
+        """
+        Which information the platform needs to collect from the user. One of `currently_due` or `eventually_due`. Default is `currently_due`.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        refresh_url: NotRequired["str"]
+        """
+        The URL the user will be redirected to if the account link is expired, has been previously-visited, or is otherwise invalid. The URL you specify should attempt to generate a new account link with the same parameters used to create the original account link, then redirect the user to the new account link's URL so they can continue with Connect Onboarding. If a new account link cannot be generated or the redirect fails you should display a useful error to the user.
+        """
+        return_url: NotRequired["str"]
+        """
+        The URL that the user will be redirected to upon leaving or completing the linked flow.
+        """
+        type: Literal["account_onboarding", "account_update"]
+        """
+        The type of account link the user is requesting. Possible values are `account_onboarding` or `account_update`.
+        """
 
     created: int
     """
@@ -67,9 +66,7 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "AccountLink.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["AccountLink.CreateParams"]
     ) -> "AccountLink":
         """
         Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.

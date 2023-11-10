@@ -36,35 +36,33 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         account_onboarding: AccountOnboarding
         _inner_class_types = {"account_onboarding": AccountOnboarding}
 
-    if TYPE_CHECKING:
+    class CreateParams(RequestOptions):
+        account: str
+        """
+        The identifier of the account to create an Account Session for.
+        """
+        components: "AccountSession.CreateParamsComponents"
+        """
+        Each key of the dictionary represents an embedded component, and each embedded component maps to its configuration (e.g. whether it has been enabled or not).
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class CreateParams(RequestOptions):
-            account: str
-            """
-            The identifier of the account to create an Account Session for.
-            """
-            components: "AccountSession.CreateParamsComponents"
-            """
-            Each key of the dictionary represents an embedded component, and each embedded component maps to its configuration (e.g. whether it has been enabled or not).
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class CreateParamsComponents(TypedDict):
+        account_onboarding: NotRequired[
+            "AccountSession.CreateParamsComponentsAccountOnboarding"
+        ]
+        """
+        Configuration for the account onboarding embedded component.
+        """
 
-        class CreateParamsComponents(TypedDict):
-            account_onboarding: NotRequired[
-                "AccountSession.CreateParamsComponentsAccountOnboarding"
-            ]
-            """
-            Configuration for the account onboarding embedded component.
-            """
-
-        class CreateParamsComponentsAccountOnboarding(TypedDict):
-            enabled: bool
-            """
-            Whether the embedded component is enabled.
-            """
+    class CreateParamsComponentsAccountOnboarding(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
 
     account: str
     """
@@ -99,9 +97,7 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "AccountSession.CreateParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["AccountSession.CreateParams"]
     ) -> "AccountSession":
         """
         Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.

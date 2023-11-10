@@ -157,99 +157,95 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         Set if a ReceivedDebit can't be reversed.
         """
 
-    if TYPE_CHECKING:
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        financial_account: str
+        """
+        The FinancialAccount that funds were pulled from.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+        status: NotRequired["Literal['failed', 'succeeded']"]
+        """
+        Only return ReceivedDebits that have the given status: `succeeded` or `failed`.
+        """
 
-        class ListParams(RequestOptions):
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            financial_account: str
-            """
-            The FinancialAccount that funds were pulled from.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
-            status: NotRequired["Literal['failed', 'succeeded']"]
-            """
-            Only return ReceivedDebits that have the given status: `succeeded` or `failed`.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class CreateParams(RequestOptions):
+        amount: int
+        """
+        Amount (in cents) to be transferred.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        description: NotRequired["str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        financial_account: str
+        """
+        The FinancialAccount to pull funds from.
+        """
+        initiating_payment_method_details: NotRequired[
+            "ReceivedDebit.CreateParamsInitiatingPaymentMethodDetails"
+        ]
+        """
+        Initiating payment method details for the object.
+        """
+        network: Literal["ach"]
+        """
+        The rails used for the object.
+        """
 
-        class CreateParams(RequestOptions):
-            amount: int
-            """
-            Amount (in cents) to be transferred.
-            """
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            description: NotRequired["str"]
-            """
-            An arbitrary string attached to the object. Often useful for displaying to users.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            financial_account: str
-            """
-            The FinancialAccount to pull funds from.
-            """
-            initiating_payment_method_details: NotRequired[
-                "ReceivedDebit.CreateParamsInitiatingPaymentMethodDetails"
-            ]
-            """
-            Initiating payment method details for the object.
-            """
-            network: Literal["ach"]
-            """
-            The rails used for the object.
-            """
+    class CreateParamsInitiatingPaymentMethodDetails(TypedDict):
+        type: Literal["us_bank_account"]
+        """
+        The source type.
+        """
+        us_bank_account: NotRequired[
+            "ReceivedDebit.CreateParamsInitiatingPaymentMethodDetailsUsBankAccount"
+        ]
+        """
+        Optional fields for `us_bank_account`.
+        """
 
-        class CreateParamsInitiatingPaymentMethodDetails(TypedDict):
-            type: Literal["us_bank_account"]
-            """
-            The source type.
-            """
-            us_bank_account: NotRequired[
-                "ReceivedDebit.CreateParamsInitiatingPaymentMethodDetailsUsBankAccount"
-            ]
-            """
-            Optional fields for `us_bank_account`.
-            """
-
-        class CreateParamsInitiatingPaymentMethodDetailsUsBankAccount(
-            TypedDict,
-        ):
-            account_holder_name: NotRequired["str"]
-            """
-            The bank account holder's name.
-            """
-            account_number: NotRequired["str"]
-            """
-            The bank account number.
-            """
-            routing_number: NotRequired["str"]
-            """
-            The bank account's routing number.
-            """
+    class CreateParamsInitiatingPaymentMethodDetailsUsBankAccount(TypedDict):
+        account_holder_name: NotRequired["str"]
+        """
+        The bank account holder's name.
+        """
+        account_number: NotRequired["str"]
+        """
+        The bank account number.
+        """
+        routing_number: NotRequired["str"]
+        """
+        The bank account's routing number.
+        """
 
     amount: int
     """
@@ -320,9 +316,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "ReceivedDebit.ListParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
+        **params: Unpack["ReceivedDebit.ListParams"]
     ) -> ListObject["ReceivedDebit"]:
         """
         Returns a list of ReceivedDebits.
@@ -364,9 +358,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack[
-                "ReceivedDebit.CreateParams"
-            ]  # pyright: ignore[reportGeneralTypeIssues]
+            **params: Unpack["ReceivedDebit.CreateParams"]
         ) -> "ReceivedDebit":
             """
             Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.
