@@ -791,7 +791,7 @@ class Price(
         **params: Unpack["Price.ListParams"]
     ) -> ListObject["Price"]:
         """
-        Returns a list of your prices.
+        Returns a list of your active prices. For the list of inactive prices, set active to false.
         """
         result = cls._static_request(
             "get",
