@@ -1,6 +1,6 @@
 VENV_NAME?=venv
 PIP?=pip
-PYTHON?=python3
+PYTHON?=python3.10
 
 venv: $(VENV_NAME)/bin/activate
 
