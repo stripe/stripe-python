@@ -1,13 +1,10 @@
 import atexit
 import os
 import sys
-from distutils.version import StrictVersion
-
 import pytest
 
 import stripe
-from urllib.request import urlopen
-from urllib.error import HTTPError
+import requests
 
 from tests.request_mock import RequestMock
 from tests.stripe_mock import StripeMock
@@ -30,21 +27,7 @@ def stop_stripe_mock():
 def pytest_configure(config):
     if not config.getoption("--nomock"):
         try:
-            resp = urlopen("http://localhost:%s/" % MOCK_PORT)
-            info = resp.info()
-            version = info.get("Stripe-Mock-Version")
-            if version != "master" and StrictVersion(version) < StrictVersion(
-                MOCK_MINIMUM_VERSION
-            ):
-                sys.exit(
-                    "Your version of stripe-mock (%s) is too old. The minimum "
-                    "version to run this test suite is %s. Please "
-                    "see its repository for upgrade instructions."
-                    % (version, MOCK_MINIMUM_VERSION)
-                )
-
-        except HTTPError as e:
-            info = e.info()
+            requests.get("http://localhost:%s/" % MOCK_PORT)
         except Exception:
             sys.exit(
                 "Couldn't reach stripe-mock at `localhost:%s`. Is "
