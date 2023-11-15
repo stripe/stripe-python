@@ -99,6 +99,12 @@ class Transaction(
         URL provided by the merchant on a 3DS request
         """
 
+    class NetworkData(StripeObject):
+        processing_date: Optional[str]
+        """
+        The date the transaction was processed by the card network. This can be different from the date the seller recorded the transaction depending on when the acquirer submits the transaction to the network.
+        """
+
     class PurchaseDetails(StripeObject):
         class Flight(StripeObject):
             class Segment(StripeObject):
@@ -739,6 +745,10 @@ class Transaction(
     """
     Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format.
     """
+    network_data: Optional[NetworkData]
+    """
+    Details about the transaction, such as processing dates, set by the card network.
+    """
     object: Literal["issuing.transaction"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -944,6 +954,7 @@ class Transaction(
     _inner_class_types = {
         "amount_details": AmountDetails,
         "merchant_data": MerchantData,
+        "network_data": NetworkData,
         "purchase_details": PurchaseDetails,
         "treasury": Treasury,
     }
