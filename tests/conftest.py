@@ -4,10 +4,12 @@ import sys
 import pytest
 
 import stripe
-from urllib.request import urlopen
+import requests
 
 from tests.request_mock import RequestMock
 from tests.stripe_mock import StripeMock
+
+MOCK_MINIMUM_VERSION = "0.109.0"
 
 # Starts stripe-mock if an OpenAPI spec override is found in `openapi/`, and
 # otherwise fall back to `STRIPE_MOCK_PORT` or 12111.
@@ -25,7 +27,7 @@ def stop_stripe_mock():
 def pytest_configure(config):
     if not config.getoption("--nomock"):
         try:
-            urlopen("http://localhost:%s/" % MOCK_PORT)
+            requests.get("http://localhost:%s/" % MOCK_PORT)
         except Exception:
             sys.exit(
                 "Couldn't reach stripe-mock at `localhost:%s`. Is "
