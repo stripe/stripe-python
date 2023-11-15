@@ -83,4 +83,4 @@ class MultipartDataGenerator(object):
             self._write(file_contents)
 
     def _initialize_boundary(self):
-        return random.randint(0, 2 ** 63)
+        return random.randint(0, 2**63)
