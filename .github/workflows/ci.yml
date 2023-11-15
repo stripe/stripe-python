@@ -79,7 +79,7 @@ jobs:
           - { version: "pypy-3.8" , env: "py3.8" }
           - { version: "pypy-3.9" , env: "py3.9" }
           - { version: "pypy-3.10" , env: "py3.10" }
-    name: Test ${{ matrix.python.version }}
+    name: Test (${{ matrix.python.version }})
     steps:
       - uses: actions/checkout@v3
 
