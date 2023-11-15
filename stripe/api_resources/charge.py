@@ -678,6 +678,10 @@ class Charge(
             """
             Card brand. Can be `amex`, `diners`, `discover`, `eftpos_au`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
+            capture_before: Optional[int]
+            """
+            When using manual capture, a future timestamp at which the charge will be automatically refunded if uncaptured.
+            """
             checks: Optional[Checks]
             """
             Check results by Card networks on Card address and CVC at time of payment.
