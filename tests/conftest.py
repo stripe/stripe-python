@@ -28,9 +28,7 @@ def stop_stripe_mock():
 def pytest_configure(config):
     if not config.getoption("--nomock"):
         try:
-            resp = urlopen("http://localhost:%s/" % MOCK_PORT)
-        except HTTPError as e:
-            info = e.info()
+            urlopen("http://localhost:%s/" % MOCK_PORT)
         except Exception:
             sys.exit(
                 "Couldn't reach stripe-mock at `localhost:%s`. Is "
