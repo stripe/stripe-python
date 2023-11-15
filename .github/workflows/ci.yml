@@ -102,6 +102,8 @@ jobs:
 
       - name: Typecheck with pyright
         run: PYRIGHT_ARGS="-- --pythonversion ${{ matrix.python-version }}" make pyright
+        # Skip typecheking in pypy legs
+        if: ${{ !contains(matrix.python-version, 'pypy') }}
 
       - name: Test with pytest
         run: TOX_ARGS="-e ${{ matrix.python-version }}" make ci-test
