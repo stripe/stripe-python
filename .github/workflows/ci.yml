@@ -101,7 +101,7 @@ jobs:
       - uses: stripe/openapi/actions/stripe-mock@master
 
       - name: Typecheck with pyright
-        run: PYRIGHT_ARGS="--pythonversion ${{ matrix.python-version }}" make pyright
+        run: PYRIGHT_ARGS="-- --pythonversion ${{ matrix.python-version }}" make pyright
 
       - name: Test with pytest
         run: TOX_ARGS="-e ${{ matrix.python-version }}" make ci-test
