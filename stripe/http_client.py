@@ -385,7 +385,6 @@ class RequestsClient(HTTPClient):
         return content, status_code, result.headers
 
     def _handle_request_error(self, e) -> NoReturn:
-
         # Catch SSL error first as it belongs to ConnectionError,
         # but we don't want to retry
         if isinstance(e, self.requests.exceptions.SSLError):
