@@ -14,6 +14,7 @@ import os
 from stripe.api_version import _ApiVersion
 
 from stripe.app_info import AppInfo
+from stripe.stripe_object import StripeObject # noqa
 
 if TYPE_CHECKING:
     from stripe.http_client import HTTPClient

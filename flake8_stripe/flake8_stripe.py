@@ -5,7 +5,7 @@ import ast
 from typing import Iterator, Tuple
 
 
-class TypingImportsChecker:
+class ImportsChecker:
     name = __name__
     version = "0.1.0"
 
@@ -67,6 +67,18 @@ class TypingImportsChecker:
 
     def run(self) -> Iterator[Tuple[int, int, str, type]]:
         for node in ast.walk(self.tree):
+            # Forbid import stripe
+            if isinstance(node, ast.Import):
+                if  any(alias.name == 'stripe' for alias in node.names):
+                    msg = (
+                        "SPY101 Don't import 'stripe', instead import from the fully qualified module"
+                    )
+                    yield (
+                        node.lineno,
+                        node.col_offset,
+                        msg,
+                        type(self),
+                    )
             if isinstance(node, ast.ImportFrom):
                 if node.module == "typing":
                     for name in node.names:

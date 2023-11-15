@@ -5,8 +5,10 @@
 # W503 goes against PEP8 rules. It's disabled by default, but must be disabled
 # explicitly when using `ignore`.
 ignore = E501, W503
+per-file-ignores =
+    tests/*:SPY100, SPY101
 
 [flake8:local-plugins]
 extension =
-    SPY = flake8_stripe:TypingImportsChecker
+    SPY = flake8_stripe:ImportsChecker
 paths=./flake8_stripe
