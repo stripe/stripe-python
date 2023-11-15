@@ -192,11 +192,7 @@ class ListObject(StripeObject, Generic[T]):
             stripe_account=stripe_account,
             **params_with_filters,
         )
-        # Sanity check that this is a list object.
-        assert isinstance(result, ListObject)
-        # We have to cast to assert that this the types *inside* the list object
-        # are the types indicated by "self"
-        return cast(Self, result)
+        return result
 
     def previous_page(
         self,
@@ -228,8 +224,4 @@ class ListObject(StripeObject, Generic[T]):
             stripe_account=stripe_account,
             **params_with_filters,
         )
-        # Sanity check that this is a list object.
-        assert isinstance(result, ListObject)
-        # We have to cast to assert that this the types *inside* the list object
-        # are the types indicated by "self"
-        return cast(Self, result)
+        return result

@@ -413,7 +413,6 @@ class Event(ListableAPIResource["Event"]):
             params=params,
         )
         if not isinstance(result, ListObject):
-
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

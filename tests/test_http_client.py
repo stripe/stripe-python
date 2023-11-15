@@ -485,7 +485,6 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
     @pytest.fixture
     def mock_retry(self, mocker, session, request_mock):
         def mock_retry(retry_error_num=0, no_retry_error_num=0, responses=[]):
-
             # Mocking classes of exception we catch. Any group of exceptions
             # with the same inheritance pattern will work
             request_root_error_class = Exception
