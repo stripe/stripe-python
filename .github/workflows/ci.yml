@@ -60,7 +60,6 @@ jobs:
           path: dist/
 
   test:
-    name: Test ${{ python-version }}
     # Specific ubuntu version to support python 3.6 testing
     # see https://github.com/actions/setup-python/issues/544#issuecomment-1332535877 for details
     # move to ubuntu-latest when we drop 3.6
@@ -91,6 +90,7 @@ jobs:
               env: py3.9
             - python-version: "pypy-3.10"
               env: py3.10
+    name: Test ${{ python-version }}
     steps:
       - uses: actions/checkout@v3
 
