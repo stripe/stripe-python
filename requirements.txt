@@ -1,5 +1,4 @@
-# cryptography 40.0.0 deprecates support for Python 3.6 and PyPy3 < 7.3.10
-cryptography<40
+# These requirements must be installable only on py3.10 +
 twine
 # 4.5.0 is the last version that works with virtualenv<20.22.0
 tox == 4.5.0
