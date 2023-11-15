@@ -7,7 +7,7 @@ import os
 import re
 import warnings
 
-import stripe
+
 from urllib.parse import parse_qsl, quote_plus
 
 from typing_extensions import Type, TYPE_CHECKING

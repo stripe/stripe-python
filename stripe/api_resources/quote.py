@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-import stripe
 from stripe import api_requestor, util
 from stripe.api_resources.abstract import (
     CreateableAPIResource,
@@ -1532,9 +1531,10 @@ class Quote(
             quote_plus(sid),
             "pdf",
         )
+        from stripe import upload_api_base
         requestor = api_requestor.APIRequestor(
             api_key,
-            api_base=stripe.upload_api_base,
+            api_base=upload_api_base,
             api_version=stripe_version,
             account=stripe_account,
         )

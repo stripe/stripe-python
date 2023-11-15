@@ -1,8 +1,7 @@
 import random
 import io
 
-import stripe
-
+from stripe.api_requestor import _api_encode
 
 class MultipartDataGenerator(object):
     data: io.BytesIO
@@ -18,7 +17,7 @@ class MultipartDataGenerator(object):
 
     def add_params(self, params):
         # Flatten parameters first
-        params = dict(stripe.api_requestor._api_encode(params))  # type: ignore
+        params = dict(_api_encode(params))  # type: ignore
 
         for key, value in params.items():
             if value is None:

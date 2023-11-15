@@ -1,4 +1,3 @@
-import stripe
 from stripe.error import StripeError
 
 
@@ -20,8 +19,9 @@ class OAuthError(StripeError):
         if self.json_body is None:
             return None
 
+        from stripe import api_key
         return stripe.api_resources.error_object.OAuthErrorObject.construct_from(  # type: ignore
-            self.json_body, stripe.api_key
+            self.json_body, api_key
         )
 
 

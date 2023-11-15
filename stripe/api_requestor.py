@@ -17,7 +17,6 @@ import uuid
 import warnings
 from collections import OrderedDict
 
-import stripe
 from stripe import error, oauth_error, http_client, version, util
 from stripe.multipart_data_generator import MultipartDataGenerator
 from urllib.parse import urlencode, urlsplit, urlunsplit

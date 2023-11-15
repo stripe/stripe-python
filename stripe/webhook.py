@@ -4,7 +4,7 @@ import time
 from collections import OrderedDict
 from hashlib import sha256
 
-import stripe
+from stripe.api_resources.event import Event
 from stripe import error, util
 
 
@@ -21,7 +21,8 @@ class Webhook(object):
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 
         data = json.loads(payload, object_pairs_hook=OrderedDict)
-        event = stripe.Event.construct_from(data, api_key or stripe.api_key)
+        from stripe import api_key as global_api_key
+        event = Event.construct_from(data, api_key or global_api_key)
 
         return event
 

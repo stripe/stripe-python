@@ -7,7 +7,7 @@ import random
 import threading
 import json
 
-import stripe
+import stripe # noqa: SPY101
 from stripe import error, util
 from stripe.request_metrics import RequestMetrics
 

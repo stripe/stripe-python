@@ -1,5 +1,4 @@
 from typing import Dict, Optional, Union, cast
-import stripe
 from stripe.api_resources.error_object import ErrorObject
 
 
@@ -75,6 +74,7 @@ class StripeError(Exception):
         ):
             return None
 
+        import stripe
         return ErrorObject.construct_from(
             self.json_body["error"], stripe.api_key
         )
