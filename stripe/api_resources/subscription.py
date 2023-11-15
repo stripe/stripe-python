@@ -1820,7 +1820,9 @@ class Subscription(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Subscription.CancelParams"]
+        **params: Unpack[
+            "Subscription.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
@@ -1852,7 +1854,9 @@ class Subscription(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Subscription.CancelParams"]
+        **params: Unpack[
+            "Subscription.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
@@ -1867,7 +1871,9 @@ class Subscription(
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Subscription.CancelParams"]
+        **params: Unpack[
+            "Subscription.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
@@ -1882,7 +1888,9 @@ class Subscription(
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Subscription.CancelParams"]
+        **params: Unpack[
+            "Subscription.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Subscription":
         """
         Cancels a customer's subscription immediately. The customer will not be charged again for the subscription.
@@ -1910,7 +1918,9 @@ class Subscription(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Subscription.CreateParams"]
+        **params: Unpack[
+            "Subscription.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Subscription":
         """
         Creates a new subscription on an existing customer. Each customer can have up to 500 active or scheduled subscriptions.
@@ -1941,7 +1951,9 @@ class Subscription(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Subscription.DeleteDiscountParams"]
+        **params: Unpack[
+            "Subscription.DeleteDiscountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -1969,7 +1981,9 @@ class Subscription(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Subscription.DeleteDiscountParams"]
+        **params: Unpack[
+            "Subscription.DeleteDiscountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -1980,7 +1994,9 @@ class Subscription(
     def delete_discount(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Subscription.DeleteDiscountParams"]
+        **params: Unpack[
+            "Subscription.DeleteDiscountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -1991,7 +2007,9 @@ class Subscription(
     def delete_discount(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Subscription.DeleteDiscountParams"]
+        **params: Unpack[
+            "Subscription.DeleteDiscountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Discount":
         """
         Removes the currently applied discount on a subscription.
@@ -2014,7 +2032,9 @@ class Subscription(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Subscription.ListParams"]
+        **params: Unpack[
+            "Subscription.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Subscription"]:
         """
         By default, returns a list of subscriptions that have not been canceled. In order to list canceled subscriptions, specify status=canceled.
@@ -2076,7 +2096,9 @@ class Subscription(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Subscription.ResumeParams"]
+        **params: Unpack[
+            "Subscription.ResumeParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
@@ -2102,7 +2124,9 @@ class Subscription(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Subscription.ResumeParams"]
+        **params: Unpack[
+            "Subscription.ResumeParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
@@ -2113,7 +2137,9 @@ class Subscription(
     def resume(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Subscription.ResumeParams"]
+        **params: Unpack[
+            "Subscription.ResumeParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.
@@ -2124,7 +2150,9 @@ class Subscription(
     def resume(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Subscription.ResumeParams"]
+        **params: Unpack[
+            "Subscription.ResumeParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Subscription":
         """
         Initiates resumption of a paused subscription, optionally resetting the billing cycle anchor and creating prorations. If a resumption invoice is generated, it must be paid or marked uncollectible before the subscription will be unpaused. If payment succeeds the subscription will become active, and if payment fails the subscription will be past_due. The resumption invoice will void automatically if not paid by the expiration date.

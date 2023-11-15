@@ -458,7 +458,9 @@ class Transaction(APIResource["Transaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transaction.CreateFromCalculationParams"]
+        **params: Unpack[
+            "Transaction.CreateFromCalculationParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Transaction":
         """
         Creates a Tax Transaction from a calculation.
@@ -481,7 +483,9 @@ class Transaction(APIResource["Transaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transaction.CreateReversalParams"]
+        **params: Unpack[
+            "Transaction.CreateReversalParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Transaction":
         """
         Partially or fully reverses a previously created Transaction.
@@ -505,7 +509,9 @@ class Transaction(APIResource["Transaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transaction.ListLineItemsParams"]
+        **params: Unpack[
+            "Transaction.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -531,7 +537,9 @@ class Transaction(APIResource["Transaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transaction.ListLineItemsParams"]
+        **params: Unpack[
+            "Transaction.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -542,7 +550,9 @@ class Transaction(APIResource["Transaction"]):
     def list_line_items(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Transaction.ListLineItemsParams"]
+        **params: Unpack[
+            "Transaction.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.
@@ -553,7 +563,9 @@ class Transaction(APIResource["Transaction"]):
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Transaction.ListLineItemsParams"]
+        **params: Unpack[
+            "Transaction.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["TransactionLineItem"]:
         """
         Retrieves the line items of a committed standalone transaction as a collection.

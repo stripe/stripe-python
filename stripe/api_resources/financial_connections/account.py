@@ -291,7 +291,9 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.DisconnectParams"]
+        **params: Unpack[
+            "Account.DisconnectParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -317,7 +319,9 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.DisconnectParams"]
+        **params: Unpack[
+            "Account.DisconnectParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -328,7 +332,9 @@ class Account(ListableAPIResource["Account"]):
     def disconnect(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Account.DisconnectParams"]
+        **params: Unpack[
+            "Account.DisconnectParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -339,7 +345,9 @@ class Account(ListableAPIResource["Account"]):
     def disconnect(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Account.DisconnectParams"]
+        **params: Unpack[
+            "Account.DisconnectParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Account":
         """
         Disables your access to a Financial Connections Account. You will no longer be able to access data associated with the account (e.g. balances, transactions).
@@ -362,7 +370,9 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.ListParams"]
+        **params: Unpack[
+            "Account.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Account"]:
         """
         Returns a list of Financial Connections Account objects.
@@ -391,7 +401,9 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.ListOwnersParams"]
+        **params: Unpack[
+            "Account.ListOwnersParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -417,7 +429,9 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.ListOwnersParams"]
+        **params: Unpack[
+            "Account.ListOwnersParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -428,7 +442,9 @@ class Account(ListableAPIResource["Account"]):
     def list_owners(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Account.ListOwnersParams"]
+        **params: Unpack[
+            "Account.ListOwnersParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -439,7 +455,9 @@ class Account(ListableAPIResource["Account"]):
     def list_owners(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Account.ListOwnersParams"]
+        **params: Unpack[
+            "Account.ListOwnersParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["AccountOwner"]:
         """
         Lists all owners for a given Account
@@ -463,7 +481,9 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.RefreshAccountParams"]
+        **params: Unpack[
+            "Account.RefreshAccountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -489,7 +509,9 @@ class Account(ListableAPIResource["Account"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.RefreshAccountParams"]
+        **params: Unpack[
+            "Account.RefreshAccountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -500,7 +522,9 @@ class Account(ListableAPIResource["Account"]):
     def refresh_account(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Account.RefreshAccountParams"]
+        **params: Unpack[
+            "Account.RefreshAccountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.
@@ -511,7 +535,9 @@ class Account(ListableAPIResource["Account"]):
     def refresh_account(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Account.RefreshAccountParams"]
+        **params: Unpack[
+            "Account.RefreshAccountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Account":
         """
         Refreshes the data associated with a Financial Connections Account.

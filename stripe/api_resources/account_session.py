@@ -91,7 +91,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["AccountSession.CreateParams"]
+        **params: Unpack[
+            "AccountSession.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "AccountSession":
         """
         Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.

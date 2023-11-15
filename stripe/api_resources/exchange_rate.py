@@ -82,7 +82,9 @@ class ExchangeRate(ListableAPIResource["ExchangeRate"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ExchangeRate.ListParams"]
+        **params: Unpack[
+            "ExchangeRate.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ExchangeRate"]:
         """
         Returns a list of objects that contain the rates at which foreign currencies are converted to one another. Only shows the currencies for which Stripe supports.

@@ -3549,7 +3549,9 @@ class Session(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Session.CreateParams"]
+        **params: Unpack[
+            "Session.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Session":
         """
         Creates a Session object.
@@ -3574,7 +3576,9 @@ class Session(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Session.ExpireParams"]
+        **params: Unpack[
+            "Session.ExpireParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Session":
         """
         A Session can be expired when it is in one of these statuses: open
@@ -3602,7 +3606,9 @@ class Session(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Session.ExpireParams"]
+        **params: Unpack[
+            "Session.ExpireParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Session":
         """
         A Session can be expired when it is in one of these statuses: open
@@ -3615,7 +3621,9 @@ class Session(
     def expire(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Session.ExpireParams"]
+        **params: Unpack[
+            "Session.ExpireParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Session":
         """
         A Session can be expired when it is in one of these statuses: open
@@ -3628,7 +3636,9 @@ class Session(
     def expire(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Session.ExpireParams"]
+        **params: Unpack[
+            "Session.ExpireParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Session":
         """
         A Session can be expired when it is in one of these statuses: open
@@ -3653,7 +3663,9 @@ class Session(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Session.ListParams"]
+        **params: Unpack[
+            "Session.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Session"]:
         """
         Returns a list of Checkout Sessions.
@@ -3682,7 +3694,9 @@ class Session(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Session.ListLineItemsParams"]
+        **params: Unpack[
+            "Session.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3708,7 +3722,9 @@ class Session(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Session.ListLineItemsParams"]
+        **params: Unpack[
+            "Session.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3719,7 +3735,9 @@ class Session(
     def list_line_items(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Session.ListLineItemsParams"]
+        **params: Unpack[
+            "Session.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3730,7 +3748,9 @@ class Session(
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Session.ListLineItemsParams"]
+        **params: Unpack[
+            "Session.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a Checkout Session, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

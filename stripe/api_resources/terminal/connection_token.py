@@ -47,7 +47,9 @@ class ConnectionToken(CreateableAPIResource["ConnectionToken"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ConnectionToken.CreateParams"]
+        **params: Unpack[
+            "ConnectionToken.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ConnectionToken":
         """
         To connect to a reader the Stripe Terminal SDK needs to retrieve a short-lived connection token from Stripe, proxied through your server. On your backend, add an endpoint that creates and returns a connection token.

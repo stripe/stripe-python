@@ -209,7 +209,9 @@ class PaymentMethodDomain(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["PaymentMethodDomain.CreateParams"]
+        **params: Unpack[
+            "PaymentMethodDomain.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "PaymentMethodDomain":
         """
         Creates a payment method domain.
@@ -233,7 +235,9 @@ class PaymentMethodDomain(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["PaymentMethodDomain.ListParams"]
+        **params: Unpack[
+            "PaymentMethodDomain.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["PaymentMethodDomain"]:
         """
         Lists the details of existing payment method domains.
@@ -286,7 +290,9 @@ class PaymentMethodDomain(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"]
+        **params: Unpack[
+            "PaymentMethodDomain.ValidateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -319,7 +325,9 @@ class PaymentMethodDomain(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"]
+        **params: Unpack[
+            "PaymentMethodDomain.ValidateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -335,7 +343,9 @@ class PaymentMethodDomain(
     def validate(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"]
+        **params: Unpack[
+            "PaymentMethodDomain.ValidateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.
@@ -351,7 +361,9 @@ class PaymentMethodDomain(
     def validate(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["PaymentMethodDomain.ValidateParams"]
+        **params: Unpack[
+            "PaymentMethodDomain.ValidateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "PaymentMethodDomain":
         """
         Some payment methods such as Apple Pay require additional steps to verify a domain. If the requirements weren't satisfied when the domain was created, the payment method will be inactive on the domain.

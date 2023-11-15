@@ -271,7 +271,9 @@ class TransactionEntry(ListableAPIResource["TransactionEntry"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["TransactionEntry.ListParams"]
+        **params: Unpack[
+            "TransactionEntry.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["TransactionEntry"]:
         """
         Retrieves a list of TransactionEntry objects.

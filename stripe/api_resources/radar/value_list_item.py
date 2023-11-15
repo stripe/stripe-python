@@ -136,7 +136,9 @@ class ValueListItem(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ValueListItem.CreateParams"]
+        **params: Unpack[
+            "ValueListItem.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ValueListItem":
         """
         Creates a new ValueListItem object, which is added to the specified parent value list.
@@ -205,7 +207,9 @@ class ValueListItem(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ValueListItem.ListParams"]
+        **params: Unpack[
+            "ValueListItem.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ValueListItem"]:
         """
         Returns a list of ValueListItem objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.

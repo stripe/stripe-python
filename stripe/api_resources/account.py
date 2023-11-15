@@ -3462,7 +3462,9 @@ class Account(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.CreateParams"]
+        **params: Unpack[
+            "Account.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Account":
         """
         With [Connect](https://stripe.com/docs/connect), you can create Stripe accounts for your users.
@@ -3550,7 +3552,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.ListParams"]
+        **params: Unpack[
+            "Account.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Account"]:
         """
         Returns a list of accounts connected to your platform via [Connect](https://stripe.com/docs/connect). If you're not a platform, the list is empty.
@@ -3579,7 +3583,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.PersonsParams"]
+        **params: Unpack[
+            "Account.PersonsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -3605,7 +3611,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.PersonsParams"]
+        **params: Unpack[
+            "Account.PersonsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -3616,7 +3624,9 @@ class Account(
     def persons(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Account.PersonsParams"]
+        **params: Unpack[
+            "Account.PersonsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -3627,7 +3637,9 @@ class Account(
     def persons(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Account.PersonsParams"]
+        **params: Unpack[
+            "Account.PersonsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.
@@ -3651,7 +3663,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.RejectParams"]
+        **params: Unpack[
+            "Account.RejectParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Account":
         """
         With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
@@ -3679,7 +3693,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.RejectParams"]
+        **params: Unpack[
+            "Account.RejectParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Account":
         """
         With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
@@ -3692,7 +3708,9 @@ class Account(
     def reject(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Account.RejectParams"]
+        **params: Unpack[
+            "Account.RejectParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Account":
         """
         With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
@@ -3705,7 +3723,9 @@ class Account(
     def reject(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Account.RejectParams"]
+        **params: Unpack[
+            "Account.RejectParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Account":
         """
         With [Connect](https://stripe.com/docs/connect), you may flag accounts as suspicious.
@@ -3775,7 +3795,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.RetrieveCapabilityParams"]
+        **params: Unpack[
+            "Account.RetrieveCapabilityParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Capability":
         """
         Retrieves information about the specified Account Capability.
@@ -3803,7 +3825,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.ModifyCapabilityParams"]
+        **params: Unpack[
+            "Account.ModifyCapabilityParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Capability":
         """
         Updates an existing Account Capability. Request or remove a capability by updating its requested parameter.
@@ -3830,7 +3854,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.ListCapabilitiesParams"]
+        **params: Unpack[
+            "Account.ListCapabilitiesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Capability"]:
         """
         Returns a list of capabilities associated with the account. The capabilities are returned sorted by creation date, with the most recent capability appearing first.
@@ -3856,7 +3882,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.CreateExternalAccountParams"]
+        **params: Unpack[
+            "Account.CreateExternalAccountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> Union["BankAccount", "Card"]:
         """
         Create an external account for a given account.
@@ -3883,7 +3911,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.RetrieveExternalAccountParams"]
+        **params: Unpack[
+            "Account.RetrieveExternalAccountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> Union["BankAccount", "Card"]:
         """
         Retrieve a specified external account for a given account.
@@ -3910,7 +3940,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.ModifyExternalAccountParams"]
+        **params: Unpack[
+            "Account.ModifyExternalAccountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> Union["BankAccount", "Card"]:
         """
         Updates the metadata, account holder name, account holder type of a bank account belonging to a [Custom account](https://stripe.com/docs/connect/custom-accounts), and optionally sets it as the default for its currency. Other bank account details are not editable by design.
@@ -3939,7 +3971,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.DeleteExternalAccountParams"]
+        **params: Unpack[
+            "Account.DeleteExternalAccountParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> Union["BankAccount", "Card"]:
         """
         Delete a specified external account for a given account.
@@ -3965,7 +3999,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.ListExternalAccountsParams"]
+        **params: Unpack[
+            "Account.ListExternalAccountsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject[Union["BankAccount", "Card"]]:
         """
         List external accounts for an account.
@@ -3991,7 +4027,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.CreateLoginLinkParams"]
+        **params: Unpack[
+            "Account.CreateLoginLinkParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "LoginLink":
         """
         Creates a single-use login link for an Express account to access their Stripe dashboard.
@@ -4019,7 +4057,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.CreatePersonParams"]
+        **params: Unpack[
+            "Account.CreatePersonParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Person":
         """
         Creates a new person.
@@ -4046,7 +4086,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.RetrievePersonParams"]
+        **params: Unpack[
+            "Account.RetrievePersonParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Person":
         """
         Retrieves an existing person.
@@ -4074,7 +4116,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.ModifyPersonParams"]
+        **params: Unpack[
+            "Account.ModifyPersonParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Person":
         """
         Updates an existing person.
@@ -4102,7 +4146,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.DeletePersonParams"]
+        **params: Unpack[
+            "Account.DeletePersonParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Person":
         """
         Deletes an existing person's relationship to the account's legal entity. Any person with a relationship for an account can be deleted through the API, except if the person is the account_opener. If your integration is using the executive parameter, you cannot delete the only verified executive on file.
@@ -4129,7 +4175,9 @@ class Account(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Account.ListPersonsParams"]
+        **params: Unpack[
+            "Account.ListPersonsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Person"]:
         """
         Returns a list of people associated with the account's legal entity. The people are returned sorted by creation date, with the most recent people appearing first.

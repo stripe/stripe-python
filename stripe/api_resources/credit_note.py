@@ -664,7 +664,9 @@ class CreditNote(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.CreateParams"]
+        **params: Unpack[
+            "CreditNote.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditNote":
         """
         Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
@@ -701,7 +703,9 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.ListParams"]
+        **params: Unpack[
+            "CreditNote.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CreditNote"]:
         """
         Returns a list of credit notes.
@@ -742,7 +746,9 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.PreviewParams"]
+        **params: Unpack[
+            "CreditNote.PreviewParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditNote":
         """
         Get a preview of a credit note without creating it.
@@ -765,7 +771,9 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.PreviewLinesParams"]
+        **params: Unpack[
+            "CreditNote.PreviewLinesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CreditNoteLineItem"]:
         """
         When retrieving a credit note preview, you'll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.
@@ -800,7 +808,9 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        **params: Unpack[
+            "CreditNote.VoidCreditNoteParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -824,7 +834,9 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        **params: Unpack[
+            "CreditNote.VoidCreditNoteParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -835,7 +847,9 @@ class CreditNote(
     def void_credit_note(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        **params: Unpack[
+            "CreditNote.VoidCreditNoteParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -846,7 +860,9 @@ class CreditNote(
     def void_credit_note(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        **params: Unpack[
+            "CreditNote.VoidCreditNoteParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -870,7 +886,9 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.ListLinesParams"]
+        **params: Unpack[
+            "CreditNote.ListLinesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CreditNoteLineItem"]:
         """
         When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

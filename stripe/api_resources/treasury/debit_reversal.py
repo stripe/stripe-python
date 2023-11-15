@@ -158,7 +158,9 @@ class DebitReversal(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["DebitReversal.CreateParams"]
+        **params: Unpack[
+            "DebitReversal.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "DebitReversal":
         """
         Reverses a ReceivedDebit and creates a DebitReversal object.
@@ -182,7 +184,9 @@ class DebitReversal(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["DebitReversal.ListParams"]
+        **params: Unpack[
+            "DebitReversal.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["DebitReversal"]:
         """
         Returns a list of DebitReversals.

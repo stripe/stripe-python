@@ -144,7 +144,9 @@ class CreditReversal(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditReversal.CreateParams"]
+        **params: Unpack[
+            "CreditReversal.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditReversal":
         """
         Reverses a ReceivedCredit and creates a CreditReversal object.
@@ -168,7 +170,9 @@ class CreditReversal(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditReversal.ListParams"]
+        **params: Unpack[
+            "CreditReversal.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CreditReversal"]:
         """
         Returns a list of CreditReversals.

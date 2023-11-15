@@ -1119,7 +1119,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Source.CreateParams"]
+        **params: Unpack[
+            "Source.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Source":
         """
         Creates a new source object.
@@ -1144,7 +1146,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Source.ListSourceTransactionsParams"]
+        **params: Unpack[
+            "Source.ListSourceTransactionsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -1170,7 +1174,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Source.ListSourceTransactionsParams"]
+        **params: Unpack[
+            "Source.ListSourceTransactionsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -1181,7 +1187,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     def list_source_transactions(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Source.ListSourceTransactionsParams"]
+        **params: Unpack[
+            "Source.ListSourceTransactionsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -1192,7 +1200,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     def list_source_transactions(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Source.ListSourceTransactionsParams"]
+        **params: Unpack[
+            "Source.ListSourceTransactionsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["SourceTransaction"]:
         """
         List source transactions for a given source.
@@ -1242,7 +1252,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Source.VerifyParams"]
+        **params: Unpack[
+            "Source.VerifyParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Source":
         """
         Verify a given source.
@@ -1268,7 +1280,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Source.VerifyParams"]
+        **params: Unpack[
+            "Source.VerifyParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Source":
         """
         Verify a given source.
@@ -1279,7 +1293,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     def verify(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Source.VerifyParams"]
+        **params: Unpack[
+            "Source.VerifyParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Source":
         """
         Verify a given source.
@@ -1290,7 +1306,9 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
     def verify(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Source.VerifyParams"]
+        **params: Unpack[
+            "Source.VerifyParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Source":
         """
         Verify a given source.

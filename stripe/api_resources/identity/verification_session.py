@@ -400,7 +400,9 @@ class VerificationSession(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.CancelParams"]
+        **params: Unpack[
+            "VerificationSession.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
@@ -428,7 +430,9 @@ class VerificationSession(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.CancelParams"]
+        **params: Unpack[
+            "VerificationSession.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
@@ -441,7 +445,9 @@ class VerificationSession(
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["VerificationSession.CancelParams"]
+        **params: Unpack[
+            "VerificationSession.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
@@ -454,7 +460,9 @@ class VerificationSession(
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["VerificationSession.CancelParams"]
+        **params: Unpack[
+            "VerificationSession.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
@@ -480,7 +488,9 @@ class VerificationSession(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.CreateParams"]
+        **params: Unpack[
+            "VerificationSession.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         Creates a VerificationSession object.
@@ -510,7 +520,9 @@ class VerificationSession(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.ListParams"]
+        **params: Unpack[
+            "VerificationSession.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["VerificationSession"]:
         """
         Returns a list of VerificationSessions
@@ -555,7 +567,9 @@ class VerificationSession(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.RedactParams"]
+        **params: Unpack[
+            "VerificationSession.RedactParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -599,7 +613,9 @@ class VerificationSession(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.RedactParams"]
+        **params: Unpack[
+            "VerificationSession.RedactParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -628,7 +644,9 @@ class VerificationSession(
     def redact(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["VerificationSession.RedactParams"]
+        **params: Unpack[
+            "VerificationSession.RedactParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -657,7 +675,9 @@ class VerificationSession(
     def redact(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["VerificationSession.RedactParams"]
+        **params: Unpack[
+            "VerificationSession.RedactParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact

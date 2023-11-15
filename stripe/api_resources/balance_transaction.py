@@ -265,7 +265,9 @@ class BalanceTransaction(ListableAPIResource["BalanceTransaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["BalanceTransaction.ListParams"]
+        **params: Unpack[
+            "BalanceTransaction.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["BalanceTransaction"]:
         """
         Returns a list of transactions that have contributed to the Stripe account balance (e.g., charges, transfers, and so forth). The transactions are returned in sorted order, with the most recent transactions appearing first.

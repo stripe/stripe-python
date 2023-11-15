@@ -105,7 +105,9 @@ class CountrySpec(ListableAPIResource["CountrySpec"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CountrySpec.ListParams"]
+        **params: Unpack[
+            "CountrySpec.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CountrySpec"]:
         """
         Lists all Country Spec objects available in the API.

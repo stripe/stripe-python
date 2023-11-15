@@ -2214,7 +2214,9 @@ class PaymentMethodConfiguration(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["PaymentMethodConfiguration.CreateParams"]
+        **params: Unpack[
+            "PaymentMethodConfiguration.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "PaymentMethodConfiguration":
         """
         Creates a payment method configuration
@@ -2238,7 +2240,9 @@ class PaymentMethodConfiguration(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["PaymentMethodConfiguration.ListParams"]
+        **params: Unpack[
+            "PaymentMethodConfiguration.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["PaymentMethodConfiguration"]:
         """
         List payment method configurations

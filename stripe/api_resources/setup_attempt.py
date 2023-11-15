@@ -755,7 +755,9 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["SetupAttempt.ListParams"]
+        **params: Unpack[
+            "SetupAttempt.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["SetupAttempt"]:
         """
         Returns a list of SetupAttempts that associate with a provided SetupIntent.

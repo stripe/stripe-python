@@ -343,7 +343,9 @@ class ShippingRate(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ShippingRate.CreateParams"]
+        **params: Unpack[
+            "ShippingRate.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ShippingRate":
         """
         Creates a new shipping rate object.
@@ -367,7 +369,9 @@ class ShippingRate(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ShippingRate.ListParams"]
+        **params: Unpack[
+            "ShippingRate.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ShippingRate"]:
         """
         Returns a list of your shipping rates.

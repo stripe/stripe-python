@@ -407,7 +407,9 @@ class SubscriptionItem(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionItem.CreateParams"]
+        **params: Unpack[
+            "SubscriptionItem.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionItem":
         """
         Adds a new item to an existing subscription. No existing items will be changed or replaced.
@@ -476,7 +478,9 @@ class SubscriptionItem(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionItem.ListParams"]
+        **params: Unpack[
+            "SubscriptionItem.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["SubscriptionItem"]:
         """
         Returns a list of your subscription items for a given subscription.
@@ -529,7 +533,9 @@ class SubscriptionItem(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionItem.CreateUsageRecordParams"]
+        **params: Unpack[
+            "SubscriptionItem.CreateUsageRecordParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "UsageRecord":
         """
         Creates a usage record for a specified subscription item and date, and fills it with a quantity.
@@ -561,7 +567,9 @@ class SubscriptionItem(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionItem.ListUsageRecordSummariesParams"]
+        **params: Unpack[
+            "SubscriptionItem.ListUsageRecordSummariesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["UsageRecordSummary"]:
         """
         For the specified subscription item, returns a list of summary objects. Each object in the list provides usage information that's been summarized from multiple usage records and over a subscription billing period (e.g., 15 usage records in the month of September).
