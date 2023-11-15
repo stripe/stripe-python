@@ -12,8 +12,6 @@ from urllib.error import HTTPError
 from tests.request_mock import RequestMock
 from tests.stripe_mock import StripeMock
 
-MOCK_MINIMUM_VERSION = "0.109.0"
-
 # Starts stripe-mock if an OpenAPI spec override is found in `openapi/`, and
 # otherwise fall back to `STRIPE_MOCK_PORT` or 12111.
 if StripeMock.start():
@@ -31,18 +29,6 @@ def pytest_configure(config):
     if not config.getoption("--nomock"):
         try:
             resp = urlopen("http://localhost:%s/" % MOCK_PORT)
-            info = resp.info()
-            version = info.get("Stripe-Mock-Version")
-            if version != "master" and StrictVersion(version) < StrictVersion(
-                MOCK_MINIMUM_VERSION
-            ):
-                sys.exit(
-                    "Your version of stripe-mock (%s) is too old. The minimum "
-                    "version to run this test suite is %s. Please "
-                    "see its repository for upgrade instructions."
-                    % (version, MOCK_MINIMUM_VERSION)
-                )
-
         except HTTPError as e:
             info = e.info()
         except Exception:
