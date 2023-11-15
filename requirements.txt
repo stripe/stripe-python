@@ -1,11 +1,11 @@
 # cryptography 40.0.0 deprecates support for Python 3.6 and PyPy3 < 7.3.10
 cryptography<40
 twine
-tox == 4.11.3
+tox == 4.5.0
+#Virtualenv 20.22.0 dropped support for all Python versions smaller or equal to Python 3.6.
+virtualenv<20.22.0
 pyright == 1.1.336
 black == 22.8.0
 flake8
-#Virtualenv 20.22.0 dropped support for all Python versions smaller or equal to Python 3.6.
-virtualenv<20.22.0
 
 -r test-requirements.txt
