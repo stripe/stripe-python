@@ -73,7 +73,7 @@ class APIHeaderMatcher(object):
     def __repr__(self):
         return (
             "APIHeaderMatcher(request_method=%s, api_key=%s, extra=%s, "
-            "user_agent=%s, app_info=%s, idempotency_key=%s, fail_platform_call=%s)"
+            "user_agent=%s, app_info=%s, content_type=%s, idempotency_key=%s, fail_platform_call=%s)"
             % (
                 repr(self.request_method),
                 repr(self.api_key),
