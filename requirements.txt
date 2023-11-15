@@ -2,7 +2,8 @@
 cryptography<40
 tox
 twine
-pyright
+tox == 4.11.3
+pyright == 1.1.336
 pytest-cov >= 2.8.1, < 2.11.0
 pytest-mock >= 2.0.0
 pytest-xdist >= 1.31.0
@@ -14,4 +15,4 @@ click==8.0.4 # Version 8.1 breaks black
 flake8
 coverage >= 4.5.3, < 5
 coveralls
-tox-gh-actions
+tox-gh-actions == 3.1.3
