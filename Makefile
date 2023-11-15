@@ -1,6 +1,7 @@
 VENV_NAME?=venv
 PIP?=pip
 PYTHON?=python3.10
+DEFAULT_TEST_ENV?=py310
 
 venv: $(VENV_NAME)/bin/activate
 
@@ -9,8 +10,8 @@ $(VENV_NAME)/bin/activate: setup.py requirements.txt
 	${VENV_NAME}/bin/python -m pip install -r requirements.txt
 	@touch $(VENV_NAME)/bin/activate
 
-test: venv pyright
-	@${VENV_NAME}/bin/tox -p auto -e $(PYTHON) $(TOX_ARGS)
+test: venv pyright lint
+	@${VENV_NAME}/bin/tox -p auto -e $(DEFAULT_TEST_ENV) $(TOX_ARGS)
 
 test-nomock: venv
 	@${VENV_NAME}/bin/tox -p auto -- --nomock $(TOX_ARGS)
