@@ -7,7 +7,7 @@ pytest-cov >= 2.8.1, < 2.11.0
 pytest-mock >= 2.0.0
 pytest-xdist >= 1.31.0
 pytest >= 6.0.0
-black == 23.3.0
+black == 22.8.0
 flake8
 coverage >= 4.5.3, < 5
 coveralls
