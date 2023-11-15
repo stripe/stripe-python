@@ -6,6 +6,8 @@ venv: $(VENV_NAME)/bin/activate
 
 $(VENV_NAME)/bin/activate: setup.py requirements.txt
 	@test -d $(VENV_NAME) || $(PYTHON) -m venv --clear $(VENV_NAME)
+	# TODO remove after pylance is updated with recent pyright
+	python3.10 -m pip install -e . --config-settings editable_mode=compat
 	${VENV_NAME}/bin/python -m pip install -r requirements.txt
 	@touch $(VENV_NAME)/bin/activate
 
