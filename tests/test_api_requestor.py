@@ -67,14 +67,18 @@ class APIHeaderMatcher(object):
         )
 
     def __repr__(self):
-        return "APIHeaderMatcher(request_method=%s, api_key=%s, extra=%s, " "user_agent=%s, app_info=%s, idempotency_key=%s, fail_platform_call=%s)" % (
-            repr(self.request_method),
-            repr(self.api_key),
-            repr(self.extra),
-            repr(self.user_agent),
-            repr(self.app_info),
-            repr(self.idempotency_key),
-            repr(self.fail_platform_call),
+        return (
+            "APIHeaderMatcher(request_method=%s, api_key=%s, extra=%s, "
+            "user_agent=%s, app_info=%s, idempotency_key=%s, fail_platform_call=%s)"
+            % (
+                repr(self.request_method),
+                repr(self.api_key),
+                repr(self.extra),
+                repr(self.user_agent),
+                repr(self.app_info),
+                repr(self.idempotency_key),
+                repr(self.fail_platform_call),
+            )
         )
 
     def _keys_match(self, other):
