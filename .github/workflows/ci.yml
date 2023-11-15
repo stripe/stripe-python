@@ -66,6 +66,7 @@ jobs:
     # move to ubuntu-latest when we drop 3.6
     runs-on: ubuntu-20.04
     strategy:
+      fail-fast: false
       matrix:
         python-version:
           [
