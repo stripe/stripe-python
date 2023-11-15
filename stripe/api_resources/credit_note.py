@@ -239,9 +239,15 @@ class CreditNote(
         """
         The line item quantity to credit.
         """
+        tax_amounts: NotRequired[
+            "Literal['']|List[CreditNote.CreateParamsLineTaxAmount]"
+        ]
+        """
+        A list of up to 10 tax amounts for the credit note line item. Cannot be mixed with `tax_rates`.
+        """
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
-        The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item`.
+        The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and cannot be mixed with `tax_amounts`.
         """
         type: Literal["custom_line_item", "invoice_line_item"]
         """
@@ -254,6 +260,20 @@ class CreditNote(
         unit_amount_decimal: NotRequired["str"]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class CreateParamsLineTaxAmount(TypedDict):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the tax.
+        """
+        tax_rate: str
+        """
+        The id of the tax rate for this tax amount. The tax rate must have been automatically created by Stripe.
+        """
+        taxable_amount: int
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
         """
 
     class ListParams(RequestOptions):
@@ -375,9 +395,15 @@ class CreditNote(
         """
         The line item quantity to credit.
         """
+        tax_amounts: NotRequired[
+            "Literal['']|List[CreditNote.PreviewParamsLineTaxAmount]"
+        ]
+        """
+        A list of up to 10 tax amounts for the credit note line item. Cannot be mixed with `tax_rates`.
+        """
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
-        The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item`.
+        The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and cannot be mixed with `tax_amounts`.
         """
         type: Literal["custom_line_item", "invoice_line_item"]
         """
@@ -390,6 +416,20 @@ class CreditNote(
         unit_amount_decimal: NotRequired["str"]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class PreviewParamsLineTaxAmount(TypedDict):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the tax.
+        """
+        tax_rate: str
+        """
+        The id of the tax rate for this tax amount. The tax rate must have been automatically created by Stripe.
+        """
+        taxable_amount: int
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
         """
 
     class PreviewLinesParams(RequestOptions):
@@ -483,9 +523,15 @@ class CreditNote(
         """
         The line item quantity to credit.
         """
+        tax_amounts: NotRequired[
+            "Literal['']|List[CreditNote.PreviewLinesParamsLineTaxAmount]"
+        ]
+        """
+        A list of up to 10 tax amounts for the credit note line item. Cannot be mixed with `tax_rates`.
+        """
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
-        The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item`.
+        The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and cannot be mixed with `tax_amounts`.
         """
         type: Literal["custom_line_item", "invoice_line_item"]
         """
@@ -498,6 +544,20 @@ class CreditNote(
         unit_amount_decimal: NotRequired["str"]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class PreviewLinesParamsLineTaxAmount(TypedDict):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the tax.
+        """
+        tax_rate: str
+        """
+        The id of the tax rate for this tax amount. The tax rate must have been automatically created by Stripe.
+        """
+        taxable_amount: int
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
         """
 
     class RetrieveParams(RequestOptions):
