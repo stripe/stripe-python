@@ -208,7 +208,9 @@ class Session(CreateableAPIResource["Session"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Session.CreateParams"]
+        **params: Unpack[
+            "Session.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Session":
         """
         To launch the Financial Connections authorization flow, create a Session. The session's client_secret can be used to launch the flow using Stripe.js.

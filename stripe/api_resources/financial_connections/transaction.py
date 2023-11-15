@@ -135,7 +135,9 @@ class Transaction(ListableAPIResource["Transaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transaction.ListParams"]
+        **params: Unpack[
+            "Transaction.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Transaction"]:
         """
         Returns a list of Financial Connections Transaction objects.

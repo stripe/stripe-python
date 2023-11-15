@@ -1233,7 +1233,9 @@ class CreditUnderwritingRecord(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+        **params: Unpack[
+            "CreditUnderwritingRecord.CorrectParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object to correct mistakes.
@@ -1261,7 +1263,9 @@ class CreditUnderwritingRecord(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+        **params: Unpack[
+            "CreditUnderwritingRecord.CorrectParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object to correct mistakes.
@@ -1272,7 +1276,9 @@ class CreditUnderwritingRecord(
     def correct(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+        **params: Unpack[
+            "CreditUnderwritingRecord.CorrectParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object to correct mistakes.
@@ -1283,7 +1289,9 @@ class CreditUnderwritingRecord(
     def correct(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["CreditUnderwritingRecord.CorrectParams"]
+        **params: Unpack[
+            "CreditUnderwritingRecord.CorrectParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object to correct mistakes.
@@ -1308,7 +1316,7 @@ class CreditUnderwritingRecord(
         stripe_account: Optional[str] = None,
         **params: Unpack[
             "CreditUnderwritingRecord.CreateFromApplicationParams"
-        ]
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditUnderwritingRecord":
         """
         Creates a CreditUnderwritingRecord object with information about a credit application submission.
@@ -1333,7 +1341,7 @@ class CreditUnderwritingRecord(
         stripe_account: Optional[str] = None,
         **params: Unpack[
             "CreditUnderwritingRecord.CreateFromProactiveReviewParams"
-        ]
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditUnderwritingRecord":
         """
         Creates a CreditUnderwritingRecord object from an underwriting decision coming from a proactive review of an existing accountholder.
@@ -1356,7 +1364,9 @@ class CreditUnderwritingRecord(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditUnderwritingRecord.ListParams"]
+        **params: Unpack[
+            "CreditUnderwritingRecord.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CreditUnderwritingRecord"]:
         """
         Retrieves a list of CreditUnderwritingRecord objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.
@@ -1385,7 +1395,9 @@ class CreditUnderwritingRecord(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+        **params: Unpack[
+            "CreditUnderwritingRecord.ReportDecisionParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object from a decision made on a credit application.
@@ -1413,7 +1425,9 @@ class CreditUnderwritingRecord(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+        **params: Unpack[
+            "CreditUnderwritingRecord.ReportDecisionParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object from a decision made on a credit application.
@@ -1424,7 +1438,9 @@ class CreditUnderwritingRecord(
     def report_decision(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+        **params: Unpack[
+            "CreditUnderwritingRecord.ReportDecisionParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object from a decision made on a credit application.
@@ -1435,7 +1451,9 @@ class CreditUnderwritingRecord(
     def report_decision(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["CreditUnderwritingRecord.ReportDecisionParams"]
+        **params: Unpack[
+            "CreditUnderwritingRecord.ReportDecisionParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditUnderwritingRecord":
         """
         Update a CreditUnderwritingRecord object from a decision made on a credit application.

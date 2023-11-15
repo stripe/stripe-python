@@ -227,7 +227,9 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["QuotePhase.ListParams"]
+        **params: Unpack[
+            "QuotePhase.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["QuotePhase"]:
         """
         Returns a list of quote phases.
@@ -256,7 +258,9 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["QuotePhase.ListLineItemsParams"]
+        **params: Unpack[
+            "QuotePhase.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -282,7 +286,9 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["QuotePhase.ListLineItemsParams"]
+        **params: Unpack[
+            "QuotePhase.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -293,7 +299,9 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     def list_line_items(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["QuotePhase.ListLineItemsParams"]
+        **params: Unpack[
+            "QuotePhase.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -304,7 +312,9 @@ class QuotePhase(ListableAPIResource["QuotePhase"]):
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["QuotePhase.ListLineItemsParams"]
+        **params: Unpack[
+            "QuotePhase.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote phase, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

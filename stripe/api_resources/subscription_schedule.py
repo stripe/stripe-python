@@ -2671,7 +2671,9 @@ class SubscriptionSchedule(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.AmendParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.AmendParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionSchedule":
         """
         Amends an existing subscription schedule.
@@ -2697,7 +2699,9 @@ class SubscriptionSchedule(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.AmendParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.AmendParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionSchedule":
         """
         Amends an existing subscription schedule.
@@ -2708,7 +2712,9 @@ class SubscriptionSchedule(
     def amend(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.AmendParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.AmendParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionSchedule":
         """
         Amends an existing subscription schedule.
@@ -2719,7 +2725,9 @@ class SubscriptionSchedule(
     def amend(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.AmendParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.AmendParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionSchedule":
         """
         Amends an existing subscription schedule.
@@ -2743,7 +2751,9 @@ class SubscriptionSchedule(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.CancelParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionSchedule":
         """
         Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
@@ -2769,7 +2779,9 @@ class SubscriptionSchedule(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.CancelParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionSchedule":
         """
         Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
@@ -2780,7 +2792,9 @@ class SubscriptionSchedule(
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.CancelParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionSchedule":
         """
         Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
@@ -2791,7 +2805,9 @@ class SubscriptionSchedule(
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.CancelParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionSchedule":
         """
         Cancels a subscription schedule and its associated subscription immediately (if the subscription schedule has an active subscription). A subscription schedule can only be canceled if its status is not_started or active.
@@ -2815,7 +2831,9 @@ class SubscriptionSchedule(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.CreateParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionSchedule":
         """
         Creates a new subscription schedule object. Each customer can have up to 500 active or scheduled subscriptions.
@@ -2839,7 +2857,9 @@ class SubscriptionSchedule(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.ListParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["SubscriptionSchedule"]:
         """
         Retrieves the list of your subscription schedules.
@@ -2853,6 +2873,7 @@ class SubscriptionSchedule(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -2880,7 +2901,9 @@ class SubscriptionSchedule(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.ReleaseParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionSchedule":
         """
         Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
@@ -2906,7 +2929,9 @@ class SubscriptionSchedule(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.ReleaseParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionSchedule":
         """
         Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
@@ -2917,7 +2942,9 @@ class SubscriptionSchedule(
     def release(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.ReleaseParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionSchedule":
         """
         Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.
@@ -2928,7 +2955,9 @@ class SubscriptionSchedule(
     def release(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["SubscriptionSchedule.ReleaseParams"]
+        **params: Unpack[
+            "SubscriptionSchedule.ReleaseParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "SubscriptionSchedule":
         """
         Releases the subscription schedule immediately, which will stop scheduling of its phases, but leave any existing subscription in place. A schedule can only be released if its status is not_started or active. If the subscription schedule is currently associated with a subscription, releasing it will remove its subscription property and set the subscription's ID to the released_subscription property.

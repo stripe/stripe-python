@@ -84,7 +84,9 @@ class ApplePayDomain(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ApplePayDomain.CreateParams"]
+        **params: Unpack[
+            "ApplePayDomain.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ApplePayDomain":
         """
         Create an apple pay domain.
@@ -153,7 +155,9 @@ class ApplePayDomain(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ApplePayDomain.ListParams"]
+        **params: Unpack[
+            "ApplePayDomain.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ApplePayDomain"]:
         """
         List apple pay domains.
@@ -167,6 +171,7 @@ class ApplePayDomain(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

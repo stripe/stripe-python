@@ -216,7 +216,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FinancingOffer.ListParams"]
+        **params: Unpack[
+            "FinancingOffer.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["FinancingOffer"]:
         """
         Retrieves the financing offers available for Connected accounts that belong to your platform.
@@ -245,7 +247,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        **params: Unpack[
+            "FinancingOffer.MarkDeliveredParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -272,7 +276,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        **params: Unpack[
+            "FinancingOffer.MarkDeliveredParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -284,7 +290,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     def mark_delivered(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        **params: Unpack[
+            "FinancingOffer.MarkDeliveredParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -296,7 +304,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     def mark_delivered(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        **params: Unpack[
+            "FinancingOffer.MarkDeliveredParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to

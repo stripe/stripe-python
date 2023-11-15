@@ -605,7 +605,9 @@ class Product(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Product.CreateParams"]
+        **params: Unpack[
+            "Product.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Product":
         """
         Creates a new product object.
@@ -672,7 +674,9 @@ class Product(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Product.ListParams"]
+        **params: Unpack[
+            "Product.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Product"]:
         """
         Returns a list of your products. The products are returned sorted by creation date, with the most recently created products appearing first.
@@ -686,6 +690,7 @@ class Product(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

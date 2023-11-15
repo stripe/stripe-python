@@ -61,7 +61,9 @@ class TaxCode(ListableAPIResource["TaxCode"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["TaxCode.ListParams"]
+        **params: Unpack[
+            "TaxCode.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["TaxCode"]:
         """
         A list of [all tax codes available](https://stripe.com/docs/tax/tax-categories) to add to Products in order to allow specific tax calculations.
@@ -75,6 +77,7 @@ class TaxCode(ListableAPIResource["TaxCode"]):
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

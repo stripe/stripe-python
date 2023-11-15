@@ -57,6 +57,7 @@ if TYPE_CHECKING:
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
+@nested_resource_class_methods("line")
 @nested_resource_class_methods("payment")
 class Invoice(
     CreateableAPIResource["Invoice"],
@@ -5976,6 +5977,220 @@ class Invoice(
         The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for invoices](https://stripe.com/docs/search#query-fields-for-invoices).
         """
 
+    class ModifyLineParams(RequestOptions):
+        amount: NotRequired["int"]
+        """
+        The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer's account, pass a negative amount.
+        """
+        description: NotRequired["str"]
+        """
+        An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
+        """
+        discountable: NotRequired["bool"]
+        """
+        Controls whether discounts apply to this line item. Defaults to false for prorations or negative line items, and true for all other line items. Cannot be set to true for prorations.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[Invoice.ModifyLineParamsDiscount]"
+        ]
+        """
+        The coupons & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        margins: NotRequired["Literal['']|List[str]"]
+        """
+        The IDs of the margins to apply to the line item. When set, the `default_margins` on the invoice do not apply to this line item.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        period: NotRequired["Invoice.ModifyLineParamsPeriod"]
+        """
+        The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
+        """
+        price: NotRequired["str"]
+        """
+        The ID of the price object.
+        """
+        price_data: NotRequired["Invoice.ModifyLineParamsPriceData"]
+        """
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        """
+        quantity: NotRequired["int"]
+        """
+        Non-negative integer. The quantity of units for the line item.
+        """
+        tax_amounts: NotRequired[
+            "Literal['']|List[Invoice.ModifyLineParamsTaxAmount]"
+        ]
+        """
+        A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://stripe.com/docs/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://stripe.com/docs/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
+        """
+        tax_rates: NotRequired["Literal['']|List[str]"]
+        """
+        The tax rates which apply to the line item. When set, the `default_tax_rates` on the invoice do not apply to this line item. Pass an empty string to remove previously-defined tax rates.
+        """
+
+    class ModifyLineParamsTaxAmount(TypedDict):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the tax.
+        """
+        tax_rate_data: "Invoice.ModifyLineParamsTaxAmountTaxRateData"
+        """
+        Data to find or create a TaxRate object.
+
+        Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item's `tax_rates`, and cannot be directly added to invoices, payments, or line items.
+        """
+        taxable_amount: int
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
+        """
+
+    class ModifyLineParamsTaxAmountTaxRateData(TypedDict):
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        description: NotRequired["str"]
+        """
+        An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
+        """
+        display_name: str
+        """
+        The display name of the tax rate, which will be shown to users.
+        """
+        inclusive: bool
+        """
+        This specifies if the tax rate is inclusive or exclusive.
+        """
+        jurisdiction: NotRequired["str"]
+        """
+        The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
+        """
+        percentage: float
+        """
+        The statutory tax rate percent. This field accepts decimal values between 0 and 100 inclusive with at most 4 decimal places. To accommodate fixed-amount taxes, set the percentage to zero. Stripe will not display zero percentages on the invoice unless the `amount` of the tax is also zero.
+        """
+        state: NotRequired["str"]
+        """
+        [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
+        """
+        tax_type: NotRequired[
+            "Literal['amusement_tax', 'communications_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'pst', 'qst', 'rst', 'sales_tax', 'service_tax', 'vat']"
+        ]
+        """
+        The high-level tax type, such as `vat` or `sales_tax`.
+        """
+
+    class ModifyLineParamsPriceData(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: NotRequired["str"]
+        """
+        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
+        """
+        product_data: NotRequired[
+            "Invoice.ModifyLineParamsPriceDataProductData"
+        ]
+        """
+        Data used to generate a new product object inline. One of `product` or `product_data` is required.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired["int"]
+        """
+        A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
+        """
+        unit_amount_decimal: NotRequired["str"]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class ModifyLineParamsPriceDataProductData(TypedDict):
+        description: NotRequired["str"]
+        """
+        The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+        """
+        images: NotRequired["List[str]"]
+        """
+        A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: str
+        """
+        The product's name, meant to be displayable to the customer.
+        """
+        tax_code: NotRequired["str"]
+        """
+        A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        """
+
+    class ModifyLineParamsPeriod(TypedDict):
+        end: int
+        """
+        The end of the period, which must be greater than or equal to the start. This value is inclusive.
+        """
+        start: int
+        """
+        The start of the period. This value is inclusive.
+        """
+
+    class ModifyLineParamsDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "Invoice.ModifyLineParamsDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+
+    class ModifyLineParamsDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Invoice.ModifyLineParamsDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired["int"]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class ModifyLineParamsDiscountDiscountEndDuration(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
     class RetrievePaymentParams(RequestOptions):
         expand: NotRequired["List[str]"]
         """
@@ -6372,7 +6587,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.AttachPaymentIntentParams"]
+        **params: Unpack[
+            "Invoice.AttachPaymentIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Attaches a PaymentIntent to the invoice, adding it to the list of payments.
@@ -6406,7 +6623,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.AttachPaymentIntentParams"]
+        **params: Unpack[
+            "Invoice.AttachPaymentIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Attaches a PaymentIntent to the invoice, adding it to the list of payments.
@@ -6425,7 +6644,9 @@ class Invoice(
     def attach_payment_intent(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Invoice.AttachPaymentIntentParams"]
+        **params: Unpack[
+            "Invoice.AttachPaymentIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Attaches a PaymentIntent to the invoice, adding it to the list of payments.
@@ -6444,7 +6665,9 @@ class Invoice(
     def attach_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Invoice.AttachPaymentIntentParams"]
+        **params: Unpack[
+            "Invoice.AttachPaymentIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Attaches a PaymentIntent to the invoice, adding it to the list of payments.
@@ -6476,7 +6699,9 @@ class Invoice(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.CreateParams"]
+        **params: Unpack[
+            "Invoice.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         This endpoint creates a draft invoice for a given customer. The invoice remains a draft until you [finalize the invoice, which allows you to [pay](#pay_invoice) or <a href="#send_invoice">send](https://stripe.com/docs/api#finalize_invoice) the invoice to your customers.
@@ -6544,7 +6769,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.FinalizeInvoiceParams"]
+        **params: Unpack[
+            "Invoice.FinalizeInvoiceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -6570,7 +6797,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.FinalizeInvoiceParams"]
+        **params: Unpack[
+            "Invoice.FinalizeInvoiceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -6581,7 +6810,9 @@ class Invoice(
     def finalize_invoice(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Invoice.FinalizeInvoiceParams"]
+        **params: Unpack[
+            "Invoice.FinalizeInvoiceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -6592,7 +6823,9 @@ class Invoice(
     def finalize_invoice(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Invoice.FinalizeInvoiceParams"]
+        **params: Unpack[
+            "Invoice.FinalizeInvoiceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Stripe automatically finalizes drafts before sending and attempting payment on invoices. However, if you'd like to finalize a draft invoice manually, you can do so using this method.
@@ -6615,7 +6848,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.ListParams"]
+        **params: Unpack[
+            "Invoice.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Invoice"]:
         """
         You can list all invoices, or list the invoices for a specific customer. The invoices are returned sorted by creation date, with the most recently created invoices appearing first.
@@ -6629,6 +6864,7 @@ class Invoice(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -6643,7 +6879,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.MarkUncollectibleParams"]
+        **params: Unpack[
+            "Invoice.MarkUncollectibleParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -6669,7 +6907,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.MarkUncollectibleParams"]
+        **params: Unpack[
+            "Invoice.MarkUncollectibleParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -6680,7 +6920,9 @@ class Invoice(
     def mark_uncollectible(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Invoice.MarkUncollectibleParams"]
+        **params: Unpack[
+            "Invoice.MarkUncollectibleParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -6691,7 +6933,9 @@ class Invoice(
     def mark_uncollectible(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Invoice.MarkUncollectibleParams"]
+        **params: Unpack[
+            "Invoice.MarkUncollectibleParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Marking an invoice as uncollectible is useful for keeping track of bad debts that can be written off for accounting purposes.
@@ -6733,7 +6977,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.PayParams"]
+        **params: Unpack[
+            "Invoice.PayParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
@@ -6759,7 +7005,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.PayParams"]
+        **params: Unpack[
+            "Invoice.PayParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
@@ -6770,7 +7018,9 @@ class Invoice(
     def pay(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Invoice.PayParams"]
+        **params: Unpack[
+            "Invoice.PayParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
@@ -6781,7 +7031,9 @@ class Invoice(
     def pay(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Invoice.PayParams"]
+        **params: Unpack[
+            "Invoice.PayParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Stripe automatically creates and then attempts to collect payment on invoices for customers on subscriptions according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to attempt payment on an invoice out of the normal collection schedule or for some other reason, you can do so.
@@ -6816,7 +7068,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.SendInvoiceParams"]
+        **params: Unpack[
+            "Invoice.SendInvoiceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -6844,7 +7098,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.SendInvoiceParams"]
+        **params: Unpack[
+            "Invoice.SendInvoiceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -6857,7 +7113,9 @@ class Invoice(
     def send_invoice(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Invoice.SendInvoiceParams"]
+        **params: Unpack[
+            "Invoice.SendInvoiceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -6870,7 +7128,9 @@ class Invoice(
     def send_invoice(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Invoice.SendInvoiceParams"]
+        **params: Unpack[
+            "Invoice.SendInvoiceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Stripe will automatically send invoices to customers according to your [subscriptions settings](https://dashboard.stripe.com/account/billing/automatic). However, if you'd like to manually send an invoice to your customer out of the normal schedule, you can do so. When sending invoices that have already been paid, there will be no reference to the payment in the email.
@@ -6895,7 +7155,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.UpcomingParams"]
+        **params: Unpack[
+            "Invoice.UpcomingParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         At any time, you can preview the upcoming invoice for a customer. This will show you all the charges that are pending, including subscription renewal charges, invoice item charges, etc. It will also show you any discounts that are applicable to the invoice.
@@ -6922,7 +7184,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.UpcomingLinesParams"]
+        **params: Unpack[
+            "Invoice.UpcomingLinesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["InvoiceLineItem"]:
         """
         When retrieving an upcoming invoice, you'll get a lines property containing the total count of line items and the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -6946,7 +7210,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.VoidInvoiceParams"]
+        **params: Unpack[
+            "Invoice.VoidInvoiceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -6972,7 +7238,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.VoidInvoiceParams"]
+        **params: Unpack[
+            "Invoice.VoidInvoiceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -6983,7 +7251,9 @@ class Invoice(
     def void_invoice(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Invoice.VoidInvoiceParams"]
+        **params: Unpack[
+            "Invoice.VoidInvoiceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -6994,7 +7264,9 @@ class Invoice(
     def void_invoice(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Invoice.VoidInvoiceParams"]
+        **params: Unpack[
+            "Invoice.VoidInvoiceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Invoice":
         """
         Mark a finalized invoice as void. This cannot be undone. Voiding an invoice is similar to [deletion](https://stripe.com/docs/api#delete_invoice), however it only applies to finalized invoices and maintains a papertrail where the invoice can still be found.
@@ -7030,6 +7302,39 @@ class Invoice(
         return cls.search(*args, **kwargs).auto_paging_iter()
 
     @classmethod
+    def modify_line(
+        cls,
+        invoice: str,
+        line_item_id: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack[
+            "Invoice.ModifyLineParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
+    ) -> "InvoiceLineItem":
+        """
+        Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
+        so they can only be updated through this endpoint. Other fields, such as amount, live on both the invoice
+        item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
+        Updating an invoice's line item is only possible before the invoice is finalized.
+        """
+        return cast(
+            "InvoiceLineItem",
+            cls._static_request(
+                "post",
+                "/v1/invoices/{invoice}/lines/{line_item_id}".format(
+                    invoice=util.sanitize_id(invoice),
+                    line_item_id=util.sanitize_id(line_item_id),
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
+        )
+
+    @classmethod
     def retrieve_payment(
         cls,
         invoice: str,
@@ -7037,7 +7342,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.RetrievePaymentParams"]
+        **params: Unpack[
+            "Invoice.RetrievePaymentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "InvoicePayment":
         """
         Retrieves the invoice payment with the given ID.
@@ -7064,7 +7371,9 @@ class Invoice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Invoice.ListPaymentsParams"]
+        **params: Unpack[
+            "Invoice.ListPaymentsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["InvoicePayment"]:
         """
         When retrieving an invoice, there is an includable payments property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of payments.

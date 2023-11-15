@@ -58,7 +58,9 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CustomerSession.CreateParams"]
+        **params: Unpack[
+            "CustomerSession.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CustomerSession":
         """
         Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.

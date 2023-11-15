@@ -263,9 +263,15 @@ class CreditNote(
         """
         The line item quantity to credit.
         """
+        tax_amounts: NotRequired[
+            "Literal['']|List[CreditNote.CreateParamsLineTaxAmount]"
+        ]
+        """
+        A list of up to 10 tax amounts for the credit note line item. Cannot be mixed with `tax_rates`.
+        """
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
-        The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item`.
+        The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and cannot be mixed with `tax_amounts`.
         """
         type: Literal["custom_line_item", "invoice_line_item"]
         """
@@ -278,6 +284,20 @@ class CreditNote(
         unit_amount_decimal: NotRequired["str"]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class CreateParamsLineTaxAmount(TypedDict):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the tax.
+        """
+        tax_rate: str
+        """
+        The id of the tax rate for this tax amount. The tax rate must have been automatically created by Stripe.
+        """
+        taxable_amount: int
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
         """
 
     class ListParams(RequestOptions):
@@ -413,9 +433,15 @@ class CreditNote(
         """
         The line item quantity to credit.
         """
+        tax_amounts: NotRequired[
+            "Literal['']|List[CreditNote.PreviewParamsLineTaxAmount]"
+        ]
+        """
+        A list of up to 10 tax amounts for the credit note line item. Cannot be mixed with `tax_rates`.
+        """
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
-        The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item`.
+        The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and cannot be mixed with `tax_amounts`.
         """
         type: Literal["custom_line_item", "invoice_line_item"]
         """
@@ -428,6 +454,20 @@ class CreditNote(
         unit_amount_decimal: NotRequired["str"]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class PreviewParamsLineTaxAmount(TypedDict):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the tax.
+        """
+        tax_rate: str
+        """
+        The id of the tax rate for this tax amount. The tax rate must have been automatically created by Stripe.
+        """
+        taxable_amount: int
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
         """
 
     class PreviewLinesParams(RequestOptions):
@@ -535,9 +575,15 @@ class CreditNote(
         """
         The line item quantity to credit.
         """
+        tax_amounts: NotRequired[
+            "Literal['']|List[CreditNote.PreviewLinesParamsLineTaxAmount]"
+        ]
+        """
+        A list of up to 10 tax amounts for the credit note line item. Cannot be mixed with `tax_rates`.
+        """
         tax_rates: NotRequired["Literal['']|List[str]"]
         """
-        The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item`.
+        The tax rates which apply to the credit note line item. Only valid when the `type` is `custom_line_item` and cannot be mixed with `tax_amounts`.
         """
         type: Literal["custom_line_item", "invoice_line_item"]
         """
@@ -550,6 +596,20 @@ class CreditNote(
         unit_amount_decimal: NotRequired["str"]
         """
         Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class PreviewLinesParamsLineTaxAmount(TypedDict):
+        amount: int
+        """
+        The amount, in cents (or local equivalent), of the tax.
+        """
+        tax_rate: str
+        """
+        The id of the tax rate for this tax amount. The tax rate must have been automatically created by Stripe.
+        """
+        taxable_amount: int
+        """
+        The amount on which tax is calculated, in cents (or local equivalent).
         """
 
     class RetrieveParams(RequestOptions):
@@ -722,7 +782,9 @@ class CreditNote(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.CreateParams"]
+        **params: Unpack[
+            "CreditNote.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditNote":
         """
         Issue a credit note to adjust the amount of a finalized invoice. For a status=open invoice, a credit note reduces
@@ -759,7 +821,9 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.ListParams"]
+        **params: Unpack[
+            "CreditNote.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CreditNote"]:
         """
         Returns a list of credit notes.
@@ -773,6 +837,7 @@ class CreditNote(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -799,7 +864,9 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.PreviewParams"]
+        **params: Unpack[
+            "CreditNote.PreviewParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditNote":
         """
         Get a preview of a credit note without creating it.
@@ -822,7 +889,9 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.PreviewLinesParams"]
+        **params: Unpack[
+            "CreditNote.PreviewLinesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CreditNoteLineItem"]:
         """
         When retrieving a credit note preview, you'll get a lines property containing the first handful of those items. This URL you can retrieve the full (paginated) list of line items.
@@ -857,7 +926,9 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        **params: Unpack[
+            "CreditNote.VoidCreditNoteParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -881,7 +952,9 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        **params: Unpack[
+            "CreditNote.VoidCreditNoteParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -892,7 +965,9 @@ class CreditNote(
     def void_credit_note(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        **params: Unpack[
+            "CreditNote.VoidCreditNoteParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -903,7 +978,9 @@ class CreditNote(
     def void_credit_note(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["CreditNote.VoidCreditNoteParams"]
+        **params: Unpack[
+            "CreditNote.VoidCreditNoteParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CreditNote":
         """
         Marks a credit note as void. Learn more about [voiding credit notes](https://stripe.com/docs/billing/invoices/credit-notes#voiding).
@@ -927,7 +1004,9 @@ class CreditNote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNote.ListLinesParams"]
+        **params: Unpack[
+            "CreditNote.ListLinesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CreditNoteLineItem"]:
         """
         When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.

@@ -170,7 +170,9 @@ class AccountNotice(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["AccountNotice.ListParams"]
+        **params: Unpack[
+            "AccountNotice.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["AccountNotice"]:
         """
         Retrieves a list of AccountNotice objects. The objects are sorted in descending order by creation date, with the most-recently-created object appearing first.

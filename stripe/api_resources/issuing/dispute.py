@@ -863,7 +863,9 @@ class Dispute(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Dispute.CreateParams"]
+        **params: Unpack[
+            "Dispute.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Dispute":
         """
         Creates an Issuing Dispute object. Individual pieces of evidence within the evidence object are optional at this point. Stripe only validates that required evidence is present during submission. Refer to [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence) for more details about evidence requirements.
@@ -887,7 +889,9 @@ class Dispute(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Dispute.ListParams"]
+        **params: Unpack[
+            "Dispute.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Dispute"]:
         """
         Returns a list of Issuing Dispute objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -901,6 +905,7 @@ class Dispute(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -939,7 +944,9 @@ class Dispute(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Dispute.SubmitParams"]
+        **params: Unpack[
+            "Dispute.SubmitParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -965,7 +972,9 @@ class Dispute(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Dispute.SubmitParams"]
+        **params: Unpack[
+            "Dispute.SubmitParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -976,7 +985,9 @@ class Dispute(
     def submit(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Dispute.SubmitParams"]
+        **params: Unpack[
+            "Dispute.SubmitParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).
@@ -987,7 +998,9 @@ class Dispute(
     def submit(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Dispute.SubmitParams"]
+        **params: Unpack[
+            "Dispute.SubmitParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Dispute":
         """
         Submits an Issuing Dispute to the card network. Stripe validates that all evidence fields required for the dispute's reason are present. For more details, see [Dispute reasons and evidence](https://stripe.com/docs/issuing/purchases/disputes#dispute-reasons-and-evidence).

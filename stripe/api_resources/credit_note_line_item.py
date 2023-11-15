@@ -161,7 +161,9 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CreditNoteLineItem.ListParams"]
+        **params: Unpack[
+            "CreditNoteLineItem.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CreditNoteLineItem"]:
         """
         When retrieving a credit note, you'll get a lines property containing the the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -175,6 +177,7 @@ class CreditNoteLineItem(ListableAPIResource["CreditNoteLineItem"]):
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

@@ -1074,7 +1074,9 @@ class Token(CreateableAPIResource["Token"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Token.CreateParams"]
+        **params: Unpack[
+            "Token.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Token":
         """
         Creates a single-use token that represents a bank account's details.

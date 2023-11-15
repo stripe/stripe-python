@@ -221,7 +221,9 @@ class CustomerCashBalanceTransaction(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CustomerCashBalanceTransaction.ListParams"]
+        **params: Unpack[
+            "CustomerCashBalanceTransaction.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CustomerCashBalanceTransaction"]:
         """
         Returns a list of transactions that modified the customer's [cash balance](https://stripe.com/docs/payments/customer-balance).
@@ -235,6 +237,7 @@ class CustomerCashBalanceTransaction(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

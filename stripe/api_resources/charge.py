@@ -2854,7 +2854,9 @@ class Charge(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Charge.CaptureParams"]
+        **params: Unpack[
+            "Charge.CaptureParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -2884,7 +2886,9 @@ class Charge(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Charge.CaptureParams"]
+        **params: Unpack[
+            "Charge.CaptureParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -2899,7 +2903,9 @@ class Charge(
     def capture(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Charge.CaptureParams"]
+        **params: Unpack[
+            "Charge.CaptureParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -2914,7 +2920,9 @@ class Charge(
     def capture(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Charge.CaptureParams"]
+        **params: Unpack[
+            "Charge.CaptureParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Charge":
         """
         Capture the payment of an existing, uncaptured charge that was created with the capture option set to false.
@@ -2942,7 +2950,9 @@ class Charge(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Charge.CreateParams"]
+        **params: Unpack[
+            "Charge.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Charge":
         """
         Use the [Payment Intents API](https://stripe.com/docs/api/payment_intents) to initiate a new payment instead
@@ -2968,7 +2978,9 @@ class Charge(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Charge.ListParams"]
+        **params: Unpack[
+            "Charge.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Charge"]:
         """
         Returns a list of charges you've previously created. The charges are returned in sorted order, with the most recent charges appearing first.
@@ -2982,6 +2994,7 @@ class Charge(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

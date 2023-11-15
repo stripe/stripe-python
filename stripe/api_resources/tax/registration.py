@@ -1637,7 +1637,9 @@ class Registration(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Registration.CreateParams"]
+        **params: Unpack[
+            "Registration.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Registration":
         """
         Creates a new Tax Registration object.
@@ -1661,7 +1663,9 @@ class Registration(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Registration.ListParams"]
+        **params: Unpack[
+            "Registration.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Registration"]:
         """
         Returns a list of Tax Registration objects.
@@ -1675,6 +1679,7 @@ class Registration(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

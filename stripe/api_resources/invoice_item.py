@@ -536,7 +536,9 @@ class InvoiceItem(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["InvoiceItem.CreateParams"]
+        **params: Unpack[
+            "InvoiceItem.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "InvoiceItem":
         """
         Creates an item to be added to a draft invoice (up to 250 items per invoice). If no invoice is specified, the item will be on the next invoice created for the customer specified.
@@ -605,7 +607,9 @@ class InvoiceItem(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["InvoiceItem.ListParams"]
+        **params: Unpack[
+            "InvoiceItem.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["InvoiceItem"]:
         """
         Returns a list of your invoice items. Invoice items are returned sorted by creation date, with the most recently created invoice items appearing first.
@@ -619,6 +623,7 @@ class InvoiceItem(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

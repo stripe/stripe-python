@@ -95,7 +95,9 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["EarlyFraudWarning.ListParams"]
+        **params: Unpack[
+            "EarlyFraudWarning.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["EarlyFraudWarning"]:
         """
         Returns a list of early fraud warnings.
@@ -109,6 +111,7 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

@@ -363,7 +363,9 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ReceivedDebit.ListParams"]
+        **params: Unpack[
+            "ReceivedDebit.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ReceivedDebit"]:
         """
         Returns a list of ReceivedDebits.
@@ -377,6 +379,7 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -404,7 +407,9 @@ class ReceivedDebit(ListableAPIResource["ReceivedDebit"]):
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["ReceivedDebit.CreateParams"]
+            **params: Unpack[
+                "ReceivedDebit.CreateParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "ReceivedDebit":
             """
             Use this endpoint to simulate a test mode ReceivedDebit initiated by a third party. In live mode, you can't directly create ReceivedDebits initiated by third parties.

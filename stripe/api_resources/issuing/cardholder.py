@@ -1684,7 +1684,9 @@ class Cardholder(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Cardholder.CreateParams"]
+        **params: Unpack[
+            "Cardholder.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Cardholder":
         """
         Creates a new Issuing Cardholder object that can be issued cards.
@@ -1708,7 +1710,9 @@ class Cardholder(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Cardholder.ListParams"]
+        **params: Unpack[
+            "Cardholder.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Cardholder"]:
         """
         Returns a list of Issuing Cardholder objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.
@@ -1722,6 +1726,7 @@ class Cardholder(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

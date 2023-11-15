@@ -61,7 +61,9 @@ class AccountInferredBalance(ListableAPIResource["AccountInferredBalance"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["AccountInferredBalance.ListParams"]
+        **params: Unpack[
+            "AccountInferredBalance.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["AccountInferredBalance"]:
         """
         Lists the recorded inferred balances for a Financial Connections Account.

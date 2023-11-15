@@ -240,7 +240,9 @@ class Topup(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Topup.CancelParams"]
+        **params: Unpack[
+            "Topup.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -266,7 +268,9 @@ class Topup(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Topup.CancelParams"]
+        **params: Unpack[
+            "Topup.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -277,7 +281,9 @@ class Topup(
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Topup.CancelParams"]
+        **params: Unpack[
+            "Topup.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -288,7 +294,9 @@ class Topup(
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Topup.CancelParams"]
+        **params: Unpack[
+            "Topup.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Topup":
         """
         Cancels a top-up. Only pending top-ups can be canceled.
@@ -312,7 +320,9 @@ class Topup(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Topup.CreateParams"]
+        **params: Unpack[
+            "Topup.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Topup":
         """
         Top up the balance of an account
@@ -336,7 +346,9 @@ class Topup(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Topup.ListParams"]
+        **params: Unpack[
+            "Topup.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Topup"]:
         """
         Returns a list of top-ups.
@@ -350,6 +362,7 @@ class Topup(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

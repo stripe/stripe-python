@@ -3801,7 +3801,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.AcceptParams"]
+        **params: Unpack[
+            "Quote.AcceptParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -3827,7 +3829,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.AcceptParams"]
+        **params: Unpack[
+            "Quote.AcceptParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -3838,7 +3842,9 @@ class Quote(
     def accept(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.AcceptParams"]
+        **params: Unpack[
+            "Quote.AcceptParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -3849,7 +3855,9 @@ class Quote(
     def accept(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.AcceptParams"]
+        **params: Unpack[
+            "Quote.AcceptParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Accepts the specified quote.
@@ -3873,7 +3881,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.CancelParams"]
+        **params: Unpack[
+            "Quote.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -3899,7 +3909,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.CancelParams"]
+        **params: Unpack[
+            "Quote.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -3910,7 +3922,9 @@ class Quote(
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.CancelParams"]
+        **params: Unpack[
+            "Quote.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -3921,7 +3935,9 @@ class Quote(
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.CancelParams"]
+        **params: Unpack[
+            "Quote.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Cancels the quote.
@@ -3945,7 +3961,9 @@ class Quote(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.CreateParams"]
+        **params: Unpack[
+            "Quote.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         A quote models prices and services for a customer. Default options for header, description, footer, and expires_at can be set in the dashboard via the [quote template](https://dashboard.stripe.com/settings/billing/quote).
@@ -3970,7 +3988,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.FinalizeQuoteParams"]
+        **params: Unpack[
+            "Quote.FinalizeQuoteParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -3996,7 +4016,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.FinalizeQuoteParams"]
+        **params: Unpack[
+            "Quote.FinalizeQuoteParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -4007,7 +4029,9 @@ class Quote(
     def finalize_quote(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.FinalizeQuoteParams"]
+        **params: Unpack[
+            "Quote.FinalizeQuoteParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -4018,7 +4042,9 @@ class Quote(
     def finalize_quote(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.FinalizeQuoteParams"]
+        **params: Unpack[
+            "Quote.FinalizeQuoteParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Finalizes the quote.
@@ -4041,7 +4067,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.ListParams"]
+        **params: Unpack[
+            "Quote.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Quote"]:
         """
         Returns a list of your quotes.
@@ -4055,6 +4083,7 @@ class Quote(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -4069,7 +4098,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+        **params: Unpack[
+            "Quote.ListComputedUpfrontLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -4095,7 +4126,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+        **params: Unpack[
+            "Quote.ListComputedUpfrontLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -4106,7 +4139,9 @@ class Quote(
     def list_computed_upfront_line_items(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+        **params: Unpack[
+            "Quote.ListComputedUpfrontLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -4117,7 +4152,9 @@ class Quote(
     def list_computed_upfront_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.ListComputedUpfrontLineItemsParams"]
+        **params: Unpack[
+            "Quote.ListComputedUpfrontLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable [computed.upfront.line_items](https://stripe.com/docs/api/quotes/object#quote_object-computed-upfront-line_items) property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of upfront line items.
@@ -4141,7 +4178,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.ListLineItemsParams"]
+        **params: Unpack[
+            "Quote.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -4167,7 +4206,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.ListLineItemsParams"]
+        **params: Unpack[
+            "Quote.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -4178,7 +4219,9 @@ class Quote(
     def list_line_items(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.ListLineItemsParams"]
+        **params: Unpack[
+            "Quote.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -4189,7 +4232,9 @@ class Quote(
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.ListLineItemsParams"]
+        **params: Unpack[
+            "Quote.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving a quote, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -4213,7 +4258,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.ListLinesParams"]
+        **params: Unpack[
+            "Quote.ListLinesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["QuoteLine"]:
         """
         Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
@@ -4239,7 +4286,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.ListLinesParams"]
+        **params: Unpack[
+            "Quote.ListLinesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["QuoteLine"]:
         """
         Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
@@ -4250,7 +4299,9 @@ class Quote(
     def list_lines(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.ListLinesParams"]
+        **params: Unpack[
+            "Quote.ListLinesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["QuoteLine"]:
         """
         Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
@@ -4261,7 +4312,9 @@ class Quote(
     def list_lines(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.ListLinesParams"]
+        **params: Unpack[
+            "Quote.ListLinesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["QuoteLine"]:
         """
         Retrieves a paginated list of lines for a quote. These lines describe changes that will be used to create new subscription schedules or update existing subscription schedules when the quote is accepted.
@@ -4286,7 +4339,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
+        **params: Unpack[
+            "Quote.ListPreviewInvoiceLinesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["InvoiceLineItem"]:
         """
         Preview the invoice line items that would be generated by accepting the quote.
@@ -4314,7 +4369,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
+        **params: Unpack[
+            "Quote.ListPreviewInvoiceLinesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["InvoiceLineItem"]:
         """
         Preview the invoice line items that would be generated by accepting the quote.
@@ -4326,7 +4383,9 @@ class Quote(
         self,
         preview_invoice: str,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
+        **params: Unpack[
+            "Quote.ListPreviewInvoiceLinesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["InvoiceLineItem"]:
         """
         Preview the invoice line items that would be generated by accepting the quote.
@@ -4338,7 +4397,9 @@ class Quote(
         self,
         preview_invoice: str,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.ListPreviewInvoiceLinesParams"]
+        **params: Unpack[
+            "Quote.ListPreviewInvoiceLinesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["InvoiceLineItem"]:
         """
         Preview the invoice line items that would be generated by accepting the quote.
@@ -4363,7 +4424,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.MarkDraftParams"]
+        **params: Unpack[
+            "Quote.MarkDraftParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Converts a stale quote to draft.
@@ -4389,7 +4452,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.MarkDraftParams"]
+        **params: Unpack[
+            "Quote.MarkDraftParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Converts a stale quote to draft.
@@ -4400,7 +4465,9 @@ class Quote(
     def mark_draft(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.MarkDraftParams"]
+        **params: Unpack[
+            "Quote.MarkDraftParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Converts a stale quote to draft.
@@ -4411,7 +4478,9 @@ class Quote(
     def mark_draft(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.MarkDraftParams"]
+        **params: Unpack[
+            "Quote.MarkDraftParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Converts a stale quote to draft.
@@ -4435,7 +4504,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.MarkStaleParams"]
+        **params: Unpack[
+            "Quote.MarkStaleParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Converts a draft or open quote to stale.
@@ -4461,7 +4532,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.MarkStaleParams"]
+        **params: Unpack[
+            "Quote.MarkStaleParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Converts a draft or open quote to stale.
@@ -4472,7 +4545,9 @@ class Quote(
     def mark_stale(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.MarkStaleParams"]
+        **params: Unpack[
+            "Quote.MarkStaleParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Converts a draft or open quote to stale.
@@ -4483,7 +4558,9 @@ class Quote(
     def mark_stale(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.MarkStaleParams"]
+        **params: Unpack[
+            "Quote.MarkStaleParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Converts a draft or open quote to stale.
@@ -4520,7 +4597,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.ReestimateParams"]
+        **params: Unpack[
+            "Quote.ReestimateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Recompute the upcoming invoice estimate for the quote.
@@ -4546,7 +4625,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.ReestimateParams"]
+        **params: Unpack[
+            "Quote.ReestimateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Recompute the upcoming invoice estimate for the quote.
@@ -4557,7 +4638,9 @@ class Quote(
     def reestimate(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.ReestimateParams"]
+        **params: Unpack[
+            "Quote.ReestimateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Recompute the upcoming invoice estimate for the quote.
@@ -4568,7 +4651,9 @@ class Quote(
     def reestimate(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Quote.ReestimateParams"]
+        **params: Unpack[
+            "Quote.ReestimateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Quote":
         """
         Recompute the upcoming invoice estimate for the quote.
@@ -4671,7 +4756,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.ListPreviewInvoicesParams"]
+        **params: Unpack[
+            "Quote.ListPreviewInvoicesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["QuotePreviewInvoice"]:
         """
         Preview the invoices that would be generated by accepting the quote.
@@ -4697,7 +4784,9 @@ class Quote(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Quote.ListPreviewSubscriptionSchedulesParams"]
+        **params: Unpack[
+            "Quote.ListPreviewSubscriptionSchedulesParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["QuotePreviewSubscriptionSchedule"]:
         """
         Preview the schedules that would be generated by accepting the quote

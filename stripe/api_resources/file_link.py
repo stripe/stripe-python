@@ -162,7 +162,9 @@ class FileLink(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FileLink.CreateParams"]
+        **params: Unpack[
+            "FileLink.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FileLink":
         """
         Creates a new file link object.
@@ -186,7 +188,9 @@ class FileLink(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FileLink.ListParams"]
+        **params: Unpack[
+            "FileLink.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["FileLink"]:
         """
         Returns a list of file links.
@@ -200,6 +204,7 @@ class FileLink(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

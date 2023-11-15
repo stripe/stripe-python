@@ -163,7 +163,9 @@ class FinancingTransaction(ListableAPIResource["FinancingTransaction"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FinancingTransaction.ListParams"]
+        **params: Unpack[
+            "FinancingTransaction.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["FinancingTransaction"]:
         """
         Returns a list of financing transactions. The transactions are returned in sorted order,

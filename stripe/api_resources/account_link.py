@@ -71,7 +71,9 @@ class AccountLink(CreateableAPIResource["AccountLink"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["AccountLink.CreateParams"]
+        **params: Unpack[
+            "AccountLink.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "AccountLink":
         """
         Creates an AccountLink object that includes a single-use Stripe URL that the platform can redirect their user to in order to take them through the Connect Onboarding flow.

@@ -241,7 +241,9 @@ class Transaction(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transaction.CancelParams"]
+        **params: Unpack[
+            "Transaction.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Transaction":
         """
         Cancel a gift card transaction
@@ -267,7 +269,9 @@ class Transaction(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transaction.CancelParams"]
+        **params: Unpack[
+            "Transaction.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Transaction":
         """
         Cancel a gift card transaction
@@ -278,7 +282,9 @@ class Transaction(
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Transaction.CancelParams"]
+        **params: Unpack[
+            "Transaction.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Transaction":
         """
         Cancel a gift card transaction
@@ -289,7 +295,9 @@ class Transaction(
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Transaction.CancelParams"]
+        **params: Unpack[
+            "Transaction.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Transaction":
         """
         Cancel a gift card transaction
@@ -313,7 +321,9 @@ class Transaction(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transaction.ConfirmParams"]
+        **params: Unpack[
+            "Transaction.ConfirmParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Transaction":
         """
         Confirm a gift card transaction
@@ -339,7 +349,9 @@ class Transaction(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transaction.ConfirmParams"]
+        **params: Unpack[
+            "Transaction.ConfirmParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Transaction":
         """
         Confirm a gift card transaction
@@ -350,7 +362,9 @@ class Transaction(
     def confirm(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Transaction.ConfirmParams"]
+        **params: Unpack[
+            "Transaction.ConfirmParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Transaction":
         """
         Confirm a gift card transaction
@@ -361,7 +375,9 @@ class Transaction(
     def confirm(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Transaction.ConfirmParams"]
+        **params: Unpack[
+            "Transaction.ConfirmParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Transaction":
         """
         Confirm a gift card transaction
@@ -385,7 +401,9 @@ class Transaction(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transaction.CreateParams"]
+        **params: Unpack[
+            "Transaction.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Transaction":
         """
         Create a gift card transaction
@@ -409,7 +427,9 @@ class Transaction(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transaction.ListParams"]
+        **params: Unpack[
+            "Transaction.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Transaction"]:
         """
         List gift card transactions for a gift card

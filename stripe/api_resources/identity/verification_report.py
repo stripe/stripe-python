@@ -388,7 +388,9 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationReport.ListParams"]
+        **params: Unpack[
+            "VerificationReport.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["VerificationReport"]:
         """
         List all verification reports.
@@ -402,6 +404,7 @@ class VerificationReport(ListableAPIResource["VerificationReport"]):
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

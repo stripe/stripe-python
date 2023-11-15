@@ -629,7 +629,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Calculation.CreateParams"]
+        **params: Unpack[
+            "Calculation.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Calculation":
         """
         Calculates tax based on input and returns a Tax Calculation object.
@@ -654,7 +656,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Calculation.ListLineItemsParams"]
+        **params: Unpack[
+            "Calculation.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a persisted tax calculation as a collection.
@@ -680,7 +684,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Calculation.ListLineItemsParams"]
+        **params: Unpack[
+            "Calculation.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a persisted tax calculation as a collection.
@@ -691,7 +697,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
     def list_line_items(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Calculation.ListLineItemsParams"]
+        **params: Unpack[
+            "Calculation.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a persisted tax calculation as a collection.
@@ -702,7 +710,9 @@ class Calculation(CreateableAPIResource["Calculation"]):
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Calculation.ListLineItemsParams"]
+        **params: Unpack[
+            "Calculation.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["CalculationLineItem"]:
         """
         Retrieves the line items of a persisted tax calculation as a collection.

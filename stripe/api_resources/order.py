@@ -3176,7 +3176,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.CancelParams"]
+        **params: Unpack[
+            "Order.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Cancels the order as well as the payment intent if one is attached.
@@ -3200,7 +3202,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.CancelParams"]
+        **params: Unpack[
+            "Order.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Cancels the order as well as the payment intent if one is attached.
@@ -3211,7 +3215,9 @@ class Order(
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.CancelParams"]
+        **params: Unpack[
+            "Order.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Cancels the order as well as the payment intent if one is attached.
@@ -3222,7 +3228,9 @@ class Order(
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.CancelParams"]
+        **params: Unpack[
+            "Order.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Cancels the order as well as the payment intent if one is attached.
@@ -3246,7 +3254,9 @@ class Order(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.CreateParams"]
+        **params: Unpack[
+            "Order.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Creates a new open order object.
@@ -3270,7 +3280,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.ListParams"]
+        **params: Unpack[
+            "Order.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Order"]:
         """
         Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.
@@ -3299,7 +3311,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.ListLineItemsParams"]
+        **params: Unpack[
+            "Order.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3323,7 +3337,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.ListLineItemsParams"]
+        **params: Unpack[
+            "Order.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3334,7 +3350,9 @@ class Order(
     def list_line_items(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.ListLineItemsParams"]
+        **params: Unpack[
+            "Order.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3345,7 +3363,9 @@ class Order(
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.ListLineItemsParams"]
+        **params: Unpack[
+            "Order.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3382,7 +3402,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.ReopenParams"]
+        **params: Unpack[
+            "Order.ReopenParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Reopens a submitted order.
@@ -3406,7 +3428,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.ReopenParams"]
+        **params: Unpack[
+            "Order.ReopenParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Reopens a submitted order.
@@ -3417,7 +3441,9 @@ class Order(
     def reopen(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.ReopenParams"]
+        **params: Unpack[
+            "Order.ReopenParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Reopens a submitted order.
@@ -3428,7 +3454,9 @@ class Order(
     def reopen(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.ReopenParams"]
+        **params: Unpack[
+            "Order.ReopenParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Reopens a submitted order.
@@ -3463,7 +3491,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.SubmitParams"]
+        **params: Unpack[
+            "Order.SubmitParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
@@ -3487,7 +3517,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.SubmitParams"]
+        **params: Unpack[
+            "Order.SubmitParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
@@ -3498,7 +3530,9 @@ class Order(
     def submit(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.SubmitParams"]
+        **params: Unpack[
+            "Order.SubmitParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
@@ -3509,7 +3543,9 @@ class Order(
     def submit(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.SubmitParams"]
+        **params: Unpack[
+            "Order.SubmitParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.

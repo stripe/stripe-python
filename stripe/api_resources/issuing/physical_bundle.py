@@ -91,7 +91,9 @@ class PhysicalBundle(ListableAPIResource["PhysicalBundle"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["PhysicalBundle.ListParams"]
+        **params: Unpack[
+            "PhysicalBundle.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["PhysicalBundle"]:
         """
         Returns a list of physical bundle objects. The objects are sorted in descending order by creation date, with the most recently created object appearing first.

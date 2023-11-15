@@ -136,7 +136,9 @@ class Margin(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Margin.CreateParams"]
+        **params: Unpack[
+            "Margin.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Margin":
         """
         Create a margin object to be used with invoices, invoice items, and invoice line items for a customer to represent a partner discount.A margin has a percent_off which is the percent that will be taken off the subtotal after all items and other discounts and promotions) of any invoices for a customer. Calculation of prorations do not include any partner margins applied on the original invoice item.
@@ -160,7 +162,9 @@ class Margin(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Margin.ListParams"]
+        **params: Unpack[
+            "Margin.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Margin"]:
         """
         Retrieve a list of your margins.

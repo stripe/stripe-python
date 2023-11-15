@@ -410,7 +410,9 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ReceivedCredit.ListParams"]
+        **params: Unpack[
+            "ReceivedCredit.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ReceivedCredit"]:
         """
         Returns a list of ReceivedCredits.
@@ -424,6 +426,7 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
@@ -451,7 +454,9 @@ class ReceivedCredit(ListableAPIResource["ReceivedCredit"]):
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["ReceivedCredit.CreateParams"]
+            **params: Unpack[
+                "ReceivedCredit.CreateParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "ReceivedCredit":
             """
             Use this endpoint to simulate a test mode ReceivedCredit initiated by a third party. In live mode, you can't directly create ReceivedCredits initiated by third parties.

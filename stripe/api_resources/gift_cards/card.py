@@ -220,7 +220,9 @@ class Card(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Card.CreateParams"]
+        **params: Unpack[
+            "Card.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Card":
         """
         Creates a new gift card object.
@@ -244,7 +246,9 @@ class Card(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Card.ListParams"]
+        **params: Unpack[
+            "Card.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Card"]:
         """
         List gift cards for an account
@@ -294,7 +298,9 @@ class Card(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Card.ValidateParams"]
+        **params: Unpack[
+            "Card.ValidateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Card":
         """
         Validates a gift card code, returning the matching gift card object if it exists.
