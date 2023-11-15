@@ -10,7 +10,7 @@ $(VENV_NAME)/bin/activate: setup.py requirements.txt
 	@touch $(VENV_NAME)/bin/activate
 
 test: venv pyright
-	@${VENV_NAME}/bin/tox -p auto $(TOX_ARGS)
+	@${VENV_NAME}/bin/tox -p auto -e $(PYTHON) $(TOX_ARGS)
 
 test-nomock: venv
 	@${VENV_NAME}/bin/tox -p auto -- --nomock $(TOX_ARGS)
