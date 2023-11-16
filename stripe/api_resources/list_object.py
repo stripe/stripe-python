@@ -1,4 +1,6 @@
-# pyright: strict
+# pyright: strict, reportUnnecessaryTypeIgnoreComment=false
+# reportUnnecessaryTypeIgnoreComment is set to false because some type ignores are required in some
+# python versions but not the others
 from typing_extensions import Self
 
 from typing import (
@@ -115,7 +117,11 @@ class ListObject(StripeObject, Generic[T]):
     #  Pyright doesn't like this because ListObject inherits from StripeObject inherits from Dict[str, Any]
     #  and so it wants the type of __iter__ to agree with __iter__ from Dict[str, Any]
     #  But we are iterating through "data", which is a List[T].
-    def __iter__(self) -> Iterator[T]:  # pyright: ignore
+    def __iter__(
+        self,
+    ) -> Iterator[
+        T
+    ]:  # pyright: ignore (must be type: ignore because the error doesn't fire in python 3.6)
         return getattr(self, "data", []).__iter__()
 
     def __len__(self) -> int:

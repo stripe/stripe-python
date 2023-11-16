@@ -40,7 +40,7 @@ log: Optional[Literal["debug", "info"]] = None
 # API resources
 from stripe.api_resources import *  # noqa
 
-from stripe.api_resources import abstract # noqa
+from stripe.api_resources import abstract  # noqa
 
 # OAuth
 from stripe.oauth import OAuth  # noqa
