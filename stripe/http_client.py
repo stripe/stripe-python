@@ -31,7 +31,7 @@ except ImportError:
     pycurl = None
 
 try:
-    import requests  # pyright: ignore
+    import requests
 except ImportError:
     requests = None
 else:
@@ -61,7 +61,7 @@ else:
             requests = None
 
 try:
-    from google.appengine.api import urlfetch  # type: ignore
+    from google.appengine.api import urlfetch  # pyright: ignore
 except ImportError:
     urlfetch = None
 
