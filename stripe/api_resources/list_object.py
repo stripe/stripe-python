@@ -119,9 +119,7 @@ class ListObject(StripeObject, Generic[T]):
     #  But we are iterating through "data", which is a List[T].
     def __iter__(
         self,
-    ) -> Iterator[
-        T
-    ]:  # pyright: ignore (must be type: ignore because the error doesn't fire in python 3.6)
+    ) -> Iterator[T]:  # pyright: ignore
         return getattr(self, "data", []).__iter__()
 
     def __len__(self) -> int:
