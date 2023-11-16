@@ -155,13 +155,11 @@ class Mandate(APIResource["Mandate"]):
         The currency of the payment on a single use mandate.
         """
 
-    if TYPE_CHECKING:
-
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     customer_acceptance: CustomerAcceptance
     id: str

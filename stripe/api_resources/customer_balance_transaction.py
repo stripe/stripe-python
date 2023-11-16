@@ -100,7 +100,9 @@ class CustomerBalanceTransaction(APIResource["CustomerBalanceTransaction"]):
         return "%s/%s/balance_transactions/%s" % (base, cust_extn, extn)
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params):
+    def retrieve(
+        cls, id, api_key=None, **params
+    ) -> "CustomerBalanceTransaction":
         raise NotImplementedError(
             "Can't retrieve a Customer Balance Transaction without a Customer ID. "
             "Use Customer.retrieve_customer_balance_transaction('cus_123', 'cbtxn_123')"
