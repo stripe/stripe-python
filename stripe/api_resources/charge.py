@@ -2376,14 +2376,14 @@ class Charge(
     ) -> Iterator["Charge"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
 
-    def mark_as_fraudulent(self, idempotency_key=None):
+    def mark_as_fraudulent(self, idempotency_key=None) -> "Charge":
         params = {"fraud_details": {"user_report": "fraudulent"}}
         url = self.instance_url()
         headers = util.populate_headers(idempotency_key)
         self.refresh_from(self.request("post", url, params, headers))
         return self
 
-    def mark_as_safe(self, idempotency_key=None):
+    def mark_as_safe(self, idempotency_key=None) -> "Charge":
         params = {"fraud_details": {"user_report": "safe"}}
         url = self.instance_url()
         headers = util.populate_headers(idempotency_key)

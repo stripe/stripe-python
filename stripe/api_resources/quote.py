@@ -1528,9 +1528,8 @@ class Quote(
         return response
 
     @overload
-    @classmethod
+    @staticmethod
     def pdf(
-        cls,
         sid,
         api_key=None,
         idempotency_key=None,
@@ -1552,7 +1551,7 @@ class Quote(
         ...
 
     @util.class_method_variant("_cls_pdf")
-    def pdf(  # type: ignore
+    def pdf(  # pyright: ignore
         self,
         api_key=None,
         api_version=None,
