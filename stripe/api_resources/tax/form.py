@@ -228,9 +228,8 @@ class Form(ListableAPIResource["Form"]):
         return response
 
     @overload
-    @classmethod
+    @staticmethod
     def pdf(
-        cls,
         sid: str,
         api_key: Optional[str] = None,
         idempotency_key=None,

@@ -3858,13 +3858,13 @@ class Account(
     # capabilities property which is a hash and not the sub-list of capabilities.
 
     @classmethod
-    def retrieve(cls, id=None, api_key=None, **params):
+    def retrieve(cls, id=None, api_key=None, **params) -> "Account":
         instance = cls(id, api_key, **params)
         instance.refresh()
         return instance
 
     @classmethod
-    def modify(cls, id=None, **params):
+    def modify(cls, id=None, **params) -> "Account":
         url = cls._build_instance_url(id)
         return cls._static_request("post", url, params=params)
 

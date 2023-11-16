@@ -1338,7 +1338,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             ),
         )
 
-    def detach(self, idempotency_key=None, **params):
+    def detach(self, idempotency_key=None, **params) -> "Source":
         token = self.id
 
         if hasattr(self, "customer") and self.customer:
