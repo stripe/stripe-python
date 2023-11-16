@@ -3,7 +3,7 @@
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.application_fee import ApplicationFee
 from stripe.api_resources.expandable_field import ExpandableField
-from typing import ClassVar, Dict, Optional
+from typing import ClassVar, Dict, Optional, cast
 from typing_extensions import Literal, TYPE_CHECKING
 from urllib.parse import quote_plus
 
@@ -64,7 +64,10 @@ class ApplicationFeeRefund(UpdateableAPIResource["ApplicationFeeRefund"]):
     @classmethod
     def modify(cls, fee, sid, **params) -> "ApplicationFeeRefund":
         url = cls._build_instance_url(fee, sid)
-        return cls._static_request("post", url, params=params)
+        return cast(
+            "ApplicationFeeRefund",
+            cls._static_request("post", url, params=params),
+        )
 
     def instance_url(self):
         return self._build_instance_url(self.fee, self.id)
