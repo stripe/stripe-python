@@ -1770,6 +1770,12 @@ class Charge(
         """
         Car rental details for this PaymentIntent.
         """
+        event_details: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsEventDetails"
+        ]
+        """
+        Event details for this PaymentIntent
+        """
         flight: NotRequired["Charge.CaptureParamsPaymentDetailsFlight"]
         """
         Flight reservation details for this PaymentIntent
@@ -1777,6 +1783,58 @@ class Charge(
         lodging: NotRequired["Charge.CaptureParamsPaymentDetailsLodging"]
         """
         Lodging reservation details for this PaymentIntent
+        """
+        subscription: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsSubscription"
+        ]
+        """
+        Subscription details for this PaymentIntent
+        """
+
+    class CaptureParamsPaymentDetailsSubscription(TypedDict):
+        affiliate: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsSubscriptionAffiliate"
+        ]
+        """
+        Affiliate details for this purchase.
+        """
+        auto_renewal: NotRequired["bool"]
+        """
+        Info whether the subscription will be auto renewed upon expiry.
+        """
+        billing_interval: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsSubscriptionBillingInterval"
+        ]
+        """
+        Subscription billing details for this purchase.
+        """
+        ends_at: NotRequired["int"]
+        """
+        Subscription end time. Measured in seconds since the Unix epoch.
+        """
+        name: str
+        """
+        Name of the product on subscription. e.g. Apple Music Subscription
+        """
+        starts_at: NotRequired["int"]
+        """
+        Subscription start time. Measured in seconds since the Unix epoch.
+        """
+
+    class CaptureParamsPaymentDetailsSubscriptionBillingInterval(TypedDict):
+        count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+
+    class CaptureParamsPaymentDetailsSubscriptionAffiliate(TypedDict):
+        name: str
+        """
+        The name of the affiliate that originated the purchase.
         """
 
     class CaptureParamsPaymentDetailsLodging(TypedDict):
@@ -1789,6 +1847,12 @@ class Charge(
         adults: NotRequired["int"]
         """
         The number of adults on the booking
+        """
+        affiliate: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsLodgingAffiliate"
+        ]
+        """
+        Affiliate details for this purchase.
         """
         booking_number: NotRequired["str"]
         """
@@ -1814,6 +1878,12 @@ class Charge(
         """
         The daily lodging room rate.
         """
+        delivery: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsLodgingDelivery"
+        ]
+        """
+        Delivery details for this purchase.
+        """
         extra_charges: NotRequired[
             "List[Literal['gift_shop', 'laundry', 'mini_bar', 'other', 'restaurant', 'telephone']]"
         ]
@@ -1832,6 +1902,12 @@ class Charge(
         """
         Indicates if the customer did not keep their booking while failing to cancel the reservation.
         """
+        passengers: NotRequired[
+            "List[Charge.CaptureParamsPaymentDetailsLodgingPassenger]"
+        ]
+        """
+        The details of the passengers in the travel reservation
+        """
         property_phone_number: NotRequired["str"]
         """
         The phone number of the lodging location.
@@ -1847,6 +1923,44 @@ class Charge(
         total_tax_amount: NotRequired["int"]
         """
         The total tax amount
+        """
+
+    class CaptureParamsPaymentDetailsLodgingPassenger(TypedDict):
+        name: str
+        """
+        Full name of the person or entity on the lodging reservation.
+        """
+
+    class CaptureParamsPaymentDetailsLodgingDelivery(TypedDict):
+        mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']"]
+        """
+        The delivery method for the payment
+        """
+        receipient: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsLodgingDeliveryReceipient"
+        ]
+        """
+        Details of the recipient.
+        """
+
+    class CaptureParamsPaymentDetailsLodgingDeliveryReceipient(TypedDict):
+        email: NotRequired["str"]
+        """
+        The email of the recipient the ticket is delivered to.
+        """
+        name: NotRequired["str"]
+        """
+        The name of the recipient the ticket is delivered to.
+        """
+        phone: NotRequired["str"]
+        """
+        The phone number of the recipient the ticket is delivered to.
+        """
+
+    class CaptureParamsPaymentDetailsLodgingAffiliate(TypedDict):
+        name: str
+        """
+        The name of the affiliate that originated the purchase.
         """
 
     class CaptureParamsPaymentDetailsLodgingAddress(TypedDict):
@@ -1876,6 +1990,12 @@ class Charge(
         """
 
     class CaptureParamsPaymentDetailsFlight(TypedDict):
+        affiliate: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsFlightAffiliate"
+        ]
+        """
+        Affiliate details for this purchase.
+        """
         agency_number: NotRequired["str"]
         """
         The agency number (i.e. International Air Transport Association (IATA) agency number) of the travel agency that made the booking.
@@ -1884,9 +2004,21 @@ class Charge(
         """
         The International Air Transport Association (IATA) carrier code of the carrier that issued the ticket.
         """
+        delivery: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsFlightDelivery"
+        ]
+        """
+        Delivery details for this purchase.
+        """
         passenger_name: NotRequired["str"]
         """
         The name of the person or entity on the reservation.
+        """
+        passengers: NotRequired[
+            "List[Charge.CaptureParamsPaymentDetailsFlightPassenger]"
+        ]
+        """
+        The details of the passengers in the travel reservation.
         """
         segments: List["Charge.CaptureParamsPaymentDetailsFlightSegment"]
         """
@@ -1929,7 +2061,153 @@ class Charge(
         The fare class for the segment.
         """
 
+    class CaptureParamsPaymentDetailsFlightPassenger(TypedDict):
+        name: str
+        """
+        Full name of the person or entity on the flight reservation.
+        """
+
+    class CaptureParamsPaymentDetailsFlightDelivery(TypedDict):
+        mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']"]
+        """
+        The delivery method for the payment
+        """
+        receipient: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsFlightDeliveryReceipient"
+        ]
+        """
+        Details of the recipient.
+        """
+
+    class CaptureParamsPaymentDetailsFlightDeliveryReceipient(TypedDict):
+        email: NotRequired["str"]
+        """
+        The email of the recipient the ticket is delivered to.
+        """
+        name: NotRequired["str"]
+        """
+        The name of the recipient the ticket is delivered to.
+        """
+        phone: NotRequired["str"]
+        """
+        The phone number of the recipient the ticket is delivered to.
+        """
+
+    class CaptureParamsPaymentDetailsFlightAffiliate(TypedDict):
+        name: str
+        """
+        The name of the affiliate that originated the purchase.
+        """
+
+    class CaptureParamsPaymentDetailsEventDetails(TypedDict):
+        access_controlled_venue: NotRequired["bool"]
+        """
+        Indicates if the tickets are digitally checked when entering the venue.
+        """
+        address: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsEventDetailsAddress"
+        ]
+        """
+        The event location's address.
+        """
+        affiliate: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsEventDetailsAffiliate"
+        ]
+        """
+        Affiliate details for this purchase.
+        """
+        company: NotRequired["str"]
+        """
+        The name of the company
+        """
+        delivery: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsEventDetailsDelivery"
+        ]
+        """
+        Delivery details for this purchase.
+        """
+        ends_at: NotRequired["int"]
+        """
+        Event end time. Measured in seconds since the Unix epoch.
+        """
+        genre: NotRequired["str"]
+        """
+        Type of the event entertainment (concert, sports event etc)
+        """
+        name: str
+        """
+        The name of the event.
+        """
+        starts_at: NotRequired["int"]
+        """
+        Event start time. Measured in seconds since the Unix epoch.
+        """
+
+    class CaptureParamsPaymentDetailsEventDetailsDelivery(TypedDict):
+        mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']"]
+        """
+        The delivery method for the payment
+        """
+        receipient: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsEventDetailsDeliveryReceipient"
+        ]
+        """
+        Details of the recipient.
+        """
+
+    class CaptureParamsPaymentDetailsEventDetailsDeliveryReceipient(TypedDict):
+        email: NotRequired["str"]
+        """
+        The email of the recipient the ticket is delivered to.
+        """
+        name: NotRequired["str"]
+        """
+        The name of the recipient the ticket is delivered to.
+        """
+        phone: NotRequired["str"]
+        """
+        The phone number of the recipient the ticket is delivered to.
+        """
+
+    class CaptureParamsPaymentDetailsEventDetailsAffiliate(TypedDict):
+        name: str
+        """
+        The name of the affiliate that originated the purchase.
+        """
+
+    class CaptureParamsPaymentDetailsEventDetailsAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
+
     class CaptureParamsPaymentDetailsCarRental(TypedDict):
+        affiliate: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsCarRentalAffiliate"
+        ]
+        """
+        Affiliate details for this purchase.
+        """
         booking_number: str
         """
         The booking number associated with the car rental.
@@ -1957,6 +2235,18 @@ class Charge(
         days_rented: int
         """
         Number of days the car is being rented.
+        """
+        delivery: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsCarRentalDelivery"
+        ]
+        """
+        Delivery details for this purchase.
+        """
+        drivers: NotRequired[
+            "List[Charge.CaptureParamsPaymentDetailsCarRentalDriver]"
+        ]
+        """
+        The details of the passengers in the travel reservation
         """
         extra_charges: NotRequired[
             "List[Literal['extra_mileage', 'gas', 'late_return', 'one_way_service', 'parking_violation']]"
@@ -2055,6 +2345,44 @@ class Charge(
         state: NotRequired["str"]
         """
         State, county, province, or region.
+        """
+
+    class CaptureParamsPaymentDetailsCarRentalDriver(TypedDict):
+        name: str
+        """
+        Full name of the person or entity on the car reservation.
+        """
+
+    class CaptureParamsPaymentDetailsCarRentalDelivery(TypedDict):
+        mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']"]
+        """
+        The delivery method for the payment
+        """
+        receipient: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsCarRentalDeliveryReceipient"
+        ]
+        """
+        Details of the recipient.
+        """
+
+    class CaptureParamsPaymentDetailsCarRentalDeliveryReceipient(TypedDict):
+        email: NotRequired["str"]
+        """
+        The email of the recipient the ticket is delivered to.
+        """
+        name: NotRequired["str"]
+        """
+        The name of the recipient the ticket is delivered to.
+        """
+        phone: NotRequired["str"]
+        """
+        The phone number of the recipient the ticket is delivered to.
+        """
+
+    class CaptureParamsPaymentDetailsCarRentalAffiliate(TypedDict):
+        name: str
+        """
+        The name of the affiliate that originated the purchase.
         """
 
     class CreateParams(RequestOptions):
@@ -2343,6 +2671,12 @@ class Charge(
         """
         Car rental details for this PaymentIntent.
         """
+        event_details: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsEventDetails"
+        ]
+        """
+        Event details for this PaymentIntent
+        """
         flight: NotRequired["Charge.ModifyParamsPaymentDetailsFlight"]
         """
         Flight reservation details for this PaymentIntent
@@ -2350,6 +2684,58 @@ class Charge(
         lodging: NotRequired["Charge.ModifyParamsPaymentDetailsLodging"]
         """
         Lodging reservation details for this PaymentIntent
+        """
+        subscription: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsSubscription"
+        ]
+        """
+        Subscription details for this PaymentIntent
+        """
+
+    class ModifyParamsPaymentDetailsSubscription(TypedDict):
+        affiliate: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsSubscriptionAffiliate"
+        ]
+        """
+        Affiliate details for this purchase.
+        """
+        auto_renewal: NotRequired["bool"]
+        """
+        Info whether the subscription will be auto renewed upon expiry.
+        """
+        billing_interval: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsSubscriptionBillingInterval"
+        ]
+        """
+        Subscription billing details for this purchase.
+        """
+        ends_at: NotRequired["int"]
+        """
+        Subscription end time. Measured in seconds since the Unix epoch.
+        """
+        name: str
+        """
+        Name of the product on subscription. e.g. Apple Music Subscription
+        """
+        starts_at: NotRequired["int"]
+        """
+        Subscription start time. Measured in seconds since the Unix epoch.
+        """
+
+    class ModifyParamsPaymentDetailsSubscriptionBillingInterval(TypedDict):
+        count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+
+    class ModifyParamsPaymentDetailsSubscriptionAffiliate(TypedDict):
+        name: str
+        """
+        The name of the affiliate that originated the purchase.
         """
 
     class ModifyParamsPaymentDetailsLodging(TypedDict):
@@ -2360,6 +2746,12 @@ class Charge(
         adults: NotRequired["int"]
         """
         The number of adults on the booking
+        """
+        affiliate: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsLodgingAffiliate"
+        ]
+        """
+        Affiliate details for this purchase.
         """
         booking_number: NotRequired["str"]
         """
@@ -2385,6 +2777,12 @@ class Charge(
         """
         The daily lodging room rate.
         """
+        delivery: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsLodgingDelivery"
+        ]
+        """
+        Delivery details for this purchase.
+        """
         extra_charges: NotRequired[
             "List[Literal['gift_shop', 'laundry', 'mini_bar', 'other', 'restaurant', 'telephone']]"
         ]
@@ -2403,6 +2801,12 @@ class Charge(
         """
         Indicates if the customer did not keep their booking while failing to cancel the reservation.
         """
+        passengers: NotRequired[
+            "List[Charge.ModifyParamsPaymentDetailsLodgingPassenger]"
+        ]
+        """
+        The details of the passengers in the travel reservation
+        """
         property_phone_number: NotRequired["str"]
         """
         The phone number of the lodging location.
@@ -2418,6 +2822,44 @@ class Charge(
         total_tax_amount: NotRequired["int"]
         """
         The total tax amount
+        """
+
+    class ModifyParamsPaymentDetailsLodgingPassenger(TypedDict):
+        name: str
+        """
+        Full name of the person or entity on the lodging reservation.
+        """
+
+    class ModifyParamsPaymentDetailsLodgingDelivery(TypedDict):
+        mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']"]
+        """
+        The delivery method for the payment
+        """
+        receipient: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsLodgingDeliveryReceipient"
+        ]
+        """
+        Details of the recipient.
+        """
+
+    class ModifyParamsPaymentDetailsLodgingDeliveryReceipient(TypedDict):
+        email: NotRequired["str"]
+        """
+        The email of the recipient the ticket is delivered to.
+        """
+        name: NotRequired["str"]
+        """
+        The name of the recipient the ticket is delivered to.
+        """
+        phone: NotRequired["str"]
+        """
+        The phone number of the recipient the ticket is delivered to.
+        """
+
+    class ModifyParamsPaymentDetailsLodgingAffiliate(TypedDict):
+        name: str
+        """
+        The name of the affiliate that originated the purchase.
         """
 
     class ModifyParamsPaymentDetailsLodgingAddress(TypedDict):
@@ -2447,6 +2889,12 @@ class Charge(
         """
 
     class ModifyParamsPaymentDetailsFlight(TypedDict):
+        affiliate: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsFlightAffiliate"
+        ]
+        """
+        Affiliate details for this purchase.
+        """
         agency_number: NotRequired["str"]
         """
         The agency number (i.e. International Air Transport Association (IATA) agency number) of the travel agency that made the booking.
@@ -2455,9 +2903,21 @@ class Charge(
         """
         The International Air Transport Association (IATA) carrier code of the carrier that issued the ticket.
         """
+        delivery: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsFlightDelivery"
+        ]
+        """
+        Delivery details for this purchase.
+        """
         passenger_name: NotRequired["str"]
         """
         The name of the person or entity on the reservation.
+        """
+        passengers: NotRequired[
+            "List[Charge.ModifyParamsPaymentDetailsFlightPassenger]"
+        ]
+        """
+        The details of the passengers in the travel reservation.
         """
         segments: List["Charge.ModifyParamsPaymentDetailsFlightSegment"]
         """
@@ -2500,7 +2960,153 @@ class Charge(
         The fare class for the segment.
         """
 
+    class ModifyParamsPaymentDetailsFlightPassenger(TypedDict):
+        name: str
+        """
+        Full name of the person or entity on the flight reservation.
+        """
+
+    class ModifyParamsPaymentDetailsFlightDelivery(TypedDict):
+        mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']"]
+        """
+        The delivery method for the payment
+        """
+        receipient: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsFlightDeliveryReceipient"
+        ]
+        """
+        Details of the recipient.
+        """
+
+    class ModifyParamsPaymentDetailsFlightDeliveryReceipient(TypedDict):
+        email: NotRequired["str"]
+        """
+        The email of the recipient the ticket is delivered to.
+        """
+        name: NotRequired["str"]
+        """
+        The name of the recipient the ticket is delivered to.
+        """
+        phone: NotRequired["str"]
+        """
+        The phone number of the recipient the ticket is delivered to.
+        """
+
+    class ModifyParamsPaymentDetailsFlightAffiliate(TypedDict):
+        name: str
+        """
+        The name of the affiliate that originated the purchase.
+        """
+
+    class ModifyParamsPaymentDetailsEventDetails(TypedDict):
+        access_controlled_venue: NotRequired["bool"]
+        """
+        Indicates if the tickets are digitally checked when entering the venue.
+        """
+        address: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsEventDetailsAddress"
+        ]
+        """
+        The event location's address.
+        """
+        affiliate: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsEventDetailsAffiliate"
+        ]
+        """
+        Affiliate details for this purchase.
+        """
+        company: NotRequired["str"]
+        """
+        The name of the company
+        """
+        delivery: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsEventDetailsDelivery"
+        ]
+        """
+        Delivery details for this purchase.
+        """
+        ends_at: NotRequired["int"]
+        """
+        Event end time. Measured in seconds since the Unix epoch.
+        """
+        genre: NotRequired["str"]
+        """
+        Type of the event entertainment (concert, sports event etc)
+        """
+        name: str
+        """
+        The name of the event.
+        """
+        starts_at: NotRequired["int"]
+        """
+        Event start time. Measured in seconds since the Unix epoch.
+        """
+
+    class ModifyParamsPaymentDetailsEventDetailsDelivery(TypedDict):
+        mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']"]
+        """
+        The delivery method for the payment
+        """
+        receipient: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsEventDetailsDeliveryReceipient"
+        ]
+        """
+        Details of the recipient.
+        """
+
+    class ModifyParamsPaymentDetailsEventDetailsDeliveryReceipient(TypedDict):
+        email: NotRequired["str"]
+        """
+        The email of the recipient the ticket is delivered to.
+        """
+        name: NotRequired["str"]
+        """
+        The name of the recipient the ticket is delivered to.
+        """
+        phone: NotRequired["str"]
+        """
+        The phone number of the recipient the ticket is delivered to.
+        """
+
+    class ModifyParamsPaymentDetailsEventDetailsAffiliate(TypedDict):
+        name: str
+        """
+        The name of the affiliate that originated the purchase.
+        """
+
+    class ModifyParamsPaymentDetailsEventDetailsAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State, county, province, or region.
+        """
+
     class ModifyParamsPaymentDetailsCarRental(TypedDict):
+        affiliate: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsCarRentalAffiliate"
+        ]
+        """
+        Affiliate details for this purchase.
+        """
         booking_number: str
         """
         The booking number associated with the car rental.
@@ -2528,6 +3134,18 @@ class Charge(
         days_rented: int
         """
         Number of days the car is being rented.
+        """
+        delivery: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsCarRentalDelivery"
+        ]
+        """
+        Delivery details for this purchase.
+        """
+        drivers: NotRequired[
+            "List[Charge.ModifyParamsPaymentDetailsCarRentalDriver]"
+        ]
+        """
+        The details of the passengers in the travel reservation
         """
         extra_charges: NotRequired[
             "List[Literal['extra_mileage', 'gas', 'late_return', 'one_way_service', 'parking_violation']]"
@@ -2626,6 +3244,44 @@ class Charge(
         state: NotRequired["str"]
         """
         State, county, province, or region.
+        """
+
+    class ModifyParamsPaymentDetailsCarRentalDriver(TypedDict):
+        name: str
+        """
+        Full name of the person or entity on the car reservation.
+        """
+
+    class ModifyParamsPaymentDetailsCarRentalDelivery(TypedDict):
+        mode: NotRequired["Literal['email', 'phone', 'pickup', 'post']"]
+        """
+        The delivery method for the payment
+        """
+        receipient: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsCarRentalDeliveryReceipient"
+        ]
+        """
+        Details of the recipient.
+        """
+
+    class ModifyParamsPaymentDetailsCarRentalDeliveryReceipient(TypedDict):
+        email: NotRequired["str"]
+        """
+        The email of the recipient the ticket is delivered to.
+        """
+        name: NotRequired["str"]
+        """
+        The name of the recipient the ticket is delivered to.
+        """
+        phone: NotRequired["str"]
+        """
+        The phone number of the recipient the ticket is delivered to.
+        """
+
+    class ModifyParamsPaymentDetailsCarRentalAffiliate(TypedDict):
+        name: str
+        """
+        The name of the affiliate that originated the purchase.
         """
 
     class ModifyParamsFraudDetails(TypedDict):
