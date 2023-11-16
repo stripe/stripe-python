@@ -3866,7 +3866,7 @@ class Account(
     @classmethod
     def modify(cls, id=None, **params) -> "Account":
         url = cls._build_instance_url(id)
-        return cls._static_request("post", url, params=params)
+        return cast("Account", cls._static_request("post", url, params=params))
 
     @classmethod
     def _build_instance_url(cls, sid):

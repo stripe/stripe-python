@@ -5,7 +5,7 @@ from stripe import api_requestor, util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -214,8 +214,11 @@ class File(ListableAPIResource["File"]):
         response, api_key = requestor.request(
             "post", url, params=params, headers=supplied_headers
         )
-        return util.convert_to_stripe_object(
-            response, api_key, version, stripe_account
+        return cast(
+            "File",
+            util.convert_to_stripe_object(
+                response, api_key, version, stripe_account
+            ),
         )
 
 

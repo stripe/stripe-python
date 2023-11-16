@@ -1350,7 +1350,7 @@ class Source(CreateableAPIResource["Source"], UpdateableAPIResource["Source"]):
             headers = util.populate_headers(idempotency_key)
 
             self.refresh_from(self.request("delete", url, params, headers))
-            return self
+            return cast("Source", self)
 
         else:
             raise error.InvalidRequestError(
