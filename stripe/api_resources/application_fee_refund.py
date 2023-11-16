@@ -3,7 +3,7 @@
 from stripe.api_resources.abstract import UpdateableAPIResource
 from stripe.api_resources.application_fee import ApplicationFee
 from stripe.api_resources.expandable_field import ExpandableField
-from typing import ClassVar, Dict, Optional
+from typing import ClassVar, Dict, Optional, cast
 from typing_extensions import Literal, TYPE_CHECKING
 from urllib.parse import quote_plus
 
@@ -62,15 +62,18 @@ class ApplicationFeeRefund(UpdateableAPIResource["ApplicationFeeRefund"]):
         return "%s/%s/refunds/%s" % (base, cust_extn, extn)
 
     @classmethod
-    def modify(cls, fee, sid, **params):
+    def modify(cls, fee, sid, **params) -> "ApplicationFeeRefund":
         url = cls._build_instance_url(fee, sid)
-        return cls._static_request("post", url, params=params)
+        return cast(
+            "ApplicationFeeRefund",
+            cls._static_request("post", url, params=params),
+        )
 
     def instance_url(self):
         return self._build_instance_url(self.fee, self.id)
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params):
+    def retrieve(cls, id, api_key=None, **params) -> "ApplicationFeeRefund":
         raise NotImplementedError(
             "Can't retrieve a refund without an application fee ID. "
             "Use application_fee.refunds.retrieve('refund_id') instead."
