@@ -117,7 +117,7 @@ class ListObject(StripeObject, Generic[T]):
     #  Pyright doesn't like this because ListObject inherits from StripeObject inherits from Dict[str, Any]
     #  and so it wants the type of __iter__ to agree with __iter__ from Dict[str, Any]
     #  But we are iterating through "data", which is a List[T].
-    def __iter__( # pyright: ignore
+    def __iter__(  # pyright: ignore
         self,
     ) -> Iterator[T]:
         return getattr(self, "data", []).__iter__()

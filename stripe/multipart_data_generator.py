@@ -20,7 +20,7 @@ class MultipartDataGenerator(object):
         # Flatten parameters first
 
         params = dict(
-            stripe.api_requestor._api_encode(params) # pyright: ignore
+            stripe.api_requestor._api_encode(params)  # pyright: ignore
         )
 
         for key, value in params.items():
