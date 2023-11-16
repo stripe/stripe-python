@@ -42,7 +42,7 @@ class APIResourceTestHelpers(Protocol[T]):
             )
         # Namespaces are separated in object names with periods (.) and in URLs
         # with forward slashes (/), so replace the former with the latter.
-        base = cls._resource_cls.OBJECT_NAME.replace(".", "/")  # type: ignore
+        base = cls._resource_cls.OBJECT_NAME.replace(".", "/")
         return "/v1/test_helpers/%ss" % (base,)
 
     def instance_url(self):

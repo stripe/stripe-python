@@ -203,7 +203,40 @@ You can disable this behavior if you prefer:
 stripe.enable_telemetry = False
 ```
 
-### Beta SDKs
+## Types
+
+In [v7.1.0](https://github.com/stripe/stripe-python/releases/tag/v7.1.0) and
+newer, the
+library includes type annotations. See [the wiki](https://github.com/stripe/stripe-python/wiki/Inline-type-annotations)
+for a detailed guide.
+
+Please note that some annotations use features that were only fairly recently accepted,
+such as [`Unpack[TypedDict]`](https://peps.python.org/pep-0692/#specification) that was
+[accepted](https://discuss.python.org/t/pep-692-using-typeddict-for-more-precise-kwargs-typing/17314/81)
+in January 2023. We have tested that these types are recognized properly by [Pyright](https://github.com/microsoft/pyright).
+Support for `Unpack` in MyPy is still experimental, but appears to degrade gracefully.
+Please [report an issue](https://github.com/stripe/stripe-python/issues/new/choose) if there
+is anything we can do to improve the types for your type checker of choice.
+
+### Types and the Versioning Policy
+
+We release type changes in minor releases. While stripe-python follows semantic
+versioning, our semantic versions describe the *runtime behavior* of the
+library alone. Our *type annotations are not reflected in the semantic
+version*. That is, upgrading to a new minor version of stripe-python might
+result in your type checker producing a type error that it didn't before. You
+can use a `~=x.x` or `x.x.*` [version specifier](https://peps.python.org/pep-0440/#examples)
+in your `requirements.txt` to constrain `pip` to a certain minor range of `stripe-python`.
+
+### Types and API Versions
+
+The types describe the [Stripe API version](https://stripe.com/docs/api/versioning)
+that was the latest at the time of release. This is the version that your library
+sends by default. If you are overriding `stripe.api_version`, or using a
+[webhook endpoint](https://stripe.com/docs/webhooks#api-versions) tied to an older version,
+be aware that the data you see at runtime may not match the types.
+
+## Beta SDKs
 
 Stripe has features in the beta phase that can be accessed via the beta version of this package.
 We would love for you to try these and share feedback with us before these features reach the stable phase.

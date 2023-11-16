@@ -1,14 +1,12 @@
-# cryptography 40.0.0 deprecates support for Python 3.6 and PyPy3 < 7.3.10
-cryptography<40
-tox
+# These requirements must be installable only on py3.10 +
 twine
-pyright
-pytest-cov >= 2.8.1, < 2.11.0
-pytest-mock >= 2.0.0
-pytest-xdist >= 1.31.0
-pytest >= 6.0.0
+# 4.5.0 is the last version that works with virtualenv<20.22.0
+tox == 4.5.0
+#Virtualenv 20.22.0 dropped support for all Python versions smaller or equal to Python 3.6.
+virtualenv<20.22.0
+pyright == 1.1.336
 black == 22.8.0
 flake8
-coverage >= 4.5.3, < 5
-coveralls
-tox-gh-actions
+mypy == 1.7.0
+
+-r test-requirements.txt

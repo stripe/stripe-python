@@ -1567,7 +1567,7 @@ class Quote(
         ...
 
     @util.class_method_variant("_cls_pdf")
-    def pdf(  # type: ignore
+    def pdf(  # pyright: ignore
         self,
         api_key=None,
         api_version=None,
