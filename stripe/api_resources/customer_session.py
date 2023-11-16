@@ -34,6 +34,10 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
 
     The client secret can be used to provide access to `customer` from your frontend. It should not be stored, logged, or exposed to anyone other than the relevant customer. Make sure that you have TLS enabled on any page that includes the client secret.
     """
+    created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
+    """
     customer: ExpandableField["Customer"]
     """
     The customer the customer session was created for.
