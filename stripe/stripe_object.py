@@ -115,9 +115,9 @@ class StripeObject(Dict[str, Any]):
 
     # StripeObject inherits from `dict` which has an update method, and this doesn't quite match
     # the full signature of the update method in MutableMapping. But we ignore.
-    def update(
+    def update( # pyright: ignore
         self, update_dict: Mapping[str, Any]
-    ) -> None:  # pyright: ignore
+    ) -> None:
         for k in update_dict:
             self._unsaved_values.add(k)
 
