@@ -111,7 +111,7 @@ class StripeErrorWithParamCode(StripeError):
             % (
                 self.__class__.__name__,
                 self._message,
-                self.param,  # type: ignore
+                self.param,  # pyright: ignore
                 self.code,
                 self.http_status,
                 self.request_id,

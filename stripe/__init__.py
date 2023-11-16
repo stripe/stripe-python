@@ -38,9 +38,9 @@ ca_bundle_path: str = os.path.join(
 log: Optional[Literal["debug", "info"]] = None
 
 # API resources
-from stripe.api_resources import *  # pyright: ignore # noqa
+from stripe.api_resources import *  # noqa
 
-from stripe.api_resources import abstract  # pyright: ignore # noqa
+from stripe.api_resources import abstract  # noqa
 
 # OAuth
 from stripe.oauth import OAuth  # noqa
