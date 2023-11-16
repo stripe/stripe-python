@@ -31,7 +31,7 @@ except ImportError:
     pycurl = None
 
 try:
-    import requests  # pyright: ignore
+    import requests
 except ImportError:
     requests = None
 else:

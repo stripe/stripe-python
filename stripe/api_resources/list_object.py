@@ -132,11 +132,11 @@ class ListObject(StripeObject, Generic[T]):
                 "ending_before" in self._retrieve_params
                 and "starting_after" not in self._retrieve_params
             ):
-                for item in reversed(page):  # type: ignore
+                for item in reversed(page):
                     yield item
                 page = page.previous_page()
             else:
-                for item in page:  # type: ignore
+                for item in page:
                     yield item
                 page = page.next_page()
 

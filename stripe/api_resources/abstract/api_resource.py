@@ -147,7 +147,7 @@ class APIResource(StripeObject, Generic[T]):
 
         if idempotency_key is not None:
             headers = {} if headers is None else headers.copy()
-            headers.update(util.populate_headers(idempotency_key))  # type: ignore
+            headers.update(util.populate_headers(idempotency_key))
 
         response, api_key = requestor.request(method_, url_, params, headers)
         return util.convert_to_stripe_object(
@@ -186,7 +186,7 @@ class APIResource(StripeObject, Generic[T]):
 
         if idempotency_key is not None:
             headers = {} if headers is None else headers.copy()
-            headers.update(util.populate_headers(idempotency_key))  # type: ignore
+            headers.update(util.populate_headers(idempotency_key))
 
         response, _ = requestor.request_stream(method_, url_, params, headers)
         return response

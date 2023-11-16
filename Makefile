@@ -10,7 +10,7 @@ $(VENV_NAME)/bin/activate: setup.py requirements.txt
 	${VENV_NAME}/bin/python -m pip install -r requirements.txt
 	@touch $(VENV_NAME)/bin/activate
 
-test: venv pyright lint
+test: venv pyright lint mypy
 	@${VENV_NAME}/bin/tox -p auto -e $(DEFAULT_TEST_ENV) $(TOX_ARGS)
 
 test-nomock: venv
@@ -24,6 +24,9 @@ coveralls: venv
 
 pyright: venv
 	@${VENV_NAME}/bin/tox -e pyright $(PYRIGHT_ARGS)
+
+mypy: venv
+	@${VENV_NAME}/bin/tox -e mypy $(MYPY_ARGS)
 
 fmt: venv
 	@${VENV_NAME}/bin/tox -e fmt
@@ -43,4 +46,4 @@ update-version:
 
 codegen-format: fmt
 
-.PHONY: ci-test clean codegen-format coveralls fmt fmtcheck lint test test-nomock test-travis update-version venv pyright
+.PHONY: ci-test clean codegen-format coveralls fmt fmtcheck lint test test-nomock test-travis update-version venv pyright mypy

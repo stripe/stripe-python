@@ -7,5 +7,6 @@ virtualenv<20.22.0
 pyright == 1.1.336
 black == 22.8.0
 flake8
+mypy == 1.7.0
 
 -r test-requirements.txt
