@@ -7,7 +7,6 @@ from stripe.api_resources.abstract import (
     ListableAPIResource,
     SearchableAPIResource,
     UpdateableAPIResource,
-    nested_resource_class_methods,
 )
 from stripe.api_resources.expandable_field import ExpandableField
 from stripe.api_resources.list_object import ListObject
@@ -55,7 +54,6 @@ if TYPE_CHECKING:
     from stripe.api_resources.test_helpers.test_clock import TestClock
 
 
-@nested_resource_class_methods("line")
 class Invoice(
     CreateableAPIResource["Invoice"],
     DeletableAPIResource["Invoice"],
@@ -3210,184 +3208,6 @@ class Invoice(
         The search query string. See [search query language](https://stripe.com/docs/search#search-query-language) and the list of supported [query fields for invoices](https://stripe.com/docs/search#query-fields-for-invoices).
         """
 
-    class ModifyLineParams(RequestOptions):
-        amount: NotRequired["int"]
-        """
-        The integer amount in cents (or local equivalent) of the charge to be applied to the upcoming invoice. If you want to apply a credit to the customer's account, pass a negative amount.
-        """
-        description: NotRequired["str"]
-        """
-        An arbitrary string which you can attach to the invoice item. The description is displayed in the invoice for easy tracking.
-        """
-        discountable: NotRequired["bool"]
-        """
-        Controls whether discounts apply to this line item. Defaults to false for prorations or negative line items, and true for all other line items. Cannot be set to true for prorations.
-        """
-        discounts: NotRequired[
-            "Literal['']|List[Invoice.ModifyLineParamsDiscount]"
-        ]
-        """
-        The coupons & existing discounts which apply to the line item. Item discounts are applied before invoice discounts. Pass an empty string to remove previously-defined discounts.
-        """
-        expand: NotRequired["List[str]"]
-        """
-        Specifies which fields in the response should be expanded.
-        """
-        metadata: NotRequired["Literal['']|Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        period: NotRequired["Invoice.ModifyLineParamsPeriod"]
-        """
-        The period associated with this invoice item. When set to different values, the period will be rendered on the invoice. If you have [Stripe Revenue Recognition](https://stripe.com/docs/revenue-recognition) enabled, the period will be used to recognize and defer revenue. See the [Revenue Recognition documentation](https://stripe.com/docs/revenue-recognition/methodology/subscriptions-and-invoicing) for details.
-        """
-        price: NotRequired["str"]
-        """
-        The ID of the price object.
-        """
-        price_data: NotRequired["Invoice.ModifyLineParamsPriceData"]
-        """
-        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
-        """
-        quantity: NotRequired["int"]
-        """
-        Non-negative integer. The quantity of units for the line item.
-        """
-        tax_amounts: NotRequired[
-            "Literal['']|List[Invoice.ModifyLineParamsTaxAmount]"
-        ]
-        """
-        A list of up to 10 tax amounts for this line item. This can be useful if you calculate taxes on your own or use a third-party to calculate them. You cannot set tax amounts if any line item has [tax_rates](https://stripe.com/docs/api/invoices/line_item#invoice_line_item_object-tax_rates) or if the invoice has [default_tax_rates](https://stripe.com/docs/api/invoices/object#invoice_object-default_tax_rates) or uses [automatic tax](https://stripe.com/docs/tax/invoicing). Pass an empty string to remove previously defined tax amounts.
-        """
-        tax_rates: NotRequired["Literal['']|List[str]"]
-        """
-        The tax rates which apply to the line item. When set, the `default_tax_rates` on the invoice do not apply to this line item. Pass an empty string to remove previously-defined tax rates.
-        """
-
-    class ModifyLineParamsTaxAmount(TypedDict):
-        amount: int
-        """
-        The amount, in cents (or local equivalent), of the tax.
-        """
-        tax_rate_data: "Invoice.ModifyLineParamsTaxAmountTaxRateData"
-        """
-        Data to find or create a TaxRate object.
-
-        Stripe automatically creates or reuses a TaxRate object for each tax amount. If the `tax_rate_data` exactly matches a previous value, Stripe will reuse the TaxRate object. TaxRate objects created automatically by Stripe are immediately archived, do not appear in the line item's `tax_rates`, and cannot be directly added to invoices, payments, or line items.
-        """
-        taxable_amount: int
-        """
-        The amount on which tax is calculated, in cents (or local equivalent).
-        """
-
-    class ModifyLineParamsTaxAmountTaxRateData(TypedDict):
-        country: NotRequired["str"]
-        """
-        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-        """
-        description: NotRequired["str"]
-        """
-        An arbitrary string attached to the tax rate for your internal use only. It will not be visible to your customers.
-        """
-        display_name: str
-        """
-        The display name of the tax rate, which will be shown to users.
-        """
-        inclusive: bool
-        """
-        This specifies if the tax rate is inclusive or exclusive.
-        """
-        jurisdiction: NotRequired["str"]
-        """
-        The jurisdiction for the tax rate. You can use this label field for tax reporting purposes. It also appears on your customer's invoice.
-        """
-        percentage: float
-        """
-        The statutory tax rate percent. This field accepts decimal values between 0 and 100 inclusive with at most 4 decimal places. To accommodate fixed-amount taxes, set the percentage to zero. Stripe will not display zero percentages on the invoice unless the `amount` of the tax is also zero.
-        """
-        state: NotRequired["str"]
-        """
-        [ISO 3166-2 subdivision code](https://en.wikipedia.org/wiki/ISO_3166-2:US), without country prefix. For example, "NY" for New York, United States.
-        """
-        tax_type: NotRequired[
-            "Literal['amusement_tax', 'communications_tax', 'gst', 'hst', 'igst', 'jct', 'lease_tax', 'pst', 'qst', 'rst', 'sales_tax', 'service_tax', 'vat']"
-        ]
-        """
-        The high-level tax type, such as `vat` or `sales_tax`.
-        """
-
-    class ModifyLineParamsPriceData(TypedDict):
-        currency: str
-        """
-        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-        """
-        product: NotRequired["str"]
-        """
-        The ID of the product that this price will belong to. One of `product` or `product_data` is required.
-        """
-        product_data: NotRequired[
-            "Invoice.ModifyLineParamsPriceDataProductData"
-        ]
-        """
-        Data used to generate a new product object inline. One of `product` or `product_data` is required.
-        """
-        tax_behavior: NotRequired[
-            "Literal['exclusive', 'inclusive', 'unspecified']"
-        ]
-        """
-        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-        """
-        unit_amount: NotRequired["int"]
-        """
-        A non-negative integer in cents (or local equivalent) representing how much to charge. One of `unit_amount` or `unit_amount_decimal` is required.
-        """
-        unit_amount_decimal: NotRequired["str"]
-        """
-        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-        """
-
-    class ModifyLineParamsPriceDataProductData(TypedDict):
-        description: NotRequired["str"]
-        """
-        The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
-        """
-        images: NotRequired["List[str]"]
-        """
-        A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
-        """
-        metadata: NotRequired["Dict[str, str]"]
-        """
-        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-        """
-        name: str
-        """
-        The product's name, meant to be displayable to the customer.
-        """
-        tax_code: NotRequired["str"]
-        """
-        A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-        """
-
-    class ModifyLineParamsPeriod(TypedDict):
-        end: int
-        """
-        The end of the period, which must be greater than or equal to the start. This value is inclusive.
-        """
-        start: int
-        """
-        The start of the period. This value is inclusive.
-        """
-
-    class ModifyLineParamsDiscount(TypedDict):
-        coupon: NotRequired["str"]
-        """
-        ID of the coupon to create a new discount for.
-        """
-        discount: NotRequired["str"]
-        """
-        ID of an existing discount on the object (or one of its ancestors) to reuse.
-        """
-
     account_country: Optional[str]
     """
     The country of the business associated with this invoice, most often the business creating the invoice.
@@ -4341,39 +4161,6 @@ class Invoice(
         cls, *args, **kwargs: Unpack["Invoice.SearchParams"]
     ) -> Iterator["Invoice"]:
         return cls.search(*args, **kwargs).auto_paging_iter()
-
-    @classmethod
-    def modify_line(
-        cls,
-        invoice: str,
-        line_item_id: str,
-        api_key: Optional[str] = None,
-        stripe_version: Optional[str] = None,
-        stripe_account: Optional[str] = None,
-        **params: Unpack[
-            "Invoice.ModifyLineParams"
-        ]  # pyright: ignore[reportGeneralTypeIssues]
-    ) -> "InvoiceLineItem":
-        """
-        Updates an invoice's line item. Some fields, such as tax_amounts, only live on the invoice line item,
-        so they can only be updated through this endpoint. Other fields, such as amount, live on both the invoice
-        item and the invoice line item, so updates on this endpoint will propagate to the invoice item as well.
-        Updating an invoice's line item is only possible before the invoice is finalized.
-        """
-        return cast(
-            "InvoiceLineItem",
-            cls._static_request(
-                "post",
-                "/v1/invoices/{invoice}/lines/{line_item_id}".format(
-                    invoice=util.sanitize_id(invoice),
-                    line_item_id=util.sanitize_id(line_item_id),
-                ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                params=params,
-            ),
-        )
 
     _inner_class_types = {
         "automatic_tax": AutomaticTax,
