@@ -1,4 +1,6 @@
-# pyright: strict
+# pyright: strict, reportUnnecessaryTypeIgnoreComment=false
+# reportUnnecessaryTypeIgnoreComment is set to false because some type ignores are required in some
+# python versions but not the others
 from typing_extensions import Self
 
 from typing import (
@@ -115,7 +117,9 @@ class ListObject(StripeObject, Generic[T]):
     #  Pyright doesn't like this because ListObject inherits from StripeObject inherits from Dict[str, Any]
     #  and so it wants the type of __iter__ to agree with __iter__ from Dict[str, Any]
     #  But we are iterating through "data", which is a List[T].
-    def __iter__(self) -> Iterator[T]:  # pyright: ignore
+    def __iter__(  # pyright: ignore
+        self,
+    ) -> Iterator[T]:
         return getattr(self, "data", []).__iter__()
 
     def __len__(self) -> int:
@@ -132,11 +136,11 @@ class ListObject(StripeObject, Generic[T]):
                 "ending_before" in self._retrieve_params
                 and "starting_after" not in self._retrieve_params
             ):
-                for item in reversed(page):  # type: ignore
+                for item in reversed(page):
                     yield item
                 page = page.previous_page()
             else:
-                for item in page:  # type: ignore
+                for item in page:
                     yield item
                 page = page.next_page()
 
@@ -192,7 +196,6 @@ class ListObject(StripeObject, Generic[T]):
             stripe_account=stripe_account,
             **params_with_filters,
         )
-        assert isinstance(result, ListObject)
         return result
 
     def previous_page(
@@ -225,5 +228,4 @@ class ListObject(StripeObject, Generic[T]):
             stripe_account=stripe_account,
             **params_with_filters,
         )
-        assert isinstance(result, ListObject)
         return result

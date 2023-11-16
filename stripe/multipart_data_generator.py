@@ -18,7 +18,10 @@ class MultipartDataGenerator(object):
 
     def add_params(self, params):
         # Flatten parameters first
-        params = dict(stripe.api_requestor._api_encode(params))  # type: ignore
+
+        params = dict(
+            stripe.api_requestor._api_encode(params)  # pyright: ignore
+        )
 
         for key, value in params.items():
             if value is None:
@@ -83,4 +86,4 @@ class MultipartDataGenerator(object):
             self._write(file_contents)
 
     def _initialize_boundary(self):
-        return random.randint(0, 2 ** 63)
+        return random.randint(0, 2**63)

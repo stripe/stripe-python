@@ -120,5 +120,4 @@ class SearchResultObject(StripeObject, Generic[T]):
             stripe_account=stripe_account,
             **params_with_filters,
         )
-        assert isinstance(result, SearchResultObject)
         return result

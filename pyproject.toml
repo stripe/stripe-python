@@ -1,5 +1,5 @@
 [tool.black]
-line-length=79
+line-length = 79
 target-version = [
   "py35",
   "py36",
@@ -7,8 +7,8 @@ target-version = [
   "py38",
   "py39",
   "py310",
-#   "py311",  # black 21.12b0 doesn't
-#   "py312",  # support these targets
+  #   "py311",  # black 21.12b0 doesn't
+  #   "py312",  # support these targets
 ]
 exclude = '''
 /(
@@ -23,14 +23,24 @@ exclude = '''
 )
 '''
 [tool.pyright]
-executionEnvironments=[
-  {"root" = "stripe"},
-  {"root" = "tests"}
+include = [
+  "stripe",
+  "tests/test_generated_examples.py",
+  "tests/test_exports.py",
 ]
-include=["stripe", "tests/test_generated_examples.py"]
-exclude=["build", "**/__pycache__"]
-reportMissingTypeArgument=true
-reportUnnecessaryCast=true
-reportUnnecessaryComparison=true
-reportUnnecessaryContains=true
-reportUnnecessaryIsInstance=true
+exclude = ["build", "**/__pycache__"]
+reportMissingTypeArgument = true
+reportUnnecessaryCast = true
+reportUnnecessaryComparison = true
+reportUnnecessaryContains = true
+reportUnnecessaryIsInstance = true
+reportPrivateImportUsage = true
+reportUnnecessaryTypeIgnoreComment = true
+
+[tool.mypy]
+follow_imports = "silent"
+python_version = "3.10"
+files = ["tests/test_exports.py"]
+disallow_untyped_calls = true
+disallow_untyped_defs = true
+warn_unused_ignores = true
