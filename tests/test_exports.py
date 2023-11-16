@@ -1,6 +1,7 @@
 # pyright: strict
 import stripe
 
+
 def test_can_import_stripe_object() -> None:
     from stripe.stripe_object import (
         StripeObject as StripeObjectFromStripeStripeObject,
@@ -22,25 +23,37 @@ def test_can_import_webhook_members() -> None:
 
 
 def test_can_import_abstract() -> None:
-    from stripe.api_resources.abstract import (APIResource as APIResourceFromApiResourcesAbstract)
+    from stripe.api_resources.abstract import (
+        APIResource as APIResourceFromApiResourcesAbstract,
+    )
     from stripe.stripe_object import (
         StripeObject,
     )
-    assert APIResourceFromApiResourcesAbstract is stripe.abstract.APIResource[StripeObject]
+
+    assert (
+        APIResourceFromApiResourcesAbstract[StripeObject]
+        == stripe.abstract.APIResource[StripeObject]
+    )
 
 
 def test_can_import_app_info() -> None:
-    from stripe.app_info import (AppInfo as AppInfoFromStripeAppInfo)
-    from stripe import (AppInfo as AppInfoFromStripe)
+    from stripe.app_info import AppInfo as AppInfoFromStripeAppInfo
+    from stripe import AppInfo as AppInfoFromStripe
 
     assert AppInfoFromStripeAppInfo is AppInfoFromStripe
     assert AppInfoFromStripeAppInfo is stripe.AppInfo
 
 
 def test_can_import_stripe_response() -> None:
-    from stripe.stripe_response import (StripeResponse as StripeResponseFromStripeResponse)
+    from stripe.stripe_response import (
+        StripeResponse as StripeResponseFromStripeResponse,
+    )
 
-    assert StripeResponseFromStripeResponse is stripe.stripe_response.StripeResponse
+    assert (
+        StripeResponseFromStripeResponse
+        is stripe.stripe_response.StripeResponse
+    )
+
 
 def test_can_import_oauth_members() -> None:
     from stripe import (
@@ -48,6 +61,7 @@ def test_can_import_oauth_members() -> None:
     )
 
     assert OAuth is not None
+
 
 def test_can_import_errors() -> None:
     from stripe.error import (
