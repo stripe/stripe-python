@@ -22,6 +22,33 @@ def test_can_import_webhook_members() -> None:
     assert WebhookSignature is not None
 
 
+def test_can_import_list_search_objects() -> None:
+    from stripe.api_resources import (
+        ListObject as ListObjectFromApiResources,
+        SearchResultObject as SearchObjectFromApiResources,
+    )
+    from stripe.stripe_object import (
+        StripeObject,
+    )
+
+    assert (
+        ListObjectFromApiResources[StripeObject]
+        == stripe.ListObject[StripeObject]
+    )
+    assert (
+        SearchObjectFromApiResources[StripeObject]
+        == stripe.SearchResultObject[StripeObject]
+    )
+
+
+def test_can_import_misc_resources() -> None:
+    from stripe.api_resources import ErrorObject, OAuthErrorObject, FileUpload
+
+    assert ErrorObject is stripe.ErrorObject
+    assert OAuthErrorObject is stripe.OAuthErrorObject
+    assert FileUpload is stripe.FileUpload
+
+
 def test_can_import_abstract() -> None:
     from stripe.api_resources.abstract import (
         APIResource as APIResourceFromApiResourcesAbstract,
