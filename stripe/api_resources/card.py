@@ -28,10 +28,9 @@ class Card(DeletableAPIResource["Card"], UpdateableAPIResource["Card"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["card"]] = "card"
-    if TYPE_CHECKING:
 
-        class DeleteParams(RequestOptions):
-            pass
+    class DeleteParams(RequestOptions):
+        pass
 
     account: Optional[ExpandableField["Account"]]
     """
