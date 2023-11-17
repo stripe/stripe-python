@@ -175,157 +175,153 @@ class OutboundTransfer(
         Timestamp describing when an OutboundTransfer changed status to `returned`
         """
 
-    if TYPE_CHECKING:
+    class CancelParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class CancelParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class CreateParams(RequestOptions):
+        amount: int
+        """
+        Amount (in cents) to be transferred.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        description: NotRequired["str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        destination_payment_method: NotRequired["str"]
+        """
+        The PaymentMethod to use as the payment instrument for the OutboundTransfer.
+        """
+        destination_payment_method_options: NotRequired[
+            "OutboundTransfer.CreateParamsDestinationPaymentMethodOptions"
+        ]
+        """
+        Hash describing payment method configuration details.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        financial_account: str
+        """
+        The FinancialAccount to pull funds from.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        network_details: NotRequired[
+            "OutboundTransfer.CreateParamsNetworkDetails"
+        ]
+        """
+        Details about the network used for the OutboundTransfer.
+        """
+        statement_descriptor: NotRequired["str"]
+        """
+        Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `wire` transfers. The default value is `transfer`.
+        """
 
-        class CreateParams(RequestOptions):
-            amount: int
-            """
-            Amount (in cents) to be transferred.
-            """
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            description: NotRequired["str"]
-            """
-            An arbitrary string attached to the object. Often useful for displaying to users.
-            """
-            destination_payment_method: NotRequired["str"]
-            """
-            The PaymentMethod to use as the payment instrument for the OutboundTransfer.
-            """
-            destination_payment_method_options: NotRequired[
-                "OutboundTransfer.CreateParamsDestinationPaymentMethodOptions"
-            ]
-            """
-            Hash describing payment method configuration details.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            financial_account: str
-            """
-            The FinancialAccount to pull funds from.
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            network_details: NotRequired[
-                "OutboundTransfer.CreateParamsNetworkDetails"
-            ]
-            """
-            Details about the network used for the OutboundTransfer.
-            """
-            statement_descriptor: NotRequired["str"]
-            """
-            Statement descriptor to be shown on the receiving end of an OutboundTransfer. Maximum 10 characters for `ach` transfers or 140 characters for `wire` transfers. The default value is `transfer`.
-            """
+    class CreateParamsNetworkDetails(TypedDict):
+        ach: NotRequired["OutboundTransfer.CreateParamsNetworkDetailsAch"]
+        """
+        Optional fields for `ach`.
+        """
+        type: Literal["ach"]
+        """
+        The type of flow that originated the OutboundTransfer.
+        """
 
-        class CreateParamsNetworkDetails(TypedDict):
-            ach: NotRequired["OutboundTransfer.CreateParamsNetworkDetailsAch"]
-            """
-            Optional fields for `ach`.
-            """
-            type: Literal["ach"]
-            """
-            The type of flow that originated the OutboundTransfer.
-            """
+    class CreateParamsNetworkDetailsAch(TypedDict):
+        addenda: NotRequired["str"]
+        """
+        Addenda record data associated with this OutboundTransfer.
+        """
 
-        class CreateParamsNetworkDetailsAch(TypedDict):
-            addenda: NotRequired["str"]
-            """
-            Addenda record data associated with this OutboundTransfer.
-            """
+    class CreateParamsDestinationPaymentMethodOptions(TypedDict):
+        us_bank_account: NotRequired[
+            "Literal['']|OutboundTransfer.CreateParamsDestinationPaymentMethodOptionsUsBankAccount"
+        ]
+        """
+        Optional fields for `us_bank_account`.
+        """
 
-        class CreateParamsDestinationPaymentMethodOptions(TypedDict):
-            us_bank_account: NotRequired[
-                "Literal['']|OutboundTransfer.CreateParamsDestinationPaymentMethodOptionsUsBankAccount"
-            ]
-            """
-            Optional fields for `us_bank_account`.
-            """
+    class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(TypedDict):
+        network: NotRequired["Literal['ach', 'us_domestic_wire']"]
+        """
+        Designate the OutboundTransfer as using a US bank account network configuration.
+        """
 
-        class CreateParamsDestinationPaymentMethodOptionsUsBankAccount(
-            TypedDict,
-        ):
-            network: NotRequired["Literal['ach', 'us_domestic_wire']"]
-            """
-            Designate the OutboundTransfer as using a US bank account network configuration.
-            """
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        financial_account: str
+        """
+        Returns objects associated with this FinancialAccount.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+        status: NotRequired[
+            "Literal['canceled', 'failed', 'posted', 'processing', 'returned']"
+        ]
+        """
+        Only return OutboundTransfers that have the given status: `processing`, `canceled`, `failed`, `posted`, or `returned`.
+        """
 
-        class ListParams(RequestOptions):
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            financial_account: str
-            """
-            Returns objects associated with this FinancialAccount.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
-            status: NotRequired[
-                "Literal['canceled', 'failed', 'posted', 'processing', 'returned']"
-            ]
-            """
-            Only return OutboundTransfers that have the given status: `processing`, `canceled`, `failed`, `posted`, or `returned`.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class FailParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class FailParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class PostParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class PostParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class ReturnOutboundTransferParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        returned_details: NotRequired[
+            "OutboundTransfer.ReturnOutboundTransferParamsReturnedDetails"
+        ]
+        """
+        Details about a returned OutboundTransfer.
+        """
 
-        class ReturnOutboundTransferParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            returned_details: NotRequired[
-                "OutboundTransfer.ReturnOutboundTransferParamsReturnedDetails"
-            ]
-            """
-            Details about a returned OutboundTransfer.
-            """
-
-        class ReturnOutboundTransferParamsReturnedDetails(TypedDict):
-            code: NotRequired[
-                "Literal['account_closed', 'account_frozen', 'bank_account_restricted', 'bank_ownership_changed', 'declined', 'incorrect_account_holder_name', 'invalid_account_number', 'invalid_currency', 'no_account', 'other']"
-            ]
-            """
-            Reason for the return.
-            """
+    class ReturnOutboundTransferParamsReturnedDetails(TypedDict):
+        code: NotRequired[
+            "Literal['account_closed', 'account_frozen', 'bank_account_restricted', 'bank_ownership_changed', 'declined', 'incorrect_account_holder_name', 'invalid_account_number', 'invalid_currency', 'no_account', 'other']"
+        ]
+        """
+        Reason for the return.
+        """
 
     amount: int
     """
@@ -409,7 +405,9 @@ class OutboundTransfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["OutboundTransfer.CancelParams"]
+        **params: Unpack[
+            "OutboundTransfer.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -435,7 +433,9 @@ class OutboundTransfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["OutboundTransfer.CancelParams"]
+        **params: Unpack[
+            "OutboundTransfer.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -446,7 +446,9 @@ class OutboundTransfer(
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["OutboundTransfer.CancelParams"]
+        **params: Unpack[
+            "OutboundTransfer.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -457,7 +459,9 @@ class OutboundTransfer(
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["OutboundTransfer.CancelParams"]
+        **params: Unpack[
+            "OutboundTransfer.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "OutboundTransfer":
         """
         An OutboundTransfer can be canceled if the funds have not yet been paid out.
@@ -481,7 +485,9 @@ class OutboundTransfer(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["OutboundTransfer.CreateParams"]
+        **params: Unpack[
+            "OutboundTransfer.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "OutboundTransfer":
         """
         Creates an OutboundTransfer.
@@ -505,7 +511,9 @@ class OutboundTransfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["OutboundTransfer.ListParams"]
+        **params: Unpack[
+            "OutboundTransfer.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["OutboundTransfer"]:
         """
         Returns a list of OutboundTransfers sent from the specified FinancialAccount.
@@ -548,7 +556,9 @@ class OutboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.FailParams"]
+            **params: Unpack[
+                "OutboundTransfer.FailParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -574,7 +584,9 @@ class OutboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.FailParams"]
+            **params: Unpack[
+                "OutboundTransfer.FailParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -585,7 +597,9 @@ class OutboundTransfer(
         def fail(
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.FailParams"]
+            **params: Unpack[
+                "OutboundTransfer.FailParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -596,7 +610,9 @@ class OutboundTransfer(
         def fail(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.FailParams"]
+            **params: Unpack[
+                "OutboundTransfer.FailParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the failed status. The OutboundTransfer must already be in the processing state.
@@ -622,7 +638,9 @@ class OutboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.PostParams"]
+            **params: Unpack[
+                "OutboundTransfer.PostParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -648,7 +666,9 @@ class OutboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.PostParams"]
+            **params: Unpack[
+                "OutboundTransfer.PostParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -659,7 +679,9 @@ class OutboundTransfer(
         def post(
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.PostParams"]
+            **params: Unpack[
+                "OutboundTransfer.PostParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -670,7 +692,9 @@ class OutboundTransfer(
         def post(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.PostParams"]
+            **params: Unpack[
+                "OutboundTransfer.PostParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the posted status. The OutboundTransfer must already be in the processing state.
@@ -696,7 +720,9 @@ class OutboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
+            **params: Unpack[
+                "OutboundTransfer.ReturnOutboundTransferParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -722,7 +748,9 @@ class OutboundTransfer(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
+            **params: Unpack[
+                "OutboundTransfer.ReturnOutboundTransferParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -733,7 +761,9 @@ class OutboundTransfer(
         def return_outbound_transfer(
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
+            **params: Unpack[
+                "OutboundTransfer.ReturnOutboundTransferParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.
@@ -744,7 +774,9 @@ class OutboundTransfer(
         def return_outbound_transfer(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["OutboundTransfer.ReturnOutboundTransferParams"]
+            **params: Unpack[
+                "OutboundTransfer.ReturnOutboundTransferParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "OutboundTransfer":
             """
             Transitions a test mode created OutboundTransfer to the returned status. The OutboundTransfer must already be in the processing state.

@@ -47,166 +47,165 @@ class Transfer(
     """
 
     OBJECT_NAME: ClassVar[Literal["transfer"]] = "transfer"
-    if TYPE_CHECKING:
 
-        class CreateParams(RequestOptions):
-            amount: NotRequired["int"]
-            """
-            A positive integer in cents (or local equivalent) representing how much to transfer.
-            """
-            currency: str
-            """
-            3-letter [ISO code for currency](https://stripe.com/docs/payouts).
-            """
-            description: NotRequired["str"]
-            """
-            An arbitrary string attached to the object. Often useful for displaying to users.
-            """
-            destination: str
-            """
-            The ID of a connected Stripe account. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            source_transaction: NotRequired["str"]
-            """
-            You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-availability) for details.
-            """
-            source_type: NotRequired["Literal['bank_account', 'card', 'fpx']"]
-            """
-            The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`.
-            """
-            transfer_group: NotRequired["str"]
-            """
-            A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
-            """
+    class CreateParams(RequestOptions):
+        amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) representing how much to transfer.
+        """
+        currency: str
+        """
+        3-letter [ISO code for currency](https://stripe.com/docs/payouts).
+        """
+        description: NotRequired["str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        destination: str
+        """
+        The ID of a connected Stripe account. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        source_transaction: NotRequired["str"]
+        """
+        You can use this parameter to transfer funds from a charge before they are added to your available balance. A pending balance will transfer immediately but the funds will not become available until the original charge becomes available. [See the Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-availability) for details.
+        """
+        source_type: NotRequired["Literal['bank_account', 'card', 'fpx']"]
+        """
+        The source balance to use for this transfer. One of `bank_account`, `card`, or `fpx`. For most users, this will default to `card`.
+        """
+        transfer_group: NotRequired["str"]
+        """
+        A string that identifies this transaction as part of a group. See the [Connect documentation](https://stripe.com/docs/connect/separate-charges-and-transfers#transfer-options) for details.
+        """
 
-        class ListParams(RequestOptions):
-            created: NotRequired["Transfer.ListParamsCreated|int"]
-            destination: NotRequired["str"]
-            """
-            Only return transfers for the destination specified by this account ID.
-            """
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
-            transfer_group: NotRequired["str"]
-            """
-            Only return transfers with the specified transfer group.
-            """
+    class ListParams(RequestOptions):
+        created: NotRequired["Transfer.ListParamsCreated|int"]
+        destination: NotRequired["str"]
+        """
+        Only return transfers for the destination specified by this account ID.
+        """
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+        transfer_group: NotRequired["str"]
+        """
+        Only return transfers with the specified transfer group.
+        """
 
-        class ListParamsCreated(TypedDict):
-            gt: NotRequired["int"]
-            """
-            Minimum value to filter by (exclusive)
-            """
-            gte: NotRequired["int"]
-            """
-            Minimum value to filter by (inclusive)
-            """
-            lt: NotRequired["int"]
-            """
-            Maximum value to filter by (exclusive)
-            """
-            lte: NotRequired["int"]
-            """
-            Maximum value to filter by (inclusive)
-            """
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
+        """
 
-        class ModifyParams(RequestOptions):
-            description: NotRequired["str"]
-            """
-            An arbitrary string attached to the object. Often useful for displaying to users.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            metadata: NotRequired["Literal['']|Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
+    class ModifyParams(RequestOptions):
+        description: NotRequired["str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class CreateReversalParams(RequestOptions):
-            amount: NotRequired["int"]
-            """
-            A positive integer in cents (or local equivalent) representing how much of this transfer to reverse. Can only reverse up to the unreversed amount remaining of the transfer. Partial transfer reversals are only allowed for transfers to Stripe Accounts. Defaults to the entire transfer amount.
-            """
-            description: NotRequired["str"]
-            """
-            An arbitrary string which you can attach to a reversal object. It is displayed alongside the reversal in the Dashboard. This will be unset if you POST an empty value.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            metadata: NotRequired["Literal['']|Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            refund_application_fee: NotRequired["bool"]
-            """
-            Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed.
-            """
+    class CreateReversalParams(RequestOptions):
+        amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) representing how much of this transfer to reverse. Can only reverse up to the unreversed amount remaining of the transfer. Partial transfer reversals are only allowed for transfers to Stripe Accounts. Defaults to the entire transfer amount.
+        """
+        description: NotRequired["str"]
+        """
+        An arbitrary string which you can attach to a reversal object. It is displayed alongside the reversal in the Dashboard. This will be unset if you POST an empty value.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        refund_application_fee: NotRequired["bool"]
+        """
+        Boolean indicating whether the application fee should be refunded when reversing this transfer. If a full transfer reversal is given, the full application fee will be refunded. Otherwise, the application fee will be refunded with an amount proportional to the amount of the transfer reversed.
+        """
 
-        class RetrieveReversalParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveReversalParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class ModifyReversalParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            metadata: NotRequired["Literal['']|Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
+    class ModifyReversalParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
 
-        class ListReversalsParams(RequestOptions):
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
+    class ListReversalsParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
     amount: int
     """
@@ -284,7 +283,9 @@ class Transfer(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transfer.CreateParams"]
+        **params: Unpack[
+            "Transfer.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Transfer":
         """
         To send funds from your Stripe account to a connected account, you create a new transfer object. Your [Stripe balance](https://stripe.com/docs/api#balance) must be able to cover the transfer amount, or you'll receive an “Insufficient Funds” error.
@@ -308,7 +309,9 @@ class Transfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transfer.ListParams"]
+        **params: Unpack[
+            "Transfer.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Transfer"]:
         """
         Returns a list of existing transfers sent to connected accounts. The transfers are returned in sorted order, with the most recently created transfers appearing first.
@@ -363,7 +366,9 @@ class Transfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transfer.CreateReversalParams"]
+        **params: Unpack[
+            "Transfer.CreateReversalParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reversal":
         """
         When you create a new reversal, you must specify a transfer to create it on.
@@ -392,7 +397,9 @@ class Transfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transfer.RetrieveReversalParams"]
+        **params: Unpack[
+            "Transfer.RetrieveReversalParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reversal":
         """
         By default, you can see the 10 most recent reversals stored directly on the transfer object, but you can also retrieve details about a specific reversal stored on the transfer.
@@ -420,7 +427,9 @@ class Transfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transfer.ModifyReversalParams"]
+        **params: Unpack[
+            "Transfer.ModifyReversalParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reversal":
         """
         Updates the specified reversal by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -449,7 +458,9 @@ class Transfer(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Transfer.ListReversalsParams"]
+        **params: Unpack[
+            "Transfer.ListReversalsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Reversal"]:
         """
         You can see a list of the reversals belonging to a specific transfer. Note that the 10 most recent reversals are always available by default on the transfer object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional reversals.

@@ -367,375 +367,373 @@ class Reader(
             "set_reader_display": SetReaderDisplay,
         }
 
-    if TYPE_CHECKING:
+    class CancelActionParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class CancelActionParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class CollectInputsParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        inputs: List["Reader.CollectInputsParamsInput"]
+        """
+        List of inputs to be collected using the Reader
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
 
-        class CollectInputsParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            inputs: List["Reader.CollectInputsParamsInput"]
-            """
-            List of inputs to be collected using the Reader
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
+    class CollectInputsParamsInput(TypedDict):
+        custom_text: "Reader.CollectInputsParamsInputCustomText"
+        """
+        Customize the text which will be displayed while collecting this input
+        """
+        required: NotRequired["bool"]
+        """
+        Indicate that this input is required, disabling the skip button
+        """
+        selection: NotRequired["Reader.CollectInputsParamsInputSelection"]
+        """
+        Options for the `selection` input
+        """
+        type: Literal["selection", "signature"]
+        """
+        The type of input to collect
+        """
 
-        class CollectInputsParamsInput(TypedDict):
-            custom_text: "Reader.CollectInputsParamsInputCustomText"
-            """
-            Customize the text which will be displayed while collecting this input
-            """
-            required: NotRequired["bool"]
-            """
-            Indicate that this input is required, disabling the skip button
-            """
-            selection: NotRequired["Reader.CollectInputsParamsInputSelection"]
-            """
-            Options for the `selection` input
-            """
-            type: Literal["selection", "signature"]
-            """
-            The type of input to collect
-            """
+    class CollectInputsParamsInputSelection(TypedDict):
+        choices: List["Reader.CollectInputsParamsInputSelectionChoice"]
+        """
+        List of choices for the `selection` input
+        """
 
-        class CollectInputsParamsInputSelection(TypedDict):
-            choices: List["Reader.CollectInputsParamsInputSelectionChoice"]
-            """
-            List of choices for the `selection` input
-            """
+    class CollectInputsParamsInputSelectionChoice(TypedDict):
+        style: NotRequired["Literal['primary', 'secondary']"]
+        """
+        The style of the button which will be shown for this choice
+        """
+        value: str
+        """
+        The text which will be shown on the button for this choice
+        """
 
-        class CollectInputsParamsInputSelectionChoice(TypedDict):
-            style: NotRequired["Literal['primary', 'secondary']"]
-            """
-            The style of the button which will be shown for this choice
-            """
-            value: str
-            """
-            The text which will be shown on the button for this choice
-            """
+    class CollectInputsParamsInputCustomText(TypedDict):
+        description: NotRequired["str"]
+        """
+        The description which will be displayed when collecting this input
+        """
+        skip_button: NotRequired["str"]
+        """
+        The skip button text
+        """
+        submit_button: NotRequired["str"]
+        """
+        The submit button text
+        """
+        title: str
+        """
+        The title which will be displayed when collecting this input
+        """
 
-        class CollectInputsParamsInputCustomText(TypedDict):
-            description: NotRequired["str"]
-            """
-            The description which will be displayed when collecting this input
-            """
-            skip_button: NotRequired["str"]
-            """
-            The skip button text
-            """
-            submit_button: NotRequired["str"]
-            """
-            The submit button text
-            """
-            title: str
-            """
-            The title which will be displayed when collecting this input
-            """
+    class CollectPaymentMethodParams(RequestOptions):
+        collect_config: NotRequired[
+            "Reader.CollectPaymentMethodParamsCollectConfig"
+        ]
+        """
+        Configuration overrides
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        payment_intent: str
+        """
+        PaymentIntent ID
+        """
 
-        class CollectPaymentMethodParams(RequestOptions):
-            collect_config: NotRequired[
-                "Reader.CollectPaymentMethodParamsCollectConfig"
-            ]
-            """
-            Configuration overrides
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            payment_intent: str
-            """
-            PaymentIntent ID
-            """
+    class CollectPaymentMethodParamsCollectConfig(TypedDict):
+        skip_tipping: NotRequired["bool"]
+        """
+        Override showing a tipping selection screen on this transaction.
+        """
+        tipping: NotRequired[
+            "Reader.CollectPaymentMethodParamsCollectConfigTipping"
+        ]
+        """
+        Tipping configuration for this transaction.
+        """
 
-        class CollectPaymentMethodParamsCollectConfig(TypedDict):
-            skip_tipping: NotRequired["bool"]
-            """
-            Override showing a tipping selection screen on this transaction.
-            """
-            tipping: NotRequired[
-                "Reader.CollectPaymentMethodParamsCollectConfigTipping"
-            ]
-            """
-            Tipping configuration for this transaction.
-            """
+    class CollectPaymentMethodParamsCollectConfigTipping(TypedDict):
+        amount_eligible: NotRequired["int"]
+        """
+        Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+        """
 
-        class CollectPaymentMethodParamsCollectConfigTipping(TypedDict):
-            amount_eligible: NotRequired["int"]
-            """
-            Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
-            """
+    class ConfirmPaymentIntentParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        payment_intent: str
+        """
+        PaymentIntent ID
+        """
 
-        class ConfirmPaymentIntentParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            payment_intent: str
-            """
-            PaymentIntent ID
-            """
+    class CreateParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        label: NotRequired["str"]
+        """
+        Custom label given to the reader for easier identification. If no label is specified, the registration code will be used.
+        """
+        location: NotRequired["str"]
+        """
+        The location to assign the reader to.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        registration_code: str
+        """
+        A code generated by the reader used for registering to an account.
+        """
 
-        class CreateParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            label: NotRequired["str"]
-            """
-            Custom label given to the reader for easier identification. If no label is specified, the registration code will be used.
-            """
-            location: NotRequired["str"]
-            """
-            The location to assign the reader to.
-            """
-            metadata: NotRequired["Literal['']|Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            registration_code: str
-            """
-            A code generated by the reader used for registering to an account.
-            """
+    class DeleteParams(RequestOptions):
+        pass
 
-        class DeleteParams(RequestOptions):
-            pass
+    class ListParams(RequestOptions):
+        device_type: NotRequired[
+            "Literal['bbpos_chipper2x', 'bbpos_wisepad3', 'bbpos_wisepos_e', 'simulated_wisepos_e', 'stripe_m2', 'verifone_P400']"
+        ]
+        """
+        Filters readers by device type
+        """
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        location: NotRequired["str"]
+        """
+        A location ID to filter the response list to only readers at the specific location
+        """
+        serial_number: NotRequired["str"]
+        """
+        Filters readers by serial number
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+        status: NotRequired["Literal['offline', 'online']"]
+        """
+        A status filter to filter readers to only offline or online readers
+        """
 
-        class ListParams(RequestOptions):
-            device_type: NotRequired[
-                "Literal['bbpos_chipper2x', 'bbpos_wisepad3', 'bbpos_wisepos_e', 'simulated_wisepos_e', 'stripe_m2', 'verifone_P400']"
-            ]
-            """
-            Filters readers by device type
-            """
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            location: NotRequired["str"]
-            """
-            A location ID to filter the response list to only readers at the specific location
-            """
-            serial_number: NotRequired["str"]
-            """
-            Filters readers by serial number
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
-            status: NotRequired["Literal['offline', 'online']"]
-            """
-            A status filter to filter readers to only offline or online readers
-            """
+    class ModifyParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        label: NotRequired["Literal['']|str"]
+        """
+        The new label of the reader.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
 
-        class ModifyParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            label: NotRequired["Literal['']|str"]
-            """
-            The new label of the reader.
-            """
-            metadata: NotRequired["Literal['']|Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
+    class ProcessPaymentIntentParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        payment_intent: str
+        """
+        PaymentIntent ID
+        """
+        process_config: NotRequired[
+            "Reader.ProcessPaymentIntentParamsProcessConfig"
+        ]
+        """
+        Configuration overrides
+        """
 
-        class ProcessPaymentIntentParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            payment_intent: str
-            """
-            PaymentIntent ID
-            """
-            process_config: NotRequired[
-                "Reader.ProcessPaymentIntentParamsProcessConfig"
-            ]
-            """
-            Configuration overrides
-            """
+    class ProcessPaymentIntentParamsProcessConfig(TypedDict):
+        skip_tipping: NotRequired["bool"]
+        """
+        Override showing a tipping selection screen on this transaction.
+        """
+        tipping: NotRequired[
+            "Reader.ProcessPaymentIntentParamsProcessConfigTipping"
+        ]
+        """
+        Tipping configuration for this transaction.
+        """
 
-        class ProcessPaymentIntentParamsProcessConfig(TypedDict):
-            skip_tipping: NotRequired["bool"]
-            """
-            Override showing a tipping selection screen on this transaction.
-            """
-            tipping: NotRequired[
-                "Reader.ProcessPaymentIntentParamsProcessConfigTipping"
-            ]
-            """
-            Tipping configuration for this transaction.
-            """
+    class ProcessPaymentIntentParamsProcessConfigTipping(TypedDict):
+        amount_eligible: NotRequired["int"]
+        """
+        Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
+        """
 
-        class ProcessPaymentIntentParamsProcessConfigTipping(TypedDict):
-            amount_eligible: NotRequired["int"]
-            """
-            Amount used to calculate tip suggestions on tipping selection screen for this transaction. Must be a positive integer in the smallest currency unit (e.g., 100 cents to represent $1.00 or 100 to represent ¥100, a zero-decimal currency).
-            """
+    class ProcessSetupIntentParams(RequestOptions):
+        customer_consent_collected: bool
+        """
+        Customer Consent Collected
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        process_config: NotRequired[
+            "Reader.ProcessSetupIntentParamsProcessConfig"
+        ]
+        """
+        Configuration overrides
+        """
+        setup_intent: str
+        """
+        SetupIntent ID
+        """
 
-        class ProcessSetupIntentParams(RequestOptions):
-            customer_consent_collected: bool
-            """
-            Customer Consent Collected
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            process_config: NotRequired[
-                "Reader.ProcessSetupIntentParamsProcessConfig"
-            ]
-            """
-            Configuration overrides
-            """
-            setup_intent: str
-            """
-            SetupIntent ID
-            """
+    class ProcessSetupIntentParamsProcessConfig(TypedDict):
+        pass
 
-        class ProcessSetupIntentParamsProcessConfig(TypedDict):
-            pass
+    class RefundPaymentParams(RequestOptions):
+        amount: NotRequired["int"]
+        """
+        A positive integer in __cents__ representing how much of this charge to refund.
+        """
+        charge: NotRequired["str"]
+        """
+        ID of the Charge to refund.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        payment_intent: NotRequired["str"]
+        """
+        ID of the PaymentIntent to refund.
+        """
+        refund_application_fee: NotRequired["bool"]
+        """
+        Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
+        """
+        reverse_transfer: NotRequired["bool"]
+        """
+        Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
+        """
 
-        class RefundPaymentParams(RequestOptions):
-            amount: NotRequired["int"]
-            """
-            A positive integer in __cents__ representing how much of this charge to refund.
-            """
-            charge: NotRequired["str"]
-            """
-            ID of the Charge to refund.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            payment_intent: NotRequired["str"]
-            """
-            ID of the PaymentIntent to refund.
-            """
-            refund_application_fee: NotRequired["bool"]
-            """
-            Boolean indicating whether the application fee should be refunded when refunding this charge. If a full charge refund is given, the full application fee will be refunded. Otherwise, the application fee will be refunded in an amount proportional to the amount of the charge refunded. An application fee can be refunded only by the application that created the charge.
-            """
-            reverse_transfer: NotRequired["bool"]
-            """
-            Boolean indicating whether the transfer should be reversed when refunding this charge. The transfer will be reversed proportionally to the amount being refunded (either the entire or partial amount). A transfer can be reversed only by the application that created the charge.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class SetReaderDisplayParams(RequestOptions):
+        cart: NotRequired["Reader.SetReaderDisplayParamsCart"]
+        """
+        Cart
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        type: Literal["cart"]
+        """
+        Type
+        """
 
-        class SetReaderDisplayParams(RequestOptions):
-            cart: NotRequired["Reader.SetReaderDisplayParamsCart"]
-            """
-            Cart
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            type: Literal["cart"]
-            """
-            Type
-            """
+    class SetReaderDisplayParamsCart(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        line_items: List["Reader.SetReaderDisplayParamsCartLineItem"]
+        """
+        Array of line items that were purchased.
+        """
+        tax: NotRequired["int"]
+        """
+        The amount of tax in cents.
+        """
+        total: int
+        """
+        Total balance of cart due in cents.
+        """
 
-        class SetReaderDisplayParamsCart(TypedDict):
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            line_items: List["Reader.SetReaderDisplayParamsCartLineItem"]
-            """
-            Array of line items that were purchased.
-            """
-            tax: NotRequired["int"]
-            """
-            The amount of tax in cents.
-            """
-            total: int
-            """
-            Total balance of cart due in cents.
-            """
+    class SetReaderDisplayParamsCartLineItem(TypedDict):
+        amount: int
+        """
+        The price of the item in cents.
+        """
+        description: str
+        """
+        The description or name of the item.
+        """
+        quantity: int
+        """
+        The quantity of the line item being purchased.
+        """
 
-        class SetReaderDisplayParamsCartLineItem(TypedDict):
-            amount: int
-            """
-            The price of the item in cents.
-            """
-            description: str
-            """
-            The description or name of the item.
-            """
-            quantity: int
-            """
-            The quantity of the line item being purchased.
-            """
+    class PresentPaymentMethodParams(RequestOptions):
+        amount_tip: NotRequired["int"]
+        """
+        Simulated on-reader tip amount.
+        """
+        card_present: NotRequired[
+            "Reader.PresentPaymentMethodParamsCardPresent"
+        ]
+        """
+        Simulated data for the card_present payment method.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        interac_present: NotRequired[
+            "Reader.PresentPaymentMethodParamsInteracPresent"
+        ]
+        """
+        Simulated data for the interac_present payment method.
+        """
+        type: NotRequired["Literal['card_present', 'interac_present']"]
+        """
+        Simulated payment type.
+        """
 
-        class PresentPaymentMethodParams(RequestOptions):
-            amount_tip: NotRequired["int"]
-            """
-            Simulated on-reader tip amount.
-            """
-            card_present: NotRequired[
-                "Reader.PresentPaymentMethodParamsCardPresent"
-            ]
-            """
-            Simulated data for the card_present payment method.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            interac_present: NotRequired[
-                "Reader.PresentPaymentMethodParamsInteracPresent"
-            ]
-            """
-            Simulated data for the interac_present payment method.
-            """
-            type: NotRequired["Literal['card_present', 'interac_present']"]
-            """
-            Simulated payment type.
-            """
+    class PresentPaymentMethodParamsInteracPresent(TypedDict):
+        number: NotRequired["str"]
+        """
+        Card Number
+        """
 
-        class PresentPaymentMethodParamsInteracPresent(TypedDict):
-            number: NotRequired["str"]
-            """
-            Card Number
-            """
-
-        class PresentPaymentMethodParamsCardPresent(TypedDict):
-            number: NotRequired["str"]
-            """
-            The card number, as a string without any separators.
-            """
+    class PresentPaymentMethodParamsCardPresent(TypedDict):
+        number: NotRequired["str"]
+        """
+        The card number, as a string without any separators.
+        """
 
     action: Optional[Action]
     """
@@ -804,7 +802,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.CancelActionParams"]
+        **params: Unpack[
+            "Reader.CancelActionParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Cancels the current reader action.
@@ -830,7 +830,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.CancelActionParams"]
+        **params: Unpack[
+            "Reader.CancelActionParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Cancels the current reader action.
@@ -841,7 +843,9 @@ class Reader(
     def cancel_action(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.CancelActionParams"]
+        **params: Unpack[
+            "Reader.CancelActionParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Cancels the current reader action.
@@ -852,7 +856,9 @@ class Reader(
     def cancel_action(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.CancelActionParams"]
+        **params: Unpack[
+            "Reader.CancelActionParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Cancels the current reader action.
@@ -876,7 +882,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.CollectInputsParams"]
+        **params: Unpack[
+            "Reader.CollectInputsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates an input collection flow on a Reader.
@@ -902,7 +910,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.CollectInputsParams"]
+        **params: Unpack[
+            "Reader.CollectInputsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates an input collection flow on a Reader.
@@ -913,7 +923,9 @@ class Reader(
     def collect_inputs(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.CollectInputsParams"]
+        **params: Unpack[
+            "Reader.CollectInputsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates an input collection flow on a Reader.
@@ -924,7 +936,9 @@ class Reader(
     def collect_inputs(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.CollectInputsParams"]
+        **params: Unpack[
+            "Reader.CollectInputsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates an input collection flow on a Reader.
@@ -948,7 +962,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.CollectPaymentMethodParams"]
+        **params: Unpack[
+            "Reader.CollectPaymentMethodParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
@@ -974,7 +990,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.CollectPaymentMethodParams"]
+        **params: Unpack[
+            "Reader.CollectPaymentMethodParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
@@ -985,7 +1003,9 @@ class Reader(
     def collect_payment_method(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.CollectPaymentMethodParams"]
+        **params: Unpack[
+            "Reader.CollectPaymentMethodParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
@@ -996,7 +1016,9 @@ class Reader(
     def collect_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.CollectPaymentMethodParams"]
+        **params: Unpack[
+            "Reader.CollectPaymentMethodParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader and updates the PaymentIntent with card details before manual confirmation.
@@ -1020,7 +1042,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+        **params: Unpack[
+            "Reader.ConfirmPaymentIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Finalizes a payment on a Reader.
@@ -1046,7 +1070,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+        **params: Unpack[
+            "Reader.ConfirmPaymentIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Finalizes a payment on a Reader.
@@ -1057,7 +1083,9 @@ class Reader(
     def confirm_payment_intent(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+        **params: Unpack[
+            "Reader.ConfirmPaymentIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Finalizes a payment on a Reader.
@@ -1068,7 +1096,9 @@ class Reader(
     def confirm_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.ConfirmPaymentIntentParams"]
+        **params: Unpack[
+            "Reader.ConfirmPaymentIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Finalizes a payment on a Reader.
@@ -1092,7 +1122,9 @@ class Reader(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.CreateParams"]
+        **params: Unpack[
+            "Reader.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Creates a new Reader object.
@@ -1157,7 +1189,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.ListParams"]
+        **params: Unpack[
+            "Reader.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Reader"]:
         """
         Returns a list of Reader objects.
@@ -1199,7 +1233,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.ProcessPaymentIntentParams"]
+        **params: Unpack[
+            "Reader.ProcessPaymentIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader.
@@ -1225,7 +1261,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.ProcessPaymentIntentParams"]
+        **params: Unpack[
+            "Reader.ProcessPaymentIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader.
@@ -1236,7 +1274,9 @@ class Reader(
     def process_payment_intent(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.ProcessPaymentIntentParams"]
+        **params: Unpack[
+            "Reader.ProcessPaymentIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader.
@@ -1247,7 +1287,9 @@ class Reader(
     def process_payment_intent(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.ProcessPaymentIntentParams"]
+        **params: Unpack[
+            "Reader.ProcessPaymentIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a payment flow on a Reader.
@@ -1271,7 +1313,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.ProcessSetupIntentParams"]
+        **params: Unpack[
+            "Reader.ProcessSetupIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a setup intent flow on a Reader.
@@ -1297,7 +1341,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.ProcessSetupIntentParams"]
+        **params: Unpack[
+            "Reader.ProcessSetupIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a setup intent flow on a Reader.
@@ -1308,7 +1354,9 @@ class Reader(
     def process_setup_intent(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.ProcessSetupIntentParams"]
+        **params: Unpack[
+            "Reader.ProcessSetupIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a setup intent flow on a Reader.
@@ -1319,7 +1367,9 @@ class Reader(
     def process_setup_intent(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.ProcessSetupIntentParams"]
+        **params: Unpack[
+            "Reader.ProcessSetupIntentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a setup intent flow on a Reader.
@@ -1343,7 +1393,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.RefundPaymentParams"]
+        **params: Unpack[
+            "Reader.RefundPaymentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a refund on a Reader
@@ -1369,7 +1421,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.RefundPaymentParams"]
+        **params: Unpack[
+            "Reader.RefundPaymentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a refund on a Reader
@@ -1380,7 +1434,9 @@ class Reader(
     def refund_payment(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.RefundPaymentParams"]
+        **params: Unpack[
+            "Reader.RefundPaymentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a refund on a Reader
@@ -1391,7 +1447,9 @@ class Reader(
     def refund_payment(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.RefundPaymentParams"]
+        **params: Unpack[
+            "Reader.RefundPaymentParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Initiates a refund on a Reader
@@ -1426,7 +1484,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.SetReaderDisplayParams"]
+        **params: Unpack[
+            "Reader.SetReaderDisplayParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Sets reader display to show cart details.
@@ -1452,7 +1512,9 @@ class Reader(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Reader.SetReaderDisplayParams"]
+        **params: Unpack[
+            "Reader.SetReaderDisplayParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Sets reader display to show cart details.
@@ -1463,7 +1525,9 @@ class Reader(
     def set_reader_display(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.SetReaderDisplayParams"]
+        **params: Unpack[
+            "Reader.SetReaderDisplayParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Sets reader display to show cart details.
@@ -1474,7 +1538,9 @@ class Reader(
     def set_reader_display(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Reader.SetReaderDisplayParams"]
+        **params: Unpack[
+            "Reader.SetReaderDisplayParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Reader":
         """
         Sets reader display to show cart details.
@@ -1501,7 +1567,9 @@ class Reader(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["Reader.PresentPaymentMethodParams"]
+            **params: Unpack[
+                "Reader.PresentPaymentMethodParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -1527,7 +1595,9 @@ class Reader(
             api_key: Optional[str] = None,
             stripe_version: Optional[str] = None,
             stripe_account: Optional[str] = None,
-            **params: Unpack["Reader.PresentPaymentMethodParams"]
+            **params: Unpack[
+                "Reader.PresentPaymentMethodParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -1538,7 +1608,9 @@ class Reader(
         def present_payment_method(
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["Reader.PresentPaymentMethodParams"]
+            **params: Unpack[
+                "Reader.PresentPaymentMethodParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.
@@ -1549,7 +1621,9 @@ class Reader(
         def present_payment_method(  # pyright: ignore[reportGeneralTypeIssues]
             self,
             idempotency_key: Optional[str] = None,
-            **params: Unpack["Reader.PresentPaymentMethodParams"]
+            **params: Unpack[
+                "Reader.PresentPaymentMethodParams"
+            ]  # pyright: ignore[reportGeneralTypeIssues]
         ) -> "Reader":
             """
             Presents a payment method on a simulated reader. Can be used to simulate accepting a payment, saving a card or refunding a transaction.

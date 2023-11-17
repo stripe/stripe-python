@@ -31,116 +31,115 @@ if TYPE_CHECKING:
 @nested_resource_class_methods("refund")
 class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     OBJECT_NAME: ClassVar[Literal["application_fee"]] = "application_fee"
-    if TYPE_CHECKING:
 
-        class ListParams(RequestOptions):
-            charge: NotRequired["str"]
-            """
-            Only return application fees for the charge specified by this charge ID.
-            """
-            created: NotRequired["ApplicationFee.ListParamsCreated|int"]
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
+    class ListParams(RequestOptions):
+        charge: NotRequired["str"]
+        """
+        Only return application fees for the charge specified by this charge ID.
+        """
+        created: NotRequired["ApplicationFee.ListParamsCreated|int"]
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
-        class ListParamsCreated(TypedDict):
-            gt: NotRequired["int"]
-            """
-            Minimum value to filter by (exclusive)
-            """
-            gte: NotRequired["int"]
-            """
-            Minimum value to filter by (inclusive)
-            """
-            lt: NotRequired["int"]
-            """
-            Maximum value to filter by (exclusive)
-            """
-            lte: NotRequired["int"]
-            """
-            Maximum value to filter by (inclusive)
-            """
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
+        """
 
-        class RefundParams(RequestOptions):
-            amount: NotRequired["int"]
-            """
-            A positive integer, in _cents (or local equivalent)_, representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the fee.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
+    class RefundParams(RequestOptions):
+        amount: NotRequired["int"]
+        """
+        A positive integer, in _cents (or local equivalent)_, representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the fee.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class CreateRefundParams(RequestOptions):
-            amount: NotRequired["int"]
-            """
-            A positive integer, in _cents (or local equivalent)_, representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the fee.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
+    class CreateRefundParams(RequestOptions):
+        amount: NotRequired["int"]
+        """
+        A positive integer, in _cents (or local equivalent)_, representing how much of this fee to refund. Can refund only up to the remaining unrefunded amount of the fee.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
 
-        class RetrieveRefundParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveRefundParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class ModifyRefundParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            metadata: NotRequired["Literal['']|Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
+    class ModifyRefundParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
 
-        class ListRefundsParams(RequestOptions):
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
+    class ListRefundsParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
     account: ExpandableField["Account"]
     """
@@ -205,7 +204,9 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ApplicationFee.ListParams"]
+        **params: Unpack[
+            "ApplicationFee.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ApplicationFee"]:
         """
         Returns a list of application fees you've previously collected. The application fees are returned in sorted order, with the most recent fees appearing first.
@@ -234,7 +235,9 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ApplicationFee.RefundParams"]
+        **params: Unpack[
+            "ApplicationFee.RefundParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -268,7 +271,9 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ApplicationFee.RefundParams"]
+        **params: Unpack[
+            "ApplicationFee.RefundParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -287,7 +292,9 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     def refund(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["ApplicationFee.RefundParams"]
+        **params: Unpack[
+            "ApplicationFee.RefundParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -306,7 +313,9 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
     def refund(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["ApplicationFee.RefundParams"]
+        **params: Unpack[
+            "ApplicationFee.RefundParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -349,7 +358,9 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ApplicationFee.CreateRefundParams"]
+        **params: Unpack[
+            "ApplicationFee.CreateRefundParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ApplicationFeeRefund":
         """
         Refunds an application fee that has previously been collected but not yet refunded.
@@ -384,7 +395,9 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ApplicationFee.RetrieveRefundParams"]
+        **params: Unpack[
+            "ApplicationFee.RetrieveRefundParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ApplicationFeeRefund":
         """
         By default, you can see the 10 most recent refunds stored directly on the application fee object, but you can also retrieve details about a specific refund stored on the application fee.
@@ -411,7 +424,9 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ApplicationFee.ModifyRefundParams"]
+        **params: Unpack[
+            "ApplicationFee.ModifyRefundParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ApplicationFeeRefund":
         """
         Updates the specified application fee refund by setting the values of the parameters passed. Any parameters not provided will be left unchanged.
@@ -439,7 +454,9 @@ class ApplicationFee(ListableAPIResource["ApplicationFee"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ApplicationFee.ListRefundsParams"]
+        **params: Unpack[
+            "ApplicationFee.ListRefundsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ApplicationFeeRefund"]:
         """
         You can see a list of the refunds belonging to a specific application fee. Note that the 10 most recent refunds are always available by default on the application fee object. If you need more than those 10, you can use this API method and the limit and starting_after parameters to page through additional refunds.

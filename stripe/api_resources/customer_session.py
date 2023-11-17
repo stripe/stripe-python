@@ -17,23 +17,26 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["customer_session"]] = "customer_session"
-    if TYPE_CHECKING:
 
-        class CreateParams(RequestOptions):
-            customer: str
-            """
-            The ID of an existing customer for which to create the customer session.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class CreateParams(RequestOptions):
+        customer: str
+        """
+        The ID of an existing customer for which to create the customer session.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     client_secret: str
     """
     The client secret of this customer session. Used on the client to set up secure access to the given `customer`.
 
     The client secret can be used to provide access to `customer` from your frontend. It should not be stored, logged, or exposed to anyone other than the relevant customer. Make sure that you have TLS enabled on any page that includes the client secret.
+    """
+    created: int
+    """
+    Time at which the object was created. Measured in seconds since the Unix epoch.
     """
     customer: ExpandableField["Customer"]
     """
@@ -59,7 +62,9 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["CustomerSession.CreateParams"]
+        **params: Unpack[
+            "CustomerSession.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "CustomerSession":
         """
         Creates a customer session object that includes a single-use client secret that you can use on your front-end to grant client-side API access for certain customer resources.

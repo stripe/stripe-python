@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import SingletonAPIResource
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack
 
 
 class Balance(SingletonAPIResource["Balance"]):
@@ -161,13 +161,11 @@ class Balance(SingletonAPIResource["Balance"]):
         source_types: Optional[SourceTypes]
         _inner_class_types = {"source_types": SourceTypes}
 
-    if TYPE_CHECKING:
-
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     available: List[Available]
     """

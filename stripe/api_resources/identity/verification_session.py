@@ -179,164 +179,162 @@ class VerificationSession(
         """
         _inner_class_types = {"address": Address, "dob": Dob}
 
-    if TYPE_CHECKING:
+    class CancelParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class CancelParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class CreateParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        options: NotRequired["VerificationSession.CreateParamsOptions"]
+        """
+        A set of options for the session's verification checks.
+        """
+        return_url: NotRequired["str"]
+        """
+        The URL that the user will be redirected to upon completing the verification flow.
+        """
+        type: Literal["document", "id_number"]
+        """
+        The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
+        """
 
-        class CreateParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            options: NotRequired["VerificationSession.CreateParamsOptions"]
-            """
-            A set of options for the session's verification checks.
-            """
-            return_url: NotRequired["str"]
-            """
-            The URL that the user will be redirected to upon completing the verification flow.
-            """
-            type: Literal["document", "id_number"]
-            """
-            The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
-            """
+    class CreateParamsOptions(TypedDict):
+        document: NotRequired[
+            "Literal['']|VerificationSession.CreateParamsOptionsDocument"
+        ]
+        """
+        Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
+        """
 
-        class CreateParamsOptions(TypedDict):
-            document: NotRequired[
-                "Literal['']|VerificationSession.CreateParamsOptionsDocument"
-            ]
-            """
-            Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
-            """
+    class CreateParamsOptionsDocument(TypedDict):
+        allowed_types: NotRequired[
+            "List[Literal['driving_license', 'id_card', 'passport']]"
+        ]
+        """
+        Array of strings of allowed identity document types. If the provided identity document isn't one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
+        """
+        require_id_number: NotRequired["bool"]
+        """
+        Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document's extracted name and date of birth.
+        """
+        require_live_capture: NotRequired["bool"]
+        """
+        Disable image uploads, identity document images have to be captured using the device's camera.
+        """
+        require_matching_selfie: NotRequired["bool"]
+        """
+        Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
+        """
 
-        class CreateParamsOptionsDocument(TypedDict):
-            allowed_types: NotRequired[
-                "List[Literal['driving_license', 'id_card', 'passport']]"
-            ]
-            """
-            Array of strings of allowed identity document types. If the provided identity document isn't one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
-            """
-            require_id_number: NotRequired["bool"]
-            """
-            Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document's extracted name and date of birth.
-            """
-            require_live_capture: NotRequired["bool"]
-            """
-            Disable image uploads, identity document images have to be captured using the device's camera.
-            """
-            require_matching_selfie: NotRequired["bool"]
-            """
-            Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
-            """
+    class ListParams(RequestOptions):
+        created: NotRequired["VerificationSession.ListParamsCreated|int"]
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+        status: NotRequired[
+            "Literal['canceled', 'processing', 'requires_input', 'verified']"
+        ]
+        """
+        Only return VerificationSessions with this status. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
+        """
 
-        class ListParams(RequestOptions):
-            created: NotRequired["VerificationSession.ListParamsCreated|int"]
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
-            status: NotRequired[
-                "Literal['canceled', 'processing', 'requires_input', 'verified']"
-            ]
-            """
-            Only return VerificationSessions with this status. [Learn more about the lifecycle of sessions](https://stripe.com/docs/identity/how-sessions-work).
-            """
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
+        """
 
-        class ListParamsCreated(TypedDict):
-            gt: NotRequired["int"]
-            """
-            Minimum value to filter by (exclusive)
-            """
-            gte: NotRequired["int"]
-            """
-            Minimum value to filter by (inclusive)
-            """
-            lt: NotRequired["int"]
-            """
-            Maximum value to filter by (exclusive)
-            """
-            lte: NotRequired["int"]
-            """
-            Maximum value to filter by (inclusive)
-            """
+    class ModifyParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        options: NotRequired["VerificationSession.ModifyParamsOptions"]
+        """
+        A set of options for the session's verification checks.
+        """
+        type: NotRequired["Literal['document', 'id_number']"]
+        """
+        The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
+        """
 
-        class ModifyParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            options: NotRequired["VerificationSession.ModifyParamsOptions"]
-            """
-            A set of options for the session's verification checks.
-            """
-            type: NotRequired["Literal['document', 'id_number']"]
-            """
-            The type of [verification check](https://stripe.com/docs/identity/verification-checks) to be performed.
-            """
+    class ModifyParamsOptions(TypedDict):
+        document: NotRequired[
+            "Literal['']|VerificationSession.ModifyParamsOptionsDocument"
+        ]
+        """
+        Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
+        """
 
-        class ModifyParamsOptions(TypedDict):
-            document: NotRequired[
-                "Literal['']|VerificationSession.ModifyParamsOptionsDocument"
-            ]
-            """
-            Options that apply to the [document check](https://stripe.com/docs/identity/verification-checks?type=document).
-            """
+    class ModifyParamsOptionsDocument(TypedDict):
+        allowed_types: NotRequired[
+            "List[Literal['driving_license', 'id_card', 'passport']]"
+        ]
+        """
+        Array of strings of allowed identity document types. If the provided identity document isn't one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
+        """
+        require_id_number: NotRequired["bool"]
+        """
+        Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document's extracted name and date of birth.
+        """
+        require_live_capture: NotRequired["bool"]
+        """
+        Disable image uploads, identity document images have to be captured using the device's camera.
+        """
+        require_matching_selfie: NotRequired["bool"]
+        """
+        Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
+        """
 
-        class ModifyParamsOptionsDocument(TypedDict):
-            allowed_types: NotRequired[
-                "List[Literal['driving_license', 'id_card', 'passport']]"
-            ]
-            """
-            Array of strings of allowed identity document types. If the provided identity document isn't one of the allowed types, the verification check will fail with a document_type_not_allowed error code.
-            """
-            require_id_number: NotRequired["bool"]
-            """
-            Collect an ID number and perform an [ID number check](https://stripe.com/docs/identity/verification-checks?type=id-number) with the document's extracted name and date of birth.
-            """
-            require_live_capture: NotRequired["bool"]
-            """
-            Disable image uploads, identity document images have to be captured using the device's camera.
-            """
-            require_matching_selfie: NotRequired["bool"]
-            """
-            Capture a face image and perform a [selfie check](https://stripe.com/docs/identity/verification-checks?type=selfie) comparing a photo ID and a picture of your user's face. [Learn more](https://stripe.com/docs/identity/selfie).
-            """
+    class RedactParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class RedactParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     client_secret: Optional[str]
     """
@@ -402,7 +400,9 @@ class VerificationSession(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.CancelParams"]
+        **params: Unpack[
+            "VerificationSession.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
@@ -430,7 +430,9 @@ class VerificationSession(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.CancelParams"]
+        **params: Unpack[
+            "VerificationSession.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
@@ -443,7 +445,9 @@ class VerificationSession(
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["VerificationSession.CancelParams"]
+        **params: Unpack[
+            "VerificationSession.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
@@ -456,7 +460,9 @@ class VerificationSession(
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["VerificationSession.CancelParams"]
+        **params: Unpack[
+            "VerificationSession.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         A VerificationSession object can be canceled when it is in requires_input [status](https://stripe.com/docs/identity/how-sessions-work).
@@ -482,7 +488,9 @@ class VerificationSession(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.CreateParams"]
+        **params: Unpack[
+            "VerificationSession.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         Creates a VerificationSession object.
@@ -512,7 +520,9 @@ class VerificationSession(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.ListParams"]
+        **params: Unpack[
+            "VerificationSession.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["VerificationSession"]:
         """
         Returns a list of VerificationSessions
@@ -557,7 +567,9 @@ class VerificationSession(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.RedactParams"]
+        **params: Unpack[
+            "VerificationSession.RedactParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -601,7 +613,9 @@ class VerificationSession(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["VerificationSession.RedactParams"]
+        **params: Unpack[
+            "VerificationSession.RedactParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -630,7 +644,9 @@ class VerificationSession(
     def redact(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["VerificationSession.RedactParams"]
+        **params: Unpack[
+            "VerificationSession.RedactParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact
@@ -659,7 +675,9 @@ class VerificationSession(
     def redact(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["VerificationSession.RedactParams"]
+        **params: Unpack[
+            "VerificationSession.RedactParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "VerificationSession":
         """
         Redact a VerificationSession to remove all collected information from Stripe. This will redact

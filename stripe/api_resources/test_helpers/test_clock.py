@@ -10,7 +10,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.util import class_method_variant
 from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack
 from urllib.parse import quote_plus
 
 
@@ -28,58 +28,57 @@ class TestClock(
     OBJECT_NAME: ClassVar[
         Literal["test_helpers.test_clock"]
     ] = "test_helpers.test_clock"
-    if TYPE_CHECKING:
 
-        class AdvanceParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            frozen_time: int
-            """
-            The time to advance the test clock. Must be after the test clock's current frozen time. Cannot be more than two intervals in the future from the shortest subscription in this test clock. If there are no subscriptions in this test clock, it cannot be more than two years in the future.
-            """
+    class AdvanceParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        frozen_time: int
+        """
+        The time to advance the test clock. Must be after the test clock's current frozen time. Cannot be more than two intervals in the future from the shortest subscription in this test clock. If there are no subscriptions in this test clock, it cannot be more than two years in the future.
+        """
 
-        class CreateParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            frozen_time: int
-            """
-            The initial frozen time for this test clock.
-            """
-            name: NotRequired["str"]
-            """
-            The name for this test clock.
-            """
+    class CreateParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        frozen_time: int
+        """
+        The initial frozen time for this test clock.
+        """
+        name: NotRequired["str"]
+        """
+        The name for this test clock.
+        """
 
-        class DeleteParams(RequestOptions):
-            pass
+    class DeleteParams(RequestOptions):
+        pass
 
-        class ListParams(RequestOptions):
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
+    class ListParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     created: int
     """
@@ -125,7 +124,9 @@ class TestClock(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["TestClock.AdvanceParams"]
+        **params: Unpack[
+            "TestClock.AdvanceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -151,7 +152,9 @@ class TestClock(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["TestClock.AdvanceParams"]
+        **params: Unpack[
+            "TestClock.AdvanceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -162,7 +165,9 @@ class TestClock(
     def advance(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["TestClock.AdvanceParams"]
+        **params: Unpack[
+            "TestClock.AdvanceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -173,7 +178,9 @@ class TestClock(
     def advance(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["TestClock.AdvanceParams"]
+        **params: Unpack[
+            "TestClock.AdvanceParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TestClock":
         """
         Starts advancing a test clock to a specified time in the future. Advancement is done when status changes to Ready.
@@ -197,7 +204,9 @@ class TestClock(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["TestClock.CreateParams"]
+        **params: Unpack[
+            "TestClock.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "TestClock":
         """
         Creates a new test clock that can be attached to new customers and quotes.
@@ -266,7 +275,9 @@ class TestClock(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["TestClock.ListParams"]
+        **params: Unpack[
+            "TestClock.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["TestClock"]:
         """
         Returns a list of your test clocks.

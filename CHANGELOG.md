@@ -1,5 +1,23 @@
 # Changelog
 
+## 7.5.0 - 2023-11-16
+* [#1127](https://github.com/stripe/stripe-python/pull/1127) Update generated code
+  * Add support for `bacs_debit_payments` on `Account.CreateParamsSettings`
+  * Add support for `service_user_number` on `Account.Settings.BacsDebitPayments`
+  * Add support for `capture_before` on `Charge.PaymentMethodDetails.Card.capture_before`
+  * Add support for `Paypal` on `Checkout.Session.PaymentMethodOptions`
+  * Add support for `tax_amounts` on `CreditNote.CreateParamsLine`, `CreditNote.PreviewParamsLine`, and `CreditNote.PreviewLinesParamsLine`
+  * Add support for `network_data` on `Issuing.Transaction`
+  * Add support for `status` on `Checkout.Session.ListParams`
+* [#1135](https://github.com/stripe/stripe-python/pull/1135) Add initial tests for exports and run them in mypy and pyright
+* [#1130](https://github.com/stripe/stripe-python/pull/1130) Mention types in README.md
+* [#1134](https://github.com/stripe/stripe-python/pull/1134) Run pyright via tox
+* [#1131](https://github.com/stripe/stripe-python/pull/1131) Upgrade black dependency 
+* [#1132](https://github.com/stripe/stripe-python/pull/1132) Fix unnecessary casts from pyright 1.1.336
+* [#1126](https://github.com/stripe/stripe-python/pull/1126) Suppress type errors from latest pyright
+* [#1125](https://github.com/stripe/stripe-python/pull/1125) Add support for Python 3.11/3.12
+* [#1123](https://github.com/stripe/stripe-python/pull/1123) Move to python3 venv and update vscode settings
+
 ## 7.5.0b1 - 2023-11-10
 * [#1120](https://github.com/stripe/stripe-python/pull/1120) Update generated code for beta
 

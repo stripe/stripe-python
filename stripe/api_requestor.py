@@ -107,7 +107,7 @@ class APIRequestor(object):
             self._client = client
         elif stripe.default_http_client:
             self._client = stripe.default_http_client
-            if proxy != self._default_proxy:  # type: ignore
+            if proxy != self._default_proxy:
                 warnings.warn(
                     "stripe.proxy was updated after sending a "
                     "request - this is a no-op. To use a different proxy, "

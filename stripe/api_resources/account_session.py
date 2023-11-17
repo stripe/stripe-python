@@ -4,13 +4,7 @@ from stripe.api_resources.abstract import CreateableAPIResource
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import ClassVar, List, Optional, cast
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
 class AccountSession(CreateableAPIResource["AccountSession"]):
@@ -99,129 +93,165 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             "payouts": Payouts,
         }
 
-    if TYPE_CHECKING:
+    class CreateParams(RequestOptions):
+        account: str
+        """
+        The identifier of the account to create an Account Session for.
+        """
+        components: "AccountSession.CreateParamsComponents"
+        """
+        Each key of the dictionary represents an embedded component, and each embedded component maps to its configuration (e.g. whether it has been enabled or not).
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class CreateParams(RequestOptions):
-            account: str
-            """
-            The identifier of the account to create an Account Session for.
-            """
-            components: "AccountSession.CreateParamsComponents"
-            """
-            Each key of the dictionary represents an embedded component, and each embedded component maps to its configuration (e.g. whether it has been enabled or not).
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class CreateParamsComponents(TypedDict):
+        account_onboarding: NotRequired[
+            "AccountSession.CreateParamsComponentsAccountOnboarding"
+        ]
+        """
+        Configuration for the account onboarding embedded component.
+        """
+        issuing_card: NotRequired[
+            "AccountSession.CreateParamsComponentsIssuingCard"
+        ]
+        """
+        Configuration for the issuing card component.
+        """
+        issuing_cards_list: NotRequired[
+            "AccountSession.CreateParamsComponentsIssuingCardsList"
+        ]
+        """
+        Configuration for the issuing cards list component.
+        """
+        payment_details: NotRequired[
+            "AccountSession.CreateParamsComponentsPaymentDetails"
+        ]
+        """
+        Configuration for the payment details embedded component.
+        """
+        payments: NotRequired["AccountSession.CreateParamsComponentsPayments"]
+        """
+        Configuration for the payments embedded component.
+        """
+        payouts: NotRequired["AccountSession.CreateParamsComponentsPayouts"]
+        """
+        Configuration for the payouts embedded component.
+        """
 
-        class CreateParamsComponents(TypedDict):
-            account_onboarding: NotRequired[
-                "AccountSession.CreateParamsComponentsAccountOnboarding"
-            ]
-            """
-            Configuration for the account onboarding embedded component.
-            """
-            payment_details: NotRequired[
-                "AccountSession.CreateParamsComponentsPaymentDetails"
-            ]
-            """
-            Configuration for the payment details embedded component.
-            """
-            payments: NotRequired[
-                "AccountSession.CreateParamsComponentsPayments"
-            ]
-            """
-            Configuration for the payments embedded component.
-            """
-            payouts: NotRequired[
-                "AccountSession.CreateParamsComponentsPayouts"
-            ]
-            """
-            Configuration for the payouts embedded component.
-            """
+    class CreateParamsComponentsPayouts(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsPayoutsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
 
-        class CreateParamsComponentsPayouts(TypedDict):
-            enabled: bool
-            """
-            Whether the embedded component is enabled.
-            """
-            features: NotRequired[
-                "AccountSession.CreateParamsComponentsPayoutsFeatures"
-            ]
-            """
-            The list of features enabled in the embedded component.
-            """
+    class CreateParamsComponentsPayoutsFeatures(TypedDict):
+        pass
 
-        class CreateParamsComponentsPayoutsFeatures(TypedDict):
-            pass
+    class CreateParamsComponentsPayments(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsPaymentsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
 
-        class CreateParamsComponentsPayments(TypedDict):
-            enabled: bool
-            """
-            Whether the embedded component is enabled.
-            """
-            features: NotRequired[
-                "AccountSession.CreateParamsComponentsPaymentsFeatures"
-            ]
-            """
-            The list of features enabled in the embedded component.
-            """
+    class CreateParamsComponentsPaymentsFeatures(TypedDict):
+        capture_payments: NotRequired["bool"]
+        """
+        Whether to allow capturing and cancelling payment intents. This is `true` by default.
+        """
+        dispute_management: NotRequired["bool"]
+        """
+        Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+        """
+        refund_management: NotRequired["bool"]
+        """
+        Whether to allow sending refunds. This is `true` by default.
+        """
 
-        class CreateParamsComponentsPaymentsFeatures(TypedDict):
-            capture_payments: NotRequired["bool"]
-            """
-            Whether to allow capturing and cancelling payment intents. This is `true` by default.
-            """
-            dispute_management: NotRequired["bool"]
-            """
-            Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
-            """
-            refund_management: NotRequired["bool"]
-            """
-            Whether to allow sending refunds. This is `true` by default.
-            """
+    class CreateParamsComponentsPaymentDetails(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsPaymentDetailsFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
 
-        class CreateParamsComponentsPaymentDetails(TypedDict):
-            enabled: bool
-            """
-            Whether the embedded component is enabled.
-            """
-            features: NotRequired[
-                "AccountSession.CreateParamsComponentsPaymentDetailsFeatures"
-            ]
-            """
-            The list of features enabled in the embedded component.
-            """
+    class CreateParamsComponentsPaymentDetailsFeatures(TypedDict):
+        capture_payments: NotRequired["bool"]
+        """
+        Whether to allow capturing and cancelling payment intents. This is `true` by default.
+        """
+        dispute_management: NotRequired["bool"]
+        """
+        Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
+        """
+        refund_management: NotRequired["bool"]
+        """
+        Whether to allow sending refunds. This is `true` by default.
+        """
 
-        class CreateParamsComponentsPaymentDetailsFeatures(TypedDict):
-            capture_payments: NotRequired["bool"]
-            """
-            Whether to allow capturing and cancelling payment intents. This is `true` by default.
-            """
-            dispute_management: NotRequired["bool"]
-            """
-            Whether to allow responding to disputes, including submitting evidence and accepting disputes. This is `true` by default.
-            """
-            refund_management: NotRequired["bool"]
-            """
-            Whether to allow sending refunds. This is `true` by default.
-            """
+    class CreateParamsComponentsIssuingCardsList(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsIssuingCardsListFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
 
-        class CreateParamsComponentsAccountOnboarding(TypedDict):
-            enabled: bool
-            """
-            Whether the embedded component is enabled.
-            """
-            features: NotRequired[
-                "AccountSession.CreateParamsComponentsAccountOnboardingFeatures"
-            ]
-            """
-            The list of features enabled in the embedded component.
-            """
+    class CreateParamsComponentsIssuingCardsListFeatures(TypedDict):
+        pass
 
-        class CreateParamsComponentsAccountOnboardingFeatures(TypedDict):
-            pass
+    class CreateParamsComponentsIssuingCard(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsIssuingCardFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsIssuingCardFeatures(TypedDict):
+        pass
+
+    class CreateParamsComponentsAccountOnboarding(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsAccountOnboardingFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsAccountOnboardingFeatures(TypedDict):
+        pass
 
     account: str
     """
@@ -256,7 +286,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["AccountSession.CreateParams"]
+        **params: Unpack[
+            "AccountSession.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "AccountSession":
         """
         Creates a AccountSession object that includes a single-use token that the platform can use on their front-end to grant client-side API access.

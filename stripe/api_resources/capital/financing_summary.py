@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import SingletonAPIResource
 from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack
 
 
 class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
@@ -73,13 +73,11 @@ class FinancingSummary(SingletonAPIResource["FinancingSummary"]):
             "current_repayment_interval": CurrentRepaymentInterval,
         }
 
-    if TYPE_CHECKING:
-
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     details: Optional[Details]
     """

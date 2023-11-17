@@ -43,141 +43,140 @@ class Payout(
     """
 
     OBJECT_NAME: ClassVar[Literal["payout"]] = "payout"
-    if TYPE_CHECKING:
 
-        class CancelParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class CancelParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class CreateParams(RequestOptions):
-            amount: int
-            """
-            A positive integer in cents representing how much to payout.
-            """
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            description: NotRequired["str"]
-            """
-            An arbitrary string attached to the object. Often useful for displaying to users.
-            """
-            destination: NotRequired["str"]
-            """
-            The ID of a bank account or a card to send the payout to. If you don't provide a destination, we use the default external account for the specified currency.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            method: NotRequired["Literal['instant', 'standard']"]
-            """
-            The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
-            """
-            source_type: NotRequired["Literal['bank_account', 'card', 'fpx']"]
-            """
-            The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
-            """
-            statement_descriptor: NotRequired["str"]
-            """
-            A string that displays on the recipient's bank or card statement (up to 22 characters). A `statement_descriptor` that's longer than 22 characters return an error. Most banks truncate this information and display it inconsistently. Some banks might not display it at all.
-            """
+    class CreateParams(RequestOptions):
+        amount: int
+        """
+        A positive integer in cents representing how much to payout.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        description: NotRequired["str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        destination: NotRequired["str"]
+        """
+        The ID of a bank account or a card to send the payout to. If you don't provide a destination, we use the default external account for the specified currency.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        method: NotRequired["Literal['instant', 'standard']"]
+        """
+        The method used to send this payout, which is `standard` or `instant`. We support `instant` for payouts to debit cards and bank accounts in certain countries. Learn more about [bank support for Instant Payouts](https://stripe.com/docs/payouts/instant-payouts-banks).
+        """
+        source_type: NotRequired["Literal['bank_account', 'card', 'fpx']"]
+        """
+        The balance type of your Stripe balance to draw this payout from. Balances for different payment sources are kept separately. You can find the amounts with the Balances API. One of `bank_account`, `card`, or `fpx`.
+        """
+        statement_descriptor: NotRequired["str"]
+        """
+        A string that displays on the recipient's bank or card statement (up to 22 characters). A `statement_descriptor` that's longer than 22 characters return an error. Most banks truncate this information and display it inconsistently. Some banks might not display it at all.
+        """
 
-        class ListParams(RequestOptions):
-            arrival_date: NotRequired["Payout.ListParamsArrivalDate|int"]
-            created: NotRequired["Payout.ListParamsCreated|int"]
-            destination: NotRequired["str"]
-            """
-            The ID of an external account - only return payouts sent to this external account.
-            """
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
-            status: NotRequired["str"]
-            """
-            Only return payouts that have the given status: `pending`, `paid`, `failed`, or `canceled`.
-            """
+    class ListParams(RequestOptions):
+        arrival_date: NotRequired["Payout.ListParamsArrivalDate|int"]
+        created: NotRequired["Payout.ListParamsCreated|int"]
+        destination: NotRequired["str"]
+        """
+        The ID of an external account - only return payouts sent to this external account.
+        """
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+        status: NotRequired["str"]
+        """
+        Only return payouts that have the given status: `pending`, `paid`, `failed`, or `canceled`.
+        """
 
-        class ListParamsCreated(TypedDict):
-            gt: NotRequired["int"]
-            """
-            Minimum value to filter by (exclusive)
-            """
-            gte: NotRequired["int"]
-            """
-            Minimum value to filter by (inclusive)
-            """
-            lt: NotRequired["int"]
-            """
-            Maximum value to filter by (exclusive)
-            """
-            lte: NotRequired["int"]
-            """
-            Maximum value to filter by (inclusive)
-            """
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
+        """
 
-        class ListParamsArrivalDate(TypedDict):
-            gt: NotRequired["int"]
-            """
-            Minimum value to filter by (exclusive)
-            """
-            gte: NotRequired["int"]
-            """
-            Minimum value to filter by (inclusive)
-            """
-            lt: NotRequired["int"]
-            """
-            Maximum value to filter by (exclusive)
-            """
-            lte: NotRequired["int"]
-            """
-            Maximum value to filter by (inclusive)
-            """
+    class ListParamsArrivalDate(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
+        """
 
-        class ModifyParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            metadata: NotRequired["Literal['']|Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
+    class ModifyParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class ReverseParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
+    class ReverseParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
 
     amount: int
     """
@@ -283,7 +282,9 @@ class Payout(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Payout.CancelParams"]
+        **params: Unpack[
+            "Payout.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Payout":
         """
         You can cancel a previously created payout if it hasn't been paid out yet. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -309,7 +310,9 @@ class Payout(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Payout.CancelParams"]
+        **params: Unpack[
+            "Payout.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Payout":
         """
         You can cancel a previously created payout if it hasn't been paid out yet. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -320,7 +323,9 @@ class Payout(
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Payout.CancelParams"]
+        **params: Unpack[
+            "Payout.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Payout":
         """
         You can cancel a previously created payout if it hasn't been paid out yet. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -331,7 +336,9 @@ class Payout(
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Payout.CancelParams"]
+        **params: Unpack[
+            "Payout.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Payout":
         """
         You can cancel a previously created payout if it hasn't been paid out yet. Stripe refunds the funds to your available balance. You can't cancel automatic Stripe payouts.
@@ -355,7 +362,9 @@ class Payout(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Payout.CreateParams"]
+        **params: Unpack[
+            "Payout.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Payout":
         """
         To send funds to your own bank account, create a new payout object. Your [Stripe balance](https://stripe.com/docs/api#balance) must cover the payout amount. If it doesn't, you receive an “Insufficient Funds” error.
@@ -383,7 +392,9 @@ class Payout(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Payout.ListParams"]
+        **params: Unpack[
+            "Payout.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Payout"]:
         """
         Returns a list of existing payouts sent to third-party bank accounts or payouts that Stripe sent to you. The payouts return in sorted order, with the most recently created payouts appearing first.
@@ -436,7 +447,9 @@ class Payout(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Payout.ReverseParams"]
+        **params: Unpack[
+            "Payout.ReverseParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is in the pending status, use /v1/payouts/:id/cancel instead.
@@ -464,7 +477,9 @@ class Payout(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Payout.ReverseParams"]
+        **params: Unpack[
+            "Payout.ReverseParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is in the pending status, use /v1/payouts/:id/cancel instead.
@@ -477,7 +492,9 @@ class Payout(
     def reverse(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Payout.ReverseParams"]
+        **params: Unpack[
+            "Payout.ReverseParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is in the pending status, use /v1/payouts/:id/cancel instead.
@@ -490,7 +507,9 @@ class Payout(
     def reverse(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Payout.ReverseParams"]
+        **params: Unpack[
+            "Payout.ReverseParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Payout":
         """
         Reverses a payout by debiting the destination bank account. At this time, you can only reverse payouts for connected accounts to US bank accounts. If the payout is in the pending status, use /v1/payouts/:id/cancel instead.

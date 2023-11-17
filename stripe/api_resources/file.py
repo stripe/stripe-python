@@ -5,7 +5,7 @@ from stripe import api_requestor, util
 from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
-from typing import ClassVar, List, Optional
+from typing import ClassVar, List, Optional, cast
 from typing_extensions import (
     Literal,
     NotRequired,
@@ -30,56 +30,55 @@ class File(ListableAPIResource["File"]):
     """
 
     OBJECT_NAME: ClassVar[Literal["file"]] = "file"
-    if TYPE_CHECKING:
 
-        class ListParams(RequestOptions):
-            created: NotRequired["File.ListParamsCreated|int"]
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            purpose: NotRequired[
-                "Literal['account_requirement', 'additional_verification', 'business_icon', 'business_logo', 'customer_signature', 'dispute_evidence', 'document_provider_identity_document', 'finance_report_run', 'identity_document', 'identity_document_downloadable', 'pci_document', 'selfie', 'sigma_scheduled_query', 'tax_document_user_upload', 'terminal_reader_splashscreen']"
-            ]
-            """
-            Filter queries by the file purpose. If you don't provide a purpose, the queries return unfiltered files.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
+    class ListParams(RequestOptions):
+        created: NotRequired["File.ListParamsCreated|int"]
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        purpose: NotRequired[
+            "Literal['account_requirement', 'additional_verification', 'business_icon', 'business_logo', 'customer_signature', 'dispute_evidence', 'document_provider_identity_document', 'finance_report_run', 'identity_document', 'identity_document_downloadable', 'pci_document', 'selfie', 'sigma_scheduled_query', 'tax_document_user_upload', 'terminal_reader_splashscreen']"
+        ]
+        """
+        Filter queries by the file purpose. If you don't provide a purpose, the queries return unfiltered files.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
-        class ListParamsCreated(TypedDict):
-            gt: NotRequired["int"]
-            """
-            Minimum value to filter by (exclusive)
-            """
-            gte: NotRequired["int"]
-            """
-            Minimum value to filter by (inclusive)
-            """
-            lt: NotRequired["int"]
-            """
-            Maximum value to filter by (exclusive)
-            """
-            lte: NotRequired["int"]
-            """
-            Maximum value to filter by (inclusive)
-            """
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
+        """
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     created: int
     """
@@ -148,7 +147,9 @@ class File(ListableAPIResource["File"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["File.ListParams"]
+        **params: Unpack[
+            "File.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["File"]:
         """
         Returns a list of the files that your account has access to. Stripe sorts and returns the files by their creation dates, placing the most recently created files at the top.
@@ -200,7 +201,7 @@ class File(ListableAPIResource["File"]):
         stripe_version=None,
         stripe_account=None,
         **params
-    ):
+    ) -> "File":
         version = api_version or stripe_version
         requestor = api_requestor.APIRequestor(
             api_key,
@@ -213,8 +214,11 @@ class File(ListableAPIResource["File"]):
         response, api_key = requestor.request(
             "post", url, params=params, headers=supplied_headers
         )
-        return util.convert_to_stripe_object(
-            response, api_key, version, stripe_account
+        return cast(
+            "File",
+            util.convert_to_stripe_object(
+                response, api_key, version, stripe_account
+            ),
         )
 
 

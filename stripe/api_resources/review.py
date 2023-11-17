@@ -71,56 +71,54 @@ class Review(ListableAPIResource["Review"]):
         The version for the browser session (e.g., `61.0.3163.100`).
         """
 
-    if TYPE_CHECKING:
+    class ApproveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class ApproveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class ListParams(RequestOptions):
+        created: NotRequired["Review.ListParamsCreated|int"]
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
-        class ListParams(RequestOptions):
-            created: NotRequired["Review.ListParamsCreated|int"]
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
+        """
 
-        class ListParamsCreated(TypedDict):
-            gt: NotRequired["int"]
-            """
-            Minimum value to filter by (exclusive)
-            """
-            gte: NotRequired["int"]
-            """
-            Minimum value to filter by (inclusive)
-            """
-            lt: NotRequired["int"]
-            """
-            Maximum value to filter by (exclusive)
-            """
-            lte: NotRequired["int"]
-            """
-            Maximum value to filter by (inclusive)
-            """
-
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     billing_zip: Optional[str]
     """
@@ -190,7 +188,9 @@ class Review(ListableAPIResource["Review"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Review.ApproveParams"]
+        **params: Unpack[
+            "Review.ApproveParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -216,7 +216,9 @@ class Review(ListableAPIResource["Review"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Review.ApproveParams"]
+        **params: Unpack[
+            "Review.ApproveParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -227,7 +229,9 @@ class Review(ListableAPIResource["Review"]):
     def approve(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Review.ApproveParams"]
+        **params: Unpack[
+            "Review.ApproveParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -238,7 +242,9 @@ class Review(ListableAPIResource["Review"]):
     def approve(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Review.ApproveParams"]
+        **params: Unpack[
+            "Review.ApproveParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Review":
         """
         Approves a Review object, closing it and removing it from the list of reviews.
@@ -261,7 +267,9 @@ class Review(ListableAPIResource["Review"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Review.ListParams"]
+        **params: Unpack[
+            "Review.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Review"]:
         """
         Returns a list of Review objects that have open set to true. The objects are sorted in descending order by creation date, with the most recently created object appearing first.

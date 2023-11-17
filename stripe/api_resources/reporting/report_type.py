@@ -4,7 +4,7 @@ from stripe.api_resources.abstract import ListableAPIResource
 from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack
 
 
 class ReportType(ListableAPIResource["ReportType"]):
@@ -22,19 +22,18 @@ class ReportType(ListableAPIResource["ReportType"]):
     OBJECT_NAME: ClassVar[
         Literal["reporting.report_type"]
     ] = "reporting.report_type"
-    if TYPE_CHECKING:
 
-        class ListParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class ListParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     data_available_end: int
     """
@@ -79,7 +78,9 @@ class ReportType(ListableAPIResource["ReportType"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ReportType.ListParams"]
+        **params: Unpack[
+            "ReportType.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ReportType"]:
         """
         Returns a full list of Report Types.

@@ -9,7 +9,7 @@ from stripe.api_resources.list_object import ListObject
 from stripe.request_options import RequestOptions
 from stripe.util import class_method_variant
 from typing import ClassVar, List, Optional, cast, overload
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import Literal, NotRequired, Unpack
 from urllib.parse import quote_plus
 
 
@@ -19,42 +19,41 @@ class ApplePayDomain(
     ListableAPIResource["ApplePayDomain"],
 ):
     OBJECT_NAME: ClassVar[Literal["apple_pay_domain"]] = "apple_pay_domain"
-    if TYPE_CHECKING:
 
-        class CreateParams(RequestOptions):
-            domain_name: str
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class CreateParams(RequestOptions):
+        domain_name: str
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class DeleteParams(RequestOptions):
-            pass
+    class DeleteParams(RequestOptions):
+        pass
 
-        class ListParams(RequestOptions):
-            domain_name: NotRequired["str"]
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
+    class ListParams(RequestOptions):
+        domain_name: NotRequired["str"]
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
 
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     created: int
     """
@@ -85,7 +84,9 @@ class ApplePayDomain(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ApplePayDomain.CreateParams"]
+        **params: Unpack[
+            "ApplePayDomain.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "ApplePayDomain":
         """
         Create an apple pay domain.
@@ -154,7 +155,9 @@ class ApplePayDomain(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["ApplePayDomain.ListParams"]
+        **params: Unpack[
+            "ApplePayDomain.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["ApplePayDomain"]:
         """
         List apple pay domains.

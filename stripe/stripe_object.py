@@ -115,7 +115,9 @@ class StripeObject(Dict[str, Any]):
 
     # StripeObject inherits from `dict` which has an update method, and this doesn't quite match
     # the full signature of the update method in MutableMapping. But we ignore.
-    def update(self, update_dict: Mapping[str, Any]) -> None:  # type: ignore[override]
+    def update(  # pyright: ignore
+        self, update_dict: Mapping[str, Any]
+    ) -> None:
         for k in update_dict:
             self._unsaved_values.add(k)
 
@@ -460,7 +462,7 @@ class StripeObject(Dict[str, Any]):
     # wholesale because some data that's returned from the API may not be valid
     # if it was set to be set manually. Here we override the class' copy
     # arguments so that we can bypass these possible exceptions on __setitem__.
-    def __copy__(self) -> Self:
+    def __copy__(self) -> "StripeObject":
         copied = StripeObject(
             self.get("id"),
             self.api_key,
@@ -482,7 +484,7 @@ class StripeObject(Dict[str, Any]):
     # wholesale because some data that's returned from the API may not be valid
     # if it was set to be set manually. Here we override the class' copy
     # arguments so that we can bypass these possible exceptions on __setitem__.
-    def __deepcopy__(self, memo: Dict[int, Any]) -> Self:
+    def __deepcopy__(self, memo: Dict[int, Any]) -> "StripeObject":
         copied = self.__copy__()
         memo[id(self)] = copied
 

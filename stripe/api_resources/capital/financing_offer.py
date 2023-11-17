@@ -7,13 +7,7 @@ from stripe.request_options import RequestOptions
 from stripe.stripe_object import StripeObject
 from stripe.util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast, overload
-from typing_extensions import (
-    Literal,
-    NotRequired,
-    TypedDict,
-    Unpack,
-    TYPE_CHECKING,
-)
+from typing_extensions import Literal, NotRequired, TypedDict, Unpack
 
 
 class FinancingOffer(ListableAPIResource["FinancingOffer"]):
@@ -80,66 +74,64 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         Per-transaction rate at which Stripe will withhold funds to repay the financing.
         """
 
-    if TYPE_CHECKING:
+    class ListParams(RequestOptions):
+        connected_account: NotRequired["str"]
+        """
+        limit list to offers belonging to given connected account
+        """
+        created: NotRequired["FinancingOffer.ListParamsCreated|int"]
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+        status: NotRequired[
+            "Literal['accepted', 'canceled', 'completed', 'delivered', 'expired', 'fully_repaid', 'paid_out', 'rejected', 'revoked', 'undelivered']"
+        ]
+        """
+        limit list to offers with given status
+        """
 
-        class ListParams(RequestOptions):
-            connected_account: NotRequired["str"]
-            """
-            limit list to offers belonging to given connected account
-            """
-            created: NotRequired["FinancingOffer.ListParamsCreated|int"]
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
-            status: NotRequired[
-                "Literal['accepted', 'canceled', 'completed', 'delivered', 'expired', 'fully_repaid', 'paid_out', 'rejected', 'revoked', 'undelivered']"
-            ]
-            """
-            limit list to offers with given status
-            """
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
+        """
 
-        class ListParamsCreated(TypedDict):
-            gt: NotRequired["int"]
-            """
-            Minimum value to filter by (exclusive)
-            """
-            gte: NotRequired["int"]
-            """
-            Minimum value to filter by (inclusive)
-            """
-            lt: NotRequired["int"]
-            """
-            Maximum value to filter by (exclusive)
-            """
-            lte: NotRequired["int"]
-            """
-            Maximum value to filter by (inclusive)
-            """
+    class MarkDeliveredParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
-        class MarkDeliveredParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
 
     accepted_terms: Optional[AcceptedTerms]
     """
@@ -224,7 +216,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FinancingOffer.ListParams"]
+        **params: Unpack[
+            "FinancingOffer.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["FinancingOffer"]:
         """
         Retrieves the financing offers available for Connected accounts that belong to your platform.
@@ -253,7 +247,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        **params: Unpack[
+            "FinancingOffer.MarkDeliveredParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -280,7 +276,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        **params: Unpack[
+            "FinancingOffer.MarkDeliveredParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -292,7 +290,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     def mark_delivered(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        **params: Unpack[
+            "FinancingOffer.MarkDeliveredParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to
@@ -304,7 +304,9 @@ class FinancingOffer(ListableAPIResource["FinancingOffer"]):
     def mark_delivered(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["FinancingOffer.MarkDeliveredParams"]
+        **params: Unpack[
+            "FinancingOffer.MarkDeliveredParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "FinancingOffer":
         """
         Acknowledges that platform has received and delivered the financing_offer to

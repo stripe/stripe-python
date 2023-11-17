@@ -871,2239 +871,2213 @@ class Order(
         breakdown: Optional[Breakdown]
         _inner_class_types = {"breakdown": Breakdown}
 
-    if TYPE_CHECKING:
-
-        class CancelParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-
-        class CreateParams(RequestOptions):
-            automatic_tax: NotRequired["Order.CreateParamsAutomaticTax"]
-            """
-            Settings for automatic tax calculation for this order.
-            """
-            billing_details: NotRequired[
-                "Literal['']|Order.CreateParamsBillingDetails"
-            ]
-            """
-            Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
-            """
-            credits: NotRequired["Literal['']|List[Order.CreateParamsCredit]"]
-            """
-            The credits to apply to the order, only `gift_card` currently supported.
-            """
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            customer: NotRequired["str"]
-            """
-            The customer associated with this order.
-            """
-            description: NotRequired["str"]
-            """
-            An arbitrary string attached to the object. Often useful for displaying to users.
-            """
-            discounts: NotRequired[
-                "Literal['']|List[Order.CreateParamsDiscount]"
-            ]
-            """
-            The coupons, promotion codes, and/or discounts to apply to the order.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            ip_address: NotRequired["str"]
-            """
-            The IP address of the purchaser for this order.
-            """
-            line_items: List["Order.CreateParamsLineItem"]
-            """
-            A list of line items the customer is ordering. Each line item includes information about the product, the quantity, and the resulting cost.
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            payment: NotRequired["Order.CreateParamsPayment"]
-            """
-            Payment information associated with the order, including payment settings.
-            """
-            shipping_cost: NotRequired[
-                "Literal['']|Order.CreateParamsShippingCost"
-            ]
-            """
-            Settings for the customer cost of shipping for this order.
-            """
-            shipping_details: NotRequired[
-                "Literal['']|Order.CreateParamsShippingDetails"
-            ]
-            """
-            Shipping details for the order.
-            """
-            tax_details: NotRequired["Order.CreateParamsTaxDetails"]
-            """
-            Additional tax details about the purchaser to be used for this order.
-            """
-
-        class CreateParamsTaxDetails(TypedDict):
-            tax_exempt: NotRequired[
-                "Literal['']|Literal['exempt', 'none', 'reverse']"
-            ]
-            """
-            The purchaser's tax exemption status. One of `none`, `exempt`, or `reverse`.
-            """
-            tax_ids: NotRequired["List[Order.CreateParamsTaxDetailsTaxId]"]
-            """
-            The purchaser's tax IDs to be used for this order.
-            """
-
-        class CreateParamsTaxDetailsTaxId(TypedDict):
-            type: Literal[
-                "ad_nrt",
-                "ae_trn",
-                "ar_cuit",
-                "au_abn",
-                "au_arn",
-                "bg_uic",
-                "bo_tin",
-                "br_cnpj",
-                "br_cpf",
-                "ca_bn",
-                "ca_gst_hst",
-                "ca_pst_bc",
-                "ca_pst_mb",
-                "ca_pst_sk",
-                "ca_qst",
-                "ch_vat",
-                "cl_tin",
-                "cn_tin",
-                "co_nit",
-                "cr_tin",
-                "do_rcn",
-                "ec_ruc",
-                "eg_tin",
-                "es_cif",
-                "eu_oss_vat",
-                "eu_vat",
-                "gb_vat",
-                "ge_vat",
-                "hk_br",
-                "hu_tin",
-                "id_npwp",
-                "il_vat",
-                "in_gst",
-                "is_vat",
-                "jp_cn",
-                "jp_rn",
-                "jp_trn",
-                "ke_pin",
-                "kr_brn",
-                "li_uid",
-                "mx_rfc",
-                "my_frp",
-                "my_itn",
-                "my_sst",
-                "no_vat",
-                "nz_gst",
-                "pe_ruc",
-                "ph_tin",
-                "ro_tin",
-                "rs_pib",
-                "ru_inn",
-                "ru_kpp",
-                "sa_vat",
-                "sg_gst",
-                "sg_uen",
-                "si_tin",
-                "sv_nit",
-                "th_vat",
-                "tr_tin",
-                "tw_vat",
-                "ua_vat",
-                "us_ein",
-                "uy_ruc",
-                "ve_rif",
-                "vn_tin",
-                "za_vat",
-            ]
-            """
-            Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
-            """
-            value: str
-            """
-            Value of the tax ID.
-            """
-
-        class CreateParamsShippingDetails(TypedDict):
-            address: "Order.CreateParamsShippingDetailsAddress"
-            """
-            The shipping address for the order.
-            """
-            name: str
-            """
-            The name of the recipient of the order.
-            """
-            phone: NotRequired["Literal['']|str"]
-            """
-            The phone number (including extension) for the recipient of the order.
-            """
-
-        class CreateParamsShippingDetailsAddress(TypedDict):
-            city: NotRequired["str"]
-            """
-            City, district, suburb, town, or village.
-            """
-            country: NotRequired["str"]
-            """
-            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            """
-            line1: NotRequired["str"]
-            """
-            Address line 1 (e.g., street, PO Box, or company name).
-            """
-            line2: NotRequired["str"]
-            """
-            Address line 2 (e.g., apartment, suite, unit, or building).
-            """
-            postal_code: NotRequired["str"]
-            """
-            ZIP or postal code.
-            """
-            state: NotRequired["str"]
-            """
-            State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
-            """
-
-        class CreateParamsShippingCost(TypedDict):
-            shipping_rate: NotRequired["str"]
-            """
-            The ID of the shipping rate to use for this order.
-            """
-            shipping_rate_data: NotRequired[
-                "Order.CreateParamsShippingCostShippingRateData"
-            ]
-            """
-            Parameters to create a new ad-hoc shipping rate for this order.
-            """
-
-        class CreateParamsShippingCostShippingRateData(TypedDict):
-            delivery_estimate: NotRequired[
-                "Order.CreateParamsShippingCostShippingRateDataDeliveryEstimate"
-            ]
-            """
-            The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
-            """
-            display_name: str
-            """
-            The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
-            """
-            fixed_amount: NotRequired[
-                "Order.CreateParamsShippingCostShippingRateDataFixedAmount"
-            ]
-            """
-            Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            tax_behavior: NotRequired[
-                "Literal['exclusive', 'inclusive', 'unspecified']"
-            ]
-            """
-            Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
-            """
-            tax_code: NotRequired["str"]
-            """
-            A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
-            """
-            type: NotRequired["Literal['fixed_amount']"]
-            """
-            The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now.
-            """
-
-        class CreateParamsShippingCostShippingRateDataFixedAmount(TypedDict):
-            amount: int
-            """
-            A non-negative integer in cents representing how much to charge.
-            """
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            currency_options: NotRequired[
-                "Dict[str, Order.CreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions]"
-            ]
-            """
-            Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
-            """
-
-        class CreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions(
-            TypedDict,
-        ):
-            amount: int
-            """
-            A non-negative integer in cents representing how much to charge.
-            """
-            tax_behavior: NotRequired[
-                "Literal['exclusive', 'inclusive', 'unspecified']"
-            ]
-            """
-            Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
-            """
-
-        class CreateParamsShippingCostShippingRateDataDeliveryEstimate(
-            TypedDict,
-        ):
-            maximum: NotRequired[
-                "Order.CreateParamsShippingCostShippingRateDataDeliveryEstimateMaximum"
-            ]
-            """
-            The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
-            """
-            minimum: NotRequired[
-                "Order.CreateParamsShippingCostShippingRateDataDeliveryEstimateMinimum"
-            ]
-            """
-            The lower bound of the estimated range. If empty, represents no lower bound.
-            """
-
-        class CreateParamsShippingCostShippingRateDataDeliveryEstimateMinimum(
-            TypedDict,
-        ):
-            unit: Literal["business_day", "day", "hour", "month", "week"]
-            """
-            A unit of time.
-            """
-            value: int
-            """
-            Must be greater than 0.
-            """
-
-        class CreateParamsShippingCostShippingRateDataDeliveryEstimateMaximum(
-            TypedDict,
-        ):
-            unit: Literal["business_day", "day", "hour", "month", "week"]
-            """
-            A unit of time.
-            """
-            value: int
-            """
-            Must be greater than 0.
-            """
-
-        class CreateParamsPayment(TypedDict):
-            settings: "Order.CreateParamsPaymentSettings"
-            """
-            Settings describing how the order should configure generated PaymentIntents.
-            """
-
-        class CreateParamsPaymentSettings(TypedDict):
-            application_fee_amount: NotRequired["int"]
-            """
-            The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account.
-            """
-            payment_method_options: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptions"
-            ]
-            """
-            PaymentMethod-specific configuration to provide to the order's PaymentIntent.
-            """
-            payment_method_types: NotRequired[
-                "List[Literal['acss_debit', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'card', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'link', 'oxxo', 'p24', 'paypal', 'sepa_debit', 'sofort', 'wechat_pay']]"
-            ]
-            """
-            The list of [payment method types](https://stripe.com/docs/payments/payment-methods/overview) to provide to the order's PaymentIntent. Do not include this attribute if you prefer to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
-            """
-            return_url: NotRequired["str"]
-            """
-            The URL to redirect the customer to after they authenticate their payment.
-            """
-            statement_descriptor: NotRequired["str"]
-            """
-            For non-card charges, you can use this value as the complete description that appears on your customers' statements. Must contain at least one letter, maximum 22 characters.
-            """
-            statement_descriptor_suffix: NotRequired["str"]
-            """
-            Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
-            """
-            transfer_data: NotRequired[
-                "Order.CreateParamsPaymentSettingsTransferData"
-            ]
-            """
-            Provides configuration for completing a transfer for the order after it is paid.
-            """
-
-        class CreateParamsPaymentSettingsTransferData(TypedDict):
-            amount: NotRequired["int"]
-            """
-            The amount that will be transferred automatically when the order is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
-            """
-            destination: str
-            """
-            ID of the Connected account receiving the transfer.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
-            acss_debit: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit"
-            ]
-            """
-            If paying by `acss_debit`, this sub-hash contains details about the ACSS Debit payment method options to pass to the order's PaymentIntent.
-            """
-            afterpay_clearpay: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsAfterpayClearpay"
-            ]
-            """
-            If paying by `afterpay_clearpay`, this sub-hash contains details about the AfterpayClearpay payment method options to pass to the order's PaymentIntent.
-            """
-            alipay: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsAlipay"
-            ]
-            """
-            If paying by `alipay`, this sub-hash contains details about the Alipay payment method options to pass to the order's PaymentIntent.
-            """
-            bancontact: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsBancontact"
-            ]
-            """
-            If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the order's PaymentIntent.
-            """
-            card: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsCard"
-            ]
-            """
-            If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the order's PaymentIntent.
-            """
-            customer_balance: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance"
-            ]
-            """
-            If paying by `customer_balance`, this sub-hash contains details about the Customer Balance payment method options to pass to the order's PaymentIntent.
-            """
-            ideal: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsIdeal"
-            ]
-            """
-            If paying by `ideal`, this sub-hash contains details about the iDEAL payment method options to pass to the order's PaymentIntent.
-            """
-            klarna: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsKlarna"
-            ]
-            """
-            If paying by `klarna`, this sub-hash contains details about the Klarna payment method options to pass to the order's PaymentIntent.
-            """
-            link: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsLink"
-            ]
-            """
-            If paying by `link`, this sub-hash contains details about the Link payment method options to pass to the order's PaymentIntent.
-            """
-            oxxo: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsOxxo"
-            ]
-            """
-            If paying by `oxxo`, this sub-hash contains details about the OXXO payment method options to pass to the order's PaymentIntent.
-            """
-            p24: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsP24"
-            ]
-            """
-            If paying by `p24`, this sub-hash contains details about the P24 payment method options to pass to the order's PaymentIntent.
-            """
-            paypal: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsPaypal"
-            ]
-            """
-            If paying by `paypal`, this sub-hash contains details about the PayPal payment method options to pass to the order's PaymentIntent.
-            """
-            sepa_debit: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
-            ]
-            """
-            If paying by `sepa_debit`, this sub-hash contains details about the SEPA Debit payment method options to pass to the order's PaymentIntent.
-            """
-            sofort: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsSofort"
-            ]
-            """
-            If paying by `sofort`, this sub-hash contains details about the Sofort payment method options to pass to the order's PaymentIntent.
-            """
-            wechat_pay: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsWechatPay"
-            ]
-            """
-            If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the order's PaymentIntent.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsWechatPay(
-            TypedDict,
-        ):
-            app_id: NotRequired["str"]
-            """
-            The app ID registered with WeChat Pay. Only required when client is ios or android.
-            """
-            client: Literal["android", "ios", "web"]
-            """
-            The client type that the end customer will pay from
-            """
-            setup_future_usage: NotRequired["Literal['none']"]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsSofort(TypedDict):
-            preferred_language: NotRequired[
-                "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']"
-            ]
-            """
-            Language shown to the payer on redirect.
-            """
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(
-            TypedDict,
-        ):
-            mandate_options: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions"
-            ]
-            """
-            Additional fields for Mandate creation
-            """
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session', 'on_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
-            TypedDict,
-        ):
-            pass
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsPaypal(TypedDict):
-            capture_method: NotRequired["Literal['']|Literal['manual']"]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
-            preferred_locale: NotRequired[
-                "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
-            ]
-            """
-            [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
-            """
-            reference: NotRequired["str"]
-            """
-            A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
-            """
-            reference_id: NotRequired["str"]
-            """
-            A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
-            """
-            risk_correlation_id: NotRequired["str"]
-            """
-            The risk correlation ID for an on-session payment using a saved PayPal payment method.
-            """
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-            subsellers: NotRequired["List[str]"]
-            """
-            The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsP24(TypedDict):
-            setup_future_usage: NotRequired["Literal['none']"]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-            tos_shown_and_accepted: NotRequired["bool"]
-            """
-            Confirm that the payer has accepted the P24 terms and conditions.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsOxxo(TypedDict):
-            expires_after_days: NotRequired["int"]
-            """
-            The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
-            """
-            setup_future_usage: NotRequired["Literal['none']"]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsLink(TypedDict):
-            capture_method: NotRequired["Literal['']|Literal['manual']"]
-            """
-            Controls when the funds will be captured from the customer's account.
-
-            If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-            If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-            """
-            persistent_token: NotRequired["str"]
-            """
-            [Deprecated] This is a legacy parameter that no longer has any function.
-            """
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsKlarna(TypedDict):
-            capture_method: NotRequired["Literal['']|Literal['manual']"]
-            """
-            Controls when the funds will be captured from the customer's account.
-
-            If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-            If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-            """
-            preferred_locale: NotRequired[
-                "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
-            ]
-            """
-            Preferred language of the Klarna authorization page that the customer is redirected to
-            """
-            setup_future_usage: NotRequired["Literal['none']"]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsIdeal(TypedDict):
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(
-            TypedDict,
-        ):
-            bank_transfer: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer"
-            ]
-            """
-            Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
-            """
-            funding_type: NotRequired["Literal['bank_transfer']"]
-            """
-            The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
-            """
-            setup_future_usage: NotRequired["Literal['none']"]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer(
-            TypedDict,
-        ):
-            eu_bank_transfer: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
-            ]
-            """
-            Configuration for the eu_bank_transfer funding type.
-            """
-            requested_address_types: NotRequired[
-                "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
-            ]
-            """
-            List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
-
-            Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
-            """
-            type: Literal[
-                "eu_bank_transfer",
-                "gb_bank_transfer",
-                "jp_bank_transfer",
-                "mx_bank_transfer",
-                "us_bank_transfer",
-            ]
-            """
-            The list of bank transfer types that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
-            TypedDict,
-        ):
-            country: str
-            """
-            The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
-            capture_method: NotRequired[
-                "Literal['automatic', 'automatic_async', 'manual']"
-            ]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
-            setup_future_usage: NotRequired[
-                "Literal['none', 'off_session', 'on_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with the payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the order's Customer, if present, after the order's PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsBancontact(
-            TypedDict,
-        ):
-            preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
-            """
-            Preferred language of the Bancontact authorization page that the customer is redirected to.
-            """
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsAlipay(TypedDict):
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsAfterpayClearpay(
-            TypedDict,
-        ):
-            capture_method: NotRequired[
-                "Literal['automatic', 'automatic_async', 'manual']"
-            ]
-            """
-            Controls when the funds will be captured from the customer's account.
-
-            If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-            If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-            """
-            reference: NotRequired["str"]
-            """
-            An internal identifier or reference this payment corresponds to. The identifier is limited to 128 characters and may contain only letters, digits, underscores, backslashes and dashes.
-            """
-            setup_future_usage: NotRequired["Literal['none']"]
-            """
-            Indicates that you intend to make future payments with the payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the order's Customer, if present, after the order's PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit(
-            TypedDict,
-        ):
-            mandate_options: NotRequired[
-                "Order.CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions"
-            ]
-            """
-            Additional fields for Mandate creation
-            """
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session', 'on_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-            verification_method: NotRequired[
-                "Literal['automatic', 'instant', 'microdeposits']"
-            ]
-            """
-            Verification method for the intent
-            """
-
-        class CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions(
-            TypedDict,
-        ):
-            custom_mandate_url: NotRequired["Literal['']|str"]
-            """
-            A URL for custom mandate text to render during confirmation step.
-            The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
-            or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
-            """
-            interval_description: NotRequired["str"]
-            """
-            Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
-            """
-            payment_schedule: NotRequired[
-                "Literal['combined', 'interval', 'sporadic']"
-            ]
-            """
-            Payment schedule for the mandate.
-            """
-            transaction_type: NotRequired["Literal['business', 'personal']"]
-            """
-            Transaction type of the mandate.
-            """
-
-        class CreateParamsLineItem(TypedDict):
-            description: NotRequired["str"]
-            """
-            The description for the line item. Will default to the name of the associated product.
-            """
-            discounts: NotRequired[
-                "Literal['']|List[Order.CreateParamsLineItemDiscount]"
-            ]
-            """
-            The discounts applied to this line item.
-            """
-            price: NotRequired["str"]
-            """
-            The ID of a [Price](https://stripe.com/docs/api/prices) to add to the Order.
-
-            The `price` parameter is an alternative to using the `product` parameter. If each of your products are sold at a single price, you can set `Product.default_price` and then pass the `product` parameter when creating a line item. If your products are sold at several possible prices, use the `price` parameter to explicitly specify which one to use.
-            """
-            price_data: NotRequired["Order.CreateParamsLineItemPriceData"]
-            """
-            Data used to generate a new Price object inline.
-
-            The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create products upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
-
-            Each time you pass `price_data` we create a Price for the product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
-            """
-            product: NotRequired["str"]
-            """
-            The ID of a [Product](https://stripe.com/docs/api/products) to add to the Order.
-
-            The product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
-            """
-            product_data: NotRequired["Order.CreateParamsLineItemProductData"]
-            """
-            Defines a Product inline and adds it to the Order.
-
-            `product_data` is an alternative to the `product` parameter. If you created a Product upfront, use the `product` parameter to refer to the existing Product. But if you prefer not to create Products upfront, pass the `product_data` parameter to define a Product inline as part of configuring the Order.
-
-            `product_data` automatically creates a Product, just as if you had manually created the Product. If a Product with the same ID already exists, then `product_data` re-uses it to avoid duplicates.
-            """
-            quantity: NotRequired["int"]
-            """
-            The quantity of the line item.
-            """
-            tax_rates: NotRequired["Literal['']|List[str]"]
-            """
-            The tax rates applied to this line item.
-            """
-
-        class CreateParamsLineItemProductData(TypedDict):
-            description: NotRequired["Literal['']|str"]
-            """
-            The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
-            """
-            id: str
-            """
-            A unique identifier for this product.
-
-            `product_data` automatically creates a Product with this ID. If a Product with the same ID already exists, then `product_data` re-uses it to avoid duplicates. If any of the fields in the existing Product are different from the values in `product_data`, `product_data` updates the existing Product with the new information. So set `product_data[id]` to the same string every time you sell the same product, but don't re-use the same string for different products.
-            """
-            images: NotRequired["Literal['']|List[str]"]
-            """
-            A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
-            """
-            metadata: NotRequired["Literal['']|Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            name: str
-            """
-            The product's name, meant to be displayable to the customer.
-            """
-            package_dimensions: NotRequired[
-                "Literal['']|Order.CreateParamsLineItemProductDataPackageDimensions"
-            ]
-            """
-            The dimensions of this product for shipping purposes.
-            """
-            shippable: NotRequired["bool"]
-            """
-            Whether this product is shipped (i.e., physical goods).
-            """
-            tax_code: NotRequired["Literal['']|str"]
-            """
-            A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-            """
-            url: NotRequired["Literal['']|str"]
-            """
-            A URL of a publicly-accessible webpage for this product.
-            """
-
-        class CreateParamsLineItemProductDataPackageDimensions(TypedDict):
-            height: float
-            """
-            Height, in inches. Maximum precision is 2 decimal places.
-            """
-            length: float
-            """
-            Length, in inches. Maximum precision is 2 decimal places.
-            """
-            weight: float
-            """
-            Weight, in ounces. Maximum precision is 2 decimal places.
-            """
-            width: float
-            """
-            Width, in inches. Maximum precision is 2 decimal places.
-            """
-
-        class CreateParamsLineItemPriceData(TypedDict):
-            currency: NotRequired["str"]
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            product: NotRequired["str"]
-            """
-            ID of the product this price belongs to.
-
-            Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specifed.
-            """
-            tax_behavior: NotRequired[
-                "Literal['exclusive', 'inclusive', 'unspecified']"
-            ]
-            """
-            Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-            """
-            unit_amount: NotRequired["int"]
-            """
-            A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-            """
-            unit_amount_decimal: NotRequired["str"]
-            """
-            Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-            """
-
-        class CreateParamsLineItemDiscount(TypedDict):
-            coupon: NotRequired["str"]
-            """
-            ID of the coupon to create a new discount for.
-            """
-            discount: NotRequired["str"]
-            """
-            ID of an existing discount on the object (or one of its ancestors) to reuse.
-            """
-
-        class CreateParamsDiscount(TypedDict):
-            coupon: NotRequired["str"]
-            """
-            ID of the coupon to create a new discount for.
-            """
-            discount: NotRequired["str"]
-            """
-            ID of an existing discount on the object (or one of its ancestors) to reuse.
-            """
-            promotion_code: NotRequired["str"]
-            """
-            ID of the promotion code to create a new discount for.
-            """
-
-        class CreateParamsCredit(TypedDict):
-            gift_card: NotRequired["str"]
-            """
-            The gift card to apply to the order.
-            """
-            type: Literal["gift_card"]
-            """
-            The type of credit to apply to the order, only `gift_card` currently supported.
-            """
-
-        class CreateParamsBillingDetails(TypedDict):
-            address: NotRequired["Order.CreateParamsBillingDetailsAddress"]
-            """
-            The billing address provided by the customer.
-            """
-            email: NotRequired["str"]
-            """
-            The billing email provided by the customer.
-            """
-            name: NotRequired["str"]
-            """
-            The billing name provided by the customer.
-            """
-            phone: NotRequired["str"]
-            """
-            The billing phone number provided by the customer.
-            """
-
-        class CreateParamsBillingDetailsAddress(TypedDict):
-            city: NotRequired["str"]
-            """
-            City, district, suburb, town, or village.
-            """
-            country: NotRequired["str"]
-            """
-            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            """
-            line1: NotRequired["str"]
-            """
-            Address line 1 (e.g., street, PO Box, or company name).
-            """
-            line2: NotRequired["str"]
-            """
-            Address line 2 (e.g., apartment, suite, unit, or building).
-            """
-            postal_code: NotRequired["str"]
-            """
-            ZIP or postal code.
-            """
-            state: NotRequired["str"]
-            """
-            State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
-            """
-
-        class CreateParamsAutomaticTax(TypedDict):
-            enabled: bool
-            """
-            Enable automatic tax calculation which will automatically compute tax rates on this order.
-            """
-
-        class ListParams(RequestOptions):
-            customer: NotRequired["str"]
-            """
-            Only return orders for the given customer.
-            """
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
-
-        class ListLineItemsParams(RequestOptions):
-            ending_before: NotRequired["str"]
-            """
-            A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            limit: NotRequired["int"]
-            """
-            A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
-            """
-            starting_after: NotRequired["str"]
-            """
-            A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
-            """
-
-        class ModifyParams(RequestOptions):
-            automatic_tax: NotRequired["Order.ModifyParamsAutomaticTax"]
-            """
-            Settings for automatic tax calculation for this order.
-            """
-            billing_details: NotRequired[
-                "Literal['']|Order.ModifyParamsBillingDetails"
-            ]
-            """
-            Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
-            """
-            credits: NotRequired["Literal['']|List[Order.ModifyParamsCredit]"]
-            """
-            The credits to apply to the order, only `gift_card` currently supported. Pass the empty string `""` to unset this field.
-            """
-            currency: NotRequired["str"]
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            customer: NotRequired["str"]
-            """
-            The customer associated with this order.
-            """
-            description: NotRequired["Literal['']|str"]
-            """
-            An arbitrary string attached to the object. Often useful for displaying to users.
-            """
-            discounts: NotRequired[
-                "Literal['']|List[Order.ModifyParamsDiscount]"
-            ]
-            """
-            The coupons, promotion codes, and/or discounts to apply to the order. Pass the empty string `""` to unset this field.
-            """
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            ip_address: NotRequired["str"]
-            """
-            The IP address of the purchaser for this order.
-            """
-            line_items: NotRequired["List[Order.ModifyParamsLineItem]"]
-            """
-            A list of line items the customer is ordering. Each line item includes information about the product, the quantity, and the resulting cost.
-            """
-            metadata: NotRequired["Literal['']|Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            payment: NotRequired["Order.ModifyParamsPayment"]
-            """
-            Payment information associated with the order, including payment settings.
-            """
-            shipping_cost: NotRequired[
-                "Literal['']|Order.ModifyParamsShippingCost"
-            ]
-            """
-            Settings for the customer cost of shipping for this order.
-            """
-            shipping_details: NotRequired[
-                "Literal['']|Order.ModifyParamsShippingDetails"
-            ]
-            """
-            Shipping details for the order.
-            """
-            tax_details: NotRequired["Order.ModifyParamsTaxDetails"]
-            """
-            Additional tax details about the purchaser to be used for this order.
-            """
-
-        class ModifyParamsTaxDetails(TypedDict):
-            tax_exempt: NotRequired[
-                "Literal['']|Literal['exempt', 'none', 'reverse']"
-            ]
-            """
-            The purchaser's tax exemption status. One of `none`, `exempt`, or `reverse`.
-            """
-            tax_ids: NotRequired["List[Order.ModifyParamsTaxDetailsTaxId]"]
-            """
-            The purchaser's tax IDs to be used for this order.
-            """
-
-        class ModifyParamsTaxDetailsTaxId(TypedDict):
-            type: Literal[
-                "ad_nrt",
-                "ae_trn",
-                "ar_cuit",
-                "au_abn",
-                "au_arn",
-                "bg_uic",
-                "bo_tin",
-                "br_cnpj",
-                "br_cpf",
-                "ca_bn",
-                "ca_gst_hst",
-                "ca_pst_bc",
-                "ca_pst_mb",
-                "ca_pst_sk",
-                "ca_qst",
-                "ch_vat",
-                "cl_tin",
-                "cn_tin",
-                "co_nit",
-                "cr_tin",
-                "do_rcn",
-                "ec_ruc",
-                "eg_tin",
-                "es_cif",
-                "eu_oss_vat",
-                "eu_vat",
-                "gb_vat",
-                "ge_vat",
-                "hk_br",
-                "hu_tin",
-                "id_npwp",
-                "il_vat",
-                "in_gst",
-                "is_vat",
-                "jp_cn",
-                "jp_rn",
-                "jp_trn",
-                "ke_pin",
-                "kr_brn",
-                "li_uid",
-                "mx_rfc",
-                "my_frp",
-                "my_itn",
-                "my_sst",
-                "no_vat",
-                "nz_gst",
-                "pe_ruc",
-                "ph_tin",
-                "ro_tin",
-                "rs_pib",
-                "ru_inn",
-                "ru_kpp",
-                "sa_vat",
-                "sg_gst",
-                "sg_uen",
-                "si_tin",
-                "sv_nit",
-                "th_vat",
-                "tr_tin",
-                "tw_vat",
-                "ua_vat",
-                "us_ein",
-                "uy_ruc",
-                "ve_rif",
-                "vn_tin",
-                "za_vat",
-            ]
-            """
-            Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
-            """
-            value: str
-            """
-            Value of the tax ID.
-            """
-
-        class ModifyParamsShippingDetails(TypedDict):
-            address: "Order.ModifyParamsShippingDetailsAddress"
-            """
-            The shipping address for the order.
-            """
-            name: str
-            """
-            The name of the recipient of the order.
-            """
-            phone: NotRequired["Literal['']|str"]
-            """
-            The phone number (including extension) for the recipient of the order.
-            """
-
-        class ModifyParamsShippingDetailsAddress(TypedDict):
-            city: NotRequired["str"]
-            """
-            City, district, suburb, town, or village.
-            """
-            country: NotRequired["str"]
-            """
-            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            """
-            line1: NotRequired["str"]
-            """
-            Address line 1 (e.g., street, PO Box, or company name).
-            """
-            line2: NotRequired["str"]
-            """
-            Address line 2 (e.g., apartment, suite, unit, or building).
-            """
-            postal_code: NotRequired["str"]
-            """
-            ZIP or postal code.
-            """
-            state: NotRequired["str"]
-            """
-            State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
-            """
-
-        class ModifyParamsShippingCost(TypedDict):
-            shipping_rate: NotRequired["str"]
-            """
-            The ID of the shipping rate to use for this order.
-            """
-            shipping_rate_data: NotRequired[
-                "Order.ModifyParamsShippingCostShippingRateData"
-            ]
-            """
-            Parameters to create a new ad-hoc shipping rate for this order.
-            """
-
-        class ModifyParamsShippingCostShippingRateData(TypedDict):
-            delivery_estimate: NotRequired[
-                "Order.ModifyParamsShippingCostShippingRateDataDeliveryEstimate"
-            ]
-            """
-            The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
-            """
-            display_name: str
-            """
-            The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
-            """
-            fixed_amount: NotRequired[
-                "Order.ModifyParamsShippingCostShippingRateDataFixedAmount"
-            ]
-            """
-            Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
-            """
-            metadata: NotRequired["Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            tax_behavior: NotRequired[
-                "Literal['exclusive', 'inclusive', 'unspecified']"
-            ]
-            """
-            Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
-            """
-            tax_code: NotRequired["str"]
-            """
-            A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
-            """
-            type: NotRequired["Literal['fixed_amount']"]
-            """
-            The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now.
-            """
-
-        class ModifyParamsShippingCostShippingRateDataFixedAmount(TypedDict):
-            amount: int
-            """
-            A non-negative integer in cents representing how much to charge.
-            """
-            currency: str
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            currency_options: NotRequired[
-                "Dict[str, Order.ModifyParamsShippingCostShippingRateDataFixedAmountCurrencyOptions]"
-            ]
-            """
-            Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
-            """
-
-        class ModifyParamsShippingCostShippingRateDataFixedAmountCurrencyOptions(
-            TypedDict,
-        ):
-            amount: int
-            """
-            A non-negative integer in cents representing how much to charge.
-            """
-            tax_behavior: NotRequired[
-                "Literal['exclusive', 'inclusive', 'unspecified']"
-            ]
-            """
-            Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
-            """
-
-        class ModifyParamsShippingCostShippingRateDataDeliveryEstimate(
-            TypedDict,
-        ):
-            maximum: NotRequired[
-                "Order.ModifyParamsShippingCostShippingRateDataDeliveryEstimateMaximum"
-            ]
-            """
-            The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
-            """
-            minimum: NotRequired[
-                "Order.ModifyParamsShippingCostShippingRateDataDeliveryEstimateMinimum"
-            ]
-            """
-            The lower bound of the estimated range. If empty, represents no lower bound.
-            """
-
-        class ModifyParamsShippingCostShippingRateDataDeliveryEstimateMinimum(
-            TypedDict,
-        ):
-            unit: Literal["business_day", "day", "hour", "month", "week"]
-            """
-            A unit of time.
-            """
-            value: int
-            """
-            Must be greater than 0.
-            """
-
-        class ModifyParamsShippingCostShippingRateDataDeliveryEstimateMaximum(
-            TypedDict,
-        ):
-            unit: Literal["business_day", "day", "hour", "month", "week"]
-            """
-            A unit of time.
-            """
-            value: int
-            """
-            Must be greater than 0.
-            """
-
-        class ModifyParamsPayment(TypedDict):
-            settings: "Order.ModifyParamsPaymentSettings"
-            """
-            Settings describing how the order should configure generated PaymentIntents.
-            """
-
-        class ModifyParamsPaymentSettings(TypedDict):
-            application_fee_amount: NotRequired["Literal['']|int"]
-            """
-            The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account.
-            """
-            payment_method_options: NotRequired[
-                "Order.ModifyParamsPaymentSettingsPaymentMethodOptions"
-            ]
-            """
-            PaymentMethod-specific configuration to provide to the order's PaymentIntent.
-            """
-            payment_method_types: NotRequired[
-                "List[Literal['acss_debit', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'card', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'link', 'oxxo', 'p24', 'paypal', 'sepa_debit', 'sofort', 'wechat_pay']]"
-            ]
-            """
-            The list of [payment method types](https://stripe.com/docs/payments/payment-methods/overview) to provide to the order's PaymentIntent. Do not include this attribute if you prefer to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
-            """
-            return_url: NotRequired["Literal['']|str"]
-            """
-            The URL to redirect the customer to after they authenticate their payment.
-            """
-            statement_descriptor: NotRequired["str"]
-            """
-            For non-card charges, you can use this value as the complete description that appears on your customers' statements. Must contain at least one letter, maximum 22 characters.
-            """
-            statement_descriptor_suffix: NotRequired["str"]
-            """
-            Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
-            """
-            transfer_data: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsTransferData"
-            ]
-            """
-            Provides configuration for completing a transfer for the order after it is paid.
-            """
-
-        class ModifyParamsPaymentSettingsTransferData(TypedDict):
-            amount: NotRequired["int"]
-            """
-            The amount that will be transferred automatically when the order is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
-            """
-            destination: str
-            """
-            ID of the Connected account receiving the transfer.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptions(TypedDict):
-            acss_debit: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit"
-            ]
-            """
-            If paying by `acss_debit`, this sub-hash contains details about the ACSS Debit payment method options to pass to the order's PaymentIntent.
-            """
-            afterpay_clearpay: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsAfterpayClearpay"
-            ]
-            """
-            If paying by `afterpay_clearpay`, this sub-hash contains details about the AfterpayClearpay payment method options to pass to the order's PaymentIntent.
-            """
-            alipay: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsAlipay"
-            ]
-            """
-            If paying by `alipay`, this sub-hash contains details about the Alipay payment method options to pass to the order's PaymentIntent.
-            """
-            bancontact: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsBancontact"
-            ]
-            """
-            If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the order's PaymentIntent.
-            """
-            card: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsCard"
-            ]
-            """
-            If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the order's PaymentIntent.
-            """
-            customer_balance: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance"
-            ]
-            """
-            If paying by `customer_balance`, this sub-hash contains details about the Customer Balance payment method options to pass to the order's PaymentIntent.
-            """
-            ideal: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsIdeal"
-            ]
-            """
-            If paying by `ideal`, this sub-hash contains details about the iDEAL payment method options to pass to the order's PaymentIntent.
-            """
-            klarna: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsKlarna"
-            ]
-            """
-            If paying by `klarna`, this sub-hash contains details about the Klarna payment method options to pass to the order's PaymentIntent.
-            """
-            link: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsLink"
-            ]
-            """
-            If paying by `link`, this sub-hash contains details about the Link payment method options to pass to the order's PaymentIntent.
-            """
-            oxxo: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsOxxo"
-            ]
-            """
-            If paying by `oxxo`, this sub-hash contains details about the OXXO payment method options to pass to the order's PaymentIntent.
-            """
-            p24: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsP24"
-            ]
-            """
-            If paying by `p24`, this sub-hash contains details about the P24 payment method options to pass to the order's PaymentIntent.
-            """
-            paypal: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsPaypal"
-            ]
-            """
-            If paying by `paypal`, this sub-hash contains details about the PayPal payment method options to pass to the order's PaymentIntent.
-            """
-            sepa_debit: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
-            ]
-            """
-            If paying by `sepa_debit`, this sub-hash contains details about the SEPA Debit payment method options to pass to the order's PaymentIntent.
-            """
-            sofort: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsSofort"
-            ]
-            """
-            If paying by `sofort`, this sub-hash contains details about the Sofort payment method options to pass to the order's PaymentIntent.
-            """
-            wechat_pay: NotRequired[
-                "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay"
-            ]
-            """
-            If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the order's PaymentIntent.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay(
-            TypedDict,
-        ):
-            app_id: NotRequired["str"]
-            """
-            The app ID registered with WeChat Pay. Only required when client is ios or android.
-            """
-            client: Literal["android", "ios", "web"]
-            """
-            The client type that the end customer will pay from
-            """
-            setup_future_usage: NotRequired["Literal['none']"]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsSofort(TypedDict):
-            preferred_language: NotRequired[
-                "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']"
-            ]
-            """
-            Language shown to the payer on redirect.
-            """
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit(
-            TypedDict,
-        ):
-            mandate_options: NotRequired[
-                "Order.ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions"
-            ]
-            """
-            Additional fields for Mandate creation
-            """
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session', 'on_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
-            TypedDict,
-        ):
-            pass
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsPaypal(TypedDict):
-            capture_method: NotRequired["Literal['']|Literal['manual']"]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
-            preferred_locale: NotRequired[
-                "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
-            ]
-            """
-            [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
-            """
-            reference: NotRequired["str"]
-            """
-            A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
-            """
-            reference_id: NotRequired["str"]
-            """
-            A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
-            """
-            risk_correlation_id: NotRequired["str"]
-            """
-            The risk correlation ID for an on-session payment using a saved PayPal payment method.
-            """
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-            subsellers: NotRequired["List[str]"]
-            """
-            The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsP24(TypedDict):
-            setup_future_usage: NotRequired["Literal['none']"]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-            tos_shown_and_accepted: NotRequired["bool"]
-            """
-            Confirm that the payer has accepted the P24 terms and conditions.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsOxxo(TypedDict):
-            expires_after_days: NotRequired["int"]
-            """
-            The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
-            """
-            setup_future_usage: NotRequired["Literal['none']"]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsLink(TypedDict):
-            capture_method: NotRequired["Literal['']|Literal['manual']"]
-            """
-            Controls when the funds will be captured from the customer's account.
-
-            If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-            If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-            """
-            persistent_token: NotRequired["str"]
-            """
-            [Deprecated] This is a legacy parameter that no longer has any function.
-            """
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsKlarna(TypedDict):
-            capture_method: NotRequired["Literal['']|Literal['manual']"]
-            """
-            Controls when the funds will be captured from the customer's account.
-
-            If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-            If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-            """
-            preferred_locale: NotRequired[
-                "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
-            ]
-            """
-            Preferred language of the Klarna authorization page that the customer is redirected to
-            """
-            setup_future_usage: NotRequired["Literal['none']"]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsIdeal(TypedDict):
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(
-            TypedDict,
-        ):
-            bank_transfer: NotRequired[
-                "Order.ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer"
-            ]
-            """
-            Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
-            """
-            funding_type: NotRequired["Literal['bank_transfer']"]
-            """
-            The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
-            """
-            setup_future_usage: NotRequired["Literal['none']"]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer(
-            TypedDict,
-        ):
-            eu_bank_transfer: NotRequired[
-                "Order.ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
-            ]
-            """
-            Configuration for the eu_bank_transfer funding type.
-            """
-            requested_address_types: NotRequired[
-                "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
-            ]
-            """
-            List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
-
-            Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
-            """
-            type: Literal[
-                "eu_bank_transfer",
-                "gb_bank_transfer",
-                "jp_bank_transfer",
-                "mx_bank_transfer",
-                "us_bank_transfer",
-            ]
-            """
-            The list of bank transfer types that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
-            TypedDict,
-        ):
-            country: str
-            """
-            The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
-            capture_method: NotRequired[
-                "Literal['automatic', 'automatic_async', 'manual']"
-            ]
-            """
-            Controls when the funds will be captured from the customer's account.
-            """
-            setup_future_usage: NotRequired[
-                "Literal['none', 'off_session', 'on_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with the payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the order's Customer, if present, after the order's PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsBancontact(
-            TypedDict,
-        ):
-            preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
-            """
-            Preferred language of the Bancontact authorization page that the customer is redirected to.
-            """
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsAlipay(TypedDict):
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsAfterpayClearpay(
-            TypedDict,
-        ):
-            capture_method: NotRequired[
-                "Literal['automatic', 'automatic_async', 'manual']"
-            ]
-            """
-            Controls when the funds will be captured from the customer's account.
-
-            If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
-
-            If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
-            """
-            reference: NotRequired["str"]
-            """
-            An internal identifier or reference this payment corresponds to. The identifier is limited to 128 characters and may contain only letters, digits, underscores, backslashes and dashes.
-            """
-            setup_future_usage: NotRequired["Literal['none']"]
-            """
-            Indicates that you intend to make future payments with the payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the order's Customer, if present, after the order's PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit(
-            TypedDict,
-        ):
-            mandate_options: NotRequired[
-                "Order.ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions"
-            ]
-            """
-            Additional fields for Mandate creation
-            """
-            setup_future_usage: NotRequired[
-                "Literal['']|Literal['none', 'off_session', 'on_session']"
-            ]
-            """
-            Indicates that you intend to make future payments with this PaymentIntent's payment method.
-
-            Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
-
-            When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
-
-            If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
-            """
-            verification_method: NotRequired[
-                "Literal['automatic', 'instant', 'microdeposits']"
-            ]
-            """
-            Verification method for the intent
-            """
-
-        class ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions(
-            TypedDict,
-        ):
-            custom_mandate_url: NotRequired["Literal['']|str"]
-            """
-            A URL for custom mandate text to render during confirmation step.
-            The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
-            or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
-            """
-            interval_description: NotRequired["str"]
-            """
-            Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
-            """
-            payment_schedule: NotRequired[
-                "Literal['combined', 'interval', 'sporadic']"
-            ]
-            """
-            Payment schedule for the mandate.
-            """
-            transaction_type: NotRequired["Literal['business', 'personal']"]
-            """
-            Transaction type of the mandate.
-            """
-
-        class ModifyParamsLineItem(TypedDict):
-            description: NotRequired["str"]
-            """
-            The description for the line item. Will default to the name of the associated product.
-            """
-            discounts: NotRequired[
-                "Literal['']|List[Order.ModifyParamsLineItemDiscount]"
-            ]
-            """
-            The discounts applied to this line item.
-            """
-            id: NotRequired["str"]
-            """
-            The ID of an existing line item on the order.
-            """
-            price: NotRequired["str"]
-            """
-            The ID of a [Price](https://stripe.com/docs/api/prices) to add to the Order.
-
-            The `price` parameter is an alternative to using the `product` parameter. If each of your products are sold at a single price, you can set `Product.default_price` and then pass the `product` parameter when creating a line item. If your products are sold at several possible prices, use the `price` parameter to explicitly specify which one to use.
-            """
-            price_data: NotRequired["Order.ModifyParamsLineItemPriceData"]
-            """
-            Data used to generate a new Price object inline.
-
-            The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create products upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
-
-            Each time you pass `price_data` we create a Price for the product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
-            """
-            product: NotRequired["str"]
-            """
-            The ID of a [Product](https://stripe.com/docs/api/products) to add to the Order.
-
-            The product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
-            """
-            product_data: NotRequired["Order.ModifyParamsLineItemProductData"]
-            """
-            Defines a Product inline and adds it to the Order.
-
-            `product_data` is an alternative to the `product` parameter. If you created a Product upfront, use the `product` parameter to refer to the existing Product. But if you prefer not to create Products upfront, pass the `product_data` parameter to define a Product inline as part of configuring the Order.
-
-            `product_data` automatically creates a Product, just as if you had manually created the Product. If a Product with the same ID already exists, then `product_data` re-uses it to avoid duplicates.
-            """
-            quantity: NotRequired["int"]
-            """
-            The quantity of the line item.
-            """
-            tax_rates: NotRequired["Literal['']|List[str]"]
-            """
-            The tax rates applied to this line item.
-            """
-
-        class ModifyParamsLineItemProductData(TypedDict):
-            description: NotRequired["Literal['']|str"]
-            """
-            The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
-            """
-            id: str
-            """
-            A unique identifier for this product.
-
-            `product_data` automatically creates a Product with this ID. If a Product with the same ID already exists, then `product_data` re-uses it to avoid duplicates. If any of the fields in the existing Product are different from the values in `product_data`, `product_data` updates the existing Product with the new information. So set `product_data[id]` to the same string every time you sell the same product, but don't re-use the same string for different products.
-            """
-            images: NotRequired["Literal['']|List[str]"]
-            """
-            A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
-            """
-            metadata: NotRequired["Literal['']|Dict[str, str]"]
-            """
-            Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
-            """
-            name: str
-            """
-            The product's name, meant to be displayable to the customer.
-            """
-            package_dimensions: NotRequired[
-                "Literal['']|Order.ModifyParamsLineItemProductDataPackageDimensions"
-            ]
-            """
-            The dimensions of this product for shipping purposes.
-            """
-            shippable: NotRequired["bool"]
-            """
-            Whether this product is shipped (i.e., physical goods).
-            """
-            tax_code: NotRequired["Literal['']|str"]
-            """
-            A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
-            """
-            url: NotRequired["Literal['']|str"]
-            """
-            A URL of a publicly-accessible webpage for this product.
-            """
-
-        class ModifyParamsLineItemProductDataPackageDimensions(TypedDict):
-            height: float
-            """
-            Height, in inches. Maximum precision is 2 decimal places.
-            """
-            length: float
-            """
-            Length, in inches. Maximum precision is 2 decimal places.
-            """
-            weight: float
-            """
-            Weight, in ounces. Maximum precision is 2 decimal places.
-            """
-            width: float
-            """
-            Width, in inches. Maximum precision is 2 decimal places.
-            """
-
-        class ModifyParamsLineItemPriceData(TypedDict):
-            currency: NotRequired["str"]
-            """
-            Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-            """
-            product: NotRequired["str"]
-            """
-            ID of the product this price belongs to.
-
-            Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specifed.
-            """
-            tax_behavior: NotRequired[
-                "Literal['exclusive', 'inclusive', 'unspecified']"
-            ]
-            """
-            Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
-            """
-            unit_amount: NotRequired["int"]
-            """
-            A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
-            """
-            unit_amount_decimal: NotRequired["str"]
-            """
-            Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
-            """
-
-        class ModifyParamsLineItemDiscount(TypedDict):
-            coupon: NotRequired["str"]
-            """
-            ID of the coupon to create a new discount for.
-            """
-            discount: NotRequired["str"]
-            """
-            ID of an existing discount on the object (or one of its ancestors) to reuse.
-            """
-
-        class ModifyParamsDiscount(TypedDict):
-            coupon: NotRequired["str"]
-            """
-            ID of the coupon to create a new discount for.
-            """
-            discount: NotRequired["str"]
-            """
-            ID of an existing discount on the object (or one of its ancestors) to reuse.
-            """
-            promotion_code: NotRequired["str"]
-            """
-            ID of the promotion code to create a new discount for.
-            """
-
-        class ModifyParamsCredit(TypedDict):
-            gift_card: NotRequired["str"]
-            """
-            The gift card to apply to the order.
-            """
-            type: Literal["gift_card"]
-            """
-            The type of credit to apply to the order, only `gift_card` currently supported.
-            """
-
-        class ModifyParamsBillingDetails(TypedDict):
-            address: NotRequired["Order.ModifyParamsBillingDetailsAddress"]
-            """
-            The billing address provided by the customer.
-            """
-            email: NotRequired["str"]
-            """
-            The billing email provided by the customer.
-            """
-            name: NotRequired["str"]
-            """
-            The billing name provided by the customer.
-            """
-            phone: NotRequired["str"]
-            """
-            The billing phone number provided by the customer.
-            """
-
-        class ModifyParamsBillingDetailsAddress(TypedDict):
-            city: NotRequired["str"]
-            """
-            City, district, suburb, town, or village.
-            """
-            country: NotRequired["str"]
-            """
-            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
-            """
-            line1: NotRequired["str"]
-            """
-            Address line 1 (e.g., street, PO Box, or company name).
-            """
-            line2: NotRequired["str"]
-            """
-            Address line 2 (e.g., apartment, suite, unit, or building).
-            """
-            postal_code: NotRequired["str"]
-            """
-            ZIP or postal code.
-            """
-            state: NotRequired["str"]
-            """
-            State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
-            """
-
-        class ModifyParamsAutomaticTax(TypedDict):
-            enabled: bool
-            """
-            Enable automatic tax calculation which will automatically compute tax rates on this order.
-            """
-
-        class ReopenParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-
-        class RetrieveParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-
-        class SubmitParams(RequestOptions):
-            expand: NotRequired["List[str]"]
-            """
-            Specifies which fields in the response should be expanded.
-            """
-            expected_total: int
-            """
-            `expected_total` should always be set to the order's `amount_total` field. If they don't match, submitting the order will fail. This helps detect race conditions where something else concurrently modifies the order.
-            """
+    class CancelParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
+    class CreateParams(RequestOptions):
+        automatic_tax: NotRequired["Order.CreateParamsAutomaticTax"]
+        """
+        Settings for automatic tax calculation for this order.
+        """
+        billing_details: NotRequired[
+            "Literal['']|Order.CreateParamsBillingDetails"
+        ]
+        """
+        Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
+        """
+        credits: NotRequired["Literal['']|List[Order.CreateParamsCredit]"]
+        """
+        The credits to apply to the order, only `gift_card` currently supported.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        customer: NotRequired["str"]
+        """
+        The customer associated with this order.
+        """
+        description: NotRequired["str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        discounts: NotRequired["Literal['']|List[Order.CreateParamsDiscount]"]
+        """
+        The coupons, promotion codes, and/or discounts to apply to the order.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        ip_address: NotRequired["str"]
+        """
+        The IP address of the purchaser for this order.
+        """
+        line_items: List["Order.CreateParamsLineItem"]
+        """
+        A list of line items the customer is ordering. Each line item includes information about the product, the quantity, and the resulting cost.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        payment: NotRequired["Order.CreateParamsPayment"]
+        """
+        Payment information associated with the order, including payment settings.
+        """
+        shipping_cost: NotRequired[
+            "Literal['']|Order.CreateParamsShippingCost"
+        ]
+        """
+        Settings for the customer cost of shipping for this order.
+        """
+        shipping_details: NotRequired[
+            "Literal['']|Order.CreateParamsShippingDetails"
+        ]
+        """
+        Shipping details for the order.
+        """
+        tax_details: NotRequired["Order.CreateParamsTaxDetails"]
+        """
+        Additional tax details about the purchaser to be used for this order.
+        """
+
+    class CreateParamsTaxDetails(TypedDict):
+        tax_exempt: NotRequired[
+            "Literal['']|Literal['exempt', 'none', 'reverse']"
+        ]
+        """
+        The purchaser's tax exemption status. One of `none`, `exempt`, or `reverse`.
+        """
+        tax_ids: NotRequired["List[Order.CreateParamsTaxDetailsTaxId]"]
+        """
+        The purchaser's tax IDs to be used for this order.
+        """
+
+    class CreateParamsTaxDetailsTaxId(TypedDict):
+        type: Literal[
+            "ad_nrt",
+            "ae_trn",
+            "ar_cuit",
+            "au_abn",
+            "au_arn",
+            "bg_uic",
+            "bo_tin",
+            "br_cnpj",
+            "br_cpf",
+            "ca_bn",
+            "ca_gst_hst",
+            "ca_pst_bc",
+            "ca_pst_mb",
+            "ca_pst_sk",
+            "ca_qst",
+            "ch_vat",
+            "cl_tin",
+            "cn_tin",
+            "co_nit",
+            "cr_tin",
+            "do_rcn",
+            "ec_ruc",
+            "eg_tin",
+            "es_cif",
+            "eu_oss_vat",
+            "eu_vat",
+            "gb_vat",
+            "ge_vat",
+            "hk_br",
+            "hu_tin",
+            "id_npwp",
+            "il_vat",
+            "in_gst",
+            "is_vat",
+            "jp_cn",
+            "jp_rn",
+            "jp_trn",
+            "ke_pin",
+            "kr_brn",
+            "li_uid",
+            "mx_rfc",
+            "my_frp",
+            "my_itn",
+            "my_sst",
+            "no_vat",
+            "nz_gst",
+            "pe_ruc",
+            "ph_tin",
+            "ro_tin",
+            "rs_pib",
+            "ru_inn",
+            "ru_kpp",
+            "sa_vat",
+            "sg_gst",
+            "sg_uen",
+            "si_tin",
+            "sv_nit",
+            "th_vat",
+            "tr_tin",
+            "tw_vat",
+            "ua_vat",
+            "us_ein",
+            "uy_ruc",
+            "ve_rif",
+            "vn_tin",
+            "za_vat",
+        ]
+        """
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+        """
+        value: str
+        """
+        Value of the tax ID.
+        """
+
+    class CreateParamsShippingDetails(TypedDict):
+        address: "Order.CreateParamsShippingDetailsAddress"
+        """
+        The shipping address for the order.
+        """
+        name: str
+        """
+        The name of the recipient of the order.
+        """
+        phone: NotRequired["Literal['']|str"]
+        """
+        The phone number (including extension) for the recipient of the order.
+        """
+
+    class CreateParamsShippingDetailsAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+        """
+
+    class CreateParamsShippingCost(TypedDict):
+        shipping_rate: NotRequired["str"]
+        """
+        The ID of the shipping rate to use for this order.
+        """
+        shipping_rate_data: NotRequired[
+            "Order.CreateParamsShippingCostShippingRateData"
+        ]
+        """
+        Parameters to create a new ad-hoc shipping rate for this order.
+        """
+
+    class CreateParamsShippingCostShippingRateData(TypedDict):
+        delivery_estimate: NotRequired[
+            "Order.CreateParamsShippingCostShippingRateDataDeliveryEstimate"
+        ]
+        """
+        The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
+        """
+        display_name: str
+        """
+        The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
+        """
+        fixed_amount: NotRequired[
+            "Order.CreateParamsShippingCostShippingRateDataFixedAmount"
+        ]
+        """
+        Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
+        """
+        tax_code: NotRequired["str"]
+        """
+        A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+        """
+        type: NotRequired["Literal['fixed_amount']"]
+        """
+        The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now.
+        """
+
+    class CreateParamsShippingCostShippingRateDataFixedAmount(TypedDict):
+        amount: int
+        """
+        A non-negative integer in cents representing how much to charge.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        currency_options: NotRequired[
+            "Dict[str, Order.CreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions]"
+        ]
+        """
+        Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+        """
+
+    class CreateParamsShippingCostShippingRateDataFixedAmountCurrencyOptions(
+        TypedDict,
+    ):
+        amount: int
+        """
+        A non-negative integer in cents representing how much to charge.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
+        """
+
+    class CreateParamsShippingCostShippingRateDataDeliveryEstimate(TypedDict):
+        maximum: NotRequired[
+            "Order.CreateParamsShippingCostShippingRateDataDeliveryEstimateMaximum"
+        ]
+        """
+        The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
+        """
+        minimum: NotRequired[
+            "Order.CreateParamsShippingCostShippingRateDataDeliveryEstimateMinimum"
+        ]
+        """
+        The lower bound of the estimated range. If empty, represents no lower bound.
+        """
+
+    class CreateParamsShippingCostShippingRateDataDeliveryEstimateMinimum(
+        TypedDict,
+    ):
+        unit: Literal["business_day", "day", "hour", "month", "week"]
+        """
+        A unit of time.
+        """
+        value: int
+        """
+        Must be greater than 0.
+        """
+
+    class CreateParamsShippingCostShippingRateDataDeliveryEstimateMaximum(
+        TypedDict,
+    ):
+        unit: Literal["business_day", "day", "hour", "month", "week"]
+        """
+        A unit of time.
+        """
+        value: int
+        """
+        Must be greater than 0.
+        """
+
+    class CreateParamsPayment(TypedDict):
+        settings: "Order.CreateParamsPaymentSettings"
+        """
+        Settings describing how the order should configure generated PaymentIntents.
+        """
+
+    class CreateParamsPaymentSettings(TypedDict):
+        application_fee_amount: NotRequired["int"]
+        """
+        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account.
+        """
+        payment_method_options: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptions"
+        ]
+        """
+        PaymentMethod-specific configuration to provide to the order's PaymentIntent.
+        """
+        payment_method_types: NotRequired[
+            "List[Literal['acss_debit', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'card', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'link', 'oxxo', 'p24', 'paypal', 'sepa_debit', 'sofort', 'wechat_pay']]"
+        ]
+        """
+        The list of [payment method types](https://stripe.com/docs/payments/payment-methods/overview) to provide to the order's PaymentIntent. Do not include this attribute if you prefer to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        """
+        return_url: NotRequired["str"]
+        """
+        The URL to redirect the customer to after they authenticate their payment.
+        """
+        statement_descriptor: NotRequired["str"]
+        """
+        For non-card charges, you can use this value as the complete description that appears on your customers' statements. Must contain at least one letter, maximum 22 characters.
+        """
+        statement_descriptor_suffix: NotRequired["str"]
+        """
+        Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        """
+        transfer_data: NotRequired[
+            "Order.CreateParamsPaymentSettingsTransferData"
+        ]
+        """
+        Provides configuration for completing a transfer for the order after it is paid.
+        """
+
+    class CreateParamsPaymentSettingsTransferData(TypedDict):
+        amount: NotRequired["int"]
+        """
+        The amount that will be transferred automatically when the order is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
+        """
+        destination: str
+        """
+        ID of the Connected account receiving the transfer.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptions(TypedDict):
+        acss_debit: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit"
+        ]
+        """
+        If paying by `acss_debit`, this sub-hash contains details about the ACSS Debit payment method options to pass to the order's PaymentIntent.
+        """
+        afterpay_clearpay: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsAfterpayClearpay"
+        ]
+        """
+        If paying by `afterpay_clearpay`, this sub-hash contains details about the AfterpayClearpay payment method options to pass to the order's PaymentIntent.
+        """
+        alipay: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsAlipay"
+        ]
+        """
+        If paying by `alipay`, this sub-hash contains details about the Alipay payment method options to pass to the order's PaymentIntent.
+        """
+        bancontact: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsBancontact"
+        ]
+        """
+        If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the order's PaymentIntent.
+        """
+        card: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsCard"
+        ]
+        """
+        If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the order's PaymentIntent.
+        """
+        customer_balance: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance"
+        ]
+        """
+        If paying by `customer_balance`, this sub-hash contains details about the Customer Balance payment method options to pass to the order's PaymentIntent.
+        """
+        ideal: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsIdeal"
+        ]
+        """
+        If paying by `ideal`, this sub-hash contains details about the iDEAL payment method options to pass to the order's PaymentIntent.
+        """
+        klarna: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsKlarna"
+        ]
+        """
+        If paying by `klarna`, this sub-hash contains details about the Klarna payment method options to pass to the order's PaymentIntent.
+        """
+        link: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsLink"
+        ]
+        """
+        If paying by `link`, this sub-hash contains details about the Link payment method options to pass to the order's PaymentIntent.
+        """
+        oxxo: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsOxxo"
+        ]
+        """
+        If paying by `oxxo`, this sub-hash contains details about the OXXO payment method options to pass to the order's PaymentIntent.
+        """
+        p24: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsP24"
+        ]
+        """
+        If paying by `p24`, this sub-hash contains details about the P24 payment method options to pass to the order's PaymentIntent.
+        """
+        paypal: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsPaypal"
+        ]
+        """
+        If paying by `paypal`, this sub-hash contains details about the PayPal payment method options to pass to the order's PaymentIntent.
+        """
+        sepa_debit: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
+        ]
+        """
+        If paying by `sepa_debit`, this sub-hash contains details about the SEPA Debit payment method options to pass to the order's PaymentIntent.
+        """
+        sofort: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsSofort"
+        ]
+        """
+        If paying by `sofort`, this sub-hash contains details about the Sofort payment method options to pass to the order's PaymentIntent.
+        """
+        wechat_pay: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsWechatPay"
+        ]
+        """
+        If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the order's PaymentIntent.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsWechatPay(TypedDict):
+        app_id: NotRequired["str"]
+        """
+        The app ID registered with WeChat Pay. Only required when client is ios or android.
+        """
+        client: Literal["android", "ios", "web"]
+        """
+        The client type that the end customer will pay from
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsSofort(TypedDict):
+        preferred_language: NotRequired[
+            "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']"
+        ]
+        """
+        Language shown to the payer on redirect.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
+        mandate_options: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
+        TypedDict,
+    ):
+        pass
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsPaypal(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        preferred_locale: NotRequired[
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
+        ]
+        """
+        [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
+        """
+        reference: NotRequired["str"]
+        """
+        A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+        """
+        reference_id: NotRequired["str"]
+        """
+        A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+        """
+        risk_correlation_id: NotRequired["str"]
+        """
+        The risk correlation ID for an on-session payment using a saved PayPal payment method.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        subsellers: NotRequired["List[str]"]
+        """
+        The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsP24(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        tos_shown_and_accepted: NotRequired["bool"]
+        """
+        Confirm that the payer has accepted the P24 terms and conditions.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsOxxo(TypedDict):
+        expires_after_days: NotRequired["int"]
+        """
+        The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsLink(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        persistent_token: NotRequired["str"]
+        """
+        [Deprecated] This is a legacy parameter that no longer has any function.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsKlarna(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        preferred_locale: NotRequired[
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
+        ]
+        """
+        Preferred language of the Klarna authorization page that the customer is redirected to
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsIdeal(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(
+        TypedDict,
+    ):
+        bank_transfer: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer"
+        ]
+        """
+        Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
+        """
+        funding_type: NotRequired["Literal['bank_transfer']"]
+        """
+        The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer(
+        TypedDict,
+    ):
+        eu_bank_transfer: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
+        ]
+        """
+        Configuration for the eu_bank_transfer funding type.
+        """
+        requested_address_types: NotRequired[
+            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
+        ]
+        """
+        List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
+
+        Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
+        """
+        type: Literal[
+            "eu_bank_transfer",
+            "gb_bank_transfer",
+            "jp_bank_transfer",
+            "mx_bank_transfer",
+            "us_bank_transfer",
+        ]
+        """
+        The list of bank transfer types that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
+        TypedDict,
+    ):
+        country: str
+        """
+        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
+        capture_method: NotRequired[
+            "Literal['automatic', 'automatic_async', 'manual']"
+        ]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with the payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the order's Customer, if present, after the order's PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsBancontact(TypedDict):
+        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
+        """
+        Preferred language of the Bancontact authorization page that the customer is redirected to.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsAlipay(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsAfterpayClearpay(
+        TypedDict,
+    ):
+        capture_method: NotRequired[
+            "Literal['automatic', 'automatic_async', 'manual']"
+        ]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        reference: NotRequired["str"]
+        """
+        An internal identifier or reference this payment corresponds to. The identifier is limited to 128 characters and may contain only letters, digits, underscores, backslashes and dashes.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with the payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the order's Customer, if present, after the order's PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebit(TypedDict):
+        mandate_options: NotRequired[
+            "Order.CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Verification method for the intent
+        """
+
+    class CreateParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions(
+        TypedDict,
+    ):
+        custom_mandate_url: NotRequired["Literal['']|str"]
+        """
+        A URL for custom mandate text to render during confirmation step.
+        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
+        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
+        """
+        interval_description: NotRequired["str"]
+        """
+        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
+        """
+        payment_schedule: NotRequired[
+            "Literal['combined', 'interval', 'sporadic']"
+        ]
+        """
+        Payment schedule for the mandate.
+        """
+        transaction_type: NotRequired["Literal['business', 'personal']"]
+        """
+        Transaction type of the mandate.
+        """
+
+    class CreateParamsLineItem(TypedDict):
+        description: NotRequired["str"]
+        """
+        The description for the line item. Will default to the name of the associated product.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[Order.CreateParamsLineItemDiscount]"
+        ]
+        """
+        The discounts applied to this line item.
+        """
+        price: NotRequired["str"]
+        """
+        The ID of a [Price](https://stripe.com/docs/api/prices) to add to the Order.
+
+        The `price` parameter is an alternative to using the `product` parameter. If each of your products are sold at a single price, you can set `Product.default_price` and then pass the `product` parameter when creating a line item. If your products are sold at several possible prices, use the `price` parameter to explicitly specify which one to use.
+        """
+        price_data: NotRequired["Order.CreateParamsLineItemPriceData"]
+        """
+        Data used to generate a new Price object inline.
+
+        The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create products upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
+
+        Each time you pass `price_data` we create a Price for the product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
+        """
+        product: NotRequired["str"]
+        """
+        The ID of a [Product](https://stripe.com/docs/api/products) to add to the Order.
+
+        The product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
+        """
+        product_data: NotRequired["Order.CreateParamsLineItemProductData"]
+        """
+        Defines a Product inline and adds it to the Order.
+
+        `product_data` is an alternative to the `product` parameter. If you created a Product upfront, use the `product` parameter to refer to the existing Product. But if you prefer not to create Products upfront, pass the `product_data` parameter to define a Product inline as part of configuring the Order.
+
+        `product_data` automatically creates a Product, just as if you had manually created the Product. If a Product with the same ID already exists, then `product_data` re-uses it to avoid duplicates.
+        """
+        quantity: NotRequired["int"]
+        """
+        The quantity of the line item.
+        """
+        tax_rates: NotRequired["Literal['']|List[str]"]
+        """
+        The tax rates applied to this line item.
+        """
+
+    class CreateParamsLineItemProductData(TypedDict):
+        description: NotRequired["Literal['']|str"]
+        """
+        The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+        """
+        id: str
+        """
+        A unique identifier for this product.
+
+        `product_data` automatically creates a Product with this ID. If a Product with the same ID already exists, then `product_data` re-uses it to avoid duplicates. If any of the fields in the existing Product are different from the values in `product_data`, `product_data` updates the existing Product with the new information. So set `product_data[id]` to the same string every time you sell the same product, but don't re-use the same string for different products.
+        """
+        images: NotRequired["Literal['']|List[str]"]
+        """
+        A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: str
+        """
+        The product's name, meant to be displayable to the customer.
+        """
+        package_dimensions: NotRequired[
+            "Literal['']|Order.CreateParamsLineItemProductDataPackageDimensions"
+        ]
+        """
+        The dimensions of this product for shipping purposes.
+        """
+        shippable: NotRequired["bool"]
+        """
+        Whether this product is shipped (i.e., physical goods).
+        """
+        tax_code: NotRequired["Literal['']|str"]
+        """
+        A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        """
+        url: NotRequired["Literal['']|str"]
+        """
+        A URL of a publicly-accessible webpage for this product.
+        """
+
+    class CreateParamsLineItemProductDataPackageDimensions(TypedDict):
+        height: float
+        """
+        Height, in inches. Maximum precision is 2 decimal places.
+        """
+        length: float
+        """
+        Length, in inches. Maximum precision is 2 decimal places.
+        """
+        weight: float
+        """
+        Weight, in ounces. Maximum precision is 2 decimal places.
+        """
+        width: float
+        """
+        Width, in inches. Maximum precision is 2 decimal places.
+        """
+
+    class CreateParamsLineItemPriceData(TypedDict):
+        currency: NotRequired["str"]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: NotRequired["str"]
+        """
+        ID of the product this price belongs to.
+
+        Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specifed.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
+        """
+        unit_amount_decimal: NotRequired["str"]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class CreateParamsLineItemDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+
+    class CreateParamsDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired["str"]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
+    class CreateParamsCredit(TypedDict):
+        gift_card: NotRequired["str"]
+        """
+        The gift card to apply to the order.
+        """
+        type: Literal["gift_card"]
+        """
+        The type of credit to apply to the order, only `gift_card` currently supported.
+        """
+
+    class CreateParamsBillingDetails(TypedDict):
+        address: NotRequired["Order.CreateParamsBillingDetailsAddress"]
+        """
+        The billing address provided by the customer.
+        """
+        email: NotRequired["str"]
+        """
+        The billing email provided by the customer.
+        """
+        name: NotRequired["str"]
+        """
+        The billing name provided by the customer.
+        """
+        phone: NotRequired["str"]
+        """
+        The billing phone number provided by the customer.
+        """
+
+    class CreateParamsBillingDetailsAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+        """
+
+    class CreateParamsAutomaticTax(TypedDict):
+        enabled: bool
+        """
+        Enable automatic tax calculation which will automatically compute tax rates on this order.
+        """
+
+    class ListParams(RequestOptions):
+        customer: NotRequired["str"]
+        """
+        Only return orders for the given customer.
+        """
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
+    class ListLineItemsParams(RequestOptions):
+        ending_before: NotRequired["str"]
+        """
+        A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        limit: NotRequired["int"]
+        """
+        A limit on the number of objects to be returned. Limit can range between 1 and 100, and the default is 10.
+        """
+        starting_after: NotRequired["str"]
+        """
+        A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
+    class ModifyParams(RequestOptions):
+        automatic_tax: NotRequired["Order.ModifyParamsAutomaticTax"]
+        """
+        Settings for automatic tax calculation for this order.
+        """
+        billing_details: NotRequired[
+            "Literal['']|Order.ModifyParamsBillingDetails"
+        ]
+        """
+        Billing details for the customer. If a customer is provided, this will be automatically populated with values from that customer if override values are not provided.
+        """
+        credits: NotRequired["Literal['']|List[Order.ModifyParamsCredit]"]
+        """
+        The credits to apply to the order, only `gift_card` currently supported. Pass the empty string `""` to unset this field.
+        """
+        currency: NotRequired["str"]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        customer: NotRequired["str"]
+        """
+        The customer associated with this order.
+        """
+        description: NotRequired["Literal['']|str"]
+        """
+        An arbitrary string attached to the object. Often useful for displaying to users.
+        """
+        discounts: NotRequired["Literal['']|List[Order.ModifyParamsDiscount]"]
+        """
+        The coupons, promotion codes, and/or discounts to apply to the order. Pass the empty string `""` to unset this field.
+        """
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        ip_address: NotRequired["str"]
+        """
+        The IP address of the purchaser for this order.
+        """
+        line_items: NotRequired["List[Order.ModifyParamsLineItem]"]
+        """
+        A list of line items the customer is ordering. Each line item includes information about the product, the quantity, and the resulting cost.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        payment: NotRequired["Order.ModifyParamsPayment"]
+        """
+        Payment information associated with the order, including payment settings.
+        """
+        shipping_cost: NotRequired[
+            "Literal['']|Order.ModifyParamsShippingCost"
+        ]
+        """
+        Settings for the customer cost of shipping for this order.
+        """
+        shipping_details: NotRequired[
+            "Literal['']|Order.ModifyParamsShippingDetails"
+        ]
+        """
+        Shipping details for the order.
+        """
+        tax_details: NotRequired["Order.ModifyParamsTaxDetails"]
+        """
+        Additional tax details about the purchaser to be used for this order.
+        """
+
+    class ModifyParamsTaxDetails(TypedDict):
+        tax_exempt: NotRequired[
+            "Literal['']|Literal['exempt', 'none', 'reverse']"
+        ]
+        """
+        The purchaser's tax exemption status. One of `none`, `exempt`, or `reverse`.
+        """
+        tax_ids: NotRequired["List[Order.ModifyParamsTaxDetailsTaxId]"]
+        """
+        The purchaser's tax IDs to be used for this order.
+        """
+
+    class ModifyParamsTaxDetailsTaxId(TypedDict):
+        type: Literal[
+            "ad_nrt",
+            "ae_trn",
+            "ar_cuit",
+            "au_abn",
+            "au_arn",
+            "bg_uic",
+            "bo_tin",
+            "br_cnpj",
+            "br_cpf",
+            "ca_bn",
+            "ca_gst_hst",
+            "ca_pst_bc",
+            "ca_pst_mb",
+            "ca_pst_sk",
+            "ca_qst",
+            "ch_vat",
+            "cl_tin",
+            "cn_tin",
+            "co_nit",
+            "cr_tin",
+            "do_rcn",
+            "ec_ruc",
+            "eg_tin",
+            "es_cif",
+            "eu_oss_vat",
+            "eu_vat",
+            "gb_vat",
+            "ge_vat",
+            "hk_br",
+            "hu_tin",
+            "id_npwp",
+            "il_vat",
+            "in_gst",
+            "is_vat",
+            "jp_cn",
+            "jp_rn",
+            "jp_trn",
+            "ke_pin",
+            "kr_brn",
+            "li_uid",
+            "mx_rfc",
+            "my_frp",
+            "my_itn",
+            "my_sst",
+            "no_vat",
+            "nz_gst",
+            "pe_ruc",
+            "ph_tin",
+            "ro_tin",
+            "rs_pib",
+            "ru_inn",
+            "ru_kpp",
+            "sa_vat",
+            "sg_gst",
+            "sg_uen",
+            "si_tin",
+            "sv_nit",
+            "th_vat",
+            "tr_tin",
+            "tw_vat",
+            "ua_vat",
+            "us_ein",
+            "uy_ruc",
+            "ve_rif",
+            "vn_tin",
+            "za_vat",
+        ]
+        """
+        Type of the tax ID, one of `ad_nrt`, `ae_trn`, `ar_cuit`, `au_abn`, `au_arn`, `bg_uic`, `bo_tin`, `br_cnpj`, `br_cpf`, `ca_bn`, `ca_gst_hst`, `ca_pst_bc`, `ca_pst_mb`, `ca_pst_sk`, `ca_qst`, `ch_vat`, `cl_tin`, `cn_tin`, `co_nit`, `cr_tin`, `do_rcn`, `ec_ruc`, `eg_tin`, `es_cif`, `eu_oss_vat`, `eu_vat`, `gb_vat`, `ge_vat`, `hk_br`, `hu_tin`, `id_npwp`, `il_vat`, `in_gst`, `is_vat`, `jp_cn`, `jp_rn`, `jp_trn`, `ke_pin`, `kr_brn`, `li_uid`, `mx_rfc`, `my_frp`, `my_itn`, `my_sst`, `no_vat`, `nz_gst`, `pe_ruc`, `ph_tin`, `ro_tin`, `rs_pib`, `ru_inn`, `ru_kpp`, `sa_vat`, `sg_gst`, `sg_uen`, `si_tin`, `sv_nit`, `th_vat`, `tr_tin`, `tw_vat`, `ua_vat`, `us_ein`, `uy_ruc`, `ve_rif`, `vn_tin`, or `za_vat`
+        """
+        value: str
+        """
+        Value of the tax ID.
+        """
+
+    class ModifyParamsShippingDetails(TypedDict):
+        address: "Order.ModifyParamsShippingDetailsAddress"
+        """
+        The shipping address for the order.
+        """
+        name: str
+        """
+        The name of the recipient of the order.
+        """
+        phone: NotRequired["Literal['']|str"]
+        """
+        The phone number (including extension) for the recipient of the order.
+        """
+
+    class ModifyParamsShippingDetailsAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+        """
+
+    class ModifyParamsShippingCost(TypedDict):
+        shipping_rate: NotRequired["str"]
+        """
+        The ID of the shipping rate to use for this order.
+        """
+        shipping_rate_data: NotRequired[
+            "Order.ModifyParamsShippingCostShippingRateData"
+        ]
+        """
+        Parameters to create a new ad-hoc shipping rate for this order.
+        """
+
+    class ModifyParamsShippingCostShippingRateData(TypedDict):
+        delivery_estimate: NotRequired[
+            "Order.ModifyParamsShippingCostShippingRateDataDeliveryEstimate"
+        ]
+        """
+        The estimated range for how long shipping will take, meant to be displayable to the customer. This will appear on CheckoutSessions.
+        """
+        display_name: str
+        """
+        The name of the shipping rate, meant to be displayable to the customer. This will appear on CheckoutSessions.
+        """
+        fixed_amount: NotRequired[
+            "Order.ModifyParamsShippingCostShippingRateDataFixedAmount"
+        ]
+        """
+        Describes a fixed amount to charge for shipping. Must be present if type is `fixed_amount`.
+        """
+        metadata: NotRequired["Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
+        """
+        tax_code: NotRequired["str"]
+        """
+        A [tax code](https://stripe.com/docs/tax/tax-categories) ID. The Shipping tax code is `txcd_92010001`.
+        """
+        type: NotRequired["Literal['fixed_amount']"]
+        """
+        The type of calculation to use on the shipping rate. Can only be `fixed_amount` for now.
+        """
+
+    class ModifyParamsShippingCostShippingRateDataFixedAmount(TypedDict):
+        amount: int
+        """
+        A non-negative integer in cents representing how much to charge.
+        """
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        currency_options: NotRequired[
+            "Dict[str, Order.ModifyParamsShippingCostShippingRateDataFixedAmountCurrencyOptions]"
+        ]
+        """
+        Shipping rates defined in each available currency option. Each key must be a three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html) and a [supported currency](https://stripe.com/docs/currencies).
+        """
+
+    class ModifyParamsShippingCostShippingRateDataFixedAmountCurrencyOptions(
+        TypedDict,
+    ):
+        amount: int
+        """
+        A non-negative integer in cents representing how much to charge.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Specifies whether the rate is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`.
+        """
+
+    class ModifyParamsShippingCostShippingRateDataDeliveryEstimate(TypedDict):
+        maximum: NotRequired[
+            "Order.ModifyParamsShippingCostShippingRateDataDeliveryEstimateMaximum"
+        ]
+        """
+        The upper bound of the estimated range. If empty, represents no upper bound i.e., infinite.
+        """
+        minimum: NotRequired[
+            "Order.ModifyParamsShippingCostShippingRateDataDeliveryEstimateMinimum"
+        ]
+        """
+        The lower bound of the estimated range. If empty, represents no lower bound.
+        """
+
+    class ModifyParamsShippingCostShippingRateDataDeliveryEstimateMinimum(
+        TypedDict,
+    ):
+        unit: Literal["business_day", "day", "hour", "month", "week"]
+        """
+        A unit of time.
+        """
+        value: int
+        """
+        Must be greater than 0.
+        """
+
+    class ModifyParamsShippingCostShippingRateDataDeliveryEstimateMaximum(
+        TypedDict,
+    ):
+        unit: Literal["business_day", "day", "hour", "month", "week"]
+        """
+        A unit of time.
+        """
+        value: int
+        """
+        Must be greater than 0.
+        """
+
+    class ModifyParamsPayment(TypedDict):
+        settings: "Order.ModifyParamsPaymentSettings"
+        """
+        Settings describing how the order should configure generated PaymentIntents.
+        """
+
+    class ModifyParamsPaymentSettings(TypedDict):
+        application_fee_amount: NotRequired["Literal['']|int"]
+        """
+        The amount of the application fee (if any) that will be requested to be applied to the payment and transferred to the application owner's Stripe account.
+        """
+        payment_method_options: NotRequired[
+            "Order.ModifyParamsPaymentSettingsPaymentMethodOptions"
+        ]
+        """
+        PaymentMethod-specific configuration to provide to the order's PaymentIntent.
+        """
+        payment_method_types: NotRequired[
+            "List[Literal['acss_debit', 'afterpay_clearpay', 'alipay', 'au_becs_debit', 'bacs_debit', 'bancontact', 'card', 'customer_balance', 'eps', 'fpx', 'giropay', 'grabpay', 'ideal', 'klarna', 'link', 'oxxo', 'p24', 'paypal', 'sepa_debit', 'sofort', 'wechat_pay']]"
+        ]
+        """
+        The list of [payment method types](https://stripe.com/docs/payments/payment-methods/overview) to provide to the order's PaymentIntent. Do not include this attribute if you prefer to manage your payment methods from the [Stripe Dashboard](https://dashboard.stripe.com/settings/payment_methods).
+        """
+        return_url: NotRequired["Literal['']|str"]
+        """
+        The URL to redirect the customer to after they authenticate their payment.
+        """
+        statement_descriptor: NotRequired["str"]
+        """
+        For non-card charges, you can use this value as the complete description that appears on your customers' statements. Must contain at least one letter, maximum 22 characters.
+        """
+        statement_descriptor_suffix: NotRequired["str"]
+        """
+        Provides information about a card payment that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        """
+        transfer_data: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsTransferData"
+        ]
+        """
+        Provides configuration for completing a transfer for the order after it is paid.
+        """
+
+    class ModifyParamsPaymentSettingsTransferData(TypedDict):
+        amount: NotRequired["int"]
+        """
+        The amount that will be transferred automatically when the order is paid. If no amount is set, the full amount is transferred. There cannot be any line items with recurring prices when using this field.
+        """
+        destination: str
+        """
+        ID of the Connected account receiving the transfer.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptions(TypedDict):
+        acss_debit: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit"
+        ]
+        """
+        If paying by `acss_debit`, this sub-hash contains details about the ACSS Debit payment method options to pass to the order's PaymentIntent.
+        """
+        afterpay_clearpay: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsAfterpayClearpay"
+        ]
+        """
+        If paying by `afterpay_clearpay`, this sub-hash contains details about the AfterpayClearpay payment method options to pass to the order's PaymentIntent.
+        """
+        alipay: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsAlipay"
+        ]
+        """
+        If paying by `alipay`, this sub-hash contains details about the Alipay payment method options to pass to the order's PaymentIntent.
+        """
+        bancontact: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsBancontact"
+        ]
+        """
+        If paying by `bancontact`, this sub-hash contains details about the Bancontact payment method options to pass to the order's PaymentIntent.
+        """
+        card: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsCard"
+        ]
+        """
+        If paying by `card`, this sub-hash contains details about the Card payment method options to pass to the order's PaymentIntent.
+        """
+        customer_balance: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance"
+        ]
+        """
+        If paying by `customer_balance`, this sub-hash contains details about the Customer Balance payment method options to pass to the order's PaymentIntent.
+        """
+        ideal: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsIdeal"
+        ]
+        """
+        If paying by `ideal`, this sub-hash contains details about the iDEAL payment method options to pass to the order's PaymentIntent.
+        """
+        klarna: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsKlarna"
+        ]
+        """
+        If paying by `klarna`, this sub-hash contains details about the Klarna payment method options to pass to the order's PaymentIntent.
+        """
+        link: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsLink"
+        ]
+        """
+        If paying by `link`, this sub-hash contains details about the Link payment method options to pass to the order's PaymentIntent.
+        """
+        oxxo: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsOxxo"
+        ]
+        """
+        If paying by `oxxo`, this sub-hash contains details about the OXXO payment method options to pass to the order's PaymentIntent.
+        """
+        p24: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsP24"
+        ]
+        """
+        If paying by `p24`, this sub-hash contains details about the P24 payment method options to pass to the order's PaymentIntent.
+        """
+        paypal: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsPaypal"
+        ]
+        """
+        If paying by `paypal`, this sub-hash contains details about the PayPal payment method options to pass to the order's PaymentIntent.
+        """
+        sepa_debit: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit"
+        ]
+        """
+        If paying by `sepa_debit`, this sub-hash contains details about the SEPA Debit payment method options to pass to the order's PaymentIntent.
+        """
+        sofort: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsSofort"
+        ]
+        """
+        If paying by `sofort`, this sub-hash contains details about the Sofort payment method options to pass to the order's PaymentIntent.
+        """
+        wechat_pay: NotRequired[
+            "Literal['']|Order.ModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay"
+        ]
+        """
+        If paying by `wechat_pay`, this sub-hash contains details about the WeChat Pay payment method options to pass to the order's PaymentIntent.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsWechatPay(TypedDict):
+        app_id: NotRequired["str"]
+        """
+        The app ID registered with WeChat Pay. Only required when client is ios or android.
+        """
+        client: Literal["android", "ios", "web"]
+        """
+        The client type that the end customer will pay from
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsSofort(TypedDict):
+        preferred_language: NotRequired[
+            "Literal['']|Literal['de', 'en', 'es', 'fr', 'it', 'nl', 'pl']"
+        ]
+        """
+        Language shown to the payer on redirect.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebit(TypedDict):
+        mandate_options: NotRequired[
+            "Order.ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsSepaDebitMandateOptions(
+        TypedDict,
+    ):
+        pass
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsPaypal(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        preferred_locale: NotRequired[
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-DE', 'de-LU', 'el-GR', 'en-GB', 'en-US', 'es-ES', 'fi-FI', 'fr-BE', 'fr-FR', 'fr-LU', 'hu-HU', 'it-IT', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sk-SK', 'sv-SE']"
+        ]
+        """
+        [Preferred locale](https://stripe.com/docs/payments/paypal/supported-locales) of the PayPal checkout page that the customer is redirected to.
+        """
+        reference: NotRequired["str"]
+        """
+        A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+        """
+        reference_id: NotRequired["str"]
+        """
+        A reference of the PayPal transaction visible to customer which is mapped to PayPal's invoice ID. This must be a globally unique ID if you have configured in your PayPal settings to block multiple payments per invoice ID.
+        """
+        risk_correlation_id: NotRequired["str"]
+        """
+        The risk correlation ID for an on-session payment using a saved PayPal payment method.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        subsellers: NotRequired["List[str]"]
+        """
+        The Stripe connected account IDs of the sellers on the platform for this transaction (optional). Only allowed when [separate charges and transfers](https://stripe.com/docs/connect/separate-charges-and-transfers) are used.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsP24(TypedDict):
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        tos_shown_and_accepted: NotRequired["bool"]
+        """
+        Confirm that the payer has accepted the P24 terms and conditions.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsOxxo(TypedDict):
+        expires_after_days: NotRequired["int"]
+        """
+        The number of calendar days before an OXXO voucher expires. For example, if you create an OXXO voucher on Monday and you set expires_after_days to 2, the OXXO invoice will expire on Wednesday at 23:59 America/Mexico_City time.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsLink(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        persistent_token: NotRequired["str"]
+        """
+        [Deprecated] This is a legacy parameter that no longer has any function.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsKlarna(TypedDict):
+        capture_method: NotRequired["Literal['']|Literal['manual']"]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        preferred_locale: NotRequired[
+            "Literal['cs-CZ', 'da-DK', 'de-AT', 'de-CH', 'de-DE', 'el-GR', 'en-AT', 'en-AU', 'en-BE', 'en-CA', 'en-CH', 'en-CZ', 'en-DE', 'en-DK', 'en-ES', 'en-FI', 'en-FR', 'en-GB', 'en-GR', 'en-IE', 'en-IT', 'en-NL', 'en-NO', 'en-NZ', 'en-PL', 'en-PT', 'en-SE', 'en-US', 'es-ES', 'es-US', 'fi-FI', 'fr-BE', 'fr-CA', 'fr-CH', 'fr-FR', 'it-CH', 'it-IT', 'nb-NO', 'nl-BE', 'nl-NL', 'pl-PL', 'pt-PT', 'sv-FI', 'sv-SE']"
+        ]
+        """
+        Preferred language of the Klarna authorization page that the customer is redirected to
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsIdeal(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalance(
+        TypedDict,
+    ):
+        bank_transfer: NotRequired[
+            "Order.ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer"
+        ]
+        """
+        Configuration for the bank transfer funding type, if the `funding_type` is set to `bank_transfer`.
+        """
+        funding_type: NotRequired["Literal['bank_transfer']"]
+        """
+        The funding method type to be used when there are not enough funds in the customer balance. Permitted values include: `bank_transfer`.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransfer(
+        TypedDict,
+    ):
+        eu_bank_transfer: NotRequired[
+            "Order.ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer"
+        ]
+        """
+        Configuration for the eu_bank_transfer funding type.
+        """
+        requested_address_types: NotRequired[
+            "List[Literal['aba', 'iban', 'sepa', 'sort_code', 'spei', 'swift', 'zengin']]"
+        ]
+        """
+        List of address types that should be returned in the financial_addresses response. If not specified, all valid types will be returned.
+
+        Permitted values include: `sort_code`, `zengin`, `iban`, or `spei`.
+        """
+        type: Literal[
+            "eu_bank_transfer",
+            "gb_bank_transfer",
+            "jp_bank_transfer",
+            "mx_bank_transfer",
+            "us_bank_transfer",
+        ]
+        """
+        The list of bank transfer types that this PaymentIntent is allowed to use for funding Permitted values include: `eu_bank_transfer`, `gb_bank_transfer`, `jp_bank_transfer`, `mx_bank_transfer`, or `us_bank_transfer`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsCustomerBalanceBankTransferEuBankTransfer(
+        TypedDict,
+    ):
+        country: str
+        """
+        The desired country code of the bank account information. Permitted values include: `BE`, `DE`, `ES`, `FR`, `IE`, or `NL`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsCard(TypedDict):
+        capture_method: NotRequired[
+            "Literal['automatic', 'automatic_async', 'manual']"
+        ]
+        """
+        Controls when the funds will be captured from the customer's account.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with the payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the order's Customer, if present, after the order's PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsBancontact(TypedDict):
+        preferred_language: NotRequired["Literal['de', 'en', 'fr', 'nl']"]
+        """
+        Preferred language of the Bancontact authorization page that the customer is redirected to.
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsAlipay(TypedDict):
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsAfterpayClearpay(
+        TypedDict,
+    ):
+        capture_method: NotRequired[
+            "Literal['automatic', 'automatic_async', 'manual']"
+        ]
+        """
+        Controls when the funds will be captured from the customer's account.
+
+        If provided, this parameter will override the top-level `capture_method` when finalizing the payment with this payment method type.
+
+        If `capture_method` is already set on the PaymentIntent, providing an empty value for this parameter will unset the stored value for this payment method type.
+        """
+        reference: NotRequired["str"]
+        """
+        An internal identifier or reference this payment corresponds to. The identifier is limited to 128 characters and may contain only letters, digits, underscores, backslashes and dashes.
+        """
+        setup_future_usage: NotRequired["Literal['none']"]
+        """
+        Indicates that you intend to make future payments with the payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the order's Customer, if present, after the order's PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebit(TypedDict):
+        mandate_options: NotRequired[
+            "Order.ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions"
+        ]
+        """
+        Additional fields for Mandate creation
+        """
+        setup_future_usage: NotRequired[
+            "Literal['']|Literal['none', 'off_session', 'on_session']"
+        ]
+        """
+        Indicates that you intend to make future payments with this PaymentIntent's payment method.
+
+        Providing this parameter will [attach the payment method](https://stripe.com/docs/payments/save-during-payment) to the PaymentIntent's Customer, if present, after the PaymentIntent is confirmed and any required actions from the user are complete. If no Customer was provided, the payment method can still be [attached](https://stripe.com/docs/api/payment_methods/attach) to a Customer after the transaction completes.
+
+        When processing card payments, Stripe also uses `setup_future_usage` to dynamically optimize your payment flow and comply with regional legislation and network rules, such as [SCA](https://stripe.com/docs/strong-customer-authentication).
+
+        If `setup_future_usage` is already set and you are performing a request using a publishable key, you may only update the value from `on_session` to `off_session`.
+        """
+        verification_method: NotRequired[
+            "Literal['automatic', 'instant', 'microdeposits']"
+        ]
+        """
+        Verification method for the intent
+        """
+
+    class ModifyParamsPaymentSettingsPaymentMethodOptionsAcssDebitMandateOptions(
+        TypedDict,
+    ):
+        custom_mandate_url: NotRequired["Literal['']|str"]
+        """
+        A URL for custom mandate text to render during confirmation step.
+        The URL will be rendered with additional GET parameters `payment_intent` and `payment_intent_client_secret` when confirming a Payment Intent,
+        or `setup_intent` and `setup_intent_client_secret` when confirming a Setup Intent.
+        """
+        interval_description: NotRequired["str"]
+        """
+        Description of the mandate interval. Only required if 'payment_schedule' parameter is 'interval' or 'combined'.
+        """
+        payment_schedule: NotRequired[
+            "Literal['combined', 'interval', 'sporadic']"
+        ]
+        """
+        Payment schedule for the mandate.
+        """
+        transaction_type: NotRequired["Literal['business', 'personal']"]
+        """
+        Transaction type of the mandate.
+        """
+
+    class ModifyParamsLineItem(TypedDict):
+        description: NotRequired["str"]
+        """
+        The description for the line item. Will default to the name of the associated product.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[Order.ModifyParamsLineItemDiscount]"
+        ]
+        """
+        The discounts applied to this line item.
+        """
+        id: NotRequired["str"]
+        """
+        The ID of an existing line item on the order.
+        """
+        price: NotRequired["str"]
+        """
+        The ID of a [Price](https://stripe.com/docs/api/prices) to add to the Order.
+
+        The `price` parameter is an alternative to using the `product` parameter. If each of your products are sold at a single price, you can set `Product.default_price` and then pass the `product` parameter when creating a line item. If your products are sold at several possible prices, use the `price` parameter to explicitly specify which one to use.
+        """
+        price_data: NotRequired["Order.ModifyParamsLineItemPriceData"]
+        """
+        Data used to generate a new Price object inline.
+
+        The `price_data` parameter is an alternative to using the `product` or `price` parameters. If you create products upfront and configure a `Product.default_price`, pass the `product` parameter when creating a line item. If you prefer not to define products upfront, or if you charge variable prices, pass the `price_data` parameter to describe the price for this line item.
+
+        Each time you pass `price_data` we create a Price for the product. This Price is hidden in both the Dashboard and API lists and cannot be reused.
+        """
+        product: NotRequired["str"]
+        """
+        The ID of a [Product](https://stripe.com/docs/api/products) to add to the Order.
+
+        The product must have a `default_price` specified. Otherwise, specify the price by passing the `price` or `price_data` parameter.
+        """
+        product_data: NotRequired["Order.ModifyParamsLineItemProductData"]
+        """
+        Defines a Product inline and adds it to the Order.
+
+        `product_data` is an alternative to the `product` parameter. If you created a Product upfront, use the `product` parameter to refer to the existing Product. But if you prefer not to create Products upfront, pass the `product_data` parameter to define a Product inline as part of configuring the Order.
+
+        `product_data` automatically creates a Product, just as if you had manually created the Product. If a Product with the same ID already exists, then `product_data` re-uses it to avoid duplicates.
+        """
+        quantity: NotRequired["int"]
+        """
+        The quantity of the line item.
+        """
+        tax_rates: NotRequired["Literal['']|List[str]"]
+        """
+        The tax rates applied to this line item.
+        """
+
+    class ModifyParamsLineItemProductData(TypedDict):
+        description: NotRequired["Literal['']|str"]
+        """
+        The product's description, meant to be displayable to the customer. Use this field to optionally store a long form explanation of the product being sold for your own rendering purposes.
+        """
+        id: str
+        """
+        A unique identifier for this product.
+
+        `product_data` automatically creates a Product with this ID. If a Product with the same ID already exists, then `product_data` re-uses it to avoid duplicates. If any of the fields in the existing Product are different from the values in `product_data`, `product_data` updates the existing Product with the new information. So set `product_data[id]` to the same string every time you sell the same product, but don't re-use the same string for different products.
+        """
+        images: NotRequired["Literal['']|List[str]"]
+        """
+        A list of up to 8 URLs of images for this product, meant to be displayable to the customer.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        name: str
+        """
+        The product's name, meant to be displayable to the customer.
+        """
+        package_dimensions: NotRequired[
+            "Literal['']|Order.ModifyParamsLineItemProductDataPackageDimensions"
+        ]
+        """
+        The dimensions of this product for shipping purposes.
+        """
+        shippable: NotRequired["bool"]
+        """
+        Whether this product is shipped (i.e., physical goods).
+        """
+        tax_code: NotRequired["Literal['']|str"]
+        """
+        A [tax code](https://stripe.com/docs/tax/tax-categories) ID.
+        """
+        url: NotRequired["Literal['']|str"]
+        """
+        A URL of a publicly-accessible webpage for this product.
+        """
+
+    class ModifyParamsLineItemProductDataPackageDimensions(TypedDict):
+        height: float
+        """
+        Height, in inches. Maximum precision is 2 decimal places.
+        """
+        length: float
+        """
+        Length, in inches. Maximum precision is 2 decimal places.
+        """
+        weight: float
+        """
+        Weight, in ounces. Maximum precision is 2 decimal places.
+        """
+        width: float
+        """
+        Width, in inches. Maximum precision is 2 decimal places.
+        """
+
+    class ModifyParamsLineItemPriceData(TypedDict):
+        currency: NotRequired["str"]
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: NotRequired["str"]
+        """
+        ID of the product this price belongs to.
+
+        Use this to implement a variable-pricing model in your integration. This is required if `product_data` is not specifed.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
+        """
+        unit_amount_decimal: NotRequired["str"]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class ModifyParamsLineItemDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+
+    class ModifyParamsDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        promotion_code: NotRequired["str"]
+        """
+        ID of the promotion code to create a new discount for.
+        """
+
+    class ModifyParamsCredit(TypedDict):
+        gift_card: NotRequired["str"]
+        """
+        The gift card to apply to the order.
+        """
+        type: Literal["gift_card"]
+        """
+        The type of credit to apply to the order, only `gift_card` currently supported.
+        """
+
+    class ModifyParamsBillingDetails(TypedDict):
+        address: NotRequired["Order.ModifyParamsBillingDetailsAddress"]
+        """
+        The billing address provided by the customer.
+        """
+        email: NotRequired["str"]
+        """
+        The billing email provided by the customer.
+        """
+        name: NotRequired["str"]
+        """
+        The billing name provided by the customer.
+        """
+        phone: NotRequired["str"]
+        """
+        The billing phone number provided by the customer.
+        """
+
+    class ModifyParamsBillingDetailsAddress(TypedDict):
+        city: NotRequired["str"]
+        """
+        City, district, suburb, town, or village.
+        """
+        country: NotRequired["str"]
+        """
+        Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+        """
+        line1: NotRequired["str"]
+        """
+        Address line 1 (e.g., street, PO Box, or company name).
+        """
+        line2: NotRequired["str"]
+        """
+        Address line 2 (e.g., apartment, suite, unit, or building).
+        """
+        postal_code: NotRequired["str"]
+        """
+        ZIP or postal code.
+        """
+        state: NotRequired["str"]
+        """
+        State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+        """
+
+    class ModifyParamsAutomaticTax(TypedDict):
+        enabled: bool
+        """
+        Enable automatic tax calculation which will automatically compute tax rates on this order.
+        """
+
+    class ReopenParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
+    class SubmitParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        expected_total: int
+        """
+        `expected_total` should always be set to the order's `amount_total` field. If they don't match, submitting the order will fail. This helps detect race conditions where something else concurrently modifies the order.
+        """
 
     amount_remaining: Optional[int]
     amount_subtotal: int
@@ -3202,7 +3176,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.CancelParams"]
+        **params: Unpack[
+            "Order.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Cancels the order as well as the payment intent if one is attached.
@@ -3226,7 +3202,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.CancelParams"]
+        **params: Unpack[
+            "Order.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Cancels the order as well as the payment intent if one is attached.
@@ -3237,7 +3215,9 @@ class Order(
     def cancel(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.CancelParams"]
+        **params: Unpack[
+            "Order.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Cancels the order as well as the payment intent if one is attached.
@@ -3248,7 +3228,9 @@ class Order(
     def cancel(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.CancelParams"]
+        **params: Unpack[
+            "Order.CancelParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Cancels the order as well as the payment intent if one is attached.
@@ -3272,7 +3254,9 @@ class Order(
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.CreateParams"]
+        **params: Unpack[
+            "Order.CreateParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Creates a new open order object.
@@ -3296,7 +3280,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.ListParams"]
+        **params: Unpack[
+            "Order.ListParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Order"]:
         """
         Returns a list of your orders. The orders are returned sorted by creation date, with the most recently created orders appearing first.
@@ -3325,7 +3311,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.ListLineItemsParams"]
+        **params: Unpack[
+            "Order.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3349,7 +3337,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.ListLineItemsParams"]
+        **params: Unpack[
+            "Order.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3360,7 +3350,9 @@ class Order(
     def list_line_items(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.ListLineItemsParams"]
+        **params: Unpack[
+            "Order.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3371,7 +3363,9 @@ class Order(
     def list_line_items(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.ListLineItemsParams"]
+        **params: Unpack[
+            "Order.ListLineItemsParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["LineItem"]:
         """
         When retrieving an order, there is an includable line_items property containing the first handful of those items. There is also a URL where you can retrieve the full (paginated) list of line items.
@@ -3408,7 +3402,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.ReopenParams"]
+        **params: Unpack[
+            "Order.ReopenParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Reopens a submitted order.
@@ -3432,7 +3428,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.ReopenParams"]
+        **params: Unpack[
+            "Order.ReopenParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Reopens a submitted order.
@@ -3443,7 +3441,9 @@ class Order(
     def reopen(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.ReopenParams"]
+        **params: Unpack[
+            "Order.ReopenParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Reopens a submitted order.
@@ -3454,7 +3454,9 @@ class Order(
     def reopen(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.ReopenParams"]
+        **params: Unpack[
+            "Order.ReopenParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Reopens a submitted order.
@@ -3489,7 +3491,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.SubmitParams"]
+        **params: Unpack[
+            "Order.SubmitParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
@@ -3513,7 +3517,9 @@ class Order(
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
-        **params: Unpack["Order.SubmitParams"]
+        **params: Unpack[
+            "Order.SubmitParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
@@ -3524,7 +3530,9 @@ class Order(
     def submit(
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.SubmitParams"]
+        **params: Unpack[
+            "Order.SubmitParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
@@ -3535,7 +3543,9 @@ class Order(
     def submit(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         idempotency_key: Optional[str] = None,
-        **params: Unpack["Order.SubmitParams"]
+        **params: Unpack[
+            "Order.SubmitParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> "Order":
         """
         Submitting an Order transitions the status to processing and creates a PaymentIntent object so the order can be paid. If the Order has an amount_total of 0, no PaymentIntent object will be created. Once the order is submitted, its contents cannot be changed, unless the [reopen](https://stripe.com/docs/api#reopen_order) method is called.
