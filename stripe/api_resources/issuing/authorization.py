@@ -205,7 +205,7 @@ class Authorization(
         """
         reason_message: Optional[str]
         """
-        If approve/decline decision is directly responsed to the webhook with json payload and if the response is invalid (e.g., parsing errors), we surface the detailed message via this field.
+        If the `request_history.reason` is `webhook_error` because the direct webhook response is invalid (for example, parsing errors or missing parameters), we surface a more detailed error message via this field.
         """
         _inner_class_types = {"amount_details": AmountDetails}
 
