@@ -1,5 +1,14 @@
 # Changelog
 
+## 7.6.0b1 - 2023-11-16
+* [#1128](https://github.com/stripe/stripe-python/pull/1128) Update generated code for beta
+  * Add support for `issuing_card` and `issuing_cards_list` on `AccountSession.CreateParamsComponents`
+  * Add support for `event_details` and `subscription` on `payment_details` types
+  * Add support for `affiliate` and `delivery` on `payment_details.flight`, `payment_details.lodging`, and `payment_details.car_rental` types
+  * Add support for `drivers` on `payment_details.car_rental` types
+  * Add support for `passengers` on `payment_details.flight` and `payment_details.lodging` types
+  * Add support for `created` on `CustomerSession`
+
 ## 7.5.0 - 2023-11-16
 * [#1127](https://github.com/stripe/stripe-python/pull/1127) Update generated code
   * Add support for `bacs_debit_payments` on `Account.CreateParamsSettings`
