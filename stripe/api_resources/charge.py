@@ -771,6 +771,12 @@ class Charge(
             }
 
         class CardPresent(StripeObject):
+            class Offline(StripeObject):
+                stored_at: Optional[int]
+                """
+                Time at which the payment was collected while offline
+                """
+
             class Receipt(StripeObject):
                 account_type: Optional[
                     Literal["checking", "credit", "prepaid", "unknown"]
@@ -881,6 +887,10 @@ class Charge(
             """
             Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
+            offline: Optional[Offline]
+            """
+            Details about payments collected offline.
+            """
             overcapture_supported: bool
             """
             Defines whether the authorized amount can be over-captured or not
@@ -901,7 +911,7 @@ class Charge(
             """
             A collection of fields required to be displayed on receipts. Only required for EMV transactions.
             """
-            _inner_class_types = {"receipt": Receipt}
+            _inner_class_types = {"offline": Offline, "receipt": Receipt}
 
         class Cashapp(StripeObject):
             buyer_id: Optional[str]
