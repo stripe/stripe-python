@@ -103,6 +103,14 @@ class Authorization(
         """
         Identifier assigned to the acquirer by the card network. Sometimes this value is not provided by the network; in this case, the value will be `null`.
         """
+        system_trace_audit_number: Optional[str]
+        """
+        The System Trace Audit Number (STAN) is a 6-digit identifier assigned by the acquirer. Prefer `network_data.transaction_id` if present, unless you have special requirements.
+        """
+        transaction_id: Optional[str]
+        """
+        Unique identifier for the authorization assigned by the card network used to match subsequent messages, disputes, and transactions.
+        """
 
     class PendingRequest(StripeObject):
         class AmountDetails(StripeObject):
@@ -138,6 +146,10 @@ class Authorization(
         merchant_currency: str
         """
         The local currency the merchant is requesting to authorize.
+        """
+        network_risk_score: Optional[int]
+        """
+        The card network's estimate of the likelihood that an authorization is fraudulent. Takes on values between 1 and 99.
         """
         _inner_class_types = {"amount_details": AmountDetails}
 
@@ -184,6 +196,10 @@ class Authorization(
         """
         The currency that was collected by the merchant and presented to the cardholder for the authorization. Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
         """
+        network_risk_score: Optional[int]
+        """
+        The card network's estimate of the likelihood that an authorization is fraudulent. Takes on values between 1 and 99.
+        """
         reason: Literal[
             "account_disabled",
             "card_active",
@@ -206,6 +222,10 @@ class Authorization(
         reason_message: Optional[str]
         """
         If the `request_history.reason` is `webhook_error` because the direct webhook response is invalid (for example, parsing errors or missing parameters), we surface a more detailed error message via this field.
+        """
+        requested_at: Optional[int]
+        """
+        Time when the card network received an authorization request from the acquirer in UTC. Referred to by networks as transmission time.
         """
         _inner_class_types = {"amount_details": AmountDetails}
 
