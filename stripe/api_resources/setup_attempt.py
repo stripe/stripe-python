@@ -109,6 +109,13 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 For authenticated transactions: how the customer was authenticated by
                 the issuing bank.
                 """
+                electronic_commerce_indicator: Optional[
+                    Literal["01", "02", "05", "06", "07"]
+                ]
+                """
+                The Electronic Commerce Indicator (ECI). A protocol-level field
+                indicating what degree of authentication was performed.
+                """
                 result: Optional[
                     Literal[
                         "attempt_acknowledged",
@@ -136,6 +143,11 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 """
                 Additional information about why 3D Secure succeeded or failed based
                 on the `result`.
+                """
+                transaction_id: Optional[str]
+                """
+                The 3D Secure 1 XID or 3D Secure 2 Directory Server Transaction ID
+                (dsTransId) for this payment.
                 """
                 version: Optional[Literal["1.0.2", "2.1.0", "2.2.0"]]
                 """
