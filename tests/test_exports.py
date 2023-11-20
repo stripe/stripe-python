@@ -94,7 +94,7 @@ def test_can_import_abstract() -> None:
     )
     assert (
         stripe.abstract.SearchableAPIResource[StripeObject]
-        is SearchableAPIResourceFromAbstract[StripeObject]
+        == SearchableAPIResourceFromAbstract[StripeObject]
     )
     assert stripe.abstract.VerifyMixin is VerifyMixinFromAbstract
     assert stripe.abstract.custom_method is custom_methodFromAbstract
