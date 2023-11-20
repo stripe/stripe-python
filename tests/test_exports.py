@@ -51,15 +51,62 @@ def test_can_import_misc_resources() -> None:
 
 def test_can_import_abstract() -> None:
     from stripe.api_resources.abstract import (
-        APIResource as APIResourceFromApiResourcesAbstract,
+        APIResource as APIResourceFromAbstract,
+        SingletonAPIResource as SingletonAPIResourceFromAbstract,
+        CreateableAPIResource as CreateableAPIResourceFromAbstract,
+        UpdateableAPIResource as UpdateableAPIResourceFromAbstract,
+        DeletableAPIResource as DeletableAPIResourceFromAbstract,
+        ListableAPIResource as ListableAPIResourceFromAbstract,
+        SearchableAPIResource as SearchableAPIResourceFromAbstract,
+        VerifyMixin as VerifyMixinFromAbstract,
+        custom_method as custom_methodFromAbstract,
+        APIResourceTestHelpers as APIResourceTestHelpersFromAbstract,
+        nested_resource_class_methods as nested_resource_class_methodsFromAbstract,
     )
     from stripe.stripe_object import (
         StripeObject,
     )
 
     assert (
-        APIResourceFromApiResourcesAbstract[StripeObject]
+        APIResourceFromAbstract[StripeObject]
         == stripe.abstract.APIResource[StripeObject]
+    )
+    assert (
+        stripe.api_resources.abstract.SingletonAPIResource
+        == SingletonAPIResourceFromAbstract
+    )
+    assert (
+        stripe.api_resources.abstract.CreateableAPIResource
+        == CreateableAPIResourceFromAbstract
+    )
+    assert (
+        stripe.api_resources.abstract.UpdateableAPIResource
+        == UpdateableAPIResourceFromAbstract
+    )
+    assert (
+        stripe.api_resources.abstract.DeletableAPIResource
+        == DeletableAPIResourceFromAbstract
+    )
+    assert (
+        stripe.api_resources.abstract.ListableAPIResource
+        == ListableAPIResourceFromAbstract
+    )
+    assert (
+        stripe.api_resources.abstract.SearchableAPIResource
+        == SearchableAPIResourceFromAbstract
+    )
+    assert stripe.api_resources.abstract.VerifyMixin == VerifyMixinFromAbstract
+    assert (
+        stripe.api_resources.abstract.custom_method
+        == custom_methodFromAbstract
+    )
+    assert (
+        stripe.api_resources.abstract.APIResourceTestHelpers
+        == APIResourceTestHelpersFromAbstract
+    )
+    assert (
+        stripe.api_resources.abstract.nested_resource_class_methods
+        == nested_resource_class_methodsFromAbstract
     )
 
 
