@@ -133,6 +133,12 @@ class CustomerCashBalanceTransaction(
         The [Refund](https://stripe.com/docs/api/refunds/object) that moved these funds into the customer's cash balance.
         """
 
+    class TransferredToBalance(StripeObject):
+        balance_transaction: ExpandableField["BalanceTransaction"]
+        """
+        The [Balance Transaction](https://stripe.com/docs/api/balance_transactions/object) that corresponds to funds transferred to your Stripe balance.
+        """
+
     class UnappliedFromPayment(StripeObject):
         payment_intent: ExpandableField["PaymentIntent"]
         """
@@ -199,6 +205,7 @@ class CustomerCashBalanceTransaction(
     String representing the object's type. Objects of the same type share the same value.
     """
     refunded_from_payment: Optional[RefundedFromPayment]
+    transferred_to_balance: Optional[TransferredToBalance]
     type: Literal[
         "adjusted_for_overdraft",
         "applied_to_payment",
@@ -263,5 +270,6 @@ class CustomerCashBalanceTransaction(
         "applied_to_payment": AppliedToPayment,
         "funded": Funded,
         "refunded_from_payment": RefundedFromPayment,
+        "transferred_to_balance": TransferredToBalance,
         "unapplied_from_payment": UnappliedFromPayment,
     }
