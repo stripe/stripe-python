@@ -7,7 +7,10 @@ from stripe.api_resources.abstract import APIResource
 # TODO(major): Remove this. It is no longer used except for "nested_resource_url" and "nested_resource_request",
 # which are unnecessary ande deprecated.
 def nested_resource_class_methods(
-    resource: str, path: Optional[str] = None, operations: Optional[List[str]] = None, resource_plural: Optional[str] = None
+    resource: str,
+    path: Optional[str] = None,
+    operations: Optional[List[str]] = None,
+    resource_plural: Optional[str] = None,
 ):
     if resource_plural is None:
         resource_plural = "%ss" % resource

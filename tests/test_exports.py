@@ -94,20 +94,17 @@ def test_can_import_abstract() -> None:
     )
     assert (
         stripe.abstract.SearchableAPIResource[StripeObject]
-        == SearchableAPIResourceFromAbstract[StripeObject]
+        is SearchableAPIResourceFromAbstract[StripeObject]
     )
-    assert stripe.abstract.VerifyMixin == VerifyMixinFromAbstract
-    assert (
-        stripe.abstract.custom_method
-        == custom_methodFromAbstract
-    )
+    assert stripe.abstract.VerifyMixin is VerifyMixinFromAbstract
+    assert stripe.abstract.custom_method is custom_methodFromAbstract
     assert (
         stripe.abstract.APIResourceTestHelpers[Any]
-        == APIResourceTestHelpersFromAbstract[Any]
+        is APIResourceTestHelpersFromAbstract[Any]
     )
     assert (
         stripe.abstract.nested_resource_class_methods
-        == nested_resource_class_methodsFromAbstract
+        is nested_resource_class_methodsFromAbstract
     )
 
 
