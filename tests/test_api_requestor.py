@@ -278,11 +278,11 @@ class TestAPIRequestor(object):
 
             if is_streaming:
                 http_client.request_stream_with_retries.assert_called_with(
-                    method, abs_url, headers, post_data
+                    method, abs_url, headers, post_data, _usage=None
                 )
             else:
                 http_client.request_with_retries.assert_called_with(
-                    method, abs_url, headers, post_data
+                    method, abs_url, headers, post_data, _usage=None
                 )
 
         return check_call
@@ -797,4 +797,5 @@ class TestDefaultClient(object):
             "https://api.stripe.com/v1/charges?limit=3",
             mocker.ANY,
             None,
+            _usage=None,
         )
