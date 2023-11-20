@@ -9,6 +9,7 @@ class CreateableAPIResource(APIResource[T]):
     @classmethod
     def create(
         cls,
+        # TODO (next major) add * here to force keyword-only arguments
         api_key=None,
         idempotency_key=None,
         stripe_version=None,

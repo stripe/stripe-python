@@ -209,6 +209,7 @@ Resp = Union[StripeResponse, Dict[str, Any], List["Resp"]]
 @overload
 def convert_to_stripe_object(
     resp: Union[StripeResponse, Dict[str, Any]],
+    # TODO (next major): Add * here to force keyword-only arguments
     api_key: Optional[str] = None,
     stripe_version: Optional[str] = None,
     stripe_account: Optional[str] = None,

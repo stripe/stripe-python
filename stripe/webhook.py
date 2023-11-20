@@ -13,7 +13,12 @@ class Webhook(object):
 
     @staticmethod
     def construct_event(
-        payload, sig_header, secret, tolerance=DEFAULT_TOLERANCE, api_key=None
+        payload,
+        sig_header,
+        secret,
+        # TODO (next major): Add * here to force keyword-only arguments
+        tolerance=DEFAULT_TOLERANCE,
+        api_key=None,
     ):
         if hasattr(payload, "decode"):
             payload = payload.decode("utf-8")

@@ -109,6 +109,7 @@ class HTTPClient(object):
 
     def __init__(
         self,
+        # TODO (next major): Add * here to force keyword-only arguments
         verify_ssl_certs: bool = True,
         proxy: Optional[Union[str, _Proxy]] = None,
     ):
@@ -134,14 +135,24 @@ class HTTPClient(object):
 
     # TODO: more specific types here would be helpful
     def request_with_retries(
-        self, method, url, headers, post_data=None
+        self,
+        method,
+        url,
+        headers,
+        # TODO (next major): Add * here to force keyword-only arguments
+        post_data=None,
     ) -> Tuple[Any, int, Any]:
         return self._request_with_retries_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
     def request_stream_with_retries(
-        self, method, url, headers, post_data=None
+        self,
+        method,
+        url,
+        headers,
+        # TODO (next major): Add * here to force keyword-only arguments
+        post_data=None,
     ) -> Tuple[Any, int, Any]:
         return self._request_with_retries_internal(
             method, url, headers, post_data, is_streaming=True
@@ -194,12 +205,26 @@ class HTTPClient(object):
                     assert connection_error is not None
                     raise connection_error
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self,
+        method,
+        url,
+        headers,
+        # TODO (next major): Add * here to force keyword-only arguments
+        post_data=None,
+    ):
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request`"
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(
+        self,
+        method,
+        url,
+        headers,
+        # TODO (next major): Add * here to force keyword-only arguments
+        post_data=None,
+    ):
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request_stream`"
         )
@@ -312,7 +337,13 @@ class HTTPClient(object):
 class RequestsClient(HTTPClient):
     name = "requests"
 
-    def __init__(self, timeout=80, session=None, **kwargs):
+    def __init__(
+        self,
+        # TODO (next major): Add * here to force keyword-only arguments
+        timeout=80,
+        session=None,
+        **kwargs
+    ):
         super(RequestsClient, self).__init__(**kwargs)
         self._session = session
         self._timeout = timeout
@@ -320,12 +351,26 @@ class RequestsClient(HTTPClient):
         assert requests is not None
         self.requests = requests
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self,
+        method,
+        url,
+        headers,
+        # TODO (next major): Add * here to force keyword-only arguments
+        post_data=None,
+    ):
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(
+        self,
+        method,
+        url,
+        headers,
+        # TODO (next major): Add * here to force keyword-only arguments
+        post_data=None,
+    ):
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
@@ -445,7 +490,13 @@ class RequestsClient(HTTPClient):
 class UrlFetchClient(HTTPClient):
     name = "urlfetch"
 
-    def __init__(self, verify_ssl_certs=True, proxy=None, deadline=55):
+    def __init__(
+        self,
+        # TODO (next major): Add * here to force keyword-only arguments
+        verify_ssl_certs=True,
+        proxy=None,
+        deadline=55,
+    ):
         super(UrlFetchClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs, proxy=proxy
         )
@@ -467,12 +518,26 @@ class UrlFetchClient(HTTPClient):
         assert urlfetch is not None
         self.urlfetch = urlfetch
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self,
+        method,
+        url,
+        headers,
+        # TODO (next major): Add * here to force keyword-only arguments
+        post_data=None,
+    ):
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(
+        self,
+        method,
+        url,
+        headers,
+        # TODO (next major): Add * here to force keyword-only arguments
+        post_data=None,
+    ):
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
@@ -537,7 +602,12 @@ class PycurlClient(HTTPClient):
     name = "pycurl"
     _parsed_proxy: Optional[_ParsedProxy]
 
-    def __init__(self, verify_ssl_certs=True, proxy=None):
+    def __init__(
+        self,
+        # TODO (next major): Add * here to force keyword-only arguments
+        verify_ssl_certs=True,
+        proxy=None,
+    ):
         super(PycurlClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs, proxy=proxy
         )
@@ -564,12 +634,26 @@ class PycurlClient(HTTPClient):
         headers = email.message_from_string(raw_headers)
         return dict((k.lower(), v) for k, v in dict(headers).items())
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self,
+        method,
+        url,
+        headers,
+        # TODO (next major): Add * here to force keyword-only arguments
+        post_data=None,
+    ):
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(
+        self,
+        method,
+        url,
+        headers,
+        # TODO (next major): Add * here to force keyword-only arguments
+        post_data=None,
+    ):
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )
@@ -689,7 +773,12 @@ class PycurlClient(HTTPClient):
 class Urllib2Client(HTTPClient):
     name = "urllib.request"
 
-    def __init__(self, verify_ssl_certs=True, proxy=None):
+    def __init__(
+        self,
+        # TODO (next major): Add * here to force keyword-only arguments
+        verify_ssl_certs=True,
+        proxy=None,
+    ):
         super(Urllib2Client, self).__init__(
             verify_ssl_certs=verify_ssl_certs, proxy=proxy
         )
@@ -703,12 +792,26 @@ class Urllib2Client(HTTPClient):
             )
             self._opener = urllibrequest.build_opener(proxy)
 
-    def request(self, method, url, headers, post_data=None):
+    def request(
+        self,
+        method,
+        url,
+        headers,
+        # TODO (next major): Add * here to force keyword-only arguments
+        post_data=None,
+    ):
         return self._request_internal(
             method, url, headers, post_data, is_streaming=False
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(
+        self,
+        method,
+        url,
+        headers,
+        # TODO (next major): Add * here to force keyword-only arguments
+        post_data=None,
+    ):
         return self._request_internal(
             method, url, headers, post_data, is_streaming=True
         )

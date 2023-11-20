@@ -16,6 +16,7 @@ class StripeError(Exception):
     def __init__(
         self,
         message: Optional[str] = None,
+        # TODO (next major): Add * here to force keyword-only arguments
         http_body: Optional[Union[bytes, str]] = None,
         http_status: Optional[int] = None,
         json_body: Optional[object] = None,
@@ -90,6 +91,7 @@ class APIConnectionError(StripeError):
     def __init__(
         self,
         message,
+        # TODO (next major): Add * here to force keyword-only arguments
         http_body=None,
         http_status=None,
         json_body=None,
@@ -125,6 +127,7 @@ class CardError(StripeErrorWithParamCode):
         message,
         param,
         code,
+        # TODO (next major): Add * here to force keyword-only arguments
         http_body=None,
         http_status=None,
         json_body=None,
@@ -145,6 +148,7 @@ class InvalidRequestError(StripeErrorWithParamCode):
         self,
         message,
         param,
+        # TODO (next major): Add * here to force keyword-only arguments
         code=None,
         http_body=None,
         http_status=None,
@@ -170,6 +174,12 @@ class RateLimitError(StripeError):
 
 
 class SignatureVerificationError(StripeError):
-    def __init__(self, message, sig_header, http_body=None):
+    def __init__(
+        self,
+        message,
+        sig_header,
+        # TODO (next major): Add * here to force keyword-only arguments
+        http_body=None,
+    ):
         super(SignatureVerificationError, self).__init__(message, http_body)
         self.sig_header = sig_header

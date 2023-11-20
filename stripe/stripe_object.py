@@ -85,6 +85,7 @@ class StripeObject(Dict[str, Any]):
 
     def __init__(
         self,
+        # TODO (next major): Add * here to force keyword-only arguments
         id: Optional[str] = None,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -215,6 +216,7 @@ class StripeObject(Dict[str, Any]):
         cls,
         values: Dict[str, Any],
         key: Optional[str],
+        # TODO (next major): Add * here to force keyword-only arguments
         stripe_version: Optional[str] = None,
         stripe_account: Optional[str] = None,
         last_response: Optional[StripeResponse] = None,
@@ -238,6 +240,7 @@ class StripeObject(Dict[str, Any]):
     def refresh_from(
         self,
         values: Dict[str, Any],
+        # TODO (next major) add * here to force keyword-only arguments
         api_key: Optional[str] = None,
         partial: Optional[bool] = False,
         stripe_version: Optional[str] = None,
@@ -312,6 +315,7 @@ class StripeObject(Dict[str, Any]):
         self,
         method: Literal["get", "post", "delete"],
         url: str,
+        # TODO (next major) add * here to force keyword-only arguments
         params: Optional[Dict[str, Any]] = None,
         headers: Optional[Dict[str, str]] = None,
     ) -> "StripeObject":
@@ -325,6 +329,7 @@ class StripeObject(Dict[str, Any]):
         self,
         method_: Literal["get", "post", "delete"],
         url_: str,
+        # TODO (next major) add * here to force keyword-only arguments
         api_key: Optional[str] = None,
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -371,6 +376,7 @@ class StripeObject(Dict[str, Any]):
         self,
         method: str,
         url: str,
+        # TODO (next major) add * here to force keyword-only arguments
         params: Optional[Mapping[str, Any]] = None,
         headers: Optional[Mapping[str, str]] = None,
     ) -> StripeStreamResponse:

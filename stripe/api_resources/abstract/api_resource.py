@@ -21,7 +21,13 @@ class APIResource(StripeObject, Generic[T]):
     OBJECT_NAME: ClassVar[str]
 
     @classmethod
-    def retrieve(cls, id, api_key=None, **params) -> T:
+    def retrieve(
+        cls,
+        id,
+        # TODO (next major): Add * here to force keyword-only arguments
+        api_key=None,
+        **params
+    ) -> T:
         instance = cls(id, api_key, **params)
         instance.refresh()
         return cast(T, instance)
@@ -62,6 +68,7 @@ class APIResource(StripeObject, Generic[T]):
         self,
         method_,
         url_,
+        # TODO (next major) add * here to force keyword-only arguments
         api_key=None,
         idempotency_key=None,
         stripe_version=None,
@@ -93,6 +100,7 @@ class APIResource(StripeObject, Generic[T]):
         self,
         method_: Literal["get", "post", "delete"],
         url_: str,
+        # TODO (next major) add * here to force keyword-only arguments
         api_key: Optional[str] = None,
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -122,6 +130,7 @@ class APIResource(StripeObject, Generic[T]):
         cls,
         method_,
         url_,
+        # TODO (next major) add * here to force keyword-only arguments
         api_key=None,
         idempotency_key=None,
         stripe_version=None,
@@ -161,6 +170,7 @@ class APIResource(StripeObject, Generic[T]):
         cls,
         method_,
         url_,
+        # TODO (next major) add * here to force keyword-only arguments
         api_key=None,
         idempotency_key=None,
         stripe_version=None,
