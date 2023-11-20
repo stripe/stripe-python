@@ -1,8 +1,9 @@
+from typing import Optional
 from stripe import util
 from urllib.parse import quote_plus
 
 
-def custom_method(name, http_verb, http_path=None, is_streaming=False):
+def custom_method(name: str, http_verb: str, http_path: Optional[str] = None, is_streaming=False):
     if http_verb not in ["get", "post", "delete"]:
         raise ValueError(
             "Invalid http_verb: %s. Must be one of 'get', 'post' or 'delete'"
