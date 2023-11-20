@@ -68,7 +68,7 @@ class APIResource(StripeObject, Generic[T]):
         self,
         method_,
         url_,
-        # TODO (next major) add * here to force keyword-only arguments
+        *,
         api_key=None,
         idempotency_key=None,
         stripe_version=None,
@@ -80,12 +80,12 @@ class APIResource(StripeObject, Generic[T]):
             self,
             method_,
             url_,
-            api_key,
-            idempotency_key,
-            stripe_version,
-            stripe_account,
-            headers,
-            params,
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            headers=headers,
+            params=params,
         )
 
         if type(self) is type(obj):
@@ -100,7 +100,7 @@ class APIResource(StripeObject, Generic[T]):
         self,
         method_: Literal["get", "post", "delete"],
         url_: str,
-        # TODO (next major) add * here to force keyword-only arguments
+        *,
         api_key: Optional[str] = None,
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -112,12 +112,12 @@ class APIResource(StripeObject, Generic[T]):
             self,
             method_,
             url_,
-            api_key,
-            idempotency_key,
-            stripe_version,
-            stripe_account,
-            headers,
-            params,
+            api_key=api_key,
+            idempotency_key=idempotency_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            headers=headers,
+            params=params,
         )
 
         self.refresh_from(obj)
@@ -130,7 +130,7 @@ class APIResource(StripeObject, Generic[T]):
         cls,
         method_,
         url_,
-        # TODO (next major) add * here to force keyword-only arguments
+        *,
         api_key=None,
         idempotency_key=None,
         stripe_version=None,
@@ -170,7 +170,7 @@ class APIResource(StripeObject, Generic[T]):
         cls,
         method_,
         url_,
-        # TODO (next major) add * here to force keyword-only arguments
+        *,
         api_key=None,
         idempotency_key=None,
         stripe_version=None,

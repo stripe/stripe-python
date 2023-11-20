@@ -329,7 +329,7 @@ class StripeObject(Dict[str, Any]):
         self,
         method_: Literal["get", "post", "delete"],
         url_: str,
-        # TODO (next major) add * here to force keyword-only arguments
+        *,
         api_key: Optional[str] = None,
         idempotency_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
