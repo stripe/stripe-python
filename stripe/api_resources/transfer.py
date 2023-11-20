@@ -295,11 +295,11 @@ class Transfer(
             cls._static_request(
                 "post",
                 cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
-                params,
+                api_key=api_key,
+                idempotency_key=idempotency_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
             ),
         )
 
@@ -325,6 +325,7 @@ class Transfer(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
