@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.7.0b1 - 2023-11-21
+* [#1141](https://github.com/stripe/stripe-python/pull/1141) Update generated code for beta
+* Rename `receipient` to `recipient` beneath `PaymentDetails` on `Charge` and `PaymentIntent` APIs.* Add support for `electronic_commerce_indicator` on resource classes `Charge.PaymentMethodDetails.Card.ThreeDSecure` and `SetupAttempt.PaymentMethodDetails.Card.ThreeDSecure`
+* Add support for `components` on parameter class `CustomerSession.CreateParams` and resource `CustomerSession`
+
 ## 7.6.0 - 2023-11-21
 * [#1138](https://github.com/stripe/stripe-python/pull/1138) Update generated code
   * Add support for `electronic_commerce_indicator` on resource classes `Charge.PaymentMethodDetails.Card.ThreeDSecure` and `SetupAttempt.PaymentMethodDetails.Card.ThreeDSecure`
