@@ -16,5 +16,7 @@
   "python.testing.pytestEnabled": true,
 
   "python.terminal.activateEnvironment": true,
-  "python.defaultInterpreterPath": "~/venv/bin/python3"
+  "python.defaultInterpreterPath": "~/venv/bin/python3",
+  "python.analysis.diagnosticMode": "workspace",
+  "python.analysis.typeCheckingMode": "basic",
 }
