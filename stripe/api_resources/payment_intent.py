@@ -903,7 +903,7 @@ class PaymentIntent(
                 """
 
             class Delivery(StripeObject):
-                class Receipient(StripeObject):
+                class Recipient(StripeObject):
                     email: Optional[str]
                     """
                     The email of the recipient the ticket is delivered to.
@@ -921,8 +921,8 @@ class PaymentIntent(
                 """
                 The delivery method for the payment
                 """
-                receipient: Optional[Receipient]
-                _inner_class_types = {"receipient": Receipient}
+                recipient: Optional[Recipient]
+                _inner_class_types = {"recipient": Recipient}
 
             class Driver(StripeObject):
                 name: Optional[str]
@@ -1102,7 +1102,7 @@ class PaymentIntent(
                 """
 
             class Delivery(StripeObject):
-                class Receipient(StripeObject):
+                class Recipient(StripeObject):
                     email: Optional[str]
                     """
                     The email of the recipient the ticket is delivered to.
@@ -1120,8 +1120,8 @@ class PaymentIntent(
                 """
                 The delivery method for the payment
                 """
-                receipient: Optional[Receipient]
-                _inner_class_types = {"receipient": Receipient}
+                recipient: Optional[Recipient]
+                _inner_class_types = {"recipient": Recipient}
 
             access_controlled_venue: Optional[bool]
             """
@@ -2392,14 +2392,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.CaptureParamsPaymentDetailsLodgingDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.CaptureParamsPaymentDetailsLodgingDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CaptureParamsPaymentDetailsLodgingDeliveryReceipient(TypedDict):
+    class CaptureParamsPaymentDetailsLodgingDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -2530,14 +2530,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.CaptureParamsPaymentDetailsFlightDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.CaptureParamsPaymentDetailsFlightDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CaptureParamsPaymentDetailsFlightDeliveryReceipient(TypedDict):
+    class CaptureParamsPaymentDetailsFlightDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -2606,14 +2606,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.CaptureParamsPaymentDetailsEventDetailsDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.CaptureParamsPaymentDetailsEventDetailsDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CaptureParamsPaymentDetailsEventDetailsDeliveryReceipient(TypedDict):
+    class CaptureParamsPaymentDetailsEventDetailsDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -2816,14 +2816,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.CaptureParamsPaymentDetailsCarRentalDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.CaptureParamsPaymentDetailsCarRentalDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CaptureParamsPaymentDetailsCarRentalDeliveryReceipient(TypedDict):
+    class CaptureParamsPaymentDetailsCarRentalDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -3811,6 +3811,93 @@ class PaymentIntent(
         """
         Statement details for this payment intent. You can use this to override the merchant details shown on your customers' statements.
         """
+        three_d_secure: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecure"
+        ]
+        """
+        If 3D Secure authentication was performed with a third-party provider,
+        the authentication details to use for this payment.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
+        ares_trans_status: NotRequired[
+            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+        ]
+        """
+        The `transStatus` returned from the card Issuer's ACS in the ARes.
+        """
+        cryptogram: str
+        """
+        The cryptogram, also known as the "authentication value" (AAV, CAVV or
+        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
+        (Most 3D Secure providers will return the base64-encoded version, which
+        is what you should specify here.)
+        """
+        electronic_commerce_indicator: NotRequired[
+            "Literal['01', '02', '05', '06', '07']"
+        ]
+        """
+        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
+        provider and indicates what degree of authentication was performed.
+        """
+        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
+        """
+        The exemption requested via 3DS and accepted by the issuer at authentication time.
+        """
+        network_options: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
+        ]
+        """
+        Network specific 3DS fields. Network specific arguments require an
+        explicit card brand choice. The parameter `payment_method_options.card.network``
+        must be populated accordingly
+        """
+        requestor_challenge_indicator: NotRequired["str"]
+        """
+        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
+        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
+        """
+        transaction_id: str
+        """
+        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
+        Transaction ID (dsTransID).
+        """
+        version: Literal["1.0.2", "2.1.0", "2.2.0"]
+        """
+        The version of 3D Secure that was performed.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
+        TypedDict,
+    ):
+        cartes_bancaires: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
+        ]
+        """
+        Cartes Bancaires-specific 3DS fields.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
+        TypedDict,
+    ):
+        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+        """
+        The cryptogram calculation algorithm used by the card Issuer's ACS
+        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
+        messageExtension: CB-AVALGO
+        """
+        cb_exemption: NotRequired["str"]
+        """
+        The exemption indicator returned from Cartes Bancaires in the ARes.
+        message extension: CB-EXEMPTION; string (4 characters)
+        This is a 3 byte bitmap (low significant byte first and most significant
+        bit first) that has been Base64 encoded
+        """
+        cb_score: NotRequired["int"]
+        """
+        The risk score returned from Cartes Bancaires in the ARes.
+        message extension: CB-SCORE; numeric value 0-99
+        """
 
     class ConfirmParamsPaymentMethodOptionsCardStatementDetails(TypedDict):
         address: NotRequired[
@@ -4769,14 +4856,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentDetailsLodgingDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentDetailsLodgingDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ConfirmParamsPaymentDetailsLodgingDeliveryReceipient(TypedDict):
+    class ConfirmParamsPaymentDetailsLodgingDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -4907,14 +4994,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentDetailsFlightDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentDetailsFlightDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ConfirmParamsPaymentDetailsFlightDeliveryReceipient(TypedDict):
+    class ConfirmParamsPaymentDetailsFlightDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -4983,14 +5070,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentDetailsEventDetailsDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentDetailsEventDetailsDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ConfirmParamsPaymentDetailsEventDetailsDeliveryReceipient(TypedDict):
+    class ConfirmParamsPaymentDetailsEventDetailsDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -5193,14 +5280,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.ConfirmParamsPaymentDetailsCarRentalDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentDetailsCarRentalDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ConfirmParamsPaymentDetailsCarRentalDeliveryReceipient(TypedDict):
+    class ConfirmParamsPaymentDetailsCarRentalDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -6339,6 +6426,93 @@ class PaymentIntent(
         """
         Statement details for this payment intent. You can use this to override the merchant details shown on your customers' statements.
         """
+        three_d_secure: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardThreeDSecure"
+        ]
+        """
+        If 3D Secure authentication was performed with a third-party provider,
+        the authentication details to use for this payment.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
+        ares_trans_status: NotRequired[
+            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+        ]
+        """
+        The `transStatus` returned from the card Issuer's ACS in the ARes.
+        """
+        cryptogram: str
+        """
+        The cryptogram, also known as the "authentication value" (AAV, CAVV or
+        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
+        (Most 3D Secure providers will return the base64-encoded version, which
+        is what you should specify here.)
+        """
+        electronic_commerce_indicator: NotRequired[
+            "Literal['01', '02', '05', '06', '07']"
+        ]
+        """
+        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
+        provider and indicates what degree of authentication was performed.
+        """
+        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
+        """
+        The exemption requested via 3DS and accepted by the issuer at authentication time.
+        """
+        network_options: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
+        ]
+        """
+        Network specific 3DS fields. Network specific arguments require an
+        explicit card brand choice. The parameter `payment_method_options.card.network``
+        must be populated accordingly
+        """
+        requestor_challenge_indicator: NotRequired["str"]
+        """
+        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
+        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
+        """
+        transaction_id: str
+        """
+        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
+        Transaction ID (dsTransID).
+        """
+        version: Literal["1.0.2", "2.1.0", "2.2.0"]
+        """
+        The version of 3D Secure that was performed.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
+        TypedDict,
+    ):
+        cartes_bancaires: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
+        ]
+        """
+        Cartes Bancaires-specific 3DS fields.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
+        TypedDict,
+    ):
+        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+        """
+        The cryptogram calculation algorithm used by the card Issuer's ACS
+        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
+        messageExtension: CB-AVALGO
+        """
+        cb_exemption: NotRequired["str"]
+        """
+        The exemption indicator returned from Cartes Bancaires in the ARes.
+        message extension: CB-EXEMPTION; string (4 characters)
+        This is a 3 byte bitmap (low significant byte first and most significant
+        bit first) that has been Base64 encoded
+        """
+        cb_score: NotRequired["int"]
+        """
+        The risk score returned from Cartes Bancaires in the ARes.
+        message extension: CB-SCORE; numeric value 0-99
+        """
 
     class CreateParamsPaymentMethodOptionsCardStatementDetails(TypedDict):
         address: NotRequired[
@@ -7295,14 +7469,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.CreateParamsPaymentDetailsLodgingDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.CreateParamsPaymentDetailsLodgingDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CreateParamsPaymentDetailsLodgingDeliveryReceipient(TypedDict):
+    class CreateParamsPaymentDetailsLodgingDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -7431,14 +7605,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.CreateParamsPaymentDetailsFlightDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.CreateParamsPaymentDetailsFlightDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CreateParamsPaymentDetailsFlightDeliveryReceipient(TypedDict):
+    class CreateParamsPaymentDetailsFlightDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -7507,14 +7681,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.CreateParamsPaymentDetailsEventDetailsDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.CreateParamsPaymentDetailsEventDetailsDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CreateParamsPaymentDetailsEventDetailsDeliveryReceipient(TypedDict):
+    class CreateParamsPaymentDetailsEventDetailsDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -7717,14 +7891,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.CreateParamsPaymentDetailsCarRentalDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.CreateParamsPaymentDetailsCarRentalDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CreateParamsPaymentDetailsCarRentalDeliveryReceipient(TypedDict):
+    class CreateParamsPaymentDetailsCarRentalDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -8863,6 +9037,93 @@ class PaymentIntent(
         """
         Statement details for this payment intent. You can use this to override the merchant details shown on your customers' statements.
         """
+        three_d_secure: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecure"
+        ]
+        """
+        If 3D Secure authentication was performed with a third-party provider,
+        the authentication details to use for this payment.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
+        ares_trans_status: NotRequired[
+            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+        ]
+        """
+        The `transStatus` returned from the card Issuer's ACS in the ARes.
+        """
+        cryptogram: str
+        """
+        The cryptogram, also known as the "authentication value" (AAV, CAVV or
+        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
+        (Most 3D Secure providers will return the base64-encoded version, which
+        is what you should specify here.)
+        """
+        electronic_commerce_indicator: NotRequired[
+            "Literal['01', '02', '05', '06', '07']"
+        ]
+        """
+        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
+        provider and indicates what degree of authentication was performed.
+        """
+        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
+        """
+        The exemption requested via 3DS and accepted by the issuer at authentication time.
+        """
+        network_options: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
+        ]
+        """
+        Network specific 3DS fields. Network specific arguments require an
+        explicit card brand choice. The parameter `payment_method_options.card.network``
+        must be populated accordingly
+        """
+        requestor_challenge_indicator: NotRequired["str"]
+        """
+        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
+        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
+        """
+        transaction_id: str
+        """
+        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
+        Transaction ID (dsTransID).
+        """
+        version: Literal["1.0.2", "2.1.0", "2.2.0"]
+        """
+        The version of 3D Secure that was performed.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
+        TypedDict,
+    ):
+        cartes_bancaires: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
+        ]
+        """
+        Cartes Bancaires-specific 3DS fields.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
+        TypedDict,
+    ):
+        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+        """
+        The cryptogram calculation algorithm used by the card Issuer's ACS
+        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
+        messageExtension: CB-AVALGO
+        """
+        cb_exemption: NotRequired["str"]
+        """
+        The exemption indicator returned from Cartes Bancaires in the ARes.
+        message extension: CB-EXEMPTION; string (4 characters)
+        This is a 3 byte bitmap (low significant byte first and most significant
+        bit first) that has been Base64 encoded
+        """
+        cb_score: NotRequired["int"]
+        """
+        The risk score returned from Cartes Bancaires in the ARes.
+        message extension: CB-SCORE; numeric value 0-99
+        """
 
     class ModifyParamsPaymentMethodOptionsCardStatementDetails(TypedDict):
         address: NotRequired[
@@ -9819,14 +10080,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentDetailsLodgingDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentDetailsLodgingDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ModifyParamsPaymentDetailsLodgingDeliveryReceipient(TypedDict):
+    class ModifyParamsPaymentDetailsLodgingDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -9955,14 +10216,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentDetailsFlightDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentDetailsFlightDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ModifyParamsPaymentDetailsFlightDeliveryReceipient(TypedDict):
+    class ModifyParamsPaymentDetailsFlightDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -10031,14 +10292,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentDetailsEventDetailsDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentDetailsEventDetailsDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ModifyParamsPaymentDetailsEventDetailsDeliveryReceipient(TypedDict):
+    class ModifyParamsPaymentDetailsEventDetailsDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -10241,14 +10502,14 @@ class PaymentIntent(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "PaymentIntent.ModifyParamsPaymentDetailsCarRentalDeliveryReceipient"
+        recipient: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentDetailsCarRentalDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ModifyParamsPaymentDetailsCarRentalDeliveryReceipient(TypedDict):
+    class ModifyParamsPaymentDetailsCarRentalDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.

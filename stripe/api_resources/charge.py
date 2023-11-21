@@ -440,6 +440,22 @@ class Charge(
                 For authenticated transactions: how the customer was authenticated by
                 the issuing bank.
                 """
+                electronic_commerce_indicator: Optional[
+                    Literal["01", "02", "05", "06", "07"]
+                ]
+                """
+                The Electronic Commerce Indicator (ECI). A protocol-level field
+                indicating what degree of authentication was performed.
+                """
+                exemption_indicator: Optional[Literal["low_risk", "none"]]
+                """
+                The exemption requested via 3DS and accepted by the issuer at authentication time.
+                """
+                exemption_indicator_applied: Optional[bool]
+                """
+                Whether Stripe requested the value of `exemption_indicator` in the transaction. This will depend on
+                the outcome of Stripe's internal risk assessment.
+                """
                 result: Optional[
                     Literal[
                         "attempt_acknowledged",
@@ -467,6 +483,11 @@ class Charge(
                 """
                 Additional information about why 3D Secure succeeded or failed based
                 on the `result`.
+                """
+                transaction_id: Optional[str]
+                """
+                The 3D Secure 1 XID or 3D Secure 2 Directory Server Transaction ID
+                (dsTransId) for this payment.
                 """
                 version: Optional[Literal["1.0.2", "2.1.0", "2.2.0"]]
                 """
@@ -771,6 +792,12 @@ class Charge(
             }
 
         class CardPresent(StripeObject):
+            class Offline(StripeObject):
+                stored_at: Optional[int]
+                """
+                Time at which the payment was collected while offline
+                """
+
             class Receipt(StripeObject):
                 account_type: Optional[
                     Literal["checking", "credit", "prepaid", "unknown"]
@@ -881,6 +908,10 @@ class Charge(
             """
             Identifies which network this charge was processed on. Can be `amex`, `cartes_bancaires`, `diners`, `discover`, `eftpos_au`, `interac`, `jcb`, `mastercard`, `unionpay`, `visa`, or `unknown`.
             """
+            offline: Optional[Offline]
+            """
+            Details about payments collected offline.
+            """
             overcapture_supported: bool
             """
             Defines whether the authorized amount can be over-captured or not
@@ -901,7 +932,7 @@ class Charge(
             """
             A collection of fields required to be displayed on receipts. Only required for EMV transactions.
             """
-            _inner_class_types = {"receipt": Receipt}
+            _inner_class_types = {"offline": Offline, "receipt": Receipt}
 
         class Cashapp(StripeObject):
             buyer_id: Optional[str]
@@ -1936,14 +1967,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.CaptureParamsPaymentDetailsLodgingDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsLodgingDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CaptureParamsPaymentDetailsLodgingDeliveryReceipient(TypedDict):
+    class CaptureParamsPaymentDetailsLodgingDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -2072,14 +2103,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.CaptureParamsPaymentDetailsFlightDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsFlightDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CaptureParamsPaymentDetailsFlightDeliveryReceipient(TypedDict):
+    class CaptureParamsPaymentDetailsFlightDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -2148,14 +2179,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.CaptureParamsPaymentDetailsEventDetailsDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsEventDetailsDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CaptureParamsPaymentDetailsEventDetailsDeliveryReceipient(TypedDict):
+    class CaptureParamsPaymentDetailsEventDetailsDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -2358,14 +2389,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.CaptureParamsPaymentDetailsCarRentalDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsCarRentalDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CaptureParamsPaymentDetailsCarRentalDeliveryReceipient(TypedDict):
+    class CaptureParamsPaymentDetailsCarRentalDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -2835,14 +2866,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.ModifyParamsPaymentDetailsLodgingDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsLodgingDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ModifyParamsPaymentDetailsLodgingDeliveryReceipient(TypedDict):
+    class ModifyParamsPaymentDetailsLodgingDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -2971,14 +3002,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.ModifyParamsPaymentDetailsFlightDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsFlightDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ModifyParamsPaymentDetailsFlightDeliveryReceipient(TypedDict):
+    class ModifyParamsPaymentDetailsFlightDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -3047,14 +3078,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.ModifyParamsPaymentDetailsEventDetailsDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsEventDetailsDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ModifyParamsPaymentDetailsEventDetailsDeliveryReceipient(TypedDict):
+    class ModifyParamsPaymentDetailsEventDetailsDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -3257,14 +3288,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.ModifyParamsPaymentDetailsCarRentalDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsCarRentalDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ModifyParamsPaymentDetailsCarRentalDeliveryReceipient(TypedDict):
+    class ModifyParamsPaymentDetailsCarRentalDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
