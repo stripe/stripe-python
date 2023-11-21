@@ -1967,14 +1967,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.CaptureParamsPaymentDetailsLodgingDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsLodgingDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CaptureParamsPaymentDetailsLodgingDeliveryReceipient(TypedDict):
+    class CaptureParamsPaymentDetailsLodgingDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -2103,14 +2103,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.CaptureParamsPaymentDetailsFlightDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsFlightDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CaptureParamsPaymentDetailsFlightDeliveryReceipient(TypedDict):
+    class CaptureParamsPaymentDetailsFlightDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -2179,14 +2179,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.CaptureParamsPaymentDetailsEventDetailsDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsEventDetailsDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CaptureParamsPaymentDetailsEventDetailsDeliveryReceipient(TypedDict):
+    class CaptureParamsPaymentDetailsEventDetailsDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -2389,14 +2389,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.CaptureParamsPaymentDetailsCarRentalDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.CaptureParamsPaymentDetailsCarRentalDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class CaptureParamsPaymentDetailsCarRentalDeliveryReceipient(TypedDict):
+    class CaptureParamsPaymentDetailsCarRentalDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -2866,14 +2866,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.ModifyParamsPaymentDetailsLodgingDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsLodgingDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ModifyParamsPaymentDetailsLodgingDeliveryReceipient(TypedDict):
+    class ModifyParamsPaymentDetailsLodgingDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -3002,14 +3002,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.ModifyParamsPaymentDetailsFlightDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsFlightDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ModifyParamsPaymentDetailsFlightDeliveryReceipient(TypedDict):
+    class ModifyParamsPaymentDetailsFlightDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -3078,14 +3078,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.ModifyParamsPaymentDetailsEventDetailsDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsEventDetailsDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ModifyParamsPaymentDetailsEventDetailsDeliveryReceipient(TypedDict):
+    class ModifyParamsPaymentDetailsEventDetailsDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
@@ -3288,14 +3288,14 @@ class Charge(
         """
         The delivery method for the payment
         """
-        receipient: NotRequired[
-            "Charge.ModifyParamsPaymentDetailsCarRentalDeliveryReceipient"
+        recipient: NotRequired[
+            "Charge.ModifyParamsPaymentDetailsCarRentalDeliveryRecipient"
         ]
         """
         Details of the recipient.
         """
 
-    class ModifyParamsPaymentDetailsCarRentalDeliveryReceipient(TypedDict):
+    class ModifyParamsPaymentDetailsCarRentalDeliveryRecipient(TypedDict):
         email: NotRequired["str"]
         """
         The email of the recipient the ticket is delivered to.
