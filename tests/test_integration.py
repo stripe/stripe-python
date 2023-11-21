@@ -189,7 +189,7 @@ class TestIntegration(object):
         reqs = MockServerRequestHandler.get_requests(2)
         assert MockServerRequestHandler.num_requests == 2
         # req 1
-        assert not reqs[0].headers.get("X-Stripe-Client-Telemetry")
+        assert not reqs[0].headers.get("x-stripe-client-telemetry")
         # req 2
         telemetry_raw = reqs[1].headers.get("x-stripe-client-telemetry")
 
