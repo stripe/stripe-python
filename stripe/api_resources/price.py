@@ -759,7 +759,7 @@ class Price(
         ]  # pyright: ignore[reportGeneralTypeIssues]
     ) -> ListObject["Price"]:
         """
-        Returns a list of your active prices. For the list of inactive prices, set active to false.
+        Returns a list of your active prices, excluding [inline prices](https://stripe.com/docs/products-prices/pricing-models#inline-pricing). For the list of inactive prices, set active to false.
         """
         result = cls._static_request(
             "get",
@@ -770,6 +770,7 @@ class Price(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

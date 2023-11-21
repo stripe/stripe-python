@@ -2757,6 +2757,93 @@ class PaymentIntent(
         """
         Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
         """
+        three_d_secure: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecure"
+        ]
+        """
+        If 3D Secure authentication was performed with a third-party provider,
+        the authentication details to use for this payment.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
+        ares_trans_status: NotRequired[
+            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+        ]
+        """
+        The `transStatus` returned from the card Issuer's ACS in the ARes.
+        """
+        cryptogram: str
+        """
+        The cryptogram, also known as the "authentication value" (AAV, CAVV or
+        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
+        (Most 3D Secure providers will return the base64-encoded version, which
+        is what you should specify here.)
+        """
+        electronic_commerce_indicator: NotRequired[
+            "Literal['01', '02', '05', '06', '07']"
+        ]
+        """
+        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
+        provider and indicates what degree of authentication was performed.
+        """
+        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
+        """
+        The exemption requested via 3DS and accepted by the issuer at authentication time.
+        """
+        network_options: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
+        ]
+        """
+        Network specific 3DS fields. Network specific arguments require an
+        explicit card brand choice. The parameter `payment_method_options.card.network``
+        must be populated accordingly
+        """
+        requestor_challenge_indicator: NotRequired["str"]
+        """
+        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
+        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
+        """
+        transaction_id: str
+        """
+        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
+        Transaction ID (dsTransID).
+        """
+        version: Literal["1.0.2", "2.1.0", "2.2.0"]
+        """
+        The version of 3D Secure that was performed.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
+        TypedDict,
+    ):
+        cartes_bancaires: NotRequired[
+            "PaymentIntent.ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
+        ]
+        """
+        Cartes Bancaires-specific 3DS fields.
+        """
+
+    class ConfirmParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
+        TypedDict,
+    ):
+        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+        """
+        The cryptogram calculation algorithm used by the card Issuer's ACS
+        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
+        messageExtension: CB-AVALGO
+        """
+        cb_exemption: NotRequired["str"]
+        """
+        The exemption indicator returned from Cartes Bancaires in the ARes.
+        message extension: CB-EXEMPTION; string (4 characters)
+        This is a 3 byte bitmap (low significant byte first and most significant
+        bit first) that has been Base64 encoded
+        """
+        cb_score: NotRequired["int"]
+        """
+        The risk score returned from Cartes Bancaires in the ARes.
+        message extension: CB-SCORE; numeric value 0-99
+        """
 
     class ConfirmParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
         amount: int
@@ -4572,6 +4659,93 @@ class PaymentIntent(
         statement_descriptor_suffix_kanji: NotRequired["Literal['']|str"]
         """
         Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
+        """
+        three_d_secure: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardThreeDSecure"
+        ]
+        """
+        If 3D Secure authentication was performed with a third-party provider,
+        the authentication details to use for this payment.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
+        ares_trans_status: NotRequired[
+            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+        ]
+        """
+        The `transStatus` returned from the card Issuer's ACS in the ARes.
+        """
+        cryptogram: str
+        """
+        The cryptogram, also known as the "authentication value" (AAV, CAVV or
+        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
+        (Most 3D Secure providers will return the base64-encoded version, which
+        is what you should specify here.)
+        """
+        electronic_commerce_indicator: NotRequired[
+            "Literal['01', '02', '05', '06', '07']"
+        ]
+        """
+        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
+        provider and indicates what degree of authentication was performed.
+        """
+        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
+        """
+        The exemption requested via 3DS and accepted by the issuer at authentication time.
+        """
+        network_options: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
+        ]
+        """
+        Network specific 3DS fields. Network specific arguments require an
+        explicit card brand choice. The parameter `payment_method_options.card.network``
+        must be populated accordingly
+        """
+        requestor_challenge_indicator: NotRequired["str"]
+        """
+        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
+        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
+        """
+        transaction_id: str
+        """
+        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
+        Transaction ID (dsTransID).
+        """
+        version: Literal["1.0.2", "2.1.0", "2.2.0"]
+        """
+        The version of 3D Secure that was performed.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
+        TypedDict,
+    ):
+        cartes_bancaires: NotRequired[
+            "PaymentIntent.CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
+        ]
+        """
+        Cartes Bancaires-specific 3DS fields.
+        """
+
+    class CreateParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
+        TypedDict,
+    ):
+        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+        """
+        The cryptogram calculation algorithm used by the card Issuer's ACS
+        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
+        messageExtension: CB-AVALGO
+        """
+        cb_exemption: NotRequired["str"]
+        """
+        The exemption indicator returned from Cartes Bancaires in the ARes.
+        message extension: CB-EXEMPTION; string (4 characters)
+        This is a 3 byte bitmap (low significant byte first and most significant
+        bit first) that has been Base64 encoded
+        """
+        cb_score: NotRequired["int"]
+        """
+        The risk score returned from Cartes Bancaires in the ARes.
+        message extension: CB-SCORE; numeric value 0-99
         """
 
     class CreateParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
@@ -6395,6 +6569,93 @@ class PaymentIntent(
         """
         Provides information about a card payment that customers see on their statements. Concatenated with the Kanji prefix (shortened Kanji descriptor) or Kanji statement descriptor that's set on the account to form the complete statement descriptor. Maximum 17 characters. On card statements, the *concatenation* of both prefix and suffix (including separators) will appear truncated to 17 characters.
         """
+        three_d_secure: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecure"
+        ]
+        """
+        If 3D Secure authentication was performed with a third-party provider,
+        the authentication details to use for this payment.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardThreeDSecure(TypedDict):
+        ares_trans_status: NotRequired[
+            "Literal['A', 'C', 'I', 'N', 'R', 'U', 'Y']"
+        ]
+        """
+        The `transStatus` returned from the card Issuer's ACS in the ARes.
+        """
+        cryptogram: str
+        """
+        The cryptogram, also known as the "authentication value" (AAV, CAVV or
+        AEVV). This value is 20 bytes, base64-encoded into a 28-character string.
+        (Most 3D Secure providers will return the base64-encoded version, which
+        is what you should specify here.)
+        """
+        electronic_commerce_indicator: NotRequired[
+            "Literal['01', '02', '05', '06', '07']"
+        ]
+        """
+        The Electronic Commerce Indicator (ECI) is returned by your 3D Secure
+        provider and indicates what degree of authentication was performed.
+        """
+        exemption_indicator: NotRequired["Literal['low_risk', 'none']"]
+        """
+        The exemption requested via 3DS and accepted by the issuer at authentication time.
+        """
+        network_options: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions"
+        ]
+        """
+        Network specific 3DS fields. Network specific arguments require an
+        explicit card brand choice. The parameter `payment_method_options.card.network``
+        must be populated accordingly
+        """
+        requestor_challenge_indicator: NotRequired["str"]
+        """
+        The challenge indicator (`threeDSRequestorChallengeInd`) which was requested in the
+        AReq sent to the card Issuer's ACS. A string containing 2 digits from 01-99.
+        """
+        transaction_id: str
+        """
+        For 3D Secure 1, the XID. For 3D Secure 2, the Directory Server
+        Transaction ID (dsTransID).
+        """
+        version: Literal["1.0.2", "2.1.0", "2.2.0"]
+        """
+        The version of 3D Secure that was performed.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptions(
+        TypedDict,
+    ):
+        cartes_bancaires: NotRequired[
+            "PaymentIntent.ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires"
+        ]
+        """
+        Cartes Bancaires-specific 3DS fields.
+        """
+
+    class ModifyParamsPaymentMethodOptionsCardThreeDSecureNetworkOptionsCartesBancaires(
+        TypedDict,
+    ):
+        cb_avalgo: Literal["0", "1", "2", "3", "4", "A"]
+        """
+        The cryptogram calculation algorithm used by the card Issuer's ACS
+        to calculate the Authentication cryptogram. Also known as `cavvAlgorithm`.
+        messageExtension: CB-AVALGO
+        """
+        cb_exemption: NotRequired["str"]
+        """
+        The exemption indicator returned from Cartes Bancaires in the ARes.
+        message extension: CB-EXEMPTION; string (4 characters)
+        This is a 3 byte bitmap (low significant byte first and most significant
+        bit first) that has been Base64 encoded
+        """
+        cb_score: NotRequired["int"]
+        """
+        The risk score returned from Cartes Bancaires in the ARes.
+        message extension: CB-SCORE; numeric value 0-99
+        """
 
     class ModifyParamsPaymentMethodOptionsCardMandateOptions(TypedDict):
         amount: int
@@ -8041,6 +8302,7 @@ class PaymentIntent(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)
