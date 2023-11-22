@@ -8,6 +8,7 @@ from stripe.api_resources import (
     billing_portal as billing_portal,
     capital as capital,
     checkout as checkout,
+    climate as climate,
     financial_connections as financial_connections,
     gift_cards as gift_cards,
     identity as identity,
