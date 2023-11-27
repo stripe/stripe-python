@@ -239,7 +239,7 @@ class OutboundPayment(
         """
         statement_descriptor: NotRequired["str"]
         """
-        The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `wire` payments, or 500 characters for `stripe` network transfers. The default value is `payment`.
+        The description that appears on the receiving end for this OutboundPayment (for example, bank statement for external bank transfer). Maximum 10 characters for `ach` payments, 140 characters for `us_domestic_wire` payments, or 500 characters for `stripe` network transfers. The default value is "payment".
         """
 
     class CreateParamsEndUserDetails(TypedDict):
@@ -645,6 +645,7 @@ class OutboundPayment(
             params=params,
         )
         if not isinstance(result, ListObject):
+
             raise TypeError(
                 "Expected list object from API, got %s"
                 % (type(result).__name__)

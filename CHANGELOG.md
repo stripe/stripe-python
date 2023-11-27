@@ -1,3 +1,16 @@
+## 7.6.0 - 2023-11-21
+* [#1138](https://github.com/stripe/stripe-python/pull/1138) Update generated code
+  * Add support for `electronic_commerce_indicator` on resource classes `Charge.PaymentMethodDetails.Card.ThreeDSecure` and `SetupAttempt.PaymentMethodDetails.Card.ThreeDSecure`
+  * Add support for `exemption_indicator` on resource class `Charge.PaymentMethodDetails.Card.ThreeDSecure`
+  * Add support for `transaction_id` on resource classes `Charge.PaymentMethodDetails.Card.ThreeDSecure`, `SetupAttempt.PaymentMethodDetails.Card.ThreeDSecure`, `issuing.Authorization.NetworkData`, and `issuing.Transaction.NetworkData`
+  * Add support for `offline` on resource class `Charge.PaymentMethodDetails.CardPresent`
+  * Add support for `transferred_to_balance` on resource `CustomerCashBalanceTransaction`
+  * Add support for `three_d_secure` on parameter classes `PaymentIntent.ConfirmParamsPaymentMethodOptionsCard`, `PaymentIntent.CreateParamsPaymentMethodOptionsCard`, `PaymentIntent.ModifyParamsPaymentMethodOptionsCard`, `SetupIntent.ConfirmParamsPaymentMethodOptionsCard`, `SetupIntent.CreateParamsPaymentMethodOptionsCard`, and `SetupIntent.ModifyParamsPaymentMethodOptionsCard`
+  * Add support for `system_trace_audit_number` on resource class `issuing.Authorization.NetworkData`
+  * Add support for `network_risk_score` on resource classes `issuing.Authorization.PendingRequest` and `issuing.Authorization.RequestHistory`
+  * Add support for `requested_at` on resource class `issuing.Authorization.RequestHistory`
+  * Add support for `authorization_code` on resource class `issuing.Transaction.NetworkData`
+
 ## 7.5.0 - 2023-11-16
 * [#1127](https://github.com/stripe/stripe-python/pull/1127) Update generated code
   * Add support for `bacs_debit_payments` on `Account.CreateParamsSettings`
@@ -10,7 +23,7 @@
 * [#1135](https://github.com/stripe/stripe-python/pull/1135) Add initial tests for exports and run them in mypy and pyright
 * [#1130](https://github.com/stripe/stripe-python/pull/1130) Mention types in README.md
 * [#1134](https://github.com/stripe/stripe-python/pull/1134) Run pyright via tox
-* [#1131](https://github.com/stripe/stripe-python/pull/1131) Upgrade black dependency 
+* [#1131](https://github.com/stripe/stripe-python/pull/1131) Upgrade black dependency
 * [#1132](https://github.com/stripe/stripe-python/pull/1132) Fix unnecessary casts from pyright 1.1.336
 * [#1126](https://github.com/stripe/stripe-python/pull/1126) Suppress type errors from latest pyright
 * [#1125](https://github.com/stripe/stripe-python/pull/1125) Add support for Python 3.11/3.12
