@@ -113,7 +113,7 @@ class ReportRun(
         Payout ID by which to filter the report run.
         """
         reporting_category: NotRequired[
-            "Literal['advance', 'advance_funding', 'anticipation_repayment', 'charge', 'charge_failure', 'connect_collection_transfer', 'connect_reserved_funds', 'contribution', 'dispute', 'dispute_reversal', 'fee', 'financing_paydown', 'financing_paydown_reversal', 'financing_payout', 'financing_payout_reversal', 'issuing_authorization_hold', 'issuing_authorization_release', 'issuing_dispute', 'issuing_transaction', 'network_cost', 'obligation', 'other_adjustment', 'partial_capture_reversal', 'payout', 'payout_reversal', 'platform_earning', 'platform_earning_refund', 'refund', 'refund_failure', 'risk_reserved_funds', 'tax', 'topup', 'topup_reversal', 'transfer', 'transfer_reversal', 'unreconciled_customer_funds']"
+            "Literal['advance', 'advance_funding', 'anticipation_repayment', 'charge', 'charge_failure', 'climate_order_purchase', 'climate_order_refund', 'connect_collection_transfer', 'connect_reserved_funds', 'contribution', 'dispute', 'dispute_reversal', 'fee', 'financing_paydown', 'financing_paydown_reversal', 'financing_payout', 'financing_payout_reversal', 'issuing_authorization_hold', 'issuing_authorization_release', 'issuing_dispute', 'issuing_transaction', 'network_cost', 'obligation', 'other_adjustment', 'partial_capture_reversal', 'payout', 'payout_reversal', 'platform_earning', 'platform_earning_refund', 'refund', 'refund_failure', 'risk_reserved_funds', 'tax', 'topup', 'topup_reversal', 'transfer', 'transfer_reversal', 'unreconciled_customer_funds']"
         ]
         """
         Category of balance transactions to be included in the report run.
