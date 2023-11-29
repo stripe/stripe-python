@@ -226,7 +226,7 @@ class Order(
     """
     Details about the delivery of carbon removal for this order.
     """
-    expected_delivery_year: Optional[int]
+    expected_delivery_year: int
     """
     The year this order is expected to be delivered.
     """
