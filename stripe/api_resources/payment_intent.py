@@ -143,6 +143,7 @@ class PaymentIntent(
                 "debit_not_authorized",
                 "email_invalid",
                 "expired_card",
+                "financial_connections_account_inactive",
                 "gift_card_balance_insufficient",
                 "gift_card_code_exists",
                 "gift_card_inactive",
@@ -1534,7 +1535,7 @@ class PaymentIntent(
             Request ability to [overcapture](https://stripe.com/docs/payments/overcapture) for this PaymentIntent.
             """
             request_three_d_secure: Optional[
-                Literal["any", "automatic", "challenge_only"]
+                Literal["any", "automatic", "challenge", "challenge_only"]
             ]
             """
             We strongly recommend that you rely on our SCA Engine to automatically prompt your customers for authentication based on risk level and [other requirements](https://stripe.com/docs/strong-customer-authentication). However, if you wish to request 3D Secure based on logic from your own fraud engine, provide this option. Permitted values include: `automatic` or `any`. If not provided, defaults to `automatic`. Read our guide on [manually requesting 3D Secure](https://stripe.com/docs/payments/3d-secure#manual-three-ds) for more information on how this configuration interacts with Radar and our SCA Engine.
@@ -2199,7 +2200,7 @@ class PaymentIntent(
         """
         statement_descriptor: NotRequired["str"]
         """
-        For non-card charges, you can use this value as the complete description that appears on your customers' statements. Must contain at least one letter, maximum 22 characters.
+        For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long.
         """
         statement_descriptor_suffix: NotRequired["str"]
         """
@@ -5516,7 +5517,7 @@ class PaymentIntent(
         """
         statement_descriptor: NotRequired["str"]
         """
-        For non-card charges, you can use this value as the complete description that appears on your customers' statements. It must contain at least one letter and be 1–22 characters long.
+        For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long.
         """
         statement_descriptor_suffix: NotRequired["str"]
         """
@@ -7994,7 +7995,7 @@ class PaymentIntent(
         """
         statement_descriptor: NotRequired["str"]
         """
-        For non-card charges, you can use this value as the complete description that appears on your customers' statements. Must contain at least one letter, maximum 22 characters.
+        For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long.
         """
         transfer_data: NotRequired[
             "PaymentIntent.IncrementAuthorizationParamsTransferData"
@@ -8151,7 +8152,7 @@ class PaymentIntent(
         """
         statement_descriptor: NotRequired["str"]
         """
-        For non-card charges, you can use this value as the complete description that appears on your customers' statements. Must contain at least one letter, maximum 22 characters.
+        For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long.
         """
         statement_descriptor_suffix: NotRequired["str"]
         """
@@ -10766,7 +10767,7 @@ class PaymentIntent(
     """
     statement_descriptor: Optional[str]
     """
-    For non-card charges, you can use this value as the complete description that appears on your customers' statements. Must contain at least one letter, maximum 22 characters.
+    For card charges, use [statement_descriptor_suffix](https://stripe.com/docs/payments/account/statement-descriptors#dynamic). Otherwise, you can use this value as the complete description of a charge on your customers' statements. It must contain at least one letter and be 1–22 characters long.
     """
     statement_descriptor_suffix: Optional[str]
     """

@@ -3323,6 +3323,10 @@ class Session(
         """
 
     class ListParams(RequestOptions):
+        created: NotRequired["Session.ListParamsCreated|int"]
+        """
+        Only return the Checkout Sessions that were created during the given date interval.
+        """
         customer: NotRequired["str"]
         """
         Only return the Checkout Sessions for the Customer specified.
@@ -3368,6 +3372,24 @@ class Session(
         email: str
         """
         Customer's email address.
+        """
+
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
         """
 
     class ListLineItemsParams(RequestOptions):

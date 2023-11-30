@@ -387,6 +387,10 @@ class Customer(
         """
         A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
         """
+        validate_location: NotRequired["Literal['deferred', 'immediately']"]
+        """
+        A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
+        """
 
     class CreateParamsShipping(TypedDict):
         address: "Customer.CreateParamsShippingAddress"
@@ -721,6 +725,10 @@ class Customer(
         ip_address: NotRequired["Literal['']|str"]
         """
         A recent IP address of the customer used for tax reporting and tax location inference. Stripe recommends updating the IP address when a new PaymentMethod is attached or the address field on the customer is updated. We recommend against updating this field more frequently since it could result in unexpected tax location/reporting outcomes.
+        """
+        validate_location: NotRequired["Literal['deferred', 'immediately']"]
+        """
+        A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
         """
 
     class ModifyParamsShipping(TypedDict):

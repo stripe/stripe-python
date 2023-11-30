@@ -395,6 +395,7 @@ class Invoice(
                 "debit_not_authorized",
                 "email_invalid",
                 "expired_card",
+                "financial_connections_account_inactive",
                 "gift_card_balance_insufficient",
                 "gift_card_code_exists",
                 "gift_card_inactive",
