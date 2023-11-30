@@ -1,5 +1,8 @@
 # Changelog
 
+## 7.8.0b1 - 2023-11-30
+* [#1148](https://github.com/stripe/stripe-python/pull/1148) Update generated code for beta
+
 ## 7.7.0b1 - 2023-11-21
 * [#1141](https://github.com/stripe/stripe-python/pull/1141) Update generated code for beta
 * Rename `receipient` to `recipient` beneath `PaymentDetails` on `Charge` and `PaymentIntent` APIs.* Add support for `electronic_commerce_indicator` on resource classes `Charge.PaymentMethodDetails.Card.ThreeDSecure` and `SetupAttempt.PaymentMethodDetails.Card.ThreeDSecure`
