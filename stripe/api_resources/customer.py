@@ -389,7 +389,7 @@ class Customer(
         """
         validate_location: NotRequired["Literal['deferred', 'immediately']"]
         """
-        A flag that indicates whether Stripe should validate the customer tax location.
+        A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
         """
 
     class CreateParamsShipping(TypedDict):
@@ -728,7 +728,7 @@ class Customer(
         """
         validate_location: NotRequired["Literal['deferred', 'immediately']"]
         """
-        A flag that indicates whether Stripe should validate the customer tax location.
+        A flag that indicates when Stripe should validate the customer tax location. Defaults to `deferred`.
         """
 
     class ModifyParamsShipping(TypedDict):
