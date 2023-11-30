@@ -86,7 +86,10 @@ class Supplier(ListableAPIResource["Supplier"]):
     String representing the object's type. Objects of the same type share the same value.
     """
     removal_pathway: Literal[
-        "biomass_carbon_removal_and_storage", "direct_air_capture", "various"
+        "biomass_carbon_removal_and_storage",
+        "direct_air_capture",
+        "enhanced_weathering",
+        "various",
     ]
     """
     The scientific pathway used for carbon removal.
