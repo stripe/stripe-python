@@ -2,6 +2,7 @@ import pytest
 import json
 
 import stripe
+from stripe._encode import _api_encode
 import urllib3
 from stripe import util
 
@@ -974,7 +975,7 @@ class TestAPIEncode(StripeClientTestCase):
     def test_encode_dict(self):
         body = {"foo": {"dob": {"month": 1}, "name": "bat"}}
 
-        values = [t for t in stripe.api_requestor._api_encode(body)]
+        values = [t for t in _api_encode(body)]
 
         assert ("foo[dob][month]", 1) in values
         assert ("foo[name]", "bat") in values
@@ -982,7 +983,7 @@ class TestAPIEncode(StripeClientTestCase):
     def test_encode_array(self):
         body = {"foo": [{"dob": {"month": 1}, "name": "bat"}]}
 
-        values = [t for t in stripe.api_requestor._api_encode(body)]
+        values = [t for t in _api_encode(body)]
 
         assert ("foo[0][dob][month]", 1) in values
         assert ("foo[0][name]", "bat") in values

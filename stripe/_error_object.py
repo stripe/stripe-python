@@ -1,13 +1,13 @@
 from typing import Optional
 from typing_extensions import TYPE_CHECKING
 from stripe.util import merge_dicts
-from stripe.stripe_object import StripeObject
+from stripe._stripe_object import StripeObject
 
 if TYPE_CHECKING:
-    from stripe.api_resources.payment_intent import PaymentIntent
-    from stripe.api_resources.setup_intent import SetupIntent
-    from stripe.api_resources.source import Source
-    from stripe.api_resources.payment_method import PaymentMethod
+    from stripe._payment_intent import PaymentIntent
+    from stripe._setup_intent import SetupIntent
+    from stripe._source import Source
+    from stripe._payment_method import PaymentMethod
 
 
 class ErrorObject(StripeObject):

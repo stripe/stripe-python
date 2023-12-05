@@ -1,8 +1,10 @@
-from stripe.api_resources.abstract.api_resource import APIResource
-from stripe.api_resources.search_result_object import SearchResultObject
+from stripe._api_resource import APIResource
+from stripe._search_result_object import SearchResultObject
 from typing import TypeVar
-from stripe.stripe_object import StripeObject
+from typing_extensions import TYPE_CHECKING
 
+if TYPE_CHECKING:
+    from stripe._stripe_object import StripeObject
 
 T = TypeVar("T", bound="StripeObject")
 

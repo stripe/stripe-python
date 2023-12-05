@@ -1,7 +1,7 @@
 from typing import List, Optional
 from urllib.parse import quote_plus
 
-from stripe.api_resources.abstract import APIResource
+from stripe._api_resource import APIResource
 
 
 # TODO(major): Remove this. It is no longer used except for "nested_resource_url" and "nested_resource_request",

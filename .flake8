@@ -5,8 +5,21 @@
 # W503 goes against PEP8 rules. It's disabled by default, but must be disabled
 # explicitly when using `ignore`.
 ignore = E501, W503
+per-file-ignores =
+    */__init__.py: E402, F401
+    # we test various import patterns
+    tests/test_exports.py: IMP100, IMP101
+    tests/*: IMP101
+    # backcompat with outdated import patterns
+    stripe/api_resources/*: IMP100, E402, F401
+    # breaking circular dependencies in overrides
+    stripe/_file.py: IMP101
+    stripe/_account.py: IMP101
+    stripe/_person.py: IMP101
+    stripe/_quote.py: IMP101
 
 [flake8:local-plugins]
 extension =
     SPY = flake8_stripe:TypingImportsChecker
+    IMP = flake8_stripe:StripeImportsChecker
 paths=./flake8_stripe

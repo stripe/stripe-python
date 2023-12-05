@@ -1,7 +1,7 @@
 from typing import Optional, Any, Dict
 from typing_extensions import Protocol
 
-from stripe.stripe_object import StripeObject
+from stripe._stripe_object import StripeObject
 
 
 class _Verifiable(Protocol):

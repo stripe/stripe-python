@@ -7,7 +7,6 @@ import os
 import re
 import warnings
 
-import stripe
 from urllib.parse import parse_qsl, quote_plus
 
 from typing_extensions import Type, TYPE_CHECKING
@@ -22,12 +21,12 @@ from typing import (
     Any,
     Optional,
 )
-
-from stripe.stripe_response import StripeResponse
 import typing_extensions
 
-if TYPE_CHECKING:
-    from stripe.stripe_object import StripeObject
+# Used for global variables
+import stripe  # noqa: IMP101
+from stripe._stripe_response import StripeResponse
+from stripe._stripe_object import StripeObject
 
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
@@ -243,7 +242,7 @@ def convert_to_stripe_object(
     # the raw API response information
     stripe_response = None
 
-    if isinstance(resp, stripe.stripe_response.StripeResponse):
+    if isinstance(resp, StripeResponse):
         stripe_response = resp
         resp = cast(Resp, stripe_response.data)
 
@@ -258,19 +257,15 @@ def convert_to_stripe_object(
             )
             for i in resp
         ]
-    elif isinstance(resp, dict) and not isinstance(
-        resp, stripe.stripe_object.StripeObject
-    ):
+    elif isinstance(resp, dict) and not isinstance(resp, StripeObject):
         resp = resp.copy()
         klass_name = resp.get("object")
         if isinstance(klass_name, str):
-            klass = get_object_classes().get(
-                klass_name, stripe.stripe_object.StripeObject
-            )
+            klass = get_object_classes().get(klass_name, StripeObject)
         elif klass_ is not None:
             klass = klass_
         else:
-            klass = stripe.stripe_object.StripeObject
+            klass = StripeObject
 
         obj = klass.construct_from(
             resp,

@@ -1,9 +1,9 @@
-from stripe import error
+from stripe._error import InvalidRequestError
 from urllib.parse import quote_plus
 
 from typing import TypeVar, ClassVar, Any
 from typing_extensions import Protocol
-from stripe.api_resources.abstract import APIResource
+from stripe._api_resource import APIResource
 
 T = TypeVar("T", bound=APIResource[Any])
 
@@ -49,7 +49,7 @@ class APIResourceTestHelpers(Protocol[T]):
         id = getattr(self.resource, "id", None)
 
         if not isinstance(id, str):
-            raise error.InvalidRequestError(
+            raise InvalidRequestError(
                 "Could not determine which URL to request: %s instance "
                 "has invalid ID: %r, %s. ID should be of type `str` (or"
                 " `unicode`)" % (type(self).__name__, id, type(id)),

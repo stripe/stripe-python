@@ -17,10 +17,12 @@ from typing import (
     overload,
 )
 
-import stripe
-from stripe import api_requestor, util
+# Used to break circular imports
+import stripe  # noqa: IMP101
+from stripe._encode import _encode_datetime  # pyright: ignore
+from stripe import util
 
-from stripe.stripe_response import StripeResponse, StripeStreamResponse
+from stripe._stripe_response import StripeResponse, StripeStreamResponse
 
 
 @overload
@@ -73,7 +75,7 @@ class StripeObject(Dict[str, Any]):
             if isinstance(o, datetime.datetime):
                 # pyright complains that _encode_datetime is "private", but it's
                 # private to outsiders, not to stripe_object
-                return api_requestor._encode_datetime(o)  # pyright: ignore
+                return _encode_datetime(o)
             return super(StripeObject.ReprJSONEncoder, self).default(o)
 
     _retrieve_params: Dict[str, Any]
@@ -350,7 +352,7 @@ class StripeObject(Dict[str, Any]):
         api_key = api_key or self.api_key
         params = params or self._retrieve_params
 
-        requestor = api_requestor.APIRequestor(
+        requestor = stripe.APIRequestor(
             key=api_key,
             api_base=self.api_base(),
             api_version=stripe_version,
@@ -376,7 +378,7 @@ class StripeObject(Dict[str, Any]):
     ) -> StripeStreamResponse:
         if params is None:
             params = self._retrieve_params
-        requestor = api_requestor.APIRequestor(
+        requestor = stripe.APIRequestor(
             key=self.api_key,
             api_base=self.api_base(),
             api_version=self.stripe_version,
@@ -444,7 +446,7 @@ class StripeObject(Dict[str, Any]):
         for k, v in self.items():
             if k == "id" or k.startswith("_"):
                 continue
-            elif isinstance(v, stripe.abstract.APIResource):
+            elif isinstance(v, stripe.APIResource):
                 continue
             elif hasattr(v, "serialize"):
                 child = v.serialize(previous.get(k, None))

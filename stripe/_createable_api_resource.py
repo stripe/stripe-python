@@ -1,6 +1,6 @@
-from stripe.api_resources.abstract.api_resource import APIResource
+from stripe._api_resource import APIResource
 from typing import TypeVar, cast
-from stripe.stripe_object import StripeObject
+from stripe._stripe_object import StripeObject
 
 T = TypeVar("T", bound=StripeObject)
 

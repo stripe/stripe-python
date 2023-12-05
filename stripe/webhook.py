@@ -4,8 +4,11 @@ import time
 from collections import OrderedDict
 from hashlib import sha256
 
-import stripe
-from stripe import error, util
+# Used for global variables
+import stripe  # noqa: IMP101
+from stripe._event import Event
+from stripe import util
+from stripe._error import SignatureVerificationError
 
 
 class Webhook(object):
@@ -21,7 +24,7 @@ class Webhook(object):
         WebhookSignature.verify_header(payload, sig_header, secret, tolerance)
 
         data = json.loads(payload, object_pairs_hook=OrderedDict)
-        event = stripe.Event.construct_from(data, api_key or stripe.api_key)
+        event = Event.construct_from(data, api_key or stripe.api_key)
 
         return event
 
@@ -52,14 +55,14 @@ class WebhookSignature(object):
                 header, cls.EXPECTED_SCHEME
             )
         except Exception:
-            raise error.SignatureVerificationError(
+            raise SignatureVerificationError(
                 "Unable to extract timestamp and signatures from header",
                 header,
                 payload,
             )
 
         if not signatures:
-            raise error.SignatureVerificationError(
+            raise SignatureVerificationError(
                 "No signatures found with expected scheme "
                 "%s" % cls.EXPECTED_SCHEME,
                 header,
@@ -69,7 +72,7 @@ class WebhookSignature(object):
         signed_payload = "%d.%s" % (timestamp, payload)
         expected_sig = cls._compute_signature(signed_payload, secret)
         if not any(util.secure_compare(expected_sig, s) for s in signatures):
-            raise error.SignatureVerificationError(
+            raise SignatureVerificationError(
                 "No signatures found matching the expected signature for "
                 "payload",
                 header,
@@ -77,7 +80,7 @@ class WebhookSignature(object):
             )
 
         if tolerance and timestamp < time.time() - tolerance:
-            raise error.SignatureVerificationError(
+            raise SignatureVerificationError(
                 "Timestamp outside the tolerance zone (%d)" % timestamp,
                 header,
                 payload,

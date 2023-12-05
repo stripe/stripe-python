@@ -1,4 +1,8 @@
-from stripe import api_requestor, connect_api_base, error
+# Used for global variables
+import stripe  # noqa: IMP101
+from stripe._error import AuthenticationError
+from stripe._api_requestor import APIRequestor
+from stripe._encode import _api_encode
 from urllib.parse import urlencode
 
 
@@ -14,7 +18,7 @@ class OAuth(object):
             params["client_id"] = client_id
             return
 
-        raise error.AuthenticationError(
+        raise AuthenticationError(
             "No client_id provided. (HINT: set your client_id using "
             '"stripe.client_id = <CLIENT-ID>"). You can find your client_ids '
             "in your Stripe dashboard at "
@@ -34,23 +38,19 @@ class OAuth(object):
         OAuth._set_client_id(params)
         if "response_type" not in params:
             params["response_type"] = "code"
-        query = urlencode(list(api_requestor._api_encode(params)))
-        url = connect_api_base + path + "?" + query
+        query = urlencode(list(_api_encode(params)))
+        url = stripe.connect_api_base + path + "?" + query
         return url
 
     @staticmethod
     def token(api_key=None, **params):
-        requestor = api_requestor.APIRequestor(
-            api_key, api_base=connect_api_base
-        )
+        requestor = APIRequestor(api_key, api_base=stripe.connect_api_base)
         response, _ = requestor.request("post", "/oauth/token", params, None)
         return response.data
 
     @staticmethod
     def deauthorize(api_key=None, **params):
-        requestor = api_requestor.APIRequestor(
-            api_key, api_base=connect_api_base
-        )
+        requestor = APIRequestor(api_key, api_base=stripe.connect_api_base)
         OAuth._set_client_id(params)
         response, _ = requestor.request(
             "post", "/oauth/deauthorize", params, None

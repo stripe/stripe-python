@@ -1,6 +1,8 @@
 from typing import Dict, Optional, Union, cast
-import stripe
-from stripe.api_resources.error_object import ErrorObject
+
+# Used for global variable
+import stripe  # noqa: IMP101
+from stripe._error_object import ErrorObject
 
 
 class StripeError(Exception):

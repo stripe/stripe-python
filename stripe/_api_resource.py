@@ -1,7 +1,13 @@
 from typing_extensions import Literal, Self
 
-from stripe import api_requestor, error, util
-from stripe.stripe_object import StripeObject
+from stripe._error import InvalidRequestError
+from stripe.util import (
+    read_special_variable,
+    populate_headers,
+    convert_to_stripe_object,
+)
+from stripe._api_requestor import APIRequestor
+from stripe._stripe_object import StripeObject
 from urllib.parse import quote_plus
 from typing import (
     Any,
@@ -13,6 +19,7 @@ from typing import (
     cast,
     Mapping,
 )
+
 
 T = TypeVar("T", bound=StripeObject)
 
@@ -45,7 +52,7 @@ class APIResource(StripeObject, Generic[T]):
         id = self.get("id")
 
         if not isinstance(id, str):
-            raise error.InvalidRequestError(
+            raise InvalidRequestError(
                 "Could not determine which URL to request: %s instance "
                 "has invalid ID: %r, %s. ID should be of type `str` (or"
                 " `unicode`)" % (type(self).__name__, id, type(id)),
@@ -129,28 +136,28 @@ class APIResource(StripeObject, Generic[T]):
         params=None,
     ):
         params = None if params is None else params.copy()
-        api_key = util.read_special_variable(params, "api_key", api_key)
-        idempotency_key = util.read_special_variable(
+        api_key = read_special_variable(params, "api_key", api_key)
+        idempotency_key = read_special_variable(
             params, "idempotency_key", idempotency_key
         )
-        stripe_version = util.read_special_variable(
+        stripe_version = read_special_variable(
             params, "stripe_version", stripe_version
         )
-        stripe_account = util.read_special_variable(
+        stripe_account = read_special_variable(
             params, "stripe_account", stripe_account
         )
-        headers = util.read_special_variable(params, "headers", None)
+        headers = read_special_variable(params, "headers", None)
 
-        requestor = api_requestor.APIRequestor(
+        requestor = APIRequestor(
             api_key, api_version=stripe_version, account=stripe_account
         )
 
         if idempotency_key is not None:
             headers = {} if headers is None else headers.copy()
-            headers.update(util.populate_headers(idempotency_key))
+            headers.update(populate_headers(idempotency_key))
 
         response, api_key = requestor.request(method_, url_, params, headers)
-        return util.convert_to_stripe_object(
+        return convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account, params
         )
 
@@ -168,25 +175,25 @@ class APIResource(StripeObject, Generic[T]):
         params=None,
     ):
         params = None if params is None else params.copy()
-        api_key = util.read_special_variable(params, "api_key", api_key)
-        idempotency_key = util.read_special_variable(
+        api_key = read_special_variable(params, "api_key", api_key)
+        idempotency_key = read_special_variable(
             params, "idempotency_key", idempotency_key
         )
-        stripe_version = util.read_special_variable(
+        stripe_version = read_special_variable(
             params, "stripe_version", stripe_version
         )
-        stripe_account = util.read_special_variable(
+        stripe_account = read_special_variable(
             params, "stripe_account", stripe_account
         )
-        headers = util.read_special_variable(params, "headers", None)
+        headers = read_special_variable(params, "headers", None)
 
-        requestor = api_requestor.APIRequestor(
+        requestor = APIRequestor(
             api_key, api_version=stripe_version, account=stripe_account
         )
 
         if idempotency_key is not None:
             headers = {} if headers is None else headers.copy()
-            headers.update(util.populate_headers(idempotency_key))
+            headers.update(populate_headers(idempotency_key))
 
         response, _ = requestor.request_stream(method_, url_, params, headers)
         return response

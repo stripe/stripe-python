@@ -2,7 +2,7 @@ import json
 
 import stripe
 from stripe import util
-from stripe.stripe_response import StripeResponse, StripeStreamResponse
+from stripe._stripe_response import StripeResponse, StripeStreamResponse
 
 
 class RequestMock(object):
