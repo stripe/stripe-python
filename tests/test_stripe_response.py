@@ -4,7 +4,7 @@ from collections import OrderedDict
 import pytest
 
 
-from stripe.stripe_response import StripeResponseBase, StripeResponse
+from stripe._stripe_response import StripeResponseBase, StripeResponse
 
 
 class ResponseTestBase(object):

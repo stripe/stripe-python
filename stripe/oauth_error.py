@@ -1,5 +1,6 @@
-import stripe
-from stripe.error import StripeError
+# Used for global variables
+import stripe  # noqa: IMP101
+from stripe._error import StripeError
 
 
 class OAuthError(StripeError):
@@ -20,7 +21,7 @@ class OAuthError(StripeError):
         if self.json_body is None:
             return None
 
-        return stripe.api_resources.error_object.OAuthErrorObject.construct_from(  # pyright: ignore
+        return stripe.error_object.OAuthErrorObject.construct_from(  # pyright: ignore
             self.json_body, stripe.api_key
         )
 

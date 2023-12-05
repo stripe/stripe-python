@@ -1,7 +1,7 @@
 import random
 import io
 
-import stripe
+from stripe._encode import _api_encode
 
 
 class MultipartDataGenerator(object):
@@ -19,9 +19,7 @@ class MultipartDataGenerator(object):
     def add_params(self, params):
         # Flatten parameters first
 
-        params = dict(
-            stripe.api_requestor._api_encode(params)  # pyright: ignore
-        )
+        params = dict(_api_encode(params))
 
         for key, value in params.items():
             if value is None:

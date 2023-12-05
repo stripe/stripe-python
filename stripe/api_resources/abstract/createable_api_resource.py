@@ -1,29 +1,21 @@
-from stripe.api_resources.abstract.api_resource import APIResource
-from typing import TypeVar, cast
-from stripe.stripe_object import StripeObject
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from typing_extensions import TYPE_CHECKING
+from warnings import warn
 
-T = TypeVar("T", bound=StripeObject)
-
-
-class CreateableAPIResource(APIResource[T]):
-    @classmethod
-    def create(
-        cls,
-        api_key=None,
-        idempotency_key=None,
-        stripe_version=None,
-        stripe_account=None,
-        **params
-    ) -> T:
-        return cast(
-            T,
-            cls._static_request(
-                "post",
-                cls.class_url(),
-                api_key,
-                idempotency_key,
-                stripe_version,
-                stripe_account,
-                params,
-            ),
-        )
+warn(
+    """
+    The stripe.api_resources.createable_api_resource package is deprecated, please change your
+    imports to import from stripe directly.
+    From:
+      from stripe.api_resources.createable_api_resource import CreateableAPIResource
+    To:
+      from stripe import CreateableAPIResource
+    """,
+    DeprecationWarning,
+    stacklevel=2,
+)
+if not TYPE_CHECKING:
+    from stripe._createable_api_resource import (  # noqa
+        CreateableAPIResource,
+    )

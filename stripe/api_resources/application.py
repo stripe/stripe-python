@@ -1,25 +1,21 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe.stripe_object import StripeObject
-from typing import ClassVar, Optional
-from typing_extensions import Literal
+from typing_extensions import TYPE_CHECKING
+from warnings import warn
 
-
-class Application(StripeObject):
-    OBJECT_NAME: ClassVar[Literal["application"]] = "application"
-    id: str
+warn(
     """
-    Unique identifier for the object.
-    """
-    name: Optional[str]
-    """
-    The name of the application.
-    """
-    object: Literal["application"]
-    """
-    String representing the object's type. Objects of the same type share the same value.
-    """
-    deleted: Optional[Literal[True]]
-    """
-    Always true for a deleted object
-    """
+    The stripe.api_resources.application package is deprecated, please change your
+    imports to import from stripe directly.
+    From:
+      from stripe.api_resources.application import Application
+    To:
+      from stripe import Application
+    """,
+    DeprecationWarning,
+    stacklevel=2,
+)
+if not TYPE_CHECKING:
+    from stripe._application import (  # noqa
+        Application,
+    )

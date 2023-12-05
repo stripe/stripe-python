@@ -1,14 +1,28 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-# flake8: noqa
+from typing_extensions import TYPE_CHECKING
+from warnings import warn
 
-from stripe.api_resources.tax.calculation import Calculation as Calculation
-from stripe.api_resources.tax.calculation_line_item import (
-    CalculationLineItem as CalculationLineItem,
+warn(
+    """
+    The stripe.api_resources.tax package is deprecated, please change your
+    imports to import from stripe.tax directly.
+    From:
+      from stripe.api_resources.tax import ...
+    To:
+      from stripe.tax import ...
+    """,
+    DeprecationWarning,
+    stacklevel=2,
 )
-from stripe.api_resources.tax.registration import Registration as Registration
-from stripe.api_resources.tax.settings import Settings as Settings
-from stripe.api_resources.tax.transaction import Transaction as Transaction
-from stripe.api_resources.tax.transaction_line_item import (
-    TransactionLineItem as TransactionLineItem,
-)
+if not TYPE_CHECKING:
+    from stripe.api_resources.tax.calculation import Calculation
+    from stripe.api_resources.tax.calculation_line_item import (
+        CalculationLineItem,
+    )
+    from stripe.api_resources.tax.registration import Registration
+    from stripe.api_resources.tax.settings import Settings
+    from stripe.api_resources.tax.transaction import Transaction
+    from stripe.api_resources.tax.transaction_line_item import (
+        TransactionLineItem,
+    )
