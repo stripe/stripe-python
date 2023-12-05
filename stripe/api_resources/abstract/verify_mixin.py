@@ -1,26 +1,21 @@
-from typing import Optional, Any, Dict
-from typing_extensions import Protocol
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from typing_extensions import TYPE_CHECKING
+from warnings import warn
 
-from stripe.stripe_object import StripeObject
-
-
-class _Verifiable(Protocol):
-    def instance_url(self) -> str:
-        ...
-
-    def _request(
-        self,
-        method: str,
-        url: str,
-        idempotency_key: Optional[str],
-        params: Dict[str, Any],
-    ) -> StripeObject:
-        ...
-
-
-class VerifyMixin(object):
-    def verify(self: _Verifiable, idempotency_key=None, **params):
-        url = self.instance_url() + "/verify"
-        return self._request(
-            "post", url, idempotency_key=idempotency_key, params=params
-        )
+warn(
+    """
+    The stripe.api_resources.verify_mixin package is deprecated, please change your
+    imports to import from stripe directly.
+    From:
+      from stripe.api_resources.verify_mixin import VerifyMixin
+    To:
+      from stripe import VerifyMixin
+    """,
+    DeprecationWarning,
+    stacklevel=2,
+)
+if not TYPE_CHECKING:
+    from stripe._verify_mixin import (  # noqa
+        VerifyMixin,
+    )

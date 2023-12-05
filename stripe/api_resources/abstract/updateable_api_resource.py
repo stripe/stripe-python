@@ -1,30 +1,21 @@
-from stripe import util
-from stripe.api_resources.abstract.api_resource import APIResource
-from urllib.parse import quote_plus
-from typing import TypeVar, cast
-from stripe.stripe_object import StripeObject
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from typing_extensions import TYPE_CHECKING
+from warnings import warn
 
-T = TypeVar("T", bound=StripeObject)
-
-
-class UpdateableAPIResource(APIResource[T]):
-    @classmethod
-    def modify(cls, sid, **params) -> T:
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
-        return cast(T, cls._static_request("post", url, params=params))
-
-    @util.deprecated(
-        "The `save` method is deprecated and will be removed in a future major version of the library. Use the class method `modify` on the resource instead."
+warn(
+    """
+    The stripe.api_resources.updateable_api_resource package is deprecated, please change your
+    imports to import from stripe directly.
+    From:
+      from stripe.api_resources.updateable_api_resource import UpdateableAPIResource
+    To:
+      from stripe import UpdateableAPIResource
+    """,
+    DeprecationWarning,
+    stacklevel=2,
+)
+if not TYPE_CHECKING:
+    from stripe._updateable_api_resource import (  # noqa
+        UpdateableAPIResource,
     )
-    def save(self, idempotency_key=None):
-        updated_params = self.serialize(None)
-        if updated_params:
-            self._request_and_refresh(
-                "post",
-                self.instance_url(),
-                idempotency_key=idempotency_key,
-                params=updated_params,
-            )
-        else:
-            util.logger.debug("Trying to save already saved object %r", self)
-        return self

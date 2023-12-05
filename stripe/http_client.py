@@ -7,9 +7,11 @@ import random
 import threading
 import json
 
-import stripe
-from stripe import error, util
+# Used for global variables
+import stripe  # noqa: IMP101
+from stripe import util
 from stripe.request_metrics import RequestMetrics
+from stripe._error import APIConnectionError
 
 from typing import Any, Dict, Optional, Tuple, ClassVar, Union, cast
 from typing_extensions import NoReturn, TypedDict
@@ -165,7 +167,7 @@ class HTTPClient(object):
                 else:
                     response = self.request(method, url, headers, post_data)
                 connection_error = None
-            except error.APIConnectionError as e:
+            except APIConnectionError as e:
                 connection_error = e
                 response = None
 
@@ -435,7 +437,7 @@ class RequestsClient(HTTPClient):
             should_retry = False
 
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
-        raise error.APIConnectionError(msg, should_retry=should_retry)
+        raise APIConnectionError(msg, should_retry=should_retry)
 
     def close(self):
         if getattr(self._thread_local, "session", None) is not None:
@@ -523,7 +525,7 @@ class UrlFetchClient(HTTPClient):
             )
 
         msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
-        raise error.APIConnectionError(msg)
+        raise APIConnectionError(msg)
 
     def close(self):
         pass
@@ -672,7 +674,7 @@ class PycurlClient(HTTPClient):
             should_retry = False
 
         msg = textwrap.fill(msg) + "\n\n(Network error: " + e.args[1] + ")"
-        raise error.APIConnectionError(msg, should_retry=should_retry)
+        raise APIConnectionError(msg, should_retry=should_retry)
 
     def _get_proxy(self, url) -> Optional[ParseResult]:
         if self._parsed_proxy:
@@ -753,7 +755,7 @@ class Urllib2Client(HTTPClient):
             "If this problem persists, let us know at support@stripe.com."
         )
         msg = textwrap.fill(msg) + "\n\n(Network error: " + str(e) + ")"
-        raise error.APIConnectionError(msg)
+        raise APIConnectionError(msg)
 
     def close(self):
         pass

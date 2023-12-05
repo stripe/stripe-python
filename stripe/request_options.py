@@ -1,11 +1,18 @@
-from typing import Optional, Dict
-from typing_extensions import NotRequired, TypedDict
+# -*- coding: utf-8 -*-
+from typing_extensions import TYPE_CHECKING
+from warnings import warn
 
-
-class RequestOptions(TypedDict):
-    api_key: NotRequired[Optional[str]]
-    api_base: NotRequired[Optional[str]]
-    stripe_version: NotRequired[Optional[str]]
-    stripe_account: NotRequired[Optional[str]]
-    idempotency_key: NotRequired[Optional[str]]
-    headers: NotRequired[Optional[Dict[str, str]]]
+warn(
+    """
+    The stripe.request_options package is deprecated, please change your
+    imports to import from stripe directly.
+    From:
+      from stripe.request_options import RequestOptions
+    To:
+      from stripe import RequestOptions
+    """,
+    DeprecationWarning,
+)
+__deprecated__ = ["RequestOptions"]
+if not TYPE_CHECKING:
+    from stripe._request_options import RequestOptions  # noqa

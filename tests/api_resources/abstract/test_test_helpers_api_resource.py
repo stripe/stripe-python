@@ -1,6 +1,6 @@
 import stripe
 from stripe import util
-from stripe.api_resources.abstract import APIResourceTestHelpers
+from stripe._test_helpers import APIResourceTestHelpers
 
 
 class TestTestHelperAPIResource(object):

@@ -1,23 +1,21 @@
-from stripe import util
-from stripe.api_resources.abstract.api_resource import APIResource
-from urllib.parse import quote_plus
-from typing import TypeVar, cast
-from stripe.stripe_object import StripeObject
+# -*- coding: utf-8 -*-
+# File generated from our OpenAPI spec
+from typing_extensions import TYPE_CHECKING
+from warnings import warn
 
-T = TypeVar("T", bound=StripeObject)
-
-
-class DeletableAPIResource(APIResource[T]):
-    @classmethod
-    def _cls_delete(cls, sid, **params) -> T:
-        url = "%s/%s" % (cls.class_url(), quote_plus(sid))
-        return cast(T, cls._static_request("delete", url, params=params))
-
-    @util.class_method_variant("_cls_delete")
-    def delete(self, **params) -> T:
-        return cast(
-            T,
-            self._request_and_refresh(
-                "delete", self.instance_url(), params=params
-            ),
-        )
+warn(
+    """
+    The stripe.api_resources.deletable_api_resource package is deprecated, please change your
+    imports to import from stripe directly.
+    From:
+      from stripe.api_resources.deletable_api_resource import DeletableAPIResource
+    To:
+      from stripe import DeletableAPIResource
+    """,
+    DeprecationWarning,
+    stacklevel=2,
+)
+if not TYPE_CHECKING:
+    from stripe._deletable_api_resource import (  # noqa
+        DeletableAPIResource,
+    )

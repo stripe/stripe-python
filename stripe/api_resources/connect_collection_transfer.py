@@ -1,39 +1,21 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe.api_resources.expandable_field import ExpandableField
-from stripe.stripe_object import StripeObject
-from typing import ClassVar
-from typing_extensions import Literal, TYPE_CHECKING
+from typing_extensions import TYPE_CHECKING
+from warnings import warn
 
-if TYPE_CHECKING:
-    from stripe.api_resources.account import Account
-
-
-class ConnectCollectionTransfer(StripeObject):
-    OBJECT_NAME: ClassVar[
-        Literal["connect_collection_transfer"]
-    ] = "connect_collection_transfer"
-    amount: int
+warn(
     """
-    Amount transferred, in cents (or local equivalent).
-    """
-    currency: str
-    """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-    """
-    destination: ExpandableField["Account"]
-    """
-    ID of the account that funds are being collected for.
-    """
-    id: str
-    """
-    Unique identifier for the object.
-    """
-    livemode: bool
-    """
-    Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
-    """
-    object: Literal["connect_collection_transfer"]
-    """
-    String representing the object's type. Objects of the same type share the same value.
-    """
+    The stripe.api_resources.connect_collection_transfer package is deprecated, please change your
+    imports to import from stripe directly.
+    From:
+      from stripe.api_resources.connect_collection_transfer import ConnectCollectionTransfer
+    To:
+      from stripe import ConnectCollectionTransfer
+    """,
+    DeprecationWarning,
+    stacklevel=2,
+)
+if not TYPE_CHECKING:
+    from stripe._connect_collection_transfer import (  # noqa
+        ConnectCollectionTransfer,
+    )

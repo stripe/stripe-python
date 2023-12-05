@@ -51,6 +51,7 @@ class TypingImportsChecker:
         "Mapping",
         "Set",
         "Callable",
+        "Generator",
     ]
 
     def __init__(self, tree: ast.AST):
@@ -114,3 +115,53 @@ class TypingImportsChecker:
                                 msg,
                                 type(self),
                             )
+
+
+class StripeImportsChecker:
+    name = __name__
+    version = "0.1.0"
+
+    def __init__(self, tree: ast.AST):
+        self.tree = tree
+
+    allowed_non_private_imports = [
+        # These have not been converted yet
+        "stripe.util",
+        "stripe.oauth",
+        "stripe.webhook",
+        "stripe.multipart_data_generator",
+        "stripe.request_metrics",
+        "stripe.object_classes",
+        "stripe.app_info",
+        "stripe.api_version",
+        "stripe.http_client",
+    ]
+
+    def run(self) -> Iterator[Tuple[int, int, str, type]]:
+        for node in ast.walk(self.tree):
+            if isinstance(node, ast.Import):
+                # Forbid: import stripe
+                if any(alias.name == "stripe" for alias in node.names):
+                    msg = "IMP101 Do not `import stripe` unless you are accessing the global variable or breaking circular dependency"
+                    yield (
+                        node.lineno,
+                        node.col_offset,
+                        msg,
+                        type(self),
+                    )
+            if isinstance(node, ast.ImportFrom):
+                # Forbid: from stripe...module import Type
+                parts = node.module.split(".")
+                if (
+                    len(parts) > 1
+                    and node.module not in self.allowed_non_private_imports
+                    and parts[0] == "stripe"
+                    and not parts[-1].startswith("_")
+                ):
+                    msg = "IMP100 Import from private implementation modules that start with _."
+                    yield (
+                        node.lineno,
+                        node.col_offset,
+                        msg,
+                        type(self),
+                    )

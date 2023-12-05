@@ -1,28 +1,21 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe.stripe_object import StripeObject
-from typing import ClassVar, Optional
-from typing_extensions import Literal
+from typing_extensions import TYPE_CHECKING
+from warnings import warn
 
-
-class ReserveTransaction(StripeObject):
-    OBJECT_NAME: ClassVar[
-        Literal["reserve_transaction"]
-    ] = "reserve_transaction"
-    amount: int
-    currency: str
+warn(
     """
-    Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
-    """
-    description: Optional[str]
-    """
-    An arbitrary string attached to the object. Often useful for displaying to users.
-    """
-    id: str
-    """
-    Unique identifier for the object.
-    """
-    object: Literal["reserve_transaction"]
-    """
-    String representing the object's type. Objects of the same type share the same value.
-    """
+    The stripe.api_resources.reserve_transaction package is deprecated, please change your
+    imports to import from stripe directly.
+    From:
+      from stripe.api_resources.reserve_transaction import ReserveTransaction
+    To:
+      from stripe import ReserveTransaction
+    """,
+    DeprecationWarning,
+    stacklevel=2,
+)
+if not TYPE_CHECKING:
+    from stripe._reserve_transaction import (  # noqa
+        ReserveTransaction,
+    )

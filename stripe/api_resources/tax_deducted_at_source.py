@@ -1,31 +1,21 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe.stripe_object import StripeObject
-from typing import ClassVar
-from typing_extensions import Literal
+from typing_extensions import TYPE_CHECKING
+from warnings import warn
 
-
-class TaxDeductedAtSource(StripeObject):
-    OBJECT_NAME: ClassVar[
-        Literal["tax_deducted_at_source"]
-    ] = "tax_deducted_at_source"
-    id: str
+warn(
     """
-    Unique identifier for the object.
-    """
-    object: Literal["tax_deducted_at_source"]
-    """
-    String representing the object's type. Objects of the same type share the same value.
-    """
-    period_end: int
-    """
-    The end of the invoicing period. This TDS applies to Stripe fees collected during this invoicing period.
-    """
-    period_start: int
-    """
-    The start of the invoicing period. This TDS applies to Stripe fees collected during this invoicing period.
-    """
-    tax_deduction_account_number: str
-    """
-    The TAN that was supplied to Stripe when TDS was assessed
-    """
+    The stripe.api_resources.tax_deducted_at_source package is deprecated, please change your
+    imports to import from stripe directly.
+    From:
+      from stripe.api_resources.tax_deducted_at_source import TaxDeductedAtSource
+    To:
+      from stripe import TaxDeductedAtSource
+    """,
+    DeprecationWarning,
+    stacklevel=2,
+)
+if not TYPE_CHECKING:
+    from stripe._tax_deducted_at_source import (  # noqa
+        TaxDeductedAtSource,
+    )

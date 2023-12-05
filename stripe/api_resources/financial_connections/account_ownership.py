@@ -1,37 +1,21 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe.api_resources.list_object import ListObject
-from stripe.stripe_object import StripeObject
-from typing import ClassVar
-from typing_extensions import Literal, TYPE_CHECKING
+from typing_extensions import TYPE_CHECKING
+from warnings import warn
 
-if TYPE_CHECKING:
-    from stripe.api_resources.financial_connections.account_owner import (
-        AccountOwner,
+warn(
+    """
+    The stripe.api_resources.financial_connections.account_ownership package is deprecated, please change your
+    imports to import from stripe.financial_connections directly.
+    From:
+      from stripe.api_resources.financial_connections.account_ownership import AccountOwnership
+    To:
+      from stripe.financial_connections import AccountOwnership
+    """,
+    DeprecationWarning,
+    stacklevel=2,
+)
+if not TYPE_CHECKING:
+    from stripe.financial_connections._account_ownership import (  # noqa
+        AccountOwnership,
     )
-
-
-class AccountOwnership(StripeObject):
-    """
-    Describes a snapshot of the owners of an account at a particular point in time.
-    """
-
-    OBJECT_NAME: ClassVar[
-        Literal["financial_connections.account_ownership"]
-    ] = "financial_connections.account_ownership"
-    created: int
-    """
-    Time at which the object was created. Measured in seconds since the Unix epoch.
-    """
-    id: str
-    """
-    Unique identifier for the object.
-    """
-    object: Literal["financial_connections.account_ownership"]
-    """
-    String representing the object's type. Objects of the same type share the same value.
-    """
-    owners: ListObject["AccountOwner"]
-    """
-    A paginated list of owners for this account.
-    """

@@ -1,9 +1,6 @@
-import calendar
-import datetime
 from io import BytesIO, IOBase
 import json
 import platform
-import time
 from typing import (
     Any,
     Dict,
@@ -15,59 +12,14 @@ from typing import (
 from typing_extensions import NoReturn, Literal
 import uuid
 import warnings
-from collections import OrderedDict
 
-import stripe
-from stripe import error, oauth_error, http_client, version, util
+# breaking circular dependency
+import stripe  # noqa: IMP101
+from stripe import oauth_error, http_client, version, util
+from stripe._encode import _api_encode, _json_encode_date_callback
 from stripe.multipart_data_generator import MultipartDataGenerator
 from urllib.parse import urlencode, urlsplit, urlunsplit
-from stripe.stripe_response import StripeResponse, StripeStreamResponse
-
-
-def _encode_datetime(dttime: datetime.datetime):
-    if dttime.tzinfo and dttime.tzinfo.utcoffset(dttime) is not None:
-        utc_timestamp = calendar.timegm(dttime.utctimetuple())
-    else:
-        utc_timestamp = time.mktime(dttime.timetuple())
-
-    return int(utc_timestamp)
-
-
-def _encode_nested_dict(key, data, fmt="%s[%s]"):
-    d = OrderedDict()
-    for subkey, subvalue in data.items():
-        d[fmt % (key, subkey)] = subvalue
-    return d
-
-
-def _json_encode_date_callback(value):
-    if isinstance(value, datetime.datetime):
-        return _encode_datetime(value)
-    return value
-
-
-def _api_encode(data):
-    for key, value in data.items():
-        if value is None:
-            continue
-        elif hasattr(value, "stripe_id"):
-            yield (key, value.stripe_id)
-        elif isinstance(value, list) or isinstance(value, tuple):
-            for i, sv in enumerate(value):
-                if isinstance(sv, dict):
-                    subdict = _encode_nested_dict("%s[%d]" % (key, i), sv)
-                    for k, v in _api_encode(subdict):
-                        yield (k, v)
-                else:
-                    yield ("%s[%d]" % (key, i), sv)
-        elif isinstance(value, dict):
-            subdict = _encode_nested_dict(key, value)
-            for subkey, subvalue in _api_encode(subdict):
-                yield (subkey, subvalue)
-        elif isinstance(value, datetime.datetime):
-            yield (key, _encode_datetime(value))
-        else:
-            yield (key, value)
+from stripe._stripe_response import StripeResponse, StripeStreamResponse
 
 
 def _build_api_url(url, query):
@@ -181,7 +133,7 @@ class APIRequestor(object):
         try:
             error_data = resp["error"]
         except (KeyError, TypeError):
-            raise error.APIError(
+            raise stripe.APIError(
                 "Invalid response object from API: %r (HTTP response code "
                 "was %d)" % (rbody, rcode),
                 rbody,
@@ -221,7 +173,7 @@ class APIRequestor(object):
         if rcode == 429 or (
             rcode == 400 and error_data.get("code") == "rate_limit"
         ):
-            return error.RateLimitError(
+            return stripe.RateLimitError(
                 message,
                 rbody,
                 rcode,
@@ -230,7 +182,7 @@ class APIRequestor(object):
             )
         elif rcode in [400, 404]:
             if error_data.get("type") == "idempotency_error":
-                return error.IdempotencyError(
+                return stripe.IdempotencyError(
                     message,
                     rbody,
                     rcode,
@@ -238,7 +190,7 @@ class APIRequestor(object):
                     rheaders,
                 )
             else:
-                return error.InvalidRequestError(
+                return stripe.InvalidRequestError(
                     message,
                     error_data.get("param"),
                     error_data.get("code"),
@@ -248,7 +200,7 @@ class APIRequestor(object):
                     rheaders,
                 )
         elif rcode == 401:
-            return error.AuthenticationError(
+            return stripe.AuthenticationError(
                 message,
                 rbody,
                 rcode,
@@ -256,7 +208,7 @@ class APIRequestor(object):
                 rheaders,
             )
         elif rcode == 402:
-            return error.CardError(
+            return stripe.CardError(
                 message,
                 error_data.get("param"),
                 error_data.get("code"),
@@ -266,7 +218,7 @@ class APIRequestor(object):
                 rheaders,
             )
         elif rcode == 403:
-            return error.PermissionError(
+            return stripe.PermissionError(
                 message,
                 rbody,
                 rcode,
@@ -274,7 +226,7 @@ class APIRequestor(object):
                 rheaders,
             )
         else:
-            return error.APIError(
+            return stripe.APIError(
                 message,
                 rbody,
                 rcode,
@@ -377,7 +329,7 @@ class APIRequestor(object):
             my_api_key = api_key
 
         if my_api_key is None:
-            raise error.AuthenticationError(
+            raise stripe.AuthenticationError(
                 "No API key provided. (HINT: set your API key using "
                 '"stripe.api_key = <API-KEY>"). You can generate API keys '
                 "from the Stripe web interface.  See https://stripe.com/api "
@@ -420,7 +372,7 @@ class APIRequestor(object):
             else:
                 post_data = encoded_body
         else:
-            raise error.APIConnectionError(
+            raise stripe.APIConnectionError(
                 "Unrecognized HTTP method %r.  This may indicate a bug in the "
                 "Stripe bindings.  Please contact support@stripe.com for "
                 "assistance." % (method,)
@@ -480,7 +432,7 @@ class APIRequestor(object):
                 rheaders,
             )
         except Exception:
-            raise error.APIError(
+            raise stripe.APIError(
                 "Invalid response body from API: %s "
                 "(HTTP response code was %d)" % (rbody, rcode),
                 cast(bytes, rbody),
