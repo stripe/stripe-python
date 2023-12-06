@@ -122,7 +122,7 @@ class Transaction(ListableAPIResource["Transaction"]):
     """
     transaction_refresh: str
     """
-    The transaction_refresh object that last updated or created this transaction.
+    The token of the transaction refresh that last updated or created this transaction.
     """
     updated: int
     """
