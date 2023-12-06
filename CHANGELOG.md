@@ -3,6 +3,21 @@
 ## 7.8.0b1 - 2023-11-30
 * [#1148](https://github.com/stripe/stripe-python/pull/1148) Update generated code for beta
 
+## 7.7.0 - 2023-11-30
+* [#1147](https://github.com/stripe/stripe-python/pull/1147) Update generated code
+  * Add support for new resources `Climate.Order`, `Climate.Product`, and `Climate.Supplier`
+  * Add support for `cancel`, `create`, `list`, `modify`, and `retrieve` methods on resource `Order`
+  * Add support for `list` and `retrieve` methods on resources `Product` and `Supplier`
+  * Add support for new value `financial_connections_account_inactive` on enums `Invoice.LastFinalizationError.code`, `PaymentIntent.LastPaymentError.code`, `SetupAttempt.SetupError.code`, and `SetupIntent.LastSetupError.code`
+  * Add support for new values `climate_order_purchase` and `climate_order_refund` on enum `BalanceTransaction.type`
+  * Add support for `created` on `Checkout.Session.ListParams`
+  * Add support for `validate_location` on `Customer.CreateParamsTax` and `Customer.ModifyParamsTax`
+  * Add support for new values `climate.order.canceled`, `climate.order.created`, `climate.order.delayed`, `climate.order.delivered`, `climate.order.product_substituted`, `climate.product.created`, and `climate.product.pricing_updated` on enum `Event.type`
+  * Add support for new value `challenge` on enums `PaymentIntent. PaymentMethodOptions.Card.request_three_d_secure` and `SetupIntent. PaymentMethodOptions.Card.request_three_d_secure`
+  * Add support for new values `climate_order_purchase` and `climate_order_refund` on enum `Reporting.ReportRun. CreateParamsParameters.reporting_category`
+  * Add support for new values `climate.order.canceled`, `climate.order.created`, `climate.order.delayed`, `climate.order.delivered`, `climate.order.product_substituted`, `climate.product.created`, and `climate.product.pricing_updated` on enums `WebhookEndpoint.CreateParams.enabled_events[]` and `WebhookEndpoint.ModifyParams.enabled_events[]`
+* [#1145](https://github.com/stripe/stripe-python/pull/1145) Refactor integration test
+
 ## 7.7.0b1 - 2023-11-21
 * [#1141](https://github.com/stripe/stripe-python/pull/1141) Update generated code for beta
 * Rename `receipient` to `recipient` beneath `PaymentDetails` on `Charge` and `PaymentIntent` APIs.* Add support for `electronic_commerce_indicator` on resource classes `Charge.PaymentMethodDetails.Card.ThreeDSecure` and `SetupAttempt.PaymentMethodDetails.Card.ThreeDSecure`

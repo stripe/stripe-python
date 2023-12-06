@@ -1,8 +1,8 @@
-from stripe import api_requestor, util
+from stripe._api_requestor import APIRequestor, util
 from stripe.api_version import _ApiVersion
 
 
-def _raw_request(method_, url_, **params):
+def raw_request(method_, url_, **params):
     params = None if params is None else params.copy()  # type: ignore
     api_key = util.read_special_variable(params, "api_key", None)
     idempotency_key = util.read_special_variable(
@@ -17,7 +17,7 @@ def _raw_request(method_, url_, **params):
     if api_mode == "preview":
         stripe_version = stripe_version or _ApiVersion.PREVIEW
 
-    requestor = api_requestor.APIRequestor(
+    requestor = APIRequestor(
         key=api_key,
         api_version=stripe_version,
         account=stripe_account,
@@ -39,7 +39,7 @@ def _raw_request(method_, url_, **params):
     return response
 
 
-def _deserialize(
+def deserialize(
     resp, api_key=None, stripe_version=None, stripe_account=None, params=None
 ):
     return util.convert_to_stripe_object(

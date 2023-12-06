@@ -8,8 +8,9 @@ import pytest
 
 import stripe
 from stripe import util
-from stripe.api_requestor import _json_encode_date_callback
-from stripe.stripe_response import StripeResponse, StripeStreamResponse
+from stripe._api_requestor import _json_encode_date_callback
+from stripe._stripe_response import StripeResponse, StripeStreamResponse
+from stripe._encode import _api_encode
 
 from urllib.parse import urlsplit
 
@@ -315,7 +316,7 @@ class TestAPIRequestor(object):
 
     def test_dictionary_list_encoding(self):
         params = {"foo": {"0": {"bar": "bat"}}}
-        encoded = list(stripe.api_requestor._api_encode(params))
+        encoded = list(_api_encode(params))
         key, value = encoded[0]
 
         assert key == "foo[0][bar]"
@@ -332,7 +333,7 @@ class TestAPIRequestor(object):
                 ]
             )
         }
-        encoded = list(stripe.api_requestor._api_encode(params))
+        encoded = list(_api_encode(params))
 
         assert encoded[0][0] == "ordered[one]"
         assert encoded[1][0] == "ordered[two]"

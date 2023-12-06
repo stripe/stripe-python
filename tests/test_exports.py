@@ -1,16 +1,40 @@
 # pyright: strict
+# we specifically test various import patterns
 from typing import Any
 import stripe
 
 
 def test_can_import_stripe_object() -> None:
-    from stripe.stripe_object import (
-        StripeObject as StripeObjectFromStripeStripeObject,
+    from stripe.stripe_object import StripeObject as StripeObjectFromStripeStripeObject  # type: ignore
+    from stripe import (
+        StripeObject as StripeObjectFromStripe,
     )
 
     assert (
-        stripe.stripe_object.StripeObject is StripeObjectFromStripeStripeObject
+        stripe.stripe_object.StripeObject is StripeObjectFromStripeStripeObject  # type: ignore
     )
+    assert stripe.StripeObject is StripeObjectFromStripeStripeObject
+    assert StripeObjectFromStripe is StripeObjectFromStripeStripeObject
+
+
+def test_can_import_api_requestor() -> None:
+    from stripe.api_requestor import APIRequestor as APIRequestorFromStripeAPIRequestor  # type: ignore
+    from stripe import (
+        APIRequestor as APIRequestorFromStripe,
+    )
+
+    assert stripe.APIRequestor is APIRequestorFromStripeAPIRequestor
+    assert APIRequestorFromStripe is APIRequestorFromStripeAPIRequestor
+
+
+def test_can_import_request_options() -> None:
+    from stripe.request_options import RequestOptions as RequestOptionsStripeRequestOptions  # type: ignore
+    from stripe import (
+        RequestOptions as RequestOptionsFromStripe,
+    )
+
+    assert stripe.RequestOptions is RequestOptionsStripeRequestOptions
+    assert RequestOptionsFromStripe is RequestOptionsStripeRequestOptions
 
 
 def test_can_import_webhook_members() -> None:
@@ -24,87 +48,140 @@ def test_can_import_webhook_members() -> None:
 
 
 def test_can_import_list_search_objects() -> None:
-    from stripe.api_resources import (
-        ListObject as ListObjectFromApiResources,
-        SearchResultObject as SearchObjectFromApiResources,
-    )
-    from stripe.stripe_object import (
-        StripeObject,
-    )
+
+    # This import has to be single line, mypy and pyright are producing errors
+    # on different lines of multiline import
+    # fmt: off
+    from stripe.api_resources import ListObject as ListObjectFromResources  # type: ignore
+    from stripe import ListObject as LOFromStripe
+    from stripe.api_resources import SearchResultObject as SearchObjectFromResources  # type: ignore
+    from stripe import SearchResultObject as SOFromStripe
+    # fmt: on
+
+    from stripe import StripeObject
 
     assert (
-        ListObjectFromApiResources[StripeObject]
+        ListObjectFromResources[StripeObject]
         == stripe.ListObject[StripeObject]
     )
     assert (
-        SearchObjectFromApiResources[StripeObject]
+        SearchObjectFromResources[StripeObject]
         == stripe.SearchResultObject[StripeObject]
+    )
+    assert ListObjectFromResources[StripeObject] == LOFromStripe[StripeObject]
+    assert (
+        SearchObjectFromResources[StripeObject] == SOFromStripe[StripeObject]
     )
 
 
 def test_can_import_misc_resources() -> None:
-    from stripe.api_resources import ErrorObject, OAuthErrorObject, FileUpload
+    from stripe.api_resources import ErrorObject, OAuthErrorObject  # type: ignore
+    from stripe import (
+        ErrorObject as ErrorObjectFromStripe,
+        OAuthErrorObject as OAuthErrorObjectFromStripe,
+    )
+    from stripe.api_resources.error_object import ErrorObject as ErrorObjectFromStripeApiResources  # type: ignore
+    from stripe.api_resources.error_object import OAuthErrorObject as OAuthErrorObjectFromStripeApiResources  # type: ignore
+
+    # FileUpload is an old alias for File, time to hide it
+    from stripe.api_resources import FileUpload as FileUploadFromApiResources  # type: ignore
+    from stripe import FileUpload as FileUploadFromStripe  # type: ignore
 
     assert ErrorObject is stripe.ErrorObject
+    assert ErrorObjectFromStripe is stripe.ErrorObject
+    assert ErrorObjectFromStripe is ErrorObjectFromStripeApiResources
+
     assert OAuthErrorObject is stripe.OAuthErrorObject
-    assert FileUpload is stripe.FileUpload
+    assert OAuthErrorObjectFromStripe is stripe.OAuthErrorObject
+    assert OAuthErrorObject is OAuthErrorObjectFromStripeApiResources
+
+    assert FileUploadFromApiResources is stripe.FileUpload  # type: ignore
+    assert FileUploadFromApiResources is FileUploadFromStripe
 
 
 def test_can_import_abstract() -> None:
     # fmt: off
-    from stripe.api_resources.abstract import APIResource as APIResourceFromAbs
-    from stripe.api_resources.abstract import SingletonAPIResource as SingletonFromAbs
-    from stripe.api_resources.abstract import CreateableAPIResource as CreateableFromAbs
-    from stripe.api_resources.abstract import UpdateableAPIResource as UpdateableFromAbs
-    from stripe.api_resources.abstract import DeletableAPIResource as DeletableFromAbs
-    from stripe.api_resources.abstract import ListableAPIResource as ListableFromAbs
-    from stripe.api_resources.abstract import SearchableAPIResource as SearchableFromAbs
-    from stripe.api_resources.abstract import VerifyMixin as VerifyMixinFromAbstract
+    from stripe.api_resources.abstract import APIResource as APIResourceFromAbstract  # type: ignore
+    from stripe.api_resources.abstract import SingletonAPIResource as SingletonFromAbstract  # type: ignore
+    from stripe.api_resources.abstract import CreateableAPIResource as CreateableFromAbstract  # type: ignore
+    from stripe.api_resources.abstract import UpdateableAPIResource as UpdateableFromAbstract  # type: ignore
+    from stripe.api_resources.abstract import DeletableAPIResource as DeletableFromAbstract  # type: ignore
+    from stripe.api_resources.abstract import ListableAPIResource as ListableFromAbstract  # type: ignore
+    from stripe.api_resources.abstract import SearchableAPIResource as SearchableFromAbstract  # type: ignore
+    from stripe.api_resources.abstract import VerifyMixin as VerifyMixinFromAbstract  # type: ignore
+    from stripe.api_resources.abstract import APIResourceTestHelpers as APIResourceTestHelpersFromAbstract  # type: ignore
     from stripe.api_resources.abstract import custom_method as custom_methodFromAbstract
-    from stripe.api_resources.abstract import APIResourceTestHelpers as APIResourceTestHelpersFromAbstract
     from stripe.api_resources.abstract import nested_resource_class_methods as nested_resource_class_methodsFromAbstract
+    from stripe import APIResource as APIResourceFromStripe
+    from stripe import SingletonAPIResource as SingletonFromStripe
+    from stripe import CreateableAPIResource as CreateableFromStripe
+    from stripe import UpdateableAPIResource as UpdateableFromStripe
+    from stripe import DeletableAPIResource as DeletableFromStripe
+    from stripe import ListableAPIResource as ListableFromStripe
+    from stripe import SearchableAPIResource as SearchableFromStripe
+    from stripe import VerifyMixin as VerifyMixinFromStripe
+    from stripe import APIResourceTestHelpers as APIResourceTestHelpersFromStripe
+    from stripe import custom_method as custom_methodFromStripe
+    from stripe import nested_resource_class_methods as nested_resource_class_methodsFromStripe
     # fmt: on
 
-    from stripe.stripe_object import (
-        StripeObject,
-    )
+    from stripe.stripe_object import StripeObject  # type: ignore
 
     assert (
-        APIResourceFromAbs[StripeObject]
-        == stripe.abstract.APIResource[StripeObject]
+        APIResourceFromAbstract[StripeObject]
+        == stripe.abstract.APIResource[StripeObject]  # type: ignore
     )
     assert (
-        stripe.abstract.SingletonAPIResource[StripeObject]
-        == SingletonFromAbs[StripeObject]
+        stripe.abstract.SingletonAPIResource[StripeObject]  # type: ignore
+        == SingletonFromAbstract[StripeObject]
     )
     assert (
-        stripe.abstract.CreateableAPIResource[StripeObject]
-        == CreateableFromAbs[StripeObject]
+        stripe.abstract.CreateableAPIResource[StripeObject]  # type: ignore
+        == CreateableFromAbstract[StripeObject]
     )
     assert (
-        stripe.abstract.UpdateableAPIResource[StripeObject]
-        == UpdateableFromAbs[StripeObject]
+        stripe.abstract.UpdateableAPIResource[StripeObject]  # type: ignore
+        == UpdateableFromAbstract[StripeObject]
     )
     assert (
-        stripe.abstract.DeletableAPIResource[StripeObject]
-        == DeletableFromAbs[StripeObject]
+        stripe.abstract.DeletableAPIResource[StripeObject]  # type: ignore
+        == DeletableFromAbstract[StripeObject]
     )
     assert (
-        stripe.abstract.ListableAPIResource[StripeObject]
-        == ListableFromAbs[StripeObject]
+        stripe.abstract.ListableAPIResource[StripeObject]  # type: ignore
+        == ListableFromAbstract[StripeObject]
     )
     assert (
-        stripe.abstract.SearchableAPIResource[StripeObject]
-        == SearchableFromAbs[StripeObject]
+        stripe.abstract.SearchableAPIResource[StripeObject]  # type: ignore
+        == SearchableFromAbstract[StripeObject]
     )
-    assert stripe.abstract.VerifyMixin is VerifyMixinFromAbstract
-    assert stripe.abstract.custom_method is custom_methodFromAbstract
+    assert stripe.abstract.VerifyMixin is VerifyMixinFromAbstract  # type: ignore
     assert (
-        stripe.abstract.APIResourceTestHelpers[Any]
+        stripe.abstract.custom_method is custom_methodFromAbstract  # type: ignore
+    )
+    assert (
+        stripe.abstract.APIResourceTestHelpers[Any]  # type: ignore
         is APIResourceTestHelpersFromAbstract[Any]
     )
     assert (
-        stripe.abstract.nested_resource_class_methods
+        stripe.abstract.nested_resource_class_methods  # type: ignore
+        is nested_resource_class_methodsFromAbstract
+    )
+
+    assert APIResourceFromStripe is APIResourceFromAbstract
+    assert SingletonFromStripe is SingletonFromAbstract
+    assert CreateableFromStripe is CreateableFromAbstract
+    assert UpdateableFromStripe is UpdateableFromAbstract
+    assert DeletableFromStripe is DeletableFromAbstract
+    assert ListableFromStripe is ListableFromAbstract
+    assert SearchableFromStripe is SearchableFromAbstract
+    assert VerifyMixinFromStripe is VerifyMixinFromAbstract
+    assert (
+        APIResourceTestHelpersFromStripe is APIResourceTestHelpersFromAbstract
+    )
+    assert custom_methodFromStripe is custom_methodFromAbstract
+    assert (
+        nested_resource_class_methodsFromStripe
         is nested_resource_class_methodsFromAbstract
     )
 
@@ -118,14 +195,35 @@ def test_can_import_app_info() -> None:
 
 
 def test_can_import_stripe_response() -> None:
-    from stripe.stripe_response import (
-        StripeResponse as StripeResponseFromStripeResponse,
+    from stripe.stripe_response import StripeResponse as StripeResponseFromStripeResponse  # type: ignore
+    from stripe.stripe_response import StripeResponseBase as StripeResponseBaseFromStripeResponse  # type: ignore
+    from stripe.stripe_response import StripeStreamResponse as StripeStreamResponseFromStripeResponse  # type: ignore
+
+    from stripe import (
+        StripeResponse as StripeResponseFromStripe,
+        StripeResponseBase as StripeResponseBaseFromStripe,
+        StripeStreamResponse as StripeStreamResponseFromStripe,
     )
 
     assert (
         StripeResponseFromStripeResponse
-        is stripe.stripe_response.StripeResponse
+        is stripe.stripe_response.StripeResponse  # type: ignore
     )
+
+    assert StripeResponseFromStripe is StripeResponseFromStripeResponse
+
+    assert StripeResponseFromStripe is stripe.StripeResponse
+
+    assert StripeResponseBaseFromStripe is StripeResponseBaseFromStripeResponse
+
+    assert StripeResponseBaseFromStripe is stripe.StripeResponseBase
+
+    assert (
+        StripeStreamResponseFromStripe
+        is StripeStreamResponseFromStripeResponse
+    )
+
+    assert StripeStreamResponseFromStripe is stripe.StripeStreamResponse
 
 
 def test_can_import_oauth_members() -> None:
@@ -137,35 +235,84 @@ def test_can_import_oauth_members() -> None:
 
 
 def test_can_import_errors() -> None:
-    from stripe.error import (
-        StripeError as StripeErrorFromStripeError,
+    # fmt: off
+    from stripe.error import StripeError as StripeErrorFromStripeError  # type: ignore
+    from stripe.error import APIError as APIErrorFromStripeError  # type: ignore
+    from stripe.error import APIConnectionError as APIConnectionErrorFromStripeError  # type: ignore
+    from stripe.error import StripeErrorWithParamCode as StripeErrorWithParamCodeFromStripeError  # type: ignore
+    from stripe.error import CardError as CardErrorFromStripeError  # type: ignore
+    from stripe.error import IdempotencyError as IdempotencyErrorFromStripeError  # type: ignore
+    from stripe.error import InvalidRequestError as InvalidRequestErrorFromStripeError  # type: ignore
+    from stripe.error import AuthenticationError as AuthenticationErrorFromStripeError  # type: ignore
+    from stripe.error import PermissionError as PermissionErrorFromStripeError  # type: ignore
+    from stripe.error import RateLimitError as RateLimitErrorFromStripeError  # type: ignore
+    from stripe.error import SignatureVerificationError as SignatureVerificationErrorFromStripeError  # type: ignore
+    # fmt: on
+
+    from stripe import StripeError as StripeErrorFromStripe
+    from stripe import APIError as APIErrorFromStripe
+    from stripe import APIConnectionError as APIConnectionErrorFromStripe
+    from stripe import (
+        StripeErrorWithParamCode as StripeErrorWithParamCodeFromStripe,
+    )
+    from stripe import CardError as CardErrorFromStripe
+    from stripe import IdempotencyError as IdempotencyErrorFromStripe
+    from stripe import InvalidRequestError as InvalidRequestErrorFromStripe
+    from stripe import AuthenticationError as AuthenticationErrorFromStripe
+    from stripe import PermissionError as PermissionErrorFromStripe
+    from stripe import RateLimitError as RateLimitErrorFromStripe
+    from stripe import (
+        SignatureVerificationError as SignatureVerificationErrorFromStripe,
     )
 
-    assert StripeErrorFromStripeError is not None
+    assert StripeErrorFromStripeError is StripeErrorFromStripe
+    assert APIErrorFromStripeError is APIErrorFromStripe
+    assert APIConnectionErrorFromStripeError is APIConnectionErrorFromStripe
+    assert (
+        StripeErrorWithParamCodeFromStripeError
+        is StripeErrorWithParamCodeFromStripe
+    )
+    assert CardErrorFromStripeError is CardErrorFromStripe
+    assert IdempotencyErrorFromStripeError is IdempotencyErrorFromStripe
+    assert InvalidRequestErrorFromStripeError is InvalidRequestErrorFromStripe
+    assert AuthenticationErrorFromStripeError is AuthenticationErrorFromStripe
+    assert PermissionErrorFromStripeError is PermissionErrorFromStripe
+    assert RateLimitErrorFromStripeError is RateLimitErrorFromStripe
+    assert (
+        SignatureVerificationErrorFromStripeError
+        is SignatureVerificationErrorFromStripe
+    )
 
 
 def test_can_import_top_level_resource() -> None:
     from stripe import Account as AccountFromStripe
-    from stripe.api_resources import Account as AccountFromStripeResources
-    from stripe.api_resources.account import (
-        Account as AccountFromStripeResourcesAccount,
-    )
+    from stripe.api_resources import Account as AccountFromStripeResources  # type: ignore
+
+    # This import has to be single line, mypy and pyright are producing errors
+    # on different lines of multiline import
+    from stripe.api_resources.account import Account as AccFromModule  # type: ignore
 
     assert stripe.Account == AccountFromStripe
     assert AccountFromStripe == AccountFromStripeResources
-    assert AccountFromStripeResourcesAccount == AccountFromStripeResources
+    assert AccFromModule == AccountFromStripeResources
 
 
 def test_can_import_namespaced_resource() -> None:
     from stripe import tax as TaxPackage
-    from stripe.api_resources.tax import (
-        Calculation as CalculationFromResources,
-    )
-    from stripe.api_resources.tax.calculation import (
-        Calculation as CalculationFromResourcesCalculation,
+    from stripe.tax import (
+        Calculation as CalculationFromStripe,
     )
 
+    # This import has to be single line, mypy and pyright are producing errors
+    # on different lines of multiline import
+    from stripe.api_resources.tax import Calculation as CalcFromResources  # type: ignore
+
+    # This import has to be single line, mypy and pyright are producing errors
+    # on different lines of multiline import
+    from stripe.api_resources.tax.calculation import Calculation as CalcFromModule  # type: ignore
+
     assert stripe.tax is TaxPackage
+    assert stripe.tax.Calculation is CalculationFromStripe
     assert stripe.tax.Calculation is TaxPackage.Calculation
-    assert stripe.tax.Calculation is CalculationFromResources
-    assert CalculationFromResources is CalculationFromResourcesCalculation
+    assert stripe.tax.Calculation is CalcFromResources
+    assert CalcFromResources is CalcFromModule
