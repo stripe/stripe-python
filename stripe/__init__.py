@@ -186,22 +186,20 @@ if not TYPE_CHECKING:
 # API resources
 
 # The beginning of the section generated from our OpenAPI spec
-from stripe import (
-    apps as apps,
-    billing_portal as billing_portal,
-    checkout as checkout,
-    climate as climate,
-    financial_connections as financial_connections,
-    identity as identity,
-    issuing as issuing,
-    radar as radar,
-    reporting as reporting,
-    sigma as sigma,
-    tax as tax,
-    terminal as terminal,
-    test_helpers as test_helpers,
-    treasury as treasury,
-)
+import stripe.apps as apps
+import stripe.billing_portal as billing_portal
+import stripe.checkout as checkout
+import stripe.climate as climate
+import stripe.financial_connections as financial_connections
+import stripe.identity as identity
+import stripe.issuing as issuing
+import stripe.radar as radar
+import stripe.reporting as reporting
+import stripe.sigma as sigma
+import stripe.tax as tax
+import stripe.terminal as terminal
+import stripe.test_helpers as test_helpers
+import stripe.treasury as treasury
 from stripe._account import Account as Account
 from stripe._account_link import AccountLink as AccountLink
 from stripe._account_session import AccountSession as AccountSession
