@@ -46,7 +46,7 @@ from stripe._webhook import Webhook, WebhookSignature
 from stripe._raw_request import raw_request as raw_request  # noqa
 from stripe._raw_request import deserialize as deserialize  # noqa
 
-from stripe.preview import preview as preview  # noqa
+from stripe._preview import preview as preview  # noqa
 
 
 # Sets some basic information about the running application that's sent along

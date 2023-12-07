@@ -681,7 +681,7 @@ class Account(ListableAPIResource["Account"]):
             cls._static_request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -735,7 +735,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/subscribe".format(
-                    account=util.sanitize_id(self.get("id"))
+                    account=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -761,7 +761,7 @@ class Account(ListableAPIResource["Account"]):
             cls._static_request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -815,7 +815,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/unsubscribe".format(
-                    account=util.sanitize_id(self.get("id"))
+                    account=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -841,7 +841,7 @@ class Account(ListableAPIResource["Account"]):
             cls._static_request(
                 "get",
                 "/v1/financial_connections/accounts/{account}/inferred_balances".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,

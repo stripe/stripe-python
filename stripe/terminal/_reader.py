@@ -892,7 +892,7 @@ class Reader(
             cls._static_request(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_inputs".format(
-                    reader=util.sanitize_id(reader)
+                    reader=_util.sanitize_id(reader)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -946,7 +946,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_inputs".format(
-                    reader=util.sanitize_id(self.get("id"))
+                    reader=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -972,7 +972,7 @@ class Reader(
             cls._static_request(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_payment_method".format(
-                    reader=util.sanitize_id(reader)
+                    reader=_util.sanitize_id(reader)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -1026,7 +1026,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/collect_payment_method".format(
-                    reader=util.sanitize_id(self.get("id"))
+                    reader=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -1052,7 +1052,7 @@ class Reader(
             cls._static_request(
                 "post",
                 "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
-                    reader=util.sanitize_id(reader)
+                    reader=_util.sanitize_id(reader)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -1106,7 +1106,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/confirm_payment_intent".format(
-                    reader=util.sanitize_id(self.get("id"))
+                    reader=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,

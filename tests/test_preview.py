@@ -2,7 +2,7 @@ from __future__ import absolute_import, division, print_function
 
 import pytest
 import stripe
-from stripe.api_version import _ApiVersion
+from stripe._api_version import _ApiVersion
 from tests.test_api_requestor import APIHeaderMatcher
 
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 import stripe
-from stripe import util
+from stripe import _util
 from stripe._api_requestor import APIRequestor
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -224,7 +224,7 @@ class Form(ListableAPIResource["Form"]):
             api_version=stripe_version,
             account=stripe_account,
         )
-        headers = util.populate_headers(idempotency_key)
+        headers = _util.populate_headers(idempotency_key)
         response, _ = requestor.request_stream("get", url, params, headers)
         return response
 
@@ -251,7 +251,7 @@ class Form(ListableAPIResource["Form"]):
     ):
         ...
 
-    @util.class_method_variant("_cls_pdf")
+    @_util.class_method_variant("_cls_pdf")
     def pdf(  # pyright: ignore[reportGeneralTypeIssues]
         self,
         api_key: Optional[str] = None,

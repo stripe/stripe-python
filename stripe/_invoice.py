@@ -6391,7 +6391,7 @@ class Invoice(
             cls._static_request(
                 "post",
                 "/v1/invoices/{invoice}/attach_payment_intent".format(
-                    invoice=util.sanitize_id(invoice)
+                    invoice=_util.sanitize_id(invoice)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -6469,7 +6469,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/attach_payment_intent".format(
-                    invoice=util.sanitize_id(self.get("id"))
+                    invoice=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -7105,8 +7105,8 @@ class Invoice(
             cls._static_request(
                 "get",
                 "/v1/invoices/{invoice}/payments/{invoice_payment}".format(
-                    invoice=util.sanitize_id(invoice),
-                    invoice_payment=util.sanitize_id(invoice_payment),
+                    invoice=_util.sanitize_id(invoice),
+                    invoice_payment=_util.sanitize_id(invoice_payment),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -7134,7 +7134,7 @@ class Invoice(
             cls._static_request(
                 "get",
                 "/v1/invoices/{invoice}/payments".format(
-                    invoice=util.sanitize_id(invoice)
+                    invoice=_util.sanitize_id(invoice)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,

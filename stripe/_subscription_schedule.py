@@ -2681,7 +2681,7 @@ class SubscriptionSchedule(
             cls._static_request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/amend".format(
-                    schedule=util.sanitize_id(schedule)
+                    schedule=_util.sanitize_id(schedule)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2735,7 +2735,7 @@ class SubscriptionSchedule(
             self._request(
                 "post",
                 "/v1/subscription_schedules/{schedule}/amend".format(
-                    schedule=util.sanitize_id(self.get("id"))
+                    schedule=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
