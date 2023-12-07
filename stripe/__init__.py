@@ -39,10 +39,13 @@ ca_bundle_path: str = os.path.join(
 log: Optional[Literal["debug", "info"]] = None
 
 # OAuth
-from stripe._oauth import OAuth
+from stripe._oauth import OAuth as OAuth
 
 # Webhooks
-from stripe._webhook import Webhook, WebhookSignature
+from stripe._webhook import (
+    Webhook as Webhook,
+    WebhookSignature as WebhookSignature,
+)
 
 
 # Sets some basic information about the running application that's sent along
