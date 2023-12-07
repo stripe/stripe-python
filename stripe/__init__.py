@@ -174,6 +174,7 @@ if not TYPE_CHECKING:
                 import stripe.api_resources as _api_resources
 
                 return _api_resources
+            raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
 
     else:
         with warnings.catch_warnings():
