@@ -451,6 +451,7 @@ class SetupAttempt(ListableAPIResource["SetupAttempt"]):
                 "email_invalid",
                 "expired_card",
                 "financial_connections_account_inactive",
+                "financial_connections_no_successful_transaction_refresh",
                 "idempotency_key_in_use",
                 "incorrect_address",
                 "incorrect_cvc",
