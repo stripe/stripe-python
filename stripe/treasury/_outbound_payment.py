@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -8,7 +8,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -533,7 +533,7 @@ class OutboundPayment(
             cls._static_request(
                 "post",
                 "/v1/treasury/outbound_payments/{id}/cancel".format(
-                    id=util.sanitize_id(id)
+                    id=_util.sanitize_id(id)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -587,7 +587,7 @@ class OutboundPayment(
             self._request(
                 "post",
                 "/v1/treasury/outbound_payments/{id}/cancel".format(
-                    id=util.sanitize_id(self.get("id"))
+                    id=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -684,7 +684,7 @@ class OutboundPayment(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
-                        id=util.sanitize_id(id)
+                        id=_util.sanitize_id(id)
                     ),
                     api_key=api_key,
                     stripe_version=stripe_version,
@@ -738,7 +738,7 @@ class OutboundPayment(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/fail".format(
-                        id=util.sanitize_id(self.resource.get("id"))
+                        id=_util.sanitize_id(self.resource.get("id"))
                     ),
                     idempotency_key=idempotency_key,
                     params=params,
@@ -764,7 +764,7 @@ class OutboundPayment(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
-                        id=util.sanitize_id(id)
+                        id=_util.sanitize_id(id)
                     ),
                     api_key=api_key,
                     stripe_version=stripe_version,
@@ -818,7 +818,7 @@ class OutboundPayment(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/post".format(
-                        id=util.sanitize_id(self.resource.get("id"))
+                        id=_util.sanitize_id(self.resource.get("id"))
                     ),
                     idempotency_key=idempotency_key,
                     params=params,
@@ -844,7 +844,7 @@ class OutboundPayment(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
-                        id=util.sanitize_id(id)
+                        id=_util.sanitize_id(id)
                     ),
                     api_key=api_key,
                     stripe_version=stripe_version,
@@ -898,7 +898,7 @@ class OutboundPayment(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/outbound_payments/{id}/return".format(
-                        id=util.sanitize_id(self.resource.get("id"))
+                        id=_util.sanitize_id(self.resource.get("id"))
                     ),
                     idempotency_key=idempotency_key,
                     params=params,

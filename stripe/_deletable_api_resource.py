@@ -1,4 +1,4 @@
-from stripe import util
+from stripe import _util
 from stripe._api_resource import APIResource
 from urllib.parse import quote_plus
 from typing import TypeVar, cast
@@ -13,7 +13,7 @@ class DeletableAPIResource(APIResource[T]):
         url = "%s/%s" % (cls.class_url(), quote_plus(sid))
         return cast(T, cls._static_request("delete", url, params=params))
 
-    @util.class_method_variant("_cls_delete")
+    @_util.class_method_variant("_cls_delete")
     def delete(self, **params) -> T:
         return cast(
             T,

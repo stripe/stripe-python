@@ -6,7 +6,7 @@ import datetime
 import pytest
 
 import stripe
-from stripe.api_version import _ApiVersion
+from stripe._api_version import _ApiVersion
 
 from tests.test_api_requestor import APIHeaderMatcher
 from tests.test_api_requestor import GMT1

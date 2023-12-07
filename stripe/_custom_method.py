@@ -1,5 +1,5 @@
 from typing import Optional
-from stripe import util
+from stripe import _util
 from urllib.parse import quote_plus
 
 
@@ -57,7 +57,7 @@ def custom_method(
             # that the new class method is called when the original method is
             # called as a class method.
             setattr(cls, "_cls_" + name, class_method_impl)
-            instance_method = util.class_method_variant("_cls_" + name)(
+            instance_method = _util.class_method_variant("_cls_" + name)(
                 existing_method
             )
             setattr(cls, name, instance_method)

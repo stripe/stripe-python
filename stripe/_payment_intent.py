@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -10,7 +10,7 @@ from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import (
     Any,
     ClassVar,
@@ -10811,7 +10811,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
-                    intent=util.sanitize_id(intent)
+                    intent=_util.sanitize_id(intent)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -10865,7 +10865,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/apply_customer_balance".format(
-                    intent=util.sanitize_id(self.get("id"))
+                    intent=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -10895,7 +10895,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/cancel".format(
-                    intent=util.sanitize_id(intent)
+                    intent=_util.sanitize_id(intent)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -10961,7 +10961,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/cancel".format(
-                    intent=util.sanitize_id(self.get("id"))
+                    intent=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -10991,7 +10991,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/capture".format(
-                    intent=util.sanitize_id(intent)
+                    intent=_util.sanitize_id(intent)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -11057,7 +11057,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/capture".format(
-                    intent=util.sanitize_id(self.get("id"))
+                    intent=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -11105,7 +11105,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/confirm".format(
-                    intent=util.sanitize_id(intent)
+                    intent=_util.sanitize_id(intent)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -11225,7 +11225,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/confirm".format(
-                    intent=util.sanitize_id(self.get("id"))
+                    intent=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -11310,7 +11310,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/increment_authorization".format(
-                    intent=util.sanitize_id(intent)
+                    intent=_util.sanitize_id(intent)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -11433,7 +11433,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/increment_authorization".format(
-                    intent=util.sanitize_id(self.get("id"))
+                    intent=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -11523,7 +11523,7 @@ class PaymentIntent(
             cls._static_request(
                 "post",
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
-                    intent=util.sanitize_id(intent)
+                    intent=_util.sanitize_id(intent)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -11577,7 +11577,7 @@ class PaymentIntent(
             self._request(
                 "post",
                 "/v1/payment_intents/{intent}/verify_microdeposits".format(
-                    intent=util.sanitize_id(self.get("id"))
+                    intent=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,

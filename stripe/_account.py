@@ -1,17 +1,18 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import oauth, util
+from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._nested_resource_class_methods import nested_resource_class_methods
+from stripe._oauth import OAuth
 from stripe._person import Person
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import (
     Literal,
@@ -3703,7 +3704,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/persons".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -3757,7 +3758,7 @@ class Account(
             self._request(
                 "get",
                 "/v1/accounts/{account}/persons".format(
-                    account=util.sanitize_id(self.get("id"))
+                    account=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -3785,7 +3786,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/reject".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -3845,7 +3846,7 @@ class Account(
             self._request(
                 "post",
                 "/v1/accounts/{account}/reject".format(
-                    account=util.sanitize_id(self.get("id"))
+                    account=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -3879,7 +3880,7 @@ class Account(
 
     def deauthorize(self, **params):
         params["stripe_user_id"] = self.id
-        return oauth.OAuth.deauthorize(**params)
+        return OAuth.deauthorize(**params)
 
     def serialize(self, previous):
         params = super(Account, self).serialize(previous)
@@ -3911,8 +3912,8 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=util.sanitize_id(account),
-                    capability=util.sanitize_id(capability),
+                    account=_util.sanitize_id(account),
+                    capability=_util.sanitize_id(capability),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -3941,8 +3942,8 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/capabilities/{capability}".format(
-                    account=util.sanitize_id(account),
-                    capability=util.sanitize_id(capability),
+                    account=_util.sanitize_id(account),
+                    capability=_util.sanitize_id(capability),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -3970,7 +3971,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/capabilities".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -3998,7 +3999,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/external_accounts".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4027,7 +4028,8 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=util.sanitize_id(account), id=util.sanitize_id(id)
+                    account=_util.sanitize_id(account),
+                    id=_util.sanitize_id(id),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4058,7 +4060,8 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=util.sanitize_id(account), id=util.sanitize_id(id)
+                    account=_util.sanitize_id(account),
+                    id=_util.sanitize_id(id),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4087,7 +4090,8 @@ class Account(
             cls._static_request(
                 "delete",
                 "/v1/accounts/{account}/external_accounts/{id}".format(
-                    account=util.sanitize_id(account), id=util.sanitize_id(id)
+                    account=_util.sanitize_id(account),
+                    id=_util.sanitize_id(id),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4115,7 +4119,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/external_accounts".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4145,7 +4149,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/login_links".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4173,7 +4177,7 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/persons".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4202,8 +4206,8 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/persons/{person}".format(
-                    account=util.sanitize_id(account),
-                    person=util.sanitize_id(person),
+                    account=_util.sanitize_id(account),
+                    person=_util.sanitize_id(person),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4232,8 +4236,8 @@ class Account(
             cls._static_request(
                 "post",
                 "/v1/accounts/{account}/persons/{person}".format(
-                    account=util.sanitize_id(account),
-                    person=util.sanitize_id(person),
+                    account=_util.sanitize_id(account),
+                    person=_util.sanitize_id(person),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4262,8 +4266,8 @@ class Account(
             cls._static_request(
                 "delete",
                 "/v1/accounts/{account}/persons/{person}".format(
-                    account=util.sanitize_id(account),
-                    person=util.sanitize_id(person),
+                    account=_util.sanitize_id(account),
+                    person=_util.sanitize_id(person),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4291,7 +4295,7 @@ class Account(
             cls._static_request(
                 "get",
                 "/v1/accounts/{account}/persons".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,

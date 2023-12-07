@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack
 from urllib.parse import quote_plus
@@ -134,7 +134,7 @@ class TestClock(
             cls._static_request(
                 "post",
                 "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
-                    test_clock=util.sanitize_id(test_clock)
+                    test_clock=_util.sanitize_id(test_clock)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -188,7 +188,7 @@ class TestClock(
             self._request(
                 "post",
                 "/v1/test_helpers/test_clocks/{test_clock}/advance".format(
-                    test_clock=util.sanitize_id(self.get("id"))
+                    test_clock=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,

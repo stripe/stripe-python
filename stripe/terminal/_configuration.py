@@ -8,7 +8,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import (
     Literal,

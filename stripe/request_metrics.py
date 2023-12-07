@@ -1,10 +1,15 @@
-class RequestMetrics(object):
-    def __init__(self, request_id, request_duration_ms):
-        self.request_id = request_id
-        self.request_duration_ms = request_duration_ms
+# -*- coding: utf-8 -*-
+from typing_extensions import TYPE_CHECKING
+from warnings import warn
 
-    def payload(self):
-        return {
-            "request_id": self.request_id,
-            "request_duration_ms": self.request_duration_ms,
-        }
+warn(
+    """
+    The stripe.request_metrics package is deprecated and will become internal in the future.
+    """,
+    DeprecationWarning,
+)
+
+if not TYPE_CHECKING:
+    from stripe._request_metrics import (  # noqa
+        RequestMetrics,
+    )

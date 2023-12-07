@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 import stripe
-from stripe import util
+from stripe import _util
 from stripe._api_requestor import APIRequestor
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -11,7 +11,7 @@ from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -3812,7 +3812,7 @@ class Quote(
             cls._static_request(
                 "post",
                 "/v1/quotes/{quote}/accept".format(
-                    quote=util.sanitize_id(quote)
+                    quote=_util.sanitize_id(quote)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -3866,7 +3866,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/accept".format(
-                    quote=util.sanitize_id(self.get("id"))
+                    quote=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -3892,7 +3892,7 @@ class Quote(
             cls._static_request(
                 "post",
                 "/v1/quotes/{quote}/cancel".format(
-                    quote=util.sanitize_id(quote)
+                    quote=_util.sanitize_id(quote)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -3946,7 +3946,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/cancel".format(
-                    quote=util.sanitize_id(self.get("id"))
+                    quote=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -3999,7 +3999,7 @@ class Quote(
             cls._static_request(
                 "post",
                 "/v1/quotes/{quote}/finalize".format(
-                    quote=util.sanitize_id(quote)
+                    quote=_util.sanitize_id(quote)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4053,7 +4053,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/finalize".format(
-                    quote=util.sanitize_id(self.get("id"))
+                    quote=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -4109,7 +4109,7 @@ class Quote(
             cls._static_request(
                 "get",
                 "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=util.sanitize_id(quote)
+                    quote=_util.sanitize_id(quote)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4163,7 +4163,7 @@ class Quote(
             self._request(
                 "get",
                 "/v1/quotes/{quote}/computed_upfront_line_items".format(
-                    quote=util.sanitize_id(self.get("id"))
+                    quote=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -4189,7 +4189,7 @@ class Quote(
             cls._static_request(
                 "get",
                 "/v1/quotes/{quote}/line_items".format(
-                    quote=util.sanitize_id(quote)
+                    quote=_util.sanitize_id(quote)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4243,7 +4243,7 @@ class Quote(
             self._request(
                 "get",
                 "/v1/quotes/{quote}/line_items".format(
-                    quote=util.sanitize_id(self.get("id"))
+                    quote=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -4269,7 +4269,7 @@ class Quote(
             cls._static_request(
                 "get",
                 "/v1/quotes/{quote}/lines".format(
-                    quote=util.sanitize_id(quote)
+                    quote=_util.sanitize_id(quote)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4323,7 +4323,7 @@ class Quote(
             self._request(
                 "get",
                 "/v1/quotes/{quote}/lines".format(
-                    quote=util.sanitize_id(self.get("id"))
+                    quote=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -4350,8 +4350,8 @@ class Quote(
             cls._static_request(
                 "get",
                 "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                    quote=util.sanitize_id(quote),
-                    preview_invoice=util.sanitize_id(preview_invoice),
+                    quote=_util.sanitize_id(quote),
+                    preview_invoice=_util.sanitize_id(preview_invoice),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4408,8 +4408,8 @@ class Quote(
             self._request(
                 "get",
                 "/v1/quotes/{quote}/preview_invoices/{preview_invoice}/lines".format(
-                    quote=util.sanitize_id(self.get("id")),
-                    preview_invoice=util.sanitize_id(preview_invoice),
+                    quote=_util.sanitize_id(self.get("id")),
+                    preview_invoice=_util.sanitize_id(preview_invoice),
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -4435,7 +4435,7 @@ class Quote(
             cls._static_request(
                 "post",
                 "/v1/quotes/{quote}/mark_draft".format(
-                    quote=util.sanitize_id(quote)
+                    quote=_util.sanitize_id(quote)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4489,7 +4489,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/mark_draft".format(
-                    quote=util.sanitize_id(self.get("id"))
+                    quote=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -4515,7 +4515,7 @@ class Quote(
             cls._static_request(
                 "post",
                 "/v1/quotes/{quote}/mark_stale".format(
-                    quote=util.sanitize_id(quote)
+                    quote=_util.sanitize_id(quote)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4569,7 +4569,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/mark_stale".format(
-                    quote=util.sanitize_id(self.get("id"))
+                    quote=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -4608,7 +4608,7 @@ class Quote(
             cls._static_request(
                 "post",
                 "/v1/quotes/{quote}/reestimate".format(
-                    quote=util.sanitize_id(quote)
+                    quote=_util.sanitize_id(quote)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4662,7 +4662,7 @@ class Quote(
             self._request(
                 "post",
                 "/v1/quotes/{quote}/reestimate".format(
-                    quote=util.sanitize_id(self.get("id"))
+                    quote=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -4701,7 +4701,7 @@ class Quote(
             api_version=stripe_version,
             account=stripe_account,
         )
-        headers = util.populate_headers(idempotency_key)
+        headers = _util.populate_headers(idempotency_key)
         response, _ = requestor.request_stream("get", url, params, headers)
         return response
 
@@ -4728,7 +4728,7 @@ class Quote(
     ):
         ...
 
-    @util.class_method_variant("_cls_pdf")
+    @_util.class_method_variant("_cls_pdf")
     def pdf(  # pyright: ignore
         self,
         api_key=None,
@@ -4766,7 +4766,7 @@ class Quote(
             cls._static_request(
                 "get",
                 "/v1/quotes/{quote}/preview_invoices".format(
-                    quote=util.sanitize_id(quote)
+                    quote=_util.sanitize_id(quote)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4794,7 +4794,7 @@ class Quote(
             cls._static_request(
                 "get",
                 "/v1/quotes/{quote}/preview_subscription_schedules".format(
-                    quote=util.sanitize_id(quote)
+                    quote=_util.sanitize_id(quote)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,

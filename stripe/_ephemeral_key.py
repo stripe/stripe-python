@@ -1,10 +1,10 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._api_requestor import APIRequestor
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._request_options import RequestOptions
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import ClassVar, List, Optional, cast, overload
 from typing_extensions import Literal, NotRequired, Unpack
 from urllib.parse import quote_plus
@@ -109,8 +109,8 @@ class EphemeralKey(DeletableAPIResource["EphemeralKey"]):
         )
 
         url = cls.class_url()
-        headers = util.populate_headers(idempotency_key)
+        headers = _util.populate_headers(idempotency_key)
         response, api_key = requestor.request("post", url, params, headers)
-        return util.convert_to_stripe_object(
+        return _util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account
         )

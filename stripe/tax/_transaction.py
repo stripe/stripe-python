@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._api_resource import APIResource
 from stripe._list_object import ListObject
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -519,7 +519,7 @@ class Transaction(APIResource["Transaction"]):
             cls._static_request(
                 "get",
                 "/v1/tax/transactions/{transaction}/line_items".format(
-                    transaction=util.sanitize_id(transaction)
+                    transaction=_util.sanitize_id(transaction)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -573,7 +573,7 @@ class Transaction(APIResource["Transaction"]):
             self._request(
                 "get",
                 "/v1/tax/transactions/{transaction}/line_items".format(
-                    transaction=util.sanitize_id(self.get("id"))
+                    transaction=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,

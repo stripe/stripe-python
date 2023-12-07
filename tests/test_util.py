@@ -52,7 +52,7 @@ class TestUtil(object):
                 logger_mock = mocker.patch(logger_name)
                 print_mock = mocker.patch(PRINT_FUNC_STRING)
                 mocker.patch("stripe.log", case.flag)
-                mocker.patch("stripe.util.STRIPE_LOG", case.env)
+                mocker.patch("stripe._util.STRIPE_LOG", case.env)
 
                 logging_func("foo \nbar", y=3)  # function under test
 
