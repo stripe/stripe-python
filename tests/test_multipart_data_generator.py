@@ -4,7 +4,7 @@
 import re
 import io
 
-from stripe.multipart_data_generator import MultipartDataGenerator
+from stripe._multipart_data_generator import MultipartDataGenerator
 
 
 class TestMultipartDataGenerator(object):

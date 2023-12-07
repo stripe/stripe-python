@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -379,7 +379,9 @@ class Transfer(
             "Reversal",
             cls._static_request(
                 "post",
-                "/v1/transfers/{id}/reversals".format(id=util.sanitize_id(id)),
+                "/v1/transfers/{id}/reversals".format(
+                    id=_util.sanitize_id(id)
+                ),
                 api_key=api_key,
                 stripe_version=stripe_version,
                 stripe_account=stripe_account,
@@ -407,8 +409,8 @@ class Transfer(
             cls._static_request(
                 "get",
                 "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=util.sanitize_id(transfer),
-                    id=util.sanitize_id(id),
+                    transfer=_util.sanitize_id(transfer),
+                    id=_util.sanitize_id(id),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -439,8 +441,8 @@ class Transfer(
             cls._static_request(
                 "post",
                 "/v1/transfers/{transfer}/reversals/{id}".format(
-                    transfer=util.sanitize_id(transfer),
-                    id=util.sanitize_id(id),
+                    transfer=_util.sanitize_id(transfer),
+                    id=_util.sanitize_id(id),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -467,7 +469,9 @@ class Transfer(
             ListObject["Reversal"],
             cls._static_request(
                 "get",
-                "/v1/transfers/{id}/reversals".format(id=util.sanitize_id(id)),
+                "/v1/transfers/{id}/reversals".format(
+                    id=_util.sanitize_id(id)
+                ),
                 api_key=api_key,
                 stripe_version=stripe_version,
                 stripe_account=stripe_account,

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import (
     Literal,
@@ -292,7 +292,7 @@ class Payout(
             cls._static_request(
                 "post",
                 "/v1/payouts/{payout}/cancel".format(
-                    payout=util.sanitize_id(payout)
+                    payout=_util.sanitize_id(payout)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -346,7 +346,7 @@ class Payout(
             self._request(
                 "post",
                 "/v1/payouts/{payout}/cancel".format(
-                    payout=util.sanitize_id(self.get("id"))
+                    payout=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -459,7 +459,7 @@ class Payout(
             cls._static_request(
                 "post",
                 "/v1/payouts/{payout}/reverse".format(
-                    payout=util.sanitize_id(payout)
+                    payout=_util.sanitize_id(payout)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -519,7 +519,7 @@ class Payout(
             self._request(
                 "post",
                 "/v1/payouts/{payout}/reverse".format(
-                    payout=util.sanitize_id(self.get("id"))
+                    payout=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,

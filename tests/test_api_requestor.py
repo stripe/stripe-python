@@ -586,7 +586,7 @@ class TestAPIRequestor(object):
             mock_response("{}", 200)
             requestor.request("get", self.valid_path, {})
 
-            ua = "Stripe/v1 PythonBindings/%s" % (stripe.version.VERSION,)
+            ua = "Stripe/v1 PythonBindings/%s" % (stripe.VERSION,)
             ua += " MyAwesomePlugin/1.2.34 (https://myawesomeplugin.info)"
             header_matcher = APIHeaderMatcher(
                 user_agent=ua,

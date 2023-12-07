@@ -42,7 +42,7 @@ clean:
 
 update-version:
 	@echo "$(VERSION)" > VERSION
-	@perl -pi -e 's|VERSION = "[.\d\w]+"|VERSION = "$(VERSION)"|' stripe/version.py
+	@perl -pi -e 's|VERSION = "[.\d\w]+"|VERSION = "$(VERSION)"|' stripe/_version.py
 
 codegen-format: fmt
 

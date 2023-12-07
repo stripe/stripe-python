@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -301,7 +301,7 @@ class Account(ListableAPIResource["Account"]):
             cls._static_request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -355,7 +355,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/disconnect".format(
-                    account=util.sanitize_id(self.get("id"))
+                    account=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -411,7 +411,7 @@ class Account(ListableAPIResource["Account"]):
             cls._static_request(
                 "get",
                 "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -465,7 +465,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "get",
                 "/v1/financial_connections/accounts/{account}/owners".format(
-                    account=util.sanitize_id(self.get("id"))
+                    account=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -491,7 +491,7 @@ class Account(ListableAPIResource["Account"]):
             cls._static_request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=util.sanitize_id(account)
+                    account=_util.sanitize_id(account)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -545,7 +545,7 @@ class Account(ListableAPIResource["Account"]):
             self._request(
                 "post",
                 "/v1/financial_connections/accounts/{account}/refresh".format(
-                    account=util.sanitize_id(self.get("id"))
+                    account=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,

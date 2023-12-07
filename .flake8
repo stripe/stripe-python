@@ -8,15 +8,25 @@ ignore = E501, W503
 per-file-ignores =
     */__init__.py: E402, F401
     # we test various import patterns
-    tests/test_exports.py: IMP100, IMP101
-    tests/*: IMP101
+    tests/test_exports.py: IMP100, IMP101, IMP102
+    tests/*: IMP101, IMP102, IMP102
     # backcompat with outdated import patterns
     stripe/api_resources/*: IMP100, E402, F401
+
+    # IMP101: Do not import stripe
     # breaking circular dependencies in overrides
     stripe/_file.py: IMP101
     stripe/_account.py: IMP101
     stripe/_person.py: IMP101
     stripe/_quote.py: IMP101
+
+    # IMP102: Do not create public modules
+    # contains a single deprecated class
+    stripe/api_resources/recipient_transfer.py: IMP102
+    # type names conflict with existing error names in stripe
+    stripe/oauth_error.py: IMP102
+    # setup.py is required for tooling
+    setup.py: IMP102
 
 [flake8:local-plugins]
 extension =

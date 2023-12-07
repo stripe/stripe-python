@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._list_object import ListObject
@@ -9,7 +9,7 @@ from stripe._nested_resource_class_methods import nested_resource_class_methods
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -549,7 +549,7 @@ class SubscriptionItem(
             cls._static_request(
                 "post",
                 "/v1/subscription_items/{subscription_item}/usage_records".format(
-                    subscription_item=util.sanitize_id(subscription_item)
+                    subscription_item=_util.sanitize_id(subscription_item)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -579,7 +579,7 @@ class SubscriptionItem(
             cls._static_request(
                 "get",
                 "/v1/subscription_items/{subscription_item}/usage_record_summaries".format(
-                    subscription_item=util.sanitize_id(subscription_item)
+                    subscription_item=_util.sanitize_id(subscription_item)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,

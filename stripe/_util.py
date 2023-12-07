@@ -1,13 +1,13 @@
 import functools
 import hmac
-import io
+import io  # noqa: F401
 import logging
 import sys
 import os
 import re
 import warnings
 
-from urllib.parse import parse_qsl, quote_plus
+from urllib.parse import parse_qsl, quote_plus  # noqa: F401
 
 from typing_extensions import Type, TYPE_CHECKING
 from typing import (
@@ -31,16 +31,6 @@ from stripe._stripe_object import StripeObject
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
 logger: logging.Logger = logging.getLogger("stripe")
-
-__all__ = [
-    "io",
-    "parse_qsl",
-    "log_info",
-    "log_debug",
-    "dashboard_link",
-    "logfmt",
-    "deprecated",
-]
 
 if hasattr(typing_extensions, "deprecated"):
     deprecated = typing_extensions.deprecated
@@ -197,7 +187,7 @@ else:
 
 def get_object_classes():
     # This is here to avoid a circular dependency
-    from stripe.object_classes import OBJECT_CLASSES
+    from stripe._object_classes import OBJECT_CLASSES
 
     return OBJECT_CLASSES
 

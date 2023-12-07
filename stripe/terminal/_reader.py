@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -10,7 +10,7 @@ from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -552,7 +552,7 @@ class Reader(
             cls._static_request(
                 "post",
                 "/v1/terminal/readers/{reader}/cancel_action".format(
-                    reader=util.sanitize_id(reader)
+                    reader=_util.sanitize_id(reader)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -606,7 +606,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/cancel_action".format(
-                    reader=util.sanitize_id(self.get("id"))
+                    reader=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -743,7 +743,7 @@ class Reader(
             cls._static_request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                    reader=util.sanitize_id(reader)
+                    reader=_util.sanitize_id(reader)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -797,7 +797,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_payment_intent".format(
-                    reader=util.sanitize_id(self.get("id"))
+                    reader=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -823,7 +823,7 @@ class Reader(
             cls._static_request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                    reader=util.sanitize_id(reader)
+                    reader=_util.sanitize_id(reader)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -877,7 +877,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/process_setup_intent".format(
-                    reader=util.sanitize_id(self.get("id"))
+                    reader=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -903,7 +903,7 @@ class Reader(
             cls._static_request(
                 "post",
                 "/v1/terminal/readers/{reader}/refund_payment".format(
-                    reader=util.sanitize_id(reader)
+                    reader=_util.sanitize_id(reader)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -957,7 +957,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/refund_payment".format(
-                    reader=util.sanitize_id(self.get("id"))
+                    reader=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -994,7 +994,7 @@ class Reader(
             cls._static_request(
                 "post",
                 "/v1/terminal/readers/{reader}/set_reader_display".format(
-                    reader=util.sanitize_id(reader)
+                    reader=_util.sanitize_id(reader)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -1048,7 +1048,7 @@ class Reader(
             self._request(
                 "post",
                 "/v1/terminal/readers/{reader}/set_reader_display".format(
-                    reader=util.sanitize_id(self.get("id"))
+                    reader=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -1077,7 +1077,7 @@ class Reader(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                        reader=util.sanitize_id(reader)
+                        reader=_util.sanitize_id(reader)
                     ),
                     api_key=api_key,
                     stripe_version=stripe_version,
@@ -1131,7 +1131,7 @@ class Reader(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/terminal/readers/{reader}/present_payment_method".format(
-                        reader=util.sanitize_id(self.resource.get("id"))
+                        reader=_util.sanitize_id(self.resource.get("id"))
                     ),
                     idempotency_key=idempotency_key,
                     params=params,

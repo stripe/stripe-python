@@ -9,8 +9,8 @@ import json
 
 # Used for global variables
 import stripe  # noqa: IMP101
-from stripe import util
-from stripe.request_metrics import RequestMetrics
+from stripe import _util
+from stripe._request_metrics import RequestMetrics
 from stripe._error import APIConnectionError
 
 from typing import Any, Dict, Optional, Tuple, ClassVar, Union, cast
@@ -75,7 +75,7 @@ def _now_ms():
     return int(round(time.time() * 1000))
 
 
-def new_default_http_client(*args, **kwargs):
+def new_default_http_client(*args: Any, **kwargs: Any) -> "HTTPClient":
     if urlfetch:
         impl = UrlFetchClient
     elif requests:
@@ -173,13 +173,13 @@ class HTTPClient(object):
 
             if self._should_retry(response, connection_error, num_retries):
                 if connection_error:
-                    util.log_info(
+                    _util.log_info(
                         "Encountered a retryable error %s"
                         % connection_error.user_message
                     )
                 num_retries += 1
                 sleep_time = self._sleep_time_seconds(num_retries, response)
-                util.log_info(
+                _util.log_info(
                     (
                         "Initiating retry %i for request %s %s after "
                         "sleeping %.2f seconds."
@@ -496,7 +496,7 @@ class UrlFetchClient(HTTPClient):
             self._handle_request_error(e, url)
 
         if is_streaming:
-            content = util.io.BytesIO(str.encode(result.content))
+            content = _util.io.BytesIO(str.encode(result.content))
         else:
             content = result.content
 
@@ -577,8 +577,8 @@ class PycurlClient(HTTPClient):
         )
 
     def _request_internal(self, method, url, headers, post_data, is_streaming):
-        b = util.io.BytesIO()
-        rheaders = util.io.BytesIO()
+        b = _util.io.BytesIO()
+        rheaders = _util.io.BytesIO()
 
         # Pycurl's design is a little weird: although we set per-request
         # options on this object, it's also capable of maintaining established
