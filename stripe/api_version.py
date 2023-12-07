@@ -1,6 +1,15 @@
 # -*- coding: utf-8 -*-
-# File generated from our OpenAPI spec
+from typing_extensions import TYPE_CHECKING
+from warnings import warn
 
+warn(
+    """
+    The stripe.api_version package is deprecated and will become internal in the future.
+    """,
+    DeprecationWarning,
+)
 
-class _ApiVersion:
-    CURRENT = "2023-10-16"
+if not TYPE_CHECKING:
+    from stripe._api_version import (  # noqa
+        _ApiVersion,
+    )

@@ -37,7 +37,44 @@ def test_can_import_request_options() -> None:
     assert RequestOptionsFromStripe is RequestOptionsStripeRequestOptions
 
 
+def test_can_import_http_client() -> None:
+    from stripe.http_client import HTTPClient as HTTPClientFromStripeHTTPClient  # type: ignore
+    from stripe.http_client import PycurlClient as PycurlClientFromStripeHTTPClient  # type: ignore
+    from stripe.http_client import RequestsClient as RequestsClientFromStripeHTTPClient  # type: ignore
+    from stripe.http_client import UrlFetchClient as UrlFetchClientFromStripeHTTPClient  # type: ignore
+    from stripe.http_client import new_default_http_client as new_default_http_clientFromStripeHTTPClient  # type: ignore
+
+    from stripe import (
+        HTTPClient as HTTPClientFromStripe,
+        PycurlClient as PycurlClientFromStripe,
+        RequestsClient as RequestsClientFromStripe,
+        UrlFetchClient as UrlFetchClientFromStripe,
+        new_default_http_client as new_default_http_clientFromStripe,
+    )
+
+    assert HTTPClientFromStripe is HTTPClientFromStripeHTTPClient
+    assert PycurlClientFromStripe is PycurlClientFromStripeHTTPClient
+    assert RequestsClientFromStripe is RequestsClientFromStripeHTTPClient
+    assert UrlFetchClientFromStripe is UrlFetchClientFromStripeHTTPClient
+    assert (
+        new_default_http_clientFromStripe
+        is new_default_http_clientFromStripeHTTPClient
+    )
+
+    assert stripe.HTTPClient is HTTPClientFromStripeHTTPClient
+    assert stripe.PycurlClient is PycurlClientFromStripeHTTPClient
+    assert stripe.RequestsClient is RequestsClientFromStripeHTTPClient
+    assert stripe.UrlFetchClient is UrlFetchClientFromStripeHTTPClient
+    assert (
+        stripe.new_default_http_client
+        is new_default_http_clientFromStripeHTTPClient
+    )
+
+
 def test_can_import_webhook_members() -> None:
+    from stripe.webhook import Webhook as WebhookFromStripeWebhook  # type: ignore
+    from stripe.webhook import WebhookSignature as WebhookSignatureFromStripeWebhook  # type: ignore
+
     from stripe import (
         Webhook,
         WebhookSignature,
@@ -45,6 +82,9 @@ def test_can_import_webhook_members() -> None:
 
     assert Webhook is not None
     assert WebhookSignature is not None
+
+    assert WebhookFromStripeWebhook is Webhook
+    assert WebhookSignatureFromStripeWebhook is WebhookSignature
 
 
 def test_can_import_list_search_objects() -> None:
@@ -187,7 +227,7 @@ def test_can_import_abstract() -> None:
 
 
 def test_can_import_app_info() -> None:
-    from stripe.app_info import AppInfo as AppInfoFromStripeAppInfo
+    from stripe.app_info import AppInfo as AppInfoFromStripeAppInfo  # type: ignore
     from stripe import AppInfo as AppInfoFromStripe
 
     assert AppInfoFromStripeAppInfo is AppInfoFromStripe
@@ -227,11 +267,30 @@ def test_can_import_stripe_response() -> None:
 
 
 def test_can_import_oauth_members() -> None:
+    from stripe.oauth import OAuth as OAuthFromStripeOAuth  # type: ignore
     from stripe import (
         OAuth,
     )
 
     assert OAuth is not None
+    assert OAuthFromStripeOAuth is OAuth
+    assert OAuthFromStripeOAuth is stripe.OAuth
+
+
+def test_can_import_util() -> None:
+    from stripe.util import convert_to_stripe_object as convert_to_stripe_objectFromStripeUtil  # type: ignore
+    from stripe import (
+        convert_to_stripe_object as convert_to_stripe_objectFromStripe,
+    )
+
+    assert (
+        stripe.convert_to_stripe_object is convert_to_stripe_objectFromStripe
+    )
+    assert (
+        convert_to_stripe_objectFromStripe
+        is convert_to_stripe_objectFromStripeUtil
+    )
+    assert stripe.util.io is not None  # type: ignore
 
 
 def test_can_import_errors() -> None:

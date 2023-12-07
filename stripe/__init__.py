@@ -11,12 +11,13 @@ import os
 # Andrew Metcalf <andrew@stripe.com>
 
 # Configuration variables
-from stripe.api_version import _ApiVersion
+from stripe._api_version import _ApiVersion
 
-from stripe.app_info import AppInfo
-
-if TYPE_CHECKING:
-    from stripe.http_client import HTTPClient
+# We must import the app_info module eagerly before defining the app_info global
+# otherwise the late import will overwrite the global
+import stripe.app_info
+from stripe._app_info import AppInfo
+from stripe._version import VERSION as VERSION
 
 api_key: Optional[str] = None
 client_id: Optional[str] = None
@@ -38,10 +39,10 @@ ca_bundle_path: str = os.path.join(
 log: Optional[Literal["debug", "info"]] = None
 
 # OAuth
-from stripe.oauth import OAuth
+from stripe._oauth import OAuth
 
 # Webhooks
-from stripe.webhook import Webhook, WebhookSignature
+from stripe._webhook import Webhook, WebhookSignature
 
 
 # Sets some basic information about the running application that's sent along
@@ -130,6 +131,18 @@ from stripe._error import (
     SignatureVerificationError as SignatureVerificationError,
 )
 
+# HttpClient
+from stripe._http_client import (
+    HTTPClient as HTTPClient,
+    PycurlClient as PycurlClient,
+    RequestsClient as RequestsClient,
+    UrlFetchClient as UrlFetchClient,
+    new_default_http_client as new_default_http_client,
+)
+
+# Util
+from stripe._util import convert_to_stripe_object as convert_to_stripe_object
+
 # Backwards compatibility re-exports
 if not TYPE_CHECKING:
     from stripe import _api_requestor as api_requestor
@@ -137,6 +150,12 @@ if not TYPE_CHECKING:
     from stripe import _stripe_object as stripe_object
     from stripe import _error_object as error_object
     from stripe import _error as error
+    from stripe import _http_client as http_client
+    from stripe import _util as util
+    from stripe import _oauth as oauth
+    from stripe import _webhook as webhook
+    from stripe import _multipart_data_generator as multipart_data_generator
+    from stripe import _request_metrics as request_metrics
     from stripe._file import File as FileUpload
 
     import warnings

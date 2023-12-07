@@ -1,7 +1,7 @@
 from typing_extensions import Literal, Self
 
 from stripe._error import InvalidRequestError
-from stripe.util import (
+from stripe._util import (
     read_special_variable,
     populate_headers,
     convert_to_stripe_object,

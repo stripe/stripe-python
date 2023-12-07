@@ -11,10 +11,10 @@ VALID_API_METHODS = ("get", "post", "delete")
 
 class StripeClientTestCase(object):
     REQUEST_LIBRARIES = [
-        ("urlfetch", "stripe.http_client.urlfetch"),
-        ("requests", "stripe.http_client.requests"),
-        ("pycurl", "stripe.http_client.pycurl"),
-        ("urllib.request", "stripe.http_client.urllibrequest"),
+        ("urlfetch", "stripe._http_client.urlfetch"),
+        ("requests", "stripe._http_client.requests"),
+        ("pycurl", "stripe._http_client.pycurl"),
+        ("urllib.request", "stripe._http_client.urllibrequest"),
     ]
 
     @pytest.fixture
@@ -35,7 +35,7 @@ class TestNewDefaultHttpClient(StripeClientTestCase):
 
     def check_default(self, none_libs, expected):
         for lib in none_libs:
-            setattr(stripe.http_client, lib, None)
+            setattr(stripe._http_client, lib, None)
 
         inst = stripe.http_client.new_default_http_client()
 
@@ -884,8 +884,8 @@ class TestPycurlClient(StripeClientTestCase, ClientTestBase):
                 def args(self):
                     return ("foo", "bar")
 
-            stripe.http_client.pycurl.error = FakeException
-            mock.perform.side_effect = stripe.http_client.pycurl.error
+            stripe._http_client.pycurl.error = FakeException
+            mock.perform.side_effect = stripe._http_client.pycurl.error
 
         return mock_error
 

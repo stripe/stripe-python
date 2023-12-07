@@ -15,9 +15,10 @@ import warnings
 
 # breaking circular dependency
 import stripe  # noqa: IMP101
-from stripe import oauth_error, http_client, version, util
+from stripe import _http_client, _util, _version
+from stripe import oauth_error  # noqa: SPY101
 from stripe._encode import _api_encode
-from stripe.multipart_data_generator import MultipartDataGenerator
+from stripe._multipart_data_generator import MultipartDataGenerator
 from urllib.parse import urlencode, urlsplit, urlunsplit
 from stripe._stripe_response import StripeResponse, StripeStreamResponse
 
@@ -70,7 +71,7 @@ class APIRequestor(object):
             # If the stripe.default_http_client has not been set by the user
             # yet, we'll set it here. This way, we aren't creating a new
             # HttpClient for every request.
-            stripe.default_http_client = http_client.new_default_http_client(
+            stripe.default_http_client = _http_client.new_default_http_client(
                 verify_ssl_certs=verify, proxy=proxy
             )
             self._client = stripe.default_http_client
@@ -147,7 +148,7 @@ class APIRequestor(object):
         raise err
 
     def specific_api_error(self, rbody, rcode, resp, rheaders, error_data):
-        util.log_info(
+        _util.log_info(
             "Stripe API error received",
             error_code=error_data.get("code"),
             error_type=error_data.get("type"),
@@ -203,7 +204,7 @@ class APIRequestor(object):
     def specific_oauth_error(self, rbody, rcode, resp, rheaders, error_code):
         description = resp.get("error_description", error_code)
 
-        util.log_info(
+        _util.log_info(
             "Stripe OAuth error received",
             error_code=error_code,
             error_description=description,
@@ -227,12 +228,12 @@ class APIRequestor(object):
         return None
 
     def request_headers(self, api_key, method):
-        user_agent = "Stripe/v1 PythonBindings/%s" % (version.VERSION,)
+        user_agent = "Stripe/v1 PythonBindings/%s" % (_version.VERSION,)
         if stripe.app_info:
             user_agent += " " + self.format_app_info(stripe.app_info)
 
         ua = {
-            "bindings_version": version.VERSION,
+            "bindings_version": _version.VERSION,
             "lang": "python",
             "publisher": "stripe",
             "httplib": self._client.name,
@@ -338,8 +339,8 @@ class APIRequestor(object):
             for key, value in supplied_headers_dict.items():
                 headers[key] = value
 
-        util.log_info("Request to Stripe api", method=method, path=abs_url)
-        util.log_debug(
+        _util.log_info("Request to Stripe api", method=method, path=abs_url)
+        _util.log_debug(
             "Post details",
             post_data=encoded_params,
             api_version=self.api_version,
@@ -358,14 +359,16 @@ class APIRequestor(object):
                 method, abs_url, headers, post_data
             )
 
-        util.log_info("Stripe API response", path=abs_url, response_code=rcode)
-        util.log_debug("API response body", body=rcontent)
+        _util.log_info(
+            "Stripe API response", path=abs_url, response_code=rcode
+        )
+        _util.log_debug("API response body", body=rcontent)
 
         if "Request-Id" in rheaders:
             request_id = rheaders["Request-Id"]
-            util.log_debug(
+            _util.log_debug(
                 "Dashboard link for request",
-                link=util.dashboard_link(request_id),
+                link=_util.dashboard_link(request_id),
             )
 
         return rcontent, rcode, rheaders, my_api_key

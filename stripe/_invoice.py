@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -11,7 +11,7 @@ from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import (
     ClassVar,
     Dict,
@@ -3641,7 +3641,7 @@ class Invoice(
             cls._static_request(
                 "post",
                 "/v1/invoices/{invoice}/finalize".format(
-                    invoice=util.sanitize_id(invoice)
+                    invoice=_util.sanitize_id(invoice)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -3695,7 +3695,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/finalize".format(
-                    invoice=util.sanitize_id(self.get("id"))
+                    invoice=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -3751,7 +3751,7 @@ class Invoice(
             cls._static_request(
                 "post",
                 "/v1/invoices/{invoice}/mark_uncollectible".format(
-                    invoice=util.sanitize_id(invoice)
+                    invoice=_util.sanitize_id(invoice)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -3805,7 +3805,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/mark_uncollectible".format(
-                    invoice=util.sanitize_id(self.get("id"))
+                    invoice=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -3849,7 +3849,7 @@ class Invoice(
             cls._static_request(
                 "post",
                 "/v1/invoices/{invoice}/pay".format(
-                    invoice=util.sanitize_id(invoice)
+                    invoice=_util.sanitize_id(invoice)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -3903,7 +3903,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/pay".format(
-                    invoice=util.sanitize_id(self.get("id"))
+                    invoice=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -3942,7 +3942,7 @@ class Invoice(
             cls._static_request(
                 "post",
                 "/v1/invoices/{invoice}/send".format(
-                    invoice=util.sanitize_id(invoice)
+                    invoice=_util.sanitize_id(invoice)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4002,7 +4002,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/send".format(
-                    invoice=util.sanitize_id(self.get("id"))
+                    invoice=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -4082,7 +4082,7 @@ class Invoice(
             cls._static_request(
                 "post",
                 "/v1/invoices/{invoice}/void".format(
-                    invoice=util.sanitize_id(invoice)
+                    invoice=_util.sanitize_id(invoice)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -4136,7 +4136,7 @@ class Invoice(
             self._request(
                 "post",
                 "/v1/invoices/{invoice}/void".format(
-                    invoice=util.sanitize_id(self.get("id"))
+                    invoice=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,

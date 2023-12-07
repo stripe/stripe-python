@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -13,7 +13,7 @@ from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import (
     ClassVar,
     Dict,
@@ -1429,7 +1429,7 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/funding_instructions".format(
-                    customer=util.sanitize_id(customer)
+                    customer=_util.sanitize_id(customer)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -1489,7 +1489,7 @@ class Customer(
             self._request(
                 "post",
                 "/v1/customers/{customer}/funding_instructions".format(
-                    customer=util.sanitize_id(self.get("id"))
+                    customer=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -1558,7 +1558,7 @@ class Customer(
             cls._static_request(
                 "delete",
                 "/v1/customers/{customer}/discount".format(
-                    customer=util.sanitize_id(customer)
+                    customer=_util.sanitize_id(customer)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -1612,7 +1612,7 @@ class Customer(
             self._request(
                 "delete",
                 "/v1/customers/{customer}/discount".format(
-                    customer=util.sanitize_id(self.get("id"))
+                    customer=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -1668,7 +1668,7 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/payment_methods".format(
-                    customer=util.sanitize_id(customer)
+                    customer=_util.sanitize_id(customer)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -1722,7 +1722,7 @@ class Customer(
             self._request(
                 "get",
                 "/v1/customers/{customer}/payment_methods".format(
-                    customer=util.sanitize_id(self.get("id"))
+                    customer=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -1775,8 +1775,8 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                    customer=util.sanitize_id(customer),
-                    payment_method=util.sanitize_id(payment_method),
+                    customer=_util.sanitize_id(customer),
+                    payment_method=_util.sanitize_id(payment_method),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -1833,8 +1833,8 @@ class Customer(
             self._request(
                 "get",
                 "/v1/customers/{customer}/payment_methods/{payment_method}".format(
-                    customer=util.sanitize_id(self.get("id")),
-                    payment_method=util.sanitize_id(payment_method),
+                    customer=_util.sanitize_id(self.get("id")),
+                    payment_method=_util.sanitize_id(payment_method),
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -1878,7 +1878,7 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/balance_transactions".format(
-                    customer=util.sanitize_id(customer)
+                    customer=_util.sanitize_id(customer)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -1907,8 +1907,8 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=util.sanitize_id(customer),
-                    transaction=util.sanitize_id(transaction),
+                    customer=_util.sanitize_id(customer),
+                    transaction=_util.sanitize_id(transaction),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -1937,8 +1937,8 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/balance_transactions/{transaction}".format(
-                    customer=util.sanitize_id(customer),
-                    transaction=util.sanitize_id(transaction),
+                    customer=_util.sanitize_id(customer),
+                    transaction=_util.sanitize_id(transaction),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -1966,7 +1966,7 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/balance_transactions".format(
-                    customer=util.sanitize_id(customer)
+                    customer=_util.sanitize_id(customer)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -1995,8 +1995,8 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/cash_balance_transactions/{transaction}".format(
-                    customer=util.sanitize_id(customer),
-                    transaction=util.sanitize_id(transaction),
+                    customer=_util.sanitize_id(customer),
+                    transaction=_util.sanitize_id(transaction),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2024,7 +2024,7 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/cash_balance_transactions".format(
-                    customer=util.sanitize_id(customer)
+                    customer=_util.sanitize_id(customer)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2056,7 +2056,7 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/sources".format(
-                    customer=util.sanitize_id(customer)
+                    customer=_util.sanitize_id(customer)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2085,8 +2085,8 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/sources/{id}".format(
-                    customer=util.sanitize_id(customer),
-                    id=util.sanitize_id(id),
+                    customer=_util.sanitize_id(customer),
+                    id=_util.sanitize_id(id),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2115,8 +2115,8 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/sources/{id}".format(
-                    customer=util.sanitize_id(customer),
-                    id=util.sanitize_id(id),
+                    customer=_util.sanitize_id(customer),
+                    id=_util.sanitize_id(id),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2145,8 +2145,8 @@ class Customer(
             cls._static_request(
                 "delete",
                 "/v1/customers/{customer}/sources/{id}".format(
-                    customer=util.sanitize_id(customer),
-                    id=util.sanitize_id(id),
+                    customer=_util.sanitize_id(customer),
+                    id=_util.sanitize_id(id),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2174,7 +2174,7 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/sources".format(
-                    customer=util.sanitize_id(customer)
+                    customer=_util.sanitize_id(customer)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2202,7 +2202,7 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/tax_ids".format(
-                    customer=util.sanitize_id(customer)
+                    customer=_util.sanitize_id(customer)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2231,8 +2231,8 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/tax_ids/{id}".format(
-                    customer=util.sanitize_id(customer),
-                    id=util.sanitize_id(id),
+                    customer=_util.sanitize_id(customer),
+                    id=_util.sanitize_id(id),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2261,8 +2261,8 @@ class Customer(
             cls._static_request(
                 "delete",
                 "/v1/customers/{customer}/tax_ids/{id}".format(
-                    customer=util.sanitize_id(customer),
-                    id=util.sanitize_id(id),
+                    customer=_util.sanitize_id(customer),
+                    id=_util.sanitize_id(id),
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2290,7 +2290,7 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/tax_ids".format(
-                    customer=util.sanitize_id(customer)
+                    customer=_util.sanitize_id(customer)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2318,7 +2318,7 @@ class Customer(
             cls._static_request(
                 "post",
                 "/v1/customers/{customer}/cash_balance".format(
-                    customer=util.sanitize_id(customer)
+                    customer=_util.sanitize_id(customer)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2346,7 +2346,7 @@ class Customer(
             cls._static_request(
                 "get",
                 "/v1/customers/{customer}/cash_balance".format(
-                    customer=util.sanitize_id(customer)
+                    customer=_util.sanitize_id(customer)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2377,7 +2377,7 @@ class Customer(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                        customer=util.sanitize_id(customer)
+                        customer=_util.sanitize_id(customer)
                     ),
                     api_key=api_key,
                     stripe_version=stripe_version,
@@ -2431,7 +2431,7 @@ class Customer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/customers/{customer}/fund_cash_balance".format(
-                        customer=util.sanitize_id(self.resource.get("id"))
+                        customer=_util.sanitize_id(self.resource.get("id"))
                     ),
                     idempotency_key=idempotency_key,
                     params=params,

@@ -8,8 +8,8 @@ from stripe._expandable_field import ExpandableField
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
+from stripe._util import class_method_variant
 from stripe._verify_mixin import VerifyMixin
-from stripe.util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, Union, cast, overload
 from typing_extensions import Literal, Unpack, TYPE_CHECKING
 from urllib.parse import quote_plus
