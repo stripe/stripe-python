@@ -16,7 +16,7 @@ from stripe._api_version import _ApiVersion
 # We must import the app_info module eagerly before defining the app_info global
 # otherwise the late import will overwrite the global
 import stripe.app_info
-from stripe._app_info import AppInfo
+from stripe._app_info import AppInfo as AppInfo
 from stripe._version import VERSION as VERSION
 
 api_key: Optional[str] = None
