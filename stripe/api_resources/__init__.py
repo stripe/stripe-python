@@ -15,21 +15,23 @@ warn(
     stacklevel=2,
 )
 if not TYPE_CHECKING:
-    import stripe.api_resources.apps
-    import stripe.api_resources.billing_portal
-    import stripe.api_resources.checkout
-    import stripe.api_resources.climate
-    import stripe.api_resources.financial_connections
-    import stripe.api_resources.identity
-    import stripe.api_resources.issuing
-    import stripe.api_resources.radar
-    import stripe.api_resources.reporting
-    import stripe.api_resources.sigma
-    import stripe.api_resources.tax
-    import stripe.api_resources.terminal
-    import stripe.api_resources.test_helpers
-    import stripe.api_resources.treasury
-    import stripe.api_resources.abstract
+    from stripe.api_resources import (
+        abstract,
+        apps,
+        billing_portal,
+        checkout,
+        climate,
+        financial_connections,
+        identity,
+        issuing,
+        radar,
+        reporting,
+        sigma,
+        tax,
+        terminal,
+        test_helpers,
+        treasury,
+    )
     from stripe.api_resources.account import Account
     from stripe.api_resources.account_link import AccountLink
     from stripe.api_resources.account_session import AccountSession

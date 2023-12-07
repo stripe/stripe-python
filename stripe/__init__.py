@@ -16,7 +16,7 @@ from stripe._api_version import _ApiVersion
 # We must import the app_info module eagerly before defining the app_info global
 # otherwise the late import will overwrite the global
 import stripe.app_info
-from stripe._app_info import AppInfo
+from stripe._app_info import AppInfo as AppInfo
 from stripe._version import VERSION as VERSION
 
 api_key: Optional[str] = None
@@ -177,6 +177,9 @@ if not TYPE_CHECKING:
                 import stripe.api_resources as _api_resources
 
                 return _api_resources
+            raise AttributeError(
+                f"module {__name__!r} has no attribute {name!r}"
+            )
 
     else:
         with warnings.catch_warnings():
@@ -189,20 +192,22 @@ if not TYPE_CHECKING:
 # API resources
 
 # The beginning of the section generated from our OpenAPI spec
-import stripe.apps as apps
-import stripe.billing_portal as billing_portal
-import stripe.checkout as checkout
-import stripe.climate as climate
-import stripe.financial_connections as financial_connections
-import stripe.identity as identity
-import stripe.issuing as issuing
-import stripe.radar as radar
-import stripe.reporting as reporting
-import stripe.sigma as sigma
-import stripe.tax as tax
-import stripe.terminal as terminal
-import stripe.test_helpers as test_helpers
-import stripe.treasury as treasury
+from stripe import (
+    apps as apps,
+    billing_portal as billing_portal,
+    checkout as checkout,
+    climate as climate,
+    financial_connections as financial_connections,
+    identity as identity,
+    issuing as issuing,
+    radar as radar,
+    reporting as reporting,
+    sigma as sigma,
+    tax as tax,
+    terminal as terminal,
+    test_helpers as test_helpers,
+    treasury as treasury,
+)
 from stripe._account import Account as Account
 from stripe._account_link import AccountLink as AccountLink
 from stripe._account_session import AccountSession as AccountSession
