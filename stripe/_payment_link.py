@@ -274,6 +274,10 @@ class PaymentLink(
         """
         Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
         """
+        transfer_group: Optional[str]
+        """
+        A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+        """
 
     class PhoneNumberCollection(StripeObject):
         enabled: bool
@@ -1102,6 +1106,10 @@ class PaymentLink(
         """
         Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
         """
+        transfer_group: NotRequired["str"]
+        """
+        A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+        """
 
     class CreateParamsLineItem(TypedDict):
         adjustable_quantity: NotRequired[
@@ -1795,6 +1803,10 @@ class PaymentLink(
         statement_descriptor_suffix: NotRequired["Literal['']|str"]
         """
         Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        """
+        transfer_group: NotRequired["Literal['']|str"]
+        """
+        A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
         """
 
     class ModifyParamsLineItem(TypedDict):
