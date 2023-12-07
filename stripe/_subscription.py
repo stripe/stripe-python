@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._deletable_api_resource import DeletableAPIResource
 from stripe._expandable_field import ExpandableField
@@ -11,7 +11,7 @@ from stripe._search_result_object import SearchResultObject
 from stripe._searchable_api_resource import SearchableAPIResource
 from stripe._stripe_object import StripeObject
 from stripe._updateable_api_resource import UpdateableAPIResource
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import (
     ClassVar,
     Dict,
@@ -2301,7 +2301,7 @@ class Subscription(
             cls._static_request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=util.sanitize_id(
+                    subscription_exposed_id=_util.sanitize_id(
                         subscription_exposed_id
                     )
                 ),
@@ -2369,7 +2369,7 @@ class Subscription(
             self._request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}".format(
-                    subscription_exposed_id=util.sanitize_id(self.get("id"))
+                    subscription_exposed_id=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -2428,7 +2428,7 @@ class Subscription(
             cls._static_request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}/discount".format(
-                    subscription_exposed_id=util.sanitize_id(
+                    subscription_exposed_id=_util.sanitize_id(
                         subscription_exposed_id
                     )
                 ),
@@ -2484,7 +2484,7 @@ class Subscription(
             self._request(
                 "delete",
                 "/v1/subscriptions/{subscription_exposed_id}/discount".format(
-                    subscription_exposed_id=util.sanitize_id(self.get("id"))
+                    subscription_exposed_id=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -2573,7 +2573,7 @@ class Subscription(
             cls._static_request(
                 "post",
                 "/v1/subscriptions/{subscription}/resume".format(
-                    subscription=util.sanitize_id(subscription)
+                    subscription=_util.sanitize_id(subscription)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -2627,7 +2627,7 @@ class Subscription(
             self._request(
                 "post",
                 "/v1/subscriptions/{subscription}/resume".format(
-                    subscription=util.sanitize_id(self.get("id"))
+                    subscription=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._api_requestor import APIRequestor
 from stripe._api_resource import APIResource
 from typing import ClassVar
@@ -59,9 +59,9 @@ class UsageRecord(APIResource["UsageRecord"]):
             api_key, api_version=stripe_version, account=stripe_account
         )
         url = "/v1/subscription_items/%s/usage_records" % subscription_item
-        headers = util.populate_headers(idempotency_key)
+        headers = _util.populate_headers(idempotency_key)
         response, api_key = requestor.request("post", url, params, headers)
 
-        return util.convert_to_stripe_object(
+        return _util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account
         )

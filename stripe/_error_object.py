@@ -1,6 +1,6 @@
 from typing import Optional
 from typing_extensions import TYPE_CHECKING
-from stripe.util import merge_dicts
+from stripe._util import merge_dicts
 from stripe._stripe_object import StripeObject
 
 if TYPE_CHECKING:

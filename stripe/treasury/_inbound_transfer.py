@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
-from stripe import util
+from stripe import _util
 from stripe._createable_api_resource import CreateableAPIResource
 from stripe._expandable_field import ExpandableField
 from stripe._list_object import ListObject
@@ -8,7 +8,7 @@ from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from stripe._stripe_object import StripeObject
 from stripe._test_helpers import APIResourceTestHelpers
-from stripe.util import class_method_variant
+from stripe._util import class_method_variant
 from typing import ClassVar, Dict, List, Optional, cast, overload
 from typing_extensions import (
     Literal,
@@ -355,7 +355,7 @@ class InboundTransfer(
             cls._static_request(
                 "post",
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                    inbound_transfer=util.sanitize_id(inbound_transfer)
+                    inbound_transfer=_util.sanitize_id(inbound_transfer)
                 ),
                 api_key=api_key,
                 stripe_version=stripe_version,
@@ -409,7 +409,7 @@ class InboundTransfer(
             self._request(
                 "post",
                 "/v1/treasury/inbound_transfers/{inbound_transfer}/cancel".format(
-                    inbound_transfer=util.sanitize_id(self.get("id"))
+                    inbound_transfer=_util.sanitize_id(self.get("id"))
                 ),
                 idempotency_key=idempotency_key,
                 params=params,
@@ -506,7 +506,7 @@ class InboundTransfer(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
-                        id=util.sanitize_id(id)
+                        id=_util.sanitize_id(id)
                     ),
                     api_key=api_key,
                     stripe_version=stripe_version,
@@ -560,7 +560,7 @@ class InboundTransfer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/fail".format(
-                        id=util.sanitize_id(self.resource.get("id"))
+                        id=_util.sanitize_id(self.resource.get("id"))
                     ),
                     idempotency_key=idempotency_key,
                     params=params,
@@ -586,7 +586,7 @@ class InboundTransfer(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
-                        id=util.sanitize_id(id)
+                        id=_util.sanitize_id(id)
                     ),
                     api_key=api_key,
                     stripe_version=stripe_version,
@@ -640,7 +640,7 @@ class InboundTransfer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/return".format(
-                        id=util.sanitize_id(self.resource.get("id"))
+                        id=_util.sanitize_id(self.resource.get("id"))
                     ),
                     idempotency_key=idempotency_key,
                     params=params,
@@ -666,7 +666,7 @@ class InboundTransfer(
                 cls._static_request(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
-                        id=util.sanitize_id(id)
+                        id=_util.sanitize_id(id)
                     ),
                     api_key=api_key,
                     stripe_version=stripe_version,
@@ -720,7 +720,7 @@ class InboundTransfer(
                 self.resource._request(
                     "post",
                     "/v1/test_helpers/treasury/inbound_transfers/{id}/succeed".format(
-                        id=util.sanitize_id(self.resource.get("id"))
+                        id=_util.sanitize_id(self.resource.get("id"))
                     ),
                     idempotency_key=idempotency_key,
                     params=params,

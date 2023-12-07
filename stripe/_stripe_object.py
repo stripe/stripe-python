@@ -20,7 +20,7 @@ from typing import (
 # Used to break circular imports
 import stripe  # noqa: IMP101
 from stripe._encode import _encode_datetime  # pyright: ignore
-from stripe import util
+from stripe import _util
 
 from stripe._stripe_response import StripeResponse, StripeStreamResponse
 
@@ -279,7 +279,7 @@ class StripeObject(Dict[str, Any]):
                     if v is None
                     else cast(
                         StripeObject,
-                        util.convert_to_stripe_object(
+                        _util.convert_to_stripe_object(
                             v,
                             api_key,
                             stripe_version,
@@ -293,7 +293,7 @@ class StripeObject(Dict[str, Any]):
             else:
                 obj = cast(
                     Union[StripeObject, List[StripeObject]],
-                    util.convert_to_stripe_object(
+                    _util.convert_to_stripe_object(
                         v,
                         api_key,
                         stripe_version,
@@ -335,17 +335,17 @@ class StripeObject(Dict[str, Any]):
         params: Optional[Mapping[str, Any]] = None,
     ) -> "StripeObject":
         params = None if params is None else dict(params)
-        api_key = util.read_special_variable(params, "api_key", api_key)
-        idempotency_key = util.read_special_variable(
+        api_key = _util.read_special_variable(params, "api_key", api_key)
+        idempotency_key = _util.read_special_variable(
             params, "idempotency_key", idempotency_key
         )
-        stripe_version = util.read_special_variable(
+        stripe_version = _util.read_special_variable(
             params, "stripe_version", stripe_version
         )
-        stripe_account = util.read_special_variable(
+        stripe_account = _util.read_special_variable(
             params, "stripe_account", stripe_account
         )
-        headers = util.read_special_variable(params, "headers", headers)
+        headers = _util.read_special_variable(params, "headers", headers)
 
         stripe_account = stripe_account or self.stripe_account
         stripe_version = stripe_version or self.stripe_version
@@ -361,11 +361,11 @@ class StripeObject(Dict[str, Any]):
 
         if idempotency_key is not None:
             headers = {} if headers is None else headers.copy()
-            headers.update(util.populate_headers(idempotency_key))
+            headers.update(_util.populate_headers(idempotency_key))
 
         response, api_key = requestor.request(method_, url_, params, headers)
 
-        return util.convert_to_stripe_object(
+        return _util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account, params
         )
 

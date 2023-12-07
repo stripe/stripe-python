@@ -13,7 +13,7 @@ with open(
     long_description = fp.read()
 
 version_contents = {}
-with open(os.path.join(here, "stripe", "version.py"), encoding="utf-8") as f:
+with open(os.path.join(here, "stripe", "_version.py"), encoding="utf-8") as f:
     exec(f.read(), version_contents)
 
 setup(

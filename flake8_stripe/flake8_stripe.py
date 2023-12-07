@@ -121,23 +121,30 @@ class StripeImportsChecker:
     name = __name__
     version = "0.1.0"
 
-    def __init__(self, tree: ast.AST):
+    def __init__(self, tree: ast.AST, filename: str):
         self.tree = tree
-
-    allowed_non_private_imports = [
-        # These have not been converted yet
-        "stripe.util",
-        "stripe.oauth",
-        "stripe.webhook",
-        "stripe.multipart_data_generator",
-        "stripe.request_metrics",
-        "stripe.object_classes",
-        "stripe.app_info",
-        "stripe.api_version",
-        "stripe.http_client",
-    ]
+        self.filename = filename
 
     def run(self) -> Iterator[Tuple[int, int, str, type]]:
+        if not self.filename.split("/")[-1].startswith("_"):
+            backcompat = False
+            for node in ast.walk(self.tree):
+                # check node is a constant string that contains package is deprecated
+                if (
+                    isinstance(node, ast.Constant)
+                    and isinstance(node.value, str)
+                    and "is deprecated" in node.value
+                ):
+                    backcompat = True
+
+            if not backcompat:
+                yield (
+                    0,
+                    0,
+                    "IMP102 Do not create non-private modules",
+                    type(self),
+                )
+
         for node in ast.walk(self.tree):
             if isinstance(node, ast.Import):
                 # Forbid: import stripe
@@ -154,7 +161,6 @@ class StripeImportsChecker:
                 parts = node.module.split(".")
                 if (
                     len(parts) > 1
-                    and node.module not in self.allowed_non_private_imports
                     and parts[0] == "stripe"
                     and not parts[-1].startswith("_")
                 ):

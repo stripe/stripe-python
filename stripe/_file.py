@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # File generated from our OpenAPI spec
 import stripe
-from stripe import util
+from stripe import _util
 from stripe._api_requestor import APIRequestor
 from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
@@ -217,7 +217,7 @@ class File(ListableAPIResource["File"]):
         )
         return cast(
             "File",
-            util.convert_to_stripe_object(
+            _util.convert_to_stripe_object(
                 response, api_key, version, stripe_account
             ),
         )

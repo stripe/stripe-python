@@ -7,7 +7,7 @@ from hashlib import sha256
 # Used for global variables
 import stripe  # noqa: IMP101
 from stripe._event import Event
-from stripe import util
+from stripe import _util
 from stripe._error import SignatureVerificationError
 
 
@@ -71,7 +71,7 @@ class WebhookSignature(object):
 
         signed_payload = "%d.%s" % (timestamp, payload)
         expected_sig = cls._compute_signature(signed_payload, secret)
-        if not any(util.secure_compare(expected_sig, s) for s in signatures):
+        if not any(_util.secure_compare(expected_sig, s) for s in signatures):
             raise SignatureVerificationError(
                 "No signatures found matching the expected signature for "
                 "payload",
