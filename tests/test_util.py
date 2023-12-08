@@ -62,9 +62,7 @@ class TestUtil(object):
                     )
                 else:
                     print_mock.assert_not_called()
-                logger_mock.assert_called_once_with(
-                    "message='foo \\nbar' y=3", {"y": 3}
-                )
+                logger_mock.assert_called_once_with("message='foo \\nbar' y=3")
             finally:
                 mocker.stopall()
 
