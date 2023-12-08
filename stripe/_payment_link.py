@@ -73,6 +73,18 @@ class PaymentLink(
         """
 
     class ConsentCollection(StripeObject):
+        class PaymentMethodReuseAgreement(StripeObject):
+            position: Literal["auto", "hidden"]
+            """
+            Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's defaults will be used.
+
+            When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
+            """
+
+        payment_method_reuse_agreement: Optional[PaymentMethodReuseAgreement]
+        """
+        Settings related to the payment method reuse text shown in the Checkout UI.
+        """
         promotions: Optional[Literal["auto", "none"]]
         """
         If set to `auto`, enables the collection of customer consent for promotional communications.
@@ -81,6 +93,9 @@ class PaymentLink(
         """
         If set to `required`, it requires cutomers to accept the terms of service before being able to pay. If set to `none`, customers won't be shown a checkbox to accept the terms of service.
         """
+        _inner_class_types = {
+            "payment_method_reuse_agreement": PaymentMethodReuseAgreement,
+        }
 
     class CustomField(StripeObject):
         class Dropdown(StripeObject):
@@ -154,6 +169,12 @@ class PaymentLink(
         }
 
     class CustomText(StripeObject):
+        class AfterSubmit(StripeObject):
+            message: str
+            """
+            Text may be up to 1200 characters in length.
+            """
+
         class ShippingAddress(StripeObject):
             message: str
             """
@@ -172,6 +193,10 @@ class PaymentLink(
             Text may be up to 1200 characters in length.
             """
 
+        after_submit: Optional[AfterSubmit]
+        """
+        Custom text that should be displayed after the payment confirmation button.
+        """
         shipping_address: Optional[ShippingAddress]
         """
         Custom text that should be displayed alongside shipping address collection.
@@ -185,6 +210,7 @@ class PaymentLink(
         Custom text that should be displayed in place of the default terms of service agreement text.
         """
         _inner_class_types = {
+            "after_submit": AfterSubmit,
             "shipping_address": ShippingAddress,
             "submit": Submit,
             "terms_of_service_acceptance": TermsOfServiceAcceptance,
@@ -1202,6 +1228,12 @@ class PaymentLink(
         """
 
     class CreateParamsCustomText(TypedDict):
+        after_submit: NotRequired[
+            "Literal['']|PaymentLink.CreateParamsCustomTextAfterSubmit"
+        ]
+        """
+        Custom text that should be displayed after the payment confirmation button.
+        """
         shipping_address: NotRequired[
             "Literal['']|PaymentLink.CreateParamsCustomTextShippingAddress"
         ]
@@ -1234,6 +1266,12 @@ class PaymentLink(
         """
 
     class CreateParamsCustomTextShippingAddress(TypedDict):
+        message: str
+        """
+        Text may be up to 1200 characters in length.
+        """
+
+    class CreateParamsCustomTextAfterSubmit(TypedDict):
         message: str
         """
         Text may be up to 1200 characters in length.
@@ -1316,6 +1354,12 @@ class PaymentLink(
         """
 
     class CreateParamsConsentCollection(TypedDict):
+        payment_method_reuse_agreement: NotRequired[
+            "PaymentLink.CreateParamsConsentCollectionPaymentMethodReuseAgreement"
+        ]
+        """
+        Determines the display of payment method reuse agreement text in the UI. If set to `hidden`, it will hide legal text related to the reuse of a payment method.
+        """
         promotions: NotRequired["Literal['auto', 'none']"]
         """
         If set to `auto`, enables the collection of customer consent for promotional communications. The Checkout
@@ -1326,6 +1370,13 @@ class PaymentLink(
         """
         If set to `required`, it requires customers to check a terms of service checkbox before being able to pay.
         There must be a valid terms of service URL set in your [Dashboard settings](https://dashboard.stripe.com/settings/public).
+        """
+
+    class CreateParamsConsentCollectionPaymentMethodReuseAgreement(TypedDict):
+        position: Literal["auto", "hidden"]
+        """
+        Determines the position and visibility of the payment method reuse agreement in the UI. When set to `auto`, Stripe's
+        defaults will be used. When set to `hidden`, the payment method reuse agreement text will always be hidden in the UI.
         """
 
     class CreateParamsAutomaticTax(TypedDict):
@@ -1900,6 +1951,12 @@ class PaymentLink(
         """
 
     class ModifyParamsCustomText(TypedDict):
+        after_submit: NotRequired[
+            "Literal['']|PaymentLink.ModifyParamsCustomTextAfterSubmit"
+        ]
+        """
+        Custom text that should be displayed after the payment confirmation button.
+        """
         shipping_address: NotRequired[
             "Literal['']|PaymentLink.ModifyParamsCustomTextShippingAddress"
         ]
@@ -1932,6 +1989,12 @@ class PaymentLink(
         """
 
     class ModifyParamsCustomTextShippingAddress(TypedDict):
+        message: str
+        """
+        Text may be up to 1200 characters in length.
+        """
+
+    class ModifyParamsCustomTextAfterSubmit(TypedDict):
         message: str
         """
         Text may be up to 1200 characters in length.
