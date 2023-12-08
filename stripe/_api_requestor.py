@@ -9,6 +9,7 @@ from typing import (
     Optional,
     Tuple,
     cast,
+    Union,
 )
 from typing_extensions import NoReturn, Literal
 import uuid
@@ -78,6 +79,16 @@ class APIRequestor(object):
             self._client = stripe.default_http_client
             self._default_proxy = proxy
 
+        if stripe.default_http_client_async:
+            self._client_async = stripe.default_http_client_async
+        else:
+            stripe.default_http_client_async = (
+                _http_client.new_default_http_client_async(
+                    verify_ssl_certs=verify, proxy=proxy
+                )
+            )
+            self._client_async = stripe.default_http_client_async
+
     @classmethod
     @_util.deprecated(
         "This method is internal to stripe-python and the public interface will be removed in a future stripe-python version"
@@ -116,6 +127,25 @@ class APIRequestor(object):
         resp = self.interpret_response(rbody, rcode, rheaders)
         return resp, my_api_key
 
+    async def request_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        headers: Optional[Mapping[str, str]] = None,
+        api_mode: Optional[Literal["preview", "standard"]] = None,
+    ) -> Tuple[StripeResponse, str]:
+        rbody, rcode, rheaders, my_api_key = await self.request_raw_async(
+            method.lower(),
+            url,
+            params,
+            headers,
+            is_streaming=False,
+            api_mode=api_mode,
+        )
+        resp = self.interpret_response(rbody, rcode, rheaders)
+        return resp, my_api_key
+
     def request_stream(
         self,
         method: str,
@@ -134,6 +164,31 @@ class APIRequestor(object):
             is_streaming=True,
             api_mode=api_mode,
             _usage=_usage,
+        )
+        resp = self.interpret_streaming_response(
+            # TODO: should be able to remove this cast once self._client.request_stream_with_retries
+            # returns a more specific type.
+            cast(IOBase, stream),
+            rcode,
+            rheaders,
+        )
+        return resp, my_api_key
+
+    async def request_stream_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        headers: Optional[Mapping[str, str]] = None,
+        api_mode: Optional[Literal["preview", "standard"]] = None,
+    ) -> Tuple[StripeStreamResponse, str]:
+        stream, rcode, rheaders, my_api_key = await self.request_raw_async(
+            method.lower(),
+            url,
+            params,
+            headers,
+            is_streaming=True,
+            api_mode=api_mode,
         )
         resp = self.interpret_streaming_response(
             # TODO: should be able to remove this cast once self._client.request_stream_with_retries
@@ -319,7 +374,7 @@ class APIRequestor(object):
 
         return headers
 
-    def request_raw(
+    def _get_request_raw_args(
         self,
         method: str,
         url: str,
@@ -329,7 +384,7 @@ class APIRequestor(object):
         api_mode: Optional[Literal["preview", "standard"]] = None,
         *,
         _usage: Optional[List[str]] = None,
-    ) -> Tuple[object, int, Mapping[str, str], str]:
+    ) -> Tuple[str, Dict[str, str], Optional[Union[bytes, str]], str]:
         """
         Mechanism for issuing an API call
         """
@@ -407,17 +462,78 @@ class APIRequestor(object):
             api_version=self.api_version,
         )
 
+        return abs_url, headers, post_data, my_api_key
+
+    def request_raw(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        supplied_headers: Optional[Mapping[str, str]] = None,
+        is_streaming: bool = False,
+        api_mode: Optional[Literal["preview", "standard"]] = None,
+        *,
+        _usage: Optional[List[str]] = None,
+    ) -> Tuple[object, int, Mapping[str, str], str]:
+        abs_url, headers, post_data, my_api_key = self._get_request_raw_args(
+            method, url, params, supplied_headers, is_streaming, api_mode
+        )
+
         if is_streaming:
             (
                 rcontent,
                 rcode,
                 rheaders,
             ) = self._client.request_stream_with_retries(
-                method, abs_url, headers, post_data, _usage=_usage
+                method, abs_url, headers, post_data
             )
         else:
             rcontent, rcode, rheaders = self._client.request_with_retries(
-                method, abs_url, headers, post_data, _usage=_usage
+                method, abs_url, headers, post_data
+            )
+
+        _util.log_info(
+            "Stripe API response", path=abs_url, response_code=rcode
+        )
+        _util.log_debug("API response body", body=rcontent)
+
+        if "Request-Id" in rheaders:
+            request_id = rheaders["Request-Id"]
+            _util.log_debug(
+                "Dashboard link for request",
+                link=_util.dashboard_link(request_id),
+            )
+
+        return rcontent, rcode, rheaders, my_api_key
+
+    async def request_raw_async(
+        self,
+        method: str,
+        url: str,
+        params: Optional[Mapping[str, Any]] = None,
+        supplied_headers: Optional[Mapping[str, str]] = None,
+        is_streaming: bool = False,
+        api_mode: Optional[Literal["preview", "standard"]] = None,
+    ) -> Tuple[object, int, Mapping[str, str], str]:
+        abs_url, headers, post_data, my_api_key = self._get_request_raw_args(
+            method, url, params, supplied_headers, is_streaming, api_mode
+        )
+
+        if is_streaming:
+            (
+                rcontent,
+                rcode,
+                rheaders,
+            ) = await self._client_async.request_stream_with_retries(
+                method, abs_url, headers, post_data
+            )
+        else:
+            (
+                rcontent,
+                rcode,
+                rheaders,
+            ) = await self._client_async.request_with_retries(
+                method, abs_url, headers, post_data
             )
 
         _util.log_info(

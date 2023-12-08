@@ -37,19 +37,24 @@ class TestRawRequest(object):
     GET_ABS_URL = stripe.api_base + GET_REL_URL
 
     @pytest.fixture(autouse=True)
-    def setup_stripe(self, http_client):
+    def setup_stripe(self, http_client, http_client_async):
         orig_attrs = {
             "api_key": stripe.api_key,
             "api_version": stripe.api_version,
             "default_http_client": stripe.default_http_client,
+            "default_http_client_async": stripe.default_http_client_async,
         }
         stripe.api_key = "sk_test_123"
         stripe.api_version = "2017-12-14"
         stripe.default_http_client = http_client
+        stripe.default_http_client_async = http_client_async
         yield
         stripe.api_key = orig_attrs["api_key"]
         stripe.api_version = orig_attrs["api_version"]
         stripe.default_http_client = orig_attrs["default_http_client"]
+        stripe.default_http_client_async = orig_attrs[
+            "default_http_client_async"
+        ]
 
     def test_form_request_get(self, mock_response, check_call):
         mock_response('{"id": "acct_123", "object": "account"}', 200)
@@ -159,3 +164,16 @@ class TestRawRequest(object):
             ),
             post_data=json.dumps({}),
         )
+
+    @pytest.mark.asyncio
+    async def test_form_request_get_async(
+        self, mock_response_async, check_call_async
+    ):
+        mock_response_async('{"id": "acct_123", "object": "account"}', 200)
+
+        resp = await stripe.raw_request_async("get", self.GET_REL_URL)
+
+        check_call_async("get", abs_url=self.GET_ABS_URL)
+
+        deserialized = stripe.deserialize(resp)
+        assert isinstance(deserialized, stripe.Account)

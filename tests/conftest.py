@@ -10,6 +10,10 @@ from tests.test_api_requestor import APIHeaderMatcher
 from tests.request_mock import RequestMock
 from tests.stripe_mock import StripeMock
 
+
+pytest_plugins = ("pytest_asyncio",)
+
+
 MOCK_MINIMUM_VERSION = "0.109.0"
 
 # Starts stripe-mock if an OpenAPI spec override is found in `openapi/`, and
@@ -62,13 +66,16 @@ def setup_stripe():
         "api_key": stripe.api_key,
         "client_id": stripe.client_id,
         "default_http_client": stripe.default_http_client,
+        "default_http_client_async": stripe.default_http_client_async,
     }
     http_client = stripe.http_client.new_default_http_client()
+    http_client_async = stripe.http_client.new_default_http_client_async()
     stripe.api_base = "http://localhost:%s" % MOCK_PORT
     stripe.upload_api_base = "http://localhost:%s" % MOCK_PORT
     stripe.api_key = "sk_test_123"
     stripe.client_id = "ca_123"
     stripe.default_http_client = http_client
+    stripe.default_http_client_async = http_client_async
     yield
     http_client.close()
     stripe.api_base = orig_attrs["api_base"]
@@ -76,6 +83,7 @@ def setup_stripe():
     stripe.api_key = orig_attrs["api_key"]
     stripe.client_id = orig_attrs["client_id"]
     stripe.default_http_client = orig_attrs["default_http_client"]
+    stripe.default_http_client_async = orig_attrs["default_http_client_async"]
 
 
 @pytest.fixture
@@ -92,6 +100,14 @@ def http_client(mocker):
 
 
 @pytest.fixture
+def http_client_async(mocker):
+    http_client_async = mocker.Mock(stripe.http_client.HTTPClientAsync)
+    http_client_async._verify_ssl_certs = True
+    http_client_async.name = "mockclientasync"
+    return http_client_async
+
+
+@pytest.fixture
 def mock_response(mocker, http_client):
     def mock_response(return_body, return_code, headers=None):
         http_client.request_with_retries = mocker.Mock(
@@ -99,6 +115,20 @@ def mock_response(mocker, http_client):
         )
 
     return mock_response
+
+
+async def awaitable(value):
+    return value
+
+
+@pytest.fixture
+def mock_response_async(mocker, http_client_async):
+    def mock_response_async(return_body, return_code, headers=None):
+        http_client_async.request_with_retries = mocker.Mock(
+            return_value=awaitable((return_body, return_code, headers or {}))
+        )
+
+    return mock_response_async
 
 
 @pytest.fixture
@@ -136,3 +166,29 @@ def check_call(http_client):
             )
 
     return check_call
+
+
+@pytest.fixture
+def check_call_async(http_client_async):
+    def check_call_async(
+        method,
+        abs_url=None,
+        headers=None,
+        post_data=None,
+        is_streaming=False,
+    ):
+        if not abs_url:
+            abs_url = "%s%s" % (stripe.api_base, "/foo")
+        if not headers:
+            headers = APIHeaderMatcher(request_method=method)
+
+        if is_streaming:
+            http_client_async.request_stream_with_retries.assert_called_with(
+                method, abs_url, headers, post_data
+            )
+        else:
+            http_client_async.request_with_retries.assert_called_with(
+                method, abs_url, headers, post_data
+            )
+
+    return check_call_async

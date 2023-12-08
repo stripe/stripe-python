@@ -10,6 +10,9 @@ class RequestMock(object):
         self._mocker = mocker
 
         self._real_request = stripe.api_requestor.APIRequestor.request
+        self._real_request_async = (
+            stripe.api_requestor.APIRequestor.request_async
+        )
         self._real_request_stream = (
             stripe.api_requestor.APIRequestor.request_stream
         )
@@ -27,6 +30,12 @@ class RequestMock(object):
             autospec=True,
         )
 
+        self.request_async_patcher = self._mocker.patch(
+            "stripe.api_requestor.APIRequestor.request_async",
+            side_effect=self._patched_request_async,
+            autospec=True,
+        )
+
         self.request_stream_patcher = self._mocker.patch(
             "stripe.api_requestor.APIRequestor.request_stream",
             side_effect=self._patched_request_stream,
@@ -41,6 +50,19 @@ class RequestMock(object):
             return response, stripe.api_key
 
         return self._real_request(requestor, method, url, *args, **kwargs)
+
+    async def _patched_request_async(
+        self, requestor, method, url, *args, **kwargs
+    ):
+        response = self._stub_request_handler.get_response(
+            method, url, expect_stream=False
+        )
+        if response is not None:
+            return response, stripe.api_key
+
+        return self._real_request_async(
+            requestor, method, url, *args, **kwargs
+        )
 
     def _patched_request_stream(self, requestor, method, url, *args, **kwargs):
         response = self._stub_request_handler.get_response(

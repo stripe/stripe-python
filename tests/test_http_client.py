@@ -19,6 +19,7 @@ class StripeClientTestCase(object):
         ("requests", "stripe._http_client.requests"),
         ("pycurl", "stripe._http_client.pycurl"),
         ("urllib.request", "stripe._http_client.urllibrequest"),
+        ("httpx", "stripe._http_client.httpx"),
     ]
 
     @pytest.fixture
@@ -51,6 +52,25 @@ class TestNewDefaultHttpClient(StripeClientTestCase):
         self.check_default(
             ("urlfetch", "requests", "pycurl"),
             _http_client.Urllib2Client,
+        )
+
+
+class TestNewDefaultHttpClientAsync(StripeClientTestCase):
+    def check_default(self, none_libs, expected):
+        for lib in none_libs:
+            setattr(_http_client, lib, None)
+
+        inst = _http_client.new_default_http_client_async()
+
+        assert isinstance(inst, expected)
+
+    def test_new_default_http_client_httpx(self, request_mocks):
+        self.check_default((), _http_client.HTTPXClient)
+
+    def test_new_default_http_client_no_import_found(self, request_mocks):
+        self.check_default(
+            (("httpx"),),
+            _http_client.NoImportFoundAsyncClient,
         )
 
 
