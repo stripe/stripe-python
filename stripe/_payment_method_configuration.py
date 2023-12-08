@@ -741,6 +741,116 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class IdBankTransfer(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class Multibanco(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class Netbanking(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class PayByBank(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
+    class Upi(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class CreateParams(RequestOptions):
         acss_debit: NotRequired[
             "PaymentMethodConfiguration.CreateParamsAcssDebit"
@@ -2089,6 +2199,11 @@ class PaymentMethodConfiguration(
     sofort: Optional[Sofort]
     us_bank_account: Optional[UsBankAccount]
     wechat_pay: Optional[WechatPay]
+    id_bank_transfer: Optional[IdBankTransfer]
+    multibanco: Optional[Multibanco]
+    netbanking: Optional[Netbanking]
+    pay_by_bank: Optional[PayByBank]
+    upi: Optional[Upi]
 
     @classmethod
     def create(
@@ -2208,4 +2323,9 @@ class PaymentMethodConfiguration(
         "sofort": Sofort,
         "us_bank_account": UsBankAccount,
         "wechat_pay": WechatPay,
+        "id_bank_transfer": IdBankTransfer,
+        "multibanco": Multibanco,
+        "netbanking": Netbanking,
+        "pay_by_bank": PayByBank,
+        "upi": Upi,
     }
