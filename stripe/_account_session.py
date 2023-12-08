@@ -22,10 +22,15 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
     class Components(StripeObject):
         class AccountOnboarding(StripeObject):
+            class Features(StripeObject):
+                pass
+
             enabled: bool
             """
             Whether the embedded component is enabled.
             """
+            features: Features
+            _inner_class_types = {"features": Features}
 
         class PaymentDetails(StripeObject):
             class Features(StripeObject):
@@ -114,18 +119,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the account onboarding embedded component.
         """
-        issuing_card: NotRequired[
-            "AccountSession.CreateParamsComponentsIssuingCard"
-        ]
-        """
-        Configuration for the issuing card component.
-        """
-        issuing_cards_list: NotRequired[
-            "AccountSession.CreateParamsComponentsIssuingCardsList"
-        ]
-        """
-        Configuration for the issuing cards list component.
-        """
         payment_details: NotRequired[
             "AccountSession.CreateParamsComponentsPaymentDetails"
         ]
@@ -207,36 +200,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether to allow sending refunds. This is `true` by default.
         """
-
-    class CreateParamsComponentsIssuingCardsList(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSession.CreateParamsComponentsIssuingCardsListFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsIssuingCardsListFeatures(TypedDict):
-        pass
-
-    class CreateParamsComponentsIssuingCard(TypedDict):
-        enabled: bool
-        """
-        Whether the embedded component is enabled.
-        """
-        features: NotRequired[
-            "AccountSession.CreateParamsComponentsIssuingCardFeatures"
-        ]
-        """
-        The list of features enabled in the embedded component.
-        """
-
-    class CreateParamsComponentsIssuingCardFeatures(TypedDict):
-        pass
 
     class CreateParamsComponentsAccountOnboarding(TypedDict):
         enabled: bool

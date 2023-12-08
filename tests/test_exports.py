@@ -2,6 +2,23 @@
 # we specifically test various import patterns
 from typing import Any
 import stripe
+import subprocess
+
+
+def assert_output(code: str, expected: str) -> None:
+    process = subprocess.Popen(
+        ["python", "-c", f"import stripe; print({code})"],
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+    )
+
+    stdout, stderr = process.communicate()
+
+    assert not stderr, f"Error: {stderr.decode()}"
+
+    output = stdout.decode().strip()
+    # assert the output
+    assert output == expected
 
 
 def test_can_import_stripe_object() -> None:
@@ -137,6 +154,8 @@ def test_can_import_misc_resources() -> None:
 
     assert FileUploadFromApiResources is stripe.FileUpload  # type: ignore
     assert FileUploadFromApiResources is FileUploadFromStripe
+
+    assert_output("stripe.error is not None", "True")
 
 
 def test_can_import_abstract() -> None:
@@ -291,6 +310,7 @@ def test_can_import_util() -> None:
         is convert_to_stripe_objectFromStripeUtil
     )
     assert stripe.util.io is not None  # type: ignore
+    assert_output("stripe.util is not None", "True")
 
 
 def test_can_import_errors() -> None:
@@ -355,6 +375,10 @@ def test_can_import_top_level_resource() -> None:
     assert AccountFromStripe == AccountFromStripeResources
     assert AccFromModule == AccountFromStripeResources
 
+    assert_output("stripe.api_resources.Account is not None", "True")
+    assert_output("stripe.api_resources.account is not None", "True")
+    assert_output("stripe.api_resources.account.Account is not None", "True")
+
 
 def test_can_import_namespaced_resource() -> None:
     from stripe import tax as TaxPackage
@@ -375,3 +399,6 @@ def test_can_import_namespaced_resource() -> None:
     assert stripe.tax.Calculation is TaxPackage.Calculation
     assert stripe.tax.Calculation is CalcFromResources
     assert CalcFromResources is CalcFromModule
+
+    assert_output("stripe.tax is not None", "True")
+    assert_output("stripe.tax.Calculation is not None", "True")
