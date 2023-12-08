@@ -22,10 +22,15 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
     class Components(StripeObject):
         class AccountOnboarding(StripeObject):
+            class Features(StripeObject):
+                pass
+
             enabled: bool
             """
             Whether the embedded component is enabled.
             """
+            features: Features
+            _inner_class_types = {"features": Features}
 
         class PaymentDetails(StripeObject):
             class Features(StripeObject):

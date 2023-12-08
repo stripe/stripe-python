@@ -304,12 +304,30 @@ class PaymentLink(
         """
         Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
         """
+        transfer_group: Optional[str]
+        """
+        A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
+        """
 
     class PhoneNumberCollection(StripeObject):
         enabled: bool
         """
         If `true`, a phone number will be collected during checkout.
         """
+
+    class Restrictions(StripeObject):
+        class CompletedSessions(StripeObject):
+            count: int
+            """
+            The current number of checkout sessions that have been completed on the payment link which count towards the `completed_sessions` restriction to be met.
+            """
+            limit: int
+            """
+            The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
+            """
+
+        completed_sessions: CompletedSessions
+        _inner_class_types = {"completed_sessions": CompletedSessions}
 
     class ShippingAddressCollection(StripeObject):
         allowed_countries: List[
@@ -585,6 +603,21 @@ class PaymentLink(
             """
             _inner_class_types = {"issuer": Issuer}
 
+        class TrialSettings(StripeObject):
+            class EndBehavior(StripeObject):
+                missing_payment_method: Literal[
+                    "cancel", "create_invoice", "pause"
+                ]
+                """
+                Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
+                """
+
+            end_behavior: EndBehavior
+            """
+            Defines how a subscription behaves when a free trial ends.
+            """
+            _inner_class_types = {"end_behavior": EndBehavior}
+
         description: Optional[str]
         """
         The subscription's description, meant to be displayable to the customer. Use this field to optionally store an explanation of the subscription for rendering in Stripe surfaces and certain local payment methods UIs.
@@ -601,7 +634,14 @@ class PaymentLink(
         """
         Integer representing the number of trial period days before the customer is charged for the first time.
         """
-        _inner_class_types = {"invoice_settings": InvoiceSettings}
+        trial_settings: Optional[TrialSettings]
+        """
+        Settings related to subscription trials.
+        """
+        _inner_class_types = {
+            "invoice_settings": InvoiceSettings,
+            "trial_settings": TrialSettings,
+        }
 
     class TaxIdCollection(StripeObject):
         enabled: bool
@@ -672,6 +712,10 @@ class PaymentLink(
         """
         Specifies which fields in the response should be expanded.
         """
+        inactive_message: NotRequired["str"]
+        """
+        The custom message to be displayed to a customer when a payment link is no longer active.
+        """
         invoice_creation: NotRequired[
             "PaymentLink.CreateParamsInvoiceCreation"
         ]
@@ -719,6 +763,10 @@ class PaymentLink(
         Controls phone number collection settings during checkout.
 
         We recommend that you review your privacy policy and check with your legal contacts.
+        """
+        restrictions: NotRequired["PaymentLink.CreateParamsRestrictions"]
+        """
+        Settings that restrict the usage of a payment link.
         """
         shipping_address_collection: NotRequired[
             "PaymentLink.CreateParamsShippingAddressCollection"
@@ -790,6 +838,24 @@ class PaymentLink(
         trial_period_days: NotRequired["int"]
         """
         Integer representing the number of trial period days before the customer is charged for the first time. Has to be at least 1.
+        """
+        trial_settings: NotRequired[
+            "PaymentLink.CreateParamsSubscriptionDataTrialSettings"
+        ]
+        """
+        Settings related to subscription trials.
+        """
+
+    class CreateParamsSubscriptionDataTrialSettings(TypedDict):
+        end_behavior: "PaymentLink.CreateParamsSubscriptionDataTrialSettingsEndBehavior"
+        """
+        Defines how the subscription should behave when the user's free trial ends.
+        """
+
+    class CreateParamsSubscriptionDataTrialSettingsEndBehavior(TypedDict):
+        missing_payment_method: Literal["cancel", "create_invoice", "pause"]
+        """
+        Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         """
 
     class CreateParamsSubscriptionDataInvoiceSettings(TypedDict):
@@ -1063,6 +1129,18 @@ class PaymentLink(
         shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
         """
 
+    class CreateParamsRestrictions(TypedDict):
+        completed_sessions: "PaymentLink.CreateParamsRestrictionsCompletedSessions"
+        """
+        Configuration for the `completed_sessions` restriction type.
+        """
+
+    class CreateParamsRestrictionsCompletedSessions(TypedDict):
+        limit: int
+        """
+        The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
+        """
+
     class CreateParamsPhoneNumberCollection(TypedDict):
         enabled: bool
         """
@@ -1105,6 +1183,10 @@ class PaymentLink(
         statement_descriptor_suffix: NotRequired["str"]
         """
         Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        """
+        transfer_group: NotRequired["str"]
+        """
+        A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
         """
 
     class CreateParamsLineItem(TypedDict):
@@ -1471,6 +1553,10 @@ class PaymentLink(
         """
         Specifies which fields in the response should be expanded.
         """
+        inactive_message: NotRequired["Literal['']|str"]
+        """
+        The custom message to be displayed to a customer when a payment link is no longer active.
+        """
         invoice_creation: NotRequired[
             "PaymentLink.ModifyParamsInvoiceCreation"
         ]
@@ -1507,6 +1593,12 @@ class PaymentLink(
         """
         The list of payment method types that customers can use. Pass an empty string to enable dynamic payment methods that use your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
         """
+        restrictions: NotRequired[
+            "Literal['']|PaymentLink.ModifyParamsRestrictions"
+        ]
+        """
+        Settings that restrict the usage of a payment link.
+        """
         shipping_address_collection: NotRequired[
             "Literal['']|PaymentLink.ModifyParamsShippingAddressCollection"
         ]
@@ -1530,6 +1622,24 @@ class PaymentLink(
         metadata: NotRequired["Literal['']|Dict[str, str]"]
         """
         Set of [key-value pairs](https://stripe.com/docs/api/metadata) that will declaratively set metadata on [Subscriptions](https://stripe.com/docs/api/subscriptions) generated from this payment link. Unlike object-level metadata, this field is declarative. Updates will clear prior values.
+        """
+        trial_settings: NotRequired[
+            "Literal['']|PaymentLink.ModifyParamsSubscriptionDataTrialSettings"
+        ]
+        """
+        Settings related to subscription trials.
+        """
+
+    class ModifyParamsSubscriptionDataTrialSettings(TypedDict):
+        end_behavior: "PaymentLink.ModifyParamsSubscriptionDataTrialSettingsEndBehavior"
+        """
+        Defines how the subscription should behave when the user's free trial ends.
+        """
+
+    class ModifyParamsSubscriptionDataTrialSettingsEndBehavior(TypedDict):
+        missing_payment_method: Literal["cancel", "create_invoice", "pause"]
+        """
+        Indicates how the subscription should change when the trial ends if the user did not provide a payment method.
         """
 
     class ModifyParamsSubscriptionDataInvoiceSettings(TypedDict):
@@ -1797,6 +1907,18 @@ class PaymentLink(
         shipping locations. Unsupported country codes: `AS, CX, CC, CU, HM, IR, KP, MH, FM, NF, MP, PW, SD, SY, UM, VI`.
         """
 
+    class ModifyParamsRestrictions(TypedDict):
+        completed_sessions: "PaymentLink.ModifyParamsRestrictionsCompletedSessions"
+        """
+        Configuration for the `completed_sessions` restriction type.
+        """
+
+    class ModifyParamsRestrictionsCompletedSessions(TypedDict):
+        limit: int
+        """
+        The maximum number of checkout sessions that can be completed for the `completed_sessions` restriction to be met.
+        """
+
     class ModifyParamsPaymentIntentData(TypedDict):
         description: NotRequired["Literal['']|str"]
         """
@@ -1813,6 +1935,10 @@ class PaymentLink(
         statement_descriptor_suffix: NotRequired["Literal['']|str"]
         """
         Provides information about the charge that customers see on their statements. Concatenated with the prefix (shortened descriptor) or statement descriptor that's set on the account to form the complete statement descriptor. Maximum 22 characters for the concatenated descriptor.
+        """
+        transfer_group: NotRequired["Literal['']|str"]
+        """
+        A string that identifies the resulting payment as part of a group. See the PaymentIntents [use case for connected accounts](https://stripe.com/docs/connect/separate-charges-and-transfers) for details.
         """
 
     class ModifyParamsLineItem(TypedDict):
@@ -2138,6 +2264,10 @@ class PaymentLink(
     """
     Unique identifier for the object.
     """
+    inactive_message: Optional[str]
+    """
+    The custom message to be displayed to a customer when a payment link is no longer active.
+    """
     invoice_creation: Optional[InvoiceCreation]
     """
     Configuration for creating invoice for payment mode payment links.
@@ -2208,6 +2338,10 @@ class PaymentLink(
     The list of payment method types that customers can use. When `null`, Stripe will dynamically show relevant payment methods you've enabled in your [payment method settings](https://dashboard.stripe.com/settings/payment_methods).
     """
     phone_number_collection: PhoneNumberCollection
+    restrictions: Optional[Restrictions]
+    """
+    Settings that restrict the usage of a payment link.
+    """
     shipping_address_collection: Optional[ShippingAddressCollection]
     """
     Configuration for collecting the customer's shipping address.
@@ -2404,6 +2538,7 @@ class PaymentLink(
         "invoice_creation": InvoiceCreation,
         "payment_intent_data": PaymentIntentData,
         "phone_number_collection": PhoneNumberCollection,
+        "restrictions": Restrictions,
         "shipping_address_collection": ShippingAddressCollection,
         "shipping_options": ShippingOption,
         "subscription_data": SubscriptionData,

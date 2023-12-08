@@ -79,7 +79,7 @@ class Product(ListableAPIResource["Product"]):
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    metric_tons_available: Optional[str]
+    metric_tons_available: str
     """
     The quantity of metric tons available for reservation.
     """
