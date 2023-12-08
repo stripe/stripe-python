@@ -433,28 +433,6 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
-    class IdBankTransfer(StripeObject):
-        class DisplayPreference(StripeObject):
-            overridable: Optional[bool]
-            """
-            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
-            """
-            preference: Literal["none", "off", "on"]
-            """
-            The account's display preference.
-            """
-            value: Literal["off", "on"]
-            """
-            The effective display preference value.
-            """
-
-        available: bool
-        """
-        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
-        """
-        display_preference: DisplayPreference
-        _inner_class_types = {"display_preference": DisplayPreference}
-
     class Ideal(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -565,50 +543,6 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
-    class Multibanco(StripeObject):
-        class DisplayPreference(StripeObject):
-            overridable: Optional[bool]
-            """
-            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
-            """
-            preference: Literal["none", "off", "on"]
-            """
-            The account's display preference.
-            """
-            value: Literal["off", "on"]
-            """
-            The effective display preference value.
-            """
-
-        available: bool
-        """
-        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
-        """
-        display_preference: DisplayPreference
-        _inner_class_types = {"display_preference": DisplayPreference}
-
-    class Netbanking(StripeObject):
-        class DisplayPreference(StripeObject):
-            overridable: Optional[bool]
-            """
-            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
-            """
-            preference: Literal["none", "off", "on"]
-            """
-            The account's display preference.
-            """
-            value: Literal["off", "on"]
-            """
-            The effective display preference value.
-            """
-
-        available: bool
-        """
-        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
-        """
-        display_preference: DisplayPreference
-        _inner_class_types = {"display_preference": DisplayPreference}
-
     class Oxxo(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -632,28 +566,6 @@ class PaymentMethodConfiguration(
         _inner_class_types = {"display_preference": DisplayPreference}
 
     class P24(StripeObject):
-        class DisplayPreference(StripeObject):
-            overridable: Optional[bool]
-            """
-            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
-            """
-            preference: Literal["none", "off", "on"]
-            """
-            The account's display preference.
-            """
-            value: Literal["off", "on"]
-            """
-            The effective display preference value.
-            """
-
-        available: bool
-        """
-        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
-        """
-        display_preference: DisplayPreference
-        _inner_class_types = {"display_preference": DisplayPreference}
-
-    class PayByBank(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
             """
@@ -764,28 +676,6 @@ class PaymentMethodConfiguration(
         _inner_class_types = {"display_preference": DisplayPreference}
 
     class Sofort(StripeObject):
-        class DisplayPreference(StripeObject):
-            overridable: Optional[bool]
-            """
-            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
-            """
-            preference: Literal["none", "off", "on"]
-            """
-            The account's display preference.
-            """
-            value: Literal["off", "on"]
-            """
-            The effective display preference value.
-            """
-
-        available: bool
-        """
-        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
-        """
-        display_preference: DisplayPreference
-        _inner_class_types = {"display_preference": DisplayPreference}
-
-    class Upi(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
             """
@@ -2165,7 +2055,6 @@ class PaymentMethodConfiguration(
     """
     Unique identifier for the object.
     """
-    id_bank_transfer: Optional[IdBankTransfer]
     ideal: Optional[Ideal]
     is_default: bool
     """
@@ -2179,12 +2068,10 @@ class PaymentMethodConfiguration(
     """
     Has the value `true` if the object exists in live mode or the value `false` if the object exists in test mode.
     """
-    multibanco: Optional[Multibanco]
     name: str
     """
     The configuration's name.
     """
-    netbanking: Optional[Netbanking]
     object: Literal["payment_method_configuration"]
     """
     String representing the object's type. Objects of the same type share the same value.
@@ -2195,13 +2082,11 @@ class PaymentMethodConfiguration(
     """
     For child configs, the configuration's parent configuration.
     """
-    pay_by_bank: Optional[PayByBank]
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
     promptpay: Optional[Promptpay]
     sepa_debit: Optional[SepaDebit]
     sofort: Optional[Sofort]
-    upi: Optional[Upi]
     us_bank_account: Optional[UsBankAccount]
     wechat_pay: Optional[WechatPay]
 
@@ -2309,23 +2194,18 @@ class PaymentMethodConfiguration(
         "giropay": Giropay,
         "google_pay": GooglePay,
         "grabpay": Grabpay,
-        "id_bank_transfer": IdBankTransfer,
         "ideal": Ideal,
         "jcb": Jcb,
         "klarna": Klarna,
         "konbini": Konbini,
         "link": Link,
-        "multibanco": Multibanco,
-        "netbanking": Netbanking,
         "oxxo": Oxxo,
         "p24": P24,
-        "pay_by_bank": PayByBank,
         "paynow": Paynow,
         "paypal": Paypal,
         "promptpay": Promptpay,
         "sepa_debit": SepaDebit,
         "sofort": Sofort,
-        "upi": Upi,
         "us_bank_account": UsBankAccount,
         "wechat_pay": WechatPay,
     }
