@@ -28,19 +28,21 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     class Components(StripeObject):
         class PaymentElement(StripeObject):
             class Features(StripeObject):
-                payment_method_detach: Literal["auto", "never"]
+                payment_method_remove: Literal["auto", "never"]
                 """
-                Whether the payment element supports detaching payment methods.
+                Controls whether the Payment Element allows the removal of a saved payment method.
                 """
-                payment_method_set_as_customer_default: Literal[
-                    "auto", "never"
-                ]
+                payment_method_save: Literal["auto", "never"]
                 """
-                Whether the payment element supports setting payment methods as the customer's default.
+                Controls whether the Payment Element offers to save a new payment method.
+                """
+                payment_method_set_as_default: Literal["auto", "never"]
+                """
+                Controls whether the Payment Element offers to set a payment method as the default.
                 """
                 payment_method_update: Literal["auto", "never"]
                 """
-                Whether the payment element supports updating payment methods.
+                Controls whether the Payment Element allows the updating of a saved payment method.
                 """
 
             enabled: bool
@@ -49,7 +51,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
             """
             features: Optional[Features]
             """
-            This hash contains the features the Payment Element supports.
+            This hash defines whether the payment element supports certain features.
             """
             _inner_class_types = {"features": Features}
 
@@ -103,7 +105,7 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
     class CreateParamsComponentsPricingTable(TypedDict):
         enabled: bool
         """
-        Whether pricing table is enabled.
+        Whether the pricing table is enabled.
         """
 
     class CreateParamsComponentsPaymentElement(TypedDict):
@@ -119,19 +121,21 @@ class CustomerSession(CreateableAPIResource["CustomerSession"]):
         """
 
     class CreateParamsComponentsPaymentElementFeatures(TypedDict):
-        payment_method_detach: NotRequired["Literal['auto', 'never']"]
+        payment_method_remove: NotRequired["Literal['auto', 'never']"]
         """
-        Whether the payment element supports detaching a payment method.
+        Controls whether the Payment Element allows the removal of a saved payment method.
         """
-        payment_method_set_as_customer_default: NotRequired[
-            "Literal['auto', 'never']"
-        ]
+        payment_method_save: NotRequired["Literal['auto', 'never']"]
         """
-        Whether the payment element supports setting a payment method as the customer's default.
+        Controls whether the Payment Element offers to save a new payment method.
+        """
+        payment_method_set_as_default: NotRequired["Literal['auto', 'never']"]
+        """
+        Controls whether the Payment Element offers to set a payment method as the default.
         """
         payment_method_update: NotRequired["Literal['auto', 'never']"]
         """
-        Whether the payment element supports updating a payment method.
+        Controls whether the Payment Element allows the updating of a saved payment method.
         """
 
     client_secret: str

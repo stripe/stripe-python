@@ -16,7 +16,7 @@ from stripe._api_version import _ApiVersion
 # We must import the app_info module eagerly before defining the app_info global
 # otherwise the late import will overwrite the global
 import stripe.app_info
-from stripe._app_info import AppInfo
+from stripe._app_info import AppInfo as AppInfo
 from stripe._version import VERSION as VERSION
 
 api_key: Optional[str] = None
@@ -39,10 +39,13 @@ ca_bundle_path: str = os.path.join(
 log: Optional[Literal["debug", "info"]] = None
 
 # OAuth
-from stripe._oauth import OAuth
+from stripe._oauth import OAuth as OAuth
 
 # Webhooks
-from stripe._webhook import Webhook, WebhookSignature
+from stripe._webhook import (
+    Webhook as Webhook,
+    WebhookSignature as WebhookSignature,
+)
 from stripe._raw_request import raw_request as raw_request  # noqa
 from stripe._raw_request import deserialize as deserialize  # noqa
 
@@ -178,6 +181,9 @@ if not TYPE_CHECKING:
                 import stripe.api_resources as _api_resources
 
                 return _api_resources
+            raise AttributeError(
+                f"module {__name__!r} has no attribute {name!r}"
+            )
 
     else:
         with warnings.catch_warnings():
