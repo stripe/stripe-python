@@ -83,6 +83,12 @@ class Transaction(ListableAPIResource["Transaction"]):
         Maximum value to filter by (inclusive)
         """
 
+    class RetrieveParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+
     account: str
     """
     The ID of the Financial Connections Account this transaction belongs to.
@@ -158,5 +164,16 @@ class Transaction(ListableAPIResource["Transaction"]):
             )
 
         return result
+
+    @classmethod
+    def retrieve(
+        cls, id: str, **params: Unpack["Transaction.RetrieveParams"]
+    ) -> "Transaction":
+        """
+        Retrieves the details of a Financial Connections Transaction
+        """
+        instance = cls(id, **params)
+        instance.refresh()
+        return instance
 
     _inner_class_types = {"status_transitions": StatusTransitions}

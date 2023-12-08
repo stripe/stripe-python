@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.8.1 - 2023-12-08
+* [#1159](https://github.com/stripe/stripe-python/pull/1159) Fix __getattr__ to raise AttributeError rather than returning None. This fixes a regression in 7.8.0 that caused `stripe.checkout`/`stripe.issuing` etc. to return `None`.
+* [#1157](https://github.com/stripe/stripe-python/pull/1157) Add missing explicit reexport for `OAuth`, `Webhook`, `WebhookSignature`
+
 ## 7.8.0 - 2023-12-07
 * [#1155](https://github.com/stripe/stripe-python/pull/1155) Update generated code
   * Add support for `payment_details`, `payments`, and `payouts` on `AccountSession.components` and `CreateParams.components`
