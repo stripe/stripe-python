@@ -28,6 +28,22 @@ class ListObject(StripeObject, Generic[T]):
     has_more: bool
     url: str
 
+    def _list(
+        self,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Mapping[str, Any]
+    ) -> Self:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", category=DeprecationWarning)
+            return self.list(  # pyright: ignore[reportDeprecated]
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                **params,
+            )
+
     @_util.deprecated(
         "This will be removed in a future version of stripe-python. Please call the `list` method on the corresponding resource directly, instead of using `list` from the list object."
     )
@@ -217,15 +233,12 @@ class ListObject(StripeObject, Generic[T]):
         params_with_filters.update({"starting_after": last_id})
         params_with_filters.update(params)
 
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", category=DeprecationWarning)
-            result = self.list(  # pyright: ignore[reportDeprecated]
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                **params_with_filters,
-            )
-            return result
+        return self._list(
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            **params_with_filters,
+        )
 
     def previous_page(
         self,
@@ -251,7 +264,7 @@ class ListObject(StripeObject, Generic[T]):
         params_with_filters.update({"ending_before": first_id})
         params_with_filters.update(params)
 
-        result = self.list(  # pyright: ignore[reportDeprecated]
+        result = self._list(
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,

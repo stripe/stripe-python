@@ -24,6 +24,22 @@ class SearchResultObject(StripeObject, Generic[T]):
     has_more: bool
     next_page: str
 
+    def _search(
+        self,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Mapping[str, Any]
+    ) -> Self:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", DeprecationWarning)
+            return self.search(  # pyright: ignore[reportDeprecated]
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                **params,
+            )
+
     @_util.deprecated(
         "This will be removed in a future version of stripe-python. Please call the `search` method on the corresponding resource directly, instead of the generic search on SearchResultObject."
     )
@@ -135,12 +151,9 @@ class SearchResultObject(StripeObject, Generic[T]):
         params_with_filters.update({"page": self.next_page})
         params_with_filters.update(params)
 
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore", DeprecationWarning)
-            result = self.search(  # pyright: ignore[reportDeprecated]
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
-                **params_with_filters,
-            )
-            return result
+        return self._search(
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+            **params_with_filters,
+        )
