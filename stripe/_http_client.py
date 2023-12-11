@@ -722,10 +722,10 @@ class Urllib2Client(HTTPClient):
         if self._proxy:
             # We have to cast _Proxy to Dict[str, str] because pyright is not smart enough to
             # realize that all the value types are str.
-            proxy_ = urllibrequest.ProxyHandler(
+            proxy_handler = urllibrequest.ProxyHandler(
                 cast(Dict[str, str], self._proxy)
             )
-            self._opener = urllibrequest.build_opener(proxy_)
+            self._opener = urllibrequest.build_opener(proxy_handler)
 
     def request(self, method, url, headers, post_data=None):
         return self._request_internal(
