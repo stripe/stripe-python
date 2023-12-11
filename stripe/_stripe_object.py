@@ -25,8 +25,6 @@ from stripe import _util
 from stripe._stripe_response import StripeResponse, StripeStreamResponse
 import warnings
 
-_util.deprecated
-
 
 @overload
 def _compute_diff(
