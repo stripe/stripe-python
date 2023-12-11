@@ -5,6 +5,7 @@ import stripe  # noqa: IMP101
 from stripe._error_object import ErrorObject
 
 from stripe import _util
+import warnings
 
 
 class StripeError(Exception):
@@ -74,9 +75,6 @@ class StripeError(Exception):
         "For internal stripe-python use only. The public interface will be removed in a future version."
     )
     def construct_error_object(self) -> Optional[ErrorObject]:
-        return self._construct_error_object()
-
-    def _construct_error_object(self) -> Optional[ErrorObject]:
         if (
             self.json_body is None
             or not isinstance(self.json_body, dict)
@@ -88,6 +86,11 @@ class StripeError(Exception):
         return ErrorObject.construct_from(
             self.json_body["error"], stripe.api_key
         )
+
+    def _construct_error_object(self):
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", DeprecationWarning)
+            return self.construct_error_object()
 
 
 class APIError(StripeError):
