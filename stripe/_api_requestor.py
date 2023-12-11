@@ -19,7 +19,6 @@ from stripe import _http_client, _util, _version
 from stripe import oauth_error  # noqa: SPY101
 from stripe._encode import _api_encode
 from stripe._multipart_data_generator import MultipartDataGenerator
-
 from urllib.parse import urlencode, urlsplit, urlunsplit
 from stripe._stripe_response import StripeResponse, StripeStreamResponse
 
