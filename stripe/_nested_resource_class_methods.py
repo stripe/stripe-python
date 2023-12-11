@@ -4,8 +4,8 @@ from urllib.parse import quote_plus
 from stripe._api_resource import APIResource
 
 
-# TODO(major): Remove this. It is no longer used except for "nested_resource_url" and "nested_resource_request",
-# which are unnecessary ande deprecated.
+# TODO(major): 1704. Remove this. It is no longer used except for "nested_resource_url" and "nested_resource_request",
+# which are unnecessary and deprecated and should also be removed.
 def nested_resource_class_methods(
     resource: str,
     path: Optional[str] = None,

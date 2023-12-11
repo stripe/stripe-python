@@ -5,7 +5,7 @@ from stripe._stripe_object import StripeObject
 
 T = TypeVar("T", bound=StripeObject)
 
-
+# TODO(major): 1704 - Inline into Tax.Settings and Balance, and remove this class.
 class SingletonAPIResource(APIResource[T]):
     @classmethod
     def retrieve(cls, **params) -> T:
