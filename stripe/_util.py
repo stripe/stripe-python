@@ -34,9 +34,9 @@ STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
 logger: logging.Logger = logging.getLogger("stripe")
 
-if hasattr(typing_extensions, "deprecated"):
+if TYPE_CHECKING:
     deprecated = typing_extensions.deprecated
-elif not TYPE_CHECKING:
+else:
     _T = TypeVar("_T")
 
     # Copied from python/typing_extensions, as this was added in typing_extensions 4.5.0 which is incompatible with
