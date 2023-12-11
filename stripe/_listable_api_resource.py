@@ -7,14 +7,11 @@ from typing import TypeVar
 T = TypeVar("T", bound=StripeObject)
 
 # TODO(major): 1704 - remove this class and all internal usages. `.list` is already inlined into the resource classes.
-# and `.auto_paging_iter` is deprecated and should be removed.
+# Although we should inline .auto_paging_iter into the resource classes as well.
 
 
 class ListableAPIResource(APIResource[T]):
     @classmethod
-    @_util.deprecated(
-        "Calling `auto_paging_iter` on a resource directly is deprecated and will be removed in a future major version of the library. Explicitly invoke the list method instead (`MyResource.list(...).auto_paging_iter()` instead of `MyResource.auto_paging_iter`."
-    )
     def auto_paging_iter(cls, *args, **params):
         return cls.list(*args, **params).auto_paging_iter()
 
