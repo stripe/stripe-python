@@ -85,7 +85,7 @@ class ListObject(StripeObject, Generic[T]):
         )
 
     @_util.deprecated(
-        "This will be removed in a future version of stripe-python. Please call the `retrieve` method on the corresponding resource directly, instead of using `create` from the list object."
+        "This will be removed in a future version of stripe-python. Please call the `retrieve` method on the corresponding resource directly, instead of using `retrieve` from the list object."
     )
     def retrieve(
         self,
