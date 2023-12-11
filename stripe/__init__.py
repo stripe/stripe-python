@@ -13,8 +13,9 @@ import os
 # Configuration variables
 from stripe._api_version import _ApiVersion
 
-# We must import the app_info module eagerly before defining the app_info global
-# otherwise the late import will overwrite the global
+# We must import the app_info module early to populate it into
+# `sys.modules`; otherwise doing `import stripe.app_info` will end up
+# importing that module, and not the global `AppInfo` name from below.
 import stripe.app_info
 from stripe._app_info import AppInfo as AppInfo
 from stripe._version import VERSION as VERSION
