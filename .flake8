@@ -27,6 +27,10 @@ per-file-ignores =
     stripe/oauth_error.py: IMP102
     # setup.py is required for tooling
     setup.py: IMP102
+    # should not raise a deprecation warning since it needs
+    # to be imported early in `stripe/__init__.py` to avoid
+    # a name conflict
+    stripe/app_info.py: IMP102
 
 [flake8:local-plugins]
 extension =
