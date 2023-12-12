@@ -78,7 +78,14 @@ class APIRequestor(object):
             self._default_proxy = proxy
 
     @classmethod
+    @_util.deprecated(
+        "This method is internal to stripe-python and the public interface will be removed in a future stripe-python version"
+    )
     def format_app_info(cls, info):
+        return cls._format_app_info(info)
+
+    @classmethod
+    def _format_app_info(cls, info):
         str = info["name"]
         if info["version"]:
             str += "/%s" % (info["version"],)
@@ -230,7 +237,7 @@ class APIRequestor(object):
     def request_headers(self, api_key, method):
         user_agent = "Stripe/v1 PythonBindings/%s" % (_version.VERSION,)
         if stripe.app_info:
-            user_agent += " " + self.format_app_info(stripe.app_info)
+            user_agent += " " + self._format_app_info(stripe.app_info)
 
         ua = {
             "bindings_version": _version.VERSION,

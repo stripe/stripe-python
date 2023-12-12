@@ -4,6 +4,9 @@ from typing import Dict, Optional, Union, cast
 import stripe  # noqa: IMP101
 from stripe._error_object import ErrorObject
 
+from stripe import _util
+import warnings
+
 
 class StripeError(Exception):
     _message: Optional[str]
@@ -43,7 +46,7 @@ class StripeError(Exception):
         self.headers = headers or {}
         self.code = code
         self.request_id = self.headers.get("request-id", None)
-        self.error = self.construct_error_object()
+        self.error = self._construct_error_object()
 
     def __str__(self):
         msg = self._message or "<empty message>"
@@ -68,6 +71,9 @@ class StripeError(Exception):
             self.request_id,
         )
 
+    @_util.deprecated(
+        "For internal stripe-python use only. The public interface will be removed in a future version."
+    )
     def construct_error_object(self) -> Optional[ErrorObject]:
         if (
             self.json_body is None
@@ -80,6 +86,11 @@ class StripeError(Exception):
         return ErrorObject.construct_from(
             self.json_body["error"], stripe.api_key
         )
+
+    def _construct_error_object(self):
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", DeprecationWarning)
+            return self.construct_error_object()
 
 
 class APIError(StripeError):
