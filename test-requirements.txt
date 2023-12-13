@@ -1,7 +1,12 @@
 # These requirements must be installable on all our supported versions
+
+# This is the last version of httpx compatible with Python 3.6
+httpx == 0.22.0
+# This is the last version of pytest-asyncio compatible with Python 3.6
+pytest-asyncio == 0.16.0
+
 pytest-cov >= 2.8.1, < 2.11.0
 pytest-mock >= 2.0.0
-pytest-asyncio >= 0.21.0
 pytest-xdist >= 1.31.0
 pytest >= 6.0.0
 coverage >= 4.5.3, < 5
