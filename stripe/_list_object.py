@@ -5,6 +5,7 @@ from typing_extensions import Self, Unpack
 
 from typing import (
     Any,
+    AsyncIterator,
     Iterator,
     List,
     Generic,
@@ -38,6 +39,23 @@ class ListObject(StripeObject, Generic[T]):
         return cast(
             Self,
             self._request(
+                "get",
+                url,
+                params=params,
+                base_address="api",
+                api_mode="V1",
+            ),
+        )
+
+    async def list_async(self, **params: Mapping[str, Any]) -> Self:
+        url = self.get("url")
+        if not isinstance(url, str):
+            raise ValueError(
+                'Cannot call .list on a list object without a string "url" property'
+            )
+        return cast(
+            Self,
+            await self._request_async(
                 "get",
                 url,
                 params=params,
@@ -126,6 +144,25 @@ class ListObject(StripeObject, Generic[T]):
             if page.is_empty:
                 break
 
+    async def auto_paging_iter_async(self) -> AsyncIterator[T]:
+        page = self
+
+        while True:
+            if (
+                "ending_before" in self._retrieve_params
+                and "starting_after" not in self._retrieve_params
+            ):
+                for item in reversed(page):
+                    yield item
+                page = await page.previous_page_async()
+            else:
+                for item in page:
+                    yield item
+                page = await page.next_page_async()
+
+            if page.is_empty:
+                break
+
     @classmethod
     def _empty_list(
         cls,
@@ -165,6 +202,27 @@ class ListObject(StripeObject, Generic[T]):
             **params_with_filters,
         )
 
+    async def next_page_async(self, **params: Unpack[RequestOptions]) -> Self:
+        if not self.has_more:
+            request_options, _ = extract_options_from_dict(params)
+            return self._empty_list(
+                **request_options,
+            )
+
+        last_id = getattr(self.data[-1], "id")
+        if not last_id:
+            raise ValueError(
+                "Unexpected: element in .data of list object had no id"
+            )
+
+        params_with_filters = dict(self._retrieve_params)
+        params_with_filters.update({"starting_after": last_id})
+        params_with_filters.update(params)
+
+        return await self.list_async(
+            **params_with_filters,
+        )
+
     def previous_page(self, **params: Unpack[RequestOptions]) -> Self:
         if not self.has_more:
             request_options, _ = extract_options_from_dict(params)
@@ -183,6 +241,30 @@ class ListObject(StripeObject, Generic[T]):
         params_with_filters.update(params)
 
         result = self.list(
+            **params_with_filters,
+        )
+        return result
+
+    async def previous_page_async(
+        self, **params: Unpack[RequestOptions]
+    ) -> Self:
+        if not self.has_more:
+            request_options, _ = extract_options_from_dict(params)
+            return self._empty_list(
+                **request_options,
+            )
+
+        first_id = getattr(self.data[0], "id")
+        if not first_id:
+            raise ValueError(
+                "Unexpected: element in .data of list object had no id"
+            )
+
+        params_with_filters = dict(self._retrieve_params)
+        params_with_filters.update({"ending_before": first_id})
+        params_with_filters.update(params)
+
+        result = await self.list_async(
             **params_with_filters,
         )
         return result
