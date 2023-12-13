@@ -284,9 +284,7 @@ class HTTPClient(HTTPClientBase):
                         method, url, headers, post_data
                     )
                 else:
-                    response = self.request(
-                        method, url, headers, post_data, _usage=_usage
-                    )
+                    response = self.request(method, url, headers, post_data)
                 connection_error = None
             except APIConnectionError as e:
                 connection_error = e
