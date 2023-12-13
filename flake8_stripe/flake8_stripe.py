@@ -160,7 +160,6 @@ class StripeImportsChecker:
                     )
             if isinstance(node, ast.ImportFrom):
                 # Forbid: from stripe...module import Type
-                assert node.module is not None
                 parts = node.module.split(".")
                 if (
                     len(parts) > 1

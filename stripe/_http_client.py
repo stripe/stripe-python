@@ -311,8 +311,17 @@ class HTTPClient(HTTPClientBase):
 class RequestsClient(HTTPClient):
     name = "requests"
 
-    def __init__(self, timeout=80, session=None, **kwargs):
-        super(RequestsClient, self).__init__(**kwargs)
+    def __init__(
+        self,
+        timeout: int = 80,
+        session: Optional["Session"] = None,
+        verify_ssl_certs: bool = True,
+        proxy: Optional[Union[str, HTTPClient._Proxy]] = None,
+        **kwargs
+    ):
+        super(RequestsClient, self).__init__(
+            verify_ssl_certs=verify_ssl_certs, proxy=proxy
+        )
         self._session = session
         self._timeout = timeout
 
@@ -444,7 +453,12 @@ class RequestsClient(HTTPClient):
 class UrlFetchClient(HTTPClient):
     name = "urlfetch"
 
-    def __init__(self, verify_ssl_certs=True, proxy=None, deadline=55):
+    def __init__(
+        self,
+        verify_ssl_certs: bool = True,
+        proxy: Optional[HTTPClient._Proxy] = None,
+        deadline: int = 55,
+    ):
         super(UrlFetchClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs, proxy=proxy
         )
@@ -536,7 +550,11 @@ class PycurlClient(HTTPClient):
     name = "pycurl"
     _parsed_proxy: Optional[_ParsedProxy]
 
-    def __init__(self, verify_ssl_certs=True, proxy=None):
+    def __init__(
+        self,
+        verify_ssl_certs: bool = True,
+        proxy: Optional[HTTPClient._Proxy] = None,
+    ):
         super(PycurlClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs, proxy=proxy
         )
@@ -688,7 +706,11 @@ class PycurlClient(HTTPClient):
 class Urllib2Client(HTTPClient):
     name = "urllib.request"
 
-    def __init__(self, verify_ssl_certs=True, proxy=None):
+    def __init__(
+        self,
+        verify_ssl_certs: bool = True,
+        proxy: Optional[HTTPClient._Proxy] = None,
+    ):
         super(Urllib2Client, self).__init__(
             verify_ssl_certs=verify_ssl_certs, proxy=proxy
         )
@@ -697,10 +719,10 @@ class Urllib2Client(HTTPClient):
         if self._proxy:
             # We have to cast _Proxy to Dict[str, str] because pyright is not smart enough to
             # realize that all the value types are str.
-            proxy = urllibrequest.ProxyHandler(
+            proxy_handler = urllibrequest.ProxyHandler(
                 cast(Dict[str, str], self._proxy)
             )
-            self._opener = urllibrequest.build_opener(proxy)
+            self._opener = urllibrequest.build_opener(proxy_handler)
 
     def request(self, method, url, headers, post_data=None):
         return self._request_internal(
