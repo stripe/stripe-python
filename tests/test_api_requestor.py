@@ -776,4 +776,5 @@ class TestDefaultClient(object):
             "https://api.stripe.com/v1/charges?limit=3",
             mocker.ANY,
             None,
+            _usage=None,
         )

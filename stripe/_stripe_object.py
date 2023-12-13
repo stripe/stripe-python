@@ -343,6 +343,7 @@ class StripeObject(Dict[str, Any]):
         stripe_account: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
         params: Optional[Mapping[str, Any]] = None,
+        _usage: Optional[List[str]] = None,
     ) -> "StripeObject":
         params = None if params is None else dict(params)
         api_key = _util.read_special_variable(params, "api_key", api_key)
@@ -377,7 +378,9 @@ class StripeObject(Dict[str, Any]):
             headers = {} if headers is None else headers.copy()
             headers.update(_util.populate_headers(idempotency_key))
 
-        response, api_key = requestor.request(method_, url_, params, headers)
+        response, api_key = requestor.request(
+            method_, url_, params, headers, _usage=_usage
+        )
 
         return _util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account, params

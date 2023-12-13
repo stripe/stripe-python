@@ -40,6 +40,7 @@ class TestPreview(object):
                 extra={"Stripe-Version": _ApiVersion.PREVIEW},
             ),
             None,
+            _usage=None,
         )
 
         assert resp.body == expected_body
@@ -59,6 +60,7 @@ class TestPreview(object):
                 extra={"Stripe-Version": _ApiVersion.PREVIEW},
             ),
             '{"arg": "string"}',
+            _usage=None,
         )
 
         assert resp.body == expected_body
@@ -77,6 +79,7 @@ class TestPreview(object):
                 extra={"Stripe-Version": _ApiVersion.PREVIEW},
             ),
             None,
+            _usage=None,
         )
 
         assert resp.body == expected_body
@@ -105,6 +108,7 @@ class TestPreview(object):
                 },
             ),
             "{}",
+            _usage=None,
         )
 
         assert resp.body == expected_body
