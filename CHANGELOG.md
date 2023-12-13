@@ -4,6 +4,9 @@
 * [#1163](https://github.com/stripe/stripe-python/pull/1163) Update generated code for beta
   * Add support for `retrieve` method on resource `FinancialConnections.Transaction`
 
+## 7.8.2 - 2023-12-11
+* [#1168](https://github.com/stripe/stripe-python/pull/1168) Do not raise a DeprecationWarning in `stripe.app_info`
+
 ## 7.8.1 - 2023-12-08
 * [#1159](https://github.com/stripe/stripe-python/pull/1159) Fix __getattr__ to raise AttributeError rather than returning None. This fixes a regression in 7.8.0 that caused `stripe.checkout`/`stripe.issuing` etc. to return `None`.
 * [#1157](https://github.com/stripe/stripe-python/pull/1157) Add missing explicit reexport for `OAuth`, `Webhook`, `WebhookSignature`
