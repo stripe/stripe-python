@@ -111,17 +111,41 @@ class RequestMock(object):
             raise AssertionError(msg)
 
     def assert_requested(
-        self, method, url, params=None, headers=None, api_mode=None, _usage=None
+        self,
+        method,
+        url,
+        params=None,
+        headers=None,
+        api_mode=None,
+        _usage=None,
     ):
         self.assert_requested_internal(
-            self.request_patcher, method, url, params, headers, api_mode, _usage
+            self.request_patcher,
+            method,
+            url,
+            params,
+            headers,
+            api_mode,
+            _usage,
         )
 
     def assert_requested_stream(
-        self, method, url, params=None, headers=None, api_mode=None, _usage=None
+        self,
+        method,
+        url,
+        params=None,
+        headers=None,
+        api_mode=None,
+        _usage=None,
     ):
         self.assert_requested_internal(
-            self.request_stream_patcher, method, url, params, headers, api_mode, _usage
+            self.request_stream_patcher,
+            method,
+            url,
+            params,
+            headers,
+            api_mode,
+            _usage,
         )
 
     def assert_requested_internal(
