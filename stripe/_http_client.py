@@ -15,11 +15,7 @@ from stripe._error import APIConnectionError
 from typing import Any, Dict, Optional, Tuple, ClassVar, Union, cast, Mapping
 from typing_extensions import (
     NoReturn,
-    Self,
     TypedDict,
-    Awaitable,
-    Type,
-    Never,
 )
 
 # - Requests is the preferred HTTP library
