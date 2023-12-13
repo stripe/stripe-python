@@ -21,7 +21,6 @@ from typing import (
     ClassVar,
     Union,
     cast,
-    Mapping,
 )
 from typing_extensions import (
     NoReturn,
