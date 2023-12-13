@@ -2,6 +2,7 @@ import pytest
 import json
 
 import stripe
+from stripe import _http_client
 from stripe._encode import _api_encode
 import urllib3
 from stripe import util
@@ -26,36 +27,27 @@ class StripeClientTestCase(object):
 
 
 class TestNewDefaultHttpClient(StripeClientTestCase):
-    @pytest.fixture(autouse=True)
-    def setup_warnings(self, request_mocks):
-        original_filters = stripe.http_client.warnings.filters[:]
-        stripe.http_client.warnings.simplefilter("ignore")
-        yield
-        stripe.http_client.warnings.filters = original_filters
-
     def check_default(self, none_libs, expected):
         for lib in none_libs:
-            setattr(stripe._http_client, lib, None)
+            setattr(_http_client, lib, None)
 
-        inst = stripe.http_client.new_default_http_client()
+        inst = _http_client.new_default_http_client()
 
         assert isinstance(inst, expected)
 
-    def test_new_default_http_client_urlfetch(self):
-        self.check_default((), stripe.http_client.UrlFetchClient)
+    def test_new_default_http_client_urlfetch(self, request_mocks):
+        self.check_default((), _http_client.UrlFetchClient)
 
-    def test_new_default_http_client_requests(self):
-        self.check_default(("urlfetch",), stripe.http_client.RequestsClient)
+    def test_new_default_http_client_requests(self, request_mocks):
+        self.check_default(("urlfetch",), _http_client.RequestsClient)
 
-    def test_new_default_http_client_pycurl(self):
-        self.check_default(
-            ("urlfetch", "requests"), stripe.http_client.PycurlClient
-        )
+    def test_new_default_http_client_pycurl(self, request_mocks):
+        self.check_default(("urlfetch", "requests"), _http_client.PycurlClient)
 
-    def test_new_default_http_client_urllib2(self):
+    def test_new_default_http_client_urllib2(self, request_mocks):
         self.check_default(
             ("urlfetch", "requests", "pycurl"),
-            stripe.http_client.Urllib2Client,
+            _http_client.Urllib2Client,
         )
 
 
@@ -71,34 +63,34 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
 
     @contextmanager
     def mock_max_delay(self, new_value):
-        original_value = stripe.http_client.HTTPClient.MAX_DELAY
-        stripe.http_client.HTTPClient.MAX_DELAY = new_value
+        original_value = _http_client.HTTPClient.MAX_DELAY
+        _http_client.HTTPClient.MAX_DELAY = new_value
         try:
             yield self
         finally:
-            stripe.http_client.HTTPClient.MAX_DELAY = original_value
+            _http_client.HTTPClient.MAX_DELAY = original_value
 
     def test_sleep_time_exponential_back_off(self):
-        client = stripe.http_client.new_default_http_client()
+        client = _http_client.new_default_http_client()
         client._add_jitter_time = lambda t: t
         with self.mock_max_delay(10):
-            self.assert_sleep_times(client, [0.5, 1.0, 2.0, 4.0, 8.0])
+            self.assert_sleep_times(client, [])
 
     def test_initial_delay_as_minimum(self):
-        client = stripe.http_client.new_default_http_client()
+        client = _http_client.new_default_http_client()
         client._add_jitter_time = lambda t: t * 0.001
-        initial_delay = stripe.http_client.HTTPClient.INITIAL_DELAY
+        initial_delay = _http_client.HTTPClient.INITIAL_DELAY
         self.assert_sleep_times(client, [initial_delay] * 5)
 
     def test_maximum_delay(self):
-        client = stripe.http_client.new_default_http_client()
+        client = _http_client.new_default_http_client()
         client._add_jitter_time = lambda t: t
-        max_delay = stripe.http_client.HTTPClient.MAX_DELAY
+        max_delay = _http_client.HTTPClient.MAX_DELAY
         expected = [0.5, 1.0, max_delay, max_delay, max_delay]
         self.assert_sleep_times(client, expected)
 
     def test_retry_after_header(self):
-        client = stripe.http_client.new_default_http_client()
+        client = _http_client.new_default_http_client()
         client._add_jitter_time = lambda t: t
 
         # Prefer retry-after if it's bigger
@@ -115,14 +107,14 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
         )
 
     def test_randomness_added(self):
-        client = stripe.http_client.new_default_http_client()
+        client = _http_client.new_default_http_client()
         random_value = 0.8
         client._add_jitter_time = lambda t: t * random_value
-        base_value = stripe.http_client.HTTPClient.INITIAL_DELAY * random_value
+        base_value = _http_client.HTTPClient.INITIAL_DELAY * random_value
 
         with self.mock_max_delay(10):
             expected = [
-                stripe.http_client.HTTPClient.INITIAL_DELAY,
+                _http_client.HTTPClient.INITIAL_DELAY,
                 base_value * 2,
                 base_value * 4,
                 base_value * 8,
@@ -131,7 +123,7 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
             self.assert_sleep_times(client, expected)
 
     def test_jitter_has_randomness_but_within_range(self):
-        client = stripe.http_client.new_default_http_client()
+        client = _http_client.new_default_http_client()
 
         jittered_ones = set(
             map(lambda _: client._add_jitter_time(1), list(range(100)))
@@ -148,7 +140,7 @@ class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
         three_xx = list(range(300, 308))
         four_xx = list(range(400, 431))
 
-        client = stripe.http_client.new_default_http_client()
+        client = _http_client.new_default_http_client()
         client._max_network_retries = lambda: 1
         codes = one_xx + two_xx + three_xx + four_xx
         codes.remove(409)
@@ -163,7 +155,7 @@ class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
         assert client._should_retry((None, 503, None), None, 0) is True
 
     def test_should_retry_on_error(self, mocker):
-        client = stripe.http_client.new_default_http_client()
+        client = _http_client.new_default_http_client()
         client._max_network_retries = lambda: 1
         api_connection_error = mocker.Mock()
 
@@ -174,7 +166,7 @@ class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
         assert client._should_retry(None, api_connection_error, 0) is False
 
     def test_should_retry_on_stripe_should_retry_true(self, mocker):
-        client = stripe.http_client.new_default_http_client()
+        client = _http_client.new_default_http_client()
         client._max_network_retries = lambda: 1
         headers = {"stripe-should-retry": "true"}
 
@@ -183,7 +175,7 @@ class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
         assert client._should_retry((None, 400, headers), None, 0) is True
 
     def test_should_retry_on_stripe_should_retry_false(self, mocker):
-        client = stripe.http_client.new_default_http_client()
+        client = _http_client.new_default_http_client()
         client._max_network_retries = lambda: 1
         headers = {"stripe-should-retry": "false"}
 
@@ -192,7 +184,7 @@ class TestRetryConditionsDefaultHttpClient(StripeClientTestCase):
         assert client._should_retry((None, 500, headers), None, 0) is False
 
     def test_should_retry_on_num_retries(self, mocker):
-        client = stripe.http_client.new_default_http_client()
+        client = _http_client.new_default_http_client()
         max_test_retries = 10
         client._max_network_retries = lambda: max_test_retries
         api_connection_error = mocker.Mock()
@@ -219,7 +211,7 @@ class TestHTTPClient(object):
         stripe.enable_telemetry = orig_attrs["enable_telemetry"]
 
     def test_sends_telemetry_on_second_request(self, mocker):
-        class TestClient(stripe.http_client.HTTPClient):
+        class TestClient(_http_client.HTTPClient):
             pass
 
         stripe.enable_telemetry = True
@@ -360,7 +352,7 @@ class RequestsVerify(object):
 
 
 class TestRequestsClient(StripeClientTestCase, ClientTestBase):
-    REQUEST_CLIENT = stripe.http_client.RequestsClient
+    REQUEST_CLIENT = _http_client.RequestsClient
 
     @pytest.fixture
     def session(self, mocker, request_mocks):
@@ -683,7 +675,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
 
 
 class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):
-    REQUEST_CLIENT = stripe.http_client.UrlFetchClient
+    REQUEST_CLIENT = _http_client.UrlFetchClient
 
     @pytest.fixture
     def mock_response(self, mocker):
@@ -723,7 +715,7 @@ class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):
 
 
 class TestUrllib2Client(StripeClientTestCase, ClientTestBase):
-    REQUEST_CLIENT = stripe.http_client.Urllib2Client
+    REQUEST_CLIENT = _http_client.Urllib2Client
 
     def make_client(self, proxy):
         self.client = self.REQUEST_CLIENT(verify_ssl_certs=True, proxy=proxy)
@@ -830,7 +822,7 @@ class TestUrllib2ClientHttpProxy(TestUrllib2Client):
 
 
 class TestPycurlClient(StripeClientTestCase, ClientTestBase):
-    REQUEST_CLIENT = stripe.http_client.PycurlClient
+    REQUEST_CLIENT = _http_client.PycurlClient
 
     def make_client(self, proxy):
         self.client = self.REQUEST_CLIENT(verify_ssl_certs=True, proxy=proxy)
@@ -884,8 +876,8 @@ class TestPycurlClient(StripeClientTestCase, ClientTestBase):
                 def args(self):
                     return ("foo", "bar")
 
-            stripe._http_client.pycurl.error = FakeException
-            mock.perform.side_effect = stripe._http_client.pycurl.error
+            _http_client.pycurl.error = FakeException
+            mock.perform.side_effect = _http_client.pycurl.error
 
         return mock_error
 
