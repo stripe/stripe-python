@@ -12,7 +12,7 @@ from stripe._api_requestor import _json_encode_date_callback
 from stripe._stripe_response import StripeResponse, StripeStreamResponse
 from stripe._encode import _api_encode
 
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, parse_qsl
 
 import urllib3
 
@@ -146,7 +146,7 @@ class QueryMatcher(object):
     def __eq__(self, other):
         query = urlsplit(other).query or other
 
-        parsed = stripe.util.parse_qsl(query)
+        parsed = parse_qsl(query)
         return self.expected == sorted(parsed)
 
     def __repr__(self):
@@ -169,7 +169,7 @@ class UrlMatcher(object):
                 )
                 return False
 
-        q_matcher = QueryMatcher(stripe.util.parse_qsl(self.exp_parts.query))
+        q_matcher = QueryMatcher(parse_qsl(self.exp_parts.query))
         return q_matcher == other
 
     def __repr__(self):
@@ -429,7 +429,7 @@ class TestAPIRequestor(object):
             if method == "post":
                 check_call(
                     method,
-                    post_data=QueryMatcher(stripe.util.parse_qsl(encoded)),
+                    post_data=QueryMatcher(parse_qsl(encoded)),
                 )
             else:
                 abs_url = "%s%s?%s" % (
@@ -469,7 +469,7 @@ class TestAPIRequestor(object):
             if method == "post":
                 check_call(
                     method,
-                    post_data=QueryMatcher(stripe.util.parse_qsl(encoded)),
+                    post_data=QueryMatcher(parse_qsl(encoded)),
                     is_streaming=True,
                 )
             else:

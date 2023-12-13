@@ -12,6 +12,8 @@ from typing import (
 )
 
 from stripe._stripe_object import StripeObject
+from stripe import _util
+import warnings
 
 T = TypeVar("T", bound=StripeObject)
 
@@ -22,6 +24,25 @@ class SearchResultObject(StripeObject, Generic[T]):
     has_more: bool
     next_page: str
 
+    def _search(
+        self,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Mapping[str, Any]
+    ) -> Self:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", DeprecationWarning)
+            return self.search(  # pyright: ignore[reportDeprecated]
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                **params,
+            )
+
+    @_util.deprecated(
+        "This will be removed in a future version of stripe-python. Please call the `search` method on the corresponding resource directly, instead of the generic search on SearchResultObject."
+    )
     def search(
         self,
         api_key: Optional[str] = None,
@@ -78,7 +99,7 @@ class SearchResultObject(StripeObject, Generic[T]):
                 break
 
     @classmethod
-    def empty_search_result(
+    def _empty_search_result(
         cls,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -90,6 +111,22 @@ class SearchResultObject(StripeObject, Generic[T]):
             stripe_version=stripe_version,
             stripe_account=stripe_account,
             last_response=None,
+        )
+
+    @classmethod
+    @_util.deprecated(
+        "For internal stripe-python use only. This will be removed in a future version."
+    )
+    def empty_search_result(
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+    ) -> Self:
+        return cls._empty_search_result(
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
         )
 
     @property
@@ -104,7 +141,7 @@ class SearchResultObject(StripeObject, Generic[T]):
         **params: Mapping[str, Any]
     ) -> Self:
         if not self.has_more:
-            return self.empty_search_result(
+            return self._empty_search_result(
                 api_key=api_key,
                 stripe_version=stripe_version,
                 stripe_account=stripe_account,
@@ -114,10 +151,9 @@ class SearchResultObject(StripeObject, Generic[T]):
         params_with_filters.update({"page": self.next_page})
         params_with_filters.update(params)
 
-        result = self.search(
+        return self._search(
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
             **params_with_filters,
         )
-        return result

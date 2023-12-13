@@ -13,9 +13,11 @@ from typing import (
     cast,
     Mapping,
 )
+from stripe import _util
 from stripe._stripe_object import StripeObject
 
 from urllib.parse import quote_plus
+import warnings
 
 T = TypeVar("T", bound=StripeObject)
 
@@ -26,6 +28,25 @@ class ListObject(StripeObject, Generic[T]):
     has_more: bool
     url: str
 
+    def _list(
+        self,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Mapping[str, Any]
+    ) -> Self:
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore", category=DeprecationWarning)
+            return self.list(  # pyright: ignore[reportDeprecated]
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                **params,
+            )
+
+    @_util.deprecated(
+        "This will be removed in a future version of stripe-python. Please call the `list` method on the corresponding resource directly, instead of using `list` from the list object."
+    )
     def list(
         self,
         api_key: Optional[str] = None,
@@ -50,6 +71,9 @@ class ListObject(StripeObject, Generic[T]):
             ),
         )
 
+    @_util.deprecated(
+        "This will be removed in a future version of stripe-python. Please call the `create` method on the corresponding resource directly, instead of using `create` from the list object."
+    )
     def create(
         self,
         api_key: Optional[str] = None,
@@ -76,6 +100,9 @@ class ListObject(StripeObject, Generic[T]):
             ),
         )
 
+    @_util.deprecated(
+        "This will be removed in a future version of stripe-python. Please call the `retrieve` method on the corresponding resource directly, instead of using `retrieve` from the list object."
+    )
     def retrieve(
         self,
         id: str,
@@ -148,7 +175,23 @@ class ListObject(StripeObject, Generic[T]):
                 break
 
     @classmethod
+    @_util.deprecated(
+        "This method is for internal stripe-python use only. The public interface will be removed in a future version."
+    )
     def empty_list(
+        cls,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+    ) -> Self:
+        return cls._empty_list(
+            api_key=api_key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+        )
+
+    @classmethod
+    def _empty_list(
         cls,
         api_key: Optional[str] = None,
         stripe_version: Optional[str] = None,
@@ -174,7 +217,7 @@ class ListObject(StripeObject, Generic[T]):
         **params: Mapping[str, Any]
     ) -> Self:
         if not self.has_more:
-            return self.empty_list(
+            return self._empty_list(
                 api_key=api_key,
                 stripe_version=stripe_version,
                 stripe_account=stripe_account,
@@ -190,13 +233,12 @@ class ListObject(StripeObject, Generic[T]):
         params_with_filters.update({"starting_after": last_id})
         params_with_filters.update(params)
 
-        result = self.list(
+        return self._list(
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,
             **params_with_filters,
         )
-        return result
 
     def previous_page(
         self,
@@ -206,7 +248,7 @@ class ListObject(StripeObject, Generic[T]):
         **params: Mapping[str, Any]
     ) -> Self:
         if not self.has_more:
-            return self.empty_list(
+            return self._empty_list(
                 api_key=api_key,
                 stripe_version=stripe_version,
                 stripe_account=stripe_account,
@@ -222,7 +264,7 @@ class ListObject(StripeObject, Generic[T]):
         params_with_filters.update({"ending_before": first_id})
         params_with_filters.update(params)
 
-        result = self.list(
+        result = self._list(
             api_key=api_key,
             stripe_version=stripe_version,
             stripe_account=stripe_account,

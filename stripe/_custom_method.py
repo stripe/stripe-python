@@ -3,6 +3,10 @@ from stripe import _util
 from urllib.parse import quote_plus
 
 
+# TODO(major): 1704.
+@_util.deprecated(
+    "the custom_method class decorator will be removed in a future version of stripe-python. Define custom methods directly and use StripeObject._static_request within."
+)
 def custom_method(
     name: str,
     http_verb: str,

@@ -25,16 +25,18 @@ import typing_extensions
 
 # Used for global variables
 import stripe  # noqa: IMP101
-from stripe._stripe_response import StripeResponse
-from stripe._stripe_object import StripeObject
+
+if TYPE_CHECKING:
+    from stripe._stripe_response import StripeResponse
+    from stripe._stripe_object import StripeObject
 
 STRIPE_LOG = os.environ.get("STRIPE_LOG")
 
 logger: logging.Logger = logging.getLogger("stripe")
 
-if hasattr(typing_extensions, "deprecated"):
+if TYPE_CHECKING:
     deprecated = typing_extensions.deprecated
-elif not TYPE_CHECKING:
+else:
     _T = TypeVar("_T")
 
     # Copied from python/typing_extensions, as this was added in typing_extensions 4.5.0 which is incompatible with
@@ -192,12 +194,12 @@ def get_object_classes():
     return OBJECT_CLASSES
 
 
-Resp = Union[StripeResponse, Dict[str, Any], List["Resp"]]
+Resp = Union["StripeResponse", Dict[str, Any], List["Resp"]]
 
 
 @overload
 def convert_to_stripe_object(
-    resp: Union[StripeResponse, Dict[str, Any]],
+    resp: Union["StripeResponse", Dict[str, Any]],
     api_key: Optional[str] = None,
     stripe_version: Optional[str] = None,
     stripe_account: Optional[str] = None,
@@ -231,6 +233,10 @@ def convert_to_stripe_object(
     # StripeObject with the last_response field filled out with
     # the raw API response information
     stripe_response = None
+
+    # Imports here at runtime to avoid circular dependencies
+    from stripe._stripe_response import StripeResponse
+    from stripe._stripe_object import StripeObject
 
     if isinstance(resp, StripeResponse):
         stripe_response = resp
