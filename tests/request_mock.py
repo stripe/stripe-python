@@ -111,25 +111,50 @@ class RequestMock(object):
             raise AssertionError(msg)
 
     def assert_requested(
-        self, method, url, params=None, headers=None, api_mode=None
+        self,
+        method,
+        url,
+        params=None,
+        headers=None,
+        api_mode=None,
+        _usage=None,
     ):
         self.assert_requested_internal(
-            self.request_patcher, method, url, params, headers, api_mode
+            self.request_patcher,
+            method,
+            url,
+            params,
+            headers,
+            api_mode,
+            _usage,
         )
 
     def assert_requested_stream(
-        self, method, url, params=None, headers=None, api_mode=None
+        self,
+        method,
+        url,
+        params=None,
+        headers=None,
+        api_mode=None,
+        _usage=None,
     ):
         self.assert_requested_internal(
-            self.request_stream_patcher, method, url, params, headers, api_mode
+            self.request_stream_patcher,
+            method,
+            url,
+            params,
+            headers,
+            api_mode,
+            _usage,
         )
 
     def assert_requested_internal(
-        self, patcher, method, url, params, headers, api_mode
+        self, patcher, method, url, params, headers, api_mode, usage
     ):
         params = params or self._mocker.ANY
         headers = headers or self._mocker.ANY
         api_mode = api_mode or self._mocker.ANY
+        usage = usage or self._mocker.ANY
         called = False
         exception = None
 
@@ -142,14 +167,17 @@ class RequestMock(object):
             (self._mocker.ANY, method, url, params, headers, api_mode),
         ]
 
+        possible_called_kwargs = [{}, {"_usage": usage}]
+
         for args in possible_called_args:
-            try:
-                patcher.assert_called_with(*args)
-            except AssertionError as e:
-                exception = e
-            else:
-                called = True
-                break
+            for kwargs in possible_called_kwargs:
+                try:
+                    patcher.assert_called_with(*args, **kwargs)
+                except AssertionError as e:
+                    exception = e
+                else:
+                    called = True
+                    break
 
         if not called:
             raise exception

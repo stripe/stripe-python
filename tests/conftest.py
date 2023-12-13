@@ -119,6 +119,7 @@ def check_call(http_client):
         headers=None,
         post_data=None,
         is_streaming=False,
+        _usage=None,
     ):
         if not abs_url:
             abs_url = "%s%s" % (stripe.api_base, "/foo")
@@ -127,11 +128,11 @@ def check_call(http_client):
 
         if is_streaming:
             http_client.request_stream_with_retries.assert_called_with(
-                method, abs_url, headers, post_data
+                method, abs_url, headers, post_data, _usage=_usage
             )
         else:
             http_client.request_with_retries.assert_called_with(
-                method, abs_url, headers, post_data
+                method, abs_url, headers, post_data, _usage=_usage
             )
 
     return check_call
