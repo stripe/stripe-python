@@ -5,7 +5,13 @@ from stripe._list_object import ListObject
 from stripe._listable_api_resource import ListableAPIResource
 from stripe._request_options import RequestOptions
 from typing import ClassVar, List, Optional
-from typing_extensions import Literal, NotRequired, Unpack, TYPE_CHECKING
+from typing_extensions import (
+    Literal,
+    NotRequired,
+    TypedDict,
+    Unpack,
+    TYPE_CHECKING,
+)
 
 if TYPE_CHECKING:
     from stripe._charge import Charge
@@ -29,6 +35,10 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
         """
         Only return early fraud warnings for the charge specified by this charge ID.
         """
+        created: NotRequired["EarlyFraudWarning.ListParamsCreated|int"]
+        """
+        Only return early fraud warnings that were created during the given date interval.
+        """
         ending_before: NotRequired["str"]
         """
         A cursor for use in pagination. `ending_before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with `obj_bar`, your subsequent call can include `ending_before=obj_bar` in order to fetch the previous page of the list.
@@ -48,6 +58,24 @@ class EarlyFraudWarning(ListableAPIResource["EarlyFraudWarning"]):
         starting_after: NotRequired["str"]
         """
         A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` in order to fetch the next page of the list.
+        """
+
+    class ListParamsCreated(TypedDict):
+        gt: NotRequired["int"]
+        """
+        Minimum value to filter by (exclusive)
+        """
+        gte: NotRequired["int"]
+        """
+        Minimum value to filter by (inclusive)
+        """
+        lt: NotRequired["int"]
+        """
+        Maximum value to filter by (exclusive)
+        """
+        lte: NotRequired["int"]
+        """
+        Maximum value to filter by (inclusive)
         """
 
     class RetrieveParams(RequestOptions):
