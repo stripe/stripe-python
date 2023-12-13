@@ -12,7 +12,17 @@ from stripe import _util
 from stripe._request_metrics import RequestMetrics
 from stripe._error import APIConnectionError
 
-from typing import Any, Dict, Optional, Tuple, ClassVar, Union, cast, Mapping
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+    ClassVar,
+    Union,
+    cast,
+    Mapping,
+)
 from typing_extensions import (
     NoReturn,
     TypedDict,
@@ -36,6 +46,7 @@ except ImportError:
 
 try:
     import requests
+    from requests import Session
 except ImportError:
     requests = None
 else:
@@ -219,34 +230,46 @@ class HTTPClientBase(object):
             }
             headers["X-Stripe-Client-Telemetry"] = json.dumps(telemetry)
 
-    def _record_request_metrics(self, response, request_start):
+    def _record_request_metrics(self, response, request_start, usage):
         _, _, rheaders = response
         if "Request-Id" in rheaders and stripe.enable_telemetry:
             request_id = rheaders["Request-Id"]
             request_duration_ms = _now_ms() - request_start
             self._thread_local.last_request_metrics = RequestMetrics(
-                request_id, request_duration_ms
+                request_id, request_duration_ms, usage=usage
             )
 
 
 class HTTPClient(HTTPClientBase):
     # TODO: more specific types here would be helpful
     def request_with_retries(
-        self, method, url, headers, post_data=None
+        self,
+        method,
+        url,
+        headers,
+        post_data=None,
+        *,
+        _usage: Optional[List[str]] = None
     ) -> Tuple[Any, int, Any]:
         return self._request_with_retries_internal(
-            method, url, headers, post_data, is_streaming=False
+            method, url, headers, post_data, is_streaming=False, _usage=_usage
         )
 
     def request_stream_with_retries(
-        self, method, url, headers, post_data=None
+        self,
+        method,
+        url,
+        headers,
+        post_data=None,
+        *,
+        _usage: Optional[List[str]] = None
     ) -> Tuple[Any, int, Any]:
         return self._request_with_retries_internal(
-            method, url, headers, post_data, is_streaming=True
+            method, url, headers, post_data, is_streaming=True, _usage=_usage
         )
 
     def _request_with_retries_internal(
-        self, method, url, headers, post_data, is_streaming
+        self, method, url, headers, post_data, is_streaming, *, _usage=None
     ):
         self._add_telemetry_header(headers)
 
@@ -261,7 +284,9 @@ class HTTPClient(HTTPClientBase):
                         method, url, headers, post_data
                     )
                 else:
-                    response = self.request(method, url, headers, post_data)
+                    response = self.request(
+                        method, url, headers, post_data, _usage=_usage
+                    )
                 connection_error = None
             except APIConnectionError as e:
                 connection_error = e
@@ -285,19 +310,23 @@ class HTTPClient(HTTPClientBase):
                 time.sleep(sleep_time)
             else:
                 if response is not None:
-                    self._record_request_metrics(response, request_start)
+                    self._record_request_metrics(
+                        response, request_start, usage=_usage
+                    )
 
                     return response
                 else:
                     assert connection_error is not None
                     raise connection_error
 
-    def request(self, method, url, headers, post_data=None):
+    def request(self, method, url, headers, post_data=None, *, _usage=None):
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request`"
         )
 
-    def request_stream(self, method, url, headers, post_data=None):
+    def request_stream(
+        self, method, url, headers, post_data=None, *, _usage=None
+    ):
         raise NotImplementedError(
             "HTTPClient subclasses must implement `request_stream`"
         )
