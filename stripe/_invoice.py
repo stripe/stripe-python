@@ -2734,6 +2734,16 @@ class Invoice(
         """
         Changes to apply to the phases of the subscription schedule, in the order provided.
         """
+        billing_behavior: NotRequired[
+            "Literal['prorate_on_next_phase', 'prorate_up_front']"
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time.`prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
+        end_behavior: NotRequired["Literal['cancel', 'release']"]
+        """
+        Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
+        """
         phases: NotRequired["List[Invoice.UpcomingParamsScheduleDetailsPhase]"]
         """
         List representing phases of the subscription schedule. Each phase can be customized to have different durations, plans, and coupons. If there are multiple phases, the `end_date` of one phase will always equal the `start_date` of the next phase.
@@ -2743,6 +2753,12 @@ class Invoice(
         ]
         """
         Provide any time periods to bill in advance.
+        """
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']"
+        ]
+        """
+        In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
         """
 
     class UpcomingParamsScheduleDetailsPrebilling(TypedDict):
@@ -4468,6 +4484,16 @@ class Invoice(
         """
         Changes to apply to the phases of the subscription schedule, in the order provided.
         """
+        billing_behavior: NotRequired[
+            "Literal['prorate_on_next_phase', 'prorate_up_front']"
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time.`prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
+        end_behavior: NotRequired["Literal['cancel', 'release']"]
+        """
+        Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
+        """
         phases: NotRequired[
             "List[Invoice.UpcomingLinesParamsScheduleDetailsPhase]"
         ]
@@ -4479,6 +4505,12 @@ class Invoice(
         ]
         """
         Provide any time periods to bill in advance.
+        """
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']"
+        ]
+        """
+        In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
         """
 
     class UpcomingLinesParamsScheduleDetailsPrebilling(TypedDict):
