@@ -142,9 +142,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         features: NotRequired[
             "AccountSession.CreateParamsComponentsPayoutsFeatures"
         ]
-        """
-        The list of features enabled in the embedded component.
-        """
 
     class CreateParamsComponentsPayoutsFeatures(TypedDict):
         pass

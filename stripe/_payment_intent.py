@@ -3679,6 +3679,9 @@ class PaymentIntent(
         Set to `true` to attempt to [confirm this PaymentIntent](https://stripe.com/docs/api/payment_intents/confirm) this PaymentIntent immediately. This parameter defaults to `false`. When creating and confirming a PaymentIntent at the same time, you can also provide the parameters available in the [Confirm API](https://stripe.com/docs/api/payment_intents/confirm).
         """
         confirmation_method: NotRequired["Literal['automatic', 'manual']"]
+        """
+        Describes whether we can confirm this PaymentIntent automatically, or if it requires customer action to confirm the payment.
+        """
         currency: str
         """
         Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
@@ -7496,6 +7499,9 @@ class PaymentIntent(
     Refer to our docs to [accept a payment](https://stripe.com/docs/payments/accept-a-payment?ui=elements) and learn about how `client_secret` should be handled.
     """
     confirmation_method: Literal["automatic", "manual"]
+    """
+    Describes whether we can confirm this PaymentIntent automatically, or if it requires customer action to confirm the payment.
+    """
     created: int
     """
     Time at which the object was created. Measured in seconds since the Unix epoch.
