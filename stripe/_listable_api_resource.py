@@ -5,6 +5,9 @@ from typing import TypeVar
 
 T = TypeVar("T", bound=StripeObject)
 
+# TODO(major): 1704 - remove this class and all internal usages. `.list` is already inlined into the resource classes.
+# Although we should inline .auto_paging_iter into the resource classes as well.
+
 
 class ListableAPIResource(APIResource[T]):
     @classmethod

@@ -4,6 +4,7 @@ import platform
 from typing import (
     Any,
     Dict,
+    List,
     Mapping,
     Optional,
     Tuple,
@@ -78,7 +79,14 @@ class APIRequestor(object):
             self._default_proxy = proxy
 
     @classmethod
+    @_util.deprecated(
+        "This method is internal to stripe-python and the public interface will be removed in a future stripe-python version"
+    )
     def format_app_info(cls, info):
+        return cls._format_app_info(info)
+
+    @classmethod
+    def _format_app_info(cls, info):
         str = info["name"]
         if info["version"]:
             str += "/%s" % (info["version"],)
@@ -92,9 +100,16 @@ class APIRequestor(object):
         url: str,
         params: Optional[Mapping[str, Any]] = None,
         headers: Optional[Mapping[str, str]] = None,
+        *,
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[StripeResponse, str]:
         rbody, rcode, rheaders, my_api_key = self.request_raw(
-            method.lower(), url, params, headers, is_streaming=False
+            method.lower(),
+            url,
+            params,
+            headers,
+            is_streaming=False,
+            _usage=_usage,
         )
         resp = self.interpret_response(rbody, rcode, rheaders)
         return resp, my_api_key
@@ -105,9 +120,16 @@ class APIRequestor(object):
         url: str,
         params: Optional[Mapping[str, Any]] = None,
         headers: Optional[Mapping[str, str]] = None,
+        *,
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[StripeStreamResponse, str]:
         stream, rcode, rheaders, my_api_key = self.request_raw(
-            method.lower(), url, params, headers, is_streaming=True
+            method.lower(),
+            url,
+            params,
+            headers,
+            is_streaming=True,
+            _usage=_usage,
         )
         resp = self.interpret_streaming_response(
             # TODO: should be able to remove this cast once self._client.request_stream_with_retries
@@ -230,7 +252,7 @@ class APIRequestor(object):
     def request_headers(self, api_key, method):
         user_agent = "Stripe/v1 PythonBindings/%s" % (_version.VERSION,)
         if stripe.app_info:
-            user_agent += " " + self.format_app_info(stripe.app_info)
+            user_agent += " " + self._format_app_info(stripe.app_info)
 
         ua = {
             "bindings_version": _version.VERSION,
@@ -275,6 +297,8 @@ class APIRequestor(object):
         params: Optional[Mapping[str, Any]] = None,
         supplied_headers: Optional[Mapping[str, str]] = None,
         is_streaming: bool = False,
+        *,
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[object, int, Mapping[str, str], str]:
         """
         Mechanism for issuing an API call
@@ -352,11 +376,11 @@ class APIRequestor(object):
                 rcode,
                 rheaders,
             ) = self._client.request_stream_with_retries(
-                method, abs_url, headers, post_data
+                method, abs_url, headers, post_data, _usage=_usage
             )
         else:
             rcontent, rcode, rheaders = self._client.request_with_retries(
-                method, abs_url, headers, post_data
+                method, abs_url, headers, post_data, _usage=_usage
             )
 
         _util.log_info(

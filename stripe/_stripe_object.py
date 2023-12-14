@@ -23,6 +23,7 @@ from stripe._encode import _encode_datetime  # pyright: ignore
 from stripe import _util
 
 from stripe._stripe_response import StripeResponse, StripeStreamResponse
+import warnings
 
 
 @overload
@@ -70,13 +71,19 @@ def _serialize_list(
 
 
 class StripeObject(Dict[str, Any]):
-    class ReprJSONEncoder(json.JSONEncoder):
+    class _ReprJSONEncoder(json.JSONEncoder):
         def default(self, o: Any) -> Any:
             if isinstance(o, datetime.datetime):
                 # pyright complains that _encode_datetime is "private", but it's
                 # private to outsiders, not to stripe_object
                 return _encode_datetime(o)
-            return super(StripeObject.ReprJSONEncoder, self).default(o)
+            return super(StripeObject._ReprJSONEncoder, self).default(o)
+
+    @_util.deprecated(
+        "For internal stripe-python use only. The public interface will be removed in a future version"
+    )
+    class ReprJSONEncoder(_ReprJSONEncoder):
+        pass
 
     _retrieve_params: Dict[str, Any]
     _previous: Optional[Dict[str, Any]]
@@ -307,6 +314,9 @@ class StripeObject(Dict[str, Any]):
         self._previous = values
 
     @classmethod
+    @_util.deprecated(
+        "This will be removed in a future version of stripe-python."
+    )
     def api_base(cls) -> Optional[str]:
         return None
 
@@ -333,6 +343,7 @@ class StripeObject(Dict[str, Any]):
         stripe_account: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
         params: Optional[Mapping[str, Any]] = None,
+        _usage: Optional[List[str]] = None,
     ) -> "StripeObject":
         params = None if params is None else dict(params)
         api_key = _util.read_special_variable(params, "api_key", api_key)
@@ -351,10 +362,14 @@ class StripeObject(Dict[str, Any]):
         stripe_version = stripe_version or self.stripe_version
         api_key = api_key or self.api_key
         params = params or self._retrieve_params
+        api_base = None
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            api_base = self.api_base()  # pyright: ignore[reportDeprecated]
 
         requestor = stripe.APIRequestor(
             key=api_key,
-            api_base=self.api_base(),
+            api_base=api_base,
             api_version=stripe_version,
             account=stripe_account,
         )
@@ -363,7 +378,9 @@ class StripeObject(Dict[str, Any]):
             headers = {} if headers is None else headers.copy()
             headers.update(_util.populate_headers(idempotency_key))
 
-        response, api_key = requestor.request(method_, url_, params, headers)
+        response, api_key = requestor.request(
+            method_, url_, params, headers, _usage=_usage
+        )
 
         return _util.convert_to_stripe_object(
             response, api_key, stripe_version, stripe_account, params
@@ -378,9 +395,13 @@ class StripeObject(Dict[str, Any]):
     ) -> StripeStreamResponse:
         if params is None:
             params = self._retrieve_params
+        api_base = None
+        with warnings.catch_warnings():
+            warnings.simplefilter("ignore")
+            api_base = self.api_base()  # pyright: ignore[reportDeprecated]
         requestor = stripe.APIRequestor(
             key=self.api_key,
-            api_base=self.api_base(),
+            api_base=api_base,
             api_version=self.stripe_version,
             account=self.stripe_account,
         )
@@ -407,23 +428,26 @@ class StripeObject(Dict[str, Any]):
 
     def __str__(self) -> str:
         return json.dumps(
-            self.to_dict_recursive(),
+            self._to_dict_recursive(),
             sort_keys=True,
             indent=2,
-            cls=self.ReprJSONEncoder,
+            cls=self._ReprJSONEncoder,
         )
 
+    @_util.deprecated(
+        "Deprecated. The public interface will be removed in a future version."
+    )
     def to_dict(self) -> Dict[str, Any]:
         return dict(self)
 
-    def to_dict_recursive(self) -> Dict[str, Any]:
+    def _to_dict_recursive(self) -> Dict[str, Any]:
         def maybe_to_dict_recursive(
             value: Optional[Union[StripeObject, Dict[str, Any]]]
         ) -> Optional[Dict[str, Any]]:
             if value is None:
                 return None
             elif isinstance(value, StripeObject):
-                return value.to_dict_recursive()
+                return value._to_dict_recursive()
             else:
                 return value
 
@@ -434,7 +458,16 @@ class StripeObject(Dict[str, Any]):
             for key, value in dict(self).items()
         }
 
+    @_util.deprecated(
+        "For internal stripe-python use only. The public interface will be removed in a future version."
+    )
+    def to_dict_recursive(self) -> Dict[str, Any]:
+        return self._to_dict_recursive()
+
     @property
+    @_util.deprecated(
+        "For internal stripe-python use only. The public interface will be removed in a future version."
+    )
     def stripe_id(self) -> Optional[str]:
         return getattr(self, "id")
 

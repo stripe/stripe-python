@@ -1,6 +1,5 @@
 import sys
 import textwrap
-import warnings
 import email
 import time
 import random
@@ -13,8 +12,20 @@ from stripe import _util
 from stripe._request_metrics import RequestMetrics
 from stripe._error import APIConnectionError
 
-from typing import Any, Dict, Optional, Tuple, ClassVar, Union, cast
-from typing_extensions import NoReturn, TypedDict
+from typing import (
+    Any,
+    Dict,
+    List,
+    Optional,
+    Tuple,
+    ClassVar,
+    Union,
+    cast,
+)
+from typing_extensions import (
+    NoReturn,
+    TypedDict,
+)
 
 # - Requests is the preferred HTTP library
 # - Google App Engine has urlfetch
@@ -34,6 +45,7 @@ except ImportError:
 
 try:
     import requests
+    from requests import Session
 except ImportError:
     requests = None
 else:
@@ -84,19 +96,12 @@ def new_default_http_client(*args: Any, **kwargs: Any) -> "HTTPClient":
         impl = PycurlClient
     else:
         impl = Urllib2Client
-        if sys.version_info < (2, 7, 9):
-            warnings.warn(
-                "Warning: the Stripe library is falling back to urllib2 "
-                "because neither requests nor pycurl are installed. "
-                "urllib2's SSL implementation doesn't verify server "
-                "certificates. For improved security, we suggest installing "
-                "requests."
-            )
 
     return impl(*args, **kwargs)
 
 
-class HTTPClient(object):
+class HTTPClientBase(object):
+
     name: ClassVar[str]
 
     class _Proxy(TypedDict):
@@ -133,78 +138,6 @@ class HTTPClient(object):
         self._proxy = proxy.copy() if proxy else None
 
         self._thread_local = threading.local()
-
-    # TODO: more specific types here would be helpful
-    def request_with_retries(
-        self, method, url, headers, post_data=None
-    ) -> Tuple[Any, int, Any]:
-        return self._request_with_retries_internal(
-            method, url, headers, post_data, is_streaming=False
-        )
-
-    def request_stream_with_retries(
-        self, method, url, headers, post_data=None
-    ) -> Tuple[Any, int, Any]:
-        return self._request_with_retries_internal(
-            method, url, headers, post_data, is_streaming=True
-        )
-
-    def _request_with_retries_internal(
-        self, method, url, headers, post_data, is_streaming
-    ):
-        self._add_telemetry_header(headers)
-
-        num_retries = 0
-
-        while True:
-            request_start = _now_ms()
-
-            try:
-                if is_streaming:
-                    response = self.request_stream(
-                        method, url, headers, post_data
-                    )
-                else:
-                    response = self.request(method, url, headers, post_data)
-                connection_error = None
-            except APIConnectionError as e:
-                connection_error = e
-                response = None
-
-            if self._should_retry(response, connection_error, num_retries):
-                if connection_error:
-                    _util.log_info(
-                        "Encountered a retryable error %s"
-                        % connection_error.user_message
-                    )
-                num_retries += 1
-                sleep_time = self._sleep_time_seconds(num_retries, response)
-                _util.log_info(
-                    (
-                        "Initiating retry %i for request %s %s after "
-                        "sleeping %.2f seconds."
-                        % (num_retries, method, url, sleep_time)
-                    )
-                )
-                time.sleep(sleep_time)
-            else:
-                if response is not None:
-                    self._record_request_metrics(response, request_start)
-
-                    return response
-                else:
-                    assert connection_error is not None
-                    raise connection_error
-
-    def request(self, method, url, headers, post_data=None):
-        raise NotImplementedError(
-            "HTTPClient subclasses must implement `request`"
-        )
-
-    def request_stream(self, method, url, headers, post_data=None):
-        raise NotImplementedError(
-            "HTTPClient subclasses must implement `request_stream`"
-        )
 
     def _should_retry(self, response, api_connection_error, num_retries):
         if num_retries >= self._max_network_retries():
@@ -296,14 +229,104 @@ class HTTPClient(object):
             }
             headers["X-Stripe-Client-Telemetry"] = json.dumps(telemetry)
 
-    def _record_request_metrics(self, response, request_start):
+    def _record_request_metrics(self, response, request_start, usage):
         _, _, rheaders = response
         if "Request-Id" in rheaders and stripe.enable_telemetry:
             request_id = rheaders["Request-Id"]
             request_duration_ms = _now_ms() - request_start
             self._thread_local.last_request_metrics = RequestMetrics(
-                request_id, request_duration_ms
+                request_id, request_duration_ms, usage=usage
             )
+
+
+class HTTPClient(HTTPClientBase):
+    # TODO: more specific types here would be helpful
+    def request_with_retries(
+        self,
+        method,
+        url,
+        headers,
+        post_data=None,
+        *,
+        _usage: Optional[List[str]] = None
+    ) -> Tuple[Any, int, Any]:
+        return self._request_with_retries_internal(
+            method, url, headers, post_data, is_streaming=False, _usage=_usage
+        )
+
+    def request_stream_with_retries(
+        self,
+        method,
+        url,
+        headers,
+        post_data=None,
+        *,
+        _usage: Optional[List[str]] = None
+    ) -> Tuple[Any, int, Any]:
+        return self._request_with_retries_internal(
+            method, url, headers, post_data, is_streaming=True, _usage=_usage
+        )
+
+    def _request_with_retries_internal(
+        self, method, url, headers, post_data, is_streaming, *, _usage=None
+    ):
+        self._add_telemetry_header(headers)
+
+        num_retries = 0
+
+        while True:
+            request_start = _now_ms()
+
+            try:
+                if is_streaming:
+                    response = self.request_stream(
+                        method, url, headers, post_data
+                    )
+                else:
+                    response = self.request(method, url, headers, post_data)
+                connection_error = None
+            except APIConnectionError as e:
+                connection_error = e
+                response = None
+
+            if self._should_retry(response, connection_error, num_retries):
+                if connection_error:
+                    _util.log_info(
+                        "Encountered a retryable error %s"
+                        % connection_error.user_message
+                    )
+                num_retries += 1
+                sleep_time = self._sleep_time_seconds(num_retries, response)
+                _util.log_info(
+                    (
+                        "Initiating retry %i for request %s %s after "
+                        "sleeping %.2f seconds."
+                        % (num_retries, method, url, sleep_time)
+                    )
+                )
+                time.sleep(sleep_time)
+            else:
+                if response is not None:
+                    self._record_request_metrics(
+                        response, request_start, usage=_usage
+                    )
+
+                    return response
+                else:
+                    assert connection_error is not None
+                    raise connection_error
+
+    def request(self, method, url, headers, post_data=None, *, _usage=None):
+        raise NotImplementedError(
+            "HTTPClient subclasses must implement `request`"
+        )
+
+    def request_stream(
+        self, method, url, headers, post_data=None, *, _usage=None
+    ):
+        raise NotImplementedError(
+            "HTTPClient subclasses must implement `request_stream`"
+        )
 
     def close(self):
         raise NotImplementedError(
@@ -314,8 +337,17 @@ class HTTPClient(object):
 class RequestsClient(HTTPClient):
     name = "requests"
 
-    def __init__(self, timeout=80, session=None, **kwargs):
-        super(RequestsClient, self).__init__(**kwargs)
+    def __init__(
+        self,
+        timeout: int = 80,
+        session: Optional["Session"] = None,
+        verify_ssl_certs: bool = True,
+        proxy: Optional[Union[str, HTTPClient._Proxy]] = None,
+        **kwargs
+    ):
+        super(RequestsClient, self).__init__(
+            verify_ssl_certs=verify_ssl_certs, proxy=proxy
+        )
         self._session = session
         self._timeout = timeout
 
@@ -447,7 +479,12 @@ class RequestsClient(HTTPClient):
 class UrlFetchClient(HTTPClient):
     name = "urlfetch"
 
-    def __init__(self, verify_ssl_certs=True, proxy=None, deadline=55):
+    def __init__(
+        self,
+        verify_ssl_certs: bool = True,
+        proxy: Optional[HTTPClient._Proxy] = None,
+        deadline: int = 55,
+    ):
         super(UrlFetchClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs, proxy=proxy
         )
@@ -539,7 +576,11 @@ class PycurlClient(HTTPClient):
     name = "pycurl"
     _parsed_proxy: Optional[_ParsedProxy]
 
-    def __init__(self, verify_ssl_certs=True, proxy=None):
+    def __init__(
+        self,
+        verify_ssl_certs: bool = True,
+        proxy: Optional[HTTPClient._Proxy] = None,
+    ):
         super(PycurlClient, self).__init__(
             verify_ssl_certs=verify_ssl_certs, proxy=proxy
         )
@@ -691,7 +732,11 @@ class PycurlClient(HTTPClient):
 class Urllib2Client(HTTPClient):
     name = "urllib.request"
 
-    def __init__(self, verify_ssl_certs=True, proxy=None):
+    def __init__(
+        self,
+        verify_ssl_certs: bool = True,
+        proxy: Optional[HTTPClient._Proxy] = None,
+    ):
         super(Urllib2Client, self).__init__(
             verify_ssl_certs=verify_ssl_certs, proxy=proxy
         )
@@ -700,10 +745,10 @@ class Urllib2Client(HTTPClient):
         if self._proxy:
             # We have to cast _Proxy to Dict[str, str] because pyright is not smart enough to
             # realize that all the value types are str.
-            proxy = urllibrequest.ProxyHandler(
+            proxy_handler = urllibrequest.ProxyHandler(
                 cast(Dict[str, str], self._proxy)
             )
-            self._opener = urllibrequest.build_opener(proxy)
+            self._opener = urllibrequest.build_opener(proxy_handler)
 
     def request(self, method, url, headers, post_data=None):
         return self._request_internal(

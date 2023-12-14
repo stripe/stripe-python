@@ -180,7 +180,7 @@ def test_can_import_abstract() -> None:
     from stripe import SearchableAPIResource as SearchableFromStripe
     from stripe import VerifyMixin as VerifyMixinFromStripe
     from stripe import APIResourceTestHelpers as APIResourceTestHelpersFromStripe
-    from stripe import custom_method as custom_methodFromStripe
+    from stripe import custom_method as custom_methodFromStripe  # pyright: ignore[reportDeprecated]
     from stripe import nested_resource_class_methods as nested_resource_class_methodsFromStripe
     # fmt: on
 

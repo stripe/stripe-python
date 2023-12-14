@@ -8,12 +8,14 @@ from stripe._util import (
 )
 from stripe._api_requestor import APIRequestor
 from stripe._stripe_object import StripeObject
+from stripe import _util
 from urllib.parse import quote_plus
 from typing import (
     Any,
     ClassVar,
     Dict,
     Generic,
+    List,
     Optional,
     TypeVar,
     cast,
@@ -28,6 +30,9 @@ class APIResource(StripeObject, Generic[T]):
     OBJECT_NAME: ClassVar[str]
 
     @classmethod
+    @_util.deprecated(
+        "This method is deprecated and will be removed in a future version of stripe-python. Child classes of APIResource should define their own `retrieve` and use APIResource._request directly."
+    )
     def retrieve(cls, id, api_key=None, **params) -> T:
         instance = cls(id, api_key, **params)
         instance.refresh()
@@ -106,6 +111,7 @@ class APIResource(StripeObject, Generic[T]):
         stripe_account: Optional[str] = None,
         headers: Optional[Dict[str, str]] = None,
         params: Optional[Mapping[str, Any]] = None,
+        _usage: Optional[List[str]] = None,
     ) -> Self:
         obj = StripeObject._request(
             self,
@@ -117,6 +123,7 @@ class APIResource(StripeObject, Generic[T]):
             stripe_account,
             headers,
             params,
+            _usage=_usage,
         )
 
         self.refresh_from(obj)

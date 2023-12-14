@@ -24,6 +24,7 @@ class UpdateableAPIResource(APIResource[T]):
                 self.instance_url(),
                 idempotency_key=idempotency_key,
                 params=updated_params,
+                _usage=["save"],
             )
         else:
             _util.logger.debug("Trying to save already saved object %r", self)
