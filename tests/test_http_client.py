@@ -1,11 +1,14 @@
+from typing import Any
+from typing_extensions import Type
 import pytest
 import json
 
 import stripe
 from stripe import _http_client
 from stripe._encode import _api_encode
+from stripe import APIConnectionError
 import urllib3
-from stripe import util
+from stripe import _util
 
 VALID_API_METHODS = ("get", "post", "delete")
 
@@ -72,26 +75,26 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
 
     def test_sleep_time_exponential_back_off(self):
         client = _http_client.new_default_http_client()
-        client._add_jitter_time = lambda t: t
+        client._add_jitter_time = lambda sleep_seconds: sleep_seconds
         with self.mock_max_delay(10):
             self.assert_sleep_times(client, [])
 
     def test_initial_delay_as_minimum(self):
         client = _http_client.new_default_http_client()
-        client._add_jitter_time = lambda t: t * 0.001
+        client._add_jitter_time = lambda sleep_seconds: sleep_seconds * 0.001
         initial_delay = _http_client.HTTPClient.INITIAL_DELAY
         self.assert_sleep_times(client, [initial_delay] * 5)
 
     def test_maximum_delay(self):
         client = _http_client.new_default_http_client()
-        client._add_jitter_time = lambda t: t
+        client._add_jitter_time = lambda sleep_seconds: sleep_seconds
         max_delay = _http_client.HTTPClient.MAX_DELAY
         expected = [0.5, 1.0, max_delay, max_delay, max_delay]
         self.assert_sleep_times(client, expected)
 
     def test_retry_after_header(self):
         client = _http_client.new_default_http_client()
-        client._add_jitter_time = lambda t: t
+        client._add_jitter_time = lambda sleep_seconds: sleep_seconds
 
         # Prefer retry-after if it's bigger
         assert 30 == client._sleep_time_seconds(
@@ -109,7 +112,9 @@ class TestRetrySleepTimeDefaultHttpClient(StripeClientTestCase):
     def test_randomness_added(self):
         client = _http_client.new_default_http_client()
         random_value = 0.8
-        client._add_jitter_time = lambda t: t * random_value
+        client._add_jitter_time = (
+            lambda sleep_seconds: sleep_seconds * random_value
+        )
         base_value = _http_client.HTTPClient.INITIAL_DELAY * random_value
 
         with self.mock_max_delay(10):
@@ -240,6 +245,8 @@ class TestHTTPClient(object):
 
 
 class ClientTestBase(object):
+    REQUEST_CLIENT: Type[_http_client.HTTPClient]
+
     @pytest.fixture
     def request_mock(self, request_mocks):
         return request_mocks[self.REQUEST_CLIENT.name]
@@ -342,7 +349,7 @@ class ClientTestBase(object):
 
     def test_exception(self, request_mock, mock_error):
         mock_error(request_mock)
-        with pytest.raises(stripe.error.APIConnectionError):
+        with pytest.raises(APIConnectionError):
             self.make_request("get", self.valid_url, {}, None)
 
 
@@ -352,7 +359,9 @@ class RequestsVerify(object):
 
 
 class TestRequestsClient(StripeClientTestCase, ClientTestBase):
-    REQUEST_CLIENT = _http_client.RequestsClient
+    REQUEST_CLIENT: Type[
+        _http_client.RequestsClient
+    ] = _http_client.RequestsClient
 
     @pytest.fixture
     def session(self, mocker, request_mocks):
@@ -366,7 +375,7 @@ class TestRequestsClient(StripeClientTestCase, ClientTestBase):
             result.status_code = code
             result.headers = {}
             result.raw = urllib3.response.HTTPResponse(
-                body=util.io.BytesIO(str.encode(body)),
+                body=_util.io.BytesIO(str.encode(body)),
                 preload_content=False,
                 status=code,
             )
@@ -466,7 +475,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
             result.status_code = code
             result.headers = headers
             result.raw = urllib3.response.HTTPResponse(
-                body=util.io.BytesIO(str.encode(result.content)),
+                body=_util.io.BytesIO(str.encode(result.content)),
                 preload_content=False,
                 status=code,
             )
@@ -530,7 +539,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
             verify_ssl_certs=True, timeout=80, proxy="http://slap/"
         )
         # Override sleep time to speed up tests
-        client._sleep_time = lambda _: 0.0001
+        client._sleep_time_seconds = lambda num_retries, response=None: 0.0001
         # Override configured max retries
         client._max_network_retries = lambda: self.max_retries()
         return client
@@ -557,14 +566,14 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         self, mock_retry, response, check_call_numbers
     ):
         mock_retry(retry_error_num=self.max_retries())
-        with pytest.raises(stripe.error.APIConnectionError):
+        with pytest.raises(APIConnectionError):
             self.make_request()
 
         check_call_numbers(self.max_retries())
 
     def test_no_retry_error(self, mock_retry, response, check_call_numbers):
         mock_retry(no_retry_error_num=self.max_retries())
-        with pytest.raises(stripe.error.APIConnectionError):
+        with pytest.raises(APIConnectionError):
             self.make_request()
         check_call_numbers(1)
 
@@ -594,7 +603,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         self, mock_retry, response, check_call_numbers
     ):
         mock_retry(retry_error_num=self.max_retries())
-        with pytest.raises(stripe.error.APIConnectionError):
+        with pytest.raises(APIConnectionError):
             self.make_request_stream()
 
         check_call_numbers(self.max_retries(), is_streaming=True)
@@ -603,7 +612,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         self, mock_retry, response, check_call_numbers
     ):
         mock_retry(no_retry_error_num=self.max_retries())
-        with pytest.raises(stripe.error.APIConnectionError):
+        with pytest.raises(APIConnectionError):
             self.make_request_stream()
         check_call_numbers(1, is_streaming=True)
 
@@ -628,7 +637,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         client = self.REQUEST_CLIENT()
 
         def connection_error(given_exception):
-            with pytest.raises(stripe.error.APIConnectionError) as error:
+            with pytest.raises(APIConnectionError) as error:
                 client._handle_request_error(given_exception)
             return error.value
 
@@ -686,6 +695,7 @@ class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):
             result.headers = {}
 
             mock.fetch = mocker.Mock(return_value=result)
+            return result
 
         return mock_response
 
@@ -715,7 +725,11 @@ class TestUrlFetchClient(StripeClientTestCase, ClientTestBase):
 
 
 class TestUrllib2Client(StripeClientTestCase, ClientTestBase):
-    REQUEST_CLIENT = _http_client.Urllib2Client
+    REQUEST_CLIENT: Type[
+        _http_client.Urllib2Client
+    ] = _http_client.Urllib2Client
+
+    request_object: Any
 
     def make_client(self, proxy):
         self.client = self.REQUEST_CLIENT(verify_ssl_certs=True, proxy=proxy)
@@ -822,7 +836,7 @@ class TestUrllib2ClientHttpProxy(TestUrllib2Client):
 
 
 class TestPycurlClient(StripeClientTestCase, ClientTestBase):
-    REQUEST_CLIENT = _http_client.PycurlClient
+    REQUEST_CLIENT: Type[_http_client.PycurlClient] = _http_client.PycurlClient
 
     def make_client(self, proxy):
         self.client = self.REQUEST_CLIENT(verify_ssl_certs=True, proxy=proxy)
