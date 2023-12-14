@@ -466,7 +466,7 @@ class APIRequestor(object):
         return abs_url, headers, post_data, my_api_key
 
     @staticmethod
-    def log_response(abs_url, rcode, rcontent, rheaders):
+    def _log_response(abs_url, rcode, rcontent, rheaders):
         _util.log_info(
             "Stripe API response", path=abs_url, response_code=rcode
         )
