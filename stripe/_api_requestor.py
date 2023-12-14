@@ -465,6 +465,20 @@ class APIRequestor(object):
 
         return abs_url, headers, post_data, my_api_key
 
+    @staticmethod
+    def log_response(abs_url, rcode, rcontent, rheaders):
+        _util.log_info(
+            "Stripe API response", path=abs_url, response_code=rcode
+        )
+        _util.log_debug("API response body", body=rcontent)
+
+        if "Request-Id" in rheaders:
+            request_id = rheaders["Request-Id"]
+            _util.log_debug(
+                "Dashboard link for request",
+                link=_util.dashboard_link(request_id),
+            )
+
     def request_raw(
         self,
         method: str,
@@ -493,17 +507,7 @@ class APIRequestor(object):
                 method, abs_url, headers, post_data, _usage=_usage
             )
 
-        _util.log_info(
-            "Stripe API response", path=abs_url, response_code=rcode
-        )
-        _util.log_debug("API response body", body=rcontent)
-
-        if "Request-Id" in rheaders:
-            request_id = rheaders["Request-Id"]
-            _util.log_debug(
-                "Dashboard link for request",
-                link=_util.dashboard_link(request_id),
-            )
+        self.log_response(abs_url, rcode, rcontent, rheaders)
 
         return rcontent, rcode, rheaders, my_api_key
 
@@ -539,18 +543,7 @@ class APIRequestor(object):
                 method, abs_url, headers, post_data, _usage=_usage
             )
 
-        _util.log_info(
-            "Stripe API response", path=abs_url, response_code=rcode
-        )
-        _util.log_debug("API response body", body=rcontent)
-
-        if "Request-Id" in rheaders:
-            request_id = rheaders["Request-Id"]
-            _util.log_debug(
-                "Dashboard link for request",
-                link=_util.dashboard_link(request_id),
-            )
-
+        self.log_response(abs_url, rcode, rcontent, rheaders)
         return rcontent, rcode, rheaders, my_api_key
 
     def _should_handle_code_as_error(self, rcode):
