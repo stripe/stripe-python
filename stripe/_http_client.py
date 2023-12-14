@@ -50,6 +50,8 @@ except ImportError:
 
 try:
     import httpx
+    from httpx import Timeout as HTTPXTimeout
+    from httpx import HTTPError as HTTPXHTTPError
 except ImportError:
     httpx = None
 
@@ -941,12 +943,24 @@ def raise_async_client_import_error() -> Never:
 
 
 class HTTPXClient(HTTPClientAsync):
-    def __init__(self, **kwargs):
+    name = "httpx"
+
+    def __init__(
+        self, timeout: Optional[Union[float, "HTTPXTimeout"]] = 80, **kwargs
+    ):
         super(HTTPXClient, self).__init__(**kwargs)
 
         assert httpx is not None
         self.httpx = httpx
-        self._client = httpx.AsyncClient()
+
+        kwargs = {}
+        if self._verify_ssl_certs:
+            kwargs["verify"] = stripe.ca_bundle_path
+        else:
+            kwargs["verify"] = False
+
+        self._client = httpx.AsyncClient(**kwargs)
+        self._timeout = timeout
 
     def sleep(self, secs):
         import asyncio
@@ -954,13 +968,22 @@ class HTTPXClient(HTTPClientAsync):
         return asyncio.sleep(secs)
 
     async def request_async(
-        self, method, url, headers, post_data=None
+        self, method, url, headers, post_data=None, timeout=80.0
     ) -> Tuple[bytes, int, Mapping[str, str]]:
+        kwargs = {}
+
+        if self._proxy:
+            kwargs["proxies"] = self._proxy
+
+        if self._timeout:
+            kwargs["timeout"] = self._timeout
+
         try:
             response = await self._client.request(
-                method, url, headers=headers, data=post_data or {}
+                method, url, headers=headers, data=post_data or {}, **kwargs
             )
-        except self.httpx.HTTPError as e:
+            response.raise_for_status()
+        except Exception as e:
             self._handle_request_error(e)
 
         content = response.content
