@@ -79,15 +79,13 @@ class APIRequestor(object):
             self._client = stripe.default_http_client
             self._default_proxy = proxy
 
-        if stripe.default_http_client_async:
-            self._client_async = stripe.default_http_client_async
-        else:
+        if not stripe.default_http_client_async:
             stripe.default_http_client_async = (
                 _http_client.new_default_http_client_async(
                     verify_ssl_certs=verify, proxy=proxy
                 )
             )
-            self._client_async = stripe.default_http_client_async
+        self._client_async = stripe.default_http_client_async
 
     @classmethod
     @_util.deprecated(
