@@ -1,4 +1,4 @@
-from stripe import raw_request
+from stripe import raw_request, raw_request_async
 
 
 class Preview(object):
@@ -15,6 +15,17 @@ class Preview(object):
 
     def delete(self, url, **params):
         return raw_request("delete", url, **self._get_default_opts(params))
+
+    def post_async(self, url, **params):
+        return raw_request_async("post", url, **self._get_default_opts(params))
+
+    def get_async(self, url, **params):
+        return raw_request_async("get", url, **self._get_default_opts(params))
+
+    def delete_async(self, url, **params):
+        return raw_request_async(
+            "delete", url, **self._get_default_opts(params)
+        )
 
 
 preview = Preview()

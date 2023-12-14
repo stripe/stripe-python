@@ -507,7 +507,7 @@ class APIRequestor(object):
                 method, abs_url, headers, post_data, _usage=_usage
             )
 
-        self.log_response(abs_url, rcode, rcontent, rheaders)
+        self._log_response(abs_url, rcode, rcontent, rheaders)
 
         return rcontent, rcode, rheaders, my_api_key
 
@@ -543,7 +543,7 @@ class APIRequestor(object):
                 method, abs_url, headers, post_data, _usage=_usage
             )
 
-        self.log_response(abs_url, rcode, rcontent, rheaders)
+        self._log_response(abs_url, rcode, rcontent, rheaders)
         return rcontent, rcode, rheaders, my_api_key
 
     def _should_handle_code_as_error(self, rcode):

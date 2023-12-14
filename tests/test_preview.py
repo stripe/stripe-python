@@ -84,6 +84,67 @@ class TestPreview(object):
 
         assert resp.body == expected_body
 
+    @pytest.mark.asyncio
+    async def test_get_async(self):
+        expected_body = '{"id": "acc_123"}'
+        self.set_body(expected_body)
+
+        resp = await stripe.preview.get_async("/v1/accounts/acc_123")
+
+        self.mock_request.assert_called_with(
+            "get",
+            "%s/v1/accounts/acc_123" % stripe.api_base,
+            APIHeaderMatcher(
+                request_method="get",
+                extra={"Stripe-Version": _ApiVersion.PREVIEW},
+            ),
+            None,
+            _usage=None,
+        )
+
+        assert resp.body == expected_body
+
+    @pytest.mark.asyncio
+    async def test_post_async(self):
+        expected_body = '{"id": "acc_123"}'
+        self.set_body(expected_body)
+
+        resp = await stripe.preview.post_async("/v1/accounts", arg="string")
+
+        self.mock_request.assert_called_with(
+            "post",
+            "%s/v1/accounts" % stripe.api_base,
+            APIHeaderMatcher(
+                request_method="post",
+                content_type="application/json",
+                extra={"Stripe-Version": _ApiVersion.PREVIEW},
+            ),
+            '{"arg": "string"}',
+            _usage=None,
+        )
+
+        assert resp.body == expected_body
+
+    @pytest.mark.asyncio
+    async def test_delete_async(self):
+        expected_body = '{"id": "acc_123"}'
+        self.set_body(expected_body)
+
+        resp = await stripe.preview.delete_async("/v1/accounts/acc_123")
+
+        self.mock_request.assert_called_with(
+            "delete",
+            "%s/v1/accounts/acc_123" % stripe.api_base,
+            APIHeaderMatcher(
+                request_method="delete",
+                extra={"Stripe-Version": _ApiVersion.PREVIEW},
+            ),
+            None,
+            _usage=None,
+        )
+
+        assert resp.body == expected_body
+
     def test_override_default_options(self):
         expected_body = '{"id": "acc_123"}'
         stripe_version_override = "2022-11-15"
