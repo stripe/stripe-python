@@ -5,6 +5,7 @@ import time
 import random
 import threading
 import json
+import asyncio
 
 # Used for global variables
 import stripe  # noqa: IMP101
@@ -387,7 +388,7 @@ class HTTPClientAsync(HTTPClientBase):
         )
 
     @classmethod
-    async def sleep(cls: Type[Self], secs: float) -> Awaitable[None]:
+    async def sleep_async(cls: Type[Self], secs: float) -> Awaitable[None]:
         raise NotImplementedError(
             "HTTPClientAsync subclasses must implement `sleep`"
         )
@@ -431,7 +432,7 @@ class HTTPClientAsync(HTTPClientBase):
                         % (num_retries, method, url, sleep_time)
                     )
                 )
-                await self.sleep(sleep_time)
+                await self.sleep_async(sleep_time)
             else:
                 if response is not None:
                     self._record_request_metrics(
@@ -453,9 +454,9 @@ class HTTPClientAsync(HTTPClientBase):
             "HTTPClientAsync subclasses must implement `request_stream`"
         )
 
-    async def close(self):
+    async def close_async(self):
         raise NotImplementedError(
-            "HTTPClient subclasses must implement `close`"
+            "HTTPClientAsync subclasses must implement `close_async`"
         )
 
 
@@ -931,17 +932,6 @@ class Urllib2Client(HTTPClient):
         pass
 
 
-def raise_async_client_import_error() -> Never:
-    raise ImportError(
-        (
-            "Import httpx not found. To make async http requests,"
-            "You must either install httpx or define your own"
-            "async http client by subclassing stripe.HTTPClientAsync"
-            "and setting stripe.default_http_client to an instance of it."
-        )
-    )
-
-
 class HTTPXClient(HTTPClientAsync):
     name = "httpx"
 
@@ -962,9 +952,7 @@ class HTTPXClient(HTTPClientAsync):
         self._client = httpx.AsyncClient(**kwargs)
         self._timeout = timeout
 
-    def sleep(self, secs):
-        import asyncio
-
+    def sleep_async(self, secs):
         return asyncio.sleep(secs)
 
     async def request_async(
@@ -1013,13 +1001,24 @@ class NoImportFoundAsyncClient(HTTPClientAsync):
     def __init__(self, **kwargs):
         super(NoImportFoundAsyncClient, self).__init__(**kwargs)
 
+    @staticmethod
+    def raise_async_client_import_error() -> Never:
+        raise ImportError(
+            (
+                "Import httpx not found. To make async http requests,"
+                "You must either install httpx or define your own"
+                "async http client by subclassing stripe.HTTPClientAsync"
+                "and setting stripe.default_http_client to an instance of it."
+            )
+        )
+
     async def request_async(
         self, method, url, headers, post_data=None
     ) -> Tuple[bytes, int, Mapping[str, str]]:
-        raise_async_client_import_error()
+        self.raise_async_client_import_error()
 
     async def request_stream_async(self, method, url, headers, post_data=None):
-        raise_async_client_import_error()
+        self.raise_async_client_import_error()
 
-    async def close(self):
-        raise_async_client_import_error()
+    async def close_async(self):
+        self.raise_async_client_import_error()
