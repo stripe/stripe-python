@@ -486,11 +486,11 @@ class APIRequestor(object):
                 rcode,
                 rheaders,
             ) = self._client.request_stream_with_retries(
-                method, abs_url, headers, post_data
+                method, abs_url, headers, post_data, _usage=_usage
             )
         else:
             rcontent, rcode, rheaders = self._client.request_with_retries(
-                method, abs_url, headers, post_data
+                method, abs_url, headers, post_data, _usage=_usage
             )
 
         _util.log_info(
