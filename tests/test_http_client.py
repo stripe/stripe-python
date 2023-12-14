@@ -2,11 +2,11 @@ from typing import Any
 from typing_extensions import Type
 import pytest
 import json
-import io
 
 import stripe
 from stripe import _http_client
 from stripe._encode import _api_encode
+from stripe import APIConnectionError
 import urllib3
 from stripe import _util
 
@@ -349,7 +349,7 @@ class ClientTestBase(object):
 
     def test_exception(self, request_mock, mock_error):
         mock_error(request_mock)
-        with pytest.raises(stripe.APIConnectionError):
+        with pytest.raises(APIConnectionError):
             self.make_request("get", self.valid_url, {}, None)
 
 
@@ -566,14 +566,14 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         self, mock_retry, response, check_call_numbers
     ):
         mock_retry(retry_error_num=self.max_retries())
-        with pytest.raises(stripe.APIConnectionError):
+        with pytest.raises(APIConnectionError):
             self.make_request()
 
         check_call_numbers(self.max_retries())
 
     def test_no_retry_error(self, mock_retry, response, check_call_numbers):
         mock_retry(no_retry_error_num=self.max_retries())
-        with pytest.raises(stripe.APIConnectionError):
+        with pytest.raises(APIConnectionError):
             self.make_request()
         check_call_numbers(1)
 
@@ -603,7 +603,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         self, mock_retry, response, check_call_numbers
     ):
         mock_retry(retry_error_num=self.max_retries())
-        with pytest.raises(stripe.APIConnectionError):
+        with pytest.raises(APIConnectionError):
             self.make_request_stream()
 
         check_call_numbers(self.max_retries(), is_streaming=True)
@@ -612,7 +612,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         self, mock_retry, response, check_call_numbers
     ):
         mock_retry(no_retry_error_num=self.max_retries())
-        with pytest.raises(stripe.APIConnectionError):
+        with pytest.raises(APIConnectionError):
             self.make_request_stream()
         check_call_numbers(1, is_streaming=True)
 
@@ -637,7 +637,7 @@ class TestRequestClientRetryBehavior(TestRequestsClient):
         client = self.REQUEST_CLIENT()
 
         def connection_error(given_exception):
-            with pytest.raises(stripe.APIConnectionError) as error:
+            with pytest.raises(APIConnectionError) as error:
                 client._handle_request_error(given_exception)
             return error.value
 
@@ -1166,7 +1166,7 @@ class TestHTTPXClient(StripeClientTestCase, ClientTestBaseAsync):
 
     async def test_exception(self, request_mock, mock_error):
         mock_error(request_mock)
-        with pytest.raises(stripe.APIConnectionError):
+        with pytest.raises(APIConnectionError):
             await self.make_request_async("get", self.valid_url, {}, None)
 
     @pytest.mark.asyncio
@@ -1283,7 +1283,7 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
         self, mock_retry, mock_response, check_call_numbers
     ):
         mock_retry(retry_error_num=self.max_retries())
-        with pytest.raises(stripe.APIConnectionError):
+        with pytest.raises(APIConnectionError):
             await self.make_request()
 
         check_call_numbers(self.max_retries())
@@ -1293,7 +1293,7 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
         self, mock_retry, mock_response, check_call_numbers
     ):
         mock_retry(no_retry_error_num=self.max_retries())
-        with pytest.raises(stripe.APIConnectionError):
+        with pytest.raises(APIConnectionError):
             await self.make_request()
         check_call_numbers(1)
 
@@ -1324,7 +1324,7 @@ class TestHTTPXClientRetryBehavior(TestHTTPXClient):
         client = self.REQUEST_CLIENT()
 
         def connection_error(given_exception):
-            with pytest.raises(stripe.APIConnectionError) as error:
+            with pytest.raises(APIConnectionError) as error:
                 client._handle_request_error(given_exception)
             return error.value
 
