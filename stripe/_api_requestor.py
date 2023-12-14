@@ -134,6 +134,8 @@ class APIRequestor(object):
         params: Optional[Mapping[str, Any]] = None,
         headers: Optional[Mapping[str, str]] = None,
         api_mode: Optional[Literal["preview", "standard"]] = None,
+        *,
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[StripeResponse, str]:
         rbody, rcode, rheaders, my_api_key = await self.request_raw_async(
             method.lower(),
@@ -142,6 +144,7 @@ class APIRequestor(object):
             headers,
             is_streaming=False,
             api_mode=api_mode,
+            _usage=_usage,
         )
         resp = self.interpret_response(rbody, rcode, rheaders)
         return resp, my_api_key
@@ -514,6 +517,8 @@ class APIRequestor(object):
         supplied_headers: Optional[Mapping[str, str]] = None,
         is_streaming: bool = False,
         api_mode: Optional[Literal["preview", "standard"]] = None,
+        *,
+        _usage: Optional[List[str]] = None,
     ) -> Tuple[object, int, Mapping[str, str], str]:
         abs_url, headers, post_data, my_api_key = self._get_request_raw_args(
             method, url, params, supplied_headers, is_streaming, api_mode
@@ -525,7 +530,7 @@ class APIRequestor(object):
                 rcode,
                 rheaders,
             ) = await self._client_async.request_stream_with_retries(
-                method, abs_url, headers, post_data
+                method, abs_url, headers, post_data, _usage=_usage
             )
         else:
             (
@@ -533,7 +538,7 @@ class APIRequestor(object):
                 rcode,
                 rheaders,
             ) = await self._client_async.request_with_retries(
-                method, abs_url, headers, post_data
+                method, abs_url, headers, post_data, _usage=_usage
             )
 
         _util.log_info(
