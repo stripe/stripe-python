@@ -139,6 +139,12 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether the embedded component is enabled.
         """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsPayoutsFeatures"
+        ]
+
+    class CreateParamsComponentsPayoutsFeatures(TypedDict):
+        pass
 
     class CreateParamsComponentsPayments(TypedDict):
         enabled: bool
