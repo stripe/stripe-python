@@ -292,7 +292,7 @@ class TestIntegration(object):
         self.setup_mock_server(MockServerRequestHandler)
         stripe.api_base = "http://localhost:%s" % self.mock_server_port
         stripe.default_http_client_async = stripe.HTTPXClient()
-        stripe.default_http_client_async._client.timeout = 0.01
+        stripe.default_http_client_async._timeout = 0.01
         stripe.max_network_retries = 0
 
         exception = None
@@ -304,6 +304,7 @@ class TestIntegration(object):
             exception = e
 
         assert exception is not None
+
         assert "A ReadTimeout was raised" in str(exception.user_message)
 
     @pytest.mark.asyncio

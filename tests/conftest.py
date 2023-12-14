@@ -124,7 +124,7 @@ async def awaitable(value):
 @pytest.fixture
 def mock_response_async(mocker, http_client_async):
     def mock_response_async(return_body, return_code, headers=None):
-        http_client_async.request_with_retries = mocker.Mock(
+        http_client_async.request_with_retries_async = mocker.Mock(
             return_value=awaitable((return_body, return_code, headers or {}))
         )
 
@@ -184,11 +184,11 @@ def check_call_async(http_client_async):
             headers = APIHeaderMatcher(request_method=method)
 
         if is_streaming:
-            http_client_async.request_stream_with_retries.assert_called_with(
+            http_client_async.request_stream_with_retries_async.assert_called_with(
                 method, abs_url, headers, post_data, _usage=_usage
             )
         else:
-            http_client_async.request_with_retries.assert_called_with(
+            http_client_async.request_with_retries_async.assert_called_with(
                 method, abs_url, headers, post_data, _usage=_usage
             )
 
