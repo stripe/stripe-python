@@ -1,3 +1,14 @@
+## 7.9.0 - 2023-12-14
+* [#1161](https://github.com/stripe/stripe-python/pull/1161) Update generated code
+  
+  * Add support for `payment_method_reuse_agreement` on resource classes `PaymentLink.ConsentCollection` and `checkout.Session.ConsentCollection` and parameter classes `PaymentLink.CreateParamsConsentCollection` and `checkout.Session.CreateParamsConsentCollection`
+  * Add support for `after_submit` on parameter classes `PaymentLink.CreateParamsCustomText`, `PaymentLink.ModifyParamsCustomText`, and `checkout.Session.CreateParamsCustomText` and resource classes `PaymentLink.CustomText` and `checkout.Session.CustomText`
+  * Add support for `created` on parameter class `radar.EarlyFraudWarning.ListParams`
+* [#1146](https://github.com/stripe/stripe-python/pull/1146) Track usage of deprecated `save`
+  * Reports uses of the deprecated `.save` in `X-Stripe-Client-Telemetry`. (You can disable telemetry via `stripe.enable_telemetry = false`, see the [README](https://github.com/stripe/stripe-python/blob/master/README.md#telemetry).)
+* [#1101](https://github.com/stripe/stripe-python/pull/1101) Mark defunct and internal methods as deprecated
+* [#1169](https://github.com/stripe/stripe-python/pull/1169) Add more types to _http_client.py
+
 ## 7.8.2 - 2023-12-11
 * [#1168](https://github.com/stripe/stripe-python/pull/1168) Do not raise a DeprecationWarning in `stripe.app_info`
 
