@@ -531,7 +531,7 @@ class APIRequestor(object):
                 rcontent,
                 rcode,
                 rheaders,
-            ) = await self._client_async.request_stream_with_retries(
+            ) = await self._client_async.request_stream_with_retries_async(
                 method, abs_url, headers, post_data, _usage=_usage
             )
         else:
@@ -539,7 +539,7 @@ class APIRequestor(object):
                 rcontent,
                 rcode,
                 rheaders,
-            ) = await self._client_async.request_with_retries(
+            ) = await self._client_async.request_with_retries_async(
                 method, abs_url, headers, post_data, _usage=_usage
             )
 

@@ -358,7 +358,7 @@ class HTTPClient(HTTPClientBase):
 
 
 class HTTPClientAsync(HTTPClientBase):
-    async def request_with_retries(
+    async def request_with_retries_async(
         self,
         method,
         url,
@@ -367,11 +367,11 @@ class HTTPClientAsync(HTTPClientBase):
         *,
         _usage: Optional[List[str]] = None
     ) -> Tuple[Any, int, Any]:
-        return await self._request_with_retries_internal(
+        return await self._request_with_retries_internal_async(
             method, url, headers, post_data, is_streaming=False, usage=_usage
         )
 
-    async def request_stream_with_retries(
+    async def request_stream_with_retries_async(
         self,
         method,
         url,
@@ -380,7 +380,7 @@ class HTTPClientAsync(HTTPClientBase):
         *,
         _usage: Optional[List[str]] = None
     ) -> Tuple[Any, int, Any]:
-        return await self._request_with_retries_internal(
+        return await self._request_with_retries_internal_async(
             method, url, headers, post_data, is_streaming=True, usage=_usage
         )
 
@@ -390,7 +390,7 @@ class HTTPClientAsync(HTTPClientBase):
             "HTTPClientAsync subclasses must implement `sleep`"
         )
 
-    async def _request_with_retries_internal(
+    async def _request_with_retries_internal_async(
         self, method, url, headers, post_data, is_streaming, usage
     ):
         self._add_telemetry_header(headers)
@@ -402,11 +402,11 @@ class HTTPClientAsync(HTTPClientBase):
 
             try:
                 if is_streaming:
-                    response = await self.request_stream(
+                    response = await self.request_stream_async(
                         method, url, headers, post_data
                     )
                 else:
-                    response = await self.request(
+                    response = await self.request_async(
                         method, url, headers, post_data
                     )
                 connection_error = None
@@ -441,14 +441,14 @@ class HTTPClientAsync(HTTPClientBase):
                     assert connection_error is not None
                     raise connection_error
 
-    async def request(self, method, url, headers, post_data=None):
+    async def request_async(self, method, url, headers, post_data=None):
         raise NotImplementedError(
-            "HTTPClient subclasses must implement `request`"
+            "HTTPClientAsync subclasses must implement `request`"
         )
 
-    async def request_stream(self, method, url, headers, post_data=None):
+    async def request_stream_async(self, method, url, headers, post_data=None):
         raise NotImplementedError(
-            "HTTPClient subclasses must implement `request_stream`"
+            "HTTPClientAsync subclasses must implement `request_stream`"
         )
 
     async def close(self):
@@ -953,7 +953,7 @@ class HTTPXClient(HTTPClientAsync):
 
         return asyncio.sleep(secs)
 
-    async def request(
+    async def request_async(
         self, method, url, headers, post_data=None
     ) -> Tuple[bytes, int, Mapping[str, str]]:
         try:
@@ -979,7 +979,7 @@ class HTTPXClient(HTTPClientAsync):
         msg = textwrap.fill(msg) + "\n\n(Network error: %s)" % (err,)
         raise APIConnectionError(msg, should_retry=should_retry)
 
-    async def request_stream(self, method, url, headers, post_data=None):
+    async def request_stream_async(self, method, url, headers, post_data=None):
         raise NotImplementedError()
 
     async def close(self):
@@ -990,12 +990,12 @@ class NoImportFoundAsyncClient(HTTPClientAsync):
     def __init__(self, **kwargs):
         super(NoImportFoundAsyncClient, self).__init__(**kwargs)
 
-    async def request(
+    async def request_async(
         self, method, url, headers, post_data=None
     ) -> Tuple[bytes, int, Mapping[str, str]]:
         raise_async_client_import_error()
 
-    async def request_stream(self, method, url, headers, post_data=None):
+    async def request_stream_async(self, method, url, headers, post_data=None):
         raise_async_client_import_error()
 
     async def close(self):
