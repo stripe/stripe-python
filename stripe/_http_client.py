@@ -52,7 +52,6 @@ except ImportError:
 try:
     import httpx
     from httpx import Timeout as HTTPXTimeout
-    from httpx import HTTPError as HTTPXHTTPError
 except ImportError:
     httpx = None
 
@@ -273,7 +272,9 @@ class HTTPClient(HTTPClientBase):
         *,
         _usage: Optional[List[str]] = None
     ) -> Tuple[Any, int, Any]:
-        return self._request_with_retries_internal(method, url, headers, post_data, is_streaming=False, _usage=_usage)
+        return self._request_with_retries_internal(
+            method, url, headers, post_data, is_streaming=False, _usage=_usage
+        )
 
     def request_stream_with_retries(
         self,
@@ -285,7 +286,7 @@ class HTTPClient(HTTPClientBase):
         _usage: Optional[List[str]] = None
     ) -> Tuple[Any, int, Any]:
         return self._request_with_retries_internal(
-            method, url, headers, post_data, is_streaming=True, usage=_usage
+            method, url, headers, post_data, is_streaming=True, _usage=_usage
         )
 
     def _request_with_retries_internal(
@@ -364,7 +365,7 @@ class HTTPClientAsync(HTTPClientBase):
         _usage: Optional[List[str]] = None
     ) -> Tuple[Any, int, Any]:
         return await self._request_with_retries_internal_async(
-            method, url, headers, post_data, is_streaming=False, usage=_usage
+            method, url, headers, post_data, is_streaming=False, _usage=_usage
         )
 
     async def request_stream_with_retries_async(
@@ -377,7 +378,7 @@ class HTTPClientAsync(HTTPClientBase):
         _usage: Optional[List[str]] = None
     ) -> Tuple[Any, int, Any]:
         return await self._request_with_retries_internal_async(
-            method, url, headers, post_data, is_streaming=True, usage=_usage
+            method, url, headers, post_data, is_streaming=True, _usage=_usage
         )
 
     @classmethod
@@ -429,7 +430,7 @@ class HTTPClientAsync(HTTPClientBase):
             else:
                 if response is not None:
                     self._record_request_metrics(
-                        response, request_start, usage
+                        response, request_start, usage=_usage
                     )
 
                     return response

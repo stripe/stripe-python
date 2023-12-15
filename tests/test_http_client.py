@@ -2,7 +2,6 @@ from typing import Any
 from typing_extensions import Type
 import pytest
 import json
-import io
 from mock import AsyncMock
 
 import stripe
