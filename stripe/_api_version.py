@@ -4,4 +4,4 @@
 
 class _ApiVersion:
     CURRENT = "2023-10-16"
-    PREVIEW = "2023-10-26.preview-v2"
+    PREVIEW = "2023-12-11.preview-v2"

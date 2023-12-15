@@ -2510,13 +2510,17 @@ class Invoice(
         """
         The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
         """
+        preview_mode: NotRequired["Literal['next', 'recurring']"]
+        """
+        Customizes the types of values to include when calculating the invoice. Defaults to `next` if unspecified.
+        """
         schedule: NotRequired["str"]
         """
         The identifier of the schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields.
         """
         schedule_details: NotRequired["Invoice.UpcomingParamsScheduleDetails"]
         """
-        The schedule creation or modification params to apply as a preview. Cannot be used with subscription or subscription fields.
+        The schedule creation or modification params to apply as a preview. Cannot be used with `subscription` or `subscription_` prefixed fields.
         """
         subscription: NotRequired["str"]
         """
@@ -2526,61 +2530,63 @@ class Invoice(
             "Literal['now', 'unchanged']|int"
         ]
         """
-        For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
+        For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.billing_cycle_anchor` instead.
         """
         subscription_cancel_at: NotRequired["Literal['']|int"]
         """
-        Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`.
+        A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at` instead.
         """
         subscription_cancel_at_period_end: NotRequired["bool"]
         """
-        Boolean indicating whether this subscription should cancel at the end of the current period.
+        Boolean indicating whether this subscription should cancel at the end of the current period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
         """
         subscription_cancel_now: NotRequired["bool"]
         """
-        This simulates the subscription being canceled or expired immediately.
+        This simulates the subscription being canceled or expired immediately. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_now` instead.
         """
         subscription_default_tax_rates: NotRequired["Literal['']|List[str]"]
         """
-        If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set.
+        If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. This field has been deprecated and will be removed in a future API version. Use `subscription_details.default_tax_rates` instead.
+        """
+        subscription_details: NotRequired[
+            "Invoice.UpcomingParamsSubscriptionDetails"
+        ]
+        """
+        The subscription creation or modification params to apply as a preview. Cannot be used with `schedule` or `schedule_details` fields.
         """
         subscription_items: NotRequired[
             "List[Invoice.UpcomingParamsSubscriptionItem]"
         ]
         """
-        A list of up to 20 subscription items, each with an attached price.
+        A list of up to 20 subscription items, each with an attached price. This field has been deprecated and will be removed in a future API version. Use `subscription_details.items` instead.
         """
         subscription_prebilling: NotRequired[
             "Invoice.UpcomingParamsSubscriptionPrebilling"
         ]
         """
-        The pre-billing to apply to the subscription as a preview.
+        The pre-billing to apply to the subscription as a preview. This field has been deprecated and will be removed in a future API version. Use `subscription_details.prebilling` instead.
         """
         subscription_proration_behavior: NotRequired[
             "Literal['always_invoice', 'create_prorations', 'none']"
         ]
         """
-        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
+        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.proration_behavior` instead.
         """
         subscription_proration_date: NotRequired["int"]
         """
-        If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period and within the current phase of the schedule backing this subscription, if the schedule exists. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration_behavior` cannot be set to 'none'.
+        If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period and within the current phase of the schedule backing this subscription, if the schedule exists. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration_behavior` cannot be set to 'none'. This field has been deprecated and will be removed in a future API version. Use `subscription_details.proration_date` instead.
         """
         subscription_resume_at: NotRequired["Literal['now']"]
         """
-        For paused subscriptions, setting `subscription_resume_at` to `now` will preview the invoice that will be generated if the subscription is resumed.
+        For paused subscriptions, setting `subscription_resume_at` to `now` will preview the invoice that will be generated if the subscription is resumed. This field has been deprecated and will be removed in a future API version. Use `subscription_details.resume_at` instead.
         """
         subscription_start_date: NotRequired["int"]
         """
-        Date a subscription is intended to start (can be future or past)
+        Date a subscription is intended to start (can be future or past). This field has been deprecated and will be removed in a future API version. Use `subscription_details.start_date` instead.
         """
         subscription_trial_end: NotRequired["Literal['now']|int"]
         """
-        If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required.
-        """
-        subscription_trial_from_plan: NotRequired["bool"]
-        """
-        Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
+        If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version. Use `subscription_details.trial_end` instead.
         """
 
     class UpcomingParamsSubscriptionPrebilling(TypedDict):
@@ -2727,12 +2733,224 @@ class Invoice(
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
+    class UpcomingParamsSubscriptionDetails(TypedDict):
+        billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|int"]
+        """
+        For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
+        """
+        cancel_at: NotRequired["Literal['']|int"]
+        """
+        A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
+        """
+        cancel_at_period_end: NotRequired["bool"]
+        """
+        Boolean indicating whether this subscription should cancel at the end of the current period.
+        """
+        cancel_now: NotRequired["bool"]
+        """
+        This simulates the subscription being canceled or expired immediately.
+        """
+        default_tax_rates: NotRequired["Literal['']|List[str]"]
+        """
+        If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set.
+        """
+        items: NotRequired[
+            "List[Invoice.UpcomingParamsSubscriptionDetailsItem]"
+        ]
+        """
+        A list of up to 20 subscription items, each with an attached price.
+        """
+        prebilling: NotRequired[
+            "Invoice.UpcomingParamsSubscriptionDetailsPrebilling"
+        ]
+        """
+        The pre-billing to apply to the subscription as a preview.
+        """
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']"
+        ]
+        """
+        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
+        """
+        proration_date: NotRequired["int"]
+        """
+        If previewing an update to a subscription, and doing proration, `subscription_details.proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period and within the current phase of the schedule backing this subscription, if the schedule exists. If set, `subscription`, and one of `subscription_details.items`, or `subscription_details.trial_end` are required. Also, `subscription_details.proration_behavior` cannot be set to 'none'.
+        """
+        resume_at: NotRequired["Literal['now']"]
+        """
+        For paused subscriptions, setting `subscription_details.resume_at` to `now` will preview the invoice that will be generated if the subscription is resumed.
+        """
+        start_date: NotRequired["int"]
+        """
+        Date a subscription is intended to start (can be future or past).
+        """
+        trial_end: NotRequired["Literal['now']|int"]
+        """
+        If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_details.items` or `subscription` is required.
+        """
+
+    class UpcomingParamsSubscriptionDetailsPrebilling(TypedDict):
+        iterations: int
+        """
+        This is used to determine the number of billing cycles to prebill.
+        """
+
+    class UpcomingParamsSubscriptionDetailsItem(TypedDict):
+        billing_thresholds: NotRequired[
+            "Literal['']|Invoice.UpcomingParamsSubscriptionDetailsItemBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+        """
+        clear_usage: NotRequired["bool"]
+        """
+        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        """
+        deleted: NotRequired["bool"]
+        """
+        A flag that, if set to `true`, will delete the specified item.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[Invoice.UpcomingParamsSubscriptionDetailsItemDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
+        id: NotRequired["str"]
+        """
+        Subscription item to update.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        plan: NotRequired["str"]
+        """
+        Plan ID for this item, as a string.
+        """
+        price: NotRequired["str"]
+        """
+        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        """
+        price_data: NotRequired[
+            "Invoice.UpcomingParamsSubscriptionDetailsItemPriceData"
+        ]
+        """
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        """
+        quantity: NotRequired["int"]
+        """
+        Quantity for this item.
+        """
+        tax_rates: NotRequired["Literal['']|List[str]"]
+        """
+        A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+
+    class UpcomingParamsSubscriptionDetailsItemPriceData(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: str
+        """
+        The ID of the product that this price will belong to.
+        """
+        recurring: "Invoice.UpcomingParamsSubscriptionDetailsItemPriceDataRecurring"
+        """
+        The recurring components of a price such as `interval` and `interval_count`.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
+        """
+        unit_amount_decimal: NotRequired["str"]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class UpcomingParamsSubscriptionDetailsItemPriceDataRecurring(TypedDict):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired["int"]
+        """
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        """
+
+    class UpcomingParamsSubscriptionDetailsItemDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "Invoice.UpcomingParamsSubscriptionDetailsItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+
+    class UpcomingParamsSubscriptionDetailsItemDiscountDiscountEnd(TypedDict):
+        duration: NotRequired[
+            "Invoice.UpcomingParamsSubscriptionDetailsItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired["int"]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class UpcomingParamsSubscriptionDetailsItemDiscountDiscountEndDuration(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class UpcomingParamsSubscriptionDetailsItemBillingThresholds(TypedDict):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
     class UpcomingParamsScheduleDetails(TypedDict):
         amendments: NotRequired[
             "List[Invoice.UpcomingParamsScheduleDetailsAmendment]"
         ]
         """
         Changes to apply to the phases of the subscription schedule, in the order provided.
+        """
+        billing_behavior: NotRequired[
+            "Literal['prorate_on_next_phase', 'prorate_up_front']"
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time.`prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
+        end_behavior: NotRequired["Literal['cancel', 'release']"]
+        """
+        Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
         """
         phases: NotRequired["List[Invoice.UpcomingParamsScheduleDetailsPhase]"]
         """
@@ -2743,6 +2961,12 @@ class Invoice(
         ]
         """
         Provide any time periods to bill in advance.
+        """
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']"
+        ]
+        """
+        In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
         """
 
     class UpcomingParamsScheduleDetailsPrebilling(TypedDict):
@@ -4236,6 +4460,10 @@ class Invoice(
         """
         The account (if any) for which the funds of the invoice payment are intended. If set, the invoice will be presented with the branding and support information of the specified account. See the [Invoices with Connect](https://stripe.com/docs/billing/invoices/connect) documentation for details.
         """
+        preview_mode: NotRequired["Literal['next', 'recurring']"]
+        """
+        Customizes the types of values to include when calculating the invoice. Defaults to `next` if unspecified.
+        """
         schedule: NotRequired["str"]
         """
         The identifier of the schedule whose upcoming invoice you'd like to retrieve. Cannot be used with subscription or subscription fields.
@@ -4244,7 +4472,7 @@ class Invoice(
             "Invoice.UpcomingLinesParamsScheduleDetails"
         ]
         """
-        The schedule creation or modification params to apply as a preview. Cannot be used with subscription or subscription fields.
+        The schedule creation or modification params to apply as a preview. Cannot be used with `subscription` or `subscription_` prefixed fields.
         """
         starting_after: NotRequired["str"]
         """
@@ -4258,61 +4486,63 @@ class Invoice(
             "Literal['now', 'unchanged']|int"
         ]
         """
-        For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
+        For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.billing_cycle_anchor` instead.
         """
         subscription_cancel_at: NotRequired["Literal['']|int"]
         """
-        Timestamp indicating when the subscription should be scheduled to cancel. Will prorate if within the current period and prorations have been enabled using `proration_behavior`.
+        A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at` instead.
         """
         subscription_cancel_at_period_end: NotRequired["bool"]
         """
-        Boolean indicating whether this subscription should cancel at the end of the current period.
+        Boolean indicating whether this subscription should cancel at the end of the current period. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_at_period_end` instead.
         """
         subscription_cancel_now: NotRequired["bool"]
         """
-        This simulates the subscription being canceled or expired immediately.
+        This simulates the subscription being canceled or expired immediately. This field has been deprecated and will be removed in a future API version. Use `subscription_details.cancel_now` instead.
         """
         subscription_default_tax_rates: NotRequired["Literal['']|List[str]"]
         """
-        If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set.
+        If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set. This field has been deprecated and will be removed in a future API version. Use `subscription_details.default_tax_rates` instead.
+        """
+        subscription_details: NotRequired[
+            "Invoice.UpcomingLinesParamsSubscriptionDetails"
+        ]
+        """
+        The subscription creation or modification params to apply as a preview. Cannot be used with `schedule` or `schedule_details` fields.
         """
         subscription_items: NotRequired[
             "List[Invoice.UpcomingLinesParamsSubscriptionItem]"
         ]
         """
-        A list of up to 20 subscription items, each with an attached price.
+        A list of up to 20 subscription items, each with an attached price. This field has been deprecated and will be removed in a future API version. Use `subscription_details.items` instead.
         """
         subscription_prebilling: NotRequired[
             "Invoice.UpcomingLinesParamsSubscriptionPrebilling"
         ]
         """
-        The pre-billing to apply to the subscription as a preview.
+        The pre-billing to apply to the subscription as a preview. This field has been deprecated and will be removed in a future API version. Use `subscription_details.prebilling` instead.
         """
         subscription_proration_behavior: NotRequired[
             "Literal['always_invoice', 'create_prorations', 'none']"
         ]
         """
-        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
+        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`. This field has been deprecated and will be removed in a future API version. Use `subscription_details.proration_behavior` instead.
         """
         subscription_proration_date: NotRequired["int"]
         """
-        If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period and within the current phase of the schedule backing this subscription, if the schedule exists. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration_behavior` cannot be set to 'none'.
+        If previewing an update to a subscription, and doing proration, `subscription_proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period and within the current phase of the schedule backing this subscription, if the schedule exists. If set, `subscription`, and one of `subscription_items`, or `subscription_trial_end` are required. Also, `subscription_proration_behavior` cannot be set to 'none'. This field has been deprecated and will be removed in a future API version. Use `subscription_details.proration_date` instead.
         """
         subscription_resume_at: NotRequired["Literal['now']"]
         """
-        For paused subscriptions, setting `subscription_resume_at` to `now` will preview the invoice that will be generated if the subscription is resumed.
+        For paused subscriptions, setting `subscription_resume_at` to `now` will preview the invoice that will be generated if the subscription is resumed. This field has been deprecated and will be removed in a future API version. Use `subscription_details.resume_at` instead.
         """
         subscription_start_date: NotRequired["int"]
         """
-        Date a subscription is intended to start (can be future or past)
+        Date a subscription is intended to start (can be future or past). This field has been deprecated and will be removed in a future API version. Use `subscription_details.start_date` instead.
         """
         subscription_trial_end: NotRequired["Literal['now']|int"]
         """
-        If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required.
-        """
-        subscription_trial_from_plan: NotRequired["bool"]
-        """
-        Indicates if a plan's `trial_period_days` should be applied to the subscription. Setting `subscription_trial_end` per subscription is preferred, and this defaults to `false`. Setting this flag to `true` together with `subscription_trial_end` is not allowed. See [Using trial periods on subscriptions](https://stripe.com/docs/billing/subscriptions/trials) to learn more.
+        If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_items` or `subscription` is required. This field has been deprecated and will be removed in a future API version. Use `subscription_details.trial_end` instead.
         """
 
     class UpcomingLinesParamsSubscriptionPrebilling(TypedDict):
@@ -4461,12 +4691,230 @@ class Invoice(
         Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
         """
 
+    class UpcomingLinesParamsSubscriptionDetails(TypedDict):
+        billing_cycle_anchor: NotRequired["Literal['now', 'unchanged']|int"]
+        """
+        For new subscriptions, a future timestamp to anchor the subscription's [billing cycle](https://stripe.com/docs/subscriptions/billing-cycle). This is used to determine the date of the first full invoice, and, for plans with `month` or `year` intervals, the day of the month for subsequent invoices. For existing subscriptions, the value can only be set to `now` or `unchanged`.
+        """
+        cancel_at: NotRequired["Literal['']|int"]
+        """
+        A timestamp at which the subscription should cancel. If set to a date before the current period ends, this will cause a proration if prorations have been enabled using `proration_behavior`. If set during a future period, this will always cause a proration for that period.
+        """
+        cancel_at_period_end: NotRequired["bool"]
+        """
+        Boolean indicating whether this subscription should cancel at the end of the current period.
+        """
+        cancel_now: NotRequired["bool"]
+        """
+        This simulates the subscription being canceled or expired immediately.
+        """
+        default_tax_rates: NotRequired["Literal['']|List[str]"]
+        """
+        If provided, the invoice returned will preview updating or creating a subscription with these default tax rates. The default tax rates will apply to any line item that does not have `tax_rates` set.
+        """
+        items: NotRequired[
+            "List[Invoice.UpcomingLinesParamsSubscriptionDetailsItem]"
+        ]
+        """
+        A list of up to 20 subscription items, each with an attached price.
+        """
+        prebilling: NotRequired[
+            "Invoice.UpcomingLinesParamsSubscriptionDetailsPrebilling"
+        ]
+        """
+        The pre-billing to apply to the subscription as a preview.
+        """
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']"
+        ]
+        """
+        Determines how to handle [prorations](https://stripe.com/docs/subscriptions/billing-cycle#prorations) when the billing cycle changes (e.g., when switching plans, resetting `billing_cycle_anchor=now`, or starting a trial), or if an item's `quantity` changes. The default value is `create_prorations`.
+        """
+        proration_date: NotRequired["int"]
+        """
+        If previewing an update to a subscription, and doing proration, `subscription_details.proration_date` forces the proration to be calculated as though the update was done at the specified time. The time given must be within the current subscription period and within the current phase of the schedule backing this subscription, if the schedule exists. If set, `subscription`, and one of `subscription_details.items`, or `subscription_details.trial_end` are required. Also, `subscription_details.proration_behavior` cannot be set to 'none'.
+        """
+        resume_at: NotRequired["Literal['now']"]
+        """
+        For paused subscriptions, setting `subscription_details.resume_at` to `now` will preview the invoice that will be generated if the subscription is resumed.
+        """
+        start_date: NotRequired["int"]
+        """
+        Date a subscription is intended to start (can be future or past).
+        """
+        trial_end: NotRequired["Literal['now']|int"]
+        """
+        If provided, the invoice returned will preview updating or creating a subscription with that trial end. If set, one of `subscription_details.items` or `subscription` is required.
+        """
+
+    class UpcomingLinesParamsSubscriptionDetailsPrebilling(TypedDict):
+        iterations: int
+        """
+        This is used to determine the number of billing cycles to prebill.
+        """
+
+    class UpcomingLinesParamsSubscriptionDetailsItem(TypedDict):
+        billing_thresholds: NotRequired[
+            "Literal['']|Invoice.UpcomingLinesParamsSubscriptionDetailsItemBillingThresholds"
+        ]
+        """
+        Define thresholds at which an invoice will be sent, and the subscription advanced to a new billing period. When updating, pass an empty string to remove previously-defined thresholds.
+        """
+        clear_usage: NotRequired["bool"]
+        """
+        Delete all usage for a given subscription item. Allowed only when `deleted` is set to `true` and the current plan's `usage_type` is `metered`.
+        """
+        deleted: NotRequired["bool"]
+        """
+        A flag that, if set to `true`, will delete the specified item.
+        """
+        discounts: NotRequired[
+            "Literal['']|List[Invoice.UpcomingLinesParamsSubscriptionDetailsItemDiscount]"
+        ]
+        """
+        The coupons to redeem into discounts for the subscription item.
+        """
+        id: NotRequired["str"]
+        """
+        Subscription item to update.
+        """
+        metadata: NotRequired["Literal['']|Dict[str, str]"]
+        """
+        Set of [key-value pairs](https://stripe.com/docs/api/metadata) that you can attach to an object. This can be useful for storing additional information about the object in a structured format. Individual keys can be unset by posting an empty value to them. All keys can be unset by posting an empty value to `metadata`.
+        """
+        plan: NotRequired["str"]
+        """
+        Plan ID for this item, as a string.
+        """
+        price: NotRequired["str"]
+        """
+        The ID of the price object. When changing a subscription item's price, `quantity` is set to 1 unless a `quantity` parameter is provided.
+        """
+        price_data: NotRequired[
+            "Invoice.UpcomingLinesParamsSubscriptionDetailsItemPriceData"
+        ]
+        """
+        Data used to generate a new [Price](https://stripe.com/docs/api/prices) object inline.
+        """
+        quantity: NotRequired["int"]
+        """
+        Quantity for this item.
+        """
+        tax_rates: NotRequired["Literal['']|List[str]"]
+        """
+        A list of [Tax Rate](https://stripe.com/docs/api/tax_rates) ids. These Tax Rates will override the [`default_tax_rates`](https://stripe.com/docs/api/subscriptions/create#create_subscription-default_tax_rates) on the Subscription. When updating, pass an empty string to remove previously-defined tax rates.
+        """
+
+    class UpcomingLinesParamsSubscriptionDetailsItemPriceData(TypedDict):
+        currency: str
+        """
+        Three-letter [ISO currency code](https://www.iso.org/iso-4217-currency-codes.html), in lowercase. Must be a [supported currency](https://stripe.com/docs/currencies).
+        """
+        product: str
+        """
+        The ID of the product that this price will belong to.
+        """
+        recurring: "Invoice.UpcomingLinesParamsSubscriptionDetailsItemPriceDataRecurring"
+        """
+        The recurring components of a price such as `interval` and `interval_count`.
+        """
+        tax_behavior: NotRequired[
+            "Literal['exclusive', 'inclusive', 'unspecified']"
+        ]
+        """
+        Only required if a [default tax behavior](https://stripe.com/docs/tax/products-prices-tax-categories-tax-behavior#setting-a-default-tax-behavior-(recommended)) was not provided in the Stripe Tax settings. Specifies whether the price is considered inclusive of taxes or exclusive of taxes. One of `inclusive`, `exclusive`, or `unspecified`. Once specified as either `inclusive` or `exclusive`, it cannot be changed.
+        """
+        unit_amount: NotRequired["int"]
+        """
+        A positive integer in cents (or local equivalent) (or 0 for a free price) representing how much to charge.
+        """
+        unit_amount_decimal: NotRequired["str"]
+        """
+        Same as `unit_amount`, but accepts a decimal value in cents (or local equivalent) with at most 12 decimal places. Only one of `unit_amount` and `unit_amount_decimal` can be set.
+        """
+
+    class UpcomingLinesParamsSubscriptionDetailsItemPriceDataRecurring(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies billing frequency. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: NotRequired["int"]
+        """
+        The number of intervals between subscription billings. For example, `interval=month` and `interval_count=3` bills every 3 months. Maximum of one year interval allowed (1 year, 12 months, or 52 weeks).
+        """
+
+    class UpcomingLinesParamsSubscriptionDetailsItemDiscount(TypedDict):
+        coupon: NotRequired["str"]
+        """
+        ID of the coupon to create a new discount for.
+        """
+        discount: NotRequired["str"]
+        """
+        ID of an existing discount on the object (or one of its ancestors) to reuse.
+        """
+        discount_end: NotRequired[
+            "Invoice.UpcomingLinesParamsSubscriptionDetailsItemDiscountDiscountEnd"
+        ]
+        """
+        Details to determine how long the discount should be applied for.
+        """
+
+    class UpcomingLinesParamsSubscriptionDetailsItemDiscountDiscountEnd(
+        TypedDict,
+    ):
+        duration: NotRequired[
+            "Invoice.UpcomingLinesParamsSubscriptionDetailsItemDiscountDiscountEndDuration"
+        ]
+        """
+        Time span for the redeemed discount.
+        """
+        timestamp: NotRequired["int"]
+        """
+        A precise Unix timestamp for the discount to end. Must be in the future.
+        """
+        type: Literal["duration", "timestamp"]
+        """
+        The type of calculation made to determine when the discount ends.
+        """
+
+    class UpcomingLinesParamsSubscriptionDetailsItemDiscountDiscountEndDuration(
+        TypedDict,
+    ):
+        interval: Literal["day", "month", "week", "year"]
+        """
+        Specifies a type of interval unit. Either `day`, `week`, `month` or `year`.
+        """
+        interval_count: int
+        """
+        The number of intervals, as an whole number greater than 0. Stripe multiplies this by the interval type to get the overall duration.
+        """
+
+    class UpcomingLinesParamsSubscriptionDetailsItemBillingThresholds(
+        TypedDict,
+    ):
+        usage_gte: int
+        """
+        Number of units that meets the billing threshold to advance the subscription to a new billing period (e.g., it takes 10 $5 units to meet a $50 [monetary threshold](https://stripe.com/docs/api/subscriptions/update#update_subscription-billing_thresholds-amount_gte))
+        """
+
     class UpcomingLinesParamsScheduleDetails(TypedDict):
         amendments: NotRequired[
             "List[Invoice.UpcomingLinesParamsScheduleDetailsAmendment]"
         ]
         """
         Changes to apply to the phases of the subscription schedule, in the order provided.
+        """
+        billing_behavior: NotRequired[
+            "Literal['prorate_on_next_phase', 'prorate_up_front']"
+        ]
+        """
+        Configures when the subscription schedule generates prorations for phase transitions. Possible values are `prorate_on_next_phase` or `prorate_up_front` with the default being `prorate_on_next_phase`. `prorate_on_next_phase` will apply phase changes and generate prorations at transition time.`prorate_up_front` will bill for all phases within the current billing cycle up front.
+        """
+        end_behavior: NotRequired["Literal['cancel', 'release']"]
+        """
+        Behavior of the subscription schedule and underlying subscription when it ends. Possible values are `release` or `cancel` with the default being `release`. `release` will end the subscription schedule and keep the underlying subscription running.`cancel` will end the subscription schedule and cancel the underlying subscription.
         """
         phases: NotRequired[
             "List[Invoice.UpcomingLinesParamsScheduleDetailsPhase]"
@@ -4479,6 +4927,12 @@ class Invoice(
         ]
         """
         Provide any time periods to bill in advance.
+        """
+        proration_behavior: NotRequired[
+            "Literal['always_invoice', 'create_prorations', 'none']"
+        ]
+        """
+        In cases where the `schedule_details` params update the currently active phase, specifies if and how to prorate at the time of the request.
         """
 
     class UpcomingLinesParamsScheduleDetailsPrebilling(TypedDict):
