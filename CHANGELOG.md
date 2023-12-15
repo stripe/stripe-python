@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.10.0b1 - 2023-12-14
+* [#1166](https://github.com/stripe/stripe-python/pull/1166) Update generated code for beta
+* [#1164](https://github.com/stripe/stripe-python/pull/1164) Beta: revert broken logger
+
 ## 7.9.0 - 2023-12-14
 * [#1161](https://github.com/stripe/stripe-python/pull/1161) Update generated code
   
