@@ -31,7 +31,9 @@ class TestPreview(object):
         stripe.api_key = "sk_test_123"
         yield
         stripe.default_http_client = orig_attrs["default_http_client"]
-        stripe.default_http_client = orig_attrs["default_http_client_async"]
+        stripe.default_http_client_async = orig_attrs[
+            "default_http_client_async"
+        ]
         stripe.api_key = orig_attrs["api_key"]
 
     def test_get(self):
