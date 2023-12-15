@@ -273,14 +273,7 @@ class HTTPClient(HTTPClientBase):
         *,
         _usage: Optional[List[str]] = None
     ) -> Tuple[Any, int, Any]:
-        return self._request_with_retries_internal(
-            method,
-            url,
-            headers,
-            post_data,
-            is_streaming=False,
-            usage=_usage,
-        )
+        return self._request_with_retries_internal(method, url, headers, post_data, is_streaming=False, _usage=_usage)
 
     def request_stream_with_retries(
         self,
@@ -296,7 +289,7 @@ class HTTPClient(HTTPClientBase):
         )
 
     def _request_with_retries_internal(
-        self, method, url, headers, post_data, is_streaming, usage
+        self, method, url, headers, post_data, is_streaming, *, _usage=None
     ):
         self._add_telemetry_header(headers)
 
@@ -336,7 +329,7 @@ class HTTPClient(HTTPClientBase):
             else:
                 if response is not None:
                     self._record_request_metrics(
-                        response, request_start, usage
+                        response, request_start, usage=_usage
                     )
 
                     return response
@@ -394,7 +387,7 @@ class HTTPClientAsync(HTTPClientBase):
         )
 
     async def _request_with_retries_internal_async(
-        self, method, url, headers, post_data, is_streaming, usage
+        self, method, url, headers, post_data, is_streaming, *, _usage=None
     ):
         self._add_telemetry_header(headers)
 
