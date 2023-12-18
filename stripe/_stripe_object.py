@@ -146,6 +146,8 @@ class StripeObject(Dict[str, Any]):
                 raise AttributeError(k)
 
             try:
+                if k in self._field_remappings:
+                    k = self._field_remappings[k]
                 return self[k]
             except KeyError as err:
                 raise AttributeError(*err.args)
@@ -529,6 +531,8 @@ class StripeObject(Dict[str, Any]):
             super(StripeObject, copied).__setitem__(k, deepcopy(v, memo))
 
         return copied
+
+    _field_remappings: ClassVar[Dict[str, str]] = {}
 
     _inner_class_types: ClassVar[Dict[str, Type["StripeObject"]]] = {}
     _inner_class_dicts: ClassVar[List[str]] = []
