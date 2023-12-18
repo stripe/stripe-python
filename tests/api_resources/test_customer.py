@@ -197,7 +197,7 @@ class TestCustomerPaymentMethods(object):
     def test_is_listable_on_object(self, http_client_mock):
         resource = stripe.Customer.retrieve(
             TEST_RESOURCE_ID
-        ).list_payment_methods(type="card")
+        ).list_payment_methods(TEST_RESOURCE_ID, type="card")
         http_client_mock.assert_requested(
             "get", path="/v1/customers/%s/payment_methods" % TEST_RESOURCE_ID
         )
@@ -212,7 +212,7 @@ class TestCustomerCashBalanceMethods(object):
     def test_customer_cashbalance_retrieve_legacy_call_pattern(
         self, http_client_mock
     ):
-        stripe.Customer.retrieve_cash_balance("cus_123")
+        stripe.Customer.retrieve_cash_balance("cus_123", None)
         http_client_mock.assert_requested(
             "get", path="/v1/customers/cus_123/cash_balance"
         )
@@ -222,6 +222,7 @@ class TestCustomerCashBalanceMethods(object):
     ):
         stripe.Customer.modify_cash_balance(
             "cus_123",
+            None,
             settings={"reconciliation_mode": "manual"},
         )
         http_client_mock.assert_requested(

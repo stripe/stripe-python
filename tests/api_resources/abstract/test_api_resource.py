@@ -49,16 +49,17 @@ class TestAPIResource(object):
         self, http_client_mock
     ):
         path = "/v1/myresources/foo"
+        query_string = "bobble=scrobble"
         http_client_mock.stub_request(
             "get",
-            path=path,
-            query_string="bobble=scrobble",
-            rbody='{"id": "foo2", "bobble": "scrobble"}',
+            path,
+            query_string,
+            '{"id": "foo2", "bobble": "scrobble"}',
         )
 
         self.MyResource._static_request(
             "get",
-            "/v1/myresources/foo",
+            path,
             idempotency_key="explicit",
             params={"idempotency_key": "params", "bobble": "scrobble"},
         )
@@ -66,7 +67,7 @@ class TestAPIResource(object):
         http_client_mock.assert_requested(
             "get",
             path=path,
-            query_string="bobble=scrobble",
+            query_string=query_string,
             idempotency_key="explicit",
         )
 

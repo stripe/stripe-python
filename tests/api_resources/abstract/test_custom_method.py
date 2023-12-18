@@ -30,22 +30,33 @@ class TestCustomMethod(object):
             return self.request_stream("post", url, params, headers)
 
         @classmethod
-        def _cls_do_stuff_new_codegen(cls, id, **params):
+        def _cls_do_stuff_new_codegen(
+            cls,
+            id,
+            api_key=None,
+            stripe_version=None,
+            stripe_account=None,
+            **params
+        ):
             return cls._static_request(
                 "post",
                 "/v1/myresources/{id}/do_the_thing".format(
                     id=util.sanitize_id(id)
                 ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
                 params=params,
             )
 
         @util.class_method_variant("_cls_do_stuff_new_codegen")
-        def do_stuff_new_codegen(self, **params):
+        def do_stuff_new_codegen(self, idempotency_key=None, **params):
             return self._request(
                 "post",
                 "/v1/myresources/{id}/do_the_thing".format(
                     id=util.sanitize_id(self.get("id"))
                 ),
+                idempotency_key=idempotency_key,
                 params=params,
             )
 
