@@ -28,37 +28,37 @@ class TestTestHelperAPIResource(object):
 
     MyTestHelpersResource.TestHelpers._resource_cls = MyTestHelpersResource
 
-    def test_call_custom_method_class(self, request_mock):
-        request_mock.stub_request(
+    def test_call_custom_method_class(self, http_client_mock):
+        http_client_mock.stub_request(
             "post",
-            "/v1/test_helpers/myresources/mid/do_the_thing",
-            {"id": "mid", "thing_done": True},
+            path="/v1/test_helpers/myresources/mid/do_the_thing",
+            rbody='{"id": "mid", "thing_done": true}',
             rheaders={"request-id": "req_id"},
         )
 
         obj = self.MyTestHelpersResource.TestHelpers.do_stuff("mid", foo="bar")
 
-        request_mock.assert_requested(
+        http_client_mock.assert_requested(
             "post",
-            "/v1/test_helpers/myresources/mid/do_the_thing",
-            {"foo": "bar"},
+            path="/v1/test_helpers/myresources/mid/do_the_thing",
+            post_data="foo=bar",
         )
         assert obj.thing_done is True
 
-    def test_call_custom_method_instance_via_property(self, request_mock):
-        request_mock.stub_request(
+    def test_call_custom_method_instance_via_property(self, http_client_mock):
+        http_client_mock.stub_request(
             "post",
-            "/v1/test_helpers/myresources/mid/do_the_thing",
-            {"id": "mid", "thing_done": True},
+            path="/v1/test_helpers/myresources/mid/do_the_thing",
+            rbody='{"id": "mid", "thing_done": true}',
             rheaders={"request-id": "req_id"},
         )
 
         obj = self.MyTestHelpersResource.construct_from({"id": "mid"}, "mykey")
         obj.test_helpers.do_stuff(foo="bar")
 
-        request_mock.assert_requested(
+        http_client_mock.assert_requested(
             "post",
-            "/v1/test_helpers/myresources/mid/do_the_thing",
-            {"foo": "bar"},
+            path="/v1/test_helpers/myresources/mid/do_the_thing",
+            post_data="foo=bar",
         )
         assert obj.thing_done is True

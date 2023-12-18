@@ -7,18 +7,22 @@ class TestAPIResource(object):
     class MyResource(stripe.api_resources.abstract.APIResource):
         OBJECT_NAME = "myresource"
 
-    def test_retrieve_and_refresh(self, request_mock):
-        url = "/v1/myresources/foo%2A"
-        request_mock.stub_request(
+    def test_retrieve_and_refresh(self, http_client_mock):
+        path = "/v1/myresources/foo%2A"
+        query_string = "myparam=5"
+        http_client_mock.stub_request(
             "get",
-            url,
-            {"id": "foo2", "bobble": "scrobble"},
+            path,
+            query_string,
+            '{"id": "foo2", "bobble": "scrobble"}',
             rheaders={"request-id": "req_id"},
         )
 
         res = self.MyResource.retrieve("foo*", myparam=5)
 
-        request_mock.assert_requested("get", url, {"myparam": 5}, None)
+        http_client_mock.assert_requested(
+            "get", path=path, query_string=query_string
+        )
         assert res.bobble == "scrobble"
         assert res.id == "foo2"
         assert res.api_key == "sk_test_123"
@@ -26,34 +30,20 @@ class TestAPIResource(object):
         assert res.last_response is not None
         assert res.last_response.request_id == "req_id"
 
-        url = "/v1/myresources/foo2"
-        request_mock.stub_request("get", url, {"frobble": 5})
+        path = "/v1/myresources/foo2"
+        query_string = "myparam=5"
+        http_client_mock.stub_request(
+            "get", path, query_string, '{"frobble": 5}'
+        )
 
         res = res.refresh()
 
-        request_mock.assert_requested("get", url, {"myparam": 5}, None)
+        http_client_mock.assert_requested(
+            "get", path=path, query_string=query_string
+        )
         assert res.frobble == 5
         with pytest.raises(KeyError):
             res["bobble"]
-
-    def test_request_with_special_fields_prefers_explicit(self, request_mock):
-        url = "/v1/myresources/foo"
-        request_mock.stub_request(
-            "get",
-            url,
-            {"id": "foo2", "bobble": "scrobble"},
-        )
-
-        self.MyResource._static_request(
-            "get",
-            "/v1/myresources/foo",
-            idempotency_key="explicit",
-            params={"idempotency_key": "params", "bobble": "scrobble"},
-        )
-
-        request_mock.assert_requested(
-            "get", url, {"bobble": "scrobble"}, {"Idempotency-Key": "explicit"}
-        )
 
     def test_convert_to_stripe_object(self):
         sample = {

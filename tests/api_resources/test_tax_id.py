@@ -15,13 +15,13 @@ class TestTaxId(object):
         }
         return stripe.TaxId.construct_from(tax_id_dict, stripe.api_key)
 
-    def test_has_instance_url(self, request_mock):
+    def test_has_instance_url(self):
         resource = self.construct_resource()
         assert (
             resource.instance_url()
             == "/v1/customers/cus_123/tax_ids/%s" % TEST_RESOURCE_ID
         )
 
-    def test_is_not_retrievable(self, request_mock):
+    def test_is_not_retrievable(self):
         with pytest.raises(NotImplementedError):
             stripe.TaxId.retrieve(TEST_RESOURCE_ID)

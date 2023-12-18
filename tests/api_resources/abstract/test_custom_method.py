@@ -30,87 +30,65 @@ class TestCustomMethod(object):
             return self.request_stream("post", url, params, headers)
 
         @classmethod
-        def _cls_do_stuff_new_codegen(
-            cls,
-            id,
-            api_key=None,
-            stripe_version=None,
-            stripe_account=None,
-            **params
-        ):
+        def _cls_do_stuff_new_codegen(cls, id, **params):
             return cls._static_request(
                 "post",
                 "/v1/myresources/{id}/do_the_thing".format(
                     id=util.sanitize_id(id)
                 ),
-                api_key=api_key,
-                stripe_version=stripe_version,
-                stripe_account=stripe_account,
                 params=params,
             )
 
         @util.class_method_variant("_cls_do_stuff_new_codegen")
-        def do_stuff_new_codegen(self, idempotency_key=None, **params):
+        def do_stuff_new_codegen(self, **params):
             return self._request(
                 "post",
                 "/v1/myresources/{id}/do_the_thing".format(
                     id=util.sanitize_id(self.get("id"))
                 ),
-                idempotency_key=idempotency_key,
                 params=params,
             )
 
-    def test_call_custom_method_class(self, request_mock):
-        request_mock.stub_request(
+    def test_call_custom_method_class(self, http_client_mock):
+        http_client_mock.stub_request(
             "post",
-            "/v1/myresources/mid/do_the_thing",
-            {"id": "mid", "thing_done": True},
+            path="/v1/myresources/mid/do_the_thing",
+            rbody='{"id": "mid", "thing_done": true}',
             rheaders={"request-id": "req_id"},
         )
 
         obj = self.MyResource.do_stuff("mid", foo="bar")
 
-        request_mock.assert_requested(
-            "post", "/v1/myresources/mid/do_the_thing", {"foo": "bar"}
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/myresources/mid/do_the_thing",
+            post_data="foo=bar",
         )
         assert obj.thing_done is True
 
-    def test_call_custom_list_method_class_paginates(self, request_mock):
-        request_mock.stub_request(
+    def test_call_custom_list_method_class_paginates(self, http_client_mock):
+        http_client_mock.stub_request(
             "get",
-            "/v1/myresources/mid/do_the_list_thing",
-            {
-                "object": "list",
-                "url": "/v1/myresources/mid/do_the_list_thing",
-                "has_more": True,
-                "data": [
-                    {"id": "cus_1", "object": "customer"},
-                    {"id": "cus_2", "object": "customer"},
-                ],
-            },
+            path="/v1/myresources/mid/do_the_list_thing",
+            query_string="param1=abc&param2=def",
+            rbody='{"object": "list", "url": "/v1/myresources/mid/do_the_list_thing", "has_more": true, "data": [{"id": "cus_1", "object": "customer"}, {"id": "cus_2", "object": "customer"}]}',
             rheaders={"request-id": "req_123"},
         )
 
         resp = self.MyResource.do_list_stuff("mid", param1="abc", param2="def")
 
-        request_mock.assert_requested(
+        http_client_mock.assert_requested(
             "get",
-            "/v1/myresources/mid/do_the_list_thing",
-            {"param1": "abc", "param2": "def"},
+            path="/v1/myresources/mid/do_the_list_thing",
+            query_string="param1=abc&param2=def",
         )
 
         # Stub out the second request which will happen automatically.
-        request_mock.stub_request(
+        http_client_mock.stub_request(
             "get",
-            "/v1/myresources/mid/do_the_list_thing",
-            {
-                "object": "list",
-                "url": "/v1/myresources/mid/do_the_list_thing",
-                "has_more": False,
-                "data": [
-                    {"id": "cus_3", "object": "customer"},
-                ],
-            },
+            path="/v1/myresources/mid/do_the_list_thing",
+            query_string="param1=abc&param2=def&starting_after=cus_2",
+            rbody='{"object": "list", "url": "/v1/myresources/mid/do_the_list_thing", "has_more": false, "data": [{"id": "cus_3", "object": "customer"}]}',
             rheaders={"request-id": "req_123"},
         )
 
@@ -121,26 +99,28 @@ class TestCustomMethod(object):
 
         # Explicitly assert that the pagination parameter were kept for the
         # second request along with the starting_after param.
-        request_mock.assert_requested(
+        http_client_mock.assert_requested(
             "get",
-            "/v1/myresources/mid/do_the_list_thing",
-            {"starting_after": "cus_2", "param1": "abc", "param2": "def"},
+            path="/v1/myresources/mid/do_the_list_thing",
+            query_string="param1=abc&param2=def&starting_after=cus_2",
         )
 
         assert ids == ["cus_1", "cus_2", "cus_3"]
 
-    def test_call_custom_stream_method_class(self, request_mock):
-        request_mock.stub_request_stream(
+    def test_call_custom_stream_method_class(self, http_client_mock_streaming):
+        http_client_mock_streaming.stub_request(
             "post",
-            "/v1/myresources/mid/do_the_stream_thing",
-            "response body",
+            path="/v1/myresources/mid/do_the_stream_thing",
+            rbody=util.io.BytesIO(str.encode("response body")),
             rheaders={"request-id": "req_id"},
         )
 
         resp = self.MyResource.do_stream_stuff("mid", foo="bar")
 
-        request_mock.assert_requested_stream(
-            "post", "/v1/myresources/mid/do_the_stream_thing", {"foo": "bar"}
+        http_client_mock_streaming.assert_requested(
+            "post",
+            path="/v1/myresources/mid/do_the_stream_thing",
+            post_data="foo=bar",
         )
 
         body_content = resp.io.read()
@@ -149,35 +129,41 @@ class TestCustomMethod(object):
 
         assert body_content == "response body"
 
-    def test_call_custom_method_class_with_object(self, request_mock):
-        request_mock.stub_request(
+    def test_call_custom_method_class_with_object(self, http_client_mock):
+        http_client_mock.stub_request(
             "post",
-            "/v1/myresources/mid/do_the_thing",
-            {"id": "mid", "thing_done": True},
+            path="/v1/myresources/mid/do_the_thing",
+            rbody='{"id": "mid", "thing_done": true}',
             rheaders={"request-id": "req_id"},
         )
 
         obj = self.MyResource.construct_from({"id": "mid"}, "mykey")
         self.MyResource.do_stuff(obj, foo="bar")
 
-        request_mock.assert_requested(
-            "post", "/v1/myresources/mid/do_the_thing", {"foo": "bar"}
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/myresources/mid/do_the_thing",
+            post_data="foo=bar",
         )
         assert obj.thing_done is True
 
-    def test_call_custom_stream_method_class_with_object(self, request_mock):
-        request_mock.stub_request_stream(
+    def test_call_custom_stream_method_class_with_object(
+        self, http_client_mock_streaming
+    ):
+        http_client_mock_streaming.stub_request(
             "post",
-            "/v1/myresources/mid/do_the_stream_thing",
-            "response body",
+            path="/v1/myresources/mid/do_the_stream_thing",
+            rbody=util.io.BytesIO(str.encode("response body")),
             rheaders={"request-id": "req_id"},
         )
 
         obj = self.MyResource.construct_from({"id": "mid"}, "mykey")
         resp = self.MyResource.do_stream_stuff(obj, foo="bar")
 
-        request_mock.assert_requested_stream(
-            "post", "/v1/myresources/mid/do_the_stream_thing", {"foo": "bar"}
+        http_client_mock_streaming.assert_requested(
+            "post",
+            path="/v1/myresources/mid/do_the_stream_thing",
+            post_data="foo=bar",
         )
 
         body_content = resp.io.read()
@@ -186,35 +172,41 @@ class TestCustomMethod(object):
 
         assert body_content == "response body"
 
-    def test_call_custom_method_instance(self, request_mock):
-        request_mock.stub_request(
+    def test_call_custom_method_instance(self, http_client_mock):
+        http_client_mock.stub_request(
             "post",
-            "/v1/myresources/mid/do_the_thing",
-            {"id": "mid", "thing_done": True},
+            path="/v1/myresources/mid/do_the_thing",
+            rbody='{"id": "mid", "thing_done": true}',
             rheaders={"request-id": "req_id"},
         )
 
         obj = self.MyResource.construct_from({"id": "mid"}, "mykey")
         obj.do_stuff(foo="bar")
 
-        request_mock.assert_requested(
-            "post", "/v1/myresources/mid/do_the_thing", {"foo": "bar"}
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/myresources/mid/do_the_thing",
+            post_data="foo=bar",
         )
         assert obj.thing_done is True
 
-    def test_call_custom_stream_method_instance(self, request_mock):
-        request_mock.stub_request_stream(
+    def test_call_custom_stream_method_instance(
+        self, http_client_mock_streaming
+    ):
+        http_client_mock_streaming.stub_request(
             "post",
-            "/v1/myresources/mid/do_the_stream_thing",
-            "response body",
+            path="/v1/myresources/mid/do_the_stream_thing",
+            rbody=util.io.BytesIO(str.encode("response body")),
             rheaders={"request-id": "req_id"},
         )
 
         obj = self.MyResource.construct_from({"id": "mid"}, "mykey")
         resp = obj.do_stream_stuff(foo="bar")
 
-        request_mock.assert_requested_stream(
-            "post", "/v1/myresources/mid/do_the_stream_thing", {"foo": "bar"}
+        http_client_mock_streaming.assert_requested(
+            "post",
+            path="/v1/myresources/mid/do_the_stream_thing",
+            post_data="foo=bar",
         )
 
         body_content = resp.io.read()
@@ -223,11 +215,11 @@ class TestCustomMethod(object):
 
         assert body_content == "response body"
 
-    def test_call_custom_method_class_special_fields(self, request_mock):
-        request_mock.stub_request(
+    def test_call_custom_method_class_special_fields(self, http_client_mock):
+        http_client_mock.stub_request(
             "post",
-            "/v1/myresources/mid/do_the_thing",
-            {"id": "mid", "thing_done": True},
+            path="/v1/myresources/mid/do_the_thing",
+            rbody='{"id": "mid", "thing_done": true}',
             rheaders={"request-id": "req_id"},
         )
 
@@ -240,21 +232,23 @@ class TestCustomMethod(object):
             stripe_account="Acc",
         )
 
-        request_mock.assert_requested(
+        http_client_mock.assert_requested(
             "post",
-            "/v1/myresources/mid/do_the_thing",
-            {"foo": "bar"},
-            {"Idempotency-Key": "IdempotencyKey"},
+            path="/v1/myresources/mid/do_the_thing",
+            post_data="foo=bar",
+            api_key="APIKEY",
+            stripe_version="2017-08-15",
+            stripe_account="Acc",
+            idempotency_key="IdempotencyKey",
         )
-        request_mock.assert_api_version("2017-08-15")
 
     def test_call_custom_method_class_newcodegen_special_fields(
-        self, request_mock
+        self, http_client_mock
     ):
-        request_mock.stub_request(
+        http_client_mock.stub_request(
             "post",
-            "/v1/myresources/mid/do_the_thing",
-            {"id": "mid", "thing_done": True},
+            path="/v1/myresources/mid/do_the_thing",
+            rbody='{"id": "mid", "thing_done": true}',
             rheaders={"request-id": "req_id"},
         )
 
@@ -267,21 +261,23 @@ class TestCustomMethod(object):
             stripe_account="Acc",
         )
 
-        request_mock.assert_requested(
+        http_client_mock.assert_requested(
             "post",
-            "/v1/myresources/mid/do_the_thing",
-            {"foo": "bar"},
-            {"Idempotency-Key": "IdempotencyKey"},
+            path="/v1/myresources/mid/do_the_thing",
+            post_data="foo=bar",
+            api_key="APIKEY",
+            stripe_version="2017-08-15",
+            stripe_account="Acc",
+            idempotency_key="IdempotencyKey",
         )
-        request_mock.assert_api_version("2017-08-15")
 
     def test_call_custom_method_instance_newcodegen_special_fields(
-        self, request_mock
+        self, http_client_mock
     ):
-        request_mock.stub_request(
+        http_client_mock.stub_request(
             "post",
-            "/v1/myresources/mid/do_the_thing",
-            {"id": "mid", "thing_done": True},
+            path="/v1/myresources/mid/do_the_thing",
+            rbody='{"id": "mid", "thing_done": true}',
             rheaders={"request-id": "req_id"},
         )
 
@@ -295,10 +291,13 @@ class TestCustomMethod(object):
             headers={"extra_header": "val"},
         )
 
-        request_mock.assert_requested(
+        http_client_mock.assert_requested(
             "post",
-            "/v1/myresources/mid/do_the_thing",
-            {"foo": "bar"},
-            {"Idempotency-Key": "IdempotencyKey", "extra_header": "val"},
+            path="/v1/myresources/mid/do_the_thing",
+            post_data="foo=bar",
+            api_key="APIKEY",
+            stripe_version="2017-08-15",
+            stripe_account="Acc",
+            idempotency_key="IdempotencyKey",
+            extra_headers={"extra_header": "val"},
         )
-        request_mock.assert_api_version("2017-08-15")
