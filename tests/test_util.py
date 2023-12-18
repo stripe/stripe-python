@@ -149,6 +149,4 @@ class TestUtil(object):
 
     def test_sanitize_id(self):
         sanitized_id = util.sanitize_id("cu  %x 123")
-        if isinstance(sanitized_id, bytes):
-            sanitized_id = sanitized_id.decode("utf-8", "strict")
         assert sanitized_id == "cu++%25x+123"
