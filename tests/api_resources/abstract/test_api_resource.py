@@ -45,7 +45,9 @@ class TestAPIResource(object):
         with pytest.raises(KeyError):
             res["bobble"]
 
-    def test_request_with_special_fields_prefers_explicit(self, http_client_mock):
+    def test_request_with_special_fields_prefers_explicit(
+        self, http_client_mock
+    ):
         path = "/v1/myresources/foo"
         http_client_mock.stub_request(
             "get",
@@ -62,7 +64,10 @@ class TestAPIResource(object):
         )
 
         http_client_mock.assert_requested(
-            "get", path=path, query_string="bobble=scrobble", idempotency_key="explicit"
+            "get",
+            path=path,
+            query_string="bobble=scrobble",
+            idempotency_key="explicit",
         )
 
     def test_convert_to_stripe_object(self):
