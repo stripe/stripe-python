@@ -376,3 +376,10 @@ class TestStripeObject(object):
         )
 
         assert obj.serialize(None) == {"nested": ""}
+
+    def test_field_name_remapping(self):
+        class Foo(stripe.stripe_object.StripeObject):
+            _field_remappings = {"getter_name": "data_name"}
+
+        obj = Foo.construct_from({"data_name": "foo"}, "mykey")
+        assert obj.getter_name == "foo"
