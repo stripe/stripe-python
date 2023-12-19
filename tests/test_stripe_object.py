@@ -389,3 +389,25 @@ class TestStripeObject(object):
         )
 
         assert obj.serialize(None) == {"nested": ""}
+
+    def test_field_name_remapping(self):
+        class Foo(stripe.stripe_object.StripeObject):
+            _field_remappings = {"getter_name": "data_name"}
+
+        obj = Foo.construct_from({"data_name": "foo"}, "mykey")
+        assert obj.getter_name == "foo"
+
+    def test_sends_request_with_api_key(self, http_client_mock):
+        obj = stripe.stripe_object.StripeObject("id", "key")
+
+        http_client_mock.stub_request(
+            "get",
+            path="/foo",
+        )
+
+        obj.request("get", "/foo")
+
+        http_client_mock.assert_requested(
+            api_key="key",
+            stripe_account=None,
+        )

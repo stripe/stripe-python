@@ -17,7 +17,7 @@ class TestCustomerBalanceTransaction(object):
             tax_id_dict, stripe.api_key
         )
 
-    def test_has_instance_url(self, request_mock):
+    def test_has_instance_url(self):
         resource = self.construct_resource()
         assert (
             resource.instance_url()
@@ -25,6 +25,6 @@ class TestCustomerBalanceTransaction(object):
             % TEST_RESOURCE_ID
         )
 
-    def test_is_not_retrievable(self, request_mock):
+    def test_is_not_retrievable(self):
         with pytest.raises(NotImplementedError):
             stripe.CustomerBalanceTransaction.retrieve(TEST_RESOURCE_ID)

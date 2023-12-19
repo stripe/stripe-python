@@ -33,21 +33,24 @@ class TestCard(object):
         with pytest.raises(NotImplementedError):
             stripe.Card.retrieve(TEST_RESOURCE_ID)
 
-    def test_is_saveable(self, request_mock):
+    def test_is_saveable(self, http_client_mock):
         resource = self.construct_resource(customer="cus_123")
         resource.metadata["key"] = "value"
         resource.save()
-        request_mock.assert_requested(
-            "post", "/v1/customers/cus_123/sources/%s" % TEST_RESOURCE_ID
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/customers/cus_123/sources/%s" % TEST_RESOURCE_ID,
+            post_data="metadata[key]=value",
         )
 
     def test_is_not_modifiable(self):
         with pytest.raises(NotImplementedError):
             stripe.Card.modify(TEST_RESOURCE_ID, metadata={"key": "value"})
 
-    def test_is_deletable(self, request_mock):
+    def test_is_deletable(self, http_client_mock):
         resource = self.construct_resource(customer="cus_123")
         resource.delete()
-        request_mock.assert_requested(
-            "delete", "/v1/customers/cus_123/sources/%s" % TEST_RESOURCE_ID
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/customers/cus_123/sources/%s" % TEST_RESOURCE_ID,
         )

@@ -3,9 +3,6 @@ from collections import namedtuple
 
 import stripe
 from stripe import util
-import builtins
-
-PRINT_FUNC_STRING = builtins.__name__ + ".print"
 
 LogTestCase = namedtuple("LogTestCase", "env flag should_output")
 FmtTestCase = namedtuple("FmtTestCase", "props expected")
@@ -50,7 +47,7 @@ class TestUtil(object):
         for case in test_cases:
             try:
                 logger_mock = mocker.patch(logger_name)
-                print_mock = mocker.patch(PRINT_FUNC_STRING)
+                print_mock = mocker.patch("builtins.print")
                 mocker.patch("stripe.log", case.flag)
                 mocker.patch("stripe._util.STRIPE_LOG", case.env)
 
