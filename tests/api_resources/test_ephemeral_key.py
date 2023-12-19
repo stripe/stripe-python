@@ -4,13 +4,15 @@ import stripe
 
 
 class TestEphemeralKey(object):
-    def test_is_creatable(self, request_mock):
+    def test_is_creatable(self, http_client_mock):
         resource = stripe.EphemeralKey.create(
             customer="cus_123", stripe_version="2017-05-25"
         )
-        request_mock.assert_api_version("2017-05-25")
-        request_mock.assert_requested(
-            "post", "/v1/ephemeral_keys", {"customer": "cus_123"}
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/ephemeral_keys",
+            stripe_version="2017-05-25",
+            post_data="customer=cus_123",
         )
         assert isinstance(resource, stripe.EphemeralKey)
 
@@ -20,19 +22,19 @@ class TestEphemeralKey(object):
         ):
             stripe.EphemeralKey.create(customer="cus_123")
 
-    def test_is_deletable(self, request_mock):
+    def test_is_deletable(self, http_client_mock):
         resource = stripe.EphemeralKey.create(
             customer="cus_123", stripe_version="2017-05-25"
         )
         resource.delete()
-        request_mock.assert_requested(
-            "delete", "/v1/ephemeral_keys/%s" % resource.id
+        http_client_mock.assert_requested(
+            "delete", path="/v1/ephemeral_keys/%s" % resource.id
         )
         assert isinstance(resource, stripe.EphemeralKey)
 
-    def test_can_delete(self, request_mock):
+    def test_can_delete(self, http_client_mock):
         resource = stripe.EphemeralKey.delete("ephkey_123")
-        request_mock.assert_requested(
-            "delete", "/v1/ephemeral_keys/ephkey_123"
+        http_client_mock.assert_requested(
+            "delete", path="/v1/ephemeral_keys/ephkey_123"
         )
         assert isinstance(resource, stripe.EphemeralKey)
