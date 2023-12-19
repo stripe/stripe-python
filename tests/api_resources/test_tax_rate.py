@@ -5,39 +5,47 @@ TEST_RESOURCE_ID = "txr_123"
 
 
 class TestTaxRate(object):
-    def test_is_listable(self, request_mock):
+    def test_is_listable(self, http_client_mock):
         resources = stripe.TaxRate.list()
-        request_mock.assert_requested("get", "/v1/tax_rates")
+        http_client_mock.assert_requested("get", path="/v1/tax_rates")
         assert isinstance(resources.data, list)
         assert isinstance(resources.data[0], stripe.TaxRate)
 
-    def test_is_retrievable(self, request_mock):
+    def test_is_retrievable(self, http_client_mock):
         resource = stripe.TaxRate.retrieve(TEST_RESOURCE_ID)
-        request_mock.assert_requested(
-            "get", "/v1/tax_rates/%s" % TEST_RESOURCE_ID
+        http_client_mock.assert_requested(
+            "get", path="/v1/tax_rates/%s" % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.TaxRate)
 
-    def test_is_creatable(self, request_mock):
+    def test_is_creatable(self, http_client_mock):
         resource = stripe.TaxRate.create(
             display_name="name", inclusive=False, percentage=10.15
         )
-        request_mock.assert_requested("post", "/v1/tax_rates")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax_rates",
+            post_data="display_name=name&inclusive=False&percentage=10.15",
+        )
         assert isinstance(resource, stripe.TaxRate)
 
-    def test_is_saveable(self, request_mock):
+    def test_is_saveable(self, http_client_mock):
         resource = stripe.TaxRate.retrieve(TEST_RESOURCE_ID)
         resource.metadata["key"] = "value"
         resource.save()
-        request_mock.assert_requested(
-            "post", "/v1/tax_rates/%s" % TEST_RESOURCE_ID
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax_rates/%s" % TEST_RESOURCE_ID,
+            post_data="metadata[key]=value",
         )
 
-    def test_is_modifiable(self, request_mock):
+    def test_is_modifiable(self, http_client_mock):
         resource = stripe.TaxRate.modify(
             TEST_RESOURCE_ID, metadata={"key": "value"}
         )
-        request_mock.assert_requested(
-            "post", "/v1/tax_rates/%s" % TEST_RESOURCE_ID
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/tax_rates/%s" % TEST_RESOURCE_ID,
+            post_data="metadata[key]=value",
         )
         assert isinstance(resource, stripe.TaxRate)

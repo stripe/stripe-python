@@ -5,17 +5,17 @@ class TestSingletonAPIResource(object):
     class MySingleton(stripe.api_resources.abstract.SingletonAPIResource):
         OBJECT_NAME = "mysingleton"
 
-    def test_retrieve(self, request_mock):
-        request_mock.stub_request(
+    def test_retrieve(self, http_client_mock):
+        http_client_mock.stub_request(
             "get",
-            "/v1/mysingleton",
-            {"single": "ton"},
+            path="/v1/mysingleton",
+            rbody='{"single": "ton"}',
             rheaders={"request-id": "req_id"},
         )
 
         res = self.MySingleton.retrieve()
 
-        request_mock.assert_requested("get", "/v1/mysingleton", {})
+        http_client_mock.assert_requested("get", path="/v1/mysingleton")
         assert res.single == "ton"
 
         assert res.last_response is not None

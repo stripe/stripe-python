@@ -6,8 +6,8 @@ import pytest
 import stripe
 import requests
 
-from tests.request_mock import RequestMock
 from tests.stripe_mock import StripeMock
+from tests.http_client_mock import HTTPClientMock
 
 MOCK_MINIMUM_VERSION = "0.109.0"
 
@@ -17,6 +17,9 @@ if StripeMock.start():
     MOCK_PORT = StripeMock.port()
 else:
     MOCK_PORT = os.environ.get("STRIPE_MOCK_PORT", 12111)
+
+MOCK_API_BASE = "http://localhost:%s" % MOCK_PORT
+MOCK_API_KEY = "sk_test_123"
 
 
 @atexit.register
@@ -45,7 +48,7 @@ def pytest_addoption(parser):
 
 
 def pytest_runtest_setup(item):
-    if "request_mock" in item.fixturenames and item.config.getoption(
+    if "http_client_mock" in item.fixturenames and item.config.getoption(
         "--nomock"
     ):
         pytest.skip(
@@ -63,9 +66,9 @@ def setup_stripe():
         "default_http_client": stripe.default_http_client,
     }
     http_client = stripe.http_client.new_default_http_client()
-    stripe.api_base = "http://localhost:%s" % MOCK_PORT
-    stripe.upload_api_base = "http://localhost:%s" % MOCK_PORT
-    stripe.api_key = "sk_test_123"
+    stripe.api_base = MOCK_API_BASE
+    stripe.upload_api_base = MOCK_API_BASE
+    stripe.api_key = MOCK_API_KEY
     stripe.client_id = "ca_123"
     stripe.default_http_client = http_client
     yield
@@ -78,5 +81,18 @@ def setup_stripe():
 
 
 @pytest.fixture
-def request_mock(mocker):
-    return RequestMock(mocker)
+def http_client_mock(mocker):
+    mock_client = HTTPClientMock(mocker)
+    old_client = stripe.default_http_client
+    stripe.default_http_client = mock_client.get_mock_http_client()
+    yield mock_client
+    stripe.default_http_client = old_client
+
+
+@pytest.fixture
+def http_client_mock_streaming(mocker):
+    mock_client = HTTPClientMock(mocker, is_streaming=True)
+    old_client = stripe.default_http_client
+    stripe.default_http_client = mock_client.get_mock_http_client()
+    yield mock_client
+    stripe.default_http_client = old_client

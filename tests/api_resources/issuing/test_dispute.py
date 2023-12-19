@@ -5,34 +5,42 @@ TEST_RESOURCE_ID = "idp_123"
 
 
 class TestDispute(object):
-    def test_is_creatable(self, request_mock):
+    def test_is_creatable(self, http_client_mock):
         resource = stripe.issuing.Dispute.create(transaction="ipi_123")
-        request_mock.assert_requested("post", "/v1/issuing/disputes")
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/disputes",
+            post_data="transaction=ipi_123",
+        )
         assert isinstance(resource, stripe.issuing.Dispute)
 
-    def test_is_listable(self, request_mock):
+    def test_is_listable(self, http_client_mock):
         resources = stripe.issuing.Dispute.list()
-        request_mock.assert_requested("get", "/v1/issuing/disputes")
+        http_client_mock.assert_requested("get", path="/v1/issuing/disputes")
         assert isinstance(resources.data, list)
         assert isinstance(resources.data[0], stripe.issuing.Dispute)
 
-    def test_is_modifiable(self, request_mock):
+    def test_is_modifiable(self, http_client_mock):
         resource = stripe.issuing.Dispute.modify(TEST_RESOURCE_ID)
-        request_mock.assert_requested(
-            "post", "/v1/issuing/disputes/%s" % TEST_RESOURCE_ID
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/disputes/%s" % TEST_RESOURCE_ID,
+            post_data="",
         )
         assert isinstance(resource, stripe.issuing.Dispute)
 
-    def test_is_retrievable(self, request_mock):
+    def test_is_retrievable(self, http_client_mock):
         resource = stripe.issuing.Dispute.retrieve(TEST_RESOURCE_ID)
-        request_mock.assert_requested(
-            "get", "/v1/issuing/disputes/%s" % TEST_RESOURCE_ID
+        http_client_mock.assert_requested(
+            "get", path="/v1/issuing/disputes/%s" % TEST_RESOURCE_ID
         )
         assert isinstance(resource, stripe.issuing.Dispute)
 
-    def test_is_submittable(self, request_mock):
+    def test_is_submittable(self, http_client_mock):
         resource = stripe.issuing.Dispute.submit(TEST_RESOURCE_ID)
-        request_mock.assert_requested(
-            "post", "/v1/issuing/disputes/%s/submit" % TEST_RESOURCE_ID
+        http_client_mock.assert_requested(
+            "post",
+            path="/v1/issuing/disputes/%s/submit" % TEST_RESOURCE_ID,
+            post_data="",
         )
         assert isinstance(resource, stripe.issuing.Dispute)
