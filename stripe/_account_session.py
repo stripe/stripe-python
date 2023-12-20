@@ -78,7 +78,18 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
 
         class Payouts(StripeObject):
             class Features(StripeObject):
-                pass
+                edit_payout_schedule: bool
+                """
+                Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+                """
+                instant_payouts: bool
+                """
+                Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+                """
+                standard_payouts: bool
+                """
+                Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+                """
 
             enabled: bool
             """
@@ -142,9 +153,29 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         features: NotRequired[
             "AccountSession.CreateParamsComponentsPayoutsFeatures"
         ]
+        """
+        The list of features enabled in the embedded component.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsPayoutsFeatures2"
+        ]
+
+    class CreateParamsComponentsPayoutsFeatures2(TypedDict):
+        pass
 
     class CreateParamsComponentsPayoutsFeatures(TypedDict):
-        pass
+        edit_payout_schedule: NotRequired["bool"]
+        """
+        Whether to allow payout schedule to be changed. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        """
+        instant_payouts: NotRequired["bool"]
+        """
+        Whether to allow creation of instant payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        """
+        standard_payouts: NotRequired["bool"]
+        """
+        Whether to allow creation of standard payouts. Default `true` when Stripe owns Loss Liability, default `false` otherwise.
+        """
 
     class CreateParamsComponentsPayments(TypedDict):
         enabled: bool
