@@ -156,12 +156,6 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         The list of features enabled in the embedded component.
         """
-        features: NotRequired[
-            "AccountSession.CreateParamsComponentsPayoutsFeatures2"
-        ]
-
-    class CreateParamsComponentsPayoutsFeatures2(TypedDict):
-        pass
 
     class CreateParamsComponentsPayoutsFeatures(TypedDict):
         edit_payout_schedule: NotRequired["bool"]
