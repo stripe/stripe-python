@@ -114,53 +114,38 @@ class TestAPIResource(object):
             with pytest.raises(stripe.error.InvalidRequestError):
                 self.MyResource.retrieve(obj)
 
-    @pytest.fixture
-    def resource(self):
-        return self.MyResource.construct_from(
-            {"id": "foo"},
-            key="newkey",
-            stripe_version="2023-01-01",
-            stripe_account="acct_foo",
-        )
-
-    @pytest.fixture
-    def check_request_options(self, http_client_mock):
-        def check_request_options(
-            *, api_key=None, stripe_version=None, stripe_account=None
-        ):
-            extra_headers = {}
-            if stripe_account is None:
-                extra_headers = {"Stripe-Account": None}
-            if api_key is None:
-                api_key = stripe.api_key
-            if stripe_version is None:
-                stripe_version = stripe.api_version
-
-            http_client_mock.assert_requested(
-                "get",
-                path="/v1/myresources/foo",
-                api_key=api_key,
-                stripe_version=stripe_version,
-                extra_headers=extra_headers,
-            )
-
-        return check_request_options
-
     def test_class_method_does_not_forward_options(
-        self, resource, http_client_mock, check_request_options
+        self, http_client_mock
     ):
         http_client_mock.stub_request(
             "get",
             "/v1/myresources/foo",
             rbody='{"id": "foo"}',
+        )
+
+        key = "newkey"
+        stripe_version = "2023-01-01"
+        stripe_account = "acct_foo"
+
+        resource = self.MyResource.construct_from(
+            {"id": "foo"},
+            key=key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
         )
 
         resource.retrieve("foo")
 
-        check_request_options()
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/myresources/foo",
+            api_key=stripe.api_key,
+            stripe_version=stripe.api_version,
+            extra_headers={"Stripe-Account": None},
+        )
 
-    def test_instance_method_forwards_options(
-        self, resource, http_client_mock, check_request_options
+    def test_class_method_prefers_method_arguments(
+        self, http_client_mock
     ):
         http_client_mock.stub_request(
             "get",
@@ -168,10 +153,78 @@ class TestAPIResource(object):
             rbody='{"id": "foo"}',
         )
 
-        resource.refresh()
+        resource = self.MyResource.construct_from(
+            {"id": "foo"},
+            key="oldkey",
+            stripe_version="2000-01-01",
+            stripe_account="acct_foo",
+        )
 
-        check_request_options(
+        resource.retrieve("foo", api_key="newkey", stripe_version="2023-01-01", stripe_account="acct_bar")
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/myresources/foo",
             api_key="newkey",
             stripe_version="2023-01-01",
+            stripe_account="acct_bar",
+        )
+
+    def test_instance_method_forwards_options(
+        self, http_client_mock
+    ):
+        http_client_mock.stub_request(
+            "get",
+            "/v1/myresources/foo",
+            rbody='{"id": "foo"}',
+        )
+
+        key = "newkey"
+        stripe_version = "2023-01-01"
+        stripe_account = "acct_foo"
+
+        resource = self.MyResource.construct_from(
+            {"id": "foo"},
+            key=key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+        )
+
+        resource.refresh()
+
+        http_client_mock.assert_requested(
+            "get",
+            path="/v1/myresources/foo",
+            api_key=key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
+        )
+
+    def test_instance_method_prefers_method_arguments(
+        self, http_client_mock
+    ):
+        class MyDeletableResource(stripe.DeletableAPIResource):
+            OBJECT_NAME = "mydeletableresource"
+
+        http_client_mock.stub_request(
+            "delete",
+            "/v1/mydeletableresources/foo",
+            rbody='{"id": "foo"}',
+        )
+
+        resource = MyDeletableResource.construct_from(
+            {"id": "foo"},
+            key="oldkey",
+            stripe_version="2000-01-01",
             stripe_account="acct_foo",
+        )
+
+        resource.delete(api_key="newkey", stripe_version="2023-01-01", stripe_account="acct_bar")
+
+        http_client_mock.assert_requested(
+            "delete",
+            path="/v1/mydeletableresources/foo",
+            api_key="newkey",
+            stripe_version="2023-01-01",
+            stripe_account="acct_bar",
         )
