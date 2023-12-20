@@ -32,6 +32,17 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             features: Features
             _inner_class_types = {"features": Features}
 
+        class CapitalFinancingPromotion(StripeObject):
+            class Features(StripeObject):
+                pass
+
+            enabled: bool
+            """
+            Whether the embedded component is enabled.
+            """
+            features: Optional[Features]
+            _inner_class_types = {"features": Features}
+
         class PaymentDetails(StripeObject):
             class Features(StripeObject):
                 capture_payments: bool
@@ -99,11 +110,13 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
             _inner_class_types = {"features": Features}
 
         account_onboarding: AccountOnboarding
+        capital_financing_promotion: Optional[CapitalFinancingPromotion]
         payment_details: Optional[PaymentDetails]
         payments: Optional[Payments]
         payouts: Optional[Payouts]
         _inner_class_types = {
             "account_onboarding": AccountOnboarding,
+            "capital_financing_promotion": CapitalFinancingPromotion,
             "payment_details": PaymentDetails,
             "payments": Payments,
             "payouts": Payouts,
@@ -130,6 +143,9 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Configuration for the account onboarding embedded component.
         """
+        capital_financing_promotion: NotRequired[
+            "AccountSession.CreateParamsComponentsCapitalFinancingPromotion"
+        ]
         payment_details: NotRequired[
             "AccountSession.CreateParamsComponentsPaymentDetails"
         ]
@@ -222,6 +238,21 @@ class AccountSession(CreateableAPIResource["AccountSession"]):
         """
         Whether to allow sending refunds. This is `true` by default.
         """
+
+    class CreateParamsComponentsCapitalFinancingPromotion(TypedDict):
+        enabled: bool
+        """
+        Whether the embedded component is enabled.
+        """
+        features: NotRequired[
+            "AccountSession.CreateParamsComponentsCapitalFinancingPromotionFeatures"
+        ]
+        """
+        The list of features enabled in the embedded component.
+        """
+
+    class CreateParamsComponentsCapitalFinancingPromotionFeatures(TypedDict):
+        pass
 
     class CreateParamsComponentsAccountOnboarding(TypedDict):
         enabled: bool
