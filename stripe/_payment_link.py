@@ -624,9 +624,6 @@ class PaymentLink(
                 """
 
             issuer: Optional[Issuer]
-            """
-            The connected account that issues the invoice. The invoice is presented with the branding and support information of the specified account.
-            """
             _inner_class_types = {"issuer": Issuer}
 
         class TrialSettings(StripeObject):

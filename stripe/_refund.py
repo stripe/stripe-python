@@ -36,6 +36,227 @@ class Refund(
 
     OBJECT_NAME: ClassVar[Literal["refund"]] = "refund"
 
+    class DestinationDetails(StripeObject):
+        class Affirm(StripeObject):
+            pass
+
+        class AfterpayClearpay(StripeObject):
+            pass
+
+        class Alipay(StripeObject):
+            pass
+
+        class AuBankTransfer(StripeObject):
+            pass
+
+        class Blik(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
+        class BrBankTransfer(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
+        class Card(StripeObject):
+            reference: Optional[str]
+            """
+            Value of the reference number assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference number on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+            reference_type: Optional[str]
+            """
+            Type of the reference number assigned to the refund.
+            """
+            type: Literal["pending", "refund", "reversal"]
+            """
+            The type of refund. This can be `refund`, `reversal`, or `pending`.
+            """
+
+        class Cashapp(StripeObject):
+            pass
+
+        class CustomerCashBalance(StripeObject):
+            pass
+
+        class Eps(StripeObject):
+            pass
+
+        class EuBankTransfer(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
+        class GbBankTransfer(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
+        class Giropay(StripeObject):
+            pass
+
+        class Grabpay(StripeObject):
+            pass
+
+        class JpBankTransfer(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
+        class Klarna(StripeObject):
+            pass
+
+        class MxBankTransfer(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
+        class P24(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
+        class Paynow(StripeObject):
+            pass
+
+        class Paypal(StripeObject):
+            pass
+
+        class Pix(StripeObject):
+            pass
+
+        class Revolut(StripeObject):
+            pass
+
+        class Sofort(StripeObject):
+            pass
+
+        class ThBankTransfer(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
+        class UsBankTransfer(StripeObject):
+            reference: Optional[str]
+            """
+            The reference assigned to the refund.
+            """
+            reference_status: Optional[str]
+            """
+            Status of the reference on the refund. This can be `pending`, `available` or `unavailable`.
+            """
+
+        class WechatPay(StripeObject):
+            pass
+
+        class Zip(StripeObject):
+            pass
+
+        affirm: Optional[Affirm]
+        afterpay_clearpay: Optional[AfterpayClearpay]
+        alipay: Optional[Alipay]
+        au_bank_transfer: Optional[AuBankTransfer]
+        blik: Optional[Blik]
+        br_bank_transfer: Optional[BrBankTransfer]
+        card: Optional[Card]
+        cashapp: Optional[Cashapp]
+        customer_cash_balance: Optional[CustomerCashBalance]
+        eps: Optional[Eps]
+        eu_bank_transfer: Optional[EuBankTransfer]
+        gb_bank_transfer: Optional[GbBankTransfer]
+        giropay: Optional[Giropay]
+        grabpay: Optional[Grabpay]
+        jp_bank_transfer: Optional[JpBankTransfer]
+        klarna: Optional[Klarna]
+        mx_bank_transfer: Optional[MxBankTransfer]
+        p24: Optional[P24]
+        paynow: Optional[Paynow]
+        paypal: Optional[Paypal]
+        pix: Optional[Pix]
+        revolut: Optional[Revolut]
+        sofort: Optional[Sofort]
+        th_bank_transfer: Optional[ThBankTransfer]
+        type: str
+        """
+        The type of transaction-specific details of the payment method used in the refund (e.g., `card`). An additional hash is included on `destination_details` with a name matching this value. It contains information specific to the refund transaction.
+        """
+        us_bank_transfer: Optional[UsBankTransfer]
+        wechat_pay: Optional[WechatPay]
+        zip: Optional[Zip]
+        _inner_class_types = {
+            "affirm": Affirm,
+            "afterpay_clearpay": AfterpayClearpay,
+            "alipay": Alipay,
+            "au_bank_transfer": AuBankTransfer,
+            "blik": Blik,
+            "br_bank_transfer": BrBankTransfer,
+            "card": Card,
+            "cashapp": Cashapp,
+            "customer_cash_balance": CustomerCashBalance,
+            "eps": Eps,
+            "eu_bank_transfer": EuBankTransfer,
+            "gb_bank_transfer": GbBankTransfer,
+            "giropay": Giropay,
+            "grabpay": Grabpay,
+            "jp_bank_transfer": JpBankTransfer,
+            "klarna": Klarna,
+            "mx_bank_transfer": MxBankTransfer,
+            "p24": P24,
+            "paynow": Paynow,
+            "paypal": Paypal,
+            "pix": Pix,
+            "revolut": Revolut,
+            "sofort": Sofort,
+            "th_bank_transfer": ThBankTransfer,
+            "us_bank_transfer": UsBankTransfer,
+            "wechat_pay": WechatPay,
+            "zip": Zip,
+        }
+
     class NextAction(StripeObject):
         class DisplayDetails(StripeObject):
             class EmailSent(StripeObject):
@@ -186,6 +407,7 @@ class Refund(
     """
     An arbitrary string attached to the object. You can use this for displaying to users (available on non-card refunds only).
     """
+    destination_details: Optional[DestinationDetails]
     failure_balance_transaction: Optional[
         ExpandableField["BalanceTransaction"]
     ]
@@ -513,7 +735,10 @@ class Refund(
     def test_helpers(self):
         return self.TestHelpers(self)
 
-    _inner_class_types = {"next_action": NextAction}
+    _inner_class_types = {
+        "destination_details": DestinationDetails,
+        "next_action": NextAction,
+    }
 
 
 Refund.TestHelpers._resource_cls = Refund

@@ -243,6 +243,7 @@ class PaymentIntent(
                 "setup_intent_mandate_invalid",
                 "setup_intent_setup_attempt_expired",
                 "setup_intent_unexpected_state",
+                "shipping_address_invalid",
                 "shipping_calculation_failed",
                 "sku_inactive",
                 "state_unsupported",

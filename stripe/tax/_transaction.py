@@ -163,6 +163,36 @@ class Transaction(APIResource["Transaction"]):
         The `id` of the reversed `Transaction` object.
         """
 
+    class ShipFromDetails(StripeObject):
+        class Address(StripeObject):
+            city: Optional[str]
+            """
+            City, district, suburb, town, or village.
+            """
+            country: str
+            """
+            Two-letter country code ([ISO 3166-1 alpha-2](https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2)).
+            """
+            line1: Optional[str]
+            """
+            Address line 1 (e.g., street, PO Box, or company name).
+            """
+            line2: Optional[str]
+            """
+            Address line 2 (e.g., apartment, suite, unit, or building).
+            """
+            postal_code: Optional[str]
+            """
+            ZIP or postal code.
+            """
+            state: Optional[str]
+            """
+            State/province as an [ISO 3166-2](https://en.wikipedia.org/wiki/ISO_3166-2) subdivision code, without country prefix. Example: "NY" or "TX".
+            """
+
+        address: Address
+        _inner_class_types = {"address": Address}
+
     class ShippingCost(StripeObject):
         class TaxBreakdown(StripeObject):
             class Jurisdiction(StripeObject):
@@ -437,6 +467,10 @@ class Transaction(APIResource["Transaction"]):
     """
     If `type=reversal`, contains information about what was reversed.
     """
+    ship_from_details: Optional[ShipFromDetails]
+    """
+    The details of the ship from location, such as the address.
+    """
     shipping_cost: Optional[ShippingCost]
     """
     The shipping cost details for the transaction.
@@ -594,5 +628,6 @@ class Transaction(APIResource["Transaction"]):
     _inner_class_types = {
         "customer_details": CustomerDetails,
         "reversal": Reversal,
+        "ship_from_details": ShipFromDetails,
         "shipping_cost": ShippingCost,
     }
