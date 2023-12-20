@@ -10,6 +10,9 @@ class TestAPIResource(object):
     def test_retrieve_and_refresh(self, http_client_mock):
         path = "/v1/myresources/foo%2A"
         query_string = "myparam=5"
+        key = "sk_test_123"
+        stripe_version = "2018-02-28"
+        stripe_account = "acct_foo"
         http_client_mock.stub_request(
             "get",
             path,
@@ -29,15 +32,15 @@ class TestAPIResource(object):
             "get",
             path=path,
             query_string=query_string,
-            api_key="sk_test_123",
-            stripe_version="2018-02-28",
-            stripe_account="acct_foo",
+            api_key=key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
         )
         assert res.bobble == "scrobble"
         assert res.id == "foo2"
-        assert res.api_key == "sk_test_123"
-        assert res.stripe_version == "2018-02-28"
-        assert res.stripe_account == "acct_foo"
+        assert res.api_key == key
+        assert res.stripe_version == stripe_version
+        assert res.stripe_account == stripe_account
 
         assert res.last_response is not None
         assert res.last_response.request_id == "req_id"
@@ -51,7 +54,12 @@ class TestAPIResource(object):
         res = res.refresh()
 
         http_client_mock.assert_requested(
-            "get", path=path, query_string=query_string
+            "get",
+            path=path,
+            query_string=query_string,
+            api_key=key,
+            stripe_version=stripe_version,
+            stripe_account=stripe_account,
         )
         assert res.frobble == 5
         with pytest.raises(KeyError):
@@ -114,9 +122,7 @@ class TestAPIResource(object):
             with pytest.raises(stripe.error.InvalidRequestError):
                 self.MyResource.retrieve(obj)
 
-    def test_class_method_does_not_forward_options(
-        self, http_client_mock
-    ):
+    def test_class_method_does_not_forward_options(self, http_client_mock):
         http_client_mock.stub_request(
             "get",
             "/v1/myresources/foo",
@@ -144,9 +150,7 @@ class TestAPIResource(object):
             extra_headers={"Stripe-Account": None},
         )
 
-    def test_class_method_prefers_method_arguments(
-        self, http_client_mock
-    ):
+    def test_class_method_prefers_method_arguments(self, http_client_mock):
         http_client_mock.stub_request(
             "get",
             "/v1/myresources/foo",
@@ -160,7 +164,12 @@ class TestAPIResource(object):
             stripe_account="acct_foo",
         )
 
-        resource.retrieve("foo", api_key="newkey", stripe_version="2023-01-01", stripe_account="acct_bar")
+        resource.retrieve(
+            "foo",
+            api_key="newkey",
+            stripe_version="2023-01-01",
+            stripe_account="acct_bar",
+        )
 
         http_client_mock.assert_requested(
             "get",
@@ -170,9 +179,7 @@ class TestAPIResource(object):
             stripe_account="acct_bar",
         )
 
-    def test_instance_method_forwards_options(
-        self, http_client_mock
-    ):
+    def test_instance_method_forwards_options(self, http_client_mock):
         http_client_mock.stub_request(
             "get",
             "/v1/myresources/foo",
@@ -200,9 +207,7 @@ class TestAPIResource(object):
             stripe_account=stripe_account,
         )
 
-    def test_instance_method_prefers_method_arguments(
-        self, http_client_mock
-    ):
+    def test_instance_method_prefers_method_arguments(self, http_client_mock):
         class MyDeletableResource(stripe.DeletableAPIResource):
             OBJECT_NAME = "mydeletableresource"
 
@@ -219,7 +224,11 @@ class TestAPIResource(object):
             stripe_account="acct_foo",
         )
 
-        resource.delete(api_key="newkey", stripe_version="2023-01-01", stripe_account="acct_bar")
+        resource.delete(
+            api_key="newkey",
+            stripe_version="2023-01-01",
+            stripe_account="acct_bar",
+        )
 
         http_client_mock.assert_requested(
             "delete",
