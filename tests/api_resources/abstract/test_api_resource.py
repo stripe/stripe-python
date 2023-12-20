@@ -4,7 +4,7 @@ import stripe
 
 
 class TestAPIResource(object):
-    class MyResource(stripe.api_resources.abstract.APIResource):
+    class MyResource(stripe.APIResource):
         OBJECT_NAME = "myresource"
 
     def test_retrieve_and_refresh(self, http_client_mock):
@@ -18,14 +18,26 @@ class TestAPIResource(object):
             rheaders={"request-id": "req_id"},
         )
 
-        res = self.MyResource.retrieve("foo*", myparam=5)
+        res = self.MyResource.retrieve(
+            "foo*",
+            myparam=5,
+            stripe_version="2018-02-28",
+            stripe_account="acct_foo",
+        )
 
         http_client_mock.assert_requested(
-            "get", path=path, query_string=query_string
+            "get",
+            path=path,
+            query_string=query_string,
+            api_key="sk_test_123",
+            stripe_version="2018-02-28",
+            stripe_account="acct_foo",
         )
         assert res.bobble == "scrobble"
         assert res.id == "foo2"
         assert res.api_key == "sk_test_123"
+        assert res.stripe_version == "2018-02-28"
+        assert res.stripe_account == "acct_foo"
 
         assert res.last_response is not None
         assert res.last_response.request_id == "req_id"
@@ -101,3 +113,65 @@ class TestAPIResource(object):
         for obj in [None, 1, 3.14, dict(), list(), set(), tuple(), object()]:
             with pytest.raises(stripe.error.InvalidRequestError):
                 self.MyResource.retrieve(obj)
+
+    @pytest.fixture
+    def resource(self):
+        return self.MyResource.construct_from(
+            {"id": "foo"},
+            key="newkey",
+            stripe_version="2023-01-01",
+            stripe_account="acct_foo",
+        )
+
+    @pytest.fixture
+    def check_request_options(self, http_client_mock):
+        def check_request_options(
+            *, api_key=None, stripe_version=None, stripe_account=None
+        ):
+            extra_headers = {}
+            if stripe_account is None:
+                extra_headers = {"Stripe-Account": None}
+            if api_key is None:
+                api_key = stripe.api_key
+            if stripe_version is None:
+                stripe_version = stripe.api_version
+
+            http_client_mock.assert_requested(
+                "get",
+                path="/v1/myresources/foo",
+                api_key=api_key,
+                stripe_version=stripe_version,
+                extra_headers=extra_headers,
+            )
+
+        return check_request_options
+
+    def test_class_method_does_not_forward_options(
+        self, resource, http_client_mock, check_request_options
+    ):
+        http_client_mock.stub_request(
+            "get",
+            "/v1/myresources/foo",
+            rbody='{"id": "foo"}',
+        )
+
+        resource.retrieve("foo")
+
+        check_request_options()
+
+    def test_instance_method_forwards_options(
+        self, resource, http_client_mock, check_request_options
+    ):
+        http_client_mock.stub_request(
+            "get",
+            "/v1/myresources/foo",
+            rbody='{"id": "foo"}',
+        )
+
+        resource.refresh()
+
+        check_request_options(
+            api_key="newkey",
+            stripe_version="2023-01-01",
+            stripe_account="acct_foo",
+        )
