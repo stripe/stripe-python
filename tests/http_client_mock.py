@@ -52,7 +52,7 @@ class StripeRequestCall(object):
     def get_raw_header(self, header):
         if self.headers is None:
             return None
-        return self.headers[header]
+        return self.headers.get(header)
 
     def check(
         self,
@@ -248,7 +248,10 @@ class HTTPClientMock(object):
         return StripeRequestCall.from_mock_call(self.func.call_args)
 
     def get_all_calls(self) -> List[StripeRequestCall]:
-        return [StripeRequestCall.from_mock_call(call) for call in self.func]
+        return [
+            StripeRequestCall.from_mock_call(call_args)
+            for call_args in self.func.call_args_list
+        ]
 
     def find_call(
         self, method, api_base, path, query_string
