@@ -94,6 +94,10 @@ class Account(ListableAPIResource["Account"]):
         """
         The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
         """
+        next_refresh_available_at: Optional[int]
+        """
+        Time at which the next balance refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
+        """
         status: Literal["failed", "pending", "succeeded"]
         """
         The status of the last refresh attempt.
@@ -103,6 +107,24 @@ class Account(ListableAPIResource["Account"]):
         last_attempted_at: int
         """
         The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
+        """
+        status: Literal["failed", "pending", "succeeded"]
+        """
+        The status of the last refresh attempt.
+        """
+
+    class TransactionRefresh(StripeObject):
+        id: str
+        """
+        Unique identifier for the object.
+        """
+        last_attempted_at: int
+        """
+        The time at which the last refresh attempt was initiated. Measured in seconds since the Unix epoch.
+        """
+        next_refresh_available_at: Optional[int]
+        """
+        Time at which the next transaction refresh can be initiated. This value will be `null` when `status` is `pending`. Measured in seconds since the Unix epoch.
         """
         status: Literal["failed", "pending", "succeeded"]
         """
@@ -178,7 +200,7 @@ class Account(ListableAPIResource["Account"]):
         """
         Specifies which fields in the response should be expanded.
         """
-        features: List[Literal["balance", "ownership"]]
+        features: List[Literal["balance", "ownership", "transactions"]]
         """
         The list of account features that you would like to refresh.
         """
@@ -187,6 +209,26 @@ class Account(ListableAPIResource["Account"]):
         expand: NotRequired["List[str]"]
         """
         Specifies which fields in the response should be expanded.
+        """
+
+    class SubscribeParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        features: List[Literal["transactions"]]
+        """
+        The list of account features to which you would like to subscribe.`.
+        """
+
+    class UnsubscribeParams(RequestOptions):
+        expand: NotRequired["List[str]"]
+        """
+        Specifies which fields in the response should be expanded.
+        """
+        features: List[Literal["transactions"]]
+        """
+        The list of account features from which you would like to unsubscribe.
         """
 
     account_holder: Optional[AccountHolder]
@@ -277,9 +319,17 @@ class Account(ListableAPIResource["Account"]):
 
     If `category` is `investment` or `other`, this will be `other`.
     """
+    subscriptions: Optional[List[Literal["transactions"]]]
+    """
+    The list of data refresh subscriptions requested on this account.
+    """
     supported_payment_method_types: List[Literal["link", "us_bank_account"]]
     """
     The [PaymentMethod type](https://stripe.com/docs/api/payment_methods/object#payment_method_object-type)(s) that can be created from this account.
+    """
+    transaction_refresh: Optional[TransactionRefresh]
+    """
+    The state of the most recent attempt to refresh the account transactions.
     """
 
     @classmethod
@@ -563,9 +613,170 @@ class Account(ListableAPIResource["Account"]):
         instance.refresh()
         return instance
 
+    @classmethod
+    def _cls_subscribe(
+        cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack[
+            "Account.SubscribeParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
+    ) -> "Account":
+        """
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        """
+        return cast(
+            "Account",
+            cls._static_request(
+                "post",
+                "/v1/financial_connections/accounts/{account}/subscribe".format(
+                    account=_util.sanitize_id(account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def subscribe(
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack[
+            "Account.SubscribeParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
+    ) -> "Account":
+        """
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        """
+        ...
+
+    @overload
+    def subscribe(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack[
+            "Account.SubscribeParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
+    ) -> "Account":
+        """
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        """
+        ...
+
+    @class_method_variant("_cls_subscribe")
+    def subscribe(  # pyright: ignore[reportGeneralTypeIssues]
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack[
+            "Account.SubscribeParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
+    ) -> "Account":
+        """
+        Subscribes to periodic refreshes of data associated with a Financial Connections Account.
+        """
+        return cast(
+            "Account",
+            self._request(
+                "post",
+                "/v1/financial_connections/accounts/{account}/subscribe".format(
+                    account=_util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            ),
+        )
+
+    @classmethod
+    def _cls_unsubscribe(
+        cls,
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack[
+            "Account.UnsubscribeParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
+    ) -> "Account":
+        """
+        Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
+        """
+        return cast(
+            "Account",
+            cls._static_request(
+                "post",
+                "/v1/financial_connections/accounts/{account}/unsubscribe".format(
+                    account=_util.sanitize_id(account)
+                ),
+                api_key=api_key,
+                stripe_version=stripe_version,
+                stripe_account=stripe_account,
+                params=params,
+            ),
+        )
+
+    @overload
+    @staticmethod
+    def unsubscribe(
+        account: str,
+        api_key: Optional[str] = None,
+        stripe_version: Optional[str] = None,
+        stripe_account: Optional[str] = None,
+        **params: Unpack[
+            "Account.UnsubscribeParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
+    ) -> "Account":
+        """
+        Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
+        """
+        ...
+
+    @overload
+    def unsubscribe(
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack[
+            "Account.UnsubscribeParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
+    ) -> "Account":
+        """
+        Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
+        """
+        ...
+
+    @class_method_variant("_cls_unsubscribe")
+    def unsubscribe(  # pyright: ignore[reportGeneralTypeIssues]
+        self,
+        idempotency_key: Optional[str] = None,
+        **params: Unpack[
+            "Account.UnsubscribeParams"
+        ]  # pyright: ignore[reportGeneralTypeIssues]
+    ) -> "Account":
+        """
+        Unsubscribes from periodic refreshes of data associated with a Financial Connections Account.
+        """
+        return cast(
+            "Account",
+            self._request(
+                "post",
+                "/v1/financial_connections/accounts/{account}/unsubscribe".format(
+                    account=_util.sanitize_id(self.get("id"))
+                ),
+                idempotency_key=idempotency_key,
+                params=params,
+            ),
+        )
+
     _inner_class_types = {
         "account_holder": AccountHolder,
         "balance": Balance,
         "balance_refresh": BalanceRefresh,
         "ownership_refresh": OwnershipRefresh,
+        "transaction_refresh": TransactionRefresh,
     }

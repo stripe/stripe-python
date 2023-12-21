@@ -653,6 +653,28 @@ class PaymentMethodConfiguration(
         display_preference: DisplayPreference
         _inner_class_types = {"display_preference": DisplayPreference}
 
+    class RevolutPay(StripeObject):
+        class DisplayPreference(StripeObject):
+            overridable: Optional[bool]
+            """
+            For child configs, whether or not the account's preference will be observed. If `false`, the parent configuration's default is used.
+            """
+            preference: Literal["none", "off", "on"]
+            """
+            The account's display preference.
+            """
+            value: Literal["off", "on"]
+            """
+            The effective display preference value.
+            """
+
+        available: bool
+        """
+        Whether this payment method may be offered at checkout. True if `display_preference` is `on` and the payment method's capability is active.
+        """
+        display_preference: DisplayPreference
+        _inner_class_types = {"display_preference": DisplayPreference}
+
     class SepaDebit(StripeObject):
         class DisplayPreference(StripeObject):
             overridable: Optional[bool]
@@ -1000,6 +1022,12 @@ class PaymentMethodConfiguration(
         """
         PromptPay is a Thailand-based payment method that allows customers to make a payment using their preferred app from participating banks. Check this [page](https://stripe.com/docs/payments/promptpay) for more details.
         """
+        revolut_pay: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsRevolutPay"
+        ]
+        """
+        Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer's stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
+        """
         sepa_debit: NotRequired[
             "PaymentMethodConfiguration.CreateParamsSepaDebit"
         ]
@@ -1074,6 +1102,20 @@ class PaymentMethodConfiguration(
         """
 
     class CreateParamsSepaDebitDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class CreateParamsRevolutPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.CreateParamsRevolutPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class CreateParamsRevolutPayDisplayPreference(TypedDict):
         preference: NotRequired["Literal['none', 'off', 'on']"]
         """
         The account's preference for whether or not to display this payment method.
@@ -1644,6 +1686,12 @@ class PaymentMethodConfiguration(
         """
         PromptPay is a Thailand-based payment method that allows customers to make a payment using their preferred app from participating banks. Check this [page](https://stripe.com/docs/payments/promptpay) for more details.
         """
+        revolut_pay: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsRevolutPay"
+        ]
+        """
+        Revolut Pay, developed by Revolut, a global finance app, is a digital wallet payment method. Revolut Pay uses the customer's stored balance or cards to fund the payment, and offers the option for non-Revolut customers to save their details after their first purchase.
+        """
         sepa_debit: NotRequired[
             "PaymentMethodConfiguration.ModifyParamsSepaDebit"
         ]
@@ -1718,6 +1766,20 @@ class PaymentMethodConfiguration(
         """
 
     class ModifyParamsSepaDebitDisplayPreference(TypedDict):
+        preference: NotRequired["Literal['none', 'off', 'on']"]
+        """
+        The account's preference for whether or not to display this payment method.
+        """
+
+    class ModifyParamsRevolutPay(TypedDict):
+        display_preference: NotRequired[
+            "PaymentMethodConfiguration.ModifyParamsRevolutPayDisplayPreference"
+        ]
+        """
+        Whether or not the payment method should be displayed.
+        """
+
+    class ModifyParamsRevolutPayDisplayPreference(TypedDict):
         preference: NotRequired["Literal['none', 'off', 'on']"]
         """
         The account's preference for whether or not to display this payment method.
@@ -2195,6 +2257,7 @@ class PaymentMethodConfiguration(
     paynow: Optional[Paynow]
     paypal: Optional[Paypal]
     promptpay: Optional[Promptpay]
+    revolut_pay: Optional[RevolutPay]
     sepa_debit: Optional[SepaDebit]
     sofort: Optional[Sofort]
     us_bank_account: Optional[UsBankAccount]
@@ -2319,6 +2382,7 @@ class PaymentMethodConfiguration(
         "paynow": Paynow,
         "paypal": Paypal,
         "promptpay": Promptpay,
+        "revolut_pay": RevolutPay,
         "sepa_debit": SepaDebit,
         "sofort": Sofort,
         "us_bank_account": UsBankAccount,

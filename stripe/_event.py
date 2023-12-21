@@ -226,6 +226,7 @@ class Event(ListableAPIResource["Event"]):
         "financial_connections.account.disconnected",
         "financial_connections.account.reactivated",
         "financial_connections.account.refreshed_balance",
+        "financial_connections.account.refreshed_transactions",
         "identity.verification_session.canceled",
         "identity.verification_session.created",
         "identity.verification_session.processing",

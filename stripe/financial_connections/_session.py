@@ -72,7 +72,9 @@ class Session(CreateableAPIResource["Session"]):
 
         Possible values are `balances`, `transactions`, `ownership`, and `payment_method`.
         """
-        prefetch: NotRequired["List[Literal['balances', 'ownership']]"]
+        prefetch: NotRequired[
+            "List[Literal['balances', 'ownership', 'transactions']]"
+        ]
         """
         List of data features that you would like to retrieve upon account creation.
         """
@@ -138,7 +140,7 @@ class Session(CreateableAPIResource["Session"]):
     """
     Permissions requested for accounts collected during this session.
     """
-    prefetch: Optional[List[Literal["balances", "ownership"]]]
+    prefetch: Optional[List[Literal["balances", "ownership", "transactions"]]]
     """
     Data features requested to be retrieved upon account creation.
     """

@@ -219,7 +219,9 @@ class Subscription(
                     """
                     The list of permissions to request. The `payment_method` permission must be included.
                     """
-                    prefetch: Optional[List[Literal["balances"]]]
+                    prefetch: Optional[
+                        List[Literal["balances", "transactions"]]
+                    ]
                     """
                     Data features requested to be retrieved upon account creation.
                     """
@@ -671,7 +673,7 @@ class Subscription(
         """
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        prefetch: NotRequired["List[Literal['balances']]"]
+        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
         """
         List of data features that you would like to retrieve upon account creation.
         """
@@ -1300,7 +1302,7 @@ class Subscription(
         """
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        prefetch: NotRequired["List[Literal['balances']]"]
+        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
         """
         List of data features that you would like to retrieve upon account creation.
         """
