@@ -24,3 +24,6 @@ if not TYPE_CHECKING:
         AccountOwnership,
     )
     from stripe.api_resources.financial_connections.session import Session
+    from stripe.api_resources.financial_connections.transaction import (
+        Transaction,
+    )

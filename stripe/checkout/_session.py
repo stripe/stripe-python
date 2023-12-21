@@ -884,7 +884,7 @@ class Session(
                 """
                 The list of permissions to request. The `payment_method` permission must be included.
                 """
-                prefetch: Optional[List[Literal["balances"]]]
+                prefetch: Optional[List[Literal["balances", "transactions"]]]
                 """
                 Data features requested to be retrieved upon account creation.
                 """
@@ -1631,7 +1631,7 @@ class Session(
         Describes the type of transaction being performed by Checkout in order to customize
         relevant text on the page, such as the submit button. `submit_type` can only be
         specified on Checkout Sessions in `payment` mode, but not Checkout Sessions
-        in `subscription` or `setup` mode.
+        in `subscription` or `setup` mode. Possible values are `auto`, `pay`, `book`, `donate`. If blank or `auto`, `pay` is used.
         """
         subscription_data: NotRequired["Session.CreateParamsSubscriptionData"]
         """
@@ -2311,7 +2311,7 @@ class Session(
         """
         The list of permissions to request. If this parameter is passed, the `payment_method` permission must be included. Valid permissions include: `balances`, `ownership`, `payment_method`, and `transactions`.
         """
-        prefetch: NotRequired["List[Literal['balances']]"]
+        prefetch: NotRequired["List[Literal['balances', 'transactions']]"]
         """
         List of data features that you would like to retrieve upon account creation.
         """
@@ -3591,7 +3591,7 @@ class Session(
     Describes the type of transaction being performed by Checkout in order to customize
     relevant text on the page, such as the submit button. `submit_type` can only be
     specified on Checkout Sessions in `payment` mode, but not Checkout Sessions
-    in `subscription` or `setup` mode.
+    in `subscription` or `setup` mode. Possible values are `auto`, `pay`, `book`, `donate`. If blank or `auto`, `pay` is used.
     """
     subscription: Optional[ExpandableField["Subscription"]]
     """

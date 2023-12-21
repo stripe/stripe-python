@@ -968,10 +968,7 @@ class Quote(
     """
     The invoice that was created from this quote.
     """
-    invoice_settings: Optional[InvoiceSettings]
-    """
-    All invoices will be billed using the specified settings.
-    """
+    invoice_settings: InvoiceSettings
     line_items: Optional[ListObject["LineItem"]]
     """
     A list of items the customer is being quoted for.

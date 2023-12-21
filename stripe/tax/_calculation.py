@@ -436,7 +436,7 @@ class Calculation(CreateableAPIResource["Calculation"]):
             "List[Calculation.CreateParamsCustomerDetailsTaxId]"
         ]
         """
-        The customer's tax IDs.
+        The customer's tax IDs. Stripe Tax might consider a transaction with applicable tax IDs to be B2B, which might affect the tax calculation result. Stripe Tax doesn't validate tax IDs for correctness.
         """
         taxability_override: NotRequired[
             "Literal['customer_exempt', 'none', 'reverse_charge']"
